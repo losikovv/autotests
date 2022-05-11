@@ -16,6 +16,15 @@
             <class name="ru.instamart.test.api.dispatch.workflow.TimeoutWorkflowTest"/>
         </classes>
     </test>
+    <test verbose="1" name="ETA" parallel="classes" thread-count="4">
+        <classes>
+            <class name="ru.instamart.test.api.dispatch.eta.StoreEtaTest"/>
+            <class name="ru.instamart.test.api.dispatch.eta.BasketEtaTest"/>
+            <class name="ru.instamart.test.api.dispatch.eta.CourierEtaTest"/>
+            <class name="ru.instamart.test.api.dispatch.eta.RetailersEtaTest"/>
+            <class name="ru.instamart.test.api.dispatch.eta.StoresEtaTest"/>
+        </classes>
+    </test>
     <test verbose="1" name="KAFKA">
         <classes>
             <class name="ru.instamart.test.api.dispatch.KafkaDispatchTest"/>

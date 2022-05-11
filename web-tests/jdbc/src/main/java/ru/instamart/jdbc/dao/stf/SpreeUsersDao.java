@@ -32,6 +32,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
                 user.setSpreeApiKey(resultSet.getString("spree_api_key"));
                 user.setFirstname(resultSet.getString("firstname"));
                 user.setLastname(resultSet.getString("lastname"));
+                user.setUuid(resultSet.getString("uuid"));
             } else return null;
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());

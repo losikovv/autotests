@@ -1,4 +1,4 @@
-package ru.instamart.api.request.shopper.localtor;
+package ru.instamart.api.request.localtor;
 
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;

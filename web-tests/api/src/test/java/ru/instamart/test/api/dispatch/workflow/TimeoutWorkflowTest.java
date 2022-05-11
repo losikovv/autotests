@@ -68,7 +68,7 @@ public class TimeoutWorkflowTest extends RestBase {
 
     @CaseId(35)
     @Test(description = "Таймаут назначения",
-            groups = "dispatch-workflow-regress")
+            groups = "dispatch-workflow-smoke")
     public void checkStatusAfterTimeout() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
 
@@ -82,7 +82,7 @@ public class TimeoutWorkflowTest extends RestBase {
 
     @CaseId(125)
     @Test(description = "Таймаут отложенного назначения",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "checkStatusAfterTimeout")
     public void checkChildWorkflowStatusAfterTimeout() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
@@ -104,7 +104,7 @@ public class TimeoutWorkflowTest extends RestBase {
 
     @CaseId(126)
     @Test(description = "Отмена отложенного назначения при timeout родительского назначения",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "checkChildWorkflowStatusAfterTimeout")
     public void checkChildWorkflowStatusAfterParentTimeout() {
         cancelWorkflow(clientWorkflow, shipmentUuid);
@@ -124,7 +124,7 @@ public class TimeoutWorkflowTest extends RestBase {
 
     @CaseId(144)
     @Test(description = "Обновление таймингов in_progress маршрутного листа с текущим сегментом arrive/delivery",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "checkChildWorkflowStatusAfterParentTimeout")
     public void updateTimingsForWorkflowInProgress() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, Timestamps.MAX_VALUE, clientWorkflow);
@@ -143,7 +143,7 @@ public class TimeoutWorkflowTest extends RestBase {
 
     @CaseId(148)
     @Test(description = "Обновление таймингов маршрутного листа в очереди", enabled = false, // Требует уточнения условий
-            groups = "dispatch-workflow-regress")
+            groups = "dispatch-workflow-smoke")
             //dependsOnMethods = "updateTimingsForWorkflowInProgress")
     public void updateTimingsForQueuedWorkflow() {
         String firstWorkflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(5), clientWorkflow);
@@ -164,7 +164,7 @@ public class TimeoutWorkflowTest extends RestBase {
 
     @CaseId(98)
     @Test(description = "Отмена заказа для назначения в статусе queued",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "updateTimingsForWorkflowInProgress")
     public void cancelOrderWithQueuedWorkflow() {
         SessionFactory.clearSession(SessionType.SHOPPER_APP);
@@ -189,7 +189,7 @@ public class TimeoutWorkflowTest extends RestBase {
 
     @CaseId(97)
     @Test(description = "Отмена заказа для назначения в статусе seen",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "updateTimingsForWorkflowInProgress")
     public void cancelOrderWithSeenWorkflow() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(5), clientWorkflow);

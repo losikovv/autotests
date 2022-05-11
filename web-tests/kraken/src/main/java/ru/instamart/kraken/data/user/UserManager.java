@@ -111,7 +111,7 @@ public final class UserManager {
             stf6Shopper1 = UserData.builder()
                     .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
                     .phone(Crypt.INSTANCE.decrypt("NN6iTCNigNa9a4D/72ZAWQ=="))
-                    .uuid("42156460-73c1-49f7-a876-09a7b07da746")
+                    .uuid("8608a93d-7def-4cdb-8d1d-8332ef526cd1")
                     .build();
         }
         return stf6Shopper1;
@@ -122,7 +122,7 @@ public final class UserManager {
             stf6Shopper2 = UserData.builder()
                     .email(Crypt.INSTANCE.decrypt("C4fgAi97cuuXHMKobHn9Yw=="))
                     .phone(Crypt.INSTANCE.decrypt("cIo8g9LlgqN+TCDGKZ4PTw=="))
-                    .uuid("e8f561c7-cfcb-432f-93c4-022bb438d04b")
+                    .uuid("175954c2-c5df-4474-89dd-4a9ea5c081ad")
                     .build();
         }
         return stf6Shopper2;
@@ -133,7 +133,7 @@ public final class UserManager {
             stf6Shopper3 = UserData.builder()
                     .email(Crypt.INSTANCE.decrypt("xhH38k1XpJGpdk8/7LkCcw=="))
                     .phone(Crypt.INSTANCE.decrypt("3K4qmKFewgiQsQ3x1iZPtQ=="))
-                    .uuid("2b9c1d4b-4660-479e-b6d9-81c8420d684e")
+                    .uuid("9e6bd9f2-7689-49b8-8df3-5f66a36cd624")
                     .build();
         }
         return stf6Shopper3;

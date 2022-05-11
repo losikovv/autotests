@@ -19,7 +19,7 @@ public class WorkflowsRequestBase {
      * Добавляем хедер авторизации к запросу
      */
     public static RequestSpecification givenWithAuth() {
-        return givenWithSpec().log().all()
+        return givenWithSpec()
                 .basePath("workflows/")
                 .header("Authorization",
                         "Bearer " + SessionFactory.getSession(SessionType.SHOPPER_APP).getToken());

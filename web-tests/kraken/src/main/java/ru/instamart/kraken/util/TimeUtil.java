@@ -16,6 +16,7 @@ public final class TimeUtil {
     private static final DateTimeFormatter zdt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private static final DateTimeFormatter zdtz = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
     private static final DateTimeFormatter dtdb = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter formatterOnlyTime = DateTimeFormatter.ofPattern("HH:mm:ss.S");
     private static final ZoneId ZONE_ID = ZoneId.of("Europe/Moscow");
     private static final ZoneId ZONE_UTC = ZoneId.of("UTC");
     private static final DateTimeFormatter formatter = new DateTimeFormatterBuilder()
@@ -160,5 +161,9 @@ public final class TimeUtil {
                 .setSeconds(instant.getEpochSecond())
                 .setNanos(instant.getNano())
                 .build();
+    }
+
+    public static LocalTime convertStringToTime(String time) {
+        return LocalTime.parse(time, formatterOnlyTime);
     }
 }
