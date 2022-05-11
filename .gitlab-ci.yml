@@ -275,6 +275,19 @@ generate:data:
     - k8s-stage
   allow_failure: true
 
+generate:dataUI:
+  only:
+    refs:
+      - schedules
+    variables:
+      - $GENERATE_DATA_UI == 'true'
+  stage: tests-api
+  script:
+    - gradle clean build generateDataUI -Pkey=$ATST_APP_SECRET_KEY
+  tags:
+    - k8s-stage
+  allow_failure: true
+
 generate:report:
   only:
     variables:

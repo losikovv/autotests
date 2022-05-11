@@ -39,7 +39,7 @@ public class GenerateDataTest {
         }
     }
 
-    @Test(groups = "generate-data")
+    @Test(groups = "generate-data-ui")
     public void generateUIOrdersWithSingleItem() {
         SessionFactory.makeSession(SessionType.API_V2);
         for (int i = 0; i < shipmentSingleForUICount; i++) {
