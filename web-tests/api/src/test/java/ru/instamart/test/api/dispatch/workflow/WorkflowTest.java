@@ -83,7 +83,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(101)
     @Test(description = "Создание маршрутных листов с одинаковым ARRIVE сегментом",
-            groups = "dispatch-workflow-regress")
+            groups = "dispatch-workflow-smoke")
     public void createWorkflowWithSameArriveSegment() {
         var firstRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, "");
         var firstResponse = clientWorkflow.createWorkflows(firstRequest);
@@ -98,7 +98,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(44)
     @Test(description = "Получение стоимости сегментов",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithSameArriveSegment")
     public void getShipmentPrice() {
         var requestForCreation = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT);
@@ -142,7 +142,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(48)
     @Test(description = "Создание маршрутного листа с существующим сегментом",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "getShipmentPrice")
     public void createWorkflowWithExistingSegment() {
         var request = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT);
@@ -154,7 +154,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(141)
     @Test(description = "Отмена маршрутного листа по uuid шимпента",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithExistingSegment")
     public void cancelExistingWorkflow() {
         var request = WorkflowOuterClass.RejectWorkflowByShipmentUuidRequest
@@ -169,7 +169,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(73)
     @Test(description = "Создание маршрутного листа для такси",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelExistingWorkflow")
     public void createWorkflowForTaxi() {
         var request = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.TAXI);
@@ -194,7 +194,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(82)
     @Test(description = "Обогащение идентификатором смены и видом транспорта",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowForTaxi")
     public void createWorkflowWithTransport() {
         var request = getWorkflowsRequestWithTransport(order, shipmentUuid, 1, WorkflowOuterClass.Shift.Transport.CAR);
@@ -212,7 +212,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(90)
     @Test(description = "Обогащение названием и адресом магазина нескольких сегментов с разными магазинами",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithTransport")
     public void createWorkflowWithDifferentStores() {
         var request = getWorkflowsRequestWithDifferentStores(order, shipmentUuid, UserManager.getShp6Shopper1().getUuid());
@@ -238,7 +238,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(120)
     @Test(description = "Создание отложенного назначения отдельно от родительского",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithDifferentStores")
     public void createWorkflowWithNotAvailableParentWorkflow() {
         var request = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, order, shipmentUuid, workflowUuid);
@@ -250,11 +250,10 @@ public class WorkflowTest extends RestBase {
 
     @CaseIDs(value = {@CaseId(37), @CaseId(123), @CaseId(93)})
     @Test(description = "Создание маршрутного листа за 30 секунд от текущего времени",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithNotAvailableParentWorkflow")
     public void createWorkflow30SecToNow() {
         var request = getWorkflowsRequest(order, shipmentUuid, getDateMinusSec(30), WorkflowEnums.DeliveryType.DEFAULT);
-
         var response = clientWorkflow.createWorkflows(request);
 
         compareTwoObjects(response.getResultsMap().get(response.getResultsMap().keySet().toArray()[0].toString()).toString(), "");
@@ -276,7 +275,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(57)
     @Test(description = "Получение назначений в статусе offered/seen",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflow30SecToNow")
     public void getShopperAssignments() {
         final Response response = AssignmentsRequest.GET();
@@ -290,7 +289,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(118)
     @Test(description = "Создание отложенного назначения отдельно от родительского",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "getShopperAssignments")
     public void createWorkflowWithParentWorkflow() {
         var request = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, workflowUuid);
@@ -304,7 +303,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(20)
     @Test(description = "Пометка назначения как просмотренного",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithParentWorkflow")
     public void markWorkflowAsSeen() {
         final Response response = AssignmentsRequest.Seen.PATCH(assignmentId);
@@ -315,7 +314,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseIDs(value = {@CaseId(21), @CaseId(94)})
     @Test(description = "Пометка назначения как принятого",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "markWorkflowAsSeen")
     public void markWorkflowAsAccepted() {
         final Response response = AssignmentsRequest.Accept.PATCH(assignmentId);
@@ -331,7 +330,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(65)
     @Test(description = "Получение активных маршрутных листов в статусах queued/in progress",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "markWorkflowAsAccepted")
     public void getWorkflows() {
         final Response response = WorkflowsRequest.GET();
@@ -345,7 +344,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(129)
     @Test(description = "Автостарт маршрутного листа при принятии назначения с отправкой геопозиции",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "getWorkflows")
     public void acceptWorkflowWithCoordinates() {
         var request = getWorkflowsRequest(order, shipmentUuid, getDateMinusSec(30), WorkflowEnums.DeliveryType.DEFAULT);
@@ -363,7 +362,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseIDs(value = {@CaseId(23), @CaseId(108)})
     @Test(description = "Начало первого сегмента маршрутного листа в статусе Queued",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "acceptWorkflowWithCoordinates")
     public void passWorkflow() {
         SegmentsRequest.SegmentData segmentData = SegmentsRequest.SegmentData.builder()
@@ -385,7 +384,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(111)
     @Test(description = "Проверка геолокации при окончании arrive/delivery сегментов",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "passWorkflow")
     public void passWorkflowWithLongDistance() {
         SegmentsRequest.SegmentData segmentData = SegmentsRequest.SegmentData.builder()
@@ -405,7 +404,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(111)
     @Test(description = "Отсуствие проверки геолокации при окончании arrive/delivery сегментов",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "passWorkflowWithLongDistance")
     public void passWorkflowWithLongDistanceWithoutCheck() {
         SegmentsRequest.SegmentData segmentData = SegmentsRequest.SegmentData.builder()
@@ -427,7 +426,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(103)
     @Test(description = "Создание маршрутного листа с сегментом, который был пройден в отклонненом маршрутном листе",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "passWorkflowWithLongDistanceWithoutCheck")
     public void createWorkflowWithPassedSegment() {
         var request = getWorkflowsRequest(order, shipmentUuid, getDateMinusSec(40), WorkflowEnums.DeliveryType.DEFAULT);
@@ -443,7 +442,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(22)
     @Test(description = "Отклонение назначения",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithPassedSegment")
     public void cancelOfferedWorkflow() {
         AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
@@ -454,7 +453,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(125)
     @Test(description = "Отмена отложенного назначения при отклонении родительского назначения",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelOfferedWorkflow")
     public void cancelOfferedParentWorkflow() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
@@ -469,11 +468,9 @@ public class WorkflowTest extends RestBase {
         checkCanceledWorkflow(childWorkflowUuid, AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(childWorkflowUuid).getWorkflowId(), CANCELED, kafka);
     }
 
-
-
     @CaseId(142)
     @Test(description = "Отмена ранее отмененного маршрутного листа по uuid шимпента",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelOfferedParentWorkflow")
     public void cancelNonExistentWorkflow() {
         var request = WorkflowOuterClass.RejectWorkflowByShipmentUuidRequest
@@ -488,7 +485,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(143)
     @Test(description = "Создание маршрутного листа для заказа в статусе pending_rejection_requests",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelNonExistentWorkflow")
     public void createWorkflowWithPendingCancellation() {
         var request = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT);
@@ -500,7 +497,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(130)
     @Test(description = "Отсутствие автостарта маршрутного листа при принятии назначения",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithPendingCancellation")
     public void acceptWorkflowWithWorkflowInProgress() {
         String firstWorkflowUuid = getWorkflowUuid(order, shipmentUuid, Timestamps.MAX_VALUE, clientWorkflow);
@@ -518,7 +515,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(92)
     @Test(description = "Создание маршрутного листа для заблокированного кандидата",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "acceptWorkflowWithWorkflowInProgress")
     public void createWorkflowForBusyCandidate() {
         cancelWorkflow(clientWorkflow, secondShipmentUuid);
@@ -532,7 +529,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(68)
     @Test(description = "Сортировка маршрутных листов по времени",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowForBusyCandidate")
     public void getAssignmentsByTime() {
         cancelWorkflow(clientWorkflow, shipmentUuid);
@@ -558,7 +555,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(132)
     @Test(description = "Автостарт следующего маршрутного листа при отмене текущего маршрутного листа",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowForBusyCandidate")
     public void startQueuedWorkflowAfterCancellingPrevious() {
         String firstWorkflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(5), clientWorkflow);
@@ -588,7 +585,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(97)
     @Test(description = "Отмена заказа для назначения в статусе offered",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "startQueuedWorkflowAfterCancellingPrevious")
     public void cancelOrderWithOfferedWorkflow() {
         String workflowUuid = getWorkflowUuid(secondOrder, secondShipmentUuid, getDateMinusSec(30), clientWorkflow);
@@ -603,7 +600,7 @@ public class WorkflowTest extends RestBase {
 
     @CaseId(98)
     @Test(description = "Отмена заказа для назначения в статусе in progress",
-            groups = "dispatch-workflow-regress",
+            groups = "dispatch-workflow-smoke",
             dependsOnMethods = "cancelOrderWithOfferedWorkflow")
     public void cancelOrderWithWorkflow() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);

@@ -10,4 +10,5 @@ public final class GrpcContentHosts {
     //public static final String PAAS_CONTENT_SALUT_TOKEN = "paas-content-salut-token.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_WORKFLOW = "paas-content-operations-workflow.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_ANALYTICS_ORDER_PRICING = "paas-content-analytics-order-pricing.k-stage.sbmt.io";
+    public static final String PAAS_CONTENT_OPERATIONS_ETA = "paas-content-operations-eta.k-stage.sbmt.io";
 }

@@ -132,6 +132,39 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
         return Optional.of(store);
     }
 
+    public StoresEntity getUnavailableStore() {
+        StoresEntity store = new StoresEntity();
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_SQL + "  WHERE available_on IS NULL LIMIT 1")) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                store.setId(resultSet.getInt("id"));
+                store.setRetailerId(resultSet.getLong("retailer_id"));
+                store.setTimeZone(resultSet.getString("time_zone"));
+                store.setOperationalZoneId(resultSet.getLong("operational_zone_id"));
+                store.setUuid(resultSet.getString("uuid"));
+                store.setCityId(resultSet.getLong("city_id"));
+
+            } else return null;
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return store;
+    }
+
+    public void updateOnDemandStore(int storeId, String openingTime, String closingTime, int closingDelta) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " on_demand = 1, opening_time = ?, closing_time = ?, on_demand_closing_delta = ? WHERE id = ?")) {
+            preparedStatement.setString(1, openingTime);
+            preparedStatement.setString(2, closingTime);
+            preparedStatement.setInt(3, closingDelta);
+            preparedStatement.setInt(4, storeId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+    }
+
     @Override
     public List<StoresEntity> findAll() {
         return null;

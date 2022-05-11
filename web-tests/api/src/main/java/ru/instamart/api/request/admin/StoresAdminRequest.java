@@ -18,11 +18,15 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.util.DoubleUtil;
 import ru.sbermarket.common.Mapper;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static ru.instamart.kraken.helper.LegalEntityHelper.generateInnUL;
+import static ru.instamart.kraken.util.TimeUtil.getDbDate;
 import static ru.instamart.kraken.util.TimeUtil.getDeliveryDateFrom;
 
 public class StoresAdminRequest extends AdminRequestBase {
@@ -559,6 +563,80 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .building(88)
                 .lon(0.0)
                 .lat(90.0)
+                .build();
+    }
+
+    public static Store getStoreKaliningradTest() {
+        String openingDate = getDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(4)));
+        String closingDate = getDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusHours(3)));
+        List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getPaymentMethodsIds();
+        return Store.builder()
+                .retailerId(SpreeRetailersDao.INSTANCE.getIdBySlug("selgros"))
+                .operationalZoneId(OperationalZonesDao.INSTANCE.getIdByName("Калининград"))
+                .cityId(CitiesDao.INSTANCE.getCityByName("Калининград").getId())
+                .timeZone("Europe/Kaliningrad")
+                .inn(generateInnUL())
+                .legalName("Test autotest")
+                .importKeyPostFix(RandomUtils.nextInt(1, 1000000))
+                .shipmentBaseKilos(40.0)
+                .shipmentBaseItemsCount(30)
+                .minOrderAmount(100)
+                .minFirstOrderAmount(1800)
+                .minOrderAmountPickup(0)
+                .minFirstOrderAmountPickup(0)
+                .disallowOrderEditingHours(4)
+                .hoursOrderEditLocked(0)
+                .orderApiIntegrationType(ExternalAssemblyKind.SHOPPER.getValue())
+                .sendCreatedHook("immediately")
+                .paymentAtCheckout("bank_card")
+                .onDemand(1)
+                .isMlEnabled(1)
+                .avgPositionsPerPlace(10)
+                .toPlaceSec(40)
+                .collectionSpeedSecPerPos(20)
+                .isSigmaEnabled(1)
+                .hasConveyor(0)
+                .autoRouting(1)
+                .expressDelivery(0)
+                .externalAssembly(0)
+                .boxScanning(0)
+                .training(0)
+                .useWorkSchedule(0)
+                .monday("monday")
+                .mondayDayOff(0)
+                .shippingMethodId(SpreeShippingMethodsDao.INSTANCE.getShippingMethodId(ShippingMethodV2.BY_COURIER.getMethod()))
+                .tenantId("instamart")
+                .openingTime(openingDate.substring(11, 16))
+                .closingTime(closingDate.substring(11, 16))
+                .availableOn(getDeliveryDateFrom())
+                .paymentMethodInstamart1(6L)
+                .paymentMethodInstamart2(paymentMethodIds.get(1))
+                .paymentMethodInstamart3(paymentMethodIds.get(2))
+                .paymentMethodLenta1(6L)
+                .paymentMethodLenta2(paymentMethodIds.get(4))
+                .paymentMethodLenta3(paymentMethodIds.get(5))
+                .paymentMethodMetro1(6L)
+                .paymentMethodMetro2(paymentMethodIds.get(1))
+                .paymentMethodMetro3(paymentMethodIds.get(2))
+                .paymentMethodOkey1(6L)
+                .paymentMethodOkey2(paymentMethodIds.get(4))
+                .paymentMethodOkey3(paymentMethodIds.get(5))
+                .paymentMethodSbermarket1(6L)
+                .paymentMethodSbermarket2(paymentMethodIds.get(1))
+                .paymentMethodSbermarket3(paymentMethodIds.get(2))
+                .paymentMethodSelgros1(6L)
+                .paymentMethodSelgros2(paymentMethodIds.get(4))
+                .paymentMethodSelgros3(paymentMethodIds.get(5))
+                .paymentMethodSmbusiness1(6L)
+                .paymentMethodSmbusiness2(paymentMethodIds.get(1))
+                .paymentMethodSmbusiness3(paymentMethodIds.get(2))
+                .countryId(1L)
+                .fullAddress("Kaliningrad, Test, 88")
+                .city("Kaliningrad")
+                .street("Test")
+                .building(88)
+                .lon(20.548980)
+                .lat(54.719269)
                 .build();
     }
 }

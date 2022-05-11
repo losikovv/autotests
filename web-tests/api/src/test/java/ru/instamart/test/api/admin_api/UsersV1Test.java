@@ -35,8 +35,7 @@ public class UsersV1Test extends RestBase {
         List<AdminUserV1> usersFromResponse = response.as(UsersV1Response.class).getUsers();
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(usersFromResponse.size(), 10, softAssert);
-        usersFromResponse.forEach(u -> softAssert.assertTrue(u.getContactEmail().contains("autotest")));
+        usersFromResponse.forEach(u -> softAssert.assertTrue(u.getContactEmail().contains("autotest"), "Пришел неверный емейл"));
         softAssert.assertAll();
-
     }
 }

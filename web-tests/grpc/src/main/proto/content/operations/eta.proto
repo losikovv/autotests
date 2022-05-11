@@ -1,0 +1,127 @@
+syntax = "proto3";
+
+package eta;
+
+option go_package = "gitlab.sbmt.io/paas/content/operations/eta/pkg/server/grpc/eta";
+
+service PredEta {
+  rpc GetStoreEta  (StoreUserEtaRequest) returns (StoreUserEtaResponse);
+  rpc GetBasketEta (UserEtaRequest) returns (UserEtaResponse);
+  rpc GetCourierEta (CourierEtaRequest) returns (CourierEtaResponse);
+}
+
+enum EstimateSource {
+  ML = 0;
+  FALLBACK = 1;
+}
+
+message StoreEta {
+  string store_uuid = 1;
+  int32 eta = 2;
+  int32 sigma = 3;
+  EstimateSource estimate_source = 4;
+}
+
+message StoreUserEtaRequest {
+  repeated string store_uuids = 1;
+  float lat = 2;
+  float lon = 3;
+  string anonymousId = 4;
+}
+message StoreUserEtaResponse {
+  repeated StoreEta data = 1;
+  int32 model_version = 2;
+}
+
+message UserData {
+  string user_uuid = 1;
+  float lat = 2;
+  float lon = 3;
+}
+
+message SkuData {
+  string sku = 1;
+  float unit_quantity = 2;
+  string price_type = 3;
+}
+
+message StoreData {
+  string store_uuid = 1;
+  float lat = 2;
+  float lon = 3;
+}
+
+message UserStoreBasket {
+  repeated SkuData sku = 1;
+  float weight = 2;
+}
+
+message ShipmentData {
+  string shipment_uuid = 1;
+  StoreData store_info = 2;
+  UserStoreBasket basket = 3;
+}
+
+message OrderData {
+  string order_uuid = 1;
+  repeated ShipmentData shipments = 2;
+}
+message UserEtaRequest {
+  UserData user = 1;
+  OrderData order = 2;
+  string anonymousId = 4;
+}
+
+message ShipmentEta {
+  string shipment_uuid = 1;
+  int32 eta = 2;
+  int32 sigma = 3;
+  EstimateSource estimate_source = 4;
+}
+
+message OrderEta {
+  string order_uuid = 1;
+  repeated ShipmentEta shipment_etas = 2;
+}
+
+message UserEtaResponse {
+  int32 model_version = 1;
+  OrderEta order = 2;
+}
+
+message InitStoreRequest {
+  message Address {
+    int64 id = 1;
+    float lat = 2;
+    float lon = 3;
+  }
+
+  int64 id = 1;
+  string uuid = 2;
+  int64 retailer_id = 3;
+  string time_zone = 4;
+  Address address = 5;
+}
+
+message CourierEtaRequest {
+  message ClientPoint {
+    float lat = 1;
+    float lon = 2;
+  }
+  string courier_uuid = 1;
+  string store_uuid = 2;
+  string shipment_uuid = 3;
+  string anonymous_id = 4;
+  ClientPoint client_point = 5;
+}
+
+message CourierEtaResponse {
+  int32 eta = 1;
+  CourierEtaEstimateSource estimate_source = 2;
+}
+
+enum CourierEtaEstimateSource {
+  RE = 0;
+  RE_FALLBACK = 1;
+  APP_FALLBACK = 2;
+}
