@@ -58,7 +58,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         Long paymentToolId = apiV1.getPaymentTools().get(0).getId();
         final Response response = EventsV1Request.OrderPaymentTool.POST(order.getNumber(), paymentToolId);
         checkStatusCode(response, 202);
-        ThreadUtil.simplyAwait(2);
+        ThreadUtil.simplyAwait(3);
         SpreeOrdersEntity orderFromDb = SpreeOrdersDao.INSTANCE.getOrderByNumber(order.getNumber());
         compareTwoObjects(orderFromDb.getPaymentToolId(), paymentToolId);
     }

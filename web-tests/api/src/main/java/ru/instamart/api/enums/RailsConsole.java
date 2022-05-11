@@ -166,4 +166,16 @@ public interface RailsConsole {
             return format(command, (Object[]) values);
         }
     }
+
+    @AllArgsConstructor
+    enum Shipments implements RailsConsole {
+        UPDATE_SHIPMENT_INDEX_BY_PAYMENT_STATE("Spree::Admin::ShipmentsFinder.new({search: {payment_state: ['%s']}}).find_shipments.each(&:index)\n" +
+                "Sunspot.session.commit");
+
+        private String command;
+
+        public String get(String... values) {
+            return format(command, (Object[]) values);
+        }
+    }
 }
