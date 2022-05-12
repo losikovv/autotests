@@ -6,6 +6,7 @@ import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLEtaManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +17,7 @@ public class StoreParametersDao implements Dao<String, StoreParametersEntity> {
 
     public static final StoreParametersDao INSTANCE = new StoreParametersDao();
     private final String UPDATE_SQL = "UPDATE store_parameters SET";
+    private final String SELECT_SQL = "SELECT %s FROM store_parameters";
 
     public void updateStoreParameters(String storeUuid, String openingTime, String closingTime, String closingDelta) {
         try (Connection connect = ConnectionPgSQLEtaManager.get();
@@ -48,7 +50,31 @@ public class StoreParametersDao implements Dao<String, StoreParametersEntity> {
 
     @Override
     public Optional<StoreParametersEntity> findById(String id) {
-        return Optional.empty();
+        StoreParametersEntity storeParameters = null;
+        try (Connection connect = ConnectionPgSQLEtaManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?::uuid")) {
+            preparedStatement.setString(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                storeParameters = new  StoreParametersEntity();
+                storeParameters.setId(resultSet.getString("id"));
+                storeParameters.setRetailerId(resultSet.getLong("retailer_id"));
+                storeParameters.setLat(resultSet.getFloat("lat"));
+                storeParameters.setLon(resultSet.getFloat("lon"));
+                storeParameters.setIsMlEnabled(resultSet.getBoolean("is_ml_enabled"));
+                storeParameters.setAvgPositionsPerPlace(resultSet.getInt("avg_positions_per_place"));
+                storeParameters.setToPlaceSec(resultSet.getString("to_place_sec"));
+                storeParameters.setCollectionSpeedSecPerPos(resultSet.getString("collection_speed_sec_per_pos"));
+                storeParameters.setStoreOpeningTime(resultSet.getString("store_opening_time"));
+                storeParameters.setStoreClosingTime(resultSet.getString("store_closing_time"));
+                storeParameters.setOnDemandClosingDelta(resultSet.getString("on_demand_closing_delta"));
+                storeParameters.setTimezone(resultSet.getString("timezone"));
+                storeParameters.setIsSigmaEnabled(resultSet.getBoolean("is_sigma_enabled"));
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLEtaManager. Error: " + e.getMessage());
+        }
+        return Optional.ofNullable(storeParameters);
     }
 
     @Override

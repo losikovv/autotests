@@ -2,9 +2,12 @@ package ru.instamart.api.helper;
 
 import eta.Eta;
 import io.qameta.allure.Step;
+import io.restassured.response.Response;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.request.eta.ServiceEtaRequest;
+import ru.instamart.api.response.eta.ServiceParametersEtaResponse;
 import ru.instamart.jdbc.dao.eta.ServiceParametersDao;
 import ru.instamart.jdbc.dao.eta.StoreParametersDao;
 import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
@@ -15,6 +18,7 @@ import ru.instamart.kraken.data.user.UserData;
 
 import java.time.LocalTime;
 
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.kraken.util.TimeUtil.convertStringToTime;
 
 public class EtaHelper {
@@ -37,6 +41,7 @@ public class EtaHelper {
                 .setLon(lon)
                 .build();
     }
+
     @Step("Получаем запрос для basket ETA")
     public static Eta.UserEtaRequest getUserEtaRequest(AddressV2 address, OrderV2 order, UserData userData, String shipmentUuid, String storeUuid) {
         return Eta.UserEtaRequest.newBuilder()
@@ -67,11 +72,17 @@ public class EtaHelper {
                 .build();
     }
 
-    @Step("Получение недоступного магазина из БД с обновленным режимом работы")
+    @Step("Получаем недоступный магазин из БД с обновленным режимом работы")
     public static StoresEntity getStoreWithUpdatedSchedule(String openingTime, String closingTime, int delta, String closingDelta){
         StoresEntity store = StoresDao.INSTANCE.getUnavailableStore();
         StoresDao.INSTANCE.updateOnDemandStore(store.getId(), openingTime, closingTime, delta);
         StoreParametersDao.INSTANCE.updateStoreParameters(store.getUuid(), openingTime, closingTime, closingDelta);
         return store;
+    }
+
+    @Step("Изменяем настройки ETA сервиса")
+    public static void updateServiceParameters(ServiceParametersEtaResponse serviceParameters) {
+        final Response response = ServiceEtaRequest.PUT(serviceParameters);
+        checkStatusCode(response, 200, "");
     }
 }
