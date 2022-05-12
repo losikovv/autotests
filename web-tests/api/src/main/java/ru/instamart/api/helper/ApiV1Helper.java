@@ -9,11 +9,13 @@ import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v1.OrderKindV1;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
+import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.*;
 import ru.instamart.api.model.v1.b2b.CompanyV1;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.NextDeliveryV2;
+import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.api.request.v1.*;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
@@ -22,9 +24,14 @@ import ru.instamart.api.response.v1.*;
 import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
 import ru.instamart.api.response.v1.b2b.CompanyV1Response;
 import ru.instamart.api.response.v2.RetailersV2Response;
+import ru.instamart.jdbc.dao.stf.SpreeLineItemsDao;
+import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
+import ru.instamart.jdbc.entity.stf.SpreeLineItemsEntity;
+import ru.instamart.jdbc.entity.stf.SpreeShipmentsEntity;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.util.ThreadUtil;
 
 import java.util.List;
 import java.util.StringJoiner;
@@ -229,5 +236,33 @@ public class ApiV1Helper {
         final Response response = PromotionsV1Request.Promotions.GET();
         checkStatusCode200(response);
         return response.as(PromotionsV1Response.class).getPromotions();
+    }
+
+    @Step("Ожидаем обновление статуса после ивента и получаем заказ")
+    public static SpreeShipmentsEntity waitForUpdatedShipmentAndGet(StateV2 state, OrderV2 order) {
+        int count = 0;
+        SpreeShipmentsEntity updatedShipment = null;
+        while (count < 7) {
+            updatedShipment = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber());
+            if (updatedShipment.getState().equals(state.getValue()))
+                break;
+            ThreadUtil.simplyAwait(1);
+            count++;
+        }
+        return updatedShipment;
+    }
+
+    @Step("Ожидаем обновление статуса проблемы в сборке и получаем товар")
+    public static SpreeLineItemsEntity waitForUpdatedLineItemAndGet(String issue, SpreeLineItemsEntity lineItemFromDb) {
+        int count = 0;
+        SpreeLineItemsEntity cancelledLineItemFromDb = null;
+        while (count < 7) {
+            cancelledLineItemFromDb = SpreeLineItemsDao.INSTANCE.findById(lineItemFromDb.getId()).get();
+            if (cancelledLineItemFromDb.getAssemblyIssue().equals(issue))
+                break;
+            ThreadUtil.simplyAwait(1);
+            count++;
+        }
+        return cancelledLineItemFromDb;
     }
 }
