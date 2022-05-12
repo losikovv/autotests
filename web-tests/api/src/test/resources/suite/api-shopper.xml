@@ -25,6 +25,7 @@
             <class name="ru.instamart.test.api.shopper.admin.endpoints.ShopperAdminWithoutAuthTest"/>
             <class name="ru.instamart.test.api.shopper.admin.endpoints.ShopperScanGoTest"/>
             <class name="ru.instamart.test.api.shopper.admin.endpoints.DispatchSettingsTest"/>
+            <class name="ru.instamart.test.api.shopper.admin.endpoints.CandidatesSettingsTest"/>
         </classes>
     </test>
 </suite>
