@@ -19,6 +19,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static eta.Eta.CourierEtaEstimateSource.APP_FALLBACK;
@@ -49,7 +50,7 @@ public class CourierEtaTest extends RestBase {
         shopperApp.authorisation(UserManager.getKrakenUniversal());
     }
 
-    @CaseId(105)
+    @CaseIDs(value = {@CaseId(105), @CaseId(123)})
     @Story("Courier ETA")
     @Test(description = "Отправка запроса с валидными данными",
             groups = "dispatch-eta-smoke")

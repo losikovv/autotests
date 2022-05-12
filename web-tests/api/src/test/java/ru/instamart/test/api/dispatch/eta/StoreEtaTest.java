@@ -32,8 +32,10 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Objects;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.EtaCheckpoints.checkStoreEta;
@@ -90,13 +92,14 @@ public class StoreEtaTest extends RestBase {
                 .build();
 
         var response = clientEta.getStoreEta(request);
+        List<String> storesUuids = Stream.of(storeUuid, secondStoreUuid).sorted().collect(Collectors.toList());
+        List<String> storeUuidsFromResponse = Stream.of(response.getData(0).getStoreUuid(), response.getData(1).getStoreUuid()).sorted().collect(Collectors.toList());
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(response.getDataCount(), 2, softAssert);
-        compareTwoObjects(response.getData(0).getStoreUuid(), storeUuid, softAssert);
         compareTwoObjects(response.getData(0).getEstimateSource(), Eta.EstimateSource.FALLBACK, softAssert);
         softAssert.assertTrue(response.getData(0).getEta() > 0, "Поле eta меньше или равно нулю");
         softAssert.assertTrue(response.getData(0).getSigma() > 0, "Поле sigma меньше или равно нулю");
-        compareTwoObjects(response.getData(1).getStoreUuid(), secondStoreUuid, softAssert);
+        compareTwoObjects(storeUuidsFromResponse, storesUuids, softAssert);
         compareTwoObjects(response.getData(1).getEstimateSource(), Eta.EstimateSource.FALLBACK, softAssert);
         softAssert.assertTrue(response.getData(1).getEta() > 0, "Поле eta меньше или равно нулю");
         softAssert.assertTrue(response.getData(1).getSigma() > 0, "Поле sigma меньше или равно нулю");

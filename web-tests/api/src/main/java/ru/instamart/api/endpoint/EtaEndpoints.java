@@ -10,4 +10,7 @@ public class EtaEndpoints {
         public static final String PARAMETERS = "v1/stores/{storeId}/parameters";
     }
 
+    public static final class Service {
+        public static final String PARAMETERS = "v1/service/parameters";
+    }
 }

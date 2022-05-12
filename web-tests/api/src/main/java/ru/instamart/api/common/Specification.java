@@ -182,6 +182,7 @@ public enum Specification {
                 .build();
 
         etaRequestSpec = new RequestSpecBuilder()
+                .setConfig(config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)))
                 .setBaseUri("https://paas-content-operations-eta.k-stage.sbmt.io")
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
