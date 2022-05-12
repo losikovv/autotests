@@ -14,7 +14,6 @@ import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
-import static ru.instamart.reforged.admin.AdminRout.retailers;
 
 @Epic("Админка STF")
 @Feature("Управление ретейлерами")
@@ -295,7 +294,6 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
 
-        retailers().checkRetailersNotLoaded();
         retailers().checkRetailersLoaded();
         retailers().checkAccessibilityFilterButtonNotAnimated();
         retailers().checkAccessibilityFilterButtonClickable();
@@ -314,7 +312,6 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().selectInaccessibleRetailers();
         retailers().clickOnOkRetailersFilterButton();
         retailers().checkAccessibilityFilterDropdownNotVisible();
-        retailers().checkRetailersNotLoaded();
         retailers().checkRetailersLoaded();
 
         retailers().checkOnlyInaccessibleRetailersVisible();
