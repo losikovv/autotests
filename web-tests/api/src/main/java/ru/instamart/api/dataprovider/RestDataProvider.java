@@ -35,6 +35,7 @@ import ru.instamart.jdbc.entity.stf.PromotionCodesEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data_provider.DataList;
+import ru.sbermarket.common.Crypt;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -1456,5 +1457,14 @@ public class RestDataProvider extends RestBase {
         return featureFlags.getFeatureFlags().stream()
                 .map(list -> new Object[]{list})
                 .toArray(Object[][]::new);
+    }
+
+
+    @DataProvider(name = "userEmails")
+    public static Object[][] getUserEmails() {
+        return new Object[][]{
+                {"autotest"},
+                {Crypt.INSTANCE.decrypt("wTfubFbVMEA2P1HT80pKDXJfzWnJ15xgPBJr240lktU=")}
+        };
     }
 }
