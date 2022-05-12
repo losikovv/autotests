@@ -67,7 +67,7 @@ public class ZonesAdminTest extends RestBase {
         final Response response = ZonesAdminRequest.POST(zone);
         checkStatusCode(response, 200, "text/html; charset=utf-8");
         SpreeZonesEntity createdZone = SpreeZonesDao.INSTANCE.getZoneByDescription(zone.getZoneDescription());
-        Assert.assertNull(createdZone);
+        Assert.assertNull(createdZone, "В БД создалась зона");
     }
 
     @CaseIDs(value = {@CaseId(2062), @CaseId(2063)})
@@ -80,7 +80,7 @@ public class ZonesAdminTest extends RestBase {
         final Response response = ZonesAdminRequest.PATCH(zone, zoneId);
         checkStatusCode302(response);
         Optional<SpreeZonesEntity> createdZone = SpreeZonesDao.INSTANCE.findById(zoneId);
-        Assert.assertFalse(createdZone.isEmpty());
+        Assert.assertFalse(createdZone.isEmpty(), "В БД нет отредактированной зоны");
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(createdZone.get().getName(), zone.getZoneName(), softAssert);
         compareTwoObjects(createdZone.get().getDescription(), zone.getZoneDescription(), softAssert);
@@ -100,7 +100,7 @@ public class ZonesAdminTest extends RestBase {
         final Response response = ZonesAdminRequest.PATCH(zone, zoneId);
         checkStatusCode(response, 200, "text/html; charset=utf-8");
         Optional<SpreeZonesEntity> createdZone = SpreeZonesDao.INSTANCE.findById(zoneId);
-        Assert.assertFalse(createdZone.isEmpty());
+        Assert.assertFalse(createdZone.isEmpty(), "В БД нет отредактированной зоны");
         checkFieldIsNotEmpty(createdZone.get().getName(), "имя торговой зоны в БД");
     }
 
@@ -112,7 +112,7 @@ public class ZonesAdminTest extends RestBase {
         final Response response = ZonesAdminRequest.DELETE(zoneId);
         checkStatusCode302(response);
         Optional<SpreeZonesEntity> createdZone = SpreeZonesDao.INSTANCE.findById(zoneId);
-        Assert.assertTrue(createdZone.isEmpty());
+        Assert.assertTrue(createdZone.isEmpty(), "Зона не удалилась");
     }
 
     @AfterClass(alwaysRun = true)

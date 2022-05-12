@@ -11,7 +11,7 @@
         </method-selector>
     </method-selectors>
     <!-- api-v1-tests -->
-    <test verbose="1" name="API v1 Tests" parallel="classes" thread-count="14">
+    <test verbose="1" name="API v1 Tests" parallel="classes" thread-count="15">
         <classes>
             <class name="ru.instamart.test.api.v1.endpoints.CheckoutV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.ProductsV1Tests"/>
@@ -72,7 +72,7 @@
         </classes>
     </test>
     <!-- api-admin-tests -->
-    <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="3">
+    <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="13">
         <classes>
             <class name="ru.instamart.test.api.admin.CitiesAdminTest"/>
             <class name="ru.instamart.test.api.admin.GeneralSettingsAdminTest"/>
