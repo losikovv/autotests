@@ -1,16 +1,13 @@
 package ru.instamart.kafka.helper;
 
-import com.google.protobuf.Message;
-import com.google.protobuf.TextFormat;
 import estimator.Estimator;
 import io.kubernetes.client.openapi.models.V1PodList;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import ru.instamart.kafka.emum.Pods;
-import ru.instamart.kafka.emum.StatusOrder;
-import ru.instamart.kafka.log_model.Response;
+import ru.instamart.kafka.enums.Pods;
+import ru.instamart.kafka.enums.StatusOrder;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.common.Mapper;
 

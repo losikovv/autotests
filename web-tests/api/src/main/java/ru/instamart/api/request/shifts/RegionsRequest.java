@@ -7,8 +7,14 @@ import ru.instamart.api.request.ShiftsRequestBase;
 
 public class RegionsRequest extends ShiftsRequestBase {
     @Step("{method} /" + ShiftsV1Endpoints.Regions.PLANNING_AREAS)
-    public static Response GET(long id) {
+    public static Response GET(final long id) {
         return givenWithAuth()
+                .get(ShiftsV1Endpoints.Regions.PLANNING_AREAS, id);
+    }
+    @Step("{method} /" + ShiftsV1Endpoints.Regions.PLANNING_AREAS)
+    public static Response GET(final long id, final String role) {
+        return givenWithAuth()
+                .queryParam("role", role)
                 .get(ShiftsV1Endpoints.Regions.PLANNING_AREAS, id);
     }
 }

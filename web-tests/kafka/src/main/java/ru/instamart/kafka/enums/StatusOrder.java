@@ -1,4 +1,4 @@
-package ru.instamart.kafka.emum;
+package ru.instamart.kafka.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

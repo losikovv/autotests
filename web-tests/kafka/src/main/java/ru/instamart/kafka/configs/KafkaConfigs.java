@@ -84,4 +84,24 @@ public class KafkaConfigs {
                 .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
                 .build();
     }
+
+    public static KafkaConfig configStoreChanged() {
+        return KafkaConfig.builder()
+                .clientId("shifts")
+                .topic("yc.operations.cdc.store-changed.0")
+                .groupName("paas-content-operations-shifts-874d2e41-874d2e41")
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
+                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .build();
+    }
+
+    public static KafkaConfig configPlanningPeriods() {
+        return KafkaConfig.builder()
+                .clientId("shifts")
+                .topic("yc.shifts.cmd.planning_periods.0")
+                .groupName("paas-content-operations-shifts-874d2e41-874d2e41")
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
+                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .build();
+    }
 }

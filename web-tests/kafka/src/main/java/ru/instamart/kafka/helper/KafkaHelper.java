@@ -9,7 +9,7 @@ import order_status.OrderStatus;
 import push.Push;
 import ru.instamart.kafka.KafkaConfig;
 import ru.instamart.kafka.consumer.KafkaConsumers;
-import ru.instamart.kafka.emum.StatusOrder;
+import ru.instamart.kafka.enums.StatusOrder;
 import ru.instamart.kafka.producer.KafkaProducers;
 import workflow.AssignmentChangedOuterClass;
 import workflow.ExternalDeliveryOuterClass;
