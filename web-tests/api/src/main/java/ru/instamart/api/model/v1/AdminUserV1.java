@@ -52,6 +52,7 @@ public class AdminUserV1 extends BaseObject {
     @JsonSchema(required = true)
     private String email;
 
+    @Null
     @JsonSchema(required = true)
     private String firstname;
 
@@ -62,6 +63,7 @@ public class AdminUserV1 extends BaseObject {
     @JsonSchema(required = true)
     private Long id;
 
+    @Null
     @JsonSchema(required = true)
     private String lastname;
 

@@ -136,6 +136,10 @@ public final class ApiV1Endpoints {
             public static final String STORE_LABEL = "admin/store_labels/{storeLabelId}";
             public static final String STORE_LABELS = "admin/store_labels";
         }
+
+        public static final class Users {
+            public static final String BY_ID = "admin/users/{userId}";
+        }
     }
 
     public static final class Checkout {

@@ -17,6 +17,7 @@ import ru.instamart.api.request.v1.CitiesV1Request;
 import ru.instamart.api.request.v1.OrdersV1Request;
 import ru.instamart.api.request.v1.PromotionCardsV1Request;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
+import ru.instamart.api.request.v1.admin.UsersV1Request;
 import ru.instamart.api.response.v1.CompleteOrderV1Response;
 import ru.instamart.api.response.v1.MobileConfigsV1Response;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
@@ -432,6 +433,16 @@ public class InstamartApiCheckpoints {
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(mobileExtend.getId(), (long) mobileExtendId, softAssert);
         compareTwoObjects(mobileExtend.getProp(), property, softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Сравниваем пользователя из запроса с пользователем из ответа")
+    public static void checkUsers(UsersV1Request.UserRequest user, AdminUserV1 userFromResponse) {
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(userFromResponse.getEmail(), user.getUser().getEmail(), softAssert);
+        compareTwoObjects(userFromResponse.getCustomerComment(), user.getUser().getCustomerComment(), softAssert);
+        compareTwoObjects(userFromResponse.getPreferredCardPaymentMethod(), user.getUser().getPreferredCardPaymentMethod(), softAssert);
+        compareTwoObjects(userFromResponse.getRoleIds().stream().sorted().collect(Collectors.toList()), user.getUser().getRoleIds(), softAssert);
         softAssert.assertAll();
     }
 }
