@@ -34,7 +34,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpt
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
-import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
+import static ru.instamart.kraken.util.TimeUtil.getTimestampLong;
 
 @Slf4j
 public class ShopperAppApiHelper {
@@ -638,7 +638,7 @@ public class ShopperAppApiHelper {
     public void sendCurrentLocator(final Double latitude,
                                    final Double longitude,
                                    final Double speed) {
-        final Response response = LocatorRequest.Location.POST(latitude, longitude, speed, getTimestamp());
+        final Response response = LocatorRequest.Location.POST(latitude, longitude, speed, getTimestampLong());
         checkStatusCode(response, 200, "");
     }
 }

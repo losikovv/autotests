@@ -133,6 +133,11 @@ public final class TimeUtil {
         return dt.format(ZonedDateTime.parse(date, formatterFullDate).withZoneSameInstant(ZONE_ID));
     }
 
+    /**
+     * Преобразование строки формата "yyyy-MM-dd'T'HH:mm:ss.SSSXXX" в  google.protobuf.Timestamp
+     * @param dateTime Время в формате "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+     * @return
+     */
     public static Timestamp getTimestampFromString(String dateTime) {
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateTime, zdtz);
         Instant instant = zonedDateTime.toInstant();
@@ -142,9 +147,17 @@ public final class TimeUtil {
                 .build();
     }
 
-    public static Long getTimestamp() {
+    public static Long getTimestampLong() {
         Instant instant = Instant.now();
         return instant.toEpochMilli();
+    }
+
+    public static Timestamp getTimestamp() {
+        Instant instant = Instant.now();
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
+                .build();
     }
 
     public static Timestamp getDateMinusSec(int sec) {

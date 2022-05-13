@@ -1,6 +1,7 @@
-package ru.instamart.jdbc.util;
+package ru.instamart.jdbc.util.dispatch;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.instamart.jdbc.util.ConnectionPgSQLManager;
 import ru.instamart.k8s.K8sPortForward;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.common.Crypt;
@@ -20,7 +21,7 @@ import static org.testng.Assert.fail;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE;
 
 @Slf4j
-public class ConnectionPgSQLManagerService {
+public class ConnectionPgSQLShiftsManager {
     private static BlockingQueue<Connection> pool;
     private static List<Connection> sourceConnections;
 
@@ -30,7 +31,7 @@ public class ConnectionPgSQLManagerService {
         initConnectionPool();
     }
 
-    private ConnectionPgSQLManagerService() {
+    private ConnectionPgSQLShiftsManager() {
     }
 
     protected static void portForward() {

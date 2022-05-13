@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package candidates;
+
+message StoreChanged {
+  int64 id = 1;
+  string uuid = 2;
+  string name = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+  string time_zone = 6;
+  int64 operational_zone_id = 7;
+  int64 retailer_id = 8;
+  string import_key_postfix = 9;
+  string location = 10;
+  int64 helpdeskeddy_id = 11;
+  bool has_conveyor = 12;
+  bool auto_routing = 13;
+  bool fast_payment = 14;
+  string fast_payment_metro_store_dns = 15;
+  string fast_payment_metro_barcode_ciphertext = 16;
+  bool express_delivery = 17;
+  int64 seconds_for_assembly_item = 18;
+  int64 additional_seconds_for_assembly = 19;
+  int64 delivery_area_id = 20;
+  string retailer_store_id = 21;
+  bool box_scanning = 22;
+  bool external_assemblies_enabled = 23;
+  bool training = 24;
+  string schedule_type = 25;
+  string store_zones = 26;
+  bool fast_payment_cashless = 27;
+  google.protobuf.Timestamp available_on = 28;
+  string phone = 29;
+  int64 base_store_id = 30;
+  string opening_time = 31;
+  string closing_time = 32;
+}

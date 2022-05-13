@@ -3,7 +3,7 @@ package ru.instamart.jdbc.dao.shifts;
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.shifts.PlanningPeriodEntity;
 import ru.instamart.jdbc.entity.shifts.PlanningPeriodsEntity;
-import ru.instamart.jdbc.util.ConnectionPgSQLManagerService;
+import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLShiftsManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +23,7 @@ public class PlanningPeriodsDao extends AbstractDao<Long, PlanningPeriodsEntity>
 
     public Optional<PlanningPeriodEntity> getClientTokenByName(Long id) {
         PlanningPeriodEntity planningPeriodEntity = null;
-        try (Connection connect = ConnectionPgSQLManagerService.get();
+        try (Connection connect = ConnectionPgSQLShiftsManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_JOIN_SQL)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();

@@ -13,7 +13,7 @@ import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import push.Push;
 import ru.instamart.kafka.KafkaConfig;
-import ru.instamart.kafka.emum.StatusOrder;
+import ru.instamart.kafka.enums.StatusOrder;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.util.ThreadUtil;
 import workflow.AssignmentChangedOuterClass;

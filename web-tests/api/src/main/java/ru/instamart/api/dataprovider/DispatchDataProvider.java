@@ -1,6 +1,7 @@
 package ru.instamart.api.dataprovider;
 
 import org.testng.annotations.DataProvider;
+import ru.instamart.api.enums.shopper.RoleSHP;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
@@ -16,4 +17,11 @@ public class DispatchDataProvider {
                 {users2}
         };
     }
+    @DataProvider(name = "shopperRole")
+    public static  Object[][] shopperRole(){
+        return RoleSHP.stream()
+                .map(list -> new Object[]{list.getRole()})
+                .toArray(Object[][]::new);
+    }
+
 }
