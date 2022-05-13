@@ -8,4 +8,5 @@ public interface ShipmentElement {
 
     Element orderInfo = new Element(By.xpath("//div[@id='order-form-wrapper']"), "Информация о заказе");
     Link deliveryWindowLink = new Link(By.xpath("//a[contains(@class,'icon-calendar')][./span[contains(.,'Магазин и время доставки')]]"), "Ссылка 'Магазин и время доставки'");
+    Link paymentsLink = new Link(By.xpath("//a[contains(@class,'icon-credit-card')][./span[contains(.,'Платежи')]]"), "Ссылка 'Платежи'");
 }

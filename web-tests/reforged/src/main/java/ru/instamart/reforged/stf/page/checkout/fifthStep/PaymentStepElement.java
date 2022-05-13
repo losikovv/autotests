@@ -20,7 +20,7 @@ public interface PaymentStepElement {
 
     Button addNewPaymentCard = new Button(By.xpath("//span[contains(text(),'Добавить новую карту')]"), "empty");
     Button submitFromCheckoutColumn = new Button(By.xpath("//div[@class='checkout-column']//button[@data-qa='checkout_order_button']"), "Кнопка 'Оформить заказ'");
-    ElementCollection selectPaymentCard = new ElementCollection(By.xpath("//div[contains(@class, 'payment_tools')]//div"), "empty");
+    ElementCollection selectPaymentCard = new ElementCollection(By.xpath("//input[contains(@name,'payment_tool_id')]/parent::div"), "Коллекция элементов привязанных карт");
     ElementCollection changeFirstPaymentCard = new ElementCollection(By.xpath("//div[contains(@class, 'checkout-panel--active')]//button[contains(text(),'Изменить')]"), "empty");
     Element changeButtonOnCardWithNumber = new Element(ByKraken.xpathExpression("//div[contains(text(),'%s')]/ancestor::button/following-sibling::button[text()='Изменить']"), "Кнопка изменить у определенной карты");
 }

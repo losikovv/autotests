@@ -4,8 +4,10 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.SkipException;
+import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
@@ -21,6 +23,7 @@ import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.CollectionUtil;
+import ru.instamart.kraken.util.CryptCard;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 
@@ -630,6 +633,39 @@ public final class ApiV2Helper {
                 //currentAddressId.get(), //параметр ломает оформление заказа в некоторых магазинах
                 1,
                 userPhone,
+                comment,
+                currentPaymentTool.get().getId(),
+                currentShipmentId.get(),
+                currentDeliveryWindowId.get(),
+                currentShipmentMethodId.get(),
+                currentOrderNumber.get());
+        checkStatusCode200(response);
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
+        Allure.step("Применены атрибуты для заказа: " + order.getNumber() + "<br>" +
+                "        full_address: " + order.getAddress().getFullAddress() + "<br>" +
+                "  replacement_policy: " + order.getReplacementPolicy().getDescription() + "<br>" +
+                "  delivery_starts_at: " + order.getShipments().get(0).getDeliveryWindow().getStartsAt() + "<br>" +
+                "    delivery_ends_at: " + order.getShipments().get(0).getDeliveryWindow().getEndsAt() + "<br>" +
+                "special_instructions: " + order.getSpecialInstructions());
+
+        log.debug("Применены атрибуты для заказа: {}", order.getNumber());
+        log.debug("        full_address: {}", order.getAddress().getFullAddress());
+        log.debug("  replacement_policy: {}", order.getReplacementPolicy().getDescription());
+        log.debug("  delivery_starts_at: {}", order.getShipments().get(0).getDeliveryWindow().getStartsAt());
+        log.debug("    delivery_ends_at: {}", order.getShipments().get(0).getDeliveryWindow().getEndsAt());
+        log.debug("special_instructions: {}", order.getSpecialInstructions());
+        return order;
+    }
+
+    /**
+     * Применяем дефолтные параметры к заказу
+     */
+    @Step("Применяем параметры к заказу по умолчанию: ")
+    OrderV2 setDefaultOrderAttributes(String comment, String phone) {
+        Response response = OrdersV2Request.PUT(
+                //currentAddressId.get(), //параметр ломает оформление заказа в некоторых магазинах
+                1,
+                phone,
                 comment,
                 currentPaymentTool.get().getId(),
                 currentShipmentId.get(),
