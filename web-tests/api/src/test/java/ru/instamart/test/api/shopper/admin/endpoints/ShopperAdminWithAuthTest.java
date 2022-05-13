@@ -2,6 +2,9 @@ package ru.instamart.test.api.shopper.admin.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import org.testng.Assert;
+import ru.instamart.api.checkpoint.StatusCodeCheckpoints;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
@@ -19,8 +22,10 @@ import ru.instamart.kraken.data.user.UserManager;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import static org.testng.Assert.*;
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 import static ru.instamart.kraken.util.TimeUtil.getPastDateWithoutTime;
@@ -339,5 +344,19 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void deleteRoutesVisibility200() {
         Response response = ShopperAdminRequest.Routes.Visibility.DELETE(routeId);
         checkStatusCode200(response);
+    }
+
+    @Story("Dispatch settings")
+    @CaseId(159)
+    @Test(description = "Получение настроек сервиса RES",
+            groups = {"api-shopper-regress"})
+    public void getEstimatorSettings() {
+        String retailerUUID = "684609ad-6360-4bae-9556-03918c1e41c1";
+        final Response response = ShopperAdminRequest.Stores.GET(retailerUUID);
+
+        RouteEstimatorResponse parameters = response.as(RouteEstimatorResponse.class);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, RouteEstimatorResponse.class);
+        assertEquals(parameters.getStoreEstimatorSetting().getStoreUuid(), retailerUUID, "Вернулся неверный UUID");
     }
 }

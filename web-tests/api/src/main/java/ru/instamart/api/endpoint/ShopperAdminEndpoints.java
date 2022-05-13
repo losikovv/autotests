@@ -36,4 +36,8 @@ public final class ShopperAdminEndpoints {
     public static final class Shoppers{
         public static final String BY_ID = "v1/shoppers/{shopperId}";
     }
+
+    public static final class Stores{
+        public static final String ESTIMATOR_SETTINGS = "v1/stores/{retailerUUID}/estimator_settings";
+    }
 }

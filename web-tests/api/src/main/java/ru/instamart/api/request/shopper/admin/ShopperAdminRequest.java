@@ -92,6 +92,11 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
             return givenWithAuth()
                     .get(ShopperAdminEndpoints.STORES);
         }
+
+        @Step("{method} /" + ShopperAdminEndpoints.Stores.ESTIMATOR_SETTINGS)
+        public static Response GET(String retailerUUID) {
+            return givenWithAuth().get(ShopperAdminEndpoints.Stores.ESTIMATOR_SETTINGS, retailerUUID);
+        }
     }
 
     public static class RouteSchedules {
