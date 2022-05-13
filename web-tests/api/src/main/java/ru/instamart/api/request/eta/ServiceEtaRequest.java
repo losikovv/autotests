@@ -9,7 +9,6 @@ import ru.instamart.api.response.eta.ServiceParametersEtaResponse;
 
 public class ServiceEtaRequest extends EtaRequestBase {
 
-    public static class Parameters {
         @Step("{method} /" + EtaEndpoints.Service.PARAMETERS)
         public static Response GET() {
             return givenWithSpec().get(EtaEndpoints.Service.PARAMETERS);
@@ -22,5 +21,4 @@ public class ServiceEtaRequest extends EtaRequestBase {
                     .body(serviceParameters)
                     .put(EtaEndpoints.Service.PARAMETERS);
         }
-    }
 }

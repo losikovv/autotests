@@ -31,7 +31,7 @@ public class ServiceEtaTest extends RestBase {
     @Test(description = "Получение параметров сервисов",
             groups = "dispatch-eta-smoke")
     public void getServiceParameters() {
-        final Response response = ServiceEtaRequest.Parameters.GET();
+        final Response response = ServiceEtaRequest.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ServiceParametersEtaResponse.class);
         serviceParameters = response.as(ServiceParametersEtaResponse.class);
@@ -45,13 +45,13 @@ public class ServiceEtaTest extends RestBase {
     public void editServiceParameters() {
         courierSpeed = serviceParameters.getCourierSpeed();
         serviceParameters.setCourierSpeed(1000);
-        serviceParameters.setMLEnabled(!serviceParameters.isMLEnabled());
+        serviceParameters.setIsMlEnabled(!serviceParameters.getIsMlEnabled());
         updateServiceParameters(serviceParameters);
 
         ServiceParametersEntity serviceParametersFromDb = ServiceParametersDao.INSTANCE.getServiceParameters();
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(serviceParametersFromDb.getCourierSpeed(), serviceParameters.getCourierSpeed(), softAssert);
-        compareTwoObjects(serviceParametersFromDb.getIsMlEnabled(), serviceParameters.isMLEnabled(), softAssert);
+        compareTwoObjects(serviceParametersFromDb.getIsMlEnabled(), serviceParameters.getIsMlEnabled(), softAssert);
         softAssert.assertAll();
     }
 
@@ -59,7 +59,7 @@ public class ServiceEtaTest extends RestBase {
     @AfterClass(alwaysRun = true)
     public void postConditions() {
         serviceParameters.setCourierSpeed(courierSpeed);
-        serviceParameters.setMLEnabled(!serviceParameters.isMLEnabled());
+        serviceParameters.setIsMlEnabled(!serviceParameters.getIsMlEnabled());
         updateServiceParameters(serviceParameters);
     }
 }
