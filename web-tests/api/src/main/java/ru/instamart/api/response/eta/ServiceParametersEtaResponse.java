@@ -1,4 +1,3 @@
-
 package ru.instamart.api.response.eta;
 
 import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
@@ -9,35 +8,34 @@ import ru.instamart.api.response.BaseResponseObject;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class ServiceParametersEtaResponse extends BaseResponseObject {
-
     @JsonSchema(required = true)
-    private Integer avgPositionsPerPlace;
+    private double waitMLTimeout;
     @JsonSchema(required = true)
-    private Integer collectionSpeedSecPerPos;
+    private boolean isMLEnabled;
     @JsonSchema(required = true)
-    private Integer courierSpeed;
+    private boolean isSigmaEnabled;
     @JsonSchema(required = true)
-    private Integer courierSpeedDelivery;
+    private int avgPositionsPerPlace;
     @JsonSchema(required = true)
-    private Double curveFactorDelivery;
+    private int toPlaceSec;
     @JsonSchema(required = true)
-    private Integer deliveryTimeSigma;
-    @JsonSchema(required = true)
-    private Boolean isMlEnabled;
-    @JsonSchema(required = true)
-    private Boolean isSigmaEnabled;
-    @JsonSchema(required = true)
-    private Integer onDemandClosingDelta;
-    @JsonSchema(required = true)
-    private Double routeEstimatorTimeout;
-    @JsonSchema(required = true)
-    private String storeClosingTime;
+    private int collectionSpeedSecPerPos;
     @JsonSchema(required = true)
     private String storeOpeningTime;
     @JsonSchema(required = true)
-    private Integer toPlaceSec;
+    private String storeClosingTime;
     @JsonSchema(required = true)
-    private Double waitMlTimeout;
+    private int onDemandClosingDelta;
     @JsonSchema(required = true)
-    private Integer window;
+    private int courierSpeed;
+    @JsonSchema(required = true)
+    private int deliveryTimeSigma;
+    @JsonSchema(required = true)
+    private int window;
+    @JsonSchema(required = true)
+    private int courierSpeedDelivery;
+    @JsonSchema(required = true)
+    private double curveFactorDelivery;
+    @JsonSchema(required = true)
+    private double routeEstimatorTimeout;
 }

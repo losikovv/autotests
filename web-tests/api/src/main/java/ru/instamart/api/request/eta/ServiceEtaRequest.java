@@ -9,16 +9,18 @@ import ru.instamart.api.response.eta.ServiceParametersEtaResponse;
 
 public class ServiceEtaRequest extends EtaRequestBase {
 
-    @Step("{method} /" + EtaEndpoints.Service.PARAMETERS)
-    public static Response GET() {
-        return givenWithSpec().get(EtaEndpoints.Service.PARAMETERS);
-    }
+    public static class Parameters {
+        @Step("{method} /" + EtaEndpoints.Service.PARAMETERS)
+        public static Response GET() {
+            return givenWithSpec().get(EtaEndpoints.Service.PARAMETERS);
+        }
 
-    @Step("{method} /" + EtaEndpoints.Service.PARAMETERS)
-    public static Response PUT(ServiceParametersEtaResponse serviceParameters) {
-        return givenWithSpec()
-                .contentType(ContentType.JSON)
-                .body(serviceParameters)
-                .put(EtaEndpoints.Service.PARAMETERS);
+        @Step("{method} /" + EtaEndpoints.Service.PARAMETERS)
+        public static Response PUT(ServiceParametersEtaResponse serviceParameters) {
+            return givenWithSpec()
+                    .contentType(ContentType.JSON)
+                    .body(serviceParameters)
+                    .put(EtaEndpoints.Service.PARAMETERS);
+        }
     }
 }
