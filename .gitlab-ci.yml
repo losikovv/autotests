@@ -3,6 +3,7 @@ include:
   - local: '/.gitlab-ci/shopper.yaml'
   - local: '/.gitlab-ci/grpc.yaml'
   - local: '/.gitlab-ci/ui.yaml'
+#  - local: '/.gitlab-ci/ui-next.yaml'
   - local: '/.gitlab-ci/ui-tenant.yaml'
   - local: '/.gitlab-ci/kafka.yaml'
 
