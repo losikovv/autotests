@@ -20,8 +20,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("Shopper Mobile API")
@@ -197,9 +196,9 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @CaseId(106)
     @Test(description = "Запрос назначенных маршрутов без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
-    public void nextUncompletedRoute404() {
+    public void nextUncompletedRoute200() {
         final Response response = NextUncompletedRouteSHPRequest.GET();
-        checkStatusCode404(response);
-        assertEquals(response.as(ErrorSHPResponse.class).getErrors().get(0).getDetail(), "Маршрут не найден", "Неправильная ошибка");
+        checkStatusCode200(response);
+        compareTwoObjects(response.asString(), "{}");
     }
 }
