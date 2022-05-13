@@ -4,10 +4,8 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.SkipException;
-import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
@@ -23,7 +21,6 @@ import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.CollectionUtil;
-import ru.instamart.kraken.util.CryptCard;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 

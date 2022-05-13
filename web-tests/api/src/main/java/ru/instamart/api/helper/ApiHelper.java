@@ -729,7 +729,7 @@ public final class ApiHelper {
     }
 
     @Step("Привязываем карту юзеру {user}")
-    public void bindCardToUser(final UserData user) {
+    public void bindCardToUser(final UserData user, final int sid) {
         String uuid = UUID.randomUUID().toString();
         String pan = CreditCardsV2.CARD2.getNumber();
         String cvc = CreditCardsV2.CARD2.getCvc();
@@ -739,7 +739,7 @@ public final class ApiHelper {
         apiV2.authByPhone(user);
         apiV2.fillingCartAndOrderAttributesWithoutCompletion(
                 user,
-                EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID
+                sid
         );
         OrderV2 openOrder = apiV2.getOpenOrder();
 

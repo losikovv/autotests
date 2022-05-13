@@ -15,18 +15,15 @@ public enum CryptCard {
 
     INSTANCE;
 
-    public static PublicKey getPublicKey(String base64PublicKey) {
-        PublicKey publicKey = null;
+    private static PublicKey getPublicKey(String base64PublicKey) {
         try {
             X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.getDecoder().decode(base64PublicKey));
-
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            publicKey = keyFactory.generatePublic(keySpec);
-            return publicKey;
+            return keyFactory.generatePublic(keySpec);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            e.printStackTrace();
+            log.error("FATAL: Can't generate public key");
         }
-        return publicKey;
+        return null;
     }
 
     public final String encrypt(String data, String publicKey) {
@@ -37,7 +34,7 @@ public enum CryptCard {
             return Base64.getEncoder().encodeToString(doFinal);
         } catch (BadPaddingException | IllegalBlockSizeException | InvalidKeyException | NoSuchPaddingException |
                 NoSuchAlgorithmException ex) {
-            ex.printStackTrace();
+            log.error("FATAL: Can't encrypt cryptogram token data");
         }
         return null;
     }
