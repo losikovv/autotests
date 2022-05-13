@@ -8,34 +8,35 @@ import ru.instamart.api.response.BaseResponseObject;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class ServiceParametersEtaResponse extends BaseResponseObject {
+
     @JsonSchema(required = true)
-    private double waitMLTimeout;
+    private Integer avgPositionsPerPlace;
     @JsonSchema(required = true)
-    private boolean isMLEnabled;
+    private Integer collectionSpeedSecPerPos;
     @JsonSchema(required = true)
-    private boolean isSigmaEnabled;
+    private Integer courierSpeed;
     @JsonSchema(required = true)
-    private int avgPositionsPerPlace;
+    private Integer courierSpeedDelivery;
     @JsonSchema(required = true)
-    private int toPlaceSec;
+    private Double curveFactorDelivery;
     @JsonSchema(required = true)
-    private int collectionSpeedSecPerPos;
+    private Integer deliveryTimeSigma;
     @JsonSchema(required = true)
-    private String storeOpeningTime;
+    private Boolean isMlEnabled;
+    @JsonSchema(required = true)
+    private Boolean isSigmaEnabled;
+    @JsonSchema(required = true)
+    private Integer onDemandClosingDelta;
+    @JsonSchema(required = true)
+    private Double routeEstimatorTimeout;
     @JsonSchema(required = true)
     private String storeClosingTime;
     @JsonSchema(required = true)
-    private int onDemandClosingDelta;
+    private String storeOpeningTime;
     @JsonSchema(required = true)
-    private int courierSpeed;
+    private Integer toPlaceSec;
     @JsonSchema(required = true)
-    private int deliveryTimeSigma;
+    private Double waitMlTimeout;
     @JsonSchema(required = true)
-    private int window;
-    @JsonSchema(required = true)
-    private int courierSpeedDelivery;
-    @JsonSchema(required = true)
-    private double curveFactorDelivery;
-    @JsonSchema(required = true)
-    private double routeEstimatorTimeout;
+    private Integer window;
 }

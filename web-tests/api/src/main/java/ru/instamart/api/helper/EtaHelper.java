@@ -82,7 +82,7 @@ public class EtaHelper {
 
     @Step("Изменяем настройки ETA сервиса")
     public static void updateServiceParameters(ServiceParametersEtaResponse serviceParameters) {
-        final Response response = ServiceEtaRequest.Parameters.PUT(serviceParameters);
+        final Response response = ServiceEtaRequest.PUT(serviceParameters);
         checkStatusCode(response, 200, "");
     }
 }
