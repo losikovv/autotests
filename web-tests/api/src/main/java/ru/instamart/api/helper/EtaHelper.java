@@ -6,8 +6,12 @@ import io.restassured.response.Response;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.OrderV2;
-import ru.instamart.api.request.eta.ServiceEtaRequest;
+import ru.instamart.api.request.eta.RetailerParametersEtaRequest;
+import ru.instamart.api.request.eta.ServiceParametersEtaRequest;
+import ru.instamart.api.request.eta.StoreParametersEtaRequest;
+import ru.instamart.api.response.eta.RetailerParametersEtaResponse;
 import ru.instamart.api.response.eta.ServiceParametersEtaResponse;
+import ru.instamart.api.response.eta.StoreParametersEtaResponse;
 import ru.instamart.jdbc.dao.eta.ServiceParametersDao;
 import ru.instamart.jdbc.dao.eta.StoreParametersDao;
 import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
@@ -24,10 +28,10 @@ import static ru.instamart.kraken.util.TimeUtil.convertStringToTime;
 public class EtaHelper {
 
     @Step("Проверяем установленный таймаут и уменьшаем его при необходимости")
-    public static boolean checkMLTimeout(String mlTimeout){
+    public static boolean checkMLTimeout(String mlTimeout) {
         LocalTime waitMlTimeoutFromDb = convertStringToTime(mlTimeout);
         LocalTime expectedWaitMlTimeout = convertStringToTime("00:00:00.5");
-        if(waitMlTimeoutFromDb.isAfter(expectedWaitMlTimeout)) {
+        if (waitMlTimeoutFromDb.isAfter(expectedWaitMlTimeout)) {
             ServiceParametersDao.INSTANCE.updateWaitMlTimeout("00:00:00.4");
             return true;
         } else return false;
@@ -73,7 +77,7 @@ public class EtaHelper {
     }
 
     @Step("Получаем недоступный магазин из БД с обновленным режимом работы")
-    public static StoresEntity getStoreWithUpdatedSchedule(String openingTime, String closingTime, int delta, String closingDelta){
+    public static StoresEntity getStoreWithUpdatedSchedule(String openingTime, String closingTime, int delta, String closingDelta) {
         StoresEntity store = StoresDao.INSTANCE.getUnavailableStore();
         StoresDao.INSTANCE.updateOnDemandStore(store.getId(), openingTime, closingTime, delta);
         StoreParametersDao.INSTANCE.updateStoreParameters(store.getUuid(), openingTime, closingTime, closingDelta);
@@ -82,7 +86,19 @@ public class EtaHelper {
 
     @Step("Изменяем настройки ETA сервиса")
     public static void updateServiceParameters(ServiceParametersEtaResponse serviceParameters) {
-        final Response response = ServiceEtaRequest.PUT(serviceParameters);
+        final Response response = ServiceParametersEtaRequest.PUT(serviceParameters);
+        checkStatusCode(response, 200, "");
+    }
+
+    @Step("Изменяем настройки ритейлера")
+    public static void updateRetailerParameters(String retailerId, RetailerParametersEtaResponse retailerParameters) {
+        final Response response = RetailerParametersEtaRequest.PUT(retailerId, retailerParameters);
+        checkStatusCode(response, 200, "");
+    }
+
+    @Step("Изменяем настройки магазина")
+    public static void updateStoreParameters(String storeId, StoreParametersEtaResponse storeParameters) {
+        final Response response = StoreParametersEtaRequest.PUT(storeId, storeParameters);
         checkStatusCode(response, 200, "");
     }
 }

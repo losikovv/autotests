@@ -8,7 +8,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.request.eta.ServiceEtaRequest;
+import ru.instamart.api.request.eta.ServiceParametersEtaRequest;
+import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.eta.ServiceParametersEtaResponse;
 import ru.instamart.jdbc.dao.eta.ServiceParametersDao;
 import ru.instamart.jdbc.entity.eta.ServiceParametersEntity;
@@ -16,12 +17,12 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.helper.EtaHelper.updateServiceParameters;
 
 @Epic("On Demand")
 @Feature("ETA")
-public class ServiceEtaTest extends RestBase {
+public class ServiceParametersEtaTest extends RestBase {
 
     private ServiceParametersEtaResponse serviceParameters;
     private int courierSpeed;
@@ -31,8 +32,8 @@ public class ServiceEtaTest extends RestBase {
     @Test(description = "Получение параметров сервисов",
             groups = "dispatch-eta-smoke")
     public void getServiceParameters() {
-        final Response response = ServiceEtaRequest.GET();
-        checkStatusCode200(response);
+        final Response response = ServiceParametersEtaRequest.GET();
+        checkStatusCode(response, 200, "");
         checkResponseJsonSchema(response, ServiceParametersEtaResponse.class);
         serviceParameters = response.as(ServiceParametersEtaResponse.class);
     }
@@ -55,6 +56,18 @@ public class ServiceEtaTest extends RestBase {
         softAssert.assertAll();
     }
 
+    @CaseId(228)
+    @Story("Параметры сервиса")
+    @Test(description = "Получение ошибки не поддерживаемого медиа типа",
+            groups = "dispatch-eta-regress",
+            dependsOnMethods = "getServiceParameters")
+    public void editServiceParametersWithoutContentType() {
+        final Response response = ServiceParametersEtaRequest.WithoutСontentType.PUT(serviceParameters);
+
+        checkStatusCode(response, 415, "");
+        ErrorResponse parameters = response.as(ErrorResponse.class);
+        compareTwoObjects(parameters.getMessage(), "Unsupported Media Type");
+    }
 
     @AfterClass(alwaysRun = true)
     public void postConditions() {
