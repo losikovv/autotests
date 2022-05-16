@@ -7,7 +7,7 @@ import ru.instamart.api.endpoint.EtaEndpoints;
 import ru.instamart.api.request.EtaRequestBase;
 import ru.instamart.api.response.eta.StoreParametersEtaResponse;
 
-public class StoresEtaRequest extends EtaRequestBase {
+public class StoreParametersEtaRequest extends EtaRequestBase {
 
     @Step("{method} /" + EtaEndpoints.Stores.PARAMETERS)
     public static Response GET(String storeId) {
@@ -20,5 +20,14 @@ public class StoresEtaRequest extends EtaRequestBase {
                 .contentType(ContentType.JSON)
                 .body(storeParameters)
                 .put(EtaEndpoints.Stores.PARAMETERS, storeId);
+    }
+
+    public static class WithoutСontentType {
+        @Step("{method} /" + EtaEndpoints.Stores.PARAMETERS)
+        public static Response PUT(String storeId, StoreParametersEtaResponse storeParameters) {
+            return givenWithSpec()
+                    .body(storeParameters)
+                    .put(EtaEndpoints.Stores.PARAMETERS, storeId);
+        }
     }
 }

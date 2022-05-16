@@ -21,9 +21,9 @@
             <class name="ru.instamart.test.api.dispatch.eta.StoreEtaTest"/>
             <class name="ru.instamart.test.api.dispatch.eta.BasketEtaTest"/>
             <class name="ru.instamart.test.api.dispatch.eta.CourierEtaTest"/>
-            <class name="ru.instamart.test.api.dispatch.eta.RetailersEtaTest"/>
-            <class name="ru.instamart.test.api.dispatch.eta.StoresEtaTest"/>
-            <class name="ru.instamart.test.api.dispatch.eta.ServiceEtaTest"/>
+            <class name="ru.instamart.test.api.dispatch.eta.RetailerParametersEtaTest"/>
+            <class name="ru.instamart.test.api.dispatch.eta.StoreParametersEtaTest"/>
+            <class name="ru.instamart.test.api.dispatch.eta.ServiceParametersEtaTest"/>
         </classes>
     </test>
     <test verbose="1" name="KAFKA">

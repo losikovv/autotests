@@ -3,6 +3,8 @@ package ru.instamart.test.api.dispatch.eta;
 import eta.Eta;
 import eta.PredEtaGrpc;
 import io.grpc.StatusRuntimeException;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -26,6 +28,8 @@ import static eta.Eta.CourierEtaEstimateSource.APP_FALLBACK;
 import static eta.Eta.CourierEtaEstimateSource.RE_FALLBACK;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 
+@Epic("On Demand")
+@Feature("ETA")
 public class CourierEtaTest extends RestBase {
 
     private PredEtaGrpc.PredEtaBlockingStub clientEta;
