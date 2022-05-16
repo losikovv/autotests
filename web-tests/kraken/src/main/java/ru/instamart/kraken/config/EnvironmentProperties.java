@@ -80,6 +80,8 @@ public final class EnvironmentProperties {
     public static String RBSUAT_PAYMENTS_URL;
     @Config(configName = NAME, fieldName = "jobLandingUrl", defaultValue = "")
     public static String JOB_LANDING_URL;
+    @Config(configName = NAME, fieldName = "publicCryptoKey", defaultValue = "")
+    public static String PUBLIC_CRYPTO_KEY;
 
     @Config(configName = NAME, fieldName = "k8sNameStfSpace", defaultValue = "")
     public static String K8S_NAME_STF_SPACE;
@@ -110,6 +112,7 @@ public final class EnvironmentProperties {
     public static int DEFAULT_PGSQL_POOL_SIZE;
     @Config(configName = NAME, fieldName = "adminPassword", defaultValue = "", crypted = true)
     public static String ADMIN_PASSWORD;
+
 
     public static class Env {
 

@@ -28,6 +28,8 @@ import ru.instamart.reforged.admin.page.settings.store_groups.new_group.EditStor
 import ru.instamart.reforged.admin.page.shipment.ShipmentsPage;
 import ru.instamart.reforged.admin.page.shipment.shipment.ShipmentPage;
 import ru.instamart.reforged.admin.page.shipment.shipment.delivery_windows.ShipmentDeliveryWindowsPage;
+import ru.instamart.reforged.admin.page.shipment.shipment.payments.ShipmentPaymentsPage;
+import ru.instamart.reforged.admin.page.shipment.shipment.payments.new_payment.payments.ShipmentNewPaymentPage;
 import ru.instamart.reforged.admin.page.users.UsersPage;
 import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.reforged.core.page.Router;
@@ -116,6 +118,14 @@ public final class AdminRout extends Router {
 
     public static ShipmentDeliveryWindowsPage shipmentPageDelivery() {
         return (ShipmentDeliveryWindowsPage) getPage(ShipmentDeliveryWindowsPage.class);
+    }
+
+    public static ShipmentPaymentsPage shipmentPagePayments() {
+        return (ShipmentPaymentsPage) getPage(ShipmentPaymentsPage.class);
+    }
+
+    public static ShipmentNewPaymentPage shipmentNewPayment() {
+        return (ShipmentNewPaymentPage) getPage(ShipmentNewPaymentPage.class);
     }
 
     public static UsersPage users() {

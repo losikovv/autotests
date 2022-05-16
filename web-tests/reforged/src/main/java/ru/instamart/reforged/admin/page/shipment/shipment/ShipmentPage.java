@@ -10,6 +10,11 @@ public final class ShipmentPage implements AdminPage, ShipmentCheck {
         deliveryWindowLink.click();
     }
 
+    @Step("Нажимаем на кнопку 'Платежи'")
+    public void clickOnPayments() {
+        paymentsLink.click();
+    }
+
     @Override
     public String pageUrl() {
         return "orders/%s/edit";

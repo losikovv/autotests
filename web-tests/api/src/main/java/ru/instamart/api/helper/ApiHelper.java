@@ -1,9 +1,11 @@
 package ru.instamart.api.helper;
 
 import io.qameta.allure.Step;
+import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import ru.instamart.api.enums.v1.ImportStatusV1;
+import ru.instamart.api.enums.v2.CreditCardsV2;
 import ru.instamart.api.model.shopper.app.ShipmentSHP;
 import ru.instamart.api.model.v1.DeliveryWindowV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
@@ -20,9 +22,13 @@ import ru.instamart.api.request.v1.RetailersV1Request;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request;
 import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
+import ru.instamart.api.request.v2.CurrentTimeV2Request;
+import ru.instamart.api.request.v2.PaymentsV2Request;
 import ru.instamart.api.response.v1.PricersV1Response;
 import ru.instamart.api.response.v1.ShippingMethodsResponse;
 import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
+import ru.instamart.api.response.v2.CreditCardAuthorizationV2Response;
+import ru.instamart.api.response.v2.CurrentTimeV2Response;
 import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.jdbc.dao.shopper.RetailersShopperDao;
 import ru.instamart.jdbc.dao.stf.*;
@@ -33,12 +39,15 @@ import ru.instamart.kraken.data.StoreLabelData;
 import ru.instamart.kraken.data.StoreZonesCoordinates;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.CryptCard;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.kraken.util.TimeUtil;
 
 import java.util.List;
+import java.util.UUID;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreForRetailerTests;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
 import static ru.sbermarket.common.FileUtils.changeXlsFileSheetName;
@@ -232,6 +241,28 @@ public final class ApiHelper {
         apiV2.getAvailableDeliveryWindow();
 
         apiV2.setDefaultOrderAttributes();
+        return apiV2.completeOrder();
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    public OrderV2 makeOrderWithComment(final UserData user, final int sid, final String comment) {
+        var address = apiV2.getAddressBySid(sid);
+
+        apiV2.authByPhone(user);
+
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.setAddressAttributes(user, address);
+        apiV2.fillCart(apiV2.getProducts(sid), 1);
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethod(sid);
+        apiV2.getAvailableDeliveryWindow();
+
+        apiV2.setDefaultOrderAttributes(comment, "7" + user.getPhone());
         return apiV2.completeOrder();
     }
 
@@ -687,5 +718,45 @@ public final class ApiHelper {
         shopperApp.authorisation(UserManager.getDefaultShopper());
         comment = EnvironmentProperties.SERVER.equals("production") ? comment + RandomUtils.nextInt(1, 50) : comment;
         return shopperApp.getShipmentByComment(comment);
+    }
+
+    @Step("Получаем текущее время")
+    public String getCurrentTimeResponse() {
+        final Response responseTime = CurrentTimeV2Request.GET();
+        checkStatusCode200(responseTime);
+        CurrentTimeV2Response currentTimeV2Response = responseTime.as(CurrentTimeV2Response.class);
+        return currentTimeV2Response.getCurrentTime();
+    }
+
+    @Step("Привязываем карту юзеру {user}")
+    public void bindCardToUser(final UserData user, final int sid) {
+        String uuid = UUID.randomUUID().toString();
+        String pan = CreditCardsV2.CARD2.getNumber();
+        String cvc = CreditCardsV2.CARD2.getCvc();
+        String expDate = CreditCardsV2.CARD2.getYear() + CreditCardsV2.CARD2.getMonth();
+        String publicKey = EnvironmentProperties.PUBLIC_CRYPTO_KEY;
+
+        apiV2.authByPhone(user);
+        apiV2.fillingCartAndOrderAttributesWithoutCompletion(
+                user,
+                sid
+        );
+        OrderV2 openOrder = apiV2.getOpenOrder();
+
+        final Response response = PaymentsV2Request.POST(openOrder.getNumber());
+        checkStatusCode200(response);
+        CreditCardAuthorizationV2Response creditCardAuthorizationV2Response = response.as(CreditCardAuthorizationV2Response.class);
+        String transactionNumber = creditCardAuthorizationV2Response.getCreditCardAuthorization().getTransactionNumber();
+
+        String resultString = getCurrentTimeResponse() + "/" + uuid + "/" + pan + "/" + cvc + "/" + expDate + "/" + transactionNumber;
+        String encrypt = CryptCard.INSTANCE.encrypt(resultString, publicKey);
+
+        final Response response2 = PaymentsV2Request.PUT(transactionNumber, encrypt);
+        checkStatusCode200(response);
+    }
+
+    @Step("Получаем номер активного заказа по его комментарию")
+    public String getActiveOrderNumberWithComment(final String comment) {
+        return SpreeOrdersDao.INSTANCE.getActiveOrderByComment(comment).getNumber();
     }
 }

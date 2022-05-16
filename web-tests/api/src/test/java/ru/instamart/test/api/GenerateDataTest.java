@@ -4,12 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.helper.ApiV2Helper;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserManager;
 
 @Slf4j
 public class GenerateDataTest {
     private final ApiV2Helper apiV2 = new ApiV2Helper();
+    private final ApiHelper helper = new ApiHelper();
     private final int numberOfTestRuns = 20;
     private final int shipmentSingleForUICount = 10;
 
@@ -49,6 +52,18 @@ public class GenerateDataTest {
                     EnvironmentProperties.DEFAULT_SID,
                     1,
                     "UI-TEST-SINGLE");
+        }
+    }
+
+    @Test(groups = "generate-data-ui")
+    public void generateUIOrdersWithSingleItemForSberPay() {
+        var userData = UserManager.getQaUser();
+        helper.bindCardToUser(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        for (int i = 0; i < shipmentSingleForUICount; i++) {
+            log.info("Создание заказа для тестов UI с 1 товаром");
+            helper.makeOrderWithComment(userData,
+                    EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID,
+                    "ORDER-FOR-SBERPAY");
         }
     }
 }

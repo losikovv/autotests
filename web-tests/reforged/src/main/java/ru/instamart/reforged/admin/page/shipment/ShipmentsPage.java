@@ -78,6 +78,11 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
         searchNumber.fill(shipmentNumber);
     }
 
+    @Step("Ввод статуса {0} в поле статусов заказов")
+    public void setShipmentStatus(final String shipmentStatus) {
+        orderStatus.fill(shipmentStatus);
+    }
+
     @Step("Вводим в поле 'Ритейлер'")
     public void fillRetailer(final String retailerName) {
         retailer.fill(retailerName);
