@@ -58,9 +58,8 @@ public class StoreParametersEtaTest extends RestBase {
     public void editStoreParameters() {
         avgPositionsPerPlace = storeParameters.getAvgPositionsPerPlace();
         storeParameters.setAvgPositionsPerPlace(RandomUtils.nextInt(1, 10));
-        final Response response = StoreParametersEtaRequest.PUT(storeUuid, storeParameters);
+        updateStoreParameters(storeUuid, storeParameters);
 
-        checkStatusCode(response, 200, "");
         StoreParametersEntity storeParametersFromDb = StoreParametersDao.INSTANCE.findById(storeUuid).get();
         compareTwoObjects(storeParametersFromDb.getAvgPositionsPerPlace(), storeParameters.getAvgPositionsPerPlace());
     }

@@ -33,6 +33,7 @@ public class ServiceParametersEtaTest extends RestBase {
             groups = "dispatch-eta-smoke")
     public void getServiceParameters() {
         final Response response = ServiceParametersEtaRequest.GET();
+
         checkStatusCode(response, 200, "");
         checkResponseJsonSchema(response, ServiceParametersEtaResponse.class);
         serviceParameters = response.as(ServiceParametersEtaResponse.class);

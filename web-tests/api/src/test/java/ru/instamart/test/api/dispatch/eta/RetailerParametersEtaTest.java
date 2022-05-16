@@ -49,9 +49,8 @@ public class RetailerParametersEtaTest extends RestBase {
     public void editRetailerParameters() {
         courierSpeed = retailerParameters.getCourierSpeed();
         retailerParameters.setCourierSpeed(RandomUtils.nextInt(10, 100));
-        final Response response = RetailerParametersEtaRequest.PUT(retailerId, retailerParameters);
+        updateRetailerParameters(retailerId, retailerParameters);
 
-        checkStatusCode(response, 200, "");
         RetailerParametersEntity retailerParametersFromDb = RetailerParametersDao.INSTANCE.findById(1L).get();
         compareTwoObjects(retailerParametersFromDb.getCourierSpeed(), retailerParameters.getCourierSpeed());
     }
