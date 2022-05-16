@@ -23,6 +23,7 @@ public class StoreParametersEtaRequest extends EtaRequestBase {
     }
 
     public static class WithoutСontentType {
+        @Step("{method} /" + EtaEndpoints.Stores.PARAMETERS)
         public static Response PUT(String storeId, StoreParametersEtaResponse storeParameters) {
             return givenWithSpec()
                     .body(storeParameters)

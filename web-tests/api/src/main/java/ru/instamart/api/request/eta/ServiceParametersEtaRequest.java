@@ -23,6 +23,7 @@ public class ServiceParametersEtaRequest extends EtaRequestBase {
     }
 
     public static class WithoutСontentType {
+        @Step("{method} /" + EtaEndpoints.Service.PARAMETERS)
         public static Response PUT(ServiceParametersEtaResponse serviceParameters) {
             return givenWithSpec()
                     .body(serviceParameters)
