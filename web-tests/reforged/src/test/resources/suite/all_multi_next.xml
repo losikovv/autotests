@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="MR UI-API suite next" parallel="tests" thread-count="2">
+    <listeners>
+        <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
+        <listener class-name="ru.instamart.reforged.core.listener.UiListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="All In UI-API suite Chrome next" parallel="classes" thread-count="3">
+        <parameter name="browser" value="chrome_remote"/>
+        <parameter name="version" value="92.0"/>
+        <classes>
+
+        </classes>
+    </test>
+    <test verbose="1" name="All In UI-API suite Firefox next" parallel="classes" thread-count="3">
+        <parameter name="browser" value="firefox_remote"/>
+        <parameter name="version" value="91.0"/>
+        <classes>
+
+        </classes>
+    </test>
+</suite>
