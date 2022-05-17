@@ -7,6 +7,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.helper.ApiV2Helper;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserManager;
 
 @Slf4j
@@ -58,7 +59,7 @@ public class GenerateDataTest {
     @Test(groups = "generate-data-ui")
     public void generateUIOrdersWithSingleItemForSberPay() {
         var userData = UserManager.getQaUser();
-        helper.bindCardToUser(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        helper.bindCardToUser(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, PaymentCards.testBusinessCard());
         for (int i = 0; i < shipmentSingleForUICount; i++) {
             log.info("Создание заказа для тестов UI с 1 товаром");
             helper.makeOrderWithComment(userData,

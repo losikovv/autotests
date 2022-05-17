@@ -5,7 +5,6 @@ import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import ru.instamart.api.enums.v1.ImportStatusV1;
-import ru.instamart.api.enums.v2.CreditCardsV2;
 import ru.instamart.api.model.shopper.app.ShipmentSHP;
 import ru.instamart.api.model.v1.DeliveryWindowV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
@@ -34,6 +33,7 @@ import ru.instamart.jdbc.dao.shopper.RetailersShopperDao;
 import ru.instamart.jdbc.dao.stf.*;
 import ru.instamart.jdbc.entity.stf.StoresEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.PaymentCardData;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.StoreLabelData;
 import ru.instamart.kraken.data.StoreZonesCoordinates;
@@ -44,7 +44,6 @@ import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.kraken.util.TimeUtil;
 
 import java.util.List;
-import java.util.UUID;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -729,11 +728,11 @@ public final class ApiHelper {
     }
 
     @Step("Привязываем карту юзеру {user}")
-    public void bindCardToUser(final UserData user, final int sid) {
-        String uuid = UUID.randomUUID().toString();
-        String pan = CreditCardsV2.CARD2.getNumber();
-        String cvc = CreditCardsV2.CARD2.getCvc();
-        String expDate = CreditCardsV2.CARD2.getYear() + CreditCardsV2.CARD2.getMonth();
+    public void bindCardToUser(final UserData user, final int sid, PaymentCardData creditCard) {
+        String uuid = user.getUuid();
+        String pan = creditCard.getCardNumber();
+        String cvv = creditCard.getCvvNumber();
+        String expDate = "20" + creditCard.getExpiryYear() + creditCard.getExpiryMonth();
         String publicKey = EnvironmentProperties.PUBLIC_CRYPTO_KEY;
 
         apiV2.authByPhone(user);
@@ -748,11 +747,11 @@ public final class ApiHelper {
         CreditCardAuthorizationV2Response creditCardAuthorizationV2Response = response.as(CreditCardAuthorizationV2Response.class);
         String transactionNumber = creditCardAuthorizationV2Response.getCreditCardAuthorization().getTransactionNumber();
 
-        String resultString = getCurrentTimeResponse() + "/" + uuid + "/" + pan + "/" + cvc + "/" + expDate + "/" + transactionNumber;
+        String resultString = getCurrentTimeResponse() + "/" + uuid + "/" + pan + "/" + cvv + "/" + expDate + "/" + transactionNumber;
         String encrypt = CryptCard.INSTANCE.encrypt(resultString, publicKey);
 
         final Response response2 = PaymentsV2Request.PUT(transactionNumber, encrypt);
-        checkStatusCode200(response);
+        checkStatusCode200(response2);
     }
 
     @Step("Получаем номер активного заказа по его комментарию")

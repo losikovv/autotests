@@ -16,6 +16,7 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.kraken.config.EnvironmentProperties.Env.DEMO_RBSUAT_PAYMENTS_URL;
 import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -78,7 +79,8 @@ public final class CheckoutPaymentStepTests extends BaseTest {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        sberPayments().checkPageContains(EnvironmentProperties.Env.DEMO_RBSUAT_PAYMENTS_URL + "acs");
+        sberPayments().checkPageContains(DEMO_RBSUAT_PAYMENTS_URL + "acs");
+        sberPayments().checkPasswordInputVisible();
         sberPayments().fillPassword(card.getPassword());
 
         userShipments().checkPageContains(userShipments().pageUrl());

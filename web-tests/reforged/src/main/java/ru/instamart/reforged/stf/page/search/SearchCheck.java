@@ -141,8 +141,8 @@ public interface SearchCheck extends Check, SearchElement {
         waitAction().shouldBeVisible(emptySearchPlaceHolder);
     }
 
-    @Step("Проверяем, что фильтр 'Товары со скидкой' выбран")
-    default void checkDiscountFilter() {
-        discountFilter.click();
+    @Step("Проверяем, что кол-во товаров в поиске видимо")
+    default void checkProductsQuantityVisible() {
+        waitAction().shouldBeVisible(searchProductsQuantity);
     }
 }

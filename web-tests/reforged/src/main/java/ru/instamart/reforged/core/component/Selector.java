@@ -52,9 +52,6 @@ public final class Selector extends AbstractComponent {
 
     private Select getSelect() {
         log.debug("Create Select with locator {}", getBy());
-        if (isNull(component)) {
-            select = new Select(getComponent());
-        }
-        return select;
+        return new Select(getComponent());
     }
 }

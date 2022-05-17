@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public final class StringUtil {
 
-    private static final Pattern pattern = Pattern.compile("\\d+\\.\\d+");
+    private static final Pattern pattern = Pattern.compile("\\d+\\.\\dd+");
     private static final Pattern citiesPattern = Pattern.compile("\\(([^\\D+]+)\\)");
     private static final String PHONE_PATTERN = "(\\d{3})(\\d{3})(\\d{2})(\\d+)";
     private static final String EXTRA_ZERO_PATTERN = "0(\\d:)";
@@ -40,7 +40,7 @@ public final class StringUtil {
             return Double.parseDouble(matcher.group());
         }
 
-        return 0.0d;
+        return 0.00d;
     }
 
     public static Long stringToLong(final String stringToParse) {
