@@ -5,24 +5,29 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.apache.commons.lang3.RandomUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.shopper.RoleSHP;
 import ru.instamart.jdbc.dao.shifts.PlanningAreasDao;
+import ru.instamart.jdbc.dao.shifts.PlanningPeriodsDao;
 import ru.instamart.jdbc.dao.shifts.ShopsDao;
+import ru.instamart.jdbc.dto.shifts.PlanningPeriodFilters;
 import ru.instamart.kafka.enums.Pods;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 import shifts.ImportPlanningPeriods;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 import static ru.instamart.kafka.configs.KafkaConfigs.configPlanningPeriods;
 import static ru.instamart.kafka.configs.KafkaConfigs.configStoreChanged;
+import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
 @Epic("Shifts")
@@ -32,6 +37,7 @@ public class ShiftsStoreChangedTest extends RestBase {
     private Integer baseStoreId;
     private Integer deliveryAreaId;
     private String storeUUID = UUID.randomUUID().toString();
+    private String date = getDateFromMSK();
 
     @BeforeClass(alwaysRun = true,
             description = "Отправка информации о создании магазина через кафку")
@@ -115,35 +121,212 @@ public class ShiftsStoreChangedTest extends RestBase {
 
     @CaseId(81)
     @Story("Импорт плановых периодов")
-    @Test(enabled = false, groups = {"api-shifts"},
+    @Test(groups = {"api-shifts"},
             dependsOnMethods = "createStore",
             description = "Добавление плановых периодов используя идентификатор зоны доставки")
     public void importPlanningPeriod200() {
         var periodsImport = ImportPlanningPeriods.PlaningPeriodsImport.newBuilder()
-                .setId("77")
-                .setSentAt("2022-05-12T12:00:00+03:00")
-                .setPlanningPeriods(1,
+                .setId(String.valueOf(RandomUtils.nextLong(1000000L, 9999999L)))
+                .setSentAt(date + "T12:00:00+03:00")
+                .setPlanningPeriods(0,
                         ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
                                 .setPlanningAreaId(deliveryAreaId)
                                 .setRole(RoleSHP.UNIVERSAL.getRole())
-                                .setStartedAt("2022-05-12T11:00:00+00:00")
-                                .setEndedAt("2022-05-12T12:00:00+00:00")
+                                .setStartedAt(date + "T11:00:00+00:00")
+                                .setEndedAt(date + "T12:00:00+00:00")
                                 .setPeoplesCount(7)
                                 .setBaseGuaranteedPayroll(200)
                                 .setBasePredictedPayroll(200)
                                 .setIsActive(true)
                                 .build()
                 )
-                .setPlanningPeriods(2,
+                .setPlanningPeriods(1,
                         ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
                                 .setPlanningAreaId(deliveryAreaId)
                                 .setRole(RoleSHP.UNIVERSAL.getRole())
-                                .setStartedAt("2022-05-12T12:00:00+00:00")
-                                .setEndedAt("2022-05-12T13:00:00+00:00")
+                                .setStartedAt(date + "T12:00:00+00:00")
+                                .setEndedAt(date + "T13:00:00+00:00")
                                 .setPeoplesCount(7)
                                 .setBaseGuaranteedPayroll(200)
                                 .setBasePredictedPayroll(200)
                                 .setIsActive(true)
+                                .build()
+                )
+                .build();
+
+        kafka.publish(configPlanningPeriods(), periodsImport.toByteArray());
+        var pod = Pods.stream()
+                .filter(item -> item.getNameSpace() == EnvironmentProperties.SERVICE)
+                .findFirst().get();
+        List<String> logsPods = kubeLog.getLogsPods(pod.getNameSpace(), pod.getLabel(), "\"planning_area_id\": " + deliveryAreaId);
+        Allure.step("Asserts", () ->
+                assertTrue(logsPods.size() > 0, "Вернулись пустые логи")
+        );
+    }
+
+    @CaseId(81)
+    @Story("Импорт плановых периодов")
+    @Test(groups = {"api-shifts"},
+            dependsOnMethods = "importPlanningPeriod200",
+            description = "Обновление существующих плановых периодов")
+    public void updatePlanningPeriod200() {
+        var filters = PlanningPeriodFilters.builder()
+                .planningAreaId(deliveryAreaId)
+                .role(RoleSHP.UNIVERSAL.getRole())
+                .build();
+        var planningPeriodsBefore = PlanningPeriodsDao.INSTANCE.getPlanningPeriods(filters);
+
+        var periodsImportStep2 = ImportPlanningPeriods.PlaningPeriodsImport.newBuilder()
+                .setId(String.valueOf(RandomUtils.nextLong(1000000L, 9999999L)))
+                .setSentAt(date + "T12:00:00+03:00")
+                .addPlanningPeriods(0,
+                        ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
+                                .setPlanningAreaId(deliveryAreaId)
+                                .setRole(RoleSHP.UNIVERSAL.getRole())
+                                .setStartedAt(date + "T11:00:00+00:00")
+                                .setEndedAt(date + "T12:00:00+00:00")
+                                .setPeoplesCount(10)
+                                .setBaseGuaranteedPayroll(201)
+                                .setBasePredictedPayroll(201)
+                                .setIsActive(true)
+                                .build()
+                )
+                .addPlanningPeriods(1,
+                        ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
+                                .setPlanningAreaId(deliveryAreaId)
+                                .setRole(RoleSHP.UNIVERSAL.getRole())
+                                .setStartedAt(date + "T12:00:00+00:00")
+                                .setEndedAt(date + "T13:00:00+00:00")
+                                .setPeoplesCount(10)
+                                .setBaseGuaranteedPayroll(201)
+                                .setBasePredictedPayroll(201)
+                                .setIsActive(true)
+                                .build()
+                )
+                .build();
+
+        kafka.publish(configPlanningPeriods(), periodsImportStep2.toByteArray());
+        var planningPeriodsAfter = PlanningPeriodsDao.INSTANCE.getPlanningPeriods(filters);
+        assertNotEquals(planningPeriodsBefore, planningPeriodsAfter, "Данные совпадают");
+    }
+
+    @CaseId(136)
+    @Story("Импорт плановых периодов")
+    @Test(groups = {"api-shifts"},
+            description = "Добавление плановых периодов для всех существующих ролей")
+    public void addPlanningPeriodForAllRole() {
+        var randomId = String.valueOf(RandomUtils.nextLong(1000000L, 9999999L));
+        var periodsImport = ImportPlanningPeriods.PlaningPeriodsImport.newBuilder()
+                .setId(randomId)
+                .setSentAt(date + "T12:00:00+03:00")
+                .addPlanningPeriods(0,
+                        ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
+                                .setPlanningAreaId(deliveryAreaId)
+                                .setRole(RoleSHP.SHOPPER.getRole())
+                                .setStartedAt(date + "T13:00:00+00:00")
+                                .setEndedAt(date + "T14:00:00+00:00")
+                                .setPeoplesCount(7)
+                                .setBaseGuaranteedPayroll(200)
+                                .setBasePredictedPayroll(200)
+                                .setIsActive(true)
+                                .build()
+                )
+                .addPlanningPeriods(1,
+                        ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
+                                .setPlanningAreaId(deliveryAreaId)
+                                .setRole(RoleSHP.DRIVER.getRole())
+                                .setStartedAt(date + "T14:00:00+00:00")
+                                .setEndedAt(date + "T15:00:00+00:00")
+                                .setPeoplesCount(7)
+                                .setBaseGuaranteedPayroll(200)
+                                .setBasePredictedPayroll(200)
+                                .setIsActive(true)
+                                .build()
+                )
+                .addPlanningPeriods(2,
+                        ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
+                                .setPlanningAreaId(deliveryAreaId)
+                                .setRole(RoleSHP.UNIVERSAL.getRole())
+                                .setStartedAt(date + "T15:00:00+00:00")
+                                .setEndedAt(date + "T16:00:00+00:00")
+                                .setPeoplesCount(7)
+                                .setBaseGuaranteedPayroll(200)
+                                .setBasePredictedPayroll(200)
+                                .setIsActive(true)
+                                .build()
+                )
+                .addPlanningPeriods(3,
+                        ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
+                                .setPlanningAreaId(deliveryAreaId)
+                                .setRole(RoleSHP.AUTO_UNIVERSAL.getRole())
+                                .setStartedAt(date + "T16:00:00+00:00")
+                                .setEndedAt(date + "T17:00:00+00:00")
+                                .setPeoplesCount(7)
+                                .setBaseGuaranteedPayroll(200)
+                                .setBasePredictedPayroll(200)
+                                .setIsActive(true)
+                                .build()
+                )
+                .addPlanningPeriods(4,
+                        ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
+                                .setPlanningAreaId(deliveryAreaId)
+                                .setRole(RoleSHP.PACKER.getRole())
+                                .setStartedAt(date + "T17:00:00+00:00")
+                                .setEndedAt(date + "T18:00:00+00:00")
+                                .setPeoplesCount(7)
+                                .setBaseGuaranteedPayroll(200)
+                                .setBasePredictedPayroll(200)
+                                .setIsActive(true)
+                                .build()
+                )
+                .addPlanningPeriods(5,
+                        ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
+                                .setPlanningAreaId(deliveryAreaId)
+                                .setRole(RoleSHP.EXTERNAL_INSPECTOR.getRole())
+                                .setStartedAt(date + "T18:00:00+00:00")
+                                .setEndedAt(date + "T19:00:00+00:00")
+                                .setPeoplesCount(7)
+                                .setBaseGuaranteedPayroll(200)
+                                .setBasePredictedPayroll(200)
+                                .setIsActive(true)
+                                .build()
+                )
+                .build();
+
+        kafka.publish(configPlanningPeriods(), periodsImport.toByteArray());
+        var filters = PlanningPeriodFilters.builder()
+                .importId(randomId)
+                .build();
+        var planningPeriods = PlanningPeriodsDao.INSTANCE.getPlanningPeriods(filters);
+        Allure.step("Asserts", () ->
+                assertEquals(planningPeriods.size(), 1, "Данные shops пустые или вернулось более одного магазина")
+        );
+    }
+
+    @CaseId(204)
+    @Story("Импорт плановых периодов")
+    @Test(groups = {"api-shifts"},
+            dependsOnMethods = "createStore",
+            description = "Импорт ПП для роли universal/auto_universal (новый формат)")
+    public void importPlanningPeriodForUniversalAutoUniversal() {
+        Map<String, Float> payroll = new HashMap<>();
+        payroll.put("universal", 100F);
+        payroll.put("auto_universal", 200F);
+        var periodsImport = ImportPlanningPeriods.PlaningPeriodsImport.newBuilder()
+                .setId(String.valueOf(RandomUtils.nextLong(1000000L, 9999999L)))
+                .setSentAt(date + "T12:00:00+03:00")
+                .addPlanningPeriods(0,
+                        ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
+                                .setPlanningAreaId(deliveryAreaId)
+                                .setStoreId(16)
+                                .setRole(RoleSHP.UNIVERSAL.getRole())
+                                .setStartedAt(date + "T07:00:00+00:00")
+                                .setEndedAt(date + "T08:00:00+00:00")
+                                .setPeoplesCount(1)
+                                .putAllGuaranteedPayroll(payroll)
+                                .putAllPredictedPayroll(payroll)
+                                .setIsActive(true)
+                                .setSurged(true)
                                 .build()
                 )
                 .build();

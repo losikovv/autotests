@@ -1,9 +1,13 @@
-package ru.instamart.jdbc.entity.shifts;
+package ru.instamart.jdbc.dto.shifts;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
-@Data
-public class PlanningPeriodEntity {
+@Getter
+@AllArgsConstructor
+@Builder
+public class PlanningPeriodFilters {
     private Integer id;
     private String createdAt;
     private String updatedAt;
