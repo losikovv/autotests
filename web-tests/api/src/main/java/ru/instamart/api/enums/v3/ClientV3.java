@@ -12,7 +12,8 @@ public enum ClientV3 {
     AUCHAN("auchan"),
     SBER_DEVICES("sber_devices"),
     GOODS("goods"),
-    ALIEXPRESS("aliexpress");
+    ALIEXPRESS("aliexpress"),
+    SBERMARKET_WEB("SbermarketPlatformWeb");
 
     private final String name;
 }

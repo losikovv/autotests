@@ -140,4 +140,25 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
         }
         return offersEntity;
     }
+
+    public OffersEntity getOfferWithSpecificPrice(int storeId, double price) {
+        OffersEntity offersEntity = new OffersEntity();
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "o.*") +
+                     " o JOIN prices p ON o.id = p.offer_id JOIN spree_products sp ON sp.id = o.product_id " +
+                     "WHERE o.store_id = ? AND p.price < ? AND o.deleted_at is NULL AND sp.deleted_at is NULL AND o.published = 1 ORDER BY o.id DESC LIMIT 1")) {
+            preparedStatement.setInt(1, storeId);
+            preparedStatement.setDouble(2, price);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            offersEntity.setProductSku(resultSet.getString("product_sku"));
+            offersEntity.setRetailerSku(resultSet.getString("retailer_sku"));
+            offersEntity.setId(resultSet.getLong("id"));
+            offersEntity.setProductId(resultSet.getLong("product_id"));
+            offersEntity.setUuid(resultSet.getString("uuid"));
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return offersEntity;
+    }
 }

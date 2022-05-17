@@ -129,7 +129,12 @@ public class ApiV1Helper {
 
     @Step("Меняем адрес пользователя")
     public void changeAddress(AddressV2 address, String shippingMethod) {
-        final Response response = ShoppingContextV1Request.PUT(address, shippingMethod);
+        changeAddress(address, shippingMethod, null);
+    }
+
+    @Step("Меняем адрес пользователя")
+    public void changeAddress(AddressV2 address, String shippingMethod, Integer storeId) {
+        final Response response = ShoppingContextV1Request.PUT(address, shippingMethod, storeId);
         checkStatusCode200(response);
     }
 
@@ -151,7 +156,12 @@ public class ApiV1Helper {
 
     @Step("Наполняем корзину")
     public void fillCart(AddressV2 address, String shippingMethod, Long offerId) {
-        changeAddress(address, shippingMethod);
+        fillCart(address, shippingMethod, offerId, null);
+    }
+
+    @Step("Наполняем корзину")
+    public void fillCart(AddressV2 address, String shippingMethod, Long offerId, Integer storeId) {
+        changeAddress(address, shippingMethod, storeId);
         addItemToCart(offerId);
         MultiretailerOrderShipmentV1 shipment = getMultiRetailerOrder().getShipments().get(0);
         double minOrderAmount = shipment.getStore().getMinOrderAmount();
@@ -264,5 +274,11 @@ public class ApiV1Helper {
             count++;
         }
         return cancelledLineItemFromDb;
+    }
+
+    @Step("Удаляем заказ")
+    public void deleteShipment(String shipmentNumber, String orderToken) {
+        final Response response = ShipmentsV1Request.DELETE(shipmentNumber, orderToken);
+        checkStatusCode200(response);
     }
 }

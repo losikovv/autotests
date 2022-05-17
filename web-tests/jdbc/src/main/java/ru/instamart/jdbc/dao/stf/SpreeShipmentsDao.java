@@ -15,6 +15,8 @@ public class SpreeShipmentsDao extends AbstractDao<Long, SpreeShipmentsEntity> {
 
     public static final SpreeShipmentsDao INSTANCE = new SpreeShipmentsDao();
     private final String SELECT_SQL = "SELECT %s FROM spree_shipments";
+    private final String DELETE_SQL = "DELETE FROM spree_shipments";
+    private final String UPDATE_SQL = "UPDATE spree_shipments";
 
     public SpreeShipmentsEntity getShipmentByNumber(String shipmentNumber) {
         SpreeShipmentsEntity shipment = new SpreeShipmentsEntity();
@@ -43,5 +45,27 @@ public class SpreeShipmentsDao extends AbstractDao<Long, SpreeShipmentsEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return shipment;
+    }
+
+    public void updateShipmentState(String shipmentNumber, String state) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " SET state = ?  WHERE number = ?")) {
+            preparedStatement.setString(1, state);
+            preparedStatement.setString(2, shipmentNumber);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+    }
+
+    public void updateShipmentOrderByNumber(long orderId, String shipmentNumber) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " SET order_id = ? WHERE number = ?")) {
+            preparedStatement.setLong(1, orderId);
+            preparedStatement.setString(2, shipmentNumber);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
     }
 }
