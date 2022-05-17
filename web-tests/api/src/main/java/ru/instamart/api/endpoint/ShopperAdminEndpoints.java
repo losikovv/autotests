@@ -22,6 +22,7 @@ public final class ShopperAdminEndpoints {
     public static final class OperationalZones{
         public static final String DISPATCH_SETTINGS = "/v1/operational_zones/{zoneId}/dispatch_settings";
         public static final String CANDIDATES_SETTING ="/v1/operational_zones/{zoneId}/candidates_settings";
+        public static final String WORKFLOW_SETTINGS = "/v1/operational_zones/{zoneId}/workflow_settings";
     }
 
     public static final class Routes {
