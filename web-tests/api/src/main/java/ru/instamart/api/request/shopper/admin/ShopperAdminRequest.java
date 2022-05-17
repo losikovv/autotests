@@ -173,11 +173,20 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
             }
         }
 
+
         public static class CandidatesSettings {
             @Step("{method} /" + ShopperAdminEndpoints.OperationalZones.CANDIDATES_SETTING)
             public static Response GET(Integer zoneId) {
                 return givenWithAuth()
                         .get(ShopperAdminEndpoints.OperationalZones.CANDIDATES_SETTING, zoneId);
+            }
+        }
+
+        public static class WorkflowSettings {
+            @Step("{method} /" + ShopperAdminEndpoints.OperationalZones.WORKFLOW_SETTINGS)
+            public static Response GET(Integer zoneId) {
+                return givenWithAuth()
+                        .get(ShopperAdminEndpoints.OperationalZones.WORKFLOW_SETTINGS, zoneId);
             }
         }
     }
