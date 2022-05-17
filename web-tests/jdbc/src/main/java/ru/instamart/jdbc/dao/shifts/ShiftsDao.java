@@ -23,7 +23,7 @@ public class ShiftsDao extends AbstractDao<Long, ShiftsEntity> {
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+            fail("Error init ConnectionPgSQLShiftsManager. Error: " + e.getMessage());
         }
         return false;
     }

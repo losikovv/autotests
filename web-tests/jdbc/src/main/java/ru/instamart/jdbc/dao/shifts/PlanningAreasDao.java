@@ -45,7 +45,7 @@ public class PlanningAreasDao extends AbstractDao<Long, PlanningPeriodsEntity> {
                 planningAreasResult.add(planningAreasEntity);
             }
         } catch (SQLException e) {
-            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+            fail("Error init ConnectionPgSQLShiftsManager. Error: " + e.getMessage());
         }
         return planningAreasResult;
     }

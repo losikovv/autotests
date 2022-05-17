@@ -16,6 +16,7 @@
             <class name="ru.instamart.test.api.dispatch.shifts.DeleteShiftsTest"/>
             <class name="ru.instamart.test.api.dispatch.shifts.ShiftsCancelTest"/>
             <class name="ru.instamart.test.api.dispatch.shifts.ShiftsPlanningAreaTest"/>
+            <class name="ru.instamart.test.api.dispatch.shifts.ShiftsPlanningPeriodsTest"/>
             <class name="ru.instamart.test.api.dispatch.shifts.ShiftsPlanTest"/>
             <class name="ru.instamart.test.api.dispatch.shifts.StartShiftsNegativeTest"/>
             <class name="ru.instamart.test.api.dispatch.shifts.ShiftsStoreChangedTest"/>

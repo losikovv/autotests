@@ -1,35 +1,43 @@
 package ru.instamart.test.api.dispatch.shifts;
 
-import candidates.StoreChangedOuterClass;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.dataprovider.DispatchDataProvider;
+import ru.instamart.api.enums.shopper.RoleSHP;
+import ru.instamart.api.request.shifts.PlanningAreasRequest;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.kafka.configs.KafkaConfigs.configStoreChanged;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("Shifts")
 @Feature("Endpoints")
 public class ShiftsPlanningPeriodsTest extends RestBase {
 
-
     @BeforeClass(alwaysRun = true,
-            description = "Отправка информации о создании магазина через кафку")
-    public void preconditions() {
-        var storeChanged = StoreChangedOuterClass.StoreChanged.newBuilder()
-
-                .build();
-        kafka.publish(configStoreChanged(), storeChanged.toByteArray());
+            description = "Авторизация")
+    public void auth() {
+        UserData user = UserManager.getShp6Shopper1();
+        shopperApp.authorisation(user);
     }
 
-    @CaseId(81)
-    @Story("Импорт плановых периодов")
-    @Test(groups = {"api-shifts"},
-            description = "Добавление плановых периодов используя идентификатор зоны доставки")
-    public void importPlanningPeriod200() {
 
+    @CaseId(154)
+    @Story("Вывод списка плановых периодов")
+    @Test(groups = {"api-shifts"},
+            dataProvider = "planningPeriodFilters",
+            dataProviderClass = DispatchDataProvider.class,
+            description = "Фильтрация плановых периодов по временному диапазону")
+    public void importPlanningPeriod200(final String startedAt, final String endedAt) {
+        final Response response = PlanningAreasRequest.GET(
+                EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID, RoleSHP.UNIVERSAL, startedAt, endedAt);
+        checkStatusCode200(response);
     }
 }
