@@ -129,7 +129,7 @@ public final class EnvironmentProperties {
                 BASIC_URL = customBasicUrl;
                 STAGE = BASIC_URL.replace("stf-", "").replace(".k-stage.sbermarket.tech", "");
 
-                if (BASIC_URL.contains("dex-")) {
+                if (!BASIC_URL.contains("stf-")) {
                     DB_URL = DB_URL.replace("_kraken", "");
                     DB_PGSQL_URL = DB_PGSQL_URL.replace("_kraken", "");
                 } else {
