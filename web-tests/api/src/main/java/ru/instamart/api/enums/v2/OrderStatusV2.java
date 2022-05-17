@@ -8,6 +8,7 @@ import lombok.ToString;
 @ToString
 public enum OrderStatusV2 {
 
+    CART("cart"),
     ACTIVE("active"),
     READY("ready"),
     COLLECTING("collecting"),

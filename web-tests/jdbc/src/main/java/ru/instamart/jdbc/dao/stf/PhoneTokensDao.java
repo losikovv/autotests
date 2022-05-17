@@ -43,4 +43,14 @@ public class PhoneTokensDao extends AbstractDao<Long, PhoneTokensEntity> {
         }
         return phoneTokensEntity;
     }
+
+    public void deletePhoneTokenByUserId(String userId) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE user_id = ?")) {
+            preparedStatement.setString(1, userId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            log.error("Error init ConnectionMySQLManager. Error: {}", e.getMessage());
+        }
+    }
 }

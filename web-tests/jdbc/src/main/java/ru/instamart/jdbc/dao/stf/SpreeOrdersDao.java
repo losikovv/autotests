@@ -133,4 +133,31 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
     }
+
+    public SpreeOrdersEntity getOrder(long userId) {
+        SpreeOrdersEntity order = new SpreeOrdersEntity();
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+                     " WHERE user_id != ? ORDER BY id DESC LIMIT 1")) {
+            preparedStatement.setLong(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                order.setId(resultSet.getLong("id"));
+                order.setNumber(resultSet.getString("number"));
+                order.setState(resultSet.getString("state"));
+                order.setUserId(resultSet.getLong("user_id"));
+                order.setShipAddressId(resultSet.getLong("ship_address_id"));
+                order.setShipmentState(resultSet.getString("shipment_state"));
+                order.setPaymentState(resultSet.getString("payment_state"));
+                order.setEmail(resultSet.getString("email"));
+                order.setEmail(resultSet.getString("email"));
+                order.setReplacementPolicyId(resultSet.getInt("replacement_policy_id"));
+                order.setShippingMethodKind(resultSet.getString("shipping_method_kind"));
+                order.setPaymentToolId(resultSet.getLong("payment_tool_id"));
+            } else return null;
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return order;
+    }
 }

@@ -26,7 +26,8 @@
             <class name="ru.instamart.test.api.v3.endpoints.NotificationsPositiveV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.NotificationsPositionsV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.AppConfigurationsV3Test"/>
-            <class name="ru.instamart.test.api.v3.endpoints.CheckoutV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.CheckoutByCourierV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.CheckoutPickupV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.CurrentTimeV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.DepartmentsV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.FavoritesListV3Test"/>

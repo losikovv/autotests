@@ -1,4 +1,3 @@
-
 package ru.instamart.api.model.v3;
 
 import lombok.Data;
@@ -7,8 +6,7 @@ import ru.instamart.api.model.BaseObject;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class ErrorV3 extends BaseObject {
-    private String field;
-    private String message;
-    private String type;
+public class ErrorsV3 extends BaseObject {
+
+    private String errors;
 }
