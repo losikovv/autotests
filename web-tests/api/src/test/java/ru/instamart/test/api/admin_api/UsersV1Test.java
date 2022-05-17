@@ -74,35 +74,10 @@ public class UsersV1Test extends RestBase {
         checkUsers(user, userFromResponse);
     }
 
-    @Test(description = "Создание пользователя",
-            groups = {"api-instamart-regress"},
-            dependsOnMethods = "createUser")
-    public void editUser() {
-        UsersV1Request.UserRequest user = UsersV1Request.UserRequest.builder()
-                .user(UsersV1Request.User.builder()
-                        .b2b(false)
-                        .email(Generate.emailAdmin())
-                        .password("sbermarket")
-                        .roleIds(List.of(1L, 47L, 55L))
-                        .passwordConfirmation("sbermarket")
-                        .customerComment(Generate.literalString(5))
-                        .preferredCardPaymentMethod("card_courier2")
-                        .promoTermsAccepted(true)
-                        .configAttributes(UsersV1Request.ConfigAttributes.builder()
-                                .sendEmails(false)
-                                .build())
-                        .build())
-                .build();
-        final Response response = UsersV1Request.PUT(user, userId);
-        checkStatusCode(response, 200);
-        checkResponseJsonSchema(response, UserV1Response.class);
-        AdminUserV1 userFromResponse = response.as(UserV1Response.class).getUser();
-        checkUsers(user, userFromResponse);
-    }
 
     @Test(description = "Удаление пользователя",
             groups = {"api-instamart-regress"},
-            dependsOnMethods = {"createUser", "editUser"})
+            dependsOnMethods = "createUser")
     public void deleteUser() {
         final Response response = UsersV1Request.DELETE(userId);
         checkStatusCode(response, 204);
