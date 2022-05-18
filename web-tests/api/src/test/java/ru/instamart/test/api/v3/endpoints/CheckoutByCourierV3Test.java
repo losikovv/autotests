@@ -2,10 +2,10 @@ package ru.instamart.test.api.v3.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
@@ -28,12 +28,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static ru.instamart.api.checkpoint.ApiV3Checkpoints.checkError;
-import static ru.instamart.api.checkpoint.ApiV3Checkpoints.checkOrder;
+import static ru.instamart.api.checkpoint.ApiV3Checkpoints.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
-import static ru.instamart.api.helper.ApiV3Helper.*;
+import static ru.instamart.api.helper.ApiV3Helper.checkFlipper;
 
 @Epic("ApiV3")
 @Feature("Чекаут")
@@ -63,6 +62,7 @@ public class CheckoutByCourierV3Test extends RestBase {
 
 
     @CaseIDs(value = {@CaseId(2023), @CaseId(2025), @CaseId(2027), @CaseId(2029)})
+    @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с заказом созданным данным пользователем, доставка курьером",
             groups = "api-instamart-regress")
     public void initializeCheckoutWithCourier() {
@@ -71,6 +71,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     }
 
     @CaseId(2006)
+    @Story("Получение данных заказа")
     @Test(description = "Получение данных для несуществующего заказа",
             groups = "api-instamart-regress")
     public void getNonExistentOrder() {
@@ -81,16 +82,18 @@ public class CheckoutByCourierV3Test extends RestBase {
     }
 
     @CaseId(2005)
+    @Story("Получение данных заказа")
     @Test(description = "Получение данных о заказе другого пользователя",
             groups = "api-instamart-regress")
     public void getAnotherUserOrder() {
-        final Response response = CheckoutV3Request.GET(SpreeOrdersDao.INSTANCE.getOrder(Long.parseLong(user.getId())).getNumber());
+        final Response response = CheckoutV3Request.GET(SpreeOrdersDao.INSTANCE.getOrderOfAnotherUser(Long.parseLong(user.getId())).getNumber());
         checkStatusCode403(response);
         List<ErrorV3> errors = response.as(ErrorsV3Response.class).getErrors();
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
     @CaseIDs(value = {@CaseId(2007), @CaseId(2008), @CaseId(2009), @CaseId(2010), @CaseId(2011), @CaseId(2013), @CaseId(2015)})
+    @Story("Валидация")
     @Test(description = "Запрос на валидацию с заказом, доступным для пользователя, курьерская доставка",
             groups = "api-instamart-regress",
             priority = 1)
@@ -103,6 +106,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     @Test(description = "Получение полных данных при вводе реального номера заказа",
             groups = "api-instamart-regress",
             priority = 1)
+    @Story("Получение данных заказа")
     public void getOrder() {
         final Response response = CheckoutV3Request.GET(order.getNumber());
         checkStatusCode200(response);
@@ -111,6 +115,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     }
 
     @CaseId(2033)
+    @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с указанием существующего и несуществующего шипментов",
             groups = "api-instamart-regress",
             priority = 2)
@@ -121,21 +126,18 @@ public class CheckoutByCourierV3Test extends RestBase {
     }
 
     @CaseId(2031)
+    @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с пустым полем shipment_numbers",
             groups = "api-instamart-regress",
             priority = 2)
     public void initializeCheckoutWithoutBody() {
         final Response response = CheckoutV3Request.POST(order.getNumber(), new ArrayList<>());
         checkStatusCode(response, 400);
-        List<ErrorV3> errors = response.as(ErrorsV3Response.class).getErrors();
-        final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(errors.get(0).getType(), "parameter_missing", softAssert);
-        compareTwoObjects(errors.get(0).getField(), "shipment_numbers", softAssert);
-        compareTwoObjects(errors.get(0).getMessage(), "Отсутствует обязательный параметр", softAssert);
-        softAssert.assertAll();
+        checkErrors(response, "parameter_missing", "shipment_numbers", "Отсутствует обязательный параметр");
     }
 
     @CaseId(2032)
+    @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с указанием несуществующего шипмента",
             groups = "api-instamart-regress",
             priority = 2)
@@ -146,6 +148,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     }
 
     @CaseId(2030)
+    @Story("Инициализация")
     @Test(description = "Запрос на инициализацию со стоимостью заказа ниже минимально допустимой",
             groups = "api-instamart-regress",
             priority = 3)
@@ -160,6 +163,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     }
 
     @CaseId(2017)
+    @Story("Валидация")
     @Test(description = "Запрос на валидацию со стоимостью заказа ниже минимально допустимой",
             groups = "api-instamart-regress",
             priority = 4)
@@ -174,6 +178,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     }
 
     @CaseId(2018)
+    @Story("Валидация")
     @Test(description = "Запрос на валидацию, когда не выбран магазин для оформления",
             groups = "api-instamart-regress",
             priority = 5)
@@ -196,6 +201,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     }
 
     @CaseId(2016)
+    @Story("Валидация")
     @Test(description = "Запрос на валидацию с заказом без статуса в \"В корзине\"",
             groups = "api-instamart-regress",
             priority = 6)
@@ -210,6 +216,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     }
 
     @CaseId(2057)
+    @Story("Валидация")
     @Test(description = "Запрос на валидацию когда в ордере нет шипментов",
             groups = "api-instamart-regress",
             priority = 7)
@@ -223,6 +230,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     }
 
     @CaseId(2019)
+    @Story("Валидация")
     @Test(description = "Запрос на валидацию когда shipment не в валидном статусе",
             groups = "api-instamart-regress",
             priority = 8)
@@ -236,6 +244,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     }
 
     @CaseId(2021)
+    @Story("Валидация")
     @Test(description = "Запрос на валидацию, когда shipments относятся к разным магазинам",
             groups = "api-instamart-regress",
             priority = 9)
@@ -249,6 +258,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     }
 
     @CaseId(2022)
+    @Story("Валидация")
     @Test(description = "Запрос на валидацию на старом чек-ауте",
             groups = "api-instamart-regress",
             priority = 10)
@@ -263,6 +273,7 @@ public class CheckoutByCourierV3Test extends RestBase {
     }
 
     @CaseId(2020)
+    @Story("Валидация")
     @Test(description = "Запрос на валидацию без подтвержденного номера телефона",
             groups = "api-instamart-regress",
             priority = 11)
