@@ -73,10 +73,9 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @Issue("ARC-2090")
     @CaseId(520)
     @Story("Получить список избранных товаров")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false,
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получаем пустой список любимых товаров у дефолтного магазина")
     public void emptyFavoritesForDefaultSid() {
         final Response response = FavoritesV2Request.GET(EnvironmentProperties.DEFAULT_SID);
