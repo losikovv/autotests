@@ -152,70 +152,69 @@ public final class ShoppingSearchTests extends BaseTest {
     @CaseId(2589)
     @Test(description = "Работоспособность сортировки товаров", groups = {"regression"})
     public void successApplySort() {
-        shop().goToPage(ShopUrl.OKEY, true);
+        shop().goToPage( true);
         shop().addCookie(CookieFactory.COOKIE_ALERT);
-        shop().interactHeader().fillSearch("кофе");
+        shop().interactHeader().fillSearch("печенье");
         shop().interactHeader().clickSearchButton();
 
+        search().checkSearchImgLoaded();
         search().selectSort("Сначала дешевые");
-        search().checkSortEnabled("Сначала дешевые");
 
+        search().refresh();
+        search().checkSearchImgLoaded();
+        search().checkSortEnabled("Сначала дешевые");
         search().checkPriceAscSortCorrect();
     }
 
     @CaseId(2590)
     @Test(description = "Фильтрация товаров", groups = {"regression"})
     public void successApplyFilters() {
+        shop().goToPage(true);
         shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
-        search().waitPageLoad();
         search().checkSearchImgLoaded();
 
+        search().checkProductsQuantityVisible();
         final int startProductsQuantity = search().returnSearchProductsQuantity();
 
         search().clickToDiscountFilter();
-        search().waitPageLoad();
         search().checkSearchImgLoaded();
 
         search().refresh();
-        search().waitPageLoad();
         search().checkSearchImgLoaded();
 
+        search().checkProductsQuantityVisible();
         final int discountFilterProductsQuantity = search().returnSearchProductsQuantity();
 
         search().checkQuantitiesNotEquals(startProductsQuantity, discountFilterProductsQuantity);
 
         shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
-        search().waitPageLoad();
         search().checkSearchImgLoaded();
 
         search().clickOnFilter("Ультрапастеризованное");
         search().checkFilterActivePinVisible();
         search().refresh();
 
-        search().waitPageLoad();
         search().checkSearchImgLoaded();
 
+        search().checkProductsQuantityVisible();
         final int someFilterProductsQuantity = search().returnSearchProductsQuantity();
+
         search().checkQuantitiesNotEquals(discountFilterProductsQuantity, someFilterProductsQuantity);
 
         search().assertAll();
     }
 
-    //TODO: Переписать и поставить баги ATST-873
-
     @CaseId(2591)
     @Test(description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности", groups = {"regression"})
     public void successApplyFiltersAndSortCheapAsc() {
+        shop().goToPage(true);
         shop().openSitePage("okey/search?keywords=кофе&sid=128");
 
         search().checkSearchImgLoaded();
 
         search().selectSort("Сначала дешевые");
 
-        search().checkProductsStubVisible();
-        search().checkProductsStubNotVisible();
-
-        search().waitPageLoad();
+        search().refresh();
         search().checkSearchImgLoaded();
 
         search().scrollDown();
@@ -225,6 +224,7 @@ public final class ShoppingSearchTests extends BaseTest {
         shop().openSitePage("okey/search?keywords=кофе&sid=128");
 
         search().checkSortEnabled("По популярности");
+        search().refresh();
         search().checkSearchImgLoaded();
         search().scrollDown();
         search().checkPageScrolled();
@@ -233,15 +233,14 @@ public final class ShoppingSearchTests extends BaseTest {
     @CaseId(2591)
     @Test(description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд", groups = {"regression"})
     public void successApplyFiltersAndSortExpensiveDesc() {
+        shop().goToPage(true);
         shop().openSitePage("okey/search?keywords=чай&sid=128");
 
         search().checkSearchImgLoaded();
 
         search().selectSort("Сначала дорогие");
 
-        search().checkProductsStubVisible();
-        search().checkProductsStubNotVisible();
-
+        search().refresh();
         search().checkSearchImgLoaded();
 
         search().scrollDown();
@@ -254,25 +253,22 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkPriceDescSortCorrect();
 
         shop().openSitePage("okey/search?keywords=чай&sid=128");
-
         search().checkSearchImgLoaded();
 
         search().checkSortEnabled("По популярности");
         search().clickOnFilter("Greenfield");
 
-        search().checkProductsStubVisible();
-        search().checkProductsStubNotVisible();
+        search().checkSearchImgLoaded();
     }
 
     @CaseId(2592)
     @Test(description = "При применении фильтра для выданных товаров блокируются другие фильтры (неприменимые к ним)", groups = {"regression"})
     public void successApplyOtherFilters() {
+        shop().goToPage(true);
         shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
-        search().waitPageLoad();
         search().checkSearchImgLoaded();
 
         search().clickToDiscountFilter();
-        search().waitPageLoad();
         search().checkSearchImgLoaded();
 
         search().checkFilterDisabled("Стерилизованное");
@@ -281,7 +277,7 @@ public final class ShoppingSearchTests extends BaseTest {
     @CaseId(2737)
     @Test(description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна", groups = {"regression"})
     public void alcoholSearchModalClose() {
-        shop().goToPage();
+        shop().goToPage(true);
         shop().interactHeader().fillSearch("вино красное");
         shop().interactHeader().checkSuggesterVisible();
         search().interactHeader().checkAlcoStubInSuggest();
