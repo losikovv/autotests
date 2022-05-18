@@ -7,10 +7,12 @@ import org.testng.Assert;
 import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.model.v3.*;
+import ru.instamart.api.request.v3.CheckoutV3Request;
 import ru.instamart.api.request.v3.OrderOptionsV3Request;
 import ru.instamart.api.request.v3.OrderV3Request;
 import ru.instamart.api.request.v3.StoresV3Request;
 import ru.instamart.api.response.v3.OrderOptionsV3Response;
+import ru.instamart.api.response.v3.PaymentToolsV3Response;
 import ru.instamart.jdbc.dao.stf.ApiClientsDao;
 import ru.instamart.jdbc.dao.stf.FlipperGatesDao;
 import ru.instamart.jdbc.entity.stf.FlipperGatesEntity;
@@ -194,5 +196,12 @@ public final class ApiV3Helper {
         if (flipper == null) {
             FlipperGatesDao.INSTANCE.addFlipper(featureKey, getDbDeliveryDateFrom(0L));
         }
+    }
+
+    @Step("Получаем доступные способы оплаты")
+    public List<PaymentToolV3> getPaymentTools(String orderNumber) {
+        final Response response = CheckoutV3Request.PaymentTools.GET(orderNumber);
+        checkStatusCode200(response);
+        return response.as(PaymentToolsV3Response.class).getPaymentTools();
     }
 }

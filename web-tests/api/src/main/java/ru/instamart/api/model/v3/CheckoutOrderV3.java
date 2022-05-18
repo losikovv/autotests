@@ -38,7 +38,7 @@ public class CheckoutOrderV3 extends BaseObject {
     @Null
     @JsonSchema(required = true)
     @JsonProperty("payment_tool")
-    private Object paymentTool;
+    private PaymentToolV3 paymentTool;
 
     @JsonSchema(required = true)
     private List<Object> payments;
@@ -54,7 +54,7 @@ public class CheckoutOrderV3 extends BaseObject {
     @Null
     @JsonSchema(required = true)
     @JsonProperty("replacement_policy")
-    private Object replacementPolicy;
+    private ReplacementPolicyV3 replacementPolicy;
 
     @JsonSchema(required = true)
     private List<ShipmentV3> shipments;
