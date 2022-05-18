@@ -103,9 +103,8 @@ public class FavoritesListV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @Issue("ARC-2090")
     @CaseId(788)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false,
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получаем пустой список любимых товаров без обязательного параметра sid")
     public void testEmptyFavoritesList400() {
         final Response response = FavoritesV2Request.GET();
@@ -113,9 +112,8 @@ public class FavoritesListV2Test extends RestBase {
         checkError(response, "Отсутствует обязательный параметр 'sid'");
     }
 
-    @Issue("ARC-2090")
     @CaseId(788)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false,
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получаем пустой список любимых товаров без обязательного параметра sid")
     public void testEmptyFavoritesListWithSidParams400() {
         final Response response = FavoritesV2Request.GET("");
@@ -144,10 +142,9 @@ public class FavoritesListV2Test extends RestBase {
         checkError(response, "Продукт не существует");
     }
 
-    @Issue("ARC-2090")
     @CaseId(528)
     @Story("Удаление товара из избранного")
-    @Test(groups = {"api-instamart-regress"}, enabled = false,
+    @Test(groups = {"api-instamart-regress"},
             description = "Удаление товара из избранного с несуществующим id")
     public void deleteFavoritesList404() {
         final Response response = FavoritesV2Request.DELETE("invalidNumber_0120102012");

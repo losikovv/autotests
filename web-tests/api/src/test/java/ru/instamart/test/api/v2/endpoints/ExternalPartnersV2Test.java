@@ -29,6 +29,7 @@ public class ExternalPartnersV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
     }
 
+    @Deprecated
     @CaseId(270)
     @Test(enabled = false, //Прайм -10% выпилен с прода DMND-1912
             groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Отправка запроса без store_id")
@@ -38,6 +39,7 @@ public class ExternalPartnersV2Test extends RestBase {
         checkError(response, "Отсутствует обязательный параметр 'store_id'");
     }
 
+    @Deprecated
     @CaseId(269)
     @Test(enabled = false, //Прайм -10% выпилен с прода DMND-1912
             groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Отправка запроса c store_id")

@@ -18,6 +18,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import static org.testng.Assert.fail;
+import static ru.instamart.jdbc.enums.dispatch.Services.ETA;
+import static ru.instamart.jdbc.enums.dispatch.Services.SHIFTS;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE;
 
 @Slf4j
@@ -35,9 +37,7 @@ public class ConnectionPgSQLShiftsManager {
     }
 
     protected static void portForward() {
-        if (Objects.nonNull(EnvironmentProperties.SERVICE)) {
-            K8sPortForward.getInstance().portForwardPgSQLService(EnvironmentProperties.SERVICE, Optional.ofNullable(EnvironmentProperties.SERVICE_PG_PORT).orElse(5432));
-        }
+        K8sPortForward.getInstance().portForwardPgSQLService(SHIFTS.getNamespace(), SHIFTS.getPort());
     }
 
     public static Connection get() {
@@ -74,7 +74,7 @@ public class ConnectionPgSQLShiftsManager {
     protected static Connection open() {
         try {
             return DriverManager.getConnection(
-                    String.format("jdbc:postgresql://localhost:%s/app", Optional.ofNullable(EnvironmentProperties.SERVICE_PG_PORT).orElse(5432)),
+                    String.format("jdbc:postgresql://localhost:%s/app", SHIFTS.getPort()),
                     Crypt.INSTANCE.decrypt("O4On6ImtTAIvvUDOsqOHDw=="),
                     Crypt.INSTANCE.decrypt("DQdUNB8CjrqEUiIrAaZlCg==")
             );

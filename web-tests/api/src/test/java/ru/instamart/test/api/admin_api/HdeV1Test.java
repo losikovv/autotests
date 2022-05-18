@@ -26,9 +26,8 @@ public class HdeV1Test extends RestBase {
         admin.authApi();
     }
 
-    @Issue("CC-423")
     @CaseId(2510)
-    @Test(groups = {"api-instamart-regress"}, enabled = false,
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение тикетов хелпдеска без параметров")
     public void getHdeTickets() {
         final Response response = HdeV1Request.GET();

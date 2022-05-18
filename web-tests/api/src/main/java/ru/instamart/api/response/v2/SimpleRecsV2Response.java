@@ -21,7 +21,6 @@ public class SimpleRecsV2Response extends BaseResponseObject {
 
     private ExtV2 extV2;
 
-    @NotEmpty
     @JsonSchema(required = true)
     private List<MediaV2> media;
 }
