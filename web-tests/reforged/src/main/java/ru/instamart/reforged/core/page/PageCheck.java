@@ -6,7 +6,7 @@ import ru.instamart.reforged.core.Kraken;
 import static org.testng.Assert.*;
 import static ru.instamart.kraken.util.StringUtil.failMessage;
 
-public interface PageCheck {
+public interface PageCheck extends PageElement {
 
     @Step("Проверка доступности текущей страницы")
     default void checkPageIsAvailable() throws AssertionError {
@@ -52,5 +52,10 @@ public interface PageCheck {
         Kraken.jsAction().waitForDocumentReady();
         Kraken.jsAction().jQueryReady();
         Kraken.jsAction().checkPendingRequests();
+    }
+
+    @Step("Проверяем, что страница открылась (отсутствует сообщение об ошибке)")
+    default void checkPageOpened() {
+        Kraken.waitAction().shouldNotBeVisible(page404Error);
     }
 }

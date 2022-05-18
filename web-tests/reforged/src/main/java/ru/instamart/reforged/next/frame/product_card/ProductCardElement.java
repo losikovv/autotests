@@ -10,6 +10,7 @@ public interface ProductCardElement {
 
     RetailRocket retailRocket = new RetailRocket();
 
+    Button close = new Button(By.xpath("//button[@data-qa='product_cards_close_button']"), "Кнопка 'Закрыть'");
     Element categoriesBreadscrumbs = new Element(By.xpath("//div[@itemtype='http://schema.org/BreadcrumbList']"), "Навигационная цепочка категорий (хлебные крошки)");
     Element image = new Element(By.xpath("//div[@itemtype='http://schema.org/Product']//img"), "Изображение товара");
     Element discountLabel = new Element(By.xpath("//div[@itemtype='http://schema.org/Product']//h1/preceding-sibling::ul/li[contains(.,'%')]"), "Флажок с указанием процента скидки (для товара со скидкой)");
