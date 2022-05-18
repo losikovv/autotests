@@ -1,6 +1,7 @@
 package ru.instamart.reforged.next.page.user.favorites;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.next.block.header.Header;
 import ru.instamart.reforged.next.frame.product_card.ProductCard;
 import ru.instamart.reforged.next.page.StfPage;
@@ -27,6 +28,7 @@ public final class UserFavoritesPage implements StfPage, UserFavoritesCheck {
 
     @Step("Добавить в корзину первый избранный товар")
     public void addToCartFirstFavoriteItem() {
+        ThreadUtil.simplyAwait(1);
         addToCart.clickOnFirst();
     }
 

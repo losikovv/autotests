@@ -17,6 +17,10 @@
             <class name="ru.instamart.test.reforged.next.SeoCatalogTests"/>
             <class name="ru.instamart.test.reforged.next.HelpDeskChatTests"/>
             <class name="ru.instamart.test.reforged.next.Page404Tests"/>
+
+            <class name="ru.instamart.test.reforged.next.user.UserAuthorisationTests"/>
+            <class name="ru.instamart.test.reforged.next.user.UserFavoritesTests"/>
+            <class name="ru.instamart.test.reforged.next.user.UserLogoutTests"/>
         </classes>
     </test>
 </suite>
