@@ -22,6 +22,11 @@ public final class BrowserProperties {
     @Config(configName = NAME, fieldName = "fullScreenMode", defaultValue = "true")
     public static boolean FULL_SCREEN_MODE;
 
+    @Config(configName = NAME, fieldName = "enableProxy", defaultValue = "false")
+    public static boolean ENABLE_PROXY;
+    @Config(configName = NAME, fieldName = "ignoreSsl", defaultValue = "true")
+    public static boolean IGNORE_SSL;
+
     @Config(configName = NAME, fieldName = "enableProfile", defaultValue = "false")
     public static boolean ENABLE_PROFILE;
     @Config(configName = NAME, fieldName = "profilePath", defaultValue = "")
