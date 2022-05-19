@@ -17,10 +17,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.eta.ServiceParametersDao;
-import ru.instamart.jdbc.dao.stf.PaymentMethodStoresDao;
-import ru.instamart.jdbc.dao.stf.StoreConfigsDao;
 import ru.instamart.jdbc.dao.stf.StoresDao;
-import ru.instamart.jdbc.dao.stf.StoresTenantsDao;
 import ru.instamart.jdbc.entity.eta.ServiceParametersEntity;
 import ru.instamart.jdbc.entity.stf.StoresEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -40,7 +37,7 @@ import java.util.stream.Stream;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.EtaCheckpoints.checkStoreEta;
 import static ru.instamart.api.helper.EtaHelper.*;
-import static ru.instamart.kraken.util.TimeUtil.getDbDate;
+import static ru.instamart.kraken.util.TimeUtil.getZoneDbDate;
 
 @Epic("On Demand")
 @Feature("ETA")
@@ -145,11 +142,10 @@ public class StoreEtaTest extends RestBase {
     @Test(description = "Отправка валидного запроса в закрытый магазин",
             groups = "dispatch-eta-smoke")
     public void getEtaForClosedStore() {
-        String openingDate = getDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(2)));
-        String closingDate = getDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(1)));
+        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(2)));
+        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(1)));
         StoresEntity store = getStoreWithUpdatedSchedule(openingDate, closingDate, 0, "00:00:00");
         Eta.StoreUserEtaRequest request = getStoreUserEtaRequest(store.getUuid(), address.getLat().floatValue(), address.getLon().floatValue());
-
         var response = clientEta.getStoreEta(request);
         Assert.assertTrue(response.toString().isEmpty(), "Пришел не пустой ответ");
     }
@@ -159,8 +155,8 @@ public class StoreEtaTest extends RestBase {
     @Test(description = "Отправка валидного запроса в пределах работы параметра OnDemandClosingDelta",
             groups = "dispatch-eta-smoke")
     public void getEtaForClosedStoreViaClosingDelta() {
-        String openingDate = getDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
-        String closingDate = getDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
+        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
+        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
         StoresEntity store = getStoreWithUpdatedSchedule(openingDate, closingDate, 30, "00:30:00");
         Eta.StoreUserEtaRequest request = getStoreUserEtaRequest(store.getUuid(), address.getLat().floatValue(), address.getLon().floatValue());
 

@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static org.testng.Assert.fail;
 
@@ -19,6 +20,28 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     private final String SELECT_SQL = "SELECT %s FROM spree_users";
     private final String DELETE_SQL = "DELETE FROM spree_users";
     private static final String INSERT_SQL = "INSERT INTO spree_roles_users(role_id, user_id) VALUES(?, ?)";
+
+    @Override
+    public Optional<SpreeUsersEntity> findById(Long id) {
+        SpreeUsersEntity user = null;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement( String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
+            preparedStatement.setObject(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user = new SpreeUsersEntity();
+                user.setId(resultSet.getLong("id"));
+                user.setLogin(resultSet.getString("login"));
+                user.setSpreeApiKey(resultSet.getString("spree_api_key"));
+                user.setFirstname(resultSet.getString("firstname"));
+                user.setLastname(resultSet.getString("lastname"));
+                user.setUuid(resultSet.getString("uuid"));
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return Optional.ofNullable(user);
+    }
 
     public SpreeUsersEntity getUserByEmail(String email) {
         SpreeUsersEntity user = new SpreeUsersEntity();

@@ -40,7 +40,7 @@ import static ru.instamart.api.checkpoint.EtaCheckpoints.checkBasketEta;
 import static ru.instamart.api.helper.EtaHelper.*;
 import static ru.instamart.api.helper.EtaHelper.getUserEtaRequest;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreKaliningradTest;
-import static ru.instamart.kraken.util.TimeUtil.getDbDate;
+import static ru.instamart.kraken.util.TimeUtil.getZoneDbDate;
 
 @Epic("On Demand")
 @Feature("ETA")
@@ -258,8 +258,8 @@ public class BasketEtaTest extends RestBase {
     @Test(description = "Отправка валидного запроса в пределах работы параметра OnDemandClosingDelta",
             groups = "dispatch-eta-smoke")
     public void getBasketEtaForClosedStore() {
-        String openingDate = getDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
-        String closingDate = getDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
+        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
+        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
         StoresEntity store = getStoreWithUpdatedSchedule(openingDate, closingDate, 30, "00:30:00");
         var request = getUserEtaRequest(address, order, userData, shipmentUuid, store.getUuid());
 
