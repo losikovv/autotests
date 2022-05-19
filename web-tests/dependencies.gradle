@@ -26,6 +26,7 @@ ext.versions = [
         commonsLang3:'3.12.0',
         swaggerCoverage:'1.4.5',
         protobufUtil: '3.20.0',
+        browserProxy: '2.1.5',
 
         common:'1.0.5',
         ab:'1.1.0',
@@ -71,6 +72,7 @@ ext.lib = [
         commonsLang3: "org.apache.commons:commons-lang3:$versions.commonsLang3",
         swaggerCoverage: "com.github.viclovsky:swagger-coverage-rest-assured:$versions.swaggerCoverage",
         protobufUtil: "com.google.protobuf:protobuf-java-util:$versions.protobufUtil",
+        browserMobProxy: "net.lightbody.bmp:browsermob-core:$versions.browserProxy",
 
         common:"ru.sbermarket.common:common:$versions.common",
         ab:"ru.sbermarket.ab:ab:$versions.ab",

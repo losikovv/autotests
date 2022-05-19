@@ -28,6 +28,7 @@ project(":reforged") {
         implementation lib.common
         implementation lib.qase
 
+        implementation lib.browserMobProxy
         implementation lib.jackson
         implementation lib.aspectjweaver
         implementation lib.seleniumJava
