@@ -283,7 +283,7 @@ public class BasketEtaTest extends RestBase {
         checkBasketEta(response, order.getUuid(), shipmentUuid, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
-    @CaseId(59)
+    @CaseId(37)
     @Story("Basket ETA")
     @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML возвращает ноль",
             groups = "dispatch-eta-smoke")
@@ -299,7 +299,7 @@ public class BasketEtaTest extends RestBase {
 
     @CaseId(61)
     @Story("Basket ETA")
-    @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML возвращает ноль",
+    @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML не возвращает ответ по таймауту",
             groups = "dispatch-eta-smoke")
     public void getBasketEtaWithMLTimeout() {
         String storeUuid = StoresDao.INSTANCE.findById(EnvironmentProperties.DEFAULT_ON_DEMAND_SID).get().getUuid();
