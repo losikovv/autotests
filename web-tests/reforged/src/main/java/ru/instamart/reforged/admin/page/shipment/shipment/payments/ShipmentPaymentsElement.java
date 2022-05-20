@@ -13,4 +13,6 @@ public interface ShipmentPaymentsElement {
     Element pendingPaymentByCard = new Element(By.xpath("//a[contains(text(),'Картой при получении')]/ancestor::tr//span[text()='оформляется']"), "Недействительный платеж");
 
     Element waitingPaymentBySberPay = new Element(By.xpath("//a[contains(text(),'SberPay')]/ancestor::tr//span[text()='ожидает авторизации']"), "Платеж по сберпей в статусе ожидания авторизации");
+
+    Element debetBalance = new Element(By.xpath("//h5[contains(text(), 'Дебетовое сальдо :')]"), "Строка дебетового сальдо");
 }

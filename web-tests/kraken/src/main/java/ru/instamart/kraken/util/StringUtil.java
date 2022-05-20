@@ -16,6 +16,7 @@ public final class StringUtil {
     private static final String NOT_SLOTS_IN_INTERVAL = "^.+:\\d{2} | \\D.+";
     private static final String AVAILABLE_SLOT_COUNT = "\\/.+";
     private static final String TOTAL_SLOT_COUNT = "^.+\\/";
+    private static final Pattern DOUBLE_PATTERN = Pattern.compile("(?!=\\d\\.\\d\\.)([\\d.]+)");
 
     private StringUtil() {
     }
@@ -35,12 +36,11 @@ public final class StringUtil {
     public static double stringToDouble(String stringToParse) {
         stringToParse = stringToParse.replace(",", ".").replace(" ", "");
 
-        final var matcher = pattern.matcher(stringToParse);
+        final var matcher = DOUBLE_PATTERN.matcher(stringToParse);
         if (matcher.find()) {
             return Double.parseDouble(matcher.group());
         }
-
-        return 0.00d;
+        else return 0.00d;
     }
 
     public static Long stringToLong(final String stringToParse) {

@@ -28,7 +28,7 @@ public class AdministrationPaymentsTests extends BaseTest {
         SpreeOrdersDao.INSTANCE.updateShipmentState(orderNumber, StateV2.CANCELED.getValue());
     }
 
-    @CaseId(19)
+    @CaseId(492)
     @Story("Тест создания платежа через SberPay")
     @Test(description = "Добавление нового платежа SberPay", groups = {"acceptance", "regression"})
     public void successPaymentViaSberPay() {
@@ -63,5 +63,25 @@ public class AdministrationPaymentsTests extends BaseTest {
         shipmentPagePayments().checkPaymentBySberPayWaitingVisible();
 
         shipmentPagePayments().assertAll();
+    }
+
+    @CaseId(497)
+    @Story("Тест создания платежа через SberPay")
+    @Test(description = "Добавление нового платежа SberPay", groups = {"acceptance", "regression"})
+    public void checkDebitBalanceVisibleTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
+        shipments().setShipmentOrOrderNumber(orderNumber);
+        shipments().search();
+        shipments().waitPageLoad();
+
+        shipments().clickToShipmentNumber(0);
+
+        shipmentPage().clickOnPayments();
+
+        shipmentPagePayments().checkDebetBalanceVisible();
+        shipmentPagePayments().checkDebetBalancePositive();
     }
 }
