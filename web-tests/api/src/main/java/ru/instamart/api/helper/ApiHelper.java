@@ -110,8 +110,8 @@ public final class ApiHelper {
     }
 
     @Step("Удаляем ритейлера: '{retailerName}'")
-    public void completeDeleteRetailer(final String retailerName) {
-        SpreeRetailersCleanDao.INSTANCE.deleteRetailerByName(retailerName);
+    public void deleteRetailerWithStores(final String retailerName) {
+        SpreeRetailersCleanDao.INSTANCE.deleteRetailerWithStores(retailerName);
     }
 
     /**

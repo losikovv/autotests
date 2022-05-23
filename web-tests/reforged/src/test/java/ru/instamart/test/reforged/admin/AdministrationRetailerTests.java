@@ -341,7 +341,7 @@ public final class AdministrationRetailerTests {
 
     @AfterClass(alwaysRun = true)
     public void clearData() {
-        apiHelper.deleteRetailerByNameInAdmin(retailerName);
+        apiHelper.deleteRetailerWithStores(retailerName);
 
         apiHelper.deleteCityInAdmin(cityNameFirst);
         apiHelper.deleteOperationalZonesInAdmin(cityNameFirst);
@@ -350,9 +350,5 @@ public final class AdministrationRetailerTests {
         apiHelper.deleteCityInAdmin(cityNameSecond);
         apiHelper.deleteOperationalZonesInAdmin(cityNameSecond);
         apiHelper.deleteOperationalZonesInShopper(cityNameSecond);
-
-        apiHelper.deleteStoreInAdmin(firstStore);
-        apiHelper.deleteStoreInAdmin(secondStore);
-        apiHelper.deleteStoreInAdmin(thirdStore);
     }
 }

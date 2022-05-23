@@ -14,7 +14,6 @@ import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
-import static ru.instamart.reforged.admin.AdminRout.retailers;
 
 @Epic("Админка STF")
 @Feature("Работа с ритейлерами")
@@ -37,13 +36,11 @@ public final class AdministrationRetailerActivateTests {
 
     @AfterMethod(alwaysRun = true)
     public void clearData() {
-        apiHelper.deleteRetailerByNameInAdmin(retailerName);
+        apiHelper.deleteRetailerWithStores(retailerName);
 
         apiHelper.deleteCityInAdmin(cityNameFirst);
         apiHelper.deleteOperationalZonesInAdmin(cityNameFirst);
         apiHelper.deleteOperationalZonesInShopper(cityNameFirst);
-
-        apiHelper.deleteStoreInAdmin(firstStore);
     }
 
     @CaseId(213)
