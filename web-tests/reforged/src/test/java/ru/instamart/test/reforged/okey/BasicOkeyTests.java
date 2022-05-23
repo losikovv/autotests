@@ -11,14 +11,13 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
-import ru.instamart.test.reforged.BaseTest;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.okey.page.OkeyRouter.okey;
 
 @Epic("OKEY UI")
 @Feature("Базовые тесты тенанта окей")
-public final class BasicOkeyTests extends BaseTest {
+public final class BasicOkeyTests {
 
     @CaseId(2777)
     @Story("Валидация элементов")

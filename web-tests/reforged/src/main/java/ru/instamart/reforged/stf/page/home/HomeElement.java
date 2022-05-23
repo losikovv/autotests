@@ -22,7 +22,7 @@ public interface HomeElement {
     Button loginButton = new Button(By.xpath("//button[@data-qa='b2c_home_landing_header_block_user_panel_login_button']"), "кнопка 'Войти'");
     Element alert = new Element(By.xpath("//div[contains(@class,'alert')]"), "Вспрывающее сообщение в правом верхнем углу)");
 
-    Element headerAuthBlockContainer = new Element(By.xpath("//button[@data-qa='b2c_home_landing_header_block_user_panel']"), "блок для авторизованного пользователя");
+    Element headerAuthBlockContainer = new Element(By.xpath("//div[@data-qa='b2c_home_landing_header_block_user_panel']"), "блок для авторизованного пользователя");
     Element headerAuthIcon = new Element(By.xpath("//button[@data-qa='b2c_home_landing_header_block_user_panel_account_button']"), "иконка для авторизованного пользователя");
     Element headerAuthCredential = new Element(By.xpath("//span[@data-qa='b2c_home_landing_header_block_user_panel_user_name']"), "фио для авторизованного пользователя");
     Element headerAuthLogoutButton = new Element(By.xpath("//button[@data-qa='b2c_home_landing_header_block_user_panel_logout_button']"), "кнопка деавторизации для авторизованного пользователя");

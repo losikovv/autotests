@@ -15,14 +15,13 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.data.LoyaltiesData;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.data_provider.BonusProvider;
-import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Покупка товара")
-public final class OrdersBonusesTests extends BaseTest {
+public final class OrdersBonusesTests {
 
     private final ApiHelper helper = new ApiHelper();
     private UserData userData;

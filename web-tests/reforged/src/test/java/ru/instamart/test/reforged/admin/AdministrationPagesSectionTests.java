@@ -10,14 +10,13 @@ import ru.instamart.jdbc.dao.stf.SpreePagesDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.StaticPages;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
 @Feature("Работа со статическими страницами")
-public final class AdministrationPagesSectionTests extends BaseTest {
+public final class AdministrationPagesSectionTests {
 
     private final ApiHelper helper = new ApiHelper();
 

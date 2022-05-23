@@ -12,7 +12,6 @@ import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -21,7 +20,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Адрес доставки")
-public final class UserShippingAddressTests extends BaseTest {
+public final class UserShippingAddressTests {
 
     private final ApiHelper helper = new ApiHelper();
     private final String defaultAddress = Addresses.Moscow.defaultAddress();

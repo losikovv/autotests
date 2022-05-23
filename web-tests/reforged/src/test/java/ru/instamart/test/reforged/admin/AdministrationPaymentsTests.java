@@ -1,5 +1,7 @@
 package ru.instamart.test.reforged.admin;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -7,12 +9,13 @@ import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
-public class AdministrationPaymentsTests extends BaseTest {
+@Epic("Админка STF")
+@Feature("Работа с платежами")
+public final class AdministrationPaymentsTests {
 
     private final ApiHelper helper = new ApiHelper();
     private String orderNumber;

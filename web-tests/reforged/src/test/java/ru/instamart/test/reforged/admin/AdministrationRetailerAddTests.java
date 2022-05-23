@@ -1,19 +1,21 @@
 package ru.instamart.test.reforged.admin;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
-@Story("Новый ритейлер /retailers/new")
-public class AdministrationRetailerAddTests extends BaseTest {
+@Epic("Админка STF")
+@Feature("Добавление ритейлеров")
+public final class AdministrationRetailerAddTests {
 
     private final ApiHelper apiHelper = new ApiHelper();
     private final String retailerName = "AdministrationRetailerAddTests_" + Generate.literalString(6);

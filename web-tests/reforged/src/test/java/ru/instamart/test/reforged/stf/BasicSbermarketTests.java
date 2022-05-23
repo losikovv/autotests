@@ -10,8 +10,6 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
-import ru.instamart.test.reforged.BaseTest;
-import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
@@ -19,7 +17,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Лэндинг")
-public final class BasicSbermarketTests extends BaseTest {
+public final class BasicSbermarketTests {
 
     @CaseId(1438)
     @Story("Валидация элементов")

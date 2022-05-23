@@ -5,14 +5,13 @@ import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Проверка каталога товаров")
-public final class ShoppingCatalogTests extends BaseTest {
+public final class ShoppingCatalogTests {
 
     @CaseId(1595)
     @Test(description = "Тест работы cо шторкой каталога", groups = "regression")

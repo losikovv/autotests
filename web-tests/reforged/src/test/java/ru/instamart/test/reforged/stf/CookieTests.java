@@ -2,15 +2,22 @@ package ru.instamart.test.reforged.stf;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import ru.instamart.test.reforged.BaseTest;
+import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.listener.UiExecutionListener;
+import ru.instamart.reforged.core.listener.UiListener;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 
 @Epic("STF UI")
 @Feature("Проверка cookie")
-public final class CookieTests extends BaseTest {
+public final class CookieTests {
 
     @CaseId(2282)
     @Test(description = "Отображение предупреждения без записи в cookies", groups = "regression")

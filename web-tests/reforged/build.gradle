@@ -22,6 +22,7 @@ allure {
 }
 
 configurations.all {
+    exclude group: 'io.qameta.allure', module: 'allure-testng'
     resolutionStrategy {
         force 'com.google.guava:guava:23.0'
     }

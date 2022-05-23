@@ -11,14 +11,13 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
-import ru.instamart.test.reforged.BaseTest;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.metro.page.MetroRouter.metro;
 
 @Epic("METRO UI")
 @Feature("Базовые тесты тенанта метро")
-public final class BasicMetroTests extends BaseTest {
+public final class BasicMetroTests {
 
     @CaseId(1440)
     @Story("Валидация элементов")

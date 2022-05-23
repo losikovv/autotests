@@ -7,14 +7,13 @@ import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.stf.page.StfRouter.search;
 
 @Epic("STF UI")
 @Feature("Заказ")
-public final class ShoppingTestsForUnauthorizedUser extends BaseTest {
+public final class ShoppingTestsForUnauthorizedUser {
 
     @CaseId(1622)
     @Story("Тест недоступности чекаута при сумме корзины меньше минимального заказа")

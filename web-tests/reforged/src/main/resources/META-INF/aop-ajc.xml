@@ -1,0 +1,9 @@
+<aspectj>
+    <weaver options="-warn:none -Xlint:ignore"/>
+    <aspects>
+        <aspect name="ru.instamart.reforged.core.aspect.StepsAspects"/>
+        <aspect name="ru.instamart.reforged.core.aspect.AttachmentsAspects"/>
+        <exclude within="io.qameta.allure.aspects.StepsAspects"/>
+        <exclude within="io.qameta.allure.aspects.AttachmentsAspects"/>
+    </aspects>
+</aspectj>

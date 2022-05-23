@@ -6,6 +6,6 @@ public final class DeliveryPage implements StfPage {
 
     @Override
     public String pageUrl() {
-        return "delivery2";
+        return "delivery-sbermarket";
     }
 }

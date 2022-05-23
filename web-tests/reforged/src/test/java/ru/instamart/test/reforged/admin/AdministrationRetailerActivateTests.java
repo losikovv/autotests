@@ -1,5 +1,7 @@
 package ru.instamart.test.reforged.admin;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -8,18 +10,19 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 import static ru.instamart.reforged.admin.AdminRout.retailers;
 
-public class AdministrationRetailerActivateTests extends BaseTest {
+@Epic("Админка STF")
+@Feature("Работа с ритейлерами")
+public final class AdministrationRetailerActivateTests {
 
     private final ApiHelper apiHelper = new ApiHelper();
-    private String retailerName = Generate.literalString(6) + "_retailer";
-    private String cityNameFirst = Generate.literalString(6) + "_city";
+    private final String retailerName = Generate.literalString(6) + "_retailer";
+    private final String cityNameFirst = Generate.literalString(6) + "_city";
     private StoresAdminRequest.Store firstStore = new StoresAdminRequest.Store();
 
     @BeforeMethod(alwaysRun = true)

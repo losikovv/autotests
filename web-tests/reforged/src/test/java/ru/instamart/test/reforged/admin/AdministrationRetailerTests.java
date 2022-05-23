@@ -10,14 +10,13 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
 @Feature("Управление ретейлерами")
-public final class AdministrationRetailerTests extends BaseTest {
+public final class AdministrationRetailerTests {
 
     private final ApiHelper apiHelper = new ApiHelper();
     private final String retailerName = Generate.literalString(6) + "_retailer";

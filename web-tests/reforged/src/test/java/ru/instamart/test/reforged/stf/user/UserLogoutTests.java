@@ -9,14 +9,13 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Деавторизация пользователя")
-public final class UserLogoutTests extends BaseTest {
+public final class UserLogoutTests {
 
     @CaseId(1473)
     @Story("Позитивный кейс")

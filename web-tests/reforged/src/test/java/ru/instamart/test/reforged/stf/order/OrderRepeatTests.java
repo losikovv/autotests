@@ -8,7 +8,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
@@ -16,7 +15,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 
 @Epic("STF UI")
 @Feature("Покупка товара")
-public final class OrderRepeatTests extends BaseTest {
+public final class OrderRepeatTests {
 
     private final ApiHelper helper = new ApiHelper();
     private UserData userData;

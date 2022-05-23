@@ -33,7 +33,7 @@ public interface FooterElement {
             "ссылка 'Как мы работаем' в футере");
     Link deliveryZone = new Link(By.xpath("//footer//button[text()='Зоны доставки']"),
             "ссылка 'Зоны доставки' в футере");
-    Link deliveryAndPayment = new Link(By.xpath("//footer//a[@href='/delivery2']"),
+    Link deliveryAndPayment = new Link(By.xpath("//footer//a[@href='/delivery-sbermarket']"),
             "ссылка 'Доставка и оплата' в футере");
     Link help = new Link(By.xpath("//footer//a[@href='/faq-sbermarket']"),
             "ссылка 'Помощь' в футере");

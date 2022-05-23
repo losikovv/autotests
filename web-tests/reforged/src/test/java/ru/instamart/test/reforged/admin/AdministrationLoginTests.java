@@ -6,14 +6,13 @@ import io.qameta.allure.Story;
 import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.login;
 import static ru.instamart.reforged.admin.AdminRout.main;
 
 @Epic("Админка STF")
 @Feature("Страница логина")
-public final class AdministrationLoginTests extends BaseTest {
+public final class AdministrationLoginTests {
 
     @CaseId(440)
     @Story("Тест неуспешной авторизации с пустыми полями")

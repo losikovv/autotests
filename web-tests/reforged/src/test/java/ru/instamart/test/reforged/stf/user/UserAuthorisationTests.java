@@ -11,7 +11,6 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -21,7 +20,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Авторизация")
-public final class UserAuthorisationTests extends BaseTest {
+public final class UserAuthorisationTests {
 
     private final ApiHelper apiHelper = new ApiHelper();
 

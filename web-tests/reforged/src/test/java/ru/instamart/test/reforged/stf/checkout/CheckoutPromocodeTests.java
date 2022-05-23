@@ -12,14 +12,13 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Promos;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Промокоды")
-public final class CheckoutPromocodeTests extends BaseTest {
+public final class CheckoutPromocodeTests {
 
     private final ApiHelper helper = new ApiHelper();
     private final String promoCode = Promos.freeOrderDelivery().getCode();

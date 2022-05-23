@@ -2,6 +2,7 @@
 <suite name="MR-SUITE" parallel="tests" thread-count="2" verbose="1">
   <listeners>
     <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
+    <listener class-name="ru.instamart.reforged.core.listener.UiListener"/>
   </listeners>
   <method-selectors>
     <method-selector>

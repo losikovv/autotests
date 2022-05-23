@@ -45,7 +45,6 @@ ext.lib = [
         allureTestng: "io.qameta.allure:allure-testng:$versions.allure",
         allureJavaCommons: "io.qameta.allure:allure-java-commons:$versions.allure",
         allureRestAssuredReport: "io.qameta.allure:allure-rest-assured:$versions.allure",
-        //allurePlugin: "io.qameta.allure:allure-plugin-api:$versions.allure",
         lombok: "org.projectlombok:lombok:$versions.lombok",
         jackson: "com.fasterxml.jackson.core:jackson-databind:$versions.jackson",
         jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson",

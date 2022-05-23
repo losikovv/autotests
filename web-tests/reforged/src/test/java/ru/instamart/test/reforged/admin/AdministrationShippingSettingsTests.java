@@ -14,14 +14,13 @@ import ru.instamart.api.request.v1.ShippingMethodsV1Request.Rules;
 import ru.instamart.api.response.v1.ShippingMethodsResponse.ShippingMethods;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
 @Feature("Настройки")
-public final class AdministrationShippingSettingsTests extends BaseTest {
+public final class AdministrationShippingSettingsTests {
 
     private final ApiHelper helper = new ApiHelper();
 

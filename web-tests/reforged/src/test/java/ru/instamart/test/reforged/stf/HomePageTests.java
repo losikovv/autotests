@@ -9,7 +9,6 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkDeliveryIntervalsNonEquals;
@@ -20,7 +19,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Главная страница")
-public final class HomePageTests extends BaseTest {
+public final class HomePageTests {
 
     private final ApiHelper apiHelper = new ApiHelper();
 
@@ -103,7 +102,6 @@ public final class HomePageTests extends BaseTest {
     @CaseId(3361)
     @Test(description = "Определение города по IP если в городе работает СберМаркет", groups = {"regression"})
     public void detectCityByIPAndChangeCityFromOnboarding() {
-
         home().goToPage(true);
         home().setLocation("Moscow");
         home().checkBannerTitleText(home().getAddressBlockText(), "Доставка из любимых магазинов в Москве");

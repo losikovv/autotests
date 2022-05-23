@@ -7,13 +7,12 @@ import io.qameta.allure.Story;
 import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
 @Feature("Базовый функционал и навигация в админке")
-public final class BasicAdministrationTests extends BaseTest {
+public final class BasicAdministrationTests {
 
     @CaseId(419)
     @Story("Тест доступности корневых разделов админки")

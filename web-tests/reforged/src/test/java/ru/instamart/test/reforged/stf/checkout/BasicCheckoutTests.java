@@ -8,13 +8,12 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Базовые тесты чекаута")
-public final class BasicCheckoutTests extends BaseTest {
+public final class BasicCheckoutTests {
 
     private final ApiHelper helper = new ApiHelper();
 

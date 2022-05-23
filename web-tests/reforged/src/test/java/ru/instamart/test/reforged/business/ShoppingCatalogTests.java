@@ -8,14 +8,13 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.business.page.BusinessRouter.shop;
 
 @Epic("SMBUSINESS UI")
 @Feature("Каталог B2B")
-public class ShoppingCatalogTests extends BaseTest {
+public final class ShoppingCatalogTests {
 
     private final ApiHelper helper = new ApiHelper();
 
