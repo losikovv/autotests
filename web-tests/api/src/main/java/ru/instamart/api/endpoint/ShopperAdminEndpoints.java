@@ -38,6 +38,9 @@ public final class ShopperAdminEndpoints {
     }
 
     public static final class Stores{
+
         public static final String ESTIMATOR_SETTINGS = "v1/stores/{retailerUUID}/estimator_settings";
+        public static final String DISPATCH_SETTINGS = "v1/stores/{retailerUUID}/dispatch_settings";
     }
 }
+
