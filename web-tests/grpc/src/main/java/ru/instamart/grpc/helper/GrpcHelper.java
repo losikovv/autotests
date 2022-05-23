@@ -10,6 +10,8 @@ import navigation.NavigationServiceGrpc;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.grpc.interceptor.GrpcInterceptor;
 import ru.instamart.kraken.config.CoreProperties;
+import tagmanager.TagManagerGrpc;
+import tagmanager.Tagmanager;
 
 import java.util.List;
 
@@ -56,5 +58,20 @@ public class GrpcHelper {
         var categories = client.getMenuTree(request).getCategoriesList();
         channel.shutdown();
         return categories;
+    }
+
+    @Step("Получение привязок по тэгу")
+    public List<Tagmanager.TagBind> getBindsByTag(int tagId) {
+        var channel = createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_TAG_MANAGER);
+        var client = TagManagerGrpc.newBlockingStub(channel);
+
+        var request = Tagmanager.GetBindsByTagRequest
+                .newBuilder()
+                .setTagId(tagId)
+                .build();
+
+        var binds = client.getBindsByTag(request).getBindsList();
+        channel.shutdown();
+        return binds;
     }
 }

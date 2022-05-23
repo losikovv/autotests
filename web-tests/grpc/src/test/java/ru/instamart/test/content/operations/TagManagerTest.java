@@ -46,9 +46,9 @@ public class TagManagerTest extends GrpcBase {
 
         var response = client.createOwner(request);
 
-        assertTrue(response.getId() > 0);
-        assertEquals(response.getName(), ownerName);
-        assertEquals(response.getDescription(), ownerDescription);
+        check.id(response.getId());
+        check.equals(response.getName(), ownerName);
+        check.equals(response.getDescription(), ownerDescription);
 
         ownerId = response.getId();
     }
@@ -81,9 +81,9 @@ public class TagManagerTest extends GrpcBase {
         var owners = client.getOwners(request).getOwnersList();
 
         for (var owner : owners) {
-            assertTrue(owner.getId() > 0);
-            assertNotNull(owner.getName());
-            assertNotNull(owner.getDescription());
+            check.id(owner.getId());
+            check.notNull(owner.getName());
+            check.notNull(owner.getDescription());
         }
     }
 
@@ -100,9 +100,9 @@ public class TagManagerTest extends GrpcBase {
 
         var response = client.createTag(request);
 
-        assertTrue(response.getId() > 0);
-        assertEquals(response.getName(), tagName);
-        assertEquals(response.getOwnerId(), ownerId);
+        check.id(response.getId());
+        check.equals(response.getName(), tagName);
+        check.equals(response.getOwnerId(), ownerId);
 
         tagId = response.getId();
     }
@@ -151,7 +151,6 @@ public class TagManagerTest extends GrpcBase {
                 .build();
 
         var response = client.deleteTag(request);
-
         assertTrue(response.getOk());
     }
 
@@ -167,9 +166,9 @@ public class TagManagerTest extends GrpcBase {
 
         var tag = client.getTagsByOwner(request).getTags(0);
 
-        assertTrue(tag.getId() > 0);
-        assertEquals(tag.getName(), tagName);
-        assertEquals(tag.getOwnerId(), ownerId);
+        check.id(tag.getId());
+        check.equals(tag.getName(), tagName);
+        check.equals(tag.getOwnerId(), ownerId);
     }
 
     @Story("Тэг")
@@ -184,6 +183,66 @@ public class TagManagerTest extends GrpcBase {
                 .build();
 
         client.getTagsByOwner(request);
+    }
+
+    @Story("Тэг")
+    @CaseId(35)
+    @Test(description = "Привязка тега к сущности с валидными данными",
+            groups = {"grpc-tag-manager"},
+            dependsOnMethods = "createTag")
+    public void bindTag() {
+        var request = Tagmanager.BindTagRequest.newBuilder()
+                .setTagId(tagId)
+                .addBinds(Tagmanager.BindTagRequest.Bind.newBuilder()
+                        .setItemId("something")
+                        .setMeta("something")
+                        .build())
+                .build();
+
+        var response = client.bindTag(request);
+        assertTrue(response.getOk());
+    }
+
+    @Story("Тэг")
+    @CaseId(38)
+    @Test(description = "Привязка тега с существующей привязкой",
+            groups = {"grpc-tag-manager"},
+            dependsOnMethods = "bindTag")
+    public void bindTagDuplicate() {
+        String itemId = "something";
+        String meta = "something";
+
+        var request = Tagmanager.BindTagRequest.newBuilder()
+                .setTagId(tagId)
+                .addBinds(Tagmanager.BindTagRequest.Bind.newBuilder()
+                        .setItemId(itemId)
+                        .setMeta(meta)
+                        .build())
+                .build();
+
+        var response = client.bindTag(request);
+        assertTrue(response.getOk());
+
+        var bind = grpc.getBindsByTag(tagId).get(0);
+        check.equals(bind.getTagId(), tagId);
+        check.equals(bind.getItemId(), itemId);
+        check.equals(bind.getMeta(), meta);
+
+        request = Tagmanager.BindTagRequest.newBuilder()
+                .setTagId(tagId)
+                .addBinds(Tagmanager.BindTagRequest.Bind.newBuilder()
+                        .setItemId(itemId)
+                        .setMeta("something new")
+                        .build())
+                .build();
+
+        response = client.bindTag(request);
+        assertTrue(response.getOk());
+
+        bind = grpc.getBindsByTag(tagId).get(0);
+        check.equals(bind.getTagId(), tagId);
+        check.equals(bind.getItemId(), itemId);
+        check.equals(bind.getMeta(), "something new");
     }
 }
 
