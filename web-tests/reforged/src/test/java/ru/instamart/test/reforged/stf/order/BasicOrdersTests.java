@@ -120,10 +120,10 @@ public final class BasicOrdersTests {
     @Test(description = "Тест заказа с новой картой оплаты без 3ds", groups = "regression")
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
 
         var company = JuridicalData.juridical();
-        var card = PaymentCards.testCardNo3ds();
+        var card = PaymentCards.testCardNo3dsWithSpasibo();
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

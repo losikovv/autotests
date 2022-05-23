@@ -35,4 +35,15 @@ public class PaymentCards {
                 .secure(false)
                 .build();
     }
+
+    public static PaymentCardData testCardNo3dsWithSpasibo() {
+        return PaymentCardData.builder()
+                .cardNumber("4276103199824468")
+                .expiryMonth("09")
+                .expiryYear("24")
+                .cardholderName("NO SECURE")
+                .cvvNumber("325")
+                .secure(false)
+                .build();
+    }
 }
