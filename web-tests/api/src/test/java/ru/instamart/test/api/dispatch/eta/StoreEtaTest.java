@@ -83,7 +83,7 @@ public class StoreEtaTest extends RestBase {
                 .build();
 
         var response = clientEta.getStoreEta(request);
-        checkMultipleStoreEta(response, storeUuid, secondStoreUuid, Eta.EstimateSource.FALLBACK);
+        checkMultipleStoreEta(response, storeUuid, secondStoreUuid);
     }
 
     @CaseId(4)

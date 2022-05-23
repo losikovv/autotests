@@ -5,6 +5,7 @@ import eta.Eta;
 import io.qameta.allure.Step;
 import org.testng.asserts.SoftAssert;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -12,6 +13,11 @@ import java.util.stream.Stream;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 
 public class EtaCheckpoints {
+
+    private static Eta.EstimateSource[] acceptableEstimateSource = {
+            Eta.EstimateSource.FALLBACK,
+            Eta.EstimateSource.ML
+    };
 
     @Step("Проверяем ETA магазина")
     public static void checkStoreEta(Eta.StoreUserEtaResponse response, String storeUuid, int eta, String error, Eta.EstimateSource estimateSource) {
@@ -24,17 +30,17 @@ public class EtaCheckpoints {
     }
 
     @Step("Проверяем ETA нескольких магазинов")
-    public static void checkMultipleStoreEta(Eta.StoreUserEtaResponse response, String storeUuid, String secondStoreUuid, Eta.EstimateSource estimateSource) {
+    public static void checkMultipleStoreEta(Eta.StoreUserEtaResponse response, String storeUuid, String secondStoreUuid) {
         List<String> storesUuids = Stream.of(storeUuid, secondStoreUuid).sorted().collect(Collectors.toList());
         List<String> storeUuidsFromResponse = Stream.of(response.getData(0).getStoreUuid(), response.getData(1).getStoreUuid()).sorted().collect(Collectors.toList());
 
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(response.getDataCount(), 2, softAssert);
-        compareTwoObjects(response.getData(0).getEstimateSource(), estimateSource, softAssert);
+        compareTwoObjects(storeUuidsFromResponse, storesUuids, softAssert);
+        softAssert.assertTrue(Arrays.asList(acceptableEstimateSource).contains(response.getData(0).getEstimateSource()));
         softAssert.assertTrue(response.getData(0).getEta() > 0, "Поле eta меньше или равно нулю");
         softAssert.assertTrue(response.getData(0).getSigma() > 0, "Поле sigma меньше или равно нулю");
-        compareTwoObjects(storeUuidsFromResponse, storesUuids, softAssert);
-        compareTwoObjects(response.getData(1).getEstimateSource(), estimateSource, softAssert);
+        softAssert.assertTrue(Arrays.asList(acceptableEstimateSource).contains(response.getData(1).getEstimateSource()));
         softAssert.assertTrue(response.getData(1).getEta() > 0, "Поле eta меньше или равно нулю");
         softAssert.assertTrue(response.getData(1).getSigma() > 0, "Поле sigma меньше или равно нулю");
         softAssert.assertAll();
