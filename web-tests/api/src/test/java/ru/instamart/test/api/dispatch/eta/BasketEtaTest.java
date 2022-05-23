@@ -38,7 +38,6 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpt
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.EtaCheckpoints.checkBasketEta;
 import static ru.instamart.api.helper.EtaHelper.*;
-import static ru.instamart.api.helper.EtaHelper.getUserEtaRequest;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreKaliningradTest;
 import static ru.instamart.kraken.util.TimeUtil.getZoneDbDate;
 
@@ -260,7 +259,7 @@ public class BasketEtaTest extends RestBase {
     public void getBasketEtaForClosedStore() {
         String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
         String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
-        StoresEntity store = getStoreWithUpdatedSchedule(openingDate, closingDate, 30, "00:30:00");
+        StoresEntity store = getStoreWithUpdatedSchedule(openingDate, closingDate, "00:30:00");
         var request = getUserEtaRequest(address, order, userData, shipmentUuid, store.getUuid());
 
         var response = clientEta.getBasketEta(request);

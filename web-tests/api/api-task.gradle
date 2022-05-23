@@ -197,15 +197,6 @@ task apiDispatchWorkflow(type: Test) {
     systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
 }
 
-task apiDispatchEtaSmoke(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/on-demand.xml'
-        includeGroups 'dispatch-eta-smoke'
-    }
-    systemProperty 'qase.Project', 'ETA'
-    systemProperty 'qase.Title', 'On Demand ETA Smoke'
-}
-
 task apiDispatchEtaRegress(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/on-demand.xml'

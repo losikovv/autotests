@@ -144,7 +144,26 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
                 store.setOperationalZoneId(resultSet.getLong("operational_zone_id"));
                 store.setUuid(resultSet.getString("uuid"));
                 store.setCityId(resultSet.getLong("city_id"));
+            } else return null;
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return store;
+    }
 
+    public StoresEntity getStoreWithTimezone(String timeZone) {
+        StoresEntity store = new StoresEntity();
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_SQL + " WHERE time_zone = ? ORDER BY rand() LIMIT 1")) {
+            preparedStatement.setString(1, timeZone);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                store.setId(resultSet.getInt("id"));
+                store.setRetailerId(resultSet.getLong("retailer_id"));
+                store.setTimeZone(resultSet.getString("time_zone"));
+                store.setOperationalZoneId(resultSet.getLong("operational_zone_id"));
+                store.setUuid(resultSet.getString("uuid"));
+                store.setCityId(resultSet.getLong("city_id"));
             } else return null;
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
