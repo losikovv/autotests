@@ -154,7 +154,7 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
     public StoresEntity getStoreWithTimezone(String timeZone) {
         StoresEntity store = new StoresEntity();
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_SQL + "WHERE time_zone = ? ORDER BY rand() LIMIT 1")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_SQL + " WHERE time_zone = ? ORDER BY rand() LIMIT 1")) {
             preparedStatement.setString(1, timeZone);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
