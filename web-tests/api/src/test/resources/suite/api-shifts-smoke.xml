@@ -21,6 +21,7 @@
             <class name="ru.instamart.test.api.dispatch.shifts.StartShiftsNegativeTest"/>
             <class name="ru.instamart.test.api.dispatch.shifts.ShiftsStoreChangedTest"/>
             <class name="ru.instamart.test.api.dispatch.shifts.ShiftsWorkflowTest"/>
+            <class name="ru.instamart.test.api.dispatch.shifts.ShiftTariffDescriptionTest"/>
         </classes>
     </test>
 </suite>

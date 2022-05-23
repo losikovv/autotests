@@ -9,6 +9,7 @@ public final class ShiftsV1Endpoints {
         public static final String STOP = "v1/shifts/{id}/stop";
         public static final String CANCEL = "v1/shifts/{id}/cancel";
         public static final String PAUSE = "v1/shifts/{id}/pause";
+        public static final String TARIFF_DESCRIPTION = "v1/notes/TARIFF_DESCRIPTION";
     }
 
     public static final class Regions {
