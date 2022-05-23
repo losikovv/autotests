@@ -37,7 +37,7 @@ public class ShipmentReturnsV1Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @CaseId(2312)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"}, enabled = false, //нужно уточнение по ролям от Манаса
             description = "Отображение истории возвратов на стр. возвратов (sberpayments)")
     public void getShipmentReturns() {
         Response response = ShipmentReturnsAdminV1Request.GET("8fbb749f-5353-45a5-90e2-3823fc05df60");//TODO: расхардкодить, добавить проверку схемы.

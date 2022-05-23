@@ -36,10 +36,6 @@ public class RetailerV1 extends BaseObject {
     private String logo;
 
     @JsonSchema(required = true)
-    @JsonProperty("logo_background_color")
-    private String logoBackgroundColor;
-
-    @JsonSchema(required = true)
     private String name;
 
     @JsonProperty("secondary_color")
