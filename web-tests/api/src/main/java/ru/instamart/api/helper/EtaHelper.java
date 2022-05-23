@@ -30,9 +30,9 @@ public class EtaHelper {
     @Step("Проверяем установленный таймаут и уменьшаем его при необходимости")
     public static boolean checkMLTimeout(String mlTimeout) {
         LocalTime waitMlTimeoutFromDb = convertStringToTime(mlTimeout);
-        LocalTime expectedWaitMlTimeout = convertStringToTime("00:00:00.5");
+        LocalTime expectedWaitMlTimeout = convertStringToTime("00:00:00.0");
         if (waitMlTimeoutFromDb.isAfter(expectedWaitMlTimeout)) {
-            ServiceParametersDao.INSTANCE.updateWaitMlTimeout("00:00:00.4");
+            ServiceParametersDao.INSTANCE.updateWaitMlTimeout("00:00:00.0");
             return true;
         } else return false;
     }
@@ -77,9 +77,15 @@ public class EtaHelper {
     }
 
     @Step("Получаем недоступный магазин из БД с обновленным режимом работы")
-    public static StoresEntity getStoreWithUpdatedSchedule(String openingTime, String closingTime, int delta, String closingDelta) {
+    public static StoresEntity getStoreWithUpdatedSchedule(String openingTime, String closingTime, String closingDelta) {
         StoresEntity store = StoresDao.INSTANCE.getUnavailableStore();
-        StoresDao.INSTANCE.updateOnDemandStore(store.getId(), openingTime, closingTime, delta);
+        StoreParametersDao.INSTANCE.updateStoreParameters(store.getUuid(), openingTime, closingTime, closingDelta);
+        return store;
+    }
+
+    @Step("Получаем магазин из БД с другой таймзоной")
+    public static StoresEntity getStoreWithDifferentTimezone(String openingTime, String closingTime, String closingDelta, String timezone) {
+        StoresEntity store = StoresDao.INSTANCE.getStoreWithTimezone(timezone);
         StoreParametersDao.INSTANCE.updateStoreParameters(store.getUuid(), openingTime, closingTime, closingDelta);
         return store;
     }

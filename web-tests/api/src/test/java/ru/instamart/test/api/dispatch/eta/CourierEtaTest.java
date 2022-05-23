@@ -56,7 +56,8 @@ public class CourierEtaTest extends RestBase {
 
     @CaseIDs(value = {@CaseId(105), @CaseId(123)})
     @Story("Courier ETA")
-    @Test(description = "Отправка запроса с валидными данными",
+    @Test(enabled = false,
+            description = "Отправка запроса с валидными данными",
             groups = "dispatch-eta-smoke")
     public void getCourierEta() {
         shopperApp.sendCurrentLocator(StartPointsTenants.ETA.getLat(), StartPointsTenants.ETA.getLon(), 81.68728);
@@ -102,7 +103,8 @@ public class CourierEtaTest extends RestBase {
 
     @CaseId(216)
     @Story("Courier ETA")
-    @Test(description = "Получение установленного минимального времени расчета",
+    @Test(enabled = false,
+            description = "Получение установленного минимального времени расчета",
             groups = "dispatch-eta-smoke")
     public void getMinCourierEta() {
         shopperApp.sendCurrentLocator(StartPointsTenants.ETA.getLat(), StartPointsTenants.ETA.getLon(), 81.68728);
