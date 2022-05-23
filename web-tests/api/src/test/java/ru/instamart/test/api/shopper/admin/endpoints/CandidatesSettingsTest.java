@@ -2,12 +2,16 @@ package ru.instamart.test.api.shopper.admin.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
 import io.qameta.allure.Story;
-import org.testng.Assert;
+import io.restassured.response.Response;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.api.checkpoint.BaseApiCheckpoints;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.helper.ShopperAdminApiHelper;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.response.shopper.admin.OperationalZoneCandidatesSettingResponse;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -21,18 +25,44 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Epic("Shopper Admin Panel API")
 @Feature("Endpoints")
 public class CandidatesSettingsTest extends RestBase {
+
+    @BeforeMethod(alwaysRun = true)
+    public void preconditions() {
+        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
+    }
+
     @Story("Candidates settings")
     @Test(description = "Получение настроек кандидатов с валидным токеном", groups = {"api-shopper-regress"})
-    public void candidatesSettings() {
+    @Step("Получение настроек кандидатов для региона")
+    public void getCandidatesSettings() {
         Integer zoneId = EnvironmentProperties.DEFAULT_ID_ZONE;
-        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
-        response = ShopperAdminRequest.OperationalZones.CandidatesSettings.GET(zoneId);
+       final Response responseGET = ShopperAdminRequest.OperationalZones.CandidatesSettings.GET(zoneId);
 
-        checkStatusCode200(response);
+        checkStatusCode200(responseGET);
 
-        OperationalZoneCandidatesSettingResponse candidateSettings =  response.as(OperationalZoneCandidatesSettingResponse.class);
+        OperationalZoneCandidatesSettingResponse candidateSettings = responseGET.as(OperationalZoneCandidatesSettingResponse.class);
 
-        assertEquals(candidateSettings.getOperationalZoneId(),zoneId, "Вернулся не тот id Зоны");
-        checkResponseJsonSchema(response, OperationalZoneCandidatesSettingResponse.class);
+        assertEquals(candidateSettings.getOperationalZoneId(), zoneId, "Вернулся не тот id Зоны");
+        checkResponseJsonSchema(responseGET, OperationalZoneCandidatesSettingResponse.class);
+    }
+
+    @Story("Candidates settings")
+    @Test(description = "Сохранение настроек кандидатов с валидным токеном", groups = {"api-shopper-regress"})
+    @Step("Сохранение настроек кандидатов для региона")
+    public void putCandidatesSettings() {
+        Integer zoneId = EnvironmentProperties.DEFAULT_ID_ZONE;
+        Integer surgedShiftThreshold = 300;
+        Integer normalShiftThreshold = 20;
+
+        final Response responsePut = ShopperAdminRequest.OperationalZones.CandidatesSettings.PUT(zoneId, normalShiftThreshold, surgedShiftThreshold);
+        checkStatusCode200(responsePut);
+
+        // так как put возвращает пустой ответ дополнительно вызываем get и проверяем, что там установленные нами значения
+
+        OperationalZoneCandidatesSettingResponse responseGet = ShopperAdminApiHelper.getCandidatesSettings(zoneId);
+
+        BaseApiCheckpoints.compareTwoObjects(responseGet.getOperationalZoneId(), zoneId);
+        BaseApiCheckpoints.compareTwoObjects(responseGet.getNormalShiftThreshold(), normalShiftThreshold);
+        BaseApiCheckpoints.compareTwoObjects(responseGet.getSurgedShiftThreshold(), surgedShiftThreshold);
     }
 }

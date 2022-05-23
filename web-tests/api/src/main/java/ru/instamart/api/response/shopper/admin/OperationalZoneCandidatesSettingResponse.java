@@ -1,7 +1,6 @@
 package ru.instamart.api.response.shopper.admin;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

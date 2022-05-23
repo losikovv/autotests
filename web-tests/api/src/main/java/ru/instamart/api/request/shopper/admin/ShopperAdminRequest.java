@@ -180,6 +180,25 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
                 return givenWithAuth()
                         .get(ShopperAdminEndpoints.OperationalZones.CANDIDATES_SETTING, zoneId);
             }
+            @Step("{method} /" + ShopperAdminEndpoints.OperationalZones.CANDIDATES_SETTING)
+            public static Response PUT(Integer zoneId, Integer normalShiftThreshold, Integer surgedShiftThreshold) {
+
+                JSONObject body = new JSONObject();
+                JSONObject settings = new JSONObject();
+                JSONObject candidateSettings = new JSONObject();
+
+                settings.put("surged_shift_threshold", surgedShiftThreshold);
+                settings.put("normal_shift_threshold", normalShiftThreshold);
+                settings.put("operational_zone_id", zoneId);
+
+                candidateSettings.put("settings", settings);
+                body.put("candidates_settings",candidateSettings);
+
+                return givenWithAuth()
+                        .contentType(ContentType.JSON)
+                        .body(body)
+                        .put(ShopperAdminEndpoints.OperationalZones.CANDIDATES_SETTING, zoneId);
+            }
         }
 
         public static class WorkflowSettings {
