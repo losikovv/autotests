@@ -1,5 +1,6 @@
 package ru.instamart.test.api.shopper.admin.endpoints;
 
+import estimator.Estimator;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -344,6 +345,17 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void deleteRoutesVisibility200() {
         Response response = ShopperAdminRequest.Routes.Visibility.DELETE(routeId);
         checkStatusCode200(response);
+    }
+    @Story("Dispatch settings")
+    @Test(description = "Получение настроек ретейлера",
+            groups = {"api-shopper-regress"})
+    public void getOrderServiceSettings() {
+        String storeUuid = "6bc4dc40-37a0-45fe-ac7f-d4185c29da63";
+        final Response response = ShopperAdminRequest.OrderServiceSettings.GET(storeUuid);
+        RouteOrderServiceSettings parameters = response.as(RouteOrderServiceSettings.class);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response,RouteOrderServiceSettings.class);
+        assertEquals(parameters.getStoreOrderServiceSetting().getStoreUuid(), storeUuid, "Вернулся неверный UUID");
     }
 
     @Story("Dispatch settings")

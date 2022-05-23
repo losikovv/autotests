@@ -18,7 +18,7 @@ import ru.sbermarket.common.Mapper;
 import java.util.UUID;
 
 @SuppressWarnings("unchecked")
-public class ShopperAdminRequest extends ShopperAdminRequestBase {
+public class   ShopperAdminRequest extends ShopperAdminRequestBase {
 
     public static class ShiftAssignments {
         @Step("{method} /" + ShopperAdminEndpoints.SHIFT_ASSIGNMENTS)
@@ -96,6 +96,12 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
         @Step("{method} /" + ShopperAdminEndpoints.Stores.ESTIMATOR_SETTINGS)
         public static Response GET(String retailerUUID) {
             return givenWithAuth().get(ShopperAdminEndpoints.Stores.ESTIMATOR_SETTINGS, retailerUUID);
+        }
+    }
+    public static class OrderServiceSettings{
+        @Step("{method} /" + ShopperAdminEndpoints.OrderServiceSettings.ORDER_SERVICE_SETTINGS)
+        public static Response GET(final String storeUuid){
+            return givenWithAuth().get(ShopperAdminEndpoints.OrderServiceSettings.ORDER_SERVICE_SETTINGS, storeUuid);
         }
     }
 
