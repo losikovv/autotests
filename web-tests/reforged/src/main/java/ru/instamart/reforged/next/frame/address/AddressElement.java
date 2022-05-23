@@ -6,6 +6,7 @@ import ru.instamart.reforged.core.component.*;
 public interface AddressElement {
 
     Element addressModal = new Element(By.xpath("//div[@data-qa='address-modal']"), "empty");
+    Button close = new Button(By.xpath("//button[@data-qa='address-modal-close']"), "Кнопка 'Закрыть'");
 
     Button delivery = new Button(By.xpath("//button[@data-qa='address-edit-selector-delivery']"), "empty");
     Button selfDelivery = new Button(By.xpath("//button[@data-qa='address-edit-selector-pickup']"), "empty");
