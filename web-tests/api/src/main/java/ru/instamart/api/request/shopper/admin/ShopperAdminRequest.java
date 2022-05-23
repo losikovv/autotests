@@ -93,10 +93,19 @@ public class   ShopperAdminRequest extends ShopperAdminRequestBase {
                     .get(ShopperAdminEndpoints.STORES);
         }
 
+
         @Step("{method} /" + ShopperAdminEndpoints.Stores.ESTIMATOR_SETTINGS)
         public static Response GET(String retailerUUID) {
             return givenWithAuth().get(ShopperAdminEndpoints.Stores.ESTIMATOR_SETTINGS, retailerUUID);
         }
+
+        public static class DispatchSettings {
+            @Step("{method} /" + ShopperAdminEndpoints.Stores.DISPATCH_SETTINGS)
+            public static Response GET(String retailerUUID) {
+                return givenWithAuth().get(ShopperAdminEndpoints.Stores.DISPATCH_SETTINGS, retailerUUID);
+            }
+        }
+
     }
     public static class OrderServiceSettings{
         @Step("{method} /" + ShopperAdminEndpoints.OrderServiceSettings.ORDER_SERVICE_SETTINGS)
