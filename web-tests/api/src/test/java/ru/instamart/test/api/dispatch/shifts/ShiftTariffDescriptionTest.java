@@ -1,5 +1,7 @@
 package ru.instamart.test.api.dispatch.shifts;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -20,6 +22,8 @@ import workflow.ServiceGrpc;
 import static ru.instamart.api.helper.WorkflowHelper.getWorkflowUuid;
 import static ru.instamart.kraken.util.TimeUtil.getDateMinusSec;
 
+@Epic("Shifts")
+@Feature("Endpoints")
 public class ShiftTariffDescriptionTest extends RestBase {
 
     @BeforeClass(alwaysRun = true,
@@ -41,7 +45,7 @@ public class ShiftTariffDescriptionTest extends RestBase {
                 "Если по завершению смены оплата за выполненные заказы окажется меньше гарантированного дохода, то ваша оплата за эту смену будет равна гарантированному доходу.";
         Response response = TariffDescriptionRequest.GET();
         StatusCodeCheckpoints.checkStatusCode(response, 200, "text/plain; charset=utf-8");
-        Assert.assertEquals(response.getBody().asString(), description);
+        Assert.assertEquals(response.getBody().asString(), description, "Описание тарифа не совпадает");
     }
 
 }
