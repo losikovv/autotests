@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import ru.instamart.reforged.core.config.BrowserProperties;
 import ru.instamart.reforged.core.provider.AbstractBrowserProvider;
+import ru.instamart.reforged.core.provider.BrowserProxy;
 
 import java.util.Optional;
 
@@ -18,6 +19,13 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         final var options = new ChromeOptions();
         final var jsonObject = new JSONObject();
         WebDriverManager.chromedriver().browserVersion(BrowserProperties.BROWSER_LOCAL_VERSION).setup();
+
+        if (BrowserProperties.ENABLE_PROXY) {
+            if (BrowserProperties.IGNORE_SSL) {
+                options.setAcceptInsecureCerts(true);
+            }
+            options.addArguments("--proxy-server=" + BrowserProxy.INSTANCE.getLocalProxy());
+        }
 
         jsonObject.put("profile.default_content_settings.geolocation", 2);
         jsonObject.put("profile.managed_default_content_settings.geolocation", 2);

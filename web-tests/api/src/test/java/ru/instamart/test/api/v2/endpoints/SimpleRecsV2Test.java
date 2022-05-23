@@ -67,7 +67,7 @@ public final class SimpleRecsV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(287), @CaseId(1094), @CaseId(1095), @CaseId(1096), @CaseId(1097), @CaseId(1098)})
     @Story("Упрощенные рекомендации (simple-recs)")
-    @Test(groups = {"api-instamart-regress"}, enabled = false, //заблокировано до выяснения причин https://sbermarket.slack.com/archives/C019EM4EFNK/p1647240740178589
+    @Test(groups = {"api-instamart-regress"},
             description = "Упрощенный запрос блока рекомендаций с обязательными параметрами",
             dataProvider = "simpleRecsData",
             dataProviderClass = RestDataProvider.class)
@@ -83,7 +83,7 @@ public final class SimpleRecsV2Test extends RestBase {
     @Skip(onServer = Server.PRODUCTION)//баг - https://sbermarket.slack.com/archives/C019EM4EFNK/p1645693894111519
     @CaseId(1921)
     @Story("Упрощенные рекомендации (simple-recs)")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false, //заблокировано до выяснения причин https://sbermarket.slack.com/archives/C019EM4EFNK/p1647240740178589
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос блока рекомендаций без context.user.ext")
     public void testSimpleRecsWithoutUserId() {
         SimpleRecsV2Request.SimpleRecsV2 allRequiredParameters = SimpleRecsV2Request.SimpleRecsV2.builder()
@@ -154,7 +154,7 @@ public final class SimpleRecsV2Test extends RestBase {
 
     @CaseId(844)
     @Story("Упрощенные рекомендации (simple-recs)")
-    @Test(groups = {"api-instamart-regress"}, enabled = false, //заблокировано до выяснения причин https://sbermarket.slack.com/archives/C019EM4EFNK/p1647240740178589
+    @Test(groups = {"api-instamart-regress"},
             description = "Упрощенный запрос блока рекомендаций coпутствующих товаров")
     public void getComplementarySimpleRecsTest() {
         final Response response = SimpleRecsV2Request.Complementary.POST(allRequiredParameters);
@@ -164,7 +164,7 @@ public final class SimpleRecsV2Test extends RestBase {
 
     @CaseId(845)
     @Story("Упрощенные рекомендации (simple-recs)")
-    @Test(groups = {"api-instamart-regress"}, enabled = false, //заблокировано до выяснения причин https://sbermarket.slack.com/archives/C019EM4EFNK/p1647240740178589
+    @Test(groups = {"api-instamart-regress"},
             description = "Упрощенный запрос блока рекомендаций товаров-заменителей")
     public void getSubstituteSimpleRecsTest() {
         final Response response = SimpleRecsV2Request.Substitute.POST(allRequiredParameters);

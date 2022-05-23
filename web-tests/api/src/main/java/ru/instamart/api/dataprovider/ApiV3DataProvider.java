@@ -11,9 +11,12 @@ import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.enums.v3.PricersV3;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.testdata.ApiV3TestData;
+import ru.instamart.api.request.v3.CheckoutV3Request;
 import ru.instamart.jdbc.dao.stf.OffersDao;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data_provider.DataList;
 
+import java.util.Collections;
 import java.util.List;
 
 import static ru.instamart.api.helper.ApiV3Helper.getApiClientToken;
@@ -160,6 +163,21 @@ public class ApiV3DataProvider extends RestBase {
         idsArray[3] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerPack).shipTotal("1299").itemIdName("PerPack").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken(token).retailer_id("auchan").clientTokenName("Auchan").storeId("4872ead0-274b-49a2-955e-a5101a7de9cb").build()};
 
         return idsArray;
+    }
 
+    @DataProvider(name = "orderWithInvalidData")
+    public static Object[][] getOrderWithInvalidData() {
+        return new Object[][]{
+                {"ivan.petrov#mail.ru", "7" + Generate.phoneNumber(), "email"},
+                {"ivan.petrov@mail.ru","792222222222323423424", "phone"}
+        };
+    }
+
+    @DataProvider(name = "orderWithEmptyData")
+    public static Object[][] getOrderWithEmptyData() {
+        return new Object[][]{
+                {"", "7" + Generate.phoneNumber(), "email"},
+                {"ivan.petrov@mail.ru","", "phone"}
+        };
     }
 }

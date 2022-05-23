@@ -134,7 +134,7 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
         }
     }
 
-    public SpreeOrdersEntity getOrder(long userId) {
+    public SpreeOrdersEntity getOrderOfAnotherUser(long userId) {
         SpreeOrdersEntity order = new SpreeOrdersEntity();
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +

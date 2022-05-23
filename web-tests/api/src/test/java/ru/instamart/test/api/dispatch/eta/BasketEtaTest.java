@@ -298,7 +298,8 @@ public class BasketEtaTest extends RestBase {
 
     @CaseId(61)
     @Story("Basket ETA")
-    @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML не возвращает ответ по таймауту",            groups = "dispatch-eta-smoke")
+    @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML не возвращает ответ по таймауту",
+            groups = "dispatch-eta-smoke")
     public void getBasketEtaWithMLTimeout() {
         String storeUuid = StoresDao.INSTANCE.findById(EnvironmentProperties.DEFAULT_ON_DEMAND_SID).get().getUuid();
         serviceParameters = ServiceParametersDao.INSTANCE.getServiceParameters();

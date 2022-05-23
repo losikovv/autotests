@@ -1,0 +1,17 @@
+package ru.instamart.reforged.next.page.checkout.thirdStep;
+
+import io.qameta.allure.Step;
+
+public class ReplacementPolicyStep implements ReplacementPolicyCheck {
+
+    @Step("Выбрать способ замены: {0}")
+    public void clickToPolicy(String policy) {
+        replacementPolicy.clickOnElementWithText(policy);
+    }
+
+    @Step("Нажать на Продолжить")
+    public void clickToSubmit() {
+        submit.scrollTo();
+        submit.hoverAndClick();
+    }
+}

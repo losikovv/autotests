@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
+import ru.instamart.kraken.util.CryptCard;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
@@ -19,15 +20,19 @@ import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
 import ru.instamart.api.response.v2.CreditCardV2Response;
 import ru.instamart.api.response.v2.CreditCardsV2Response;
 
+import java.util.UUID;
+
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
+import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
 @Epic("ApiV2")
 @Feature("Банковские карты")
 public class CreditCardsV2Test extends RestBase {
 
     private Integer creditCardId;
+    private String publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAol3r+CqqmOgfLXbpTPrrQqP9yYEKDSLHVQgyWeUnoZdy06ZD8Yt0s5ENtoKOsfdvA1GYDhBwxq9v15AXiynAxkhu9UZ/b3RjMh9tJ/sNrVBGfnJvKRBhIedcNgMtvmMsuiQDUqIV+Ia6BP3S0w8l9WEkFelK+y7bZeXfaAEfCyMAcsW7C8CGKryXG8v5ZKBwqmAo5D5O43wGPjVoHL9G9EGIhQbdNcx2bmy7zFffMhI9hiaTWjhkwmPsqanLB9AzYiZ1431s3lYGu+ZCu66aI7MkmsDGeHV/Z/4HCIzA5KrSx/KZ2Yw27n6Hqj3AYfiYehETKNAEAKF7gNpEU+ad2QIDAQAB";
 
     @BeforeMethod(alwaysRun = true)
     @Story("Создание сессии")
@@ -42,14 +47,18 @@ public class CreditCardsV2Test extends RestBase {
             groups = {"api-instamart-regress"},
             description = "Добавить новую карту с указанием обязательных параметров")
     public void addANewCardWithRequiredParameters() {
-        String card = CreditCardsV2.CARD1.getNumber();
-        String lastDigits = card.substring(card.lastIndexOf(" ") + 1);
+        String card = CreditCardsV2.CARD2.getNumber();
+        String cvc = CreditCardsV2.CARD2.getCvc();
+        String expDate = CreditCardsV2.CARD2.getYear() + CreditCardsV2.CARD2.getMonth();
+        String lastDigits = card.substring(card.length() - 4);
+
+        String resultString = getTimestamp() + "/" + UUID.randomUUID() + "/" + card + "/" + cvc + "/" + expDate + "/" + UUID.randomUUID();
         final CreditCard expectedCreditCard = CreditCard.builder()
                 .name("TESTOV TEST")
-                .year(CreditCardsV2.CARD1.getYear())
-                .month(CreditCardsV2.CARD1.getMonth())
+                .year(CreditCardsV2.CARD2.getYear())
+                .month(CreditCardsV2.CARD2.getMonth())
                 .lastDigits(lastDigits)
-                .cryptogramPacket(CreditCardsV2.CARD1.getCryptogramPacket())
+                .cryptogramPacket(CryptCard.INSTANCE.encrypt(resultString,publicKey))
                 .build();
         final Response response = CreditCardsV2Request.POST(expectedCreditCard);
         checkStatusCode200(response);

@@ -3,8 +3,8 @@ package ru.instamart.test.api.admin_api;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
@@ -13,6 +13,7 @@ import ru.instamart.api.model.v1.AdminUserV1;
 import ru.instamart.api.request.v1.admin.UsersV1Request;
 import ru.instamart.api.response.v1.admin.UserV1Response;
 import ru.instamart.api.response.v1.admin.UsersV1Response;
+import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.data.Generate;
 
 import java.util.List;
@@ -81,6 +82,6 @@ public class UsersV1Test extends RestBase {
     public void deleteUser() {
         final Response response = UsersV1Request.DELETE(userId);
         checkStatusCode(response, 204);
-        //TODO: дописать проверку в БД
+        Assert.assertTrue(SpreeUsersDao.INSTANCE.findById(userId).isEmpty(), "Пользователь не удалился");
     }
 }

@@ -68,4 +68,27 @@ public class SpreeShipmentsDao extends AbstractDao<Long, SpreeShipmentsEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
     }
+
+    public SpreeShipmentsEntity getShipmentOfAnotherUser(long userId) {
+        SpreeShipmentsEntity shipment = new SpreeShipmentsEntity();
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+                     " ss JOIN spree_orders so ON ss.order_id = so.id WHERE so.user_id != ? ORDER BY so.id DESC LIMIT 1")) {
+            preparedStatement.setLong(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                shipment.setId(resultSet.getLong("id"));
+                shipment.setNumber(resultSet.getString("number"));
+                shipment.setState(resultSet.getString("state"));
+                shipment.setDeliveryWindowId(resultSet.getLong("delivery_window_id"));
+                shipment.setUuid(resultSet.getString("uuid"));
+                shipment.setStoreId(resultSet.getInt("store_id"));
+                shipment.setTotalWeight(resultSet.getDouble("total_weight"));
+                shipment.setTotal(resultSet.getDouble("total"));
+            } else return null;
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return shipment;
+    }
 }

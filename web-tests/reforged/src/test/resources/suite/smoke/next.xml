@@ -12,7 +12,11 @@
     </method-selectors>
     <test verbose="1" name="Web UI tests next" parallel="classes" thread-count="5">
         <classes>
+            <class name="ru.instamart.test.reforged.next.BasicSbermarketTests"/>
 
+            <class name="ru.instamart.test.reforged.next.user.UserAuthorisationTests"/>
+            <class name="ru.instamart.test.reforged.next.user.UserFavoritesTests"/>
+            <class name="ru.instamart.test.reforged.next.user.UserLogoutTests"/>
         </classes>
     </test>
 </suite>

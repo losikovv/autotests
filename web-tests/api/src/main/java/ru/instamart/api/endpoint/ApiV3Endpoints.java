@@ -21,7 +21,12 @@ public class ApiV3Endpoints {
 
         public static final class Orders {
             public static final String INITIALIZATION = "v3/checkout/orders/{orderNumber}/initialization";
+            public static final String PAYMENT_TOOLS = "v3/checkout/orders/{orderNumber}/payment_tools";
             public static final String VALIDATION = "v3/checkout/orders/{orderNumber}/validation";
+        }
+
+        public static final class Shipments {
+            public static final String SHIPPING_RATES = "v3/checkout/shipments/{shipmentNumber}/shipping_rates";
         }
     }
 

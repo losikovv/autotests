@@ -112,6 +112,8 @@ public final class EnvironmentProperties {
     public static int DEFAULT_PGSQL_POOL_SIZE;
     @Config(configName = NAME, fieldName = "adminPassword", defaultValue = "", crypted = true)
     public static String ADMIN_PASSWORD;
+    @Config(configName = NAME, fieldName = "headerForwardTo", defaultValue = "s-sb-stfkraken")
+    public static String PROXY_HEADER_FORWARD_TO;
 
 
     public static class Env {

@@ -1,6 +1,8 @@
 package ru.instamart.reforged.admin.page.shipment.shipment.payments;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -26,4 +28,15 @@ public interface ShipmentPaymentsCheck extends Check, ShipmentPaymentsElement {
     default void checkPaymentByCardPendingVisible() {
         waitAction().shouldBeVisible(pendingPaymentByCard);
     }
+
+    @Step("Проверяем, что дебетовое сальдо отображается")
+    default void checkDebetBalanceVisible() {
+        waitAction().shouldBeVisible(debetBalance);
+    }
+
+    @Step("Проверяем, что дебетовое сальдо положительное")
+    default void checkDebetBalancePositive() {
+        Assert.assertTrue(StringUtil.stringToDouble(debetBalance.getText()) > 0, "Дебетовое сальдо 0 или отрицательное");
+    }
+
 }

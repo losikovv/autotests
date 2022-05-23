@@ -11,7 +11,7 @@
         </method-selector>
     </method-selectors>
     <!-- api-v3-tests -->
-    <test verbose="1" name="API v3 Tests" parallel="classes" thread-count="19">
+    <test verbose="1" name="API v3 Tests" parallel="classes" thread-count="20">
         <classes>
             <class name="ru.instamart.test.api.v3.endpoints.StoresV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.SetupInfoV3Test"/>
@@ -33,6 +33,9 @@
             <class name="ru.instamart.test.api.v3.endpoints.FavoritesListV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.FeatureFlagsV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.MarketingCategoriesV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.EditCheckoutV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.ShippingRatesV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.PaymentToolsV3Test"/>
         </classes>
     </test>
 </suite>

@@ -119,9 +119,8 @@ public class ShipmentfulShopperAppTest extends RestBase {
 
     @Story("Получение информации о заказах")
     @CaseId(105)
-    @Test(enabled = false, //пустой ответ
-            description = "Получаем все заказы для сборщика",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+    @Test(description = "Получаем все заказы для сборщика",
+            groups = {"api-shopper-regress"}) //, "api-shopper-prod"}) TODO приходит пустой ответ на проде
     public void getShopperShipment200() {
         response = ShopperSHPRequest.Shipment.GET();
         checkStatusCode200(response);

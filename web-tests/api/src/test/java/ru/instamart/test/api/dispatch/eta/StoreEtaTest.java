@@ -159,7 +159,6 @@ public class StoreEtaTest extends RestBase {
         String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(1)));
         StoresEntity store = getStoreWithUpdatedSchedule(openingDate, closingDate, "00:00:00");
         Eta.StoreUserEtaRequest request = getStoreUserEtaRequest(store.getUuid(), address.getLat().floatValue(), address.getLon().floatValue());
-
         var response = clientEta.getStoreEta(request);
         compareTwoObjects(response.getDataCount(), 0);
     }
