@@ -12,14 +12,13 @@ import ru.instamart.api.request.v2.CreditCardsV2Request;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
 @Feature("Управление юзерами")
-public class AdministrationUsersSectionTests extends BaseTest {
+public final class AdministrationUsersSectionTests {
 
     private final ApiHelper helper = new ApiHelper();
 

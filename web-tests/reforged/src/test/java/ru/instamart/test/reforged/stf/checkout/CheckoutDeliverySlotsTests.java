@@ -12,7 +12,6 @@ import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -20,7 +19,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 
 @Epic("STF UI")
 @Feature("Чекаут. Шаг #4. Время получения.")
-public final class CheckoutDeliverySlotsTests extends BaseTest {
+public final class CheckoutDeliverySlotsTests {
 
     private final ApiHelper helper = new ApiHelper();
     private UserData userData;

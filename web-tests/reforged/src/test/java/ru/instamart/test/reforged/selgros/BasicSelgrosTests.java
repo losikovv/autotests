@@ -10,7 +10,6 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
@@ -18,7 +17,7 @@ import static ru.instamart.reforged.selgros.page.SelgrosRouter.selgros;
 
 @Epic("SELGROS UI")
 @Feature("Базовые тесты тенанта селгрос")
-public final class BasicSelgrosTests extends BaseTest {
+public final class BasicSelgrosTests {
 
     @CaseId(2781)
     @Story("Валидация элементов")

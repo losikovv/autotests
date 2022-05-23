@@ -4,7 +4,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import static ru.instamart.reforged.business.page.BusinessRouter.*;
 
 @Epic("SMBUSINESS UI")
 @Feature("Лендинг")
-public final class LandingTests extends BaseTest {
+public final class LandingTests {
 
     @CaseId(25)
     @Test(description = "Ссылка на лендинг для неавторизованного юзера", groups = {"smoke", "regression"})

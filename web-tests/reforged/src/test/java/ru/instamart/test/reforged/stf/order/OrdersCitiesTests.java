@@ -11,7 +11,6 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.data_provider.CityProvider;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -19,7 +18,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Покупка товара")
-public final class OrdersCitiesTests extends BaseTest {
+public final class OrdersCitiesTests {
 
     private final ApiHelper helper = new ApiHelper();
     private UserData userData;

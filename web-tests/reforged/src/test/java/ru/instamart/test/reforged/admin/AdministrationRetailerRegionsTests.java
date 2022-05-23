@@ -7,13 +7,12 @@ import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
 @Feature("Управление регионами ретейлера")
-public final class AdministrationRetailerRegionsTests extends BaseTest {
+public final class AdministrationRetailerRegionsTests {
 
     @CaseId(469)
     @Story("Тест добавления нового региона для магазинов в админке")

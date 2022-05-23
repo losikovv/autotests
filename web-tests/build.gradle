@@ -31,7 +31,6 @@ project(":reforged") {
         implementation lib.jackson
         implementation lib.aspectjweaver
         implementation lib.seleniumJava
-        implementation lib.allureTestng
         implementation lib.allureJavaCommons
         implementation lib.testng
         implementation lib.jsonSimple
@@ -59,7 +58,6 @@ project(":kraken") {
         implementation lib.jsonSimple
         implementation lib.jackson
         implementation lib.aspectjweaver
-        implementation lib.allureTestng
         implementation lib.allureJavaCommons
         implementation lib.pgsqlJDBC
         implementation lib.logback

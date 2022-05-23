@@ -16,13 +16,12 @@ import ru.instamart.kraken.data.RetailerCards;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
-import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Покупка товара со скидочной картой")
-public final class OrdersRetailerCardsTests extends BaseTest {
+public final class OrdersRetailerCardsTests {
 
     private final ApiHelper helper = new ApiHelper();
     private UserData userData;

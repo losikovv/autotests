@@ -9,7 +9,6 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.stf.page.StfRouter;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_AUCHAN_SID;
@@ -18,7 +17,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Раздел 'Вы покупали ранее'")
-public final class ShoppingYouBoughtBeforeTests extends BaseTest {
+public final class ShoppingYouBoughtBeforeTests {
 
     private final ApiHelper helper = new ApiHelper();
 

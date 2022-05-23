@@ -15,7 +15,6 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.kraken.util.TimeUtil;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.login;
@@ -23,7 +22,7 @@ import static ru.instamart.reforged.admin.AdminRout.shipments;
 
 @Epic("Админка STF")
 @Feature("Управление заказами")
-public final class AdministrationShipmentsSectionTests extends BaseTest {
+public final class AdministrationShipmentsSectionTests {
 
     private final ApiHelper helper = new ApiHelper();
 

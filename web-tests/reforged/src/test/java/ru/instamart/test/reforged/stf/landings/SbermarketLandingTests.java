@@ -4,14 +4,13 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.reforged.CookieFactory;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 
 @Epic("STF UI")
 @Feature("Проверка лендингов")
-public class SbermarketLandingTests extends BaseTest {
+public final class SbermarketLandingTests {
 
     @CaseId(1687)
     @Test(description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = "regression")

@@ -2,7 +2,6 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -19,15 +18,13 @@ import ru.instamart.kraken.data.StoreLabelData;
 import ru.instamart.kraken.data.StoreLabels;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
 @Feature("Settings (Настройки)")
-@Story("Группы магазинов")
-public class AdministrationStoreGroupsTests extends BaseTest {
+public class AdministrationStoreGroupsTests {
 
     private final ApiHelper api = new ApiHelper();
     private final AdminHelper adminApi = new AdminHelper();

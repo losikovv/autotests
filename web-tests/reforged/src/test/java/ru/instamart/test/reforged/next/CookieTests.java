@@ -3,14 +3,13 @@ package ru.instamart.test.reforged.next;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.next.page.StfRouter.home;
 
 @Epic("STF UI")
 @Feature("Проверка cookie")
-public final class CookieTests extends BaseTest {
+public final class CookieTests {
 
     @CaseId(2282)
     @Test(description = "Отображение предупреждения без записи в cookies", groups = "regression")

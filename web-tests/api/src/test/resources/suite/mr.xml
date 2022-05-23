@@ -2,6 +2,7 @@
 <suite name="MR-SUITE" parallel="tests" thread-count="2" verbose="1">
   <listeners>
     <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
+    <listener class-name="ru.instamart.api.listener.ApiListener"/>
   </listeners>
   <method-selectors>
     <method-selector>

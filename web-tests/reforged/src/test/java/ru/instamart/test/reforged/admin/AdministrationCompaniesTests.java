@@ -9,14 +9,13 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.TimeUtil;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
 @Feature("Управление компаниями пользователя")
-public final class AdministrationCompaniesTests extends BaseTest {
+public final class AdministrationCompaniesTests {
 
     private final ApiHelper helper = new ApiHelper();
 

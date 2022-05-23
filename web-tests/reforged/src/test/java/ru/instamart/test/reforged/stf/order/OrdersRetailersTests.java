@@ -12,7 +12,6 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.data_provider.StoreProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -20,7 +19,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Проверка оформления заказов у разных ретейлеров")
-public class OrdersRetailersTests extends BaseTest {
+public final class OrdersRetailersTests {
 
     private final ApiHelper helper = new ApiHelper();
     private UserData userData;

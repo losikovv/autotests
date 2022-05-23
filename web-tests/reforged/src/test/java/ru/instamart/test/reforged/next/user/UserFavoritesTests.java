@@ -10,7 +10,6 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.next.page.StfRouter.shop;
@@ -18,7 +17,7 @@ import static ru.instamart.reforged.next.page.StfRouter.userFavorites;
 
 @Epic("STF UI")
 @Feature("Любимые товары")
-public final class UserFavoritesTests extends BaseTest {
+public final class UserFavoritesTests {
 
     private final ApiHelper apiHelper = new ApiHelper();
 

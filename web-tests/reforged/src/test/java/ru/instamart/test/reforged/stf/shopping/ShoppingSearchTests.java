@@ -8,7 +8,6 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.search;
@@ -16,7 +15,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Поиск товаров")
-public final class ShoppingSearchTests extends BaseTest {
+public final class ShoppingSearchTests {
 
     @CaseId(1609)
     @Story("Проверка наличия элементов")

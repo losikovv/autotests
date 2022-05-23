@@ -12,14 +12,13 @@ import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
-import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Чекаут. Шаг #1. Способ получения")
-public final class CheckoutAddressStepTests extends BaseTest {
+public final class CheckoutAddressStepTests {
 
     private final ApiHelper helper = new ApiHelper();
     private final AddressDetailsData data = TestVariables.testAddressData();

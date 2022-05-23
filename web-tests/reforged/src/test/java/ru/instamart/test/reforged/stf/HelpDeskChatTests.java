@@ -8,13 +8,13 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
+
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Чат поддержки")
-public final class HelpDeskChatTests extends BaseTest {
+public final class HelpDeskChatTests {
 
     @CaseId(1758)
     @Test(description = "Тест отсутствия виджета HelpDesk в чекауте", groups = {"acceptance","regression",})

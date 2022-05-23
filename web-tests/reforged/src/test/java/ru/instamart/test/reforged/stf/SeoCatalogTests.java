@@ -10,14 +10,13 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
-import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.stf.page.StfRouter.search;
 
 @Epic("STF UI")
 @Feature("Seo Каталог")
-public final class SeoCatalogTests extends BaseTest {
+public final class SeoCatalogTests {
 
     private final ApiHelper helper = new ApiHelper();
 

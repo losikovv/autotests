@@ -9,7 +9,6 @@ import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.business.page.BusinessRouter.business;
@@ -17,7 +16,7 @@ import static ru.instamart.reforged.business.page.BusinessRouter.checkout;
 
 @Epic("SMBUSINESS UI")
 @Feature("Чекаут B2B")
-public class CheckoutTests extends BaseTest {
+public final class CheckoutTests {
 
     private final ApiHelper helper = new ApiHelper();
 

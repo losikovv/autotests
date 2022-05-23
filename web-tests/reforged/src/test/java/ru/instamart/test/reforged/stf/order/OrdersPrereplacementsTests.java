@@ -10,7 +10,6 @@ import ru.instamart.jdbc.dao.stf.SpreeProductsDao;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Arrays;
@@ -21,7 +20,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Предзамены")
-public class OrdersPrereplacementsTests extends BaseTest {
+public class OrdersPrereplacementsTests {
     //Пользователь должен быть добавлен в А/Б-тест "0a404a10-84f1-4176-89ad-d3fdd9970975" группа "pre_replacements_low"
 
     private final ApiHelper apiHelper = new ApiHelper();

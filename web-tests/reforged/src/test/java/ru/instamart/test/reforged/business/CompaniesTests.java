@@ -7,14 +7,13 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.business.page.BusinessRouter.*;
 
 @Epic("SMBUSINESS UI")
 @Feature("Раздел 'Компании' B2C и B2B")
-public class CompaniesTests extends BaseTest {
+public final class CompaniesTests {
 
     private final ApiHelper helper = new ApiHelper();
 

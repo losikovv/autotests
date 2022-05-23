@@ -14,7 +14,6 @@ import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.jdbc.entity.stf.SpreeOrdersEntity;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -22,7 +21,7 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 @Epic("Админка STF")
 @Feature("Заказы")
 @Story("Страница заказа /orders/:order_id/edit")
-public final class AdministrationOrdersEditTests extends BaseTest {
+public final class AdministrationOrdersEditTests {
 
     private final ApiHelper helper = new ApiHelper();
     private ShipmentSHP.Data shipment;

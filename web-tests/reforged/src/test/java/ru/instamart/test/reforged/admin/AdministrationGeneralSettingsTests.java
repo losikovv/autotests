@@ -4,14 +4,13 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
 @Feature("Основные настройки")
-public final class AdministrationGeneralSettingsTests extends BaseTest {
+public final class AdministrationGeneralSettingsTests {
 
     @CaseId(346)
     @Test(description = "Корректное отображение страницы основных настроек", groups = {"acceptance", "regression"})

@@ -1,5 +1,6 @@
 package ru.instamart.reforged.core.service;
 
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.util.StringUtil;
 
@@ -17,12 +18,14 @@ public final class Curl {
     // -w вывести только
     private static final String CURL_RESPONSE_CODE = "curl -s -o /dev/null --head -w \"%{http_code}\" ";
 
+    @Step("Проверка доступности страницы {0}")
     public static boolean pageAvailable(final String url) {
         final int code = getResponseCode(url);
         log.debug("Страница '{}' вернула код '{}'", url, code);
         return code == 200;
     }
 
+    @Step("Проверка недоступности страницы {0}")
     public static boolean pageUnavailable(final String url) {
         final int code = getResponseCode(url);
         log.debug("Страница '{}' вернула код '{}'", url, code);

@@ -7,6 +7,10 @@ task autoMr(type: Test) {
 
 task debug(type: Test) {
     useTestNG() {
+        options {
+            listeners.add("ru.instamart.reforged.core.listener.UiExecutionListener")
+            listeners.add("ru.instamart.reforged.core.listener.UiListener")
+        }
         suites 'src/test/resources/suite/debug.xml'
         includeGroups 'debug'
     }

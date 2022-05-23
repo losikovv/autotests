@@ -7,13 +7,12 @@ import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Регистрация пользователя")
-public final class UserRegistrationTests extends BaseTest {
+public final class UserRegistrationTests {
 
     @CaseId(1552)
     @Story("Регистрация на странице ретейлера")
@@ -33,7 +32,7 @@ public final class UserRegistrationTests extends BaseTest {
         home().goToPage();
         home().openLoginModal();
         home().interactAuthModal().authViaPhone(UserManager.getQaUser());
-        shop().interactHeader().checkProfileButtonVisible();
+        home().checkAuthoredBlockVisible();
     }
 
     @CaseId(1543)

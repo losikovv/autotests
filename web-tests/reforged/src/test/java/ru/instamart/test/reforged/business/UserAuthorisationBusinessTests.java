@@ -7,14 +7,13 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.business.page.BusinessRouter.business;
 
 @Epic("SMBUSINESS UI")
 @Feature("Регистрация и авторизация B2B")
-public final class UserAuthorisationBusinessTests extends BaseTest {
+public final class UserAuthorisationBusinessTests {
 
     @CaseId(230)
     @Story("Авторизация")

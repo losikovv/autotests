@@ -8,7 +8,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
@@ -16,7 +15,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 //TODO: На стейдже сейчас нет виджетов, реализацию проверял на проде. После добавления на стейдже, нужно перепроверить
 @Epic("STF UI")
 @Feature("Retail Rocket")
-public final class RetailRocketCartWidgetsTests extends BaseTest {
+public final class RetailRocketCartWidgetsTests {
 
     private final ApiHelper helper = new ApiHelper();
     private final UserData userData = UserManager.getQaUser();

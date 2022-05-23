@@ -9,7 +9,6 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
-import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.next.page.StfRouter.seo;
@@ -17,7 +16,7 @@ import static ru.instamart.reforged.next.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Seo Каталог")
-public final class SeoCatalogTests extends BaseTest {
+public final class SeoCatalogTests {
 
     private final ApiHelper helper = new ApiHelper();
 
