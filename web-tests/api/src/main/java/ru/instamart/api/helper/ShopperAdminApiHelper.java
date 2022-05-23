@@ -4,6 +4,7 @@ import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.api.model.shopper.admin.RouteScheduleV1;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
+import ru.instamart.api.response.shopper.admin.OperationalZoneCandidatesSettingResponse;
 import ru.instamart.api.response.shopper.admin.RouteSchedulesSHPResponse;
 
 import java.util.List;
@@ -28,6 +29,12 @@ public class ShopperAdminApiHelper {
         Response response = ShopperAdminRequest.RouteSchedules.GET(sid, date);
         checkStatusCode200(response);
         return response.as(RouteSchedulesSHPResponse.class).getRouteSchedules();
+    }
+
+    public static OperationalZoneCandidatesSettingResponse getCandidatesSettings(Integer zoneId) {
+        final Response response = ShopperAdminRequest.OperationalZones.CandidatesSettings.GET(zoneId);
+        checkStatusCode200(response);
+        return response.as(OperationalZoneCandidatesSettingResponse.class);
     }
 
     //
