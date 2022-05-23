@@ -89,6 +89,10 @@ public final class TimeUtil {
         return dtdb.format(ZonedDateTime.ofInstant(date.atZone(ZONE_ID).toInstant(), ZoneId.of("UTC")));
     }
 
+    public static String getZoneDbDate(LocalDateTime date) {
+        return dtdb.format(ZonedDateTime.ofInstant(date.atZone(ZONE_ID).toInstant(), ZONE_ID));
+    }
+
     public static String getDbDate() {
         return dtdb.format(ZonedDateTime.now(ZONE_UTC));
     }

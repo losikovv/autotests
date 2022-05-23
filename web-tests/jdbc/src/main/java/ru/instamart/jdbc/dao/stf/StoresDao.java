@@ -135,7 +135,7 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
     public StoresEntity getUnavailableStore() {
         StoresEntity store = new StoresEntity();
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_SQL + "  WHERE available_on IS NULL LIMIT 1")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_SQL + "  WHERE available_on IS NULL ORDER BY rand() LIMIT 1")) {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 store.setId(resultSet.getInt("id"));

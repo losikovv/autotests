@@ -79,7 +79,6 @@ public class EtaHelper {
     @Step("Получаем недоступный магазин из БД с обновленным режимом работы")
     public static StoresEntity getStoreWithUpdatedSchedule(String openingTime, String closingTime, int delta, String closingDelta) {
         StoresEntity store = StoresDao.INSTANCE.getUnavailableStore();
-        StoresDao.INSTANCE.updateOnDemandStore(store.getId(), openingTime, closingTime, delta);
         StoreParametersDao.INSTANCE.updateStoreParameters(store.getUuid(), openingTime, closingTime, closingDelta);
         return store;
     }
