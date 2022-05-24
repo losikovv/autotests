@@ -51,9 +51,8 @@ public class AdministrationStoreGroupsTests {
                 adminApi.getStoreLabelByName(storeLabel.getTitle()).getId(),
                 storeDB.getId());
         api.deleteStoreLabel(storeLabel.getTitle());
-        api.deleteStoreInAdmin(store);
         api.deleteCityInAdmin(cityName);
-        api.deleteRetailerByNameInAdmin(retailer.getName());
+        api.deleteRetailerWithStores(retailer.getName());
     }
 
     @CaseId(569)

@@ -109,6 +109,11 @@ public final class ApiHelper {
         apiV2.fillCart(apiV2.getProductFromEachDepartmentOnMainPage(sid));
     }
 
+    @Step("Удаляем ритейлера: '{retailerName}'")
+    public void deleteRetailerWithStores(final String retailerName) {
+        SpreeRetailersCleanDao.INSTANCE.deleteRetailerWithStores(retailerName);
+    }
+
     /**
      * Указание адреса apiV2.setAddressAttributes()
      * перезатирает данные для пользователя который оформлял заказ и указывал параметры адреса доставки(этаж, номер квартиры и тп)
