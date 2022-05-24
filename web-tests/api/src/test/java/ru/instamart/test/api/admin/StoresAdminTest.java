@@ -71,7 +71,7 @@ public class StoresAdminTest extends RestBase {
         checkStoreInDb(store, storeFromDb, storeConfigs);
     }
 
-    @CaseIDs(value = {@CaseId(1209), @CaseId(1210), @CaseId(1211), @CaseId(1212), @CaseId(1213), @CaseId(1214), @CaseId(1215), @CaseId(1216)})
+    @CaseIDs(value = {@CaseId(1210), @CaseId(1211), @CaseId(1212), @CaseId(1213), @CaseId(1214), @CaseId(1215), @CaseId(1216)})
     @Story("Магазины ритейлеров")
     @JsonDataProvider(path = "data/json_admin/admin_negative_stores_data.json", type = RestDataProvider.StoresAdminTestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
