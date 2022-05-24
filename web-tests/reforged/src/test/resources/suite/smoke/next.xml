@@ -17,6 +17,9 @@
             <class name="ru.instamart.test.reforged.next.user.UserAuthorisationTests"/>
             <class name="ru.instamart.test.reforged.next.user.UserFavoritesTests"/>
             <class name="ru.instamart.test.reforged.next.user.UserLogoutTests"/>
+            <class name="ru.instamart.test.reforged.next.user.UserProfileTests"/>
+            <class name="ru.instamart.test.reforged.next.user.UserRegistrationTests"/>
+            <class name="ru.instamart.test.reforged.next.user.UserShippingAddressTests"/>
         </classes>
     </test>
 </suite>

@@ -2,16 +2,20 @@ package ru.instamart.reforged.next.frame.address;
 
 import io.qameta.allure.Step;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.instamart.reforged.next.frame.Close;
 import ru.instamart.reforged.next.frame.store_selector.StoreSelector;
 
 import static ru.instamart.reforged.next.block.header.HeaderElement.searchButton;
 import static ru.instamart.reforged.next.block.header.HeaderElement.storeSelectorDrawer;
 
-public final class Address implements Close, AddressCheck {
+public final class Address implements AddressCheck {
 
     public StoreSelector interactStoreSelector() {
         return storeSelectorDrawer;
+    }
+
+    @Step("Нажимаем 'Закрыть'")
+    public void clickOnClose() {
+        close.click();
     }
 
     @Step("Выбрать доставку")
