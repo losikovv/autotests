@@ -19,8 +19,10 @@ import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.PaymentCardData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.CollectionUtil;
+import ru.instamart.kraken.util.CryptCard;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 
@@ -1501,5 +1503,33 @@ public final class ApiV2Helper {
         fillCart(getProducts(sid));
 
         return getAvailableDeliveryWindowOnDemand();
+    }
+
+    @Step("Получаем текущее время")
+    public String getCurrentTimeResponse() {
+        final Response responseTime = CurrentTimeV2Request.GET();
+        checkStatusCode200(responseTime);
+        CurrentTimeV2Response currentTimeV2Response = responseTime.as(CurrentTimeV2Response.class);
+        return currentTimeV2Response.getCurrentTime();
+    }
+
+    @Step("Привязываем карту юзеру {user}")
+    public void bindCardToUser(UserData user, String orderNumber, PaymentCardData creditCard) {
+        String uuid = user.getUuid();
+        String pan = creditCard.getCardNumber();
+        String cvv = creditCard.getCvvNumber();
+        String expDate = "20" + creditCard.getExpiryYear() + creditCard.getExpiryMonth();
+        String publicKey = EnvironmentProperties.PUBLIC_CRYPTO_KEY;
+
+        final Response response = PaymentsV2Request.POST(orderNumber);
+        checkStatusCode200(response);
+        CreditCardAuthorizationV2Response creditCardAuthorizationV2Response = response.as(CreditCardAuthorizationV2Response.class);
+        String transactionNumber = creditCardAuthorizationV2Response.getCreditCardAuthorization().getTransactionNumber();
+
+        String resultString = getCurrentTimeResponse() + "/" + uuid + "/" + pan + "/" + cvv + "/" + expDate + "/" + transactionNumber;
+        String encrypt = CryptCard.INSTANCE.encrypt(resultString, publicKey);
+
+        final Response putResponse = PaymentsV2Request.PUT(transactionNumber, encrypt);
+        checkStatusCode200(putResponse);
     }
 }

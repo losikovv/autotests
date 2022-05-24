@@ -14,6 +14,7 @@ public enum PaymentToolV2 {
     LIFEPAY("lifepay", "Картой курьеру"),
     CASH_DESK("cash_desk", "На кассе"),
     EXTERNAL_PARTNER_PAY("external_partner_pay", "Внешний платеж через партнера"),
+    SBER_GATEWAY("sber_gateway", ""),
     SBER_APP_PAY("sber_app_pay", "Платеж через СберАпп");
 
 

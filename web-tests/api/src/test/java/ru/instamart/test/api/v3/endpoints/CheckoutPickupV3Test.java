@@ -84,6 +84,7 @@ public class CheckoutPickupV3Test extends RestBase {
         order = apiV1.getMultiRetailerOrder();
         final Response response = CheckoutV3Request.GET(order.getNumber());
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, OrderV3Response.class);
         checkOrder(response, order, user, ShippingMethodV2.PICKUP.getMethod(), true);
     }
 

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
+import javax.validation.constraints.Null;
 import java.util.List;
 
 @Data
@@ -22,9 +23,10 @@ public class ShipmentV3 extends BaseObject {
     @JsonSchema(required = true)
     private Double cost;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty("delivery_window")
-    private Object deliveryWindow;
+    private CheckoutDeliveryWindowV3 deliveryWindow;
 
     @JsonSchema(required = true)
     private Double discount;

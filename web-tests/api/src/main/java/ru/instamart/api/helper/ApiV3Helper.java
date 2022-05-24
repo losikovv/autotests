@@ -6,11 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.model.testdata.ApiV3TestData;
+import ru.instamart.api.model.v2.DeliveryWindowV2;
 import ru.instamart.api.model.v3.*;
 import ru.instamart.api.request.v3.CheckoutV3Request;
 import ru.instamart.api.request.v3.OrderOptionsV3Request;
 import ru.instamart.api.request.v3.OrderV3Request;
 import ru.instamart.api.request.v3.StoresV3Request;
+import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
+import ru.instamart.api.response.v2.ShippingRatesV2Response;
 import ru.instamart.api.response.v3.OrderOptionsV3Response;
 import ru.instamart.api.response.v3.PaymentToolsV3Response;
 import ru.instamart.jdbc.dao.stf.ApiClientsDao;
@@ -19,11 +22,14 @@ import ru.instamart.jdbc.entity.stf.FlipperGatesEntity;
 import ru.instamart.kraken.enums.Tenant;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.helper.K8sHelper.createApiClient;
 import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
+import static ru.instamart.kraken.util.TimeUtil.getFutureDateWithoutTime;
 
 @Slf4j
 public final class ApiV3Helper {
@@ -203,5 +209,33 @@ public final class ApiV3Helper {
         final Response response = CheckoutV3Request.PaymentTools.GET(orderNumber);
         checkStatusCode200(response);
         return response.as(PaymentToolsV3Response.class).getPaymentTools();
+    }
+
+    @Step("Получаем доступные окна доставки")
+    public DeliveryWindowV2 getShippingRates(String shipmentNumber, long days) {
+        final Response response = CheckoutV3Request.Shipments.GET(shipmentNumber, getFutureDateWithoutTime(days));
+        checkStatusCode200(response);
+        return response.as(ShippingRatesV2Response.class).getShippingRates().get(0).getDeliveryWindow();
+    }
+
+    @Step("Добавляем способ оплаты")
+    public void addPaymentTool(MultiretailerOrderV1Response order, String type, Integer sberSpasibo) {
+        List<PaymentToolV3> paymentTools = getPaymentTools(order.getNumber()).stream().filter(p -> p.getType().equals(type)).collect(Collectors.toList());
+        CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
+                .order(CheckoutV3Request.Order.builder()
+                        .paymentAttributes(CheckoutV3Request.PaymentAttributes.builder()
+                                .sberSpasiboAmount(sberSpasibo)
+                                .paymentToolId(paymentTools.get(0).getId())
+                                .build())
+                        .build())
+                .shipmentNumbers(Collections.singletonList(order.getShipments().get(0).getNumber()))
+                .build();
+        final Response response = CheckoutV3Request.PUT(orderRequest, order.getNumber());
+        checkStatusCode200(response);
+    }
+
+    @Step("Добавляем способ оплаты")
+    public void addPaymentTool(MultiretailerOrderV1Response order, String type) {
+        addPaymentTool(order, type, null);
     }
 }

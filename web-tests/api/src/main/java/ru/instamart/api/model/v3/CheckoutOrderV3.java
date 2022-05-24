@@ -49,7 +49,7 @@ public class CheckoutOrderV3 extends BaseObject {
 
     @JsonSchema(required = true)
     @JsonProperty("promotion_codes")
-    private List<Object> promotionCodes;
+    private List<PromotionCodeV3> promotionCodes;
 
     @Null
     @JsonSchema(required = true)
