@@ -14,7 +14,8 @@ import tagmanager.Tagmanager;
 
 import java.util.UUID;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 @Epic("Tag Manager Microservice")
 @Feature("Tag Manager")
@@ -23,9 +24,12 @@ public class TagManagerTest extends GrpcBase {
     private final String ownerName = UUID.randomUUID().toString();
     private final String ownerDescription = "test description";
     private int ownerId;
+    private int ownerIdMultiplyItems;
     private final String tagName = UUID.randomUUID().toString();
+    private final String tagNameMultiplyItems = UUID.randomUUID().toString();
     private int tagId;
-
+    private int tagIdMultiplyItems;
+    private final String itemId = "something";
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
@@ -155,6 +159,17 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
+    @CaseId(34)
+    @Test(description = "Проверка, что с удаленным тегом удаляются все привязки тега",
+            groups = {"grpc-tag-manager"},
+            dependsOnMethods = "deleteTag")
+    public void getBindsByItemDeletedTag() {
+        var binds = grpc.getBindsByItem(ownerId, "something");
+
+        check.equals(binds.size(), 0);
+    }
+
+    @Story("Тэг")
     @CaseId(26)
     @Test(description = "Получение списка тегов владельца",
             groups = {"grpc-tag-manager"},
@@ -186,6 +201,70 @@ public class TagManagerTest extends GrpcBase {
     }
 
     @Story("Тэг")
+    @CaseId(55)
+    @Test(description = "Получение списка привязок тега",
+            groups = {"grpc-tag-manager"},
+            dependsOnMethods = "bindTag")
+    public void getBindsByTag() {
+        var request = Tagmanager.GetBindsByTagRequest
+                .newBuilder()
+                .setTagId(tagId)
+                .build();
+
+        var bind = client.getBindsByTag(request).getBinds(0);
+
+        check.equals(bind.getTagId(), tagId);
+        check.equals(bind.getItemId(), itemId);
+    }
+
+    @Story("Тэг")
+    @CaseId(148)
+    @Test(description = "Получение списка привязанных тегов по владельцу и сущности",
+            groups = {"grpc-tag-manager"},
+            dependsOnMethods = "bindTag")
+    public void getTagsByItem() {
+        var request = Tagmanager.GetTagsByItemRequest.newBuilder()
+                .setOwnerId(ownerId)
+                .setItemId(itemId)
+                .build();
+
+        var tag = client.getTagsByItem(request).getTags(0);
+
+        check.id(tag.getId());
+        check.equals(tag.getName(), tagName);
+        check.equals(tag.getOwnerId(), ownerId);
+    }
+
+    @Story("Тэг")
+    @CaseId(152)
+    @Test(description = "Получение списка тегов по сущности и несуществующему владельцу",
+            groups = {"grpc-tag-manager"},
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot get tags list: check owner existense failed: entity not found")
+    public void getTagsByItemOwnerNotExisted() {
+        var request = Tagmanager.GetTagsByItemRequest.newBuilder()
+                .setOwnerId(Integer.MAX_VALUE)
+                .setItemId(itemId)
+                .build();
+
+        client.getTagsByItem(request);
+    }
+
+    @Story("Тэг")
+    @CaseId(150)
+    @Test(description = "Получение списка тегов по несуществующей сущности и владельцу",
+            groups = {"grpc-tag-manager"},
+            dependsOnMethods = "bindTag")
+    public void getTagsByNonExistedItem() {
+        var request = Tagmanager.GetTagsByItemRequest.newBuilder()
+                .setOwnerId(ownerId)
+                .setItemId("non existed item")
+                .build();
+
+        check.equals(client.getTagsByItem(request).getTagsCount(), 0);
+    }
+
+    @Story("Тэг")
     @CaseId(35)
     @Test(description = "Привязка тега к сущности с валидными данными",
             groups = {"grpc-tag-manager"},
@@ -194,29 +273,8 @@ public class TagManagerTest extends GrpcBase {
         var request = Tagmanager.BindTagRequest.newBuilder()
                 .setTagId(tagId)
                 .addBinds(Tagmanager.BindTagRequest.Bind.newBuilder()
-                        .setItemId("something")
-                        .setMeta("something")
-                        .build())
-                .build();
-
-        var response = client.bindTag(request);
-        assertTrue(response.getOk());
-    }
-
-    @Story("Тэг")
-    @CaseId(38)
-    @Test(description = "Привязка тега с существующей привязкой",
-            groups = {"grpc-tag-manager"},
-            dependsOnMethods = "bindTag")
-    public void bindTagDuplicate() {
-        String itemId = "something";
-        String meta = "something";
-
-        var request = Tagmanager.BindTagRequest.newBuilder()
-                .setTagId(tagId)
-                .addBinds(Tagmanager.BindTagRequest.Bind.newBuilder()
                         .setItemId(itemId)
-                        .setMeta(meta)
+                        .setMeta("something")
                         .build())
                 .build();
 
@@ -226,9 +284,16 @@ public class TagManagerTest extends GrpcBase {
         var bind = grpc.getBindsByTag(tagId).get(0);
         check.equals(bind.getTagId(), tagId);
         check.equals(bind.getItemId(), itemId);
-        check.equals(bind.getMeta(), meta);
+        check.equals(bind.getMeta(), "something");
+    }
 
-        request = Tagmanager.BindTagRequest.newBuilder()
+    @Story("Тэг")
+    @CaseId(38)
+    @Test(description = "Привязка тега с существующей привязкой",
+            groups = {"grpc-tag-manager"},
+            dependsOnMethods = "bindTag")
+    public void bindTagDuplicate() {
+        var request = Tagmanager.BindTagRequest.newBuilder()
                 .setTagId(tagId)
                 .addBinds(Tagmanager.BindTagRequest.Bind.newBuilder()
                         .setItemId(itemId)
@@ -236,13 +301,173 @@ public class TagManagerTest extends GrpcBase {
                         .build())
                 .build();
 
-        response = client.bindTag(request);
+        var response = client.bindTag(request);
         assertTrue(response.getOk());
 
-        bind = grpc.getBindsByTag(tagId).get(0);
+        var bind = grpc.getBindsByTag(tagId).get(0);
         check.equals(bind.getTagId(), tagId);
         check.equals(bind.getItemId(), itemId);
         check.equals(bind.getMeta(), "something new");
+    }
+
+    @Story("Тэг")
+    @CaseId(37)
+    @Test(description = "Привязка к несуществующему тегу",
+            groups = {"grpc-tag-manager"},
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "NOT_FOUND: tag_id 2147483647 not found")
+    public void bindTagNotFound() {
+        var request = Tagmanager.BindTagRequest.newBuilder()
+                .setTagId(Integer.MAX_VALUE)
+                .addBinds(Tagmanager.BindTagRequest.Bind.newBuilder()
+                        .setItemId(itemId)
+                        .setMeta("something")
+                        .build())
+                .build();
+
+        client.bindTag(request);
+    }
+
+    @Story("Тэг")
+    @CaseId(40)
+    @Test(description = "Привязка тега к нескольким сущностям",
+            groups = {"grpc-tag-manager"})
+    public void bindTagMultiply() {
+        ownerIdMultiplyItems = grpc.createOwner();
+        tagIdMultiplyItems = grpc.createTag(ownerIdMultiplyItems, tagNameMultiplyItems);
+
+        var request = Tagmanager.BindTagRequest.newBuilder()
+                .setTagId(tagIdMultiplyItems)
+                .addBinds(Tagmanager.BindTagRequest.Bind.newBuilder()
+                        .setItemId(itemId + 0)
+                        .setMeta(itemId + 0)
+                        .build())
+                .addBinds(Tagmanager.BindTagRequest.Bind.newBuilder()
+                        .setItemId(itemId + 1)
+                        .setMeta(itemId + 1)
+                        .build())
+                .addBinds(Tagmanager.BindTagRequest.Bind.newBuilder()
+                        .setItemId(itemId + 2)
+                        .setMeta(itemId + 2)
+                        .build())
+                .build();
+
+        var response = client.bindTag(request);
+        assertTrue(response.getOk());
+
+        var binds= grpc.getBindsByTag(tagIdMultiplyItems);
+
+        for (int i = 0; i < binds.size(); i++) {
+            check.equals(binds.get(i).getTagId(), tagIdMultiplyItems);
+            check.equals(binds.get(i).getItemId(), itemId + i);
+            check.equals(binds.get(i).getMeta(), itemId + i);
+        }
+    }
+
+    @Story("Тэг")
+    @CaseId(158)
+    @Test(description = "Получение списка привязанных тегов по владельцу и нескольким сущностям",
+            groups = {"grpc-tag-manager"},
+            dependsOnMethods = "bindTagMultiply")
+    public void getTagsByItems() {
+        var request = Tagmanager.GetTagsByItemsRequest.newBuilder()
+                .setOwnerId(ownerIdMultiplyItems)
+                .addItemsId(itemId + 0)
+                .addItemsId(itemId + 1)
+                .addItemsId(itemId + 2)
+                .build();
+
+        var items = client.getTagsByItems(request).getItemsList();
+
+        System.out.println(items);
+
+        for (int i = 0; i < 3; i++) {
+            final int index = i;
+            assertTrue(items.stream().anyMatch(item -> item.getItemId().equals(itemId + index)));
+        }
+
+        for (var item : items) {
+            var tag = item.getTags(0);
+            check.equals(tag.getId(), tagIdMultiplyItems);
+            check.equals(tag.getName(), tagNameMultiplyItems);
+            check.equals(tag.getOwnerId(), ownerIdMultiplyItems);
+        }
+    }
+
+    @CaseId(171)
+    @Test(description = "Получение списка привязанных тегов по владельцу и нескольким сущностям, когда у какой-либо сущности несколько тегов",
+            groups = {"grpc-tag-manager"})
+    public void getTagsByItemsMultiply() {
+        int ownerId = grpc.createOwner();
+        int tagsNumber = 3;
+        for (int i = 0; i < tagsNumber; i++) {
+            int tagId = grpc.createTag(ownerId, UUID.randomUUID().toString());
+            grpc.bindTag(tagId, itemId);
+        }
+
+        var request = Tagmanager.GetTagsByItemsRequest.newBuilder()
+                .setOwnerId(ownerId)
+                .addItemsId(itemId)
+                .build();
+
+        var item = client.getTagsByItems(request).getItems(0);
+
+        check.equals(item.getTagsCount(), tagsNumber);
+        item.getTagsList().forEach(tag -> check.equals(tag.getOwnerId(), ownerId));
+    }
+
+    @Story("Тэг")
+    @CaseId(163)
+    @Test(description = "Получение списка, когда часть сущностей существуют, а часть нет",
+            groups = {"grpc-tag-manager"},
+            dependsOnMethods = "bindTagMultiply")
+    public void getTagsByItemsPartially() {
+        var request = Tagmanager.GetTagsByItemsRequest.newBuilder()
+                .setOwnerId(ownerIdMultiplyItems)
+                .addItemsId(itemId + 0)
+                .addItemsId(itemId + 1)
+                .addItemsId(itemId + 2)
+                .addItemsId("non existed item")
+                .build();
+
+        var items = client.getTagsByItems(request).getItemsList();
+
+        System.out.println(items);
+
+        for (int i = 0; i < 3; i++) {
+            final int index = i;
+            assertTrue(items.stream().anyMatch(item -> item.getItemId().equals(itemId + index)));
+        }
+        assertFalse(items.stream().anyMatch(item -> item.getItemId().equals("non existed item")));
+
+
+        for (var item : items) {
+            var tag = item.getTags(0);
+            check.equals(tag.getId(), tagIdMultiplyItems);
+            check.equals(tag.getName(), tagNameMultiplyItems);
+            check.equals(tag.getOwnerId(), ownerIdMultiplyItems);
+        }
+    }
+
+    @Story("Тэг")
+    @CaseId(48)
+    @Test(description = "Отвязка сущности от тега с валидными данными",
+            groups = {"grpc-tag-manager"},
+            dependsOnMethods = "createOwner")
+    public void unbindTag() {
+        int ownerId = grpc.createOwner();
+        int tagId = grpc.createTag(ownerId, UUID.randomUUID().toString());
+        grpc.bindTag(tagId, "something to unbind");
+
+        var request = Tagmanager.UnbindTagRequest.newBuilder()
+                .setTagId(tagId)
+                .addItemsId("something to unbind")
+                .build();
+
+        var response = client.unbindTag(request);
+        assertTrue(response.getOk());
+
+        check.equals(grpc.getBindsByTag(tagId).size(), 0);
     }
 }
 
