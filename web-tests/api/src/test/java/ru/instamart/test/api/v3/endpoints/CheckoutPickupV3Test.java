@@ -23,12 +23,10 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Collections;
 
-import static ru.instamart.api.checkpoint.ApiV3Checkpoints.checkOrder;
-import static ru.instamart.api.checkpoint.ApiV3Checkpoints.checkOrderPaymentTools;
+import static ru.instamart.api.checkpoint.ApiV3Checkpoints.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.helper.ApiV3Helper.checkFlipper;
 
 
@@ -109,5 +107,25 @@ public class CheckoutPickupV3Test extends RestBase {
         CheckoutOrderV3 orderFromResponse = response.as(OrderV3Response.class).getOrder();
         compareTwoObjects(orderFromResponse.getPaymentTool().getName(), "На кассе");
         checkOrderPaymentTools(orderFromResponse, paymentTool);
+    }
+
+    @CaseId(2672)
+    @Story("Изменение метода доставки")
+    @Test(description = "Запрос на переключение способа получения с самовывоза на доставку для заказа с алкоголем",
+            groups = "api-instamart-regress",
+            dependsOnMethods = "addPaymentToolsForOrderWithAlcohol")
+    public void changeShippingMethodForOrderWithAlcohol() {
+        CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
+                .order(CheckoutV3Request.Order.builder()
+                        .shippingMethod(CheckoutV3Request.ShippingMethod.builder()
+                                .kind(ShippingMethodV2.BY_COURIER.getMethod())
+                                .shipAddressId(order.getShipAddress().getId())
+                                .build())
+                        .build())
+                .shipmentNumbers(Collections.singletonList(order.getShipments().get(0).getNumber()))
+                .build();
+        final Response response = CheckoutV3Request.PUT(orderRequest, order.getNumber());
+        checkStatusCode422(response);
+        checkError(response, "alcohol_order", "Доставка для заказа с алкоголем недоступна");
     }
 }
