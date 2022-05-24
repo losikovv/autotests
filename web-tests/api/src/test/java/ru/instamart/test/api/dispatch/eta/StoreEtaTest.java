@@ -159,8 +159,21 @@ public class StoreEtaTest extends RestBase {
         String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(1)));
         StoresEntity store = getStoreWithUpdatedSchedule(openingDate, closingDate, "00:00:00");
         Eta.StoreUserEtaRequest request = getStoreUserEtaRequest(store.getUuid(), address.getLat().floatValue(), address.getLon().floatValue());
+
         var response = clientEta.getStoreEta(request);
         compareTwoObjects(response.getDataCount(), 0);
+    }
+
+    @CaseId(48)
+    @Story("Store ETA")
+    @Test(description = "Отправка запроса с одинаковым временем открытия и закрытия магазина (круглосуточный)",
+            groups = "dispatch-eta-regress")
+    public void getEtaForAlwaysOpenStore() {
+        StoresEntity store = getStoreWithUpdatedSchedule("00:00:00", "00:00:00", "00:00:00");
+        Eta.StoreUserEtaRequest request = getStoreUserEtaRequest(store.getUuid(), address.getLat().floatValue(), address.getLon().floatValue());
+
+        var response = clientEta.getStoreEta(request);
+        checkStoreEta(response, store.getUuid(), 0, "Поле eta меньше или равно нулю", Eta.EstimateSource.FALLBACK);
     }
 
     @CaseId(44)
@@ -210,11 +223,11 @@ public class StoreEtaTest extends RestBase {
     @Test(description = "Получение ответа от ML",
             groups = "dispatch-eta-smoke")
     public void getEtaWithML() {
-        String storeUuid = StoresDao.INSTANCE.findById(EnvironmentProperties.DEFAULT_ON_DEMAND_SID).get().getUuid();
-        Eta.StoreUserEtaRequest request = getStoreUserEtaRequest(storeUuid, address.getLat().floatValue(), address.getLon().floatValue());
+        //ML работает не со всеми магазинами на стейдже, с secondStoreUuid должно работать
+        Eta.StoreUserEtaRequest request = getStoreUserEtaRequest(secondStoreUuid, address.getLat().floatValue(), address.getLon().floatValue());
 
         var response = clientEta.getStoreEta(request);
-        checkStoreEta(response, storeUuid, 0, "Поле eta меньше или равно нулю", Eta.EstimateSource.ML);
+        checkStoreEta(response, secondStoreUuid, 0, "Поле eta меньше или равно нулю", Eta.EstimateSource.ML);
     }
 
     @CaseId(36)
