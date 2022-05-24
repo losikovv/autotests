@@ -70,7 +70,7 @@ public final class OrdersPaymentsTests {
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
 
-        checkout().interactAddPaymentCardModal().fillCardData(PaymentCards.testCardNo3ds());
+        checkout().interactAddPaymentCardModal().fillCardData(PaymentCards.testCardNo3dsWithSpasibo());
         checkout().interactAddPaymentCardModal().clickToSaveModal();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();

@@ -8,15 +8,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.JuridicalData;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.kraken.config.EnvironmentProperties.Env.DEMO_RBSUAT_PAYMENTS_URL;
-import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -41,9 +39,12 @@ public final class CheckoutPaymentStepTests {
     @Story("Корзина")
     @Test(description = "Тест удаления карты оплаты", groups = "regression")
     public void successDeleteSavedCard() {
-        //TODO: после починки addCreditCard() нужно добавить сюда добавление карты через апи
-        var company = JuridicalData.juridical();
-        var card = PaymentCards.testCard();
+        var userData = UserManager.getQaUser();
+        var card = PaymentCards.testCardNo3dsWithSpasibo();
+        helper.bindCardToUser(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID,
+                card);
+
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -52,52 +53,9 @@ public final class CheckoutPaymentStepTests {
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
+        checkout().setDeliveryOptions().clickToForSelf();
 
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
-        checkout().setDeliveryOptions().clickToSubmitForDelivery();
-
-        checkout().checkCheckoutLoaderNotVisible();
-
-        checkout().setContacts().fillContactInfo();
-        checkout().setContacts().clickToSubmit();
-
-        checkout().setReplacementPolicy().clickToSubmit();
-
-        checkout().setSlot().setLastActiveSlot();
-
-        checkout().setPayment().clickToByCardOnline();
-        checkout().setPayment().clickToAddNewPaymentCard();
-
-        checkout().interactAddPaymentCardModal().fillCardData(card);
-        checkout().interactAddPaymentCardModal().clickToSaveModal();
-
-        checkout().setPayment().clickToSubmitFromCheckoutColumn();
-
-        sberPayments().checkPageContains(DEMO_RBSUAT_PAYMENTS_URL + "acs");
-        sberPayments().checkPasswordInputVisible();
-        sberPayments().fillPassword(card.getPassword());
-
-        userShipments().checkPageContains(userShipments().pageUrl());
-
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-
-        company = JuridicalData.juridical();
-
-        checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-
-        checkout().waitPageLoad();
-        checkout().setDeliveryOptions().clickToAddCompany();
-
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().checkCheckoutLoaderNotVisible();
