@@ -36,6 +36,8 @@ public class DeliveryWindowV2 extends BaseObject {
 
     private Object lifetime;
 
+    private String date;
+
     @Override
     public String toString() {
         return new StringJoiner(

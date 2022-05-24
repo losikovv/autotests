@@ -46,4 +46,40 @@ public class PaymentCards {
                 .secure(false)
                 .build();
     }
+
+    public static PaymentCardData testCardWithSpasibo() {
+        return PaymentCardData.builder()
+                .cardNumber("4276107290668435")
+                .expiryMonth("12")
+                .expiryYear("24")
+                .cardholderName("IVAN IVANOV")
+                .cvvNumber("788")
+                .password("12345678")
+                .secure(true)
+                .build();
+    }
+
+    public static PaymentCardData testCardWithoutSpasiboWithdrawl() {
+        return PaymentCardData.builder()
+                .cardNumber("4276107667823373")
+                .expiryMonth("12")
+                .expiryYear("24")
+                .cardholderName("IVAN IVANOV")
+                .cvvNumber("809")
+                .password("12345678")
+                .secure(true)
+                .build();
+    }
+
+    public static PaymentCardData testCardWithoutMoney() {
+        return PaymentCardData.builder()
+                .cardNumber("4408896253205448")
+                .expiryMonth("12")
+                .expiryYear("24")
+                .cardholderName("IVAN IVANOV")
+                .cvvNumber("123")
+                .password("12345678")
+                .secure(true)
+                .build();
+    }
 }

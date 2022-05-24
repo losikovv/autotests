@@ -43,7 +43,7 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
                 order.setShipmentState(resultSet.getString("shipment_state"));
                 order.setPaymentState(resultSet.getString("payment_state"));
                 order.setEmail(resultSet.getString("email"));
-                order.setEmail(resultSet.getString("email"));
+                order.setUuid(resultSet.getString("uuid"));
                 order.setReplacementPolicyId(resultSet.getInt("replacement_policy_id"));
                 order.setShippingMethodKind(resultSet.getString("shipping_method_kind"));
                 order.setPaymentToolId(resultSet.getLong("payment_tool_id"));

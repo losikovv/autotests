@@ -724,22 +724,8 @@ public final class ApiHelper {
         return shopperApp.getShipmentByComment(comment);
     }
 
-    @Step("Получаем текущее время")
-    public String getCurrentTimeResponse() {
-        final Response responseTime = CurrentTimeV2Request.GET();
-        checkStatusCode200(responseTime);
-        CurrentTimeV2Response currentTimeV2Response = responseTime.as(CurrentTimeV2Response.class);
-        return currentTimeV2Response.getCurrentTime();
-    }
-
     @Step("Привязываем карту юзеру {user}")
     public void bindCardToUser(final UserData user, final int sid, PaymentCardData creditCard) {
-        String uuid = user.getUuid();
-        String pan = creditCard.getCardNumber();
-        String cvv = creditCard.getCvvNumber();
-        String expDate = "20" + creditCard.getExpiryYear() + creditCard.getExpiryMonth();
-        String publicKey = EnvironmentProperties.PUBLIC_CRYPTO_KEY;
-
         apiV2.authByPhone(user);
         apiV2.fillingCartAndOrderAttributesWithoutCompletion(
                 user,
@@ -747,16 +733,7 @@ public final class ApiHelper {
         );
         OrderV2 openOrder = apiV2.getOpenOrder();
 
-        final Response response = PaymentsV2Request.POST(openOrder.getNumber());
-        checkStatusCode200(response);
-        CreditCardAuthorizationV2Response creditCardAuthorizationV2Response = response.as(CreditCardAuthorizationV2Response.class);
-        String transactionNumber = creditCardAuthorizationV2Response.getCreditCardAuthorization().getTransactionNumber();
-
-        String resultString = getCurrentTimeResponse() + "/" + uuid + "/" + pan + "/" + cvv + "/" + expDate + "/" + transactionNumber;
-        String encrypt = CryptCard.INSTANCE.encrypt(resultString, publicKey);
-
-        final Response response2 = PaymentsV2Request.PUT(transactionNumber, encrypt);
-        checkStatusCode200(response2);
+        apiV2.bindCardToUser(user, openOrder.getNumber(), creditCard);
     }
 
     @Step("Получаем номер активного заказа по его комментарию")

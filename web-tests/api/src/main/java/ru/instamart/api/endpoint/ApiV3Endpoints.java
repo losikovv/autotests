@@ -20,8 +20,11 @@ public class ApiV3Endpoints {
         public static final String REPLACEMENT_POLICIES = "v3/checkout/replacement_policies";
 
         public static final class Orders {
+            public static final String COMPLETION = "v3/checkout/orders/{orderNumber}/completion";
             public static final String INITIALIZATION = "v3/checkout/orders/{orderNumber}/initialization";
             public static final String PAYMENT_TOOLS = "v3/checkout/orders/{orderNumber}/payment_tools";
+            public static final String PROMOTION = "v3/checkout/orders/{orderNumber}/promotions/{promocode}";
+            public static final String PROMOTIONS = "v3/checkout/orders/{orderNumber}/promotions";
             public static final String VALIDATION = "v3/checkout/orders/{orderNumber}/validation";
         }
 

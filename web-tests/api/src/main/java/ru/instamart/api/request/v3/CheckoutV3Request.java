@@ -36,11 +36,46 @@ public class CheckoutV3Request extends ApiV3RequestBase {
                 .get(ApiV3Endpoints.Checkout.ORDER, orderNumber);
     }
 
+    public static class Completion {
+        @Step("{method} /" + ApiV3Endpoints.Checkout.Orders.COMPLETION)
+        public static Response POST(String orderNumber, List<String> shipmentNumbers) {
+            JSONObject body = new JSONObject();
+            body.put("shipment_numbers", shipmentNumbers);
+            return givenWithAuth(ClientV3.SBERMARKET_WEB)
+                    .contentType(ContentType.JSON)
+                    .body(body)
+                    .post(ApiV3Endpoints.Checkout.Orders.COMPLETION, orderNumber);
+        }
+    }
+
     public static class PaymentTools {
         @Step("{method} /" + ApiV3Endpoints.Checkout.Orders.PAYMENT_TOOLS)
         public static Response GET(String orderNumber) {
             return givenWithAuth(ClientV3.SBERMARKET_WEB)
                     .get(ApiV3Endpoints.Checkout.Orders.PAYMENT_TOOLS, orderNumber);
+        }
+    }
+
+    public static class Promotions {
+        @Step("{method} /" + ApiV3Endpoints.Checkout.Orders.PROMOTIONS)
+        public static Response POST(String orderNumber, String promotionCode, List<String> shipmentNumbers) {
+            JSONObject body = new JSONObject();
+            body.put("promotion_code", promotionCode);
+            body.put("shipment_numbers", shipmentNumbers);
+            return givenWithAuth(ClientV3.SBERMARKET_WEB)
+                    .contentType(ContentType.JSON)
+                    .body(body)
+                    .post(ApiV3Endpoints.Checkout.Orders.PROMOTIONS, orderNumber);
+        }
+
+        @Step("{method} /" + ApiV3Endpoints.Checkout.Orders.PROMOTION)
+        public static Response DELETE(String orderNumber, String promotionCode, List<String> shipmentNumbers) {
+            JSONObject body = new JSONObject();
+            body.put("shipment_numbers", shipmentNumbers);
+            return givenWithAuth(ClientV3.SBERMARKET_WEB)
+                    .contentType(ContentType.JSON)
+                    .body(body)
+                    .delete(ApiV3Endpoints.Checkout.Orders.PROMOTION, orderNumber, promotionCode);
         }
     }
 
@@ -103,6 +138,8 @@ public class CheckoutV3Request extends ApiV3RequestBase {
         private AddressAttributes addressAttributes;
         @JsonProperty("payment_attributes")
         private PaymentAttributes paymentAttributes;
+        @JsonProperty("shipments_attributes")
+        private List<ShipmentsAttributes> shipmentsAttributes;
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -131,5 +168,20 @@ public class CheckoutV3Request extends ApiV3RequestBase {
     public static class PaymentAttributes {
         @JsonProperty("payment_tool_id")
         private Long paymentToolId;
+        @JsonProperty("sber_spasibo_amount")
+        private Integer sberSpasiboAmount;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Data
+    public static class ShipmentsAttributes {
+        private String number;
+        @JsonProperty("delivery_window_id")
+        private Integer deliveryWindowId;
+        @JsonProperty("delivery_window_kind")
+        private String deliveryWindowKind;
     }
 }
