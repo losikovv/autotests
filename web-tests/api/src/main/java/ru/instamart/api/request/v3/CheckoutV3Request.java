@@ -140,6 +140,8 @@ public class CheckoutV3Request extends ApiV3RequestBase {
         private PaymentAttributes paymentAttributes;
         @JsonProperty("shipments_attributes")
         private List<ShipmentsAttributes> shipmentsAttributes;
+        @JsonProperty("shipping_method")
+        private ShippingMethod shippingMethod;
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -183,5 +185,18 @@ public class CheckoutV3Request extends ApiV3RequestBase {
         private Integer deliveryWindowId;
         @JsonProperty("delivery_window_kind")
         private String deliveryWindowKind;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Data
+    public static class ShippingMethod {
+        private String kind;
+        @JsonProperty("ship_address_id")
+        private Integer shipAddressId;
+        @JsonProperty("pickup_store_id")
+        private Integer pickupStoreId;
     }
 }
