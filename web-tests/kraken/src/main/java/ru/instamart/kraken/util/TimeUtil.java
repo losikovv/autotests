@@ -48,8 +48,12 @@ public final class TimeUtil {
         return dtd.format(ZonedDateTime.now(ZONE_ID));
     }
 
+    public static String getDateWithoutTimeUTC() {
+        return dtd.format(ZonedDateTime.now(ZONE_UTC));
+    }
+
     public static String getDateWithoutTimeViaSlash() {
-        return dtds.format(ZonedDateTime.now(ZONE_ID));
+        return dtds.format(ZonedDateTime.now(ZONE_UTC));
     }
 
     public static String getFutureDateWithoutTime(Long days) {
@@ -77,7 +81,6 @@ public final class TimeUtil {
     }
 
     public static String getDbDeliveryDateFrom(Long days) {
-
         return dtdb.format(ZonedDateTime.ofInstant(LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT).atZone(ZONE_ID).toInstant(), ZoneId.of("UTC")).plusDays(days));
     }
 

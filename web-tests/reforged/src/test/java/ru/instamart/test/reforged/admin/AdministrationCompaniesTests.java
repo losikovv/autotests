@@ -233,7 +233,7 @@ public final class AdministrationCompaniesTests {
     public void testAddContractOneStep() {
         var userData = UserManager.getQaUser();
         var company = JuridicalData.juridical();
-        var contractNumber = Generate.digitalString(5);
+        var contractNumber = Generate.digitalString(6);
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
 
         login().goToPage();
@@ -280,7 +280,7 @@ public final class AdministrationCompaniesTests {
     public void testAddContractTwoStep() {
         var userData = UserManager.getQaUser();
         var company = JuridicalData.juridical();
-        var contractNumber = Generate.digitalString(5);
+        var contractNumber = Generate.digitalString(6);
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
 
         login().goToPage();
@@ -540,7 +540,7 @@ public final class AdministrationCompaniesTests {
     public void testDeleteContract() {
         var userData = UserManager.getQaUser();
         var company = JuridicalData.juridical();
-        var contractNumber = Generate.digitalString(5);
+        var contractNumber = Generate.digitalString(6);
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
 
         login().goToPage();
