@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.business;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
@@ -28,9 +29,10 @@ public final class UserAuthorisationBusinessTests {
     }
 
     @Run(onServer = Server.PREPROD)
+    @Issue("DEVB2B-1977")
     @CaseId(231)
     @Story("Авторизация")
-    @Test(description = "Вход по СберБизнес ID (B2B)", groups = {"smoke", "regression"})
+    @Test(enabled = false, description = "Вход по СберБизнес ID (B2B)", groups = {"smoke", "regression"})
     public void successRegWithSberBusinessID() {
         business().goToPage();
         business().interactHeader().clickToLogin();
