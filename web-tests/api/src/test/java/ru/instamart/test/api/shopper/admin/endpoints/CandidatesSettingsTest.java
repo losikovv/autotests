@@ -64,5 +64,6 @@ public class CandidatesSettingsTest extends RestBase {
         BaseApiCheckpoints.compareTwoObjects(opZonesFromDb.getOperationalZoneId(), zoneId, softAssert);
         BaseApiCheckpoints.compareTwoObjects(opZonesFromDb.getNormalShiftThreshold(), normalShiftThreshold, softAssert);
         BaseApiCheckpoints.compareTwoObjects(opZonesFromDb.getSurgedShiftThreshold(), surgedShiftThreshold, softAssert);
+        softAssert.assertAll();
     }
 }
