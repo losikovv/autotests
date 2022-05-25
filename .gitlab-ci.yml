@@ -234,16 +234,16 @@ tests:Debug:
   stage: tests-api
   script:
     - echo $P_ENV
-    - gradle clean build debug -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build :reforged:debug -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - bash ./report.sh debug
+    - bash ./report.sh reforged debug
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/build/allure-results/
-      - web-tests/logs/
+      - web-tests/reforged/build/allure-results/
+      - web-tests/reforged/logs/
     expire_in: 1 week
 
 qase:actualize:
