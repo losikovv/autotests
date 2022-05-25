@@ -29,6 +29,9 @@
             <class name="ru.instamart.test.reforged.next.shopping.ShoppingTestsForExistingUser"/>
             <class name="ru.instamart.test.reforged.next.shopping.ShoppingTestsForUnauthorizedUser"/>
             <class name="ru.instamart.test.reforged.next.shopping.ShoppingYouBoughtBeforeTests"/>
+            <class name="ru.instamart.test.reforged.next.shopping.ShoppingCartTests"/>
+            <class name="ru.instamart.test.reforged.next.shopping.ShoppingCatalogTests"/>
+            <class name="ru.instamart.test.reforged.next.shopping.ShoppingSearchTests"/>
         </classes>
     </test>
 </suite>
