@@ -14,6 +14,8 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.ShopperAdminApiHelper;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.response.shopper.admin.OperationalZoneCandidatesSettingResponse;
+import ru.instamart.jdbc.dao.candidates.CandidatesDao;
+import ru.instamart.jdbc.entity.candidates.OperationalZoneSettingsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 
@@ -57,12 +59,9 @@ public class CandidatesSettingsTest extends RestBase {
         final Response responsePut = ShopperAdminRequest.OperationalZones.CandidatesSettings.PUT(zoneId, normalShiftThreshold, surgedShiftThreshold);
         checkStatusCode200(responsePut);
 
-        // так как put возвращает пустой ответ дополнительно вызываем get и проверяем, что там установленные нами значения
-
-        OperationalZoneCandidatesSettingResponse responseGet = ShopperAdminApiHelper.getCandidatesSettings(zoneId);
-
-        BaseApiCheckpoints.compareTwoObjects(responseGet.getOperationalZoneId(), zoneId);
-        BaseApiCheckpoints.compareTwoObjects(responseGet.getNormalShiftThreshold(), normalShiftThreshold);
-        BaseApiCheckpoints.compareTwoObjects(responseGet.getSurgedShiftThreshold(), surgedShiftThreshold);
+        OperationalZoneSettingsEntity OpZonesFromDb = CandidatesDao.INSTANCE.getOperationalZoneSettings(zoneId);
+        BaseApiCheckpoints.compareTwoObjects(OpZonesFromDb.getOperationalZoneId(), zoneId);
+        BaseApiCheckpoints.compareTwoObjects(OpZonesFromDb.getNormalShiftThreshold(), normalShiftThreshold);
+        BaseApiCheckpoints.compareTwoObjects(OpZonesFromDb.getSurgedShiftThreshold(), surgedShiftThreshold);
     }
 }
