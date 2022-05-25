@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf.user;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -183,9 +184,10 @@ public final class UserAuthorisationTests {
     }
 
 //    @CaseId(1459)
+    @Issue("B2C-8946")
     @Run(onServer = Server.PREPROD)
     @Story("Авторизация через СберБизнесID")
-    @Test(description = "Тест успешной авторизация через СберБизнесID", groups = {"smoke", "regression"})
+    @Test(enabled = false, description = "Тест успешной авторизация через СберБизнесID", groups = {"smoke", "regression"})
     public void successRegWithSberBusinessID() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
