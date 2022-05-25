@@ -86,12 +86,12 @@ public class UserCompaniesV1Tests extends RestBase {
     public void getPaymentAccount() {
         final Response response = UserCompaniesV1Request.PaymentAccount.GET(company.getId().toString());
         checkStatusCode200(response);
-        assertNull(response.as(PaymentAccountV1Response.class).getPaymentAccount(), "payment_account not null");
+        assertNull(response.as(PaymentAccountV1Response.class).getPaymentAccount().getBalance(), "Баланс не пустой");
     }
 
     @Story("Web")
     @CaseId(621)
-    @Test(description = "Обновление баланса  компании",
+    @Test(description = "Обновление баланса компании",
             groups = {"api-instamart-regress"})
     public void postRefreshPaymentAccountError() {
         final Response response = UserCompaniesV1Request.PaymentAccount.POST(company.getId().toString());

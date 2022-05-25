@@ -107,7 +107,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
                 .build();
         final Response response = CheckoutV3Request.PUT(orderRequest, order.getNumber());
         checkStatusCode422(response);
-        checkError(response, "ship_address_id", "[\"Для способа доставки курьером, требуется указать ship_address_id\"]");
+        checkError(response, "ship_address_id", "Для способа доставки курьером, требуется указать ship_address_id");
     }
 
     @CaseId(2674)
@@ -125,7 +125,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
                 .build();
         final Response response = CheckoutV3Request.PUT(orderRequest, order.getNumber());
         checkStatusCode422(response);
-        checkError(response, "pickup_store_id", "[\"Для способа доставки самовывоз, требуется указать pickup_store_id\"]");
+        checkError(response, "pickup_store_id", "Для способа доставки самовывоз, требуется указать pickup_store_id");
     }
 
     @CaseId(2675)
