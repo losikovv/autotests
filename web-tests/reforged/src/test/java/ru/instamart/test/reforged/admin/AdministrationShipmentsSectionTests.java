@@ -13,7 +13,6 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.StringUtil;
-import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.kraken.util.TimeUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -74,7 +73,7 @@ public final class AdministrationShipmentsSectionTests {
         shipments().setDateAndTimeFilterToTableDefault(TimeUtil.getDeliveryDateTo());
         shipments().search();
         shipments().waitPageLoad();
-        shipments().checkDateAndTimeShipmentsColumn(TimeUtil.getDateWithoutTime());
+        shipments().checkDateAndTimeShipmentsColumn(TimeUtil.getDateWithoutTimeUTC());
     }
 
     @CaseId(173)
