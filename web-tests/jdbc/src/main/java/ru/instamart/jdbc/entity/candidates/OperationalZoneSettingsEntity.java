@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class OperationalZoneSettingsEntity {
     private Long id;
-    private Integer OperationalZoneId;
-    private Integer SurgedShiftThreshold;
-    private Integer NormalShiftThreshold;
+    private Integer operationalZoneId;
+    private Integer surgedShiftThreshold;
+    private Integer normalShiftThreshold;
 }
