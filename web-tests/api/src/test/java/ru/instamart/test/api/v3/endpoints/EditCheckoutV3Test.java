@@ -189,7 +189,7 @@ public class EditCheckoutV3Test extends RestBase {
                 .build();
         final Response response = CheckoutV3Request.PUT(orderRequest, order.getNumber());
         checkStatusCode422(response);
-        checkError(response, errorType, "[\"имеет неправильный формат\"]");
+        checkError(response, errorType, "имеет неправильный формат");
     }
 
     @CaseId(2091)
@@ -208,7 +208,7 @@ public class EditCheckoutV3Test extends RestBase {
                 .build();
         final Response response = CheckoutV3Request.PUT(orderRequest, order.getNumber());
         checkStatusCode422(response);
-        checkError(response, errorType, "[\"не может быть пустым\"]");
+        checkError(response, errorType, "не может быть пустым");
     }
 
     @CaseId(2244)
