@@ -7,13 +7,15 @@ import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.checkpoint.BaseApiCheckpoints;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.helper.ShopperAdminApiHelper;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.response.shopper.admin.OperationalZoneCandidatesSettingResponse;
+import ru.instamart.jdbc.dao.candidates.OperationalZoneSettingsDao;
+import ru.instamart.jdbc.entity.candidates.OperationalZoneSettingsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 
@@ -57,12 +59,11 @@ public class CandidatesSettingsTest extends RestBase {
         final Response responsePut = ShopperAdminRequest.OperationalZones.CandidatesSettings.PUT(zoneId, normalShiftThreshold, surgedShiftThreshold);
         checkStatusCode200(responsePut);
 
-        // так как put возвращает пустой ответ дополнительно вызываем get и проверяем, что там установленные нами значения
-
-        OperationalZoneCandidatesSettingResponse responseGet = ShopperAdminApiHelper.getCandidatesSettings(zoneId);
-
-        BaseApiCheckpoints.compareTwoObjects(responseGet.getOperationalZoneId(), zoneId);
-        BaseApiCheckpoints.compareTwoObjects(responseGet.getNormalShiftThreshold(), normalShiftThreshold);
-        BaseApiCheckpoints.compareTwoObjects(responseGet.getSurgedShiftThreshold(), surgedShiftThreshold);
+        OperationalZoneSettingsEntity opZonesFromDb = OperationalZoneSettingsDao.INSTANCE.getOperationalZoneSettings(zoneId);
+        final SoftAssert softAssert = new SoftAssert();
+        BaseApiCheckpoints.compareTwoObjects(opZonesFromDb.getOperationalZoneId(), zoneId, softAssert);
+        BaseApiCheckpoints.compareTwoObjects(opZonesFromDb.getNormalShiftThreshold(), normalShiftThreshold, softAssert);
+        BaseApiCheckpoints.compareTwoObjects(opZonesFromDb.getSurgedShiftThreshold(), surgedShiftThreshold, softAssert);
+        softAssert.assertAll();
     }
 }
