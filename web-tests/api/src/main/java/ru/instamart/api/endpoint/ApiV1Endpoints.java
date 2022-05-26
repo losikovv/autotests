@@ -67,6 +67,11 @@ public final class ApiV1Endpoints {
             public static final String LOCK = "admin/cities/{cityId}/lock";
         }
 
+        public static final class Countries {
+            public static final String STATES = "admin/countries/{countryId}/states";
+            public static final String STATE = "admin/countries/{countryId}/states/{stateId}";
+        }
+
         public static final class Dictionaries {
             public static final String API_CLIENTS = "admin/dictionaries/api_clients";
             public static final String PAYMENT_METHODS = "admin/dictionaries/payment_methods";

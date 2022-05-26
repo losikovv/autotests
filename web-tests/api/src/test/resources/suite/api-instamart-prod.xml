@@ -174,7 +174,7 @@
             <class name="ru.instamart.test.api.admin.PropertiesAdminTest"/>
             <class name="ru.instamart.test.api.admin.BrandsAdminTest"/>
             <class name="ru.instamart.test.api.admin.ZonesAdminTest"/>
-            <class name="ru.instamart.test.api.admin.StatesAdminTest"/>
+            <class name="ru.instamart.test.api.admin_api.StatesV1Test"/>
             <class name="ru.instamart.test.api.admin.FaqGroupsAdminTest"/>
         </classes>
     </test>
