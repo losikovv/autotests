@@ -28,6 +28,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.testng.Assert.assertFalse;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkOffer;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -77,6 +78,7 @@ public class OffersV1Tests extends RestBase {
             dependsOnMethods = "getOffer")
     public void getOfferBySkus() {
         List<OfferV1> offersFromStore = apiV1.getActiveOffers(offerForRequest.getStore().getUuid()).stream().sorted(Comparator.comparing(OfferV1::getId)).collect(Collectors.toList());
+        assertFalse(offersFromStore.isEmpty(), "Не вернулись товары магазина");
         OfferV1 firstOffer = offersFromStore.get(0);
         OfferV1 secondOffer = offersFromStore.get(1);
         final Response response = StoresV1Request.Offers.GET(firstOffer.getStoreId(), firstOffer.getProductSku() + ";" + secondOffer.getProductSku());
