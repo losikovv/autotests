@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
@@ -151,7 +152,7 @@ public class ShippingRatesV3Test extends RestBase {
 
     @CaseId(2571)
     @Story("Слоты доставки")
-    @Test(description = "Запрос на выбор слота с указанием чужого заказа",
+    @Test(description = "Запрос на выбор слота с указанием чужого шипмента",
             groups = "api-instamart-regress",
             dependsOnMethods = "getShippingRates")
     public void addDeliveryWindowWithAnotherUserShipment() {
@@ -211,7 +212,7 @@ public class ShippingRatesV3Test extends RestBase {
         AddressV2 addressDefaultSid = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_ON_DEMAND_SID);
         long offerDefaultSidId = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_ON_DEMAND_SID).get(0).getId();
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId, EnvironmentProperties.DEFAULT_ON_DEMAND_SID);
-        MultiretailerOrderV1Response order = apiV1.getMultiRetailerOrder();
+        order = apiV1.getMultiRetailerOrder();
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
                         .shipmentsAttributes(Collections.singletonList(CheckoutV3Request.ShipmentsAttributes.builder()
@@ -230,5 +231,26 @@ public class ShippingRatesV3Test extends RestBase {
         compareTwoObjects(deliveryWindowFromResponse.getKind(), "on_demand", softAssert);
         softAssert.assertTrue(deliveryWindowFromResponse.getAvailable());
         softAssert.assertAll();
+    }
+
+    @CaseId(2574)
+    @Story("Слоты доставки")
+    @Test(description = "Запрос на выбор слота для уже оформленного заказа",
+            groups = "api-instamart-regress",
+            dependsOnMethods = "addOnDemandDeliveryWindow")
+    public void addDeliveryForCompletedOrder() {
+        SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), OrderStatusV2.COMPLETE.getStatus());
+        CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
+                .order(CheckoutV3Request.Order.builder()
+                        .shipmentsAttributes(Collections.singletonList(CheckoutV3Request.ShipmentsAttributes.builder()
+                                .deliveryWindowKind("on_demand")
+                                .number(order.getShipments().get(0).getNumber())
+                                .build()))
+                        .build())
+                .shipmentNumbers(Collections.singletonList(order.getShipments().get(0).getNumber()))
+                .build();
+        final Response response = CheckoutV3Request.PUT(orderRequest, order.getNumber());
+        checkStatusCode422(response);
+        checkError(response, "not_correct_order_state", "Заказ должен быть со статусом 'В корзине'");
     }
 }

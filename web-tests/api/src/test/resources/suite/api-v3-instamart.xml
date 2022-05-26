@@ -35,6 +35,7 @@
             <class name="ru.instamart.test.api.v3.endpoints.MarketingCategoriesV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.EditCheckoutV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.ShippingRatesV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.ReplacementPoliciesV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.PaymentToolsV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.CheckoutCompletionV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.CheckoutCompletionWithCardV3Test"/>

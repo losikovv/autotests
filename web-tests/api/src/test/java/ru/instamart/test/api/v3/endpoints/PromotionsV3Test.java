@@ -173,7 +173,7 @@ public class PromotionsV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
-    @CaseId(2616)
+    @CaseId(2614)
     @Story("Промокоды")
     @Test(description = "Запрос на применение промокода без авторизации",
             groups = "api-instamart-regress",
