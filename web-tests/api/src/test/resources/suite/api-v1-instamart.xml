@@ -70,10 +70,11 @@
             <class name="ru.instamart.test.api.v1.endpoints.ShippingMethodsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.OffersV1Tests"/>
             <class name="ru.instamart.test.api.admin_api.UsersV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.StatesV1Test"/>
         </classes>
     </test>
     <!-- api-admin-tests -->
-    <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="13">
+    <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="12">
         <classes>
             <class name="ru.instamart.test.api.admin.CitiesAdminTest"/>
             <class name="ru.instamart.test.api.admin.GeneralSettingsAdminTest"/>
@@ -86,7 +87,6 @@
             <class name="ru.instamart.test.api.admin.PropertiesAdminTest"/>
             <class name="ru.instamart.test.api.admin.BrandsAdminTest"/>
             <class name="ru.instamart.test.api.admin.ZonesAdminTest"/>
-            <class name="ru.instamart.test.api.admin.StatesAdminTest"/>
             <class name="ru.instamart.test.api.admin.FaqGroupsAdminTest"/>
         </classes>
     </test>
