@@ -34,7 +34,6 @@ public class ShipmentReturnV1 extends BaseObject {
     private Double amount;
     @JsonProperty("through_employee")
     private Boolean throughEmployee;
-    @JsonSchema(required = true)
     @JsonProperty("item_returns")
     private List<ItemReturnV1> itemReturns;
 }

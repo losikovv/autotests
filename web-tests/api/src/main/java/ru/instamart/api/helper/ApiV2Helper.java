@@ -593,6 +593,11 @@ public final class ApiV2Helper {
      */
     @Step("Выбираем id способа оплаты (по умолчанию Картой курьеру)")
     PaymentToolV2 getAvailablePaymentTool() {
+        return getAvailablePaymentTool("Картой курьеру");
+    }
+
+    @Step("Выбираем id способа оплаты")
+    PaymentToolV2 getAvailablePaymentTool(String methodName) {
         List<PaymentToolV2> paymentTools = getPaymentTools();
 
         StringJoiner availablePaymentToolsText = new StringJoiner(
@@ -604,7 +609,7 @@ public final class ApiV2Helper {
         for (int i = 0; i < paymentTools.size(); i++) {
             selectedPaymentTool = paymentTools.get(i);
             String selectedPaymentToolText = selectedPaymentTool + " <<< Выбран";
-            if (paymentTools.get(i).getName().equalsIgnoreCase("Картой курьеру")) {
+            if (paymentTools.get(i).getName().equalsIgnoreCase(methodName)) {
                 currentPaymentTool.set(paymentTools.get(i));
                 availablePaymentToolsText.add(selectedPaymentToolText);
                 cardCourier = true;
@@ -1191,14 +1196,18 @@ public final class ApiV2Helper {
     }
 
     public OrderV2 setDefaultAttributesAndCompleteOrder() {
-        return setDefaultAttributesAndCompleteOrder("test");
+        return setDefaultAttributesAndCompleteOrder("test", "Картой курьеру");
+    }
+
+    public OrderV2 setDefaultAttributesAndCompleteOrder(String paymentName) {
+        return setDefaultAttributesAndCompleteOrder("test", paymentName);
     }
 
     /**
      * Применяем атрибуты заказа (способ оплаты и слот) и завершаем его
      */
-    public OrderV2 setDefaultAttributesAndCompleteOrder(String comment) {
-        getAvailablePaymentTool();
+    public OrderV2 setDefaultAttributesAndCompleteOrder(String comment, String paymentName) {
+        getAvailablePaymentTool(paymentName);
         getAvailableShippingMethod();
         getAvailableDeliveryWindow();
 
@@ -1315,6 +1324,15 @@ public final class ApiV2Helper {
     public OrderV2 order(UserData user, int sid) {
         dropAndFillCart(user, sid);
         return setDefaultAttributesAndCompleteOrder();
+    }
+
+    /**
+     * Оформить тестовый заказ у юзера в определенном магазине с определенным типом оплаты
+     */
+    @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid}")
+    public OrderV2 order(UserData user, int sid, String paymentName) {
+        dropAndFillCart(user, sid);
+        return setDefaultAttributesAndCompleteOrder(paymentName);
     }
 
     /**
