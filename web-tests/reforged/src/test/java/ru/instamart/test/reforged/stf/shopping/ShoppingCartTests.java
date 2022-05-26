@@ -22,7 +22,7 @@ public final class ShoppingCartTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1571)
-    @Test(description = "Тест валидации дефолтной корзины", groups = {"acceptance", "regression"})
+    @Test(description = "Тест валидации дефолтной корзины", groups = "regression")
     public void successValidateDefaultCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -45,7 +45,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1572)
-    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {"acceptance", "regression"})
+    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = "regression")
     public void successAddItemToCartUnauthorized() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -64,7 +64,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1573)
-    @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {"acceptance", "regression"})
+    @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = "regression")
     public void successAddItemToCartFromItemCard() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -117,7 +117,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1575)
-    @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {"regression"})
+    @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = "regression")
     public void successChangeItemQuantityInCartViaItemCard() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -168,7 +168,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1576)
-    @Test(description = "Тест на удаление товаров из корзины", groups = {"acceptance", "regression"})
+    @Test(description = "Тест на удаление товаров из корзины", groups = "regression")
     public void successRemoveItemsFromCart() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -190,7 +190,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1577)
-    @Test(description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге", groups = {"acceptance", "regression"})
+    @Test(description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге", groups = "regression")
     public void successAddItemToCartFromCatalogSnippet() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);

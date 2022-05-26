@@ -243,7 +243,7 @@ public final class BasicOrdersTests {
 
     @CaseId(2558)
     @Story("Данные профиля пользователя")
-    @Test(description = "Автоматическая подстановка данных в аккаунт после прохождения чекаута", groups = {"acceptance", "regression"})
+    @Test(description = "Автоматическая подстановка данных в аккаунт после прохождения чекаута", groups = "regression")
     public void updateUserDataAfterCheckout() {
         final AddressDetailsData data = TestVariables.testAddressData();
         //Тут используется не qa ручка, потому что в ней уже задано имя для пользователя

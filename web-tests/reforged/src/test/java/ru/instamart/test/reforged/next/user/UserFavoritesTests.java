@@ -23,14 +23,14 @@ public final class UserFavoritesTests {
 
     @CaseId(1263)
     @Test(description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
-            groups = {"smoke", "acceptance", "regression"})
+            groups = {"smoke", "regression"})
     public void noAccessToFavoritesForUnauthorizedUser() {
         userFavorites().goToPage();
         userFavorites().checkForbiddenPageUrl(userFavorites().pageUrl());
     }
 
     @CaseId(1265)
-    @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {"acceptance", "regression"})
+    @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = "regression")
     public void noFavoriteItemsByDefault() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -100,7 +100,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1269)
-    @Test(description = "Проверка работоспособности фильтров Любимых товаров", groups = {"acceptance", "regression"})
+    @Test(description = "Проверка работоспособности фильтров Любимых товаров", groups = "regression")
     public void successApplyFilters() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -186,7 +186,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1494)
-    @Test(description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров", groups = {"acceptance", "regression"})
+    @Test(description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров", groups = "regression")
     public void successAddFavoriteProductsFromCardToCart() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -208,7 +208,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(2604)
-    @Test(description = "Открывается карточка товара, которого нет в наличии", groups = {"acceptance", "regression"})
+    @Test(description = "Открывается карточка товара, которого нет в наличии", groups = "regression")
     public void testOpenCartOutOfStockProduct() {
         final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());

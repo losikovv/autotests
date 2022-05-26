@@ -24,7 +24,7 @@ public final class HomePageTests {
     private final ApiHelper apiHelper = new ApiHelper();
 
     @CaseId(3358)
-    @Test(description = "Отображение слотов доставки магазина для адреса в пересечении зон доставки", groups = {"regression"})
+    @Test(description = "Отображение слотов доставки магазина для адреса в пересечении зон доставки", groups = "regression")
     public void crossZonesStoreSingleZoneAddress() {
         final String zone1DeliveryInterval = apiHelper.getNextDeliveryInfo(DEFAULT_METRO_CROSSZONES_SID, RestAddresses.Moscow.metroCrossZone1Address());
         final String zone2DeliveryInterval = apiHelper.getNextDeliveryInfo(DEFAULT_METRO_CROSSZONES_SID, RestAddresses.Moscow.metroCrossZone2Address());
@@ -60,7 +60,7 @@ public final class HomePageTests {
     }
 
     @CaseId(3359)
-    @Test(description = "Отображение слотов доставки магазина для адреса вне пересечения зон доставки", groups = {"regression"})
+    @Test(description = "Отображение слотов доставки магазина для адреса вне пересечения зон доставки", groups = "regression")
     public void crossZonesStoreDoubleZoneAddress() {
         final String zone1DeliveryInterval = apiHelper.getNextDeliveryInfo(DEFAULT_METRO_CROSSZONES_SID, RestAddresses.Moscow.metroCrossZone1Address());
         final String zone2DeliveryInterval = apiHelper.getNextDeliveryInfo(DEFAULT_METRO_CROSSZONES_SID, RestAddresses.Moscow.metroCrossZone2Address());
@@ -82,7 +82,7 @@ public final class HomePageTests {
     }
 
     @CaseId(3360)
-    @Test(description = "Отображение страницы для авторизованного пользователя", groups = {"regression"})
+    @Test(description = "Отображение страницы для авторизованного пользователя", groups = "regression")
     public void homePageForAuthorizedUser() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -100,7 +100,7 @@ public final class HomePageTests {
     }
 
     @CaseId(3361)
-    @Test(description = "Определение города по IP если в городе работает СберМаркет", groups = {"regression"})
+    @Test(description = "Определение города по IP если в городе работает СберМаркет", groups = "regression")
     public void detectCityByIPAndChangeCityFromOnboarding() {
         home().goToPage(true);
         home().setLocation("Moscow");
@@ -116,7 +116,7 @@ public final class HomePageTests {
     }
 
     @CaseId(3362)
-    @Test(description = "Отображение магазинов после ввода адреса доставки", groups = {"regression"})
+    @Test(description = "Отображение магазинов после ввода адреса доставки", groups = "regression")
     public void showShopsAfterFillAddress() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -133,7 +133,7 @@ public final class HomePageTests {
     }
 
     @CaseId(3363)
-    @Test(description = "Отображение магазинов после ввода адреса вне города доставки", groups = {"regression"})
+    @Test(description = "Отображение магазинов после ввода адреса вне города доставки", groups = "regression")
     public void outOfDeliveryLocation() {
         home().goToPage(true);
         home().checkLoginButtonIsVisible();
@@ -149,7 +149,7 @@ public final class HomePageTests {
     }
 
     @CaseId(3364)
-    @Test(description = "Определение города по IP и координатам", groups = {"regression"})
+    @Test(description = "Определение города по IP и координатам", groups = "regression")
     public void retailerNotInCity() {
         home().goToPage(true);
         home().checkLoginButtonIsVisible();
@@ -167,7 +167,7 @@ public final class HomePageTests {
     }
 
     @CaseId(3365)
-    @Test(description = "Переход по ссылке с кодом лейбла при незаполненном адресе", groups = {"regression"})
+    @Test(description = "Переход по ссылке с кодом лейбла при незаполненном адресе", groups = "regression")
     public void openGroupsAddressNotSet() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -192,7 +192,7 @@ public final class HomePageTests {
     }
 
     @CaseId(3366)
-    @Test(description = "Переход по ссылке с кодом лейбла при заполненном адресе", groups = {"regression"})
+    @Test(description = "Переход по ссылке с кодом лейбла при заполненном адресе", groups = "regression")
     public void openGroupsAddressSet() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());

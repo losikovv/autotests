@@ -16,7 +16,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(440)
     @Story("Тест неуспешной авторизации с пустыми полями")
-    @Test(description = "Тест неуспешной авторизации с пустыми полями", groups = {"acceptance", "regression"})
+    @Test(description = "Тест неуспешной авторизации с пустыми полями", groups = "regression")
     public void noAuthWithEmptyFields() {
         login().goToPage();
         login().setUsername("");
@@ -28,7 +28,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(441)
     @Story("Тест неуспешной авторизации с некорректным логином")
-    @Test(description = "Тест неуспешной авторизации с некорректным логином", groups = {"acceptance", "regression"})
+    @Test(description = "Тест неуспешной авторизации с некорректным логином", groups = "regression")
     public void noAuthWithIncorrectUsername() {
         login().goToPage();
         login().setUsername("wrongUsername");
@@ -39,7 +39,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(442)
     @Story("Тест неуспешной авторизации с несуществующим логином")
-    @Test(description = "Тест неуспешной авторизации с несуществующим логином", groups = {"acceptance", "regression"})
+    @Test(description = "Тест неуспешной авторизации с несуществующим логином", groups = "regression")
     public void noAuthWithNonExistingUser() {
         login().goToPage();
         login().setUsername("nonexistinguser@instamart.ru");
@@ -50,7 +50,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(443)
     @Story("Тест неуспешной авторизации с коротким паролем")
-    @Test(description = "Тест неуспешной авторизации с коротким паролем", groups = {"acceptance", "regression"})
+    @Test(description = "Тест неуспешной авторизации с коротким паролем", groups = "regression")
     public void noAuthWithShortPassword() {
         login().goToPage();
         login().setUsername(UserManager.getDefaultUser().getEmail());
@@ -61,7 +61,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(444)
     @Story("Тест неуспешной авторизации с неверным паролем")
-    @Test(description = "Тест неуспешной авторизации с неверным паролем", groups = {"acceptance", "regression"})
+    @Test(description = "Тест неуспешной авторизации с неверным паролем", groups = "regression")
     public void noAuthWithWrongPassword() {
         login().goToPage();
         login().setUsername(UserManager.getDefaultUser().getEmail());
@@ -72,7 +72,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(415)
     @Story("Тест успешной авторизации")
-    @Test(description = "Тест успешной авторизации", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Тест успешной авторизации", groups = {"regression", "smoke"})
     public void successAuthOnAdminLoginPage() {
         login().goToPage();
         login().setUsername(UserManager.getDefaultAdmin().getEmail());
@@ -84,7 +84,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(2)
     @Story("Тест логаута из админки")
-    @Test(description = "Тест логаута из админки", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Тест логаута из админки", groups = {"regression", "smoke"})
     public void successLogoutFromAdminPage() {
         login().goToPage();
         login().setUsername(UserManager.getDefaultAdmin().getEmail());
@@ -99,7 +99,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(417)
     @Story("Тест недоступности админки пользователю без админ. прав")
-    @Test(description = "Тест недоступности админки пользователю без админ. прав", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Тест недоступности админки пользователю без админ. прав", groups = {"regression", "smoke"})
     public void loginWithoutAdminPermission() {
         login().goToPage();
         login().setUsername(UserManager.userWithoutAdminPermission().getEmail());

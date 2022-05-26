@@ -21,7 +21,7 @@ public final class BasicMetroTests {
 
     @CaseId(1440)
     @Story("Валидация элементов")
-    @Test(description = "Тест валидности элементов и ссылок в шапке METRO Delivery", groups = {"acceptance", "regression"})
+    @Test(description = "Тест валидности элементов и ссылок в шапке METRO Delivery", groups = "regression")
     public void successValidateMetroTenantHeader() {
         metro().goToPage(true);
         metro().checkPageIsAvailable();
@@ -47,7 +47,7 @@ public final class BasicMetroTests {
 
     @CaseId(1441)
     @Story("Валидация элементов")
-    @Test(description = "Тест валидности элементов и ссылок в подвале METRO Delivery", groups = {"acceptance", "regression"})
+    @Test(description = "Тест валидности элементов и ссылок в подвале METRO Delivery", groups = "regression")
     public void successValidateMetroTenantFooter() {
         metro().goToPage();
         metro().checkPageIsAvailable();
@@ -85,7 +85,7 @@ public final class BasicMetroTests {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "filteredUnavailableRetailersSpree",
             description = "Тест недоступности витрин ретейлеров Metro Delivery-CC",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void successCheckMetroUnavailableRetailers(final RetailerV2 retailer) {
         final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
         assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
@@ -97,7 +97,7 @@ public final class BasicMetroTests {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "metroAvailableRetailerPage",
             description = "Тест доступности витрин ретейлеров Metro Delivery-CC",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void successCheckMetroAvailableRetailers(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " доступна");
     }
@@ -109,7 +109,7 @@ public final class BasicMetroTests {
             dataProviderClass = StaticPage.class,
             dataProvider = "metroFaqPage",
             description = "Тест доступности статических страниц на METRO Delivery",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void successCheckStaticPagesAreAvailable(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
     }

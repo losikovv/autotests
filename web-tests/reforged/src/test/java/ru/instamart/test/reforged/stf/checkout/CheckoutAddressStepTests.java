@@ -26,7 +26,7 @@ public final class CheckoutAddressStepTests {
     private final UserData userData = UserManager.getQaUser();
 
     @CaseIDs({@CaseId(1698), @CaseId(1699), @CaseId(1700), @CaseId(1701)})
-    @Test(description = "Тесты заполнения, изменения и очистки всех полей", groups = {"acceptance", "regression"})
+    @Test(description = "Тесты заполнения, изменения и очистки всех полей", groups = "regression")
     public void successFillAllFieldsAndProceedNext() {
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 

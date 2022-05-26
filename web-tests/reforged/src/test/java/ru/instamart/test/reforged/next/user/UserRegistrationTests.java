@@ -16,7 +16,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1552)
     @Story("Регистрация на странице ретейлера")
-    @Test(description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами", groups = {"acceptance", "regression"})
+    @Test(description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами", groups = "regression")
     public void noRegWithEmptyRequisites() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -27,7 +27,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1541)
     @Story("Регистрация на лендинге")
-    @Test(description = "Регистрация нового пользователя на лендинге", groups = {"acceptance", "smoke", "MRAutoCheck"})
+    @Test(description = "Регистрация нового пользователя на лендинге", groups = {"smoke", "MRAutoCheck"})
     public void successRegOnLanding() {
         home().goToPage();
         home().openLoginModal();
@@ -37,7 +37,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1543)
     @Story("Регистрация на странице ретейлера")
-    @Test(description = "Регистрация нового пользователя на витрине магазина", groups = {"acceptance", "regression"})
+    @Test(description = "Регистрация нового пользователя на витрине магазина", groups = "regression")
     public void successRegOnMainPage() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -47,7 +47,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1542)
     @Story("Регистрация на странице ретейлера")
-    @Test(description = "Тест регистрации из адресной модалки феникса", groups = {"regression", "acceptance"})
+    @Test(description = "Тест регистрации из адресной модалки феникса", groups = "regression")
     public void successRegFromAddressModal() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();

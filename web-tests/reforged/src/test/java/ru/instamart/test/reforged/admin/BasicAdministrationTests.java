@@ -16,7 +16,7 @@ public final class BasicAdministrationTests {
 
     @CaseId(419)
     @Story("Тест доступности корневых разделов админки")
-    @Test(description = "Тест доступности корневых разделов админки", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Тест доступности корневых разделов админки", groups = {"regression", "smoke"})
     public void successCheckAdminSectionsAvailability() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -43,7 +43,7 @@ public final class BasicAdministrationTests {
 
     @CaseId(420)
     @Story("Тест доступности вьюхи oktell")
-    @Test(description = "Тест доступности вьюхи oktell", groups = {"acceptance", "regression"})
+    @Test(description = "Тест доступности вьюхи oktell", groups = "regression")
     public void successCheckOktellViewAvailability() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -54,7 +54,7 @@ public final class BasicAdministrationTests {
 
     @CaseId(416)
     @Story("Проверка наличия элементов в шапке админки")
-    @Test(description = "Проверка наличия элементов в шапке админки", groups = {"acceptance", "regression"})
+    @Test(description = "Проверка наличия элементов в шапке админки", groups = "regression")
     public void successValidateHeader() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -68,7 +68,7 @@ public final class BasicAdministrationTests {
     @Flaky
     @CaseId(4)
     @Story("Тест валидности ссылок навигационного меню в шапке админки")
-    @Test(description = "Тест валидности ссылок навигационного меню в шапке админки", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Тест валидности ссылок навигационного меню в шапке админки", groups = {"regression", "smoke"})
     public void successValidateNavigationMenu() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

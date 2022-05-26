@@ -32,9 +32,9 @@ variables:
   URL_SHP:
     value: ""
     description: "Имя shp стейджа на котором запускаем тесты. Для номерных стейджей можно пропустить"
-  REGRESSION:
-    value: "true"
-    description: "ОБЯЗАТЕЛЬНО!!! Если указано \"true\", то запускаются регресс тесты, а если \"false\" - смок тесты"
+  #REGRESSION:
+  #  value: "true"
+  #  description: "ОБЯЗАТЕЛЬНО!!! Если указано \"true\", то запускаются регресс тесты, а если \"false\" - смок тесты"
 
 before_script:
   - export GRADLE_USER_HOME=$(pwd)/web-tests/.gradle

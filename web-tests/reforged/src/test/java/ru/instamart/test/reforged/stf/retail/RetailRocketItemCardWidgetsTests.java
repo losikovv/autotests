@@ -27,7 +27,7 @@ public final class RetailRocketItemCardWidgetsTests {
     }
 
     @CaseId(1776)
-    @Test(description = "Тест наличия виджета 'С этим товаром покупают' в карточке товара", groups = {"acceptance", "regression"})
+    @Test(description = "Тест наличия виджета 'С этим товаром покупают' в карточке товара", groups = "regression")
     public void successCheckWithThisItemBuyWidget() {
         shop().goToPage();
         shop().openFirstProductCardProd();
@@ -35,7 +35,7 @@ public final class RetailRocketItemCardWidgetsTests {
     }
 
     @CaseId(1777)
-    @Test(description = "Тест наличия виджета 'Похожие товары' в карточке товара", groups = {"acceptance", "regression"})
+    @Test(description = "Тест наличия виджета 'Похожие товары' в карточке товара", groups = "regression")
     public void successCheckSimilarItemsWidget() {
         shop().goToPage();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
@@ -46,7 +46,7 @@ public final class RetailRocketItemCardWidgetsTests {
 
     @CaseId(1779)
     @Test(  description = "Тест открытия карточки товара из виджета 'C этим товаром покупают' в карточке товара",
-            groups = {"acceptance", "regression"},
+            groups = "regression",
             dependsOnMethods = "successCheckWithThisItemBuyWidget")
     public void successOpenItemFromWithThisItemBuyWidget() {
         shop().goToPage();
@@ -57,7 +57,7 @@ public final class RetailRocketItemCardWidgetsTests {
 
     @CaseId(1780)
     @Test(  description = "Тест открытия карточки товара из виджета 'Похожие товары' в карточке товара",
-            groups = {"acceptance", "regression"},
+            groups = "regression",
             dependsOnMethods = "successCheckSimilarItemsWidget")
     public void successOpenItemFromSimilarItemsWidget() {
         shop().goToPage();
@@ -70,7 +70,7 @@ public final class RetailRocketItemCardWidgetsTests {
 
     @CaseId(1782)
     @Test(  description = "Тест успешного добавления товара из виджета 'С этим товаром покупают' в карточке товара",
-            groups = {"acceptance", "regression"},
+            groups = "regression",
             dependsOnMethods = "successCheckWithThisItemBuyWidget")
     public void successAddItemFromWithThisItemBuyWidget() {
         shop().goToPage();
@@ -86,7 +86,7 @@ public final class RetailRocketItemCardWidgetsTests {
 
     @CaseId(1783)
     @Test(  description = "Тест успешного добавления товара из виджета 'Похожие товары' в карточке товара",
-            groups = {"acceptance", "regression"},
+            groups = "regression",
             dependsOnMethods = "successCheckSimilarItemsWidget")
     public void successAddItemFromSimilarItemsWidget() {
         shop().goToPage();

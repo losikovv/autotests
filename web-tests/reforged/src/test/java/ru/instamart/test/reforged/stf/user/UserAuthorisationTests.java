@@ -25,7 +25,7 @@ public final class UserAuthorisationTests {
     private final ApiHelper apiHelper = new ApiHelper();
 
     @CaseId(1455)
-    @Test(description = "Тест успешной авторизации на витрине", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Тест успешной авторизации на витрине", groups = {"production", "regression", "smoke"})
     public void successAuthOnMainPage() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -34,7 +34,7 @@ public final class UserAuthorisationTests {
     }
 
     @CaseId(2543)
-    @Test(description = "Авторизация по номеру телефона", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Авторизация по номеру телефона", groups = {"production", "regression", "smoke"})
     public void successAuthOnMainPageUserWithOrder() {
         UserData user = UserManager.getQaUser();
         apiHelper.dropAndFillCart(user, 1);
@@ -84,6 +84,7 @@ public final class UserAuthorisationTests {
     }
 
     //Короче FB опять заблокировал наш ip
+    //Запрещенная на территории РФ организация
     @CaseId(1459)
     @Story("Авторизация через Facebook")
     @Test(enabled = false, description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
@@ -106,9 +107,9 @@ public final class UserAuthorisationTests {
 
     @CaseId(2735)
     @Story("Авторизация через VK")
-    @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"production", "smoke", "regression"})
     public void successRegWithVkontakte() {
-        UserData vkUser = UserManager.getNewVkUser();
+        final var vkUser = UserManager.getNewVkUser();
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -128,7 +129,7 @@ public final class UserAuthorisationTests {
 
     @CaseId(1460)
     @Story("Авторизация через Mail.ru")
-    @Test(description = "Тест успешной авторизация через MailRu", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешной авторизация через MailRu", groups = {"production", "smoke", "regression"})
     public void successRegWithMailRu() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

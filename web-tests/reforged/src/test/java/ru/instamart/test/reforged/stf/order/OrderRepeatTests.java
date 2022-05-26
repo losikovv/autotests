@@ -27,7 +27,7 @@ public final class OrderRepeatTests {
     }
 
     @CaseId(2614)
-    @Test(description = "Добавление в корзину товаров из истории заказов", groups = {"smoke", "regression", "acceptance"})
+    @Test(description = "Добавление в корзину товаров из истории заказов", groups = {"smoke", "regression"})
     public void successRepeatLastOrderFromOrderHistory() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -46,7 +46,7 @@ public final class OrderRepeatTests {
     }
 
     @CaseId(1669)
-    @Test(description = "Повтор крайнего заказа со страницы заказа", groups = {"regression", "acceptance"})
+    @Test(description = "Повтор крайнего заказа со страницы заказа", groups = "regression")
     public void successRepeatOrderFromOrderDetails() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -67,7 +67,7 @@ public final class OrderRepeatTests {
     }
 
     @CaseId(1670)
-    @Test(description = "Отмена повтора заказа со страницы заказа", groups = {"regression", "acceptance"})
+    @Test(description = "Отмена повтора заказа со страницы заказа", groups = "regression")
     public void noRepeatOrderAfterCancel() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

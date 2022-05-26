@@ -3,10 +3,12 @@ package ru.instamart.reforged.core.page;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 

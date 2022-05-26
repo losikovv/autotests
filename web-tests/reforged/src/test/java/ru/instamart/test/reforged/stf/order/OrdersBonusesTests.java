@@ -34,7 +34,7 @@ public final class OrdersBonusesTests {
 
     @CaseIDs(value = {@CaseId(1666), @CaseId(1667)})
     @Test(  description = "Тест заказа с добавлением бонусов",
-            groups = {"smoke","acceptance", "regression"},
+            groups = {"smoke", "regression"},
             dataProviderClass = BonusProvider.class, dataProvider = "bonus" )
     public void successOrderWithBonus(final LoyaltiesData loyaltiesData) {
         userData = UserManager.getQaUser();

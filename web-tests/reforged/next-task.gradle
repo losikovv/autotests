@@ -10,26 +10,17 @@ task sberUiSmokeNext(type: Test) {
 task uiSmokeProductionNext(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/next.xml'
-        includeGroups 'smoke'
+        includeGroups 'production'
         systemProperty 'env',"sbermarket-production"
     }
     systemProperty 'qase.Project', 'STF'
-    systemProperty 'qase.Title', 'STF UI Smoke Production'
-}
-
-task sberAcceptanceNext(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/smoke/next.xml'
-        includeGroups 'acceptance','smoke'
-    }
-    systemProperty 'qase.Project', 'STF'
-    systemProperty 'qase.Title', 'STF UI Acceptance'
+    systemProperty 'qase.Title', 'STF UI Production Smoke'
 }
 
 task sberRegressionNext(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/regress/next.xml'
-        includeGroups 'regression','acceptance','smoke'
+        includeGroups 'regression','smoke'
     }
     systemProperty 'qase.Project', 'STF'
     systemProperty 'qase.Title', 'STF UI Regression'
@@ -38,6 +29,6 @@ task sberRegressionNext(type: Test) {
 task sberRegressionMultiNext(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/all_multi_next.xml'
-        includeGroups 'regression','acceptance','smoke'
+        includeGroups 'regression','smoke'
     }
 }

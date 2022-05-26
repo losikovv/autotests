@@ -51,7 +51,7 @@ public final class ShoppingSearchTests {
     // AB поиска
     @CaseId(2587)
     @Story("Позитивные сценарии")
-    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"production", "smoke", "regression"})
     public void successSearchItemUsingCategorySuggests() {
         shop().goToPage(true);
         shop().interactHeader().fillSearch("сыры");
@@ -63,7 +63,7 @@ public final class ShoppingSearchTests {
 
     @CaseId(2588)
     @Story("Позитивные сценарии")
-    @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {"regression"})
+    @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = "regression")
     public void successSearchItemUsingSuggests() {
         shop().goToPage(true);
         shop().interactHeader().fillSearch("шоколад");
@@ -74,7 +74,7 @@ public final class ShoppingSearchTests {
 
     @CaseId(2989)
     @Story("Позитивные сценарии")
-    @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = {"regression"})
+    @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = "regression")
     public void changeAmountOnButtonSearchResult() {
         shop().goToPage(true);
         shop().interactHeader().fillSearch("шоколад");
@@ -89,7 +89,7 @@ public final class ShoppingSearchTests {
     //    // Потому что при одиночном скроле категория "Все сразу" не скрывается
     @CaseId(2991)
     @Story("Позитивные сценарии")
-    @Test(description = "Работоспособность стрелочки пролистывающей категории", groups = {"regression"})
+    @Test(description = "Работоспособность стрелочки пролистывающей категории", groups = "regression")
     public void swipeCategoryItemInSuggester() {
         shop().goToPage(true);
         shop().interactHeader().fillSearch("шоколад");
@@ -104,7 +104,7 @@ public final class ShoppingSearchTests {
 
     @CaseId(3105)
     @Story("Позитивные сценарии")
-    @Test(description = "Удаление поискового запроса по крестику в поиске", groups = {"regression"})
+    @Test(description = "Удаление поискового запроса по крестику в поиске", groups = "regression")
     public void clearSearchBar() {
         shop().goToPage(true);
         shop().interactHeader().fillSearch("шоколад");
@@ -149,7 +149,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2589)
-    @Test(description = "Работоспособность сортировки товаров", groups = {"regression"})
+    @Test(description = "Работоспособность сортировки товаров", groups = "regression")
     public void successApplySort() {
         shop().goToPage( true);
         shop().addCookie(CookieFactory.COOKIE_ALERT);
@@ -166,7 +166,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2590)
-    @Test(description = "Фильтрация товаров", groups = {"regression"})
+    @Test(description = "Фильтрация товаров", groups = "regression")
     public void successApplyFilters() {
         shop().goToPage(true);
         shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
@@ -204,7 +204,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2591)
-    @Test(description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности", groups = {"regression"})
+    @Test(description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности", groups = "regression")
     public void successApplyFiltersAndSortCheapAsc() {
         shop().goToPage(true);
         shop().openSitePage("okey/search?keywords=кофе&sid=128");
@@ -230,7 +230,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2591)
-    @Test(description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд", groups = {"regression"})
+    @Test(description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд", groups = "regression")
     public void successApplyFiltersAndSortExpensiveDesc() {
         shop().goToPage(true);
         shop().openSitePage("okey/search?keywords=чай&sid=128");
@@ -261,7 +261,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2592)
-    @Test(description = "При применении фильтра для выданных товаров блокируются другие фильтры (неприменимые к ним)", groups = {"regression"})
+    @Test(description = "При применении фильтра для выданных товаров блокируются другие фильтры (неприменимые к ним)", groups = "regression")
     public void successApplyOtherFilters() {
         shop().goToPage(true);
         shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
@@ -274,7 +274,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2737)
-    @Test(description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна", groups = {"regression"})
+    @Test(description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна", groups = "regression")
     public void alcoholSearchModalClose() {
         shop().goToPage(true);
         shop().interactHeader().fillSearch("вино красное");

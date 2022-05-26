@@ -21,7 +21,7 @@ public final class BasicSelgrosTests {
 
     @CaseId(2781)
     @Story("Валидация элементов")
-    @Test(description = "Тест валидности элементов и ссылок в шапке Selgros", groups = {"acceptance", "regression"})
+    @Test(description = "Тест валидности элементов и ссылок в шапке Selgros", groups = "regression")
     public void successValidateSelgrosTenantHeader() {
         selgros().goToPage(true);
         selgros().checkPageIsAvailable();
@@ -46,7 +46,7 @@ public final class BasicSelgrosTests {
 
     @CaseId(2782)
     @Story("Валидация элементов")
-    @Test(description = "Тест валидности элементов и ссылок в подвале Selgros", groups = {"acceptance", "regression"})
+    @Test(description = "Тест валидности элементов и ссылок в подвале Selgros", groups = "regression")
     public void successValidateSelgrosTenantFooter() {
         selgros().goToPage();
         selgros().checkPageIsAvailable();
@@ -84,7 +84,7 @@ public final class BasicSelgrosTests {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "filteredUnavailableRetailersSpree",
             description = "Тест недоступности витрин ретейлеров Selgros",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void successCheckSelgrosUnavailableRetailers(final RetailerV2 retailer) {
         final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
         assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
@@ -96,7 +96,7 @@ public final class BasicSelgrosTests {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "selgrosAvailableRetailerPage",
             description = "Тест доступности витрин ретейлеров Selgros",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void successCheckSelgrosAvailableRetailers(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " доступна");
     }
@@ -108,7 +108,7 @@ public final class BasicSelgrosTests {
             dataProviderClass = StaticPage.class,
             dataProvider = "selgrosFaqPage",
             description = "Тест доступности статических страниц на Selgros",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void successCheckSelgrosStaticPagesAreAvailable(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
     }

@@ -18,7 +18,7 @@ public final class ShoppingTestsForUnauthorizedUser {
     @CaseId(1622)
     @Story("Тест недоступности чекаута при сумме корзины меньше минимального заказа")
     @Test(description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -46,7 +46,7 @@ public final class ShoppingTestsForUnauthorizedUser {
 
     @CaseId(1623)
     @Story("Тест набора корзины до суммы, достаточной для заказа")
-    @Test(description = "Тест набора корзины до суммы, достаточной для заказа", groups = {"acceptance", "regression"})
+    @Test(description = "Тест набора корзины до суммы, достаточной для заказа", groups = "regression")
     public void successCollectItemsForOrder() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
@@ -71,7 +71,7 @@ public final class ShoppingTestsForUnauthorizedUser {
     }
 
     @CaseId(2608)
-    @Test(description = "Тест недоступности пустого чекаута по прямой ссылке", groups = {"acceptance", "regression"})
+    @Test(description = "Тест недоступности пустого чекаута по прямой ссылке", groups = "regression")
     public void testCheckoutNoAccessForUserWithoutCart() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -83,7 +83,7 @@ public final class ShoppingTestsForUnauthorizedUser {
     }
 
     @CaseId(2301)
-    @Test(description = "Тест недоступности чекаута неавторизованному пользователю", groups = {"acceptance", "regression"})
+    @Test(description = "Тест недоступности чекаута неавторизованному пользователю", groups = "regression")
     public void testCheckoutNoAccessForGuest() {
         home().goToPage();
         checkout().goToPage();

@@ -33,7 +33,7 @@ public final class AdministrationPaymentsTests {
 
     @CaseId(492)
     @Story("Тест создания платежа через SberPay")
-    @Test(description = "Добавление нового платежа SberPay", groups = {"acceptance", "regression"})
+    @Test(description = "Добавление нового платежа SberPay", groups = "regression")
     public void successPaymentViaSberPay() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -70,7 +70,7 @@ public final class AdministrationPaymentsTests {
 
     @CaseId(497)
     @Story("Тест создания платежа через SberPay")
-    @Test(description = "Добавление нового платежа SberPay", groups = {"acceptance", "regression"})
+    @Test(description = "Добавление нового платежа SberPay", groups = "regression")
     public void checkDebitBalanceVisibleTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());

@@ -39,7 +39,7 @@ public final class OrdersRetailerCardsTests {
 
     @Run(onTenant = Tenant.METRO)
     @CaseId(1632)
-    @Test(description = "Тест заказа с картой Метро (только METRO WL)", groups = {"acceptance","regression"})
+    @Test(description = "Тест заказа с картой Метро (только METRO WL)", groups = "regression")
     public void successOrderWithMetroRetailerCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -72,7 +72,7 @@ public final class OrdersRetailerCardsTests {
 
     @Run(onTenant = Tenant.SBERMARKET, onServer = Server.PRODUCTION)
     @CaseId(1633)
-    @Test(description = "Тест заказа с картой Вкусвилл (только Sbermarket)", groups = {"acceptance", "regression"})
+    @Test(description = "Тест заказа с картой Вкусвилл (только Sbermarket)", groups = "regression")
     public void successOrderWithVkusvillRetailerCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

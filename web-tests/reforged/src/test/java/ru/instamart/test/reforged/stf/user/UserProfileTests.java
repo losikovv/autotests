@@ -62,7 +62,7 @@ public final class UserProfileTests {
 
     @CaseId(1528)
     @Story("Выпадающее меню")
-    @Test(description = "Тест валидации кнопки 'Доставка' в меню профиля", groups = {"acceptance", "regression"})
+    @Test(description = "Тест валидации кнопки 'Доставка' в меню профиля", groups = "regression")
     public void successValidateDeliveryButton() {
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToDelivery();
@@ -71,7 +71,7 @@ public final class UserProfileTests {
 
     @CaseId(1530)
     @Story("Выпадающее меню")
-    @Test(description = "Тест валидации кнопки 'FAQ' в меню профиля", groups = {"acceptance", "regression"})
+    @Test(description = "Тест валидации кнопки 'FAQ' в меню профиля", groups = "regression")
     public void successValidateFaqButton() {
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToFaq();
@@ -80,7 +80,7 @@ public final class UserProfileTests {
 
     @CaseId(1531)
     @Story("навигация в меню пользователя")
-    @Test(description = "Тест доступности страниц профиля пользователя", groups = {"acceptance", "regression"})
+    @Test(description = "Тест доступности страниц профиля пользователя", groups = "regression")
     public void successCheckProfilePagesAreAvailable() {
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
@@ -93,7 +93,7 @@ public final class UserProfileTests {
 
     @CaseId(1532)
     @Story("Заказы")
-    @Test(description = "Тест валидации дефолтных страниц истории заказов", groups = {"acceptance", "regression"})
+    @Test(description = "Тест валидации дефолтных страниц истории заказов", groups = "regression")
     public void successValidateDefaultOrderHistory() {
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
@@ -108,7 +108,7 @@ public final class UserProfileTests {
 
     @CaseId(2559)
     @Story("Данные профиля пользователя")
-    @Test(description = "Добавление имени и фамилии для новых пользователей", groups = {"acceptance", "regression"})
+    @Test(description = "Добавление имени и фамилии для новых пользователей", groups = "regression")
     public void addFullName() {
         userEdit().goToPage();
         userEdit().clickToChangeName();
@@ -121,7 +121,7 @@ public final class UserProfileTests {
 
     @CaseId(2560)
     @Story("Данные профиля пользователя")
-    @Test(description = "Добавление E-mail для новых пользователей", groups = {"acceptance", "regression"})
+    @Test(description = "Добавление E-mail для новых пользователей", groups = "regression")
     public void addEmail() {
         userEdit().goToPage();
         userEdit().clickToChangeEmail();
@@ -133,7 +133,7 @@ public final class UserProfileTests {
 
     @CaseId(2561)
     @Story("Данные профиля пользователя")
-    @Test(description = "Изменение имени и фамилии для существующих пользователей", groups = {"acceptance", "regression"})
+    @Test(description = "Изменение имени и фамилии для существующих пользователей", groups = "regression")
     public void changeFullName() {
         userEdit().goToPage();
         userEdit().clickToChangeName();
@@ -158,7 +158,7 @@ public final class UserProfileTests {
 
     @CaseId(2562)
     @Story("Данные профиля пользователя")
-    @Test(description = "Изменение E-mail для существующих пользователей", groups = {"acceptance", "regression"})
+    @Test(description = "Изменение E-mail для существующих пользователей", groups = "regression")
     public void changeEmail() {
         userEdit().goToPage();
         userEdit().clickToChangeEmail();
@@ -170,7 +170,7 @@ public final class UserProfileTests {
 
     @CaseId(2563)
     @Story("Данные профиля пользователя")
-    @Test(description = "Изменение телефона для существующих пользователей", groups = {"acceptance", "regression"})
+    @Test(description = "Изменение телефона для существующих пользователей", groups = "regression")
     public void changePhone() {
         final var newUser = UserManager.getUser();
         userEdit().goToPage();
@@ -182,7 +182,7 @@ public final class UserProfileTests {
 
     @CaseId(2564)
     @Story("Данные профиля пользователя")
-    @Test(description = "Изменение E-mail на тот, который уже есть в системе", groups = {"acceptance", "regression"})
+    @Test(description = "Изменение E-mail на тот, который уже есть в системе", groups = "regression")
     public void changeToExistingEmail() {
         userEdit().goToPage();
         userEdit().clickToChangeEmail();

@@ -33,7 +33,7 @@ public final class CheckoutBonusesTests {
 
     @CaseId(1702)
     @Story("Тест успешного добавления всех доступных бонусных программ в чекауте")
-    @Test(description = "Тест успешного добавления всех доступных бонусных программ в чекауте", groups = {"acceptance", "regression"})
+    @Test(description = "Тест успешного добавления всех доступных бонусных программ в чекауте", groups = "regression")
     public void successAddBonusPrograms() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -58,7 +58,7 @@ public final class CheckoutBonusesTests {
 
     @CaseId(1703)
     @Story("Тест выбора добавленных бонусных программ в чекауте")
-    @Test(description = "Тест выбора добавленных бонусных программ в чекауте", groups = {"acceptance", "regression"})
+    @Test(description = "Тест выбора добавленных бонусных программ в чекауте", groups = "regression")
     public void successSelectBonusPrograms() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -91,7 +91,7 @@ public final class CheckoutBonusesTests {
 
     @CaseId(1704)
     @Story("Тест удаления всех бонусных программ в чекауте")
-    @Test(description = "Тест удаления всех бонусных программ в чекауте", groups = {"acceptance", "regression"})
+    @Test(description = "Тест удаления всех бонусных программ в чекауте", groups = "regression")
     public void successDeleteBonusPrograms() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -127,7 +127,7 @@ public final class CheckoutBonusesTests {
 
     @CaseId(1705)
     @Story("Тест не добавлять бонусы при нажатии кнопки отмена")
-    @Test(description = "Тест не добавлять бонусы при нажатии кнопки отмена", groups = {"acceptance", "regression"})
+    @Test(description = "Тест не добавлять бонусы при нажатии кнопки отмена", groups = "regression")
     public void noAddBonusProgramOnCancel() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -144,7 +144,7 @@ public final class CheckoutBonusesTests {
 
     @CaseId(1706)
     @Story("Тест на недобавление бонусов при закрытии модалки")
-    @Test(description = "Тест на недобавление бонусов при закрытии модалки", groups = {"acceptance", "regression"})
+    @Test(description = "Тест на недобавление бонусов при закрытии модалки", groups = "regression")
     public void noAddBonusProgramOnModalClose()  {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -161,7 +161,7 @@ public final class CheckoutBonusesTests {
 
     @CaseId(1707)
     @Story("Тест не добавлять бонусы при отсутствии номера карты")
-    @Test(description = "Тест не добавлять бонусы при отсутствии номера карты", groups = {"acceptance", "regression"})
+    @Test(description = "Тест не добавлять бонусы при отсутствии номера карты", groups = "regression")
     public void noAddBonusProgramWithEmptyCardNumber() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -181,7 +181,7 @@ public final class CheckoutBonusesTests {
 
     @CaseId(1708)
     @Story("Тест не добавлять бонусы с некорректным номером карты")
-    @Test(description = "Тест не добавлять бонусы с некорректным номером карты", groups = {"acceptance", "regression"})
+    @Test(description = "Тест не добавлять бонусы с некорректным номером карты", groups = "regression")
     public void noAddBonusProgramWithWrongCardNumber() {
         final String cardNumber = Generate.literalString(8);
 
@@ -203,7 +203,7 @@ public final class CheckoutBonusesTests {
 
     @CaseId(1736)
     @Story("Тест успешного редактирования карты ритейлера")
-    @Test(description = "Тест успешного редактирования карты ритейлера", groups = {"acceptance", "regression"})
+    @Test(description = "Тест успешного редактирования карты ритейлера", groups = "regression")
     public void successEditBonusProgram() {
         final String cardNumber = Generate.digitalString(8);
 
@@ -234,7 +234,7 @@ public final class CheckoutBonusesTests {
 
     @CaseId(1710)
     @Story("Тест на невозможность редактировать бонусов при нажатии кнопки отмена")
-    @Test(description = "Тест на невозможность редактировать бонусов при нажатии кнопки отмена", groups = {"acceptance", "regression"})
+    @Test(description = "Тест на невозможность редактировать бонусов при нажатии кнопки отмена", groups = "regression")
     public void noEditBonusProgramOnCancel() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -262,7 +262,7 @@ public final class CheckoutBonusesTests {
 
     @CaseId(1711)
     @Story("Тест на отсутствие возможности редактировать бонусы при закрытии модалки")
-    @Test(description = "Тест на отсутствие возможности редактировать бонусы при закрытии модалки", groups = {"acceptance", "regression"})
+    @Test(description = "Тест на отсутствие возможности редактировать бонусы при закрытии модалки", groups = "regression")
     public void noEditBonusProgramOnModalClose() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -290,7 +290,7 @@ public final class CheckoutBonusesTests {
 
     @CaseId(1713)
     @Story("Тест на отсутсвие возможности редактировать бонусы с пустым номером карты")
-    @Test(description = "Тест на отсутсвие возможности редактировать бонусы с пустым номером карты", groups = {"acceptance", "regression"})
+    @Test(description = "Тест на отсутсвие возможности редактировать бонусы с пустым номером карты", groups = "regression")
     public void noEditBonusProgramWithEmptyCardNumber() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -320,7 +320,7 @@ public final class CheckoutBonusesTests {
 
     @CaseId(1714)
     @Story("Тест на не удаление бонусов при нажатии кнопки отмена")
-    @Test(description = "Тест на не удаление бонусов при нажатии кнопки отмена", groups = {"acceptance", "regression"})
+    @Test(description = "Тест на не удаление бонусов при нажатии кнопки отмена", groups = "regression")
     public void noDeleteBonusProgramOnCancel() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -348,7 +348,7 @@ public final class CheckoutBonusesTests {
 
     @CaseId(1715)
     @Story("Тест на не удаление бонусов при закрытии модалки")
-    @Test(description = "Тест на не удаление бонусов при закрытии модалки", groups = {"acceptance", "regression"})
+    @Test(description = "Тест на не удаление бонусов при закрытии модалки", groups = "regression")
     public void noDeleteBonusProgramOnModalClose() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

@@ -31,7 +31,6 @@ public class AdministrationStoreGroupsTests {
 
     private RetailerV1 retailer;
     private String cityName;
-    private StoresAdminRequest.Store store;
     private StoresEntity storeDB;
     private StoreLabelData storeLabel;
 
@@ -40,7 +39,7 @@ public class AdministrationStoreGroupsTests {
         retailer = api.createRetailerInAdmin(Generate.literalString(6) + "_retailer");
         cityName = Generate.literalString(6) + "_city";
         api.setupCity(cityName);
-        store = api.createStoreInAdmin(retailer.getName(), cityName);
+        final var store = api.createStoreInAdmin(retailer.getName(), cityName);
         storeDB = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
         storeLabel = StoreLabels.newStoreLabel();
     }
@@ -56,7 +55,7 @@ public class AdministrationStoreGroupsTests {
     }
 
     @CaseId(569)
-    @Test(description = "Добавление группы", groups = {"regression"})
+    @Test(description = "Добавление группы", groups = "regression")
     public void checkAddNewGroup() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -82,7 +81,7 @@ public class AdministrationStoreGroupsTests {
     }
 
     @CaseId(570)
-    @Test(description = "Изменение назначенной группы", groups = {"regression"})
+    @Test(description = "Изменение назначенной группы", groups = "regression")
     public void checkEditGroup() {
         api.createStoreLabel(storeLabel);
         StoreLabelsDao.INSTANCE.addStoreLabelToStore(adminApi.getStoreLabelByName(storeLabel.getTitle()).getId(), storeDB.getId(), "sbermarket");
@@ -108,7 +107,7 @@ public class AdministrationStoreGroupsTests {
     }
 
     @CaseId(571)
-    @Test(description = "Удаление назначенной магазину группы", groups = {"regression"})
+    @Test(description = "Удаление назначенной магазину группы", groups = "regression")
     public void checkDeleteGroup() {
         api.createStoreLabel(storeLabel);
         StoreLabelsDao.INSTANCE.addStoreLabelToStore(adminApi.getStoreLabelByName(storeLabel.getTitle()).getId(), storeDB.getId(), "sbermarket");
@@ -133,7 +132,7 @@ public class AdministrationStoreGroupsTests {
     }
 
     @CaseId(577)
-    @Test(description = "Назначение группы магазину", groups = {"regression"})
+    @Test(description = "Назначение группы магазину", groups = "regression")
     public void checkAddGroupToStore() {
         api.createStoreLabel(storeLabel);
 
