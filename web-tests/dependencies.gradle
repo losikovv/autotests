@@ -31,7 +31,7 @@ ext.versions = [
         common:'1.0.5',
         ab:'1.1.0',
         qase:'1.0.5',
-        qa:'1.5.7'
+        qa:'1.5.8'
 ]
 
 ext.lib = [
