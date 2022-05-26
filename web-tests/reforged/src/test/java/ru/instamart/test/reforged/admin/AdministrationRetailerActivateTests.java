@@ -22,14 +22,13 @@ public final class AdministrationRetailerActivateTests {
     private final ApiHelper apiHelper = new ApiHelper();
     private final String retailerName = Generate.literalString(6) + "_retailer";
     private final String cityNameFirst = Generate.literalString(6) + "_city";
-    private StoresAdminRequest.Store firstStore = new StoresAdminRequest.Store();
 
     @BeforeMethod(alwaysRun = true)
     public void prepareData() {
         apiHelper.createRetailerInAdmin(retailerName);
 
         apiHelper.setupCity(cityNameFirst);
-        firstStore = apiHelper.createStoreInAdmin(retailerName, cityNameFirst);
+        final var firstStore = apiHelper.createStoreInAdmin(retailerName, cityNameFirst);
 
         apiHelper.setupStoreForActivation(firstStore);
     }
@@ -45,7 +44,7 @@ public final class AdministrationRetailerActivateTests {
 
     @CaseId(213)
     @Story("Страница ретейлеров")
-    @Test(description = "Ретейлер без действующих магазинов недоступен", groups = {"acceptance", "regression"})
+    @Test(description = "Ретейлер без действующих магазинов недоступен", groups = "regression")
     public void retailerInaccessibilityWithoutActiveStores() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -65,7 +64,7 @@ public final class AdministrationRetailerActivateTests {
 
     @CaseId(214)
     @Story("Страница ретейлеров")
-    @Test(description = "Ритейлер доступен, если у него есть 1 или более действующих магазинов", groups = {"acceptance", "regression"})
+    @Test(description = "Ритейлер доступен, если у него есть 1 или более действующих магазинов", groups = "regression")
     public void retailerAccessibilityWithActiveStore() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -97,7 +96,7 @@ public final class AdministrationRetailerActivateTests {
 
     @CaseIDs(value = {@CaseId(541), @CaseId(542)})
     @Story("Страница ретейлеров")
-    @Test(description = "Активация, деактивация магазина", groups = {"acceptance", "regression"})
+    @Test(description = "Активация, деактивация магазина", groups = "regression")
     public void shopActivateAndDeactivate() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());

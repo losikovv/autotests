@@ -19,7 +19,7 @@ public final class UserLogoutTests {
 
     @CaseId(1473)
     @Story("Позитивный кейс")
-    @Test(description = "Тест успешной быстрой деавторизации", groups = {"acceptance", "regression"})
+    @Test(description = "Тест успешной быстрой деавторизации", groups = "regression")
     public void successQuickLogout() {
         UserData userData = UserManager.getQaUser();
 
@@ -36,7 +36,7 @@ public final class UserLogoutTests {
 
     @CaseId(1474)
     @Story("Позитивный кейс")
-    @Test(description = "Тест успешной деавторизации", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Тест успешной деавторизации", groups = {"regression", "smoke"})
     public void successManualLogout() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -49,7 +49,7 @@ public final class UserLogoutTests {
 
     @CaseId(2548)
     @Story("Позитивный кейс")
-    @Test(description = "Тест сброса адреса доставки и корзины после деавторизации", groups = {"acceptance", "regression"})
+    @Test(description = "Тест сброса адреса доставки и корзины после деавторизации", groups = "regression")
     public void noShipAddressAndEmptyCartAfterLogout() {
         final ApiHelper apiHelper = new ApiHelper();
         final UserData userData = UserManager.getQaUser();

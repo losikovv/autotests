@@ -21,7 +21,7 @@ public final class ShoppingYouBoughtBeforeTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(2943)
-    @Test(description = "Товар отображается в блоке 'Вы покупали ранее', если отправлен на сборку", groups = {"regression"})
+    @Test(description = "Товар отображается в блоке 'Вы покупали ранее', если отправлен на сборку", groups = "regression")
     public void testYouBoughtBeforeDisplayed() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.makeOrder(shoppingCartUser, DEFAULT_METRO_MOSCOW_SID, 3);
@@ -42,7 +42,7 @@ public final class ShoppingYouBoughtBeforeTests {
     }
 
     @CaseId(2944)
-    @Test(description = "Товары, купленные у ретейлера отображаются для любого магазина данного ретейлера", groups = {"regression"})
+    @Test(description = "Товары, купленные у ретейлера отображаются для любого магазина данного ретейлера", groups = "regression")
     public void testYouBoughtBeforeDisplayedForAnotherShopSameRetailer() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.makeOrder(shoppingCartUser, DEFAULT_METRO_MOSCOW_SID, 3);
@@ -69,7 +69,7 @@ public final class ShoppingYouBoughtBeforeTests {
     }
 
     @CaseId(2945)
-    @Test(description = "Товары не отображаются, если выбран другой ретейлер", groups = {"regression"})
+    @Test(description = "Товары не отображаются, если выбран другой ретейлер", groups = "regression")
     public void testYouBoughtBeforeNotDisplayedForAnotherRetailer() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.makeOrder(shoppingCartUser, DEFAULT_METRO_MOSCOW_SID, 3);
@@ -91,7 +91,7 @@ public final class ShoppingYouBoughtBeforeTests {
     }
 
     @CaseId(2946)
-    @Test(description = "Блок 'Вы покупали ранее' не отображается, если у пользователя ранее не было сформированных заказов", groups = {"regression"})
+    @Test(description = "Блок 'Вы покупали ранее' не отображается, если у пользователя ранее не было сформированных заказов", groups = "regression")
     public void testYouBoughtBeforeNotDisplayedIfNoPreviousOrders() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
@@ -106,7 +106,7 @@ public final class ShoppingYouBoughtBeforeTests {
     }
 
     @CaseId(2947)
-    @Test(description = "Блок 'Вы покупали ранее' не отображается, если у пользователя отменен заказ и этот заказ единственный", groups = {"regression"})
+    @Test(description = "Блок 'Вы покупали ранее' не отображается, если у пользователя отменен заказ и этот заказ единственный", groups = "regression")
     public void testYouBoughtBeforeNotDisplayedIfOrderCancelled() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.makeOrder(shoppingCartUser, DEFAULT_METRO_MOSCOW_SID, 3);

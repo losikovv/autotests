@@ -23,7 +23,7 @@ public final class UserAuthorisationTests {
     private final ApiHelper apiHelper = new ApiHelper();
 
     @CaseId(1455)
-    @Test(description = "Тест успешной авторизации на витрине", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Тест успешной авторизации на витрине", groups = {"regression", "smoke"})
     public void successAuthOnMainPage() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -32,7 +32,7 @@ public final class UserAuthorisationTests {
     }
 
     @CaseId(2543)
-    @Test(description = "Авторизация по номеру телефона", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Авторизация по номеру телефона", groups = {"regression", "smoke"})
     public void successAuthOnMainPageUserWithOrder() {
         UserData user = UserManager.getQaUser();
         apiHelper.dropAndFillCart(user, 1);

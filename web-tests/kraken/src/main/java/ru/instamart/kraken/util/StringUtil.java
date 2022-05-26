@@ -1,9 +1,12 @@
 package ru.instamart.kraken.util;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.util.regex.Pattern;
+
+import static java.util.Objects.isNull;
 
 @Slf4j
 public final class StringUtil {
@@ -142,5 +145,12 @@ public final class StringUtil {
      */
     public static String getTotalSlotCount(final String slotsInfo) {
         return slotsInfo.replaceAll(TOTAL_SLOT_COUNT, "");
+    }
+
+    public static String getSMSCode(final String phone) {
+        if (isNull(phone) || phone.isEmpty()) {
+            return CoreProperties.DEFAULT_UI_SMS;
+        }
+        return phone.substring(phone.length() - 6);
     }
 }

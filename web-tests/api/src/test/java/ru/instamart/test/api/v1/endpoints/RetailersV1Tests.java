@@ -654,7 +654,7 @@ public class RetailersV1Tests extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void clearData() {
-        if(!EnvironmentProperties.SERVER.equals("production") && Objects.nonNull(retailerFromResponse)) {
+        if(!EnvironmentProperties.Env.isProduction() && Objects.nonNull(retailerFromResponse)) {
             SpreeRetailersDao.INSTANCE.delete(Long.valueOf(retailerFromResponse.getId()));
         }
     }

@@ -32,7 +32,7 @@ public class RestBase {
 
     @AfterSuite(alwaysRun = true)
     public void clearData() {
-        if (!EnvironmentProperties.SERVER.equals("production")) {
+        if (!EnvironmentProperties.Env.isProduction()) {
             SpreeUsersDao.INSTANCE.deleteQAUsers();
         }
     }

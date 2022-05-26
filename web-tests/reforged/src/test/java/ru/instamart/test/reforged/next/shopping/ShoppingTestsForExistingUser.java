@@ -21,7 +21,7 @@ public class ShoppingTestsForExistingUser {
     @CaseId(1616)
     @Story("Тест недоступности чекаута по прямой ссылке авторизованному юзеру c выбранным адресом и пустой корзиной")
     @Test(description = "Тест недоступности чекаута по прямой ссылке авторизованному юзеру c выбранным адресом и пустой корзиной",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void noAccessToCheckoutForAuthorizedUserWithShipAddressAndEmptyCart() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -42,7 +42,7 @@ public class ShoppingTestsForExistingUser {
     @CaseId(1617)
     @Story("Тест недоступности чекаута при сумме корзины меньше минимального заказа")
     @Test(description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -72,7 +72,7 @@ public class ShoppingTestsForExistingUser {
     @CaseId(2606)
     @Story("Тест набора корзины до суммы, достаточной для оформления заказа")
     @Test(description = "Тест набора корзины до суммы, достаточной для оформления заказа",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void successCollectItemsForMinOrder() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropAndFillCart(shoppingCartUser, 1);
@@ -94,7 +94,7 @@ public class ShoppingTestsForExistingUser {
 
     @CaseId(1619)
     @Story("Тест на подтягивание адреса и мердж корзины из профиля при авторизации")
-    @Test(description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации", groups = {"acceptance", "regression"})
+    @Test(description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации", groups = "regression")
     public void successMergeShipAddressAndCartAfterAuthorisation() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropAndFillCart(shoppingCartUser, 1);

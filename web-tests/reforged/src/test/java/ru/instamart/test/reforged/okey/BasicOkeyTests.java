@@ -21,7 +21,7 @@ public final class BasicOkeyTests {
 
     @CaseId(2777)
     @Story("Валидация элементов")
-    @Test(description = "Тест валидности элементов и ссылок в шапке Okey", groups = {"acceptance", "regression"})
+    @Test(description = "Тест валидности элементов и ссылок в шапке Okey", groups = "regression")
     public void successValidateOkeyTenantHeader() {
         okey().goToPage();
         okey().checkPageIsAvailable();
@@ -44,7 +44,7 @@ public final class BasicOkeyTests {
 
     @CaseId(2778)
     @Story("Валидация элементов")
-    @Test(description = "Тест валидности элементов и ссылок в подвале Okey", groups = {"acceptance", "regression"})
+    @Test(description = "Тест валидности элементов и ссылок в подвале Okey", groups = "regression")
     public void successValidateOkeyTenantFooter() {
         okey().goToPage();
         okey().checkPageIsAvailable();
@@ -82,7 +82,7 @@ public final class BasicOkeyTests {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "filteredUnavailableRetailersSpree",
             description = "Тест недоступности витрин ретейлеров Okey",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void successCheckOkeyUnavailableRetailers(final RetailerV2 retailer) {
         final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
         assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
@@ -94,7 +94,7 @@ public final class BasicOkeyTests {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "okeyAvailableRetailerPage",
             description = "Тест доступности витрин ретейлеров Okey",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void successCheckOkeyAvailableRetailers(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " доступна");
     }
@@ -106,7 +106,7 @@ public final class BasicOkeyTests {
             dataProviderClass = StaticPage.class,
             dataProvider = "okeyFaqPage",
             description = "Тест доступности статических страниц на Okey",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void successCheckOkeyStaticPagesAreAvailable(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
     }

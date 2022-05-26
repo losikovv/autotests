@@ -28,7 +28,7 @@ public final class AdministrationRetailerEditTests {
 
     @CaseId(1417)
     @Story("Страница ритейлеров")
-    @Test(description = "Кнопка 'Настройки' раскрывает сайдбар с настройками ритейлера", groups = {"regression"})
+    @Test(description = "Кнопка 'Настройки' раскрывает сайдбар с настройками ритейлера", groups = "regression")
     public void openRetailerSettingsSidebar() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -46,7 +46,7 @@ public final class AdministrationRetailerEditTests {
 
     @CaseId(1418)
     @Story("Страница ритейлеров")
-    @Test(description = "Кнопка 'Внешний вид' раскрывает сайдбар с редактированием внешнего вида ритейлера", groups = {"regression"})
+    @Test(description = "Кнопка 'Внешний вид' раскрывает сайдбар с редактированием внешнего вида ритейлера", groups = "regression")
     public void openRetailerAppearanceSidebar() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -64,7 +64,7 @@ public final class AdministrationRetailerEditTests {
 
     @CaseId(1429)
     @Story("Страница ритейлеров")
-    @Test(description = "Кнопка 'Ранжировать список' раскрывает сайдбар с ранжированием списка ритейлеров", groups = {"regression"})
+    @Test(description = "Кнопка 'Ранжировать список' раскрывает сайдбар с ранжированием списка ритейлеров", groups = "regression")
     public void openRankListSidebar() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

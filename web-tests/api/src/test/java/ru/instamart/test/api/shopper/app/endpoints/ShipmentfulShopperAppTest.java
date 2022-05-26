@@ -41,7 +41,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void preconditions() {
         shopperApp.authorisation(UserManager.getDefaultShopper());
         shopperApp.deleteCurrentAssembly();
-        String COMMENT = EnvironmentProperties.SERVER.equals("production") ? "SHP-TEST-SINGLE" + RandomUtils.nextInt(1, 50) : "SHP-TEST-SINGLE";
+        String COMMENT = EnvironmentProperties.Env.isProduction() ? "SHP-TEST-SINGLE" + RandomUtils.nextInt(1, 50) : "SHP-TEST-SINGLE";
         shipment = shopperApp.getShipmentByComment(COMMENT);
 
         if (Objects.isNull(shipment)) {

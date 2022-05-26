@@ -37,7 +37,7 @@ public final class CheckoutPromocodeTests {
 
     @CaseId(2638)
     @Story("Добавление промокода к заказу")
-    @Test(description = "Тест успешного применения промокода в чекауте", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Тест успешного применения промокода в чекауте", groups = {"regression", "smoke"})
     public void successAddPromocode() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -54,7 +54,7 @@ public final class CheckoutPromocodeTests {
 
     @CaseId(2639)
     @Story("Удаление промокода из заказа")
-    @Test(description = "Тест удаления промокода в чекауте", groups = {"acceptance", "regression"})
+    @Test(description = "Тест удаления промокода в чекауте", groups = "regression")
     public void successDeletePromocode() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -73,7 +73,7 @@ public final class CheckoutPromocodeTests {
 
     @CaseId(1729)
     @Story("Добавление промокода к заказу")
-    @Test(description = "Тест недобавления промокода при нажатии кнопки Отмена", groups = {"acceptance", "regression"})
+    @Test(description = "Тест недобавления промокода при нажатии кнопки Отмена", groups = "regression")
     public void noPromocodeAddedOnCancel() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -90,7 +90,7 @@ public final class CheckoutPromocodeTests {
 
     @CaseId(1730)
     @Story("Добавление промокода к заказу")
-    @Test(description = "Тест не добавления промокода при закрытии модалки промокода", groups = {"acceptance", "regression"})
+    @Test(description = "Тест не добавления промокода при закрытии модалки промокода", groups = "regression")
     public void noPromocodeAddedOnModalClose() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

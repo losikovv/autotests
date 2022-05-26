@@ -16,7 +16,7 @@ import static ru.instamart.reforged.next.page.StfRouter.*;
 public final class HelpDeskChatTests {
 
     @CaseId(1758)
-    @Test(description = "Тест отсутствия виджета HelpDesk в чекауте", groups = {"acceptance", "regression"})
+    @Test(description = "Тест отсутствия виджета HelpDesk в чекауте", groups = "regression")
     public void noHelpDeskWidgetOnCheckout() {
         final ApiHelper apiHelper = new ApiHelper();
         final UserData userData = UserManager.getQaUser();
@@ -33,7 +33,7 @@ public final class HelpDeskChatTests {
     }
 
     @CaseId(1759)
-    @Test(description = "Тест работы с виджетом HelpDesk на витрине ритейлера", groups = {"acceptance", "regression"})
+    @Test(description = "Тест работы с виджетом HelpDesk на витрине ритейлера", groups = "regression")
     public void successOperateHelpDeskWidgetOnRetailerPage() {
         shop().goToPage();
         shop().interactHelpDesk().openChat();
@@ -43,7 +43,7 @@ public final class HelpDeskChatTests {
     }
 
     @CaseId(1761)
-    @Test(description = "Тест работы с виджетом HelpDesk на странице 404", groups = {"acceptance", "regression"})
+    @Test(description = "Тест работы с виджетом HelpDesk на странице 404", groups = "regression")
     public void successOperateHelpDeskWidgetOnPage404() {
         notfound().goToPage();
         notfound().interactHelpDesk().openChat();

@@ -18,7 +18,7 @@ public final class BasicCheckoutTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(2939)
-    @Test(description = "Тест доступности чекаута по прямой ссылке", groups = {"acceptance", "regression"})
+    @Test(description = "Тест доступности чекаута по прямой ссылке", groups = "regression")
     public void testCheckoutAccessForUserWithCart() {
         final var userData = UserManager.getQaUser();
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());

@@ -26,7 +26,7 @@ public final class RetailRocketCartWidgetsTests {
     }
 
     @CaseId(1767)
-    @Test(description = "Тест наличия виджета 'Не забудьте купить' в корзине", groups = {"acceptance", "regression"})
+    @Test(description = "Тест наличия виджета 'Не забудьте купить' в корзине", groups = "regression")
     public void successCheckDontForgetToBuyWidget() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -42,7 +42,7 @@ public final class RetailRocketCartWidgetsTests {
 
     @CaseId(1768)
     @Test(description = "Тест успешного открытия карточки из виджета 'Не забудьте купить' в корзине",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void successOpenItemCardFromDontForgetToBuyWidget() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -59,7 +59,7 @@ public final class RetailRocketCartWidgetsTests {
 
     @CaseId(1769)
     @Test(description = "Тест успешного добавления товара в корзину из виджета ' Не забудьте купить' в корзине",
-            groups = {"acceptance", "regression"})
+            groups = "regression")
     public void successAddItemFromDontForgetToBuyWidget() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

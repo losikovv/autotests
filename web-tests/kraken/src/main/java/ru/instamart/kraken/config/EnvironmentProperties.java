@@ -190,6 +190,14 @@ public final class EnvironmentProperties {
         public static String FULL_JOB_LANDING_URL = PROTOCOL + "://" + JOB_LANDING_URL + "/";
         public static String FULL_SBER_ID_URL = PROTOCOL + "://" + SBER_ID_URL + "/";
 
+        public static boolean isPreprod() {
+            return Server.PREPROD.name().equalsIgnoreCase(EnvironmentProperties.SERVER);
+        }
+
+        public static boolean isProduction() {
+            return Server.PRODUCTION.name().equalsIgnoreCase(EnvironmentProperties.SERVER);
+        }
+
         private static String getDomainName(String url) {
             try {
                 URI uri = new URI(url);

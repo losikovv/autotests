@@ -29,7 +29,7 @@ public final class UserShippingAddressTests {
 
     @CaseId(1558)
     @Story("Дефолтные настройки адреса доставки")
-    @Test(description = "Тест на то, что по дефолту на витрине ритейлера не выбран адрес", groups = {"acceptance", "regression", "MRAutoCheck"})
+    @Test(description = "Тест на то, что по дефолту на витрине ритейлера не выбран адрес", groups = {"regression", "MRAutoCheck"})
     public void noShippingAddressByDefault() {
         shop().goToPage();
         shop().interactHeader().checkIsShippingAddressNotSet();
@@ -48,7 +48,7 @@ public final class UserShippingAddressTests {
 
     @CaseId(31)
     @Story("Сохранение и изменение адреса доставки")
-    @Test(description = "Тест отмены ввода адреса доставки на витрине ритейлера", groups = {"acceptance", "regression"})
+    @Test(description = "Тест отмены ввода адреса доставки на витрине ритейлера", groups = "regression")
     public void noShippingAddressSetOnClose() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
@@ -82,7 +82,7 @@ public final class UserShippingAddressTests {
 
     @CaseId(32)
     @Story("Сохранение и изменение адреса доставки")
-    @Test(description = "Тест ввода адреса доставки на витрине ритейлера", groups = {"acceptance", "regression"})
+    @Test(description = "Тест ввода адреса доставки на витрине ритейлера", groups = "regression")
     public void successSetShippingAddressOnRetailerPage() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
@@ -121,7 +121,7 @@ public final class UserShippingAddressTests {
 
     @CaseId(34)
     @Story("Сохранение и изменение адреса доставки")
-    @Test(description = "Тест изменения адреса доставки", groups = {"acceptance", "regression"})
+    @Test(description = "Тест изменения адреса доставки", groups = "regression")
     public void successChangeShippingAddress() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();

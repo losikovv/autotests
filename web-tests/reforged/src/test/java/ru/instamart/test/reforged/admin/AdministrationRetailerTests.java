@@ -24,20 +24,16 @@ public final class AdministrationRetailerTests {
     private final String cityNameFirst = Generate.literalString(6) + "_city";
     private final String cityNameSecond = Generate.literalString(6) + "_city";
 
-    private StoresAdminRequest.Store firstStore = new StoresAdminRequest.Store();
-    private StoresAdminRequest.Store secondStore = new StoresAdminRequest.Store();
-    private StoresAdminRequest.Store thirdStore = new StoresAdminRequest.Store();
-
     @BeforeClass(alwaysRun = true)
     public void prepareData() {
         apiHelper.createRetailerInAdmin(retailerName);
 
         apiHelper.setupCity(cityNameFirst);
-        firstStore = apiHelper.createStoreInAdmin(retailerName, cityNameFirst);
+        final var firstStore = apiHelper.createStoreInAdmin(retailerName, cityNameFirst);
 
         apiHelper.setupCity(cityNameSecond);
-        secondStore = apiHelper.createStoreInAdmin(retailerName, cityNameSecond);
-        thirdStore = apiHelper.createStoreInAdmin(retailerName, cityNameSecond);
+        final var secondStore = apiHelper.createStoreInAdmin(retailerName, cityNameSecond);
+        final var thirdStore = apiHelper.createStoreInAdmin(retailerName, cityNameSecond);
 
         apiHelper.setupStoreForActivation(firstStore);
         apiHelper.setupStoreForActivation(secondStore);
@@ -46,7 +42,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(535)
     @Story("Страница ретейлеров")
-    @Test(description = "На страницу выводится весь список ретейлеров с информацией об их доступности и датах их создания", groups = {"acceptance", "regression"})
+    @Test(description = "На страницу выводится весь список ретейлеров с информацией об их доступности и датах их создания", groups = "regression")
     public void successViewRetailerPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -61,7 +57,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(184)
     @Story("Страница ретейлеров")
-    @Test(description = "Корректное отображение страницы загрузки зон", groups = {"acceptance", "regression"})
+    @Test(description = "Корректное отображение страницы загрузки зон", groups = "regression")
     public void successViewRetailerZones() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -94,7 +90,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(536)
     @Story("Страница ретейлеров")
-    @Test(description = "Cортировка городов по кол-ву магазинов в каждом и по алфавиту", groups = {"acceptance", "regression"})
+    @Test(description = "Cортировка городов по кол-ву магазинов в каждом и по алфавиту", groups = "regression")
     public void storesQuantityAndAlphabetSortCities() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -110,7 +106,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(537)
     @Story("Страница ретейлеров")
-    @Test(description = "Cортировка городов по дате создания", groups = {"acceptance", "regression"})
+    @Test(description = "Cортировка городов по дате создания", groups = "regression")
     public void storesCreateDateSortCities() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -125,7 +121,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(558)
     @Story("Страница ретейлеров")
-    @Test(description = "При клике на адрес магазина происходит переход на его страницу", groups = {"acceptance", "regression"})
+    @Test(description = "При клике на адрес магазина происходит переход на его страницу", groups = "regression")
     public void successTransitOnStorePageViaClickOnAddress() {
         String address;
 
@@ -146,7 +142,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(532)
     @Story("Страница ретейлеров")
-    @Test(description = "Поиск ретейлера", groups = {"acceptance", "regression"})
+    @Test(description = "Поиск ретейлера", groups = "regression")
     public void retailerSearch() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -170,7 +166,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(533)
     @Story("Страница ретейлеров")
-    @Test(description = "Сортировка по названию", groups = {"acceptance", "regression"})
+    @Test(description = "Сортировка по названию", groups = "regression")
     public void retailerSortViaName() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -196,7 +192,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(557)
     @Story("Страница ретейлеров")
-    @Test(description = "Сортировка по дате создания", groups = {"acceptance", "regression"})
+    @Test(description = "Сортировка по дате создания", groups = "regression")
     public void retailerSortViaDate() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -222,7 +218,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(534)
     @Story("Страница ретейлеров")
-    @Test(description = "Сохранение и воспроизведение фильтров и сортировок в URL", groups = {"acceptance", "regression"})
+    @Test(description = "Сохранение и воспроизведение фильтров и сортировок в URL", groups = "regression")
     public void saveSortViaUrl() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -253,7 +249,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(538)
     @Story("Страница ретейлеров")
-    @Test(description = "Кнопка 'Добавить ритейлера' ведёт на страницу создания нового ритейлера", groups = {"acceptance", "regression"})
+    @Test(description = "Кнопка 'Добавить ритейлера' ведёт на страницу создания нового ритейлера", groups = "regression")
     public void successTransitToRetailerCreatePage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -269,7 +265,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(539)
     @Story("Страница ретейлеров")
-    @Test(description = "Кнопка 'Добавить магазин' ведёт на страницу создания нового магазина ритейлера", groups = {"acceptance", "regression"})
+    @Test(description = "Кнопка 'Добавить магазин' ведёт на страницу создания нового магазина ритейлера", groups = "regression")
     public void successTransitToRetailerStoreCreatePage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -285,7 +281,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(580)
     @Story("Страница ретейлеров")
-    @Test(description = "Фильтрация ритейлеров по доступности", groups = {"acceptance", "regression"})
+    @Test(description = "Фильтрация ритейлеров по доступности", groups = "regression")
     public void retailerFilterViaAvailability() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -319,7 +315,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(581)
     @Story("Страница ретейлеров")
-    @Test(description = "Фильтрация ритейлеров и магазинов по региону", groups = {"acceptance", "regression"})
+    @Test(description = "Фильтрация ритейлеров и магазинов по региону", groups = "regression")
     public void retailerFilterViaRegion() {
         String cityName = "Москва";
 

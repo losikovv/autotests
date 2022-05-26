@@ -3,10 +3,12 @@ package ru.instamart.reforged.core.page;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -87,6 +89,9 @@ public interface Page extends PageCheck {
 
     default void cookiesChange(final boolean isFixedUUID) {
         final var abCookie = isFixedUUID ? CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE : CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID;
+        if (EnvironmentProperties.Env.isProduction()) {
+            Kraken.addCookie(CookieFactory.USER_ADULT_18_PLUS_ALERT);
+        }
         cookiesChange(Set.of(abCookie, CookieFactory.RETAILERS_REMINDER_MODAL));
     }
 

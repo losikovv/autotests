@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PromotionCode {
     public static String getPromotionCode() {
-        if (!EnvironmentProperties.SERVER.equals("production")) {
+        if (!EnvironmentProperties.Env.isProduction()) {
             PromotionCodesFilters filters = PromotionCodesFilters.builder()
                     .value("auto%")
                     .usageLimit(5000)

@@ -16,7 +16,7 @@ public final class AdministrationRetailerRegionsTests {
 
     @CaseId(469)
     @Story("Тест добавления нового региона для магазинов в админке")
-    @Test(description = "Тест добавления нового региона для магазинов в админке", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Тест добавления нового региона для магазинов в админке", groups = {"regression", "smoke"})
     public void successCreateNewRetailerRegion() {
 
         final String regionName = "тест-" + Generate.literalCyrillicString(6);
@@ -41,7 +41,7 @@ public final class AdministrationRetailerRegionsTests {
 
     @CaseId(472)
     @Story("Валидация страницы регионов")
-    @Test(description = "Валидация страницы регионов", groups = {"acceptance", "regression"})
+    @Test(description = "Валидация страницы регионов", groups = "regression")
     public void storeRegionsPageValidation() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

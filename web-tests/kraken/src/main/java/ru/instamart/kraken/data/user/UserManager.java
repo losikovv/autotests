@@ -181,7 +181,7 @@ public final class UserManager {
             log.debug("SERVER: {}", EnvironmentProperties.SERVER);
         }
 
-        if (isNull(defaultShopper) && EnvironmentProperties.SERVER.contains("production")) {
+        if (isNull(defaultShopper) && EnvironmentProperties.Env.isProduction()) {
             defaultShopper = UserData.builder()
                     .email(Crypt.INSTANCE.decrypt("fge71qP00DC40VYpfYee6w=="))
                     .phone(Crypt.INSTANCE.decrypt("vodVNuxqMcNPIBazZFHfAA=="))

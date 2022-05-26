@@ -40,7 +40,7 @@ public final class AdministrationOrdersEditTests {
     }
 
     @CaseId(133)
-    @Test(description = "В шапке указан выбранный юзером слот доставки", groups = {"regression"})
+    @Test(description = "В шапке указан выбранный юзером слот доставки", groups = "regression")
     public void checkDeliverySlotVisible() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -59,7 +59,7 @@ public final class AdministrationOrdersEditTests {
     }
 
     @CaseId(135)
-    @Test(description = "Проверка успешного изменения времени доставки", groups = {"regression"})
+    @Test(description = "Проверка успешного изменения времени доставки", groups = "regression")
     public void checkEditDeliverySlot() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -90,7 +90,7 @@ public final class AdministrationOrdersEditTests {
     }
 
     @CaseId(137)
-    @Test(description = "В интервале указан лимит доступных слотов - занятые/общее кол-во слотов", groups = {"regression"})
+    @Test(description = "В интервале указан лимит доступных слотов - занятые/общее кол-во слотов", groups = "regression")
     public void checkSlotsLimitDisplayedInInterval() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

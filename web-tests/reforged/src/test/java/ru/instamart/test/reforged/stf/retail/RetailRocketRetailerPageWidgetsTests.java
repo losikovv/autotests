@@ -26,7 +26,7 @@ public final class RetailRocketRetailerPageWidgetsTests {
     }
 
     @CaseId(1785)
-    @Test(description = "Тест наличия виджета 'Популярные товары' на главной", groups = {"acceptance", "regression"})
+    @Test(description = "Тест наличия виджета 'Популярные товары' на главной", groups = "regression")
     public void successCheckPopularItemsWidget() {
         shop().goToPage();
         shop().interactRetailRocket().checkBlockPopular();
@@ -34,7 +34,7 @@ public final class RetailRocketRetailerPageWidgetsTests {
 
     @CaseId(1787)
     @Test ( description = "Тест успешного открытия карточки товара из виджета 'Популярные товары' на главной",
-            groups = {"acceptance", "regression"},
+            groups = "regression",
             dependsOnMethods = "successCheckPopularItemsWidget" )
     public void successOpenItemFromPopularItemsWidget() {
         shop().goToPage();
@@ -44,7 +44,7 @@ public final class RetailRocketRetailerPageWidgetsTests {
 
     @CaseId(1789)
     @Test ( description = "Тест успешного добавления товара из блока 'Популярные товары' на главной",
-            groups = {"acceptance", "regression"},
+            groups = "regression",
             dependsOnMethods = "successCheckPopularItemsWidget" )
     public void successAddItemFromPopularItemsWidget() {
         shop().goToPage();

@@ -38,7 +38,7 @@ public final class OrdersReplacementsTests {
     @CaseIDs(value = {@CaseId(1634), @CaseId(1635), @CaseId(1636), @CaseId(1637)})
     @Story("Тест заказа с политикой Звонить / Заменять")
     @Test(  description = "Тест заказа с политикой Звонить / Заменять",
-            groups = {"acceptance", "regression"},
+            groups = "regression",
             dataProviderClass = ReplacePolicyProvider.class,
             dataProvider = "replacementPolicy" )
     public void successOrderWithReplacementPolicy(final String replacementPolicy) {

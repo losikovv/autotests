@@ -27,7 +27,7 @@ public class UserCompaniesV1Request extends ApiV1RequestBase {
 
     @Step("{method} /" + ApiV1Endpoints.User.COMPANIES)
     public static Response POST(Juridical companyData) {
-        if (EnvironmentProperties.SERVER.equals("production")) {
+        if (EnvironmentProperties.Env.isProduction()) {
             throw new SkipException("Не создаём компании на проде");
         } else {
             JSONObject requestParams = new JSONObject();

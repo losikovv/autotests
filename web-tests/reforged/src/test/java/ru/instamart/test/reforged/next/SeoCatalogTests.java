@@ -21,7 +21,7 @@ public final class SeoCatalogTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1802)
-    @Test(description = "Тест доступности страницы SEO-каталога", groups = {"acceptance", "regression"})
+    @Test(description = "Тест доступности страницы SEO-каталога", groups = "regression")
     public void successCheckSeoPage() {
         seo().goToPage();
         seo().checkPageIsAvailable();
