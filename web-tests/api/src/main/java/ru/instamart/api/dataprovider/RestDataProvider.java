@@ -202,7 +202,7 @@ public class RestDataProvider extends RestBase {
 
         Specification.setResponseSpecDefault();
 
-        if (EnvironmentProperties.SERVER.equals("production")) {
+        if (EnvironmentProperties.Env.isProduction()) {
             return new Object[][]{
                     {retailerList.get(0)},
                     {retailerList.get(1)}
@@ -227,7 +227,7 @@ public class RestDataProvider extends RestBase {
 
         Specification.setResponseSpecDefault();
 
-        if (EnvironmentProperties.SERVER.equals("production")) {
+        if (EnvironmentProperties.Env.isProduction()) {
             return new Object[][]{
                     {retailerList.get(0)},
                     {retailerList.get(1)}
@@ -251,7 +251,7 @@ public class RestDataProvider extends RestBase {
         List<StoreV2> storeList = apiV2.getAvailableStores();
         Specification.setResponseSpecDefault();
 
-        if (EnvironmentProperties.SERVER.equals("production")) {
+        if (EnvironmentProperties.Env.isProduction()) {
             return new Object[][]{
                     {storeList.get(0)},
                     {storeList.get(1)}
@@ -272,7 +272,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getStoreOfEachRetailer() {
         Specification.setResponseSpecDataProvider();
 
-        if (EnvironmentProperties.SERVER.equals("production")) {
+        if (EnvironmentProperties.Env.isProduction()) {
             Response response = RetailersV1Request.Stores.GET(apiV2.getAvailableRetailers().get(1).getId());
             checkStatusCode200(response);
             List<StoreV2> retailerStores = response.as(StoresV2Response.class).getStores();
@@ -368,7 +368,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getOfferOfEachRetailer() {
         Specification.setResponseSpecDataProvider();
 
-        if (EnvironmentProperties.SERVER.equals("production")) {
+        if (EnvironmentProperties.Env.isProduction()) {
             Response response = RetailersV1Request.Stores.GET(apiV2.getAvailableRetailers().get(0).getId());
             checkStatusCode200(response);
             List<StoreV2> retailerStores = response.as(StoresV2Response.class).getStores();

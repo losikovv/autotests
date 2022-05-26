@@ -43,7 +43,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        if (!EnvironmentProperties.SERVER.equals("production")) {
+        if (!EnvironmentProperties.Env.isProduction()) {
             admin.authApi();
             admin.checkDeliveryWindows(EnvironmentProperties.DEFAULT_SID);
         }

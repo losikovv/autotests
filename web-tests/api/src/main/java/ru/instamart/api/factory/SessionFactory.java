@@ -263,13 +263,13 @@ public final class SessionFactory {
         String prodOtp = null;
         final Response sendCodeResponse = AuthSHPRequest.Login.POST(userData.getPhone());
         checkStatusCode200or422(sendCodeResponse); // 422 ошибка - если отп-код еще не протух
-        if (EnvironmentProperties.SERVER.equals("production")) {
+        if (EnvironmentProperties.Env.isProduction()) {
             final Response otpCodeResponse = OtpCodeSHPRequest.GET(userData.getPhone());
             checkStatusCode200(otpCodeResponse);
             prodOtp = otpCodeResponse.as(OtpCodeSHPResponse.class).getCode();
             checkFieldIsNotEmpty(prodOtp, "OTP-код");
         }
-        final Response response = AuthSHPRequest.Code.POST(userData.getPhone(), EnvironmentProperties.SERVER.equals("production") ? prodOtp : CoreProperties.DEFAULT_SMS);
+        final Response response = AuthSHPRequest.Code.POST(userData.getPhone(), EnvironmentProperties.Env.isProduction() ? prodOtp : CoreProperties.DEFAULT_SMS);
         checkStatusCode200(response);
         final SessionSHP.Data.Attributes sessionAttributes = response.as(SessionsSHPResponse.class).getData().getAttributes();
         log.debug("Авторизуемся: {}", userData.getPhone());

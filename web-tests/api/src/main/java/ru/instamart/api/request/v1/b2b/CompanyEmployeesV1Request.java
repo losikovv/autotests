@@ -15,7 +15,7 @@ public class CompanyEmployeesV1Request extends ApiV1RequestBase {
 
     @Step("{method} /" + ApiV1Endpoints.COMPANY_EMPLOYEES)
     public static Response POST(Integer companyID, UserV1 user) {
-        if (!EnvironmentProperties.SERVER.equals("production")) {
+        if (!EnvironmentProperties.Env.isProduction()) {
             JSONObject body = new JSONObject();
             JSONObject requestParams = new JSONObject();
             requestParams.put("user_id", user.getId());

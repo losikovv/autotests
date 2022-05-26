@@ -34,7 +34,7 @@ public final class UserAuthorisationTests {
     }
 
     @CaseId(2543)
-    @Test(description = "Авторизация по номеру телефона", groups = {"production", "regression", "smoke"})
+    @Test(description = "Авторизация по номеру телефона", groups = {"regression", "smoke"})
     public void successAuthOnMainPageUserWithOrder() {
         UserData user = UserManager.getQaUser();
         apiHelper.dropAndFillCart(user, 1);

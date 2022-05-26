@@ -7,7 +7,7 @@ import ru.instamart.reforged.core.component.Button;
 
 public interface Close {
 
-    Button closeModal = new Button(By.xpath("//div[@id='react-modal']//button[@aria-label='Закрыть']"), "кнопка закрытия модального окна");
+    Button closeModal = new Button(By.xpath("//button[@aria-label='Закрыть']"), "кнопка закрытия модального окна");
 
     @Step("Закрыть фрейм")
     default void close() {

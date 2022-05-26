@@ -43,7 +43,7 @@ public class ShipmentsV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        if (EnvironmentProperties.SERVER.equals("production")) {
+        if (EnvironmentProperties.Env.isProduction()) {
             admin.authApi();
         } else {
             apiV1.authByPhone(UserManager.getQaUser());

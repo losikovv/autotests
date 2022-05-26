@@ -41,7 +41,7 @@ public class ShopperAppE2ETest extends RestBase {
     public void preconditions() {
         shopperApp.authorisation(UserManager.getDefaultShopper());
         shopperApp.deleteCurrentAssembly();
-        String COMMENT = EnvironmentProperties.SERVER.equals("production") ? "SHP-TEST-MULTI" + RandomUtils.nextInt(1, 50): "SHP-TEST-MULTI";
+        String COMMENT = EnvironmentProperties.Env.isProduction() ? "SHP-TEST-MULTI" + RandomUtils.nextInt(1, 50): "SHP-TEST-MULTI";
         shipment = shopperApp.getShipmentByComment(COMMENT);
 
         if (Objects.isNull(shipment)) {

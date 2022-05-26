@@ -38,7 +38,7 @@ public class ActiveShipmentsV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
         final UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
-        if (!EnvironmentProperties.SERVER.equals("production")) {
+        if (!EnvironmentProperties.Env.isProduction()) {
             orderFromAnotherStore = apiV2.order(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         }
     }

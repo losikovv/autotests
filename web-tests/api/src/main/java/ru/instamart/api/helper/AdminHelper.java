@@ -174,7 +174,7 @@ public class AdminHelper {
     @Step("Авторизация администратором")
     public void auth() {
         UserData user = UserManager.getDefaultAdmin();
-        if (!EnvironmentProperties.SERVER.equals("production")) {
+        if (!EnvironmentProperties.Env.isProduction()) {
             if (SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
                 createAdmin(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
             }
@@ -185,7 +185,7 @@ public class AdminHelper {
     @Step("Авторизация администратором для API")
     public void authApi() {
         UserData user = UserManager.getDefaultAdmin();
-        if (!EnvironmentProperties.SERVER.equals("production")) {
+        if (!EnvironmentProperties.Env.isProduction()) {
             if (SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
                 createAdmin(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
             }
@@ -197,7 +197,7 @@ public class AdminHelper {
     //временное решение, пока полностью не переделают админку
     public void authApiWithAdminNewRoles() {
         UserData user = UserManager.getDefaultAdminAllRoles();
-        if (!EnvironmentProperties.SERVER.equals("production")) {
+        if (!EnvironmentProperties.Env.isProduction()) {
             if (SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
                 createAdmin(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
             }

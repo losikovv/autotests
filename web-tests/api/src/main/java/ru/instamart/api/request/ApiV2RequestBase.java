@@ -38,7 +38,7 @@ public class ApiV2RequestBase {
      * Добавляем спеки к запросу
      */
     public static RequestSpecification givenWithSpec() {
-        return EnvironmentProperties.SERVER.equals("production") ?
+        return EnvironmentProperties.Env.isProduction() ?
                 given()
                         .spec(Specification.INSTANCE.getProdRequestSpec()):
                 given()

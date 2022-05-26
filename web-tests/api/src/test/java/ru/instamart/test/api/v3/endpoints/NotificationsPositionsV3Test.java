@@ -15,6 +15,7 @@ import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.helper.ApiV3Helper;
 import ru.instamart.api.helper.K8sHelper;
 import ru.instamart.api.model.v2.AssemblyItemV2;
 import ru.instamart.api.model.v2.LineItemV2;
@@ -33,9 +34,9 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        apiV3.checkFlipper("allow_export_to_external_services");
-        apiV3.checkFlipper("export_to_external_services_by_webhook");
-        if (!EnvironmentProperties.SERVER.equals("preprod")) {
+        ApiV3Helper.checkFlipper("allow_export_to_external_services");
+        ApiV3Helper.checkFlipper("export_to_external_services_by_webhook");
+        if (!EnvironmentProperties.Env.isPreprod()) {
             admin.auth();
             admin.editStore(58, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
         }
