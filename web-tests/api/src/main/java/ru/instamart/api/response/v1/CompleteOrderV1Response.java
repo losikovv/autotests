@@ -18,7 +18,6 @@ public class CompleteOrderV1Response extends BaseResponseObject {
     @JsonSchema(required = true)
     private String notice;
 
-    @JsonSchema(required = true)
     @JsonProperty("redirect_url")
     private String redirectUrl;
 
