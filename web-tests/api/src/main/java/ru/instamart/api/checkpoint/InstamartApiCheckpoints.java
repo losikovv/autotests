@@ -17,6 +17,7 @@ import ru.instamart.api.request.v1.CitiesV1Request;
 import ru.instamart.api.request.v1.OrdersV1Request;
 import ru.instamart.api.request.v1.PromotionCardsV1Request;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
+import ru.instamart.api.request.v1.admin.ShipmentReturnsAdminV1Request;
 import ru.instamart.api.request.v1.admin.UsersV1Request;
 import ru.instamart.api.response.v1.CompleteOrderV1Response;
 import ru.instamart.api.response.v1.MobileConfigsV1Response;
@@ -443,6 +444,17 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(userFromResponse.getCustomerComment(), user.getUser().getCustomerComment(), softAssert);
         compareTwoObjects(userFromResponse.getPreferredCardPaymentMethod(), user.getUser().getPreferredCardPaymentMethod(), softAssert);
         compareTwoObjects(userFromResponse.getRoleIds().stream().sorted().collect(Collectors.toList()), user.getUser().getRoleIds(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Сравниваем возварт из запроса с возвратом из ответа")
+    public static void checkShipmentReturn(ShipmentReturnsAdminV1Request.ShipmentReturnRequest body, ShipmentReturnV1 shipmentReturn) {
+        ItemReturnV1 itemReturn = shipmentReturn.getItemReturns().get(0);
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(itemReturn.getLineItemUuid(), body.getShipmentReturn().getItemReturns().get(0).getLineItemUuid(), softAssert);
+        compareTwoObjects(itemReturn.getPosition(), body.getShipmentReturn().getItemReturns().get(0).getPosition(), softAssert);
+        compareTwoObjects(itemReturn.getKind(), body.getShipmentReturn().getItemReturns().get(0).getKind(), softAssert);
+        compareTwoObjects(itemReturn.getAmountTotal(), body.getShipmentReturn().getItemReturns().get(0).getAmount(), softAssert);
         softAssert.assertAll();
     }
 }
