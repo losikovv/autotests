@@ -130,7 +130,7 @@ public class PaymentToolsV3Test extends RestBase {
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
-    @CaseId(2482)
+    @CaseId(2483)
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по несуществующему заказу",
             groups = "api-instamart-regress",
@@ -243,6 +243,16 @@ public class PaymentToolsV3Test extends RestBase {
                 .shipmentNumbers(Collections.singletonList(order.getShipments().get(0).getNumber()))
                 .build();
         final Response response = CheckoutV3Request.PUT(orderRequest, order.getNumber());
+        checkStatusCode401(response);
+    }
+
+    @CaseId(2478)
+    @Story("Способы оплаты")
+    @Test(description = "Получение способов оплаты неавторизованным пользователем",
+            groups = "api-instamart-regress",
+            dependsOnMethods = "addPaymentToolsWithoutAuth")
+    public void getPaymentToolsWithoutAuth() {
+        final Response response = CheckoutV3Request.PaymentTools.GET(order.getNumber());
         checkStatusCode401(response);
     }
 }

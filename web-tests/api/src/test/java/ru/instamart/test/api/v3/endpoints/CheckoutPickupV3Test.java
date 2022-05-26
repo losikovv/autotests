@@ -86,7 +86,7 @@ public class CheckoutPickupV3Test extends RestBase {
         checkOrder(response, order, user, ShippingMethodV2.PICKUP.getMethod(), true);
     }
 
-    @CaseId(2481)
+    @CaseId(2516)
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по заказу c алкоголем",
             groups = "api-instamart-regress",
