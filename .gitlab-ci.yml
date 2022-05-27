@@ -30,11 +30,9 @@ variables:
     value: "stf-kraken.k-stage.sbermarket.tech" # this would be the default value
     description: "ОБЯЗАТЕЛЬНО!!! Имя stf стейджа на котором запускаем тесты"
   URL_SHP:
-    value: ""
     description: "Имя shp стейджа на котором запускаем тесты. Для номерных стейджей можно пропустить"
-  #REGRESSION:
-  #  value: "true"
-  #  description: "ОБЯЗАТЕЛЬНО!!! Если указано \"true\", то запускаются регресс тесты, а если \"false\" - смок тесты"
+  REGRESSION:
+    description: "ОБЯЗАТЕЛЬНО!!! Если указано \"true\", то запускаются регресс тесты, а если \"false\" - смок тесты"
 
 before_script:
   - export GRADLE_USER_HOME=$(pwd)/web-tests/.gradle
@@ -91,6 +89,9 @@ stages:
       - web
     variables:
       - $REGRESSION == 'true'
+  except:
+    refs:
+      - schedules
   when: always
 
 .template_api_tests:
