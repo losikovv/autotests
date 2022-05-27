@@ -999,8 +999,8 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "shipmentReviewsData")
     public static Object[][] getShipmentReviewsData() {
         return new Object[][]{
-                {5, null},
-                {2, true}
+                {5},
+                {2}
         };
     }
 

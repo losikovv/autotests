@@ -85,7 +85,7 @@ public class ReviewableShipmentV2Test extends RestBase {
             description = "Создание отзыва о заказе с существующим номером",
             dataProvider = "shipmentReviewsData",
             dataProviderClass = RestDataProvider.class)
-    public void shipmentsReviewsPositiveRate(Integer rate, Boolean callback) {
+    public void shipmentsReviewsPositiveRate(Integer rate) {
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
                 .rate(rate)
                 .build();
@@ -96,7 +96,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(shipmentReview.getRate(), rate, softAssert);
         softAssert.assertNull(shipmentReview.getComment(), "Пришел комментарий");
-        compareTwoObjects(shipmentReview.getCallback(), callback, softAssert);
+        compareTwoObjects(shipmentReview.getCallback(), null, softAssert);
         softAssert.assertAll();
     }
 

@@ -1352,7 +1352,7 @@ public final class ApiV2Helper {
     public OrderV2 order(UserData user, int sid, int itemsNumber, String comment) {
         dropCart(user, getAddressBySid(sid));
         fillCart(getProducts(sid, ProductPriceTypeV2.PER_ITEM), itemsNumber);
-        return setDefaultAttributesAndCompleteOrder(comment);
+        return setDefaultAttributesAndCompleteOrder(comment, "Картой курьеру");
     }
 
     /**
