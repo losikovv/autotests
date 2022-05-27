@@ -379,8 +379,6 @@ public class TagManagerTest extends GrpcBase {
 
         var items = client.getTagsByItems(request).getItemsList();
 
-        System.out.println(items);
-
         for (int i = 0; i < 3; i++) {
             final int index = i;
             assertTrue(items.stream().anyMatch(item -> item.getItemId().equals(itemId + index)));
@@ -432,8 +430,6 @@ public class TagManagerTest extends GrpcBase {
                 .build();
 
         var items = client.getTagsByItems(request).getItemsList();
-
-        System.out.println(items);
 
         for (int i = 0; i < 3; i++) {
             final int index = i;
