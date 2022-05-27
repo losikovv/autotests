@@ -32,7 +32,7 @@ public final class OrdersCitiesTests {
             @CaseId(1656), @CaseId(1657), @CaseId(1658), @CaseId(1659), @CaseId(1660), @CaseId(1661),
             @CaseId(1662), @CaseId(1663), @CaseId(1664), @CaseId(1665)})
     @Test(description = "Тест заказа в METRO в разных городах",
-            groups = {"regression", "acceptance"},
+            groups = {"regression"},
             dataProviderClass = CityProvider.class,
             dataProvider = "city")
     public void successOrderFromCity(final AddressV2 address) {
