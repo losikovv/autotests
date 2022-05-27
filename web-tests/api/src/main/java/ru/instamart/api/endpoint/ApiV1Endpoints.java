@@ -6,6 +6,7 @@ package ru.instamart.api.endpoint;
 public final class ApiV1Endpoints {
 
     public static final String AVAILABLE_PAYMENT_TOOLS = "available_payment_tools";
+    public static final String API_CLIENTS = "api_clients";
     public static final String CHECKOUT = "checkout";
     public static final String COMPANIES = "companies";
     public static final String COMPANY_EMPLOYEES = "company_employees";
@@ -145,6 +146,10 @@ public final class ApiV1Endpoints {
         public static final class Users {
             public static final String BY_ID = "admin/users/{userId}";
         }
+    }
+
+    public static final class ApiClients {
+        public static final String BY_ID = "api_clients/{apiClientId}";
     }
 
     public static final class Checkout {
