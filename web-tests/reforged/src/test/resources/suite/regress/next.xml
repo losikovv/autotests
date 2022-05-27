@@ -32,6 +32,11 @@
             <class name="ru.instamart.test.reforged.next.shopping.ShoppingCartTests"/>
             <class name="ru.instamart.test.reforged.next.shopping.ShoppingCatalogTests"/>
             <class name="ru.instamart.test.reforged.next.shopping.ShoppingSearchTests"/>
+
+            <class name="ru.instamart.test.reforged.next.order.OrdersPaymentsTests"/>
+            <class name="ru.instamart.test.reforged.next.order.OrdersPromoCodesTests"/>
+            <class name="ru.instamart.test.reforged.next.order.OrdersReplacementsTests"/>
+            <class name="ru.instamart.test.reforged.next.order.OrdersRetailerCardsTests"/>
         </classes>
     </test>
 </suite>
