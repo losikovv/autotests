@@ -1,0 +1,379 @@
+syntax = "proto3";
+
+package tagmanager;
+
+option go_package = "gitlab.sbmt.io/paas/content/operations/tag-manager/pkg/server/grpc/tagmanager";
+
+service TagManager {
+	// Создать владельца тега
+	rpc CreateOwner (CreateOwnerRequest) returns (CreateOwnerResponse);
+
+	// Получить владельцев
+	rpc GetOwners (GetOwnersRequest) returns (GetOwnersResponse);
+
+	// Создать тег для владельца
+	rpc CreateTag (CreateTagRequest) returns (CreateTagResponse);
+
+	// Удалить тег
+	rpc DeleteTag (DeleteTagRequest) returns (DeleteTagResponse);
+
+	// Получить для владельца все используемые им теги
+	rpc GetTagsByOwner (GetTagsByOwnerRequest) returns (GetTagsByOwnerResponse);
+
+	// Привязать тег к элементам владельца
+	rpc BindTag (BindTagRequest) returns (BindTagResponse);
+
+	// Удалить привязку по тегу и элементам владельца
+	rpc UnbindTag (UnbindTagRequest) returns (UnbindTagResponse);
+
+	// Получить все привязки тега
+	rpc GetBindsByTag (GetBindsByTagRequest) returns (GetBindsByTagResponse);
+
+	// Получить все привязки тега
+	rpc GetBindsByItem (GetBindsByItemRequest) returns (GetBindsByItemResponse);
+
+	// Получить все привязки тегов
+	rpc GetBindsByItems (GetBindsByItemsRequest) returns (GetBindsByItemsResponse);
+
+	// Получить элементы владельца, у которых есть все теги из списка
+	rpc GetItemsByTagsList (GetItemsByTagsListRequest) returns (GetItemsByTagsListResponse);
+
+	// Получить все теги (с наименованиями) по элементу
+	rpc GetTagsByItem(GetTagsByItemRequest) returns (GetTagsByItemResponse);
+
+	// Получить все теги (с наименованиями) по каждому элементу из списка
+	rpc GetTagsByItems(GetTagsByItemsRequest) returns (GetTagsByItemsResponse);
+
+	// Создать правило
+	rpc CreateRule (CreateRuleRequest) returns (CreateRuleResponse);
+
+	// Удалить правило по его ID
+	rpc DeleteRule (DeleteRuleRequest) returns (DeleteRuleResponse);
+
+	// Получить правила, применимые к запрашиваемому владельцу
+	rpc GetApplicableRules (GetApplicableRulesRequest) returns (GetApplicableRulesResponse);
+
+	// Отфильтровать элементы по правилам
+	rpc FilterByRules (FilterByRulesRequest) returns (FilterByRulesResponse);
+}
+
+/* Сущности */
+message Tag {
+	// Идентификатор тега
+	int32 id = 1;
+	// Наименование тега
+	string name = 2;
+	// Идентификатор владельца тега
+	int32 owner_id = 3;
+}
+
+// Тег без указания привязки к владельцу
+message TagWithoutOwnerId {
+	// Идентификатор
+	int32 id = 1;
+	// Наименование
+	string name = 2;
+}
+
+// Владелец, сущность/справочник, например "партнер", как справочник, объединяющий всех партнеров
+message Owner {
+	// Идентификатор
+	int32 id = 1;
+	// Наименование
+	string name = 2;
+	// Описание
+	string description = 3;
+}
+
+// Сущность, отражающая привязку тега к внешней сущности
+message TagBind {
+	// Идентификатор тега
+	int32 tag_id = 1;
+	// Идентификатор внешней сущности, cмены, кандидата, партнера и других, к которым могут быть применены теги
+	string item_id = 2;
+	// Дополнительная информация
+	string meta = 3;
+}
+
+// Правило применения тега.
+// Логика работы правил: https://wiki.sbmt.io/pages/viewpage.action?pageId=3002929604
+message Rule {
+	// Идентификатор тега
+	int32 rule_id = 1;
+	// Первый владелец
+	int32 left_owner_id = 2;
+	// Второй владелец
+	int32 right_owner_id = 3;
+	// Теги первого владельца
+	repeated TagWithoutOwnerId left_tags = 4;
+	// Теги второго владельца
+	repeated TagWithoutOwnerId right_tags = 5;
+}
+
+// Правила для владельца
+message RuleForOwnerId {
+	// Идентификатор владельца
+	int32 owner_id = 1;
+	// Список правил
+	Rule rule = 2;
+}
+
+/* Запросы-ответы */
+
+// Запрос на создание владельца
+message CreateOwnerRequest {
+	// Наименование владельца
+	string name = 1;
+	// Описание
+	string description = 2;
+}
+
+// Ответ на запрос созданея владельца
+message CreateOwnerResponse {
+	// Идентификатор созданного владельца
+	int32 id = 1;
+	// Наименование
+	string name = 2;
+	// Описание
+	string description = 3;
+}
+
+// Запрос на полученеи владельца
+message GetOwnersRequest {
+
+}
+
+// Ответ на запрос получения владельца
+message GetOwnersResponse {
+	// Список владельцев
+	repeated Owner owners = 1;
+}
+
+// Запрос на создание тега
+message CreateTagRequest {
+	// Наименование тега
+	string name = 1;
+	// Идентификатор владельца
+	int32 owner_id = 2;
+}
+
+// Ответ на запрос созданея тега
+message CreateTagResponse {
+	// Идентификатор созданного тега
+	int32 id = 1;
+	// Наименование
+	string name = 2;
+	// идентификатор владельца
+	int32 owner_id = 3;
+}
+
+// Запрос удаления тега
+message DeleteTagRequest {
+	// Идентификатор тега
+	int32 tag_id = 1;
+}
+
+// Ответ на запрос удаления тега
+message DeleteTagResponse {
+	// Подтверждение удаления
+	bool ok = 1;
+}
+
+// Запрос на получение списка тегов для владельца
+message GetTagsByOwnerRequest {
+	// Идентификатор владельца
+	int32 owner_id = 1;
+}
+
+// Ответ на запрос получения списка тегов для владельца
+message GetTagsByOwnerResponse {
+	// Список тегов
+	repeated Tag tags = 1;
+}
+
+// Запрос привязки внешних сущностей к тегу
+message BindTagRequest {
+	// Сущность, описывающая связываемый объект (cмену, кандидата, партнера и прочих)
+	message Bind {
+		// Идентификатор сущности
+		string item_id = 1;
+		// Строчка-дополнительное поле для привязки тега к сущности. Может содержать что угодно.
+		string meta = 2;
+	}
+	// Идентификатор тега, с которым будут связаны указаныне ниже сущности
+	int32 tag_id = 1;
+	// Список сущностей для привязки к тегу
+	repeated Bind binds = 2;
+}
+
+// Ответ на звапрос привязки внешних сущностей к тегу
+message BindTagResponse {
+	// Подтверждение успешности привязки
+	bool ok = 1;
+}
+
+// Запрос отвязки внешних сущностей от тега
+message UnbindTagRequest {
+	// Идентификатор тега
+	int32 tag_id = 1;
+	// Список идентификаторов связанных сущностей
+	repeated string items_id = 2;
+}
+
+// Ответ на запрос отвязки внешних сущностей от тега
+message UnbindTagResponse {
+	// Подтверждение успешности отвязки
+	bool ok = 1;
+}
+
+// Запрос на получение всех привязкок по тегу
+message GetBindsByTagRequest {
+	// Идентификатор тега
+	int32 tag_id = 1;
+}
+
+// Ответ на запрос получения всех привязкок по тегу
+message GetBindsByTagResponse {
+	// Список привязок
+	repeated TagBind binds = 1;
+}
+
+// Запрос на получение всех привязок по внешней сущности
+message GetBindsByItemRequest {
+	// Идентификатор владельца
+	int32 owner_id = 1;
+	// Идентификатор внешней сущности
+	string item_id = 2;
+}
+
+// Ответ на запрос получения всех привязок по внешней сущности
+message GetBindsByItemResponse {
+	// Список привязок
+	repeated TagBind binds = 1;
+}
+
+// Запрос на получение всех привязок по списку внешних сущностей
+message GetBindsByItemsRequest {
+	// Идентификатор владельца
+	int32 owner_id = 1;
+	// Список внешних сущностей
+	repeated string items_id = 2;
+}
+
+// Ответ на запрос получения всех привязок по списку внешних сущностей
+message GetBindsByItemsResponse {
+	// Список привязок
+	repeated TagBind binds = 1;
+}
+
+// Запрос на получение списка внешних сущностей по списку тегов
+message GetItemsByTagsListRequest {
+	// Список идентификаторов тегов
+	repeated int32 tags_id = 1;
+}
+
+// Ответ на запрос получения списка внешних сущностей по списку тегов
+message GetItemsByTagsListResponse {
+	// Список идентификаторов внешних сущностей
+	repeated string items_id = 1;
+}
+
+// Запрос на получение списка тегов 
+message GetTagsByItemRequest {
+	// Идентификатор владельца
+	int32 owner_id = 1;
+	// Идентификатор внешней сущности
+	string item_id = 2;
+}
+
+message GetTagsByItemResponse {
+	// Список тегов
+	repeated Tag tags = 1;
+}
+
+message GetTagsByItemsRequest {
+	// Идентификатор владельца
+	int32 owner_id = 1;
+	// Список идентификаторов внешних сущностей
+	repeated string items_id = 2;
+}
+
+message GetTagsByItemsResponse {
+	// Список внешних сущностей с тегами
+	repeated ItemWithTags items = 1;
+}
+
+// Внешняя сущность со связанными тегми
+message ItemWithTags{
+	// Идентификатор внешней сущности
+	string item_id = 1;
+	// Список тегов
+	repeated Tag tags = 2;
+}
+
+// Запрос на создание правила
+message CreateRuleRequest {
+	// Идентификато рпервого владельца
+	int32 left_owner_id = 1;
+	// Идентификатор второго владельца
+	int32 right_owner_id = 2;
+	// Список идентификаторов тегов первого владельца
+	repeated int32 left_tag_id = 3;
+	// Список идентификаторов тегов второго владельца
+	repeated int32 right_tag_id = 4;
+	// Описание
+	string description = 5;
+}
+
+// Ответ на запрос создания правила
+message CreateRuleResponse {
+	// Идентификатор созданного правила
+	int32 rule_id = 1;
+}
+
+// Запрос удаления правила
+message DeleteRuleRequest {
+	// Идентификатор правила
+	int32 rule_id = 1;
+}
+
+// Ответ на запрос удаления правила
+message DeleteRuleResponse {
+	// Подтверждение удаления правила
+	bool deleted = 1;
+}
+
+// Запрос на получение правил, применимы для владельца
+message GetApplicableRulesRequest {
+	// Идентификатор владельца
+	int32 left_owner_id = 1;
+}
+
+// Ответ на запрос получения правил, применимы для владельца
+message GetApplicableRulesResponse {
+	// Список правил для владельца
+	repeated RuleForOwnerId rules = 1;
+}
+
+// Запрос на фильтрацию по существующим правилам списка внешних сущностей
+message FilterByRulesRequest {
+	// Опорная внешняя сущность, относительно которой будет производиться фильтрация 
+	string item_id = 1;
+	// Владелец, относящийся к опорной сущности
+	int32 item_owner_id = 2;
+
+	// Владелец, связанный со внешними сущностями из списка для фильтрации
+	int32 filtered_items_owner_id = 3;
+	// Список внешних сущностей для проверки
+	repeated string filtered_items_ids = 4;
+}
+
+// Ответ на запрос фильтрации по существующим правилам списка внешних сущностей
+message FilterByRulesResponse {
+	// Подходящие внешние сущности
+	repeated string    good_item_ids = 1;
+	// Не подходящие внешние сущности
+	repeated string    bad_item_ids = 2;
+	// Не распознанные внешние сущности (отсутствующие в базе данных)
+	repeated string    unknown_item_ids = 3;
+}
