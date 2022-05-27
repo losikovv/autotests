@@ -5,14 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ShopperAdminEndpoints;
 import ru.instamart.api.request.ShopperAdminRequestBase;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.common.Mapper;
 
 import java.util.UUID;
@@ -222,6 +220,14 @@ public class   ShopperAdminRequest extends ShopperAdminRequestBase {
                 return givenWithAuth()
                         .get(ShopperAdminEndpoints.OperationalZones.WORKFLOW_SETTINGS, zoneId);
             }
+
+            @Step("{method} /" + ShopperAdminEndpoints.OperationalZones.WORKFLOW_SETTINGS)
+            public static Response PUT(PutWorkflowSettings parameters) {
+                return givenWithAuth()
+                        .contentType(ContentType.JSON)
+                        .body(parameters)
+                        .put(ShopperAdminEndpoints.OperationalZones.WORKFLOW_SETTINGS, EnvironmentProperties.DEFAULT_ID_ZONE);
+            }
         }
     }
 
@@ -408,4 +414,39 @@ public class   ShopperAdminRequest extends ShopperAdminRequestBase {
         private final String includesAssembly;
         private final String number;
     }
+
+    @Builder
+    @Data
+    @EqualsAndHashCode
+    public static class PutWorkflowSettings {
+        @JsonProperty("workflow_settings")
+        private Settings settings;
+    }
+
+    @Builder
+    @Data
+    @EqualsAndHashCode
+    public static class Settings {
+        @JsonProperty("settings")
+        private WorkflowParameters workflowParameters;
+    }
+
+    @Builder
+    @Data
+    @EqualsAndHashCode
+    public static class WorkflowParameters {
+        @JsonProperty("operational_zone_id")
+        private Integer operationalZoneId;
+        @JsonProperty("increasing_late_assembly_percentage")
+        private Number increasingLateAssemblyPercentage;
+        @JsonProperty("segment_assembly_tardiness_sec")
+        private Integer segmentAssemblyTardinessSec;
+        @JsonProperty("server_offer_storage_time_sec")
+        private Integer serverOfferStorageTimeSec;
+        @JsonProperty("time_to_accept_offer_sec")
+        private Integer timeToAcceptOfferSec;
+        @JsonProperty("timeout_segment_pass_to_client_sec")
+        private Integer timeoutSegmentPassToClientSec;
+    }
+
 }
