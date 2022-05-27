@@ -7,7 +7,7 @@ tests:UiSmoke:
     - ".template_ui_tests"
     - ".template_run_all_jobs_at_a_time_on_master"
   needs:
-    - "tests:ApiInstamart"
+    - "tests:prodApiInstamart"
   script:
     - gradle clean build sberUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
@@ -31,7 +31,7 @@ tests:AdminUiSmoke:
     - ".template_ui_tests"
     - ".template_run_all_jobs_at_a_time_on_master"
   needs:
-    - "tests:ApiInstamart"
+    - "tests:prodApiInstamart"
   script:
     - gradle clean build adminUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
