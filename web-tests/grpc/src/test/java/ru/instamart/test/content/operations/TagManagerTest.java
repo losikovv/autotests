@@ -394,6 +394,7 @@ public class TagManagerTest extends GrpcBase {
         }
     }
 
+    @Story("Тэг")
     @CaseId(171)
     @Test(description = "Получение списка привязанных тегов по владельцу и нескольким сущностям, когда у какой-либо сущности несколько тегов",
             groups = {"grpc-tag-manager"})
