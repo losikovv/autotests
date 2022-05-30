@@ -16,11 +16,11 @@ task grpcSalutToken(type: Test) {
     systemProperty 'qase.Title', 'gRPC Salut Token Regress'
 }
 
-task grpcTagManager(type: Test) {
+task onDemandTM(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/grpc-content.xml'
         includeGroups 'grpc-tag-manager'
     }
     systemProperty 'qase.Project', 'TM'
-    systemProperty 'qase.Title', 'gRPC Tag Manager Smoke'
+    systemProperty 'qase.Title', 'Tag Manager Autotests'
 }

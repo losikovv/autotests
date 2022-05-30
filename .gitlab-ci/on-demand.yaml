@@ -1,0 +1,74 @@
+tests:on:demand:shifts:
+  resource_group: onDemandShifts
+  extends:
+    - ".template_api_tests"
+  only:
+    refs:
+      - schedules
+    variables:
+      - $ON_DEMAND_SHIFTS == 'true'
+  when: always
+  script:
+    - gradle clean build onDemandShifts -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh api on-demand
+
+tests:on:demand:dispatch:
+  resource_group: onDemandDispatch
+  extends:
+    - ".template_api_tests"
+  only:
+    refs:
+      - schedules
+    variables:
+      - $ON_DEMAND_DISPATCH == 'true'
+  when: always
+  script:
+    - gradle clean build onDemandDispatch -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh api on-demand
+
+tests:on:demand:workflow:
+  resource_group: onDemandWorkflow
+  extends:
+    - ".template_api_tests"
+  only:
+    refs:
+      - schedules
+    variables:
+      - $ON_DEMAND_WORKFLOW == 'true'
+  when: always
+  script:
+    - gradle clean build onDemandWorkflow -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh api on-demand
+
+tests:on:demand:eta:
+  resource_group: onDemandETA
+  extends:
+    - ".template_api_tests"
+  only:
+    refs:
+      - schedules
+    variables:
+      - $ON_DEMAND_ETA == 'true'
+  when: always
+  script:
+    - gradle clean build onDemandETA -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh api on-demand
+
+tests:on:demand:tm:
+  resource_group: onDemandTM
+  extends:
+    - ".template_grpc_tests"
+  only:
+    refs:
+      - schedules
+    variables:
+      - $ON_DEMAND_TM == 'true'
+  when: always
+  script:
+    - gradle clean build onDemandTM -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh grpc on-demand
