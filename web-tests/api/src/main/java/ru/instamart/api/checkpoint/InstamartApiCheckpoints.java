@@ -17,6 +17,7 @@ import ru.instamart.api.request.v1.CitiesV1Request;
 import ru.instamart.api.request.v1.OrdersV1Request;
 import ru.instamart.api.request.v1.PromotionCardsV1Request;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
+import ru.instamart.api.request.v1.admin.ApiClientsV1Request;
 import ru.instamart.api.request.v1.admin.ShipmentReturnsAdminV1Request;
 import ru.instamart.api.request.v1.admin.UsersV1Request;
 import ru.instamart.api.response.v1.CompleteOrderV1Response;
@@ -447,7 +448,7 @@ public class InstamartApiCheckpoints {
         softAssert.assertAll();
     }
 
-    @Step("Сравниваем возварт из запроса с возвратом из ответа")
+    @Step("Сравниваем возврат из запроса с возвратом из ответа")
     public static void checkShipmentReturn(ShipmentReturnsAdminV1Request.ShipmentReturnRequest body, ShipmentReturnV1 shipmentReturn) {
         ItemReturnV1 itemReturn = shipmentReturn.getItemReturns().get(0);
         final SoftAssert softAssert = new SoftAssert();
@@ -455,6 +456,20 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(itemReturn.getPosition(), body.getShipmentReturn().getItemReturns().get(0).getPosition(), softAssert);
         compareTwoObjects(itemReturn.getKind(), body.getShipmentReturn().getItemReturns().get(0).getKind(), softAssert);
         compareTwoObjects(itemReturn.getAmountTotal(), body.getShipmentReturn().getItemReturns().get(0).getAmount(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Сравниваем api клиента из запроса с api клиента из ответа")
+    public static void checkApiClient(ApiClientsV1Request.ApiClientRequest apiClient, ApiClientV1 apiClientFromResponse) {
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(apiClientFromResponse.getClientId(), apiClient.getApiClient().getClientId(), softAssert);
+        compareTwoObjects(apiClientFromResponse.getSecret(), apiClient.getApiClient().getSecret(), softAssert);
+        compareTwoObjects(apiClientFromResponse.getTenantId(), apiClient.getApiClient().getTenantId(), softAssert);
+        compareTwoObjects(apiClientFromResponse.getVerifiable(), apiClient.getApiClient().getVerifiable(), softAssert);
+        compareTwoObjects(apiClientFromResponse.getCustomPromo(), apiClient.getApiClient().getCustomPromo(), softAssert);
+        compareTwoObjects(apiClientFromResponse.getRetailerIds(), apiClient.getApiClient().getRetailerIds(), softAssert);
+        compareTwoObjects(apiClientFromResponse.getSkuKind(), apiClient.getApiClient().getSkuKind(), softAssert);
+        compareTwoObjects(apiClientFromResponse.getCustomPrices(), apiClient.getApiClient().getCustomPrices(), softAssert);
         softAssert.assertAll();
     }
 }
