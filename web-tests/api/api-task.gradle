@@ -206,6 +206,15 @@ task apiDispatchEtaRegress(type: Test) {
     systemProperty 'qase.Title', 'On Demand ETA Regress'
 }
 
+task apiDispatchShippingCalcRegress(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/on-demand.xml'
+        includeGroups 'dispatch-shippingcalc-smoke', 'dispatch-shippingcalc-regress'
+    }
+    systemProperty 'qase.Project', 'SHPCALC'
+    systemProperty 'qase.Title', 'On Demand ShippingCalc Regress'
+}
+
 task localRun(type: Test) {
     useTestNG() {
         options {
