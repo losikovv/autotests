@@ -46,6 +46,8 @@ public final class EnvironmentProperties {
     public static int DEFAULT_PREREPLACEMENT_SID;
     @Config(configName = NAME, fieldName = "defaultTid", defaultValue = "")
     public static int DEFAULT_TID;
+    @Config(configName = NAME, fieldName = "defaultFiltersTid", defaultValue = "")
+    public static int DEFAULT_FILTERS_TID;
     @Config(configName = NAME, fieldName = "defaultBrandId", defaultValue = "4")
     public static int DEFAULT_BRAND_ID;
     @Config(configName = NAME, fieldName = "defaultProductCountryId", defaultValue = "1")

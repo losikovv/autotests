@@ -1,5 +1,6 @@
 package ru.instamart.test.api.v3.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -54,6 +55,23 @@ public class ProductsV3Test extends RestBase {
         product = products.get(0);
     }
 
+    @CaseId(2709)
+    @Story("Получить список доступных продуктов (Поиск)")
+    @Test(description = "В категории больше 3 дефолтных фильтров",
+            groups = {"api-instamart-regress"})
+    public void getProductsWithManyFilters() {
+        final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
+                .tid(EnvironmentProperties.DEFAULT_FILTERS_TID)
+                .build(), EnvironmentProperties.DEFAULT_SID);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ProductsV3Response.class);
+        final ProductsV3Response productsV3Response = response.as(ProductsV3Response.class);
+        List<FacetV2> facets = productsV3Response.getFacets();
+        Allure.step("Проверяем, что категорий больше трех", () -> {
+            assertTrue(facets.size() > 3, "Пришло три дефолтных фильтра или меньше");
+        });
+    }
+
     @CaseId(1369)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Несуществующий sid",
@@ -77,10 +95,12 @@ public class ProductsV3Test extends RestBase {
         checkResponseJsonSchema(response, ProductsV3Response.class);
         final List<ProductV3> products = response.as(ProductsV3Response.class).getProducts();
 
-        products.forEach(product -> assertFalse(
-                product.getName().matches("/хлеб/"),
-                "Продукт не хлеб " + "[" + product.getName() + "]"
-        ));
+        Allure.step("Проверяем, что пришли продукты по запросу", () -> {
+            products.forEach(product -> assertFalse(
+                    product.getName().matches("/хлеб/"),
+                    "Продукт не хлеб " + "[" + product.getName() + "]"
+            ));
+        });
     }
 
     @CaseId(1371)
@@ -142,7 +162,9 @@ public class ProductsV3Test extends RestBase {
         checkResponseJsonSchema(response, ProductsV3Response.class);
         final ProductsV3Response productsV3Response = response.as(ProductsV3Response.class);
         final List<ProductV3> products = productsV3Response.getProducts();
-        products.forEach(product -> assertTrue(product.getDiscount() > 0.0));
+        Allure.step("Проверяем, что пришли отфильтрованные по наличию скидки продукты", () -> {
+            products.forEach(product -> assertTrue(product.getDiscount() > 0.0, "Продукты по скидке не отфильтровались"));
+        });
     }
 
     @CaseId(1375)
@@ -159,7 +181,9 @@ public class ProductsV3Test extends RestBase {
         checkResponseJsonSchema(response, ProductsV3Response.class);
         final ProductsV3Response productsV3Response = response.as(ProductsV3Response.class);
         final List<ProductV3> products = productsV3Response.getProducts();
-        products.forEach(product -> assertTrue(product.getName().contains("Valio"), "Пришел неверный бренд"));
+        Allure.step("Проверяем, что пришли отфильтрованные по бренду продукты", () -> {
+            products.forEach(product -> assertTrue(product.getName().contains("Valio"), "Пришел неверный бренд"));
+        });
     }
 
     @CaseId(1376)
@@ -178,7 +202,7 @@ public class ProductsV3Test extends RestBase {
 
         step("Проверка содержимого ответа", () -> {
             final List<FacetV2> facets = productsV2Response.getFacets().stream().filter(facet -> facet.getKey().equals(ProductFilterTypeV2.COUNTRY.getValue())).collect(Collectors.toList());
-            Assert.assertFalse(facets.isEmpty());
+            Assert.assertFalse(facets.isEmpty(), "Фильтры пустые");
             final List<OptionV2> countries = facets.get(0).getOptions();
             countries.stream().filter(country -> country.getValue() == EnvironmentProperties.DEFAULT_PRODUCT_COUNTRY_ID).forEach(country -> assertTrue(country.getActive(), "Выбранная страна неактивна"));
         });
@@ -256,6 +280,8 @@ public class ProductsV3Test extends RestBase {
                 .build(), EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         final ProductsV3Response productsV3Response = response.as(ProductsV3Response.class);
-        Assert.assertTrue(productsV3Response.getProducts().isEmpty(), "Список продуктов не пустой");
+        Allure.step("Проверяем, что не пришли продукты", () -> {
+            Assert.assertTrue(productsV3Response.getProducts().isEmpty(), "Список продуктов не пустой");
+        });
     }
 }
