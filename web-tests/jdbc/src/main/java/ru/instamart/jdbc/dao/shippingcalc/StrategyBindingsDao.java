@@ -1,0 +1,65 @@
+package ru.instamart.jdbc.dao.shippingcalc;
+
+import ru.instamart.jdbc.dao.Dao;
+import ru.instamart.jdbc.entity.shippingcalc.StrategyBindingsEntity;
+import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLShippingCalcManager;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
+
+import static org.testng.Assert.fail;
+
+public class StrategyBindingsDao implements Dao<Integer, StrategyBindingsEntity> {
+    public static final StrategyBindingsDao INSTANCE = new StrategyBindingsDao();
+    private final String SELECT_SQL = "SELECT %s FROM strategy_bindings ";
+
+    public StrategyBindingsEntity getStrategyBinding(Integer id, String storeId, String tenantId) {
+        StrategyBindingsEntity strategyBinding = new StrategyBindingsEntity();
+
+        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE strategy_id = ? AND store_id = ? AND tenant_id = ? ")) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, storeId);
+            preparedStatement.setString(3, tenantId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                strategyBinding = new StrategyBindingsEntity();
+                strategyBinding.setStrategyId(resultSet.getInt("strategy_id"));
+                strategyBinding.setStoreId(resultSet.getString("store_id"));
+                strategyBinding.setTenantId(resultSet.getString("tenant_id"));
+            } else return null;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+        return strategyBinding;
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        return false;
+    }
+
+    @Override
+    public StrategyBindingsEntity save(StrategyBindingsEntity ticket) {
+        return null;
+    }
+
+    @Override
+    public void update(StrategyBindingsEntity ticket) {
+
+    }
+
+    @Override
+    public Optional<StrategyBindingsEntity> findById(Integer id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<StrategyBindingsEntity> findAll() {
+        return null;
+    }
+}

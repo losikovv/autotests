@@ -26,6 +26,11 @@
             <class name="ru.instamart.test.api.dispatch.eta.ServiceParametersEtaTest"/>
         </classes>
     </test>
+    <test verbose="1" name="SHIPPINGCALC" parallel="classes" thread-count="1">
+        <classes>
+            <class name="ru.instamart.test.api.dispatch.shippingcalc.CreateStrategyTest"/>
+        </classes>
+    </test>
     <test verbose="1" name="KAFKA">
         <classes>
             <class name="ru.instamart.test.api.dispatch.KafkaDispatchTest"/>

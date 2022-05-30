@@ -1,0 +1,617 @@
+syntax = "proto3";
+
+package shippingcalc;
+
+option go_package = "gitlab.sbmt.io/paas/content/operations/shippingcalc/pkg/server/grpc/shippingcalc";
+
+service Shippingcalc {
+	// Создать стратегию
+	rpc CreateStrategy(CreateStrategyRequest) returns (CreateStrategyResponse);
+	// Обновить стратегию
+	rpc UpdateStrategy (UpdateStrategyRequest) returns (UpdateStrategyResponse);
+	// Прикрепить стратегию к магазину
+	rpc BindStrategy (BindStrategyRequest) returns (BindStrategyResponse);
+	// Открепить стратегию от магазина
+	rpc UnbindStrategy (UnbindStrategyRequest) returns (UnbindStrategyResponse);
+	// Получить все существующие стратегии
+	rpc GetStrategies (GetStrategiesRequest) returns (GetStrategiesResponse);
+	// Получить стратегию по идентификатору
+	rpc GetStrategy (GetStrategyRequest) returns (GetStrategyResponse);
+	// Получить стратегии для магазина
+	rpc GetStrategiesForStore (GetStrategiesForStoreRequest) returns (GetStrategiesForStoreResponse);
+	// Удалить стратегию по идентификатору
+	rpc DeleteStrategy (DeleteStrategyRequest) returns (DeleteStrategyResponse);
+	// Создать скрипт
+	rpc CreateScript (CreateScriptRequest) returns (CreateScriptResponse);
+	// Обновить скрипт
+	rpc UpdateScript (UpdateScriptRequest) returns (UpdateScriptResponse);
+	// Получить скрипт по идентификатору
+	rpc GetScript (GetScriptRequest) returns (GetScriptResponse);
+	// Получить все существующие скрипты
+	rpc GetScripts (GetScriptsRequest) returns (GetScriptsResponse);
+	// Получить результаты теста скрипта
+	rpc GetScriptTestResults (GetScriptTestResultsRequest) returns (GetScriptTestResultsResponse);
+	// Удалить скрипт по идентификатору
+	rpc DeleteScript(DeleteScriptRequest) returns (DeleteScriptResponse);
+	// Получить стоимость доставки
+	rpc GetDeliveryPrice (GetDeliveryPriceRequest) returns (GetDeliveryPriceResponse);
+	// Установить сразу все интервалы surge
+	rpc SetIntervalsSurge (SetIntervalsSurgeRequest) returns (SetIntervalsSurgeResponse);
+	// Получить все интервалы surge
+	rpc GetIntervalsSurge (GetIntervalsSurgeRequest) returns (GetIntervalsSurgeResponse);
+	// Установить сразу все интервалы switchback experiments for surge
+	rpc SetSwitchbackExperiments (SetSwitchbackExperimentsRequest) returns (SetSwitchbackExperimentsResponse);
+	// Получить все интервалы switchback experiments for surge
+	rpc GetSwitchbackExperiments (GetSwitchbackExperimentsRequest) returns (GetSwitchbackExperimentsResponse);
+}
+
+enum DeliveryType {
+	NONE = 0;
+	SELF_DELIVERY = 1;
+	COURIER_DELIVERY = 2;
+	B2B = 3;
+}
+
+message CreateStrategyRequest {
+	// Правила
+	repeated NewRuleObject rules = 1;
+	// Автор
+	string creator_id = 2;
+	// Наименование стратегии
+	string name = 3;
+	// Признак глобальной стратегии
+	bool global = 4;
+	// Приоритет (актуально только для глобальной стратегии)
+	uint32 priority = 5;
+	// Произвольное описание стратегии
+	string description = 6;
+	// Тип доставки
+	DeliveryType delivery_type = 7;
+}
+
+message CreateStrategyResponse {
+	// Идентификатор стратегии
+	uint32 strategy_id = 1;
+}
+
+message UpdateStrategyRequest {
+	// Идентификатор стратегии
+	uint32 strategy_id = 1;
+	// Правила
+	repeated NewRuleObject rules = 2;
+	// Автор изменений?
+	string creator_id = 3;
+	// Наименование стратегии
+	string name = 4;
+	// Признак глобальной стратегии
+	bool global = 5;
+	// Приоритет (актуально только для глобальной стратегии)
+	uint32 priority = 6;
+	// Произвольное описание стратегии
+	string description = 7;
+	// Тип доставки
+	DeliveryType delivery_type = 8;
+}
+
+message NewRuleObject {
+	// Идентификатор скрипта
+	uint32 script_id = 1;
+	// Значения парамеров скрипта
+	string script_param_values = 2;
+	// Условия применения правила
+	repeated NewConditionObject conditions = 3;
+	// Приоритет правила в рамках стратегии
+	int32 priority = 4;
+}
+
+enum ConditionType {
+	ALWAYS = 0;
+	FIRST_N_ORDERS = 1;
+	ORDER_VALUE_RANGE = 2;
+	AB_TEST_ENTRANCE = 3;
+	ORDER_DISTANCE_RANGE = 4;
+}
+
+message NewConditionObject {
+	// Тип условия
+	ConditionType condition_type = 1;
+	// Параметры
+	string params = 2;
+}
+
+message UpdateStrategyResponse {
+	// Список идентификаторов правил?
+	repeated uint32 rules_id = 1;
+}
+
+message BindStrategyRequest {
+	// Идентификатор стратегии
+	uint32 strategy_id = 1;
+	// Список привязок к стратегии
+	repeated StrategyBinding binds = 2;
+}
+
+message StrategyBinding {
+	// Идентификатор магазина
+	string store_id = 1;
+	// Идентификатор тенанта
+	string tenant_id = 2;
+	// DEPRECATED: Тип доставки, перенесен в стратегию. В будущих релизах будет удалён!
+	// В текущей реализации будет проигнорирован, в ответе будет копией из соответствующей стратегии
+	DeliveryType delivery_type = 3;
+}
+
+message BindStrategyResponse {
+	// Представление стратегии
+	StrategyView strategy = 1;
+}
+
+message StrategyView {
+	// Идентификатор стратегии
+	uint32 strategy_id = 1;
+	// Автор
+	string creator_id = 2;
+	// Наименование стратегии
+	string name = 3;
+	// Признак глобальной стратегии
+	bool global = 4;
+	// Приоритет (актуально только для глобальной стратегии)
+	uint32 priority = 5;
+	// Список привязок к стратегии
+	repeated StrategyBinding binds = 6;
+	// Произвольное описание стратегии
+	string description = 7;
+	// Когда стратегия была создана
+	int64 created_at = 8;
+	// Когдастратегия была в последний раз обновлена
+	int64 updated_at = 9;
+	// Тип доставки
+	DeliveryType delivery_type = 10;
+}
+
+message UnbindStrategyRequest {
+	// Идентификатор стратегии
+	uint32 strategy_id = 1;
+	// Список привязок к стратегии, которые необходимо удалить
+	repeated StrategyBinding binds = 2;
+}
+
+message UnbindStrategyResponse {
+	// Представление стратегии
+	StrategyView strategy = 1;
+}
+
+
+message GetStrategiesRequest {
+	// Название стратегии, допускается минимум 3 символа
+	string strategy_name = 1;
+	// Тип доставки
+	DeliveryType delivery_type = 2;
+	// Список идентификаторов магазинов
+	repeated string stores = 3;
+}
+
+message GetStrategiesResponse {
+	// Представление стратегии
+	repeated StrategyView strategies = 1;
+}
+
+message GetStrategyRequest {
+	// Идентификатор стратегии
+	uint32 strategy_id = 1;
+}
+
+message GetStrategyResponse {
+	// Представление стратегии
+	StrategyView strategy = 1;
+	repeated RuleView rules = 2; // Смотри RuleView в контракте ниже
+}
+
+message RuleView {
+	// Идентификатор
+	uint32 id = 1;
+	// Идентификатор скрипта
+	uint32 script_id = 2;
+	// Имя скрипта
+	string script_name = 3;
+	// Значения параметров скрипта
+	string script_param_values = 4;
+	// Условия
+	repeated ConditionView conditions = 5;
+	// Приоритет
+	int32 priority = 6;
+	// Автор
+	string creator_id = 7;
+	// Время создания(timestamp)
+	int64 created_at = 8;
+}
+
+message ConditionView {
+	// Тип условия
+	ConditionType condition_type = 1;
+	// Параметры
+	string params = 2;
+}
+
+message GetStrategiesForStoreRequest {
+	// Идентификатор магазина
+	string store_id = 1;
+	// Идентификатор тенанта
+	string tenant = 2;
+	// Тип доставки
+	DeliveryType delivery_type = 3;
+}
+
+message ExplainedStrategyView {
+	// Идентификатор стратегии
+	uint32 strategy_id = 1;
+	// Привязка стратегии
+	StrategyBinding binding = 2;
+}
+
+message GetStrategiesForStoreResponse {
+	// Стратегия с привязкой
+	repeated ExplainedStrategyView strategy = 1;
+}
+
+message DeleteStrategyRequest {
+	// Идентификатор стратегии
+	uint32 strategy_id = 1;
+}
+
+message DeleteStrategyResponse{}
+
+// результат проверки скрипта
+enum ScriptState {
+	SCRIPT_VALID = 0;
+	SCRIPT_ERROR = 1;
+}
+
+message CreateScriptRequest {
+	// Имя скрипта
+	string script_name = 1;
+	// Тело скрипта
+	string script_body = 2;
+	// Автор
+	string creator_id = 3;
+}
+
+message CreateScriptResponse {
+	// Идентификатор скрипта
+	uint32 script_id = 1;
+	// результат проверки скрипта
+	ScriptState state = 2;
+	// сообщение о ошибке
+	string result_message = 3;
+}
+
+message UpdateScriptRequest {
+	// Идентификатор скрипта
+	uint32 script_id = 1;
+	// Имя скрипта
+	string script_name = 2;
+	// Тело скрипта
+	string script_body = 3;
+	// Автор
+	string creator_id = 4;
+}
+
+message UpdateScriptResponse {
+	ScriptState state = 1;
+	string result_message = 3;
+}
+
+message GetScriptsRequest {}
+
+message GetScriptsResponse {
+	// Список скриптов
+	repeated ScriptView scripts = 1;
+}
+
+message ScriptView {
+	enum ScriptState {
+		NONE = 0;
+		TEST_OK = 1;
+		TEST_FAILED = 2;
+	}
+	// Идентификатор скрипта
+	uint32 script_id = 1;
+	// Имя скрипта
+	string script_name = 2;
+	// Тело скрипта
+	string script_body = 3;
+	// Список параметров скрипта
+	repeated ScriptParam required_params = 4;
+	// Время создания(timestamp)
+	int64 created_at = 5;
+	// Время обновления(timestamp)
+	int64 updated_at = 6;
+	// Состояние скрипта
+	ScriptState state = 7;
+}
+
+message ScriptParam {
+	enum ScriptParamType {
+		PARAM_FLOAT = 0;
+		PARAM_INT = 1;
+		PARAM_STRING = 2;
+	}
+	// Тип параметра
+	ScriptParamType type = 1;
+	// Имя параметра
+	string name = 2;
+	// Подпись
+	string caption = 3;
+	// Отношение единиц, в которых значение отображается клиенту, к единицам, в которых нам передаётся значение.
+	// Например, если в подписи указано "в рублях" и в админке поле ввода в рублях, то мы хотим получать копейки,
+	// а Fraction будет равен 100 (столько, сколько копеек в рублях). 
+	uint64 fraction = 4;
+}
+
+message GetScriptRequest {
+	// Идентификатор скрипта
+	uint32 script_id = 1;
+}
+
+message GetScriptResponse {
+	// Список скриптов
+	ScriptView script = 1;
+}
+
+message DeleteScriptRequest {
+	// Идентификатор скрипта
+	uint32 script_id = 1;
+}
+message DeleteScriptResponse {}
+
+message GetScriptTestResultsRequest {
+	// Идентификатор скрипта
+	uint32 script_id = 1;
+}
+
+message GetScriptTestResultsResponse {
+	// Список результатов теста скрипта
+	repeated ScriptTestResult results = 1;
+	// Все тесты прошли ? true - да, false - нет
+	bool all_passed = 2;
+}
+
+message ScriptTestResult {
+	// Имя теста
+	string test_name = 1;
+	// Тест пройден? true - да, false - нет
+	bool passed = 2;
+	// текст ошибки
+	string error_message = 3;
+}
+
+message GetDeliveryPriceRequest {
+	// Идентификатор заказа
+	string order_id = 1;
+	// Список отгрузок
+	repeated Shipment shipments = 3;
+	// Клиент
+	Customer customer = 4;
+
+	// Это B2B ? true - да, false - нет
+	bool is_b2b_order = 5;
+	// Наличие промокода ? true - да, false - нет
+	bool is_promocode = 6;
+
+	// Метод оплаты
+	string payment_method = 7;
+	// Наличие метода оплаты ? true - да, false - нет
+	bool has_payment_method = 8;
+
+	// Тип доставки
+	DeliveryType delivery_type = 9;
+	// Идентификатор тенанта
+	string tenant_id = 11;
+}
+
+message Shipment {
+	// Идентификатор отгрузки
+	string id = 1;
+	// Это onDemand ? true - да, false - нет
+	bool is_ondemand = 2;
+	// Список продуктов
+	repeated ProductRequest products = 3;
+	// Вес
+	uint64 weight = 4;
+	// Кол-во штук товаров (сумма quantity у всех products)
+	uint32 items_count = 5;
+	// Цена в копейках
+	uint64 price = 6;
+	// Идентификатор магазина
+	string store_id = 7;
+	// Статус
+	string status = 8;
+	// Регион
+	uint64 region_id = 9;
+	// Наценка слота доставки в копейках
+	uint64 surge_delivery_window_addition = 10;
+	// координаты магазина
+	float lat = 11;
+	float lon = 12;
+}
+
+message ProductRequest {
+	// Количество
+	uint32 quantity = 1;
+
+	// Идентификатор продукта
+	string id = 2;
+	// Цена
+	uint64 price = 3;
+	// Цена со скидкой
+	uint64 discount_price = 4;
+	// Вес
+	uint64 weight = 5;
+}
+
+message Customer {
+	// Идентификатор клиента
+	string id = 1;
+	// Анонимный идентификатор
+	string anonymous_id = 2;
+	// Кол-во заказов
+	uint32 orders_count = 3;
+	// Время регистрации (timestamp)
+	int64 registered_at = 4;
+	// Координаты клиента
+	float lat = 5;
+	float lon = 6;
+}
+
+message GetDeliveryPriceResponse {
+	// Возможен ли заказ ? true - да, false - нет
+	bool is_order_possible = 1;
+	// Минимальная цена корзины
+	uint64 minimal_cart_price = 2;
+	// Минимальное кол-во позиций в корзине
+	uint32 minimal_cart_items = 3;
+
+	// Итоговая цена отгрузки в копейках
+	uint64 total_shipping_price = 4;
+	// Список отгрузок
+	repeated PricedShipment shipments = 5;
+}
+
+message PricedShipment {
+	// Идентификатор отгрузки
+	string shipment_id = 1;
+	// Цена отгрузки в копейках
+	uint64 shipping_price = 2;
+	// Timestamp момента времени, когда оффер перестаёт быть действительным
+	int64 offer_expires_at = 3;
+	// Хеш применённого оффера для аналитики
+	string offer_hash = 4;
+	// Ценовая лесенка
+	repeated LadderStep ladder = 5;
+	// Идентификатор стратегии, примененной при расчете цены
+	uint32 strategy_id = 6;
+	// Идентификатор правила, примененного при расчете цены
+	uint32 rule_id = 7;
+	// true, если цена была определена существующим offer'ом. false, если цена свежепосчитанная
+	bool we_had_offer = 8;
+	// Надбавка к цене при высоком спросе в копейках
+	uint64 surge_level_addition = 9;
+	// флаг что использовалась надбавка к цене
+	bool surge_used = 10;
+	// Уровень от сервиса surgelevel
+	float surge_level = 11;
+	// Примененная наценка слота в копейках
+	uint64 surge_delivery_window_addition = 12;
+	// Подсказки о том, что может повлиять на цену. Например, сколько составляет надбавка за вес.
+	repeated PriceHint hints = 13;
+	// Объяснение того почему цена именно такая
+	PriceExplanation price_explanation = 14;
+}
+
+message PriceHint {
+	// Например, overweight. Неспецифицирован, нужен исключительно для подсказки фронту о чём идёт речь.
+	string type = 1;
+	// Строчка, которую нужно отобразить. Например, "+10 кг"
+	string caption = 2;
+	// Цена, которую нужно отобразить пользователю, в копейках
+	uint64 price = 3;
+	// Дополнительная строчка, касающаяся подсказки. Например, "Свыше 30кг"
+	string additional_label = 4;
+	// Опциональная строчка с json'ом, который может быть заполнен скриптом.
+	// Служит для передачи фронту каких-то неформатных данных, сверх того что предоставляют caption/additional_label
+	string meta = 5;
+}
+
+message PriceExplanation {
+	// Условия, которые было необходимо пройти, чтобы цена оказалась именно такой
+	repeated PricePassedCondition passed_conditions = 1;
+	// Компоненты, из которых состоит цена. Сумма цен в компонентах не обязательно равна цене доставки.
+	repeated PriceComponent price_components = 2;
+}
+
+message PricePassedCondition {
+	// Какое условие нужно было пройти, чтобы применилась данная цена?
+	string type = 1;
+	// Параметры для условия
+	string params = 2;
+}
+
+// Компонент, из которого состоит цена
+message PriceComponent {
+	// Тип компонента. Аналогичен таковым у PriceHint, например "overweight"
+	string type = 1;
+	// Сколько денег добавил в цену этот компонент
+	uint64 price = 2;
+	// Дополнительная информация о компоненте, в формате json
+	string meta = 3;
+}
+
+message LadderStep {
+	// Ценовой интервал
+	optional uint64 price_from = 1; // null означает "от нуля"
+	optional uint64 price_to = 2; // null означает "до бесконечности"
+	// Цена отгрузки
+	uint64 shipping_price = 3;
+}
+
+// Один интервал для surge
+message SurgeInterval {
+	// Левая граница интервала, входит в диапазон
+	float left_boundary = 1;
+	// Правая граница интервала, не входит в диапазон
+	float right_boundary = 2;
+	// Дополнительная наценка, напрямую добавленная к цене доставки
+	uint64 price_addition = 3;
+	// Дополнительная наценка, добавленный процент от цены доставки
+	uint64 percent_addition = 4;
+}
+
+message SetIntervalsSurgeRequest {
+	repeated SurgeInterval intervals = 1;
+}
+
+message SetIntervalsSurgeResponse {
+	
+}
+
+message GetIntervalsSurgeRequest {
+	
+}
+
+message GetIntervalsSurgeResponse {
+	repeated SurgeInterval intervals = 1;
+}
+
+// Ожидаемый тип данных для surge switchback experiments
+enum SurgeSwitchbackDataType {
+	CSV = 0;
+}
+
+// Описание одного surge switchback experiment
+message SurgeSwitchbackExperiment {
+	// Дата и время начала срабатывания эксперимента, входит в диапазон
+	int64 start_date_time = 1;
+	// Дата и время окончания срабатывания эксперимента, не входит в диапазон
+	int64 end_date_time = 2;
+	// Идентификатор региона, в котором должен срабатывать эксперимент
+	uint64 region_id = 3;
+	// Метка группы эксперимента
+	string group = 4;
+}
+
+message SetSwitchbackExperimentsRequest {
+	string data = 1;
+	SurgeSwitchbackDataType type = 2;
+}
+
+message SetSwitchbackExperimentsResponse {
+	
+}
+
+message GetSwitchbackExperimentsRequest {
+	
+}
+
+message GetSwitchbackExperimentsResponse {
+	repeated SurgeSwitchbackExperiment experiments = 1;
+}
