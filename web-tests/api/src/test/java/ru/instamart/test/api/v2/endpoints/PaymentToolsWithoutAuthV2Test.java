@@ -20,7 +20,7 @@ public class PaymentToolsWithoutAuthV2Test extends RestBase {
 
     @CaseId(2217)
     @Story("Способы оплаты")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Без авторизации")
     public void getPaymentToolsWithTypes401() {
         SessionFactory.clearSession(SessionType.API_V2);

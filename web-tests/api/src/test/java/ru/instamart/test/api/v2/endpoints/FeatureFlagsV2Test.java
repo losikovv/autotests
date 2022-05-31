@@ -32,7 +32,7 @@ public class FeatureFlagsV2Test extends RestBase {
     }
 
     @CaseId(792)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "getAllFeatureFlags",
             dataProviderClass = RestDataProvider.class,
             description = "Получение существующего фича-флага")
@@ -45,7 +45,7 @@ public class FeatureFlagsV2Test extends RestBase {
     }
 
     @CaseId(792)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение несуществующего фича-флага")
     public void getFeatureFlagsItem404() {
         final Response response = FeatureFlagsV2Request.FeatureFlags.GET("failedName");

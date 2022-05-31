@@ -25,7 +25,7 @@ import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
 public class NextV1Tests extends RestBase {
 
     @CaseId(2317)
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Получение фронтенд конфигурации")
     public void getAppConfig() {
         final Response response = NextV1Request.AppConfig.GET();
@@ -34,7 +34,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2318)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение динамического пути для next js роутинга")
     public void getDynamicRouteType() {
         final Response response = NextV1Request.DynamicRouteType.GET("metro?sid=" + EnvironmentProperties.DEFAULT_SID);
@@ -42,7 +42,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2319)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение данных для серверного рендеринга / страницы")
     public void getPageServer() {
         final Response response = NextV1Request.Server.GET("metro?sid=" + EnvironmentProperties.DEFAULT_SID);
@@ -51,7 +51,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2320)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение данных для серверного рендеринга / футер")
     public void getPageFooter() {
         final Response response = NextV1Request.Footer.GET();
@@ -60,12 +60,12 @@ public class NextV1Tests extends RestBase {
         PageFooterV1Response pageFooter = response.as(PageFooterV1Response.class);
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(pageFooter.getComponent(), "Footer", softAssert);
-        compareTwoObjects(pageFooter.getConfig().getCompanyName(), "ООО «Инстамарт Сервис»", softAssert);
+        softAssert.assertTrue(pageFooter.getConfig().getCompanyName().contains("Инстамарт Сервис"));
         softAssert.assertAll();
     }
 
     @CaseId(2321)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение данных для head из браузера")
     public void getPageBrowserHead() {
         final Response response = NextV1Request.BrowserHead.GET();
@@ -146,7 +146,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2330)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение сессии")
     public void getSession() {
         final Response response = NextV1Request.Session.GET("metro?sid=" + EnvironmentProperties.DEFAULT_SID);
@@ -155,7 +155,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2331)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение списка активных трекеров")
     public void getTrackers() {
         final Response response = NextV1Request.Trackers.GET();

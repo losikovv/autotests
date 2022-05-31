@@ -34,7 +34,7 @@ public class ProfileV2NoAuthTest extends RestBase {
 
     @CaseId(151)
     @Test(description = "Обновление профиля пользователя",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void putProfile422() {
         final String newEmail = "test###autotestmail.dev";
         final String newFirstName = "!@#$%";

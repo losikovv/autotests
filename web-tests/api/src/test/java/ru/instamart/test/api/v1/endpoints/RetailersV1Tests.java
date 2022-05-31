@@ -64,13 +64,15 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(122)
     @Test(description = "Контрактный тест списка ритейлеров для shopper-бэкенда",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getRetailers() {
         final Response response = RetailersV1Request.GET(new RetailersV1Request.RetailerParams());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
         retailers = response.as(RetailersV2Response.class).getRetailers();
-        compareTwoObjects(retailers.size(), SpreeRetailersDao.INSTANCE.getCount());
+        if (!EnvironmentProperties.Env.isProduction()) {
+            compareTwoObjects(retailers.size(), SpreeRetailersDao.INSTANCE.getCount());
+        }
     }
 
     @Story("Ритейлеры")
@@ -193,37 +195,41 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1289)
     @Test(description = "Получение доступных ритейлеров",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getActiveRetailers() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
                 .active(true)
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
-        List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers();
-        int retailersFromDb = SpreeRetailersDao.INSTANCE.getCountByAccessibility();
-        compareTwoObjects(retailersFromResponse.size(), retailersFromDb);
+        if (!EnvironmentProperties.Env.isProduction()) {
+            List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers();
+            int retailersFromDb = SpreeRetailersDao.INSTANCE.getCountByAccessibility();
+            compareTwoObjects(retailersFromResponse.size(), retailersFromDb);
+        }
     }
 
     @Story("Ритейлеры")
     @CaseId(1290)
     @Test(description = "Получение недоступных ритейлеров",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getInactiveRetailers() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
                 .active(false)
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
-        List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers();
-        int retailersFromDb = SpreeRetailersDao.INSTANCE.getCount() - SpreeRetailersDao.INSTANCE.getCountByAccessibility();
-        compareTwoObjects(retailersFromResponse.size(), retailersFromDb);
+        if (!EnvironmentProperties.Env.isProduction()) {
+            List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers();
+            int retailersFromDb = SpreeRetailersDao.INSTANCE.getCount() - SpreeRetailersDao.INSTANCE.getCountByAccessibility();
+            compareTwoObjects(retailersFromResponse.size(), retailersFromDb);
+        }
     }
 
     @Story("Ритейлеры")
     @CaseId(1291)
     @Test(description = "Получение ритейлеров, отсортированных по имени в возрастающем порядке",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getRetailers")
     public void getRetailersSortedByNameAsc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
@@ -231,15 +237,19 @@ public class RetailersV1Tests extends RestBase {
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
-        List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers();
-        List<RetailerV2> sortedRetailers = retailers.stream().sorted(Comparator.comparing(RetailerV2::getName, String.CASE_INSENSITIVE_ORDER)).collect(Collectors.toList());
+        List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers().stream().filter(r -> !r.getName().contains("_")).collect(Collectors.toList());
+        List<RetailerV2> sortedRetailers = retailers.stream().filter(r -> !r.getName().contains("_"))
+                .sorted(Comparator.comparing(RetailerV2::getName, String.CASE_INSENSITIVE_ORDER)).collect(Collectors.toList());
+        for(int i = 0; i < sortedRetailers.size(); i++) {
+          Assert.assertEquals(retailersFromResponse.get(i), sortedRetailers.get(i), "Ретейлеры не совпадают");
+        }
         compareTwoObjects(retailersFromResponse, sortedRetailers);
     }
 
     @Story("Ритейлеры")
     @CaseId(1292)
     @Test(description = "Получение ритейлеров, отсортированных по имени в убывающем порядке",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getRetailers")
     public void getRetailersSortedByNameDesc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
@@ -247,15 +257,16 @@ public class RetailersV1Tests extends RestBase {
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
-        List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers();
-        List<RetailerV2> sortedRetailers = retailers.stream().sorted(Comparator.comparing(RetailerV2::getName, String.CASE_INSENSITIVE_ORDER).reversed()).collect(Collectors.toList());
+        List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers().stream().filter(r -> !r.getName().contains("_")).collect(Collectors.toList());;
+        List<RetailerV2> sortedRetailers = retailers.stream().filter(r -> !r.getName().contains("_"))
+                .sorted(Comparator.comparing(RetailerV2::getName,String.CASE_INSENSITIVE_ORDER).reversed()).collect(Collectors.toList());
         compareTwoObjects(retailersFromResponse, sortedRetailers);
     }
 
     @Story("Ритейлеры")
     @CaseId(1293)
     @Test(description = "Получение ритейлеров, отсортированных по дате создания в возрастающем порядке",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getRetailers")
     public void getRetailersSortedByCreatedAtAsc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
@@ -263,15 +274,15 @@ public class RetailersV1Tests extends RestBase {
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
-        List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers();
-        List<RetailerV2> sortedRetailers = retailers.stream().sorted(Comparator.comparing(RetailerV2::getCreatedAt)).collect(Collectors.toList());
+        List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers().stream().filter(r -> Objects.nonNull(r.getCreatedAt())).collect(Collectors.toList());
+        List<RetailerV2> sortedRetailers = retailers.stream().filter(r -> Objects.nonNull(r.getCreatedAt())).sorted(Comparator.comparing(RetailerV2::getCreatedAt)).collect(Collectors.toList());
         compareTwoObjects(retailersFromResponse, sortedRetailers);
     }
 
     @Story("Ритейлеры")
     @CaseId(1294)
     @Test(description = "Получение ритейлеров, отсортированных по дате создания в убывающем порядке",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getRetailers")
     public void getRetailersSortedByCreatedAtDesc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
@@ -279,8 +290,8 @@ public class RetailersV1Tests extends RestBase {
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
-        List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers();
-        List<RetailerV2> sortedRetailers = retailers.stream().sorted(Comparator.comparing(RetailerV2::getCreatedAt).reversed()).collect(Collectors.toList());
+        List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers().stream().filter(r -> Objects.nonNull(r.getCreatedAt())).collect(Collectors.toList());;
+        List<RetailerV2> sortedRetailers = retailers.stream().filter(r -> Objects.nonNull(r.getCreatedAt())).sorted(Comparator.comparing(RetailerV2::getCreatedAt).reversed()).collect(Collectors.toList());
         compareTwoObjects(retailersFromResponse, sortedRetailers);
     }
 
@@ -508,7 +519,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1350)
     @Test(description = "Получение несуществующего правила доступности слотов доставки",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getNonExistingShippingPolicy() {
         final Response response = ShippingPoliciesV1Request.GET(0L);
         checkStatusCode404(response);

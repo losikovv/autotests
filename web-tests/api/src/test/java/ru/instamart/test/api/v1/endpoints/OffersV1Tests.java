@@ -208,7 +208,7 @@ public class OffersV1Tests extends RestBase {
     @CaseId(2227)
     @Story("Офферы")
     @Test(description = "Получение оффера",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getOffer")
     public void getOffersByPermalink() {
         final Response response = ProductsV1Request.GET(offerForRequest.getPermalink());
@@ -219,7 +219,7 @@ public class OffersV1Tests extends RestBase {
     @CaseId(2228)
     @Story("Офферы")
     @Test(description = "Получение оффера по несуществующему permalink",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getOffersByNonExistentPermalink() {
         final Response response = ProductsV1Request.GET("failed-permalink");
         checkStatusCode404(response);

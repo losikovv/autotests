@@ -40,7 +40,7 @@ public class ProductFeedbacksV2Test extends RestBase {
 
     @CaseId(2297)
     @Story("Получение списка отзывов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение списка отзывов без обязательных параметров")
     public void getProductFeedbacks400() {
         final Response response = ProductFeedbacksV2Request.GET();
@@ -58,7 +58,7 @@ public class ProductFeedbacksV2Test extends RestBase {
 
     @CaseId(2307)
     @Story("Получение списка отзывов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение списка отзывов без обязательных параметров")
     public void getProductFeedbacks200() {
         final Response response = ProductFeedbacksV2Request.GET(
@@ -98,7 +98,7 @@ public class ProductFeedbacksV2Test extends RestBase {
 
     @CaseId(2308)
     @Story("Получить актуальный отзыв на товар")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получить актуальный отзыв на товар")
     public void getActualFeedback400() {
         final Response response = ProductFeedbacksV2Request.ActualFeedback.GET();
@@ -116,7 +116,7 @@ public class ProductFeedbacksV2Test extends RestBase {
 
     @CaseId(2309)
     @Story("Получить актуальный отзыв на товар")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получить актуальный отзыв на товар")
     public void getActualFeedback200() {
         final Response response = ProductFeedbacksV2Request.ActualFeedback.GET(String.valueOf(EnvironmentProperties.DEFAULT_SID), productSku);

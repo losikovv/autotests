@@ -44,21 +44,23 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @Story("Окна доставки")
     @CaseId(1145)
     @Test(description = "Получение списка окон доставки для магазина на конкретную дату",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke","api-instamart-prod"})
     public void getDeliveryWindows() {
         final Response response = StoresV1Request.DeliveryWindows.GET(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, DeliveryWindowsV1Response.class);
-        List<DeliveryWindowV1> deliveryWindowsFromResponse = response.as(DeliveryWindowsV1Response.class).getDeliveryWindows();
-        int deliveryWindowsFromDbCount = DeliveryWindowsDao.INSTANCE.getCount(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, getDbDeliveryDateFrom(1L), getDbDeliveryDateTo(1L));
-        compareTwoObjects(deliveryWindowsFromResponse.size(), deliveryWindowsFromDbCount);
-        deliveryWindowId = deliveryWindowsFromResponse.get(0).getId();
+        if(!EnvironmentProperties.Env.isProduction()) {
+            List<DeliveryWindowV1> deliveryWindowsFromResponse = response.as(DeliveryWindowsV1Response.class).getDeliveryWindows();
+            int deliveryWindowsFromDbCount = DeliveryWindowsDao.INSTANCE.getCount(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, getDbDeliveryDateFrom(1L), getDbDeliveryDateTo(1L));
+            compareTwoObjects(deliveryWindowsFromResponse.size(), deliveryWindowsFromDbCount);
+            deliveryWindowId = deliveryWindowsFromResponse.get(0).getId();
+        }
     }
 
     @Story("Окна доставки")
     @CaseId(1146)
     @Test(description = "Получение списка окон доставки для несуществуюшего магазина",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getDeliveryWindowsForNonExistingStore() {
         final Response response = StoresV1Request.DeliveryWindows.GET(0);
         checkStatusCode404(response);
@@ -150,7 +152,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @Story("Окна доставки")
     @CaseId(2135)
     @Test(description = "Получение списка типов окон доставки",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getDeliveryWindowKinds() {
         final Response response = DeliveryWindowKindsV1Request.GET();
         checkStatusCode200(response);

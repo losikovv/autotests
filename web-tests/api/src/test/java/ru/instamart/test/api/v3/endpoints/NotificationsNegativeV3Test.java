@@ -35,14 +35,14 @@ public class NotificationsNegativeV3Test extends RestBase {
         admin.auth();
         admin.editStore(sid, StoresAdminRequest.getStoreLentaElino());
 
-        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
+        SessionFactory.makeSession(SessionType.API_V2);
         orderShopper = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         orderForAccounting = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid);
     }
 
     @Story("Негативные тесты")
     @CaseId(1448)
-    @Test(  description = "Ошибка 405 (Интеграция для учета)",
+    @Test(description = "Ошибка 405 (Интеграция для учета)",
             groups = "api-instamart-smoke",
             dataProvider = "notificationTypes",
             dataProviderClass = ApiV3DataProvider.class)
@@ -57,7 +57,7 @@ public class NotificationsNegativeV3Test extends RestBase {
 
     @Story("Негативные тесты")
     @CaseId(1504)
-    @Test(  description = "Ошибка 405 (Шоппер)",
+    @Test(description = "Ошибка 405 (Шоппер)",
             groups = "api-instamart-smoke",
             dataProvider = "notificationTypes",
             dataProviderClass = ApiV3DataProvider.class)

@@ -10,13 +10,12 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v1.LineItemV1;
+import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.request.v1.LineItemsV1Request;
 import ru.instamart.api.request.v1.OrdersV1Request;
 import ru.instamart.api.response.v1.LineItemV1Response;
 import ru.instamart.api.response.v1.LineItemsV1Response;
-import ru.instamart.jdbc.dao.stf.OffersDao;
 import ru.instamart.jdbc.dao.stf.SpreeLineItemsDao;
-import ru.instamart.jdbc.entity.stf.OffersEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -33,13 +32,17 @@ public class LineItemsV1Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        apiV1.authByPhone(UserManager.getQaUser());
+        if (EnvironmentProperties.Env.isProduction()) {
+            admin.authApi();
+        } else {
+            apiV1.authByPhone(UserManager.getQaUser());
+        }
     }
 
     @CaseId(57)
     @Story("Товары в заказе")
     @Test(description = "Получение информации о товарах в заказе",
-            groups = {"api-instamart-smoke"},
+            groups = {"api-instamart-smoke", "api-instamart-prod"},
             dependsOnMethods = "createLineItem")
     public void getLineItemsByOrderNumber() {
         final Response response = OrdersV1Request.LineItems.GET(apiV1.getMultiRetailerOrder().getNumber());
@@ -52,25 +55,24 @@ public class LineItemsV1Test extends RestBase {
     @CaseId(52)
     @Story("Товары в заказе")
     @Test(description = "Добавление товара в заказ",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void createLineItem() {
-        OffersEntity offerFromDb = OffersDao.INSTANCE.getOfferByStoreId(EnvironmentProperties.DEFAULT_SID);
-        final Response response = LineItemsV1Request.POST(offerFromDb.getId());
+        ProductV2 product = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0);
+        final Response response = LineItemsV1Request.POST(product.getId());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, LineItemV1Response.class);
         lineItemFromResponse = response.as(LineItemV1Response.class).getLineItem();
         final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(lineItemFromResponse.getOfferId(), offerFromDb.getId(), softAssert);
-        compareTwoObjects(lineItemFromResponse.getRetailerId(), offerFromDb.getRetailerId(), softAssert);
-        compareTwoObjects(lineItemFromResponse.getOffer().getId(), offerFromDb.getId(), softAssert);
-        compareTwoObjects(lineItemFromResponse.getOffer().getProductId(), offerFromDb.getProductId(), softAssert);
+        compareTwoObjects(lineItemFromResponse.getOfferId(), product.getId(), softAssert);
+        compareTwoObjects(lineItemFromResponse.getSku(), product.getSku(), softAssert);
+        compareTwoObjects(lineItemFromResponse.getOffer().getId(), product.getId(), softAssert);
         softAssert.assertAll();
     }
 
     @CaseId(53)
     @Story("Товары в заказе")
     @Test(description = "Изменение количества товаров в заказе",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getLineItemsByOrderNumber")
     public void updateLineItem() {
         lineItemFromResponse.setPacks(5);
@@ -78,27 +80,29 @@ public class LineItemsV1Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, LineItemV1Response.class);
         LineItemV1 updatedLineItem = response.as(LineItemV1Response.class).getLineItem();
-        final  SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(updatedLineItem.getId(), lineItemFromResponse.getId(),softAssert);
-        compareTwoObjects(updatedLineItem.getPacks(), 5 ,softAssert);
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(updatedLineItem.getId(), lineItemFromResponse.getId(), softAssert);
+        compareTwoObjects(updatedLineItem.getPacks(), 5, softAssert);
         softAssert.assertAll();
     }
 
     @CaseId(1520)
     @Story("Товары в заказе")
     @Test(description = "Удаление товара из заказа",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "updateLineItem")
     public void deleteLineItem() {
         final Response response = LineItemsV1Request.DELETE(lineItemFromResponse.getId());
         checkStatusCode200(response);
-        Assert.assertTrue(SpreeLineItemsDao.INSTANCE.findById(lineItemFromResponse.getId()).isEmpty());
+        if(!EnvironmentProperties.Env.isProduction()) {
+            Assert.assertTrue(SpreeLineItemsDao.INSTANCE.findById(lineItemFromResponse.getId()).isEmpty());
+        }
     }
 
     @CaseId(1521)
     @Story("Товары в заказе")
     @Test(description = "Получение информации о товарах в несуществующем заказе",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "createLineItem")
     public void getLineItemsByNonexistentOrderNumber() {
         final Response response = OrdersV1Request.LineItems.GET("failedOrderNumber");
@@ -109,7 +113,7 @@ public class LineItemsV1Test extends RestBase {
     @CaseId(1522)
     @Story("Товары в заказе")
     @Test(description = "Добавление несуществующего товара в заказ",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void createLineItemWithNonexistentOffer() {
         final Response response = LineItemsV1Request.POST(0L);
         checkStatusCode404(response);
@@ -119,7 +123,7 @@ public class LineItemsV1Test extends RestBase {
     @CaseId(1523)
     @Story("Товары в заказе")
     @Test(description = "Изменение количества товаров в несуществующем заказе",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void updateNonExistentLineItem() {
         LineItemV1 lineItem = new LineItemV1();
         lineItem.setId(0L);
@@ -131,7 +135,7 @@ public class LineItemsV1Test extends RestBase {
     @CaseId(1524)
     @Story("Товары в заказе")
     @Test(description = "Удаление товара из заказа",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "updateLineItem")
     public void deleteNonExistentLineItem() {
         final Response response = LineItemsV1Request.DELETE(0L);

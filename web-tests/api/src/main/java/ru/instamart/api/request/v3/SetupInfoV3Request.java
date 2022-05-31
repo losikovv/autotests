@@ -8,6 +8,8 @@ import ru.instamart.api.endpoint.ApiV3Endpoints;
 import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.request.ApiV3RequestBase;
 
+import static ru.instamart.api.helper.ApiV3Helper.getApiClientTokenWithProd;
+
 public class SetupInfoV3Request extends ApiV3RequestBase {
 
     /**
@@ -17,7 +19,7 @@ public class SetupInfoV3Request extends ApiV3RequestBase {
     public static Response GET() {
 
         JSONObject requestParams = new JSONObject();
-        return givenWithAuth(ClientV3.SBER_DEVICES)
+        return givenWithAuth(getApiClientTokenWithProd(ClientV3.SBER_DEVICES))
                 .contentType(ContentType.JSON)
                 .body(requestParams)
                 .get(ApiV3Endpoints.SETUP_INFO);
@@ -31,7 +33,7 @@ public class SetupInfoV3Request extends ApiV3RequestBase {
         public static Response GET() {
 
             JSONObject requestParams = new JSONObject();
-            return givenWithAuth(ClientV3.SBER_DEVICES)
+            return givenWithAuth(getApiClientTokenWithProd(ClientV3.SBER_DEVICES))
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .get(ApiV3Endpoints.SetupInfo.STORES);

@@ -79,7 +79,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Позиции заказа")
     @CaseId(874)
     @Test(enabled = false,
-    description = "Собрано меньше изначального количества",
+            description = "Собрано меньше изначального количества",
             groups = {"api-instamart-regress"},
             dataProvider = "ordersWithDifferentPricers",
             dataProviderClass = ApiV3DataProvider.class)
@@ -159,7 +159,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = lineItem.getProduct().getRetailerSku();
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity + 250;
-        Integer expQuantity = (int)Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Integer expQuantity = (int) Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
         Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
         Response responseInWork = NotificationsV3Request.POST(
@@ -204,7 +204,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = lineItem.getProduct().getRetailerSku();
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity + 250;
-        Integer expQuantity = (int)Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Integer expQuantity = (int) Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
         Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
         Response responseInWork = NotificationsV3Request.POST(
@@ -423,7 +423,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = lineItem.getProduct().getRetailerSku();
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity + 250;
-        Integer expQuantity = (int)Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Integer expQuantity = (int) Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
         Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
         Response responseInWork = NotificationsV3Request.POST(
@@ -468,7 +468,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = lineItem.getProduct().getRetailerSku();
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity + 250;
-        Integer expQuantity = (int)Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Integer expQuantity = (int) Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
         Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
         Response responseInWork = NotificationsV3Request.POST(
@@ -513,7 +513,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = lineItem.getProduct().getRetailerSku();
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity - 20;
-        Integer expQuantity = (int)Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Integer expQuantity = (int) Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
         Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
         Response responseInWork = NotificationsV3Request.POST(
@@ -558,7 +558,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = lineItem.getProduct().getRetailerSku();
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity - 20;
-        Integer expQuantity = (int)Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Integer expQuantity = (int) Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
         Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
         Response responseInWork = NotificationsV3Request.POST(

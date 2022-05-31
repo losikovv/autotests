@@ -9,6 +9,7 @@ import ru.instamart.api.model.v2.OnboardingPageV2;
 import ru.instamart.api.request.v2.OnboardingV2PagesV2Request;
 import ru.instamart.api.response.v2.OnboardingPagesV2Response;
 import ru.instamart.jdbc.dao.stf.OnboardingV2PagesDao;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
@@ -23,12 +24,14 @@ public class OnboardingV2PagesV2Test extends RestBase {
 
     @CaseId(821)
     @Test(description = "Получение экранов онбординга при старте приложения",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getOnboardingPages() {
         final Response response = OnboardingV2PagesV2Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, OnboardingPagesV2Response.class);
-        List<OnboardingPageV2> onboardingPages = response.as(OnboardingPagesV2Response.class).getOnboardingPages();
-        compareTwoObjects(onboardingPages.size(), OnboardingV2PagesDao.INSTANCE.getCount());
+        if (!EnvironmentProperties.Env.isProduction()) {
+            List<OnboardingPageV2> onboardingPages = response.as(OnboardingPagesV2Response.class).getOnboardingPages();
+            compareTwoObjects(onboardingPages.size(), OnboardingV2PagesDao.INSTANCE.getCount());
+        }
     }
 }

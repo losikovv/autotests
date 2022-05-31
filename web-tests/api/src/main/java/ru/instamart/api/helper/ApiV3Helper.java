@@ -19,6 +19,7 @@ import ru.instamart.api.response.v3.PaymentToolsV3Response;
 import ru.instamart.jdbc.dao.stf.ApiClientsDao;
 import ru.instamart.jdbc.dao.stf.FlipperGatesDao;
 import ru.instamart.jdbc.entity.stf.FlipperGatesEntity;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Tenant;
 
 import java.util.Arrays;
@@ -237,5 +238,10 @@ public final class ApiV3Helper {
     @Step("Добавляем способ оплаты")
     public void addPaymentTool(MultiretailerOrderV1Response order, String type) {
         addPaymentTool(order, type, null);
+    }
+
+    @Step("Получаем токен api-клиента")
+    public static String getApiClientTokenWithProd(ClientV3 client) {
+        return EnvironmentProperties.Env.isProduction() ? EnvironmentProperties.METRO_TOKEN : getApiClientToken(client);
     }
 }

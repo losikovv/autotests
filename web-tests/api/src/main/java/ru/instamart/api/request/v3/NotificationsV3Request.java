@@ -16,6 +16,8 @@ import ru.sbermarket.common.Mapper;
 import java.util.List;
 import java.util.Objects;
 
+import static ru.instamart.api.helper.ApiV3Helper.getApiClientTokenWithProd;
+
 public class NotificationsV3Request extends ApiV3RequestBase {
 
 
@@ -74,7 +76,7 @@ public class NotificationsV3Request extends ApiV3RequestBase {
         if (Objects.nonNull(quantity)) position.put("quantity", quantity);
         if (Objects.nonNull(weight)) position.put("weight", weight);
 
-        return givenWithAuth(ClientV3.METRO_MARKETPLACE)
+        return givenWithAuth(getApiClientTokenWithProd(ClientV3.METRO_MARKETPLACE))
                 .contentType(ContentType.JSON)
                 .body(requestParams)
                 .post(ApiV3Endpoints.NOTIFICATIONS);

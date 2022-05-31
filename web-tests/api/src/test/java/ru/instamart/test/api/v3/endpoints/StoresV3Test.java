@@ -20,14 +20,16 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class StoresV3Test extends RestBase {
 
     @CaseId(669)
-    @Test(groups = {"api-instamart-smoke"}, description = "Все доступные магазины ")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+            description = "Все доступные магазины ")
     public void getStores() {
         Response response = StoresV3Request.Stores.GET();
         checkStatusCode200(response);
     }
 
     @CaseId(864)
-    @Test(groups = {"api-instamart-regress"}, description = "Доступные магазины для доставки")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Доступные магазины для доставки")
     public void getStoresDelivery() {
         Response response = StoresV3Request.Delivery.GET();
         checkStatusCode200(response);
@@ -38,21 +40,24 @@ public class StoresV3Test extends RestBase {
     }
 
     @CaseId(865)
-    @Test(groups = {"api-instamart-regress"}, description = "Доступные магазины для самовывоза")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Доступные магазины для самовывоза")
     public void getStoresPickupFromStore() {
         Response response = StoresV3Request.PickupFromStore.GET();
         checkStatusCode200(response);
     }
 
     @CaseId(866)
-    @Test(groups = {"api-instamart-regress"}, description = "Доступные магазины с ближайшими опциями")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Доступные магазины с ближайшими опциями")
     public void getStoresClosestShippingOptions() {
         Response response = StoresV3Request.ClosestShippingOptions.GET();
         checkStatusCode200(response);
     }
 
     @CaseId(867)
-    @Test(groups = {"api-instamart-regress"}, description = "Доступные магазины по ритейлеру Metro")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Доступные магазины по ритейлеру Metro")
     public void getStoresRetailerId() {
         Response response = StoresV3Request.RetailerId.GET();
         checkStatusCode200(response);

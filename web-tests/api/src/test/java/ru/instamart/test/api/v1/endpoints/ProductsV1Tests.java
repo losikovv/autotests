@@ -4,12 +4,9 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.ProductV1;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.response.v1.ProductV1Response;
@@ -41,6 +38,16 @@ public class ProductsV1Tests extends RestBase {
         compareTwoObjects(productFromResponse.getSku(), spreeProductsEntity.getSku(), softAssert);
         compareTwoObjects(productFromResponse.getName(), spreeProductsEntity.getName(), softAssert);
         softAssert.assertAll();
+    }
+
+    @CaseId(45)
+    @Story("Получить данные о продукте")
+    @Test(description = "Получаем данные о продукте",
+            groups = {"api-instamart-prod"})
+    public void getProductInfoProd() {
+        final Response response = StoresV1Request.Products.GET(EnvironmentProperties.DEFAULT_SID,"banany-1");
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ProductV1Response.class);
     }
 
     @CaseId(1381)

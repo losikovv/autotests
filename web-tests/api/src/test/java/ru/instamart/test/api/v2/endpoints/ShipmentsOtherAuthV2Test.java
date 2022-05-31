@@ -21,7 +21,7 @@ public class ShipmentsOtherAuthV2Test extends RestBase {
 
     @CaseId(785)
     @Story("Получения статуса шипмента")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получения статуса шипмента с существующим shipmentNumber другого пользователя")
     public void getShipmentState403() {
         SessionFactory.makeSession(SessionType.API_V2);

@@ -6,17 +6,19 @@ import ru.instamart.api.endpoint.ApiV3Endpoints;
 import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.request.ApiV3RequestBase;
 
+import static ru.instamart.api.helper.ApiV3Helper.getApiClientTokenWithProd;
+
 public class DepartmentsV3Request extends ApiV3RequestBase {
 
     @Step("{method} /" + ApiV3Endpoints.Stores.DEPARTMENTS)
     public static Response GET(Integer sid) {
-        return givenWithAuth(ClientV3.METRO_MARKETPLACE)
+        return givenWithAuth(getApiClientTokenWithProd(ClientV3.METRO_MARKETPLACE))
                 .get(ApiV3Endpoints.Stores.DEPARTMENTS, sid);
     }
 
     @Step("{method} /" + ApiV3Endpoints.Stores.DEPARTMENT)
     public static Response GET(Integer sid, Long departmentId) {
-        return givenWithAuth(ClientV3.METRO_MARKETPLACE)
+        return givenWithAuth(getApiClientTokenWithProd(ClientV3.METRO_MARKETPLACE))
                 .get(ApiV3Endpoints.Stores.DEPARTMENT, sid, departmentId);
     }
 }

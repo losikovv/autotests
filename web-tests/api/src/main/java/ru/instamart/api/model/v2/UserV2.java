@@ -42,6 +42,7 @@ public class UserV2 extends BaseObject {
     @JsonSchema(required = true)
     @JsonProperty(value = "promo_terms_accepted")
     private Boolean promoTermsAccepted;
+    @Null
     @JsonSchema(required = true)
     @JsonProperty(value = "promo_terms_changed_at")
     private String promoTermsChangedAt;

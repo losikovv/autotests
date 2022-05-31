@@ -144,7 +144,7 @@ public class FavoritesListV2Test extends RestBase {
 
     @CaseId(528)
     @Story("Удаление товара из избранного")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Удаление товара из избранного с несуществующим id")
     public void deleteFavoritesList404() {
         final Response response = FavoritesV2Request.DELETE("invalidNumber_0120102012");

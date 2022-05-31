@@ -24,7 +24,7 @@ public class CompanyPresenceV1Tests extends RestBase {
     @Story("Web")
     @CaseId(624)
     @Test(description = "Статус регистрации компании (незарегистрирована)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getCompanyNotPresence() {
         admin.authApi();
 

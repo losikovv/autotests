@@ -8,6 +8,8 @@ import ru.instamart.api.endpoint.ApiV3Endpoints;
 import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.request.ApiV3RequestBase;
 
+import static ru.instamart.api.helper.ApiV3Helper.getApiClientTokenWithProd;
+
 @SuppressWarnings("unchecked")
 public class StoresV3Request extends ApiV3RequestBase {
 
@@ -20,7 +22,7 @@ public class StoresV3Request extends ApiV3RequestBase {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
             requestParams.put("lon", 37.797110);
-            return givenWithAuth(ClientV3.SBER_DEVICES)
+            return givenWithAuth(getApiClientTokenWithProd(ClientV3.SBER_DEVICES))
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .get(ApiV3Endpoints.STORES);
@@ -36,7 +38,7 @@ public class StoresV3Request extends ApiV3RequestBase {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
             requestParams.put("lon", 37.797110);
-            return givenWithAuth(ClientV3.SBER_DEVICES)
+            return givenWithAuth(getApiClientTokenWithProd(ClientV3.SBER_DEVICES))
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .queryParam("shipping_method", "delivery")
@@ -53,7 +55,7 @@ public class StoresV3Request extends ApiV3RequestBase {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
             requestParams.put("lon", 37.797110);
-            return givenWithAuth(ClientV3.SBER_DEVICES)
+            return givenWithAuth(getApiClientTokenWithProd(ClientV3.SBER_DEVICES))
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .queryParam("shipping_method", "pickup_from_store")
@@ -69,7 +71,7 @@ public class StoresV3Request extends ApiV3RequestBase {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
             requestParams.put("lon", 37.797110);
-            return givenWithAuth(ClientV3.SBER_DEVICES)
+            return givenWithAuth(getApiClientTokenWithProd(ClientV3.SBER_DEVICES))
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .queryParam("include", "closest_shipping_options")
@@ -85,7 +87,7 @@ public class StoresV3Request extends ApiV3RequestBase {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
             requestParams.put("lon", 37.797110);
-            return givenWithAuth(ClientV3.SBER_DEVICES)
+            return givenWithAuth(getApiClientTokenWithProd(ClientV3.SBER_DEVICES))
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .queryParam("retailer_id", "metro")

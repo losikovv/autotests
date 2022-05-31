@@ -19,10 +19,10 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Категории (departments)")
 public class DepartmentsV3Test extends RestBase {
     private DepartmentV3 department;
-    private final Integer sid = EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID;
+    private final Integer sid = EnvironmentProperties.DEFAULT_SID;
 
     @CaseId(2364)
-    @Test(  groups = {"api-instamart-smoke"},
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Получение списка департаментов")
     public void getDepartments()  {
         Response response = DepartmentsV3Request.GET(sid);
@@ -32,7 +32,7 @@ public class DepartmentsV3Test extends RestBase {
     }
 
     @CaseId(2365)
-    @Test(  groups = {"api-instamart-smoke"},
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Получение информации о категории",
             dependsOnMethods = "getDepartments")
     public void getDepartment()  {

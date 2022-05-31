@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
+import org.testng.Assert;
 import ru.instamart.kraken.util.CryptCard;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -126,14 +127,13 @@ public class CreditCardsV2Test extends RestBase {
 
     @CaseId(495)
     @Story("Получение списка всех банковских карт")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "У пользователя нет добавленных карт")
     public void testNoCreditCards() {
         final Response response = CreditCardsV2Request.GET();
         checkStatusCode200(response);
         final CreditCardsV2Response creditCardsV2Response = response.as(CreditCardsV2Response.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(creditCardsV2Response.getCreditCards().isEmpty(), "credit_cards вернулся не пустым");
+        Assert.assertTrue(creditCardsV2Response.getCreditCards().isEmpty(), "credit_cards вернулся не пустым");
     }
 
     @Issue("STF-6633")
@@ -168,7 +168,7 @@ public class CreditCardsV2Test extends RestBase {
 
     @CaseId(506)
     @Story("Получение списка всех банковских карт")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Удаление карты по не существующим ID"
     )
     public void failedTestDeleteCreditCards() {
