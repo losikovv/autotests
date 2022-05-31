@@ -11,7 +11,7 @@ tests:on:demand:shifts:
   script:
     - gradle clean build onDemandShifts -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - bash ./report.sh api on-demand
+    - bash ./report.sh api on-demand-shifts
 
 tests:on:demand:dispatch:
   resource_group: onDemandDispatch
@@ -26,7 +26,7 @@ tests:on:demand:dispatch:
   script:
     - gradle clean build onDemandDispatch -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - bash ./report.sh api on-demand
+    - bash ./report.sh api on-demand-dispatch
 
 tests:on:demand:workflow:
   resource_group: onDemandWorkflow
@@ -41,7 +41,7 @@ tests:on:demand:workflow:
   script:
     - gradle clean build onDemandWorkflow -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - bash ./report.sh api on-demand
+    - bash ./report.sh api on-demand-workflow
 
 tests:on:demand:eta:
   resource_group: onDemandETA
@@ -56,7 +56,7 @@ tests:on:demand:eta:
   script:
     - gradle clean build onDemandETA -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - bash ./report.sh api on-demand
+    - bash ./report.sh api on-demand-eta
 
 tests:on:demand:tm:
   resource_group: onDemandTM
@@ -71,4 +71,4 @@ tests:on:demand:tm:
   script:
     - gradle clean build onDemandTM -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - bash ./report.sh grpc on-demand
+    - bash ./report.sh grpc on-demand-tm
