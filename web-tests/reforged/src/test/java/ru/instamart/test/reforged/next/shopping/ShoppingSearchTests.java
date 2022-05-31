@@ -51,7 +51,7 @@ public final class ShoppingSearchTests {
     // AB поиска
     @CaseId(2587)
     @Story("Позитивные сценарии")
-    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"production", "smoke", "regression"})
     public void successSearchItemUsingCategorySuggests() {
         shop().goToPage(true);
         shop().interactHeader().fillSearch("сыры");

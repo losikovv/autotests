@@ -27,7 +27,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1541)
     @Story("Регистрация на лендинге")
-    @Test(description = "Регистрация нового пользователя на лендинге", groups = {"smoke", "MRAutoCheck"})
+    @Test(description = "Регистрация нового пользователя на лендинге", groups = {"production", "smoke", "MRAutoCheck"})
     public void successRegOnLanding() {
         home().goToPage();
         home().openLoginModal();

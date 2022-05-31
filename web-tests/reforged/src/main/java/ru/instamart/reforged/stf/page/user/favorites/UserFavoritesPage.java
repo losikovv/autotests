@@ -27,7 +27,7 @@ public final class UserFavoritesPage implements StfPage, UserFavoritesCheck {
 
     @Step("Добавить в корзину первый избранный товар")
     public void addToCartFirstFavoriteItem() {
-        addToCart.clickOnFirst();
+        addToCartNext.clickOnFirst();
     }
 
     @Step("Удалить все избранные товары")

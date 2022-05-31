@@ -1,6 +1,7 @@
 package ru.instamart.api.common;
 
 import ru.instamart.api.model.v2.AddressV2;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.util.List;
 
@@ -15,6 +16,10 @@ public class RestAddresses {
                 Voronezh.defaultAddress(), Omsk.defaultAddress(), Volgograd.defaultAddress(),
                 Novosibirsk.defaultAddress(), Chelyabinsk.defaultAddress(), Tyumen.defaultAddress(),
                 Perm.defaultAddress());
+    }
+
+    public static AddressV2 getDefaultAddress() {
+        return (EnvironmentProperties.Env.isProduction() ? Moscow.defaultProdAddress() : Moscow.defaultAddress());
     }
 
     public static class Moscow {
@@ -37,6 +42,16 @@ public class RestAddresses {
                     .building("211, стр. 1")
                     .lat(55.844041)
                     .lon(37.66265)
+                    .build();
+        }
+
+        public static AddressV2 defaultProdAddress() {
+            return AddressV2.builder()
+                    .city("посёлок Нагорное")
+                    .street("Центральная улица")
+                    .building("5А")
+                    .lat(55.903421) //55.90342135575542
+                    .lon(37.629161) //37.62916119842928
                     .build();
         }
 

@@ -12,25 +12,19 @@
     </method-selectors>
     <test verbose="1" name="Web UI tests" parallel="classes" thread-count="5">
         <classes>
-            <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPromocodeTests"/>
-
-            <class name="ru.instamart.test.reforged.stf.landings.DriversHiringLandingTests"/>
-            <class name="ru.instamart.test.reforged.stf.landings.SbermarketLandingTests"/>
-
-            <class name="ru.instamart.test.reforged.stf.order.BasicOrdersTests"/>
-            <class name="ru.instamart.test.reforged.stf.order.OrdersBonusesTests"/>
-
-            <class name="ru.instamart.test.reforged.stf.shopping.ShoppingCatalogTests"/>
-            <class name="ru.instamart.test.reforged.stf.shopping.ShoppingSearchTests"/>
-
+            <class name="ru.instamart.test.reforged.stf.user.UserRegistrationTests"/>
             <class name="ru.instamart.test.reforged.stf.user.UserAuthorisationTests"/>
             <class name="ru.instamart.test.reforged.stf.user.UserFavoritesTests"/>
             <class name="ru.instamart.test.reforged.stf.user.UserLogoutTests"/>
-            <class name="ru.instamart.test.reforged.stf.user.UserProfileTests"/>
-            <class name="ru.instamart.test.reforged.stf.user.UserRegistrationTests"/>
-            <class name="ru.instamart.test.reforged.stf.user.UserShippingAddressTests"/>
 
-            <class name="ru.instamart.test.reforged.stf.BasicSbermarketTests"/>
+            <class name="ru.instamart.test.reforged.stf.shopping.ShoppingSearchTests"/>
+
+            <class name="ru.instamart.test.reforged.stf.order.BasicOrdersTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrderRepeatTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrdersBonusesTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrdersPaymentsTests"/>
+
+            <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPromocodeTests"/>
         </classes>
     </test>
 </suite>

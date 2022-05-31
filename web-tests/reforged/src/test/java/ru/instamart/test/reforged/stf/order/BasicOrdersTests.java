@@ -8,9 +8,13 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.*;
+import ru.instamart.kraken.data.AddressDetailsData;
+import ru.instamart.kraken.data.JuridicalData;
+import ru.instamart.kraken.data.PaymentCards;
+import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -35,7 +39,7 @@ public final class BasicOrdersTests {
     @Test(description = "Тест заказа с добавлением нового юр. лица", groups = {"smoke", "regression"})
     public void successCompleteCheckoutWithNewJuridical() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
 
         var company = JuridicalData.juridical();
 
@@ -51,8 +55,10 @@ public final class BasicOrdersTests {
 
         checkout().interactAddCompanyModal().fillCompany(company);
         checkout().interactAddCompanyModal().clickToOkButton();
+        checkout().checkCheckoutLoaderNotVisible();
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().fillComments("test");
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().checkCheckoutLoaderNotVisible();
@@ -75,7 +81,7 @@ public final class BasicOrdersTests {
     @Test(description = "Тест заказа с новой картой оплаты c 3ds", groups = {"regression", "smoke"})
     public void successCompleteCheckoutWithNewPaymentCard() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
 
         var company = JuridicalData.juridical();
         var card = PaymentCards.testCard();
@@ -203,12 +209,10 @@ public final class BasicOrdersTests {
     }
 
     @CaseId(1673)
-    @Test(description = "Тест успешного заказа с оплатой картой курьеру", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешного заказа с оплатой картой курьеру", groups = {"production", "smoke", "regression"})
     public void successOrderWithCardCourier() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-
-        var company = JuridicalData.juridical();
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -217,15 +221,9 @@ public final class BasicOrdersTests {
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
-
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().clickToForSelf();
+        checkout().setDeliveryOptions().fillComments("test");
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
-
         checkout().checkCheckoutLoaderNotVisible();
 
         checkout().setContacts().fillContactInfo();
