@@ -6,6 +6,7 @@ include:
 #  - local: '/.gitlab-ci/ui-next.yaml'
   - local: '/.gitlab-ci/ui-tenant.yaml'
   - local: '/.gitlab-ci/kafka.yaml'
+  - local: '/.gitlab-ci/on-demand.yaml'
 
 image: ${JDK11_GRADLE_IMAGE}
 
