@@ -20,7 +20,7 @@ public class FeatureFlagsV3Test extends RestBase {
     private FeatureFlagV3 featureFlag;
 
     @CaseId(2604)
-    @Test(  groups = {"api-instamart-smoke"},
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Получение списка фича-флагов")
     public void getFeatureFlags() {
         Response response = FeatureFlagsV3Request.GET();
@@ -30,7 +30,7 @@ public class FeatureFlagsV3Test extends RestBase {
     }
 
     @CaseId(2605)
-    @Test(  groups = {"api-instamart-smoke"},
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Получение фича-флага по ключу",
             dependsOnMethods = "getFeatureFlags")
     public void getFeatureFlag() {

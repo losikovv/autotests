@@ -30,7 +30,7 @@ public class LegalEntityV2Test extends RestBase {
 
     @CaseId(479)
     @Story("Запрос на получение данных юр. лица по ИНН")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "innFailedList",
             dataProviderClass = RestDataProvider.class,
             description = "Запрос на получение данных юр. лица по ИНН для несуществущего ИНН")

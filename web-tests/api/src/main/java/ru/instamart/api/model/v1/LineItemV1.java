@@ -102,6 +102,7 @@ public class LineItemV1 extends BaseObject {
     private OfferV1 offer;
 
     @Null
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "master_category")
     private Object masterCategory;
 }

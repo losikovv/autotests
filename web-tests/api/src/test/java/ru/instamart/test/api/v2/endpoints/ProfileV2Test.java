@@ -39,12 +39,12 @@ public class ProfileV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void before(){
-        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
+        SessionFactory.makeSession(SessionType.API_V2);
     }
 
     @CaseId(159)
     @Test(description = "Получение данных профиля пользователя. Запрос с токеном",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProfile200() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
         final Response response = ProfileV2Request.GET();
@@ -56,7 +56,6 @@ public class ProfileV2Test extends RestBase {
                 "Current phone не совпадает с введенным");
 
         softAssert.assertTrue(isValidUUID(user.getId()), "id is not valid");
-        softAssert.assertTrue(user.getPrivacyTerms(), "privacy_terms is not TRUE");
         softAssert.assertFalse(user.getB2b(), "b2b is not FALSE");
 
         softAssert.assertTrue(user.getConfig().getSendEmails(), "send emails is not TRUE");
@@ -68,9 +67,8 @@ public class ProfileV2Test extends RestBase {
 
     @CaseId(150)
     @Test(description = "Обновление профиля пользователя",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void putProfile200() {
-        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         final String newEmail = UUID.randomUUID() + "@autotestmail.dev";
         final String newFirstName = Generate.literalString(10);
         final String newLastName = Generate.literalString(10);
@@ -92,8 +90,8 @@ public class ProfileV2Test extends RestBase {
     }
 
     @CaseId(151)
-    @Test(description = "Обновление профиля пользователя",
-            groups = {"api-instamart-regress"})
+    @Test(description = "Обновление профиля пользователя с невалидными данными",
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void putProfile422() {
         final String newEmail = "test###autotestmail.dev";
         final String newFirstName = "!@#$%";

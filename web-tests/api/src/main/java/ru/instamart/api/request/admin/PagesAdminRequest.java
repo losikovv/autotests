@@ -43,7 +43,7 @@ public class PagesAdminRequest extends AdminRequestBase {
 
     @Step("{method} /" + AdminEndpoints.PAGES)
     public static Response GET() {
-        return givenWithAuth()
+        return givenWithAuthAndSpa()
                 .get(AdminEndpoints.PAGES);
     }
 

@@ -5,6 +5,7 @@ import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
+import ru.instamart.api.model.v2.AltIconV2;
 
 import javax.validation.constraints.Null;
 import java.util.List;
@@ -49,7 +50,7 @@ public class CategoryV3 extends BaseObject {
     @Null
     @JsonSchema(required = true)
     @JsonProperty("alt_icon")
-    private String altIcon;
+    private AltIconV2 altIcon;
 
     private List<CategoryV3> children;
 

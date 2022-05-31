@@ -39,7 +39,7 @@ public class LoyaltiesV2Test extends RestBase {
     }
 
     @Story("Запрос информации о лояльности СберЛоялти")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Информация о лояльности СберЛоялти")
     public void getSberLoyaltyInfo200() {
         final Response response = LoyaltiesV2Request.SberLoyaltyInfo.GET();

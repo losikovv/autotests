@@ -20,10 +20,10 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Категории (categories)")
 public class CategoriesV3Test extends RestBase {
     private CategoryV3 category;
-    private final Integer sid = EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID;
+    private final Integer sid = EnvironmentProperties.DEFAULT_SID;
 
     @CaseId(2314)
-    @Test(  groups = {"api-instamart-regress"},
+    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение пользовательских категорий")
     public void getAggregatingCategories()  {
         Response response = AggregatingCategoriesV3Request.GET(sid);
@@ -31,7 +31,7 @@ public class CategoriesV3Test extends RestBase {
     }
 
     @CaseId(2315)
-    @Test(  groups = {"api-instamart-smoke"},
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Получение дерева категорий")
     public void getCategories()  {
         Response response = CategoriesV3Request.GET(sid);
@@ -41,7 +41,7 @@ public class CategoriesV3Test extends RestBase {
     }
 
     @CaseId(2316)
-    @Test(  groups = {"api-instamart-smoke"},
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Получение поддерева категорий по id категории",
             dependsOnMethods = "getCategories")
     public void getCategory()  {

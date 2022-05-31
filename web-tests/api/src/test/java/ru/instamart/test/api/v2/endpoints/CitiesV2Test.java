@@ -15,6 +15,7 @@ import ru.instamart.api.request.v2.CitiesV2Request;
 import ru.instamart.api.response.v2.CitiesV2Response;
 import ru.instamart.jdbc.dao.stf.CitiesDao;
 import ru.instamart.jdbc.dao.stf.StoresDao;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -55,7 +56,7 @@ public class CitiesV2Test extends RestBase {
     @CaseId(1408)
     @Story("Получение городов")
     @Test(description = "Получаем города, где есть самовывоз",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getCitiesWithPickup() {
         final Response response = CitiesV2Request.GET(CitiesV2Request.CitiesParams.builder()
                 .withPickup(1)
@@ -63,14 +64,16 @@ public class CitiesV2Test extends RestBase {
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, CitiesV2Response.class);
-        List<CityV2> citiesFromResponse = response.as(CitiesV2Response.class).getCities();
-        compareTwoObjects(StoresDao.INSTANCE.getUniqueCitiesCountByShippingMethod(ShippingMethodV2.PICKUP.getMethod()), citiesFromResponse.size());
+        if (!EnvironmentProperties.Env.isProduction()) {
+            List<CityV2> citiesFromResponse = response.as(CitiesV2Response.class).getCities();
+            compareTwoObjects(StoresDao.INSTANCE.getUniqueCitiesCountByShippingMethod(ShippingMethodV2.PICKUP.getMethod()), citiesFromResponse.size());
+        }
     }
 
     @CaseId(1409)
     @Story("Получение городов")
     @Test(description = "Получаем все города",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getCitiesWithPickup")
     public void getAllCities() {
         final Response response = CitiesV2Request.GET(CitiesV2Request.CitiesParams.builder()
@@ -78,8 +81,10 @@ public class CitiesV2Test extends RestBase {
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, CitiesV2Response.class);
-        List<CityV2> citiesFromResponse = response.as(CitiesV2Response.class).getCities();
-        compareTwoObjects(CitiesDao.INSTANCE.getCount(), citiesFromResponse.size());
+        if (!EnvironmentProperties.Env.isProduction()) {
+            List<CityV2> citiesFromResponse = response.as(CitiesV2Response.class).getCities();
+            compareTwoObjects(CitiesDao.INSTANCE.getCount(), citiesFromResponse.size());
+        }
     }
 
     @CaseIDs(value = {@CaseId(1410), @CaseId(1411), @CaseId(1412), @CaseId(1413)})
@@ -101,7 +106,7 @@ public class CitiesV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(1414), @CaseId(1416)})
     @Story("Получение городов")
     @Test(description = "Получаем все города с невалидными параметрами",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "citiesInvalidParams",
             dataProviderClass = RestDataProvider.class)
     public void getAllCitiesWithInvalidParams(CitiesV2Request.CitiesParams params) {

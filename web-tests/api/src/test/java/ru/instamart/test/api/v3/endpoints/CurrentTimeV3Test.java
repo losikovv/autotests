@@ -17,7 +17,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class CurrentTimeV3Test extends RestBase {
 
     @CaseId(2363)
-    @Test(  groups = {"api-instamart-smoke"},
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Получение серверного времени")
     public void getCurrentTime()  {
         Response response = CurrentTimeV3Request.GET();

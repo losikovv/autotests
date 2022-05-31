@@ -8,11 +8,13 @@ import ru.instamart.api.model.common.ProductsFilterParams;
 import ru.instamart.api.request.ApiV3RequestBase;
 import ru.sbermarket.common.Mapper;
 
+import static ru.instamart.api.helper.ApiV3Helper.getApiClientTokenWithProd;
+
 public class ProductsV3Request extends ApiV3RequestBase {
 
     @Step("{method} /" + ApiV3Endpoints.Stores.PRODUCTS)
     public static Response GET(ProductsFilterParams params, Integer sid) {
-        return givenWithAuth(ClientV3.METRO_MARKETPLACE)
+        return givenWithAuth(getApiClientTokenWithProd(ClientV3.METRO_MARKETPLACE))
                 .queryParams(Mapper.INSTANCE.objectToMap(params))
                 .get(ApiV3Endpoints.Stores.PRODUCTS, sid);
     }

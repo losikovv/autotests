@@ -37,7 +37,7 @@ public class ReviewIssuesV2Test extends RestBase {
 
     @CaseId(470)
     @Story("Получение списка возможных проблем для отзыва о заказе")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-regress"},
             description = "Получение списка возможных проблем для отзыва о существующей доставке")
     public void getListIssuesForShipment() {
         final Response response = ShipmentsV2Request.ReviewIssues.GET(shipmentNumber);

@@ -9,6 +9,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v1.PromotionCardCategoriesV1Request;
 import ru.instamart.api.response.v1.PromotionCardCategoriesV1Response;
 import ru.instamart.jdbc.dao.stf.PromotionCardCategoriesDao;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -22,12 +23,14 @@ public class PromotionCardCategoriesV1Tests extends RestBase {
     @Story("Промо-карточки")
     @CaseId(2136)
     @Test(description = "Получение списка категорий промокарточек",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getPromotionCardsCategories() {
         final Response response = PromotionCardCategoriesV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, PromotionCardCategoriesV1Response.class);
-        int countFromDb = PromotionCardCategoriesDao.INSTANCE.getCount();
-        compareTwoObjects(response.as(PromotionCardCategoriesV1Response.class).getPromotionCardCategories().size(), countFromDb);
+        if (!EnvironmentProperties.Env.isProduction()) {
+            int countFromDb = PromotionCardCategoriesDao.INSTANCE.getCount();
+            compareTwoObjects(response.as(PromotionCardCategoriesV1Response.class).getPromotionCardCategories().size(), countFromDb);
+        }
     }
 }

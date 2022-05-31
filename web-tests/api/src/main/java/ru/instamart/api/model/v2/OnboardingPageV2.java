@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
+import javax.validation.constraints.Null;
+
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class OnboardingPageV2 extends BaseObject {
@@ -20,6 +22,7 @@ public class OnboardingPageV2 extends BaseObject {
     @JsonSchema(required = true)
     private String title;
 
+    @Null
     @JsonSchema(required = true)
     private String description;
 

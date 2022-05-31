@@ -116,6 +116,8 @@ public final class EnvironmentProperties {
     public static String ADMIN_PASSWORD;
     @Config(configName = NAME, fieldName = "headerForwardTo", defaultValue = "s-sb-stfkraken")
     public static String PROXY_HEADER_FORWARD_TO;
+    @Config(configName = NAME, fieldName = "metroToken", defaultValue = "", crypted = true)
+    public static String METRO_TOKEN;
 
 
     public static class Env {

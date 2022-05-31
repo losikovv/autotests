@@ -71,7 +71,7 @@ public class PhoneConfirmationsV1Tests extends RestBase {
 
     @CaseId(1517)
     @Story("Подтверждение телефона кодом")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Подтверждение телефона кодом с невалидным номером")
     public void confirmPhonesWithInvalidNumber() {
         final Response response = PhoneConfirmationsV1Request.PUT("invalidPhoneNumber", 111);
@@ -80,7 +80,7 @@ public class PhoneConfirmationsV1Tests extends RestBase {
 
     @CaseId(1519)
     @Story("Подтверждение телефона кодом")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Подтверждение телефона кодом с валидным номером без запроса")
     public void confirmPhonesWithValidPhone() {
         final Response response = PhoneConfirmationsV1Request.PUT(Generate.phoneNumber(), Integer.valueOf(CoreProperties.DEFAULT_UI_SMS));

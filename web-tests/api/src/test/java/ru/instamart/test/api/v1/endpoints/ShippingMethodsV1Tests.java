@@ -9,6 +9,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v1.ShippingMethodKindsV1Request;
 import ru.instamart.api.response.v1.ShippingMethodKindsV1Response;
 import ru.instamart.jdbc.dao.stf.ShippingMethodKindsDao;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -26,23 +27,27 @@ public class ShippingMethodsV1Tests extends RestBase {
 
     @CaseId(2137)
     @Test(description = "Получение списка способов доставки",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getShippingMethodKinds() {
         final Response response = ShippingMethodKindsV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShippingMethodKindsV1Response.class);
-        int countFromDb = ShippingMethodKindsDao.INSTANCE.getCount();
-        compareTwoObjects(response.as(ShippingMethodKindsV1Response.class).getShippingMethodKinds().size(), countFromDb);
+        if (!EnvironmentProperties.Env.isProduction()) {
+            int countFromDb = ShippingMethodKindsDao.INSTANCE.getCount();
+            compareTwoObjects(response.as(ShippingMethodKindsV1Response.class).getShippingMethodKinds().size(), countFromDb);
+        }
     }
 
     @CaseId(2137)
     @Test(description = "Получение списка способов доставки",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getAdminShippingMethodKinds() {
         final Response response = ShippingMethodKindsV1Request.Admin.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShippingMethodKindsV1Response.class);
-        int countFromDb = ShippingMethodKindsDao.INSTANCE.getCount();
-        compareTwoObjects(response.as(ShippingMethodKindsV1Response.class).getShippingMethodKinds().size(), countFromDb);
+        if (!EnvironmentProperties.Env.isProduction()) {
+            int countFromDb = ShippingMethodKindsDao.INSTANCE.getCount();
+            compareTwoObjects(response.as(ShippingMethodKindsV1Response.class).getShippingMethodKinds().size(), countFromDb);
+        }
     }
 }

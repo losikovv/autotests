@@ -45,7 +45,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preconditionsBeforeMethod() {
-        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
+        SessionFactory.makeSession(SessionType.API_V2);
         orderDeliveryBySbermarket = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidDeliveryBySbermarket);
         orderDeliveryByRetailer = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidDeliveryByRetailer);
     }

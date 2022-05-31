@@ -277,7 +277,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(1176)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по запросу со второй страницы",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductWithQueryAndPage() {
         final Response responseFirstPage = ProductsV2Request.GET(ProductsFilterParams.builder()
                         .sid(EnvironmentProperties.DEFAULT_SID)

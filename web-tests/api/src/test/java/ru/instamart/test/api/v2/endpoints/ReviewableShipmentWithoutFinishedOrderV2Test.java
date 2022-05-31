@@ -76,7 +76,7 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
 
     @CaseId(1174)
     @Story("Закрытие окна заказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Закрытие окна заказа для недоставленного заказа")
     public void closeReviewableWindowForNotShippedOrder() {
         SessionFactory.makeSession(SessionType.API_V2);
@@ -89,7 +89,7 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
 
     @CaseId(1163)
     @Story("Закрытие окна заказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Закрытие окна заказа для несуществующего заказа")
     public void closeReviewableWindowForNonexistentOrder() {
         final Response response = ShipmentsV2Request.ReviewWindowClose.PUT("failedShipmentNumber");

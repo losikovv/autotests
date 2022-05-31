@@ -89,7 +89,7 @@ public final class StoresV2Test extends RestBase {
 
     @CaseId(188)
     @JsonDataProvider(path = "data/json_v2/api_v2_negative_store_data.json", type = RestDataProvider.StoreDataRoot.class)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
             description = "Получить список магазинов с указанием lon или lon")
@@ -122,7 +122,7 @@ public final class StoresV2Test extends RestBase {
 
     @CaseId(190)
     @JsonDataProvider(path = "data/json_v2/api_v2_positive_store_data.json", type = RestDataProvider.StoreDataRoot.class)
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
             description = "Получение списка магазинов  с валидными значениями")
@@ -172,7 +172,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(2212)
-    @Test(groups = {"api-instamart-regress"}, description = "Получение магазинов для вывода на карте")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получение магазинов для вывода на карте")
     public void testForMap() {
         StoresV2Request.ForMapParams params = StoresV2Request.ForMapParams.builder()
                 .bbox("56.291423,43.967728~56.332495,44.058287")

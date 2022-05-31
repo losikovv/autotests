@@ -62,6 +62,7 @@ public class RetailerV2 extends BaseObject {
     @JsonProperty(value = "retailer_agreement")
     private Object retailerAgreement;
 
+    @Null
     @EqualsAndHashCode.Exclude
     private AppearanceV2 appearance;
 

@@ -94,7 +94,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
 
     @CaseId(522)
     @Story("Список SKU товаров из избранного")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Список SKU товаров из избранного. Один товар в избранном")
     public void getFavoritesSku() {
         var favorites = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);
@@ -106,7 +106,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
 
     @CaseId(523)
     @Story("Список SKU товаров из избранного")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Список SKU товаров из избранного. 3 товар в избранном")
     public void getFavoritesSku3Items() {
         apiV2.addFavoritesQtyListProductBySid(EnvironmentProperties.DEFAULT_SID, 3);
@@ -118,7 +118,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
 
     @CaseId(525)
     @Story("Добавить товар в избранное")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Добавить товар в избранное с существующим id")
     public void addFavoritesList200() {
         ProductV2 product = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0);
@@ -137,7 +137,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
 
     @CaseId(527)
     @Story("Удаление товара из избранного")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Удаление товара из избранного с существующим id")
     public void deleteFavoritesList200() {
         var favorites = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);

@@ -48,18 +48,20 @@ public class PaymentsV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING) // Проблема с добавлением карт
     @CaseId(2280)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение информации о способах платежа для заказа")
     public void getPaymentToolsForOrder() {
         final Response response = OrdersV1Request.PaymentTools.GET(order.getNumber());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, PaymentToolsV1Response.class);
-        List<PaymentToolV1> filteredPaymentTools = response.as(PaymentToolsV1Response.class).getPaymentTools().stream().filter(p -> p.getPaymentMethod().getName().equals("Картой онлайн")).collect(Collectors.toList());
-        paymentToolId = filteredPaymentTools.get(0).getId();
+        if (!EnvironmentProperties.Env.isProduction()) {
+            List<PaymentToolV1> filteredPaymentTools = response.as(PaymentToolsV1Response.class).getPaymentTools().stream().filter(p -> p.getPaymentMethod().getName().equals("Картой онлайн")).collect(Collectors.toList());
+            paymentToolId = filteredPaymentTools.get(0).getId();
+        }
     }
 
     @CaseId(2281)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение информации о способах платежа для несуществующего заказа")
     public void getPaymentToolsForNonExistentOrder() {
         final Response response = OrdersV1Request.PaymentTools.GET("failedOrderNumber");
@@ -81,7 +83,7 @@ public class PaymentsV1Tests extends RestBase {
     }
 
     @CaseId(2283)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Создание платежа для заказа c несуществующим способом оплаты")
     public void createPaymentWithNonExistentTool() {
         final Response response = OrdersV1Request.Payments.POST(order.getNumber(), 0L);
@@ -91,7 +93,7 @@ public class PaymentsV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @CaseId(2284)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Создание платежа для несуществующего заказа",
             dependsOnMethods = "getPaymentToolsForOrder")
     public void createPaymentForNonExistentOrder() {
@@ -184,7 +186,7 @@ public class PaymentsV1Tests extends RestBase {
     }
 
     @CaseId(2292)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение всех платежей по несуществующему заказу")
     public void getPaymentsForNonExistentOrder() {
         final Response response = OrdersV1Request.Payments.GET("failedOrderNumber");

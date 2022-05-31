@@ -154,7 +154,7 @@ public final class SimpleRecsV2Test extends RestBase {
 
     @CaseId(844)
     @Story("Упрощенные рекомендации (simple-recs)")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос блока рекомендаций coпутствующих товаров")
     public void getComplementarySimpleRecsTest() {
         final Response response = SimpleRecsV2Request.Complementary.POST(allRequiredParameters);
@@ -164,7 +164,7 @@ public final class SimpleRecsV2Test extends RestBase {
 
     @CaseId(845)
     @Story("Упрощенные рекомендации (simple-recs)")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос блока рекомендаций товаров-заменителей")
     public void getSubstituteSimpleRecsTest() {
         final Response response = SimpleRecsV2Request.Substitute.POST(allRequiredParameters);

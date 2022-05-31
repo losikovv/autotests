@@ -25,7 +25,7 @@ public class NotificationsV2Test extends RestBase {
     }
 
     @Story("Проверка оплаты")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "notificationsFailed",
             dataProviderClass = RestDataProvider.class,
             description = "Проверка оплаты в Sber SuperApp без тела запроса")

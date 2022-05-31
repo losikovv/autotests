@@ -226,7 +226,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(367)
     @Story("Получить окно доставки для подзаказа для указанного дня")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "dateFormats",
             dataProviderClass = RestDataProvider.class,
             description = "Получить окно доставки для подзаказа для указанного дня с существующим id и без указанием необязательного параметра date")
@@ -278,7 +278,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(371)
     @Story("Получить ближайшие окна доставки")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получить ближайшие окна доставки со всеми необязательными полями с корректными данными")
     public void nextDeliverWithAllIncorrectData() {
         Map<String, String> params = new HashMap<>();

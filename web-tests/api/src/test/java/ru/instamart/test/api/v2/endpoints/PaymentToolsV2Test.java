@@ -137,7 +137,7 @@ public class PaymentToolsV2Test extends RestBase {
 
     @CaseId(2216)
     @Story("Способы оплаты")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Существующий номер заказа")
     public void getPaymentToolsWithTypes200() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);

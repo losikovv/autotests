@@ -350,7 +350,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(334)
     @Story("Редактирование позиции заказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "changeLineItems",
             dataProviderClass = RestDataProvider.class,
             description = "Редактирование позиции заказа с несуществующим id")
@@ -411,7 +411,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(338)
     @Story("Заполнение информации о заказе")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "fillingInOrderInformationDp",
             dataProviderClass = RestDataProvider.class,
             description = "Заполнение информации о заказе с несуществующим id")
@@ -574,7 +574,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(812)
     @Story("Создание нового заказа")
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Создание нового заказа")
     public void createNewOrder() {
         SessionFactory.clearSession(SessionType.API_V2);
@@ -603,7 +603,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(301)
     @Story("Получение данных о заказе")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение данных о заказе по несуществующему номеру")
     public void getOrderByNonExistingNumber() {
         final Response response = OrdersV2Request.GET("failedNumber");
