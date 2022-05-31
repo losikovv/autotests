@@ -215,6 +215,17 @@ task apiDispatchShippingCalcRegress(type: Test) {
     systemProperty 'qase.Title', 'On Demand ShippingCalc Regress'
 }
 
+task apiDispatchСandidatesSmoke(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/on-demand.xml'
+        includeGroups 'dispatch-сandidates-smoke'
+    }
+    systemProperty 'qase.Project', 'ODSC'
+    systemProperty 'qase.Title', 'On Demand Сandidates Smoke'
+    systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
+    systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
+}
+
 task localRun(type: Test) {
     useTestNG() {
         options {
