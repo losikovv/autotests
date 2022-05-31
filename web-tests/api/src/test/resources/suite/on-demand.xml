@@ -26,6 +26,11 @@
             <class name="ru.instamart.test.api.dispatch.eta.ServiceParametersEtaTest"/>
         </classes>
     </test>
+    <test verbose="1" name="Сandidates" parallel="classes" thread-count="6">
+        <classes>
+            <class name="ru.instamart.test.api.dispatch.candidates.СandidatesTest"/>
+        </classes>
+    </test>
     <test verbose="1" name="SHIPPINGCALC" parallel="classes" thread-count="1">
         <classes>
             <class name="ru.instamart.test.api.dispatch.shippingcalc.CreateStrategyTest"/>

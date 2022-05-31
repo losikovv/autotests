@@ -1,0 +1,442 @@
+syntax = "proto3";
+
+package candidates;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "gitlab.sbmt.io/paas/content/operations/candidates/pkg/server/grpc/candidates";
+
+service Candidates {
+	rpc SelectCandidates(SelectCandidatesRequest) returns (SelectCandidatesResponse) {}
+	rpc SetCandidatesState(SetCandidateStateRequest) returns (SetCandidateStateResponse) {}
+	rpc SelectInRect(SelectInRectRequest) returns (SelectInRectResponse) {}
+	rpc SelectCandidateByUUID(SelectCandidateByUUIDRequest) returns (SelectCandidateByUUIDResult) {}
+	rpc Search(SearchRequest) returns (SearchResult) {}
+	rpc HaveActiveWorkflow(HaveActiveWorkflowRequest) returns (HaveActiveWorkflowResponse) {}
+	rpc GetZoneSettings(ZoneSettingsRequest) returns (ZoneSetting) {}
+	rpc UpdateZoneSettings(ZoneSetting) returns (google.protobuf.Empty) {}
+}
+
+message ZoneSetting {
+	uint32 operational_zone_id = 1;
+	uint32 surged_shift_threshold = 2;
+	uint32 normal_shift_threshold = 3;
+}
+
+message ZoneSettingsRequest {
+	uint32 operational_zone_id = 1;
+}
+
+enum CandidateRole {
+	SHOPPER = 0;
+	DRIVER = 1;
+	UNIVERSAL = 2;
+}
+
+enum CandidateTransport {
+	PEDESTRIAN = 0;
+	CAR = 1;
+	BICYCLE = 2;
+	TRUCK = 3;
+	SCOOTER = 4;
+}
+
+enum CandidateState {
+	BLOCKED = 0;
+	ACTIVE = 1;
+}
+
+message HaveActiveWorkflowRequest {
+	repeated string candidates_uuids = 1;
+}
+
+message HaveActiveWorkflowResponse {
+	map<string, bool> results = 1;
+}
+
+message SetCandidateStateRequest {
+	repeated string candidates_uuids = 1;
+	CandidateState state = 2;
+}
+
+message SetCandidateStateResponse {
+	message Result {
+		enum Status {
+			SUCCESS = 0;
+			FAILURE = 1;
+		}
+
+		enum ErrorKind {
+			// Внутренняя ошибка серевера (БД и т.д.)
+			OTHER = 0;
+			// UUID кандидата не найден
+			UUID_NOT_FOUND = 1;
+			// Кандидат уже заблокирован
+			ALREADY_BLOCKED = 2;
+			// Кандидат уже активирован
+			ALREADY_ACTIVATED = 3;
+		}
+
+		Status status = 1;
+		ErrorKind error_kind = 2;
+	}
+
+	// Статусы активации/блокировки кандидатов (uuid-result)
+	map<string, Result> results = 1;
+}
+
+message SelectCandidatesRequest {
+	// массив фильтров для выборки кандидатов
+	repeated SelectCandidatesFilter filter = 1;
+	
+	enum SourceType {
+		UNKNOWN = 0;
+		DISPATCH = 1;
+		MANUAL = 2;
+	}
+	// Источник запроса
+	SourceType source_type = 2;
+	// ID запроса (необязательное поле)
+	string source_id = 3;
+	
+}
+
+message SelectCandidatesFilter {
+	// точка на карте относительно которой будет происходить поиск исполнителей
+	CandidateLastLocation target_point = 1;
+	// радиус, относительно точки. если исполнитель находится внутри радиуса он считается подходящим
+	float radius = 2;
+	// массив ролей. если пустой, то все роли считаются подходящими
+	repeated CandidateRole roles = 3;
+	// массив типов транспортов. если пустой, то все все виды транспорта считаются подходящими
+	repeated CandidateTransport transports = 4;
+	// массив тагов исполнителя. если пустой, данный параметр не участвует в запросе
+	repeated string tags = 5;
+	// идентификатор магазина, для которого необходимо отобрать кандидатов
+	string place_uuid = 6;
+	repeated string uuids = 7;
+	// максимальный размер очереди заказов для отбора кандидата
+	int32 max_queue_size = 8;
+}
+
+message CandidateLastLocation {
+	// широта
+	double lat = 1;
+	// долгота
+	double lon = 2;
+	// дата последней фиксации geo позиции
+	google.protobuf.Timestamp created_at = 3;
+}
+
+message CandidateShift {
+	enum Type {
+		normal = 0;
+		surge = 1;
+		free = 2;
+	}
+	// фактическая дата начала смены
+	google.protobuf.Timestamp started_at = 1;
+	// дата планового окончания смены
+	google.protobuf.Timestamp ended_at = 2;
+	// статус смены, возможные значения:
+	// 	* in_progress - активная смена
+	//  * on_pause - взята пауза
+	string state = 3;
+	// Идентификатор смены
+	uint64 shift_id = 4;
+	// Тип смены
+	Type type = 5;
+	// ID территории доставки
+	uint32 delivery_area_id = 6;
+	// флаг привязки партнёра к территории доствки или к магазину если delivery_area_id == 0
+	bool fixed_on_delivery_area_or_store = 7;
+	// uuid магазина
+	string store_uuid = 8;
+}
+
+message Candidate {
+	// uuid кандидата
+	string uuid = 1;
+	// имя кандидата
+	string full_name = 2;
+	// роль кандидата, с которой он зарегистрирован в смене
+	CandidateRole role = 3;
+	// транспорт кандидата
+	CandidateTransport transport = 4;
+	// данные последней geo локации кандидата
+	CandidateLastLocation last_location = 5;
+	// список тагов
+	repeated string tags = 6;
+	// данные о смене
+	CandidateShift shift = 7;
+	// размер очереди
+	google.protobuf.UInt64Value queue_size = 8;
+	// дата освобождения
+	google.protobuf.Timestamp available_time = 9;
+	// массив маршрутных листов кандидата
+	repeated Workflow workflows = 10;
+	Location available_location = 11;
+	repeated string active_shipments = 12;
+	
+	enum EmploymentType {
+		NOT_SET = 0;
+		IP = 1;
+		SELF_EMPLOYED = 2;
+		AGENT = 3;
+		OUTSOURCE = 4;
+		EXTERNAL_EMPLOYEE = 5;
+	}
+	EmploymentType employment_type = 13;
+}
+
+message InRectQueryStatistics {
+	int64 total = 1;
+	int64 free = 2;
+	int64 busy = 3;
+	int64 paused = 4;
+}
+
+message SelectInRectResponse {
+	repeated Candidate candidates = 1;
+	InRectQueryStatistics statistics = 2;
+}
+
+message SelectCandidatesResponse {
+	repeated SelectCandidatesResult results = 1;
+}
+
+message SelectCandidatesResult {
+	// массив выбранных кандидатов
+	repeated Candidate candidate = 1;
+}
+message Workflow {
+	// Статус маршрутного листа
+	enum Status {
+		// Новый
+		NEW = 0;
+		// В очереди
+		QUEUED = 1;
+		// В процессе
+		IN_PROGRESS = 2;
+		// Завершен
+		COMPLETED = 3;
+		// Отменен
+		CANCELED = 4;
+	}
+	// Внутренний идентификатор маршрутного листа
+	uint64 id = 1;
+	// Идентификатор исполнителя
+	string performer_uuid = 3;
+	// Статус
+	Status status = 4;
+	// Дата и время создания
+	google.protobuf.Timestamp created_at = 5;
+	// Дата и время обновления
+	google.protobuf.Timestamp updated_at = 6;
+	// Идентификатор смены
+	uint64 shift_id = 7;
+	// массив назначений кандидата
+	repeated Assignment assignments = 8;
+}
+
+message Assignment {
+	enum Status {
+		// Новое
+		NEW = 0;
+		// Отложено
+		POSTPONED = 1;
+		// Предложено
+		OFFERED = 2;
+		// Доставлено до исполнителя
+		SEEN = 3;
+		// Принято исполнителем
+		ACCEPTED = 4;
+		// Отклонено исполнителем
+		DECLINED = 5;
+		// Отклонено по таймауту
+		TIMEOUT = 6;
+		// Отменено
+		CANCELED = 7;
+	}
+	// Внутренний идентификатор назначения
+	uint64 id = 1;
+	// Внутренний идентификатор родительского назначения для отложенной доставки
+	uint64 postponed_parent_id = 2;
+	// Идентификатор назначения (от диспатча)
+	string uuid = 13;
+	// Идентификатор родительского назначения для отложенной доставки
+	// (от диспатча)
+	string postponed_parent_uuid = 12;
+	// Внутренний идентификатор маршрутного листа
+	uint64 workflow_id = 3;
+	// Идентификатор исполнителя
+	string performer_uuid = 4;
+	// Тип транспорта
+	PerformerVehicle performer_vehicle = 14;
+	// Статус
+	Status status = 5;
+	// Тип доставки
+	DeliveryType delivery_type = 11;
+	// Источник назначения
+	SourceType source_type = 17;
+	// Список заказов
+	repeated Shipment shipments = 6;
+	// Планируемая стоимость (базовая + бонус)
+	float plan_payroll = 7;
+	// Планируемая стоимость (базовая)
+	float plan_payroll_base = 15;
+	// Планируемая стоимость (бонус)
+	float plan_payroll_bonus = 16;
+	// Мета-данные - поле для публикации дополнительной информации
+	map<string, string> meta = 8;
+	// Дата и время создания
+	google.protobuf.Timestamp created_at = 9;
+	// Дата и время обновления
+	google.protobuf.Timestamp updated_at = 10;
+}
+
+enum SegmentType {
+	// Подлет
+	ARRIVE = 0;
+	// Сборка
+	ASSEMBLY = 1;
+	// Передача заказа на доставку
+	PASS_TO_DELIVERY = 2;
+	// Доставка
+	DELIVERY = 3;
+	// Передача заказа клиенту
+	PASS_TO_CLIENT = 5;
+	// Получение заказа для доставки
+	RECEIVING_FOR_DELIVERY = 6;
+}
+
+// Транспорт исполнителя
+enum PerformerVehicle {
+	VEHICLE_PEDESTRIAN = 0;
+	VEHICLE_AUTO = 1;
+	VEHICLE_BIKE = 2;
+}
+
+// Источник назначения
+enum SourceType {
+	// Ручное
+	MANUAL = 0;
+	// Диспатч
+	DISPATCH = 1;
+}
+
+// Тип доставки
+enum DeliveryType {
+	// Новое
+	DEFAULT = 0;
+	// Отложено
+	TAXI = 1;
+}
+
+// Геопозиция
+message Location {
+	// Широта
+	double lat = 1;
+	// Долгота
+	double lon = 2;
+}
+
+message Shipment {
+	// Номер заказа: H24485347826
+	string number = 1;
+	// UUID заказа
+	string uuid = 12;
+	// количество позиций в заказе
+	uint32 items_count = 2;
+	// общая стоимость всех позиций в заказе в рублях
+	float items_total_amount = 3;
+	// расстояние до магазина в метрах
+	uint64 distance_to_store = 4;
+	// расчетное время прохождения в магазин в минутах
+	uint64 duration_to_store = 5;
+	// вес заказа в килограммах
+	float weight_kg = 6;
+	// uuid идентификатор магазина, из которого осуществляется заказ
+	string store_uuid = 7;
+	// признак того, что заказ тяжелый
+	bool is_heavy = 8;
+	// признак того, что заказ новый
+	bool is_new = 9;
+	// Наименование магазина
+	string store_name = 10;
+	// Адрес магазина
+	string store_address = 11;
+}
+message CandidateRoute {
+	// id маршрута (возможно будет другой тип, надо уточнить у источника данных)
+	string id = 1;
+	// статус маршрута
+	string state = 2;
+	// сегменты маршрута
+	CandidateRouteSegment segments = 3;
+}
+
+message CandidateRouteSegment {
+	// порядковый номер
+	uint32 id = 1;
+	// тип сегмента
+	string type = 2;
+	// плановое время начала сегмента. формат значения RFC 3339.
+	// пример данных: 2021-05-01T19:00:00+03:00
+	google.protobuf.Timestamp plan_started_at = 3;
+	// плановое время окончания сегмента. формат значения RFC 3339.
+	// пример данных: 2021-05-01T19:00:00+03:00
+	google.protobuf.Timestamp plan_ended_at = 4;
+	// фактическое время начала сегмента. формат значения RFC 3339.
+	// пример данных: 2021-05-01T19:00:00+03:00
+	google.protobuf.Timestamp fact_started_at = 5;
+	// фактическое время окончания сегмента. формат значения RFC 3339.
+	// пример данных: 2021-05-01T19:00:00+03:00
+	google.protobuf.Timestamp fact_ended_at = 6;
+	// geo позиция начала сегмента
+	CandidateLastLocation start_point = 7;
+	// geo позиция конца сегмента
+	CandidateLastLocation end_point = 8;
+}
+
+message SelectCandidateByUUIDRequest {
+	// uuid кандидата
+	string uuid = 1;
+}
+
+message SearchRequest {
+	// ФИО партнера или номер доставки
+	string query = 1;
+}
+
+message SelectCandidateByUUIDResult {
+	Candidate candidate = 1;
+}
+
+message SearchResult {
+	Candidate candidate = 1;
+}
+
+message SelectInRectRequest {
+	Rect rect = 1;
+	// массив ролей. если пустой, то все роли считаются подходящими
+	repeated CandidateRole roles = 3;
+	// массив типов транспортов. если пустой, то все все виды транспорта считаются подходящими
+	repeated CandidateTransport transports = 4;
+	// массив типов диспечеризации. не может быть пустым
+	repeated string schedule_types = 5;
+}
+
+message Rect {
+	// bottom left corner of rectangle
+	GeoPoint min = 1;
+	// upper-right corner of rectangle
+	GeoPoint max = 2;
+}
+
+message GeoPoint {
+	double lat = 1;
+	double lon = 2;
+}

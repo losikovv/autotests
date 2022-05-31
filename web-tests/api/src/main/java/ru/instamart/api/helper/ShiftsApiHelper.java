@@ -18,6 +18,7 @@ import ru.instamart.kraken.data.StartPointsTenants;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertTrue;
@@ -28,6 +29,21 @@ import static ru.instamart.kraken.util.TimeUtil.getZonedUTCFutureDate;
 public class ShiftsApiHelper {
     private final ThreadLocal<Integer> currentRegion = new ThreadLocal<>();
     private final ThreadLocal<Integer> planningPeriodId = new ThreadLocal<>();
+    private Integer defaultShiftZone;
+
+    public ShiftsApiHelper() {
+       getDefaultShiftZone();
+    }
+
+    private Integer getDefaultShiftZone(){
+        if(Objects.isNull(defaultShiftZone)){
+            if(EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID==0){
+               return defaultShiftZone = 3858;
+            }
+        }
+        return defaultShiftZone = EnvironmentProperties.DEFAULT_ID_ZONE;
+    }
+
 
     @Step("Получаем информацию о сбрщике")
     public ShopperSHPResponse getShopperInfo() {
@@ -54,14 +70,14 @@ public class ShiftsApiHelper {
         final Response response = RegionsRequest.GET(currentRegion.get());
         checkStatusCode200(response);
         var planningAreaShifts = Arrays.asList(response.getBody().as(PlanningAreaShiftsItemSHPResponse[].class));
-        var planningAreaShiftsFilter = planningAreaShifts.stream().filter(item->item.getId()==EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID).collect(Collectors.toList());
+        var planningAreaShiftsFilter = planningAreaShifts.stream().filter(item->item.getId()==defaultShiftZone).collect(Collectors.toList());
         assertTrue(planningAreaShiftsFilter.size()>0, "Не найдены данные дефолтной зоны");
         return planningAreaShiftsFilter.get(0);
     }
 
     @Step("Перечень периодов планирования области планирования.")
     public List<PlanningPeriodsSHPResponse> getPlanningPeriod() {
-        final Response response = PlanningAreasRequest.GET(EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID, RoleSHP.UNIVERSAL);
+        final Response response = PlanningAreasRequest.GET(defaultShiftZone, RoleSHP.UNIVERSAL);
         checkStatusCode200(response);
         return Arrays.asList(response.as(PlanningPeriodsSHPResponse[].class));
     }
@@ -69,7 +85,7 @@ public class ShiftsApiHelper {
     @Step("Перечень периодов планирования области планирования.")
     public List<PlanningPeriodsSHPResponse> getPlanningPeriod(final String startedAt, final String endedAt) {
         final Response response = PlanningAreasRequest.GET(
-                EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID, RoleSHP.UNIVERSAL, startedAt,endedAt);
+                defaultShiftZone, RoleSHP.UNIVERSAL, startedAt,endedAt);
         checkStatusCode200(response);
         return Arrays.asList(response.as(PlanningPeriodsSHPResponse[].class));
     }
@@ -77,7 +93,7 @@ public class ShiftsApiHelper {
     @Step("Создание новой смены для партнёра Универсала.")
     public ShiftResponse postShift(PlanningPeriodsSHPResponse planning) {
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
-                .planningAreaId(EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID)
+                .planningAreaId(defaultShiftZone)
                 .role(RoleSHP.UNIVERSAL.getRole())
                 .planningPeriod(
                         ShiftsRequest.PlanningPeriods.builder()
@@ -93,7 +109,8 @@ public class ShiftsApiHelper {
 
     @Step("Активация смены партнера Универсала")
     public void activateShiftsPartner(StartPointsTenants startPointsTenants) {
-        final Response response = ShiftsRequest.Start.PATCH(planningPeriodId.get(), startPointsTenants.getLat(), startPointsTenants.getLon());
+        var planningId = shifts().get(0).getId();
+        final Response response = ShiftsRequest.Start.PATCH(planningId, startPointsTenants.getLat(), startPointsTenants.getLon());
         checkStatusCode200(response);
     }
 
@@ -134,7 +151,8 @@ public class ShiftsApiHelper {
     @Step("Начало смены для сборщика универсала")
     public Integer startOfShift(StartPointsTenants startPointsTenants) {
         createShift();
-        ShiftsDao.INSTANCE.updateState(planningPeriodId.get());
+        var planningId = shifts().get(0).getId();
+        ShiftsDao.INSTANCE.updateState(planningId);
         activateShiftsPartner(startPointsTenants);
         return planningPeriodId.get();
     }

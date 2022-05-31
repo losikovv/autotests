@@ -12,13 +12,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import static org.testng.Assert.fail;
-import static ru.instamart.jdbc.enums.dispatch.Services.ETA;
 import static ru.instamart.jdbc.enums.dispatch.Services.SHIFTS;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE;
 
