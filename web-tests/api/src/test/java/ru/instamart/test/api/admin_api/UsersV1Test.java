@@ -19,6 +19,7 @@ import ru.instamart.kraken.data.Generate;
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkUsers;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -46,6 +47,19 @@ public class UsersV1Test extends RestBase {
         List<AdminUserV1> usersFromResponse = response.as(UsersV1Response.class).getUsers();
         final SoftAssert softAssert = new SoftAssert();
         usersFromResponse.forEach(u -> softAssert.assertTrue(u.getContactEmail().contains("autotest"), "Пришел неверный емейл"));
+        softAssert.assertAll();
+    }
+
+    @Test(description = "Получение пользователя по номеру телефона",
+            groups = {"api-instamart-regress"})
+    public void getUserByPhone() {
+        final Response response = UsersV1Request.GET("79000000001");
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, UsersV1Response.class);
+        List<AdminUserV1> usersFromResponse = response.as(UsersV1Response.class).getUsers();
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(usersFromResponse.size(), 1, softAssert);
+        usersFromResponse.forEach(u -> softAssert.assertTrue(u.getPhoneTokenNumber().contains("79000000001")));
         softAssert.assertAll();
     }
 
