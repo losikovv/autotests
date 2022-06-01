@@ -30,9 +30,9 @@ public class EtaHelper {
     @Step("Проверяем установленный таймаут и уменьшаем его при необходимости")
     public static boolean checkMLTimeout(String mlTimeout) {
         LocalTime waitMlTimeoutFromDb = convertStringToTime(mlTimeout);
-        LocalTime expectedWaitMlTimeout = convertStringToTime("00:00:00.0");
+        LocalTime expectedWaitMlTimeout = convertStringToTime("00:00:00.1");
         if (waitMlTimeoutFromDb.isAfter(expectedWaitMlTimeout)) {
-            ServiceParametersDao.INSTANCE.updateWaitMlTimeout("00:00:00.0");
+            ServiceParametersDao.INSTANCE.updateWaitMlTimeout("00:00:00.1");
             return true;
         } else return false;
     }

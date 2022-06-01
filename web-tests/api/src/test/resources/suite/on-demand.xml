@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="DISPATCH Suite" parallel="tests" thread-count="1">
+<suite name="DISPATCH Suite" parallel="tests" thread-count="3">
     <listeners>
         <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
         <listener class-name="ru.instamart.api.listener.ApiListener"/>
@@ -13,6 +13,7 @@
     <test verbose="1" name="WORKFLOW" parallel="classes" thread-count="2">
         <classes>
             <class name="ru.instamart.test.api.dispatch.workflow.WorkflowTest"/>
+            <class name="ru.instamart.test.api.dispatch.workflow.WorkflowCandidatesTest"/>
             <class name="ru.instamart.test.api.dispatch.workflow.TimeoutWorkflowTest"/>
         </classes>
     </test>

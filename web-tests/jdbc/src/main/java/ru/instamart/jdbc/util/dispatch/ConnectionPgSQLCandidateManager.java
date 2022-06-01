@@ -15,7 +15,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import static org.testng.Assert.fail;
-import static ru.instamart.jdbc.enums.dispatch.Services.CANDIDATES;
+import static ru.instamart.kraken.enums.OnDemandServices.CANDIDATES;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE;
 
 @Slf4j
@@ -25,7 +25,6 @@ public class ConnectionPgSQLCandidateManager {
     private static List<Connection> sourceConnections;
 
     static {
-        portForward();
         loadDriver();
         initConnectionPool();
     }
@@ -70,6 +69,7 @@ public class ConnectionPgSQLCandidateManager {
 
     protected static Connection open() {
         try {
+            portForward();
             return DriverManager.getConnection(
                     String.format("jdbc:postgresql://localhost:%s/app", CANDIDATES.getPort()),
                     Crypt.INSTANCE.decrypt("O4On6ImtTAIvvUDOsqOHDw=="),
