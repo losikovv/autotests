@@ -9,7 +9,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v2.StateV2;
@@ -37,7 +36,6 @@ public class NotificationsPositiveV3Test extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditionsBeforeClass() {
         apiV3.checkFlipper("allow_export_to_external_services");
-        apiV3.checkFlipper("export_to_external_services_by_webhook");
         admin.auth();
         admin.editStore(sidDeliveryBySbermarket, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
         admin.editStore(sidDeliveryByRetailer, StoresAdminRequest.getStoreVictoriaTest());
