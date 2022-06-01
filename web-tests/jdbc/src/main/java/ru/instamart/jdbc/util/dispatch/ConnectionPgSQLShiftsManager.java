@@ -3,7 +3,6 @@ package ru.instamart.jdbc.util.dispatch;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.jdbc.util.ConnectionPgSQLManager;
 import ru.instamart.k8s.K8sPortForward;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.common.Crypt;
 
 import java.lang.reflect.Proxy;
@@ -16,7 +15,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import static org.testng.Assert.fail;
-import static ru.instamart.jdbc.enums.dispatch.Services.SHIFTS;
+import static ru.instamart.kraken.enums.OnDemandServices.SHIFTS;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE;
 
 @Slf4j

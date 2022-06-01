@@ -1,4 +1,4 @@
-package ru.instamart.jdbc.enums.dispatch;
+package ru.instamart.kraken.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 @Getter
-public enum Services {
+public enum OnDemandServices {
 
     SHIFTS("paas-content-operations-shifts", 15432),
     CANDIDATES("paas-content-operations-candidates", 25432),

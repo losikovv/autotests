@@ -37,13 +37,11 @@ public class WorkflowCheckpoints {
 
     @Step("Проверяем запись об отклоненном маршрутном листе в кафке")
     public static void checkCanceledWorkflow(String childWorkflowUuid, Long workflowId, AssignmentChangedOuterClass.AssignmentChanged.Status assignmentStatus, KafkaHelper kafka) {
-        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getDefaultShopper().getUuid());
         List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(childWorkflowUuid);
         List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(workflows.get(workflows.size() - 1).getStatus(), WorkflowChangedOuterClass.WorkflowChanged.Status.CANCELED, softAssert);
         compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), assignmentStatus, softAssert);
-        compareTwoObjects(candidate.getActive(), true, softAssert);
         softAssert.assertAll();
     }
 

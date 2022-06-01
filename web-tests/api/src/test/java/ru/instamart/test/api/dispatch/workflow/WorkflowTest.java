@@ -229,8 +229,8 @@ public class WorkflowTest extends RestBase {
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(segments.get(0).getStoreName(), "METRO, Дорожная", softAssert);
         compareTwoObjects(segments.get(0).getStoreAddress(), "Москва, Дорожная,  д. 1, корп. 1", softAssert);
-        compareTwoObjects(segments.get(1).getStoreName(), "METRO, Шоссейная", softAssert);
-        compareTwoObjects(segments.get(1).getStoreAddress(), "Москва, Шоссейная, 2Б", softAssert);
+        compareTwoObjects(segments.get(1).getStoreName(), "METRO, Дмитровское ш", softAssert);
+        compareTwoObjects(segments.get(1).getStoreAddress(), "Москва, Дмитровское ш, 165Б", softAssert);
         compareTwoObjects(segments.get(2).getStoreName(), "METRO, просп. Мира", softAssert);
        // compareTwoObjects(segments.get(2).getStoreAddress(), "Москва, просп. Мира, 211, стр. 1", softAssert);
         softAssert.assertAll();
@@ -263,13 +263,11 @@ public class WorkflowTest extends RestBase {
         workflowId = assignments.get(0).getWorkflowId();
         List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
         List<Push.EventPushNotification> notifications = kafka.waitDataInKafkaTopicNotifications(workflowId);
-        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Shopper1().getUuid());
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(workflows.get(0).getStatus(), WorkflowChangedOuterClass.WorkflowChanged.Status.NEW, softAssert);
         compareTwoObjects(assignments.get(0).getStatus(), OFFERED, softAssert);
         compareTwoObjects(notifications.get(notifications.size() - 1).getMessage().getData().getFieldsMap().get("type").getStringValue(), "ASSIGNMENT_CREATED", softAssert);
         compareTwoObjects(notifications.get(notifications.size() - 1).getMessage().getData().getFieldsMap().get("performer_uuid").getStringValue(), UserManager.getShp6Shopper1().getUuid(), softAssert);
-        compareTwoObjects(candidate.getActive(), false, softAssert);
         softAssert.assertAll();
     }
 
@@ -312,7 +310,7 @@ public class WorkflowTest extends RestBase {
         compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), SEEN);
     }
 
-    @CaseIDs(value = {@CaseId(21), @CaseId(94)})
+    @CaseId(21)
     @Test(description = "Пометка назначения как принятого",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "markWorkflowAsSeen")
@@ -321,11 +319,7 @@ public class WorkflowTest extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AssignmentResponse.class);
         List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(workflowUuid);
-        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Shopper1().getUuid());
-        final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), ACCEPTED, softAssert);
-        compareTwoObjects(candidate.getActive(), true, softAssert);
-        softAssert.assertAll();
+        compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), ACCEPTED);
     }
 
     @CaseId(65)
@@ -513,25 +507,12 @@ public class WorkflowTest extends RestBase {
         compareTwoObjects(workflows.get(workflows.size() - 1).getStatus(), WorkflowChangedOuterClass.WorkflowChanged.Status.QUEUED);
     }
 
-    @CaseId(92)
-    @Test(description = "Создание маршрутного листа для заблокированного кандидата",
-            groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "acceptWorkflowWithWorkflowInProgress")
-    public void createWorkflowForBusyCandidate() {
-        cancelWorkflow(clientWorkflow, secondShipmentUuid);
-        String candidateUuid = CandidatesDao.INSTANCE.getCandidateUuidByStatus(false);
-
-        var request = getWorkflowsRequestWithDifferentStores(secondOrder, secondShipmentUuid, candidateUuid);
-        var response = clientWorkflow.createWorkflows(request);
-
-        checkGrpcError(response, "Candidate is busy", CANDIDATE_IS_BUSY.toString());
-    }
-
     @CaseId(68)
     @Test(description = "Сортировка маршрутных листов по времени",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "createWorkflowForBusyCandidate")
+            dependsOnMethods = "acceptWorkflowWithWorkflowInProgress")
     public void getAssignmentsByTime() {
+        cancelWorkflow(clientWorkflow, secondShipmentUuid);
         cancelWorkflow(clientWorkflow, shipmentUuid);
 
         String firstWorkflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
@@ -556,7 +537,7 @@ public class WorkflowTest extends RestBase {
     @CaseId(132)
     @Test(description = "Автостарт следующего маршрутного листа при отмене текущего маршрутного листа",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "createWorkflowForBusyCandidate")
+            dependsOnMethods = "getAssignmentsByTime")
     public void startQueuedWorkflowAfterCancellingPrevious() {
         String firstWorkflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(5), clientWorkflow);
         AssignmentsEntity firstAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(firstWorkflowUuid);

@@ -8,6 +8,7 @@ import io.restassured.response.Response;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.model.workflows.ShopperAssignment;
 import ru.instamart.api.request.workflows.AssignmentsRequest;
 import ru.instamart.jdbc.dao.stf.StoresDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -18,7 +19,9 @@ import workflow.ServiceGrpc;
 import workflow.WorkflowEnums;
 import workflow.WorkflowOuterClass;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.data.StartPointsTenants.METRO_WORKFLOW_END;
@@ -451,5 +454,12 @@ public class WorkflowHelper {
         var request = getWorkflowsRequest(order, shipmentUuid, timestamp, WorkflowEnums.DeliveryType.DEFAULT);
         var response = clientWorkflow.createWorkflows(request);
         return response.getResultsMap().keySet().toArray()[0].toString();
+    }
+
+    @Step("Получаем список маршрутных листов шоппера")
+    public static List<ShopperAssignment> getShopperAssignments() {
+        final Response response = AssignmentsRequest.GET();
+        checkStatusCode200(response);
+        return Arrays.asList(response.as(ShopperAssignment[].class));
     }
 }
