@@ -12,28 +12,18 @@ import ru.instamart.api.request.workflows.AssignmentsRequest;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.candidates.CandidatesDao;
 import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
-import ru.instamart.jdbc.dao.workflow.AssignmentsDao;
 import ru.instamart.jdbc.entity.candidates.CandidatesEntity;
-import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
+import ru.instamart.k8s.K8sPortForward;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
-import workflow.AssignmentChangedOuterClass;
 import workflow.ServiceGrpc;
-import workflow.WorkflowChangedOuterClass;
-
-import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.WorkflowCheckpoints.checkGrpcError;
-import static ru.instamart.api.checkpoint.WorkflowCheckpoints.checkStatuses;
 import static ru.instamart.api.helper.WorkflowHelper.*;
-import static ru.instamart.kraken.data.StartPointsTenants.METRO_WORKFLOW_END;
 import static ru.instamart.kraken.util.TimeUtil.getDatePlusSec;
-import static workflow.AssignmentChangedOuterClass.AssignmentChanged.Status.ACCEPTED;
-import static workflow.AssignmentChangedOuterClass.AssignmentChanged.Status.CANCELED;
 import static workflow.WorkflowOuterClass.CreateWorkflowsResponse.Result.ErrorKind.CANDIDATE_IS_BUSY;
 
 public class WorkflowCandidatesTest extends RestBase {
@@ -99,52 +89,11 @@ public class WorkflowCandidatesTest extends RestBase {
         checkGrpcError(response, "Candidate is busy", CANDIDATE_IS_BUSY.toString());
     }
 
-    @CaseId(98)
-    @Test(description = "Отмена заказа для назначения в статусе queued",
-            groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "createWorkflowForBusyCandidate")
-    public void cancelOrderWithQueuedWorkflow() {
-        cancelWorkflow(clientWorkflow, shipmentUuid);
-        String firstWorkflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(500000), clientWorkflow);
-        AssignmentsEntity firstAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(firstWorkflowUuid);
-        acceptWorkflowAndStart(firstAssignmentsEntity.getId().toString(), METRO_WORKFLOW_END);
-
-        String secondWorkflowUuid = getWorkflowUuid(secondOrder, secondShipmentUuid, getDatePlusSec(564000), clientWorkflow);
-        AssignmentsEntity secondAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(secondWorkflowUuid);
-        acceptWorkflow(secondAssignmentsEntity.getId().toString());
-
-        apiV2.cancelOrder(secondOrder.getNumber());
-
-        List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(secondWorkflowUuid);
-        long workflowId = assignments.get(assignments.size() - 1).getWorkflowId();
-        List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
-        checkStatuses(assignments, workflows, ACCEPTED);
-
-        cancelWorkflow(clientWorkflow, shipmentUuid);
-    }
-
-    @CaseId(97)
-    @Test(description = "Отмена заказа для назначения в статусе seen",
-            groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "cancelOrderWithQueuedWorkflow")
-    public void cancelOrderWithSeenWorkflow() {
-        String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(700000), clientWorkflow);
-        AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
-        final Response response = AssignmentsRequest.Seen.PATCH(assignmentsEntity.getId().toString());
-        checkStatusCode(response, 204);
-
-        apiV2.cancelOrder(order.getNumber());
-
-        List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(workflowUuid);
-        long workflowId = assignments.get(assignments.size() - 1).getWorkflowId();
-        List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
-        checkStatuses(assignments, workflows, CANCELED);
-    }
-
 
     @AfterClass(alwaysRun = true)
     public void clearData() {
         cancelWorkflow(clientWorkflow, secondShipmentUuid);
         cancelWorkflow(clientWorkflow, shipmentUuid);
+        K8sPortForward.getInstance().clearPortForward();
     }
 }

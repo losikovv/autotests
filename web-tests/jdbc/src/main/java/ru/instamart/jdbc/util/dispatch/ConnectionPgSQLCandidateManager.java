@@ -1,7 +1,6 @@
 package ru.instamart.jdbc.util.dispatch;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.instamart.jdbc.util.ConnectionPgSQLManager;
 import ru.instamart.k8s.K8sPortForward;
 import ru.sbermarket.common.Crypt;
 
@@ -15,8 +14,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import static org.testng.Assert.fail;
-import static ru.instamart.kraken.enums.OnDemandServices.CANDIDATES;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE;
+import static ru.instamart.kraken.enums.OnDemandServices.CANDIDATES;
 
 @Slf4j
 public class ConnectionPgSQLCandidateManager {
@@ -25,6 +24,7 @@ public class ConnectionPgSQLCandidateManager {
     private static List<Connection> sourceConnections;
 
     static {
+        portForward();
         loadDriver();
         initConnectionPool();
     }
@@ -50,7 +50,7 @@ public class ConnectionPgSQLCandidateManager {
         for (int i = 0; i < 1; i++) {
             var connection = open();
             var proxyConnection = (Connection)
-                    Proxy.newProxyInstance(ConnectionPgSQLManager.class.getClassLoader(), new Class[]{Connection.class},
+                    Proxy.newProxyInstance(ConnectionPgSQLCandidateManager.class.getClassLoader(), new Class[]{Connection.class},
                             (proxy, method, args) -> method.getName().equals("close")
                                     ? pool.add((Connection) proxy)
                                     : method.invoke(connection, args));
@@ -69,7 +69,6 @@ public class ConnectionPgSQLCandidateManager {
 
     protected static Connection open() {
         try {
-            portForward();
             return DriverManager.getConnection(
                     String.format("jdbc:postgresql://localhost:%s/app", CANDIDATES.getPort()),
                     Crypt.INSTANCE.decrypt("O4On6ImtTAIvvUDOsqOHDw=="),

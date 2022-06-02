@@ -2,7 +2,6 @@ package ru.instamart.jdbc.dao.workflow;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.workflow.WorkflowsEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
 import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLWorkflowManager;
 
 import java.sql.Connection;
@@ -17,6 +16,7 @@ public class WorkflowsDao extends AbstractDao<Long, WorkflowsEntity> {
 
     public static final WorkflowsDao INSTANCE = new WorkflowsDao();
     private final String SELECT_SQL = "SELECT %s FROM workflows";
+    private final String UPDATE_SQL = "UPDATE workflows SET";
 
     @Override
     public Optional<WorkflowsEntity> findById(Long id) {
@@ -38,5 +38,16 @@ public class WorkflowsDao extends AbstractDao<Long, WorkflowsEntity> {
             fail("Error init ConnectionPgSQLWorkflowManager. Error: " + e.getMessage());
         }
         return Optional.ofNullable(workflowsEntity);
+    }
+
+    public void updateStatus(int status, long workflowId) {
+        try (Connection connect = ConnectionPgSQLWorkflowManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " status = ? WHERE id = ?")) {
+            preparedStatement.setInt(1, status);
+            preparedStatement.setLong(2, workflowId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLWorkflowManager. Error: " + e.getMessage());
+        }
     }
 }

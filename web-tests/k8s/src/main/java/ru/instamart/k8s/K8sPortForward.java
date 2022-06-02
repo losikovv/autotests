@@ -86,4 +86,8 @@ public final class K8sPortForward {
         }
         return null;
     }
+
+    public void clearPortForward() {
+        k8sConnectPgSqlStage = null;
+    }
 }

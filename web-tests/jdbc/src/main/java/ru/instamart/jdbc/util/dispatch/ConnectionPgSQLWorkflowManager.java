@@ -25,6 +25,7 @@ public class ConnectionPgSQLWorkflowManager {
     private static List<Connection> sourceConnections;
 
     static {
+        portForward();
         loadDriver();
         initConnectionPool();
     }
@@ -50,7 +51,7 @@ public class ConnectionPgSQLWorkflowManager {
         for (int i = 0; i < 1; i++) {
             var connection = open();
             var proxyConnection = (Connection)
-                    Proxy.newProxyInstance(ConnectionPgSQLManager.class.getClassLoader(), new Class[]{Connection.class},
+                    Proxy.newProxyInstance(ConnectionPgSQLWorkflowManager.class.getClassLoader(), new Class[]{Connection.class},
                             (proxy, method, args) -> method.getName().equals("close")
                                     ? pool.add((Connection) proxy)
                                     : method.invoke(connection, args));
@@ -68,7 +69,6 @@ public class ConnectionPgSQLWorkflowManager {
     }
 
     protected static Connection open() {
-        portForward();
         try {
             return DriverManager.getConnection(
                     String.format("jdbc:postgresql://localhost:%s/app", WORKFLOW.getPort()),

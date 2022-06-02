@@ -22,11 +22,10 @@ import ru.instamart.api.request.workflows.SegmentsRequest;
 import ru.instamart.api.request.workflows.WorkflowsRequest;
 import ru.instamart.api.response.workflows.AssignmentResponse;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.instamart.jdbc.dao.candidates.CandidatesDao;
 import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.jdbc.dao.workflow.AssignmentsDao;
 import ru.instamart.jdbc.dao.workflow.SegmentsDao;
-import ru.instamart.jdbc.entity.candidates.CandidatesEntity;
+import ru.instamart.jdbc.dao.workflow.WorkflowsDao;
 import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
 import ru.instamart.jdbc.entity.workflow.SegmentsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -69,7 +68,7 @@ public class WorkflowTest extends RestBase {
     private String assignmentId;
     private List<SegmentsEntity> segments;
 
-    @BeforeClass(alwaysRun = true)  
+    @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientWorkflow = ServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW));
         clientAnalytics = ShipmentPriceServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_ANALYTICS_ORDER_PRICING));
@@ -351,6 +350,7 @@ public class WorkflowTest extends RestBase {
         checkResponseJsonSchema(response, AssignmentResponse.class);
         segments = SegmentsDao.INSTANCE.getSegmentsByWorkflowUuid(workflowUuid).stream()
                 .sorted(Comparator.comparing(SegmentsEntity::getPosition)).collect(Collectors.toList());
+        workflowId = segments.get(0).getWorkflowId();
         checkFieldIsNotEmpty(segments.get(0).getFactStartedAt(), "время начала маршрута");
     }
 
@@ -359,6 +359,12 @@ public class WorkflowTest extends RestBase {
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "acceptWorkflowWithCoordinates")
     public void passWorkflow() {
+        String secondWorkflowUuid = getWorkflowUuid(secondOrder, secondShipmentUuid, getDatePlusSec(30), clientWorkflow);
+        AssignmentsEntity secondAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(secondWorkflowUuid);
+        acceptWorkflow(secondAssignmentsEntity.getId().toString());
+        segments = SegmentsDao.INSTANCE.getSegmentsByWorkflowUuid(secondWorkflowUuid).stream()
+                .sorted(Comparator.comparing(SegmentsEntity::getPosition)).collect(Collectors.toList());
+        WorkflowsDao.INSTANCE.updateStatus(WorkflowChangedOuterClass.WorkflowChanged.Status.COMPLETED.getNumber(), workflowId);
         SegmentsRequest.SegmentData segmentData = SegmentsRequest.SegmentData.builder()
                 .segmentId(segments.get(0).getId())
                 .lat(METRO_WORKFLOW_END.getLat())
@@ -368,12 +374,15 @@ public class WorkflowTest extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AssignmentResponse.class);
 
-        List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(workflowUuid);
+        List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(secondWorkflowUuid);
         compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), ACCEPTED);
-        List<SegmentChangedOuterClass.SegmentChanged> segmentsFromKafka = kafka.waitDataInKafkaTopicWorkflowSegment(segments.get(1).getId());
-        segments = SegmentsDao.INSTANCE.getSegmentsByWorkflowUuid(workflowUuid).stream()
+        List<SegmentChangedOuterClass.SegmentChanged> segmentsFromKafka = kafka.waitDataInKafkaTopicWorkflowSegment(segments.get(0).getId());
+        segments = SegmentsDao.INSTANCE.getSegmentsByWorkflowUuid(secondWorkflowUuid).stream()
                 .sorted(Comparator.comparing(SegmentsEntity::getPosition)).collect(Collectors.toList());
-        checkSegments(segments, segmentsFromKafka, 0, 1, WorkflowEnums.SegmentType.DELIVERY);
+        final SoftAssert softAssert = new SoftAssert();
+        checkFieldIsNotEmpty(segments.get(0).getFactStartedAt(), "время начала маршрута", softAssert);
+        compareTwoObjects(segmentsFromKafka.get(segmentsFromKafka.size() - 1).getType(), WorkflowEnums.SegmentType.ARRIVE, softAssert);
+        softAssert.assertAll();
     }
 
     @CaseId(111)
@@ -381,13 +390,20 @@ public class WorkflowTest extends RestBase {
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "passWorkflow")
     public void passWorkflowWithLongDistance() {
+        WorkflowsDao.INSTANCE.updateStatus(WorkflowChangedOuterClass.WorkflowChanged.Status.CANCELED.getNumber(), workflowId);
+        cancelWorkflow(clientWorkflow, secondShipmentUuid);
+        workflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(700000), clientWorkflow);
+        AssignmentsEntity secondAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
+        acceptWorkflow(secondAssignmentsEntity.getId().toString());
+        segments = SegmentsDao.INSTANCE.getSegmentsByWorkflowUuid(workflowUuid).stream()
+                .sorted(Comparator.comparing(SegmentsEntity::getPosition)).collect(Collectors.toList());
         SegmentsRequest.SegmentData segmentData = SegmentsRequest.SegmentData.builder()
-                .segmentId(segments.get(1).getId())
+                .segmentId(segments.get(0).getId())
                 .lat(34.60166514312233)
                 .lon(17.62097454092305)
                 .skipGeoWarn(false)
                 .build();
-        final Response response = SegmentsRequest.PATCH(segments.get(1).getWorkflowId(), segmentData);
+        final Response response = SegmentsRequest.PATCH(segments.get(0).getWorkflowId(), segmentData);
         checkStatusCode422(response);
         Error error = response.as(Error.class);
         final SoftAssert softAssert = new SoftAssert();
@@ -402,7 +418,7 @@ public class WorkflowTest extends RestBase {
             dependsOnMethods = "passWorkflowWithLongDistance")
     public void passWorkflowWithLongDistanceWithoutCheck() {
         SegmentsRequest.SegmentData segmentData = SegmentsRequest.SegmentData.builder()
-                .segmentId(segments.get(1).getId())
+                .segmentId(segments.get(0).getId())
                 .lat(34.60166514312233)
                 .lon(17.62097454092305)
                 .skipGeoWarn(true)
@@ -414,7 +430,10 @@ public class WorkflowTest extends RestBase {
         List<SegmentChangedOuterClass.SegmentChanged> segmentsFromKafka = kafka.waitDataInKafkaTopicWorkflowSegment(segments.get(2).getId());
         segments = SegmentsDao.INSTANCE.getSegmentsByWorkflowUuid(workflowUuid).stream()
                 .sorted(Comparator.comparing(SegmentsEntity::getPosition)).collect(Collectors.toList());
-        checkSegments(segments, segmentsFromKafka, 1, 2, WorkflowEnums.SegmentType.PASS_TO_CLIENT);
+        final SoftAssert softAssert = new SoftAssert();
+        checkFieldIsNotEmpty(segments.get(1).getFactStartedAt(), "время начала маршрута", softAssert);
+        compareTwoObjects(segmentsFromKafka.get(segmentsFromKafka.size() - 1).getType(), WorkflowEnums.SegmentType.PASS_TO_CLIENT, softAssert);
+        softAssert.assertAll();
         cancelWorkflow(clientWorkflow, shipmentUuid);
     }
 
@@ -500,7 +519,6 @@ public class WorkflowTest extends RestBase {
 
         String secondWorkflowUuid = getWorkflowUuid(secondOrder, secondShipmentUuid, Timestamps.MAX_VALUE, clientWorkflow);
         AssignmentsEntity secondAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(secondWorkflowUuid);
-
         acceptWorkflow(secondAssignmentsEntity.getId().toString());
 
         List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(secondAssignmentsEntity.getWorkflowId());
@@ -594,6 +612,51 @@ public class WorkflowTest extends RestBase {
         long workflowId = assignments.get(assignments.size() - 1).getWorkflowId();
         List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
         checkStatuses(assignments, workflows, ACCEPTED);
+    }
+
+    @CaseId(98)
+    @Test(description = "Отмена заказа для назначения в статусе queued",
+            groups = "dispatch-workflow-smoke",
+            dependsOnMethods = "cancelOrderWithWorkflow")
+    public void cancelOrderWithQueuedWorkflow() {
+        order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
+        shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
+        String firstWorkflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(500000), clientWorkflow);
+        AssignmentsEntity firstAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(firstWorkflowUuid);
+        acceptWorkflowAndStart(firstAssignmentsEntity.getId().toString(), METRO_WORKFLOW_END);
+
+        String secondWorkflowUuid = getWorkflowUuid(secondOrder, secondShipmentUuid, getDatePlusSec(564000), clientWorkflow);
+        AssignmentsEntity secondAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(secondWorkflowUuid);
+        acceptWorkflow(secondAssignmentsEntity.getId().toString());
+
+        apiV2.cancelOrder(secondOrder.getNumber());
+
+        List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(secondWorkflowUuid);
+        long workflowId = assignments.get(assignments.size() - 1).getWorkflowId();
+        List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
+        checkStatuses(assignments, workflows, ACCEPTED);
+
+        cancelWorkflow(clientWorkflow, shipmentUuid);
+    }
+
+    @CaseId(97)
+    @Test(description = "Отмена заказа для назначения в статусе seen",
+            groups = "dispatch-workflow-smoke",
+            dependsOnMethods = "cancelOrderWithQueuedWorkflow")
+    public void cancelOrderWithSeenWorkflow() {
+        String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(700000), clientWorkflow);
+        AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
+        final Response response = AssignmentsRequest.Seen.PATCH(assignmentsEntity.getId().toString());
+        checkStatusCode(response, 204);
+
+        apiV2.cancelOrder(order.getNumber());
+
+        List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(workflowUuid);
+        long workflowId = assignments.get(assignments.size() - 1).getWorkflowId();
+        List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
+        checkStatuses(assignments, workflows, CANCELED);
     }
 
 

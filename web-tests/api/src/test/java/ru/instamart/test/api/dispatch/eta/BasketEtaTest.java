@@ -312,7 +312,7 @@ public class BasketEtaTest extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void postConditions() {
-        if(isMLTimeoutUpdated) {
+        if (isMLTimeoutUpdated) {
             ServiceParametersDao.INSTANCE.updateWaitMlTimeout(serviceParameters.getWaitMlTimeout());
         }
         if (Objects.nonNull(storeId)) {
