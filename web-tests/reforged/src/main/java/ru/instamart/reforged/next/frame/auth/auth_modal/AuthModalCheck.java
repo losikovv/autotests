@@ -14,13 +14,18 @@ public interface AuthModalCheck extends Check, AuthModalElement {
 
     @Step("Проверяем, что модальное окно видимо и готово к работе")
     default void checkModalIsVisible() {
-        waitAction().shouldBeVisible(modal);
-        waitAction().shouldNotBeAnimated(modal);
+        waitAction().shouldBeVisible(modalLogin);
+        waitAction().shouldNotBeAnimated(modalLogin);
     }
 
     @Step("Проверяем, что модальное окно скрыто")
     default void checkModalIsNotVisible() {
-        waitAction().shouldNotBeVisible(modal);
+        waitAction().shouldNotBeVisible(modalLogin);
+    }
+
+    @Step("Проверяем, что отображается окно подтверждения номера телефона")
+    default void checkModalConfirmPhoneIsVisible() {
+        waitAction().shouldBeVisible(modalConfirmPhone);
     }
 
     @Step("Проверяем, что модальное окно скрыто")

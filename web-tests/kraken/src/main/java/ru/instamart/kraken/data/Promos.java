@@ -1,8 +1,13 @@
 package ru.instamart.kraken.data;
 
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 
 public final class Promos {
+
+    public static PromoData getFreeOrderDeliveryPromo() {
+        return (EnvironmentProperties.Env.isProduction() ? freeDeliverySbervesna() : freeOrderDelivery());
+    }
 
     public static PromoData freeOrderDelivery() {
         return new PromoData(
@@ -62,6 +67,14 @@ public final class Promos {
         );
     }
 
+    public static PromoData freeDeliverySbervesna() {
+        return new PromoData(
+                "freeDeliverySbervesna",
+                "sbervesna",
+                "Бесплатная доставка"
+        );
+    }
+
     public static PromoData fixedDiscountForAllOrders() {
         return new PromoData(
                 "fixedDiscount",
@@ -115,8 +128,8 @@ public final class Promos {
 
     // TODO завести - ATST-229
     public static PromoData fixedDiscountForUser(UserData user) {
-        switch(user.getEmail()) {
-            case "autotestuser@instamart.ru" :
+        switch (user.getEmail()) {
+            case "autotestuser@instamart.ru":
                 return new PromoData(
                         "fixedDiscountForAutotestUser",
                         "autotest-fixed_discount_100_for_autotest_user",
@@ -133,8 +146,8 @@ public final class Promos {
 
     // TODO завести - ATST-229
     public static PromoData fixedDiscountForB2bUser(UserData user) {
-        switch(user.getEmail()) {
-            case "autotestuser@instamart.ru" :
+        switch (user.getEmail()) {
+            case "autotestuser@instamart.ru":
                 return new PromoData(
                         "fixedDiscountForB2BUser",
                         "autotest-fixed_discount_100_for_b2b_user",
@@ -152,8 +165,8 @@ public final class Promos {
     // TODO - ATST-229
     public static PromoData referralPromo(UserData user) {
         // код разный на окружениях, попытаться сделать одинаковый для autotest юзера, руками в базе стейджа
-        switch(user.getEmail()) {
-            case "autotestuser@instamart.ru" :
+        switch (user.getEmail()) {
+            case "autotestuser@instamart.ru":
                 return new PromoData(
                         "fixedDiscountForB2BUser",
                         "todo", //todo
@@ -172,14 +185,14 @@ public final class Promos {
 
     // TODO - ATST-229
     public static PromoData fixedDiscountForRetailer(String retailer) {
-        switch(retailer) {
-            case "metro" :
+        switch (retailer) {
+            case "metro":
                 return new PromoData(
                         "fixedDiscountForRetailerMetro",
                         "metroDiscount100uyvkinqoj9c0",
                         "Скидка 100р на заказы в Метро"
                 );
-            case "auchan" :
+            case "auchan":
                 return new PromoData(
                         "fixedDiscountForRetailerAuchan",
                         "autotest-fixed_discount_100_for_retailer_auchan",
@@ -196,14 +209,14 @@ public final class Promos {
 
     // TODO завести - ATST-229
     public static PromoData fixedDiscountForTenant(String tenant) {
-        switch(tenant) {
+        switch (tenant) {
             case "instamart":
                 return new PromoData(
                         "fixedDiscountForTenantInstamart",
                         "autotest-fixed_discount_100_for_tenant_instamart",
                         "Скидка 100р для заказов на сайте Instamart"
                 );
-            case "metro" :
+            case "metro":
                 return new PromoData(
                         "fixedDiscountForTenantMetro",
                         "autotest-fixed_discount_100_for_tenant_metro",

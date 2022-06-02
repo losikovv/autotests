@@ -13,8 +13,7 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
-import static ru.instamart.reforged.stf.page.StfRouter.userFavorites;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Любимые товары")
@@ -161,16 +160,18 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1492)
-    @Test(description = "Тест добавления товаров в корзину из списка любимых товаров", groups = {"smoke", "regression"})
+    @Test(description = "Тест добавления товаров в корзину из списка любимых товаров", groups = {"production", "smoke", "regression"})
     public void successAddFavoriteProductToCart() {
         final UserData userData = UserManager.getQaUser();
-        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 3);
+        apiHelper.setAddress(userData, RestAddresses.getDefaultAddress());
+        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 3);
 
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+        home().checkDeliveryStoresContainerVisible();
+
+        home().clickOnStoreWithSid(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
 
         userFavorites().goToPage();
         userFavorites().addToCartFirstFavoriteItem();

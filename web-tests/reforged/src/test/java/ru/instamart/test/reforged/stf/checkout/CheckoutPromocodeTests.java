@@ -21,13 +21,13 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 public final class CheckoutPromocodeTests {
 
     private final ApiHelper helper = new ApiHelper();
-    private final String promoCode = Promos.freeOrderDelivery().getCode();
+    private final String promoCode = Promos.getFreeOrderDeliveryPromo().getCode();
     private UserData userData;
 
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
         this.userData = UserManager.getQaUser();
-        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
@@ -37,7 +37,7 @@ public final class CheckoutPromocodeTests {
 
     @CaseId(2638)
     @Story("Добавление промокода к заказу")
-    @Test(description = "Тест успешного применения промокода в чекауте", groups = {"regression", "smoke"})
+    @Test(description = "Тест успешного применения промокода в чекауте", groups = {"production", "regression", "smoke"})
     public void successAddPromocode() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -50,6 +50,7 @@ public final class CheckoutPromocodeTests {
         checkout().interactEditPromoCodeModal().applyPromoCode();
         checkout().checkPromoCodeApplied();
         checkout().clickToDeletePromoCode();
+        checkout().checkPromoCodeNotApplied();
     }
 
     @CaseId(2639)

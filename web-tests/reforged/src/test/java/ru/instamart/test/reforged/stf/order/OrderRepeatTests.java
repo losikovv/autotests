@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf.order;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -23,11 +24,16 @@ public final class OrderRepeatTests {
     @BeforeMethod(alwaysRun = true, description = "Аутентификация и выбор адреса доставки")
     public void preconditions() {
         userData = UserManager.getQaUser();
-        helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
+        helper.makeOrder(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 2);
+    }
+
+    @AfterMethod(alwaysRun = true, description = "Отмена заказа")
+    public void afterTest() {
+        this.helper.cancelAllActiveOrders(userData);
     }
 
     @CaseId(2614)
-    @Test(description = "Добавление в корзину товаров из истории заказов", groups = {"smoke", "regression"})
+    @Test(description = "Добавление в корзину товаров из истории заказов", groups = {"production", "smoke", "regression"})
     public void successRepeatLastOrderFromOrderHistory() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

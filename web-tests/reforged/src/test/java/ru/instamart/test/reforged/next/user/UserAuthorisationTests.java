@@ -13,8 +13,8 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.next.page.StfRouter.*;
 import static ru.instamart.reforged.sber_id_auth.SberIdPageRouter.sberId;
-import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Авторизация")
@@ -23,7 +23,7 @@ public final class UserAuthorisationTests {
     private final ApiHelper apiHelper = new ApiHelper();
 
     @CaseId(1455)
-    @Test(description = "Тест успешной авторизации на витрине", groups = {"regression", "smoke"})
+    @Test(description = "Тест успешной авторизации на витрине", groups = {"production", "regression", "smoke"})
     public void successAuthOnMainPage() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -32,10 +32,10 @@ public final class UserAuthorisationTests {
     }
 
     @CaseId(2543)
-    @Test(description = "Авторизация по номеру телефона", groups = {"regression", "smoke"})
+    @Test(description = "Авторизация по номеру телефона", groups = {"production", "regression", "smoke"})
     public void successAuthOnMainPageUserWithOrder() {
         UserData user = UserManager.getQaUser();
-        apiHelper.dropAndFillCart(user, 1);
+        apiHelper.dropAndFillCart(user, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
 
         home().goToPage(true);
         home().openLoginModal();
@@ -43,7 +43,7 @@ public final class UserAuthorisationTests {
 
         home().checkUserCredentialsDisplayed();
         home().checkDeliveryStoresContainerVisible();
-        home().checkIsSetAddressEqualToInput(Addresses.Moscow.defaultAddressRest(), home().getEnteredAddress());
+        home().checkIsSetAddressEqualToInput(Addresses.Moscow.getDefaultAddressRest(), home().getEnteredAddress());
     }
 
     @CaseId(1456)
@@ -104,7 +104,7 @@ public final class UserAuthorisationTests {
 
     @CaseId(2735)
     @Story("Авторизация через VK")
-    @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"production", "smoke", "regression"})
     public void successRegWithVkontakte() {
         UserData vkUser = UserManager.getNewVkUser();
 
@@ -113,20 +113,20 @@ public final class UserAuthorisationTests {
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaVk();
         shop().interactAuthModal().interactAuthVkWindow().switchToNextWindow();
-        shop().interactAuthModal().interactAuthVkWindow()
-                .setEmail(vkUser.getEmail());
-        shop().interactAuthModal().interactAuthVkWindow()
-                .setPassword(vkUser.getPassword());
-        shop().interactAuthModal().interactAuthVkWindow()
-                .clickToLogin();
+        shop().interactAuthModal().interactAuthVkWindow().setEmail(vkUser.getEmail());
+        shop().interactAuthModal().interactAuthVkWindow().setPassword(vkUser.getPassword());
+        shop().interactAuthModal().interactAuthVkWindow().clickToLogin();
         shop().interactAuthModal().interactAuthVkWindow().switchToFirstWindow();
         shop().interactAuthModal().checkModalIsNotVisible();
+
+        //TODO на production появляется окно подтверждения номера телефона, на кракене - нет, тест падает.
+        shop().interactAuthModal().checkModalConfirmPhoneIsVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }
 
     @CaseId(1460)
     @Story("Авторизация через Mail.ru")
-    @Test(description = "Тест успешной авторизация через MailRu", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешной авторизация через MailRu", groups = {"production", "smoke", "regression"})
     public void successRegWithMailRu() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -143,6 +143,9 @@ public final class UserAuthorisationTests {
         shop().interactAuthModal().interactAuthMailWindow().clickToAccept();
         shop().interactAuthModal().interactAuthMailWindow().switchToFirstWindow();
         shop().interactAuthModal().checkModalIsNotVisible();
+
+        //TODO на production появляется окно подтверждения номера телефона, на кракене - нет, тест падает.
+        shop().interactAuthModal().checkModalConfirmPhoneIsVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -169,7 +172,7 @@ public final class UserAuthorisationTests {
     //@CaseId(1459)
     @CaseId(3522)
     @Story("Авторизация через SberID")
-    @Test(description = "Тест перехода на сайт Sber ID", groups = {"smoke", "regression"})
+    @Test(description = "Тест перехода на сайт Sber ID", groups = {"production", "smoke", "regression"})
     public void checkCorrectTransitionToSberIdSite() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

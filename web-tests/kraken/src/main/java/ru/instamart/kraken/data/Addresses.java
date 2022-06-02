@@ -1,5 +1,7 @@
 package ru.instamart.kraken.data;
 
+import ru.instamart.kraken.config.EnvironmentProperties;
+
 public final class Addresses {
 
     public static class Moscow {
@@ -8,8 +10,16 @@ public final class Addresses {
             return "проспект Мира, 211к1";
         }
 
+        public static String getDefaultAddressRest(){
+            return (EnvironmentProperties.Env.isProduction() ? defaultAddressProdRest() : defaultAddressRest());
+        }
+
         public static String defaultAddressRest() {
             return "Москва, просп. Мира, 211, стр. 1";
+        }
+
+        public static String defaultAddressProdRest() {
+            return "Москва, Обучение, 1";
         }
 
         public static String testAddress() {

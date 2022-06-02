@@ -65,7 +65,7 @@ public final class ApiHelper {
 
     @Step("Добавить {count} продукт в список избранного")
     public void addFavorites(final UserData userData, final int sid, final int count) {
-        apiV2.authByPhone(userData);
+        apiV2.authByQA(userData);
         apiV2.addFavoritesListProductBySid(sid, count);
     }
 
@@ -102,7 +102,7 @@ public final class ApiHelper {
      */
     @Step("Наполняем корзину с помощью API")
     public void dropAndFillCart(final UserData user, final Integer sid) {
-        apiV2.authByPhone(user);
+        apiV2.authByQA(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
@@ -200,7 +200,7 @@ public final class ApiHelper {
      */
     @Step("Указываем адрес с помощью API")
     public AddressV2 setAddress(final UserData user, AddressV2 address) {
-        apiV2.authByPhone(user);
+        apiV2.authByQA(user);
         apiV2.getCurrentOrderNumber();
         return apiV2.setAddressAttributes(user, address);
     }
@@ -232,7 +232,7 @@ public final class ApiHelper {
     }
 
     public OrderV2 makeOrder(final UserData user, final int sid, final int itemsNumber, final AddressV2 address) {
-        apiV2.authByPhone(user);
+        apiV2.authByQA(user);
 
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
@@ -368,7 +368,7 @@ public final class ApiHelper {
 
     @Step("Отменяем все заказы с помощью API")
     public void cancelAllActiveOrders(final UserData userData) {
-        apiV2.authByPhone(userData);
+        apiV2.authByQA(userData);
         apiV2.cancelActiveOrders();
     }
 

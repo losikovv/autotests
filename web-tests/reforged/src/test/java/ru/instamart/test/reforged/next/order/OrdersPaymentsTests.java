@@ -32,7 +32,7 @@ public final class OrdersPaymentsTests {
     public void beforeTest() {
         this.company = JuridicalData.juridical();
         this.ordersUser = UserManager.getQaUser();
-        this.helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
@@ -51,13 +51,8 @@ public final class OrdersPaymentsTests {
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
-
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().clickToForSelf();
+        checkout().setDeliveryOptions().fillComments("test");
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().setContacts().fillContactInfo();
@@ -77,12 +72,12 @@ public final class OrdersPaymentsTests {
 
         userShipments().checkPageContains(userShipments().pageUrl());
         userShipments().checkStatusShipmentReady();
-        userShipments().checkPaymentMethodCardOnline();
+        userShipments().checkPaymentMethodEquals("Картой онлайн");
     }
 
     @CaseId(1625)
     @Story("Тест заказа с оплатой картой курьеру")
-    @Test(description = "Тест заказа с оплатой картой курьеру", groups = {"smoke", "regression"})
+    @Test(description = "Тест заказа с оплатой картой курьеру", groups = {"production", "smoke", "regression"})
     public void successOrderWithCardCourier() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -91,13 +86,8 @@ public final class OrdersPaymentsTests {
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
-
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().clickToForSelf();
+        checkout().setDeliveryOptions().fillComments("test");
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().setContacts().fillContactInfo();
@@ -113,7 +103,7 @@ public final class OrdersPaymentsTests {
         userShipments().checkPageContains(userShipments().pageUrl());
 
         userShipments().checkStatusShipmentReady();
-        userShipments().checkPaymentMethodCardToCourier();
+        userShipments().checkPaymentMethodEquals("Картой курьеру");
     }
 
     @CaseId(1626)
@@ -155,7 +145,7 @@ public final class OrdersPaymentsTests {
         userShipments().checkPageContains(userShipments().pageUrl());
 
         userShipments().checkStatusShipmentReady();
-        userShipments().checkPaymentMethodForBusiness();
+        userShipments().checkPaymentMethodEquals("По счёту для бизнеса");
     }
 
     @CaseIDs({@CaseId(3238), @CaseId(3235)})

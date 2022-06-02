@@ -61,19 +61,9 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
                 "Список продуктов не соответствует ожидаемому");
     }
 
-    @Step("Проверка метода оплаты 'Картой онлайн'")
-    default void checkPaymentMethodCardOnline() {
-        waitAction().shouldBeVisible(paymentMethodCardOnline);
-    }
-
-    @Step("Проверка метода оплаты 'Картой курьеру'")
-    default void checkPaymentMethodCardToCourier() {
-        waitAction().shouldBeVisible(paymentMethodCardToCourier);
-    }
-
-    @Step("Проверка метода оплаты 'По счёту для бизнеса'")
-    default void checkPaymentMethodForBusiness() {
-        waitAction().shouldBeVisible(paymentMethodForBusiness);
+    @Step("Проверяем, что метод оплаты: '{expectedPaymentMethod}'")
+    default void checkPaymentMethodEquals(final String expectedPaymentMethod) {
+        Assert.assertEquals(paymentMethod.getText(), expectedPaymentMethod, "Метод оплаты в заказе отличается от ожидаемого");
     }
 
     @Step("Проверка метода политики замен {0}")

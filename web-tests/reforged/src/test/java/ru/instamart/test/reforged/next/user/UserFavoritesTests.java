@@ -12,8 +12,7 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.next.page.StfRouter.shop;
-import static ru.instamart.reforged.next.page.StfRouter.userFavorites;
+import static ru.instamart.reforged.next.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Любимые товары")
@@ -23,14 +22,14 @@ public final class UserFavoritesTests {
 
     @CaseId(1263)
     @Test(description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
-            groups = {"smoke", "regression"})
+            groups = {"production", "smoke", "regression"})
     public void noAccessToFavoritesForUnauthorizedUser() {
         userFavorites().goToPage();
         userFavorites().checkForbiddenPageUrl(userFavorites().pageUrl());
     }
 
     @CaseId(1265)
-    @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = "regression")
+    @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {"production", "regression"})
     public void noFavoriteItemsByDefault() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -42,7 +41,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1266)
-    @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {"smoke", "regression"})
+    @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {"production", "smoke", "regression"})
     public void successAddFavoriteOnItemCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -71,8 +70,6 @@ public final class UserFavoritesTests {
 
         userFavorites().goToPage();
         userFavorites().removeFirstFavoriteItem();
-
-        //TODO Разобратся, что за костыль торчит уже больше года, похоже на баг - после удаления кидает на 404
         userFavorites().refresh();
 
         userFavorites().checkCountChange(userFavorites().getFavoritesCount(), 1);
@@ -92,10 +89,7 @@ public final class UserFavoritesTests {
 
         userFavorites().goToPage();
         userFavorites().removeFirstFavoriteItem();
-
-        //TODO Разобратся, что за костыль торчит уже больше года, похоже на баг - после удаления кидает на 404
         userFavorites().refresh();
-
         userFavorites().checkEmptyFavorites();
     }
 
@@ -154,7 +148,8 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1272)
-    @Test(description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным", groups = {"smoke", "regression"})
+    @Test(description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным",
+            groups = {"production", "smoke", "regression"})
     public void successAuthAfterAddFavoriteOnItemCard() {
         shop().goToPage();
         shop().openFirstProductCard();
@@ -165,22 +160,22 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1492)
-    @Test(description = "Тест добавления товаров в корзину из списка любимых товаров", groups = {"smoke", "regression"})
+    @Test(description = "Тест добавления товаров в корзину из списка любимых товаров",
+            groups = {"production", "smoke", "regression"})
     public void successAddFavoriteProductToCart() {
         final UserData userData = UserManager.getQaUser();
-        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 3);
+        apiHelper.setAddress(userData, RestAddresses.getDefaultAddress());
+        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 3);
 
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+        home().checkDeliveryStoresContainerVisible();
+
+        home().clickOnStoreWithSid(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
 
         userFavorites().goToPage();
         userFavorites().addToCartFirstFavoriteItem();
-
-        shop().interactHeader().checkCartNotificationIsVisible();
-
         userFavorites().interactHeader().clickToCart();
         userFavorites().interactHeader().interactCart().checkCartNotEmpty();
     }
