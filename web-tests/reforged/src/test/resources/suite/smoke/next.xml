@@ -23,6 +23,9 @@
 
             <class name="ru.instamart.test.reforged.next.shopping.ShoppingCatalogTests"/>
             <class name="ru.instamart.test.reforged.next.shopping.ShoppingSearchTests"/>
+
+            <class name="ru.instamart.test.reforged.next.order.BasicOrdersTests"/>
+            <class name="ru.instamart.test.reforged.next.order.OrderRepeatTests"/>
         </classes>
     </test>
 </suite>
