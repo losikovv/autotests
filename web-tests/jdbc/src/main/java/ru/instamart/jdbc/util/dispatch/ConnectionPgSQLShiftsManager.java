@@ -50,7 +50,7 @@ public class ConnectionPgSQLShiftsManager {
         for (int i = 0; i < DEFAULT_PGSQL_POOL_SIZE; i++) {
             var connection = open();
             var proxyConnection = (Connection)
-                    Proxy.newProxyInstance(ConnectionPgSQLManager.class.getClassLoader(), new Class[]{Connection.class},
+                    Proxy.newProxyInstance(ConnectionPgSQLShiftsManager.class.getClassLoader(), new Class[]{Connection.class},
                             (proxy, method, args) -> method.getName().equals("close")
                                     ? pool.add((Connection) proxy)
                                     : method.invoke(connection, args));

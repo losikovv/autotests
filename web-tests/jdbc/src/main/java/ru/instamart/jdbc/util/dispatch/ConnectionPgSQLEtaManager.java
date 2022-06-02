@@ -51,7 +51,7 @@ public class ConnectionPgSQLEtaManager {
         for (int i = 0; i < 1; i++) {
             var connection = open();
             var proxyConnection = (Connection)
-                    Proxy.newProxyInstance(ConnectionPgSQLManager.class.getClassLoader(), new Class[]{Connection.class},
+                    Proxy.newProxyInstance(ConnectionPgSQLEtaManager.class.getClassLoader(), new Class[]{Connection.class},
                             (proxy, method, args) -> method.getName().equals("close")
                                     ? pool.add((Connection) proxy)
                                     : method.invoke(connection, args));
