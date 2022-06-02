@@ -85,6 +85,7 @@
             <class name="ru.instamart.test.api.admin.StoresAdminTest"/>
             <class name="ru.instamart.test.api.admin.TaxonomiesAdminTest"/>
             <class name="ru.instamart.test.api.admin.OptionTypesAdminTest"/>
+            <class name="ru.instamart.test.api.admin.PromotionCodesAdminTest"/>
             <class name="ru.instamart.test.api.admin.PropertiesAdminTest"/>
             <class name="ru.instamart.test.api.admin.BrandsAdminTest"/>
             <class name="ru.instamart.test.api.admin.ZonesAdminTest"/>

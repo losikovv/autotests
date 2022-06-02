@@ -34,6 +34,8 @@ public final class AdminEndpoints {
     public static final String PAGE = "pages/{pageId}";
     public static final String PAGES = "pages";
 
+    public static final String PROMOTION_CODES = "promotion_codes";
+
     public static final String PROPERTIES = "properties";
     public static final String PROPERTY = "properties/{propertyId}";
 
