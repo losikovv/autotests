@@ -56,7 +56,6 @@ public final class OrderRepeatTests {
         userShipments().goToPage();
         userShipments().clickToFirstShipment();
         userShipments().clickToRepeatFromOrder();
-        userShipments().waitPageLoad();
         userShipments().interactRepeatModal().checkModalWindowVisible();
         userShipments().interactRepeatModal().clickToAccept();
 
