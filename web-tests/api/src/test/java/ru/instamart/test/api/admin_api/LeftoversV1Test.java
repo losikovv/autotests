@@ -10,6 +10,7 @@ import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v1.admin.LeftoversAdminV1Request;
 import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
+import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -29,6 +30,7 @@ public class LeftoversV1Test extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         UserData user = UserManager.getQaUser();
+        user.setUuid(SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()).getUuid());
         apiV2.authByQA(user);
         apiV2.dropAndFillCart(user, EnvironmentProperties.DEFAULT_SID);
         apiV2.bindCardToUser(user, apiV2.getCurrentOrderNumber(), testCardNo3dsWithSpasibo());

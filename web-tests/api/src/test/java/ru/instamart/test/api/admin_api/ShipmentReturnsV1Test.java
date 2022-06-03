@@ -16,6 +16,7 @@ import ru.instamart.api.response.v1.admin.ShipmentReturnV1Response;
 import ru.instamart.api.response.v1.admin.ShipmentReturnsV1Response;
 import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
+import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -43,6 +44,7 @@ public class ShipmentReturnsV1Test extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         UserData user = UserManager.getQaUser();
+        user.setUuid(SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()).getUuid());
         apiV2.authByQA(user);
         apiV2.dropAndFillCart(user, EnvironmentProperties.DEFAULT_SID);
         apiV2.bindCardToUser(user, apiV2.getCurrentOrderNumber(), testCardNo3dsWithSpasibo());

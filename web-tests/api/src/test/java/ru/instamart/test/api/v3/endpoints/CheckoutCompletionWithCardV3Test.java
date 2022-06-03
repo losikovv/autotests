@@ -16,6 +16,7 @@ import ru.instamart.api.request.v3.CheckoutV3Request;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
 import ru.instamart.api.response.v3.CompletionPaymentV3Response;
 import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
+import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -40,6 +41,7 @@ public class CheckoutCompletionWithCardV3Test extends RestBase {
     @BeforeMethod(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         user = UserManager.getQaUser();
+        user.setUuid(SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()).getUuid());
         apiV1.authByPhone(user);
         apiV2.authByQA(user);
         addressDefaultSid = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID);

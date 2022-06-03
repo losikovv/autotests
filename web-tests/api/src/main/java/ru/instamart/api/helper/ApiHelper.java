@@ -1,14 +1,11 @@
 package ru.instamart.api.helper;
 
 import io.qameta.allure.Step;
-import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import ru.instamart.api.enums.v1.ImportStatusV1;
 import ru.instamart.api.model.shopper.app.ShipmentSHP;
-import ru.instamart.api.model.v1.DeliveryWindowV1;
-import ru.instamart.api.model.v1.OperationalZoneV1;
-import ru.instamart.api.model.v1.RetailerV1;
+import ru.instamart.api.model.v1.*;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.DeliveryWindowV2;
 import ru.instamart.api.model.v2.OrderV2;
@@ -21,13 +18,7 @@ import ru.instamart.api.request.v1.RetailersV1Request;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request;
 import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
-import ru.instamart.api.request.v2.CurrentTimeV2Request;
-import ru.instamart.api.request.v2.PaymentsV2Request;
-import ru.instamart.api.response.v1.PricersV1Response;
-import ru.instamart.api.response.v1.ShippingMethodsResponse;
 import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
-import ru.instamart.api.response.v2.CreditCardAuthorizationV2Response;
-import ru.instamart.api.response.v2.CurrentTimeV2Response;
 import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.jdbc.dao.shopper.RetailersShopperDao;
 import ru.instamart.jdbc.dao.stf.*;
@@ -39,14 +30,12 @@ import ru.instamart.kraken.data.StoreLabelData;
 import ru.instamart.kraken.data.StoreZonesCoordinates;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.util.CryptCard;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.kraken.util.TimeUtil;
 
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreForRetailerTests;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
 import static ru.sbermarket.common.FileUtils.changeXlsFileSheetName;
@@ -468,7 +457,7 @@ public final class ApiHelper {
     }
 
     @Step("Получить список доступных методов доставки")
-    public List<ShippingMethodsResponse.ShippingMethods> getShippingMethod() {
+    public List<ShippingMethodV1> getShippingMethod() {
         admin.authApi();
         return admin.getShippingMethods();
     }
@@ -480,13 +469,13 @@ public final class ApiHelper {
     }
 
     @Step("Получить список маркетинговых правил доставки для метода {0}")
-    public List<PricersV1Response.Pricer> getMarketingRule(final int methodId) {
+    public List<PricerV1> getMarketingRule(final int methodId) {
         admin.authApi();
         return admin.getMarketingRule(methodId);
     }
 
     @Step("Создание нового маркетингово правила для доставки {0}")
-    public PricersV1Response.Pricer createMarketingRule(final int id) {
+    public PricerV1 createMarketingRule(final int id) {
         admin.authApi();
         return admin.createMarketingRule(id);
     }
@@ -498,13 +487,13 @@ public final class ApiHelper {
     }
 
     @Step("Получить список номинальных правил доставки для метода {0}")
-    public List<PricersV1Response.Pricer> getNominalRule(final int methodId) {
+    public List<PricerV1> getNominalRule(final int methodId) {
         admin.authApi();
         return admin.getNominalRule(methodId);
     }
 
     @Step("Создание нового номинального правила для доставки {0}")
-    public PricersV1Response.Pricer createNominalRule(final int id) {
+    public PricerV1 createNominalRule(final int id) {
         admin.authApi();
         return admin.createNominalRule(id);
     }

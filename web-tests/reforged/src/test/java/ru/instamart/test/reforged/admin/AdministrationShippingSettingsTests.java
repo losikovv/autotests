@@ -7,11 +7,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.api.model.v1.ShippingMethodV1;
 import ru.instamart.api.request.admin.ShippingMethodsRequest.ShippingMethod;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.Calculators;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.Rules;
-import ru.instamart.api.response.v1.ShippingMethodsResponse.ShippingMethods;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -33,7 +33,7 @@ public final class AdministrationShippingSettingsTests {
             .type(ShippingMethodsV1Request.CalculatorType.FLAT_CALCULATOR)
             .build();
 
-    private ShippingMethods shippingMethod;
+    private ShippingMethodV1 shippingMethod;
 
     @BeforeClass(alwaysRun = true)
     public void beforeClass() {

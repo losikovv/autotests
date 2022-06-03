@@ -1,7 +1,7 @@
 package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
-import ru.instamart.jdbc.entity.stf.SpreeShippingMethods;
+import ru.instamart.jdbc.entity.stf.SpreeShippingMethodsEntity;
 import ru.instamart.jdbc.util.ConnectionMySQLManager;
 
 import java.sql.Connection;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
 
-public class SpreeShippingMethodsDao extends AbstractDao<Long, SpreeShippingMethods> {
+public class SpreeShippingMethodsDao extends AbstractDao<Long, SpreeShippingMethodsEntity> {
 
     public static final SpreeShippingMethodsDao INSTANCE = new SpreeShippingMethodsDao();
     private final String SELECT_SQL = "SELECT %s FROM spree_shipping_methods";
@@ -28,5 +28,18 @@ public class SpreeShippingMethodsDao extends AbstractDao<Long, SpreeShippingMeth
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return id;
+    }
+
+    public int getCount() {
+        int resultCount = 0;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            resultCount = resultSet.getInt("total");
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return resultCount;
     }
 }
