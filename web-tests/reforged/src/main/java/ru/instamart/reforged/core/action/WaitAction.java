@@ -109,12 +109,12 @@ public final class WaitAction {
     }
 
     public void urlEquals(final String url) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
+        createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница: " + getWebDriver().getCurrentUrl() + " отличается от ожидаемой:" + url)
                 .until(ExpectedConditions.urlToBe(url));
     }
 
     public void urlContains(final String url) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
+        createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница: "+ getWebDriver().getCurrentUrl() +" не содержит ожидаемого url: " + url)
                 .until(ExpectedConditions.urlContains(url));
     }
 
