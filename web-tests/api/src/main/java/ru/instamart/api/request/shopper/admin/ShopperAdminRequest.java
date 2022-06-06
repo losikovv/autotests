@@ -97,6 +97,13 @@ public class   ShopperAdminRequest extends ShopperAdminRequestBase {
             return givenWithAuth().get(ShopperAdminEndpoints.Stores.ESTIMATOR_SETTINGS, retailerUUID);
         }
 
+        @Step("{method} /" + ShopperAdminEndpoints.Stores.ESTIMATOR_SETTINGS)
+        public static Response PUT(String retailerUUID, PutEstimatorSettings parameters) {
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(parameters)
+                    .put(ShopperAdminEndpoints.Stores.ESTIMATOR_SETTINGS, retailerUUID);
+        }
         public static class DispatchSettings {
             @Step("{method} /" + ShopperAdminEndpoints.Stores.DISPATCH_SETTINGS)
             public static Response GET(String retailerUUID) {
@@ -447,6 +454,44 @@ public class   ShopperAdminRequest extends ShopperAdminRequestBase {
         private Integer timeToAcceptOfferSec;
         @JsonProperty("timeout_segment_pass_to_client_sec")
         private Integer timeoutSegmentPassToClientSec;
+    }
+
+    @Builder
+    @Data
+    @EqualsAndHashCode
+    public static class PutEstimatorSettings {
+        @JsonProperty("estimator_settings")
+        private SettingsRes settingsRes;
+    }
+
+    @Builder
+    @Data
+    @EqualsAndHashCode
+    public static class SettingsRes {
+        @JsonProperty("settings")
+        private EstimatorParameters estimatorParameters;
+    }
+
+    @Builder
+    @Data
+    @EqualsAndHashCode
+    public static class EstimatorParameters {
+        @JsonProperty("store_uuid")
+        private String storeUuid;
+        @JsonProperty("avg_parking_min_vehicle")
+        private Integer avgParkingMinVehicle;
+        @JsonProperty("average_speed_for_straight_distance_to_client_min")
+        private Integer averageSpeedForStraightDistanceToClientMin;
+        @JsonProperty("additional_factor_for_straight_distance_to_client_min")
+        private Integer additionalFactorForStraightDistanceToClientMin;
+        @JsonProperty("order_receive_time_from_assembly_to_delivery_min")
+        private Integer orderReceiveTimeFromAssemblyToDeliveryMin;
+        @JsonProperty("avg_to_place_min_external")
+        private Integer avgToPlaceMinExternal;
+        @JsonProperty("order_transfer_time_from_assembly_to_delivery_min")
+        private Integer orderTransferTimeFromAssemblyToDeliveryMin;
+        @JsonProperty("order_transfer_time_from_delivery_to_client_min")
+        private Integer orderTransferTimeFromDeliveryToClientMin;
     }
 
 }

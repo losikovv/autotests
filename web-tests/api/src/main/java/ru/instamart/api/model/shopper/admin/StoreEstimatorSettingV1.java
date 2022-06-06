@@ -9,25 +9,25 @@ import ru.instamart.api.model.BaseObject;
 @EqualsAndHashCode(callSuper=false)
 public class StoreEstimatorSettingV1 extends BaseObject {
     @JsonSchema(required = true)
-    private int avgParkingMinVehicle;
+    private Integer avgParkingMinVehicle;
 
     @JsonSchema(required = true)
-    private int averageSpeedForStraightDistanceToClientMin;
+    private Integer averageSpeedForStraightDistanceToClientMin;
 
     @JsonSchema(required = true)
-    private int additionalFactorForStraightDistanceToClientMin;
+    private Integer additionalFactorForStraightDistanceToClientMin;
 
     @JsonSchema(required = true)
-    private int orderTransferTimeFromAssemblyToDeliveryMin;
+    private Integer orderTransferTimeFromAssemblyToDeliveryMin;
 
     @JsonSchema(required = true)
-    private int avgToPlaceMinExternal;
+    private Integer avgToPlaceMinExternal;
 
     @JsonSchema(required = true)
-    private int orderTransferTimeFromDeliveryToClientMin;
+    private Integer orderTransferTimeFromDeliveryToClientMin;
 
     @JsonSchema(required = true)
-    private int orderReceiveTimeFromAssemblyToDeliveryMin;
+    private Integer orderReceiveTimeFromAssemblyToDeliveryMin;
 
     @JsonSchema(required = true)
     private String storeUuid;
