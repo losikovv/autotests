@@ -9,12 +9,28 @@ import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
 import ru.sbermarket.common.Mapper;
 
+import java.util.List;
+
 public final class ShippingMethodsV1Request extends ApiV1RequestBase {
 
     @Step("{method} /" + ApiV1Endpoints.SHIPPING_METHODS)
     public static Response GET() {
         return givenWithAuth()
                 .get(ApiV1Endpoints.SHIPPING_METHODS);
+    }
+
+    @Step("{method} /" + ApiV1Endpoints.Admin.SHIPPING_METHODS)
+    public static Response POST(ShippingMethod shippingMethod) {
+        return givenWithAuth()
+                .contentType(ContentType.JSON)
+                .body(shippingMethod)
+                .post(ApiV1Endpoints.Admin.SHIPPING_METHODS);
+    }
+
+    @Step("{method} /" + ApiV1Endpoints.ShippingMethods.ID)
+    public static Response GET(long shippingMethodId) {
+        return givenWithAuth()
+                .get(ApiV1Endpoints.ShippingMethods.ID, shippingMethodId);
     }
 
     @JsonTypeName("rule")
@@ -27,20 +43,26 @@ public final class ShippingMethodsV1Request extends ApiV1RequestBase {
         private Preferences preferences;
         private RulesType type;
 
-        @Step("{method} /" + ApiV1Endpoints.ShippingMethods.RULES)
+        @Step("{method} /" + ApiV1Endpoints.ShippingMethods.Pricers.RULES)
         public static Response POST(final int ruleId, final Rules rules) {
             return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(Mapper.INSTANCE.objectToMap(rules))
-                    .post(ApiV1Endpoints.ShippingMethods.RULES, ruleId);
+                    .post(ApiV1Endpoints.ShippingMethods.Pricers.RULES, ruleId);
         }
 
-        @Step("{method} /" + ApiV1Endpoints.ShippingMethods.Rules.RULE_ID)
+        @Step("{method} /" + ApiV1Endpoints.ShippingMethods.Pricers.Rules.RULE_ID)
         public static Response PUT(final int ruleId, final Rules rules) {
             return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(Mapper.INSTANCE.objectToMap(rules))
-                    .put(ApiV1Endpoints.ShippingMethods.Rules.RULE_ID, ruleId);
+                    .put(ApiV1Endpoints.ShippingMethods.Pricers.Rules.RULE_ID, ruleId);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.ShippingMethods.Pricers.RULE_TYPES)
+        public static Response GET() {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.ShippingMethods.Pricers.RULE_TYPES);
         }
     }
 
@@ -54,20 +76,26 @@ public final class ShippingMethodsV1Request extends ApiV1RequestBase {
         private Preferences preferences;
         private CalculatorType type;
 
-        @Step("{method} /" + ApiV1Endpoints.ShippingMethods.CALCULATORS)
+        @Step("{method} /" + ApiV1Endpoints.ShippingMethods.Pricers.CALCULATORS)
         public static Response POST(final int ruleId, final Calculators calculators) {
             return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(Mapper.INSTANCE.objectToMap(calculators))
-                    .post(ApiV1Endpoints.ShippingMethods.CALCULATORS, ruleId);
+                    .post(ApiV1Endpoints.ShippingMethods.Pricers.CALCULATORS, ruleId);
         }
 
-        @Step("{method} /" + ApiV1Endpoints.ShippingMethods.Calculator.RULE_ID)
+        @Step("{method} /" + ApiV1Endpoints.ShippingMethods.Pricers.Calculators.RULE_ID)
         public static Response PUT(final int ruleId, final Calculators calculator) {
             return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(Mapper.INSTANCE.objectToString(calculator))
-                    .put(ApiV1Endpoints.ShippingMethods.Calculator.RULE_ID, ruleId);
+                    .put(ApiV1Endpoints.ShippingMethods.Pricers.Calculators.RULE_ID, ruleId);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.ShippingMethods.Pricers.CALCULATOR_TYPES)
+        public static Response GET() {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.ShippingMethods.Pricers.CALCULATOR_TYPES);
         }
     }
 
@@ -150,6 +178,20 @@ public final class ShippingMethodsV1Request extends ApiV1RequestBase {
         private int periodInDays;
         @JsonProperty(value = "item_cost_minimum")
         private double itemCostMinimum;
+    }
+
+    @JsonTypeName("shipping_method")
+    @JsonTypeInfo(include= JsonTypeInfo.As.WRAPPER_OBJECT, use= JsonTypeInfo.Id.NAME)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Data
+    @Builder
+    public static final class ShippingMethod {
+
+        private String name;
+        @JsonProperty("shipping_category_ids")
+        private List<Long> shippingCategoryIds;
+        @JsonProperty("shipping_method_kind_id")
+        private Long shippingMethodKindId;
     }
 
     @RequiredArgsConstructor

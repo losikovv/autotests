@@ -3,7 +3,7 @@ package ru.instamart.jdbc.entity.stf;
 import lombok.Data;
 
 @Data
-public class SpreeShippingMethods {
+public class SpreeShippingMethodsEntity {
     private Long id;
     private String name;
     private String displayOn;

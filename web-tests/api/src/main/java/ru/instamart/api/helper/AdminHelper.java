@@ -95,11 +95,11 @@ public class AdminHelper {
         return response.as(OperationalZoneV1Response.class).getOperationalZone();
     }
 
-    public List<ShippingMethodsResponse.ShippingMethods> getShippingMethods() {
+    public List<ShippingMethodV1> getShippingMethods() {
         final var response = ShippingMethodsV1Request.GET();
         checkStatusCode200(response);
 
-        return response.as(ShippingMethodsResponse.class).getShippingMethods();
+        return response.as(ShippingMethodsV1Response.class).getShippingMethods();
     }
 
     public void createShippingMethod(final ShippingMethodsRequest.ShippingMethod shippingMethod) {
@@ -107,14 +107,14 @@ public class AdminHelper {
         checkStatusCode302(response);
     }
 
-    public List<PricersV1Response.Pricer> getMarketingRule(final int methodId) {
+    public List<PricerV1> getMarketingRule(final int methodId) {
         final var response = MarketingPricers.GET(methodId);
         checkStatusCode200(response);
 
         return response.as(PricersV1Response.class).getPricers();
     }
 
-    public PricersV1Response.Pricer createMarketingRule(final int id) {
+    public PricerV1 createMarketingRule(final int id) {
         final var response = MarketingPricers.POST(id);
         checkStatusCode200(response);
 
@@ -126,14 +126,14 @@ public class AdminHelper {
         checkStatusCode200(response);
     }
 
-    public List<PricersV1Response.Pricer> getNominalRule(final int methodId) {
+    public List<PricerV1> getNominalRule(final int methodId) {
         final var response = NominalPricers.GET(methodId);
         checkStatusCode200(response);
 
         return response.as(PricersV1Response.class).getPricers();
     }
 
-    public PricersV1Response.Pricer createNominalRule(final int id) {
+    public PricerV1 createNominalRule(final int id) {
         final var response = NominalPricers.POST(id);
         checkStatusCode200(response);
 

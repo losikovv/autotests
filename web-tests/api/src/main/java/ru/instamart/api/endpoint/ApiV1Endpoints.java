@@ -57,7 +57,9 @@ public final class ApiV1Endpoints {
         public static final String OPERATIONAL_ZONES = "admin/operational_zones";
         public static final String SHIPMENTS = "admin/shipments.json";
         public static final String SHIPMENT = "admin/shipments/{uuid}";
+        public static final String SHIPPING_CATEGORIES = "admin/shipping_categories";
         public static final String SHIPPING_METHOD_KINDS = "admin/shipping_method_kinds";
+        public static final String SHIPPING_METHODS = "admin/shipping_methods";
         public static final String SMS_SETTINGS = "admin/sms_settings";
         public static final String TENANTS = "admin/tenants";
         public static final String USER_PERMISSIONS = "admin/user_permissions";
@@ -321,13 +323,7 @@ public final class ApiV1Endpoints {
     }
 
     public static final class ShippingMethods {
-
-        public static final String CALCULATORS = "shipping_methods/pricers/{ruleId}/calculators";
-        public static final String RULES = "shipping_methods/pricers/{ruleId}/rules";
-
-        public static final class Calculator {
-            public static final String RULE_ID = "shipping_methods/pricers/calculators/{ruleId}";
-        }
+        public static final String ID = "shipping_methods/{id}";
 
         public static final class MarketingPricers {
             public static final String MARKETING_PRICERS = "shipping_methods/{methodId}/marketing_pricers";
@@ -339,8 +335,19 @@ public final class ApiV1Endpoints {
             public static final String RULE_ID = "shipping_methods/nominal_cost_pricers/{ruleId}";
         }
 
-        public static final class Rules {
-            public static final String RULE_ID = "shipping_methods/pricers/rules/{ruleId}";
+        public static final class Pricers {
+            public static final String CALCULATORS = "shipping_methods/pricers/{ruleId}/calculators";
+            public static final String CALCULATOR_TYPES = "shipping_methods/pricers/calculator_types";
+            public static final String RULES = "shipping_methods/pricers/{ruleId}/rules";
+            public static final String RULE_TYPES = "shipping_methods/pricers/rule_types";
+
+            public static final class Calculators {
+                public static final String RULE_ID = "shipping_methods/pricers/calculators/{ruleId}";
+            }
+
+            public static final class Rules {
+                public static final String RULE_ID = "shipping_methods/pricers/rules/{ruleId}";
+            }
         }
     }
 

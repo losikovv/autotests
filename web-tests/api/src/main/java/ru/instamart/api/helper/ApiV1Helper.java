@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.request.v1.CheckoutV1Request.getOrderAttributes;
 
@@ -280,5 +281,19 @@ public class ApiV1Helper {
     public void deleteShipment(String shipmentNumber, String orderToken) {
         final Response response = ShipmentsV1Request.DELETE(shipmentNumber, orderToken);
         checkStatusCode200(response);
+    }
+
+    @Step("Получаем категории доставки")
+    public List<AdminShippingCategoryV1> getShippingCategories() {
+        final Response response = ShippingCategoriesV1Request.GET();
+        checkStatusCode200(response);
+        return response.as(ShippingCategoriesV1Response.class).getShippingCategories();
+    }
+
+    @Step("Получаем способы доставки")
+    public List<ShippingMethodKindV1> getShippingMethodKinds() {
+        final Response response = ShippingMethodKindsV1Request.Admin.GET();
+        checkStatusCode200(response);
+        return response.as(ShippingMethodKindsV1Response.class).getShippingMethodKinds();
     }
 }
