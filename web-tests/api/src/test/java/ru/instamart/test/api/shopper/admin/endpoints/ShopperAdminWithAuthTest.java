@@ -4,8 +4,11 @@ import estimator.Estimator;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.apache.commons.lang3.RandomUtils;
 import org.testng.Assert;
+import ru.instamart.api.checkpoint.BaseApiCheckpoints;
 import ru.instamart.api.checkpoint.StatusCodeCheckpoints;
+import ru.instamart.api.request.shopper.admin.ShopperAdminRequest.PutEstimatorSettings;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
@@ -28,6 +31,7 @@ import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.request.shopper.admin.ShopperAdminRequest.SettingsRes.builder;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 import static ru.instamart.kraken.util.TimeUtil.getPastDateWithoutTime;
 
@@ -363,12 +367,64 @@ public class ShopperAdminWithAuthTest extends RestBase {
     @Test(description = "Получение настроек сервиса RES",
             groups = {"api-shopper-regress"})
     public void getEstimatorSettings() {
-        String retailerUUID = "684609ad-6360-4bae-9556-03918c1e41c1";
+        String retailerUUID = "4872ead0-274b-49a2-955e-a5101a7de9cb";
         final Response response = ShopperAdminRequest.Stores.GET(retailerUUID);
 
         RouteEstimatorResponse parameters = response.as(RouteEstimatorResponse.class);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RouteEstimatorResponse.class);
         assertEquals(parameters.getStoreEstimatorSetting().getStoreUuid(), retailerUUID, "Вернулся неверный UUID");
+    }
+
+    @Story("Dispatch settings")
+    @CaseId(189)
+    @Test(description = "Изменение настроек сервиса RES",
+            groups = {"api-shopper-regress"})
+    public void putEstimatorSettings() {
+        String retailerUUID = "4872ead0-274b-49a2-955e-a5101a7de9cb";
+        var parameters = PutEstimatorSettings.builder()
+                .settingsRes(ShopperAdminRequest.SettingsRes.builder()
+                        .estimatorParameters(ShopperAdminRequest.EstimatorParameters.builder()
+                                .storeUuid("4872ead0-274b-49a2-955e-a5101a7de9cb")
+                                .avgParkingMinVehicle(RandomUtils.nextInt(10, 100))
+                                .averageSpeedForStraightDistanceToClientMin(RandomUtils.nextInt(10, 100))
+                                .additionalFactorForStraightDistanceToClientMin(RandomUtils.nextInt(10, 100))
+                                .orderReceiveTimeFromAssemblyToDeliveryMin(RandomUtils.nextInt(10, 100))
+                                .avgToPlaceMinExternal(RandomUtils.nextInt(10, 100))
+                                .orderTransferTimeFromAssemblyToDeliveryMin(RandomUtils.nextInt(10, 100))
+                                .orderTransferTimeFromDeliveryToClientMin(RandomUtils.nextInt(10, 100))
+                                .build())
+                        .build())
+                .build();
+
+        Response response = ShopperAdminRequest.Stores.PUT(retailerUUID, parameters);
+        checkStatusCode200(response);
+
+        Response responseGet = ShopperAdminRequest.Stores.GET(retailerUUID);
+
+        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
+                        .getStoreEstimatorSetting().getAvgParkingMinVehicle(),
+                parameters.getSettingsRes().getEstimatorParameters().getAvgParkingMinVehicle());
+        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
+                        .getStoreEstimatorSetting().getAverageSpeedForStraightDistanceToClientMin(),
+                parameters.getSettingsRes().getEstimatorParameters().getAverageSpeedForStraightDistanceToClientMin());
+        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
+                        .getStoreEstimatorSetting().getAdditionalFactorForStraightDistanceToClientMin(),
+                parameters.getSettingsRes().getEstimatorParameters().getAdditionalFactorForStraightDistanceToClientMin());
+        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
+                        .getStoreEstimatorSetting().getAvgToPlaceMinExternal(),
+                parameters.getSettingsRes().getEstimatorParameters().getAvgToPlaceMinExternal());
+        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
+                        .getStoreEstimatorSetting().getOrderTransferTimeFromDeliveryToClientMin(),
+                parameters.getSettingsRes().getEstimatorParameters().getOrderTransferTimeFromDeliveryToClientMin());
+        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
+                        .getStoreEstimatorSetting().getOrderTransferTimeFromAssemblyToDeliveryMin(),
+                parameters.getSettingsRes().getEstimatorParameters().getOrderTransferTimeFromAssemblyToDeliveryMin());
+        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
+                        .getStoreEstimatorSetting().getOrderReceiveTimeFromAssemblyToDeliveryMin(),
+                parameters.getSettingsRes().getEstimatorParameters().getOrderReceiveTimeFromAssemblyToDeliveryMin());
+        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
+                        .getStoreEstimatorSetting().getStoreUuid(),
+                parameters.getSettingsRes().getEstimatorParameters().getStoreUuid());
     }
 }
