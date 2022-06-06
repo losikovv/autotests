@@ -393,6 +393,7 @@ public final class ApiV1Endpoints {
         public static final String UUID = "stores/{storeUuid}";
         public static final String SCHEDULE = "stores/{storeUuid}/store_schedule";
         public static final String ZONES = "stores/{storeId}/zones";
+        public static final String STORE_ZONES = "stores/{storeId}/zones/{storeZoneId}";
         public static final String ZONE_FILES = "stores/{storeId}/zone_files";
 
         public static final class DeliveryWindows {
