@@ -16,7 +16,7 @@ public interface CartElement {
     Button closeButton = new Button(By.xpath("//button[@data-qa='cart_close-button']"), "Кнопка Закрыть");
     Element cartIsEmptyPlaceholder = new Element(By.xpath("//div[@class='new-cart-empty']"), "Плейсхолдер пустой корзины");
     Button backToCatalogButton = new Button(By.xpath("//button[@data-qa='cart_return_to_catalog_button']"), "Кнопка Вернуться в каталог");
-    Button submitOrder = new Button(By.xpath("//button[@data-qa='cart_checkout_button']"), "Кнопка Сделать заказ");
+    Button submitOrder = new Button(By.xpath("//div[@class='cart-checkout']//button[@type='submit']"), "Кнопка Сделать заказ");
     Element orderAmount = new Element(By.xpath("//div[@class='cart-checkout-link__well']"), "Лейбл суммы заказа");
     Element retailRocketBlock = new Element(By.xpath("//div[@data-qa='cart']//div[contains(@class, 'retail-rocket-block')]"), "Блок Не забудьте купить");
 
