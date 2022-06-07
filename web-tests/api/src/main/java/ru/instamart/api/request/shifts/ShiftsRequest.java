@@ -148,7 +148,7 @@ public class ShiftsRequest extends ShiftsRequestBase {
     @EqualsAndHashCode
     @ToString
     public static final class PlanningPeriods {
-        private final long id;
+        private final Integer id;
         @JsonProperty("guaranteed_payroll")
         private final int guaranteedPayroll;
     }

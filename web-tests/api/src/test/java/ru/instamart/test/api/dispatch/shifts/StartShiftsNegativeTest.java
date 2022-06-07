@@ -30,7 +30,7 @@ public class StartShiftsNegativeTest extends RestBase {
     @BeforeClass(alwaysRun = true,
             description = "Оформляем смену")
     public void preconditions() {
-        UserData user = UserManager.getShp6Shopper2();
+        UserData user = UserManager.getShp6Shopper3();
         shopperApp.authorisation(user);
         shiftsApi.createShift();
         planningPeriodId = shiftsApi.shifts().get(0).getId();

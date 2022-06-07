@@ -22,7 +22,7 @@ public class PlanningPeriodsSHPResponse extends BaseObject {
     private String startedAt;
 
     @JsonProperty("id")
-    private int id;
+    private Integer id;
 
     @JsonProperty("ended_at")
     private String endedAt;

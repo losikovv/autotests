@@ -54,7 +54,7 @@ public final class EnvironmentProperties {
     public static int DEFAULT_PRODUCT_COUNTRY_ID;
     @Config(configName = NAME, fieldName = "defaultIdZone", defaultValue = "")
     public static int DEFAULT_ID_ZONE;
-    @Config(configName = NAME, fieldName = "defaultShiftsZoneId", defaultValue = "")
+    @Config(configName = NAME, fieldName = "defaultShiftsZoneId", defaultValue = "3767")
     public static int DEFAULT_SHIFTS_ZONE_ID;
     @Config(configName = NAME, fieldName = "defaultShopperSid", defaultValue = "")
     public static int DEFAULT_SHOPPER_SID;
