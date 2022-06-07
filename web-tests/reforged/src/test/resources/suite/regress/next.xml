@@ -51,6 +51,9 @@
             <class name="ru.instamart.test.reforged.next.checkout.CheckoutContactsStepTests"/>
             <class name="ru.instamart.test.reforged.next.checkout.CheckoutDeliverySlotsTests"/>
             <class name="ru.instamart.test.reforged.next.checkout.CheckoutPromocodeTests"/>
+            <class name="ru.instamart.test.reforged.next.checkout.CheckoutBonusesTests"/>
+            <class name="ru.instamart.test.reforged.next.checkout.BasicCheckoutTests"/>
+            <class name="ru.instamart.test.reforged.next.checkout.CheckoutPaymentStepTests"/>
 
         </classes>
     </test>
