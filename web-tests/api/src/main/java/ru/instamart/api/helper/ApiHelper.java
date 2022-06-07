@@ -721,6 +721,7 @@ public final class ApiHelper {
                 sid
         );
         OrderV2 openOrder = apiV2.getOpenOrder();
+        user.setUuid(SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()).getUuid());
 
         apiV2.bindCardToUser(user, openOrder.getNumber(), creditCard);
     }
