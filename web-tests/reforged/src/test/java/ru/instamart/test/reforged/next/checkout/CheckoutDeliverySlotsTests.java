@@ -48,7 +48,6 @@ public final class CheckoutDeliverySlotsTests {
         shop().interactCart().submitOrder();
 
         checkout().checkCheckoutButtonIsVisible();
-        checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
@@ -106,7 +105,6 @@ public final class CheckoutDeliverySlotsTests {
         shop().interactCart().submitOrder();
 
         checkout().checkCheckoutButtonIsVisible();
-        checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
