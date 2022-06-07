@@ -26,6 +26,8 @@
 
             <class name="ru.instamart.test.reforged.next.order.BasicOrdersTests"/>
             <class name="ru.instamart.test.reforged.next.order.OrderRepeatTests"/>
+
+            <class name="ru.instamart.test.reforged.next.checkout.CheckoutPromocodeTests"/>
         </classes>
     </test>
 </suite>

@@ -46,6 +46,12 @@
             <class name="ru.instamart.test.reforged.next.order.OrderRepeatTests"/>
             <class name="ru.instamart.test.reforged.next.landings.DriversHiringLandingTests"/>
             <class name="ru.instamart.test.reforged.next.landings.SbermarketLandingTests"/>
+
+            <class name="ru.instamart.test.reforged.next.checkout.CheckoutAddressStepTests"/>
+            <class name="ru.instamart.test.reforged.next.checkout.CheckoutContactsStepTests"/>
+            <class name="ru.instamart.test.reforged.next.checkout.CheckoutDeliverySlotsTests"/>
+            <class name="ru.instamart.test.reforged.next.checkout.CheckoutPromocodeTests"/>
+
         </classes>
     </test>
 </suite>
