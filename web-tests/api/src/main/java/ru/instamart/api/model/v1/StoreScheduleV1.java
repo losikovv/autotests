@@ -8,13 +8,11 @@ import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class StoreScheduleV1 extends BaseObject {
 
-    @JsonSchema(required = true)
     private Long id;
 
-    @JsonSchema(required = true)
     @JsonProperty("store_id")
     private Integer storeId;
 

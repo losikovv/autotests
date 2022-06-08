@@ -12,10 +12,9 @@ public class StoreSchedulesV1Request extends ApiV1RequestBase {
 
     public static class Schedules {
         @Step("{method} /" + ApiV1Endpoints.Stores.SCHEDULE)
-        public static Response GET(String storeUuid, Integer perPage) {
+        public static Response GET(Integer storeId) {
             return givenWithAuth()
-                    .queryParam("per_page", perPage)
-                    .get(ApiV1Endpoints.Stores.SCHEDULE, storeUuid);
+                    .get(ApiV1Endpoints.Stores.SCHEDULE, storeId);
         }
 
         @Step("{method} /" + ApiV1Endpoints.Stores.SCHEDULE)
@@ -46,5 +45,64 @@ public class StoreSchedulesV1Request extends ApiV1RequestBase {
                     .body(name)
                     .post(ApiV1Endpoints.Stores.SCHEDULE, storeUuid);
         }
+
+        @Step("{method} /" + ApiV1Endpoints.Stores.SCHEDULE)
+        public static Response POST(int storeId) {
+            JSONObject store_schedule = new JSONObject();
+            JSONObject template = new JSONObject();
+            JSONObject delivery_times = new JSONObject();
+            JSONArray dts = new JSONArray();
+            JSONObject dt = new JSONObject();
+
+            dt.put("end", "02:00");
+            dt.put("kind", "pickup");
+            dt.put("orders_limit", "1");
+            dt.put("shipment_max_kilos", "1");
+            dt.put("shipment_min_kilos", "0");
+            dt.put("shipments_excess_items_count", "0");
+            dt.put("shipments_excess_kilos", "0");
+            dt.put("start", "00:00");
+            dt.put("surge_amount", "0");
+
+            dts.add(0, dt);
+            delivery_times.put("delivery_times", dts);
+            template.put("template", delivery_times);
+            store_schedule.put("store_schedule", template);
+
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(store_schedule)
+                    .post(ApiV1Endpoints.Stores.SCHEDULE, storeId);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Stores.SCHEDULE)
+        public static Response PUT(int storeId) {
+            JSONObject name = new JSONObject();
+            JSONObject template = new JSONObject();
+            JSONObject delivery_times = new JSONObject();
+            JSONArray order = new JSONArray();
+            JSONObject body = new JSONObject();
+
+            body.put("end", "02:00");
+            body.put("kind", "pickup");
+            body.put("orders_limit", "1");
+            body.put("shipment_max_kilos", "1");
+            body.put("shipment_min_kilos", "0");
+            body.put("shipments_excess_items_count", "0");
+            body.put("shipments_excess_kilos", "0");
+            body.put("start", "00:00");
+            body.put("surge_amount", "0");
+
+            order.add(0, body);
+            delivery_times.put("delivery_times", order);
+            template.put("template", delivery_times);
+            name.put("store_schedule", template);
+
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(name)
+                    .put(ApiV1Endpoints.Stores.SCHEDULE, storeId);
+        }
+
     }
 }

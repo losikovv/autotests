@@ -49,7 +49,7 @@ public class DeliveryTimeV1 extends BaseObject {
     @JsonSchema(required = true)
     private String start;
 
-    @JsonSchema(required = true)
+    @Null
     @JsonProperty("store_zone_ids")
     private List<Object> storeZoneIds;
 
