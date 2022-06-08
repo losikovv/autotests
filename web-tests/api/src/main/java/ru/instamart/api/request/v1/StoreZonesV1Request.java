@@ -30,10 +30,9 @@ public class StoreZonesV1Request extends ApiV1RequestBase {
 
     public static class Zones {
         @Step("{method} /" + ApiV1Endpoints.Stores.ZONES)
-        public static Response GET(Integer perPage) {
+        public static Response GET(final int sid) {
             return givenWithAuth()
-                    .queryParam("per_page", perPage)
-                    .get(ApiV1Endpoints.Stores.ZONES);
+                    .get(ApiV1Endpoints.Stores.ZONES, sid);
         }
 
         @Step("{method} /" + ApiV1Endpoints.Stores.ZONES)
@@ -45,6 +44,23 @@ public class StoreZonesV1Request extends ApiV1RequestBase {
                     .contentType(ContentType.JSON)
                     .body(body)
                     .post(ApiV1Endpoints.Stores.ZONES, storeId);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Stores.STORE_ZONES)
+        public static Response PUT(Integer storeId, Integer zoneId, String zoneName, String area) {
+            JSONObject body = new JSONObject();
+            body.put("name", zoneName);
+            body.put("area", area);
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(body)
+                    .put(ApiV1Endpoints.Stores.STORE_ZONES, storeId, zoneId);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Stores.STORE_ZONES)
+        public static Response DELETE(Integer storeId, Integer zoneId) {
+            return givenWithAuth()
+                    .delete(ApiV1Endpoints.Stores.STORE_ZONES, storeId, zoneId);
         }
     }
 }
