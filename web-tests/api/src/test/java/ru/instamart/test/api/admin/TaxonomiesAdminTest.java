@@ -2,6 +2,7 @@ package ru.instamart.test.api.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -38,7 +39,9 @@ public class TaxonomiesAdminTest extends RestBase {
     }
 
     @CaseId(1888)
-    @Test(groups = {"api-instamart-regress"},
+    @Issue("INFRADEV-16984")
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
             description = "Создание новой категорий")
     public void createTaxonomy() {
         String name = "Autotest-" + Generate.literalString(6);

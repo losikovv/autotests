@@ -673,7 +673,8 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(816)
     @Story("Применение бонуса")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(enabled = false, //Оплата инстакоинами выпилина
+            groups = {"api-instamart-regress"},
             description = "Использование бонусов для оплаты. Заказ нельзя оплатить бонусами")
     public void checkOrderPayInstacoin() {
         SessionFactory.clearSession(SessionType.API_V2);
