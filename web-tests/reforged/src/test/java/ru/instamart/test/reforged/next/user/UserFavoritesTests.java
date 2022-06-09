@@ -94,11 +94,12 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1269)
-    @Test(description = "Проверка работоспособности фильтров Любимых товаров", groups = "regression")
+    //В избранном нет фильтров
+    @Test(enabled = false, description = "Проверка работоспособности фильтров Любимых товаров", groups = "regression")
     public void successApplyFilters() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 10);
+        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 10);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -115,7 +116,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1270)
-    @Test(description = "Проверка работоспособности подгрузки страниц в Любимых товарах", groups = "regression")
+    @Test(description = "Проверка работоспособности подгрузки товаров по мере прокрутки списка в Любимых товарах", groups = "regression")
     public void successShowMoreLoad() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -131,8 +132,7 @@ public final class UserFavoritesTests {
         userFavorites().checkNotEmptyFavorites();
 
         final int initCount = userFavorites().getFavoritesCount();
-        userFavorites().showMore();
-        userFavorites().checkShowMoreNotVisible();
+        userFavorites().scrollToLastFavoriteItem();
         userFavorites().checkCountLess(initCount, userFavorites().getFavoritesCount());
     }
 
@@ -175,6 +175,7 @@ public final class UserFavoritesTests {
         home().clickOnStoreWithSid(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
 
         userFavorites().goToPage();
+        userFavorites().interactHeader().checkEnteredAddressIsVisible();
         userFavorites().addToCartFirstFavoriteItem();
         userFavorites().interactHeader().clickToCart();
         userFavorites().interactHeader().interactCart().checkCartNotEmpty();
@@ -193,7 +194,7 @@ public final class UserFavoritesTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
-        userFavorites().refreshWithoutBasicAuth();
+        userFavorites().interactHeader().checkEnteredAddressIsVisible();
         userFavorites().openCartForFirstFavoriteItem();
         userFavorites().interactProductCart().clickOnBuy();
         userFavorites().interactProductCart().clickOnClose();
@@ -215,8 +216,7 @@ public final class UserFavoritesTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
-        userFavorites().filterOutOfStock();
-        userFavorites().refreshWithoutBasicAuth();
+        userFavorites().interactHeader().checkEnteredAddressIsVisible();
         userFavorites().openCartForFirstFavoriteItem();
         userFavorites().interactProductCart().checkBuyButtonInActive();
     }
