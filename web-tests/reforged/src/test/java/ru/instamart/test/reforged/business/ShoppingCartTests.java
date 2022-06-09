@@ -72,13 +72,13 @@ public final class ShoppingCartTests {
         b2cShop().interactHeader().checkProfileButtonVisible();
 
         b2cShop().interactHeader().clickToSelectAddress();
-        b2cShop().interactAddress().checkYmapsReady();
+        b2cShop().interactAddressLarge().checkYmapsReady();
 
-        b2cShop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        b2cShop().interactAddress().selectFirstAddress();
-        b2cShop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        b2cShop().interactAddress().clickOnSave();
-        b2cShop().interactAddress().checkAddressModalIsNotVisible();
+        b2cShop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        b2cShop().interactAddressLarge().selectFirstAddress();
+        b2cShop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        b2cShop().interactAddressLarge().clickSave();
+        b2cShop().interactAddressLarge().checkAddressModalNotVisible();
         b2cShop().interactHeader().checkEnteredAddressIsVisible();
 
         b2cShop().plusItemToCart("1", "0");
@@ -104,13 +104,13 @@ public final class ShoppingCartTests {
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
         b2cShop().interactHeader().clickToSelectAddress();
-        b2cShop().interactAddress().checkYmapsReady();
+        b2cShop().interactAddressLarge().checkYmapsReady();
 
-        b2cShop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        b2cShop().interactAddress().selectFirstAddress();
-        b2cShop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        b2cShop().interactAddress().clickOnSave();
-        b2cShop().interactAddress().checkAddressModalIsNotVisible();
+        b2cShop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        b2cShop().interactAddressLarge().selectFirstAddress();
+        b2cShop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        b2cShop().interactAddressLarge().clickSave();
+        b2cShop().interactAddressLarge().checkAddressModalNotVisible();
         b2cShop().interactHeader().checkEnteredAddressIsVisible();
 
         b2cShop().plusItemToCart("1", "0");
@@ -141,13 +141,13 @@ public final class ShoppingCartTests {
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
         b2cShop().interactHeader().clickToSelectAddress();
-        b2cShop().interactAddress().checkYmapsReady();
+        b2cShop().interactAddressLarge().checkYmapsReady();
 
-        b2cShop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        b2cShop().interactAddress().selectFirstAddress();
-        b2cShop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        b2cShop().interactAddress().clickOnSave();
-        b2cShop().interactAddress().checkAddressModalIsNotVisible();
+        b2cShop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        b2cShop().interactAddressLarge().selectFirstAddress();
+        b2cShop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        b2cShop().interactAddressLarge().clickSave();
+        b2cShop().interactAddressLarge().checkAddressModalNotVisible();
         b2cShop().interactHeader().checkEnteredAddressIsVisible();
 
         b2cShop().plusItemToCart("1", "0");

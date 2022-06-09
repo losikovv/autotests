@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.reforged.CookieFactory;
@@ -128,13 +129,14 @@ public final class ShoppingSearchTests {
     public void successAddItemToCartFromSearchResults() {
         shop().goToPage(true);
         shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactAddress().checkYmapsReady();
+        shop().interactAddressLarge().checkYmapsReady();
 
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactStoreModal().checkStoreModalIsOpen();
+        shop().interactStoreModal().selectStoreWithSid(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage(true);
