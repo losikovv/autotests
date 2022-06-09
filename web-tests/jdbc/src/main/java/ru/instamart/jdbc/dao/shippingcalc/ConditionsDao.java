@@ -16,16 +16,21 @@ import static org.testng.Assert.fail;
 
 public class ConditionsDao implements Dao<Integer, ConditionsEntity> {
     public static final ConditionsDao INSTANCE = new ConditionsDao();
-    private final String SELECT_SQL = "SELECT %s FROM conditions ";
 
-    public List<ConditionsEntity> getConditions(Integer firstId, Integer secondId) {
+    public List<ConditionsEntity> getConditions(ArrayList<Integer> rulesIds) {
         List<ConditionsEntity> conditionsResult = new ArrayList<>();
+        StringBuilder builder = new StringBuilder();
+        String params = builder.append("?,".repeat(rulesIds.size())).deleteCharAt(builder.length() - 1).toString();
+        String selectSql = "SELECT * FROM conditions WHERE rule_id IN (" + params + ") ORDER BY rule_id";
+
         try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE rule_id >= ? AND rule_id <= ? ORDER BY rule_id ")) {
-            preparedStatement.setInt(1, firstId);
-            preparedStatement.setInt(2, secondId);
+             PreparedStatement preparedStatement = connect.prepareStatement(selectSql)) {
+            int index = 1;
+            for (Object o : rulesIds) {
+                preparedStatement.setObject(index++, o);
+            }
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 var conditionsEntity = new ConditionsEntity();
                 conditionsEntity.setRuleId(resultSet.getInt("rule_id"));
                 conditionsEntity.setParams(resultSet.getString("params"));

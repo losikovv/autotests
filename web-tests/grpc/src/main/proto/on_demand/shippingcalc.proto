@@ -67,6 +67,8 @@ message CreateStrategyRequest {
 	string description = 6;
 	// Тип доставки
 	DeliveryType delivery_type = 7;
+	// Список правил для суммы минимальной корзины
+	repeated MinCartRuleObject min_cart_rules = 8;
 }
 
 message CreateStrategyResponse {
@@ -91,6 +93,8 @@ message UpdateStrategyRequest {
 	string description = 7;
 	// Тип доставки
 	DeliveryType delivery_type = 8;
+	// Список правил для суммы минимальной корзины
+	repeated MinCartRuleObject min_cart_rules = 9;
 }
 
 message NewRuleObject {
@@ -103,6 +107,16 @@ message NewRuleObject {
 	// Приоритет правила в рамках стратегии
 	int32 priority = 4;
 }
+
+message MinCartRuleObject {
+	// Минимальная сумма корзины
+	uint64 min_cart_value = 1;
+	// Условия применения правила
+	repeated NewConditionObject conditions = 2;
+	// Приоритет правила в рамках стратегии
+	int32 priority = 3;
+}
+
 
 enum ConditionType {
 	ALWAYS = 0;
@@ -122,6 +136,8 @@ message NewConditionObject {
 message UpdateStrategyResponse {
 	// Список идентификаторов правил?
 	repeated uint32 rules_id = 1;
+	// Список идентификаторов правил для минимальной корзины
+	repeated uint32 min_cart_rules_id = 2;
 }
 
 message BindStrategyRequest {
@@ -163,7 +179,7 @@ message StrategyView {
 	string description = 7;
 	// Когда стратегия была создана
 	int64 created_at = 8;
-	// Когдастратегия была в последний раз обновлена
+	// Когда стратегия была в последний раз обновлена
 	int64 updated_at = 9;
 	// Тип доставки
 	DeliveryType delivery_type = 10;
@@ -204,7 +220,10 @@ message GetStrategyRequest {
 message GetStrategyResponse {
 	// Представление стратегии
 	StrategyView strategy = 1;
-	repeated RuleView rules = 2; // Смотри RuleView в контракте ниже
+	// Смотри RuleView в контракте ниже
+	repeated RuleView rules = 2;
+	// Список правил для суммы минимальной корзины
+	repeated MinCartRuleView min_cart_rules = 3;
 }
 
 message RuleView {
@@ -225,6 +244,21 @@ message RuleView {
 	// Время создания(timestamp)
 	int64 created_at = 8;
 }
+message MinCartRuleView {
+	// Идентификатор
+	uint32 id = 1;
+	// Значения параметров скрипта
+	uint64 min_cart_value = 2;
+	// Условия
+	repeated ConditionView conditions = 3;
+	// Приоритет
+	int32 priority = 4;
+	// Автор
+	string creator_id = 5;
+	// Время создания(timestamp)
+	int64 created_at = 6;
+}
+
 
 message ConditionView {
 	// Тип условия

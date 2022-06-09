@@ -16,6 +16,7 @@ import static org.testng.Assert.fail;
 public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
     public static final StrategiesDao INSTANCE = new StrategiesDao();
     private final String SELECT_SQL = "SELECT %s FROM strategies ";
+    private final String DELETE_SQL = "DELETE FROM strategies ";
 
     public StrategiesEntity getStrategy(Integer id) {
         StrategiesEntity strategy = new StrategiesEntity();
@@ -42,6 +43,13 @@ public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
 
     @Override
     public boolean delete(Integer id) {
+        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = ? ")) {
+            preparedStatement.setInt(1, id);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
         return false;
     }
 
