@@ -5,9 +5,11 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.jdbc.dao.shippingcalc.ConditionsDao;
 import ru.instamart.jdbc.dao.shippingcalc.RulesDao;
 import ru.instamart.jdbc.dao.shippingcalc.StrategiesDao;
+import ru.instamart.jdbc.dao.shippingcalc.StrategyBindingsDao;
 import ru.instamart.jdbc.entity.shippingcalc.ConditionsEntity;
 import ru.instamart.jdbc.entity.shippingcalc.RulesEntity;
 import ru.instamart.jdbc.entity.shippingcalc.StrategiesEntity;
+import ru.instamart.jdbc.entity.shippingcalc.StrategyBindingsEntity;
 import shippingcalc.ShippingcalcOuterClass;
 
 import java.util.ArrayList;
@@ -81,6 +83,28 @@ public class ShippingCalcHelper {
                 .build();
     }
 
+    @Step("Получаем запрос для привязки стратегии к магазину")
+    public static ShippingcalcOuterClass.BindStrategyRequest getBindStrategyRequest(Integer strategyId, String storeId, String tenantId) {
+        return ShippingcalcOuterClass.BindStrategyRequest.newBuilder()
+                .setStrategyId(strategyId)
+                .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
+                        .setStoreId(storeId)
+                        .setTenantId(tenantId)
+                        .build())
+                .build();
+    }
+
+    @Step("Получаем запрос для отвязки стратегии к магазину")
+    public static ShippingcalcOuterClass.UnbindStrategyRequest getUnbindStrategyRequest(Integer strategyId, String storeId, String tenantId) {
+        return ShippingcalcOuterClass.UnbindStrategyRequest.newBuilder()
+                .setStrategyId(strategyId)
+                .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
+                        .setStoreId(storeId)
+                        .setTenantId(tenantId)
+                        .build())
+                .build();
+    }
+
     @Step("Проверяем стратегию")
     public static void checkStrategy(Integer strategyId, String strategyName, Integer rulesAmount, Integer conditionsAmount, Integer conditionIndex) {
         StrategiesEntity strategy = StrategiesDao.INSTANCE.getStrategy(strategyId);
@@ -107,6 +131,25 @@ public class ShippingCalcHelper {
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(strategy.getUpdatedAt().equals(strategy.getCreatedAt()), "Поле updated_at не обновилось");
         compareTwoObjects(deletedRules.size(), rulesAmount / 2, softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем связку стратегии к магазину")
+    public static void checkBind(Integer strategyId, String storeId, String tenantId) {
+        StrategyBindingsEntity bind = StrategyBindingsDao.INSTANCE.getStrategyBinding(strategyId, storeId, tenantId);
+
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertNotNull(bind, "Не нашли такую связку");
+        compareTwoObjects(bind.getStrategyId(), strategyId, softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем отвязку стратегии от магазина")
+    public static void checkUnbind(Integer strategyId, String storeId, String tenantId) {
+        StrategyBindingsEntity bind = StrategyBindingsDao.INSTANCE.getStrategyBinding(strategyId, storeId, tenantId);
+
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertNull(bind, "Связка не удалилась");
         softAssert.assertAll();
     }
 

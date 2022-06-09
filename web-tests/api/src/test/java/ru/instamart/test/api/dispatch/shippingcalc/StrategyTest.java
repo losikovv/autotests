@@ -14,6 +14,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 import shippingcalc.ShippingcalcGrpc;
 import shippingcalc.ShippingcalcOuterClass;
 
+import java.util.UUID;
+
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
 
 @Epic("On Demand")
@@ -24,6 +26,10 @@ public class StrategyTest extends RestBase {
     private Integer strategyId;
     private Integer strategyIdWithDifferentScriptsInRules;
     private Integer strategyIdWithMultipleRulesAndConditions;
+    private String firstStoreId = UUID.randomUUID().toString();
+    private String secondStoreId = UUID.randomUUID().toString();
+    private final Integer FIRST_SCRIPT_ID = 8;
+    private final Integer SECOND_SCRIPT_ID = 9;
     private final String SCRIPT_PARAMS = "{\"basicPrice\": \"10000\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
     private final String FIRST_SCRIPT_PARAMS = "{\"basicPrice\": \"0\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
     private final String SECOND_SCRIPT_PARAMS = "{\"baseMass\": \"30000\", \"basicPrice\": \"29900\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}";
@@ -41,7 +47,7 @@ public class StrategyTest extends RestBase {
     @Test(description = "Создание стратегии с валидными данными",
             groups = "dispatch-shippingcalc-smoke")
     public void createStrategy() {
-        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(1, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, 2);
+        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, 2);
         var response = clientShippingCalc.createStrategy(request);
         strategyId = response.getStrategyId();
         checkStrategy(strategyId, "autotest", 2, 2, 0);
@@ -54,7 +60,7 @@ public class StrategyTest extends RestBase {
     public void createStrategyWithDifferentScriptsInRules() {
         ShippingcalcOuterClass.CreateStrategyRequest request = ShippingcalcOuterClass.CreateStrategyRequest.newBuilder()
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(1)
+                        .setScriptId(FIRST_SCRIPT_ID)
                         .setScriptParamValues(FIRST_SCRIPT_PARAMS)
                         .setPriority(0)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -63,7 +69,7 @@ public class StrategyTest extends RestBase {
                                 .build())
                         .build())
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(2)
+                        .setScriptId(SECOND_SCRIPT_ID)
                         .setScriptParamValues(SECOND_SCRIPT_PARAMS)
                         .setPriority(1)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -99,7 +105,7 @@ public class StrategyTest extends RestBase {
     public void createStrategyWithMultipleRulesAndConditions() {
         ShippingcalcOuterClass.CreateStrategyRequest request = ShippingcalcOuterClass.CreateStrategyRequest.newBuilder()
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(1)
+                        .setScriptId(FIRST_SCRIPT_ID)
                         .setScriptParamValues(FIRST_SCRIPT_PARAMS)
                         .setPriority(0)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -112,7 +118,7 @@ public class StrategyTest extends RestBase {
                                 .build())
                         .build())
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(2)
+                        .setScriptId(SECOND_SCRIPT_ID)
                         .setScriptParamValues(SECOND_SCRIPT_PARAMS)
                         .setPriority(1)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -125,7 +131,7 @@ public class StrategyTest extends RestBase {
                                 .build())
                         .build())
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(1)
+                        .setScriptId(FIRST_SCRIPT_ID)
                         .setScriptParamValues(SCRIPT_PARAMS)
                         .setPriority(2)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -185,7 +191,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: strategy name cannot be empty")
     public void createStrategyWithNoName() {
-        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(1, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "", "autotest", false, 2);
+        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "", "autotest", false, 2);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -196,7 +202,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: creator id cannot be empty")
     public void createStrategyWithNoCreatorId() {
-        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(1, SCRIPT_PARAMS, 0, 2, "{}", 0, "", "autotest", "autotest", false, 2);
+        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "", "autotest", "autotest", false, 2);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -280,7 +286,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid params")
     public void createStrategyWithNoScriptParams() {
-        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(1, "", 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, 2);
+        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, "", 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, 2);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -293,7 +299,7 @@ public class StrategyTest extends RestBase {
     public void createStrategyWithNoRuleConditions() {
         ShippingcalcOuterClass.CreateStrategyRequest request = ShippingcalcOuterClass.CreateStrategyRequest.newBuilder()
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(1)
+                        .setScriptId(FIRST_SCRIPT_ID)
                         .setScriptParamValues(SCRIPT_PARAMS)
                         .setPriority(0)
                         .build())
@@ -323,7 +329,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid condition 0, invalid params")
     public void createStrategyWithNoConditionParams() {
-        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(1, SCRIPT_PARAMS, 0, 2, "", 0, "autotest", "autotest", "autotest", false, 2);
+        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "", 0, "autotest", "autotest", "autotest", false, 2);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -336,7 +342,7 @@ public class StrategyTest extends RestBase {
     public void createStrategyWithNoMinCartRule() {
         ShippingcalcOuterClass.CreateStrategyRequest request = ShippingcalcOuterClass.CreateStrategyRequest.newBuilder()
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(1)
+                        .setScriptId(FIRST_SCRIPT_ID)
                         .setScriptParamValues(SCRIPT_PARAMS)
                         .setPriority(0)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -364,7 +370,7 @@ public class StrategyTest extends RestBase {
     public void createStrategyWithNoMinCartRuleConditions() {
         ShippingcalcOuterClass.CreateStrategyRequest request = ShippingcalcOuterClass.CreateStrategyRequest.newBuilder()
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(1)
+                        .setScriptId(FIRST_SCRIPT_ID)
                         .setScriptParamValues(SCRIPT_PARAMS)
                         .setPriority(0)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -393,7 +399,7 @@ public class StrategyTest extends RestBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = "createStrategy")
     public void updateStrategy() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(2, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, strategyId, "autotest-update", "autotest-update", "autotest-update", true, 3);
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, strategyId, "autotest-update", "autotest-update", "autotest-update", true, 3);
         var response = clientShippingCalc.updateStrategy(request);
         checkUpdatedStrategy(strategyId, "autotest-update", 4, 4, 2);
     }
@@ -406,7 +412,7 @@ public class StrategyTest extends RestBase {
     public void updateStrategyWithDifferentScriptsInRules() {
         ShippingcalcOuterClass.UpdateStrategyRequest request = ShippingcalcOuterClass.UpdateStrategyRequest.newBuilder()
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(2)
+                        .setScriptId(SECOND_SCRIPT_ID)
                         .setScriptParamValues(SECOND_SCRIPT_PARAMS)
                         .setPriority(1)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -415,7 +421,7 @@ public class StrategyTest extends RestBase {
                                 .build())
                         .build())
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(1)
+                        .setScriptId(FIRST_SCRIPT_ID)
                         .setScriptParamValues(FIRST_SCRIPT_PARAMS)
                         .setPriority(0)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -452,7 +458,7 @@ public class StrategyTest extends RestBase {
     public void updateStrategyWithMultipleRulesAndConditions() {
         ShippingcalcOuterClass.UpdateStrategyRequest request = ShippingcalcOuterClass.UpdateStrategyRequest.newBuilder()
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(2)
+                        .setScriptId(SECOND_SCRIPT_ID)
                         .setScriptParamValues(SECOND_SCRIPT_PARAMS)
                         .setPriority(1)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -465,7 +471,7 @@ public class StrategyTest extends RestBase {
                                 .build())
                         .build())
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(1)
+                        .setScriptId(FIRST_SCRIPT_ID)
                         .setScriptParamValues(SCRIPT_PARAMS)
                         .setPriority(2)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -474,7 +480,7 @@ public class StrategyTest extends RestBase {
                                 .build())
                         .build())
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(1)
+                        .setScriptId(FIRST_SCRIPT_ID)
                         .setScriptParamValues(FIRST_SCRIPT_PARAMS)
                         .setPriority(0)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -539,7 +545,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: strategy name cannot be empty",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoName() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(1, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "autotest-update", "", "autotest-update", false, 2);
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "autotest-update", "", "autotest-update", false, 2);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -550,7 +556,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: cannot check existence of strategy, entity not found")
     public void updateStrategyWithNonExistentStrategyId() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(1, SCRIPT_PARAMS, 0, 2, "{}", 0, 1234567890, "autotest-update", "autotest-update", "autotest-update", false, 2);
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, 1234567890, "autotest-update", "autotest-update", "autotest-update", false, 2);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -562,7 +568,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: creator id cannot be empty",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoCreatorId() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(1, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "", "autotest-update", "autotest-update", false, 2);
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "", "autotest-update", "autotest-update", false, 2);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -652,7 +658,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid params",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoScriptParams() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(1, "", 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, 2);
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "", 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, 2);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -666,7 +672,7 @@ public class StrategyTest extends RestBase {
     public void updateStrategyWithNoRuleConditions() {
         ShippingcalcOuterClass.UpdateStrategyRequest request = ShippingcalcOuterClass.UpdateStrategyRequest.newBuilder()
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(1)
+                        .setScriptId(FIRST_SCRIPT_ID)
                         .setScriptParamValues(SCRIPT_PARAMS)
                         .setPriority(0)
                         .build())
@@ -698,7 +704,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid condition 0, invalid params",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoConditionParams() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(1, SCRIPT_PARAMS, 0, 2, "", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, 2);
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, 2);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -712,7 +718,7 @@ public class StrategyTest extends RestBase {
     public void updateStrategyWithNoMinCartRules() {
         ShippingcalcOuterClass.UpdateStrategyRequest request = ShippingcalcOuterClass.UpdateStrategyRequest.newBuilder()
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(1)
+                        .setScriptId(FIRST_SCRIPT_ID)
                         .setScriptParamValues(SCRIPT_PARAMS)
                         .setPriority(0)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -742,7 +748,7 @@ public class StrategyTest extends RestBase {
     public void updateStrategyWithNoMinCartRuleConditions() {
         ShippingcalcOuterClass.UpdateStrategyRequest request = ShippingcalcOuterClass.UpdateStrategyRequest.newBuilder()
                 .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
-                        .setScriptId(1)
+                        .setScriptId(FIRST_SCRIPT_ID)
                         .setScriptParamValues(SCRIPT_PARAMS)
                         .setPriority(0)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
@@ -764,6 +770,185 @@ public class StrategyTest extends RestBase {
                 .build();
 
         clientShippingCalc.updateStrategy(request);
+    }
+
+    @CaseId(138)
+    @Story("Bind Strategy")
+    @Test(description = "Привязка стратегии к магазину с валидными данными",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "createStrategy")
+    public void bindStrategy() {
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, firstStoreId, "metro");
+        var response = clientShippingCalc.bindStrategy(request);
+        checkBind(strategyId, firstStoreId, "metro");
+    }
+
+    @CaseId(141)
+    @Story("Bind Strategy")
+    @Test(description = "Привязка стратегии к нескольким магазинам в массиве binds",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "createStrategyWithDifferentScriptsInRules")
+    public void bindStrategyMultipleStores() {
+        ShippingcalcOuterClass.BindStrategyRequest request = ShippingcalcOuterClass.BindStrategyRequest.newBuilder()
+                .setStrategyId(strategyIdWithDifferentScriptsInRules)
+                .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
+                        .setStoreId(firstStoreId)
+                        .setTenantId("sbermarket")
+                        .build())
+                .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
+                        .setStoreId(secondStoreId)
+                        .setTenantId("instamart")
+                        .build())
+                .build();
+
+        var response = clientShippingCalc.bindStrategy(request);
+        checkBind(strategyIdWithDifferentScriptsInRules, firstStoreId, "sbermarket");
+        checkBind(strategyIdWithDifferentScriptsInRules, secondStoreId, "instamart");
+    }
+
+    @CaseId(138)
+    @Story("Bind Strategy")
+    @Test(description = "Привязка стратегии к магазину, у которого уже есть связка",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "createStrategyWithMultipleRulesAndConditions")
+    public void rebindStrategy() {
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, firstStoreId, "metro");
+        var response = clientShippingCalc.bindStrategy(request);
+        checkBind(strategyIdWithMultipleRulesAndConditions, firstStoreId, "metro");
+    }
+
+    @CaseId(348)
+    @Story("Bind Strategy")
+    @Test(description = "Получении ошибки при привязке без id стратегии",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid StrategyId")
+    public void bindStrategyWithNoStrategyId() {
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(0, firstStoreId, "test");
+        clientShippingCalc.bindStrategy(request);
+    }
+
+    @CaseId(349)
+    @Story("Bind Strategy")
+    @Test(description = "Получении ошибки при привязке без сущности binds",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty binds",
+            dependsOnMethods = "createStrategy")
+    public void bindStrategyWithNoBinds() {
+        ShippingcalcOuterClass.BindStrategyRequest request = ShippingcalcOuterClass.BindStrategyRequest.newBuilder()
+                .setStrategyId(strategyId)
+                .build();
+
+        clientShippingCalc.bindStrategy(request);
+    }
+
+    @CaseId(144)
+    @Story("Bind Strategy")
+    @Test(description = "Получении ошибки при привязке без магазина",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot attach bind 0 without store id",
+            dependsOnMethods = "createStrategy")
+    public void bindStrategyWithNoStoreId() {
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, "", "test");
+        clientShippingCalc.bindStrategy(request);
+    }
+
+    @CaseId(146)
+    @Story("Bind Strategy")
+    @Test(description = "Получении ошибки при привязке без магазина",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot attach bind 0 without tenant id",
+            dependsOnMethods = "createStrategy")
+    public void bindStrategyWithNoTenantId() {
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, firstStoreId, "");
+        clientShippingCalc.bindStrategy(request);
+    }
+
+    @CaseId(155)
+    @Story("Unbind Strategy")
+    @Test(description = "Отвязка стратегии от магазина с валидными данными",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "bindStrategy")
+    public void unbindStrategy() {
+        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, firstStoreId, "metro");
+        var response = clientShippingCalc.unbindStrategy(request);
+        checkUnbind(strategyId, firstStoreId, "metro");
+    }
+
+    @CaseId(158)
+    @Story("Unbind Strategy")
+    @Test(description = "Отвязка стратегии от нескольких магазинов в массиве binds",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "bindStrategyMultipleStores")
+    public void unbindStrategyMultipleStores() {
+        ShippingcalcOuterClass.UnbindStrategyRequest request = ShippingcalcOuterClass.UnbindStrategyRequest.newBuilder()
+                .setStrategyId(strategyIdWithDifferentScriptsInRules)
+                .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
+                        .setStoreId(firstStoreId)
+                        .setTenantId("sbermarket")
+                        .build())
+                .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
+                        .setStoreId(secondStoreId)
+                        .setTenantId("instamart")
+                        .build())
+                .build();
+
+        var response = clientShippingCalc.unbindStrategy(request);
+        checkUnbind(strategyIdWithDifferentScriptsInRules, firstStoreId, "sbermarket");
+        checkUnbind(strategyIdWithDifferentScriptsInRules, secondStoreId, "instamart");
+    }
+
+    @CaseId(159)
+    @Story("Unbind Strategy")
+    @Test(description = "Получении ошибки при отвязке без id стратегии",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid StrategyId")
+    public void unbindStrategyWithNoStrategyId() {
+        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(0, firstStoreId, "test");
+        clientShippingCalc.unbindStrategy(request);
+    }
+
+    @CaseId(350)
+    @Story("Unbind Strategy")
+    @Test(description = "Получении ошибки при отвязке без сущности binds",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty binds",
+            dependsOnMethods = "bindStrategy")
+    public void unbindStrategyWithNoBinds() {
+        ShippingcalcOuterClass.UnbindStrategyRequest request = ShippingcalcOuterClass.UnbindStrategyRequest.newBuilder()
+                .setStrategyId(strategyId)
+                .build();
+
+        clientShippingCalc.unbindStrategy(request);
+    }
+
+    @CaseId(161)
+    @Story("Unbind Strategy")
+    @Test(description = "Получении ошибки при отвязке без магазина",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot use bind 0 without store id",
+            dependsOnMethods = "bindStrategy")
+    public void unbindStrategyWithNoStoreId() {
+        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, "", "test");
+        clientShippingCalc.unbindStrategy(request);
+    }
+
+    @CaseId(163)
+    @Story("Unbind Strategy")
+    @Test(description = "Получении ошибки при отвязке без магазина",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot use bind 0 without tenant id",
+            dependsOnMethods = "bindStrategy")
+    public void unbindStrategyWithNoTenantId() {
+        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, firstStoreId, "");
+        clientShippingCalc.unbindStrategy(request);
     }
 
     @AfterClass(alwaysRun = true)
