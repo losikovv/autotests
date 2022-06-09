@@ -49,6 +49,12 @@ public final class ElementCollection extends CollectionComponent {
         webElement.click();
     }
 
+    public void scrollToLast() {
+        log.debug("Scroll to last {} with locator {}", getDescription(), getBy());
+        final WebElement webElement = getComponents().stream().reduce((first, second) -> second).orElseThrow();
+        Kraken.action().moveToElement(webElement).perform();
+    }
+
     public void clickOnLast() {
         log.debug("Click last {} with locator {}", getDescription(), getBy());
         final WebElement webElement = getComponents().stream().reduce((first, second) -> second).orElseThrow();

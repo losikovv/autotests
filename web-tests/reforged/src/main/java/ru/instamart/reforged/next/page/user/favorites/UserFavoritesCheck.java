@@ -34,11 +34,6 @@ public interface UserFavoritesCheck extends Check, UseFavoritesElement {
         assertEquals(activeElementFilter.getText(), outOfStock.getText(), "Фильтр Нет в наличии не активен");
     }
 
-    @Step("Проверяем что не отображается кнопка Показать еще")
-    default void checkShowMoreNotVisible() {
-        waitAction().shouldNotBeVisible(showMore);
-    }
-
     @Step("Проверяем что подгрузились избранные товары")
     default void checkCountLess(final int initCount, final int finalCount) {
         assertTrue(initCount < finalCount, "Товары не подгрузились");

@@ -57,10 +57,9 @@ public final class UserFavoritesPage implements StfPage, UserFavoritesCheck {
         return allFavorites.elementCount();
     }
 
-    @Step("Нажать на Показать больше")
-    public void showMore() {
-        showMore.scrollTo();
-        showMore.click();
+    @Step("Опускаемся к последнему видимому товару")
+    public void scrollToLastFavoriteItem() {
+        allFavorites.scrollToLast();
     }
 
     @Override
