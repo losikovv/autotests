@@ -12,8 +12,8 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.shopper.RoleSHP;
 import ru.instamart.api.request.shifts.ShiftsRequest;
 import ru.instamart.api.response.ErrorTypeResponse;
-import ru.instamart.api.response.shifts.ShiftResponse;
 import ru.instamart.api.response.shifts.PlanningPeriodsSHPResponse;
+import ru.instamart.api.response.shifts.ShiftResponse;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -22,6 +22,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
@@ -36,7 +37,7 @@ public class CreateShiftsTest extends RestBase {
     @BeforeClass(alwaysRun = true,
             description = "Оформляем смену")
     public void preconditions() {
-        UserData user = UserManager.getShp6Shopper1();
+        UserData user = UserManager.getShp6Shopper2();
         shopperApp.authorisation(user);
         shiftsApi.getShopperInfo();
         planningPeriod = shiftsApi.getPlanningPeriod();
@@ -44,9 +45,8 @@ public class CreateShiftsTest extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void after() {
-        List<ShiftResponse> shifts = shiftsApi.shifts();
-        shifts.stream()
-                .forEach(item->shiftsApi.cancelShifts(item.getId()));
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
     }
 
     @CaseIDs({@CaseId(1), @CaseId(123)})
@@ -68,7 +68,7 @@ public class CreateShiftsTest extends RestBase {
         checkStatusCode(response, 201);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getId(), planningPeriod.get(0).getId(),
+        softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getId(), Optional.ofNullable(planningPeriod.get(0).getId()),
                 "Id планируемого периода не совпадает");
         softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getGuaranteedPayroll(), planningPeriod.get(0).getBaseGuaranteedPayroll(),
                 "Гарантированная оплата не равна заданному");
@@ -80,7 +80,7 @@ public class CreateShiftsTest extends RestBase {
     @Test(groups = {"api-shifts"},
             description = "Создание свободной смены (с нулевой оплатой)")
     public void creationOfShiftInZeroGuaranteedPayroll() {
-        PlanningPeriodsSHPResponse planningPeriodItem = planningPeriod.get(1);
+        PlanningPeriodsSHPResponse planningPeriodItem = planningPeriod.get(2);
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
                 .planningAreaId(EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID)
                 .role(RoleSHP.UNIVERSAL.getRole())
@@ -95,7 +95,7 @@ public class CreateShiftsTest extends RestBase {
         checkStatusCode(response, 201);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getId(), planningPeriodItem.getId(),
+        softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getId(), Optional.ofNullable(planningPeriodItem.getId()),
                 "Id планируемого периода не совпадает");
         softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getGuaranteedPayroll(), planningPeriodItem.getBaseGuaranteedPayroll(),
                 "Гарантированная оплата не равна заданному");
@@ -108,12 +108,15 @@ public class CreateShiftsTest extends RestBase {
             description = "Создание смен на день больше чем максимальное установленное количество часов")
     public void create422() {
         List<ShiftsRequest.PlanningPeriods> planningPeriods = new ArrayList<>();
-        for (int i = 0; i <= 10; i++) {
-            planningPeriods.add(ShiftsRequest.PlanningPeriods.builder()
-                    .guaranteedPayroll(0)
-                    .id(planningPeriod.get(i + 2).getId())
-                    .build());
-        }
+        planningPeriods.stream()
+                .filter(item -> shiftsApi.shiftsId().contains(item.getId()))
+                .limit(10)
+                .forEach(item -> planningPeriods.add(ShiftsRequest.PlanningPeriods.builder()
+                        .guaranteedPayroll(0)
+                        .id(item.getId())
+                        .build())
+                );
+
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
                 .planningAreaId(EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID)
                 .role(RoleSHP.UNIVERSAL.getRole())

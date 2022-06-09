@@ -40,7 +40,7 @@ public class ShiftsWorkflowTest extends RestBase {
             description = "Оформляем смену и маршрутный лист")
     public void preconditions() {
         clientWorkflow = ServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW));
-        UserData user = UserManager.getShp6Shopper1();
+        UserData user = UserManager.getShp6Shopper2();
         shopperApp.authorisation(user);
         planningPeriodId = shiftsApi.startOfShift(StartPointsTenants.METRO_3);
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);

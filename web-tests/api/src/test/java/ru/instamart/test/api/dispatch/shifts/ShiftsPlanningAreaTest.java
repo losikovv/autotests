@@ -32,7 +32,7 @@ public class ShiftsPlanningAreaTest extends RestBase {
     @BeforeClass(alwaysRun = true,
             description = "Авторизация")
     public void preconditions() {
-        UserData user = UserManager.getShp6Shopper1();
+        UserData user = UserManager.getShp6Shopper2();
         shopperApp.authorisation(user);
         ShopperSHPResponse shopperInfo = shiftsApi.getShopperInfo();
         List<ShopperSHPResponse.Included> stores = shopperInfo.getIncluded().stream()

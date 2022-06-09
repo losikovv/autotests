@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.api.enums.shopper.RoleSHP;
+import ru.instamart.api.model.shifts.PlanningPeriodsItem;
 import ru.instamart.api.request.shifts.PlanningAreasRequest;
 import ru.instamart.api.request.shifts.RegionsRequest;
 import ru.instamart.api.request.shifts.ShiftsRequest;
@@ -18,7 +19,7 @@ import ru.instamart.kraken.data.StartPointsTenants;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertTrue;
@@ -29,21 +30,7 @@ import static ru.instamart.kraken.util.TimeUtil.getZonedUTCFutureDate;
 public class ShiftsApiHelper {
     private final ThreadLocal<Integer> currentRegion = new ThreadLocal<>();
     private final ThreadLocal<Integer> planningPeriodId = new ThreadLocal<>();
-    private Integer defaultShiftZone;
-
-    public ShiftsApiHelper() {
-       getDefaultShiftZone();
-    }
-
-    private Integer getDefaultShiftZone(){
-        if(Objects.isNull(defaultShiftZone)){
-            if(EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID==0){
-               return defaultShiftZone = 3858;
-            }
-        }
-        return defaultShiftZone = EnvironmentProperties.DEFAULT_ID_ZONE;
-    }
-
+    private Integer defaultShiftZone =  EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID;
 
     @Step("Получаем информацию о сбрщике")
     public ShopperSHPResponse getShopperInfo() {
@@ -63,6 +50,13 @@ public class ShiftsApiHelper {
         checkStatusCode200(response);
         var shiftResponse = response.as(ShiftResponse[].class);
         return Arrays.asList(shiftResponse);
+    }
+
+    public Set<Integer> shiftsId(){
+        return shifts().get(0).getPlanningPeriods()
+                .stream()
+                .map(PlanningPeriodsItem::getId)
+                .collect(Collectors.toSet());
     }
 
     @Step("Список планировочных районов области.")
@@ -118,6 +112,28 @@ public class ShiftsApiHelper {
     public void cancelShifts(final long id) {
         final Response response = ShiftsRequest.Cancel.PATCH(id);
         checkStatusCode200or422(response);
+    }
+
+    @Step("Завершение смены")
+    public void stopShifts(final long id) {
+        final Response response = ShiftsRequest.Stop.POST(id);
+        checkStatusCode200or422(response);
+    }
+
+    @Step("Остановить все смены в in_progress")
+    public void stopAllActiveShifts(){
+        List<ShiftResponse> shifts = shifts();
+        shifts.stream()
+                .filter(line -> line.getState().equals("in_progress"))
+                .forEach(item -> stopShifts(item.getId()));
+    }
+
+    @Step("Отменить все смены кроме in_progress")
+    public void cancelAllActiveShifts(){
+        List<ShiftResponse> shifts = shifts();
+        shifts.stream()
+                .filter(line -> !line.getState().equals("in_progress"))
+                .forEach(item -> cancelShifts(item.getId()));
     }
 
     @Step("Создание ближайшей смены")
