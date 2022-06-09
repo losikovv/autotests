@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="DISPATCH Suite" parallel="tests" thread-count="3">
+<suite name="ON-DEMAND Suite" parallel="tests" thread-count="3">
     <listeners>
         <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
         <listener class-name="ru.instamart.api.listener.ApiListener"/>
@@ -27,14 +27,14 @@
             <class name="ru.instamart.test.api.dispatch.eta.ServiceParametersEtaTest"/>
         </classes>
     </test>
-    <test verbose="1" name="Сandidates" parallel="classes" thread-count="6">
+    <test verbose="1" name="CANDIDATES" parallel="classes" thread-count="1">
         <classes>
             <class name="ru.instamart.test.api.dispatch.candidates.СandidatesTest"/>
         </classes>
     </test>
     <test verbose="1" name="SHIPPINGCALC" parallel="classes" thread-count="1">
         <classes>
-            <class name="ru.instamart.test.api.dispatch.shippingcalc.CreateStrategyTest"/>
+            <class name="ru.instamart.test.api.dispatch.shippingcalc.StrategyTest"/>
         </classes>
     </test>
     <test verbose="1" name="KAFKA">

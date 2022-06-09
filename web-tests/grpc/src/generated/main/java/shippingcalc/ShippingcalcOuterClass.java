@@ -636,6 +636,50 @@ public final class ShippingcalcOuterClass {
      * @return The deliveryType.
      */
     shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType();
+
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+     */
+    java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject> 
+        getMinCartRulesList();
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.MinCartRuleObject getMinCartRules(int index);
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+     */
+    int getMinCartRulesCount();
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+     */
+    java.util.List<? extends shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder> 
+        getMinCartRulesOrBuilderList();
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder getMinCartRulesOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code shippingcalc.CreateStrategyRequest}
@@ -655,6 +699,7 @@ public final class ShippingcalcOuterClass {
       name_ = "";
       description_ = "";
       deliveryType_ = 0;
+      minCartRules_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -731,6 +776,15 @@ public final class ShippingcalcOuterClass {
               deliveryType_ = rawValue;
               break;
             }
+            case 66: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                minCartRules_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              minCartRules_.add(
+                  input.readMessage(shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.parser(), extensionRegistry));
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -748,6 +802,9 @@ public final class ShippingcalcOuterClass {
       } finally {
         if (((mutable_bitField0_ & 0x00000001) != 0)) {
           rules_ = java.util.Collections.unmodifiableList(rules_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          minCartRules_ = java.util.Collections.unmodifiableList(minCartRules_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1021,6 +1078,66 @@ public final class ShippingcalcOuterClass {
       return result == null ? shippingcalc.ShippingcalcOuterClass.DeliveryType.UNRECOGNIZED : result;
     }
 
+    public static final int MIN_CART_RULES_FIELD_NUMBER = 8;
+    private java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject> minCartRules_;
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+     */
+    @java.lang.Override
+    public java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject> getMinCartRulesList() {
+      return minCartRules_;
+    }
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder> 
+        getMinCartRulesOrBuilderList() {
+      return minCartRules_;
+    }
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+     */
+    @java.lang.Override
+    public int getMinCartRulesCount() {
+      return minCartRules_.size();
+    }
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject getMinCartRules(int index) {
+      return minCartRules_.get(index);
+    }
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder getMinCartRulesOrBuilder(
+        int index) {
+      return minCartRules_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1056,6 +1173,9 @@ public final class ShippingcalcOuterClass {
       if (deliveryType_ != shippingcalc.ShippingcalcOuterClass.DeliveryType.NONE.getNumber()) {
         output.writeEnum(7, deliveryType_);
       }
+      for (int i = 0; i < minCartRules_.size(); i++) {
+        output.writeMessage(8, minCartRules_.get(i));
+      }
       unknownFields.writeTo(output);
     }
 
@@ -1090,6 +1210,10 @@ public final class ShippingcalcOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(7, deliveryType_);
       }
+      for (int i = 0; i < minCartRules_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, minCartRules_.get(i));
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1118,6 +1242,8 @@ public final class ShippingcalcOuterClass {
       if (!getDescription()
           .equals(other.getDescription())) return false;
       if (deliveryType_ != other.deliveryType_) return false;
+      if (!getMinCartRulesList()
+          .equals(other.getMinCartRulesList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1146,6 +1272,10 @@ public final class ShippingcalcOuterClass {
       hash = (53 * hash) + getDescription().hashCode();
       hash = (37 * hash) + DELIVERY_TYPE_FIELD_NUMBER;
       hash = (53 * hash) + deliveryType_;
+      if (getMinCartRulesCount() > 0) {
+        hash = (37 * hash) + MIN_CART_RULES_FIELD_NUMBER;
+        hash = (53 * hash) + getMinCartRulesList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1275,6 +1405,7 @@ public final class ShippingcalcOuterClass {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
           getRulesFieldBuilder();
+          getMinCartRulesFieldBuilder();
         }
       }
       @java.lang.Override
@@ -1298,6 +1429,12 @@ public final class ShippingcalcOuterClass {
 
         deliveryType_ = 0;
 
+        if (minCartRulesBuilder_ == null) {
+          minCartRules_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          minCartRulesBuilder_.clear();
+        }
         return this;
       }
 
@@ -1340,6 +1477,15 @@ public final class ShippingcalcOuterClass {
         result.priority_ = priority_;
         result.description_ = description_;
         result.deliveryType_ = deliveryType_;
+        if (minCartRulesBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            minCartRules_ = java.util.Collections.unmodifiableList(minCartRules_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.minCartRules_ = minCartRules_;
+        } else {
+          result.minCartRules_ = minCartRulesBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -1434,6 +1580,32 @@ public final class ShippingcalcOuterClass {
         }
         if (other.deliveryType_ != 0) {
           setDeliveryTypeValue(other.getDeliveryTypeValue());
+        }
+        if (minCartRulesBuilder_ == null) {
+          if (!other.minCartRules_.isEmpty()) {
+            if (minCartRules_.isEmpty()) {
+              minCartRules_ = other.minCartRules_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureMinCartRulesIsMutable();
+              minCartRules_.addAll(other.minCartRules_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.minCartRules_.isEmpty()) {
+            if (minCartRulesBuilder_.isEmpty()) {
+              minCartRulesBuilder_.dispose();
+              minCartRulesBuilder_ = null;
+              minCartRules_ = other.minCartRules_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              minCartRulesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getMinCartRulesFieldBuilder() : null;
+            } else {
+              minCartRulesBuilder_.addAllMessages(other.minCartRules_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2224,6 +2396,318 @@ public final class ShippingcalcOuterClass {
         onChanged();
         return this;
       }
+
+      private java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject> minCartRules_ =
+        java.util.Collections.emptyList();
+      private void ensureMinCartRulesIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          minCartRules_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject>(minCartRules_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.MinCartRuleObject, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder, shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder> minCartRulesBuilder_;
+
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject> getMinCartRulesList() {
+        if (minCartRulesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(minCartRules_);
+        } else {
+          return minCartRulesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public int getMinCartRulesCount() {
+        if (minCartRulesBuilder_ == null) {
+          return minCartRules_.size();
+        } else {
+          return minCartRulesBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject getMinCartRules(int index) {
+        if (minCartRulesBuilder_ == null) {
+          return minCartRules_.get(index);
+        } else {
+          return minCartRulesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public Builder setMinCartRules(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject value) {
+        if (minCartRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMinCartRulesIsMutable();
+          minCartRules_.set(index, value);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public Builder setMinCartRules(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder builderForValue) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          minCartRules_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          minCartRulesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public Builder addMinCartRules(shippingcalc.ShippingcalcOuterClass.MinCartRuleObject value) {
+        if (minCartRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMinCartRulesIsMutable();
+          minCartRules_.add(value);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public Builder addMinCartRules(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject value) {
+        if (minCartRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMinCartRulesIsMutable();
+          minCartRules_.add(index, value);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public Builder addMinCartRules(
+          shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder builderForValue) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          minCartRules_.add(builderForValue.build());
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public Builder addMinCartRules(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder builderForValue) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          minCartRules_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public Builder addAllMinCartRules(
+          java.lang.Iterable<? extends shippingcalc.ShippingcalcOuterClass.MinCartRuleObject> values) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, minCartRules_);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public Builder clearMinCartRules() {
+        if (minCartRulesBuilder_ == null) {
+          minCartRules_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public Builder removeMinCartRules(int index) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          minCartRules_.remove(index);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder getMinCartRulesBuilder(
+          int index) {
+        return getMinCartRulesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder getMinCartRulesOrBuilder(
+          int index) {
+        if (minCartRulesBuilder_ == null) {
+          return minCartRules_.get(index);  } else {
+          return minCartRulesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder> 
+           getMinCartRulesOrBuilderList() {
+        if (minCartRulesBuilder_ != null) {
+          return minCartRulesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(minCartRules_);
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder addMinCartRulesBuilder() {
+        return getMinCartRulesFieldBuilder().addBuilder(
+            shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder addMinCartRulesBuilder(
+          int index) {
+        return getMinCartRulesFieldBuilder().addBuilder(
+            index, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 8;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder> 
+           getMinCartRulesBuilderList() {
+        return getMinCartRulesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.MinCartRuleObject, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder, shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder> 
+          getMinCartRulesFieldBuilder() {
+        if (minCartRulesBuilder_ == null) {
+          minCartRulesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              shippingcalc.ShippingcalcOuterClass.MinCartRuleObject, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder, shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder>(
+                  minCartRules_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          minCartRules_ = null;
+        }
+        return minCartRulesBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2941,6 +3425,50 @@ public final class ShippingcalcOuterClass {
      * @return The deliveryType.
      */
     shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType();
+
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+     */
+    java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject> 
+        getMinCartRulesList();
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.MinCartRuleObject getMinCartRules(int index);
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+     */
+    int getMinCartRulesCount();
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+     */
+    java.util.List<? extends shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder> 
+        getMinCartRulesOrBuilderList();
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder getMinCartRulesOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code shippingcalc.UpdateStrategyRequest}
@@ -2960,6 +3488,7 @@ public final class ShippingcalcOuterClass {
       name_ = "";
       description_ = "";
       deliveryType_ = 0;
+      minCartRules_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -3041,6 +3570,15 @@ public final class ShippingcalcOuterClass {
               deliveryType_ = rawValue;
               break;
             }
+            case 74: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                minCartRules_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              minCartRules_.add(
+                  input.readMessage(shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.parser(), extensionRegistry));
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -3058,6 +3596,9 @@ public final class ShippingcalcOuterClass {
       } finally {
         if (((mutable_bitField0_ & 0x00000001) != 0)) {
           rules_ = java.util.Collections.unmodifiableList(rules_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          minCartRules_ = java.util.Collections.unmodifiableList(minCartRules_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -3346,6 +3887,66 @@ public final class ShippingcalcOuterClass {
       return result == null ? shippingcalc.ShippingcalcOuterClass.DeliveryType.UNRECOGNIZED : result;
     }
 
+    public static final int MIN_CART_RULES_FIELD_NUMBER = 9;
+    private java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject> minCartRules_;
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+     */
+    @java.lang.Override
+    public java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject> getMinCartRulesList() {
+      return minCartRules_;
+    }
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder> 
+        getMinCartRulesOrBuilderList() {
+      return minCartRules_;
+    }
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+     */
+    @java.lang.Override
+    public int getMinCartRulesCount() {
+      return minCartRules_.size();
+    }
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject getMinCartRules(int index) {
+      return minCartRules_.get(index);
+    }
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder getMinCartRulesOrBuilder(
+        int index) {
+      return minCartRules_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -3383,6 +3984,9 @@ public final class ShippingcalcOuterClass {
       }
       if (deliveryType_ != shippingcalc.ShippingcalcOuterClass.DeliveryType.NONE.getNumber()) {
         output.writeEnum(8, deliveryType_);
+      }
+      for (int i = 0; i < minCartRules_.size(); i++) {
+        output.writeMessage(9, minCartRules_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -3422,6 +4026,10 @@ public final class ShippingcalcOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(8, deliveryType_);
       }
+      for (int i = 0; i < minCartRules_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(9, minCartRules_.get(i));
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -3452,6 +4060,8 @@ public final class ShippingcalcOuterClass {
       if (!getDescription()
           .equals(other.getDescription())) return false;
       if (deliveryType_ != other.deliveryType_) return false;
+      if (!getMinCartRulesList()
+          .equals(other.getMinCartRulesList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -3482,6 +4092,10 @@ public final class ShippingcalcOuterClass {
       hash = (53 * hash) + getDescription().hashCode();
       hash = (37 * hash) + DELIVERY_TYPE_FIELD_NUMBER;
       hash = (53 * hash) + deliveryType_;
+      if (getMinCartRulesCount() > 0) {
+        hash = (37 * hash) + MIN_CART_RULES_FIELD_NUMBER;
+        hash = (53 * hash) + getMinCartRulesList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3611,6 +4225,7 @@ public final class ShippingcalcOuterClass {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
           getRulesFieldBuilder();
+          getMinCartRulesFieldBuilder();
         }
       }
       @java.lang.Override
@@ -3636,6 +4251,12 @@ public final class ShippingcalcOuterClass {
 
         deliveryType_ = 0;
 
+        if (minCartRulesBuilder_ == null) {
+          minCartRules_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          minCartRulesBuilder_.clear();
+        }
         return this;
       }
 
@@ -3679,6 +4300,15 @@ public final class ShippingcalcOuterClass {
         result.priority_ = priority_;
         result.description_ = description_;
         result.deliveryType_ = deliveryType_;
+        if (minCartRulesBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            minCartRules_ = java.util.Collections.unmodifiableList(minCartRules_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.minCartRules_ = minCartRules_;
+        } else {
+          result.minCartRules_ = minCartRulesBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -3776,6 +4406,32 @@ public final class ShippingcalcOuterClass {
         }
         if (other.deliveryType_ != 0) {
           setDeliveryTypeValue(other.getDeliveryTypeValue());
+        }
+        if (minCartRulesBuilder_ == null) {
+          if (!other.minCartRules_.isEmpty()) {
+            if (minCartRules_.isEmpty()) {
+              minCartRules_ = other.minCartRules_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureMinCartRulesIsMutable();
+              minCartRules_.addAll(other.minCartRules_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.minCartRules_.isEmpty()) {
+            if (minCartRulesBuilder_.isEmpty()) {
+              minCartRulesBuilder_.dispose();
+              minCartRulesBuilder_ = null;
+              minCartRules_ = other.minCartRules_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              minCartRulesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getMinCartRulesFieldBuilder() : null;
+            } else {
+              minCartRulesBuilder_.addAllMessages(other.minCartRules_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4608,6 +5264,318 @@ public final class ShippingcalcOuterClass {
         deliveryType_ = 0;
         onChanged();
         return this;
+      }
+
+      private java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject> minCartRules_ =
+        java.util.Collections.emptyList();
+      private void ensureMinCartRulesIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          minCartRules_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject>(minCartRules_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.MinCartRuleObject, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder, shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder> minCartRulesBuilder_;
+
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject> getMinCartRulesList() {
+        if (minCartRulesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(minCartRules_);
+        } else {
+          return minCartRulesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public int getMinCartRulesCount() {
+        if (minCartRulesBuilder_ == null) {
+          return minCartRules_.size();
+        } else {
+          return minCartRulesBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject getMinCartRules(int index) {
+        if (minCartRulesBuilder_ == null) {
+          return minCartRules_.get(index);
+        } else {
+          return minCartRulesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public Builder setMinCartRules(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject value) {
+        if (minCartRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMinCartRulesIsMutable();
+          minCartRules_.set(index, value);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public Builder setMinCartRules(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder builderForValue) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          minCartRules_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          minCartRulesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public Builder addMinCartRules(shippingcalc.ShippingcalcOuterClass.MinCartRuleObject value) {
+        if (minCartRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMinCartRulesIsMutable();
+          minCartRules_.add(value);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public Builder addMinCartRules(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject value) {
+        if (minCartRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMinCartRulesIsMutable();
+          minCartRules_.add(index, value);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public Builder addMinCartRules(
+          shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder builderForValue) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          minCartRules_.add(builderForValue.build());
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public Builder addMinCartRules(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder builderForValue) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          minCartRules_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public Builder addAllMinCartRules(
+          java.lang.Iterable<? extends shippingcalc.ShippingcalcOuterClass.MinCartRuleObject> values) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, minCartRules_);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public Builder clearMinCartRules() {
+        if (minCartRulesBuilder_ == null) {
+          minCartRules_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public Builder removeMinCartRules(int index) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          minCartRules_.remove(index);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder getMinCartRulesBuilder(
+          int index) {
+        return getMinCartRulesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder getMinCartRulesOrBuilder(
+          int index) {
+        if (minCartRulesBuilder_ == null) {
+          return minCartRules_.get(index);  } else {
+          return minCartRulesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder> 
+           getMinCartRulesOrBuilderList() {
+        if (minCartRulesBuilder_ != null) {
+          return minCartRulesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(minCartRules_);
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder addMinCartRulesBuilder() {
+        return getMinCartRulesFieldBuilder().addBuilder(
+            shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder addMinCartRulesBuilder(
+          int index) {
+        return getMinCartRulesFieldBuilder().addBuilder(
+            index, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleObject min_cart_rules = 9;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder> 
+           getMinCartRulesBuilderList() {
+        return getMinCartRulesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.MinCartRuleObject, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder, shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder> 
+          getMinCartRulesFieldBuilder() {
+        if (minCartRulesBuilder_ == null) {
+          minCartRulesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              shippingcalc.ShippingcalcOuterClass.MinCartRuleObject, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder, shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder>(
+                  minCartRules_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          minCartRules_ = null;
+        }
+        return minCartRulesBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -5933,6 +6901,1092 @@ public final class ShippingcalcOuterClass {
 
   }
 
+  public interface MinCartRuleObjectOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shippingcalc.MinCartRuleObject)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Минимальная сумма корзины
+     * </pre>
+     *
+     * <code>uint64 min_cart_value = 1;</code>
+     * @return The minCartValue.
+     */
+    long getMinCartValue();
+
+    /**
+     * <pre>
+     * Условия применения правила
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+     */
+    java.util.List<shippingcalc.ShippingcalcOuterClass.NewConditionObject> 
+        getConditionsList();
+    /**
+     * <pre>
+     * Условия применения правила
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.NewConditionObject getConditions(int index);
+    /**
+     * <pre>
+     * Условия применения правила
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+     */
+    int getConditionsCount();
+    /**
+     * <pre>
+     * Условия применения правила
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+     */
+    java.util.List<? extends shippingcalc.ShippingcalcOuterClass.NewConditionObjectOrBuilder> 
+        getConditionsOrBuilderList();
+    /**
+     * <pre>
+     * Условия применения правила
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.NewConditionObjectOrBuilder getConditionsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * Приоритет правила в рамках стратегии
+     * </pre>
+     *
+     * <code>int32 priority = 3;</code>
+     * @return The priority.
+     */
+    int getPriority();
+  }
+  /**
+   * Protobuf type {@code shippingcalc.MinCartRuleObject}
+   */
+  public static final class MinCartRuleObject extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shippingcalc.MinCartRuleObject)
+      MinCartRuleObjectOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MinCartRuleObject.newBuilder() to construct.
+    private MinCartRuleObject(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MinCartRuleObject() {
+      conditions_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MinCartRuleObject();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MinCartRuleObject(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              minCartValue_ = input.readUInt64();
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                conditions_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.NewConditionObject>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              conditions_.add(
+                  input.readMessage(shippingcalc.ShippingcalcOuterClass.NewConditionObject.parser(), extensionRegistry));
+              break;
+            }
+            case 24: {
+
+              priority_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          conditions_ = java.util.Collections.unmodifiableList(conditions_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartRuleObject_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartRuleObject_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.class, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder.class);
+    }
+
+    public static final int MIN_CART_VALUE_FIELD_NUMBER = 1;
+    private long minCartValue_;
+    /**
+     * <pre>
+     * Минимальная сумма корзины
+     * </pre>
+     *
+     * <code>uint64 min_cart_value = 1;</code>
+     * @return The minCartValue.
+     */
+    @java.lang.Override
+    public long getMinCartValue() {
+      return minCartValue_;
+    }
+
+    public static final int CONDITIONS_FIELD_NUMBER = 2;
+    private java.util.List<shippingcalc.ShippingcalcOuterClass.NewConditionObject> conditions_;
+    /**
+     * <pre>
+     * Условия применения правила
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<shippingcalc.ShippingcalcOuterClass.NewConditionObject> getConditionsList() {
+      return conditions_;
+    }
+    /**
+     * <pre>
+     * Условия применения правила
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.NewConditionObjectOrBuilder> 
+        getConditionsOrBuilderList() {
+      return conditions_;
+    }
+    /**
+     * <pre>
+     * Условия применения правила
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+     */
+    @java.lang.Override
+    public int getConditionsCount() {
+      return conditions_.size();
+    }
+    /**
+     * <pre>
+     * Условия применения правила
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.NewConditionObject getConditions(int index) {
+      return conditions_.get(index);
+    }
+    /**
+     * <pre>
+     * Условия применения правила
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.NewConditionObjectOrBuilder getConditionsOrBuilder(
+        int index) {
+      return conditions_.get(index);
+    }
+
+    public static final int PRIORITY_FIELD_NUMBER = 3;
+    private int priority_;
+    /**
+     * <pre>
+     * Приоритет правила в рамках стратегии
+     * </pre>
+     *
+     * <code>int32 priority = 3;</code>
+     * @return The priority.
+     */
+    @java.lang.Override
+    public int getPriority() {
+      return priority_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (minCartValue_ != 0L) {
+        output.writeUInt64(1, minCartValue_);
+      }
+      for (int i = 0; i < conditions_.size(); i++) {
+        output.writeMessage(2, conditions_.get(i));
+      }
+      if (priority_ != 0) {
+        output.writeInt32(3, priority_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (minCartValue_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, minCartValue_);
+      }
+      for (int i = 0; i < conditions_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, conditions_.get(i));
+      }
+      if (priority_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, priority_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shippingcalc.ShippingcalcOuterClass.MinCartRuleObject)) {
+        return super.equals(obj);
+      }
+      shippingcalc.ShippingcalcOuterClass.MinCartRuleObject other = (shippingcalc.ShippingcalcOuterClass.MinCartRuleObject) obj;
+
+      if (getMinCartValue()
+          != other.getMinCartValue()) return false;
+      if (!getConditionsList()
+          .equals(other.getConditionsList())) return false;
+      if (getPriority()
+          != other.getPriority()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + MIN_CART_VALUE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getMinCartValue());
+      if (getConditionsCount() > 0) {
+        hash = (37 * hash) + CONDITIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getConditionsList().hashCode();
+      }
+      hash = (37 * hash) + PRIORITY_FIELD_NUMBER;
+      hash = (53 * hash) + getPriority();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleObject parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleObject parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleObject parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleObject parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleObject parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleObject parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleObject parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleObject parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleObject parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleObject parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleObject parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleObject parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shippingcalc.ShippingcalcOuterClass.MinCartRuleObject prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shippingcalc.MinCartRuleObject}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shippingcalc.MinCartRuleObject)
+        shippingcalc.ShippingcalcOuterClass.MinCartRuleObjectOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartRuleObject_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartRuleObject_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.class, shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.Builder.class);
+      }
+
+      // Construct using shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getConditionsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        minCartValue_ = 0L;
+
+        if (conditionsBuilder_ == null) {
+          conditions_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          conditionsBuilder_.clear();
+        }
+        priority_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartRuleObject_descriptor;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject getDefaultInstanceForType() {
+        return shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject build() {
+        shippingcalc.ShippingcalcOuterClass.MinCartRuleObject result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject buildPartial() {
+        shippingcalc.ShippingcalcOuterClass.MinCartRuleObject result = new shippingcalc.ShippingcalcOuterClass.MinCartRuleObject(this);
+        int from_bitField0_ = bitField0_;
+        result.minCartValue_ = minCartValue_;
+        if (conditionsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            conditions_ = java.util.Collections.unmodifiableList(conditions_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.conditions_ = conditions_;
+        } else {
+          result.conditions_ = conditionsBuilder_.build();
+        }
+        result.priority_ = priority_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shippingcalc.ShippingcalcOuterClass.MinCartRuleObject) {
+          return mergeFrom((shippingcalc.ShippingcalcOuterClass.MinCartRuleObject)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shippingcalc.ShippingcalcOuterClass.MinCartRuleObject other) {
+        if (other == shippingcalc.ShippingcalcOuterClass.MinCartRuleObject.getDefaultInstance()) return this;
+        if (other.getMinCartValue() != 0L) {
+          setMinCartValue(other.getMinCartValue());
+        }
+        if (conditionsBuilder_ == null) {
+          if (!other.conditions_.isEmpty()) {
+            if (conditions_.isEmpty()) {
+              conditions_ = other.conditions_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureConditionsIsMutable();
+              conditions_.addAll(other.conditions_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.conditions_.isEmpty()) {
+            if (conditionsBuilder_.isEmpty()) {
+              conditionsBuilder_.dispose();
+              conditionsBuilder_ = null;
+              conditions_ = other.conditions_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              conditionsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getConditionsFieldBuilder() : null;
+            } else {
+              conditionsBuilder_.addAllMessages(other.conditions_);
+            }
+          }
+        }
+        if (other.getPriority() != 0) {
+          setPriority(other.getPriority());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shippingcalc.ShippingcalcOuterClass.MinCartRuleObject parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shippingcalc.ShippingcalcOuterClass.MinCartRuleObject) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long minCartValue_ ;
+      /**
+       * <pre>
+       * Минимальная сумма корзины
+       * </pre>
+       *
+       * <code>uint64 min_cart_value = 1;</code>
+       * @return The minCartValue.
+       */
+      @java.lang.Override
+      public long getMinCartValue() {
+        return minCartValue_;
+      }
+      /**
+       * <pre>
+       * Минимальная сумма корзины
+       * </pre>
+       *
+       * <code>uint64 min_cart_value = 1;</code>
+       * @param value The minCartValue to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMinCartValue(long value) {
+        
+        minCartValue_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Минимальная сумма корзины
+       * </pre>
+       *
+       * <code>uint64 min_cart_value = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMinCartValue() {
+        
+        minCartValue_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<shippingcalc.ShippingcalcOuterClass.NewConditionObject> conditions_ =
+        java.util.Collections.emptyList();
+      private void ensureConditionsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          conditions_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.NewConditionObject>(conditions_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.NewConditionObject, shippingcalc.ShippingcalcOuterClass.NewConditionObject.Builder, shippingcalc.ShippingcalcOuterClass.NewConditionObjectOrBuilder> conditionsBuilder_;
+
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.NewConditionObject> getConditionsList() {
+        if (conditionsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(conditions_);
+        } else {
+          return conditionsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public int getConditionsCount() {
+        if (conditionsBuilder_ == null) {
+          return conditions_.size();
+        } else {
+          return conditionsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.NewConditionObject getConditions(int index) {
+        if (conditionsBuilder_ == null) {
+          return conditions_.get(index);
+        } else {
+          return conditionsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public Builder setConditions(
+          int index, shippingcalc.ShippingcalcOuterClass.NewConditionObject value) {
+        if (conditionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureConditionsIsMutable();
+          conditions_.set(index, value);
+          onChanged();
+        } else {
+          conditionsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public Builder setConditions(
+          int index, shippingcalc.ShippingcalcOuterClass.NewConditionObject.Builder builderForValue) {
+        if (conditionsBuilder_ == null) {
+          ensureConditionsIsMutable();
+          conditions_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          conditionsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public Builder addConditions(shippingcalc.ShippingcalcOuterClass.NewConditionObject value) {
+        if (conditionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureConditionsIsMutable();
+          conditions_.add(value);
+          onChanged();
+        } else {
+          conditionsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public Builder addConditions(
+          int index, shippingcalc.ShippingcalcOuterClass.NewConditionObject value) {
+        if (conditionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureConditionsIsMutable();
+          conditions_.add(index, value);
+          onChanged();
+        } else {
+          conditionsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public Builder addConditions(
+          shippingcalc.ShippingcalcOuterClass.NewConditionObject.Builder builderForValue) {
+        if (conditionsBuilder_ == null) {
+          ensureConditionsIsMutable();
+          conditions_.add(builderForValue.build());
+          onChanged();
+        } else {
+          conditionsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public Builder addConditions(
+          int index, shippingcalc.ShippingcalcOuterClass.NewConditionObject.Builder builderForValue) {
+        if (conditionsBuilder_ == null) {
+          ensureConditionsIsMutable();
+          conditions_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          conditionsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public Builder addAllConditions(
+          java.lang.Iterable<? extends shippingcalc.ShippingcalcOuterClass.NewConditionObject> values) {
+        if (conditionsBuilder_ == null) {
+          ensureConditionsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, conditions_);
+          onChanged();
+        } else {
+          conditionsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public Builder clearConditions() {
+        if (conditionsBuilder_ == null) {
+          conditions_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          conditionsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public Builder removeConditions(int index) {
+        if (conditionsBuilder_ == null) {
+          ensureConditionsIsMutable();
+          conditions_.remove(index);
+          onChanged();
+        } else {
+          conditionsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.NewConditionObject.Builder getConditionsBuilder(
+          int index) {
+        return getConditionsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.NewConditionObjectOrBuilder getConditionsOrBuilder(
+          int index) {
+        if (conditionsBuilder_ == null) {
+          return conditions_.get(index);  } else {
+          return conditionsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.NewConditionObjectOrBuilder> 
+           getConditionsOrBuilderList() {
+        if (conditionsBuilder_ != null) {
+          return conditionsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(conditions_);
+        }
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.NewConditionObject.Builder addConditionsBuilder() {
+        return getConditionsFieldBuilder().addBuilder(
+            shippingcalc.ShippingcalcOuterClass.NewConditionObject.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.NewConditionObject.Builder addConditionsBuilder(
+          int index) {
+        return getConditionsFieldBuilder().addBuilder(
+            index, shippingcalc.ShippingcalcOuterClass.NewConditionObject.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Условия применения правила
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.NewConditionObject conditions = 2;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.NewConditionObject.Builder> 
+           getConditionsBuilderList() {
+        return getConditionsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.NewConditionObject, shippingcalc.ShippingcalcOuterClass.NewConditionObject.Builder, shippingcalc.ShippingcalcOuterClass.NewConditionObjectOrBuilder> 
+          getConditionsFieldBuilder() {
+        if (conditionsBuilder_ == null) {
+          conditionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              shippingcalc.ShippingcalcOuterClass.NewConditionObject, shippingcalc.ShippingcalcOuterClass.NewConditionObject.Builder, shippingcalc.ShippingcalcOuterClass.NewConditionObjectOrBuilder>(
+                  conditions_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          conditions_ = null;
+        }
+        return conditionsBuilder_;
+      }
+
+      private int priority_ ;
+      /**
+       * <pre>
+       * Приоритет правила в рамках стратегии
+       * </pre>
+       *
+       * <code>int32 priority = 3;</code>
+       * @return The priority.
+       */
+      @java.lang.Override
+      public int getPriority() {
+        return priority_;
+      }
+      /**
+       * <pre>
+       * Приоритет правила в рамках стратегии
+       * </pre>
+       *
+       * <code>int32 priority = 3;</code>
+       * @param value The priority to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPriority(int value) {
+        
+        priority_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Приоритет правила в рамках стратегии
+       * </pre>
+       *
+       * <code>int32 priority = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPriority() {
+        
+        priority_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shippingcalc.MinCartRuleObject)
+    }
+
+    // @@protoc_insertion_point(class_scope:shippingcalc.MinCartRuleObject)
+    private static final shippingcalc.ShippingcalcOuterClass.MinCartRuleObject DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shippingcalc.ShippingcalcOuterClass.MinCartRuleObject();
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleObject getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MinCartRuleObject>
+        PARSER = new com.google.protobuf.AbstractParser<MinCartRuleObject>() {
+      @java.lang.Override
+      public MinCartRuleObject parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MinCartRuleObject(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MinCartRuleObject> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MinCartRuleObject> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.MinCartRuleObject getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface NewConditionObjectOrBuilder extends
       // @@protoc_insertion_point(interface_extends:shippingcalc.NewConditionObject)
       com.google.protobuf.MessageOrBuilder {
@@ -6712,6 +8766,35 @@ public final class ShippingcalcOuterClass {
      * @return The rulesId at the given index.
      */
     int getRulesId(int index);
+
+    /**
+     * <pre>
+     * Список идентификаторов правил для минимальной корзины
+     * </pre>
+     *
+     * <code>repeated uint32 min_cart_rules_id = 2;</code>
+     * @return A list containing the minCartRulesId.
+     */
+    java.util.List<java.lang.Integer> getMinCartRulesIdList();
+    /**
+     * <pre>
+     * Список идентификаторов правил для минимальной корзины
+     * </pre>
+     *
+     * <code>repeated uint32 min_cart_rules_id = 2;</code>
+     * @return The count of minCartRulesId.
+     */
+    int getMinCartRulesIdCount();
+    /**
+     * <pre>
+     * Список идентификаторов правил для минимальной корзины
+     * </pre>
+     *
+     * <code>repeated uint32 min_cart_rules_id = 2;</code>
+     * @param index The index of the element to return.
+     * @return The minCartRulesId at the given index.
+     */
+    int getMinCartRulesId(int index);
   }
   /**
    * Protobuf type {@code shippingcalc.UpdateStrategyResponse}
@@ -6727,6 +8810,7 @@ public final class ShippingcalcOuterClass {
     }
     private UpdateStrategyResponse() {
       rulesId_ = emptyIntList();
+      minCartRulesId_ = emptyIntList();
     }
 
     @java.lang.Override
@@ -6781,6 +8865,27 @@ public final class ShippingcalcOuterClass {
               input.popLimit(limit);
               break;
             }
+            case 16: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                minCartRulesId_ = newIntList();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              minCartRulesId_.addInt(input.readUInt32());
+              break;
+            }
+            case 18: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
+                minCartRulesId_ = newIntList();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                minCartRulesId_.addInt(input.readUInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -6798,6 +8903,9 @@ public final class ShippingcalcOuterClass {
       } finally {
         if (((mutable_bitField0_ & 0x00000001) != 0)) {
           rulesId_.makeImmutable(); // C
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          minCartRulesId_.makeImmutable(); // C
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -6856,6 +8964,46 @@ public final class ShippingcalcOuterClass {
     }
     private int rulesIdMemoizedSerializedSize = -1;
 
+    public static final int MIN_CART_RULES_ID_FIELD_NUMBER = 2;
+    private com.google.protobuf.Internal.IntList minCartRulesId_;
+    /**
+     * <pre>
+     * Список идентификаторов правил для минимальной корзины
+     * </pre>
+     *
+     * <code>repeated uint32 min_cart_rules_id = 2;</code>
+     * @return A list containing the minCartRulesId.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Integer>
+        getMinCartRulesIdList() {
+      return minCartRulesId_;
+    }
+    /**
+     * <pre>
+     * Список идентификаторов правил для минимальной корзины
+     * </pre>
+     *
+     * <code>repeated uint32 min_cart_rules_id = 2;</code>
+     * @return The count of minCartRulesId.
+     */
+    public int getMinCartRulesIdCount() {
+      return minCartRulesId_.size();
+    }
+    /**
+     * <pre>
+     * Список идентификаторов правил для минимальной корзины
+     * </pre>
+     *
+     * <code>repeated uint32 min_cart_rules_id = 2;</code>
+     * @param index The index of the element to return.
+     * @return The minCartRulesId at the given index.
+     */
+    public int getMinCartRulesId(int index) {
+      return minCartRulesId_.getInt(index);
+    }
+    private int minCartRulesIdMemoizedSerializedSize = -1;
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -6877,6 +9025,13 @@ public final class ShippingcalcOuterClass {
       }
       for (int i = 0; i < rulesId_.size(); i++) {
         output.writeUInt32NoTag(rulesId_.getInt(i));
+      }
+      if (getMinCartRulesIdList().size() > 0) {
+        output.writeUInt32NoTag(18);
+        output.writeUInt32NoTag(minCartRulesIdMemoizedSerializedSize);
+      }
+      for (int i = 0; i < minCartRulesId_.size(); i++) {
+        output.writeUInt32NoTag(minCartRulesId_.getInt(i));
       }
       unknownFields.writeTo(output);
     }
@@ -6901,6 +9056,20 @@ public final class ShippingcalcOuterClass {
         }
         rulesIdMemoizedSerializedSize = dataSize;
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < minCartRulesId_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeUInt32SizeNoTag(minCartRulesId_.getInt(i));
+        }
+        size += dataSize;
+        if (!getMinCartRulesIdList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        minCartRulesIdMemoizedSerializedSize = dataSize;
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -6918,6 +9087,8 @@ public final class ShippingcalcOuterClass {
 
       if (!getRulesIdList()
           .equals(other.getRulesIdList())) return false;
+      if (!getMinCartRulesIdList()
+          .equals(other.getMinCartRulesIdList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -6932,6 +9103,10 @@ public final class ShippingcalcOuterClass {
       if (getRulesIdCount() > 0) {
         hash = (37 * hash) + RULES_ID_FIELD_NUMBER;
         hash = (53 * hash) + getRulesIdList().hashCode();
+      }
+      if (getMinCartRulesIdCount() > 0) {
+        hash = (37 * hash) + MIN_CART_RULES_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getMinCartRulesIdList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -7068,6 +9243,8 @@ public final class ShippingcalcOuterClass {
         super.clear();
         rulesId_ = emptyIntList();
         bitField0_ = (bitField0_ & ~0x00000001);
+        minCartRulesId_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -7100,6 +9277,11 @@ public final class ShippingcalcOuterClass {
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.rulesId_ = rulesId_;
+        if (((bitField0_ & 0x00000002) != 0)) {
+          minCartRulesId_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.minCartRulesId_ = minCartRulesId_;
         onBuilt();
         return result;
       }
@@ -7155,6 +9337,16 @@ public final class ShippingcalcOuterClass {
           } else {
             ensureRulesIdIsMutable();
             rulesId_.addAll(other.rulesId_);
+          }
+          onChanged();
+        }
+        if (!other.minCartRulesId_.isEmpty()) {
+          if (minCartRulesId_.isEmpty()) {
+            minCartRulesId_ = other.minCartRulesId_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureMinCartRulesIdIsMutable();
+            minCartRulesId_.addAll(other.minCartRulesId_);
           }
           onChanged();
         }
@@ -7291,6 +9483,113 @@ public final class ShippingcalcOuterClass {
       public Builder clearRulesId() {
         rulesId_ = emptyIntList();
         bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Internal.IntList minCartRulesId_ = emptyIntList();
+      private void ensureMinCartRulesIdIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          minCartRulesId_ = mutableCopy(minCartRulesId_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <pre>
+       * Список идентификаторов правил для минимальной корзины
+       * </pre>
+       *
+       * <code>repeated uint32 min_cart_rules_id = 2;</code>
+       * @return A list containing the minCartRulesId.
+       */
+      public java.util.List<java.lang.Integer>
+          getMinCartRulesIdList() {
+        return ((bitField0_ & 0x00000002) != 0) ?
+                 java.util.Collections.unmodifiableList(minCartRulesId_) : minCartRulesId_;
+      }
+      /**
+       * <pre>
+       * Список идентификаторов правил для минимальной корзины
+       * </pre>
+       *
+       * <code>repeated uint32 min_cart_rules_id = 2;</code>
+       * @return The count of minCartRulesId.
+       */
+      public int getMinCartRulesIdCount() {
+        return minCartRulesId_.size();
+      }
+      /**
+       * <pre>
+       * Список идентификаторов правил для минимальной корзины
+       * </pre>
+       *
+       * <code>repeated uint32 min_cart_rules_id = 2;</code>
+       * @param index The index of the element to return.
+       * @return The minCartRulesId at the given index.
+       */
+      public int getMinCartRulesId(int index) {
+        return minCartRulesId_.getInt(index);
+      }
+      /**
+       * <pre>
+       * Список идентификаторов правил для минимальной корзины
+       * </pre>
+       *
+       * <code>repeated uint32 min_cart_rules_id = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The minCartRulesId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMinCartRulesId(
+          int index, int value) {
+        ensureMinCartRulesIdIsMutable();
+        minCartRulesId_.setInt(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Список идентификаторов правил для минимальной корзины
+       * </pre>
+       *
+       * <code>repeated uint32 min_cart_rules_id = 2;</code>
+       * @param value The minCartRulesId to add.
+       * @return This builder for chaining.
+       */
+      public Builder addMinCartRulesId(int value) {
+        ensureMinCartRulesIdIsMutable();
+        minCartRulesId_.addInt(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Список идентификаторов правил для минимальной корзины
+       * </pre>
+       *
+       * <code>repeated uint32 min_cart_rules_id = 2;</code>
+       * @param values The minCartRulesId to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllMinCartRulesId(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureMinCartRulesIdIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, minCartRulesId_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Список идентификаторов правил для минимальной корзины
+       * </pre>
+       *
+       * <code>repeated uint32 min_cart_rules_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMinCartRulesId() {
+        minCartRulesId_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
@@ -10115,7 +12414,7 @@ public final class ShippingcalcOuterClass {
 
     /**
      * <pre>
-     * Когдастратегия была в последний раз обновлена
+     * Когда стратегия была в последний раз обновлена
      * </pre>
      *
      * <code>int64 updated_at = 9;</code>
@@ -10548,7 +12847,7 @@ public final class ShippingcalcOuterClass {
     private long updatedAt_;
     /**
      * <pre>
-     * Когдастратегия была в последний раз обновлена
+     * Когда стратегия была в последний раз обновлена
      * </pre>
      *
      * <code>int64 updated_at = 9;</code>
@@ -11858,7 +14157,7 @@ public final class ShippingcalcOuterClass {
       private long updatedAt_ ;
       /**
        * <pre>
-       * Когдастратегия была в последний раз обновлена
+       * Когда стратегия была в последний раз обновлена
        * </pre>
        *
        * <code>int64 updated_at = 9;</code>
@@ -11870,7 +14169,7 @@ public final class ShippingcalcOuterClass {
       }
       /**
        * <pre>
-       * Когдастратегия была в последний раз обновлена
+       * Когда стратегия была в последний раз обновлена
        * </pre>
        *
        * <code>int64 updated_at = 9;</code>
@@ -11885,7 +14184,7 @@ public final class ShippingcalcOuterClass {
       }
       /**
        * <pre>
-       * Когдастратегия была в последний раз обновлена
+       * Когда стратегия была в последний раз обновлена
        * </pre>
        *
        * <code>int64 updated_at = 9;</code>
@@ -16222,6 +18521,50 @@ public final class ShippingcalcOuterClass {
      */
     shippingcalc.ShippingcalcOuterClass.RuleViewOrBuilder getRulesOrBuilder(
         int index);
+
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+     */
+    java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleView> 
+        getMinCartRulesList();
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.MinCartRuleView getMinCartRules(int index);
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+     */
+    int getMinCartRulesCount();
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+     */
+    java.util.List<? extends shippingcalc.ShippingcalcOuterClass.MinCartRuleViewOrBuilder> 
+        getMinCartRulesOrBuilderList();
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.MinCartRuleViewOrBuilder getMinCartRulesOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code shippingcalc.GetStrategyResponse}
@@ -16237,6 +18580,7 @@ public final class ShippingcalcOuterClass {
     }
     private GetStrategyResponse() {
       rules_ = java.util.Collections.emptyList();
+      minCartRules_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -16292,6 +18636,15 @@ public final class ShippingcalcOuterClass {
                   input.readMessage(shippingcalc.ShippingcalcOuterClass.RuleView.parser(), extensionRegistry));
               break;
             }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                minCartRules_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.MinCartRuleView>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              minCartRules_.add(
+                  input.readMessage(shippingcalc.ShippingcalcOuterClass.MinCartRuleView.parser(), extensionRegistry));
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -16309,6 +18662,9 @@ public final class ShippingcalcOuterClass {
       } finally {
         if (((mutable_bitField0_ & 0x00000001) != 0)) {
           rules_ = java.util.Collections.unmodifiableList(rules_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          minCartRules_ = java.util.Collections.unmodifiableList(minCartRules_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -16425,6 +18781,66 @@ public final class ShippingcalcOuterClass {
       return rules_.get(index);
     }
 
+    public static final int MIN_CART_RULES_FIELD_NUMBER = 3;
+    private java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleView> minCartRules_;
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleView> getMinCartRulesList() {
+      return minCartRules_;
+    }
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.MinCartRuleViewOrBuilder> 
+        getMinCartRulesOrBuilderList() {
+      return minCartRules_;
+    }
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+     */
+    @java.lang.Override
+    public int getMinCartRulesCount() {
+      return minCartRules_.size();
+    }
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.MinCartRuleView getMinCartRules(int index) {
+      return minCartRules_.get(index);
+    }
+    /**
+     * <pre>
+     * Список правил для суммы минимальной корзины
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.MinCartRuleViewOrBuilder getMinCartRulesOrBuilder(
+        int index) {
+      return minCartRules_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -16445,6 +18861,9 @@ public final class ShippingcalcOuterClass {
       for (int i = 0; i < rules_.size(); i++) {
         output.writeMessage(2, rules_.get(i));
       }
+      for (int i = 0; i < minCartRules_.size(); i++) {
+        output.writeMessage(3, minCartRules_.get(i));
+      }
       unknownFields.writeTo(output);
     }
 
@@ -16461,6 +18880,10 @@ public final class ShippingcalcOuterClass {
       for (int i = 0; i < rules_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, rules_.get(i));
+      }
+      for (int i = 0; i < minCartRules_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, minCartRules_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -16484,6 +18907,8 @@ public final class ShippingcalcOuterClass {
       }
       if (!getRulesList()
           .equals(other.getRulesList())) return false;
+      if (!getMinCartRulesList()
+          .equals(other.getMinCartRulesList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -16502,6 +18927,10 @@ public final class ShippingcalcOuterClass {
       if (getRulesCount() > 0) {
         hash = (37 * hash) + RULES_FIELD_NUMBER;
         hash = (53 * hash) + getRulesList().hashCode();
+      }
+      if (getMinCartRulesCount() > 0) {
+        hash = (37 * hash) + MIN_CART_RULES_FIELD_NUMBER;
+        hash = (53 * hash) + getMinCartRulesList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -16632,6 +19061,7 @@ public final class ShippingcalcOuterClass {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
           getRulesFieldBuilder();
+          getMinCartRulesFieldBuilder();
         }
       }
       @java.lang.Override
@@ -16648,6 +19078,12 @@ public final class ShippingcalcOuterClass {
           bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           rulesBuilder_.clear();
+        }
+        if (minCartRulesBuilder_ == null) {
+          minCartRules_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          minCartRulesBuilder_.clear();
         }
         return this;
       }
@@ -16689,6 +19125,15 @@ public final class ShippingcalcOuterClass {
           result.rules_ = rules_;
         } else {
           result.rules_ = rulesBuilder_.build();
+        }
+        if (minCartRulesBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            minCartRules_ = java.util.Collections.unmodifiableList(minCartRules_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.minCartRules_ = minCartRules_;
+        } else {
+          result.minCartRules_ = minCartRulesBuilder_.build();
         }
         onBuilt();
         return result;
@@ -16764,6 +19209,32 @@ public final class ShippingcalcOuterClass {
                    getRulesFieldBuilder() : null;
             } else {
               rulesBuilder_.addAllMessages(other.rules_);
+            }
+          }
+        }
+        if (minCartRulesBuilder_ == null) {
+          if (!other.minCartRules_.isEmpty()) {
+            if (minCartRules_.isEmpty()) {
+              minCartRules_ = other.minCartRules_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureMinCartRulesIsMutable();
+              minCartRules_.addAll(other.minCartRules_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.minCartRules_.isEmpty()) {
+            if (minCartRulesBuilder_.isEmpty()) {
+              minCartRulesBuilder_.dispose();
+              minCartRulesBuilder_ = null;
+              minCartRules_ = other.minCartRules_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              minCartRulesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getMinCartRulesFieldBuilder() : null;
+            } else {
+              minCartRulesBuilder_.addAllMessages(other.minCartRules_);
             }
           }
         }
@@ -17262,6 +19733,318 @@ public final class ShippingcalcOuterClass {
           rules_ = null;
         }
         return rulesBuilder_;
+      }
+
+      private java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleView> minCartRules_ =
+        java.util.Collections.emptyList();
+      private void ensureMinCartRulesIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          minCartRules_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.MinCartRuleView>(minCartRules_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.MinCartRuleView, shippingcalc.ShippingcalcOuterClass.MinCartRuleView.Builder, shippingcalc.ShippingcalcOuterClass.MinCartRuleViewOrBuilder> minCartRulesBuilder_;
+
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleView> getMinCartRulesList() {
+        if (minCartRulesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(minCartRules_);
+        } else {
+          return minCartRulesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public int getMinCartRulesCount() {
+        if (minCartRulesBuilder_ == null) {
+          return minCartRules_.size();
+        } else {
+          return minCartRulesBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleView getMinCartRules(int index) {
+        if (minCartRulesBuilder_ == null) {
+          return minCartRules_.get(index);
+        } else {
+          return minCartRulesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public Builder setMinCartRules(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartRuleView value) {
+        if (minCartRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMinCartRulesIsMutable();
+          minCartRules_.set(index, value);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public Builder setMinCartRules(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartRuleView.Builder builderForValue) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          minCartRules_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          minCartRulesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public Builder addMinCartRules(shippingcalc.ShippingcalcOuterClass.MinCartRuleView value) {
+        if (minCartRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMinCartRulesIsMutable();
+          minCartRules_.add(value);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public Builder addMinCartRules(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartRuleView value) {
+        if (minCartRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMinCartRulesIsMutable();
+          minCartRules_.add(index, value);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public Builder addMinCartRules(
+          shippingcalc.ShippingcalcOuterClass.MinCartRuleView.Builder builderForValue) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          minCartRules_.add(builderForValue.build());
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public Builder addMinCartRules(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartRuleView.Builder builderForValue) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          minCartRules_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public Builder addAllMinCartRules(
+          java.lang.Iterable<? extends shippingcalc.ShippingcalcOuterClass.MinCartRuleView> values) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, minCartRules_);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public Builder clearMinCartRules() {
+        if (minCartRulesBuilder_ == null) {
+          minCartRules_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public Builder removeMinCartRules(int index) {
+        if (minCartRulesBuilder_ == null) {
+          ensureMinCartRulesIsMutable();
+          minCartRules_.remove(index);
+          onChanged();
+        } else {
+          minCartRulesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleView.Builder getMinCartRulesBuilder(
+          int index) {
+        return getMinCartRulesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleViewOrBuilder getMinCartRulesOrBuilder(
+          int index) {
+        if (minCartRulesBuilder_ == null) {
+          return minCartRules_.get(index);  } else {
+          return minCartRulesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.MinCartRuleViewOrBuilder> 
+           getMinCartRulesOrBuilderList() {
+        if (minCartRulesBuilder_ != null) {
+          return minCartRulesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(minCartRules_);
+        }
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleView.Builder addMinCartRulesBuilder() {
+        return getMinCartRulesFieldBuilder().addBuilder(
+            shippingcalc.ShippingcalcOuterClass.MinCartRuleView.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleView.Builder addMinCartRulesBuilder(
+          int index) {
+        return getMinCartRulesFieldBuilder().addBuilder(
+            index, shippingcalc.ShippingcalcOuterClass.MinCartRuleView.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Список правил для суммы минимальной корзины
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartRuleView min_cart_rules = 3;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartRuleView.Builder> 
+           getMinCartRulesBuilderList() {
+        return getMinCartRulesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.MinCartRuleView, shippingcalc.ShippingcalcOuterClass.MinCartRuleView.Builder, shippingcalc.ShippingcalcOuterClass.MinCartRuleViewOrBuilder> 
+          getMinCartRulesFieldBuilder() {
+        if (minCartRulesBuilder_ == null) {
+          minCartRulesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              shippingcalc.ShippingcalcOuterClass.MinCartRuleView, shippingcalc.ShippingcalcOuterClass.MinCartRuleView.Builder, shippingcalc.ShippingcalcOuterClass.MinCartRuleViewOrBuilder>(
+                  minCartRules_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          minCartRules_ = null;
+        }
+        return minCartRulesBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -19135,6 +21918,1459 @@ public final class ShippingcalcOuterClass {
 
     @java.lang.Override
     public shippingcalc.ShippingcalcOuterClass.RuleView getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MinCartRuleViewOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shippingcalc.MinCartRuleView)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Идентификатор
+     * </pre>
+     *
+     * <code>uint32 id = 1;</code>
+     * @return The id.
+     */
+    int getId();
+
+    /**
+     * <pre>
+     * Значения параметров скрипта
+     * </pre>
+     *
+     * <code>uint64 min_cart_value = 2;</code>
+     * @return The minCartValue.
+     */
+    long getMinCartValue();
+
+    /**
+     * <pre>
+     * Условия
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+     */
+    java.util.List<shippingcalc.ShippingcalcOuterClass.ConditionView> 
+        getConditionsList();
+    /**
+     * <pre>
+     * Условия
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.ConditionView getConditions(int index);
+    /**
+     * <pre>
+     * Условия
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+     */
+    int getConditionsCount();
+    /**
+     * <pre>
+     * Условия
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+     */
+    java.util.List<? extends shippingcalc.ShippingcalcOuterClass.ConditionViewOrBuilder> 
+        getConditionsOrBuilderList();
+    /**
+     * <pre>
+     * Условия
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.ConditionViewOrBuilder getConditionsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * Приоритет
+     * </pre>
+     *
+     * <code>int32 priority = 4;</code>
+     * @return The priority.
+     */
+    int getPriority();
+
+    /**
+     * <pre>
+     * Автор
+     * </pre>
+     *
+     * <code>string creator_id = 5;</code>
+     * @return The creatorId.
+     */
+    java.lang.String getCreatorId();
+    /**
+     * <pre>
+     * Автор
+     * </pre>
+     *
+     * <code>string creator_id = 5;</code>
+     * @return The bytes for creatorId.
+     */
+    com.google.protobuf.ByteString
+        getCreatorIdBytes();
+
+    /**
+     * <pre>
+     * Время создания(timestamp)
+     * </pre>
+     *
+     * <code>int64 created_at = 6;</code>
+     * @return The createdAt.
+     */
+    long getCreatedAt();
+  }
+  /**
+   * Protobuf type {@code shippingcalc.MinCartRuleView}
+   */
+  public static final class MinCartRuleView extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shippingcalc.MinCartRuleView)
+      MinCartRuleViewOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MinCartRuleView.newBuilder() to construct.
+    private MinCartRuleView(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MinCartRuleView() {
+      conditions_ = java.util.Collections.emptyList();
+      creatorId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MinCartRuleView();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MinCartRuleView(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              id_ = input.readUInt32();
+              break;
+            }
+            case 16: {
+
+              minCartValue_ = input.readUInt64();
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                conditions_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.ConditionView>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              conditions_.add(
+                  input.readMessage(shippingcalc.ShippingcalcOuterClass.ConditionView.parser(), extensionRegistry));
+              break;
+            }
+            case 32: {
+
+              priority_ = input.readInt32();
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              creatorId_ = s;
+              break;
+            }
+            case 48: {
+
+              createdAt_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          conditions_ = java.util.Collections.unmodifiableList(conditions_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartRuleView_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartRuleView_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shippingcalc.ShippingcalcOuterClass.MinCartRuleView.class, shippingcalc.ShippingcalcOuterClass.MinCartRuleView.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    /**
+     * <pre>
+     * Идентификатор
+     * </pre>
+     *
+     * <code>uint32 id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public int getId() {
+      return id_;
+    }
+
+    public static final int MIN_CART_VALUE_FIELD_NUMBER = 2;
+    private long minCartValue_;
+    /**
+     * <pre>
+     * Значения параметров скрипта
+     * </pre>
+     *
+     * <code>uint64 min_cart_value = 2;</code>
+     * @return The minCartValue.
+     */
+    @java.lang.Override
+    public long getMinCartValue() {
+      return minCartValue_;
+    }
+
+    public static final int CONDITIONS_FIELD_NUMBER = 3;
+    private java.util.List<shippingcalc.ShippingcalcOuterClass.ConditionView> conditions_;
+    /**
+     * <pre>
+     * Условия
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<shippingcalc.ShippingcalcOuterClass.ConditionView> getConditionsList() {
+      return conditions_;
+    }
+    /**
+     * <pre>
+     * Условия
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.ConditionViewOrBuilder> 
+        getConditionsOrBuilderList() {
+      return conditions_;
+    }
+    /**
+     * <pre>
+     * Условия
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+     */
+    @java.lang.Override
+    public int getConditionsCount() {
+      return conditions_.size();
+    }
+    /**
+     * <pre>
+     * Условия
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.ConditionView getConditions(int index) {
+      return conditions_.get(index);
+    }
+    /**
+     * <pre>
+     * Условия
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.ConditionViewOrBuilder getConditionsOrBuilder(
+        int index) {
+      return conditions_.get(index);
+    }
+
+    public static final int PRIORITY_FIELD_NUMBER = 4;
+    private int priority_;
+    /**
+     * <pre>
+     * Приоритет
+     * </pre>
+     *
+     * <code>int32 priority = 4;</code>
+     * @return The priority.
+     */
+    @java.lang.Override
+    public int getPriority() {
+      return priority_;
+    }
+
+    public static final int CREATOR_ID_FIELD_NUMBER = 5;
+    private volatile java.lang.Object creatorId_;
+    /**
+     * <pre>
+     * Автор
+     * </pre>
+     *
+     * <code>string creator_id = 5;</code>
+     * @return The creatorId.
+     */
+    @java.lang.Override
+    public java.lang.String getCreatorId() {
+      java.lang.Object ref = creatorId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        creatorId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Автор
+     * </pre>
+     *
+     * <code>string creator_id = 5;</code>
+     * @return The bytes for creatorId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCreatorIdBytes() {
+      java.lang.Object ref = creatorId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        creatorId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CREATED_AT_FIELD_NUMBER = 6;
+    private long createdAt_;
+    /**
+     * <pre>
+     * Время создания(timestamp)
+     * </pre>
+     *
+     * <code>int64 created_at = 6;</code>
+     * @return The createdAt.
+     */
+    @java.lang.Override
+    public long getCreatedAt() {
+      return createdAt_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (id_ != 0) {
+        output.writeUInt32(1, id_);
+      }
+      if (minCartValue_ != 0L) {
+        output.writeUInt64(2, minCartValue_);
+      }
+      for (int i = 0; i < conditions_.size(); i++) {
+        output.writeMessage(3, conditions_.get(i));
+      }
+      if (priority_ != 0) {
+        output.writeInt32(4, priority_);
+      }
+      if (!getCreatorIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, creatorId_);
+      }
+      if (createdAt_ != 0L) {
+        output.writeInt64(6, createdAt_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (id_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(1, id_);
+      }
+      if (minCartValue_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(2, minCartValue_);
+      }
+      for (int i = 0; i < conditions_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, conditions_.get(i));
+      }
+      if (priority_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, priority_);
+      }
+      if (!getCreatorIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, creatorId_);
+      }
+      if (createdAt_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(6, createdAt_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shippingcalc.ShippingcalcOuterClass.MinCartRuleView)) {
+        return super.equals(obj);
+      }
+      shippingcalc.ShippingcalcOuterClass.MinCartRuleView other = (shippingcalc.ShippingcalcOuterClass.MinCartRuleView) obj;
+
+      if (getId()
+          != other.getId()) return false;
+      if (getMinCartValue()
+          != other.getMinCartValue()) return false;
+      if (!getConditionsList()
+          .equals(other.getConditionsList())) return false;
+      if (getPriority()
+          != other.getPriority()) return false;
+      if (!getCreatorId()
+          .equals(other.getCreatorId())) return false;
+      if (getCreatedAt()
+          != other.getCreatedAt()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId();
+      hash = (37 * hash) + MIN_CART_VALUE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getMinCartValue());
+      if (getConditionsCount() > 0) {
+        hash = (37 * hash) + CONDITIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getConditionsList().hashCode();
+      }
+      hash = (37 * hash) + PRIORITY_FIELD_NUMBER;
+      hash = (53 * hash) + getPriority();
+      hash = (37 * hash) + CREATOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getCreatorId().hashCode();
+      hash = (37 * hash) + CREATED_AT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCreatedAt());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleView parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleView parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleView parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleView parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleView parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleView parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleView parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleView parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleView parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleView parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleView parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleView parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shippingcalc.ShippingcalcOuterClass.MinCartRuleView prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shippingcalc.MinCartRuleView}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shippingcalc.MinCartRuleView)
+        shippingcalc.ShippingcalcOuterClass.MinCartRuleViewOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartRuleView_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartRuleView_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shippingcalc.ShippingcalcOuterClass.MinCartRuleView.class, shippingcalc.ShippingcalcOuterClass.MinCartRuleView.Builder.class);
+      }
+
+      // Construct using shippingcalc.ShippingcalcOuterClass.MinCartRuleView.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getConditionsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+
+        minCartValue_ = 0L;
+
+        if (conditionsBuilder_ == null) {
+          conditions_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          conditionsBuilder_.clear();
+        }
+        priority_ = 0;
+
+        creatorId_ = "";
+
+        createdAt_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartRuleView_descriptor;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleView getDefaultInstanceForType() {
+        return shippingcalc.ShippingcalcOuterClass.MinCartRuleView.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleView build() {
+        shippingcalc.ShippingcalcOuterClass.MinCartRuleView result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.MinCartRuleView buildPartial() {
+        shippingcalc.ShippingcalcOuterClass.MinCartRuleView result = new shippingcalc.ShippingcalcOuterClass.MinCartRuleView(this);
+        int from_bitField0_ = bitField0_;
+        result.id_ = id_;
+        result.minCartValue_ = minCartValue_;
+        if (conditionsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            conditions_ = java.util.Collections.unmodifiableList(conditions_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.conditions_ = conditions_;
+        } else {
+          result.conditions_ = conditionsBuilder_.build();
+        }
+        result.priority_ = priority_;
+        result.creatorId_ = creatorId_;
+        result.createdAt_ = createdAt_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shippingcalc.ShippingcalcOuterClass.MinCartRuleView) {
+          return mergeFrom((shippingcalc.ShippingcalcOuterClass.MinCartRuleView)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shippingcalc.ShippingcalcOuterClass.MinCartRuleView other) {
+        if (other == shippingcalc.ShippingcalcOuterClass.MinCartRuleView.getDefaultInstance()) return this;
+        if (other.getId() != 0) {
+          setId(other.getId());
+        }
+        if (other.getMinCartValue() != 0L) {
+          setMinCartValue(other.getMinCartValue());
+        }
+        if (conditionsBuilder_ == null) {
+          if (!other.conditions_.isEmpty()) {
+            if (conditions_.isEmpty()) {
+              conditions_ = other.conditions_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureConditionsIsMutable();
+              conditions_.addAll(other.conditions_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.conditions_.isEmpty()) {
+            if (conditionsBuilder_.isEmpty()) {
+              conditionsBuilder_.dispose();
+              conditionsBuilder_ = null;
+              conditions_ = other.conditions_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              conditionsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getConditionsFieldBuilder() : null;
+            } else {
+              conditionsBuilder_.addAllMessages(other.conditions_);
+            }
+          }
+        }
+        if (other.getPriority() != 0) {
+          setPriority(other.getPriority());
+        }
+        if (!other.getCreatorId().isEmpty()) {
+          creatorId_ = other.creatorId_;
+          onChanged();
+        }
+        if (other.getCreatedAt() != 0L) {
+          setCreatedAt(other.getCreatedAt());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shippingcalc.ShippingcalcOuterClass.MinCartRuleView parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shippingcalc.ShippingcalcOuterClass.MinCartRuleView) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int id_ ;
+      /**
+       * <pre>
+       * Идентификатор
+       * </pre>
+       *
+       * <code>uint32 id = 1;</code>
+       * @return The id.
+       */
+      @java.lang.Override
+      public int getId() {
+        return id_;
+      }
+      /**
+       * <pre>
+       * Идентификатор
+       * </pre>
+       *
+       * <code>uint32 id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(int value) {
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Идентификатор
+       * </pre>
+       *
+       * <code>uint32 id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private long minCartValue_ ;
+      /**
+       * <pre>
+       * Значения параметров скрипта
+       * </pre>
+       *
+       * <code>uint64 min_cart_value = 2;</code>
+       * @return The minCartValue.
+       */
+      @java.lang.Override
+      public long getMinCartValue() {
+        return minCartValue_;
+      }
+      /**
+       * <pre>
+       * Значения параметров скрипта
+       * </pre>
+       *
+       * <code>uint64 min_cart_value = 2;</code>
+       * @param value The minCartValue to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMinCartValue(long value) {
+        
+        minCartValue_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Значения параметров скрипта
+       * </pre>
+       *
+       * <code>uint64 min_cart_value = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMinCartValue() {
+        
+        minCartValue_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<shippingcalc.ShippingcalcOuterClass.ConditionView> conditions_ =
+        java.util.Collections.emptyList();
+      private void ensureConditionsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          conditions_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.ConditionView>(conditions_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.ConditionView, shippingcalc.ShippingcalcOuterClass.ConditionView.Builder, shippingcalc.ShippingcalcOuterClass.ConditionViewOrBuilder> conditionsBuilder_;
+
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.ConditionView> getConditionsList() {
+        if (conditionsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(conditions_);
+        } else {
+          return conditionsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public int getConditionsCount() {
+        if (conditionsBuilder_ == null) {
+          return conditions_.size();
+        } else {
+          return conditionsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.ConditionView getConditions(int index) {
+        if (conditionsBuilder_ == null) {
+          return conditions_.get(index);
+        } else {
+          return conditionsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public Builder setConditions(
+          int index, shippingcalc.ShippingcalcOuterClass.ConditionView value) {
+        if (conditionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureConditionsIsMutable();
+          conditions_.set(index, value);
+          onChanged();
+        } else {
+          conditionsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public Builder setConditions(
+          int index, shippingcalc.ShippingcalcOuterClass.ConditionView.Builder builderForValue) {
+        if (conditionsBuilder_ == null) {
+          ensureConditionsIsMutable();
+          conditions_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          conditionsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public Builder addConditions(shippingcalc.ShippingcalcOuterClass.ConditionView value) {
+        if (conditionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureConditionsIsMutable();
+          conditions_.add(value);
+          onChanged();
+        } else {
+          conditionsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public Builder addConditions(
+          int index, shippingcalc.ShippingcalcOuterClass.ConditionView value) {
+        if (conditionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureConditionsIsMutable();
+          conditions_.add(index, value);
+          onChanged();
+        } else {
+          conditionsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public Builder addConditions(
+          shippingcalc.ShippingcalcOuterClass.ConditionView.Builder builderForValue) {
+        if (conditionsBuilder_ == null) {
+          ensureConditionsIsMutable();
+          conditions_.add(builderForValue.build());
+          onChanged();
+        } else {
+          conditionsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public Builder addConditions(
+          int index, shippingcalc.ShippingcalcOuterClass.ConditionView.Builder builderForValue) {
+        if (conditionsBuilder_ == null) {
+          ensureConditionsIsMutable();
+          conditions_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          conditionsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public Builder addAllConditions(
+          java.lang.Iterable<? extends shippingcalc.ShippingcalcOuterClass.ConditionView> values) {
+        if (conditionsBuilder_ == null) {
+          ensureConditionsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, conditions_);
+          onChanged();
+        } else {
+          conditionsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public Builder clearConditions() {
+        if (conditionsBuilder_ == null) {
+          conditions_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          conditionsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public Builder removeConditions(int index) {
+        if (conditionsBuilder_ == null) {
+          ensureConditionsIsMutable();
+          conditions_.remove(index);
+          onChanged();
+        } else {
+          conditionsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.ConditionView.Builder getConditionsBuilder(
+          int index) {
+        return getConditionsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.ConditionViewOrBuilder getConditionsOrBuilder(
+          int index) {
+        if (conditionsBuilder_ == null) {
+          return conditions_.get(index);  } else {
+          return conditionsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.ConditionViewOrBuilder> 
+           getConditionsOrBuilderList() {
+        if (conditionsBuilder_ != null) {
+          return conditionsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(conditions_);
+        }
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.ConditionView.Builder addConditionsBuilder() {
+        return getConditionsFieldBuilder().addBuilder(
+            shippingcalc.ShippingcalcOuterClass.ConditionView.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.ConditionView.Builder addConditionsBuilder(
+          int index) {
+        return getConditionsFieldBuilder().addBuilder(
+            index, shippingcalc.ShippingcalcOuterClass.ConditionView.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Условия
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.ConditionView conditions = 3;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.ConditionView.Builder> 
+           getConditionsBuilderList() {
+        return getConditionsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.ConditionView, shippingcalc.ShippingcalcOuterClass.ConditionView.Builder, shippingcalc.ShippingcalcOuterClass.ConditionViewOrBuilder> 
+          getConditionsFieldBuilder() {
+        if (conditionsBuilder_ == null) {
+          conditionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              shippingcalc.ShippingcalcOuterClass.ConditionView, shippingcalc.ShippingcalcOuterClass.ConditionView.Builder, shippingcalc.ShippingcalcOuterClass.ConditionViewOrBuilder>(
+                  conditions_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          conditions_ = null;
+        }
+        return conditionsBuilder_;
+      }
+
+      private int priority_ ;
+      /**
+       * <pre>
+       * Приоритет
+       * </pre>
+       *
+       * <code>int32 priority = 4;</code>
+       * @return The priority.
+       */
+      @java.lang.Override
+      public int getPriority() {
+        return priority_;
+      }
+      /**
+       * <pre>
+       * Приоритет
+       * </pre>
+       *
+       * <code>int32 priority = 4;</code>
+       * @param value The priority to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPriority(int value) {
+        
+        priority_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Приоритет
+       * </pre>
+       *
+       * <code>int32 priority = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPriority() {
+        
+        priority_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object creatorId_ = "";
+      /**
+       * <pre>
+       * Автор
+       * </pre>
+       *
+       * <code>string creator_id = 5;</code>
+       * @return The creatorId.
+       */
+      public java.lang.String getCreatorId() {
+        java.lang.Object ref = creatorId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          creatorId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Автор
+       * </pre>
+       *
+       * <code>string creator_id = 5;</code>
+       * @return The bytes for creatorId.
+       */
+      public com.google.protobuf.ByteString
+          getCreatorIdBytes() {
+        java.lang.Object ref = creatorId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          creatorId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Автор
+       * </pre>
+       *
+       * <code>string creator_id = 5;</code>
+       * @param value The creatorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreatorId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        creatorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Автор
+       * </pre>
+       *
+       * <code>string creator_id = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCreatorId() {
+        
+        creatorId_ = getDefaultInstance().getCreatorId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Автор
+       * </pre>
+       *
+       * <code>string creator_id = 5;</code>
+       * @param value The bytes for creatorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreatorIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        creatorId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long createdAt_ ;
+      /**
+       * <pre>
+       * Время создания(timestamp)
+       * </pre>
+       *
+       * <code>int64 created_at = 6;</code>
+       * @return The createdAt.
+       */
+      @java.lang.Override
+      public long getCreatedAt() {
+        return createdAt_;
+      }
+      /**
+       * <pre>
+       * Время создания(timestamp)
+       * </pre>
+       *
+       * <code>int64 created_at = 6;</code>
+       * @param value The createdAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreatedAt(long value) {
+        
+        createdAt_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Время создания(timestamp)
+       * </pre>
+       *
+       * <code>int64 created_at = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCreatedAt() {
+        
+        createdAt_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shippingcalc.MinCartRuleView)
+    }
+
+    // @@protoc_insertion_point(class_scope:shippingcalc.MinCartRuleView)
+    private static final shippingcalc.ShippingcalcOuterClass.MinCartRuleView DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shippingcalc.ShippingcalcOuterClass.MinCartRuleView();
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.MinCartRuleView getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MinCartRuleView>
+        PARSER = new com.google.protobuf.AbstractParser<MinCartRuleView>() {
+      @java.lang.Override
+      public MinCartRuleView parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MinCartRuleView(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MinCartRuleView> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MinCartRuleView> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.MinCartRuleView getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -57818,6 +62054,11 @@ public final class ShippingcalcOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_shippingcalc_NewRuleObject_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_MinCartRuleObject_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_MinCartRuleObject_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_shippingcalc_NewConditionObject_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -57882,6 +62123,11 @@ public final class ShippingcalcOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_shippingcalc_RuleView_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_MinCartRuleView_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_MinCartRuleView_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_shippingcalc_ConditionView_descriptor;
   private static final 
@@ -58102,221 +62348,233 @@ public final class ShippingcalcOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\034on_demand/shippingcalc.proto\022\014shipping" +
-      "calc\"\317\001\n\025CreateStrategyRequest\022*\n\005rules\030" +
+      "calc\"\210\002\n\025CreateStrategyRequest\022*\n\005rules\030" +
       "\001 \003(\0132\033.shippingcalc.NewRuleObject\022\022\n\ncr" +
       "eator_id\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022\016\n\006global\030\004" +
       " \001(\010\022\020\n\010priority\030\005 \001(\r\022\023\n\013description\030\006 " +
       "\001(\t\0221\n\rdelivery_type\030\007 \001(\0162\032.shippingcal" +
-      "c.DeliveryType\"-\n\026CreateStrategyResponse" +
-      "\022\023\n\013strategy_id\030\001 \001(\r\"\344\001\n\025UpdateStrategy" +
-      "Request\022\023\n\013strategy_id\030\001 \001(\r\022*\n\005rules\030\002 " +
-      "\003(\0132\033.shippingcalc.NewRuleObject\022\022\n\ncrea" +
-      "tor_id\030\003 \001(\t\022\014\n\004name\030\004 \001(\t\022\016\n\006global\030\005 \001" +
-      "(\010\022\020\n\010priority\030\006 \001(\r\022\023\n\013description\030\007 \001(" +
-      "\t\0221\n\rdelivery_type\030\010 \001(\0162\032.shippingcalc." +
-      "DeliveryType\"\207\001\n\rNewRuleObject\022\021\n\tscript" +
-      "_id\030\001 \001(\r\022\033\n\023script_param_values\030\002 \001(\t\0224" +
-      "\n\nconditions\030\003 \003(\0132 .shippingcalc.NewCon" +
-      "ditionObject\022\020\n\010priority\030\004 \001(\005\"Y\n\022NewCon" +
-      "ditionObject\0223\n\016condition_type\030\001 \001(\0162\033.s" +
-      "hippingcalc.ConditionType\022\016\n\006params\030\002 \001(" +
-      "\t\"*\n\026UpdateStrategyResponse\022\020\n\010rules_id\030" +
-      "\001 \003(\r\"X\n\023BindStrategyRequest\022\023\n\013strategy" +
-      "_id\030\001 \001(\r\022,\n\005binds\030\002 \003(\0132\035.shippingcalc." +
-      "StrategyBinding\"i\n\017StrategyBinding\022\020\n\010st" +
-      "ore_id\030\001 \001(\t\022\021\n\ttenant_id\030\002 \001(\t\0221\n\rdeliv" +
-      "ery_type\030\003 \001(\0162\032.shippingcalc.DeliveryTy" +
-      "pe\"D\n\024BindStrategyResponse\022,\n\010strategy\030\001" +
-      " \001(\0132\032.shippingcalc.StrategyView\"\205\002\n\014Str" +
-      "ategyView\022\023\n\013strategy_id\030\001 \001(\r\022\022\n\ncreato" +
-      "r_id\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022\016\n\006global\030\004 \001(\010" +
-      "\022\020\n\010priority\030\005 \001(\r\022,\n\005binds\030\006 \003(\0132\035.ship" +
-      "pingcalc.StrategyBinding\022\023\n\013description\030" +
-      "\007 \001(\t\022\022\n\ncreated_at\030\010 \001(\003\022\022\n\nupdated_at\030" +
-      "\t \001(\003\0221\n\rdelivery_type\030\n \001(\0162\032.shippingc" +
-      "alc.DeliveryType\"Z\n\025UnbindStrategyReques" +
-      "t\022\023\n\013strategy_id\030\001 \001(\r\022,\n\005binds\030\002 \003(\0132\035." +
-      "shippingcalc.StrategyBinding\"F\n\026UnbindSt" +
-      "rategyResponse\022,\n\010strategy\030\001 \001(\0132\032.shipp" +
-      "ingcalc.StrategyView\"p\n\024GetStrategiesReq" +
-      "uest\022\025\n\rstrategy_name\030\001 \001(\t\0221\n\rdelivery_" +
-      "type\030\002 \001(\0162\032.shippingcalc.DeliveryType\022\016" +
-      "\n\006stores\030\003 \003(\t\"G\n\025GetStrategiesResponse\022" +
-      ".\n\nstrategies\030\001 \003(\0132\032.shippingcalc.Strat" +
-      "egyView\")\n\022GetStrategyRequest\022\023\n\013strateg" +
-      "y_id\030\001 \001(\r\"j\n\023GetStrategyResponse\022,\n\010str" +
-      "ategy\030\001 \001(\0132\032.shippingcalc.StrategyView\022" +
-      "%\n\005rules\030\002 \003(\0132\026.shippingcalc.RuleView\"\306" +
-      "\001\n\010RuleView\022\n\n\002id\030\001 \001(\r\022\021\n\tscript_id\030\002 \001" +
-      "(\r\022\023\n\013script_name\030\003 \001(\t\022\033\n\023script_param_" +
-      "values\030\004 \001(\t\022/\n\nconditions\030\005 \003(\0132\033.shipp" +
-      "ingcalc.ConditionView\022\020\n\010priority\030\006 \001(\005\022" +
-      "\022\n\ncreator_id\030\007 \001(\t\022\022\n\ncreated_at\030\010 \001(\003\"" +
-      "T\n\rConditionView\0223\n\016condition_type\030\001 \001(\016" +
-      "2\033.shippingcalc.ConditionType\022\016\n\006params\030" +
-      "\002 \001(\t\"s\n\034GetStrategiesForStoreRequest\022\020\n" +
-      "\010store_id\030\001 \001(\t\022\016\n\006tenant\030\002 \001(\t\0221\n\rdeliv" +
-      "ery_type\030\003 \001(\0162\032.shippingcalc.DeliveryTy" +
-      "pe\"\\\n\025ExplainedStrategyView\022\023\n\013strategy_" +
-      "id\030\001 \001(\r\022.\n\007binding\030\002 \001(\0132\035.shippingcalc" +
-      ".StrategyBinding\"V\n\035GetStrategiesForStor" +
-      "eResponse\0225\n\010strategy\030\001 \003(\0132#.shippingca" +
-      "lc.ExplainedStrategyView\",\n\025DeleteStrate" +
-      "gyRequest\022\023\n\013strategy_id\030\001 \001(\r\"\030\n\026Delete" +
-      "StrategyResponse\"S\n\023CreateScriptRequest\022" +
-      "\023\n\013script_name\030\001 \001(\t\022\023\n\013script_body\030\002 \001(" +
-      "\t\022\022\n\ncreator_id\030\003 \001(\t\"k\n\024CreateScriptRes" +
-      "ponse\022\021\n\tscript_id\030\001 \001(\r\022(\n\005state\030\002 \001(\0162" +
-      "\031.shippingcalc.ScriptState\022\026\n\016result_mes" +
-      "sage\030\003 \001(\t\"f\n\023UpdateScriptRequest\022\021\n\tscr" +
-      "ipt_id\030\001 \001(\r\022\023\n\013script_name\030\002 \001(\t\022\023\n\013scr" +
-      "ipt_body\030\003 \001(\t\022\022\n\ncreator_id\030\004 \001(\t\"X\n\024Up" +
-      "dateScriptResponse\022(\n\005state\030\001 \001(\0162\031.ship" +
-      "pingcalc.ScriptState\022\026\n\016result_message\030\003" +
-      " \001(\t\"\023\n\021GetScriptsRequest\"?\n\022GetScriptsR" +
-      "esponse\022)\n\007scripts\030\001 \003(\0132\030.shippingcalc." +
-      "ScriptView\"\221\002\n\nScriptView\022\021\n\tscript_id\030\001" +
-      " \001(\r\022\023\n\013script_name\030\002 \001(\t\022\023\n\013script_body" +
-      "\030\003 \001(\t\0222\n\017required_params\030\004 \003(\0132\031.shippi" +
-      "ngcalc.ScriptParam\022\022\n\ncreated_at\030\005 \001(\003\022\022" +
-      "\n\nupdated_at\030\006 \001(\003\0223\n\005state\030\007 \001(\0162$.ship" +
-      "pingcalc.ScriptView.ScriptState\"5\n\013Scrip" +
-      "tState\022\010\n\004NONE\020\000\022\013\n\007TEST_OK\020\001\022\017\n\013TEST_FA" +
-      "ILED\020\002\"\274\001\n\013ScriptParam\0227\n\004type\030\001 \001(\0162).s" +
-      "hippingcalc.ScriptParam.ScriptParamType\022" +
-      "\014\n\004name\030\002 \001(\t\022\017\n\007caption\030\003 \001(\t\022\020\n\010fracti" +
-      "on\030\004 \001(\004\"C\n\017ScriptParamType\022\017\n\013PARAM_FLO" +
-      "AT\020\000\022\r\n\tPARAM_INT\020\001\022\020\n\014PARAM_STRING\020\002\"%\n" +
-      "\020GetScriptRequest\022\021\n\tscript_id\030\001 \001(\r\"=\n\021" +
-      "GetScriptResponse\022(\n\006script\030\001 \001(\0132\030.ship" +
-      "pingcalc.ScriptView\"(\n\023DeleteScriptReque" +
-      "st\022\021\n\tscript_id\030\001 \001(\r\"\026\n\024DeleteScriptRes" +
-      "ponse\"0\n\033GetScriptTestResultsRequest\022\021\n\t" +
-      "script_id\030\001 \001(\r\"c\n\034GetScriptTestResultsR" +
-      "esponse\022/\n\007results\030\001 \003(\0132\036.shippingcalc." +
-      "ScriptTestResult\022\022\n\nall_passed\030\002 \001(\010\"L\n\020" +
-      "ScriptTestResult\022\021\n\ttest_name\030\001 \001(\t\022\016\n\006p" +
-      "assed\030\002 \001(\010\022\025\n\rerror_message\030\003 \001(\t\"\246\002\n\027G" +
-      "etDeliveryPriceRequest\022\020\n\010order_id\030\001 \001(\t" +
-      "\022)\n\tshipments\030\003 \003(\0132\026.shippingcalc.Shipm" +
-      "ent\022(\n\010customer\030\004 \001(\0132\026.shippingcalc.Cus" +
-      "tomer\022\024\n\014is_b2b_order\030\005 \001(\010\022\024\n\014is_promoc" +
-      "ode\030\006 \001(\010\022\026\n\016payment_method\030\007 \001(\t\022\032\n\022has" +
-      "_payment_method\030\010 \001(\010\0221\n\rdelivery_type\030\t" +
-      " \001(\0162\032.shippingcalc.DeliveryType\022\021\n\ttena" +
-      "nt_id\030\013 \001(\t\"\206\002\n\010Shipment\022\n\n\002id\030\001 \001(\t\022\023\n\013" +
-      "is_ondemand\030\002 \001(\010\022.\n\010products\030\003 \003(\0132\034.sh" +
-      "ippingcalc.ProductRequest\022\016\n\006weight\030\004 \001(" +
-      "\004\022\023\n\013items_count\030\005 \001(\r\022\r\n\005price\030\006 \001(\004\022\020\n" +
-      "\010store_id\030\007 \001(\t\022\016\n\006status\030\010 \001(\t\022\021\n\tregio" +
-      "n_id\030\t \001(\004\022&\n\036surge_delivery_window_addi" +
-      "tion\030\n \001(\004\022\013\n\003lat\030\013 \001(\002\022\013\n\003lon\030\014 \001(\002\"e\n\016" +
-      "ProductRequest\022\020\n\010quantity\030\001 \001(\r\022\n\n\002id\030\002" +
-      " \001(\t\022\r\n\005price\030\003 \001(\004\022\026\n\016discount_price\030\004 " +
-      "\001(\004\022\016\n\006weight\030\005 \001(\004\"s\n\010Customer\022\n\n\002id\030\001 " +
-      "\001(\t\022\024\n\014anonymous_id\030\002 \001(\t\022\024\n\014orders_coun" +
-      "t\030\003 \001(\r\022\025\n\rregistered_at\030\004 \001(\003\022\013\n\003lat\030\005 " +
-      "\001(\002\022\013\n\003lon\030\006 \001(\002\"\274\001\n\030GetDeliveryPriceRes" +
-      "ponse\022\031\n\021is_order_possible\030\001 \001(\010\022\032\n\022mini" +
-      "mal_cart_price\030\002 \001(\004\022\032\n\022minimal_cart_ite" +
-      "ms\030\003 \001(\r\022\034\n\024total_shipping_price\030\004 \001(\004\022/" +
-      "\n\tshipments\030\005 \003(\0132\034.shippingcalc.PricedS" +
-      "hipment\"\243\003\n\016PricedShipment\022\023\n\013shipment_i" +
-      "d\030\001 \001(\t\022\026\n\016shipping_price\030\002 \001(\004\022\030\n\020offer" +
-      "_expires_at\030\003 \001(\003\022\022\n\noffer_hash\030\004 \001(\t\022(\n" +
-      "\006ladder\030\005 \003(\0132\030.shippingcalc.LadderStep\022" +
-      "\023\n\013strategy_id\030\006 \001(\r\022\017\n\007rule_id\030\007 \001(\r\022\024\n" +
-      "\014we_had_offer\030\010 \001(\010\022\034\n\024surge_level_addit" +
-      "ion\030\t \001(\004\022\022\n\nsurge_used\030\n \001(\010\022\023\n\013surge_l" +
-      "evel\030\013 \001(\002\022&\n\036surge_delivery_window_addi" +
-      "tion\030\014 \001(\004\022&\n\005hints\030\r \003(\0132\027.shippingcalc" +
-      ".PriceHint\0229\n\021price_explanation\030\016 \001(\0132\036." +
-      "shippingcalc.PriceExplanation\"a\n\tPriceHi" +
-      "nt\022\014\n\004type\030\001 \001(\t\022\017\n\007caption\030\002 \001(\t\022\r\n\005pri" +
-      "ce\030\003 \001(\004\022\030\n\020additional_label\030\004 \001(\t\022\014\n\004me" +
-      "ta\030\005 \001(\t\"\211\001\n\020PriceExplanation\022=\n\021passed_" +
-      "conditions\030\001 \003(\0132\".shippingcalc.PricePas" +
-      "sedCondition\0226\n\020price_components\030\002 \003(\0132\034" +
-      ".shippingcalc.PriceComponent\"4\n\024PricePas" +
-      "sedCondition\022\014\n\004type\030\001 \001(\t\022\016\n\006params\030\002 \001" +
-      "(\t\";\n\016PriceComponent\022\014\n\004type\030\001 \001(\t\022\r\n\005pr" +
-      "ice\030\002 \001(\004\022\014\n\004meta\030\003 \001(\t\"p\n\nLadderStep\022\027\n" +
-      "\nprice_from\030\001 \001(\004H\000\210\001\001\022\025\n\010price_to\030\002 \001(\004" +
-      "H\001\210\001\001\022\026\n\016shipping_price\030\003 \001(\004B\r\n\013_price_" +
-      "fromB\013\n\t_price_to\"p\n\rSurgeInterval\022\025\n\rle" +
-      "ft_boundary\030\001 \001(\002\022\026\n\016right_boundary\030\002 \001(" +
-      "\002\022\026\n\016price_addition\030\003 \001(\004\022\030\n\020percent_add" +
-      "ition\030\004 \001(\004\"J\n\030SetIntervalsSurgeRequest\022" +
-      ".\n\tintervals\030\001 \003(\0132\033.shippingcalc.SurgeI" +
-      "nterval\"\033\n\031SetIntervalsSurgeResponse\"\032\n\030" +
-      "GetIntervalsSurgeRequest\"K\n\031GetIntervals" +
-      "SurgeResponse\022.\n\tintervals\030\001 \003(\0132\033.shipp" +
-      "ingcalc.SurgeInterval\"m\n\031SurgeSwitchback" +
-      "Experiment\022\027\n\017start_date_time\030\001 \001(\003\022\025\n\re" +
-      "nd_date_time\030\002 \001(\003\022\021\n\tregion_id\030\003 \001(\004\022\r\n" +
-      "\005group\030\004 \001(\t\"d\n\037SetSwitchbackExperiments" +
-      "Request\022\014\n\004data\030\001 \001(\t\0223\n\004type\030\002 \001(\0162%.sh" +
-      "ippingcalc.SurgeSwitchbackDataType\"\"\n Se" +
-      "tSwitchbackExperimentsResponse\"!\n\037GetSwi" +
-      "tchbackExperimentsRequest\"`\n GetSwitchba" +
-      "ckExperimentsResponse\022<\n\013experiments\030\001 \003" +
-      "(\0132\'.shippingcalc.SurgeSwitchbackExperim" +
-      "ent*J\n\014DeliveryType\022\010\n\004NONE\020\000\022\021\n\rSELF_DE" +
-      "LIVERY\020\001\022\024\n\020COURIER_DELIVERY\020\002\022\007\n\003B2B\020\003*" +
-      "v\n\rConditionType\022\n\n\006ALWAYS\020\000\022\022\n\016FIRST_N_" +
-      "ORDERS\020\001\022\025\n\021ORDER_VALUE_RANGE\020\002\022\024\n\020AB_TE" +
-      "ST_ENTRANCE\020\003\022\030\n\024ORDER_DISTANCE_RANGE\020\004*" +
-      "1\n\013ScriptState\022\020\n\014SCRIPT_VALID\020\000\022\020\n\014SCRI" +
-      "PT_ERROR\020\001*\"\n\027SurgeSwitchbackDataType\022\007\n" +
-      "\003CSV\020\0002\261\016\n\014Shippingcalc\022[\n\016CreateStrateg" +
-      "y\022#.shippingcalc.CreateStrategyRequest\032$" +
-      ".shippingcalc.CreateStrategyResponse\022[\n\016" +
-      "UpdateStrategy\022#.shippingcalc.UpdateStra" +
-      "tegyRequest\032$.shippingcalc.UpdateStrateg" +
-      "yResponse\022U\n\014BindStrategy\022!.shippingcalc" +
-      ".BindStrategyRequest\032\".shippingcalc.Bind" +
-      "StrategyResponse\022[\n\016UnbindStrategy\022#.shi" +
-      "ppingcalc.UnbindStrategyRequest\032$.shippi" +
-      "ngcalc.UnbindStrategyResponse\022X\n\rGetStra" +
-      "tegies\022\".shippingcalc.GetStrategiesReque" +
-      "st\032#.shippingcalc.GetStrategiesResponse\022" +
-      "R\n\013GetStrategy\022 .shippingcalc.GetStrateg" +
-      "yRequest\032!.shippingcalc.GetStrategyRespo" +
-      "nse\022p\n\025GetStrategiesForStore\022*.shippingc" +
-      "alc.GetStrategiesForStoreRequest\032+.shipp" +
-      "ingcalc.GetStrategiesForStoreResponse\022[\n" +
-      "\016DeleteStrategy\022#.shippingcalc.DeleteStr" +
-      "ategyRequest\032$.shippingcalc.DeleteStrate" +
-      "gyResponse\022U\n\014CreateScript\022!.shippingcal" +
-      "c.CreateScriptRequest\032\".shippingcalc.Cre" +
-      "ateScriptResponse\022U\n\014UpdateScript\022!.ship" +
-      "pingcalc.UpdateScriptRequest\032\".shippingc" +
-      "alc.UpdateScriptResponse\022L\n\tGetScript\022\036." +
-      "shippingcalc.GetScriptRequest\032\037.shipping" +
-      "calc.GetScriptResponse\022O\n\nGetScripts\022\037.s" +
-      "hippingcalc.GetScriptsRequest\032 .shipping" +
-      "calc.GetScriptsResponse\022m\n\024GetScriptTest" +
-      "Results\022).shippingcalc.GetScriptTestResu" +
-      "ltsRequest\032*.shippingcalc.GetScriptTestR" +
-      "esultsResponse\022U\n\014DeleteScript\022!.shippin" +
-      "gcalc.DeleteScriptRequest\032\".shippingcalc" +
-      ".DeleteScriptResponse\022a\n\020GetDeliveryPric" +
-      "e\022%.shippingcalc.GetDeliveryPriceRequest" +
-      "\032&.shippingcalc.GetDeliveryPriceResponse" +
-      "\022d\n\021SetIntervalsSurge\022&.shippingcalc.Set" +
-      "IntervalsSurgeRequest\032\'.shippingcalc.Set" +
-      "IntervalsSurgeResponse\022d\n\021GetIntervalsSu" +
-      "rge\022&.shippingcalc.GetIntervalsSurgeRequ" +
-      "est\032\'.shippingcalc.GetIntervalsSurgeResp" +
-      "onse\022y\n\030SetSwitchbackExperiments\022-.shipp" +
-      "ingcalc.SetSwitchbackExperimentsRequest\032" +
-      "..shippingcalc.SetSwitchbackExperimentsR" +
-      "esponse\022y\n\030GetSwitchbackExperiments\022-.sh" +
-      "ippingcalc.GetSwitchbackExperimentsReque" +
-      "st\032..shippingcalc.GetSwitchbackExperimen" +
-      "tsResponseBRZPgitlab.sbmt.io/paas/conten" +
-      "t/operations/shippingcalc/pkg/server/grp" +
-      "c/shippingcalcb\006proto3"
+      "c.DeliveryType\0227\n\016min_cart_rules\030\010 \003(\0132\037" +
+      ".shippingcalc.MinCartRuleObject\"-\n\026Creat" +
+      "eStrategyResponse\022\023\n\013strategy_id\030\001 \001(\r\"\235" +
+      "\002\n\025UpdateStrategyRequest\022\023\n\013strategy_id\030" +
+      "\001 \001(\r\022*\n\005rules\030\002 \003(\0132\033.shippingcalc.NewR" +
+      "uleObject\022\022\n\ncreator_id\030\003 \001(\t\022\014\n\004name\030\004 " +
+      "\001(\t\022\016\n\006global\030\005 \001(\010\022\020\n\010priority\030\006 \001(\r\022\023\n" +
+      "\013description\030\007 \001(\t\0221\n\rdelivery_type\030\010 \001(" +
+      "\0162\032.shippingcalc.DeliveryType\0227\n\016min_car" +
+      "t_rules\030\t \003(\0132\037.shippingcalc.MinCartRule" +
+      "Object\"\207\001\n\rNewRuleObject\022\021\n\tscript_id\030\001 " +
+      "\001(\r\022\033\n\023script_param_values\030\002 \001(\t\0224\n\ncond" +
+      "itions\030\003 \003(\0132 .shippingcalc.NewCondition" +
+      "Object\022\020\n\010priority\030\004 \001(\005\"s\n\021MinCartRuleO" +
+      "bject\022\026\n\016min_cart_value\030\001 \001(\004\0224\n\nconditi" +
+      "ons\030\002 \003(\0132 .shippingcalc.NewConditionObj" +
+      "ect\022\020\n\010priority\030\003 \001(\005\"Y\n\022NewConditionObj" +
+      "ect\0223\n\016condition_type\030\001 \001(\0162\033.shippingca" +
+      "lc.ConditionType\022\016\n\006params\030\002 \001(\t\"E\n\026Upda" +
+      "teStrategyResponse\022\020\n\010rules_id\030\001 \003(\r\022\031\n\021" +
+      "min_cart_rules_id\030\002 \003(\r\"X\n\023BindStrategyR" +
+      "equest\022\023\n\013strategy_id\030\001 \001(\r\022,\n\005binds\030\002 \003" +
+      "(\0132\035.shippingcalc.StrategyBinding\"i\n\017Str" +
+      "ategyBinding\022\020\n\010store_id\030\001 \001(\t\022\021\n\ttenant" +
+      "_id\030\002 \001(\t\0221\n\rdelivery_type\030\003 \001(\0162\032.shipp" +
+      "ingcalc.DeliveryType\"D\n\024BindStrategyResp" +
+      "onse\022,\n\010strategy\030\001 \001(\0132\032.shippingcalc.St" +
+      "rategyView\"\205\002\n\014StrategyView\022\023\n\013strategy_" +
+      "id\030\001 \001(\r\022\022\n\ncreator_id\030\002 \001(\t\022\014\n\004name\030\003 \001" +
+      "(\t\022\016\n\006global\030\004 \001(\010\022\020\n\010priority\030\005 \001(\r\022,\n\005" +
+      "binds\030\006 \003(\0132\035.shippingcalc.StrategyBindi" +
+      "ng\022\023\n\013description\030\007 \001(\t\022\022\n\ncreated_at\030\010 " +
+      "\001(\003\022\022\n\nupdated_at\030\t \001(\003\0221\n\rdelivery_type" +
+      "\030\n \001(\0162\032.shippingcalc.DeliveryType\"Z\n\025Un" +
+      "bindStrategyRequest\022\023\n\013strategy_id\030\001 \001(\r" +
+      "\022,\n\005binds\030\002 \003(\0132\035.shippingcalc.StrategyB" +
+      "inding\"F\n\026UnbindStrategyResponse\022,\n\010stra" +
+      "tegy\030\001 \001(\0132\032.shippingcalc.StrategyView\"p" +
+      "\n\024GetStrategiesRequest\022\025\n\rstrategy_name\030" +
+      "\001 \001(\t\0221\n\rdelivery_type\030\002 \001(\0162\032.shippingc" +
+      "alc.DeliveryType\022\016\n\006stores\030\003 \003(\t\"G\n\025GetS" +
+      "trategiesResponse\022.\n\nstrategies\030\001 \003(\0132\032." +
+      "shippingcalc.StrategyView\")\n\022GetStrategy" +
+      "Request\022\023\n\013strategy_id\030\001 \001(\r\"\241\001\n\023GetStra" +
+      "tegyResponse\022,\n\010strategy\030\001 \001(\0132\032.shippin" +
+      "gcalc.StrategyView\022%\n\005rules\030\002 \003(\0132\026.ship" +
+      "pingcalc.RuleView\0225\n\016min_cart_rules\030\003 \003(" +
+      "\0132\035.shippingcalc.MinCartRuleView\"\306\001\n\010Rul" +
+      "eView\022\n\n\002id\030\001 \001(\r\022\021\n\tscript_id\030\002 \001(\r\022\023\n\013" +
+      "script_name\030\003 \001(\t\022\033\n\023script_param_values" +
+      "\030\004 \001(\t\022/\n\nconditions\030\005 \003(\0132\033.shippingcal" +
+      "c.ConditionView\022\020\n\010priority\030\006 \001(\005\022\022\n\ncre" +
+      "ator_id\030\007 \001(\t\022\022\n\ncreated_at\030\010 \001(\003\"\240\001\n\017Mi" +
+      "nCartRuleView\022\n\n\002id\030\001 \001(\r\022\026\n\016min_cart_va" +
+      "lue\030\002 \001(\004\022/\n\nconditions\030\003 \003(\0132\033.shipping" +
+      "calc.ConditionView\022\020\n\010priority\030\004 \001(\005\022\022\n\n" +
+      "creator_id\030\005 \001(\t\022\022\n\ncreated_at\030\006 \001(\003\"T\n\r" +
+      "ConditionView\0223\n\016condition_type\030\001 \001(\0162\033." +
+      "shippingcalc.ConditionType\022\016\n\006params\030\002 \001" +
+      "(\t\"s\n\034GetStrategiesForStoreRequest\022\020\n\010st" +
+      "ore_id\030\001 \001(\t\022\016\n\006tenant\030\002 \001(\t\0221\n\rdelivery" +
+      "_type\030\003 \001(\0162\032.shippingcalc.DeliveryType\"" +
+      "\\\n\025ExplainedStrategyView\022\023\n\013strategy_id\030" +
+      "\001 \001(\r\022.\n\007binding\030\002 \001(\0132\035.shippingcalc.St" +
+      "rategyBinding\"V\n\035GetStrategiesForStoreRe" +
+      "sponse\0225\n\010strategy\030\001 \003(\0132#.shippingcalc." +
+      "ExplainedStrategyView\",\n\025DeleteStrategyR" +
+      "equest\022\023\n\013strategy_id\030\001 \001(\r\"\030\n\026DeleteStr" +
+      "ategyResponse\"S\n\023CreateScriptRequest\022\023\n\013" +
+      "script_name\030\001 \001(\t\022\023\n\013script_body\030\002 \001(\t\022\022" +
+      "\n\ncreator_id\030\003 \001(\t\"k\n\024CreateScriptRespon" +
+      "se\022\021\n\tscript_id\030\001 \001(\r\022(\n\005state\030\002 \001(\0162\031.s" +
+      "hippingcalc.ScriptState\022\026\n\016result_messag" +
+      "e\030\003 \001(\t\"f\n\023UpdateScriptRequest\022\021\n\tscript" +
+      "_id\030\001 \001(\r\022\023\n\013script_name\030\002 \001(\t\022\023\n\013script" +
+      "_body\030\003 \001(\t\022\022\n\ncreator_id\030\004 \001(\t\"X\n\024Updat" +
+      "eScriptResponse\022(\n\005state\030\001 \001(\0162\031.shippin" +
+      "gcalc.ScriptState\022\026\n\016result_message\030\003 \001(" +
+      "\t\"\023\n\021GetScriptsRequest\"?\n\022GetScriptsResp" +
+      "onse\022)\n\007scripts\030\001 \003(\0132\030.shippingcalc.Scr" +
+      "iptView\"\221\002\n\nScriptView\022\021\n\tscript_id\030\001 \001(" +
+      "\r\022\023\n\013script_name\030\002 \001(\t\022\023\n\013script_body\030\003 " +
+      "\001(\t\0222\n\017required_params\030\004 \003(\0132\031.shippingc" +
+      "alc.ScriptParam\022\022\n\ncreated_at\030\005 \001(\003\022\022\n\nu" +
+      "pdated_at\030\006 \001(\003\0223\n\005state\030\007 \001(\0162$.shippin" +
+      "gcalc.ScriptView.ScriptState\"5\n\013ScriptSt" +
+      "ate\022\010\n\004NONE\020\000\022\013\n\007TEST_OK\020\001\022\017\n\013TEST_FAILE" +
+      "D\020\002\"\274\001\n\013ScriptParam\0227\n\004type\030\001 \001(\0162).ship" +
+      "pingcalc.ScriptParam.ScriptParamType\022\014\n\004" +
+      "name\030\002 \001(\t\022\017\n\007caption\030\003 \001(\t\022\020\n\010fraction\030" +
+      "\004 \001(\004\"C\n\017ScriptParamType\022\017\n\013PARAM_FLOAT\020" +
+      "\000\022\r\n\tPARAM_INT\020\001\022\020\n\014PARAM_STRING\020\002\"%\n\020Ge" +
+      "tScriptRequest\022\021\n\tscript_id\030\001 \001(\r\"=\n\021Get" +
+      "ScriptResponse\022(\n\006script\030\001 \001(\0132\030.shippin" +
+      "gcalc.ScriptView\"(\n\023DeleteScriptRequest\022" +
+      "\021\n\tscript_id\030\001 \001(\r\"\026\n\024DeleteScriptRespon" +
+      "se\"0\n\033GetScriptTestResultsRequest\022\021\n\tscr" +
+      "ipt_id\030\001 \001(\r\"c\n\034GetScriptTestResultsResp" +
+      "onse\022/\n\007results\030\001 \003(\0132\036.shippingcalc.Scr" +
+      "iptTestResult\022\022\n\nall_passed\030\002 \001(\010\"L\n\020Scr" +
+      "iptTestResult\022\021\n\ttest_name\030\001 \001(\t\022\016\n\006pass" +
+      "ed\030\002 \001(\010\022\025\n\rerror_message\030\003 \001(\t\"\246\002\n\027GetD" +
+      "eliveryPriceRequest\022\020\n\010order_id\030\001 \001(\t\022)\n" +
+      "\tshipments\030\003 \003(\0132\026.shippingcalc.Shipment" +
+      "\022(\n\010customer\030\004 \001(\0132\026.shippingcalc.Custom" +
+      "er\022\024\n\014is_b2b_order\030\005 \001(\010\022\024\n\014is_promocode" +
+      "\030\006 \001(\010\022\026\n\016payment_method\030\007 \001(\t\022\032\n\022has_pa" +
+      "yment_method\030\010 \001(\010\0221\n\rdelivery_type\030\t \001(" +
+      "\0162\032.shippingcalc.DeliveryType\022\021\n\ttenant_" +
+      "id\030\013 \001(\t\"\206\002\n\010Shipment\022\n\n\002id\030\001 \001(\t\022\023\n\013is_" +
+      "ondemand\030\002 \001(\010\022.\n\010products\030\003 \003(\0132\034.shipp" +
+      "ingcalc.ProductRequest\022\016\n\006weight\030\004 \001(\004\022\023" +
+      "\n\013items_count\030\005 \001(\r\022\r\n\005price\030\006 \001(\004\022\020\n\010st" +
+      "ore_id\030\007 \001(\t\022\016\n\006status\030\010 \001(\t\022\021\n\tregion_i" +
+      "d\030\t \001(\004\022&\n\036surge_delivery_window_additio" +
+      "n\030\n \001(\004\022\013\n\003lat\030\013 \001(\002\022\013\n\003lon\030\014 \001(\002\"e\n\016Pro" +
+      "ductRequest\022\020\n\010quantity\030\001 \001(\r\022\n\n\002id\030\002 \001(" +
+      "\t\022\r\n\005price\030\003 \001(\004\022\026\n\016discount_price\030\004 \001(\004" +
+      "\022\016\n\006weight\030\005 \001(\004\"s\n\010Customer\022\n\n\002id\030\001 \001(\t" +
+      "\022\024\n\014anonymous_id\030\002 \001(\t\022\024\n\014orders_count\030\003" +
+      " \001(\r\022\025\n\rregistered_at\030\004 \001(\003\022\013\n\003lat\030\005 \001(\002" +
+      "\022\013\n\003lon\030\006 \001(\002\"\274\001\n\030GetDeliveryPriceRespon" +
+      "se\022\031\n\021is_order_possible\030\001 \001(\010\022\032\n\022minimal" +
+      "_cart_price\030\002 \001(\004\022\032\n\022minimal_cart_items\030" +
+      "\003 \001(\r\022\034\n\024total_shipping_price\030\004 \001(\004\022/\n\ts" +
+      "hipments\030\005 \003(\0132\034.shippingcalc.PricedShip" +
+      "ment\"\243\003\n\016PricedShipment\022\023\n\013shipment_id\030\001" +
+      " \001(\t\022\026\n\016shipping_price\030\002 \001(\004\022\030\n\020offer_ex" +
+      "pires_at\030\003 \001(\003\022\022\n\noffer_hash\030\004 \001(\t\022(\n\006la" +
+      "dder\030\005 \003(\0132\030.shippingcalc.LadderStep\022\023\n\013" +
+      "strategy_id\030\006 \001(\r\022\017\n\007rule_id\030\007 \001(\r\022\024\n\014we" +
+      "_had_offer\030\010 \001(\010\022\034\n\024surge_level_addition" +
+      "\030\t \001(\004\022\022\n\nsurge_used\030\n \001(\010\022\023\n\013surge_leve" +
+      "l\030\013 \001(\002\022&\n\036surge_delivery_window_additio" +
+      "n\030\014 \001(\004\022&\n\005hints\030\r \003(\0132\027.shippingcalc.Pr" +
+      "iceHint\0229\n\021price_explanation\030\016 \001(\0132\036.shi" +
+      "ppingcalc.PriceExplanation\"a\n\tPriceHint\022" +
+      "\014\n\004type\030\001 \001(\t\022\017\n\007caption\030\002 \001(\t\022\r\n\005price\030" +
+      "\003 \001(\004\022\030\n\020additional_label\030\004 \001(\t\022\014\n\004meta\030" +
+      "\005 \001(\t\"\211\001\n\020PriceExplanation\022=\n\021passed_con" +
+      "ditions\030\001 \003(\0132\".shippingcalc.PricePassed" +
+      "Condition\0226\n\020price_components\030\002 \003(\0132\034.sh" +
+      "ippingcalc.PriceComponent\"4\n\024PricePassed" +
+      "Condition\022\014\n\004type\030\001 \001(\t\022\016\n\006params\030\002 \001(\t\"" +
+      ";\n\016PriceComponent\022\014\n\004type\030\001 \001(\t\022\r\n\005price" +
+      "\030\002 \001(\004\022\014\n\004meta\030\003 \001(\t\"p\n\nLadderStep\022\027\n\npr" +
+      "ice_from\030\001 \001(\004H\000\210\001\001\022\025\n\010price_to\030\002 \001(\004H\001\210" +
+      "\001\001\022\026\n\016shipping_price\030\003 \001(\004B\r\n\013_price_fro" +
+      "mB\013\n\t_price_to\"p\n\rSurgeInterval\022\025\n\rleft_" +
+      "boundary\030\001 \001(\002\022\026\n\016right_boundary\030\002 \001(\002\022\026" +
+      "\n\016price_addition\030\003 \001(\004\022\030\n\020percent_additi" +
+      "on\030\004 \001(\004\"J\n\030SetIntervalsSurgeRequest\022.\n\t" +
+      "intervals\030\001 \003(\0132\033.shippingcalc.SurgeInte" +
+      "rval\"\033\n\031SetIntervalsSurgeResponse\"\032\n\030Get" +
+      "IntervalsSurgeRequest\"K\n\031GetIntervalsSur" +
+      "geResponse\022.\n\tintervals\030\001 \003(\0132\033.shipping" +
+      "calc.SurgeInterval\"m\n\031SurgeSwitchbackExp" +
+      "eriment\022\027\n\017start_date_time\030\001 \001(\003\022\025\n\rend_" +
+      "date_time\030\002 \001(\003\022\021\n\tregion_id\030\003 \001(\004\022\r\n\005gr" +
+      "oup\030\004 \001(\t\"d\n\037SetSwitchbackExperimentsReq" +
+      "uest\022\014\n\004data\030\001 \001(\t\0223\n\004type\030\002 \001(\0162%.shipp" +
+      "ingcalc.SurgeSwitchbackDataType\"\"\n SetSw" +
+      "itchbackExperimentsResponse\"!\n\037GetSwitch" +
+      "backExperimentsRequest\"`\n GetSwitchbackE" +
+      "xperimentsResponse\022<\n\013experiments\030\001 \003(\0132" +
+      "\'.shippingcalc.SurgeSwitchbackExperiment" +
+      "*J\n\014DeliveryType\022\010\n\004NONE\020\000\022\021\n\rSELF_DELIV" +
+      "ERY\020\001\022\024\n\020COURIER_DELIVERY\020\002\022\007\n\003B2B\020\003*v\n\r" +
+      "ConditionType\022\n\n\006ALWAYS\020\000\022\022\n\016FIRST_N_ORD" +
+      "ERS\020\001\022\025\n\021ORDER_VALUE_RANGE\020\002\022\024\n\020AB_TEST_" +
+      "ENTRANCE\020\003\022\030\n\024ORDER_DISTANCE_RANGE\020\004*1\n\013" +
+      "ScriptState\022\020\n\014SCRIPT_VALID\020\000\022\020\n\014SCRIPT_" +
+      "ERROR\020\001*\"\n\027SurgeSwitchbackDataType\022\007\n\003CS" +
+      "V\020\0002\261\016\n\014Shippingcalc\022[\n\016CreateStrategy\022#" +
+      ".shippingcalc.CreateStrategyRequest\032$.sh" +
+      "ippingcalc.CreateStrategyResponse\022[\n\016Upd" +
+      "ateStrategy\022#.shippingcalc.UpdateStrateg" +
+      "yRequest\032$.shippingcalc.UpdateStrategyRe" +
+      "sponse\022U\n\014BindStrategy\022!.shippingcalc.Bi" +
+      "ndStrategyRequest\032\".shippingcalc.BindStr" +
+      "ategyResponse\022[\n\016UnbindStrategy\022#.shippi" +
+      "ngcalc.UnbindStrategyRequest\032$.shippingc" +
+      "alc.UnbindStrategyResponse\022X\n\rGetStrateg" +
+      "ies\022\".shippingcalc.GetStrategiesRequest\032" +
+      "#.shippingcalc.GetStrategiesResponse\022R\n\013" +
+      "GetStrategy\022 .shippingcalc.GetStrategyRe" +
+      "quest\032!.shippingcalc.GetStrategyResponse" +
+      "\022p\n\025GetStrategiesForStore\022*.shippingcalc" +
+      ".GetStrategiesForStoreRequest\032+.shipping" +
+      "calc.GetStrategiesForStoreResponse\022[\n\016De" +
+      "leteStrategy\022#.shippingcalc.DeleteStrate" +
+      "gyRequest\032$.shippingcalc.DeleteStrategyR" +
+      "esponse\022U\n\014CreateScript\022!.shippingcalc.C" +
+      "reateScriptRequest\032\".shippingcalc.Create" +
+      "ScriptResponse\022U\n\014UpdateScript\022!.shippin" +
+      "gcalc.UpdateScriptRequest\032\".shippingcalc" +
+      ".UpdateScriptResponse\022L\n\tGetScript\022\036.shi" +
+      "ppingcalc.GetScriptRequest\032\037.shippingcal" +
+      "c.GetScriptResponse\022O\n\nGetScripts\022\037.ship" +
+      "pingcalc.GetScriptsRequest\032 .shippingcal" +
+      "c.GetScriptsResponse\022m\n\024GetScriptTestRes" +
+      "ults\022).shippingcalc.GetScriptTestResults" +
+      "Request\032*.shippingcalc.GetScriptTestResu" +
+      "ltsResponse\022U\n\014DeleteScript\022!.shippingca" +
+      "lc.DeleteScriptRequest\032\".shippingcalc.De" +
+      "leteScriptResponse\022a\n\020GetDeliveryPrice\022%" +
+      ".shippingcalc.GetDeliveryPriceRequest\032&." +
+      "shippingcalc.GetDeliveryPriceResponse\022d\n" +
+      "\021SetIntervalsSurge\022&.shippingcalc.SetInt" +
+      "ervalsSurgeRequest\032\'.shippingcalc.SetInt" +
+      "ervalsSurgeResponse\022d\n\021GetIntervalsSurge" +
+      "\022&.shippingcalc.GetIntervalsSurgeRequest" +
+      "\032\'.shippingcalc.GetIntervalsSurgeRespons" +
+      "e\022y\n\030SetSwitchbackExperiments\022-.shipping" +
+      "calc.SetSwitchbackExperimentsRequest\032..s" +
+      "hippingcalc.SetSwitchbackExperimentsResp" +
+      "onse\022y\n\030GetSwitchbackExperiments\022-.shipp" +
+      "ingcalc.GetSwitchbackExperimentsRequest\032" +
+      "..shippingcalc.GetSwitchbackExperimentsR" +
+      "esponseBRZPgitlab.sbmt.io/paas/content/o" +
+      "perations/shippingcalc/pkg/server/grpc/s" +
+      "hippingcalcb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -58327,7 +62585,7 @@ public final class ShippingcalcOuterClass {
     internal_static_shippingcalc_CreateStrategyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_CreateStrategyRequest_descriptor,
-        new java.lang.String[] { "Rules", "CreatorId", "Name", "Global", "Priority", "Description", "DeliveryType", });
+        new java.lang.String[] { "Rules", "CreatorId", "Name", "Global", "Priority", "Description", "DeliveryType", "MinCartRules", });
     internal_static_shippingcalc_CreateStrategyResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_shippingcalc_CreateStrategyResponse_fieldAccessorTable = new
@@ -58339,339 +62597,351 @@ public final class ShippingcalcOuterClass {
     internal_static_shippingcalc_UpdateStrategyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_UpdateStrategyRequest_descriptor,
-        new java.lang.String[] { "StrategyId", "Rules", "CreatorId", "Name", "Global", "Priority", "Description", "DeliveryType", });
+        new java.lang.String[] { "StrategyId", "Rules", "CreatorId", "Name", "Global", "Priority", "Description", "DeliveryType", "MinCartRules", });
     internal_static_shippingcalc_NewRuleObject_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_shippingcalc_NewRuleObject_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_NewRuleObject_descriptor,
         new java.lang.String[] { "ScriptId", "ScriptParamValues", "Conditions", "Priority", });
-    internal_static_shippingcalc_NewConditionObject_descriptor =
+    internal_static_shippingcalc_MinCartRuleObject_descriptor =
       getDescriptor().getMessageTypes().get(4);
+    internal_static_shippingcalc_MinCartRuleObject_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_MinCartRuleObject_descriptor,
+        new java.lang.String[] { "MinCartValue", "Conditions", "Priority", });
+    internal_static_shippingcalc_NewConditionObject_descriptor =
+      getDescriptor().getMessageTypes().get(5);
     internal_static_shippingcalc_NewConditionObject_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_NewConditionObject_descriptor,
         new java.lang.String[] { "ConditionType", "Params", });
     internal_static_shippingcalc_UpdateStrategyResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_shippingcalc_UpdateStrategyResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_UpdateStrategyResponse_descriptor,
-        new java.lang.String[] { "RulesId", });
+        new java.lang.String[] { "RulesId", "MinCartRulesId", });
     internal_static_shippingcalc_BindStrategyRequest_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_shippingcalc_BindStrategyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_BindStrategyRequest_descriptor,
         new java.lang.String[] { "StrategyId", "Binds", });
     internal_static_shippingcalc_StrategyBinding_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_shippingcalc_StrategyBinding_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_StrategyBinding_descriptor,
         new java.lang.String[] { "StoreId", "TenantId", "DeliveryType", });
     internal_static_shippingcalc_BindStrategyResponse_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_shippingcalc_BindStrategyResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_BindStrategyResponse_descriptor,
         new java.lang.String[] { "Strategy", });
     internal_static_shippingcalc_StrategyView_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_shippingcalc_StrategyView_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_StrategyView_descriptor,
         new java.lang.String[] { "StrategyId", "CreatorId", "Name", "Global", "Priority", "Binds", "Description", "CreatedAt", "UpdatedAt", "DeliveryType", });
     internal_static_shippingcalc_UnbindStrategyRequest_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_shippingcalc_UnbindStrategyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_UnbindStrategyRequest_descriptor,
         new java.lang.String[] { "StrategyId", "Binds", });
     internal_static_shippingcalc_UnbindStrategyResponse_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_shippingcalc_UnbindStrategyResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_UnbindStrategyResponse_descriptor,
         new java.lang.String[] { "Strategy", });
     internal_static_shippingcalc_GetStrategiesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_shippingcalc_GetStrategiesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetStrategiesRequest_descriptor,
         new java.lang.String[] { "StrategyName", "DeliveryType", "Stores", });
     internal_static_shippingcalc_GetStrategiesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_shippingcalc_GetStrategiesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetStrategiesResponse_descriptor,
         new java.lang.String[] { "Strategies", });
     internal_static_shippingcalc_GetStrategyRequest_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_shippingcalc_GetStrategyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetStrategyRequest_descriptor,
         new java.lang.String[] { "StrategyId", });
     internal_static_shippingcalc_GetStrategyResponse_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_shippingcalc_GetStrategyResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetStrategyResponse_descriptor,
-        new java.lang.String[] { "Strategy", "Rules", });
+        new java.lang.String[] { "Strategy", "Rules", "MinCartRules", });
     internal_static_shippingcalc_RuleView_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_shippingcalc_RuleView_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_RuleView_descriptor,
         new java.lang.String[] { "Id", "ScriptId", "ScriptName", "ScriptParamValues", "Conditions", "Priority", "CreatorId", "CreatedAt", });
+    internal_static_shippingcalc_MinCartRuleView_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_shippingcalc_MinCartRuleView_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_MinCartRuleView_descriptor,
+        new java.lang.String[] { "Id", "MinCartValue", "Conditions", "Priority", "CreatorId", "CreatedAt", });
     internal_static_shippingcalc_ConditionView_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_shippingcalc_ConditionView_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_ConditionView_descriptor,
         new java.lang.String[] { "ConditionType", "Params", });
     internal_static_shippingcalc_GetStrategiesForStoreRequest_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_shippingcalc_GetStrategiesForStoreRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetStrategiesForStoreRequest_descriptor,
         new java.lang.String[] { "StoreId", "Tenant", "DeliveryType", });
     internal_static_shippingcalc_ExplainedStrategyView_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_shippingcalc_ExplainedStrategyView_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_ExplainedStrategyView_descriptor,
         new java.lang.String[] { "StrategyId", "Binding", });
     internal_static_shippingcalc_GetStrategiesForStoreResponse_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_shippingcalc_GetStrategiesForStoreResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetStrategiesForStoreResponse_descriptor,
         new java.lang.String[] { "Strategy", });
     internal_static_shippingcalc_DeleteStrategyRequest_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_shippingcalc_DeleteStrategyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_DeleteStrategyRequest_descriptor,
         new java.lang.String[] { "StrategyId", });
     internal_static_shippingcalc_DeleteStrategyResponse_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_shippingcalc_DeleteStrategyResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_DeleteStrategyResponse_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_CreateScriptRequest_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_shippingcalc_CreateScriptRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_CreateScriptRequest_descriptor,
         new java.lang.String[] { "ScriptName", "ScriptBody", "CreatorId", });
     internal_static_shippingcalc_CreateScriptResponse_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_shippingcalc_CreateScriptResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_CreateScriptResponse_descriptor,
         new java.lang.String[] { "ScriptId", "State", "ResultMessage", });
     internal_static_shippingcalc_UpdateScriptRequest_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_shippingcalc_UpdateScriptRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_UpdateScriptRequest_descriptor,
         new java.lang.String[] { "ScriptId", "ScriptName", "ScriptBody", "CreatorId", });
     internal_static_shippingcalc_UpdateScriptResponse_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_shippingcalc_UpdateScriptResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_UpdateScriptResponse_descriptor,
         new java.lang.String[] { "State", "ResultMessage", });
     internal_static_shippingcalc_GetScriptsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_shippingcalc_GetScriptsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetScriptsRequest_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetScriptsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(28);
+      getDescriptor().getMessageTypes().get(30);
     internal_static_shippingcalc_GetScriptsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetScriptsResponse_descriptor,
         new java.lang.String[] { "Scripts", });
     internal_static_shippingcalc_ScriptView_descriptor =
-      getDescriptor().getMessageTypes().get(29);
+      getDescriptor().getMessageTypes().get(31);
     internal_static_shippingcalc_ScriptView_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_ScriptView_descriptor,
         new java.lang.String[] { "ScriptId", "ScriptName", "ScriptBody", "RequiredParams", "CreatedAt", "UpdatedAt", "State", });
     internal_static_shippingcalc_ScriptParam_descriptor =
-      getDescriptor().getMessageTypes().get(30);
+      getDescriptor().getMessageTypes().get(32);
     internal_static_shippingcalc_ScriptParam_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_ScriptParam_descriptor,
         new java.lang.String[] { "Type", "Name", "Caption", "Fraction", });
     internal_static_shippingcalc_GetScriptRequest_descriptor =
-      getDescriptor().getMessageTypes().get(31);
+      getDescriptor().getMessageTypes().get(33);
     internal_static_shippingcalc_GetScriptRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetScriptRequest_descriptor,
         new java.lang.String[] { "ScriptId", });
     internal_static_shippingcalc_GetScriptResponse_descriptor =
-      getDescriptor().getMessageTypes().get(32);
+      getDescriptor().getMessageTypes().get(34);
     internal_static_shippingcalc_GetScriptResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetScriptResponse_descriptor,
         new java.lang.String[] { "Script", });
     internal_static_shippingcalc_DeleteScriptRequest_descriptor =
-      getDescriptor().getMessageTypes().get(33);
+      getDescriptor().getMessageTypes().get(35);
     internal_static_shippingcalc_DeleteScriptRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_DeleteScriptRequest_descriptor,
         new java.lang.String[] { "ScriptId", });
     internal_static_shippingcalc_DeleteScriptResponse_descriptor =
-      getDescriptor().getMessageTypes().get(34);
+      getDescriptor().getMessageTypes().get(36);
     internal_static_shippingcalc_DeleteScriptResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_DeleteScriptResponse_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetScriptTestResultsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(35);
+      getDescriptor().getMessageTypes().get(37);
     internal_static_shippingcalc_GetScriptTestResultsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetScriptTestResultsRequest_descriptor,
         new java.lang.String[] { "ScriptId", });
     internal_static_shippingcalc_GetScriptTestResultsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(36);
+      getDescriptor().getMessageTypes().get(38);
     internal_static_shippingcalc_GetScriptTestResultsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetScriptTestResultsResponse_descriptor,
         new java.lang.String[] { "Results", "AllPassed", });
     internal_static_shippingcalc_ScriptTestResult_descriptor =
-      getDescriptor().getMessageTypes().get(37);
+      getDescriptor().getMessageTypes().get(39);
     internal_static_shippingcalc_ScriptTestResult_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_ScriptTestResult_descriptor,
         new java.lang.String[] { "TestName", "Passed", "ErrorMessage", });
     internal_static_shippingcalc_GetDeliveryPriceRequest_descriptor =
-      getDescriptor().getMessageTypes().get(38);
+      getDescriptor().getMessageTypes().get(40);
     internal_static_shippingcalc_GetDeliveryPriceRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetDeliveryPriceRequest_descriptor,
         new java.lang.String[] { "OrderId", "Shipments", "Customer", "IsB2BOrder", "IsPromocode", "PaymentMethod", "HasPaymentMethod", "DeliveryType", "TenantId", });
     internal_static_shippingcalc_Shipment_descriptor =
-      getDescriptor().getMessageTypes().get(39);
+      getDescriptor().getMessageTypes().get(41);
     internal_static_shippingcalc_Shipment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_Shipment_descriptor,
         new java.lang.String[] { "Id", "IsOndemand", "Products", "Weight", "ItemsCount", "Price", "StoreId", "Status", "RegionId", "SurgeDeliveryWindowAddition", "Lat", "Lon", });
     internal_static_shippingcalc_ProductRequest_descriptor =
-      getDescriptor().getMessageTypes().get(40);
+      getDescriptor().getMessageTypes().get(42);
     internal_static_shippingcalc_ProductRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_ProductRequest_descriptor,
         new java.lang.String[] { "Quantity", "Id", "Price", "DiscountPrice", "Weight", });
     internal_static_shippingcalc_Customer_descriptor =
-      getDescriptor().getMessageTypes().get(41);
+      getDescriptor().getMessageTypes().get(43);
     internal_static_shippingcalc_Customer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_Customer_descriptor,
         new java.lang.String[] { "Id", "AnonymousId", "OrdersCount", "RegisteredAt", "Lat", "Lon", });
     internal_static_shippingcalc_GetDeliveryPriceResponse_descriptor =
-      getDescriptor().getMessageTypes().get(42);
+      getDescriptor().getMessageTypes().get(44);
     internal_static_shippingcalc_GetDeliveryPriceResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetDeliveryPriceResponse_descriptor,
         new java.lang.String[] { "IsOrderPossible", "MinimalCartPrice", "MinimalCartItems", "TotalShippingPrice", "Shipments", });
     internal_static_shippingcalc_PricedShipment_descriptor =
-      getDescriptor().getMessageTypes().get(43);
+      getDescriptor().getMessageTypes().get(45);
     internal_static_shippingcalc_PricedShipment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_PricedShipment_descriptor,
         new java.lang.String[] { "ShipmentId", "ShippingPrice", "OfferExpiresAt", "OfferHash", "Ladder", "StrategyId", "RuleId", "WeHadOffer", "SurgeLevelAddition", "SurgeUsed", "SurgeLevel", "SurgeDeliveryWindowAddition", "Hints", "PriceExplanation", });
     internal_static_shippingcalc_PriceHint_descriptor =
-      getDescriptor().getMessageTypes().get(44);
+      getDescriptor().getMessageTypes().get(46);
     internal_static_shippingcalc_PriceHint_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_PriceHint_descriptor,
         new java.lang.String[] { "Type", "Caption", "Price", "AdditionalLabel", "Meta", });
     internal_static_shippingcalc_PriceExplanation_descriptor =
-      getDescriptor().getMessageTypes().get(45);
+      getDescriptor().getMessageTypes().get(47);
     internal_static_shippingcalc_PriceExplanation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_PriceExplanation_descriptor,
         new java.lang.String[] { "PassedConditions", "PriceComponents", });
     internal_static_shippingcalc_PricePassedCondition_descriptor =
-      getDescriptor().getMessageTypes().get(46);
+      getDescriptor().getMessageTypes().get(48);
     internal_static_shippingcalc_PricePassedCondition_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_PricePassedCondition_descriptor,
         new java.lang.String[] { "Type", "Params", });
     internal_static_shippingcalc_PriceComponent_descriptor =
-      getDescriptor().getMessageTypes().get(47);
+      getDescriptor().getMessageTypes().get(49);
     internal_static_shippingcalc_PriceComponent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_PriceComponent_descriptor,
         new java.lang.String[] { "Type", "Price", "Meta", });
     internal_static_shippingcalc_LadderStep_descriptor =
-      getDescriptor().getMessageTypes().get(48);
+      getDescriptor().getMessageTypes().get(50);
     internal_static_shippingcalc_LadderStep_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_LadderStep_descriptor,
         new java.lang.String[] { "PriceFrom", "PriceTo", "ShippingPrice", "PriceFrom", "PriceTo", });
     internal_static_shippingcalc_SurgeInterval_descriptor =
-      getDescriptor().getMessageTypes().get(49);
+      getDescriptor().getMessageTypes().get(51);
     internal_static_shippingcalc_SurgeInterval_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_SurgeInterval_descriptor,
         new java.lang.String[] { "LeftBoundary", "RightBoundary", "PriceAddition", "PercentAddition", });
     internal_static_shippingcalc_SetIntervalsSurgeRequest_descriptor =
-      getDescriptor().getMessageTypes().get(50);
+      getDescriptor().getMessageTypes().get(52);
     internal_static_shippingcalc_SetIntervalsSurgeRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_SetIntervalsSurgeRequest_descriptor,
         new java.lang.String[] { "Intervals", });
     internal_static_shippingcalc_SetIntervalsSurgeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(51);
+      getDescriptor().getMessageTypes().get(53);
     internal_static_shippingcalc_SetIntervalsSurgeResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_SetIntervalsSurgeResponse_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetIntervalsSurgeRequest_descriptor =
-      getDescriptor().getMessageTypes().get(52);
+      getDescriptor().getMessageTypes().get(54);
     internal_static_shippingcalc_GetIntervalsSurgeRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetIntervalsSurgeRequest_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetIntervalsSurgeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(53);
+      getDescriptor().getMessageTypes().get(55);
     internal_static_shippingcalc_GetIntervalsSurgeResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetIntervalsSurgeResponse_descriptor,
         new java.lang.String[] { "Intervals", });
     internal_static_shippingcalc_SurgeSwitchbackExperiment_descriptor =
-      getDescriptor().getMessageTypes().get(54);
+      getDescriptor().getMessageTypes().get(56);
     internal_static_shippingcalc_SurgeSwitchbackExperiment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_SurgeSwitchbackExperiment_descriptor,
         new java.lang.String[] { "StartDateTime", "EndDateTime", "RegionId", "Group", });
     internal_static_shippingcalc_SetSwitchbackExperimentsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(55);
+      getDescriptor().getMessageTypes().get(57);
     internal_static_shippingcalc_SetSwitchbackExperimentsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_SetSwitchbackExperimentsRequest_descriptor,
         new java.lang.String[] { "Data", "Type", });
     internal_static_shippingcalc_SetSwitchbackExperimentsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(56);
+      getDescriptor().getMessageTypes().get(58);
     internal_static_shippingcalc_SetSwitchbackExperimentsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_SetSwitchbackExperimentsResponse_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetSwitchbackExperimentsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(57);
+      getDescriptor().getMessageTypes().get(59);
     internal_static_shippingcalc_GetSwitchbackExperimentsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetSwitchbackExperimentsRequest_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetSwitchbackExperimentsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(58);
+      getDescriptor().getMessageTypes().get(60);
     internal_static_shippingcalc_GetSwitchbackExperimentsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetSwitchbackExperimentsResponse_descriptor,

@@ -206,13 +206,13 @@ task onDemandETA(type: Test) {
     systemProperty 'qase.Title', 'ETA Autotests'
 }
 
-task apiDispatchShippingCalcRegress(type: Test) {
+task onDemandShippingCalc(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/on-demand.xml'
         includeGroups 'dispatch-shippingcalc-smoke', 'dispatch-shippingcalc-regress'
     }
     systemProperty 'qase.Project', 'SHPCALC'
-    systemProperty 'qase.Title', 'On Demand ShippingCalc Regress'
+    systemProperty 'qase.Title', 'ShippingCalc Autotests'
 }
 
 task apiDispatchСandidatesSmoke(type: Test) {
