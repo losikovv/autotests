@@ -26,9 +26,7 @@ public class ConditionsDao implements Dao<Integer, ConditionsEntity> {
         try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(selectSql)) {
             int index = 1;
-            for (Object o : rulesIds) {
-                preparedStatement.setObject(index++, o);
-            }
+            for (Object ruleId : rulesIds) preparedStatement.setObject(index++, ruleId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 var conditionsEntity = new ConditionsEntity();
