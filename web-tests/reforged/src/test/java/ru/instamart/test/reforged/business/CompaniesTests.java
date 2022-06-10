@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.ThreadUtil;
+import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -304,7 +306,7 @@ public final class CompaniesTests {
         companies().clickOnFirstCompanyName();
         companyInfoPage().checkCompanyInfoIsVisible();
 
-        companyInfoPage().checkPaymentAccountAmountContainsText("нет данных");
+        companyInfoPage().checkPaymentAccountAmountContainsText("0,00 ₽");
         companyInfoPage().hoverAccountAmountAdditionalInfo();
         companyInfoPage().checkPaymentAccountWarningDisplayed();
         companyInfoPage().clickAccountAmountRefreshButton();
@@ -349,7 +351,7 @@ public final class CompaniesTests {
         b2cCompanies().clickOnFirstCompanyName();
         b2cCompanyInfo().checkCompanyInfoIsVisible();
 
-        b2cCompanyInfo().checkPaymentAccountAmountContainsText("нет данных");
+        b2cCompanyInfo().checkPaymentAccountAmountContainsText("0,00 ₽");
         b2cCompanyInfo().hoverAccountAmountAdditionalInfo();
         b2cCompanyInfo().checkPaymentAccountWarningDisplayed();
         b2cCompanyInfo().clickAccountAmountRefreshButton();
