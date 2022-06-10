@@ -6,6 +6,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.apache.commons.lang3.RandomUtils;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -69,6 +70,11 @@ public class ShiftsStoreChangedTest extends RestBase {
                 .setAvailableOn(getTimestamp())
                 .build();
         kafka.publish(configStoreChanged(), storeChanged.toByteArray());
+    }
+
+    @AfterClass(alwaysRun = true, description = "Clear")
+    public void after(){
+        ShopsDao.INSTANCE.delete(baseStoreId);
     }
 
     @CaseId(177)
