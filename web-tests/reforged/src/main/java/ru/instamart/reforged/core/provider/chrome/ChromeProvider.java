@@ -5,7 +5,6 @@ import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import ru.instamart.reforged.core.config.BrowserProperties;
 import ru.instamart.reforged.core.provider.AbstractBrowserProvider;
 
@@ -15,7 +14,6 @@ public final class ChromeProvider extends AbstractBrowserProvider {
 
     @Override
     public void createDriver(final String version) {
-        final var capabilities = new DesiredCapabilities();
         final var jsonObject = new JSONObject();
         final var options = new ChromeOptions();
 
@@ -40,18 +38,14 @@ public final class ChromeProvider extends AbstractBrowserProvider {
         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
 
-        capabilities.setBrowserName("chrome");
-        capabilities.setCapability("browserVersion", version);
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        capabilities.setCapability("sessionTimeout", "5m");
-//        capabilities.setVersion(version);
-        capabilities.setCapability("moon:options", Map.<String, Object>of(
-                "enableVNC", BrowserProperties.VNC,
+        options.setCapability("browserVersion", version);
+        options.setCapability(ChromeOptions.CAPABILITY, options);
+        options.setCapability("moon:options", Map.<String, Object>of(
                 "enableVideo", BrowserProperties.VIDEO,
                 "sessionTimeout", "5m",
                 "screenResolution", "1920x1080x24"
         ));
 
-        createRemoteDriver(capabilities);
+        createRemoteDriver(options);
     }
 }

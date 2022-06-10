@@ -3,6 +3,7 @@ package ru.instamart.reforged.core.provider;
 import com.google.common.collect.ImmutableMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -12,7 +13,6 @@ import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CommandInfo;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.http.HttpMethod;
@@ -39,11 +39,9 @@ public abstract class AbstractBrowserProvider {
 
     public abstract void createDriver(final String version);
 
-    protected void createRemoteDriver(final DesiredCapabilities capabilities) {
+    protected void createRemoteDriver(final Capabilities capabilities) {
         try {
-            this.driver = new RemoteWebDriverExtension(
-                    new HttpCommandExecutorExtension(CHROME_COMMAND_NAME_TO_URL, URI.create(BrowserProperties.REMOTE_URL).toURL()),
-                    capabilities);
+            this.driver = new RemoteWebDriver(URI.create(BrowserProperties.REMOTE_URL).toURL(), capabilities);
             ((RemoteWebDriver)driver).setFileDetector(new LocalFileDetector());
             applyOptions();
         } catch (Exception e) {
