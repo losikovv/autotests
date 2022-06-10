@@ -27,7 +27,7 @@ public final class AdministrationPagesSectionTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        pages().openAdminPageWithoutSpa(pages().pageUrl());
+        pages().goToPage();
         pages().checkTable();
         pages().checkTableEntry();
     }
@@ -41,20 +41,20 @@ public final class AdministrationPagesSectionTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        pages().openAdminPageWithoutSpa(pages().pageUrl());
+        pages().goToPage();
         pages().clickToNewPage();
         newPages().fillPageData(staticPage);
         newPages().submit();
 
-        pages().openAdminPageWithoutSpa(pages().pageUrl());
-        pages().checkTable();
-        final var id = pages().getPageId(staticPage);
-
         pages().openSitePage(staticPage.getPageURL());
         pages().checkPageIsAvailable();
 
-        pages().openAdminPageWithoutSpa(pages().pageUrl());
-        pages().deleteEntry(id);
+        pages().goToPage();
+        pages().waitPageLoad();
+        pages().removeEntry(staticPage.getPageName());
+        pages().checkDeletePopupVisible();
+        pages().clickConfirmDeletePage();
+
         pages().checkDeleteAlertVisible();
     }
 
@@ -70,11 +70,15 @@ public final class AdministrationPagesSectionTests {
 
         helper.createStaticPageInAdmin(staticPage);
 
-        pages().openAdminPageWithoutSpa(pages().pageUrl());
+        pages().goToPage();
+        pages().waitPageLoad();
         pages().checkTable();
         pages().editEntry(staticPage.getPageName());
+
+        newPages().waitPageLoad();
         newPages().fillPageData(staticPageEdited);
         newPages().submit();
+
         pages().waitPageLoad();
         pages().openSitePage(staticPageEdited.getPageURL());
         pages().waitPageLoad();
