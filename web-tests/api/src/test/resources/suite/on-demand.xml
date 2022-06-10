@@ -32,11 +32,6 @@
             <class name="ru.instamart.test.api.dispatch.candidates.СandidatesTest"/>
         </classes>
     </test>
-    <test verbose="1" name="SHIPPINGCALC" parallel="classes" thread-count="1">
-        <classes>
-            <class name="ru.instamart.test.api.dispatch.shippingcalc.StrategyTest"/>
-        </classes>
-    </test>
     <test verbose="1" name="KAFKA">
         <classes>
             <class name="ru.instamart.test.api.dispatch.KafkaDispatchTest"/>

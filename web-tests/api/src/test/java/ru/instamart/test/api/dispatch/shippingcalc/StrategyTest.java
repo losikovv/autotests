@@ -1,12 +1,14 @@
 package ru.instamart.test.api.dispatch.shippingcalc;
 
 import io.grpc.StatusRuntimeException;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.sbermarket.qase.annotation.CaseIDs;
@@ -16,6 +18,7 @@ import shippingcalc.ShippingcalcOuterClass;
 
 import java.util.UUID;
 
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
 
 @Epic("On Demand")
@@ -399,7 +402,7 @@ public class StrategyTest extends RestBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = "createStrategy")
     public void updateStrategy() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, strategyId, "autotest-update", "autotest-update", "autotest-update", true, 3);
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, strategyId, "autotest-update", "autotest-update", "autotest-update", true, 2);
         var response = clientShippingCalc.updateStrategy(request);
         checkUpdatedStrategy(strategyId, "autotest-update", 4, 4, 2);
     }
@@ -443,7 +446,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(true)
                 .setPriority(100)
                 .setDescription("autotest-update")
-                .setDeliveryTypeValue(3)
+                .setDeliveryTypeValue(2)
                 .build();
 
         var response = clientShippingCalc.updateStrategy(request);
@@ -530,7 +533,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(true)
                 .setPriority(100)
                 .setDescription("autotest-update")
-                .setDeliveryTypeValue(3)
+                .setDeliveryTypeValue(2)
                 .build();
 
         var response = clientShippingCalc.updateStrategy(request);
@@ -871,7 +874,7 @@ public class StrategyTest extends RestBase {
     @Story("Unbind Strategy")
     @Test(description = "Отвязка стратегии от магазина с валидными данными",
             groups = "dispatch-shippingcalc-smoke",
-            dependsOnMethods = "bindStrategy")
+            dependsOnMethods = {"getStrategy", "getStrategiesWithAllFilter", "getStrategiesWithStoreFilter", "getStrategiesForStore"})
     public void unbindStrategy() {
         ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, firstStoreId, "metro");
         var response = clientShippingCalc.unbindStrategy(request);
@@ -949,6 +952,186 @@ public class StrategyTest extends RestBase {
     public void unbindStrategyWithNoTenantId() {
         ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, firstStoreId, "");
         clientShippingCalc.unbindStrategy(request);
+    }
+
+    @CaseId(118)
+    @Story("Get Strategy")
+    @Test(description = "Получение существующей стратегии",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "bindStrategy")
+    public void getStrategy() {
+        ShippingcalcOuterClass.GetStrategyRequest request = ShippingcalcOuterClass.GetStrategyRequest.newBuilder()
+                .setStrategyId(strategyId)
+                .build();
+        var response = clientShippingCalc.getStrategy(request);
+
+        Allure.step("Проверка стратегии в ответе", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertNotNull(response.getStrategy(), "В ответе пустая стратегия");
+            compareTwoObjects(response.getStrategy().getStrategyId(), strategyId, softAssert);
+            softAssert.assertTrue(response.getStrategy().getBindsCount() > 0, "В ответе пустой список привязок");
+            softAssert.assertTrue(response.getRulesCount() > 0, "В ответе пустой список правил");
+            softAssert.assertTrue(response.getRules(0).getConditionsCount() > 0, "В ответе пустой список условий для правил");
+            softAssert.assertTrue(response.getMinCartRulesCount() > 0, "В ответе пустой список правил мин. корзины");
+            softAssert.assertTrue(response.getMinCartRules(0).getConditionsCount() > 0, "В ответе пустой список условий для правил мин. корзины");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(120)
+    @Story("Get Strategy")
+    @Test(description = "Получение ошибки при отправке запроса с несуществующей стратегией",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "NOT_FOUND: cannot find strategy, entity not found")
+    public void getStrategyNonExistent() {
+        ShippingcalcOuterClass.GetStrategyRequest request = ShippingcalcOuterClass.GetStrategyRequest.newBuilder()
+                .setStrategyId(1234567890)
+                .build();
+
+        clientShippingCalc.getStrategy(request);
+    }
+
+    @CaseId(124)
+    @Story("Get Strategies")
+    @Test(description = "Получение списка стратегий без фильтров",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "createStrategy")
+    public void getStrategies() {
+        ShippingcalcOuterClass.GetStrategiesRequest request = ShippingcalcOuterClass.GetStrategiesRequest.newBuilder().build();
+        var response = clientShippingCalc.getStrategies(request);
+
+        Allure.step("Проверка стратегии в ответе", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
+            softAssert.assertTrue(response.getStrategies(0).getStrategyId() > 0, "В ответе пустое id стратегии");
+            softAssert.assertNotNull(response.getStrategies(0).getName(), "В ответе пустое название стратегии");
+            softAssert.assertTrue(response.getStrategies(0).getDeliveryTypeValue() > 0, "В ответе пустой тип доставки");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(256)
+    @Story("Get Strategies")
+    @Test(description = "Получение списка стратегий с комбинированным фильтром (имя, тип доставки, магазины)",
+            groups = "dispatch-shippingcalc-regress",
+            dependsOnMethods = "bindStrategy")
+    public void getStrategiesWithAllFilter() {
+        ShippingcalcOuterClass.GetStrategiesRequest request = ShippingcalcOuterClass.GetStrategiesRequest.newBuilder()
+                .setStrategyName("aut")
+                .setDeliveryTypeValue(2)
+                .addStores(firstStoreId)
+                .build();
+        var response = clientShippingCalc.getStrategies(request);
+
+        Allure.step("Проверка стратегии в ответе", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
+            softAssert.assertTrue(response.getStrategies(0).getStrategyId() > 0, "В ответе пустое id стратегии");
+            softAssert.assertTrue(response.getStrategies(0).getName().equals("autotest") || response.getStrategies(0).getName().equals("autotest-update"), "Не ожидаемое название стратегии");
+            softAssert.assertTrue(response.getStrategies(0).getStoresCount() > 0, "В ответе пустой список привязок");
+            softAssert.assertTrue(response.getStrategies(0).getStoresList().contains(firstStoreId), "В ответе не нашли ожидаемую привязку");
+            softAssert.assertEquals(response.getStrategies(0).getDeliveryTypeValue(), 2, "Не ожидаемый тип доставки");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(251)
+    @Story("Get Strategies")
+    @Test(description = "Получение списка стратегий с фильтром по имени",
+            groups = "dispatch-shippingcalc-regress",
+            dependsOnMethods = "createStrategy")
+    public void getStrategiesWithNameFilter() {
+        ShippingcalcOuterClass.GetStrategiesRequest request = ShippingcalcOuterClass.GetStrategiesRequest.newBuilder()
+                .setStrategyName("aut")
+                .build();
+        var response = clientShippingCalc.getStrategies(request);
+
+        Allure.step("Проверка стратегии в ответе", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
+            softAssert.assertTrue(response.getStrategies(0).getStrategyId() > 0, "В ответе пустое id стратегии");
+            softAssert.assertTrue(response.getStrategies(0).getName().equals("autotest") || response.getStrategies(0).getName().equals("autotest-update"), "Не ожидаемое название стратегии");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(253)
+    @Story("Get Strategies")
+    @Test(description = "Получение списка стратегий с фильтром по типу доставки",
+            groups = "dispatch-shippingcalc-regress",
+            dependsOnMethods = "createStrategy")
+    public void getStrategiesWithDeliveryTypeFilter() {
+        ShippingcalcOuterClass.GetStrategiesRequest request = ShippingcalcOuterClass.GetStrategiesRequest.newBuilder()
+                .setDeliveryTypeValue(2)
+                .build();
+        var response = clientShippingCalc.getStrategies(request);
+
+        Allure.step("Проверка стратегии в ответе", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
+            softAssert.assertTrue(response.getStrategies(0).getStrategyId() > 0, "В ответе пустое id стратегии");
+            softAssert.assertEquals(response.getStrategies(0).getDeliveryTypeValue(), 2, "Не ожидаемый тип доставки");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(254)
+    @Story("Get Strategies")
+    @Test(description = "Получение списка стратегий с фильтром по магазину",
+            groups = "dispatch-shippingcalc-regress",
+            dependsOnMethods = "bindStrategy")
+    public void getStrategiesWithStoreFilter() {
+        ShippingcalcOuterClass.GetStrategiesRequest request = ShippingcalcOuterClass.GetStrategiesRequest.newBuilder()
+                .addStores(firstStoreId)
+                .build();
+        var response = clientShippingCalc.getStrategies(request);
+
+        Allure.step("Проверка стратегии в ответе", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
+            softAssert.assertTrue(response.getStrategies(0).getStrategyId() > 0, "В ответе пустое id стратегии");
+            softAssert.assertTrue(response.getStrategies(0).getStoresCount() > 0, "В ответе пустой список привязок");
+            softAssert.assertTrue(response.getStrategies(0).getStoresList().contains(firstStoreId), "В ответе не нашли ожидаемую привязку");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(172)
+    @Story("Get Strategies For Store")
+    @Test(description = "Получение стратегии для магазина",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "bindStrategy")
+    public void getStrategiesForStore() {
+        ShippingcalcOuterClass.GetStrategiesForStoreRequest request = ShippingcalcOuterClass.GetStrategiesForStoreRequest.newBuilder()
+                .setStoreId(firstStoreId)
+                .setTenant("metro")
+                .setDeliveryTypeValue(2)
+                .build();
+        var response = clientShippingCalc.getStrategiesForStore(request);
+
+        Allure.step("Проверка стратегии в ответе", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getStrategy(0).getStrategyId() > 0, "В ответе пустое id стратегии");
+            softAssert.assertEquals(response.getStrategy(0).getBinding().getStoreId(), firstStoreId, "В ответе не нашли ожидаемую привязку");
+            softAssert.assertEquals(response.getStrategy(0).getBinding().getTenantId(), "metro", "В ответе не нашли ожидаемый тенант");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(175)
+    @Story("Get Strategies For Store")
+    @Test(description = "Получение ошибки при отсутствии искомой стратегии",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "NOT_FOUND: entity not found")
+    public void getStrategiesForStoreNotFound() {
+        ShippingcalcOuterClass.GetStrategiesForStoreRequest request = ShippingcalcOuterClass.GetStrategiesForStoreRequest.newBuilder()
+                .setStoreId(firstStoreId)
+                .setDeliveryTypeValue(2)
+                .build();
+
+        clientShippingCalc.getStrategiesForStore(request);
     }
 
     @AfterClass(alwaysRun = true)
