@@ -16,17 +16,16 @@ public final class NewPage implements AdminPage, NewPageElement {
         fillMetaKeywords(data.getText());
         fillMetaDescription(data.getText());
         fillForeignLink(data.getPageURL());
-        fillPagePosition(data.getPosition());
     }
 
     @Step("Заполнить поле title={0}")
     public void fillTitle(final String text) {
-        title.fill(text);
+        title.fillField(text);
     }
 
     @Step("Заполнить поле slug={0}")
     public void fillSlug(final String text) {
-        slug.fill(text);
+        slug.fillField(text, false);
     }
 
     @Step("Заполнить поле body={0}")
@@ -38,32 +37,27 @@ public final class NewPage implements AdminPage, NewPageElement {
 
     @Step("Заполнить поле metaTitle={0}")
     public void fillMetaTitle(final String text) {
-        metaTitle.fill(text);
+        metaTitle.fillField(text, false);
     }
 
     @Step("Заполнить поле metaKeywords={0}")
     public void fillMetaKeywords(final String text) {
-        metaKeywords.fill(text);
+        metaKeywords.fillField(text, false);
     }
 
     @Step("Заполнить поле metaDescription={0}")
     public void fillMetaDescription(final String text) {
-        metaDescription.fill(text);
+        metaDescription.fillField(text, false);
     }
 
     @Step("Заполнить поле pageLayout={0}")
     public void fillPageLayout(final String text) {
-        pageLayout.fill(text);
+        pageLayout.fillField(text, false);
     }
 
     @Step("Заполнить поле foreignLink={0}")
     public void fillForeignLink(final String text) {
-        foreignLink.fill(text);
-    }
-
-    @Step("Заполнить поле pagePosition={0}")
-    public void fillPagePosition(final String text) {
-        pagePosition.fill(text);
+        foreignLink.fillField(text, false);
     }
 
     @Step("Сохранить изменения")

@@ -20,4 +20,9 @@ public interface PagesCheck extends Check, PagesElement {
     default void checkDeleteAlertVisible() {
         Kraken.waitAction().shouldBeVisible(deleteAlert);
     }
+
+    @Step("Проверяем появление поп-апа об удалении страницы")
+    default void checkDeletePopupVisible() {
+        Kraken.waitAction().shouldBeVisible(deletePopup);
+    }
 }

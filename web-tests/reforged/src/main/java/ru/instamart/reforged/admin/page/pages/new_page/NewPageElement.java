@@ -7,21 +7,21 @@ import ru.instamart.reforged.core.component.Input;
 
 public interface NewPageElement {
 
-    Input title = new Input(By.id("page_title"), "empty");
-    Input slug = new Input(By.id("page_slug"), "empty");
-    Input body = new Input(By.xpath("//html/body"), "empty");
-    Input metaTitle = new Input(By.id("page_meta_title"), "empty");
-    Input metaKeywords = new Input(By.id("page_meta_keywords"), "empty");
-    Input metaDescription = new Input(By.id("page_meta_description"), "empty");
-    Input pageLayout = new Input(By.id("page_layout"), "empty");
-    Input foreignLink = new Input(By.id("page_foreign_link"), "empty");
-    Input pagePosition = new Input(By.id("page_position"), "empty");
+    Input title = new Input(By.xpath("//input[@data-qa='pages_form_title_input']"), "Инпут заголовка страницы");
+    Input slug = new Input(By.xpath("//input[@data-qa='pages_form_slug_input']"), "Инпут постоянной ссылки страницы");
+    Input body = new Input(By.xpath("//html/body"), "Тело текста страницы");
+    Input metaTitle = new Input(By.xpath("//input[@data-qa='pages_form_metaTitle_input']"), "Инпут мета тайтла страницы");
+    Input metaKeywords = new Input(By.xpath("//input[@data-qa='pages_form_keywords_input']"), "Инпут ключевых слов страницы");
+    Input metaDescription = new Input(By.xpath("//input[@data-qa='pages_form_description_input']"), "Инпут описания страницы");
+    Input pageLayout = new Input(By.xpath("//input[@data-qa='pages_form_layout_input']"), "Инпут макета страницы");
+    Input foreignLink = new Input(By.xpath("//input[@data-qa='pages_form_foreignLink_input']"), "Инпут внешней ссылки страницы");
+    Input pagePosition = new Input(By.xpath("//input[@data-qa='pages_form_title_input']"), "Инпут заголовка страницы");
 
-    Checkbox sidebar = new Checkbox(By.id("page_show_in_sidebar"), "empty");
-    Checkbox header = new Checkbox(By.id("page_show_in_header"), "empty");
-    Checkbox footer = new Checkbox(By.id("page_show_in_footer"), "empty");
-    Checkbox pageVisible = new Checkbox(By.id("page_visible"), "empty");
-    Checkbox renderLayoutAsPartial = new Checkbox(By.id("page_render_layout_as_partial"), "empty");
+    Checkbox sidebar = new Checkbox(By.xpath("//input[@data-qa='pages_form_showInSidebar_checkbox']"), "Чекбокс отображения в боковом меню");
+    Checkbox header = new Checkbox(By.xpath("//input[@data-qa='pages_form_showInHeader_checkbox']"), "Чекбокс отображения в верхнем меню");
+    Checkbox footer = new Checkbox(By.xpath("//input[@data-qa='pages_form_showInFooter_checkbox']"), "Чекбокс отображения в нижнем меню");
+    Checkbox pageVisible = new Checkbox(By.xpath("//input[@data-qa='pages_form_visible_checkbox']"), "Чекбокс публикации страницы");
+    Checkbox renderLayoutAsPartial = new Checkbox(By.xpath("//input[@data-qa='pages_form_renderLayoutAsPartial_checkbox']"), "Чекбокс отрисовки страницы");
 
-    Button submit = new Button(By.xpath("//button[@type='submit']"), "empty");
+    Button submit = new Button(By.xpath("//button[@data-qa='pages_form_submit_button']"), "Кнопка подтверждения изменений");
 }

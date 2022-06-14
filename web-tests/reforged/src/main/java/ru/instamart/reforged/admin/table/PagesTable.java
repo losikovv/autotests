@@ -13,8 +13,8 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public final class PagesTable extends TableComponent {
 
-    private final By edit = By.xpath("./a[@data-action='edit']");
-    private final By remove = By.xpath("./a[@data-action='remove']");
+    private final By edit = By.xpath(".//button[@data-qa='pages_page_edit']");
+    private final By remove = By.xpath(".//button[@data-qa='pages_page_delete']");
 
     public String getTitle(final int line) {
         return getDataFromCell(Column.TITLE.label, line);
@@ -48,6 +48,12 @@ public final class PagesTable extends TableComponent {
         cellElement.findElement(remove).click();
     }
 
+    public void clickToRemove(final String title) {
+        final var columnData = getDataFromColumn(Column.TITLE.label);
+        final var index = getIndexOf(title, columnData);
+        clickToRemove(index);
+    }
+
     public void clickToRemoveById(final long id) {
         final var dataLines = getTableDataLines();
         for (int i = 0; i < dataLines.size(); i++) {
@@ -74,10 +80,10 @@ public final class PagesTable extends TableComponent {
     @RequiredArgsConstructor
     public enum Column {
 
-        TITLE("ЗАГОЛОВОК"),
-        LINK("ССЫЛКА"),
-        PUBLISH("ПУБЛИКОВАТЬ"),
-        ACTION("ACTION")
+        TITLE("Заголовок"),
+        LINK("Ссылка"),
+        PUBLISH("Публиковать"),
+        ACTION("")
         ;
 
         @Getter
