@@ -604,6 +604,37 @@ public final class ShippingcalcGrpc {
     return getGetSwitchbackExperimentsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest,
+      shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse> getGetMinCartAmountsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetMinCartAmounts",
+      requestType = shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest.class,
+      responseType = shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest,
+      shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse> getGetMinCartAmountsMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest, shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse> getGetMinCartAmountsMethod;
+    if ((getGetMinCartAmountsMethod = ShippingcalcGrpc.getGetMinCartAmountsMethod) == null) {
+      synchronized (ShippingcalcGrpc.class) {
+        if ((getGetMinCartAmountsMethod = ShippingcalcGrpc.getGetMinCartAmountsMethod) == null) {
+          ShippingcalcGrpc.getGetMinCartAmountsMethod = getGetMinCartAmountsMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest, shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetMinCartAmounts"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetMinCartAmounts"))
+              .build();
+        }
+      }
+    }
+    return getGetMinCartAmountsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -842,6 +873,16 @@ public final class ShippingcalcGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetSwitchbackExperimentsMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     * Получить минимальные корзины по списку
+     * </pre>
+     */
+    public void getMinCartAmounts(shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetMinCartAmountsMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -977,6 +1018,13 @@ public final class ShippingcalcGrpc {
                 shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest,
                 shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse>(
                   this, METHODID_GET_SWITCHBACK_EXPERIMENTS)))
+          .addMethod(
+            getGetMinCartAmountsMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest,
+                shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse>(
+                  this, METHODID_GET_MIN_CART_AMOUNTS)))
           .build();
     }
   }
@@ -1203,6 +1251,17 @@ public final class ShippingcalcGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetSwitchbackExperimentsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * Получить минимальные корзины по списку
+     * </pre>
+     */
+    public void getMinCartAmounts(shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetMinCartAmountsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -1407,6 +1466,16 @@ public final class ShippingcalcGrpc {
     public shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse getSwitchbackExperiments(shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetSwitchbackExperimentsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Получить минимальные корзины по списку
+     * </pre>
+     */
+    public shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse getMinCartAmounts(shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetMinCartAmountsMethod(), getCallOptions(), request);
     }
   }
 
@@ -1632,6 +1701,17 @@ public final class ShippingcalcGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetSwitchbackExperimentsMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * Получить минимальные корзины по списку
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse> getMinCartAmounts(
+        shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetMinCartAmountsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_STRATEGY = 0;
@@ -1653,6 +1733,7 @@ public final class ShippingcalcGrpc {
   private static final int METHODID_GET_INTERVALS_SURGE = 16;
   private static final int METHODID_SET_SWITCHBACK_EXPERIMENTS = 17;
   private static final int METHODID_GET_SWITCHBACK_EXPERIMENTS = 18;
+  private static final int METHODID_GET_MIN_CART_AMOUNTS = 19;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1747,6 +1828,10 @@ public final class ShippingcalcGrpc {
           serviceImpl.getSwitchbackExperiments((shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest) request,
               (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse>) responseObserver);
           break;
+        case METHODID_GET_MIN_CART_AMOUNTS:
+          serviceImpl.getMinCartAmounts((shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -1827,6 +1912,7 @@ public final class ShippingcalcGrpc {
               .addMethod(getGetIntervalsSurgeMethod())
               .addMethod(getSetSwitchbackExperimentsMethod())
               .addMethod(getGetSwitchbackExperimentsMethod())
+              .addMethod(getGetMinCartAmountsMethod())
               .build();
         }
       }

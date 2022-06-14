@@ -43,6 +43,8 @@ service Shippingcalc {
 	rpc SetSwitchbackExperiments (SetSwitchbackExperimentsRequest) returns (SetSwitchbackExperimentsResponse);
 	// Получить все интервалы switchback experiments for surge
 	rpc GetSwitchbackExperiments (GetSwitchbackExperimentsRequest) returns (GetSwitchbackExperimentsResponse);
+	// Получить минимальные корзины по списку
+	rpc GetMinCartAmounts (GetMinCartAmountsRequest) returns (GetMinCartAmountsResponse);
 }
 
 enum DeliveryType {
@@ -152,9 +154,6 @@ message StrategyBinding {
 	string store_id = 1;
 	// Идентификатор тенанта
 	string tenant_id = 2;
-	// DEPRECATED: Тип доставки, перенесен в стратегию. В будущих релизах будет удалён!
-	// В текущей реализации будет проигнорирован, в ответе будет копией из соответствующей стратегии
-	DeliveryType delivery_type = 3;
 }
 
 message BindStrategyResponse {
@@ -185,6 +184,30 @@ message StrategyView {
 	DeliveryType delivery_type = 10;
 }
 
+message StrategyViewLight {
+	// Идентификатор стратегии
+	uint32 strategy_id = 1;
+	// Автор
+	string creator_id = 2;
+	// Наименование стратегии
+	string name = 3;
+	// Признак глобальной стратегии
+	bool global = 4;
+	// Приоритет (актуально только для глобальной стратегии)
+	uint32 priority = 5;
+	// Список идентификаторов магазинов, привязанных к стратегии
+	repeated string stores = 6;
+	// Произвольное описание стратегии
+	string description = 7;
+	// Когда стратегия была создана
+	int64 created_at = 8;
+	// Когда стратегия была в последний раз обновлена
+	int64 updated_at = 9;
+	// Тип доставки
+	DeliveryType delivery_type = 10;
+}
+
+
 message UnbindStrategyRequest {
 	// Идентификатор стратегии
 	uint32 strategy_id = 1;
@@ -209,7 +232,7 @@ message GetStrategiesRequest {
 
 message GetStrategiesResponse {
 	// Представление стратегии
-	repeated StrategyView strategies = 1;
+	repeated StrategyViewLight strategies = 1;
 }
 
 message GetStrategyRequest {
@@ -540,6 +563,9 @@ message PricedShipment {
 	repeated PriceHint hints = 13;
 	// Объяснение того почему цена именно такая
 	PriceExplanation price_explanation = 14;
+
+	// Минимальная цена корзины
+	uint64 minimal_cart_price = 15;
 }
 
 message PriceHint {
@@ -649,3 +675,31 @@ message GetSwitchbackExperimentsRequest {
 message GetSwitchbackExperimentsResponse {
 	repeated SurgeSwitchbackExperiment experiments = 1;
 }
+
+message GetMinCartAmountsRequest {
+	repeated Store stores = 1;
+	Customer customer = 2;
+	string tenant = 3;
+	DeliveryType delivery_type = 4;
+}
+
+message Store {
+	// Идентификатор магазина
+	string id = 1;
+	// Координаты магазина
+	float lat = 2;
+	float lon = 3;
+}
+
+// Минимальная стоимость корзины для магазина
+message GetMinCartAmountsResponse {
+	// Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+	// то данных по этому магазину не будет в списке
+	repeated MinCartAmount min_cart_amounts = 1;
+}
+
+message MinCartAmount {
+	string store_id = 1;
+	uint64 amount = 2;
+}
+

@@ -10684,27 +10684,6 @@ public final class ShippingcalcOuterClass {
      */
     com.google.protobuf.ByteString
         getTenantIdBytes();
-
-    /**
-     * <pre>
-     * DEPRECATED: Тип доставки, перенесен в стратегию. В будущих релизах будет удалён!
-     * В текущей реализации будет проигнорирован, в ответе будет копией из соответствующей стратегии
-     * </pre>
-     *
-     * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
-     * @return The enum numeric value on the wire for deliveryType.
-     */
-    int getDeliveryTypeValue();
-    /**
-     * <pre>
-     * DEPRECATED: Тип доставки, перенесен в стратегию. В будущих релизах будет удалён!
-     * В текущей реализации будет проигнорирован, в ответе будет копией из соответствующей стратегии
-     * </pre>
-     *
-     * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
-     * @return The deliveryType.
-     */
-    shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType();
   }
   /**
    * Protobuf type {@code shippingcalc.StrategyBinding}
@@ -10721,7 +10700,6 @@ public final class ShippingcalcOuterClass {
     private StrategyBinding() {
       storeId_ = "";
       tenantId_ = "";
-      deliveryType_ = 0;
     }
 
     @java.lang.Override
@@ -10764,12 +10742,6 @@ public final class ShippingcalcOuterClass {
               java.lang.String s = input.readStringRequireUtf8();
 
               tenantId_ = s;
-              break;
-            }
-            case 24: {
-              int rawValue = input.readEnum();
-
-              deliveryType_ = rawValue;
               break;
             }
             default: {
@@ -10896,35 +10868,6 @@ public final class ShippingcalcOuterClass {
       }
     }
 
-    public static final int DELIVERY_TYPE_FIELD_NUMBER = 3;
-    private int deliveryType_;
-    /**
-     * <pre>
-     * DEPRECATED: Тип доставки, перенесен в стратегию. В будущих релизах будет удалён!
-     * В текущей реализации будет проигнорирован, в ответе будет копией из соответствующей стратегии
-     * </pre>
-     *
-     * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
-     * @return The enum numeric value on the wire for deliveryType.
-     */
-    @java.lang.Override public int getDeliveryTypeValue() {
-      return deliveryType_;
-    }
-    /**
-     * <pre>
-     * DEPRECATED: Тип доставки, перенесен в стратегию. В будущих релизах будет удалён!
-     * В текущей реализации будет проигнорирован, в ответе будет копией из соответствующей стратегии
-     * </pre>
-     *
-     * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
-     * @return The deliveryType.
-     */
-    @java.lang.Override public shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType() {
-      @SuppressWarnings("deprecation")
-      shippingcalc.ShippingcalcOuterClass.DeliveryType result = shippingcalc.ShippingcalcOuterClass.DeliveryType.valueOf(deliveryType_);
-      return result == null ? shippingcalc.ShippingcalcOuterClass.DeliveryType.UNRECOGNIZED : result;
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -10945,9 +10888,6 @@ public final class ShippingcalcOuterClass {
       if (!getTenantIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, tenantId_);
       }
-      if (deliveryType_ != shippingcalc.ShippingcalcOuterClass.DeliveryType.NONE.getNumber()) {
-        output.writeEnum(3, deliveryType_);
-      }
       unknownFields.writeTo(output);
     }
 
@@ -10962,10 +10902,6 @@ public final class ShippingcalcOuterClass {
       }
       if (!getTenantIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, tenantId_);
-      }
-      if (deliveryType_ != shippingcalc.ShippingcalcOuterClass.DeliveryType.NONE.getNumber()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(3, deliveryType_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -10986,7 +10922,6 @@ public final class ShippingcalcOuterClass {
           .equals(other.getStoreId())) return false;
       if (!getTenantId()
           .equals(other.getTenantId())) return false;
-      if (deliveryType_ != other.deliveryType_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -11002,8 +10937,6 @@ public final class ShippingcalcOuterClass {
       hash = (53 * hash) + getStoreId().hashCode();
       hash = (37 * hash) + TENANT_ID_FIELD_NUMBER;
       hash = (53 * hash) + getTenantId().hashCode();
-      hash = (37 * hash) + DELIVERY_TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + deliveryType_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11141,8 +11074,6 @@ public final class ShippingcalcOuterClass {
 
         tenantId_ = "";
 
-        deliveryType_ = 0;
-
         return this;
       }
 
@@ -11171,7 +11102,6 @@ public final class ShippingcalcOuterClass {
         shippingcalc.ShippingcalcOuterClass.StrategyBinding result = new shippingcalc.ShippingcalcOuterClass.StrategyBinding(this);
         result.storeId_ = storeId_;
         result.tenantId_ = tenantId_;
-        result.deliveryType_ = deliveryType_;
         onBuilt();
         return result;
       }
@@ -11227,9 +11157,6 @@ public final class ShippingcalcOuterClass {
         if (!other.getTenantId().isEmpty()) {
           tenantId_ = other.tenantId_;
           onChanged();
-        }
-        if (other.deliveryType_ != 0) {
-          setDeliveryTypeValue(other.getDeliveryTypeValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -11448,85 +11375,6 @@ public final class ShippingcalcOuterClass {
   checkByteStringIsUtf8(value);
         
         tenantId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private int deliveryType_ = 0;
-      /**
-       * <pre>
-       * DEPRECATED: Тип доставки, перенесен в стратегию. В будущих релизах будет удалён!
-       * В текущей реализации будет проигнорирован, в ответе будет копией из соответствующей стратегии
-       * </pre>
-       *
-       * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
-       * @return The enum numeric value on the wire for deliveryType.
-       */
-      @java.lang.Override public int getDeliveryTypeValue() {
-        return deliveryType_;
-      }
-      /**
-       * <pre>
-       * DEPRECATED: Тип доставки, перенесен в стратегию. В будущих релизах будет удалён!
-       * В текущей реализации будет проигнорирован, в ответе будет копией из соответствующей стратегии
-       * </pre>
-       *
-       * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
-       * @param value The enum numeric value on the wire for deliveryType to set.
-       * @return This builder for chaining.
-       */
-      public Builder setDeliveryTypeValue(int value) {
-        
-        deliveryType_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * DEPRECATED: Тип доставки, перенесен в стратегию. В будущих релизах будет удалён!
-       * В текущей реализации будет проигнорирован, в ответе будет копией из соответствующей стратегии
-       * </pre>
-       *
-       * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
-       * @return The deliveryType.
-       */
-      @java.lang.Override
-      public shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType() {
-        @SuppressWarnings("deprecation")
-        shippingcalc.ShippingcalcOuterClass.DeliveryType result = shippingcalc.ShippingcalcOuterClass.DeliveryType.valueOf(deliveryType_);
-        return result == null ? shippingcalc.ShippingcalcOuterClass.DeliveryType.UNRECOGNIZED : result;
-      }
-      /**
-       * <pre>
-       * DEPRECATED: Тип доставки, перенесен в стратегию. В будущих релизах будет удалён!
-       * В текущей реализации будет проигнорирован, в ответе будет копией из соответствующей стратегии
-       * </pre>
-       *
-       * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
-       * @param value The deliveryType to set.
-       * @return This builder for chaining.
-       */
-      public Builder setDeliveryType(shippingcalc.ShippingcalcOuterClass.DeliveryType value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        
-        deliveryType_ = value.getNumber();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * DEPRECATED: Тип доставки, перенесен в стратегию. В будущих релизах будет удалён!
-       * В текущей реализации будет проигнорирован, в ответе будет копией из соответствующей стратегии
-       * </pre>
-       *
-       * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearDeliveryType() {
-        
-        deliveryType_ = 0;
         onChanged();
         return this;
       }
@@ -14323,6 +14171,1866 @@ public final class ShippingcalcOuterClass {
 
   }
 
+  public interface StrategyViewLightOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shippingcalc.StrategyViewLight)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Идентификатор стратегии
+     * </pre>
+     *
+     * <code>uint32 strategy_id = 1;</code>
+     * @return The strategyId.
+     */
+    int getStrategyId();
+
+    /**
+     * <pre>
+     * Автор
+     * </pre>
+     *
+     * <code>string creator_id = 2;</code>
+     * @return The creatorId.
+     */
+    java.lang.String getCreatorId();
+    /**
+     * <pre>
+     * Автор
+     * </pre>
+     *
+     * <code>string creator_id = 2;</code>
+     * @return The bytes for creatorId.
+     */
+    com.google.protobuf.ByteString
+        getCreatorIdBytes();
+
+    /**
+     * <pre>
+     * Наименование стратегии
+     * </pre>
+     *
+     * <code>string name = 3;</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <pre>
+     * Наименование стратегии
+     * </pre>
+     *
+     * <code>string name = 3;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <pre>
+     * Признак глобальной стратегии
+     * </pre>
+     *
+     * <code>bool global = 4;</code>
+     * @return The global.
+     */
+    boolean getGlobal();
+
+    /**
+     * <pre>
+     * Приоритет (актуально только для глобальной стратегии)
+     * </pre>
+     *
+     * <code>uint32 priority = 5;</code>
+     * @return The priority.
+     */
+    int getPriority();
+
+    /**
+     * <pre>
+     * Список идентификаторов магазинов, привязанных к стратегии
+     * </pre>
+     *
+     * <code>repeated string stores = 6;</code>
+     * @return A list containing the stores.
+     */
+    java.util.List<java.lang.String>
+        getStoresList();
+    /**
+     * <pre>
+     * Список идентификаторов магазинов, привязанных к стратегии
+     * </pre>
+     *
+     * <code>repeated string stores = 6;</code>
+     * @return The count of stores.
+     */
+    int getStoresCount();
+    /**
+     * <pre>
+     * Список идентификаторов магазинов, привязанных к стратегии
+     * </pre>
+     *
+     * <code>repeated string stores = 6;</code>
+     * @param index The index of the element to return.
+     * @return The stores at the given index.
+     */
+    java.lang.String getStores(int index);
+    /**
+     * <pre>
+     * Список идентификаторов магазинов, привязанных к стратегии
+     * </pre>
+     *
+     * <code>repeated string stores = 6;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the stores at the given index.
+     */
+    com.google.protobuf.ByteString
+        getStoresBytes(int index);
+
+    /**
+     * <pre>
+     * Произвольное описание стратегии
+     * </pre>
+     *
+     * <code>string description = 7;</code>
+     * @return The description.
+     */
+    java.lang.String getDescription();
+    /**
+     * <pre>
+     * Произвольное описание стратегии
+     * </pre>
+     *
+     * <code>string description = 7;</code>
+     * @return The bytes for description.
+     */
+    com.google.protobuf.ByteString
+        getDescriptionBytes();
+
+    /**
+     * <pre>
+     * Когда стратегия была создана
+     * </pre>
+     *
+     * <code>int64 created_at = 8;</code>
+     * @return The createdAt.
+     */
+    long getCreatedAt();
+
+    /**
+     * <pre>
+     * Когда стратегия была в последний раз обновлена
+     * </pre>
+     *
+     * <code>int64 updated_at = 9;</code>
+     * @return The updatedAt.
+     */
+    long getUpdatedAt();
+
+    /**
+     * <pre>
+     * Тип доставки
+     * </pre>
+     *
+     * <code>.shippingcalc.DeliveryType delivery_type = 10;</code>
+     * @return The enum numeric value on the wire for deliveryType.
+     */
+    int getDeliveryTypeValue();
+    /**
+     * <pre>
+     * Тип доставки
+     * </pre>
+     *
+     * <code>.shippingcalc.DeliveryType delivery_type = 10;</code>
+     * @return The deliveryType.
+     */
+    shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType();
+  }
+  /**
+   * Protobuf type {@code shippingcalc.StrategyViewLight}
+   */
+  public static final class StrategyViewLight extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shippingcalc.StrategyViewLight)
+      StrategyViewLightOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use StrategyViewLight.newBuilder() to construct.
+    private StrategyViewLight(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private StrategyViewLight() {
+      creatorId_ = "";
+      name_ = "";
+      stores_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      description_ = "";
+      deliveryType_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new StrategyViewLight();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private StrategyViewLight(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              strategyId_ = input.readUInt32();
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              creatorId_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 32: {
+
+              global_ = input.readBool();
+              break;
+            }
+            case 40: {
+
+              priority_ = input.readUInt32();
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                stores_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              stores_.add(s);
+              break;
+            }
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              description_ = s;
+              break;
+            }
+            case 64: {
+
+              createdAt_ = input.readInt64();
+              break;
+            }
+            case 72: {
+
+              updatedAt_ = input.readInt64();
+              break;
+            }
+            case 80: {
+              int rawValue = input.readEnum();
+
+              deliveryType_ = rawValue;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          stores_ = stores_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_StrategyViewLight_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_StrategyViewLight_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shippingcalc.ShippingcalcOuterClass.StrategyViewLight.class, shippingcalc.ShippingcalcOuterClass.StrategyViewLight.Builder.class);
+    }
+
+    public static final int STRATEGY_ID_FIELD_NUMBER = 1;
+    private int strategyId_;
+    /**
+     * <pre>
+     * Идентификатор стратегии
+     * </pre>
+     *
+     * <code>uint32 strategy_id = 1;</code>
+     * @return The strategyId.
+     */
+    @java.lang.Override
+    public int getStrategyId() {
+      return strategyId_;
+    }
+
+    public static final int CREATOR_ID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object creatorId_;
+    /**
+     * <pre>
+     * Автор
+     * </pre>
+     *
+     * <code>string creator_id = 2;</code>
+     * @return The creatorId.
+     */
+    @java.lang.Override
+    public java.lang.String getCreatorId() {
+      java.lang.Object ref = creatorId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        creatorId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Автор
+     * </pre>
+     *
+     * <code>string creator_id = 2;</code>
+     * @return The bytes for creatorId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCreatorIdBytes() {
+      java.lang.Object ref = creatorId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        creatorId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NAME_FIELD_NUMBER = 3;
+    private volatile java.lang.Object name_;
+    /**
+     * <pre>
+     * Наименование стратегии
+     * </pre>
+     *
+     * <code>string name = 3;</code>
+     * @return The name.
+     */
+    @java.lang.Override
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Наименование стратегии
+     * </pre>
+     *
+     * <code>string name = 3;</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int GLOBAL_FIELD_NUMBER = 4;
+    private boolean global_;
+    /**
+     * <pre>
+     * Признак глобальной стратегии
+     * </pre>
+     *
+     * <code>bool global = 4;</code>
+     * @return The global.
+     */
+    @java.lang.Override
+    public boolean getGlobal() {
+      return global_;
+    }
+
+    public static final int PRIORITY_FIELD_NUMBER = 5;
+    private int priority_;
+    /**
+     * <pre>
+     * Приоритет (актуально только для глобальной стратегии)
+     * </pre>
+     *
+     * <code>uint32 priority = 5;</code>
+     * @return The priority.
+     */
+    @java.lang.Override
+    public int getPriority() {
+      return priority_;
+    }
+
+    public static final int STORES_FIELD_NUMBER = 6;
+    private com.google.protobuf.LazyStringList stores_;
+    /**
+     * <pre>
+     * Список идентификаторов магазинов, привязанных к стратегии
+     * </pre>
+     *
+     * <code>repeated string stores = 6;</code>
+     * @return A list containing the stores.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getStoresList() {
+      return stores_;
+    }
+    /**
+     * <pre>
+     * Список идентификаторов магазинов, привязанных к стратегии
+     * </pre>
+     *
+     * <code>repeated string stores = 6;</code>
+     * @return The count of stores.
+     */
+    public int getStoresCount() {
+      return stores_.size();
+    }
+    /**
+     * <pre>
+     * Список идентификаторов магазинов, привязанных к стратегии
+     * </pre>
+     *
+     * <code>repeated string stores = 6;</code>
+     * @param index The index of the element to return.
+     * @return The stores at the given index.
+     */
+    public java.lang.String getStores(int index) {
+      return stores_.get(index);
+    }
+    /**
+     * <pre>
+     * Список идентификаторов магазинов, привязанных к стратегии
+     * </pre>
+     *
+     * <code>repeated string stores = 6;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the stores at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getStoresBytes(int index) {
+      return stores_.getByteString(index);
+    }
+
+    public static final int DESCRIPTION_FIELD_NUMBER = 7;
+    private volatile java.lang.Object description_;
+    /**
+     * <pre>
+     * Произвольное описание стратегии
+     * </pre>
+     *
+     * <code>string description = 7;</code>
+     * @return The description.
+     */
+    @java.lang.Override
+    public java.lang.String getDescription() {
+      java.lang.Object ref = description_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        description_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Произвольное описание стратегии
+     * </pre>
+     *
+     * <code>string description = 7;</code>
+     * @return The bytes for description.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDescriptionBytes() {
+      java.lang.Object ref = description_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        description_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CREATED_AT_FIELD_NUMBER = 8;
+    private long createdAt_;
+    /**
+     * <pre>
+     * Когда стратегия была создана
+     * </pre>
+     *
+     * <code>int64 created_at = 8;</code>
+     * @return The createdAt.
+     */
+    @java.lang.Override
+    public long getCreatedAt() {
+      return createdAt_;
+    }
+
+    public static final int UPDATED_AT_FIELD_NUMBER = 9;
+    private long updatedAt_;
+    /**
+     * <pre>
+     * Когда стратегия была в последний раз обновлена
+     * </pre>
+     *
+     * <code>int64 updated_at = 9;</code>
+     * @return The updatedAt.
+     */
+    @java.lang.Override
+    public long getUpdatedAt() {
+      return updatedAt_;
+    }
+
+    public static final int DELIVERY_TYPE_FIELD_NUMBER = 10;
+    private int deliveryType_;
+    /**
+     * <pre>
+     * Тип доставки
+     * </pre>
+     *
+     * <code>.shippingcalc.DeliveryType delivery_type = 10;</code>
+     * @return The enum numeric value on the wire for deliveryType.
+     */
+    @java.lang.Override public int getDeliveryTypeValue() {
+      return deliveryType_;
+    }
+    /**
+     * <pre>
+     * Тип доставки
+     * </pre>
+     *
+     * <code>.shippingcalc.DeliveryType delivery_type = 10;</code>
+     * @return The deliveryType.
+     */
+    @java.lang.Override public shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType() {
+      @SuppressWarnings("deprecation")
+      shippingcalc.ShippingcalcOuterClass.DeliveryType result = shippingcalc.ShippingcalcOuterClass.DeliveryType.valueOf(deliveryType_);
+      return result == null ? shippingcalc.ShippingcalcOuterClass.DeliveryType.UNRECOGNIZED : result;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (strategyId_ != 0) {
+        output.writeUInt32(1, strategyId_);
+      }
+      if (!getCreatorIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, creatorId_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, name_);
+      }
+      if (global_ != false) {
+        output.writeBool(4, global_);
+      }
+      if (priority_ != 0) {
+        output.writeUInt32(5, priority_);
+      }
+      for (int i = 0; i < stores_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, stores_.getRaw(i));
+      }
+      if (!getDescriptionBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, description_);
+      }
+      if (createdAt_ != 0L) {
+        output.writeInt64(8, createdAt_);
+      }
+      if (updatedAt_ != 0L) {
+        output.writeInt64(9, updatedAt_);
+      }
+      if (deliveryType_ != shippingcalc.ShippingcalcOuterClass.DeliveryType.NONE.getNumber()) {
+        output.writeEnum(10, deliveryType_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (strategyId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(1, strategyId_);
+      }
+      if (!getCreatorIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, creatorId_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, name_);
+      }
+      if (global_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, global_);
+      }
+      if (priority_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(5, priority_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < stores_.size(); i++) {
+          dataSize += computeStringSizeNoTag(stores_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getStoresList().size();
+      }
+      if (!getDescriptionBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, description_);
+      }
+      if (createdAt_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(8, createdAt_);
+      }
+      if (updatedAt_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(9, updatedAt_);
+      }
+      if (deliveryType_ != shippingcalc.ShippingcalcOuterClass.DeliveryType.NONE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(10, deliveryType_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shippingcalc.ShippingcalcOuterClass.StrategyViewLight)) {
+        return super.equals(obj);
+      }
+      shippingcalc.ShippingcalcOuterClass.StrategyViewLight other = (shippingcalc.ShippingcalcOuterClass.StrategyViewLight) obj;
+
+      if (getStrategyId()
+          != other.getStrategyId()) return false;
+      if (!getCreatorId()
+          .equals(other.getCreatorId())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (getGlobal()
+          != other.getGlobal()) return false;
+      if (getPriority()
+          != other.getPriority()) return false;
+      if (!getStoresList()
+          .equals(other.getStoresList())) return false;
+      if (!getDescription()
+          .equals(other.getDescription())) return false;
+      if (getCreatedAt()
+          != other.getCreatedAt()) return false;
+      if (getUpdatedAt()
+          != other.getUpdatedAt()) return false;
+      if (deliveryType_ != other.deliveryType_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + STRATEGY_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getStrategyId();
+      hash = (37 * hash) + CREATOR_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getCreatorId().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + GLOBAL_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getGlobal());
+      hash = (37 * hash) + PRIORITY_FIELD_NUMBER;
+      hash = (53 * hash) + getPriority();
+      if (getStoresCount() > 0) {
+        hash = (37 * hash) + STORES_FIELD_NUMBER;
+        hash = (53 * hash) + getStoresList().hashCode();
+      }
+      hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
+      hash = (53 * hash) + getDescription().hashCode();
+      hash = (37 * hash) + CREATED_AT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCreatedAt());
+      hash = (37 * hash) + UPDATED_AT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getUpdatedAt());
+      hash = (37 * hash) + DELIVERY_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + deliveryType_;
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.StrategyViewLight parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.StrategyViewLight parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.StrategyViewLight parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.StrategyViewLight parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.StrategyViewLight parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.StrategyViewLight parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.StrategyViewLight parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.StrategyViewLight parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.StrategyViewLight parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.StrategyViewLight parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.StrategyViewLight parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.StrategyViewLight parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shippingcalc.ShippingcalcOuterClass.StrategyViewLight prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shippingcalc.StrategyViewLight}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shippingcalc.StrategyViewLight)
+        shippingcalc.ShippingcalcOuterClass.StrategyViewLightOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_StrategyViewLight_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_StrategyViewLight_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shippingcalc.ShippingcalcOuterClass.StrategyViewLight.class, shippingcalc.ShippingcalcOuterClass.StrategyViewLight.Builder.class);
+      }
+
+      // Construct using shippingcalc.ShippingcalcOuterClass.StrategyViewLight.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        strategyId_ = 0;
+
+        creatorId_ = "";
+
+        name_ = "";
+
+        global_ = false;
+
+        priority_ = 0;
+
+        stores_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        description_ = "";
+
+        createdAt_ = 0L;
+
+        updatedAt_ = 0L;
+
+        deliveryType_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_StrategyViewLight_descriptor;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.StrategyViewLight getDefaultInstanceForType() {
+        return shippingcalc.ShippingcalcOuterClass.StrategyViewLight.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.StrategyViewLight build() {
+        shippingcalc.ShippingcalcOuterClass.StrategyViewLight result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.StrategyViewLight buildPartial() {
+        shippingcalc.ShippingcalcOuterClass.StrategyViewLight result = new shippingcalc.ShippingcalcOuterClass.StrategyViewLight(this);
+        int from_bitField0_ = bitField0_;
+        result.strategyId_ = strategyId_;
+        result.creatorId_ = creatorId_;
+        result.name_ = name_;
+        result.global_ = global_;
+        result.priority_ = priority_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          stores_ = stores_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.stores_ = stores_;
+        result.description_ = description_;
+        result.createdAt_ = createdAt_;
+        result.updatedAt_ = updatedAt_;
+        result.deliveryType_ = deliveryType_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shippingcalc.ShippingcalcOuterClass.StrategyViewLight) {
+          return mergeFrom((shippingcalc.ShippingcalcOuterClass.StrategyViewLight)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shippingcalc.ShippingcalcOuterClass.StrategyViewLight other) {
+        if (other == shippingcalc.ShippingcalcOuterClass.StrategyViewLight.getDefaultInstance()) return this;
+        if (other.getStrategyId() != 0) {
+          setStrategyId(other.getStrategyId());
+        }
+        if (!other.getCreatorId().isEmpty()) {
+          creatorId_ = other.creatorId_;
+          onChanged();
+        }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (other.getGlobal() != false) {
+          setGlobal(other.getGlobal());
+        }
+        if (other.getPriority() != 0) {
+          setPriority(other.getPriority());
+        }
+        if (!other.stores_.isEmpty()) {
+          if (stores_.isEmpty()) {
+            stores_ = other.stores_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureStoresIsMutable();
+            stores_.addAll(other.stores_);
+          }
+          onChanged();
+        }
+        if (!other.getDescription().isEmpty()) {
+          description_ = other.description_;
+          onChanged();
+        }
+        if (other.getCreatedAt() != 0L) {
+          setCreatedAt(other.getCreatedAt());
+        }
+        if (other.getUpdatedAt() != 0L) {
+          setUpdatedAt(other.getUpdatedAt());
+        }
+        if (other.deliveryType_ != 0) {
+          setDeliveryTypeValue(other.getDeliveryTypeValue());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shippingcalc.ShippingcalcOuterClass.StrategyViewLight parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shippingcalc.ShippingcalcOuterClass.StrategyViewLight) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int strategyId_ ;
+      /**
+       * <pre>
+       * Идентификатор стратегии
+       * </pre>
+       *
+       * <code>uint32 strategy_id = 1;</code>
+       * @return The strategyId.
+       */
+      @java.lang.Override
+      public int getStrategyId() {
+        return strategyId_;
+      }
+      /**
+       * <pre>
+       * Идентификатор стратегии
+       * </pre>
+       *
+       * <code>uint32 strategy_id = 1;</code>
+       * @param value The strategyId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStrategyId(int value) {
+        
+        strategyId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Идентификатор стратегии
+       * </pre>
+       *
+       * <code>uint32 strategy_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStrategyId() {
+        
+        strategyId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object creatorId_ = "";
+      /**
+       * <pre>
+       * Автор
+       * </pre>
+       *
+       * <code>string creator_id = 2;</code>
+       * @return The creatorId.
+       */
+      public java.lang.String getCreatorId() {
+        java.lang.Object ref = creatorId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          creatorId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Автор
+       * </pre>
+       *
+       * <code>string creator_id = 2;</code>
+       * @return The bytes for creatorId.
+       */
+      public com.google.protobuf.ByteString
+          getCreatorIdBytes() {
+        java.lang.Object ref = creatorId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          creatorId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Автор
+       * </pre>
+       *
+       * <code>string creator_id = 2;</code>
+       * @param value The creatorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreatorId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        creatorId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Автор
+       * </pre>
+       *
+       * <code>string creator_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCreatorId() {
+        
+        creatorId_ = getDefaultInstance().getCreatorId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Автор
+       * </pre>
+       *
+       * <code>string creator_id = 2;</code>
+       * @param value The bytes for creatorId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreatorIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        creatorId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <pre>
+       * Наименование стратегии
+       * </pre>
+       *
+       * <code>string name = 3;</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Наименование стратегии
+       * </pre>
+       *
+       * <code>string name = 3;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Наименование стратегии
+       * </pre>
+       *
+       * <code>string name = 3;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Наименование стратегии
+       * </pre>
+       *
+       * <code>string name = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Наименование стратегии
+       * </pre>
+       *
+       * <code>string name = 3;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private boolean global_ ;
+      /**
+       * <pre>
+       * Признак глобальной стратегии
+       * </pre>
+       *
+       * <code>bool global = 4;</code>
+       * @return The global.
+       */
+      @java.lang.Override
+      public boolean getGlobal() {
+        return global_;
+      }
+      /**
+       * <pre>
+       * Признак глобальной стратегии
+       * </pre>
+       *
+       * <code>bool global = 4;</code>
+       * @param value The global to set.
+       * @return This builder for chaining.
+       */
+      public Builder setGlobal(boolean value) {
+        
+        global_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Признак глобальной стратегии
+       * </pre>
+       *
+       * <code>bool global = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearGlobal() {
+        
+        global_ = false;
+        onChanged();
+        return this;
+      }
+
+      private int priority_ ;
+      /**
+       * <pre>
+       * Приоритет (актуально только для глобальной стратегии)
+       * </pre>
+       *
+       * <code>uint32 priority = 5;</code>
+       * @return The priority.
+       */
+      @java.lang.Override
+      public int getPriority() {
+        return priority_;
+      }
+      /**
+       * <pre>
+       * Приоритет (актуально только для глобальной стратегии)
+       * </pre>
+       *
+       * <code>uint32 priority = 5;</code>
+       * @param value The priority to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPriority(int value) {
+        
+        priority_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Приоритет (актуально только для глобальной стратегии)
+       * </pre>
+       *
+       * <code>uint32 priority = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPriority() {
+        
+        priority_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList stores_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureStoresIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          stores_ = new com.google.protobuf.LazyStringArrayList(stores_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * Список идентификаторов магазинов, привязанных к стратегии
+       * </pre>
+       *
+       * <code>repeated string stores = 6;</code>
+       * @return A list containing the stores.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getStoresList() {
+        return stores_.getUnmodifiableView();
+      }
+      /**
+       * <pre>
+       * Список идентификаторов магазинов, привязанных к стратегии
+       * </pre>
+       *
+       * <code>repeated string stores = 6;</code>
+       * @return The count of stores.
+       */
+      public int getStoresCount() {
+        return stores_.size();
+      }
+      /**
+       * <pre>
+       * Список идентификаторов магазинов, привязанных к стратегии
+       * </pre>
+       *
+       * <code>repeated string stores = 6;</code>
+       * @param index The index of the element to return.
+       * @return The stores at the given index.
+       */
+      public java.lang.String getStores(int index) {
+        return stores_.get(index);
+      }
+      /**
+       * <pre>
+       * Список идентификаторов магазинов, привязанных к стратегии
+       * </pre>
+       *
+       * <code>repeated string stores = 6;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the stores at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getStoresBytes(int index) {
+        return stores_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * Список идентификаторов магазинов, привязанных к стратегии
+       * </pre>
+       *
+       * <code>repeated string stores = 6;</code>
+       * @param index The index to set the value at.
+       * @param value The stores to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStores(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureStoresIsMutable();
+        stores_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Список идентификаторов магазинов, привязанных к стратегии
+       * </pre>
+       *
+       * <code>repeated string stores = 6;</code>
+       * @param value The stores to add.
+       * @return This builder for chaining.
+       */
+      public Builder addStores(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureStoresIsMutable();
+        stores_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Список идентификаторов магазинов, привязанных к стратегии
+       * </pre>
+       *
+       * <code>repeated string stores = 6;</code>
+       * @param values The stores to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllStores(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureStoresIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, stores_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Список идентификаторов магазинов, привязанных к стратегии
+       * </pre>
+       *
+       * <code>repeated string stores = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStores() {
+        stores_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Список идентификаторов магазинов, привязанных к стратегии
+       * </pre>
+       *
+       * <code>repeated string stores = 6;</code>
+       * @param value The bytes of the stores to add.
+       * @return This builder for chaining.
+       */
+      public Builder addStoresBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureStoresIsMutable();
+        stores_.add(value);
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object description_ = "";
+      /**
+       * <pre>
+       * Произвольное описание стратегии
+       * </pre>
+       *
+       * <code>string description = 7;</code>
+       * @return The description.
+       */
+      public java.lang.String getDescription() {
+        java.lang.Object ref = description_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          description_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Произвольное описание стратегии
+       * </pre>
+       *
+       * <code>string description = 7;</code>
+       * @return The bytes for description.
+       */
+      public com.google.protobuf.ByteString
+          getDescriptionBytes() {
+        java.lang.Object ref = description_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          description_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Произвольное описание стратегии
+       * </pre>
+       *
+       * <code>string description = 7;</code>
+       * @param value The description to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDescription(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        description_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Произвольное описание стратегии
+       * </pre>
+       *
+       * <code>string description = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDescription() {
+        
+        description_ = getDefaultInstance().getDescription();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Произвольное описание стратегии
+       * </pre>
+       *
+       * <code>string description = 7;</code>
+       * @param value The bytes for description to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDescriptionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        description_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long createdAt_ ;
+      /**
+       * <pre>
+       * Когда стратегия была создана
+       * </pre>
+       *
+       * <code>int64 created_at = 8;</code>
+       * @return The createdAt.
+       */
+      @java.lang.Override
+      public long getCreatedAt() {
+        return createdAt_;
+      }
+      /**
+       * <pre>
+       * Когда стратегия была создана
+       * </pre>
+       *
+       * <code>int64 created_at = 8;</code>
+       * @param value The createdAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreatedAt(long value) {
+        
+        createdAt_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Когда стратегия была создана
+       * </pre>
+       *
+       * <code>int64 created_at = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCreatedAt() {
+        
+        createdAt_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long updatedAt_ ;
+      /**
+       * <pre>
+       * Когда стратегия была в последний раз обновлена
+       * </pre>
+       *
+       * <code>int64 updated_at = 9;</code>
+       * @return The updatedAt.
+       */
+      @java.lang.Override
+      public long getUpdatedAt() {
+        return updatedAt_;
+      }
+      /**
+       * <pre>
+       * Когда стратегия была в последний раз обновлена
+       * </pre>
+       *
+       * <code>int64 updated_at = 9;</code>
+       * @param value The updatedAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdatedAt(long value) {
+        
+        updatedAt_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Когда стратегия была в последний раз обновлена
+       * </pre>
+       *
+       * <code>int64 updated_at = 9;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUpdatedAt() {
+        
+        updatedAt_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int deliveryType_ = 0;
+      /**
+       * <pre>
+       * Тип доставки
+       * </pre>
+       *
+       * <code>.shippingcalc.DeliveryType delivery_type = 10;</code>
+       * @return The enum numeric value on the wire for deliveryType.
+       */
+      @java.lang.Override public int getDeliveryTypeValue() {
+        return deliveryType_;
+      }
+      /**
+       * <pre>
+       * Тип доставки
+       * </pre>
+       *
+       * <code>.shippingcalc.DeliveryType delivery_type = 10;</code>
+       * @param value The enum numeric value on the wire for deliveryType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeliveryTypeValue(int value) {
+        
+        deliveryType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Тип доставки
+       * </pre>
+       *
+       * <code>.shippingcalc.DeliveryType delivery_type = 10;</code>
+       * @return The deliveryType.
+       */
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType() {
+        @SuppressWarnings("deprecation")
+        shippingcalc.ShippingcalcOuterClass.DeliveryType result = shippingcalc.ShippingcalcOuterClass.DeliveryType.valueOf(deliveryType_);
+        return result == null ? shippingcalc.ShippingcalcOuterClass.DeliveryType.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Тип доставки
+       * </pre>
+       *
+       * <code>.shippingcalc.DeliveryType delivery_type = 10;</code>
+       * @param value The deliveryType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeliveryType(shippingcalc.ShippingcalcOuterClass.DeliveryType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        deliveryType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Тип доставки
+       * </pre>
+       *
+       * <code>.shippingcalc.DeliveryType delivery_type = 10;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDeliveryType() {
+        
+        deliveryType_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shippingcalc.StrategyViewLight)
+    }
+
+    // @@protoc_insertion_point(class_scope:shippingcalc.StrategyViewLight)
+    private static final shippingcalc.ShippingcalcOuterClass.StrategyViewLight DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shippingcalc.ShippingcalcOuterClass.StrategyViewLight();
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.StrategyViewLight getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<StrategyViewLight>
+        PARSER = new com.google.protobuf.AbstractParser<StrategyViewLight>() {
+      @java.lang.Override
+      public StrategyViewLight parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new StrategyViewLight(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<StrategyViewLight> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<StrategyViewLight> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.StrategyViewLight getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface UnbindStrategyRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:shippingcalc.UnbindStrategyRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -17043,24 +18751,24 @@ public final class ShippingcalcOuterClass {
      * Представление стратегии
      * </pre>
      *
-     * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+     * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
      */
-    java.util.List<shippingcalc.ShippingcalcOuterClass.StrategyView> 
+    java.util.List<shippingcalc.ShippingcalcOuterClass.StrategyViewLight> 
         getStrategiesList();
     /**
      * <pre>
      * Представление стратегии
      * </pre>
      *
-     * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+     * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
      */
-    shippingcalc.ShippingcalcOuterClass.StrategyView getStrategies(int index);
+    shippingcalc.ShippingcalcOuterClass.StrategyViewLight getStrategies(int index);
     /**
      * <pre>
      * Представление стратегии
      * </pre>
      *
-     * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+     * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
      */
     int getStrategiesCount();
     /**
@@ -17068,18 +18776,18 @@ public final class ShippingcalcOuterClass {
      * Представление стратегии
      * </pre>
      *
-     * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+     * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
      */
-    java.util.List<? extends shippingcalc.ShippingcalcOuterClass.StrategyViewOrBuilder> 
+    java.util.List<? extends shippingcalc.ShippingcalcOuterClass.StrategyViewLightOrBuilder> 
         getStrategiesOrBuilderList();
     /**
      * <pre>
      * Представление стратегии
      * </pre>
      *
-     * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+     * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
      */
-    shippingcalc.ShippingcalcOuterClass.StrategyViewOrBuilder getStrategiesOrBuilder(
+    shippingcalc.ShippingcalcOuterClass.StrategyViewLightOrBuilder getStrategiesOrBuilder(
         int index);
   }
   /**
@@ -17131,11 +18839,11 @@ public final class ShippingcalcOuterClass {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                strategies_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.StrategyView>();
+                strategies_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.StrategyViewLight>();
                 mutable_bitField0_ |= 0x00000001;
               }
               strategies_.add(
-                  input.readMessage(shippingcalc.ShippingcalcOuterClass.StrategyView.parser(), extensionRegistry));
+                  input.readMessage(shippingcalc.ShippingcalcOuterClass.StrategyViewLight.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -17174,16 +18882,16 @@ public final class ShippingcalcOuterClass {
     }
 
     public static final int STRATEGIES_FIELD_NUMBER = 1;
-    private java.util.List<shippingcalc.ShippingcalcOuterClass.StrategyView> strategies_;
+    private java.util.List<shippingcalc.ShippingcalcOuterClass.StrategyViewLight> strategies_;
     /**
      * <pre>
      * Представление стратегии
      * </pre>
      *
-     * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+     * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<shippingcalc.ShippingcalcOuterClass.StrategyView> getStrategiesList() {
+    public java.util.List<shippingcalc.ShippingcalcOuterClass.StrategyViewLight> getStrategiesList() {
       return strategies_;
     }
     /**
@@ -17191,10 +18899,10 @@ public final class ShippingcalcOuterClass {
      * Представление стратегии
      * </pre>
      *
-     * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+     * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.StrategyViewOrBuilder> 
+    public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.StrategyViewLightOrBuilder> 
         getStrategiesOrBuilderList() {
       return strategies_;
     }
@@ -17203,7 +18911,7 @@ public final class ShippingcalcOuterClass {
      * Представление стратегии
      * </pre>
      *
-     * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+     * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
      */
     @java.lang.Override
     public int getStrategiesCount() {
@@ -17214,10 +18922,10 @@ public final class ShippingcalcOuterClass {
      * Представление стратегии
      * </pre>
      *
-     * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+     * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
      */
     @java.lang.Override
-    public shippingcalc.ShippingcalcOuterClass.StrategyView getStrategies(int index) {
+    public shippingcalc.ShippingcalcOuterClass.StrategyViewLight getStrategies(int index) {
       return strategies_.get(index);
     }
     /**
@@ -17225,10 +18933,10 @@ public final class ShippingcalcOuterClass {
      * Представление стратегии
      * </pre>
      *
-     * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+     * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
      */
     @java.lang.Override
-    public shippingcalc.ShippingcalcOuterClass.StrategyViewOrBuilder getStrategiesOrBuilder(
+    public shippingcalc.ShippingcalcOuterClass.StrategyViewLightOrBuilder getStrategiesOrBuilder(
         int index) {
       return strategies_.get(index);
     }
@@ -17575,26 +19283,26 @@ public final class ShippingcalcOuterClass {
       }
       private int bitField0_;
 
-      private java.util.List<shippingcalc.ShippingcalcOuterClass.StrategyView> strategies_ =
+      private java.util.List<shippingcalc.ShippingcalcOuterClass.StrategyViewLight> strategies_ =
         java.util.Collections.emptyList();
       private void ensureStrategiesIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          strategies_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.StrategyView>(strategies_);
+          strategies_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.StrategyViewLight>(strategies_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          shippingcalc.ShippingcalcOuterClass.StrategyView, shippingcalc.ShippingcalcOuterClass.StrategyView.Builder, shippingcalc.ShippingcalcOuterClass.StrategyViewOrBuilder> strategiesBuilder_;
+          shippingcalc.ShippingcalcOuterClass.StrategyViewLight, shippingcalc.ShippingcalcOuterClass.StrategyViewLight.Builder, shippingcalc.ShippingcalcOuterClass.StrategyViewLightOrBuilder> strategiesBuilder_;
 
       /**
        * <pre>
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
-      public java.util.List<shippingcalc.ShippingcalcOuterClass.StrategyView> getStrategiesList() {
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.StrategyViewLight> getStrategiesList() {
         if (strategiesBuilder_ == null) {
           return java.util.Collections.unmodifiableList(strategies_);
         } else {
@@ -17606,7 +19314,7 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
       public int getStrategiesCount() {
         if (strategiesBuilder_ == null) {
@@ -17620,9 +19328,9 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
-      public shippingcalc.ShippingcalcOuterClass.StrategyView getStrategies(int index) {
+      public shippingcalc.ShippingcalcOuterClass.StrategyViewLight getStrategies(int index) {
         if (strategiesBuilder_ == null) {
           return strategies_.get(index);
         } else {
@@ -17634,10 +19342,10 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
       public Builder setStrategies(
-          int index, shippingcalc.ShippingcalcOuterClass.StrategyView value) {
+          int index, shippingcalc.ShippingcalcOuterClass.StrategyViewLight value) {
         if (strategiesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -17655,10 +19363,10 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
       public Builder setStrategies(
-          int index, shippingcalc.ShippingcalcOuterClass.StrategyView.Builder builderForValue) {
+          int index, shippingcalc.ShippingcalcOuterClass.StrategyViewLight.Builder builderForValue) {
         if (strategiesBuilder_ == null) {
           ensureStrategiesIsMutable();
           strategies_.set(index, builderForValue.build());
@@ -17673,9 +19381,9 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
-      public Builder addStrategies(shippingcalc.ShippingcalcOuterClass.StrategyView value) {
+      public Builder addStrategies(shippingcalc.ShippingcalcOuterClass.StrategyViewLight value) {
         if (strategiesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -17693,10 +19401,10 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
       public Builder addStrategies(
-          int index, shippingcalc.ShippingcalcOuterClass.StrategyView value) {
+          int index, shippingcalc.ShippingcalcOuterClass.StrategyViewLight value) {
         if (strategiesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -17714,10 +19422,10 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
       public Builder addStrategies(
-          shippingcalc.ShippingcalcOuterClass.StrategyView.Builder builderForValue) {
+          shippingcalc.ShippingcalcOuterClass.StrategyViewLight.Builder builderForValue) {
         if (strategiesBuilder_ == null) {
           ensureStrategiesIsMutable();
           strategies_.add(builderForValue.build());
@@ -17732,10 +19440,10 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
       public Builder addStrategies(
-          int index, shippingcalc.ShippingcalcOuterClass.StrategyView.Builder builderForValue) {
+          int index, shippingcalc.ShippingcalcOuterClass.StrategyViewLight.Builder builderForValue) {
         if (strategiesBuilder_ == null) {
           ensureStrategiesIsMutable();
           strategies_.add(index, builderForValue.build());
@@ -17750,10 +19458,10 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
       public Builder addAllStrategies(
-          java.lang.Iterable<? extends shippingcalc.ShippingcalcOuterClass.StrategyView> values) {
+          java.lang.Iterable<? extends shippingcalc.ShippingcalcOuterClass.StrategyViewLight> values) {
         if (strategiesBuilder_ == null) {
           ensureStrategiesIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -17769,7 +19477,7 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
       public Builder clearStrategies() {
         if (strategiesBuilder_ == null) {
@@ -17786,7 +19494,7 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
       public Builder removeStrategies(int index) {
         if (strategiesBuilder_ == null) {
@@ -17803,9 +19511,9 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
-      public shippingcalc.ShippingcalcOuterClass.StrategyView.Builder getStrategiesBuilder(
+      public shippingcalc.ShippingcalcOuterClass.StrategyViewLight.Builder getStrategiesBuilder(
           int index) {
         return getStrategiesFieldBuilder().getBuilder(index);
       }
@@ -17814,9 +19522,9 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
-      public shippingcalc.ShippingcalcOuterClass.StrategyViewOrBuilder getStrategiesOrBuilder(
+      public shippingcalc.ShippingcalcOuterClass.StrategyViewLightOrBuilder getStrategiesOrBuilder(
           int index) {
         if (strategiesBuilder_ == null) {
           return strategies_.get(index);  } else {
@@ -17828,9 +19536,9 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
-      public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.StrategyViewOrBuilder> 
+      public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.StrategyViewLightOrBuilder> 
            getStrategiesOrBuilderList() {
         if (strategiesBuilder_ != null) {
           return strategiesBuilder_.getMessageOrBuilderList();
@@ -17843,41 +19551,41 @@ public final class ShippingcalcOuterClass {
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
-      public shippingcalc.ShippingcalcOuterClass.StrategyView.Builder addStrategiesBuilder() {
+      public shippingcalc.ShippingcalcOuterClass.StrategyViewLight.Builder addStrategiesBuilder() {
         return getStrategiesFieldBuilder().addBuilder(
-            shippingcalc.ShippingcalcOuterClass.StrategyView.getDefaultInstance());
+            shippingcalc.ShippingcalcOuterClass.StrategyViewLight.getDefaultInstance());
       }
       /**
        * <pre>
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
-      public shippingcalc.ShippingcalcOuterClass.StrategyView.Builder addStrategiesBuilder(
+      public shippingcalc.ShippingcalcOuterClass.StrategyViewLight.Builder addStrategiesBuilder(
           int index) {
         return getStrategiesFieldBuilder().addBuilder(
-            index, shippingcalc.ShippingcalcOuterClass.StrategyView.getDefaultInstance());
+            index, shippingcalc.ShippingcalcOuterClass.StrategyViewLight.getDefaultInstance());
       }
       /**
        * <pre>
        * Представление стратегии
        * </pre>
        *
-       * <code>repeated .shippingcalc.StrategyView strategies = 1;</code>
+       * <code>repeated .shippingcalc.StrategyViewLight strategies = 1;</code>
        */
-      public java.util.List<shippingcalc.ShippingcalcOuterClass.StrategyView.Builder> 
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.StrategyViewLight.Builder> 
            getStrategiesBuilderList() {
         return getStrategiesFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          shippingcalc.ShippingcalcOuterClass.StrategyView, shippingcalc.ShippingcalcOuterClass.StrategyView.Builder, shippingcalc.ShippingcalcOuterClass.StrategyViewOrBuilder> 
+          shippingcalc.ShippingcalcOuterClass.StrategyViewLight, shippingcalc.ShippingcalcOuterClass.StrategyViewLight.Builder, shippingcalc.ShippingcalcOuterClass.StrategyViewLightOrBuilder> 
           getStrategiesFieldBuilder() {
         if (strategiesBuilder_ == null) {
           strategiesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              shippingcalc.ShippingcalcOuterClass.StrategyView, shippingcalc.ShippingcalcOuterClass.StrategyView.Builder, shippingcalc.ShippingcalcOuterClass.StrategyViewOrBuilder>(
+              shippingcalc.ShippingcalcOuterClass.StrategyViewLight, shippingcalc.ShippingcalcOuterClass.StrategyViewLight.Builder, shippingcalc.ShippingcalcOuterClass.StrategyViewLightOrBuilder>(
                   strategies_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -47927,6 +49635,16 @@ public final class ShippingcalcOuterClass {
      * <code>.shippingcalc.PriceExplanation price_explanation = 14;</code>
      */
     shippingcalc.ShippingcalcOuterClass.PriceExplanationOrBuilder getPriceExplanationOrBuilder();
+
+    /**
+     * <pre>
+     * Минимальная цена корзины
+     * </pre>
+     *
+     * <code>uint64 minimal_cart_price = 15;</code>
+     * @return The minimalCartPrice.
+     */
+    long getMinimalCartPrice();
   }
   /**
    * Protobuf type {@code shippingcalc.PricedShipment}
@@ -48064,6 +49782,11 @@ public final class ShippingcalcOuterClass {
                 priceExplanation_ = subBuilder.buildPartial();
               }
 
+              break;
+            }
+            case 120: {
+
+              minimalCartPrice_ = input.readUInt64();
               break;
             }
             default: {
@@ -48489,6 +50212,21 @@ public final class ShippingcalcOuterClass {
       return getPriceExplanation();
     }
 
+    public static final int MINIMAL_CART_PRICE_FIELD_NUMBER = 15;
+    private long minimalCartPrice_;
+    /**
+     * <pre>
+     * Минимальная цена корзины
+     * </pre>
+     *
+     * <code>uint64 minimal_cart_price = 15;</code>
+     * @return The minimalCartPrice.
+     */
+    @java.lang.Override
+    public long getMinimalCartPrice() {
+      return minimalCartPrice_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -48544,6 +50282,9 @@ public final class ShippingcalcOuterClass {
       }
       if (priceExplanation_ != null) {
         output.writeMessage(14, getPriceExplanation());
+      }
+      if (minimalCartPrice_ != 0L) {
+        output.writeUInt64(15, minimalCartPrice_);
       }
       unknownFields.writeTo(output);
     }
@@ -48608,6 +50349,10 @@ public final class ShippingcalcOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(14, getPriceExplanation());
       }
+      if (minimalCartPrice_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(15, minimalCartPrice_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -48655,6 +50400,8 @@ public final class ShippingcalcOuterClass {
         if (!getPriceExplanation()
             .equals(other.getPriceExplanation())) return false;
       }
+      if (getMinimalCartPrice()
+          != other.getMinimalCartPrice()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -48707,6 +50454,9 @@ public final class ShippingcalcOuterClass {
         hash = (37 * hash) + PRICE_EXPLANATION_FIELD_NUMBER;
         hash = (53 * hash) + getPriceExplanation().hashCode();
       }
+      hash = (37 * hash) + MINIMAL_CART_PRICE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getMinimalCartPrice());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -48882,6 +50632,8 @@ public final class ShippingcalcOuterClass {
           priceExplanation_ = null;
           priceExplanationBuilder_ = null;
         }
+        minimalCartPrice_ = 0L;
+
         return this;
       }
 
@@ -48943,6 +50695,7 @@ public final class ShippingcalcOuterClass {
         } else {
           result.priceExplanation_ = priceExplanationBuilder_.build();
         }
+        result.minimalCartPrice_ = minimalCartPrice_;
         onBuilt();
         return result;
       }
@@ -49080,6 +50833,9 @@ public final class ShippingcalcOuterClass {
         }
         if (other.hasPriceExplanation()) {
           mergePriceExplanation(other.getPriceExplanation());
+        }
+        if (other.getMinimalCartPrice() != 0L) {
+          setMinimalCartPrice(other.getMinimalCartPrice());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -50467,6 +52223,49 @@ public final class ShippingcalcOuterClass {
           priceExplanation_ = null;
         }
         return priceExplanationBuilder_;
+      }
+
+      private long minimalCartPrice_ ;
+      /**
+       * <pre>
+       * Минимальная цена корзины
+       * </pre>
+       *
+       * <code>uint64 minimal_cart_price = 15;</code>
+       * @return The minimalCartPrice.
+       */
+      @java.lang.Override
+      public long getMinimalCartPrice() {
+        return minimalCartPrice_;
+      }
+      /**
+       * <pre>
+       * Минимальная цена корзины
+       * </pre>
+       *
+       * <code>uint64 minimal_cart_price = 15;</code>
+       * @param value The minimalCartPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMinimalCartPrice(long value) {
+        
+        minimalCartPrice_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Минимальная цена корзины
+       * </pre>
+       *
+       * <code>uint64 minimal_cart_price = 15;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMinimalCartPrice() {
+        
+        minimalCartPrice_ = 0L;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -62033,6 +63832,3607 @@ public final class ShippingcalcOuterClass {
 
   }
 
+  public interface GetMinCartAmountsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shippingcalc.GetMinCartAmountsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .shippingcalc.Store stores = 1;</code>
+     */
+    java.util.List<shippingcalc.ShippingcalcOuterClass.Store> 
+        getStoresList();
+    /**
+     * <code>repeated .shippingcalc.Store stores = 1;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.Store getStores(int index);
+    /**
+     * <code>repeated .shippingcalc.Store stores = 1;</code>
+     */
+    int getStoresCount();
+    /**
+     * <code>repeated .shippingcalc.Store stores = 1;</code>
+     */
+    java.util.List<? extends shippingcalc.ShippingcalcOuterClass.StoreOrBuilder> 
+        getStoresOrBuilderList();
+    /**
+     * <code>repeated .shippingcalc.Store stores = 1;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.StoreOrBuilder getStoresOrBuilder(
+        int index);
+
+    /**
+     * <code>.shippingcalc.Customer customer = 2;</code>
+     * @return Whether the customer field is set.
+     */
+    boolean hasCustomer();
+    /**
+     * <code>.shippingcalc.Customer customer = 2;</code>
+     * @return The customer.
+     */
+    shippingcalc.ShippingcalcOuterClass.Customer getCustomer();
+    /**
+     * <code>.shippingcalc.Customer customer = 2;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.CustomerOrBuilder getCustomerOrBuilder();
+
+    /**
+     * <code>string tenant = 3;</code>
+     * @return The tenant.
+     */
+    java.lang.String getTenant();
+    /**
+     * <code>string tenant = 3;</code>
+     * @return The bytes for tenant.
+     */
+    com.google.protobuf.ByteString
+        getTenantBytes();
+
+    /**
+     * <code>.shippingcalc.DeliveryType delivery_type = 4;</code>
+     * @return The enum numeric value on the wire for deliveryType.
+     */
+    int getDeliveryTypeValue();
+    /**
+     * <code>.shippingcalc.DeliveryType delivery_type = 4;</code>
+     * @return The deliveryType.
+     */
+    shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType();
+  }
+  /**
+   * Protobuf type {@code shippingcalc.GetMinCartAmountsRequest}
+   */
+  public static final class GetMinCartAmountsRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shippingcalc.GetMinCartAmountsRequest)
+      GetMinCartAmountsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetMinCartAmountsRequest.newBuilder() to construct.
+    private GetMinCartAmountsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetMinCartAmountsRequest() {
+      stores_ = java.util.Collections.emptyList();
+      tenant_ = "";
+      deliveryType_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetMinCartAmountsRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetMinCartAmountsRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                stores_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.Store>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              stores_.add(
+                  input.readMessage(shippingcalc.ShippingcalcOuterClass.Store.parser(), extensionRegistry));
+              break;
+            }
+            case 18: {
+              shippingcalc.ShippingcalcOuterClass.Customer.Builder subBuilder = null;
+              if (customer_ != null) {
+                subBuilder = customer_.toBuilder();
+              }
+              customer_ = input.readMessage(shippingcalc.ShippingcalcOuterClass.Customer.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(customer_);
+                customer_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              tenant_ = s;
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+
+              deliveryType_ = rawValue;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          stores_ = java.util.Collections.unmodifiableList(stores_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_GetMinCartAmountsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_GetMinCartAmountsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest.class, shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest.Builder.class);
+    }
+
+    public static final int STORES_FIELD_NUMBER = 1;
+    private java.util.List<shippingcalc.ShippingcalcOuterClass.Store> stores_;
+    /**
+     * <code>repeated .shippingcalc.Store stores = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<shippingcalc.ShippingcalcOuterClass.Store> getStoresList() {
+      return stores_;
+    }
+    /**
+     * <code>repeated .shippingcalc.Store stores = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.StoreOrBuilder> 
+        getStoresOrBuilderList() {
+      return stores_;
+    }
+    /**
+     * <code>repeated .shippingcalc.Store stores = 1;</code>
+     */
+    @java.lang.Override
+    public int getStoresCount() {
+      return stores_.size();
+    }
+    /**
+     * <code>repeated .shippingcalc.Store stores = 1;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.Store getStores(int index) {
+      return stores_.get(index);
+    }
+    /**
+     * <code>repeated .shippingcalc.Store stores = 1;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.StoreOrBuilder getStoresOrBuilder(
+        int index) {
+      return stores_.get(index);
+    }
+
+    public static final int CUSTOMER_FIELD_NUMBER = 2;
+    private shippingcalc.ShippingcalcOuterClass.Customer customer_;
+    /**
+     * <code>.shippingcalc.Customer customer = 2;</code>
+     * @return Whether the customer field is set.
+     */
+    @java.lang.Override
+    public boolean hasCustomer() {
+      return customer_ != null;
+    }
+    /**
+     * <code>.shippingcalc.Customer customer = 2;</code>
+     * @return The customer.
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.Customer getCustomer() {
+      return customer_ == null ? shippingcalc.ShippingcalcOuterClass.Customer.getDefaultInstance() : customer_;
+    }
+    /**
+     * <code>.shippingcalc.Customer customer = 2;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.CustomerOrBuilder getCustomerOrBuilder() {
+      return getCustomer();
+    }
+
+    public static final int TENANT_FIELD_NUMBER = 3;
+    private volatile java.lang.Object tenant_;
+    /**
+     * <code>string tenant = 3;</code>
+     * @return The tenant.
+     */
+    @java.lang.Override
+    public java.lang.String getTenant() {
+      java.lang.Object ref = tenant_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        tenant_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string tenant = 3;</code>
+     * @return The bytes for tenant.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTenantBytes() {
+      java.lang.Object ref = tenant_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        tenant_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DELIVERY_TYPE_FIELD_NUMBER = 4;
+    private int deliveryType_;
+    /**
+     * <code>.shippingcalc.DeliveryType delivery_type = 4;</code>
+     * @return The enum numeric value on the wire for deliveryType.
+     */
+    @java.lang.Override public int getDeliveryTypeValue() {
+      return deliveryType_;
+    }
+    /**
+     * <code>.shippingcalc.DeliveryType delivery_type = 4;</code>
+     * @return The deliveryType.
+     */
+    @java.lang.Override public shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType() {
+      @SuppressWarnings("deprecation")
+      shippingcalc.ShippingcalcOuterClass.DeliveryType result = shippingcalc.ShippingcalcOuterClass.DeliveryType.valueOf(deliveryType_);
+      return result == null ? shippingcalc.ShippingcalcOuterClass.DeliveryType.UNRECOGNIZED : result;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < stores_.size(); i++) {
+        output.writeMessage(1, stores_.get(i));
+      }
+      if (customer_ != null) {
+        output.writeMessage(2, getCustomer());
+      }
+      if (!getTenantBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, tenant_);
+      }
+      if (deliveryType_ != shippingcalc.ShippingcalcOuterClass.DeliveryType.NONE.getNumber()) {
+        output.writeEnum(4, deliveryType_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < stores_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, stores_.get(i));
+      }
+      if (customer_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getCustomer());
+      }
+      if (!getTenantBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, tenant_);
+      }
+      if (deliveryType_ != shippingcalc.ShippingcalcOuterClass.DeliveryType.NONE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, deliveryType_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest)) {
+        return super.equals(obj);
+      }
+      shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest other = (shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest) obj;
+
+      if (!getStoresList()
+          .equals(other.getStoresList())) return false;
+      if (hasCustomer() != other.hasCustomer()) return false;
+      if (hasCustomer()) {
+        if (!getCustomer()
+            .equals(other.getCustomer())) return false;
+      }
+      if (!getTenant()
+          .equals(other.getTenant())) return false;
+      if (deliveryType_ != other.deliveryType_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getStoresCount() > 0) {
+        hash = (37 * hash) + STORES_FIELD_NUMBER;
+        hash = (53 * hash) + getStoresList().hashCode();
+      }
+      if (hasCustomer()) {
+        hash = (37 * hash) + CUSTOMER_FIELD_NUMBER;
+        hash = (53 * hash) + getCustomer().hashCode();
+      }
+      hash = (37 * hash) + TENANT_FIELD_NUMBER;
+      hash = (53 * hash) + getTenant().hashCode();
+      hash = (37 * hash) + DELIVERY_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + deliveryType_;
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shippingcalc.GetMinCartAmountsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shippingcalc.GetMinCartAmountsRequest)
+        shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_GetMinCartAmountsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_GetMinCartAmountsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest.class, shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest.Builder.class);
+      }
+
+      // Construct using shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getStoresFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (storesBuilder_ == null) {
+          stores_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          storesBuilder_.clear();
+        }
+        if (customerBuilder_ == null) {
+          customer_ = null;
+        } else {
+          customer_ = null;
+          customerBuilder_ = null;
+        }
+        tenant_ = "";
+
+        deliveryType_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_GetMinCartAmountsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest getDefaultInstanceForType() {
+        return shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest build() {
+        shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest buildPartial() {
+        shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest result = new shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (storesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            stores_ = java.util.Collections.unmodifiableList(stores_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.stores_ = stores_;
+        } else {
+          result.stores_ = storesBuilder_.build();
+        }
+        if (customerBuilder_ == null) {
+          result.customer_ = customer_;
+        } else {
+          result.customer_ = customerBuilder_.build();
+        }
+        result.tenant_ = tenant_;
+        result.deliveryType_ = deliveryType_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest) {
+          return mergeFrom((shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest other) {
+        if (other == shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest.getDefaultInstance()) return this;
+        if (storesBuilder_ == null) {
+          if (!other.stores_.isEmpty()) {
+            if (stores_.isEmpty()) {
+              stores_ = other.stores_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureStoresIsMutable();
+              stores_.addAll(other.stores_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.stores_.isEmpty()) {
+            if (storesBuilder_.isEmpty()) {
+              storesBuilder_.dispose();
+              storesBuilder_ = null;
+              stores_ = other.stores_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              storesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getStoresFieldBuilder() : null;
+            } else {
+              storesBuilder_.addAllMessages(other.stores_);
+            }
+          }
+        }
+        if (other.hasCustomer()) {
+          mergeCustomer(other.getCustomer());
+        }
+        if (!other.getTenant().isEmpty()) {
+          tenant_ = other.tenant_;
+          onChanged();
+        }
+        if (other.deliveryType_ != 0) {
+          setDeliveryTypeValue(other.getDeliveryTypeValue());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<shippingcalc.ShippingcalcOuterClass.Store> stores_ =
+        java.util.Collections.emptyList();
+      private void ensureStoresIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          stores_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.Store>(stores_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.Store, shippingcalc.ShippingcalcOuterClass.Store.Builder, shippingcalc.ShippingcalcOuterClass.StoreOrBuilder> storesBuilder_;
+
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.Store> getStoresList() {
+        if (storesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(stores_);
+        } else {
+          return storesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public int getStoresCount() {
+        if (storesBuilder_ == null) {
+          return stores_.size();
+        } else {
+          return storesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.Store getStores(int index) {
+        if (storesBuilder_ == null) {
+          return stores_.get(index);
+        } else {
+          return storesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public Builder setStores(
+          int index, shippingcalc.ShippingcalcOuterClass.Store value) {
+        if (storesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStoresIsMutable();
+          stores_.set(index, value);
+          onChanged();
+        } else {
+          storesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public Builder setStores(
+          int index, shippingcalc.ShippingcalcOuterClass.Store.Builder builderForValue) {
+        if (storesBuilder_ == null) {
+          ensureStoresIsMutable();
+          stores_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          storesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public Builder addStores(shippingcalc.ShippingcalcOuterClass.Store value) {
+        if (storesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStoresIsMutable();
+          stores_.add(value);
+          onChanged();
+        } else {
+          storesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public Builder addStores(
+          int index, shippingcalc.ShippingcalcOuterClass.Store value) {
+        if (storesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStoresIsMutable();
+          stores_.add(index, value);
+          onChanged();
+        } else {
+          storesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public Builder addStores(
+          shippingcalc.ShippingcalcOuterClass.Store.Builder builderForValue) {
+        if (storesBuilder_ == null) {
+          ensureStoresIsMutable();
+          stores_.add(builderForValue.build());
+          onChanged();
+        } else {
+          storesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public Builder addStores(
+          int index, shippingcalc.ShippingcalcOuterClass.Store.Builder builderForValue) {
+        if (storesBuilder_ == null) {
+          ensureStoresIsMutable();
+          stores_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          storesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public Builder addAllStores(
+          java.lang.Iterable<? extends shippingcalc.ShippingcalcOuterClass.Store> values) {
+        if (storesBuilder_ == null) {
+          ensureStoresIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, stores_);
+          onChanged();
+        } else {
+          storesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public Builder clearStores() {
+        if (storesBuilder_ == null) {
+          stores_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          storesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public Builder removeStores(int index) {
+        if (storesBuilder_ == null) {
+          ensureStoresIsMutable();
+          stores_.remove(index);
+          onChanged();
+        } else {
+          storesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.Store.Builder getStoresBuilder(
+          int index) {
+        return getStoresFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.StoreOrBuilder getStoresOrBuilder(
+          int index) {
+        if (storesBuilder_ == null) {
+          return stores_.get(index);  } else {
+          return storesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.StoreOrBuilder> 
+           getStoresOrBuilderList() {
+        if (storesBuilder_ != null) {
+          return storesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(stores_);
+        }
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.Store.Builder addStoresBuilder() {
+        return getStoresFieldBuilder().addBuilder(
+            shippingcalc.ShippingcalcOuterClass.Store.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.Store.Builder addStoresBuilder(
+          int index) {
+        return getStoresFieldBuilder().addBuilder(
+            index, shippingcalc.ShippingcalcOuterClass.Store.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .shippingcalc.Store stores = 1;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.Store.Builder> 
+           getStoresBuilderList() {
+        return getStoresFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.Store, shippingcalc.ShippingcalcOuterClass.Store.Builder, shippingcalc.ShippingcalcOuterClass.StoreOrBuilder> 
+          getStoresFieldBuilder() {
+        if (storesBuilder_ == null) {
+          storesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              shippingcalc.ShippingcalcOuterClass.Store, shippingcalc.ShippingcalcOuterClass.Store.Builder, shippingcalc.ShippingcalcOuterClass.StoreOrBuilder>(
+                  stores_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          stores_ = null;
+        }
+        return storesBuilder_;
+      }
+
+      private shippingcalc.ShippingcalcOuterClass.Customer customer_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.Customer, shippingcalc.ShippingcalcOuterClass.Customer.Builder, shippingcalc.ShippingcalcOuterClass.CustomerOrBuilder> customerBuilder_;
+      /**
+       * <code>.shippingcalc.Customer customer = 2;</code>
+       * @return Whether the customer field is set.
+       */
+      public boolean hasCustomer() {
+        return customerBuilder_ != null || customer_ != null;
+      }
+      /**
+       * <code>.shippingcalc.Customer customer = 2;</code>
+       * @return The customer.
+       */
+      public shippingcalc.ShippingcalcOuterClass.Customer getCustomer() {
+        if (customerBuilder_ == null) {
+          return customer_ == null ? shippingcalc.ShippingcalcOuterClass.Customer.getDefaultInstance() : customer_;
+        } else {
+          return customerBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.shippingcalc.Customer customer = 2;</code>
+       */
+      public Builder setCustomer(shippingcalc.ShippingcalcOuterClass.Customer value) {
+        if (customerBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          customer_ = value;
+          onChanged();
+        } else {
+          customerBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shippingcalc.Customer customer = 2;</code>
+       */
+      public Builder setCustomer(
+          shippingcalc.ShippingcalcOuterClass.Customer.Builder builderForValue) {
+        if (customerBuilder_ == null) {
+          customer_ = builderForValue.build();
+          onChanged();
+        } else {
+          customerBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shippingcalc.Customer customer = 2;</code>
+       */
+      public Builder mergeCustomer(shippingcalc.ShippingcalcOuterClass.Customer value) {
+        if (customerBuilder_ == null) {
+          if (customer_ != null) {
+            customer_ =
+              shippingcalc.ShippingcalcOuterClass.Customer.newBuilder(customer_).mergeFrom(value).buildPartial();
+          } else {
+            customer_ = value;
+          }
+          onChanged();
+        } else {
+          customerBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shippingcalc.Customer customer = 2;</code>
+       */
+      public Builder clearCustomer() {
+        if (customerBuilder_ == null) {
+          customer_ = null;
+          onChanged();
+        } else {
+          customer_ = null;
+          customerBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shippingcalc.Customer customer = 2;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.Customer.Builder getCustomerBuilder() {
+        
+        onChanged();
+        return getCustomerFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.shippingcalc.Customer customer = 2;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.CustomerOrBuilder getCustomerOrBuilder() {
+        if (customerBuilder_ != null) {
+          return customerBuilder_.getMessageOrBuilder();
+        } else {
+          return customer_ == null ?
+              shippingcalc.ShippingcalcOuterClass.Customer.getDefaultInstance() : customer_;
+        }
+      }
+      /**
+       * <code>.shippingcalc.Customer customer = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.Customer, shippingcalc.ShippingcalcOuterClass.Customer.Builder, shippingcalc.ShippingcalcOuterClass.CustomerOrBuilder> 
+          getCustomerFieldBuilder() {
+        if (customerBuilder_ == null) {
+          customerBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              shippingcalc.ShippingcalcOuterClass.Customer, shippingcalc.ShippingcalcOuterClass.Customer.Builder, shippingcalc.ShippingcalcOuterClass.CustomerOrBuilder>(
+                  getCustomer(),
+                  getParentForChildren(),
+                  isClean());
+          customer_ = null;
+        }
+        return customerBuilder_;
+      }
+
+      private java.lang.Object tenant_ = "";
+      /**
+       * <code>string tenant = 3;</code>
+       * @return The tenant.
+       */
+      public java.lang.String getTenant() {
+        java.lang.Object ref = tenant_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          tenant_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string tenant = 3;</code>
+       * @return The bytes for tenant.
+       */
+      public com.google.protobuf.ByteString
+          getTenantBytes() {
+        java.lang.Object ref = tenant_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          tenant_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string tenant = 3;</code>
+       * @param value The tenant to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTenant(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        tenant_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string tenant = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTenant() {
+        
+        tenant_ = getDefaultInstance().getTenant();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string tenant = 3;</code>
+       * @param value The bytes for tenant to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTenantBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        tenant_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int deliveryType_ = 0;
+      /**
+       * <code>.shippingcalc.DeliveryType delivery_type = 4;</code>
+       * @return The enum numeric value on the wire for deliveryType.
+       */
+      @java.lang.Override public int getDeliveryTypeValue() {
+        return deliveryType_;
+      }
+      /**
+       * <code>.shippingcalc.DeliveryType delivery_type = 4;</code>
+       * @param value The enum numeric value on the wire for deliveryType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeliveryTypeValue(int value) {
+        
+        deliveryType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.shippingcalc.DeliveryType delivery_type = 4;</code>
+       * @return The deliveryType.
+       */
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType() {
+        @SuppressWarnings("deprecation")
+        shippingcalc.ShippingcalcOuterClass.DeliveryType result = shippingcalc.ShippingcalcOuterClass.DeliveryType.valueOf(deliveryType_);
+        return result == null ? shippingcalc.ShippingcalcOuterClass.DeliveryType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.shippingcalc.DeliveryType delivery_type = 4;</code>
+       * @param value The deliveryType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeliveryType(shippingcalc.ShippingcalcOuterClass.DeliveryType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        deliveryType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.shippingcalc.DeliveryType delivery_type = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDeliveryType() {
+        
+        deliveryType_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shippingcalc.GetMinCartAmountsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:shippingcalc.GetMinCartAmountsRequest)
+    private static final shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest();
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetMinCartAmountsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetMinCartAmountsRequest>() {
+      @java.lang.Override
+      public GetMinCartAmountsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetMinCartAmountsRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetMinCartAmountsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetMinCartAmountsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface StoreOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shippingcalc.Store)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Идентификатор магазина
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <pre>
+     * Идентификатор магазина
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <pre>
+     * Координаты магазина
+     * </pre>
+     *
+     * <code>float lat = 2;</code>
+     * @return The lat.
+     */
+    float getLat();
+
+    /**
+     * <code>float lon = 3;</code>
+     * @return The lon.
+     */
+    float getLon();
+  }
+  /**
+   * Protobuf type {@code shippingcalc.Store}
+   */
+  public static final class Store extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shippingcalc.Store)
+      StoreOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Store.newBuilder() to construct.
+    private Store(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Store() {
+      id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Store();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Store(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            case 21: {
+
+              lat_ = input.readFloat();
+              break;
+            }
+            case 29: {
+
+              lon_ = input.readFloat();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_Store_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_Store_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shippingcalc.ShippingcalcOuterClass.Store.class, shippingcalc.ShippingcalcOuterClass.Store.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <pre>
+     * Идентификатор магазина
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Идентификатор магазина
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LAT_FIELD_NUMBER = 2;
+    private float lat_;
+    /**
+     * <pre>
+     * Координаты магазина
+     * </pre>
+     *
+     * <code>float lat = 2;</code>
+     * @return The lat.
+     */
+    @java.lang.Override
+    public float getLat() {
+      return lat_;
+    }
+
+    public static final int LON_FIELD_NUMBER = 3;
+    private float lon_;
+    /**
+     * <code>float lon = 3;</code>
+     * @return The lon.
+     */
+    @java.lang.Override
+    public float getLon() {
+      return lon_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      if (lat_ != 0F) {
+        output.writeFloat(2, lat_);
+      }
+      if (lon_ != 0F) {
+        output.writeFloat(3, lon_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      if (lat_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(2, lat_);
+      }
+      if (lon_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(3, lon_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shippingcalc.ShippingcalcOuterClass.Store)) {
+        return super.equals(obj);
+      }
+      shippingcalc.ShippingcalcOuterClass.Store other = (shippingcalc.ShippingcalcOuterClass.Store) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (java.lang.Float.floatToIntBits(getLat())
+          != java.lang.Float.floatToIntBits(
+              other.getLat())) return false;
+      if (java.lang.Float.floatToIntBits(getLon())
+          != java.lang.Float.floatToIntBits(
+              other.getLon())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + LAT_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getLat());
+      hash = (37 * hash) + LON_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getLon());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.Store parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.Store parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.Store parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.Store parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.Store parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.Store parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.Store parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.Store parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.Store parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.Store parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.Store parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.Store parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shippingcalc.ShippingcalcOuterClass.Store prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shippingcalc.Store}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shippingcalc.Store)
+        shippingcalc.ShippingcalcOuterClass.StoreOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_Store_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_Store_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shippingcalc.ShippingcalcOuterClass.Store.class, shippingcalc.ShippingcalcOuterClass.Store.Builder.class);
+      }
+
+      // Construct using shippingcalc.ShippingcalcOuterClass.Store.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        lat_ = 0F;
+
+        lon_ = 0F;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_Store_descriptor;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.Store getDefaultInstanceForType() {
+        return shippingcalc.ShippingcalcOuterClass.Store.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.Store build() {
+        shippingcalc.ShippingcalcOuterClass.Store result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.Store buildPartial() {
+        shippingcalc.ShippingcalcOuterClass.Store result = new shippingcalc.ShippingcalcOuterClass.Store(this);
+        result.id_ = id_;
+        result.lat_ = lat_;
+        result.lon_ = lon_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shippingcalc.ShippingcalcOuterClass.Store) {
+          return mergeFrom((shippingcalc.ShippingcalcOuterClass.Store)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shippingcalc.ShippingcalcOuterClass.Store other) {
+        if (other == shippingcalc.ShippingcalcOuterClass.Store.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        if (other.getLat() != 0F) {
+          setLat(other.getLat());
+        }
+        if (other.getLon() != 0F) {
+          setLon(other.getLon());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shippingcalc.ShippingcalcOuterClass.Store parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shippingcalc.ShippingcalcOuterClass.Store) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <pre>
+       * Идентификатор магазина
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Идентификатор магазина
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Идентификатор магазина
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Идентификатор магазина
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Идентификатор магазина
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private float lat_ ;
+      /**
+       * <pre>
+       * Координаты магазина
+       * </pre>
+       *
+       * <code>float lat = 2;</code>
+       * @return The lat.
+       */
+      @java.lang.Override
+      public float getLat() {
+        return lat_;
+      }
+      /**
+       * <pre>
+       * Координаты магазина
+       * </pre>
+       *
+       * <code>float lat = 2;</code>
+       * @param value The lat to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLat(float value) {
+        
+        lat_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Координаты магазина
+       * </pre>
+       *
+       * <code>float lat = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLat() {
+        
+        lat_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float lon_ ;
+      /**
+       * <code>float lon = 3;</code>
+       * @return The lon.
+       */
+      @java.lang.Override
+      public float getLon() {
+        return lon_;
+      }
+      /**
+       * <code>float lon = 3;</code>
+       * @param value The lon to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLon(float value) {
+        
+        lon_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float lon = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLon() {
+        
+        lon_ = 0F;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shippingcalc.Store)
+    }
+
+    // @@protoc_insertion_point(class_scope:shippingcalc.Store)
+    private static final shippingcalc.ShippingcalcOuterClass.Store DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shippingcalc.ShippingcalcOuterClass.Store();
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.Store getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Store>
+        PARSER = new com.google.protobuf.AbstractParser<Store>() {
+      @java.lang.Override
+      public Store parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Store(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Store> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Store> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.Store getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetMinCartAmountsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shippingcalc.GetMinCartAmountsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+     * то данных по этому магазину не будет в списке
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+     */
+    java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartAmount> 
+        getMinCartAmountsList();
+    /**
+     * <pre>
+     * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+     * то данных по этому магазину не будет в списке
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.MinCartAmount getMinCartAmounts(int index);
+    /**
+     * <pre>
+     * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+     * то данных по этому магазину не будет в списке
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+     */
+    int getMinCartAmountsCount();
+    /**
+     * <pre>
+     * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+     * то данных по этому магазину не будет в списке
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+     */
+    java.util.List<? extends shippingcalc.ShippingcalcOuterClass.MinCartAmountOrBuilder> 
+        getMinCartAmountsOrBuilderList();
+    /**
+     * <pre>
+     * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+     * то данных по этому магазину не будет в списке
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+     */
+    shippingcalc.ShippingcalcOuterClass.MinCartAmountOrBuilder getMinCartAmountsOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   * Минимальная стоимость корзины для магазина
+   * </pre>
+   *
+   * Protobuf type {@code shippingcalc.GetMinCartAmountsResponse}
+   */
+  public static final class GetMinCartAmountsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shippingcalc.GetMinCartAmountsResponse)
+      GetMinCartAmountsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetMinCartAmountsResponse.newBuilder() to construct.
+    private GetMinCartAmountsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetMinCartAmountsResponse() {
+      minCartAmounts_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetMinCartAmountsResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetMinCartAmountsResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                minCartAmounts_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.MinCartAmount>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              minCartAmounts_.add(
+                  input.readMessage(shippingcalc.ShippingcalcOuterClass.MinCartAmount.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          minCartAmounts_ = java.util.Collections.unmodifiableList(minCartAmounts_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_GetMinCartAmountsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_GetMinCartAmountsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse.class, shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse.Builder.class);
+    }
+
+    public static final int MIN_CART_AMOUNTS_FIELD_NUMBER = 1;
+    private java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartAmount> minCartAmounts_;
+    /**
+     * <pre>
+     * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+     * то данных по этому магазину не будет в списке
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartAmount> getMinCartAmountsList() {
+      return minCartAmounts_;
+    }
+    /**
+     * <pre>
+     * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+     * то данных по этому магазину не будет в списке
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.MinCartAmountOrBuilder> 
+        getMinCartAmountsOrBuilderList() {
+      return minCartAmounts_;
+    }
+    /**
+     * <pre>
+     * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+     * то данных по этому магазину не будет в списке
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+     */
+    @java.lang.Override
+    public int getMinCartAmountsCount() {
+      return minCartAmounts_.size();
+    }
+    /**
+     * <pre>
+     * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+     * то данных по этому магазину не будет в списке
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.MinCartAmount getMinCartAmounts(int index) {
+      return minCartAmounts_.get(index);
+    }
+    /**
+     * <pre>
+     * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+     * то данных по этому магазину не будет в списке
+     * </pre>
+     *
+     * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+     */
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.MinCartAmountOrBuilder getMinCartAmountsOrBuilder(
+        int index) {
+      return minCartAmounts_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < minCartAmounts_.size(); i++) {
+        output.writeMessage(1, minCartAmounts_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < minCartAmounts_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, minCartAmounts_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse)) {
+        return super.equals(obj);
+      }
+      shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse other = (shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse) obj;
+
+      if (!getMinCartAmountsList()
+          .equals(other.getMinCartAmountsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getMinCartAmountsCount() > 0) {
+        hash = (37 * hash) + MIN_CART_AMOUNTS_FIELD_NUMBER;
+        hash = (53 * hash) + getMinCartAmountsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * Минимальная стоимость корзины для магазина
+     * </pre>
+     *
+     * Protobuf type {@code shippingcalc.GetMinCartAmountsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shippingcalc.GetMinCartAmountsResponse)
+        shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_GetMinCartAmountsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_GetMinCartAmountsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse.class, shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse.Builder.class);
+      }
+
+      // Construct using shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getMinCartAmountsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (minCartAmountsBuilder_ == null) {
+          minCartAmounts_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          minCartAmountsBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_GetMinCartAmountsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse getDefaultInstanceForType() {
+        return shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse build() {
+        shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse buildPartial() {
+        shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse result = new shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (minCartAmountsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            minCartAmounts_ = java.util.Collections.unmodifiableList(minCartAmounts_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.minCartAmounts_ = minCartAmounts_;
+        } else {
+          result.minCartAmounts_ = minCartAmountsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse) {
+          return mergeFrom((shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse other) {
+        if (other == shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse.getDefaultInstance()) return this;
+        if (minCartAmountsBuilder_ == null) {
+          if (!other.minCartAmounts_.isEmpty()) {
+            if (minCartAmounts_.isEmpty()) {
+              minCartAmounts_ = other.minCartAmounts_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureMinCartAmountsIsMutable();
+              minCartAmounts_.addAll(other.minCartAmounts_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.minCartAmounts_.isEmpty()) {
+            if (minCartAmountsBuilder_.isEmpty()) {
+              minCartAmountsBuilder_.dispose();
+              minCartAmountsBuilder_ = null;
+              minCartAmounts_ = other.minCartAmounts_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              minCartAmountsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getMinCartAmountsFieldBuilder() : null;
+            } else {
+              minCartAmountsBuilder_.addAllMessages(other.minCartAmounts_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartAmount> minCartAmounts_ =
+        java.util.Collections.emptyList();
+      private void ensureMinCartAmountsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          minCartAmounts_ = new java.util.ArrayList<shippingcalc.ShippingcalcOuterClass.MinCartAmount>(minCartAmounts_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.MinCartAmount, shippingcalc.ShippingcalcOuterClass.MinCartAmount.Builder, shippingcalc.ShippingcalcOuterClass.MinCartAmountOrBuilder> minCartAmountsBuilder_;
+
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartAmount> getMinCartAmountsList() {
+        if (minCartAmountsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(minCartAmounts_);
+        } else {
+          return minCartAmountsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public int getMinCartAmountsCount() {
+        if (minCartAmountsBuilder_ == null) {
+          return minCartAmounts_.size();
+        } else {
+          return minCartAmountsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartAmount getMinCartAmounts(int index) {
+        if (minCartAmountsBuilder_ == null) {
+          return minCartAmounts_.get(index);
+        } else {
+          return minCartAmountsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public Builder setMinCartAmounts(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartAmount value) {
+        if (minCartAmountsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMinCartAmountsIsMutable();
+          minCartAmounts_.set(index, value);
+          onChanged();
+        } else {
+          minCartAmountsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public Builder setMinCartAmounts(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartAmount.Builder builderForValue) {
+        if (minCartAmountsBuilder_ == null) {
+          ensureMinCartAmountsIsMutable();
+          minCartAmounts_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          minCartAmountsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public Builder addMinCartAmounts(shippingcalc.ShippingcalcOuterClass.MinCartAmount value) {
+        if (minCartAmountsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMinCartAmountsIsMutable();
+          minCartAmounts_.add(value);
+          onChanged();
+        } else {
+          minCartAmountsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public Builder addMinCartAmounts(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartAmount value) {
+        if (minCartAmountsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMinCartAmountsIsMutable();
+          minCartAmounts_.add(index, value);
+          onChanged();
+        } else {
+          minCartAmountsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public Builder addMinCartAmounts(
+          shippingcalc.ShippingcalcOuterClass.MinCartAmount.Builder builderForValue) {
+        if (minCartAmountsBuilder_ == null) {
+          ensureMinCartAmountsIsMutable();
+          minCartAmounts_.add(builderForValue.build());
+          onChanged();
+        } else {
+          minCartAmountsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public Builder addMinCartAmounts(
+          int index, shippingcalc.ShippingcalcOuterClass.MinCartAmount.Builder builderForValue) {
+        if (minCartAmountsBuilder_ == null) {
+          ensureMinCartAmountsIsMutable();
+          minCartAmounts_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          minCartAmountsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public Builder addAllMinCartAmounts(
+          java.lang.Iterable<? extends shippingcalc.ShippingcalcOuterClass.MinCartAmount> values) {
+        if (minCartAmountsBuilder_ == null) {
+          ensureMinCartAmountsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, minCartAmounts_);
+          onChanged();
+        } else {
+          minCartAmountsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public Builder clearMinCartAmounts() {
+        if (minCartAmountsBuilder_ == null) {
+          minCartAmounts_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          minCartAmountsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public Builder removeMinCartAmounts(int index) {
+        if (minCartAmountsBuilder_ == null) {
+          ensureMinCartAmountsIsMutable();
+          minCartAmounts_.remove(index);
+          onChanged();
+        } else {
+          minCartAmountsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartAmount.Builder getMinCartAmountsBuilder(
+          int index) {
+        return getMinCartAmountsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartAmountOrBuilder getMinCartAmountsOrBuilder(
+          int index) {
+        if (minCartAmountsBuilder_ == null) {
+          return minCartAmounts_.get(index);  } else {
+          return minCartAmountsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public java.util.List<? extends shippingcalc.ShippingcalcOuterClass.MinCartAmountOrBuilder> 
+           getMinCartAmountsOrBuilderList() {
+        if (minCartAmountsBuilder_ != null) {
+          return minCartAmountsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(minCartAmounts_);
+        }
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartAmount.Builder addMinCartAmountsBuilder() {
+        return getMinCartAmountsFieldBuilder().addBuilder(
+            shippingcalc.ShippingcalcOuterClass.MinCartAmount.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public shippingcalc.ShippingcalcOuterClass.MinCartAmount.Builder addMinCartAmountsBuilder(
+          int index) {
+        return getMinCartAmountsFieldBuilder().addBuilder(
+            index, shippingcalc.ShippingcalcOuterClass.MinCartAmount.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Если мин. корзину не удалось посчитать для магазина и нужно юзать коллбек,
+       * то данных по этому магазину не будет в списке
+       * </pre>
+       *
+       * <code>repeated .shippingcalc.MinCartAmount min_cart_amounts = 1;</code>
+       */
+      public java.util.List<shippingcalc.ShippingcalcOuterClass.MinCartAmount.Builder> 
+           getMinCartAmountsBuilderList() {
+        return getMinCartAmountsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shippingcalc.ShippingcalcOuterClass.MinCartAmount, shippingcalc.ShippingcalcOuterClass.MinCartAmount.Builder, shippingcalc.ShippingcalcOuterClass.MinCartAmountOrBuilder> 
+          getMinCartAmountsFieldBuilder() {
+        if (minCartAmountsBuilder_ == null) {
+          minCartAmountsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              shippingcalc.ShippingcalcOuterClass.MinCartAmount, shippingcalc.ShippingcalcOuterClass.MinCartAmount.Builder, shippingcalc.ShippingcalcOuterClass.MinCartAmountOrBuilder>(
+                  minCartAmounts_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          minCartAmounts_ = null;
+        }
+        return minCartAmountsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shippingcalc.GetMinCartAmountsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:shippingcalc.GetMinCartAmountsResponse)
+    private static final shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse();
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetMinCartAmountsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetMinCartAmountsResponse>() {
+      @java.lang.Override
+      public GetMinCartAmountsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetMinCartAmountsResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetMinCartAmountsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetMinCartAmountsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MinCartAmountOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shippingcalc.MinCartAmount)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string store_id = 1;</code>
+     * @return The storeId.
+     */
+    java.lang.String getStoreId();
+    /**
+     * <code>string store_id = 1;</code>
+     * @return The bytes for storeId.
+     */
+    com.google.protobuf.ByteString
+        getStoreIdBytes();
+
+    /**
+     * <code>uint64 amount = 2;</code>
+     * @return The amount.
+     */
+    long getAmount();
+  }
+  /**
+   * Protobuf type {@code shippingcalc.MinCartAmount}
+   */
+  public static final class MinCartAmount extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shippingcalc.MinCartAmount)
+      MinCartAmountOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MinCartAmount.newBuilder() to construct.
+    private MinCartAmount(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MinCartAmount() {
+      storeId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MinCartAmount();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MinCartAmount(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              storeId_ = s;
+              break;
+            }
+            case 16: {
+
+              amount_ = input.readUInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartAmount_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartAmount_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shippingcalc.ShippingcalcOuterClass.MinCartAmount.class, shippingcalc.ShippingcalcOuterClass.MinCartAmount.Builder.class);
+    }
+
+    public static final int STORE_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object storeId_;
+    /**
+     * <code>string store_id = 1;</code>
+     * @return The storeId.
+     */
+    @java.lang.Override
+    public java.lang.String getStoreId() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        storeId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string store_id = 1;</code>
+     * @return The bytes for storeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStoreIdBytes() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        storeId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int AMOUNT_FIELD_NUMBER = 2;
+    private long amount_;
+    /**
+     * <code>uint64 amount = 2;</code>
+     * @return The amount.
+     */
+    @java.lang.Override
+    public long getAmount() {
+      return amount_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getStoreIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, storeId_);
+      }
+      if (amount_ != 0L) {
+        output.writeUInt64(2, amount_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getStoreIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, storeId_);
+      }
+      if (amount_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(2, amount_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shippingcalc.ShippingcalcOuterClass.MinCartAmount)) {
+        return super.equals(obj);
+      }
+      shippingcalc.ShippingcalcOuterClass.MinCartAmount other = (shippingcalc.ShippingcalcOuterClass.MinCartAmount) obj;
+
+      if (!getStoreId()
+          .equals(other.getStoreId())) return false;
+      if (getAmount()
+          != other.getAmount()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getStoreId().hashCode();
+      hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getAmount());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.MinCartAmount parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartAmount parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartAmount parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartAmount parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartAmount parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartAmount parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartAmount parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartAmount parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartAmount parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartAmount parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartAmount parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shippingcalc.ShippingcalcOuterClass.MinCartAmount parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shippingcalc.ShippingcalcOuterClass.MinCartAmount prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shippingcalc.MinCartAmount}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shippingcalc.MinCartAmount)
+        shippingcalc.ShippingcalcOuterClass.MinCartAmountOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartAmount_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartAmount_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shippingcalc.ShippingcalcOuterClass.MinCartAmount.class, shippingcalc.ShippingcalcOuterClass.MinCartAmount.Builder.class);
+      }
+
+      // Construct using shippingcalc.ShippingcalcOuterClass.MinCartAmount.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        storeId_ = "";
+
+        amount_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shippingcalc.ShippingcalcOuterClass.internal_static_shippingcalc_MinCartAmount_descriptor;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.MinCartAmount getDefaultInstanceForType() {
+        return shippingcalc.ShippingcalcOuterClass.MinCartAmount.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.MinCartAmount build() {
+        shippingcalc.ShippingcalcOuterClass.MinCartAmount result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.MinCartAmount buildPartial() {
+        shippingcalc.ShippingcalcOuterClass.MinCartAmount result = new shippingcalc.ShippingcalcOuterClass.MinCartAmount(this);
+        result.storeId_ = storeId_;
+        result.amount_ = amount_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shippingcalc.ShippingcalcOuterClass.MinCartAmount) {
+          return mergeFrom((shippingcalc.ShippingcalcOuterClass.MinCartAmount)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shippingcalc.ShippingcalcOuterClass.MinCartAmount other) {
+        if (other == shippingcalc.ShippingcalcOuterClass.MinCartAmount.getDefaultInstance()) return this;
+        if (!other.getStoreId().isEmpty()) {
+          storeId_ = other.storeId_;
+          onChanged();
+        }
+        if (other.getAmount() != 0L) {
+          setAmount(other.getAmount());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shippingcalc.ShippingcalcOuterClass.MinCartAmount parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shippingcalc.ShippingcalcOuterClass.MinCartAmount) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object storeId_ = "";
+      /**
+       * <code>string store_id = 1;</code>
+       * @return The storeId.
+       */
+      public java.lang.String getStoreId() {
+        java.lang.Object ref = storeId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string store_id = 1;</code>
+       * @return The bytes for storeId.
+       */
+      public com.google.protobuf.ByteString
+          getStoreIdBytes() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string store_id = 1;</code>
+       * @param value The storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string store_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStoreId() {
+        
+        storeId_ = getDefaultInstance().getStoreId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string store_id = 1;</code>
+       * @param value The bytes for storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long amount_ ;
+      /**
+       * <code>uint64 amount = 2;</code>
+       * @return The amount.
+       */
+      @java.lang.Override
+      public long getAmount() {
+        return amount_;
+      }
+      /**
+       * <code>uint64 amount = 2;</code>
+       * @param value The amount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAmount(long value) {
+        
+        amount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 amount = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAmount() {
+        
+        amount_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shippingcalc.MinCartAmount)
+    }
+
+    // @@protoc_insertion_point(class_scope:shippingcalc.MinCartAmount)
+    private static final shippingcalc.ShippingcalcOuterClass.MinCartAmount DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shippingcalc.ShippingcalcOuterClass.MinCartAmount();
+    }
+
+    public static shippingcalc.ShippingcalcOuterClass.MinCartAmount getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MinCartAmount>
+        PARSER = new com.google.protobuf.AbstractParser<MinCartAmount>() {
+      @java.lang.Override
+      public MinCartAmount parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MinCartAmount(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MinCartAmount> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MinCartAmount> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shippingcalc.ShippingcalcOuterClass.MinCartAmount getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_shippingcalc_CreateStrategyRequest_descriptor;
   private static final 
@@ -62088,6 +67488,11 @@ public final class ShippingcalcOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_shippingcalc_StrategyView_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_StrategyViewLight_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_StrategyViewLight_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_shippingcalc_UnbindStrategyRequest_descriptor;
   private static final 
@@ -62338,6 +67743,26 @@ public final class ShippingcalcOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_shippingcalc_GetSwitchbackExperimentsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_GetMinCartAmountsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_GetMinCartAmountsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_Store_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_Store_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_GetMinCartAmountsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_GetMinCartAmountsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_MinCartAmount_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_MinCartAmount_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -62375,203 +67800,220 @@ public final class ShippingcalcOuterClass {
       "teStrategyResponse\022\020\n\010rules_id\030\001 \003(\r\022\031\n\021" +
       "min_cart_rules_id\030\002 \003(\r\"X\n\023BindStrategyR" +
       "equest\022\023\n\013strategy_id\030\001 \001(\r\022,\n\005binds\030\002 \003" +
-      "(\0132\035.shippingcalc.StrategyBinding\"i\n\017Str" +
+      "(\0132\035.shippingcalc.StrategyBinding\"6\n\017Str" +
       "ategyBinding\022\020\n\010store_id\030\001 \001(\t\022\021\n\ttenant" +
-      "_id\030\002 \001(\t\0221\n\rdelivery_type\030\003 \001(\0162\032.shipp" +
-      "ingcalc.DeliveryType\"D\n\024BindStrategyResp" +
-      "onse\022,\n\010strategy\030\001 \001(\0132\032.shippingcalc.St" +
-      "rategyView\"\205\002\n\014StrategyView\022\023\n\013strategy_" +
-      "id\030\001 \001(\r\022\022\n\ncreator_id\030\002 \001(\t\022\014\n\004name\030\003 \001" +
-      "(\t\022\016\n\006global\030\004 \001(\010\022\020\n\010priority\030\005 \001(\r\022,\n\005" +
-      "binds\030\006 \003(\0132\035.shippingcalc.StrategyBindi" +
-      "ng\022\023\n\013description\030\007 \001(\t\022\022\n\ncreated_at\030\010 " +
-      "\001(\003\022\022\n\nupdated_at\030\t \001(\003\0221\n\rdelivery_type" +
-      "\030\n \001(\0162\032.shippingcalc.DeliveryType\"Z\n\025Un" +
-      "bindStrategyRequest\022\023\n\013strategy_id\030\001 \001(\r" +
-      "\022,\n\005binds\030\002 \003(\0132\035.shippingcalc.StrategyB" +
-      "inding\"F\n\026UnbindStrategyResponse\022,\n\010stra" +
-      "tegy\030\001 \001(\0132\032.shippingcalc.StrategyView\"p" +
-      "\n\024GetStrategiesRequest\022\025\n\rstrategy_name\030" +
-      "\001 \001(\t\0221\n\rdelivery_type\030\002 \001(\0162\032.shippingc" +
-      "alc.DeliveryType\022\016\n\006stores\030\003 \003(\t\"G\n\025GetS" +
-      "trategiesResponse\022.\n\nstrategies\030\001 \003(\0132\032." +
-      "shippingcalc.StrategyView\")\n\022GetStrategy" +
-      "Request\022\023\n\013strategy_id\030\001 \001(\r\"\241\001\n\023GetStra" +
-      "tegyResponse\022,\n\010strategy\030\001 \001(\0132\032.shippin" +
-      "gcalc.StrategyView\022%\n\005rules\030\002 \003(\0132\026.ship" +
-      "pingcalc.RuleView\0225\n\016min_cart_rules\030\003 \003(" +
-      "\0132\035.shippingcalc.MinCartRuleView\"\306\001\n\010Rul" +
-      "eView\022\n\n\002id\030\001 \001(\r\022\021\n\tscript_id\030\002 \001(\r\022\023\n\013" +
-      "script_name\030\003 \001(\t\022\033\n\023script_param_values" +
-      "\030\004 \001(\t\022/\n\nconditions\030\005 \003(\0132\033.shippingcal" +
-      "c.ConditionView\022\020\n\010priority\030\006 \001(\005\022\022\n\ncre" +
-      "ator_id\030\007 \001(\t\022\022\n\ncreated_at\030\010 \001(\003\"\240\001\n\017Mi" +
-      "nCartRuleView\022\n\n\002id\030\001 \001(\r\022\026\n\016min_cart_va" +
-      "lue\030\002 \001(\004\022/\n\nconditions\030\003 \003(\0132\033.shipping" +
-      "calc.ConditionView\022\020\n\010priority\030\004 \001(\005\022\022\n\n" +
-      "creator_id\030\005 \001(\t\022\022\n\ncreated_at\030\006 \001(\003\"T\n\r" +
-      "ConditionView\0223\n\016condition_type\030\001 \001(\0162\033." +
-      "shippingcalc.ConditionType\022\016\n\006params\030\002 \001" +
-      "(\t\"s\n\034GetStrategiesForStoreRequest\022\020\n\010st" +
-      "ore_id\030\001 \001(\t\022\016\n\006tenant\030\002 \001(\t\0221\n\rdelivery" +
-      "_type\030\003 \001(\0162\032.shippingcalc.DeliveryType\"" +
-      "\\\n\025ExplainedStrategyView\022\023\n\013strategy_id\030" +
-      "\001 \001(\r\022.\n\007binding\030\002 \001(\0132\035.shippingcalc.St" +
-      "rategyBinding\"V\n\035GetStrategiesForStoreRe" +
-      "sponse\0225\n\010strategy\030\001 \003(\0132#.shippingcalc." +
-      "ExplainedStrategyView\",\n\025DeleteStrategyR" +
-      "equest\022\023\n\013strategy_id\030\001 \001(\r\"\030\n\026DeleteStr" +
-      "ategyResponse\"S\n\023CreateScriptRequest\022\023\n\013" +
-      "script_name\030\001 \001(\t\022\023\n\013script_body\030\002 \001(\t\022\022" +
-      "\n\ncreator_id\030\003 \001(\t\"k\n\024CreateScriptRespon" +
-      "se\022\021\n\tscript_id\030\001 \001(\r\022(\n\005state\030\002 \001(\0162\031.s" +
-      "hippingcalc.ScriptState\022\026\n\016result_messag" +
-      "e\030\003 \001(\t\"f\n\023UpdateScriptRequest\022\021\n\tscript" +
-      "_id\030\001 \001(\r\022\023\n\013script_name\030\002 \001(\t\022\023\n\013script" +
-      "_body\030\003 \001(\t\022\022\n\ncreator_id\030\004 \001(\t\"X\n\024Updat" +
-      "eScriptResponse\022(\n\005state\030\001 \001(\0162\031.shippin" +
-      "gcalc.ScriptState\022\026\n\016result_message\030\003 \001(" +
-      "\t\"\023\n\021GetScriptsRequest\"?\n\022GetScriptsResp" +
-      "onse\022)\n\007scripts\030\001 \003(\0132\030.shippingcalc.Scr" +
-      "iptView\"\221\002\n\nScriptView\022\021\n\tscript_id\030\001 \001(" +
-      "\r\022\023\n\013script_name\030\002 \001(\t\022\023\n\013script_body\030\003 " +
-      "\001(\t\0222\n\017required_params\030\004 \003(\0132\031.shippingc" +
-      "alc.ScriptParam\022\022\n\ncreated_at\030\005 \001(\003\022\022\n\nu" +
-      "pdated_at\030\006 \001(\003\0223\n\005state\030\007 \001(\0162$.shippin" +
-      "gcalc.ScriptView.ScriptState\"5\n\013ScriptSt" +
-      "ate\022\010\n\004NONE\020\000\022\013\n\007TEST_OK\020\001\022\017\n\013TEST_FAILE" +
-      "D\020\002\"\274\001\n\013ScriptParam\0227\n\004type\030\001 \001(\0162).ship" +
-      "pingcalc.ScriptParam.ScriptParamType\022\014\n\004" +
-      "name\030\002 \001(\t\022\017\n\007caption\030\003 \001(\t\022\020\n\010fraction\030" +
-      "\004 \001(\004\"C\n\017ScriptParamType\022\017\n\013PARAM_FLOAT\020" +
-      "\000\022\r\n\tPARAM_INT\020\001\022\020\n\014PARAM_STRING\020\002\"%\n\020Ge" +
-      "tScriptRequest\022\021\n\tscript_id\030\001 \001(\r\"=\n\021Get" +
-      "ScriptResponse\022(\n\006script\030\001 \001(\0132\030.shippin" +
-      "gcalc.ScriptView\"(\n\023DeleteScriptRequest\022" +
-      "\021\n\tscript_id\030\001 \001(\r\"\026\n\024DeleteScriptRespon" +
-      "se\"0\n\033GetScriptTestResultsRequest\022\021\n\tscr" +
-      "ipt_id\030\001 \001(\r\"c\n\034GetScriptTestResultsResp" +
-      "onse\022/\n\007results\030\001 \003(\0132\036.shippingcalc.Scr" +
-      "iptTestResult\022\022\n\nall_passed\030\002 \001(\010\"L\n\020Scr" +
-      "iptTestResult\022\021\n\ttest_name\030\001 \001(\t\022\016\n\006pass" +
-      "ed\030\002 \001(\010\022\025\n\rerror_message\030\003 \001(\t\"\246\002\n\027GetD" +
-      "eliveryPriceRequest\022\020\n\010order_id\030\001 \001(\t\022)\n" +
-      "\tshipments\030\003 \003(\0132\026.shippingcalc.Shipment" +
-      "\022(\n\010customer\030\004 \001(\0132\026.shippingcalc.Custom" +
-      "er\022\024\n\014is_b2b_order\030\005 \001(\010\022\024\n\014is_promocode" +
-      "\030\006 \001(\010\022\026\n\016payment_method\030\007 \001(\t\022\032\n\022has_pa" +
-      "yment_method\030\010 \001(\010\0221\n\rdelivery_type\030\t \001(" +
-      "\0162\032.shippingcalc.DeliveryType\022\021\n\ttenant_" +
-      "id\030\013 \001(\t\"\206\002\n\010Shipment\022\n\n\002id\030\001 \001(\t\022\023\n\013is_" +
-      "ondemand\030\002 \001(\010\022.\n\010products\030\003 \003(\0132\034.shipp" +
-      "ingcalc.ProductRequest\022\016\n\006weight\030\004 \001(\004\022\023" +
-      "\n\013items_count\030\005 \001(\r\022\r\n\005price\030\006 \001(\004\022\020\n\010st" +
-      "ore_id\030\007 \001(\t\022\016\n\006status\030\010 \001(\t\022\021\n\tregion_i" +
-      "d\030\t \001(\004\022&\n\036surge_delivery_window_additio" +
-      "n\030\n \001(\004\022\013\n\003lat\030\013 \001(\002\022\013\n\003lon\030\014 \001(\002\"e\n\016Pro" +
-      "ductRequest\022\020\n\010quantity\030\001 \001(\r\022\n\n\002id\030\002 \001(" +
-      "\t\022\r\n\005price\030\003 \001(\004\022\026\n\016discount_price\030\004 \001(\004" +
-      "\022\016\n\006weight\030\005 \001(\004\"s\n\010Customer\022\n\n\002id\030\001 \001(\t" +
-      "\022\024\n\014anonymous_id\030\002 \001(\t\022\024\n\014orders_count\030\003" +
-      " \001(\r\022\025\n\rregistered_at\030\004 \001(\003\022\013\n\003lat\030\005 \001(\002" +
-      "\022\013\n\003lon\030\006 \001(\002\"\274\001\n\030GetDeliveryPriceRespon" +
-      "se\022\031\n\021is_order_possible\030\001 \001(\010\022\032\n\022minimal" +
-      "_cart_price\030\002 \001(\004\022\032\n\022minimal_cart_items\030" +
-      "\003 \001(\r\022\034\n\024total_shipping_price\030\004 \001(\004\022/\n\ts" +
-      "hipments\030\005 \003(\0132\034.shippingcalc.PricedShip" +
-      "ment\"\243\003\n\016PricedShipment\022\023\n\013shipment_id\030\001" +
-      " \001(\t\022\026\n\016shipping_price\030\002 \001(\004\022\030\n\020offer_ex" +
-      "pires_at\030\003 \001(\003\022\022\n\noffer_hash\030\004 \001(\t\022(\n\006la" +
-      "dder\030\005 \003(\0132\030.shippingcalc.LadderStep\022\023\n\013" +
-      "strategy_id\030\006 \001(\r\022\017\n\007rule_id\030\007 \001(\r\022\024\n\014we" +
-      "_had_offer\030\010 \001(\010\022\034\n\024surge_level_addition" +
-      "\030\t \001(\004\022\022\n\nsurge_used\030\n \001(\010\022\023\n\013surge_leve" +
-      "l\030\013 \001(\002\022&\n\036surge_delivery_window_additio" +
-      "n\030\014 \001(\004\022&\n\005hints\030\r \003(\0132\027.shippingcalc.Pr" +
-      "iceHint\0229\n\021price_explanation\030\016 \001(\0132\036.shi" +
-      "ppingcalc.PriceExplanation\"a\n\tPriceHint\022" +
-      "\014\n\004type\030\001 \001(\t\022\017\n\007caption\030\002 \001(\t\022\r\n\005price\030" +
-      "\003 \001(\004\022\030\n\020additional_label\030\004 \001(\t\022\014\n\004meta\030" +
-      "\005 \001(\t\"\211\001\n\020PriceExplanation\022=\n\021passed_con" +
-      "ditions\030\001 \003(\0132\".shippingcalc.PricePassed" +
-      "Condition\0226\n\020price_components\030\002 \003(\0132\034.sh" +
-      "ippingcalc.PriceComponent\"4\n\024PricePassed" +
-      "Condition\022\014\n\004type\030\001 \001(\t\022\016\n\006params\030\002 \001(\t\"" +
-      ";\n\016PriceComponent\022\014\n\004type\030\001 \001(\t\022\r\n\005price" +
-      "\030\002 \001(\004\022\014\n\004meta\030\003 \001(\t\"p\n\nLadderStep\022\027\n\npr" +
-      "ice_from\030\001 \001(\004H\000\210\001\001\022\025\n\010price_to\030\002 \001(\004H\001\210" +
-      "\001\001\022\026\n\016shipping_price\030\003 \001(\004B\r\n\013_price_fro" +
-      "mB\013\n\t_price_to\"p\n\rSurgeInterval\022\025\n\rleft_" +
-      "boundary\030\001 \001(\002\022\026\n\016right_boundary\030\002 \001(\002\022\026" +
-      "\n\016price_addition\030\003 \001(\004\022\030\n\020percent_additi" +
-      "on\030\004 \001(\004\"J\n\030SetIntervalsSurgeRequest\022.\n\t" +
-      "intervals\030\001 \003(\0132\033.shippingcalc.SurgeInte" +
-      "rval\"\033\n\031SetIntervalsSurgeResponse\"\032\n\030Get" +
-      "IntervalsSurgeRequest\"K\n\031GetIntervalsSur" +
-      "geResponse\022.\n\tintervals\030\001 \003(\0132\033.shipping" +
-      "calc.SurgeInterval\"m\n\031SurgeSwitchbackExp" +
-      "eriment\022\027\n\017start_date_time\030\001 \001(\003\022\025\n\rend_" +
-      "date_time\030\002 \001(\003\022\021\n\tregion_id\030\003 \001(\004\022\r\n\005gr" +
-      "oup\030\004 \001(\t\"d\n\037SetSwitchbackExperimentsReq" +
-      "uest\022\014\n\004data\030\001 \001(\t\0223\n\004type\030\002 \001(\0162%.shipp" +
-      "ingcalc.SurgeSwitchbackDataType\"\"\n SetSw" +
-      "itchbackExperimentsResponse\"!\n\037GetSwitch" +
-      "backExperimentsRequest\"`\n GetSwitchbackE" +
-      "xperimentsResponse\022<\n\013experiments\030\001 \003(\0132" +
-      "\'.shippingcalc.SurgeSwitchbackExperiment" +
-      "*J\n\014DeliveryType\022\010\n\004NONE\020\000\022\021\n\rSELF_DELIV" +
-      "ERY\020\001\022\024\n\020COURIER_DELIVERY\020\002\022\007\n\003B2B\020\003*v\n\r" +
-      "ConditionType\022\n\n\006ALWAYS\020\000\022\022\n\016FIRST_N_ORD" +
-      "ERS\020\001\022\025\n\021ORDER_VALUE_RANGE\020\002\022\024\n\020AB_TEST_" +
-      "ENTRANCE\020\003\022\030\n\024ORDER_DISTANCE_RANGE\020\004*1\n\013" +
-      "ScriptState\022\020\n\014SCRIPT_VALID\020\000\022\020\n\014SCRIPT_" +
-      "ERROR\020\001*\"\n\027SurgeSwitchbackDataType\022\007\n\003CS" +
-      "V\020\0002\261\016\n\014Shippingcalc\022[\n\016CreateStrategy\022#" +
-      ".shippingcalc.CreateStrategyRequest\032$.sh" +
-      "ippingcalc.CreateStrategyResponse\022[\n\016Upd" +
-      "ateStrategy\022#.shippingcalc.UpdateStrateg" +
-      "yRequest\032$.shippingcalc.UpdateStrategyRe" +
-      "sponse\022U\n\014BindStrategy\022!.shippingcalc.Bi" +
-      "ndStrategyRequest\032\".shippingcalc.BindStr" +
-      "ategyResponse\022[\n\016UnbindStrategy\022#.shippi" +
-      "ngcalc.UnbindStrategyRequest\032$.shippingc" +
-      "alc.UnbindStrategyResponse\022X\n\rGetStrateg" +
-      "ies\022\".shippingcalc.GetStrategiesRequest\032" +
-      "#.shippingcalc.GetStrategiesResponse\022R\n\013" +
-      "GetStrategy\022 .shippingcalc.GetStrategyRe" +
-      "quest\032!.shippingcalc.GetStrategyResponse" +
-      "\022p\n\025GetStrategiesForStore\022*.shippingcalc" +
-      ".GetStrategiesForStoreRequest\032+.shipping" +
-      "calc.GetStrategiesForStoreResponse\022[\n\016De" +
-      "leteStrategy\022#.shippingcalc.DeleteStrate" +
-      "gyRequest\032$.shippingcalc.DeleteStrategyR" +
-      "esponse\022U\n\014CreateScript\022!.shippingcalc.C" +
-      "reateScriptRequest\032\".shippingcalc.Create" +
-      "ScriptResponse\022U\n\014UpdateScript\022!.shippin" +
-      "gcalc.UpdateScriptRequest\032\".shippingcalc" +
-      ".UpdateScriptResponse\022L\n\tGetScript\022\036.shi" +
-      "ppingcalc.GetScriptRequest\032\037.shippingcal" +
-      "c.GetScriptResponse\022O\n\nGetScripts\022\037.ship" +
-      "pingcalc.GetScriptsRequest\032 .shippingcal" +
-      "c.GetScriptsResponse\022m\n\024GetScriptTestRes" +
-      "ults\022).shippingcalc.GetScriptTestResults" +
-      "Request\032*.shippingcalc.GetScriptTestResu" +
-      "ltsResponse\022U\n\014DeleteScript\022!.shippingca" +
-      "lc.DeleteScriptRequest\032\".shippingcalc.De" +
-      "leteScriptResponse\022a\n\020GetDeliveryPrice\022%" +
-      ".shippingcalc.GetDeliveryPriceRequest\032&." +
-      "shippingcalc.GetDeliveryPriceResponse\022d\n" +
-      "\021SetIntervalsSurge\022&.shippingcalc.SetInt" +
-      "ervalsSurgeRequest\032\'.shippingcalc.SetInt" +
-      "ervalsSurgeResponse\022d\n\021GetIntervalsSurge" +
-      "\022&.shippingcalc.GetIntervalsSurgeRequest" +
-      "\032\'.shippingcalc.GetIntervalsSurgeRespons" +
-      "e\022y\n\030SetSwitchbackExperiments\022-.shipping" +
-      "calc.SetSwitchbackExperimentsRequest\032..s" +
-      "hippingcalc.SetSwitchbackExperimentsResp" +
-      "onse\022y\n\030GetSwitchbackExperiments\022-.shipp" +
-      "ingcalc.GetSwitchbackExperimentsRequest\032" +
-      "..shippingcalc.GetSwitchbackExperimentsR" +
+      "_id\030\002 \001(\t\"D\n\024BindStrategyResponse\022,\n\010str" +
+      "ategy\030\001 \001(\0132\032.shippingcalc.StrategyView\"" +
+      "\205\002\n\014StrategyView\022\023\n\013strategy_id\030\001 \001(\r\022\022\n" +
+      "\ncreator_id\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022\016\n\006globa" +
+      "l\030\004 \001(\010\022\020\n\010priority\030\005 \001(\r\022,\n\005binds\030\006 \003(\013" +
+      "2\035.shippingcalc.StrategyBinding\022\023\n\013descr" +
+      "iption\030\007 \001(\t\022\022\n\ncreated_at\030\010 \001(\003\022\022\n\nupda" +
+      "ted_at\030\t \001(\003\0221\n\rdelivery_type\030\n \001(\0162\032.sh" +
+      "ippingcalc.DeliveryType\"\354\001\n\021StrategyView" +
+      "Light\022\023\n\013strategy_id\030\001 \001(\r\022\022\n\ncreator_id" +
+      "\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022\016\n\006global\030\004 \001(\010\022\020\n\010" +
+      "priority\030\005 \001(\r\022\016\n\006stores\030\006 \003(\t\022\023\n\013descri" +
+      "ption\030\007 \001(\t\022\022\n\ncreated_at\030\010 \001(\003\022\022\n\nupdat" +
+      "ed_at\030\t \001(\003\0221\n\rdelivery_type\030\n \001(\0162\032.shi" +
+      "ppingcalc.DeliveryType\"Z\n\025UnbindStrategy" +
+      "Request\022\023\n\013strategy_id\030\001 \001(\r\022,\n\005binds\030\002 " +
+      "\003(\0132\035.shippingcalc.StrategyBinding\"F\n\026Un" +
+      "bindStrategyResponse\022,\n\010strategy\030\001 \001(\0132\032" +
+      ".shippingcalc.StrategyView\"p\n\024GetStrateg" +
+      "iesRequest\022\025\n\rstrategy_name\030\001 \001(\t\0221\n\rdel" +
+      "ivery_type\030\002 \001(\0162\032.shippingcalc.Delivery" +
+      "Type\022\016\n\006stores\030\003 \003(\t\"L\n\025GetStrategiesRes" +
+      "ponse\0223\n\nstrategies\030\001 \003(\0132\037.shippingcalc" +
+      ".StrategyViewLight\")\n\022GetStrategyRequest" +
+      "\022\023\n\013strategy_id\030\001 \001(\r\"\241\001\n\023GetStrategyRes" +
+      "ponse\022,\n\010strategy\030\001 \001(\0132\032.shippingcalc.S" +
+      "trategyView\022%\n\005rules\030\002 \003(\0132\026.shippingcal" +
+      "c.RuleView\0225\n\016min_cart_rules\030\003 \003(\0132\035.shi" +
+      "ppingcalc.MinCartRuleView\"\306\001\n\010RuleView\022\n" +
+      "\n\002id\030\001 \001(\r\022\021\n\tscript_id\030\002 \001(\r\022\023\n\013script_" +
+      "name\030\003 \001(\t\022\033\n\023script_param_values\030\004 \001(\t\022" +
+      "/\n\nconditions\030\005 \003(\0132\033.shippingcalc.Condi" +
+      "tionView\022\020\n\010priority\030\006 \001(\005\022\022\n\ncreator_id" +
+      "\030\007 \001(\t\022\022\n\ncreated_at\030\010 \001(\003\"\240\001\n\017MinCartRu" +
+      "leView\022\n\n\002id\030\001 \001(\r\022\026\n\016min_cart_value\030\002 \001" +
+      "(\004\022/\n\nconditions\030\003 \003(\0132\033.shippingcalc.Co" +
+      "nditionView\022\020\n\010priority\030\004 \001(\005\022\022\n\ncreator" +
+      "_id\030\005 \001(\t\022\022\n\ncreated_at\030\006 \001(\003\"T\n\rConditi" +
+      "onView\0223\n\016condition_type\030\001 \001(\0162\033.shippin" +
+      "gcalc.ConditionType\022\016\n\006params\030\002 \001(\t\"s\n\034G" +
+      "etStrategiesForStoreRequest\022\020\n\010store_id\030" +
+      "\001 \001(\t\022\016\n\006tenant\030\002 \001(\t\0221\n\rdelivery_type\030\003" +
+      " \001(\0162\032.shippingcalc.DeliveryType\"\\\n\025Expl" +
+      "ainedStrategyView\022\023\n\013strategy_id\030\001 \001(\r\022." +
+      "\n\007binding\030\002 \001(\0132\035.shippingcalc.StrategyB" +
+      "inding\"V\n\035GetStrategiesForStoreResponse\022" +
+      "5\n\010strategy\030\001 \003(\0132#.shippingcalc.Explain" +
+      "edStrategyView\",\n\025DeleteStrategyRequest\022" +
+      "\023\n\013strategy_id\030\001 \001(\r\"\030\n\026DeleteStrategyRe" +
+      "sponse\"S\n\023CreateScriptRequest\022\023\n\013script_" +
+      "name\030\001 \001(\t\022\023\n\013script_body\030\002 \001(\t\022\022\n\ncreat" +
+      "or_id\030\003 \001(\t\"k\n\024CreateScriptResponse\022\021\n\ts" +
+      "cript_id\030\001 \001(\r\022(\n\005state\030\002 \001(\0162\031.shipping" +
+      "calc.ScriptState\022\026\n\016result_message\030\003 \001(\t" +
+      "\"f\n\023UpdateScriptRequest\022\021\n\tscript_id\030\001 \001" +
+      "(\r\022\023\n\013script_name\030\002 \001(\t\022\023\n\013script_body\030\003" +
+      " \001(\t\022\022\n\ncreator_id\030\004 \001(\t\"X\n\024UpdateScript" +
+      "Response\022(\n\005state\030\001 \001(\0162\031.shippingcalc.S" +
+      "criptState\022\026\n\016result_message\030\003 \001(\t\"\023\n\021Ge" +
+      "tScriptsRequest\"?\n\022GetScriptsResponse\022)\n" +
+      "\007scripts\030\001 \003(\0132\030.shippingcalc.ScriptView" +
+      "\"\221\002\n\nScriptView\022\021\n\tscript_id\030\001 \001(\r\022\023\n\013sc" +
+      "ript_name\030\002 \001(\t\022\023\n\013script_body\030\003 \001(\t\0222\n\017" +
+      "required_params\030\004 \003(\0132\031.shippingcalc.Scr" +
+      "iptParam\022\022\n\ncreated_at\030\005 \001(\003\022\022\n\nupdated_" +
+      "at\030\006 \001(\003\0223\n\005state\030\007 \001(\0162$.shippingcalc.S" +
+      "criptView.ScriptState\"5\n\013ScriptState\022\010\n\004" +
+      "NONE\020\000\022\013\n\007TEST_OK\020\001\022\017\n\013TEST_FAILED\020\002\"\274\001\n" +
+      "\013ScriptParam\0227\n\004type\030\001 \001(\0162).shippingcal" +
+      "c.ScriptParam.ScriptParamType\022\014\n\004name\030\002 " +
+      "\001(\t\022\017\n\007caption\030\003 \001(\t\022\020\n\010fraction\030\004 \001(\004\"C" +
+      "\n\017ScriptParamType\022\017\n\013PARAM_FLOAT\020\000\022\r\n\tPA" +
+      "RAM_INT\020\001\022\020\n\014PARAM_STRING\020\002\"%\n\020GetScript" +
+      "Request\022\021\n\tscript_id\030\001 \001(\r\"=\n\021GetScriptR" +
+      "esponse\022(\n\006script\030\001 \001(\0132\030.shippingcalc.S" +
+      "criptView\"(\n\023DeleteScriptRequest\022\021\n\tscri" +
+      "pt_id\030\001 \001(\r\"\026\n\024DeleteScriptResponse\"0\n\033G" +
+      "etScriptTestResultsRequest\022\021\n\tscript_id\030" +
+      "\001 \001(\r\"c\n\034GetScriptTestResultsResponse\022/\n" +
+      "\007results\030\001 \003(\0132\036.shippingcalc.ScriptTest" +
+      "Result\022\022\n\nall_passed\030\002 \001(\010\"L\n\020ScriptTest" +
+      "Result\022\021\n\ttest_name\030\001 \001(\t\022\016\n\006passed\030\002 \001(" +
+      "\010\022\025\n\rerror_message\030\003 \001(\t\"\246\002\n\027GetDelivery" +
+      "PriceRequest\022\020\n\010order_id\030\001 \001(\t\022)\n\tshipme" +
+      "nts\030\003 \003(\0132\026.shippingcalc.Shipment\022(\n\010cus" +
+      "tomer\030\004 \001(\0132\026.shippingcalc.Customer\022\024\n\014i" +
+      "s_b2b_order\030\005 \001(\010\022\024\n\014is_promocode\030\006 \001(\010\022" +
+      "\026\n\016payment_method\030\007 \001(\t\022\032\n\022has_payment_m" +
+      "ethod\030\010 \001(\010\0221\n\rdelivery_type\030\t \001(\0162\032.shi" +
+      "ppingcalc.DeliveryType\022\021\n\ttenant_id\030\013 \001(" +
+      "\t\"\206\002\n\010Shipment\022\n\n\002id\030\001 \001(\t\022\023\n\013is_ondeman" +
+      "d\030\002 \001(\010\022.\n\010products\030\003 \003(\0132\034.shippingcalc" +
+      ".ProductRequest\022\016\n\006weight\030\004 \001(\004\022\023\n\013items" +
+      "_count\030\005 \001(\r\022\r\n\005price\030\006 \001(\004\022\020\n\010store_id\030" +
+      "\007 \001(\t\022\016\n\006status\030\010 \001(\t\022\021\n\tregion_id\030\t \001(\004" +
+      "\022&\n\036surge_delivery_window_addition\030\n \001(\004" +
+      "\022\013\n\003lat\030\013 \001(\002\022\013\n\003lon\030\014 \001(\002\"e\n\016ProductReq" +
+      "uest\022\020\n\010quantity\030\001 \001(\r\022\n\n\002id\030\002 \001(\t\022\r\n\005pr" +
+      "ice\030\003 \001(\004\022\026\n\016discount_price\030\004 \001(\004\022\016\n\006wei" +
+      "ght\030\005 \001(\004\"s\n\010Customer\022\n\n\002id\030\001 \001(\t\022\024\n\014ano" +
+      "nymous_id\030\002 \001(\t\022\024\n\014orders_count\030\003 \001(\r\022\025\n" +
+      "\rregistered_at\030\004 \001(\003\022\013\n\003lat\030\005 \001(\002\022\013\n\003lon" +
+      "\030\006 \001(\002\"\274\001\n\030GetDeliveryPriceResponse\022\031\n\021i" +
+      "s_order_possible\030\001 \001(\010\022\032\n\022minimal_cart_p" +
+      "rice\030\002 \001(\004\022\032\n\022minimal_cart_items\030\003 \001(\r\022\034" +
+      "\n\024total_shipping_price\030\004 \001(\004\022/\n\tshipment" +
+      "s\030\005 \003(\0132\034.shippingcalc.PricedShipment\"\277\003" +
+      "\n\016PricedShipment\022\023\n\013shipment_id\030\001 \001(\t\022\026\n" +
+      "\016shipping_price\030\002 \001(\004\022\030\n\020offer_expires_a" +
+      "t\030\003 \001(\003\022\022\n\noffer_hash\030\004 \001(\t\022(\n\006ladder\030\005 " +
+      "\003(\0132\030.shippingcalc.LadderStep\022\023\n\013strateg" +
+      "y_id\030\006 \001(\r\022\017\n\007rule_id\030\007 \001(\r\022\024\n\014we_had_of" +
+      "fer\030\010 \001(\010\022\034\n\024surge_level_addition\030\t \001(\004\022" +
+      "\022\n\nsurge_used\030\n \001(\010\022\023\n\013surge_level\030\013 \001(\002" +
+      "\022&\n\036surge_delivery_window_addition\030\014 \001(\004" +
+      "\022&\n\005hints\030\r \003(\0132\027.shippingcalc.PriceHint" +
+      "\0229\n\021price_explanation\030\016 \001(\0132\036.shippingca" +
+      "lc.PriceExplanation\022\032\n\022minimal_cart_pric" +
+      "e\030\017 \001(\004\"a\n\tPriceHint\022\014\n\004type\030\001 \001(\t\022\017\n\007ca" +
+      "ption\030\002 \001(\t\022\r\n\005price\030\003 \001(\004\022\030\n\020additional" +
+      "_label\030\004 \001(\t\022\014\n\004meta\030\005 \001(\t\"\211\001\n\020PriceExpl" +
+      "anation\022=\n\021passed_conditions\030\001 \003(\0132\".shi" +
+      "ppingcalc.PricePassedCondition\0226\n\020price_" +
+      "components\030\002 \003(\0132\034.shippingcalc.PriceCom" +
+      "ponent\"4\n\024PricePassedCondition\022\014\n\004type\030\001" +
+      " \001(\t\022\016\n\006params\030\002 \001(\t\";\n\016PriceComponent\022\014" +
+      "\n\004type\030\001 \001(\t\022\r\n\005price\030\002 \001(\004\022\014\n\004meta\030\003 \001(" +
+      "\t\"p\n\nLadderStep\022\027\n\nprice_from\030\001 \001(\004H\000\210\001\001" +
+      "\022\025\n\010price_to\030\002 \001(\004H\001\210\001\001\022\026\n\016shipping_pric" +
+      "e\030\003 \001(\004B\r\n\013_price_fromB\013\n\t_price_to\"p\n\rS" +
+      "urgeInterval\022\025\n\rleft_boundary\030\001 \001(\002\022\026\n\016r" +
+      "ight_boundary\030\002 \001(\002\022\026\n\016price_addition\030\003 " +
+      "\001(\004\022\030\n\020percent_addition\030\004 \001(\004\"J\n\030SetInte" +
+      "rvalsSurgeRequest\022.\n\tintervals\030\001 \003(\0132\033.s" +
+      "hippingcalc.SurgeInterval\"\033\n\031SetInterval" +
+      "sSurgeResponse\"\032\n\030GetIntervalsSurgeReque" +
+      "st\"K\n\031GetIntervalsSurgeResponse\022.\n\tinter" +
+      "vals\030\001 \003(\0132\033.shippingcalc.SurgeInterval\"" +
+      "m\n\031SurgeSwitchbackExperiment\022\027\n\017start_da" +
+      "te_time\030\001 \001(\003\022\025\n\rend_date_time\030\002 \001(\003\022\021\n\t" +
+      "region_id\030\003 \001(\004\022\r\n\005group\030\004 \001(\t\"d\n\037SetSwi" +
+      "tchbackExperimentsRequest\022\014\n\004data\030\001 \001(\t\022" +
+      "3\n\004type\030\002 \001(\0162%.shippingcalc.SurgeSwitch" +
+      "backDataType\"\"\n SetSwitchbackExperiments" +
+      "Response\"!\n\037GetSwitchbackExperimentsRequ" +
+      "est\"`\n GetSwitchbackExperimentsResponse\022" +
+      "<\n\013experiments\030\001 \003(\0132\'.shippingcalc.Surg" +
+      "eSwitchbackExperiment\"\254\001\n\030GetMinCartAmou" +
+      "ntsRequest\022#\n\006stores\030\001 \003(\0132\023.shippingcal" +
+      "c.Store\022(\n\010customer\030\002 \001(\0132\026.shippingcalc" +
+      ".Customer\022\016\n\006tenant\030\003 \001(\t\0221\n\rdelivery_ty" +
+      "pe\030\004 \001(\0162\032.shippingcalc.DeliveryType\"-\n\005" +
+      "Store\022\n\n\002id\030\001 \001(\t\022\013\n\003lat\030\002 \001(\002\022\013\n\003lon\030\003 " +
+      "\001(\002\"R\n\031GetMinCartAmountsResponse\0225\n\020min_" +
+      "cart_amounts\030\001 \003(\0132\033.shippingcalc.MinCar" +
+      "tAmount\"1\n\rMinCartAmount\022\020\n\010store_id\030\001 \001" +
+      "(\t\022\016\n\006amount\030\002 \001(\004*J\n\014DeliveryType\022\010\n\004NO" +
+      "NE\020\000\022\021\n\rSELF_DELIVERY\020\001\022\024\n\020COURIER_DELIV" +
+      "ERY\020\002\022\007\n\003B2B\020\003*v\n\rConditionType\022\n\n\006ALWAY" +
+      "S\020\000\022\022\n\016FIRST_N_ORDERS\020\001\022\025\n\021ORDER_VALUE_R" +
+      "ANGE\020\002\022\024\n\020AB_TEST_ENTRANCE\020\003\022\030\n\024ORDER_DI" +
+      "STANCE_RANGE\020\004*1\n\013ScriptState\022\020\n\014SCRIPT_" +
+      "VALID\020\000\022\020\n\014SCRIPT_ERROR\020\001*\"\n\027SurgeSwitch" +
+      "backDataType\022\007\n\003CSV\020\0002\227\017\n\014Shippingcalc\022[" +
+      "\n\016CreateStrategy\022#.shippingcalc.CreateSt" +
+      "rategyRequest\032$.shippingcalc.CreateStrat" +
+      "egyResponse\022[\n\016UpdateStrategy\022#.shipping" +
+      "calc.UpdateStrategyRequest\032$.shippingcal" +
+      "c.UpdateStrategyResponse\022U\n\014BindStrategy" +
+      "\022!.shippingcalc.BindStrategyRequest\032\".sh" +
+      "ippingcalc.BindStrategyResponse\022[\n\016Unbin" +
+      "dStrategy\022#.shippingcalc.UnbindStrategyR" +
+      "equest\032$.shippingcalc.UnbindStrategyResp" +
+      "onse\022X\n\rGetStrategies\022\".shippingcalc.Get" +
+      "StrategiesRequest\032#.shippingcalc.GetStra" +
+      "tegiesResponse\022R\n\013GetStrategy\022 .shipping" +
+      "calc.GetStrategyRequest\032!.shippingcalc.G" +
+      "etStrategyResponse\022p\n\025GetStrategiesForSt" +
+      "ore\022*.shippingcalc.GetStrategiesForStore" +
+      "Request\032+.shippingcalc.GetStrategiesForS" +
+      "toreResponse\022[\n\016DeleteStrategy\022#.shippin" +
+      "gcalc.DeleteStrategyRequest\032$.shippingca" +
+      "lc.DeleteStrategyResponse\022U\n\014CreateScrip" +
+      "t\022!.shippingcalc.CreateScriptRequest\032\".s" +
+      "hippingcalc.CreateScriptResponse\022U\n\014Upda" +
+      "teScript\022!.shippingcalc.UpdateScriptRequ" +
+      "est\032\".shippingcalc.UpdateScriptResponse\022" +
+      "L\n\tGetScript\022\036.shippingcalc.GetScriptReq" +
+      "uest\032\037.shippingcalc.GetScriptResponse\022O\n" +
+      "\nGetScripts\022\037.shippingcalc.GetScriptsReq" +
+      "uest\032 .shippingcalc.GetScriptsResponse\022m" +
+      "\n\024GetScriptTestResults\022).shippingcalc.Ge" +
+      "tScriptTestResultsRequest\032*.shippingcalc" +
+      ".GetScriptTestResultsResponse\022U\n\014DeleteS" +
+      "cript\022!.shippingcalc.DeleteScriptRequest" +
+      "\032\".shippingcalc.DeleteScriptResponse\022a\n\020" +
+      "GetDeliveryPrice\022%.shippingcalc.GetDeliv" +
+      "eryPriceRequest\032&.shippingcalc.GetDelive" +
+      "ryPriceResponse\022d\n\021SetIntervalsSurge\022&.s" +
+      "hippingcalc.SetIntervalsSurgeRequest\032\'.s" +
+      "hippingcalc.SetIntervalsSurgeResponse\022d\n" +
+      "\021GetIntervalsSurge\022&.shippingcalc.GetInt" +
+      "ervalsSurgeRequest\032\'.shippingcalc.GetInt" +
+      "ervalsSurgeResponse\022y\n\030SetSwitchbackExpe" +
+      "riments\022-.shippingcalc.SetSwitchbackExpe" +
+      "rimentsRequest\032..shippingcalc.SetSwitchb" +
+      "ackExperimentsResponse\022y\n\030GetSwitchbackE" +
+      "xperiments\022-.shippingcalc.GetSwitchbackE" +
+      "xperimentsRequest\032..shippingcalc.GetSwit" +
+      "chbackExperimentsResponse\022d\n\021GetMinCartA" +
+      "mounts\022&.shippingcalc.GetMinCartAmountsR" +
+      "equest\032\'.shippingcalc.GetMinCartAmountsR" +
       "esponseBRZPgitlab.sbmt.io/paas/content/o" +
       "perations/shippingcalc/pkg/server/grpc/s" +
       "hippingcalcb\006proto3"
@@ -62633,7 +68075,7 @@ public final class ShippingcalcOuterClass {
     internal_static_shippingcalc_StrategyBinding_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_StrategyBinding_descriptor,
-        new java.lang.String[] { "StoreId", "TenantId", "DeliveryType", });
+        new java.lang.String[] { "StoreId", "TenantId", });
     internal_static_shippingcalc_BindStrategyResponse_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_shippingcalc_BindStrategyResponse_fieldAccessorTable = new
@@ -62646,306 +68088,336 @@ public final class ShippingcalcOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_StrategyView_descriptor,
         new java.lang.String[] { "StrategyId", "CreatorId", "Name", "Global", "Priority", "Binds", "Description", "CreatedAt", "UpdatedAt", "DeliveryType", });
-    internal_static_shippingcalc_UnbindStrategyRequest_descriptor =
+    internal_static_shippingcalc_StrategyViewLight_descriptor =
       getDescriptor().getMessageTypes().get(11);
+    internal_static_shippingcalc_StrategyViewLight_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_StrategyViewLight_descriptor,
+        new java.lang.String[] { "StrategyId", "CreatorId", "Name", "Global", "Priority", "Stores", "Description", "CreatedAt", "UpdatedAt", "DeliveryType", });
+    internal_static_shippingcalc_UnbindStrategyRequest_descriptor =
+      getDescriptor().getMessageTypes().get(12);
     internal_static_shippingcalc_UnbindStrategyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_UnbindStrategyRequest_descriptor,
         new java.lang.String[] { "StrategyId", "Binds", });
     internal_static_shippingcalc_UnbindStrategyResponse_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_shippingcalc_UnbindStrategyResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_UnbindStrategyResponse_descriptor,
         new java.lang.String[] { "Strategy", });
     internal_static_shippingcalc_GetStrategiesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_shippingcalc_GetStrategiesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetStrategiesRequest_descriptor,
         new java.lang.String[] { "StrategyName", "DeliveryType", "Stores", });
     internal_static_shippingcalc_GetStrategiesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_shippingcalc_GetStrategiesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetStrategiesResponse_descriptor,
         new java.lang.String[] { "Strategies", });
     internal_static_shippingcalc_GetStrategyRequest_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_shippingcalc_GetStrategyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetStrategyRequest_descriptor,
         new java.lang.String[] { "StrategyId", });
     internal_static_shippingcalc_GetStrategyResponse_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_shippingcalc_GetStrategyResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetStrategyResponse_descriptor,
         new java.lang.String[] { "Strategy", "Rules", "MinCartRules", });
     internal_static_shippingcalc_RuleView_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_shippingcalc_RuleView_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_RuleView_descriptor,
         new java.lang.String[] { "Id", "ScriptId", "ScriptName", "ScriptParamValues", "Conditions", "Priority", "CreatorId", "CreatedAt", });
     internal_static_shippingcalc_MinCartRuleView_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_shippingcalc_MinCartRuleView_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_MinCartRuleView_descriptor,
         new java.lang.String[] { "Id", "MinCartValue", "Conditions", "Priority", "CreatorId", "CreatedAt", });
     internal_static_shippingcalc_ConditionView_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_shippingcalc_ConditionView_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_ConditionView_descriptor,
         new java.lang.String[] { "ConditionType", "Params", });
     internal_static_shippingcalc_GetStrategiesForStoreRequest_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_shippingcalc_GetStrategiesForStoreRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetStrategiesForStoreRequest_descriptor,
         new java.lang.String[] { "StoreId", "Tenant", "DeliveryType", });
     internal_static_shippingcalc_ExplainedStrategyView_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_shippingcalc_ExplainedStrategyView_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_ExplainedStrategyView_descriptor,
         new java.lang.String[] { "StrategyId", "Binding", });
     internal_static_shippingcalc_GetStrategiesForStoreResponse_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_shippingcalc_GetStrategiesForStoreResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetStrategiesForStoreResponse_descriptor,
         new java.lang.String[] { "Strategy", });
     internal_static_shippingcalc_DeleteStrategyRequest_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_shippingcalc_DeleteStrategyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_DeleteStrategyRequest_descriptor,
         new java.lang.String[] { "StrategyId", });
     internal_static_shippingcalc_DeleteStrategyResponse_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_shippingcalc_DeleteStrategyResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_DeleteStrategyResponse_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_CreateScriptRequest_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_shippingcalc_CreateScriptRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_CreateScriptRequest_descriptor,
         new java.lang.String[] { "ScriptName", "ScriptBody", "CreatorId", });
     internal_static_shippingcalc_CreateScriptResponse_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_shippingcalc_CreateScriptResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_CreateScriptResponse_descriptor,
         new java.lang.String[] { "ScriptId", "State", "ResultMessage", });
     internal_static_shippingcalc_UpdateScriptRequest_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_shippingcalc_UpdateScriptRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_UpdateScriptRequest_descriptor,
         new java.lang.String[] { "ScriptId", "ScriptName", "ScriptBody", "CreatorId", });
     internal_static_shippingcalc_UpdateScriptResponse_descriptor =
-      getDescriptor().getMessageTypes().get(28);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_shippingcalc_UpdateScriptResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_UpdateScriptResponse_descriptor,
         new java.lang.String[] { "State", "ResultMessage", });
     internal_static_shippingcalc_GetScriptsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(29);
+      getDescriptor().getMessageTypes().get(30);
     internal_static_shippingcalc_GetScriptsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetScriptsRequest_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetScriptsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(30);
+      getDescriptor().getMessageTypes().get(31);
     internal_static_shippingcalc_GetScriptsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetScriptsResponse_descriptor,
         new java.lang.String[] { "Scripts", });
     internal_static_shippingcalc_ScriptView_descriptor =
-      getDescriptor().getMessageTypes().get(31);
+      getDescriptor().getMessageTypes().get(32);
     internal_static_shippingcalc_ScriptView_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_ScriptView_descriptor,
         new java.lang.String[] { "ScriptId", "ScriptName", "ScriptBody", "RequiredParams", "CreatedAt", "UpdatedAt", "State", });
     internal_static_shippingcalc_ScriptParam_descriptor =
-      getDescriptor().getMessageTypes().get(32);
+      getDescriptor().getMessageTypes().get(33);
     internal_static_shippingcalc_ScriptParam_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_ScriptParam_descriptor,
         new java.lang.String[] { "Type", "Name", "Caption", "Fraction", });
     internal_static_shippingcalc_GetScriptRequest_descriptor =
-      getDescriptor().getMessageTypes().get(33);
+      getDescriptor().getMessageTypes().get(34);
     internal_static_shippingcalc_GetScriptRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetScriptRequest_descriptor,
         new java.lang.String[] { "ScriptId", });
     internal_static_shippingcalc_GetScriptResponse_descriptor =
-      getDescriptor().getMessageTypes().get(34);
+      getDescriptor().getMessageTypes().get(35);
     internal_static_shippingcalc_GetScriptResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetScriptResponse_descriptor,
         new java.lang.String[] { "Script", });
     internal_static_shippingcalc_DeleteScriptRequest_descriptor =
-      getDescriptor().getMessageTypes().get(35);
+      getDescriptor().getMessageTypes().get(36);
     internal_static_shippingcalc_DeleteScriptRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_DeleteScriptRequest_descriptor,
         new java.lang.String[] { "ScriptId", });
     internal_static_shippingcalc_DeleteScriptResponse_descriptor =
-      getDescriptor().getMessageTypes().get(36);
+      getDescriptor().getMessageTypes().get(37);
     internal_static_shippingcalc_DeleteScriptResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_DeleteScriptResponse_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetScriptTestResultsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(37);
+      getDescriptor().getMessageTypes().get(38);
     internal_static_shippingcalc_GetScriptTestResultsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetScriptTestResultsRequest_descriptor,
         new java.lang.String[] { "ScriptId", });
     internal_static_shippingcalc_GetScriptTestResultsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(38);
+      getDescriptor().getMessageTypes().get(39);
     internal_static_shippingcalc_GetScriptTestResultsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetScriptTestResultsResponse_descriptor,
         new java.lang.String[] { "Results", "AllPassed", });
     internal_static_shippingcalc_ScriptTestResult_descriptor =
-      getDescriptor().getMessageTypes().get(39);
+      getDescriptor().getMessageTypes().get(40);
     internal_static_shippingcalc_ScriptTestResult_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_ScriptTestResult_descriptor,
         new java.lang.String[] { "TestName", "Passed", "ErrorMessage", });
     internal_static_shippingcalc_GetDeliveryPriceRequest_descriptor =
-      getDescriptor().getMessageTypes().get(40);
+      getDescriptor().getMessageTypes().get(41);
     internal_static_shippingcalc_GetDeliveryPriceRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetDeliveryPriceRequest_descriptor,
         new java.lang.String[] { "OrderId", "Shipments", "Customer", "IsB2BOrder", "IsPromocode", "PaymentMethod", "HasPaymentMethod", "DeliveryType", "TenantId", });
     internal_static_shippingcalc_Shipment_descriptor =
-      getDescriptor().getMessageTypes().get(41);
+      getDescriptor().getMessageTypes().get(42);
     internal_static_shippingcalc_Shipment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_Shipment_descriptor,
         new java.lang.String[] { "Id", "IsOndemand", "Products", "Weight", "ItemsCount", "Price", "StoreId", "Status", "RegionId", "SurgeDeliveryWindowAddition", "Lat", "Lon", });
     internal_static_shippingcalc_ProductRequest_descriptor =
-      getDescriptor().getMessageTypes().get(42);
+      getDescriptor().getMessageTypes().get(43);
     internal_static_shippingcalc_ProductRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_ProductRequest_descriptor,
         new java.lang.String[] { "Quantity", "Id", "Price", "DiscountPrice", "Weight", });
     internal_static_shippingcalc_Customer_descriptor =
-      getDescriptor().getMessageTypes().get(43);
+      getDescriptor().getMessageTypes().get(44);
     internal_static_shippingcalc_Customer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_Customer_descriptor,
         new java.lang.String[] { "Id", "AnonymousId", "OrdersCount", "RegisteredAt", "Lat", "Lon", });
     internal_static_shippingcalc_GetDeliveryPriceResponse_descriptor =
-      getDescriptor().getMessageTypes().get(44);
+      getDescriptor().getMessageTypes().get(45);
     internal_static_shippingcalc_GetDeliveryPriceResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetDeliveryPriceResponse_descriptor,
         new java.lang.String[] { "IsOrderPossible", "MinimalCartPrice", "MinimalCartItems", "TotalShippingPrice", "Shipments", });
     internal_static_shippingcalc_PricedShipment_descriptor =
-      getDescriptor().getMessageTypes().get(45);
+      getDescriptor().getMessageTypes().get(46);
     internal_static_shippingcalc_PricedShipment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_PricedShipment_descriptor,
-        new java.lang.String[] { "ShipmentId", "ShippingPrice", "OfferExpiresAt", "OfferHash", "Ladder", "StrategyId", "RuleId", "WeHadOffer", "SurgeLevelAddition", "SurgeUsed", "SurgeLevel", "SurgeDeliveryWindowAddition", "Hints", "PriceExplanation", });
+        new java.lang.String[] { "ShipmentId", "ShippingPrice", "OfferExpiresAt", "OfferHash", "Ladder", "StrategyId", "RuleId", "WeHadOffer", "SurgeLevelAddition", "SurgeUsed", "SurgeLevel", "SurgeDeliveryWindowAddition", "Hints", "PriceExplanation", "MinimalCartPrice", });
     internal_static_shippingcalc_PriceHint_descriptor =
-      getDescriptor().getMessageTypes().get(46);
+      getDescriptor().getMessageTypes().get(47);
     internal_static_shippingcalc_PriceHint_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_PriceHint_descriptor,
         new java.lang.String[] { "Type", "Caption", "Price", "AdditionalLabel", "Meta", });
     internal_static_shippingcalc_PriceExplanation_descriptor =
-      getDescriptor().getMessageTypes().get(47);
+      getDescriptor().getMessageTypes().get(48);
     internal_static_shippingcalc_PriceExplanation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_PriceExplanation_descriptor,
         new java.lang.String[] { "PassedConditions", "PriceComponents", });
     internal_static_shippingcalc_PricePassedCondition_descriptor =
-      getDescriptor().getMessageTypes().get(48);
+      getDescriptor().getMessageTypes().get(49);
     internal_static_shippingcalc_PricePassedCondition_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_PricePassedCondition_descriptor,
         new java.lang.String[] { "Type", "Params", });
     internal_static_shippingcalc_PriceComponent_descriptor =
-      getDescriptor().getMessageTypes().get(49);
+      getDescriptor().getMessageTypes().get(50);
     internal_static_shippingcalc_PriceComponent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_PriceComponent_descriptor,
         new java.lang.String[] { "Type", "Price", "Meta", });
     internal_static_shippingcalc_LadderStep_descriptor =
-      getDescriptor().getMessageTypes().get(50);
+      getDescriptor().getMessageTypes().get(51);
     internal_static_shippingcalc_LadderStep_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_LadderStep_descriptor,
         new java.lang.String[] { "PriceFrom", "PriceTo", "ShippingPrice", "PriceFrom", "PriceTo", });
     internal_static_shippingcalc_SurgeInterval_descriptor =
-      getDescriptor().getMessageTypes().get(51);
+      getDescriptor().getMessageTypes().get(52);
     internal_static_shippingcalc_SurgeInterval_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_SurgeInterval_descriptor,
         new java.lang.String[] { "LeftBoundary", "RightBoundary", "PriceAddition", "PercentAddition", });
     internal_static_shippingcalc_SetIntervalsSurgeRequest_descriptor =
-      getDescriptor().getMessageTypes().get(52);
+      getDescriptor().getMessageTypes().get(53);
     internal_static_shippingcalc_SetIntervalsSurgeRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_SetIntervalsSurgeRequest_descriptor,
         new java.lang.String[] { "Intervals", });
     internal_static_shippingcalc_SetIntervalsSurgeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(53);
+      getDescriptor().getMessageTypes().get(54);
     internal_static_shippingcalc_SetIntervalsSurgeResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_SetIntervalsSurgeResponse_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetIntervalsSurgeRequest_descriptor =
-      getDescriptor().getMessageTypes().get(54);
+      getDescriptor().getMessageTypes().get(55);
     internal_static_shippingcalc_GetIntervalsSurgeRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetIntervalsSurgeRequest_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetIntervalsSurgeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(55);
+      getDescriptor().getMessageTypes().get(56);
     internal_static_shippingcalc_GetIntervalsSurgeResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetIntervalsSurgeResponse_descriptor,
         new java.lang.String[] { "Intervals", });
     internal_static_shippingcalc_SurgeSwitchbackExperiment_descriptor =
-      getDescriptor().getMessageTypes().get(56);
+      getDescriptor().getMessageTypes().get(57);
     internal_static_shippingcalc_SurgeSwitchbackExperiment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_SurgeSwitchbackExperiment_descriptor,
         new java.lang.String[] { "StartDateTime", "EndDateTime", "RegionId", "Group", });
     internal_static_shippingcalc_SetSwitchbackExperimentsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(57);
+      getDescriptor().getMessageTypes().get(58);
     internal_static_shippingcalc_SetSwitchbackExperimentsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_SetSwitchbackExperimentsRequest_descriptor,
         new java.lang.String[] { "Data", "Type", });
     internal_static_shippingcalc_SetSwitchbackExperimentsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(58);
+      getDescriptor().getMessageTypes().get(59);
     internal_static_shippingcalc_SetSwitchbackExperimentsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_SetSwitchbackExperimentsResponse_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetSwitchbackExperimentsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(59);
+      getDescriptor().getMessageTypes().get(60);
     internal_static_shippingcalc_GetSwitchbackExperimentsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetSwitchbackExperimentsRequest_descriptor,
         new java.lang.String[] { });
     internal_static_shippingcalc_GetSwitchbackExperimentsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(60);
+      getDescriptor().getMessageTypes().get(61);
     internal_static_shippingcalc_GetSwitchbackExperimentsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetSwitchbackExperimentsResponse_descriptor,
         new java.lang.String[] { "Experiments", });
+    internal_static_shippingcalc_GetMinCartAmountsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(62);
+    internal_static_shippingcalc_GetMinCartAmountsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_GetMinCartAmountsRequest_descriptor,
+        new java.lang.String[] { "Stores", "Customer", "Tenant", "DeliveryType", });
+    internal_static_shippingcalc_Store_descriptor =
+      getDescriptor().getMessageTypes().get(63);
+    internal_static_shippingcalc_Store_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_Store_descriptor,
+        new java.lang.String[] { "Id", "Lat", "Lon", });
+    internal_static_shippingcalc_GetMinCartAmountsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(64);
+    internal_static_shippingcalc_GetMinCartAmountsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_GetMinCartAmountsResponse_descriptor,
+        new java.lang.String[] { "MinCartAmounts", });
+    internal_static_shippingcalc_MinCartAmount_descriptor =
+      getDescriptor().getMessageTypes().get(65);
+    internal_static_shippingcalc_MinCartAmount_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_MinCartAmount_descriptor,
+        new java.lang.String[] { "StoreId", "Amount", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
