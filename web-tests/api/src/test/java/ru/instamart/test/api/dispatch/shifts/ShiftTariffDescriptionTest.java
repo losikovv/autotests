@@ -1,5 +1,6 @@
 package ru.instamart.test.api.dispatch.shifts;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
@@ -45,7 +46,9 @@ public class ShiftTariffDescriptionTest extends RestBase {
                 "Если по завершению смены оплата за выполненные заказы окажется меньше гарантированного дохода, то ваша оплата за эту смену будет равна гарантированному доходу.";
         Response response = TariffDescriptionRequest.GET();
         StatusCodeCheckpoints.checkStatusCode(response, 200, "text/plain; charset=utf-8");
-        Assert.assertEquals(response.getBody().asString(), description, "Описание тарифа не совпадает");
+        Allure.step("Проверка описания тарифов", ()-> {
+            Assert.assertEquals(response.getBody().asString(), description, "Описание тарифа не совпадает");
+        });
     }
 
 }

@@ -1,5 +1,6 @@
 package ru.instamart.test.api.dispatch.shifts;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -22,9 +23,9 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 
@@ -67,12 +68,12 @@ public class CreateShiftsTest extends RestBase {
         final Response response = ShiftsRequest.POST(postShift);
         checkStatusCode(response, 201);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getId(), Optional.ofNullable(planningPeriod.get(0).getId()),
-                "Id планируемого периода не совпадает");
-        softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getGuaranteedPayroll(), planningPeriod.get(0).getBaseGuaranteedPayroll(),
-                "Гарантированная оплата не равна заданному");
-        softAssert.assertAll();
+        Allure.step("Проверка ответа", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            compareTwoObjects(shiftResponse.getPlanningPeriods().get(0).getId(), planningPeriod.get(0).getId(), softAssert);
+            compareTwoObjects(shiftResponse.getPlanningPeriods().get(0).getGuaranteedPayroll(), planningPeriod.get(0).getBaseGuaranteedPayroll(), softAssert);
+            softAssert.assertAll();
+        });
     }
 
     @CaseId(10)
@@ -94,12 +95,12 @@ public class CreateShiftsTest extends RestBase {
         final Response response = ShiftsRequest.POST(postShift);
         checkStatusCode(response, 201);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getId(), Optional.ofNullable(planningPeriodItem.getId()),
-                "Id планируемого периода не совпадает");
-        softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getGuaranteedPayroll(), planningPeriodItem.getBaseGuaranteedPayroll(),
-                "Гарантированная оплата не равна заданному");
-        softAssert.assertAll();
+        Allure.step("Проверка периодов планирования", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            compareTwoObjects(shiftResponse.getPlanningPeriods().get(0).getId(), planningPeriodItem.getId(), softAssert);
+            compareTwoObjects(shiftResponse.getPlanningPeriods().get(0).getGuaranteedPayroll(), planningPeriodItem.getBaseGuaranteedPayroll(), softAssert);
+            softAssert.assertAll();
+        });
     }
 
     @CaseId(11)
@@ -125,7 +126,9 @@ public class CreateShiftsTest extends RestBase {
         final Response response = ShiftsRequest.POST(postShift);
         checkStatusCode(response, 201);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
-        assertEquals(shiftResponse.getState(), "new", "State пришел не отличной от new");
+        Allure.step("Проверка ответа статуса State", () -> {
+            assertEquals(shiftResponse.getState(), "new", "State пришел не отличной от new");
+        });
     }
 
     @CaseId(137)
@@ -147,11 +150,13 @@ public class CreateShiftsTest extends RestBase {
         final Response response = ShiftsRequest.POST(postShift);
         checkStatusCode422(response);
         ErrorTypeResponse errorTypeResponse = response.as(ErrorTypeResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(errorTypeResponse.getStatus(), 422, "Error status message not valid");
-        softAssert.assertEquals(errorTypeResponse.getTitle(), "Some shifts already planned for this time", "Error title message not valid");
-        softAssert.assertEquals(errorTypeResponse.getType(), "shift-intersection", "Error type message not valid");
-        softAssert.assertAll();
+        Allure.step("Поверка сообщения об ошибке", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(errorTypeResponse.getStatus(), 422, "Error status message not valid");
+            softAssert.assertEquals(errorTypeResponse.getTitle(), "Some shifts already planned for this time", "Error title message not valid");
+            softAssert.assertEquals(errorTypeResponse.getType(), "shift-intersection", "Error type message not valid");
+            softAssert.assertAll();
+        });
     }
 
     @CaseId(137)
@@ -173,10 +178,13 @@ public class CreateShiftsTest extends RestBase {
         final Response response = ShiftsRequest.POST(postShift);
         checkStatusCode422(response);
         ErrorTypeResponse errorTypeResponse = response.as(ErrorTypeResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(errorTypeResponse.getStatus(), 422, "Error status message not valid");
-        softAssert.assertEquals(errorTypeResponse.getTitle(), "Some shifts already planned for this time", "Error title message not valid");
-        softAssert.assertEquals(errorTypeResponse.getType(), "shift-intersection", "Error type message not valid");
-        softAssert.assertAll();
+
+        Allure.step("", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(errorTypeResponse.getStatus(), 422, "Error status message not valid");
+            softAssert.assertEquals(errorTypeResponse.getTitle(), "Some shifts already planned for this time", "Error title message not valid");
+            softAssert.assertEquals(errorTypeResponse.getType(), "shift-intersection", "Error type message not valid");
+            softAssert.assertAll();
+        });
     }
 }

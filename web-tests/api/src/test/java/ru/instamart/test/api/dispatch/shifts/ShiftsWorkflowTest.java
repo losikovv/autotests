@@ -1,5 +1,6 @@
 package ru.instamart.test.api.dispatch.shifts;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -56,7 +57,9 @@ public class ShiftsWorkflowTest extends RestBase {
         final Response response = ShiftsRequest.Start.PATCH(planningPeriodId, METRO_3.getLat(), METRO_3.getLon());
         checkStatusCode200(response);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
-        assertEquals(shiftResponse.getState(), "in_progress", "State смены не в статусе \"in_progress\"");
-        assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        Allure.step("Проверка статуса смены", ()-> {
+            assertEquals(shiftResponse.getState(), "in_progress", "State смены не в статусе \"in_progress\"");
+            assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        });
     }
 }

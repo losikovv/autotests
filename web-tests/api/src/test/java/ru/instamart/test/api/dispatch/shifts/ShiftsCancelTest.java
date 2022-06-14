@@ -1,5 +1,6 @@
 package ru.instamart.test.api.dispatch.shifts;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -22,6 +23,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Endpoints")
 public class ShiftsCancelTest extends RestBase {
     private int planningPeriodId;
+
     @BeforeClass(alwaysRun = true,
             description = "Авторизация")
     public void auth() {
@@ -43,8 +45,10 @@ public class ShiftsCancelTest extends RestBase {
         final Response response = ShiftsRequest.Cancel.PATCH(planningPeriodId);
         checkStatusCode200(response);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
-        assertEquals(shiftResponse.getState(), "canceled", "State смены не в статусе \"canceled\"");
-        assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        Allure.step("Проверка статуса смены", () -> {
+            assertEquals(shiftResponse.getState(), "canceled", "State смены не в статусе \"canceled\"");
+            assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        });
     }
 
     @CaseId(71)
@@ -56,8 +60,9 @@ public class ShiftsCancelTest extends RestBase {
         final Response response = ShiftsRequest.Cancel.PATCH(planningPeriodId);
         checkStatusCode200(response);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
-        assertEquals(shiftResponse.getState(), "canceled", "State смены не в статусе \"canceled\"");
-        assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        Allure.step("Проверка статуса смены", () -> {
+            assertEquals(shiftResponse.getState(), "canceled", "State смены не в статусе \"canceled\"");
+            assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        });
     }
-
 }
