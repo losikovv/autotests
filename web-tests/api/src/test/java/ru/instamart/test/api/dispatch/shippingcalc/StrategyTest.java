@@ -1128,7 +1128,54 @@ public class StrategyTest extends RestBase {
     public void getStrategiesForStoreNotFound() {
         ShippingcalcOuterClass.GetStrategiesForStoreRequest request = ShippingcalcOuterClass.GetStrategiesForStoreRequest.newBuilder()
                 .setStoreId(firstStoreId)
+                .setTenant("test")
                 .setDeliveryTypeValue(2)
+                .build();
+
+        clientShippingCalc.getStrategiesForStore(request);
+    }
+
+    @CaseId(351)
+    @Story("Get Strategies For Store")
+    @Test(description = "Получение ошибки при отсутствии магазина",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty store id")
+    public void getStrategiesForStoreWithoutStoreId() {
+        ShippingcalcOuterClass.GetStrategiesForStoreRequest request = ShippingcalcOuterClass.GetStrategiesForStoreRequest.newBuilder()
+                .setTenant("metro")
+                .setDeliveryTypeValue(2)
+                .build();
+
+        clientShippingCalc.getStrategiesForStore(request);
+    }
+
+    @CaseId(352)
+    @Story("Get Strategies For Store")
+    @Test(description = "Получение ошибки при отсутствии тенанта",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tenant id")
+    public void getStrategiesForStoreWithoutTenant() {
+        ShippingcalcOuterClass.GetStrategiesForStoreRequest request = ShippingcalcOuterClass.GetStrategiesForStoreRequest.newBuilder()
+                .setStoreId(firstStoreId)
+                .setDeliveryTypeValue(2)
+                .build();
+
+        clientShippingCalc.getStrategiesForStore(request);
+    }
+
+    @CaseId(353)
+    @Story("Get Strategies For Store")
+    @Test(description = "Получение ошибки при отсутствии способа доставки",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid delivery type")
+    public void getStrategiesForStoreWithoutDeliveryType() {
+        ShippingcalcOuterClass.GetStrategiesForStoreRequest request = ShippingcalcOuterClass.GetStrategiesForStoreRequest.newBuilder()
+                .setStoreId(firstStoreId)
+                .setTenant("metro")
+                .setDeliveryTypeValue(0)
                 .build();
 
         clientShippingCalc.getStrategiesForStore(request);
