@@ -107,6 +107,7 @@ public final class OrdersV2Request extends ApiV2RequestBase {
         data.put("order[replacement_policy_id]", replacementPolicyId);
         data.put("order[phone_attributes][value]", phoneNumber);
         data.put("order[address_attributes][instructions]", instructions);
+        data.put("order[address_attributes][apartment]", "1");
         data.put("order[payment_attributes][payment_tool_id]", paymentToolId);
         data.put("order[shipments_attributes][][id]", shipmentId);
         data.put("order[shipments_attributes][][delivery_window_id]", deliveryWindowId);
