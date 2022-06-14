@@ -72,3 +72,18 @@ tests:on:demand:tm:
     - gradle clean build onDemandTM -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh grpc on-demand-tm
+
+tests:on:demand:shippingcalc:
+  resource_group: onDemandShippingCalc
+  extends:
+    - ".template_api_tests"
+  only:
+    refs:
+      - schedules
+    variables:
+      - $ON_DEMAND_SHIPPINGCALC == 'true'
+  when: always
+  script:
+    - gradle clean build onDemandShippingCalc -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh api on-demand-shippingcalc
