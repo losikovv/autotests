@@ -8,6 +8,8 @@ import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.request.ApiV1RequestBase;
 
+import java.util.Objects;
+
 public class ShoppingContextV1Request extends ApiV1RequestBase {
 
     @Step("{method} /" + ApiV1Endpoints.SHOPPING_CONTEXT)
@@ -22,6 +24,9 @@ public class ShoppingContextV1Request extends ApiV1RequestBase {
         shippingAddress.put("full_address", address.getFullAddress());
         shippingAddress.put("city", address.getCity());
         shippingAddress.put("city_in", "");
+        if(Objects.nonNull(address.getApartment())) {
+            shippingAddress.put("apartment", address.getApartment());
+        }
         shoppingContext.put("ship_address", shippingAddress);
         shoppingContext.put("shipping_method_kind", shippingMethod);
         body.put("shopping_context", shoppingContext);

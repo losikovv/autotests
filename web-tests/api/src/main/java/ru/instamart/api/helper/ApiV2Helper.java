@@ -895,6 +895,8 @@ public final class ApiV2Helper {
         if (store == null) fail(response.body().asString());
 
         AddressV2 address = store.getLocation();
+        address.setApartment("1");
+        address.setDeliveryToDoor(false);
         log.debug("Получен адрес {}", address.getFullAddress());
         Allure.step("Получен адрес " + address.getFullAddress());
 
@@ -1402,20 +1404,6 @@ public final class ApiV2Helper {
                 .filter(img -> Objects.nonNull(img.getImage()))
                 .iterator().next()
                 .getImage().getUrl();
-    }
-
-    public void waitingForDeliveryStatus(final String orderNumber) {
-        String shipmentState;
-        int i = 0;
-        do {
-            Response response = OrdersV2Request.GET(orderNumber);
-            checkStatusCode200(response);
-            OrderV2Response order = response.as(OrderV2Response.class);
-            shipmentState = order.getOrder().getShipmentState();
-            log.info("shipment state: {}", shipmentState);
-            simplyAwait(1);
-            i += 1;
-        } while (!shipmentState.equals("shipped") && i < 10);
     }
 
     public List<ReviewIssueV2> getReviewIssues(final String shipmentsNumber) {
