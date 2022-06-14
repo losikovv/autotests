@@ -25,7 +25,7 @@ public final class StoreModal implements StoreModalCheck, Close {
         editAddress.click();
     }
 
-    @Step("Выбираем магазин c sid = '{sid}")
+    @Step("Выбираем магазин c sid = '{sid}'")
     public void selectStoreWithSid(final int sid) {
         storeCardBySid.click(sid);
     }
