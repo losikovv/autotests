@@ -165,7 +165,7 @@ public final class AdministrationShippingSettingsTests {
         shippingMethod().fillAssemblySurcharge("10");
         shippingMethod().fillBagSurcharge("10");
         shippingMethod().clickToSubmitChanges();
-        shippingMethod().interactFlashAlert().checkSuccessFlash();
+        shippingMethod().interactFlashAlert().checkSuccessFlashVisible();
     }
 
     //Нельзя добавить только номинальное правило
@@ -183,7 +183,7 @@ public final class AdministrationShippingSettingsTests {
         shippingMethod().fillAssemblySurcharge("10");
         shippingMethod().fillBagSurcharge("10");
         shippingMethod().clickToSubmitChanges();
-        shippingMethod().interactFlashAlert().checkSuccessFlash();
+        shippingMethod().interactFlashAlert().checkSuccessFlashVisible();
     }
 
     @CaseId(522)
