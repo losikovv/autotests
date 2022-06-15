@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class OnboardingPagesV2Response extends BaseResponseObject {
-    @NotEmpty
+
     @JsonSchema(required = true)
     @JsonProperty(value = "onboarding_pages")
     private List<OnboardingPageV2> onboardingPages = null;
