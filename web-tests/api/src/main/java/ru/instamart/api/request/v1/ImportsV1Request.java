@@ -16,9 +16,9 @@ public class ImportsV1Request extends ApiV1RequestBase {
 
     public static class FilterFiles {
         @Step("{method} /" + ApiV1Endpoints.Imports.FILTERS_FILES)
-        public static Response GET() {
+        public static Response GET(int perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Imports.FILTERS_FILES);
         }
 
@@ -33,9 +33,9 @@ public class ImportsV1Request extends ApiV1RequestBase {
 
     public static class PricesFiles {
         @Step("{method} /" + ApiV1Endpoints.Imports.PRICES_FILES)
-        public static Response GET() {
+        public static Response GET(int perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Imports.PRICES_FILES);
         }
 
@@ -55,9 +55,9 @@ public class ImportsV1Request extends ApiV1RequestBase {
 
     public static class ProductsImagesArchives {
         @Step("{method} /" + ApiV1Endpoints.Imports.PRODUCTS_IMAGES_ARCHIVES)
-        public static Response GET() {
+        public static Response GET(int perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Imports.PRODUCTS_IMAGES_ARCHIVES);
         }
 
@@ -71,9 +71,9 @@ public class ImportsV1Request extends ApiV1RequestBase {
 
     public static class EansFiles {
         @Step("{method} /" + ApiV1Endpoints.Imports.EANS_FILES)
-        public static Response GET() {
+        public static Response GET(int perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Imports.EANS_FILES);
         }
 
@@ -87,9 +87,9 @@ public class ImportsV1Request extends ApiV1RequestBase {
 
     public static class OffersFiles {
         @Step("{method} /" + ApiV1Endpoints.Imports.OFFERS_FILES)
-        public static Response GET() {
+        public static Response GET(int perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Imports.OFFERS_FILES);
         }
 
@@ -103,9 +103,9 @@ public class ImportsV1Request extends ApiV1RequestBase {
 
     public static class ProductsFiles {
         @Step("{method} /" + ApiV1Endpoints.Imports.PRODUCTS_FILES)
-        public static Response GET() {
+        public static Response GET(int perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Imports.PRODUCTS_FILES);
         }
 
@@ -119,9 +119,9 @@ public class ImportsV1Request extends ApiV1RequestBase {
 
     public static class OffersStocksFiles {
         @Step("{method} /" + ApiV1Endpoints.Imports.OFFERS_STOCKS_FILES)
-        public static Response GET() {
+        public static Response GET(int perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Imports.OFFERS_STOCKS_FILES);
         }
 
@@ -135,9 +135,9 @@ public class ImportsV1Request extends ApiV1RequestBase {
 
     public static class MasterCategoriesFiles {
         @Step("{method} /" + ApiV1Endpoints.Imports.MASTER_CATEGORIES_FILES)
-        public static Response GET() {
+        public static Response GET(int perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Imports.MASTER_CATEGORIES_FILES);
         }
 
@@ -151,9 +151,9 @@ public class ImportsV1Request extends ApiV1RequestBase {
 
     public static class MasterCategoryAttributesFiles {
         @Step("{method} /" + ApiV1Endpoints.Imports.MASTER_CATEGORY_ATTRIBUTES_FILES)
-        public static Response GET() {
+        public static Response GET(int perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Imports.MASTER_CATEGORY_ATTRIBUTES_FILES);
         }
 
@@ -167,9 +167,9 @@ public class ImportsV1Request extends ApiV1RequestBase {
 
     public static class BrandFiles {
         @Step("{method} /" + ApiV1Endpoints.Imports.BRAND_FILES)
-        public static Response GET() {
+        public static Response GET(int perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Imports.BRAND_FILES);
         }
 
@@ -183,9 +183,9 @@ public class ImportsV1Request extends ApiV1RequestBase {
 
     public static class TaxonsFiles {
         @Step("{method} /" + ApiV1Endpoints.Imports.TAXONS_FILES)
-        public static Response GET() {
+        public static Response GET(int perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Imports.TAXONS_FILES);
         }
 
@@ -199,9 +199,9 @@ public class ImportsV1Request extends ApiV1RequestBase {
 
     public static class TaxonsImagesFiles {
         @Step("{method} /" + ApiV1Endpoints.Imports.TAXONS_IMAGES_FILES)
-        public static Response GET() {
+        public static Response GET(int perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Imports.TAXONS_IMAGES_FILES);
         }
 
@@ -215,9 +215,9 @@ public class ImportsV1Request extends ApiV1RequestBase {
 
     public static class PageMetasFiles {
         @Step("{method} /" + ApiV1Endpoints.Imports.PAGE_METAS_FILES)
-        public static Response GET() {
+        public static Response GET(int perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Imports.PAGE_METAS_FILES);
         }
     }
