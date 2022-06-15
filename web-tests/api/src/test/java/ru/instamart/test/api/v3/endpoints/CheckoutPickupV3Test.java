@@ -32,6 +32,7 @@ import static ru.instamart.api.helper.ApiV3Helper.checkFlipper;
 
 @Epic("ApiV3")
 @Feature("Чекаут")
+@Test(singleThreaded = true)
 public class CheckoutPickupV3Test extends RestBase {
 
     private MultiretailerOrderV1Response order;
