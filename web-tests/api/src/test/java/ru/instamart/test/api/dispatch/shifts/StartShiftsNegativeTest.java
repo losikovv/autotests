@@ -1,5 +1,6 @@
 package ru.instamart.test.api.dispatch.shifts;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -52,10 +53,12 @@ public class StartShiftsNegativeTest extends RestBase {
         final Response response = ShiftsRequest.Start.PATCH(planningPeriodId, 55.646977, 38.650011);
         checkStatusCode422(response);
         ErrorTypeResponse errorTypeResponse = response.as(ErrorTypeResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(errorTypeResponse.getStatus(), 422, "Error status message not valid");
-        softAssert.assertEquals(errorTypeResponse.getTitle(), "Partner is outside area", "Error title message not valid");
-        softAssert.assertEquals(errorTypeResponse.getType(), "shift-partner-outside-area", "Error type message not valid");
-        softAssert.assertAll();
+        Allure.step("Проверка ошибки при начале смены", ()-> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(errorTypeResponse.getStatus(), 422, "Error status message not valid");
+            softAssert.assertEquals(errorTypeResponse.getTitle(), "Partner is outside area", "Error title message not valid");
+            softAssert.assertEquals(errorTypeResponse.getType(), "shift-partner-outside-area", "Error type message not valid");
+            softAssert.assertAll();
+        });
     }
 }

@@ -1,5 +1,6 @@
 package ru.instamart.test.api.dispatch.shifts;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -57,8 +58,10 @@ public class ShiftsPlanTest extends RestBase {
         final Response response = ShiftsRequest.Start.PATCH(planningPeriodId, METRO_3.getLat(), METRO_3.getLon());
         checkStatusCode200(response);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
-        assertEquals(shiftResponse.getState(), "in_progress", "State смены не в статусе \"in_progress\"");
-        assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        Allure.step("Проверка статуса смены ", () -> {
+            assertEquals(shiftResponse.getState(), "in_progress", "State смены не в статусе \"in_progress\"");
+            assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        });
     }
 
     @CaseId(38)
@@ -72,8 +75,10 @@ public class ShiftsPlanTest extends RestBase {
         final Response response = ShiftsRequest.Start.PATCH(planningPeriodId, METRO_3.getLat(), METRO_3.getLon());
         checkStatusCode200(response);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
-        assertEquals(shiftResponse.getState(), "in_progress", "State смены не в статусе \"in_progress\"");
-        assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        Allure.step("Проверка статуса смены", ()->{
+            assertEquals(shiftResponse.getState(), "in_progress", "State смены не в статусе \"in_progress\"");
+            assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        });
     }
 
     @CaseId(75)
@@ -85,10 +90,12 @@ public class ShiftsPlanTest extends RestBase {
         final Response response = ShiftsRequest.Pause.POST(planningPeriodId);
         checkStatusCode(response, 201);
         ShiftResponse shiftResponse = shiftsApi.shifts().get(0);
-        final SoftAssert sa = new SoftAssert();
-        sa.assertEquals(shiftResponse.getId(), planningPeriodId, "planningPeriodId не совпадает");
-        sa.assertEquals(shiftResponse.getState(), "on_pause", "state не равен on_pause");
-        sa.assertAll();
+        Allure.step("Проверка статуса смены", ()-> {
+            final SoftAssert sa = new SoftAssert();
+            sa.assertEquals(shiftResponse.getId(), planningPeriodId, "planningPeriodId не совпадает");
+            sa.assertEquals(shiftResponse.getState(), "on_pause", "state не равен on_pause");
+            sa.assertAll();
+        });
     }
 
     @CaseId(77)
@@ -102,8 +109,10 @@ public class ShiftsPlanTest extends RestBase {
         final Response response = ShiftsRequest.Pause.POST(planningPeriodId, true);
         checkStatusCode(response, 201);
         ShiftResponse shiftResponse = shiftsApi.shifts().get(0);
-        assertEquals(shiftResponse.getState(), "on_pause", "State смены не в статусе \"on_pause\"");
-        assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        Allure.step("Проверка статуса смены", ()-> {
+            assertEquals(shiftResponse.getState(), "on_pause", "State смены не в статусе \"on_pause\"");
+            assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        });
     }
 
     @CaseId(55)
@@ -114,7 +123,9 @@ public class ShiftsPlanTest extends RestBase {
         final Response response = ShiftsRequest.Stop.POST(planningPeriodId);
         checkStatusCode200(response);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
-        assertEquals(shiftResponse.getState(), "completed", "State смены не в статусе \"completed\"");
-        assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        Allure.step("Проверка статуса смены", ()-> {
+            assertEquals(shiftResponse.getState(), "completed", "State смены не в статусе \"completed\"");
+            assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+        });
     }
 }
