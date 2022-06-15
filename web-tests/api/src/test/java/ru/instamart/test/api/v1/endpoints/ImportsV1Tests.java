@@ -48,197 +48,314 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1903)
     @Story("Фильтры")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о файлах импорта фильтров")
     public void getFilterFiles() {
-        final Response response = ImportsV1Request.FilterFiles.GET();
+        final Response response = ImportsV1Request.FilterFiles.GET(10000);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, FiltersFilesV1Response.class);
-        if(!EnvironmentProperties.Env.isProduction()) {
-            List<ImportsFileV1> files = response.as(FiltersFilesV1Response.class).getFiltersFiles();
-            int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("FiltersFile");
-            compareTwoObjects(files.size(), filesFromDbCount);
-        }
+
+        List<ImportsFileV1> files = response.as(FiltersFilesV1Response.class).getFiltersFiles();
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("FiltersFile");
+        compareTwoObjects(files.size(), filesFromDbCount);
+    }
+
+    @CaseId(1903)
+    @Story("Фильтры")
+    @Test(groups = {"api-instamart-prod"},
+            description = "Получение информации о файлах импорта фильтров")
+    public void getFilterFilesPROD() {
+        final Response response = ImportsV1Request.FilterFiles.GET(100);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, FiltersFilesV1Response.class);
     }
 
     @CaseId(1904)
     @Story("Цены")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о файлах импорта цен")
     public void getPricesFiles() {
-        final Response response = ImportsV1Request.PricesFiles.GET();
+        final Response response = ImportsV1Request.PricesFiles.GET(10000);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, PricesFilesV1Response.class);
-        if(!EnvironmentProperties.Env.isProduction()) {
-            List<ImportsFileV1> files = response.as(PricesFilesV1Response.class).getPricesFiles();
-            int filesFromDbCount = ImportFilesDao.INSTANCE.getCount(":PricesFile");
-            compareTwoObjects(files.size(), filesFromDbCount);
-        }
+
+        List<ImportsFileV1> files = response.as(PricesFilesV1Response.class).getPricesFiles();
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount(":PricesFile");
+        compareTwoObjects(files.size(), filesFromDbCount);
+    }
+
+    @CaseId(1904)
+    @Story("Цены")
+    @Test(groups = {"api-instamart-prod"},
+            description = "Получение информации о файлах импорта цен")
+    public void getPricesFilesPROD() {
+        final Response response = ImportsV1Request.PricesFiles.GET(100);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, PricesFilesV1Response.class);
     }
 
     @CaseId(1905)
     @Story("Изображения продуктов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о файлах импорта изображений продуктов")
     public void getProductsImagesArchives() {
-        final Response response = ImportsV1Request.ProductsImagesArchives.GET();
+        final Response response = ImportsV1Request.ProductsImagesArchives.GET(10000);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsImagesArchivesV1Response.class);
-        if(!EnvironmentProperties.Env.isProduction()) {
-            List<ProductsImagesArchiveV1> files = response.as(ProductsImagesArchivesV1Response.class).getProductsImagesArchives();
-            int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("ProductsImages");
-            compareTwoObjects(files.size(), filesFromDbCount);
-        }
+
+        List<ProductsImagesArchiveV1> files = response.as(ProductsImagesArchivesV1Response.class).getProductsImagesArchives();
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("ProductsImages");
+        compareTwoObjects(files.size(), filesFromDbCount);
+    }
+
+    @CaseId(1905)
+    @Story("Изображения продуктов")
+    @Test(groups = {"api-instamart-prod"},
+            description = "Получение информации о файлах импорта изображений продуктов")
+    public void getProductsImagesArchivesPROD() {
+        final Response response = ImportsV1Request.ProductsImagesArchives.GET(100);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ProductsImagesArchivesV1Response.class);
     }
 
     @CaseId(1906)
     @Story("Штрихкоды")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о файлах импорта штрихкодов")
     public void getEansFiles() {
-        final Response response = ImportsV1Request.EansFiles.GET();
+        final Response response = ImportsV1Request.EansFiles.GET(10000);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, EansFilesV1Response.class);
-        if(!EnvironmentProperties.Env.isProduction()) {
-            List<ImportsFileV1> files = response.as(EansFilesV1Response.class).getEansFiles();
-            int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("EansFile");
-            compareTwoObjects(files.size(), filesFromDbCount);
-        }
+
+        List<ImportsFileV1> files = response.as(EansFilesV1Response.class).getEansFiles();
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("EansFile");
+        compareTwoObjects(files.size(), filesFromDbCount);
+    }
+
+    @CaseId(1906)
+    @Story("Штрихкоды")
+    @Test(groups = {"api-instamart-prod"},
+            description = "Получение информации о файлах импорта штрихкодов")
+    public void getEansFilesPROD() {
+        final Response response = ImportsV1Request.EansFiles.GET(100);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, EansFilesV1Response.class);
     }
 
     @CaseId(1907)
     @Story("Офферы")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о файлах импорта офферов")
     public void getOffersFiles() {
-        final Response response = ImportsV1Request.OffersFiles.GET();
+        final Response response = ImportsV1Request.OffersFiles.GET(10000);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, OffersFilesV1Response.class);
-        if(!EnvironmentProperties.Env.isProduction()) {
-            List<ImportsFileV1> files = response.as(OffersFilesV1Response.class).getOffersFiles();
-            int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("OffersFile");
-            compareTwoObjects(files.size(), filesFromDbCount);
-        }
+
+        List<ImportsFileV1> files = response.as(OffersFilesV1Response.class).getOffersFiles();
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("OffersFile");
+        compareTwoObjects(files.size(), filesFromDbCount);
+    }
+
+    @CaseId(1907)
+    @Story("Офферы")
+    @Test(groups = {"api-instamart-prod"},
+            description = "Получение информации о файлах импорта офферов")
+    public void getOffersFilesPROD() {
+        final Response response = ImportsV1Request.OffersFiles.GET(100);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, OffersFilesV1Response.class);
     }
 
     @CaseId(1908)
     @Story("Продукты")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о файлах импорта продуктов")
     public void getProductsFiles() {
-        final Response response = ImportsV1Request.ProductsFiles.GET();
+        final Response response = ImportsV1Request.ProductsFiles.GET(10000);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsFilesV1Response.class);
-        if(!EnvironmentProperties.Env.isProduction()) {
-            List<ImportsFileV1> files = response.as(ProductsFilesV1Response.class).getProductsFiles();
-            int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("ProductsFile");
-            compareTwoObjects(files.size(), filesFromDbCount);
-        }
+
+        List<ImportsFileV1> files = response.as(ProductsFilesV1Response.class).getProductsFiles();
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("ProductsFile");
+        compareTwoObjects(files.size(), filesFromDbCount);
+    }
+
+    @CaseId(1908)
+    @Story("Продукты")
+    @Test(groups = {"api-instamart-prod"},
+            description = "Получение информации о файлах импорта продуктов")
+    public void getProductsFilesPROD() {
+        final Response response = ImportsV1Request.ProductsFiles.GET(100);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ProductsFilesV1Response.class);
     }
 
     @CaseId(1909)
     @Story("Стоки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о файлах импорта стоков")
     public void getStocksFiles() {
-        final Response response = ImportsV1Request.OffersStocksFiles.GET();
+        final Response response = ImportsV1Request.OffersStocksFiles.GET(10000);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, StocksFilesV1Response.class);
-        if(!EnvironmentProperties.Env.isProduction()) {
-            List<ImportsFileV1> files = response.as(StocksFilesV1Response.class).getOffersStocksFiles();
-            int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("StocksFile");
-            compareTwoObjects(files.size(), filesFromDbCount);
-        }
+
+        List<ImportsFileV1> files = response.as(StocksFilesV1Response.class).getOffersStocksFiles();
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("StocksFile");
+        compareTwoObjects(files.size(), filesFromDbCount);
+    }
+
+    @CaseId(1909)
+    @Story("Стоки")
+    @Test(groups = {"api-instamart-prod"},
+            description = "Получение информации о файлах импорта стоков")
+    public void getStocksFilesPROD() {
+        final Response response = ImportsV1Request.OffersStocksFiles.GET(100);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, StocksFilesV1Response.class);
     }
 
     @CaseId(1910)
     @Story("Мастер каталог")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о файлах импорта мастер каталога")
     public void getMasterCategoriesFiles() {
-        final Response response = ImportsV1Request.MasterCategoriesFiles.GET();
+        final Response response = ImportsV1Request.MasterCategoriesFiles.GET(10000);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, MasterCategoriesFilesV1Response.class);
-        if(!EnvironmentProperties.Env.isProduction()) {
-            List<ImportsFileV1> files = response.as(MasterCategoriesFilesV1Response.class).getMasterCategoriesFiles();
-            int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("MasterCategoriesFile");
-            compareTwoObjects(files.size(), filesFromDbCount);
-        }
+
+        List<ImportsFileV1> files = response.as(MasterCategoriesFilesV1Response.class).getMasterCategoriesFiles();
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("MasterCategoriesFile");
+        compareTwoObjects(files.size(), filesFromDbCount);
+    }
+
+    @CaseId(1910)
+    @Story("Мастер каталог")
+    @Test(groups = {"api-instamart-prod"},
+            description = "Получение информации о файлах импорта мастер каталога")
+    public void getMasterCategoriesFilesPROD() {
+        final Response response = ImportsV1Request.MasterCategoriesFiles.GET(100);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, MasterCategoriesFilesV1Response.class);
     }
 
     @CaseId(1911)
     @Story("Мастер каталог")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о файлах импорта аттрибутов мастер каталога")
     public void getMasterCategoryAttributesFiles() {
-        final Response response = ImportsV1Request.MasterCategoryAttributesFiles.GET();
+        final Response response = ImportsV1Request.MasterCategoryAttributesFiles.GET(10000);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, MasterCategoryAttributesFilesV1Response.class);
-        if(!EnvironmentProperties.Env.isProduction()) {
-            List<ImportsFileV1> files = response.as(MasterCategoryAttributesFilesV1Response.class).getMasterCategoryAttributesFiles();
-            int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("MasterCategoryAttributesFile");
-            compareTwoObjects(files.size(), filesFromDbCount);
-        }
+
+        List<ImportsFileV1> files = response.as(MasterCategoryAttributesFilesV1Response.class).getMasterCategoryAttributesFiles();
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("MasterCategoryAttributesFile");
+        compareTwoObjects(files.size(), filesFromDbCount);
+    }
+
+    @CaseId(1911)
+    @Story("Мастер каталог")
+    @Test(groups = {"api-instamart-prod"},
+            description = "Получение информации о файлах импорта аттрибутов мастер каталога")
+    public void getMasterCategoryAttributesFilesPROD() {
+        final Response response = ImportsV1Request.MasterCategoryAttributesFiles.GET(100);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, MasterCategoryAttributesFilesV1Response.class);
     }
 
     @CaseId(1912)
     @Story("Бренды")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о файлах импорта брендов")
     public void getBrandsFiles() {
-        final Response response = ImportsV1Request.BrandFiles.GET();
+        final Response response = ImportsV1Request.BrandFiles.GET(10000);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, BrandsFilesV1Response.class);
-        if(!EnvironmentProperties.Env.isProduction()) {
-            List<ImportsFileV1> files = response.as(BrandsFilesV1Response.class).getBrandsFiles();
-            int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("BrandsFile");
-            compareTwoObjects(files.size(), filesFromDbCount);
-        }
+
+        List<ImportsFileV1> files = response.as(BrandsFilesV1Response.class).getBrandsFiles();
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("BrandsFile");
+        compareTwoObjects(files.size(), filesFromDbCount);
+    }
+
+    @CaseId(1912)
+    @Story("Бренды")
+    @Test(groups = {"api-instamart-prod"},
+            description = "Получение информации о файлах импорта брендов")
+    public void getBrandsFilesPROD() {
+        final Response response = ImportsV1Request.BrandFiles.GET(100);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, BrandsFilesV1Response.class);
     }
 
     @CaseId(1913)
     @Story("Категории")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о файлах импорта категорий")
     public void getTaxonsFiles() {
-        final Response response = ImportsV1Request.TaxonsFiles.GET();
+        final Response response = ImportsV1Request.TaxonsFiles.GET(10000);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, TaxonsFilesV1Response.class);
-        if(!EnvironmentProperties.Env.isProduction()) {
-            List<ImportsFileV1> files = response.as(TaxonsFilesV1Response.class).getTaxonsFiles();
-            int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("TaxonsFile");
-            compareTwoObjects(files.size(), filesFromDbCount);
-        }
+
+        List<ImportsFileV1> files = response.as(TaxonsFilesV1Response.class).getTaxonsFiles();
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("TaxonsFile");
+        compareTwoObjects(files.size(), filesFromDbCount);
+    }
+
+    @CaseId(1913)
+    @Story("Категории")
+    @Test(groups = {"api-instamart-prod"},
+            description = "Получение информации о файлах импорта категорий")
+    public void getTaxonsFilesPROD() {
+        final Response response = ImportsV1Request.TaxonsFiles.GET(100);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, TaxonsFilesV1Response.class);
     }
 
     @CaseId(1914)
     @Story("Иконки категорий")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о файлах импорта иконок категорий")
     public void getTaxonsImagesFiles() {
-        final Response response = ImportsV1Request.TaxonsImagesFiles.GET();
+        final Response response = ImportsV1Request.TaxonsImagesFiles.GET(10000);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, TaxonsImagesFilesV1Response.class);
-        if(!EnvironmentProperties.Env.isProduction()) {
-            List<ImportsFileV1> files = response.as(TaxonsImagesFilesV1Response.class).getTaxonsImagesFiles();
-            int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("TaxonsImagesFile");
-            compareTwoObjects(files.size(), filesFromDbCount);
-        }
+
+        List<ImportsFileV1> files = response.as(TaxonsImagesFilesV1Response.class).getTaxonsImagesFiles();
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("TaxonsImagesFile");
+        compareTwoObjects(files.size(), filesFromDbCount);
+    }
+
+    @CaseId(1914)
+    @Story("Иконки категорий")
+    @Test(groups = {"api-instamart-prod"},
+            description = "Получение информации о файлах импорта иконок категорий")
+    public void getTaxonsImagesFilesPROD() {
+        final Response response = ImportsV1Request.TaxonsImagesFiles.GET(100);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, TaxonsImagesFilesV1Response.class);
     }
 
     @CaseId(1915)
     @Story("Мета страниц")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о файлах импорта мета страницы")
     public void getPageMetasFiles() {
-        final Response response = ImportsV1Request.PageMetasFiles.GET();
+        final Response response = ImportsV1Request.PageMetasFiles.GET(10000);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, PageMetasFilesV1Response.class);
-        if(!EnvironmentProperties.Env.isProduction()) {
-            List<ImportsFileV1> files = response.as(PageMetasFilesV1Response.class).getPageMetasFiles();
-            int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("PageMetasFile");
-            compareTwoObjects(files.size(), filesFromDbCount);
-        }
+
+        List<ImportsFileV1> files = response.as(PageMetasFilesV1Response.class).getPageMetasFiles();
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("PageMetasFile");
+        compareTwoObjects(files.size(), filesFromDbCount);
+    }
+
+    @CaseId(1915)
+    @Story("Мета страниц")
+    @Test(groups = {"api-instamart-prod"},
+            description = "Получение информации о файлах импорта мета страницы")
+    public void getPageMetasFilesPROD() {
+        final Response response = ImportsV1Request.PageMetasFiles.GET(100);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, PageMetasFilesV1Response.class);
     }
 
     @CaseId(1928)
@@ -253,7 +370,7 @@ public class ImportsV1Tests extends RestBase {
         int count = 0;
         String status = null;
         while (count < 26) {
-            final Response responseWithList = ImportsV1Request.ProductsFiles.GET();
+            final Response responseWithList = ImportsV1Request.ProductsFiles.GET(1);
             checkStatusCode200(responseWithList);
             status = responseWithList.as(ProductsFilesV1Response.class).getProductsFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
@@ -292,7 +409,7 @@ public class ImportsV1Tests extends RestBase {
         int count = 0;
         String status = null;
         while (count < 20) {
-            status = admin.getOfferFiles().get(0).getStatus();
+            status = admin.getOfferFiles(1).get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
                 break;
             ThreadUtil.simplyAwait(1);
@@ -322,7 +439,7 @@ public class ImportsV1Tests extends RestBase {
         int count = 0;
         String status = null;
         while (count < 20) {
-            final Response responseWithList = ImportsV1Request.OffersStocksFiles.GET();
+            final Response responseWithList = ImportsV1Request.OffersStocksFiles.GET(1);
             checkStatusCode200(responseWithList);
             status = responseWithList.as(StocksFilesV1Response.class).getOffersStocksFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
@@ -354,7 +471,7 @@ public class ImportsV1Tests extends RestBase {
         int count = 0;
         String status = null;
         while (count < 20) {
-            final Response responseWithList = ImportsV1Request.FilterFiles.GET();
+            final Response responseWithList = ImportsV1Request.FilterFiles.GET(1);
             checkStatusCode200(responseWithList);
             status = responseWithList.as(FiltersFilesV1Response.class).getFiltersFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
@@ -386,7 +503,7 @@ public class ImportsV1Tests extends RestBase {
         int count = 0;
         String status = null;
         while (count < 20) {
-            final Response responseWithList = ImportsV1Request.PricesFiles.GET();
+            final Response responseWithList = ImportsV1Request.PricesFiles.GET(1);
             checkStatusCode200(responseWithList);
             status = responseWithList.as(PricesFilesV1Response.class).getPricesFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
@@ -418,7 +535,7 @@ public class ImportsV1Tests extends RestBase {
         int count = 0;
         String status = null;
         while (count < 20) {
-            final Response responseWithList = ImportsV1Request.EansFiles.GET();
+            final Response responseWithList = ImportsV1Request.EansFiles.GET(1);
             checkStatusCode200(responseWithList);
             status = responseWithList.as(EansFilesV1Response.class).getEansFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
@@ -448,7 +565,7 @@ public class ImportsV1Tests extends RestBase {
         int count = 0;
         String status = null;
         while (count < 20) {
-            final Response responseWithList = ImportsV1Request.BrandFiles.GET();
+            final Response responseWithList = ImportsV1Request.BrandFiles.GET(1);
             checkStatusCode200(responseWithList);
             status = responseWithList.as(BrandsFilesV1Response.class).getBrandsFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
@@ -475,7 +592,7 @@ public class ImportsV1Tests extends RestBase {
         int count = 0;
         String status = null;
         while (count < 20) {
-            final Response responseWithList = ImportsV1Request.ProductsImagesArchives.GET();
+            final Response responseWithList = ImportsV1Request.ProductsImagesArchives.GET(1);
             checkStatusCode200(responseWithList);
             status = responseWithList.as(ProductsImagesArchivesV1Response.class).getProductsImagesArchives().get(0).getStatus();
             if (status.equals(ImportStatusV1.ARCHIVE_PROCESSED.getValue()))
@@ -499,7 +616,7 @@ public class ImportsV1Tests extends RestBase {
         int count = 0;
         String status = null;
         while (count < 20) {
-            final Response responseWithList = ImportsV1Request.TaxonsImagesFiles.GET();
+            final Response responseWithList = ImportsV1Request.TaxonsImagesFiles.GET(1);
             checkStatusCode200(responseWithList);
             status = responseWithList.as(TaxonsImagesFilesV1Response.class).getTaxonsImagesFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
@@ -530,7 +647,7 @@ public class ImportsV1Tests extends RestBase {
         int count = 0;
         String status = null;
         while (count < 20) {
-            final Response responseWithList = ImportsV1Request.TaxonsFiles.GET();
+            final Response responseWithList = ImportsV1Request.TaxonsFiles.GET(1);
             checkStatusCode200(responseWithList);
             status = responseWithList.as(TaxonsFilesV1Response.class).getTaxonsFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.FAILED.getValue()))
@@ -553,7 +670,7 @@ public class ImportsV1Tests extends RestBase {
         int count = 0;
         String status = null;
         while (count < 20) {
-            final Response responseWithList = ImportsV1Request.MasterCategoriesFiles.GET();
+            final Response responseWithList = ImportsV1Request.MasterCategoriesFiles.GET(1);
             checkStatusCode200(responseWithList);
             status = responseWithList.as(MasterCategoriesFilesV1Response.class).getMasterCategoriesFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.FAILED.getValue()))
@@ -576,7 +693,7 @@ public class ImportsV1Tests extends RestBase {
         int count = 0;
         String status = null;
         while (count < 20) {
-            final Response responseWithList = ImportsV1Request.MasterCategoryAttributesFiles.GET();
+            final Response responseWithList = ImportsV1Request.MasterCategoryAttributesFiles.GET(1);
             checkStatusCode200(responseWithList);
             status = responseWithList.as(MasterCategoryAttributesFilesV1Response.class).getMasterCategoryAttributesFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.FAILED.getValue()))

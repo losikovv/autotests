@@ -649,7 +649,7 @@ public final class ApiHelper {
         int count = 0;
         String status = null;
         while (count < 20) {
-            status = admin.getOfferFiles().get(0).getStatus();
+            status = admin.getOfferFiles(1).get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
                 break;
             ThreadUtil.simplyAwait(1);

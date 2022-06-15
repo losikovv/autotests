@@ -224,8 +224,8 @@ public class AdminHelper {
     }
 
     @Step("Получаем список импортов офферов")
-    public List<ImportsFileV1> getOfferFiles() {
-        final Response response = ImportsV1Request.OffersFiles.GET();
+    public List<ImportsFileV1> getOfferFiles(int filesNumber) {
+        final Response response = ImportsV1Request.OffersFiles.GET(filesNumber);
         checkStatusCode200(response);
         return response.as(OffersFilesV1Response.class).getOffersFiles();
     }
