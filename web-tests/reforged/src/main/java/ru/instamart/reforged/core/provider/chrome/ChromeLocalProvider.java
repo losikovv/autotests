@@ -24,7 +24,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
             if (BrowserProperties.IGNORE_SSL) {
                 options.setAcceptInsecureCerts(true);
             }
-            options.addArguments("--proxy-server=" + BrowserProxy.INSTANCE.getLocalProxy());
+            options.addArguments("--proxy-server=" + BrowserProxy.INSTANCE.getLocalProxy().getHttpProxy());
         }
 
         jsonObject.put("profile.default_content_settings.geolocation", 2);
