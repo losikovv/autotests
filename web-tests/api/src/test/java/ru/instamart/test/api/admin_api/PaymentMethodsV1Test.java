@@ -67,7 +67,8 @@ public class PaymentMethodsV1Test extends RestBase {
     public void updatePaymentMethodsPositions() {
         admin.authApi();
         Map<String, Integer> paymentMethodIdsAndPosition = new HashMap<>();
-        paymentMethodIdsAndPosition.put("1", 0);
+        paymentMethodIdsAndPosition.put("1", 2);
+        paymentMethodIdsAndPosition.put("2", 1);
         final Response response = PaymentMethodsRequest.POST(paymentMethodIdsAndPosition);
         checkStatusCode(response, 204);
     }
@@ -79,9 +80,9 @@ public class PaymentMethodsV1Test extends RestBase {
     public void updatePaymentMethodsPositionsNegative401() {
         SessionFactory.clearSession(SessionType.API_V1);
         Map<String, Integer> paymentMethodIdsAndPosition = new HashMap<>();
-        paymentMethodIdsAndPosition.put("1", 0);
+        paymentMethodIdsAndPosition.put("1", 2);
         final Response response = PaymentMethodsRequest.POST(paymentMethodIdsAndPosition);
-        checkStatusCode404(response);
+        checkStatusCode401(response);
     }
 
     @CaseId(2825)
@@ -93,7 +94,7 @@ public class PaymentMethodsV1Test extends RestBase {
         Map<String, Integer> paymentMethodIdsAndPosition = new HashMap<>();
         paymentMethodIdsAndPosition.put("1", 0);
         final Response response = PaymentMethodsRequest.POST(paymentMethodIdsAndPosition);
-        checkStatusCode404(response);
+        checkStatusCode403(response);
     }
 
     @CaseId(2526)
@@ -103,6 +104,6 @@ public class PaymentMethodsV1Test extends RestBase {
     public void updatePaymentMethodsPositionsNegative422() {
         admin.authApi();
         final Response response = PaymentMethodsRequest.POST();
-        checkStatusCode404(response);
+        checkStatusCode422(response);
     }
 }
