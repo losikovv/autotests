@@ -5,6 +5,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.service.QaService;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.action.JsAction;
+import ru.instamart.reforged.core.cdp.CdpCookie;
 import ru.instamart.reforged.next.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.next.drawer.cart.Cart;
 import ru.instamart.reforged.next.frame.TransferCartModal;
@@ -192,14 +193,14 @@ public final class Header implements HeaderCheck {
     @Step("js логаут с очисткой сессии")
     public void clearSessionLogout() {
         JsAction.clearSession();
-        Kraken.clearAllCooke();
+        CdpCookie.deleteAllCookies();
         Kraken.refresh();
     }
 
     @Step("Логаут с очисткой сессии")
     public void clearSessionLogout(final UserData userData) {
         QaService.INSTANCE.deleteSession(userData.getId());
-        Kraken.clearAllCooke();
+        CdpCookie.deleteAllCookies();
         Kraken.refresh();
     }
 

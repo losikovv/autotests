@@ -1,10 +1,12 @@
 package ru.instamart.kraken.data.user;
 
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.TestVariables;
+import ru.instamart.kraken.retry.StepRetry;
 import ru.instamart.kraken.service.AbService;
 import ru.instamart.kraken.service.QaService;
 import ru.sbermarket.common.Crypt;
@@ -506,6 +508,8 @@ public final class UserManager {
      * @param password - обязательный параметр для создания через ручку
      * @return - возвращает собранную {@link UserData} из параметров ответа
      */
+    @Step("Создание тестового пользователя")
+    @StepRetry(count = 5)
     public static UserData createUser(final String password) {
         final String role = UserRoles.USER.getRole();
         final String userName = Generate.testUserName(role);

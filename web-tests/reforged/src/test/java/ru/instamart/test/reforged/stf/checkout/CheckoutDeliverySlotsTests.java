@@ -12,10 +12,10 @@ import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
-import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 
 @Epic("STF UI")
 @Feature("Чекаут. Шаг #4. Время получения.")
@@ -38,6 +38,7 @@ public final class CheckoutDeliverySlotsTests {
     @CaseId(2648)
     @Story("Корзина")
     @Test(description = "Изменение ранее выбранного слота доставки", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successChangePreviousDeliverySlotAndOrder() {
         var company = JuridicalData.juridical();
 
@@ -45,7 +46,6 @@ public final class CheckoutDeliverySlotsTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         shop().interactHeader().clickToCart();
         shop().interactCart().submitOrder();
@@ -101,6 +101,7 @@ public final class CheckoutDeliverySlotsTests {
     @CaseId(2649)
     @Story("Корзина")
     @Test(description = "Невозможность завершения заказа при невыбранном слоте доставки", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void failedContinueWithUnselectedDeliverySlot() {
         var company = JuridicalData.juridical();
 
@@ -108,7 +109,6 @@ public final class CheckoutDeliverySlotsTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         shop().interactHeader().clickToCart();
         shop().interactCart().submitOrder();

@@ -3,8 +3,6 @@ package ru.instamart.test.reforged.stf.order;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -13,7 +11,10 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.data_provider.ReplacePolicyProvider;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -41,12 +42,12 @@ public final class OrdersReplacementsTests {
             groups = "regression",
             dataProviderClass = ReplacePolicyProvider.class,
             dataProvider = "replacementPolicy" )
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithReplacementPolicy(final String replacementPolicy) {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();

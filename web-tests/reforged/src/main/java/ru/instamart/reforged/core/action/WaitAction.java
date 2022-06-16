@@ -10,9 +10,9 @@ import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.core.condition.KrakenCondition;
 import ru.instamart.reforged.core.config.WaitProperties;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import static ru.instamart.reforged.core.Kraken.getWebDriver;
 
@@ -145,16 +145,16 @@ public final class WaitAction {
 
     private FluentWait<WebDriver> createWait(final int wait, final String errorMsg) {
         return new FluentWait<>(getWebDriver())
-                .withTimeout(wait, TimeUnit.SECONDS)
+                .withTimeout(Duration.ofSeconds(wait))
                 .withMessage(errorMsg)
-                .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
+                .pollingEvery(Duration.ofMillis(WaitProperties.POLLING_INTERVAL));
     }
 
     private FluentWait<WebDriver> createWait(final Component component) {
         return new FluentWait<>(getWebDriver())
-                .withTimeout(component.getTimeout(), TimeUnit.SECONDS)
+                .withTimeout(Duration.ofSeconds(component.getTimeout()))
                 .withMessage(component.getErrorMsg())
-                .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS)
+                .pollingEvery(Duration.ofMillis(WaitProperties.POLLING_INTERVAL))
                 .ignoring(NoSuchElementException.class)
                 .ignoring(ElementClickInterceptedException.class)
                 .ignoring(NotFoundException.class);

@@ -8,6 +8,7 @@ apply from: 'stf-task.gradle'
 apply from: 'admin-task.gradle'
 apply from: 'tenant-task.gradle'
 apply from: 'task.gradle'
+apply from: 'next-task.gradle'
 
 allure {
     version = versions.allure
@@ -23,9 +24,6 @@ allure {
 
 configurations.all {
     exclude group: 'io.qameta.allure', module: 'allure-testng'
-    resolutionStrategy {
-        force 'com.google.guava:guava:23.0'
-    }
 }
 
 testlogger {

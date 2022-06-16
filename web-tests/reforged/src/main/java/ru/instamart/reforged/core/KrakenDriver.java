@@ -2,6 +2,7 @@ package ru.instamart.reforged.core;
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
 import ru.instamart.reforged.core.service.WebDriverContainer;
@@ -42,7 +43,11 @@ class KrakenDriver {
     }
 
     public static WebDriver getWebDriver() {
-        return CONTAINER.createOrGetDriver();
+        return CONTAINER.createOrGetDriver().getDriver();
+    }
+
+    public static DevTools getDevTools() {
+        return CONTAINER.createOrGetDriver().getDevTools();
     }
 
     public static boolean isAlive() {

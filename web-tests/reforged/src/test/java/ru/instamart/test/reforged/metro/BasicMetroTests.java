@@ -3,14 +3,15 @@ package ru.instamart.test.reforged.metro;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.metro.page.MetroRouter.metro;
@@ -48,11 +49,10 @@ public final class BasicMetroTests {
     @CaseId(1441)
     @Story("Валидация элементов")
     @Test(description = "Тест валидности элементов и ссылок в подвале METRO Delivery", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successValidateMetroTenantFooter() {
         metro().goToPage();
         metro().checkPageIsAvailable();
-        metro().addCookie(CookieFactory.COOKIE_ALERT);
-        metro().refresh();
         metro().scrollDown();
 
         metro().interactFooter().checkFooterVisible();

@@ -11,6 +11,7 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -274,6 +275,7 @@ public final class UserShippingAddressTests {
     @CaseIDs({@CaseId(2576), @CaseId(2574)})
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Сохранение адреса за пользователем при оформлении заказа", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void saveAddressForNextOrder() {
         final var addressData = TestVariables.testAddressData();
         final var userData = UserManager.getQaUser();
@@ -281,7 +283,6 @@ public final class UserShippingAddressTests {
         this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(userData);
@@ -326,6 +327,7 @@ public final class UserShippingAddressTests {
     @CaseId(2575)
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Сохранение нескольких адресов за пользователем при оформлении заказа", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void testSuccessFewAddressesOnCheckout() {
         final var userData = UserManager.getQaUser();
         this.helper.makeAndCancelOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
@@ -333,7 +335,6 @@ public final class UserShippingAddressTests {
         this.helper.setAddress(userData, RestAddresses.Chelyabinsk.defaultAddress());
 
         shop().goToPage();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(userData);
@@ -373,6 +374,7 @@ public final class UserShippingAddressTests {
     @CaseId(2577)
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Редактирование параметров сохраненного адреса", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void editSavedParamsAddressOnCheckoutPage() {
         final var addressData = TestVariables.testAddressData();
         final var addressChangeData = TestVariables.testChangeAddressData();
@@ -381,7 +383,6 @@ public final class UserShippingAddressTests {
         this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(userData);

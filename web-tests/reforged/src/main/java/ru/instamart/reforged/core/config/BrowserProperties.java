@@ -17,10 +17,8 @@ public final class BrowserProperties {
     public static String REMOTE_URL;
     @Config(configName = NAME, fieldName = "video", defaultValue = "false")
     public static boolean VIDEO;
-    @Config(configName = NAME, fieldName = "vnc", defaultValue = "false")
-    public static boolean VNC;
-    @Config(configName = NAME, fieldName = "fullScreenMode", defaultValue = "true")
-    public static boolean FULL_SCREEN_MODE;
+    @Config(configName = NAME, fieldName = "headless", defaultValue = "false")
+    public static boolean HEADLESS;
 
     @Config(configName = NAME, fieldName = "enableProxy", defaultValue = "false")
     public static boolean ENABLE_PROXY;

@@ -6,9 +6,8 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.util.ThreadUtil;
-import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.business.page.BusinessRouter.*;
@@ -380,6 +379,7 @@ public final class CompaniesTests {
 
     @CaseId(42)
     @Test(description = "Блок 'Код безопасности'", groups = {"smoke", "regression"})
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void testSecurityCodeBlock() {
         var company = JuridicalData.juridical();
         var companyHeadUser = UserManager.getQaUser();
@@ -391,7 +391,6 @@ public final class CompaniesTests {
         business().interactHeader().clickToLogin();
         business().interactAuthModal().authViaPhone(companyHeadUser);
         business().interactHeader().checkProfileButtonVisible();
-        business().addCookie(CookieFactory.COOKIE_ALERT);
 
         companies().goToPage();
         companies().clickOnFirstCompanyName();
@@ -420,6 +419,7 @@ public final class CompaniesTests {
 
     @CaseId(757)
     @Test(description = "Блок 'Код безопасности' (B2C-витрина)", groups = {"smoke", "regression"})
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void testSecurityCodeBlockB2C() {
         var company = JuridicalData.juridical();
         var companyHeadUser = UserManager.getQaUser();
@@ -431,7 +431,6 @@ public final class CompaniesTests {
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(companyHeadUser);
         b2cShop().interactHeader().checkProfileButtonVisible();
-        b2cShop().addCookie(CookieFactory.COOKIE_ALERT);
 
         b2cCompanies().goToPageFromTenant();
         b2cCompanies().clickOnFirstCompanyName();

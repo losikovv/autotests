@@ -13,6 +13,7 @@ import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.next.page.StfRouter.checkout;
@@ -39,6 +40,7 @@ public final class CheckoutPaymentStepTests {
     @CaseId(1678)
     @Story("Корзина")
     @Test(description = "Тест удаления карты оплаты", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successDeleteSavedCard() {
         var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3dsWithSpasibo();
@@ -51,7 +53,6 @@ public final class CheckoutPaymentStepTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();

@@ -9,6 +9,7 @@ import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.business.page.BusinessRouter.business;
@@ -22,6 +23,7 @@ public final class CheckoutTests {
 
     @CaseId(738)
     @Test(description = "Способ оплаты корп. картой в чекауте", groups = {"smoke", "regression"})
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void addBusinessCardInCheckout() {
         var company = JuridicalData.juridical();
         var user = UserManager.getQaUser();
@@ -33,7 +35,6 @@ public final class CheckoutTests {
         business().interactHeader().clickToLogin();
         business().interactAuthModal().authViaPhone(user);
         business().interactHeader().checkProfileButtonVisible();
-        business().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().checkSubmitButtonVisible();

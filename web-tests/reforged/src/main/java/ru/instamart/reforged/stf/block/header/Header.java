@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.block.header;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.action.JsAction;
+import ru.instamart.reforged.core.cdp.CdpCookie;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.TransferCartModal;
@@ -190,7 +191,7 @@ public final class Header implements HeaderCheck {
     @Step("js логаут с очисткой сессии")
     public void clearSessionLogout() {
         JsAction.clearSession();
-        Kraken.clearAllCooke();
+        CdpCookie.deleteAllCookies();
         Kraken.refresh();
     }
 

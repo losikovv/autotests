@@ -12,12 +12,13 @@ import ru.instamart.kraken.data.*;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.Env.DEMO_RBSUAT_PAYMENTS_URL;
-import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
 import static ru.instamart.reforged.next.page.StfRouter.*;
+import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
 
 @Epic("STF UI")
 @Feature("Покупка товара")
@@ -33,6 +34,7 @@ public final class BasicOrdersTests {
 
     @CaseId(1674)
     @Test(description = "Тест заказа с добавлением нового юр. лица", groups = {"smoke", "regression"})
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successCompleteCheckoutWithNewJuridical() {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
@@ -43,7 +45,6 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForBusiness();
@@ -73,6 +74,7 @@ public final class BasicOrdersTests {
     @CaseIDs
             (value = {@CaseId(1672), @CaseId(2627)})
     @Test(description = "Тест заказа с новой картой оплаты c 3ds", groups = {"regression", "smoke"})
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successCompleteCheckoutWithNewPaymentCard() {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
@@ -83,7 +85,6 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
@@ -117,6 +118,7 @@ public final class BasicOrdersTests {
 
     @CaseIDs(value = {@CaseId(2066), @CaseId(3043), @CaseId(2641)})
     @Test(description = "Тест заказа с новой картой оплаты без 3ds", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
@@ -127,7 +129,6 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
@@ -157,6 +158,7 @@ public final class BasicOrdersTests {
 
     @CaseId(1681)
     @Test(description = "Тест заказа с любимыми товарами", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithFavProducts() {
         userData = UserManager.getQaUser();
         helper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 1);
@@ -166,7 +168,6 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
@@ -192,6 +193,7 @@ public final class BasicOrdersTests {
 
     @CaseId(1673)
     @Test(description = "Тест успешного заказа с оплатой картой курьеру", groups = {"smoke", "regression"})
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithCardCourier() {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
@@ -200,7 +202,6 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
@@ -226,6 +227,7 @@ public final class BasicOrdersTests {
     @CaseId(2558)
     @Story("Данные профиля пользователя")
     @Test(description = "Автоматическая подстановка данных в аккаунт после прохождения чекаута", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void updateUserDataAfterCheckout() {
         final AddressDetailsData data = TestVariables.testAddressData();
         //Тут используется не qa ручка, потому что в ней уже задано имя для пользователя
@@ -236,7 +238,6 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
@@ -268,13 +269,13 @@ public final class BasicOrdersTests {
     @CaseId(2623)
     @Story("Отмена заказа")
     @Test(description = "Отмена заказа", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderCancel() {
         userData = UserManager.getQaUser();
         helper.makeOrder(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -320,6 +321,7 @@ public final class BasicOrdersTests {
     @CaseId(2625)
     @Story("Заказ")
     @Test(enabled = false, description = "Успешное оформление мультизаказа", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successMultiOrder() {
         //пока выключено, для некста отключен мультизаказ на данный момент
         userData = UserManager.getQaUser();
@@ -332,7 +334,6 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         shop().interactHeader().clickToCart();
         shop().interactCart().submitOrder();
@@ -378,6 +379,7 @@ public final class BasicOrdersTests {
     @CaseId(2626)
     @Story("Заказ")
     @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successCancelMultiOrderViaCancelOneOrder() {
         userData = UserManager.getQaUser();
         helper.makeMultipleOrder(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, EnvironmentProperties.DEFAULT_AUCHAN_SID);
@@ -385,7 +387,6 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         userShipments().goToPage();
         userShipments().checkPageContains(userShipments().pageUrl());
@@ -402,6 +403,7 @@ public final class BasicOrdersTests {
     @CaseId(2628)
     @Story("Заказ")
     @Test(description = "Тест полного оформления заказа с оплатой картой онлайн (добавлена карта c 3ds)", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successCompleteCheckoutWithNewPaymentCard3DSAlreadyIn() {
         //TODO: после починки addCreditCard() нужно добавить сюда добавление карты через апи
         userData = UserManager.getQaUser();
@@ -413,7 +415,6 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();

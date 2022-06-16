@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
@@ -47,11 +48,10 @@ public final class BasicSelgrosTests {
     @CaseId(2782)
     @Story("Валидация элементов")
     @Test(description = "Тест валидности элементов и ссылок в подвале Selgros", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successValidateSelgrosTenantFooter() {
         selgros().goToPage();
         selgros().checkPageIsAvailable();
-        selgros().addCookie(CookieFactory.COOKIE_ALERT);
-        selgros().refresh();
         selgros().scrollDown();
 
         selgros().interactFooter().checkFooterVisible();

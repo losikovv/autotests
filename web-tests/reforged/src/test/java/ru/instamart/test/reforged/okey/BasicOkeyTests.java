@@ -3,14 +3,15 @@ package ru.instamart.test.reforged.okey;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.okey.page.OkeyRouter.okey;
@@ -45,11 +46,10 @@ public final class BasicOkeyTests {
     @CaseId(2778)
     @Story("Валидация элементов")
     @Test(description = "Тест валидности элементов и ссылок в подвале Okey", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successValidateOkeyTenantFooter() {
         okey().goToPage();
         okey().checkPageIsAvailable();
-        okey().addCookie(CookieFactory.COOKIE_ALERT);
-        okey().refresh();
         okey().scrollDown();
 
         okey().interactFooter().checkFooterVisible();

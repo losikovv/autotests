@@ -1,5 +1,6 @@
 package ru.instamart.reforged.core.page;
 
+import org.openqa.selenium.WindowType;
 import ru.instamart.reforged.core.Kraken;
 
 import java.util.List;
@@ -23,6 +24,14 @@ public interface Window {
         final var driver = getWebDriver();
         final var windowHandles = List.copyOf(driver.getWindowHandles());
         driver.switchTo().window(windowHandles.get(0));
+    }
+
+    default void openInNewTab(final String url) {
+        getWebDriver().switchTo().newWindow(WindowType.TAB).get(url);
+    }
+
+    default void openInNewWindow(final String url) {
+        getWebDriver().switchTo().newWindow(WindowType.WINDOW).get(url);
     }
 
     default void closeAndSwitchToNextWindow() {
