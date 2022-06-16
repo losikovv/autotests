@@ -15,6 +15,7 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.enums.Tenant;
 import ru.instamart.kraken.listener.Run;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.next.page.StfRouter.*;
@@ -41,12 +42,12 @@ public final class OrdersRetailerCardsTests {
     @Run(onTenant = Tenant.METRO)
     @CaseId(1632)
     @Test(description = "Тест заказа с картой Метро (только METRO WL)", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithMetroRetailerCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
@@ -74,12 +75,12 @@ public final class OrdersRetailerCardsTests {
     @Run(onTenant = Tenant.SBERMARKET, onServer = Server.PRODUCTION)
     @CaseId(1633)
     @Test(description = "Тест заказа с картой Вкусвилл (только Sbermarket)", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithVkusvillRetailerCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));

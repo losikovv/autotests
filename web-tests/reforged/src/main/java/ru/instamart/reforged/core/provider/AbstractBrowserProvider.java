@@ -1,49 +1,55 @@
 package ru.instamart.reforged.core.provider;
 
-import com.google.common.collect.ImmutableMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.HasAuthentication;
+import org.openqa.selenium.UsernameAndPassword;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.HasDevTools;
+import org.openqa.selenium.devtools.v102.network.Network;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
-import org.openqa.selenium.remote.CommandInfo;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.remote.http.HttpMethod;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.reforged.core.cdp.CdpHeaders;
 import ru.instamart.reforged.core.config.BrowserProperties;
 import ru.instamart.reforged.core.provider.chrome.ChromeDriverExtension;
 
 import java.net.URI;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
-
-import static ru.instamart.reforged.core.config.BrowserProperties.FULL_SCREEN_MODE;
 
 @Slf4j
 public abstract class AbstractBrowserProvider {
 
-    private static final ImmutableMap<String, CommandInfo> CHROME_COMMAND_NAME_TO_URL = ImmutableMap.of(
-            "sendCommand",
-            new CommandInfo("/session/:sessionId/chromium/send_command_and_get_result", HttpMethod.POST));
-
     @Getter
     protected WebDriver driver;
+    @Getter
+    protected DevTools devTools;
 
     public abstract void createDriver(final String version);
 
     protected void createRemoteDriver(final Capabilities capabilities) {
         try {
-            this.driver = new RemoteWebDriver(URI.create(BrowserProperties.REMOTE_URL).toURL(), capabilities);
-            ((RemoteWebDriver)driver).setFileDetector(new LocalFileDetector());
+            this.driver = RemoteWebDriver.builder()
+                    .address(URI.create(BrowserProperties.REMOTE_URL).toURL())
+                    .augmentUsing(new Augmenter())
+                    .oneOf(capabilities)
+                    .build();
             applyOptions();
+            ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
         } catch (Exception e) {
             log.error("Protocol exception ", e);
         }
@@ -70,9 +76,30 @@ public abstract class AbstractBrowserProvider {
     }
 
     private void applyOptions() {
-        if (FULL_SCREEN_MODE) {
-            driver.manage().window().maximize();
+        initDevTools();
+        if (BrowserProperties.ENABLE_PROXY) {
+            //Проксирование для next фронта
+            CdpHeaders.addHeader(Map.of(
+                            "sbm-forward-feature-version-stf",
+                            EnvironmentProperties.PROXY_HEADER_FORWARD_TO),
+                    devTools);
         }
+    }
+
+    private void initDevTools() {
+        this.devTools = ((HasDevTools) driver).getDevTools();
+        this.devTools.createSession();
+        this.devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+    }
+
+    private void addBasicAuth() {
+        //TODO: Пока что скипаем установку для бизнесс тенанта, надо придумать как починить
+        if (EnvironmentProperties.TENANT.equalsIgnoreCase("business")) return;
+        ((HasAuthentication) driver).register(
+                //Basic auth только на стейджах
+                url -> url.getHost().contains("sbermarket.tech"),
+                UsernameAndPassword.of(EnvironmentProperties.BASIC_AUTH_USERNAME, EnvironmentProperties.BASIC_AUTH_PASSWORD)
+        );
     }
 
     /**

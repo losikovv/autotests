@@ -10,6 +10,7 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.data_provider.CityProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -35,6 +36,7 @@ public final class OrdersCitiesTests {
             groups = {"regression"},
             dataProviderClass = CityProvider.class,
             dataProvider = "city")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderFromCity(final AddressV2 address) {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, "METRO", address);
@@ -44,7 +46,6 @@ public final class OrdersCitiesTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));

@@ -8,6 +8,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -152,9 +153,9 @@ public final class ShoppingSearchTests {
 
     @CaseId(2589)
     @Test(description = "Работоспособность сортировки товаров", groups = {"regression"})
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successApplySort() {
         shop().goToPage(true);
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().interactHeader().fillSearch("печенье");
         shop().interactHeader().clickSearchButton();
 

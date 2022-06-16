@@ -1,19 +1,28 @@
 package ru.instamart.reforged.core.listener;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.openqa.selenium.Cookie;
+import org.testng.IInvokedMethod;
 import org.testng.ISuite;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import ru.instamart.kraken.retry.RetryAnalyzer;
 import ru.instamart.kraken.service.QaseService;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.KrakenParams;
+import ru.instamart.reforged.core.cdp.CdpCookie;
 import ru.instamart.reforged.core.listener.allure.AllureTestNgListener;
 import ru.instamart.reforged.core.report.CustomReport;
 import ru.sbermarket.qase.enums.RunResultStatus;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 @Slf4j
 public final class UiListener extends AllureTestNgListener {
@@ -31,6 +40,12 @@ public final class UiListener extends AllureTestNgListener {
     public void onStart(ITestContext context) {
         super.onStart(context);
         this.qaseService.createTestRun();
+    }
+
+    @Override
+    public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
+        super.beforeInvocation(method, testResult);
+        addCookie(method);
     }
 
     @Override
@@ -108,5 +123,29 @@ public final class UiListener extends AllureTestNgListener {
             return method.getAnnotation(KrakenParams.class);
         }
         return null;
+    }
+
+    private void addCookie(final IInvokedMethod method) {
+        try {
+            final var cookie = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(CookieProvider.class);
+            if (nonNull(cookie)) {
+                final var cookieFactory = cookie.cookieFactory();
+                final var cookies = cookie.cookies();
+                final var fields = FieldUtils.getAllFieldsList(cookieFactory)
+                        .stream()
+                        .filter(f -> Arrays.asList(cookies).contains(f.getName()))
+                        .map(r -> {
+                            try {
+                                return (Cookie) FieldUtils.readField(r, cookieFactory, true);
+                            } catch (IllegalAccessException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .collect(Collectors.toUnmodifiableSet());
+                CdpCookie.addCookies(fields);
+            }
+        } catch (Exception e) {
+            log.error("FATAL: Can't add cookie for method {}", method);
+        }
     }
 }

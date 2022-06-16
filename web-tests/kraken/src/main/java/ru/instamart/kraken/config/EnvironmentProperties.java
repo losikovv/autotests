@@ -119,6 +119,11 @@ public final class EnvironmentProperties {
     @Config(configName = NAME, fieldName = "metroToken", defaultValue = "", crypted = true)
     public static String METRO_TOKEN;
 
+    @Config(configName = NAME, fieldName = "basicAuthUsername", defaultValue = "", crypted = true)
+    public static String BASIC_AUTH_USERNAME;
+    @Config(configName = NAME, fieldName = "basicAuthPassword", defaultValue = "", crypted = true)
+    public static String BASIC_AUTH_PASSWORD;
+
 
     public static class Env {
 

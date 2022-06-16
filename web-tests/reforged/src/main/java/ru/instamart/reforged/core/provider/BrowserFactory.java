@@ -1,15 +1,15 @@
 package ru.instamart.reforged.core.provider;
 
-import org.openqa.selenium.WebDriver;
 import ru.instamart.reforged.core.enums.Browser;
 import ru.instamart.reforged.core.provider.chrome.ChromeLocalProvider;
 import ru.instamart.reforged.core.provider.chrome.ChromeProvider;
 import ru.instamart.reforged.core.provider.firefox.FirefoxLocalProvider;
 import ru.instamart.reforged.core.provider.firefox.FirefoxProvider;
+import ru.instamart.reforged.core.service.DriverSession;
 
 public final class BrowserFactory {
 
-    public static WebDriver createBrowserInstance(final Browser browserType, final String version) {
+    public static DriverSession createDriverSession(final Browser browserType, final String version) {
         AbstractBrowserProvider provider;
         switch (browserType) {
             case CHROME_REMOTE:
@@ -34,6 +34,6 @@ public final class BrowserFactory {
         }
         provider.createDriver(version);
 
-        return provider.getDriver();
+        return new DriverSession(provider.getDriver(), provider.getDevTools());
     }
 }

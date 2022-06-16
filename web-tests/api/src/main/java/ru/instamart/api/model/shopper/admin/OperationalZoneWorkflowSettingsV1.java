@@ -1,8 +1,8 @@
 package ru.instamart.api.model.shopper.admin;
 
 import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
-import groovy.transform.EqualsAndHashCode;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
 @Data

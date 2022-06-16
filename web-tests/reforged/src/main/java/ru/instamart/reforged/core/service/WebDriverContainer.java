@@ -1,10 +1,6 @@
 package ru.instamart.reforged.core.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.NoSuchSessionException;
-import org.openqa.selenium.NoSuchWindowException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.testng.Reporter;
 import ru.instamart.reforged.core.config.BrowserProperties;
 import ru.instamart.reforged.core.enums.Browser;
@@ -24,10 +20,10 @@ import static java.util.Objects.nonNull;
 public final class WebDriverContainer {
 
     private final Collection<Thread> allWebDriverThreads = new ConcurrentLinkedQueue<>();
-    private final Map<Long, WebDriver> webDriverMap = new ConcurrentHashMap<>();
+    private final Map<Long, DriverSession> webDriverMap = new ConcurrentHashMap<>();
     private final AtomicBoolean isCleanStart = new AtomicBoolean(false);
 
-    public WebDriver createOrGetDriver() {
+    public DriverSession createOrGetDriver() {
         //Get browser from suite parameter or from -Pbrowser
         final String browser = Optional.ofNullable(
                 Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browser")
@@ -40,24 +36,25 @@ public final class WebDriverContainer {
         return this.webDriverMap.computeIfAbsent(Thread.currentThread().getId(), threadId ->
                 this.makeAutoClosable(
                         Thread.currentThread(),
-                        BrowserFactory.createBrowserInstance(Browser.getValue(browser), version)
+                        BrowserFactory.createDriverSession(Browser.getValue(browser), version)
                 )
         );
     }
 
     public void closeDriver() {
-        final WebDriver webDriver = this.webDriverMap.remove(Thread.currentThread().getId());
-        if (nonNull(webDriver)) {
-            webDriver.quit();
+        final var driverSession = this.webDriverMap.remove(Thread.currentThread().getId());
+        if (nonNull(driverSession) && nonNull(driverSession.getDriver())) {
+            driverSession.getDriver().quit();
             Router.cleanPage();
         }
     }
 
     public boolean isStillAlive() {
-        return nonNull(webDriverMap.get(Thread.currentThread().getId()));
+        final var driverSession = this.webDriverMap.get(Thread.currentThread().getId());
+        return nonNull(driverSession) && nonNull(driverSession.getDriver());
     }
 
-    private WebDriver makeAutoClosable(final Thread thread, final WebDriver webDriver) {
+    private DriverSession makeAutoClosable(final Thread thread, final DriverSession driverSession) {
         this.allWebDriverThreads.add(thread);
 
         if (!this.isCleanStart.get()) {
@@ -69,6 +66,6 @@ public final class WebDriverContainer {
             }
         }
 
-        return webDriver;
+        return driverSession;
     }
 }

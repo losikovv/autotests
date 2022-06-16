@@ -28,7 +28,6 @@ project(":reforged") {
         implementation lib.common
         implementation lib.qase
 
-        implementation lib.browserMobProxy
         implementation lib.jackson
         implementation lib.aspectjweaver
         implementation lib.seleniumJava
@@ -61,7 +60,10 @@ project(":kraken") {
         implementation lib.aspectjweaver
         implementation lib.allureJavaCommons
         implementation lib.pgsqlJDBC
+
         implementation lib.logback
+        implementation lib.julToSlf4j
+
         implementation lib.commonsLang3
         implementation lib.grpcProtobuf
         implementation lib.grpcStub

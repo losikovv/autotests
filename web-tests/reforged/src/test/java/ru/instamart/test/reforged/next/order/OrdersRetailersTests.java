@@ -10,6 +10,7 @@ import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.data_provider.StoreProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
@@ -35,6 +36,7 @@ public final class OrdersRetailersTests {
             groups = "regression",
             dataProviderClass = StoreProvider.class,
             dataProvider = "storeData" )
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderInDifferentRetailers(int storeId, ShopUrl shopUrl) {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, storeId);
@@ -43,7 +45,6 @@ public final class OrdersRetailersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();

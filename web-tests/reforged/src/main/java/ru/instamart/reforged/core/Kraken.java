@@ -9,6 +9,7 @@ import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.Logs;
 import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.core.action.WaitAction;
+import ru.instamart.reforged.core.cdp.CdpCookie;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -93,55 +94,35 @@ public final class Kraken extends KrakenDriver {
         return getAllLogs().get(logType);
     }
 
-    public static Set<Cookie> getCookies() {
-        return getWebDriver().manage().getCookies();
-    }
-
-    public static void addCookie(final Cookie cookie) {
-        log.debug("Добавить куку '{}'", cookie);
-        getWebDriver().manage().addCookie(cookie);
-    }
-
     public static void addCookieIfNotExist(final Cookie cookie) {
-        final var cookies = getCookies()
+        final var cookies = CdpCookie.getAllCookies()
                 .stream()
                 .filter(c -> c.getName().equals(cookie.getName())
-                        && (!c.getValue().equals(cookie.getValue()) || c.getExpiry().getTime() != cookie.getExpiry().getTime()))
+                        && (!c.getValue().equals(cookie.getValue())
+                        || c.getExpires().longValue() != cookie.getExpiry().getTime()/1000))
                 .collect(Collectors.toSet());
 
         cookies.forEach(c -> {
-            deleteCookie(c);
-            addCookie(cookie);
+            CdpCookie.deleteCookie(c);
+            CdpCookie.addCookie(cookie);
             refresh();
         });
     }
 
     public static void addCookiesIfNotExist(final Set<Cookie> newCookies) {
-        final var cookieName = newCookies.stream().map(Cookie::getName).collect(Collectors.toSet());
-        final var cookieValue = newCookies.stream().map(Cookie::getValue).collect(Collectors.toSet());
-        final var cookieExpiry = newCookies.stream().map(Cookie::getExpiry).collect(Collectors.toSet());
-
-        final var listOfCookies = getCookies()
+        final var listOfCookies = CdpCookie.getAllCookies()
                 .stream()
-                .filter(c -> cookieName.contains(c.getName())
-                        && (!cookieValue.contains(c.getValue()) || !cookieExpiry.contains(c.getExpiry())))
+                .filter(c -> newCookies.stream().anyMatch(a ->
+                        a.getName().equals(c.getName())
+                                && (!a.getValue().equals(a.getValue())
+                                || a.getExpiry().getTime()/1000 != c.getExpires().longValue())))
                 .collect(Collectors.toSet());
 
         if (listOfCookies.size() > 0) {
-            listOfCookies.forEach(Kraken::deleteCookie);
-            newCookies.forEach(Kraken::addCookie);
+            listOfCookies.forEach(CdpCookie::deleteCookie);
+            newCookies.forEach(CdpCookie::addCookie);
             refresh();
         }
-    }
-
-    public static void deleteCookie(final Cookie cookie) {
-        log.debug("Удалить куку {}", cookie);
-        getWebDriver().manage().deleteCookie(cookie);
-    }
-
-    public static void clearAllCooke() {
-        log.debug("Очистить все куки");
-        getWebDriver().manage().deleteAllCookies();
     }
 
     @SuppressWarnings("unchecked")

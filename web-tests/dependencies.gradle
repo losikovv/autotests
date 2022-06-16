@@ -1,14 +1,11 @@
 ext.versions = [
-        logback: '1.2.3',
         jsonSimple: '1.1.1',
-        selenium: '3.8.1',
         testng: '7.4.0',
         restAssured: '4.3.1',
         allure: '2.13.8',
         aspectjweaver: '1.9.6',
         lombok: '1.18.20',
         jackson: '2.12.3',
-        webdrivermanager: '4.4.3',
         pgsqlJDBC: '42.2.1',
         kafkaClients: '3.0.0',
         kubernetesClient: '13.0.1',
@@ -26,7 +23,12 @@ ext.versions = [
         commonsLang3:'3.12.0',
         swaggerCoverage:'1.4.5',
         protobufUtil: '3.20.0',
-        browserProxy: '2.1.5',
+
+        selenium: '4.2.0',
+        webdrivermanager: '5.2.0',
+
+        logback: '1.2.11',
+        julToSlf4j: '1.7.36',
 
         common:'1.0.5',
         ab:'1.1.0',
@@ -35,9 +37,7 @@ ext.versions = [
 ]
 
 ext.lib = [
-        logback: "ch.qos.logback:logback-classic:$versions.logback",
         jsonSimple: "com.googlecode.json-simple:json-simple:$versions.jsonSimple",
-        seleniumJava: "org.seleniumhq.selenium:selenium-java:$versions.selenium",
         testng: "org.testng:testng:$versions.testng",
         restAssured: "io.rest-assured:rest-assured:$versions.restAssured",
         restAssuredSchemaValidator: "io.rest-assured:json-schema-validator:$versions.restAssured",
@@ -48,7 +48,6 @@ ext.lib = [
         lombok: "org.projectlombok:lombok:$versions.lombok",
         jackson: "com.fasterxml.jackson.core:jackson-databind:$versions.jackson",
         jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson",
-        webdrivermanager: "io.github.bonigarcia:webdrivermanager:$versions.webdrivermanager",
         pgsqlJDBC: "org.postgresql:postgresql:$versions.pgsqlJDBC",
         kafkaClients: "org.apache.kafka:kafka-clients:$versions.kafkaClients",
         kubernetesClient: "io.kubernetes:client-java:$versions.kubernetesClient",
@@ -71,7 +70,12 @@ ext.lib = [
         commonsLang3: "org.apache.commons:commons-lang3:$versions.commonsLang3",
         swaggerCoverage: "com.github.viclovsky:swagger-coverage-rest-assured:$versions.swaggerCoverage",
         protobufUtil: "com.google.protobuf:protobuf-java-util:$versions.protobufUtil",
-        browserMobProxy: "net.lightbody.bmp:browsermob-core:$versions.browserProxy",
+
+        seleniumJava: "org.seleniumhq.selenium:selenium-java:$versions.selenium",
+        webdrivermanager: "io.github.bonigarcia:webdrivermanager:$versions.webdrivermanager",
+
+        logback: "ch.qos.logback:logback-classic:$versions.logback",
+        julToSlf4j: "org.slf4j:jul-to-slf4j:$versions.julToSlf4j",
 
         common:"ru.sbermarket.common:common:$versions.common",
         ab:"ru.sbermarket.ab:ab:$versions.ab",

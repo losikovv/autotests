@@ -166,8 +166,8 @@ public final class ShopPage implements StfPage, ShopCheck {
     }
 
     public void goToPage(final ShopUrl shop) {
-        goToPage(shop.getUrl());
         cookiesChange(false);
+        goToPage(shop.getUrl());
     }
 
     @Override
@@ -180,8 +180,8 @@ public final class ShopPage implements StfPage, ShopCheck {
     }
 
     public void goToPageFromTenant(final ShopUrl shop, final boolean isFixedUUID) {
-        goToPageFromTenant(shop.getUrl());
         cookiesChange(isFixedUUID);
+        goToPageFromTenant(shop.getUrl());
     }
 
     /**
@@ -190,13 +190,13 @@ public final class ShopPage implements StfPage, ShopCheck {
      * @param isFixedUUID - служит идентификатором для UUID
      */
     public void goToPage(final boolean isFixedUUID) {
-        goToPage(ShopUrl.DEFAULT, isFixedUUID);
         cookiesChange(isFixedUUID);
+        goToPage(ShopUrl.DEFAULT, isFixedUUID);
     }
 
     public void goToPage(final ShopUrl shop, final boolean isFixedUUID) {
-        goToPage(shop.getUrl());
         cookiesChange(isFixedUUID);
+        goToPage(shop.getUrl());
     }
 
     @Override

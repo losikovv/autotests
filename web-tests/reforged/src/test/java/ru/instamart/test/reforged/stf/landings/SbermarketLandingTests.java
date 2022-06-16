@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.home;
@@ -14,10 +15,9 @@ public final class SbermarketLandingTests {
 
     @CaseId(1687)
     @Test(description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successValidateSbermarketLanding() {
         home().goToPage();
-        home().addCookie(CookieFactory.COOKIE_ALERT);
-        home().refresh();
         home().checkHeaderContainerIsVisible();
         home().checkHeaderLogoIsVisible();
         home().checkLoginButtonIsVisible();

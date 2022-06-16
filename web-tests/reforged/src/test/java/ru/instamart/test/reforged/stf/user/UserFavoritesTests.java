@@ -8,8 +8,8 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -117,6 +117,7 @@ public final class UserFavoritesTests {
 
     @CaseId(1270)
     @Test(description = "Проверка работоспособности подгрузки страниц в Любимых товарах", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successShowMoreLoad() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -127,7 +128,6 @@ public final class UserFavoritesTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        userFavorites().addCookie(CookieFactory.COOKIE_ALERT);
         userFavorites().goToPage();
         userFavorites().checkNotEmptyFavorites();
 

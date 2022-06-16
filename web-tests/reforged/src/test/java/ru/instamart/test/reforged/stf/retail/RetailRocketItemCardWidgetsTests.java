@@ -2,7 +2,6 @@ package ru.instamart.test.reforged.stf.retail;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -10,6 +9,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -36,10 +37,9 @@ public final class RetailRocketItemCardWidgetsTests {
 
     @CaseId(1777)
     @Test(description = "Тест наличия виджета 'Похожие товары' в карточке товара", groups = "regression")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successCheckSimilarItemsWidget() {
         shop().goToPage();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
-        shop().refresh();
         shop().openFirstProductCardProd();
         shop().interactProductCard().interactRetailRocket().checkBlockSimilar();
     }
@@ -59,10 +59,9 @@ public final class RetailRocketItemCardWidgetsTests {
     @Test(  description = "Тест открытия карточки товара из виджета 'Похожие товары' в карточке товара",
             groups = "regression",
             dependsOnMethods = "successCheckSimilarItemsWidget")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOpenItemFromSimilarItemsWidget() {
         shop().goToPage();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
-        shop().refresh();
         shop().openFirstProductCardProd();
         shop().interactProductCard().interactRetailRocket().clickToFirstProductInSimilar();
         shop().interactProductCard().checkProductCardVisible();
@@ -88,13 +87,12 @@ public final class RetailRocketItemCardWidgetsTests {
     @Test(  description = "Тест успешного добавления товара из виджета 'Похожие товары' в карточке товара",
             groups = "regression",
             dependsOnMethods = "successCheckSimilarItemsWidget")
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successAddItemFromSimilarItemsWidget() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
-        shop().refresh();
 
         shop().openFirstProductCardProd();
         shop().interactProductCard().interactRetailRocket().addToCartFirstProductInSimilar();

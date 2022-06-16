@@ -11,8 +11,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.component.AbstractComponent;
 import ru.instamart.reforged.core.config.WaitProperties;
 
+import java.time.Duration;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -214,8 +214,8 @@ public final class JsAction {
     }
 
     private FluentWait<WebDriver> createWait() {
-        return new WebDriverWait(getWebDriver(), WaitProperties.BASIC_TIMEOUT)
-                .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
+        return new WebDriverWait(getWebDriver(), Duration.ofSeconds(WaitProperties.BASIC_TIMEOUT))
+                .pollingEvery(Duration.ofMillis(WaitProperties.POLLING_INTERVAL));
     }
 
     private static Boolean apply(final WebDriver wb, final String jsCode) {

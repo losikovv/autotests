@@ -13,4 +13,9 @@ public final class WaitProperties {
 
     @Config(configName = NAME, fieldName = "pollingInterval", defaultValue = "250")
     public static int POLLING_INTERVAL;
+
+    @Config(configName = NAME, fieldName = "maxPageLoadTimeout", defaultValue = "20")
+    public static int MAX_PAGE_LOAD_TIMEOUT;
+    @Config(configName = NAME, fieldName = "maxScriptLoadTimeout", defaultValue = "250")
+    public static int MAX_SCRIPT_LOAD_TIMEOUT;
 }

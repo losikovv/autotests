@@ -2,22 +2,18 @@ package ru.instamart.reforged.core.report;
 
 import com.google.common.base.Joiner;
 import io.qameta.allure.Attachment;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.logging.LogType;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.KrakenParams;
-import ru.instamart.reforged.core.provider.RemoteWebDriverExtension;
-import ru.instamart.reforged.core.provider.chrome.ChromeDriverExtension;
+import ru.instamart.reforged.core.cdp.CdpCookie;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Set;
 import java.util.StringJoiner;
 
-import static java.util.Objects.nonNull;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
 
@@ -59,16 +55,6 @@ public final class CustomReport {
     @Attachment(value = "Скриншот с веб страницы", type = "image/jpg")
     public static byte[] takeScreenshot(final KrakenParams params) {
         final var driver = Kraken.getWebDriver();
-        if (nonNull(params) && params.takeFullPageScreen()) {
-            //TODO: Wait Pattern Matching for instanceof Java 14++
-            if (driver instanceof ChromeDriverExtension) {
-                final ChromeDriverExtension chromeDriver = (ChromeDriverExtension) driver;
-                return chromeDriver.getFullScreenshotAs(OutputType.BYTES);
-            } else if (driver instanceof RemoteWebDriverExtension) {
-                final RemoteWebDriverExtension remoteDriver = (RemoteWebDriverExtension) driver;
-                return remoteDriver.getFullScreenshotAs(OutputType.BYTES);
-            }
-        }
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 
@@ -81,10 +67,10 @@ public final class CustomReport {
 
     @Attachment(value = "Куки браузера", type = "text/plain")
     public static String addCookieLog() {
-        final Set<Cookie> cookies = Kraken.getCookies();
+        final var cookies = CdpCookie.getAllCookies();
         final int maxLineLength = cookies
                 .stream()
-                .map(Cookie::getValue)
+                .map(org.openqa.selenium.devtools.v102.network.model.Cookie::getValue)
                 .mapToInt(String::length)
                 .max().orElse(0);
         final int count = maxLineLength >= 20 ? Math.min(maxLineLength + 1, 120) : 20;
@@ -98,7 +84,7 @@ public final class CustomReport {
         sb.append(String.format("|%-40s|%-" + count + "s|%-40s|%n", "Name", "Value", "Domain"));
         sb.append(delimiter);
 
-        for (final Cookie e : cookies) {
+        for (final var e : cookies) {
             //TODO: Жутко, но по другому не придумал
             final String tmp = e.getValue().replaceAll(".{120}(?=.)", "$0\n");
             final String[] splitString = splitString(tmp);
