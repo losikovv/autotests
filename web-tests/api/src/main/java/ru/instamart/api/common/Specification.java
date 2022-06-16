@@ -100,18 +100,21 @@ public enum Specification {
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new SwaggerCoverageV3RestAssured())
+                .addFilter(new CounterFilter())
                 .build();
         prodAdminRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(prodAdminUrl)
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
+                .addFilter(new CounterFilter())
                 .build();
 
         apiAdminRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(adminFullUrl)
                 .setConfig(RestAssuredConfig.newConfig().redirect(RedirectConfig.redirectConfig().followRedirects(true)))
                 .addFilter(new AllureRestAssuredCustom())
+                .addFilter(new CounterFilter())
                 .build();
 
         apiV2RequestSpec = new RequestSpecBuilder()
@@ -120,12 +123,14 @@ public enum Specification {
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new SwaggerCoverageV3RestAssured())
+                .addFilter(new CounterFilter())
                 .build();
 
         prodRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(prodFullUrl)
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
+                .addFilter(new CounterFilter())
                 .build();
 
         apiV3RequestSpec = new RequestSpecBuilder()
@@ -135,6 +140,7 @@ public enum Specification {
                 .addHeader("Api-Version", "3.0")
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new SwaggerCoverageV3RestAssured())
+                .addFilter(new CounterFilter())
                 .build();
 
         shopperRequestSpec = new RequestSpecBuilder()
@@ -148,6 +154,7 @@ public enum Specification {
                 .addHeader("x-testing-nolimiter","true")
                 .addHeader("sbm-forward-feature-version-shp", shopperStage)
                 .addFilter(new AllureRestAssuredCustom())
+                .addFilter(new CounterFilter())
                 .build();
 
         shopperAdminRequestSpec = new RequestSpecBuilder()
@@ -158,6 +165,7 @@ public enum Specification {
                         "Client-Ver",
                         "99.9.9")
                 .addFilter(new AllureRestAssuredCustom())
+                .addFilter(new CounterFilter())
                 .build();
 
         locatorRequestSpec = new RequestSpecBuilder()
