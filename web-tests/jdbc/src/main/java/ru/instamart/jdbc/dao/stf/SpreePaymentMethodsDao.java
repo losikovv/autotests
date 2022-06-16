@@ -21,6 +21,20 @@ public class SpreePaymentMethodsDao extends AbstractDao<Long, SpreePaymentMethod
     public List<Long> getPaymentMethodsIds() {
         List<Long> ids = new ArrayList<>();
         try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE deleted_at IS NULL")) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ids.add(resultSet.getLong("id"));
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return ids;
+    }
+
+    public List<Long> getActivePaymentMethodsIds() {
+        List<Long> ids = new ArrayList<>();
+        try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE active = 1 AND deleted_at IS NULL")) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
