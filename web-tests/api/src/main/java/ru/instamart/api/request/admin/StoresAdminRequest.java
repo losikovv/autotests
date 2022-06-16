@@ -205,7 +205,7 @@ public class StoresAdminRequest extends AdminRequestBase {
     }
 
     public static Store getStoreSelgrosMiklouhoMaclay() {
-       List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getPaymentMethodsIds();
+        List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getActivePaymentMethodsIds();
         return Store.builder()
                 .retailerId(SpreeRetailersDao.INSTANCE.getIdBySlug("selgros"))
                 .operationalZoneId(OperationalZonesDao.INSTANCE.getIdByName("Москва"))
@@ -277,7 +277,7 @@ public class StoresAdminRequest extends AdminRequestBase {
     }
 
     public static Store getStoreForRetailerTests(final String retailerName, final String city) {
-        List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getPaymentMethodsIds();
+        List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getActivePaymentMethodsIds();
         return Store.builder()
                 .retailerId(SpreeRetailersDao.INSTANCE.getIdByName(retailerName))
                 .operationalZoneId(OperationalZonesDao.INSTANCE.getIdByName(city))
@@ -351,7 +351,7 @@ public class StoresAdminRequest extends AdminRequestBase {
     }
 
     public static Store getStoreLentaOrekhoviyBulvar() {
-        List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getPaymentMethodsIds();
+        List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getActivePaymentMethodsIds();
         return Store.builder()
                 .retailerId(SpreeRetailersDao.INSTANCE.getIdBySlug("lenta"))
                 .operationalZoneId(OperationalZonesDao.INSTANCE.getIdByName("Москва"))
@@ -423,7 +423,7 @@ public class StoresAdminRequest extends AdminRequestBase {
     }
 
     public static Store getStoreLentaElino() {
-        List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getPaymentMethodsIds();
+        List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getActivePaymentMethodsIds();
         return Store.builder()
                 .retailerId(SpreeRetailersDao.INSTANCE.getIdBySlug("lenta"))
                 .operationalZoneId(OperationalZonesDao.INSTANCE.getIdByName("Москва"))
@@ -495,7 +495,7 @@ public class StoresAdminRequest extends AdminRequestBase {
     }
 
     public static Store getStoreVictoriaTest() {
-        List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getPaymentMethodsIds();
+        List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getActivePaymentMethodsIds();
         return Store.builder()
                 .retailerId(SpreeRetailersDao.INSTANCE.getIdBySlug("victoria"))
                 .operationalZoneId(OperationalZonesDao.INSTANCE.getIdByName("Санкт-Петербург"))
@@ -569,7 +569,7 @@ public class StoresAdminRequest extends AdminRequestBase {
     public static Store getStoreKaliningradTest() {
         String openingDate = getDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(4)));
         String closingDate = getDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusHours(3)));
-        List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getPaymentMethodsIds();
+        List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getActivePaymentMethodsIds();
         return Store.builder()
                 .retailerId(SpreeRetailersDao.INSTANCE.getIdBySlug("selgros"))
                 .operationalZoneId(OperationalZonesDao.INSTANCE.getIdByName("Калининград"))

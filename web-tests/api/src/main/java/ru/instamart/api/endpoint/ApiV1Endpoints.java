@@ -55,6 +55,7 @@ public final class ApiV1Endpoints {
         public static final String MOBILE_CONFIGS = "admin/mobile_configs";
         public static final String LOGISTIC_DENSITIES = "admin/logistic_densities";
         public static final String OPERATIONAL_ZONES = "admin/operational_zones";
+        public static final String PAYMENT_METHODS = "admin/payment_methods";
         public static final String SHIPMENTS = "admin/shipments.json";
         public static final String SHIPMENT = "admin/shipments/{uuid}";
         public static final String SHIPPING_CATEGORIES = "admin/shipping_categories";
