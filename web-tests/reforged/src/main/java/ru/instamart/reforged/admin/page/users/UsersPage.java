@@ -5,14 +5,9 @@ import ru.instamart.reforged.admin.AdminPage;
 
 public class UsersPage implements AdminPage, UsersCheck {
 
-    @Step("Заполнить поле поиск по email: {0}")
-    public void fillSearchByEmail(String data) {
-        searchEmail.fill(data);
-    }
-
-    @Step("Заполнить поле поиск по номеру телефона: {0}")
-    public void fillSearchByPhoneNumber(String data) {
-        searchPhoneNumber.fill(data);
+    @Step("Заполнить поле поиск по email или телефонному номеру: {0}")
+    public void fillSearchByEmailOrPhone(String data) {
+        searchUserByEmailOrPhone.fill(data);
     }
 
     @Step("Нажать поиск")

@@ -6,11 +6,11 @@ public final class AuthoredHeader implements AuthoredHeaderCheck {
 
     @Step("Нажать на меню профиля")
     public void clickToProfileMenu() {
-        adminName.click();
+        adminName.hoverAndClick();
     }
 
     @Step("Нажать на выход")
     public void clickToLogout() {
-        logoutButton.click();
+        logoutButton.hoverAndClick();
     }
 }

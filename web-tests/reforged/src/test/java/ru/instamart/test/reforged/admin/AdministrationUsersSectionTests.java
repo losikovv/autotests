@@ -2,14 +2,13 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
-import ru.instamart.api.enums.v2.CreditCardsV2;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.api.request.v2.CreditCardsV2Request;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -29,10 +28,10 @@ public final class AdministrationUsersSectionTests {
         final String email = UserManager.getDefaultAdmin().getEmail();
 
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().auth(UserManager.getDefaultAdminAllRoles());
 
-        users().openAdminPageWithoutSpa(users().pageUrl());
-        users().fillSearchByEmail(email);
+        users().goToPage();
+        users().fillSearchByEmailOrPhone(email);
         users().clickToSearch();
         users().checkFoundUserEmail(users().getFoundUserEmail(), email);
     }
@@ -47,19 +46,24 @@ public final class AdministrationUsersSectionTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        users().openAdminPageWithoutSpa(users().pageUrl());
-        users().fillSearchByPhoneNumber(userData.getPhone());
+        users().goToPage();
+        users().fillSearchByEmailOrPhone(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
 
-        usersEdit().clearUserEmail();
-        usersEdit().fillUserEmail(userData.getEmail());
         usersEdit().fillPassword(password);
         usersEdit().fillPasswordConfirmation(password);
+        usersEdit().clickToSaveUserPassword();
+        usersEdit().interactFlashAlert().checkSuccessFlashVisible();
+        usersEdit().interactFlashAlert().checkSuccessFlashNotVisible();
+
         usersEdit().checkAdminRole();
-        usersEdit().clickToSave();
-        usersEdit().interactFlashAlert().checkSuccessFlash();
-        main().doLogout();
+        usersEdit().clickToSaveUserRole();
+        usersEdit().interactFlashAlert().checkSuccessFlashVisible();
+        usersEdit().interactFlashAlert().checkSuccessFlashNotVisible();
+
+        usersEdit().interactAuthoredHeader().clickToProfileMenu();
+        usersEdit().interactAuthoredHeader().clickToLogout();
 
         login().goToPage();
         login().setUsername(userData.getEmail());
@@ -67,20 +71,25 @@ public final class AdministrationUsersSectionTests {
         login().submit();
 
         main().interactAuthoredHeader().checkAdminAuth();
-        main().doLogout();
+
+        usersEdit().interactAuthoredHeader().clickToProfileMenu();
+        usersEdit().interactAuthoredHeader().clickToLogout();
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        users().openAdminPageWithoutSpa(users().pageUrl());
-        users().fillSearchByPhoneNumber(userData.getPhone());
+        users().goToPage();
+        users().fillSearchByEmailOrPhone(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
 
         usersEdit().uncheckAdminRole();
-        usersEdit().clickToSave();
-        usersEdit().interactFlashAlert().checkSuccessFlash();
-        main().doLogout();
+        usersEdit().clickToSaveUserRole();
+        usersEdit().interactFlashAlert().checkSuccessFlashVisible();
+        usersEdit().interactFlashAlert().checkSuccessFlashNotVisible();
+
+        usersEdit().interactAuthoredHeader().clickToProfileMenu();
+        usersEdit().interactAuthoredHeader().clickToLogout();
 
         login().goToPage();
         login().setUsername(userData.getEmail());
@@ -88,28 +97,6 @@ public final class AdministrationUsersSectionTests {
         login().submit();
 
         login().checkErrorInvalidEmailOrPassword();
-    }
-
-    @CaseId(33)
-    @Story("Тест смены email пользователя")
-    @Test(description = "Тест смены email пользователя", groups = "regression")
-    public void successChangeEmail() {
-        final UserData userData = UserManager.getQaUser();
-        final String email = Generate.email();
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdminAllRoles());
-
-        users().openAdminPageWithoutSpa(users().pageUrl());
-        users().fillSearchByPhoneNumber(userData.getPhone());
-        users().clickToSearch();
-        users().clickToEditUser();
-
-        usersEdit().clearUserEmail();
-        usersEdit().fillUserEmail(email);
-
-        usersEdit().clickToSave();
-        usersEdit().interactFlashAlert().checkSuccessFlash();
-        usersEdit().checkEditUserEmail(usersEdit().getEditUserEmail(), email);
     }
 
     @CaseId(34)
@@ -122,50 +109,45 @@ public final class AdministrationUsersSectionTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        users().openAdminPageWithoutSpa(users().pageUrl());
-        users().fillSearchByPhoneNumber(userData.getPhone());
+        users().goToPage();
+        users().fillSearchByEmailOrPhone(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
 
         usersEdit().setB2BUser();
-        usersEdit().clickToSave();
-        usersEdit().interactFlashAlert().checkSuccessFlash();
-        usersEdit().refresh();
+        usersEdit().clickToSaveUserB2B();
+        usersEdit().interactFlashAlert().checkSuccessFlashVisible();
+        usersEdit().interactFlashAlert().checkSuccessFlashNotVisible();
         usersEdit().checkB2BIsSelected();
 
         usersEdit().unsetB2BUser();
-        usersEdit().clickToSave();
-        usersEdit().interactFlashAlert().checkSuccessFlash();
+        usersEdit().clickToSaveUserB2B();
+        usersEdit().interactFlashAlert().checkSuccessFlashVisible();
+        usersEdit().interactFlashAlert().checkSuccessFlashNotVisible();
         usersEdit().refresh();
 
         usersEdit().checkB2BIsNotSelected();
     }
 
-    @Issue("B2C-3186")
     @CaseId(508)
-    @Test(enabled = false, description = "Отвязка платежный карт", groups = "regression")
+    @Test(description = "Отвязка платежных карт", groups = "regression")
     public void testBlockPaymentCards() {
         final var userData = UserManager.getQaUser();
-        final var creditCard = CreditCardsV2Request.CreditCard.builder()
-                .title("Новая карта")
-                .name("TESTOV TEST")
-                .year(CreditCardsV2.CARD1.getYear())
-                .month(CreditCardsV2.CARD1.getMonth())
-                .lastDigits(CreditCardsV2.CARD1.getNumber().substring(CreditCardsV2.CARD1.getNumber().length() - 4))
-                .cryptogramPacket(CreditCardsV2.CARD1.getCryptogramPacket())
-                .build();
-        helper.addCreditCard(userData, creditCard);
+        var card = PaymentCards.testCardNo3dsWithSpasibo();
+        helper.bindCardToUser(userData, EnvironmentProperties.DEFAULT_SID,
+                card);
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        users().openAdminPageWithoutSpa(users().pageUrl());
-        users().fillSearchByPhoneNumber(userData.getPhone());
+        users().goToPage();
+        users().fillSearchByEmailOrPhone(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
 
-        usersEdit().clickToBlockCard();
-        usersEdit().interactFlashAlert().checkSuccessFlash();
+        usersEdit().clickToBlockAllCards();
+        usersEdit().interactFlashAlert().checkSuccessFlashVisible();
+        usersEdit().interactFlashAlert().checkSuccessFlashNotVisible();
     }
 
     @CaseId(509)
@@ -177,13 +159,13 @@ public final class AdministrationUsersSectionTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        users().openAdminPageWithoutSpa(users().pageUrl());
-        users().fillSearchByPhoneNumber(userData.getPhone());
+        users().goToPage();
+        users().fillSearchByEmailOrPhone(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
 
         usersEdit().clickToBlockPhone();
-        usersEdit().confirmBrowserAlert();
-        usersEdit().interactFlashAlert().checkSuccessFlash();
+        usersEdit().interactFlashAlert().checkSuccessFlashVisible();
+        usersEdit().interactFlashAlert().checkSuccessFlashNotVisible();
     }
 }

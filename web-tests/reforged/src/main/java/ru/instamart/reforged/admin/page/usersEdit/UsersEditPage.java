@@ -2,12 +2,16 @@ package ru.instamart.reforged.admin.page.usersEdit;
 
 import io.qameta.allure.Step;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.reforged.admin.block.authored_header.AuthoredHeader;
 import ru.instamart.reforged.admin.block.flash_alert.FlashAlert;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.page.StfPage;
 
-public final class UsersEditPage implements StfPage, UsersEditEditCheck {
+public final class UsersEditPage implements StfPage, UsersEditCheck {
 
+    public AuthoredHeader interactAuthoredHeader() {
+        return authoredHeader;
+    }
     public FlashAlert interactFlashAlert() {
         return alert;
     }
@@ -39,22 +43,22 @@ public final class UsersEditPage implements StfPage, UsersEditEditCheck {
 
     @Step("Установить роль админа")
     public void checkAdminRole() {
-        roleAdminCheckbox.check();
+        roleAdminCheckbox.click();
     }
 
     @Step("Снять роль админа")
     public void uncheckAdminRole() {
-        roleAdminCheckbox.uncheck();
+        roleAdminCheckbox.click();
     }
 
     @Step("Выбрать B2B")
     public void setB2BUser() {
-        b2bUser.check();
+        b2bUserUnchecked.click();
     }
 
     @Step("Снять B2B")
     public void unsetB2BUser() {
-        b2bUser.uncheck();
+        b2bUserChecked.click();
     }
 
     @Step("Нажать на кнопку 'Отвязать'")
@@ -63,13 +67,23 @@ public final class UsersEditPage implements StfPage, UsersEditEditCheck {
     }
 
     @Step("Нажать на кнопку 'Заблокировать карты'")
-    public void clickToBlockCard() {
-        blockCard.click();
+    public void clickToBlockAllCards() {
+        blockAllCards.click();
     }
 
-    @Step("Нажать на Изменить на странице редактирования пользователя")
-    public void clickToSave() {
-        saveChanges.click();
+    @Step("Нажать на 'обновить роли' на странице редактирования пользователя")
+    public void clickToSaveUserRole() {
+        saveRoleChanges.click();
+    }
+
+    @Step("Нажать на 'обновить пароль' на странице редактирования пользователя")
+    public void clickToSaveUserPassword() {
+        savePassordChanges.click();
+    }
+
+    @Step("Нажать на 'обновить b2b' на странице редактирования пользователя")
+    public void clickToSaveUserB2B() {
+        saveB2BChanges.click();
     }
 
     @Override
