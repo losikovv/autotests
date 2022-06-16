@@ -149,6 +149,10 @@ public final class ApiV1Endpoints {
         public static final class Users {
             public static final String BY_ID = "admin/users/{userId}";
         }
+
+        public static final class PaymentMethods{
+            public static final String UPDATE_POSITIONS = "admin/payment_methods/update_positions";
+        }
     }
 
     public static final class ApiClients {
