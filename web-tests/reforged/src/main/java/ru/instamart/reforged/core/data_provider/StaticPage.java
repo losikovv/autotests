@@ -85,7 +85,7 @@ public final class StaticPage {
                 {"Контакты", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + contacts().pageUrl()},
                 {"Наши вакансии", EnvironmentProperties.Env.FULL_JOB_LANDING_URL},
                 {"Документы", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + terms().pageUrl()},
-                {"Стать партнером", EnvironmentProperties.Env.FULL_JOB_LANDING_URL},
+                {"Стать партнёром", EnvironmentProperties.Env.FULL_JOB_LANDING_URL},
                 {"Как мы работаем", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + howWeWork().pageUrl()},
                 {"Доставка и оплата", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + delivery().pageUrl()},
                 {"Помощь", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + faq().pageUrl()},
