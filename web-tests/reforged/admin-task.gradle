@@ -15,3 +15,14 @@ task adminUiRegress(type: Test) {
     systemProperty 'qase.Project', 'SA'
     systemProperty 'qase.Title', 'Admin UI Regression'
 }
+
+
+task uiAdminSmokeProduction(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/smoke/admin-prod.xml'
+        includeGroups 'production'
+        systemProperty 'env',"sbermarket-production"
+    }
+    systemProperty 'qase.Project', 'Prod'
+    systemProperty 'qase.Title', 'Admin UI Production Smoke'
+}

@@ -29,6 +29,7 @@ public final class UserManager {
     private static final String PASSWD_1 = Crypt.INSTANCE.decrypt("pPOEBSnWKrokeN1dNasL0g==");
     private static final String PASSWD_2 = Crypt.INSTANCE.decrypt("y3Brgz0jBmYYkmXSkdw5Jw==");
     private static final String PASSWD_3 = Crypt.INSTANCE.decrypt("HfaITuMU+0KIfKR2+YYg5A==");
+    private static final String PASSWD_4 = Crypt.INSTANCE.decrypt("Lnzny6uByX5iwcjViS9iTA==");
 
     private static UserData defaultUser;
     private static UserData defaultAdmin;
@@ -69,7 +70,7 @@ public final class UserManager {
         return defaultUser;
     }
 
-    public static UserData getDefaultAdmin() {
+    public static UserData getDefaultAdminStage() {
         if (isNull(defaultAdmin)) {
             defaultAdmin = UserData.builder()
                     .role("superadmin")
@@ -91,6 +92,23 @@ public final class UserManager {
                     .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
                     .password(PASSWD_1)
                     .name("autotest superadminallroles")
+                    .build();
+        }
+        return defaultAdminAllRoles;
+    }
+
+    public static UserData getDefaultAdmin(){
+        return (EnvironmentProperties.Env.isProduction() ? getDefaultAdminProd() : getDefaultAdminStage());
+    }
+
+    public static UserData getDefaultAdminProd() {
+        if (isNull(defaultAdmin)) {
+            defaultAdminAllRoles = UserData.builder()
+                    .role("superadmin")
+                    .email(Crypt.INSTANCE.decrypt("Gh1MsACysUuEYv98vkOuOOx/HVxUh5J54NKCNSJCPFQ="))
+                    .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
+                    .password(PASSWD_4)
+                    .name("autotest admin")
                     .build();
         }
         return defaultAdminAllRoles;
