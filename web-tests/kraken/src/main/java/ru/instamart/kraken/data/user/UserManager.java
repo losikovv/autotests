@@ -111,7 +111,7 @@ public final class UserManager {
                     .name("autotest admin")
                     .build();
         }
-        return defaultAdminAllRoles;
+        return defaultAdmin;
     }
 
     public static UserData getAdminSmsRole() {
