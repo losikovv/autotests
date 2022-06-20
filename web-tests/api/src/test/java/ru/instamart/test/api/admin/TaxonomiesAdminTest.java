@@ -62,7 +62,8 @@ public class TaxonomiesAdminTest extends RestBase {
     }
 
     @CaseId(1890)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
             description = "Редактирование категории",
             dependsOnMethods = "createTaxonomy")
     public void editTaxonomy() {
