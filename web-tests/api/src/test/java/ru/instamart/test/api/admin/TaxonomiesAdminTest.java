@@ -6,7 +6,7 @@ import io.qameta.allure.Issue;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.admin.TaxonomiesAdminRequest;
@@ -17,7 +17,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
 
 @Epic("Admin")
 @Feature("Категории")
@@ -26,7 +27,7 @@ public class TaxonomiesAdminTest extends RestBase {
     private Long taxonomyId;
     private String name;
 
-    @BeforeClass(alwaysRun = true, description = "Авторизация")
+    @BeforeMethod(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         admin.auth();
     }
@@ -40,8 +41,7 @@ public class TaxonomiesAdminTest extends RestBase {
 
     @CaseId(1888)
     @Issue("INFRADEV-16984")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Создание новой категорий")
     public void createTaxonomy() {
         String name = "Autotest-" + Generate.literalString(6);
@@ -62,8 +62,7 @@ public class TaxonomiesAdminTest extends RestBase {
     }
 
     @CaseId(1890)
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Редактирование категории",
             dependsOnMethods = "createTaxonomy")
     public void editTaxonomy() {
