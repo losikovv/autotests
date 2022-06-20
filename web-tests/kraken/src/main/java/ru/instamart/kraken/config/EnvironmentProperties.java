@@ -183,10 +183,10 @@ public final class EnvironmentProperties {
         public static String FULL_SITE_URL = PROTOCOL + "://" + BASIC_URL + "/";
         public static String FULL_SITE_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + Optional.ofNullable(HTTP_AUTH).orElse("") + BASIC_URL + "/";
         public static String FULL_B2C_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + Optional.ofNullable(HTTP_AUTH).orElse("") + B2C_URL + "/";
-        public static String FULL_ADMIN_URL = FULL_SITE_URL + "admin/spa/";
-        public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = FULL_SITE_URL_WITH_BASIC_AUTH + "admin/spa/";
-        public static String FULL_ADMIN_URL_OLD = FULL_SITE_URL + "admin/";
-        public static String FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD = FULL_SITE_URL_WITH_BASIC_AUTH + "admin/";
+        public static String FULL_ADMIN_URL = PROTOCOL + "://" + (isProduction()?ADMIN_URL:FULL_SITE_URL) + "admin/spa/";
+        public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + (isProduction()?ADMIN_URL:BASIC_URL_WITH_AUTH) + "admin/spa/";
+        public static String FULL_ADMIN_URL_OLD = PROTOCOL + "://" + (isProduction()?ADMIN_URL:FULL_SITE_URL)+ "admin/";
+        public static String FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD = PROTOCOL + "://" + (isProduction()?ADMIN_URL:BASIC_URL_WITH_AUTH) + "admin/";
         public static String FULL_SHOPPER_URL = PROTOCOL + "://" + SHOPPER_URL + "/";
         public static String PROD_FULL_SITE_URL = PROTOCOL + "://" + "api." + BASIC_URL + "/";
         public static String QA_FULL_URL = PROTOCOL + "://" + QA_URL + "/";

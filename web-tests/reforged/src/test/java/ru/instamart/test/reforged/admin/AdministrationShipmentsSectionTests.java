@@ -28,7 +28,7 @@ public final class AdministrationShipmentsSectionTests {
     @Skip
     @CaseId(175)
     @Story("Тест на корректное отображение элементов страницы со списком заказов в админке")
-    @Test(description = "Тест на корректное отображение элементов страницы со списком заказов в админке", groups = "regression")
+    @Test(description = "Тест на корректное отображение элементов страницы со списком заказов в админке", groups = {"regression", "production"})
     public void validateDefaultAdminShipmentsPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -43,7 +43,7 @@ public final class AdministrationShipmentsSectionTests {
 
     @CaseId(176)
     @Story("Тест на работоспособность пагинации списка заказов")
-    @Test(description = "Тест на работоспособность пагинации списка заказов", groups = {"regression", "smoke"})
+    @Test(description = "Тест на работоспособность пагинации списка заказов", groups = {"regression", "smoke", "production"})
     public void validatePagerOnAdminShipmentsPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -62,7 +62,7 @@ public final class AdministrationShipmentsSectionTests {
 
     @CaseId(172)
     @Story("Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ")
-    @Test(description = "Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ", groups = {"regression", "smoke"})
+    @Test(description = "Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ", groups = {"regression", "smoke", "production"})
     public void validateFilterDateAndTimeAdminShipmentsPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -164,7 +164,7 @@ public final class AdministrationShipmentsSectionTests {
     @CaseId(1225)
     @Story("Тест на проверку изменения количества заказов после применения фильтра, с пейджером")
     @Test(  description = "Тест на проверку изменения количества заказов после применения фильтра, с пейджером",
-            groups = {"regression", "smoke"})
+            groups = {"regression", "smoke", "production"})
     public void validateShipmentsAfterFiltrationWithPager() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -255,7 +255,7 @@ public final class AdministrationShipmentsSectionTests {
 
     @CaseId(183)
     @Story("Тест поиска B2B заказа в админке")
-    @Test(description = "Тест поиска B2B заказа в админке", groups = "regression")
+    @Test(description = "Тест поиска B2B заказа в админке", groups = {"regression", "production"})
     public void successSearchB2BOrder() {
         final var shipments = helper.getShipments(ShipmentsAdminV1Request.ShipmentsData
                 .builder()

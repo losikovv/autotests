@@ -13,7 +13,7 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 public final class AdministrationGeneralSettingsTests {
 
     @CaseId(346)
-    @Test(description = "Корректное отображение страницы основных настроек", groups = "regression")
+    @Test(description = "Корректное отображение страницы основных настроек", groups = {"regression", "production"})
     public void generalSettingsPageValidate() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -91,7 +91,7 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(572)
-    @Test(description = "Корректное отображение страницы настройки городов", groups = "regression")
+    @Test(description = "Корректное отображение страницы настройки городов", groups = {"regression", "production"})
     public void citiesSettingsPageValidate() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -103,7 +103,7 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(575)
-    @Test(description = "Корректное отображение страницы добавления городов", groups = "regression")
+    @Test(description = "Корректное отображение страницы добавления городов", groups = {"regression", "production"})
     public void cityAddTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -136,7 +136,7 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(573)
-    @Test(description = "Корректное отображение страницы редактирования городов", groups = "regression")
+    @Test(description = "Корректное отображение страницы редактирования городов", groups = {"regression", "production"})
     public void cityEditTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -170,7 +170,7 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(367)
-    @Test(description = "Корректное отображение страницы настроек методов оплаты", groups = "regression")
+    @Test(description = "Корректное отображение страницы настроек методов оплаты", groups = {"regression", "production"})
     public void paymentMethodsSettingsPageValidate() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -181,7 +181,7 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(393)
-    @Test(description = "Корректное отображение страницы настроек компаний", groups = "regression")
+    @Test(description = "Корректное отображение страницы настроек компаний", groups = {"regression", "production"})
     public void companySettingsPageValidate() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -236,7 +236,7 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(394)
-    @Test(description = "Корректное отображение страницы настроек смс", groups = "regression")
+    @Test(description = "Корректное отображение страницы настроек смс", groups = {"regression", "production"})
     public void smsSettingsPageValidate() {
         login().goToPage();
         login().auth(UserManager.getAdminSmsRole());

@@ -16,7 +16,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(440)
     @Story("Тест неуспешной авторизации с пустыми полями")
-    @Test(description = "Тест неуспешной авторизации с пустыми полями", groups = "regression")
+    @Test(description = "Тест неуспешной авторизации с пустыми полями", groups = {"regression", "production"})
     public void noAuthWithEmptyFields() {
         login().goToPage();
         login().setUsername("");
@@ -28,7 +28,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(441)
     @Story("Тест неуспешной авторизации с некорректным логином")
-    @Test(description = "Тест неуспешной авторизации с некорректным логином", groups = "regression")
+    @Test(description = "Тест неуспешной авторизации с некорректным логином", groups = {"regression", "production"})
     public void noAuthWithIncorrectUsername() {
         login().goToPage();
         login().setUsername("wrongUsername");
@@ -39,7 +39,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(442)
     @Story("Тест неуспешной авторизации с несуществующим логином")
-    @Test(description = "Тест неуспешной авторизации с несуществующим логином", groups = "regression")
+    @Test(description = "Тест неуспешной авторизации с несуществующим логином", groups = {"regression", "production"})
     public void noAuthWithNonExistingUser() {
         login().goToPage();
         login().setUsername("nonexistinguser@instamart.ru");
@@ -50,10 +50,10 @@ public final class AdministrationLoginTests {
 
     @CaseId(443)
     @Story("Тест неуспешной авторизации с коротким паролем")
-    @Test(description = "Тест неуспешной авторизации с коротким паролем", groups = "regression")
+    @Test(description = "Тест неуспешной авторизации с коротким паролем", groups = {"regression", "production"})
     public void noAuthWithShortPassword() {
         login().goToPage();
-        login().setUsername(UserManager.getDefaultUser().getEmail());
+        login().setUsername(UserManager.getDefaultAdmin().getEmail());
         login().setPassword("123");
         login().submit();
         login().checkErrorShortPassword();
@@ -61,10 +61,10 @@ public final class AdministrationLoginTests {
 
     @CaseId(444)
     @Story("Тест неуспешной авторизации с неверным паролем")
-    @Test(description = "Тест неуспешной авторизации с неверным паролем", groups = "regression")
+    @Test(description = "Тест неуспешной авторизации с неверным паролем", groups = {"regression", "production"})
     public void noAuthWithWrongPassword() {
         login().goToPage();
-        login().setUsername(UserManager.getDefaultUser().getEmail());
+        login().setUsername(UserManager.getDefaultAdmin().getEmail());
         login().setPassword("wrongpassword");
         login().submit();
         login().checkErrorInvalidEmailOrPassword();
@@ -72,7 +72,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(415)
     @Story("Тест успешной авторизации")
-    @Test(description = "Тест успешной авторизации", groups = {"regression", "smoke"})
+    @Test(description = "Тест успешной авторизации", groups = {"regression", "smoke", "production"})
     public void successAuthOnAdminLoginPage() {
         login().goToPage();
         login().setUsername(UserManager.getDefaultAdmin().getEmail());
@@ -84,7 +84,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(2)
     @Story("Тест логаута из админки")
-    @Test(description = "Тест логаута из админки", groups = {"regression", "smoke"})
+    @Test(description = "Тест логаута из админки", groups = {"regression", "smoke", "production"})
     public void successLogoutFromAdminPage() {
         login().goToPage();
         login().setUsername(UserManager.getDefaultAdmin().getEmail());
@@ -99,7 +99,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(417)
     @Story("Тест недоступности админки пользователю без админ. прав")
-    @Test(description = "Тест недоступности админки пользователю без админ. прав", groups = {"regression", "smoke"})
+    @Test(description = "Тест недоступности админки пользователю без админ. прав", groups = {"regression", "smoke", "production"})
     public void loginWithoutAdminPermission() {
         login().goToPage();
         login().setUsername(UserManager.userWithoutAdminPermission().getEmail());

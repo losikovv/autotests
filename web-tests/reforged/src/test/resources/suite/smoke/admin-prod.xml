@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="UI smoke" data-provider-thread-count="1">
+    <listeners>
+        <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
+        <listener class-name="ru.instamart.reforged.core.listener.UiListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="Admin UI tests" parallel="classes" thread-count="5">
+        <classes>
+            <class name="ru.instamart.test.reforged.admin.BasicAdministrationTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationGeneralSettingsTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationLoginTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationShipmentsSectionTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationUsersSectionTests"/>
+        </classes>
+    </test>
+</suite>
