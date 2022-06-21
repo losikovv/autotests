@@ -103,7 +103,7 @@ public final class UserManager {
 
     public static UserData getDefaultAdminProd() {
         if (isNull(defaultAdmin)) {
-            defaultAdminAllRoles = UserData.builder()
+            defaultAdmin = UserData.builder()
                     .role("superadmin")
                     .email(Crypt.INSTANCE.decrypt("Gh1MsACysUuEYv98vkOuOOx/HVxUh5J54NKCNSJCPFQ="))
                     .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))

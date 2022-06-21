@@ -83,7 +83,9 @@ public class StoresAdminTest extends RestBase {
         final Response response = StoresAdminRequest.POST(testData.getStore());
         checkStatusCode(response, testData.getStatusCode(), ContentType.HTML);
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(testData.getStore().getLat(), testData.getStore().getLon());
-        Assert.assertNull(storeFromDb);
+        Allure.step("Asserts",()->{
+            Assert.assertNull(storeFromDb, "Проверка создания магазина в БД вернула не null");
+        });
     }
 
     @AfterClass(alwaysRun = true)

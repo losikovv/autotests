@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
+import javax.validation.constraints.Null;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class RetailerPromoCardV1 extends BaseObject {
@@ -23,7 +25,7 @@ public class RetailerPromoCardV1 extends BaseObject {
     @JsonProperty("background_color")
     private String backgroundColor;
 
-    @JsonSchema(required = true)
+    @Null
     @JsonProperty("background_image")
     private String backgroundImage;
 
