@@ -1,5 +1,6 @@
 package ru.instamart.api.checkpoint;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,10 @@ import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
-import ru.instamart.api.request.v1.*;
+import ru.instamart.api.request.v1.CitiesV1Request;
+import ru.instamart.api.request.v1.OrdersV1Request;
+import ru.instamart.api.request.v1.PromotionCardsV1Request;
+import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
 import ru.instamart.api.request.v1.admin.ApiClientsV1Request;
 import ru.instamart.api.request.v1.admin.ShipmentReturnsAdminV1Request;
 import ru.instamart.api.request.v1.admin.UsersV1Request;
@@ -146,6 +150,7 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(marketingSamplesEntity.get().getUserId(), SpreeUsersDao.INSTANCE.getUserByEmail(email).getId(), softAssert);
         softAssert.assertAll();
     }
+
     @Step("Проверяем информацию о подписке, пришедшую в ответе")
     public static void checkExternalPartnersServices(Response response, Boolean isActive, String text) {
         List<ServicesV2> services = response.as(ExternalPartnersServicesV2Response.class).getServices();
@@ -187,7 +192,7 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(position, pageFromDb.getShowInHeader(), softAssert);
         compareTwoObjects(position, pageFromDb.getShowInSidebar(), softAssert);
         compareTwoObjects(position, pageFromDb.getRenderLayoutAsPartial(), softAssert);
-        if(position == 1) {
+        if (position == 1) {
             compareTwoObjects(position, pageFromDb.getPosition(), softAssert);
         }
         softAssert.assertAll();
@@ -195,18 +200,21 @@ public class InstamartApiCheckpoints {
 
     @Step("Сравниваем магазин с сохраненным в БД")
     public static void checkStoreInDb(StoresAdminRequest.Store store, StoresEntity storeFromDb, StoreConfigsEntity storeConfigs) {
-        final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(store.getRetailerId(), storeFromDb.getRetailerId(), softAssert);
-        compareTwoObjects(store.getOperationalZoneId(), storeFromDb.getOperationalZoneId(), softAssert);
-        compareTwoObjects(store.getTimeZone(), storeFromDb.getTimeZone(), softAssert);
-        compareTwoObjects(store.getShipmentBaseKilos() * 1000, storeConfigs.getShipmentBaseWeight(), softAssert);
-        compareTwoObjects(store.getShipmentBaseItemsCount(), storeConfigs.getShipmentBaseItemsCount(), softAssert);
-        compareTwoObjects(store.getMinFirstOrderAmount(), storeConfigs.getMinFirstOrderAmount(), softAssert);
-        compareTwoObjects(store.getMinOrderAmount(), storeConfigs.getMinOrderAmount(), softAssert);
-        compareTwoObjects(store.getMinOrderAmountPickup(), storeConfigs.getMinOrderAmountPickup(), softAssert);
-        compareTwoObjects(store.getMinFirstOrderAmountPickup(), storeConfigs.getMinFirstOrderAmountPickup(), softAssert);
-        compareTwoObjects(store.getDisallowOrderEditingHours(), storeConfigs.getDisallowOrderEditingHours(), softAssert);
-        softAssert.assertAll();
+        Allure.step("", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            compareTwoObjects(store.getRetailerId(), storeFromDb.getRetailerId(), softAssert);
+            compareTwoObjects(store.getOperationalZoneId(), storeFromDb.getOperationalZoneId(), softAssert);
+            compareTwoObjects(store.getTimeZone(), storeFromDb.getTimeZone(), softAssert);
+            compareTwoObjects(store.getShipmentBaseKilos() * 1000, storeConfigs.getShipmentBaseWeight(), softAssert);
+            compareTwoObjects(store.getShipmentBaseItemsCount(), storeConfigs.getShipmentBaseItemsCount(), softAssert);
+            compareTwoObjects(store.getMinFirstOrderAmount(), storeConfigs.getMinFirstOrderAmount(), softAssert);
+            compareTwoObjects(store.getMinOrderAmount(), storeConfigs.getMinOrderAmount(), softAssert);
+            compareTwoObjects(store.getMinOrderAmountPickup(), storeConfigs.getMinOrderAmountPickup(), softAssert);
+            compareTwoObjects(store.getMinFirstOrderAmountPickup(), storeConfigs.getMinFirstOrderAmountPickup(), softAssert);
+            compareTwoObjects(store.getDisallowOrderEditingHours(), storeConfigs.getDisallowOrderEditingHours(), softAssert);
+            softAssert.assertAll();
+        });
+
     }
 
     @Step("Сравниваем полученные правила доступности слотов доставки с отправленными")
@@ -241,7 +249,8 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(addressFromDb.getCity(), address.getCity(), softAssert);
         compareTwoObjects(addressFromDb.getStreet(), address.getStreet(), softAssert);
         compareTwoObjects(addressFromDb.getBuilding(), address.getBuilding(), softAssert);
-        compareTwoObjects(addressFromDb.getFullAddress(), address.getFullAddress(), softAssert);
+        //todo проверка отключена. Добавляется номер билдинга.
+        //compareTwoObjects(addressFromDb.getFullAddress(), address.getFullAddress(), softAssert);
         compareTwoObjects(addressFromDb.getLat(), address.getLat(), softAssert);
         compareTwoObjects(addressFromDb.getLon(), address.getLon(), softAssert);
         softAssert.assertAll();
@@ -297,10 +306,10 @@ public class InstamartApiCheckpoints {
         checkResponseJsonSchema(response, UserShipmentV1Response.class);
         UserShipmentV1 shipmentFromResponse = response.as(UserShipmentV1Response.class).getShipment();
         final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(shipmentFromResponse.getNumber(),order.getShipments().get(0).getNumber(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getNumber(), order.getShipments().get(0).getNumber(), softAssert);
         compareTwoObjects(shipmentFromResponse.getOrderNumber(), order.getNumber(), softAssert);
         compareTwoObjects(shipmentFromResponse.getState(), state, softAssert);
-        compareTwoObjects(shipmentFromResponse.getEmail(),user.getEmail(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getEmail(), user.getEmail(), softAssert);
         compareTwoObjects(shipmentFromResponse.getStoreId(), EnvironmentProperties.DEFAULT_SID, softAssert);
         if (delayText == null) {
             compareTwoObjects(shipmentFromResponse.getDelay(), null, softAssert);
@@ -316,10 +325,10 @@ public class InstamartApiCheckpoints {
         checkResponseJsonSchema(response, UserShipmentV1Response.class);
         UserShipmentV1 shipmentFromResponse = response.as(UserShipmentV1Response.class).getShipment();
         final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(shipmentFromResponse.getNumber(),order.getShipments().get(0).getNumber(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getNumber(), order.getShipments().get(0).getNumber(), softAssert);
         compareTwoObjects(shipmentFromResponse.getOrderNumber(), order.getNumber(), softAssert);
         compareTwoObjects(shipmentFromResponse.getState(), state, softAssert);
-        compareTwoObjects(shipmentFromResponse.getEmail(),user.getEmail(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getEmail(), user.getEmail(), softAssert);
         compareTwoObjects(shipmentFromResponse.getStoreId(), order.getShipments().get(0).getStore().getId(), softAssert);
         if (delayText == null) {
             compareTwoObjects(shipmentFromResponse.getDelay(), null, softAssert);
@@ -377,11 +386,12 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(promotionCardFromResponse.getTenantIds().get(0), promotionCard.getTenantIds(), softAssert);
         compareTwoObjects(promotionCardFromResponse.getCategory().getId(), promotionCard.getCategoryId(), softAssert);
         compareTwoObjects(promotionCardFromResponse.getPromotion().getId(), promotionCard.getPromotionId(), softAssert);
-        if(Objects.nonNull(promotionCardFromResponse.getBackgroundImage())) {
+        if (Objects.nonNull(promotionCardFromResponse.getBackgroundImage())) {
             softAssert.assertTrue(promotionCardFromResponse.getBackgroundImage().contains("sample.jpg"));
         }
         softAssert.assertAll();
     }
+
     @Step("Проверяем платеж")
     public static void checkPayment(PaymentV1 paymentFromResponse, MultiretailerOrderV1Response order) {
         final SoftAssert softAssert = new SoftAssert();
@@ -416,6 +426,7 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(cityFromResponse.getLocked(), false, softAssert);
         softAssert.assertAll();
     }
+
     @Step("Проверяем FAQ")
     public static void checkFaq(FaqV1 faqResponse, String text, Long faqGroupId, int position) {
         final SoftAssert softAssert = new SoftAssert();

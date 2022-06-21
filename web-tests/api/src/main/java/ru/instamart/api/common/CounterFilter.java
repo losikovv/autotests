@@ -8,6 +8,8 @@ import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.FilterableResponseSpecification;
 import ru.instamart.api.factory.ArtifactFactory.ArtifactRequests;
 
+import java.util.Optional;
+
 import static ru.instamart.api.factory.ArtifactFactory.addArtifact;
 
 public class CounterFilter implements OrderedFilter {
@@ -23,12 +25,12 @@ public class CounterFilter implements OrderedFilter {
                            final FilterContext ctx) {
 
         final Response response = ctx.next(requestSpec, responseSpec);
-        final String method = requestSpec.getMethod();
-        final String path = requestSpec.getDerivedPath();
-        final String body = requestSpec.getBody();
+        var method = Optional.ofNullable(requestSpec.getMethod()).orElse("");
+        var path = Optional.ofNullable(requestSpec.getDerivedPath()).orElse("");
+        var body = Optional.ofNullable(requestSpec.getBody()).orElse("");
 
         if (Status.SUCCESS.matches(response.getStatusCode())) {
-            var data = new ArtifactRequests(method, path, body);
+            var data = new ArtifactRequests(method, path, body.toString());
             addArtifact(data);
         }
         return response;
