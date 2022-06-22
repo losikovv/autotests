@@ -5,6 +5,7 @@ import ru.instamart.api.common.Specification;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static io.restassured.RestAssured.given;
 
@@ -16,8 +17,11 @@ public class ApiV1RequestBase {
     }
 
     public static RequestSpecification givenAdminWithSpec() {
-        return given()
-                .spec(Specification.INSTANCE.getApiV1RequestSpec());
+        return EnvironmentProperties.Env.isProduction() ?
+                given()
+                        .spec(Specification.INSTANCE.getProdAdminRequestSpec()):
+                given()
+                        .spec(Specification.INSTANCE.getApiV1RequestSpec());
     }
 
     public static RequestSpecification givenWithAuth() {
