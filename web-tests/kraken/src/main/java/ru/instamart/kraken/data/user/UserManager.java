@@ -33,6 +33,7 @@ public final class UserManager {
 
     private static UserData defaultUser;
     private static UserData defaultAdmin;
+    private static UserData defaultAdminStage;
     private static UserData defaultAdminAllRoles;
     private static UserData defaultAdminSmsRole;
     private static UserData defaultShopper;
@@ -71,8 +72,8 @@ public final class UserManager {
     }
 
     public static UserData getDefaultAdminStage() {
-        if (isNull(defaultAdmin)) {
-            defaultAdmin = UserData.builder()
+        if (isNull(defaultAdminStage)) {
+            defaultAdminStage = UserData.builder()
                     .role("superadmin")
                     .email(Crypt.INSTANCE.decrypt("Gh1MsACysUuEYv98vkOuOOx/HVxUh5J54NKCNSJCPFQ="))
                     .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
@@ -81,7 +82,7 @@ public final class UserManager {
                     .token(Crypt.INSTANCE.decrypt("fOirPL+gZMmUegHv1749gumS6q0SJpPUPtjMwaVPTvv3fF6EoM9AZBSUACS5kY9E"))
                     .build();
         }
-        return defaultAdmin;
+        return defaultAdminStage;
     }
 
     public static UserData getDefaultAdminAllRoles() {
@@ -109,6 +110,7 @@ public final class UserManager {
                     .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
                     .password(PASSWD_4)
                     .name("autotest admin")
+                    .token(Crypt.INSTANCE.decrypt("fOirPL+gZMmUegHv1749gumS6q0SJpPUPtjMwaVPTvv3fF6EoM9AZBSUACS5kY9E"))
                     .build();
         }
         return defaultAdmin;
