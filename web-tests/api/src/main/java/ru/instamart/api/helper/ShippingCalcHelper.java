@@ -1,5 +1,6 @@
 package ru.instamart.api.helper;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.jdbc.dao.shippingcalc.ConditionsDao;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 
 public class ShippingCalcHelper {
@@ -105,6 +107,53 @@ public class ShippingCalcHelper {
                 .build();
     }
 
+    @Step("Получаем запрос для получения цены доставки")
+    public static ShippingcalcOuterClass.GetDeliveryPriceRequest getDeliveryPriceRequest(
+            Integer quantity, String productId, Integer productPrice, Integer discountPrice, Integer productWeight,
+            String shipmentId, Boolean isOndemand, Integer shipmentWeight, Integer itemsCount, Integer shipmentPrice,
+            String storeId, String status, Integer regionId, Integer surgeDeliveryWindowAddition, Double storeLat, Double storeLon,
+            String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Double customerLat, Double customerLon,
+            String orderId, Boolean isB2bOrder, Boolean isPromocode, String paymentMethod, Boolean hasPaymentMethod, Integer deliveryType,
+            String tenantId, String platformName, String platformVersion) {
+        return ShippingcalcOuterClass.GetDeliveryPriceRequest.newBuilder()
+                .addShipments(ShippingcalcOuterClass.Shipment.newBuilder()
+                        .addProducts(ShippingcalcOuterClass.ProductRequest.newBuilder()
+                                .setQuantity(quantity)
+                                .setId(productId)
+                                .setPrice(productPrice)
+                                .setDiscountPrice(discountPrice)
+                                .setWeight(productWeight)
+                                .build())
+                        .setId(shipmentId)
+                        .setIsOndemand(isOndemand)
+                        .setWeight(shipmentWeight)
+                        .setItemsCount(itemsCount)
+                        .setPrice(shipmentPrice)
+                        .setStoreId(storeId)
+                        .setStatus(status)
+                        .setRegionId(regionId)
+                        .setSurgeDeliveryWindowAddition(surgeDeliveryWindowAddition)
+                        .setLat(storeLat.floatValue())
+                        .setLon(storeLon.floatValue())
+                        .build())
+                .setCustomer(ShippingcalcOuterClass.Customer.newBuilder()
+                        .setId(customerId)
+                        .setAnonymousId(anonymousId)
+                        .setOrdersCount(ordersCount)
+                        .setRegisteredAt(registeredAt)
+                        .setLat(customerLat.floatValue())
+                        .setLon(customerLon.floatValue())
+                        .build())
+                .setOrderId(orderId)
+                .setIsB2BOrder(isB2bOrder)
+                .setIsPromocode(isPromocode)
+                .setPaymentMethod(paymentMethod)
+                .setHasPaymentMethod(hasPaymentMethod)
+                .setDeliveryTypeValue(deliveryType)
+                .setTenantId(tenantId)
+                .build();
+    }
+
     @Step("Проверяем стратегию")
     public static void checkStrategy(Integer strategyId, String strategyName, Integer rulesAmount, Integer conditionsAmount, Integer conditionIndex) {
         StrategiesEntity strategy = StrategiesDao.INSTANCE.getStrategy(strategyId);
@@ -151,6 +200,63 @@ public class ShippingCalcHelper {
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertNull(bind, "Связка не удалилась");
         softAssert.assertAll();
+    }
+
+    @Step("Проверяем расчитанную цену доставки")
+    public static void checkDeliveryPrice(ShippingcalcOuterClass.GetDeliveryPriceResponse response, int strategyId, long deliveryPrice, long minCartPrice, int stepAmount, int hintAmount, int passedConditionAmount) {
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(response.getIsOrderPossible(), "Заказ не возможен");
+        softAssert.assertFalse(response.getShipments(0).getWeHadOffer(), "Получили цену из оффера");
+        softAssert.assertEquals(response.getTotalShippingPrice(), deliveryPrice, "Не ожидаемая цена доставки");
+        softAssert.assertEquals(response.getShipments(0).getStrategyId(), strategyId, "Посчитали по неверной стратегии");
+        softAssert.assertEquals(response.getShipments(0).getMinimalCartPrice(), minCartPrice, "Отдали неверную цену мин. корзины");
+        softAssert.assertEquals(response.getShipments(0).getLadderCount(), stepAmount, "В лесенке не ожидаемое кол-во ступеней");
+        softAssert.assertEquals(response.getShipments(0).getHintsCount(), hintAmount, "Не ожидаемое кол-во подсказок");
+        softAssert.assertEquals(response.getShipments(0).getPriceExplanation().getPassedConditionsCount(), passedConditionAmount, "Не ожидаемое кол-во прошедших условий");
+        softAssert.assertAll();
+    }
+
+    @Step("Добавляем стратегию в БД")
+    public static Integer addStrategy(Boolean global, Integer priority, String shipping) {
+        Integer strategyId = StrategiesDao.INSTANCE.addStrategy("autotest-insert", shipping, global, priority, "autotest-insert", "autotest-insert");
+        Integer firstPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, 8, "{\"basicPrice\": \"0\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}", 0, "autotest-insert", "delivery_price");
+        Integer secondPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, 9, "{\"baseMass\": \"30000\", \"basicPrice\": \"19900\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}", 1, "autotest-insert", "delivery_price");
+        Integer thirdPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, 9, "{\"baseMass\": \"30000\", \"basicPrice\": \"9900\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}", 2, "autotest-insert", "delivery_price");
+        Integer fourthPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, 9, "{\"baseMass\": \"30000\", \"basicPrice\": \"0\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}", 3, "autotest-insert", "delivery_price");
+        Integer firstMinCartRuleId = RulesDao.INSTANCE.addRule(strategyId, 0, "100000", 0, "autotest-insert", "min_cart");
+        Integer secondMinCartRuleId = RulesDao.INSTANCE.addRule(strategyId, 0, "50000", 1, "autotest-insert", "min_cart");
+        boolean firstCondition = ConditionsDao.INSTANCE.addCondition(firstPriceRuleId, "{\"Count\": 1}", "first_n_orders");
+        boolean secondCondition = ConditionsDao.INSTANCE.addCondition(secondPriceRuleId, "{\"Max\": 100000, \"Min\": 0}", "order_value_range");
+        boolean thirdCondition = ConditionsDao.INSTANCE.addCondition(thirdPriceRuleId, "{\"Max\": 300000, \"Min\": 100000}", "order_value_range");
+        boolean fourthCondition = ConditionsDao.INSTANCE.addCondition(fourthPriceRuleId, "{\"Max\": 1000000000000000, \"Min\": 300100}", "order_value_range"); // ожидаемая дырка в условиях
+        boolean fifthCondition = ConditionsDao.INSTANCE.addCondition(firstMinCartRuleId, "{\"Max\": 300000, \"Min\": 0}", "order_value_range");
+        boolean sixthCondition = ConditionsDao.INSTANCE.addCondition(secondMinCartRuleId, "{\"Max\": 1000000000000000, \"Min\": 300100}", "order_value_range"); // ожидаемая дырка в условиях
+        Allure.step("Проверяем что стратегия добавилась", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(strategyId > 0, "Пустое id стратегии");
+            softAssert.assertTrue(firstPriceRuleId > 0, "Пустое id правила");
+            softAssert.assertTrue(secondPriceRuleId > 0, "Пустое id правила");
+            softAssert.assertTrue(thirdPriceRuleId > 0, "Пустое id правила");
+            softAssert.assertTrue(fourthPriceRuleId > 0, "Пустое id правила");
+            softAssert.assertTrue(firstMinCartRuleId > 0, "Пустое id правила");
+            softAssert.assertTrue(secondMinCartRuleId > 0, "Пустое id правила");
+            softAssert.assertTrue(firstCondition, "Условие не создалось");
+            softAssert.assertTrue(secondCondition, "Условие не создалось");
+            softAssert.assertTrue(thirdCondition, "Условие не создалось");
+            softAssert.assertTrue(fourthCondition, "Условие не создалось");
+            softAssert.assertTrue(fifthCondition, "Условие не создалось");
+            softAssert.assertTrue(sixthCondition, "Условие не создалось");
+            softAssert.assertAll();
+        });
+        return strategyId;
+    }
+
+    @Step("Добавляем привязку магазина к стратегии")
+    public static void addBinding(Integer strategyId, String storeId, String tenantId) {
+        Boolean binding = StrategyBindingsDao.INSTANCE.addStrategyBinding(strategyId, storeId, tenantId);
+        Allure.step("Проверяем что связка добавилась", () -> {
+            assertTrue(binding, "Связка не добавилась");
+        });
     }
 
     @Step("Удаляем созданную стратегию из БД")

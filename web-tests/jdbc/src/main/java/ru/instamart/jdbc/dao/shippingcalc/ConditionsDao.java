@@ -16,6 +16,7 @@ import static org.testng.Assert.fail;
 
 public class ConditionsDao implements Dao<Integer, ConditionsEntity> {
     public static final ConditionsDao INSTANCE = new ConditionsDao();
+    private final String INSERT_SQL = "INSERT INTO conditions ";
 
     public List<ConditionsEntity> getConditions(ArrayList<Integer> rulesIds) {
         List<ConditionsEntity> conditionsResult = new ArrayList<>();
@@ -39,6 +40,20 @@ public class ConditionsDao implements Dao<Integer, ConditionsEntity> {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
         }
         return conditionsResult;
+    }
+
+    public boolean addCondition(Integer ruleId, String params, String conditionType) {
+        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (rule_id, params, condition_type) " +
+                     " VALUES (?, ?::jsonb, ?::condition_type_enum) ")) {
+            preparedStatement.setInt(1, ruleId);
+            preparedStatement.setString(2, params);
+            preparedStatement.setString(3, conditionType);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+        return false;
     }
 
     @Override

@@ -16,6 +16,7 @@ import static org.testng.Assert.fail;
 public class StrategyBindingsDao implements Dao<Integer, StrategyBindingsEntity> {
     public static final StrategyBindingsDao INSTANCE = new StrategyBindingsDao();
     private final String SELECT_SQL = "SELECT %s FROM strategy_bindings ";
+    private final String INSERT_SQL = "INSERT INTO strategy_bindings ";
 
     public StrategyBindingsEntity getStrategyBinding(Integer id, String storeId, String tenantId) {
         StrategyBindingsEntity strategyBinding = new StrategyBindingsEntity();
@@ -36,6 +37,20 @@ public class StrategyBindingsDao implements Dao<Integer, StrategyBindingsEntity>
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
         }
         return strategyBinding;
+    }
+
+    public boolean addStrategyBinding(Integer strategyId, String storeId, String tenantId) {
+        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (strategy_id, store_id, tenant_id) " +
+                     " VALUES (?, ?, ?) ")) {
+            preparedStatement.setInt(1, strategyId);
+            preparedStatement.setString(2, storeId);
+            preparedStatement.setString(3, tenantId);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+        return false;
     }
 
     @Override
