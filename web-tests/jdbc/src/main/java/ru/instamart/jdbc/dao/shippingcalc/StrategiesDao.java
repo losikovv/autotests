@@ -4,10 +4,7 @@ import ru.instamart.jdbc.dao.Dao;
 import ru.instamart.jdbc.entity.shippingcalc.StrategiesEntity;
 import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLShippingCalcManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +13,7 @@ import static org.testng.Assert.fail;
 public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
     public static final StrategiesDao INSTANCE = new StrategiesDao();
     private final String SELECT_SQL = "SELECT %s FROM strategies ";
+    private final String INSERT_SQL = "INSERT INTO strategies ";
     private final String DELETE_SQL = "DELETE FROM strategies ";
 
     public StrategiesEntity getStrategy(Integer id) {
@@ -39,6 +37,27 @@ public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
         }
         return strategy;
+    }
+
+    public Integer addStrategy(String name, String shipping, Boolean global, Integer priority, String description, String creatorId) {
+        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (name, shipping, global, priority, description, creator_id) " +
+                     " VALUES (?, ?::delivery_type, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, shipping);
+            preparedStatement.setBoolean(3, global);
+            preparedStatement.setInt(4, priority);
+            preparedStatement.setString(5, description);
+            preparedStatement.setString(6, creatorId);
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+        return 0;
     }
 
     @Override

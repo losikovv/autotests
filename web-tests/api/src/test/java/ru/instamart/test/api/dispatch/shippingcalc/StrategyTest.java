@@ -21,6 +21,7 @@ import java.util.UUID;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 @Epic("On Demand")
 @Feature("ShippingCalc")
 public class StrategyTest extends RestBase {
@@ -38,7 +39,6 @@ public class StrategyTest extends RestBase {
     private final String SECOND_SCRIPT_PARAMS = "{\"baseMass\": \"30000\", \"basicPrice\": \"29900\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}";
     private final String FIRST_PARAMS = "{\"Count\": 1}";
     private final String THIRD_PARAMS = "{\"Test\": \"shippingcalc_test\", \"Group\": \"control\"}";
-
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -403,7 +403,7 @@ public class StrategyTest extends RestBase {
             dependsOnMethods = "createStrategy")
     public void updateStrategy() {
         ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, strategyId, "autotest-update", "autotest-update", "autotest-update", true, 2);
-        var response = clientShippingCalc.updateStrategy(request);
+        clientShippingCalc.updateStrategy(request);
         checkUpdatedStrategy(strategyId, "autotest-update", 4, 4, 2);
     }
 
@@ -449,7 +449,7 @@ public class StrategyTest extends RestBase {
                 .setDeliveryTypeValue(2)
                 .build();
 
-        var response = clientShippingCalc.updateStrategy(request);
+        clientShippingCalc.updateStrategy(request);
         checkUpdatedStrategy(strategyIdWithDifferentScriptsInRules, "autotest-update", 6, 6, 3);
     }
 
@@ -536,7 +536,7 @@ public class StrategyTest extends RestBase {
                 .setDeliveryTypeValue(2)
                 .build();
 
-        var response = clientShippingCalc.updateStrategy(request);
+        clientShippingCalc.updateStrategy(request);
         checkUpdatedStrategy(strategyIdWithMultipleRulesAndConditions, "autotest-update", 12, 20, 11);
     }
 
@@ -782,7 +782,7 @@ public class StrategyTest extends RestBase {
             dependsOnMethods = "createStrategy")
     public void bindStrategy() {
         ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, firstStoreId, "metro");
-        var response = clientShippingCalc.bindStrategy(request);
+        clientShippingCalc.bindStrategy(request);
         checkBind(strategyId, firstStoreId, "metro");
     }
 
@@ -804,7 +804,7 @@ public class StrategyTest extends RestBase {
                         .build())
                 .build();
 
-        var response = clientShippingCalc.bindStrategy(request);
+        clientShippingCalc.bindStrategy(request);
         checkBind(strategyIdWithDifferentScriptsInRules, firstStoreId, "sbermarket");
         checkBind(strategyIdWithDifferentScriptsInRules, secondStoreId, "instamart");
     }
@@ -816,7 +816,7 @@ public class StrategyTest extends RestBase {
             dependsOnMethods = "createStrategyWithMultipleRulesAndConditions")
     public void rebindStrategy() {
         ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, firstStoreId, "metro");
-        var response = clientShippingCalc.bindStrategy(request);
+        clientShippingCalc.bindStrategy(request);
         checkBind(strategyIdWithMultipleRulesAndConditions, firstStoreId, "metro");
     }
 
@@ -877,7 +877,7 @@ public class StrategyTest extends RestBase {
             dependsOnMethods = {"getStrategy", "getStrategiesWithAllFilter", "getStrategiesWithStoreFilter", "getStrategiesForStore"})
     public void unbindStrategy() {
         ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, firstStoreId, "metro");
-        var response = clientShippingCalc.unbindStrategy(request);
+        clientShippingCalc.unbindStrategy(request);
         checkUnbind(strategyId, firstStoreId, "metro");
     }
 
@@ -899,7 +899,7 @@ public class StrategyTest extends RestBase {
                         .build())
                 .build();
 
-        var response = clientShippingCalc.unbindStrategy(request);
+        clientShippingCalc.unbindStrategy(request);
         checkUnbind(strategyIdWithDifferentScriptsInRules, firstStoreId, "sbermarket");
         checkUnbind(strategyIdWithDifferentScriptsInRules, secondStoreId, "instamart");
     }
@@ -1051,7 +1051,7 @@ public class StrategyTest extends RestBase {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
             softAssert.assertTrue(response.getStrategies(0).getStrategyId() > 0, "В ответе пустое id стратегии");
-            softAssert.assertTrue(response.getStrategies(0).getName().equals("autotest") || response.getStrategies(0).getName().equals("autotest-update"), "Не ожидаемое название стратегии");
+            softAssert.assertTrue(response.getStrategies(0).getName().contains("autotest"), "Не ожидаемое название стратегии");
             softAssert.assertAll();
         });
     }
