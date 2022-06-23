@@ -6,12 +6,13 @@ import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
+import ru.instamart.api.model.v1.b2b.CompanyDocumentV1;
 
 import javax.validation.constraints.Null;
 import java.util.List;
 
 @Data
-@EqualsAndHashCode(callSuper=false) // TODO: найти/создать нужные объекты для Object
+@EqualsAndHashCode(callSuper = false)
 public class AdminUserV1 extends BaseObject {
 
     @JsonSchema(required = true)
@@ -20,14 +21,14 @@ public class AdminUserV1 extends BaseObject {
 
     @JsonSchema(required = true)
     @JsonProperty("active_external_partners_subscriptions")
-    private List<Object> activeExternalPartnersSubscriptions;
+    private List<ActiveExternalPartnersSubscriptionsV1> activeExternalPartnersSubscriptions;
 
     @JsonSchema(required = true)
     private Boolean b2b;
 
     @JsonSchema(required = true)
     @JsonProperty("company_documents")
-    private List<Object> companyDocuments;
+    private List<CompanyDocumentV1> companyDocuments;
 
     @JsonSchema(required = true)
     private UserConfigV1 config;
@@ -42,7 +43,7 @@ public class AdminUserV1 extends BaseObject {
 
     @JsonSchema(required = true)
     @JsonProperty("credit_cards")
-    private List<Object> creditCards;
+    private List<CreditCardV1> creditCards;
 
     @Null
     @JsonSchema(required = true)
@@ -91,7 +92,7 @@ public class AdminUserV1 extends BaseObject {
 
     @JsonSchema(required = true)
     @JsonProperty("sber_id_account_merges_from")
-    private List<Object> sberIdAccountMergesFrom;
+    private List<SberIdAccountMergesFromV1> sberIdAccountMergesFrom;
 
     @Null
     @JsonSchema(required = true)
@@ -108,9 +109,9 @@ public class AdminUserV1 extends BaseObject {
 
     @JsonSchema(required = true)
     @JsonProperty("user_locks")
-    private List<Object> userLocks;
+    private List<UserLocksV1> userLocks;
 
     @JsonSchema(required = true)
     @JsonProperty("user_phone_verification_actions")
-    private List<Object> userPhoneVerificationActions;
+    private List<UserPhoneVerificationActionsV1> userPhoneVerificationActions;
 }

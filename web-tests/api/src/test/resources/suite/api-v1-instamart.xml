@@ -75,6 +75,9 @@
             <class name="ru.instamart.test.api.v1.endpoints.StoreZonesV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.StoreSchedulesV1Tests"/>
             <class name="ru.instamart.test.api.admin_api.PaymentMethodsV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.OrderCancellationsV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.OrderDeliveryWindowsV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.OrderSidebarV1Test"/>
         </classes>
     </test>
     <!-- api-admin-tests -->

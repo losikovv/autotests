@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class FreeDeliveriesInfoV1 extends BaseObject {
 
     @JsonSchema(required = true)
