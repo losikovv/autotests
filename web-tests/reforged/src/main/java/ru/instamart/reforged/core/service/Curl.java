@@ -16,7 +16,7 @@ public final class Curl {
     // -o записать овтет в
     // --head получить только заголовок
     // -w вывести только
-    private static final String CURL_RESPONSE_CODE = "curl -s -o /dev/null --head -w \"%{http_code}\" ";
+    private static final String CURL_RESPONSE_CODE = "curl -s -o --head -w \"%{http_code}\" ";
 
     @Step("Проверка доступности страницы {0}")
     public static boolean pageAvailable(final String url) {

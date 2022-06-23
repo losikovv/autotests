@@ -1,31 +1,3 @@
-task metroSmoke(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/smoke/metro.xml'
-        includeGroups 'smoke'
-    }
-}
-
-task metroRegression(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/regress/metro.xml'
-        includeGroups 'regression'
-    }
-}
-
-task okeySmoke(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/smoke/okey.xml'
-        includeGroups 'smoke'
-    }
-}
-
-task okeyRegression(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/regress/okey.xml'
-        includeGroups 'regression'
-    }
-}
-
 task selgrosSmoke(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/selgros.xml'
