@@ -16,7 +16,6 @@ public class RetailerV1 extends BaseObject {
 
     private AppearanceV1 appearance;
 
-    @JsonSchema(required = true)
     private String color;
 
     @Null

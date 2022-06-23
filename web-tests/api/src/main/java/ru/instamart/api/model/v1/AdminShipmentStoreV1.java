@@ -1,4 +1,3 @@
-
 package ru.instamart.api.model.v1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -112,6 +112,9 @@ public final class ApiV1Endpoints {
 
             public static final class Number {
                 public static final String ADJUSTMENTS = "admin/orders/{orderNumber}/adjustments";
+                public static final String CANCELLATIONS = "admin/orders/{orderNumber}/cancellations";
+                public static final String DELIVERY_WINDOWS = "admin/orders/{orderNumber}/delivery_windows";
+                public static final String SIDEBAR = "admin/orders/{orderNumber}/sidebar";
 
                 public static final class Adjustments {
                     public static final String CLOSE = "admin/orders/{orderNumber}/adjustments/close";
