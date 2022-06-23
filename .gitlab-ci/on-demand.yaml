@@ -78,8 +78,6 @@ tests:on:demand:shippingcalc:
   extends:
     - ".template_api_tests"
   only:
-    refs:
-      - schedules
     variables:
       - $ON_DEMAND_SHIPPINGCALC == 'true'
   when: always
