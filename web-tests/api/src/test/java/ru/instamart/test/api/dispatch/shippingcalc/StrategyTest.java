@@ -782,7 +782,7 @@ public class StrategyTest extends RestBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = "createStrategy")
     public void bindStrategy() {
-        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, firstStoreId, "metro");
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, firstStoreId, "metro", DELIVERY_TYPE_VALUE);
         clientShippingCalc.bindStrategy(request);
         checkBind(strategyId, firstStoreId, "metro");
     }
@@ -798,10 +798,12 @@ public class StrategyTest extends RestBase {
                 .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
                         .setStoreId(firstStoreId)
                         .setTenantId("sbermarket")
+                        .setDeliveryTypeValue(DELIVERY_TYPE_VALUE)
                         .build())
                 .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
                         .setStoreId(secondStoreId)
                         .setTenantId("instamart")
+                        .setDeliveryTypeValue(DELIVERY_TYPE_VALUE)
                         .build())
                 .build();
 
@@ -814,9 +816,9 @@ public class StrategyTest extends RestBase {
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к магазину, у которого уже есть связка",
             groups = "dispatch-shippingcalc-smoke",
-            dependsOnMethods = "createStrategyWithMultipleRulesAndConditions")
+            dependsOnMethods = "bindStrategy")
     public void rebindStrategy() {
-        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, firstStoreId, "metro");
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, firstStoreId, "metro", DELIVERY_TYPE_VALUE);
         clientShippingCalc.bindStrategy(request);
         checkBind(strategyIdWithMultipleRulesAndConditions, firstStoreId, "metro");
     }
@@ -828,7 +830,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid StrategyId")
     public void bindStrategyWithNoStrategyId() {
-        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(0, firstStoreId, "test");
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(0, firstStoreId, "test", DELIVERY_TYPE_VALUE);
         clientShippingCalc.bindStrategy(request);
     }
 
@@ -855,7 +857,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot attach bind 0 without store id",
             dependsOnMethods = "createStrategy")
     public void bindStrategyWithNoStoreId() {
-        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, "", "test");
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, "", "test", DELIVERY_TYPE_VALUE);
         clientShippingCalc.bindStrategy(request);
     }
 
@@ -867,7 +869,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot attach bind 0 without tenant id",
             dependsOnMethods = "createStrategy")
     public void bindStrategyWithNoTenantId() {
-        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, firstStoreId, "");
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, firstStoreId, "", DELIVERY_TYPE_VALUE);
         clientShippingCalc.bindStrategy(request);
     }
 
@@ -877,7 +879,7 @@ public class StrategyTest extends RestBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = {"getStrategy", "getStrategiesWithAllFilter", "getStrategiesWithStoreFilter", "getStrategiesForStore"})
     public void unbindStrategy() {
-        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, firstStoreId, "metro");
+        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, firstStoreId, "metro", DELIVERY_TYPE_VALUE);
         clientShippingCalc.unbindStrategy(request);
         checkUnbind(strategyId, firstStoreId, "metro");
     }
@@ -886,17 +888,19 @@ public class StrategyTest extends RestBase {
     @Story("Unbind Strategy")
     @Test(description = "Отвязка стратегии от нескольких магазинов в массиве binds",
             groups = "dispatch-shippingcalc-smoke",
-            dependsOnMethods = "bindStrategyMultipleStores")
+            dependsOnMethods = {"getStrategy", "bindStrategyMultipleStores"})
     public void unbindStrategyMultipleStores() {
         ShippingcalcOuterClass.UnbindStrategyRequest request = ShippingcalcOuterClass.UnbindStrategyRequest.newBuilder()
                 .setStrategyId(strategyIdWithDifferentScriptsInRules)
                 .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
                         .setStoreId(firstStoreId)
                         .setTenantId("sbermarket")
+                        .setDeliveryTypeValue(DELIVERY_TYPE_VALUE)
                         .build())
                 .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
                         .setStoreId(secondStoreId)
                         .setTenantId("instamart")
+                        .setDeliveryTypeValue(DELIVERY_TYPE_VALUE)
                         .build())
                 .build();
 
@@ -912,7 +916,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid StrategyId")
     public void unbindStrategyWithNoStrategyId() {
-        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(0, firstStoreId, "test");
+        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(0, firstStoreId, "test", DELIVERY_TYPE_VALUE);
         clientShippingCalc.unbindStrategy(request);
     }
 
@@ -939,7 +943,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot use bind 0 without store id",
             dependsOnMethods = "bindStrategy")
     public void unbindStrategyWithNoStoreId() {
-        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, "", "test");
+        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, "", "test", DELIVERY_TYPE_VALUE);
         clientShippingCalc.unbindStrategy(request);
     }
 
@@ -951,7 +955,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot use bind 0 without tenant id",
             dependsOnMethods = "bindStrategy")
     public void unbindStrategyWithNoTenantId() {
-        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, firstStoreId, "");
+        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, firstStoreId, "", DELIVERY_TYPE_VALUE);
         clientShippingCalc.unbindStrategy(request);
     }
 

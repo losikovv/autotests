@@ -119,13 +119,13 @@ message MinCartRuleObject {
 	int32 priority = 3;
 }
 
-
 enum ConditionType {
 	ALWAYS = 0;
 	FIRST_N_ORDERS = 1;
 	ORDER_VALUE_RANGE = 2;
 	AB_TEST_ENTRANCE = 3;
 	ORDER_DISTANCE_RANGE = 4;
+	PLATFORMS = 5;
 }
 
 message NewConditionObject {
@@ -147,6 +147,8 @@ message BindStrategyRequest {
 	uint32 strategy_id = 1;
 	// Список привязок к стратегии
 	repeated StrategyBinding binds = 2;
+	// Удалять ли существующие привязки перед добавлением
+	bool replace_all = 3;
 }
 
 message StrategyBinding {
@@ -154,6 +156,8 @@ message StrategyBinding {
 	string store_id = 1;
 	// Идентификатор тенанта
 	string tenant_id = 2;
+	// Тип доставки
+	DeliveryType delivery_type = 3;
 }
 
 message BindStrategyResponse {
@@ -464,6 +468,10 @@ message GetDeliveryPriceRequest {
 	DeliveryType delivery_type = 9;
 	// Идентификатор тенанта
 	string tenant_id = 11;
+	
+	// Название и версия платформы
+	string platform_name = 12;
+	string platform_version = 13;
 }
 
 message Shipment {

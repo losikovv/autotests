@@ -86,23 +86,25 @@ public class ShippingCalcHelper {
     }
 
     @Step("Получаем запрос для привязки стратегии к магазину")
-    public static ShippingcalcOuterClass.BindStrategyRequest getBindStrategyRequest(Integer strategyId, String storeId, String tenantId) {
+    public static ShippingcalcOuterClass.BindStrategyRequest getBindStrategyRequest(Integer strategyId, String storeId, String tenantId, Integer deliveryTypeValue) {
         return ShippingcalcOuterClass.BindStrategyRequest.newBuilder()
                 .setStrategyId(strategyId)
                 .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
                         .setStoreId(storeId)
                         .setTenantId(tenantId)
+                        .setDeliveryTypeValue(deliveryTypeValue)
                         .build())
                 .build();
     }
 
     @Step("Получаем запрос для отвязки стратегии к магазину")
-    public static ShippingcalcOuterClass.UnbindStrategyRequest getUnbindStrategyRequest(Integer strategyId, String storeId, String tenantId) {
+    public static ShippingcalcOuterClass.UnbindStrategyRequest getUnbindStrategyRequest(Integer strategyId, String storeId, String tenantId, Integer deliveryTypeValue) {
         return ShippingcalcOuterClass.UnbindStrategyRequest.newBuilder()
                 .setStrategyId(strategyId)
                 .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
                         .setStoreId(storeId)
                         .setTenantId(tenantId)
+                        .setDeliveryTypeValue(deliveryTypeValue)
                         .build())
                 .build();
     }
