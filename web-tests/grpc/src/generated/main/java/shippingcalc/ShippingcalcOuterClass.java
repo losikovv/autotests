@@ -165,6 +165,10 @@ public final class ShippingcalcOuterClass {
      * <code>ORDER_DISTANCE_RANGE = 4;</code>
      */
     ORDER_DISTANCE_RANGE(4),
+    /**
+     * <code>PLATFORMS = 5;</code>
+     */
+    PLATFORMS(5),
     UNRECOGNIZED(-1),
     ;
 
@@ -188,6 +192,10 @@ public final class ShippingcalcOuterClass {
      * <code>ORDER_DISTANCE_RANGE = 4;</code>
      */
     public static final int ORDER_DISTANCE_RANGE_VALUE = 4;
+    /**
+     * <code>PLATFORMS = 5;</code>
+     */
+    public static final int PLATFORMS_VALUE = 5;
 
 
     public final int getNumber() {
@@ -219,6 +227,7 @@ public final class ShippingcalcOuterClass {
         case 2: return ORDER_VALUE_RANGE;
         case 3: return AB_TEST_ENTRANCE;
         case 4: return ORDER_DISTANCE_RANGE;
+        case 5: return PLATFORMS;
         default: return null;
       }
     }
@@ -9703,6 +9712,16 @@ public final class ShippingcalcOuterClass {
      */
     shippingcalc.ShippingcalcOuterClass.StrategyBindingOrBuilder getBindsOrBuilder(
         int index);
+
+    /**
+     * <pre>
+     * Удалять ли существующие привязки перед добавлением
+     * </pre>
+     *
+     * <code>bool replace_all = 3;</code>
+     * @return The replaceAll.
+     */
+    boolean getReplaceAll();
   }
   /**
    * Protobuf type {@code shippingcalc.BindStrategyRequest}
@@ -9763,6 +9782,11 @@ public final class ShippingcalcOuterClass {
               }
               binds_.add(
                   input.readMessage(shippingcalc.ShippingcalcOuterClass.StrategyBinding.parser(), extensionRegistry));
+              break;
+            }
+            case 24: {
+
+              replaceAll_ = input.readBool();
               break;
             }
             default: {
@@ -9875,6 +9899,21 @@ public final class ShippingcalcOuterClass {
       return binds_.get(index);
     }
 
+    public static final int REPLACE_ALL_FIELD_NUMBER = 3;
+    private boolean replaceAll_;
+    /**
+     * <pre>
+     * Удалять ли существующие привязки перед добавлением
+     * </pre>
+     *
+     * <code>bool replace_all = 3;</code>
+     * @return The replaceAll.
+     */
+    @java.lang.Override
+    public boolean getReplaceAll() {
+      return replaceAll_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -9895,6 +9934,9 @@ public final class ShippingcalcOuterClass {
       for (int i = 0; i < binds_.size(); i++) {
         output.writeMessage(2, binds_.get(i));
       }
+      if (replaceAll_ != false) {
+        output.writeBool(3, replaceAll_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -9911,6 +9953,10 @@ public final class ShippingcalcOuterClass {
       for (int i = 0; i < binds_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, binds_.get(i));
+      }
+      if (replaceAll_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, replaceAll_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -9931,6 +9977,8 @@ public final class ShippingcalcOuterClass {
           != other.getStrategyId()) return false;
       if (!getBindsList()
           .equals(other.getBindsList())) return false;
+      if (getReplaceAll()
+          != other.getReplaceAll()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -9948,6 +9996,9 @@ public final class ShippingcalcOuterClass {
         hash = (37 * hash) + BINDS_FIELD_NUMBER;
         hash = (53 * hash) + getBindsList().hashCode();
       }
+      hash = (37 * hash) + REPLACE_ALL_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getReplaceAll());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -10090,6 +10141,8 @@ public final class ShippingcalcOuterClass {
         } else {
           bindsBuilder_.clear();
         }
+        replaceAll_ = false;
+
         return this;
       }
 
@@ -10127,6 +10180,7 @@ public final class ShippingcalcOuterClass {
         } else {
           result.binds_ = bindsBuilder_.build();
         }
+        result.replaceAll_ = replaceAll_;
         onBuilt();
         return result;
       }
@@ -10203,6 +10257,9 @@ public final class ShippingcalcOuterClass {
               bindsBuilder_.addAllMessages(other.binds_);
             }
           }
+        }
+        if (other.getReplaceAll() != false) {
+          setReplaceAll(other.getReplaceAll());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -10588,6 +10645,49 @@ public final class ShippingcalcOuterClass {
         }
         return bindsBuilder_;
       }
+
+      private boolean replaceAll_ ;
+      /**
+       * <pre>
+       * Удалять ли существующие привязки перед добавлением
+       * </pre>
+       *
+       * <code>bool replace_all = 3;</code>
+       * @return The replaceAll.
+       */
+      @java.lang.Override
+      public boolean getReplaceAll() {
+        return replaceAll_;
+      }
+      /**
+       * <pre>
+       * Удалять ли существующие привязки перед добавлением
+       * </pre>
+       *
+       * <code>bool replace_all = 3;</code>
+       * @param value The replaceAll to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReplaceAll(boolean value) {
+        
+        replaceAll_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Удалять ли существующие привязки перед добавлением
+       * </pre>
+       *
+       * <code>bool replace_all = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReplaceAll() {
+        
+        replaceAll_ = false;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -10684,6 +10784,25 @@ public final class ShippingcalcOuterClass {
      */
     com.google.protobuf.ByteString
         getTenantIdBytes();
+
+    /**
+     * <pre>
+     * Тип доставки
+     * </pre>
+     *
+     * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
+     * @return The enum numeric value on the wire for deliveryType.
+     */
+    int getDeliveryTypeValue();
+    /**
+     * <pre>
+     * Тип доставки
+     * </pre>
+     *
+     * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
+     * @return The deliveryType.
+     */
+    shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType();
   }
   /**
    * Protobuf type {@code shippingcalc.StrategyBinding}
@@ -10700,6 +10819,7 @@ public final class ShippingcalcOuterClass {
     private StrategyBinding() {
       storeId_ = "";
       tenantId_ = "";
+      deliveryType_ = 0;
     }
 
     @java.lang.Override
@@ -10742,6 +10862,12 @@ public final class ShippingcalcOuterClass {
               java.lang.String s = input.readStringRequireUtf8();
 
               tenantId_ = s;
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+
+              deliveryType_ = rawValue;
               break;
             }
             default: {
@@ -10868,6 +10994,33 @@ public final class ShippingcalcOuterClass {
       }
     }
 
+    public static final int DELIVERY_TYPE_FIELD_NUMBER = 3;
+    private int deliveryType_;
+    /**
+     * <pre>
+     * Тип доставки
+     * </pre>
+     *
+     * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
+     * @return The enum numeric value on the wire for deliveryType.
+     */
+    @java.lang.Override public int getDeliveryTypeValue() {
+      return deliveryType_;
+    }
+    /**
+     * <pre>
+     * Тип доставки
+     * </pre>
+     *
+     * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
+     * @return The deliveryType.
+     */
+    @java.lang.Override public shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType() {
+      @SuppressWarnings("deprecation")
+      shippingcalc.ShippingcalcOuterClass.DeliveryType result = shippingcalc.ShippingcalcOuterClass.DeliveryType.valueOf(deliveryType_);
+      return result == null ? shippingcalc.ShippingcalcOuterClass.DeliveryType.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -10888,6 +11041,9 @@ public final class ShippingcalcOuterClass {
       if (!getTenantIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, tenantId_);
       }
+      if (deliveryType_ != shippingcalc.ShippingcalcOuterClass.DeliveryType.NONE.getNumber()) {
+        output.writeEnum(3, deliveryType_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -10902,6 +11058,10 @@ public final class ShippingcalcOuterClass {
       }
       if (!getTenantIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, tenantId_);
+      }
+      if (deliveryType_ != shippingcalc.ShippingcalcOuterClass.DeliveryType.NONE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, deliveryType_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -10922,6 +11082,7 @@ public final class ShippingcalcOuterClass {
           .equals(other.getStoreId())) return false;
       if (!getTenantId()
           .equals(other.getTenantId())) return false;
+      if (deliveryType_ != other.deliveryType_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -10937,6 +11098,8 @@ public final class ShippingcalcOuterClass {
       hash = (53 * hash) + getStoreId().hashCode();
       hash = (37 * hash) + TENANT_ID_FIELD_NUMBER;
       hash = (53 * hash) + getTenantId().hashCode();
+      hash = (37 * hash) + DELIVERY_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + deliveryType_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11074,6 +11237,8 @@ public final class ShippingcalcOuterClass {
 
         tenantId_ = "";
 
+        deliveryType_ = 0;
+
         return this;
       }
 
@@ -11102,6 +11267,7 @@ public final class ShippingcalcOuterClass {
         shippingcalc.ShippingcalcOuterClass.StrategyBinding result = new shippingcalc.ShippingcalcOuterClass.StrategyBinding(this);
         result.storeId_ = storeId_;
         result.tenantId_ = tenantId_;
+        result.deliveryType_ = deliveryType_;
         onBuilt();
         return result;
       }
@@ -11157,6 +11323,9 @@ public final class ShippingcalcOuterClass {
         if (!other.getTenantId().isEmpty()) {
           tenantId_ = other.tenantId_;
           onChanged();
+        }
+        if (other.deliveryType_ != 0) {
+          setDeliveryTypeValue(other.getDeliveryTypeValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -11375,6 +11544,80 @@ public final class ShippingcalcOuterClass {
   checkByteStringIsUtf8(value);
         
         tenantId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int deliveryType_ = 0;
+      /**
+       * <pre>
+       * Тип доставки
+       * </pre>
+       *
+       * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
+       * @return The enum numeric value on the wire for deliveryType.
+       */
+      @java.lang.Override public int getDeliveryTypeValue() {
+        return deliveryType_;
+      }
+      /**
+       * <pre>
+       * Тип доставки
+       * </pre>
+       *
+       * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
+       * @param value The enum numeric value on the wire for deliveryType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeliveryTypeValue(int value) {
+        
+        deliveryType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Тип доставки
+       * </pre>
+       *
+       * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
+       * @return The deliveryType.
+       */
+      @java.lang.Override
+      public shippingcalc.ShippingcalcOuterClass.DeliveryType getDeliveryType() {
+        @SuppressWarnings("deprecation")
+        shippingcalc.ShippingcalcOuterClass.DeliveryType result = shippingcalc.ShippingcalcOuterClass.DeliveryType.valueOf(deliveryType_);
+        return result == null ? shippingcalc.ShippingcalcOuterClass.DeliveryType.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Тип доставки
+       * </pre>
+       *
+       * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
+       * @param value The deliveryType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeliveryType(shippingcalc.ShippingcalcOuterClass.DeliveryType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        deliveryType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Тип доставки
+       * </pre>
+       *
+       * <code>.shippingcalc.DeliveryType delivery_type = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDeliveryType() {
+        
+        deliveryType_ = 0;
         onChanged();
         return this;
       }
@@ -41886,6 +42129,38 @@ public final class ShippingcalcOuterClass {
      */
     com.google.protobuf.ByteString
         getTenantIdBytes();
+
+    /**
+     * <pre>
+     * Название и версия платформы
+     * </pre>
+     *
+     * <code>string platform_name = 12;</code>
+     * @return The platformName.
+     */
+    java.lang.String getPlatformName();
+    /**
+     * <pre>
+     * Название и версия платформы
+     * </pre>
+     *
+     * <code>string platform_name = 12;</code>
+     * @return The bytes for platformName.
+     */
+    com.google.protobuf.ByteString
+        getPlatformNameBytes();
+
+    /**
+     * <code>string platform_version = 13;</code>
+     * @return The platformVersion.
+     */
+    java.lang.String getPlatformVersion();
+    /**
+     * <code>string platform_version = 13;</code>
+     * @return The bytes for platformVersion.
+     */
+    com.google.protobuf.ByteString
+        getPlatformVersionBytes();
   }
   /**
    * Protobuf type {@code shippingcalc.GetDeliveryPriceRequest}
@@ -41905,6 +42180,8 @@ public final class ShippingcalcOuterClass {
       paymentMethod_ = "";
       deliveryType_ = 0;
       tenantId_ = "";
+      platformName_ = "";
+      platformVersion_ = "";
     }
 
     @java.lang.Override
@@ -41997,6 +42274,18 @@ public final class ShippingcalcOuterClass {
               java.lang.String s = input.readStringRequireUtf8();
 
               tenantId_ = s;
+              break;
+            }
+            case 98: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              platformName_ = s;
+              break;
+            }
+            case 106: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              platformVersion_ = s;
               break;
             }
             default: {
@@ -42342,6 +42631,90 @@ public final class ShippingcalcOuterClass {
       }
     }
 
+    public static final int PLATFORM_NAME_FIELD_NUMBER = 12;
+    private volatile java.lang.Object platformName_;
+    /**
+     * <pre>
+     * Название и версия платформы
+     * </pre>
+     *
+     * <code>string platform_name = 12;</code>
+     * @return The platformName.
+     */
+    @java.lang.Override
+    public java.lang.String getPlatformName() {
+      java.lang.Object ref = platformName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        platformName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Название и версия платформы
+     * </pre>
+     *
+     * <code>string platform_name = 12;</code>
+     * @return The bytes for platformName.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPlatformNameBytes() {
+      java.lang.Object ref = platformName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        platformName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PLATFORM_VERSION_FIELD_NUMBER = 13;
+    private volatile java.lang.Object platformVersion_;
+    /**
+     * <code>string platform_version = 13;</code>
+     * @return The platformVersion.
+     */
+    @java.lang.Override
+    public java.lang.String getPlatformVersion() {
+      java.lang.Object ref = platformVersion_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        platformVersion_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string platform_version = 13;</code>
+     * @return The bytes for platformVersion.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPlatformVersionBytes() {
+      java.lang.Object ref = platformVersion_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        platformVersion_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -42382,6 +42755,12 @@ public final class ShippingcalcOuterClass {
       }
       if (!getTenantIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 11, tenantId_);
+      }
+      if (!getPlatformNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, platformName_);
+      }
+      if (!getPlatformVersionBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 13, platformVersion_);
       }
       unknownFields.writeTo(output);
     }
@@ -42425,6 +42804,12 @@ public final class ShippingcalcOuterClass {
       if (!getTenantIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, tenantId_);
       }
+      if (!getPlatformNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, platformName_);
+      }
+      if (!getPlatformVersionBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, platformVersion_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -42460,6 +42845,10 @@ public final class ShippingcalcOuterClass {
       if (deliveryType_ != other.deliveryType_) return false;
       if (!getTenantId()
           .equals(other.getTenantId())) return false;
+      if (!getPlatformName()
+          .equals(other.getPlatformName())) return false;
+      if (!getPlatformVersion()
+          .equals(other.getPlatformVersion())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -42496,6 +42885,10 @@ public final class ShippingcalcOuterClass {
       hash = (53 * hash) + deliveryType_;
       hash = (37 * hash) + TENANT_ID_FIELD_NUMBER;
       hash = (53 * hash) + getTenantId().hashCode();
+      hash = (37 * hash) + PLATFORM_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getPlatformName().hashCode();
+      hash = (37 * hash) + PLATFORM_VERSION_FIELD_NUMBER;
+      hash = (53 * hash) + getPlatformVersion().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -42656,6 +43049,10 @@ public final class ShippingcalcOuterClass {
 
         tenantId_ = "";
 
+        platformName_ = "";
+
+        platformVersion_ = "";
+
         return this;
       }
 
@@ -42704,6 +43101,8 @@ public final class ShippingcalcOuterClass {
         result.hasPaymentMethod_ = hasPaymentMethod_;
         result.deliveryType_ = deliveryType_;
         result.tenantId_ = tenantId_;
+        result.platformName_ = platformName_;
+        result.platformVersion_ = platformVersion_;
         onBuilt();
         return result;
       }
@@ -42803,6 +43202,14 @@ public final class ShippingcalcOuterClass {
         }
         if (!other.getTenantId().isEmpty()) {
           tenantId_ = other.tenantId_;
+          onChanged();
+        }
+        if (!other.getPlatformName().isEmpty()) {
+          platformName_ = other.platformName_;
+          onChanged();
+        }
+        if (!other.getPlatformVersion().isEmpty()) {
+          platformVersion_ = other.platformVersion_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -43789,6 +44196,178 @@ public final class ShippingcalcOuterClass {
   checkByteStringIsUtf8(value);
         
         tenantId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object platformName_ = "";
+      /**
+       * <pre>
+       * Название и версия платформы
+       * </pre>
+       *
+       * <code>string platform_name = 12;</code>
+       * @return The platformName.
+       */
+      public java.lang.String getPlatformName() {
+        java.lang.Object ref = platformName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          platformName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Название и версия платформы
+       * </pre>
+       *
+       * <code>string platform_name = 12;</code>
+       * @return The bytes for platformName.
+       */
+      public com.google.protobuf.ByteString
+          getPlatformNameBytes() {
+        java.lang.Object ref = platformName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          platformName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Название и версия платформы
+       * </pre>
+       *
+       * <code>string platform_name = 12;</code>
+       * @param value The platformName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPlatformName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        platformName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Название и версия платформы
+       * </pre>
+       *
+       * <code>string platform_name = 12;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPlatformName() {
+        
+        platformName_ = getDefaultInstance().getPlatformName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Название и версия платформы
+       * </pre>
+       *
+       * <code>string platform_name = 12;</code>
+       * @param value The bytes for platformName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPlatformNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        platformName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object platformVersion_ = "";
+      /**
+       * <code>string platform_version = 13;</code>
+       * @return The platformVersion.
+       */
+      public java.lang.String getPlatformVersion() {
+        java.lang.Object ref = platformVersion_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          platformVersion_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string platform_version = 13;</code>
+       * @return The bytes for platformVersion.
+       */
+      public com.google.protobuf.ByteString
+          getPlatformVersionBytes() {
+        java.lang.Object ref = platformVersion_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          platformVersion_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string platform_version = 13;</code>
+       * @param value The platformVersion to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPlatformVersion(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        platformVersion_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string platform_version = 13;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPlatformVersion() {
+        
+        platformVersion_ = getDefaultInstance().getPlatformVersion();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string platform_version = 13;</code>
+       * @param value The bytes for platformVersion to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPlatformVersionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        platformVersion_ = value;
         onChanged();
         return this;
       }
@@ -67798,225 +68377,228 @@ public final class ShippingcalcOuterClass {
       "ect\0223\n\016condition_type\030\001 \001(\0162\033.shippingca" +
       "lc.ConditionType\022\016\n\006params\030\002 \001(\t\"E\n\026Upda" +
       "teStrategyResponse\022\020\n\010rules_id\030\001 \003(\r\022\031\n\021" +
-      "min_cart_rules_id\030\002 \003(\r\"X\n\023BindStrategyR" +
+      "min_cart_rules_id\030\002 \003(\r\"m\n\023BindStrategyR" +
       "equest\022\023\n\013strategy_id\030\001 \001(\r\022,\n\005binds\030\002 \003" +
-      "(\0132\035.shippingcalc.StrategyBinding\"6\n\017Str" +
-      "ategyBinding\022\020\n\010store_id\030\001 \001(\t\022\021\n\ttenant" +
-      "_id\030\002 \001(\t\"D\n\024BindStrategyResponse\022,\n\010str" +
-      "ategy\030\001 \001(\0132\032.shippingcalc.StrategyView\"" +
-      "\205\002\n\014StrategyView\022\023\n\013strategy_id\030\001 \001(\r\022\022\n" +
-      "\ncreator_id\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022\016\n\006globa" +
-      "l\030\004 \001(\010\022\020\n\010priority\030\005 \001(\r\022,\n\005binds\030\006 \003(\013" +
-      "2\035.shippingcalc.StrategyBinding\022\023\n\013descr" +
-      "iption\030\007 \001(\t\022\022\n\ncreated_at\030\010 \001(\003\022\022\n\nupda" +
-      "ted_at\030\t \001(\003\0221\n\rdelivery_type\030\n \001(\0162\032.sh" +
-      "ippingcalc.DeliveryType\"\354\001\n\021StrategyView" +
-      "Light\022\023\n\013strategy_id\030\001 \001(\r\022\022\n\ncreator_id" +
-      "\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022\016\n\006global\030\004 \001(\010\022\020\n\010" +
-      "priority\030\005 \001(\r\022\016\n\006stores\030\006 \003(\t\022\023\n\013descri" +
-      "ption\030\007 \001(\t\022\022\n\ncreated_at\030\010 \001(\003\022\022\n\nupdat" +
-      "ed_at\030\t \001(\003\0221\n\rdelivery_type\030\n \001(\0162\032.shi" +
-      "ppingcalc.DeliveryType\"Z\n\025UnbindStrategy" +
-      "Request\022\023\n\013strategy_id\030\001 \001(\r\022,\n\005binds\030\002 " +
-      "\003(\0132\035.shippingcalc.StrategyBinding\"F\n\026Un" +
-      "bindStrategyResponse\022,\n\010strategy\030\001 \001(\0132\032" +
-      ".shippingcalc.StrategyView\"p\n\024GetStrateg" +
-      "iesRequest\022\025\n\rstrategy_name\030\001 \001(\t\0221\n\rdel" +
-      "ivery_type\030\002 \001(\0162\032.shippingcalc.Delivery" +
-      "Type\022\016\n\006stores\030\003 \003(\t\"L\n\025GetStrategiesRes" +
-      "ponse\0223\n\nstrategies\030\001 \003(\0132\037.shippingcalc" +
-      ".StrategyViewLight\")\n\022GetStrategyRequest" +
-      "\022\023\n\013strategy_id\030\001 \001(\r\"\241\001\n\023GetStrategyRes" +
-      "ponse\022,\n\010strategy\030\001 \001(\0132\032.shippingcalc.S" +
-      "trategyView\022%\n\005rules\030\002 \003(\0132\026.shippingcal" +
-      "c.RuleView\0225\n\016min_cart_rules\030\003 \003(\0132\035.shi" +
-      "ppingcalc.MinCartRuleView\"\306\001\n\010RuleView\022\n" +
-      "\n\002id\030\001 \001(\r\022\021\n\tscript_id\030\002 \001(\r\022\023\n\013script_" +
-      "name\030\003 \001(\t\022\033\n\023script_param_values\030\004 \001(\t\022" +
-      "/\n\nconditions\030\005 \003(\0132\033.shippingcalc.Condi" +
-      "tionView\022\020\n\010priority\030\006 \001(\005\022\022\n\ncreator_id" +
-      "\030\007 \001(\t\022\022\n\ncreated_at\030\010 \001(\003\"\240\001\n\017MinCartRu" +
-      "leView\022\n\n\002id\030\001 \001(\r\022\026\n\016min_cart_value\030\002 \001" +
-      "(\004\022/\n\nconditions\030\003 \003(\0132\033.shippingcalc.Co" +
-      "nditionView\022\020\n\010priority\030\004 \001(\005\022\022\n\ncreator" +
-      "_id\030\005 \001(\t\022\022\n\ncreated_at\030\006 \001(\003\"T\n\rConditi" +
-      "onView\0223\n\016condition_type\030\001 \001(\0162\033.shippin" +
-      "gcalc.ConditionType\022\016\n\006params\030\002 \001(\t\"s\n\034G" +
-      "etStrategiesForStoreRequest\022\020\n\010store_id\030" +
-      "\001 \001(\t\022\016\n\006tenant\030\002 \001(\t\0221\n\rdelivery_type\030\003" +
-      " \001(\0162\032.shippingcalc.DeliveryType\"\\\n\025Expl" +
-      "ainedStrategyView\022\023\n\013strategy_id\030\001 \001(\r\022." +
-      "\n\007binding\030\002 \001(\0132\035.shippingcalc.StrategyB" +
-      "inding\"V\n\035GetStrategiesForStoreResponse\022" +
-      "5\n\010strategy\030\001 \003(\0132#.shippingcalc.Explain" +
-      "edStrategyView\",\n\025DeleteStrategyRequest\022" +
-      "\023\n\013strategy_id\030\001 \001(\r\"\030\n\026DeleteStrategyRe" +
-      "sponse\"S\n\023CreateScriptRequest\022\023\n\013script_" +
-      "name\030\001 \001(\t\022\023\n\013script_body\030\002 \001(\t\022\022\n\ncreat" +
-      "or_id\030\003 \001(\t\"k\n\024CreateScriptResponse\022\021\n\ts" +
-      "cript_id\030\001 \001(\r\022(\n\005state\030\002 \001(\0162\031.shipping" +
-      "calc.ScriptState\022\026\n\016result_message\030\003 \001(\t" +
-      "\"f\n\023UpdateScriptRequest\022\021\n\tscript_id\030\001 \001" +
-      "(\r\022\023\n\013script_name\030\002 \001(\t\022\023\n\013script_body\030\003" +
-      " \001(\t\022\022\n\ncreator_id\030\004 \001(\t\"X\n\024UpdateScript" +
-      "Response\022(\n\005state\030\001 \001(\0162\031.shippingcalc.S" +
-      "criptState\022\026\n\016result_message\030\003 \001(\t\"\023\n\021Ge" +
-      "tScriptsRequest\"?\n\022GetScriptsResponse\022)\n" +
-      "\007scripts\030\001 \003(\0132\030.shippingcalc.ScriptView" +
-      "\"\221\002\n\nScriptView\022\021\n\tscript_id\030\001 \001(\r\022\023\n\013sc" +
-      "ript_name\030\002 \001(\t\022\023\n\013script_body\030\003 \001(\t\0222\n\017" +
-      "required_params\030\004 \003(\0132\031.shippingcalc.Scr" +
-      "iptParam\022\022\n\ncreated_at\030\005 \001(\003\022\022\n\nupdated_" +
-      "at\030\006 \001(\003\0223\n\005state\030\007 \001(\0162$.shippingcalc.S" +
-      "criptView.ScriptState\"5\n\013ScriptState\022\010\n\004" +
-      "NONE\020\000\022\013\n\007TEST_OK\020\001\022\017\n\013TEST_FAILED\020\002\"\274\001\n" +
-      "\013ScriptParam\0227\n\004type\030\001 \001(\0162).shippingcal" +
-      "c.ScriptParam.ScriptParamType\022\014\n\004name\030\002 " +
-      "\001(\t\022\017\n\007caption\030\003 \001(\t\022\020\n\010fraction\030\004 \001(\004\"C" +
-      "\n\017ScriptParamType\022\017\n\013PARAM_FLOAT\020\000\022\r\n\tPA" +
-      "RAM_INT\020\001\022\020\n\014PARAM_STRING\020\002\"%\n\020GetScript" +
-      "Request\022\021\n\tscript_id\030\001 \001(\r\"=\n\021GetScriptR" +
-      "esponse\022(\n\006script\030\001 \001(\0132\030.shippingcalc.S" +
-      "criptView\"(\n\023DeleteScriptRequest\022\021\n\tscri" +
-      "pt_id\030\001 \001(\r\"\026\n\024DeleteScriptResponse\"0\n\033G" +
-      "etScriptTestResultsRequest\022\021\n\tscript_id\030" +
-      "\001 \001(\r\"c\n\034GetScriptTestResultsResponse\022/\n" +
-      "\007results\030\001 \003(\0132\036.shippingcalc.ScriptTest" +
-      "Result\022\022\n\nall_passed\030\002 \001(\010\"L\n\020ScriptTest" +
-      "Result\022\021\n\ttest_name\030\001 \001(\t\022\016\n\006passed\030\002 \001(" +
-      "\010\022\025\n\rerror_message\030\003 \001(\t\"\246\002\n\027GetDelivery" +
-      "PriceRequest\022\020\n\010order_id\030\001 \001(\t\022)\n\tshipme" +
-      "nts\030\003 \003(\0132\026.shippingcalc.Shipment\022(\n\010cus" +
-      "tomer\030\004 \001(\0132\026.shippingcalc.Customer\022\024\n\014i" +
-      "s_b2b_order\030\005 \001(\010\022\024\n\014is_promocode\030\006 \001(\010\022" +
-      "\026\n\016payment_method\030\007 \001(\t\022\032\n\022has_payment_m" +
-      "ethod\030\010 \001(\010\0221\n\rdelivery_type\030\t \001(\0162\032.shi" +
-      "ppingcalc.DeliveryType\022\021\n\ttenant_id\030\013 \001(" +
-      "\t\"\206\002\n\010Shipment\022\n\n\002id\030\001 \001(\t\022\023\n\013is_ondeman" +
-      "d\030\002 \001(\010\022.\n\010products\030\003 \003(\0132\034.shippingcalc" +
-      ".ProductRequest\022\016\n\006weight\030\004 \001(\004\022\023\n\013items" +
-      "_count\030\005 \001(\r\022\r\n\005price\030\006 \001(\004\022\020\n\010store_id\030" +
-      "\007 \001(\t\022\016\n\006status\030\010 \001(\t\022\021\n\tregion_id\030\t \001(\004" +
-      "\022&\n\036surge_delivery_window_addition\030\n \001(\004" +
-      "\022\013\n\003lat\030\013 \001(\002\022\013\n\003lon\030\014 \001(\002\"e\n\016ProductReq" +
-      "uest\022\020\n\010quantity\030\001 \001(\r\022\n\n\002id\030\002 \001(\t\022\r\n\005pr" +
-      "ice\030\003 \001(\004\022\026\n\016discount_price\030\004 \001(\004\022\016\n\006wei" +
-      "ght\030\005 \001(\004\"s\n\010Customer\022\n\n\002id\030\001 \001(\t\022\024\n\014ano" +
-      "nymous_id\030\002 \001(\t\022\024\n\014orders_count\030\003 \001(\r\022\025\n" +
-      "\rregistered_at\030\004 \001(\003\022\013\n\003lat\030\005 \001(\002\022\013\n\003lon" +
-      "\030\006 \001(\002\"\274\001\n\030GetDeliveryPriceResponse\022\031\n\021i" +
-      "s_order_possible\030\001 \001(\010\022\032\n\022minimal_cart_p" +
-      "rice\030\002 \001(\004\022\032\n\022minimal_cart_items\030\003 \001(\r\022\034" +
-      "\n\024total_shipping_price\030\004 \001(\004\022/\n\tshipment" +
-      "s\030\005 \003(\0132\034.shippingcalc.PricedShipment\"\277\003" +
-      "\n\016PricedShipment\022\023\n\013shipment_id\030\001 \001(\t\022\026\n" +
-      "\016shipping_price\030\002 \001(\004\022\030\n\020offer_expires_a" +
-      "t\030\003 \001(\003\022\022\n\noffer_hash\030\004 \001(\t\022(\n\006ladder\030\005 " +
-      "\003(\0132\030.shippingcalc.LadderStep\022\023\n\013strateg" +
-      "y_id\030\006 \001(\r\022\017\n\007rule_id\030\007 \001(\r\022\024\n\014we_had_of" +
-      "fer\030\010 \001(\010\022\034\n\024surge_level_addition\030\t \001(\004\022" +
-      "\022\n\nsurge_used\030\n \001(\010\022\023\n\013surge_level\030\013 \001(\002" +
-      "\022&\n\036surge_delivery_window_addition\030\014 \001(\004" +
-      "\022&\n\005hints\030\r \003(\0132\027.shippingcalc.PriceHint" +
-      "\0229\n\021price_explanation\030\016 \001(\0132\036.shippingca" +
-      "lc.PriceExplanation\022\032\n\022minimal_cart_pric" +
-      "e\030\017 \001(\004\"a\n\tPriceHint\022\014\n\004type\030\001 \001(\t\022\017\n\007ca" +
-      "ption\030\002 \001(\t\022\r\n\005price\030\003 \001(\004\022\030\n\020additional" +
-      "_label\030\004 \001(\t\022\014\n\004meta\030\005 \001(\t\"\211\001\n\020PriceExpl" +
-      "anation\022=\n\021passed_conditions\030\001 \003(\0132\".shi" +
-      "ppingcalc.PricePassedCondition\0226\n\020price_" +
-      "components\030\002 \003(\0132\034.shippingcalc.PriceCom" +
-      "ponent\"4\n\024PricePassedCondition\022\014\n\004type\030\001" +
-      " \001(\t\022\016\n\006params\030\002 \001(\t\";\n\016PriceComponent\022\014" +
-      "\n\004type\030\001 \001(\t\022\r\n\005price\030\002 \001(\004\022\014\n\004meta\030\003 \001(" +
-      "\t\"p\n\nLadderStep\022\027\n\nprice_from\030\001 \001(\004H\000\210\001\001" +
-      "\022\025\n\010price_to\030\002 \001(\004H\001\210\001\001\022\026\n\016shipping_pric" +
-      "e\030\003 \001(\004B\r\n\013_price_fromB\013\n\t_price_to\"p\n\rS" +
-      "urgeInterval\022\025\n\rleft_boundary\030\001 \001(\002\022\026\n\016r" +
-      "ight_boundary\030\002 \001(\002\022\026\n\016price_addition\030\003 " +
-      "\001(\004\022\030\n\020percent_addition\030\004 \001(\004\"J\n\030SetInte" +
-      "rvalsSurgeRequest\022.\n\tintervals\030\001 \003(\0132\033.s" +
-      "hippingcalc.SurgeInterval\"\033\n\031SetInterval" +
-      "sSurgeResponse\"\032\n\030GetIntervalsSurgeReque" +
-      "st\"K\n\031GetIntervalsSurgeResponse\022.\n\tinter" +
-      "vals\030\001 \003(\0132\033.shippingcalc.SurgeInterval\"" +
-      "m\n\031SurgeSwitchbackExperiment\022\027\n\017start_da" +
-      "te_time\030\001 \001(\003\022\025\n\rend_date_time\030\002 \001(\003\022\021\n\t" +
-      "region_id\030\003 \001(\004\022\r\n\005group\030\004 \001(\t\"d\n\037SetSwi" +
-      "tchbackExperimentsRequest\022\014\n\004data\030\001 \001(\t\022" +
-      "3\n\004type\030\002 \001(\0162%.shippingcalc.SurgeSwitch" +
-      "backDataType\"\"\n SetSwitchbackExperiments" +
-      "Response\"!\n\037GetSwitchbackExperimentsRequ" +
-      "est\"`\n GetSwitchbackExperimentsResponse\022" +
-      "<\n\013experiments\030\001 \003(\0132\'.shippingcalc.Surg" +
-      "eSwitchbackExperiment\"\254\001\n\030GetMinCartAmou" +
-      "ntsRequest\022#\n\006stores\030\001 \003(\0132\023.shippingcal" +
-      "c.Store\022(\n\010customer\030\002 \001(\0132\026.shippingcalc" +
-      ".Customer\022\016\n\006tenant\030\003 \001(\t\0221\n\rdelivery_ty" +
-      "pe\030\004 \001(\0162\032.shippingcalc.DeliveryType\"-\n\005" +
-      "Store\022\n\n\002id\030\001 \001(\t\022\013\n\003lat\030\002 \001(\002\022\013\n\003lon\030\003 " +
-      "\001(\002\"R\n\031GetMinCartAmountsResponse\0225\n\020min_" +
-      "cart_amounts\030\001 \003(\0132\033.shippingcalc.MinCar" +
-      "tAmount\"1\n\rMinCartAmount\022\020\n\010store_id\030\001 \001" +
-      "(\t\022\016\n\006amount\030\002 \001(\004*J\n\014DeliveryType\022\010\n\004NO" +
-      "NE\020\000\022\021\n\rSELF_DELIVERY\020\001\022\024\n\020COURIER_DELIV" +
-      "ERY\020\002\022\007\n\003B2B\020\003*v\n\rConditionType\022\n\n\006ALWAY" +
-      "S\020\000\022\022\n\016FIRST_N_ORDERS\020\001\022\025\n\021ORDER_VALUE_R" +
-      "ANGE\020\002\022\024\n\020AB_TEST_ENTRANCE\020\003\022\030\n\024ORDER_DI" +
-      "STANCE_RANGE\020\004*1\n\013ScriptState\022\020\n\014SCRIPT_" +
-      "VALID\020\000\022\020\n\014SCRIPT_ERROR\020\001*\"\n\027SurgeSwitch" +
-      "backDataType\022\007\n\003CSV\020\0002\227\017\n\014Shippingcalc\022[" +
-      "\n\016CreateStrategy\022#.shippingcalc.CreateSt" +
-      "rategyRequest\032$.shippingcalc.CreateStrat" +
-      "egyResponse\022[\n\016UpdateStrategy\022#.shipping" +
-      "calc.UpdateStrategyRequest\032$.shippingcal" +
-      "c.UpdateStrategyResponse\022U\n\014BindStrategy" +
-      "\022!.shippingcalc.BindStrategyRequest\032\".sh" +
-      "ippingcalc.BindStrategyResponse\022[\n\016Unbin" +
-      "dStrategy\022#.shippingcalc.UnbindStrategyR" +
-      "equest\032$.shippingcalc.UnbindStrategyResp" +
-      "onse\022X\n\rGetStrategies\022\".shippingcalc.Get" +
-      "StrategiesRequest\032#.shippingcalc.GetStra" +
-      "tegiesResponse\022R\n\013GetStrategy\022 .shipping" +
-      "calc.GetStrategyRequest\032!.shippingcalc.G" +
-      "etStrategyResponse\022p\n\025GetStrategiesForSt" +
-      "ore\022*.shippingcalc.GetStrategiesForStore" +
-      "Request\032+.shippingcalc.GetStrategiesForS" +
-      "toreResponse\022[\n\016DeleteStrategy\022#.shippin" +
-      "gcalc.DeleteStrategyRequest\032$.shippingca" +
-      "lc.DeleteStrategyResponse\022U\n\014CreateScrip" +
-      "t\022!.shippingcalc.CreateScriptRequest\032\".s" +
-      "hippingcalc.CreateScriptResponse\022U\n\014Upda" +
-      "teScript\022!.shippingcalc.UpdateScriptRequ" +
-      "est\032\".shippingcalc.UpdateScriptResponse\022" +
-      "L\n\tGetScript\022\036.shippingcalc.GetScriptReq" +
-      "uest\032\037.shippingcalc.GetScriptResponse\022O\n" +
-      "\nGetScripts\022\037.shippingcalc.GetScriptsReq" +
-      "uest\032 .shippingcalc.GetScriptsResponse\022m" +
-      "\n\024GetScriptTestResults\022).shippingcalc.Ge" +
-      "tScriptTestResultsRequest\032*.shippingcalc" +
-      ".GetScriptTestResultsResponse\022U\n\014DeleteS" +
-      "cript\022!.shippingcalc.DeleteScriptRequest" +
-      "\032\".shippingcalc.DeleteScriptResponse\022a\n\020" +
-      "GetDeliveryPrice\022%.shippingcalc.GetDeliv" +
-      "eryPriceRequest\032&.shippingcalc.GetDelive" +
-      "ryPriceResponse\022d\n\021SetIntervalsSurge\022&.s" +
-      "hippingcalc.SetIntervalsSurgeRequest\032\'.s" +
-      "hippingcalc.SetIntervalsSurgeResponse\022d\n" +
-      "\021GetIntervalsSurge\022&.shippingcalc.GetInt" +
-      "ervalsSurgeRequest\032\'.shippingcalc.GetInt" +
-      "ervalsSurgeResponse\022y\n\030SetSwitchbackExpe" +
-      "riments\022-.shippingcalc.SetSwitchbackExpe" +
-      "rimentsRequest\032..shippingcalc.SetSwitchb" +
-      "ackExperimentsResponse\022y\n\030GetSwitchbackE" +
-      "xperiments\022-.shippingcalc.GetSwitchbackE" +
-      "xperimentsRequest\032..shippingcalc.GetSwit" +
-      "chbackExperimentsResponse\022d\n\021GetMinCartA" +
-      "mounts\022&.shippingcalc.GetMinCartAmountsR" +
-      "equest\032\'.shippingcalc.GetMinCartAmountsR" +
-      "esponseBRZPgitlab.sbmt.io/paas/content/o" +
-      "perations/shippingcalc/pkg/server/grpc/s" +
-      "hippingcalcb\006proto3"
+      "(\0132\035.shippingcalc.StrategyBinding\022\023\n\013rep" +
+      "lace_all\030\003 \001(\010\"i\n\017StrategyBinding\022\020\n\010sto" +
+      "re_id\030\001 \001(\t\022\021\n\ttenant_id\030\002 \001(\t\0221\n\rdelive" +
+      "ry_type\030\003 \001(\0162\032.shippingcalc.DeliveryTyp" +
+      "e\"D\n\024BindStrategyResponse\022,\n\010strategy\030\001 " +
+      "\001(\0132\032.shippingcalc.StrategyView\"\205\002\n\014Stra" +
+      "tegyView\022\023\n\013strategy_id\030\001 \001(\r\022\022\n\ncreator" +
+      "_id\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022\016\n\006global\030\004 \001(\010\022" +
+      "\020\n\010priority\030\005 \001(\r\022,\n\005binds\030\006 \003(\0132\035.shipp" +
+      "ingcalc.StrategyBinding\022\023\n\013description\030\007" +
+      " \001(\t\022\022\n\ncreated_at\030\010 \001(\003\022\022\n\nupdated_at\030\t" +
+      " \001(\003\0221\n\rdelivery_type\030\n \001(\0162\032.shippingca" +
+      "lc.DeliveryType\"\354\001\n\021StrategyViewLight\022\023\n" +
+      "\013strategy_id\030\001 \001(\r\022\022\n\ncreator_id\030\002 \001(\t\022\014" +
+      "\n\004name\030\003 \001(\t\022\016\n\006global\030\004 \001(\010\022\020\n\010priority" +
+      "\030\005 \001(\r\022\016\n\006stores\030\006 \003(\t\022\023\n\013description\030\007 " +
+      "\001(\t\022\022\n\ncreated_at\030\010 \001(\003\022\022\n\nupdated_at\030\t " +
+      "\001(\003\0221\n\rdelivery_type\030\n \001(\0162\032.shippingcal" +
+      "c.DeliveryType\"Z\n\025UnbindStrategyRequest\022" +
+      "\023\n\013strategy_id\030\001 \001(\r\022,\n\005binds\030\002 \003(\0132\035.sh" +
+      "ippingcalc.StrategyBinding\"F\n\026UnbindStra" +
+      "tegyResponse\022,\n\010strategy\030\001 \001(\0132\032.shippin" +
+      "gcalc.StrategyView\"p\n\024GetStrategiesReque" +
+      "st\022\025\n\rstrategy_name\030\001 \001(\t\0221\n\rdelivery_ty" +
+      "pe\030\002 \001(\0162\032.shippingcalc.DeliveryType\022\016\n\006" +
+      "stores\030\003 \003(\t\"L\n\025GetStrategiesResponse\0223\n" +
+      "\nstrategies\030\001 \003(\0132\037.shippingcalc.Strateg" +
+      "yViewLight\")\n\022GetStrategyRequest\022\023\n\013stra" +
+      "tegy_id\030\001 \001(\r\"\241\001\n\023GetStrategyResponse\022,\n" +
+      "\010strategy\030\001 \001(\0132\032.shippingcalc.StrategyV" +
+      "iew\022%\n\005rules\030\002 \003(\0132\026.shippingcalc.RuleVi" +
+      "ew\0225\n\016min_cart_rules\030\003 \003(\0132\035.shippingcal" +
+      "c.MinCartRuleView\"\306\001\n\010RuleView\022\n\n\002id\030\001 \001" +
+      "(\r\022\021\n\tscript_id\030\002 \001(\r\022\023\n\013script_name\030\003 \001" +
+      "(\t\022\033\n\023script_param_values\030\004 \001(\t\022/\n\ncondi" +
+      "tions\030\005 \003(\0132\033.shippingcalc.ConditionView" +
+      "\022\020\n\010priority\030\006 \001(\005\022\022\n\ncreator_id\030\007 \001(\t\022\022" +
+      "\n\ncreated_at\030\010 \001(\003\"\240\001\n\017MinCartRuleView\022\n" +
+      "\n\002id\030\001 \001(\r\022\026\n\016min_cart_value\030\002 \001(\004\022/\n\nco" +
+      "nditions\030\003 \003(\0132\033.shippingcalc.ConditionV" +
+      "iew\022\020\n\010priority\030\004 \001(\005\022\022\n\ncreator_id\030\005 \001(" +
+      "\t\022\022\n\ncreated_at\030\006 \001(\003\"T\n\rConditionView\0223" +
+      "\n\016condition_type\030\001 \001(\0162\033.shippingcalc.Co" +
+      "nditionType\022\016\n\006params\030\002 \001(\t\"s\n\034GetStrate" +
+      "giesForStoreRequest\022\020\n\010store_id\030\001 \001(\t\022\016\n" +
+      "\006tenant\030\002 \001(\t\0221\n\rdelivery_type\030\003 \001(\0162\032.s" +
+      "hippingcalc.DeliveryType\"\\\n\025ExplainedStr" +
+      "ategyView\022\023\n\013strategy_id\030\001 \001(\r\022.\n\007bindin" +
+      "g\030\002 \001(\0132\035.shippingcalc.StrategyBinding\"V" +
+      "\n\035GetStrategiesForStoreResponse\0225\n\010strat" +
+      "egy\030\001 \003(\0132#.shippingcalc.ExplainedStrate" +
+      "gyView\",\n\025DeleteStrategyRequest\022\023\n\013strat" +
+      "egy_id\030\001 \001(\r\"\030\n\026DeleteStrategyResponse\"S" +
+      "\n\023CreateScriptRequest\022\023\n\013script_name\030\001 \001" +
+      "(\t\022\023\n\013script_body\030\002 \001(\t\022\022\n\ncreator_id\030\003 " +
+      "\001(\t\"k\n\024CreateScriptResponse\022\021\n\tscript_id" +
+      "\030\001 \001(\r\022(\n\005state\030\002 \001(\0162\031.shippingcalc.Scr" +
+      "iptState\022\026\n\016result_message\030\003 \001(\t\"f\n\023Upda" +
+      "teScriptRequest\022\021\n\tscript_id\030\001 \001(\r\022\023\n\013sc" +
+      "ript_name\030\002 \001(\t\022\023\n\013script_body\030\003 \001(\t\022\022\n\n" +
+      "creator_id\030\004 \001(\t\"X\n\024UpdateScriptResponse" +
+      "\022(\n\005state\030\001 \001(\0162\031.shippingcalc.ScriptSta" +
+      "te\022\026\n\016result_message\030\003 \001(\t\"\023\n\021GetScripts" +
+      "Request\"?\n\022GetScriptsResponse\022)\n\007scripts" +
+      "\030\001 \003(\0132\030.shippingcalc.ScriptView\"\221\002\n\nScr" +
+      "iptView\022\021\n\tscript_id\030\001 \001(\r\022\023\n\013script_nam" +
+      "e\030\002 \001(\t\022\023\n\013script_body\030\003 \001(\t\0222\n\017required" +
+      "_params\030\004 \003(\0132\031.shippingcalc.ScriptParam" +
+      "\022\022\n\ncreated_at\030\005 \001(\003\022\022\n\nupdated_at\030\006 \001(\003" +
+      "\0223\n\005state\030\007 \001(\0162$.shippingcalc.ScriptVie" +
+      "w.ScriptState\"5\n\013ScriptState\022\010\n\004NONE\020\000\022\013" +
+      "\n\007TEST_OK\020\001\022\017\n\013TEST_FAILED\020\002\"\274\001\n\013ScriptP" +
+      "aram\0227\n\004type\030\001 \001(\0162).shippingcalc.Script" +
+      "Param.ScriptParamType\022\014\n\004name\030\002 \001(\t\022\017\n\007c" +
+      "aption\030\003 \001(\t\022\020\n\010fraction\030\004 \001(\004\"C\n\017Script" +
+      "ParamType\022\017\n\013PARAM_FLOAT\020\000\022\r\n\tPARAM_INT\020" +
+      "\001\022\020\n\014PARAM_STRING\020\002\"%\n\020GetScriptRequest\022" +
+      "\021\n\tscript_id\030\001 \001(\r\"=\n\021GetScriptResponse\022" +
+      "(\n\006script\030\001 \001(\0132\030.shippingcalc.ScriptVie" +
+      "w\"(\n\023DeleteScriptRequest\022\021\n\tscript_id\030\001 " +
+      "\001(\r\"\026\n\024DeleteScriptResponse\"0\n\033GetScript" +
+      "TestResultsRequest\022\021\n\tscript_id\030\001 \001(\r\"c\n" +
+      "\034GetScriptTestResultsResponse\022/\n\007results" +
+      "\030\001 \003(\0132\036.shippingcalc.ScriptTestResult\022\022" +
+      "\n\nall_passed\030\002 \001(\010\"L\n\020ScriptTestResult\022\021" +
+      "\n\ttest_name\030\001 \001(\t\022\016\n\006passed\030\002 \001(\010\022\025\n\rerr" +
+      "or_message\030\003 \001(\t\"\327\002\n\027GetDeliveryPriceReq" +
+      "uest\022\020\n\010order_id\030\001 \001(\t\022)\n\tshipments\030\003 \003(" +
+      "\0132\026.shippingcalc.Shipment\022(\n\010customer\030\004 " +
+      "\001(\0132\026.shippingcalc.Customer\022\024\n\014is_b2b_or" +
+      "der\030\005 \001(\010\022\024\n\014is_promocode\030\006 \001(\010\022\026\n\016payme" +
+      "nt_method\030\007 \001(\t\022\032\n\022has_payment_method\030\010 " +
+      "\001(\010\0221\n\rdelivery_type\030\t \001(\0162\032.shippingcal" +
+      "c.DeliveryType\022\021\n\ttenant_id\030\013 \001(\t\022\025\n\rpla" +
+      "tform_name\030\014 \001(\t\022\030\n\020platform_version\030\r \001" +
+      "(\t\"\206\002\n\010Shipment\022\n\n\002id\030\001 \001(\t\022\023\n\013is_ondema" +
+      "nd\030\002 \001(\010\022.\n\010products\030\003 \003(\0132\034.shippingcal" +
+      "c.ProductRequest\022\016\n\006weight\030\004 \001(\004\022\023\n\013item" +
+      "s_count\030\005 \001(\r\022\r\n\005price\030\006 \001(\004\022\020\n\010store_id" +
+      "\030\007 \001(\t\022\016\n\006status\030\010 \001(\t\022\021\n\tregion_id\030\t \001(" +
+      "\004\022&\n\036surge_delivery_window_addition\030\n \001(" +
+      "\004\022\013\n\003lat\030\013 \001(\002\022\013\n\003lon\030\014 \001(\002\"e\n\016ProductRe" +
+      "quest\022\020\n\010quantity\030\001 \001(\r\022\n\n\002id\030\002 \001(\t\022\r\n\005p" +
+      "rice\030\003 \001(\004\022\026\n\016discount_price\030\004 \001(\004\022\016\n\006we" +
+      "ight\030\005 \001(\004\"s\n\010Customer\022\n\n\002id\030\001 \001(\t\022\024\n\014an" +
+      "onymous_id\030\002 \001(\t\022\024\n\014orders_count\030\003 \001(\r\022\025" +
+      "\n\rregistered_at\030\004 \001(\003\022\013\n\003lat\030\005 \001(\002\022\013\n\003lo" +
+      "n\030\006 \001(\002\"\274\001\n\030GetDeliveryPriceResponse\022\031\n\021" +
+      "is_order_possible\030\001 \001(\010\022\032\n\022minimal_cart_" +
+      "price\030\002 \001(\004\022\032\n\022minimal_cart_items\030\003 \001(\r\022" +
+      "\034\n\024total_shipping_price\030\004 \001(\004\022/\n\tshipmen" +
+      "ts\030\005 \003(\0132\034.shippingcalc.PricedShipment\"\277" +
+      "\003\n\016PricedShipment\022\023\n\013shipment_id\030\001 \001(\t\022\026" +
+      "\n\016shipping_price\030\002 \001(\004\022\030\n\020offer_expires_" +
+      "at\030\003 \001(\003\022\022\n\noffer_hash\030\004 \001(\t\022(\n\006ladder\030\005" +
+      " \003(\0132\030.shippingcalc.LadderStep\022\023\n\013strate" +
+      "gy_id\030\006 \001(\r\022\017\n\007rule_id\030\007 \001(\r\022\024\n\014we_had_o" +
+      "ffer\030\010 \001(\010\022\034\n\024surge_level_addition\030\t \001(\004" +
+      "\022\022\n\nsurge_used\030\n \001(\010\022\023\n\013surge_level\030\013 \001(" +
+      "\002\022&\n\036surge_delivery_window_addition\030\014 \001(" +
+      "\004\022&\n\005hints\030\r \003(\0132\027.shippingcalc.PriceHin" +
+      "t\0229\n\021price_explanation\030\016 \001(\0132\036.shippingc" +
+      "alc.PriceExplanation\022\032\n\022minimal_cart_pri" +
+      "ce\030\017 \001(\004\"a\n\tPriceHint\022\014\n\004type\030\001 \001(\t\022\017\n\007c" +
+      "aption\030\002 \001(\t\022\r\n\005price\030\003 \001(\004\022\030\n\020additiona" +
+      "l_label\030\004 \001(\t\022\014\n\004meta\030\005 \001(\t\"\211\001\n\020PriceExp" +
+      "lanation\022=\n\021passed_conditions\030\001 \003(\0132\".sh" +
+      "ippingcalc.PricePassedCondition\0226\n\020price" +
+      "_components\030\002 \003(\0132\034.shippingcalc.PriceCo" +
+      "mponent\"4\n\024PricePassedCondition\022\014\n\004type\030" +
+      "\001 \001(\t\022\016\n\006params\030\002 \001(\t\";\n\016PriceComponent\022" +
+      "\014\n\004type\030\001 \001(\t\022\r\n\005price\030\002 \001(\004\022\014\n\004meta\030\003 \001" +
+      "(\t\"p\n\nLadderStep\022\027\n\nprice_from\030\001 \001(\004H\000\210\001" +
+      "\001\022\025\n\010price_to\030\002 \001(\004H\001\210\001\001\022\026\n\016shipping_pri" +
+      "ce\030\003 \001(\004B\r\n\013_price_fromB\013\n\t_price_to\"p\n\r" +
+      "SurgeInterval\022\025\n\rleft_boundary\030\001 \001(\002\022\026\n\016" +
+      "right_boundary\030\002 \001(\002\022\026\n\016price_addition\030\003" +
+      " \001(\004\022\030\n\020percent_addition\030\004 \001(\004\"J\n\030SetInt" +
+      "ervalsSurgeRequest\022.\n\tintervals\030\001 \003(\0132\033." +
+      "shippingcalc.SurgeInterval\"\033\n\031SetInterva" +
+      "lsSurgeResponse\"\032\n\030GetIntervalsSurgeRequ" +
+      "est\"K\n\031GetIntervalsSurgeResponse\022.\n\tinte" +
+      "rvals\030\001 \003(\0132\033.shippingcalc.SurgeInterval" +
+      "\"m\n\031SurgeSwitchbackExperiment\022\027\n\017start_d" +
+      "ate_time\030\001 \001(\003\022\025\n\rend_date_time\030\002 \001(\003\022\021\n" +
+      "\tregion_id\030\003 \001(\004\022\r\n\005group\030\004 \001(\t\"d\n\037SetSw" +
+      "itchbackExperimentsRequest\022\014\n\004data\030\001 \001(\t" +
+      "\0223\n\004type\030\002 \001(\0162%.shippingcalc.SurgeSwitc" +
+      "hbackDataType\"\"\n SetSwitchbackExperiment" +
+      "sResponse\"!\n\037GetSwitchbackExperimentsReq" +
+      "uest\"`\n GetSwitchbackExperimentsResponse" +
+      "\022<\n\013experiments\030\001 \003(\0132\'.shippingcalc.Sur" +
+      "geSwitchbackExperiment\"\254\001\n\030GetMinCartAmo" +
+      "untsRequest\022#\n\006stores\030\001 \003(\0132\023.shippingca" +
+      "lc.Store\022(\n\010customer\030\002 \001(\0132\026.shippingcal" +
+      "c.Customer\022\016\n\006tenant\030\003 \001(\t\0221\n\rdelivery_t" +
+      "ype\030\004 \001(\0162\032.shippingcalc.DeliveryType\"-\n" +
+      "\005Store\022\n\n\002id\030\001 \001(\t\022\013\n\003lat\030\002 \001(\002\022\013\n\003lon\030\003" +
+      " \001(\002\"R\n\031GetMinCartAmountsResponse\0225\n\020min" +
+      "_cart_amounts\030\001 \003(\0132\033.shippingcalc.MinCa" +
+      "rtAmount\"1\n\rMinCartAmount\022\020\n\010store_id\030\001 " +
+      "\001(\t\022\016\n\006amount\030\002 \001(\004*J\n\014DeliveryType\022\010\n\004N" +
+      "ONE\020\000\022\021\n\rSELF_DELIVERY\020\001\022\024\n\020COURIER_DELI" +
+      "VERY\020\002\022\007\n\003B2B\020\003*\205\001\n\rConditionType\022\n\n\006ALW" +
+      "AYS\020\000\022\022\n\016FIRST_N_ORDERS\020\001\022\025\n\021ORDER_VALUE" +
+      "_RANGE\020\002\022\024\n\020AB_TEST_ENTRANCE\020\003\022\030\n\024ORDER_" +
+      "DISTANCE_RANGE\020\004\022\r\n\tPLATFORMS\020\005*1\n\013Scrip" +
+      "tState\022\020\n\014SCRIPT_VALID\020\000\022\020\n\014SCRIPT_ERROR" +
+      "\020\001*\"\n\027SurgeSwitchbackDataType\022\007\n\003CSV\020\0002\227" +
+      "\017\n\014Shippingcalc\022[\n\016CreateStrategy\022#.ship" +
+      "pingcalc.CreateStrategyRequest\032$.shippin" +
+      "gcalc.CreateStrategyResponse\022[\n\016UpdateSt" +
+      "rategy\022#.shippingcalc.UpdateStrategyRequ" +
+      "est\032$.shippingcalc.UpdateStrategyRespons" +
+      "e\022U\n\014BindStrategy\022!.shippingcalc.BindStr" +
+      "ategyRequest\032\".shippingcalc.BindStrategy" +
+      "Response\022[\n\016UnbindStrategy\022#.shippingcal" +
+      "c.UnbindStrategyRequest\032$.shippingcalc.U" +
+      "nbindStrategyResponse\022X\n\rGetStrategies\022\"" +
+      ".shippingcalc.GetStrategiesRequest\032#.shi" +
+      "ppingcalc.GetStrategiesResponse\022R\n\013GetSt" +
+      "rategy\022 .shippingcalc.GetStrategyRequest" +
+      "\032!.shippingcalc.GetStrategyResponse\022p\n\025G" +
+      "etStrategiesForStore\022*.shippingcalc.GetS" +
+      "trategiesForStoreRequest\032+.shippingcalc." +
+      "GetStrategiesForStoreResponse\022[\n\016DeleteS" +
+      "trategy\022#.shippingcalc.DeleteStrategyReq" +
+      "uest\032$.shippingcalc.DeleteStrategyRespon" +
+      "se\022U\n\014CreateScript\022!.shippingcalc.Create" +
+      "ScriptRequest\032\".shippingcalc.CreateScrip" +
+      "tResponse\022U\n\014UpdateScript\022!.shippingcalc" +
+      ".UpdateScriptRequest\032\".shippingcalc.Upda" +
+      "teScriptResponse\022L\n\tGetScript\022\036.shipping" +
+      "calc.GetScriptRequest\032\037.shippingcalc.Get" +
+      "ScriptResponse\022O\n\nGetScripts\022\037.shippingc" +
+      "alc.GetScriptsRequest\032 .shippingcalc.Get" +
+      "ScriptsResponse\022m\n\024GetScriptTestResults\022" +
+      ").shippingcalc.GetScriptTestResultsReque" +
+      "st\032*.shippingcalc.GetScriptTestResultsRe" +
+      "sponse\022U\n\014DeleteScript\022!.shippingcalc.De" +
+      "leteScriptRequest\032\".shippingcalc.DeleteS" +
+      "criptResponse\022a\n\020GetDeliveryPrice\022%.ship" +
+      "pingcalc.GetDeliveryPriceRequest\032&.shipp" +
+      "ingcalc.GetDeliveryPriceResponse\022d\n\021SetI" +
+      "ntervalsSurge\022&.shippingcalc.SetInterval" +
+      "sSurgeRequest\032\'.shippingcalc.SetInterval" +
+      "sSurgeResponse\022d\n\021GetIntervalsSurge\022&.sh" +
+      "ippingcalc.GetIntervalsSurgeRequest\032\'.sh" +
+      "ippingcalc.GetIntervalsSurgeResponse\022y\n\030" +
+      "SetSwitchbackExperiments\022-.shippingcalc." +
+      "SetSwitchbackExperimentsRequest\032..shippi" +
+      "ngcalc.SetSwitchbackExperimentsResponse\022" +
+      "y\n\030GetSwitchbackExperiments\022-.shippingca" +
+      "lc.GetSwitchbackExperimentsRequest\032..shi" +
+      "ppingcalc.GetSwitchbackExperimentsRespon" +
+      "se\022d\n\021GetMinCartAmounts\022&.shippingcalc.G" +
+      "etMinCartAmountsRequest\032\'.shippingcalc.G" +
+      "etMinCartAmountsResponseBRZPgitlab.sbmt." +
+      "io/paas/content/operations/shippingcalc/" +
+      "pkg/server/grpc/shippingcalcb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -68069,13 +68651,13 @@ public final class ShippingcalcOuterClass {
     internal_static_shippingcalc_BindStrategyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_BindStrategyRequest_descriptor,
-        new java.lang.String[] { "StrategyId", "Binds", });
+        new java.lang.String[] { "StrategyId", "Binds", "ReplaceAll", });
     internal_static_shippingcalc_StrategyBinding_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_shippingcalc_StrategyBinding_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_StrategyBinding_descriptor,
-        new java.lang.String[] { "StoreId", "TenantId", });
+        new java.lang.String[] { "StoreId", "TenantId", "DeliveryType", });
     internal_static_shippingcalc_BindStrategyResponse_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_shippingcalc_BindStrategyResponse_fieldAccessorTable = new
@@ -68273,7 +68855,7 @@ public final class ShippingcalcOuterClass {
     internal_static_shippingcalc_GetDeliveryPriceRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetDeliveryPriceRequest_descriptor,
-        new java.lang.String[] { "OrderId", "Shipments", "Customer", "IsB2BOrder", "IsPromocode", "PaymentMethod", "HasPaymentMethod", "DeliveryType", "TenantId", });
+        new java.lang.String[] { "OrderId", "Shipments", "Customer", "IsB2BOrder", "IsPromocode", "PaymentMethod", "HasPaymentMethod", "DeliveryType", "TenantId", "PlatformName", "PlatformVersion", });
     internal_static_shippingcalc_Shipment_descriptor =
       getDescriptor().getMessageTypes().get(42);
     internal_static_shippingcalc_Shipment_fieldAccessorTable = new
