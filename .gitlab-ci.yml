@@ -64,6 +64,7 @@ stages:
       - schedules
     variables:
       - $PRODUCTION == 'true'
+  when: always
 
 .template_schedule:
   only:
@@ -301,6 +302,8 @@ generate:dataUI:
   allow_failure: true
 
 generate:report:
+  extends:
+    - ".template_api_tests"
   only:
     variables:
       - $REGRESSION == 'true'

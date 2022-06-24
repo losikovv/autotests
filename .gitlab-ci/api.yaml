@@ -122,7 +122,17 @@ tests:prodApiInstamart:
   script:
     - gradle clean build apiInstamartProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - bash ./report.sh api api-instamart-production-regress
+    - bash ./mattermost-report.sh api api-instamart-production-regress apiInstamartProduction
+
+tests:prodApiInstamart:schedules:
+  extends:
+    - ".template_api_tests"
+    - ".template_prod"
+  resource_group: apiInstamartProd
+  script:
+    - gradle clean build apiInstamartProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./mattermost-report.sh api api-instamart-production-regress apiInstamartProduction
 
     #tests:prodApiRetailer:
     #  extends:
