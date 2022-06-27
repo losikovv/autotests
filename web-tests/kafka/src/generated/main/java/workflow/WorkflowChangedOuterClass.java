@@ -1773,6 +1773,46 @@ public final class WorkflowChangedOuterClass {
 
       /**
        * <pre>
+       * Идентификатор джобы назначения
+       * </pre>
+       *
+       * <code>string job_uuid = 18;</code>
+       * @return The jobUuid.
+       */
+      java.lang.String getJobUuid();
+      /**
+       * <pre>
+       * Идентификатор джобы назначения
+       * </pre>
+       *
+       * <code>string job_uuid = 18;</code>
+       * @return The bytes for jobUuid.
+       */
+      com.google.protobuf.ByteString
+          getJobUuidBytes();
+
+      /**
+       * <pre>
+       * Идентификатор джобы родительского назначения для отложенной доставки
+       * </pre>
+       *
+       * <code>string parent_job_uuid = 19;</code>
+       * @return The parentJobUuid.
+       */
+      java.lang.String getParentJobUuid();
+      /**
+       * <pre>
+       * Идентификатор джобы родительского назначения для отложенной доставки
+       * </pre>
+       *
+       * <code>string parent_job_uuid = 19;</code>
+       * @return The bytes for parentJobUuid.
+       */
+      com.google.protobuf.ByteString
+          getParentJobUuidBytes();
+
+      /**
+       * <pre>
        * Идентификатор исполнителя
        * </pre>
        *
@@ -2068,6 +2108,8 @@ public final class WorkflowChangedOuterClass {
       private Assignment() {
         uuid_ = "";
         postponedParentUuid_ = "";
+        jobUuid_ = "";
+        parentJobUuid_ = "";
         performerUuid_ = "";
         performerVehicle_ = 0;
         status_ = 0;
@@ -2220,6 +2262,18 @@ public final class WorkflowChangedOuterClass {
                 int rawValue = input.readEnum();
 
                 sourceType_ = rawValue;
+                break;
+              }
+              case 146: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                jobUuid_ = s;
+                break;
+              }
+              case 154: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                parentJobUuid_ = s;
                 break;
               }
               default: {
@@ -2613,6 +2667,98 @@ public final class WorkflowChangedOuterClass {
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           postponedParentUuid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int JOB_UUID_FIELD_NUMBER = 18;
+      private volatile java.lang.Object jobUuid_;
+      /**
+       * <pre>
+       * Идентификатор джобы назначения
+       * </pre>
+       *
+       * <code>string job_uuid = 18;</code>
+       * @return The jobUuid.
+       */
+      @java.lang.Override
+      public java.lang.String getJobUuid() {
+        java.lang.Object ref = jobUuid_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          jobUuid_ = s;
+          return s;
+        }
+      }
+      /**
+       * <pre>
+       * Идентификатор джобы назначения
+       * </pre>
+       *
+       * <code>string job_uuid = 18;</code>
+       * @return The bytes for jobUuid.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getJobUuidBytes() {
+        java.lang.Object ref = jobUuid_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          jobUuid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int PARENT_JOB_UUID_FIELD_NUMBER = 19;
+      private volatile java.lang.Object parentJobUuid_;
+      /**
+       * <pre>
+       * Идентификатор джобы родительского назначения для отложенной доставки
+       * </pre>
+       *
+       * <code>string parent_job_uuid = 19;</code>
+       * @return The parentJobUuid.
+       */
+      @java.lang.Override
+      public java.lang.String getParentJobUuid() {
+        java.lang.Object ref = parentJobUuid_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          parentJobUuid_ = s;
+          return s;
+        }
+      }
+      /**
+       * <pre>
+       * Идентификатор джобы родительского назначения для отложенной доставки
+       * </pre>
+       *
+       * <code>string parent_job_uuid = 19;</code>
+       * @return The bytes for parentJobUuid.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getParentJobUuidBytes() {
+        java.lang.Object ref = parentJobUuid_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          parentJobUuid_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -3116,6 +3262,12 @@ public final class WorkflowChangedOuterClass {
         if (sourceType_ != workflow.WorkflowEnums.SourceType.MANUAL.getNumber()) {
           output.writeEnum(17, sourceType_);
         }
+        if (!getJobUuidBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 18, jobUuid_);
+        }
+        if (!getParentJobUuidBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 19, parentJobUuid_);
+        }
         unknownFields.writeTo(output);
       }
 
@@ -3192,6 +3344,12 @@ public final class WorkflowChangedOuterClass {
           size += com.google.protobuf.CodedOutputStream
             .computeEnumSize(17, sourceType_);
         }
+        if (!getJobUuidBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(18, jobUuid_);
+        }
+        if (!getParentJobUuidBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(19, parentJobUuid_);
+        }
         size += unknownFields.getSerializedSize();
         memoizedSize = size;
         return size;
@@ -3215,6 +3373,10 @@ public final class WorkflowChangedOuterClass {
             .equals(other.getUuid())) return false;
         if (!getPostponedParentUuid()
             .equals(other.getPostponedParentUuid())) return false;
+        if (!getJobUuid()
+            .equals(other.getJobUuid())) return false;
+        if (!getParentJobUuid()
+            .equals(other.getParentJobUuid())) return false;
         if (!getPerformerUuid()
             .equals(other.getPerformerUuid())) return false;
         if (performerVehicle_ != other.performerVehicle_) return false;
@@ -3265,6 +3427,10 @@ public final class WorkflowChangedOuterClass {
         hash = (53 * hash) + getUuid().hashCode();
         hash = (37 * hash) + POSTPONED_PARENT_UUID_FIELD_NUMBER;
         hash = (53 * hash) + getPostponedParentUuid().hashCode();
+        hash = (37 * hash) + JOB_UUID_FIELD_NUMBER;
+        hash = (53 * hash) + getJobUuid().hashCode();
+        hash = (37 * hash) + PARENT_JOB_UUID_FIELD_NUMBER;
+        hash = (53 * hash) + getParentJobUuid().hashCode();
         hash = (37 * hash) + PERFORMER_UUID_FIELD_NUMBER;
         hash = (53 * hash) + getPerformerUuid().hashCode();
         hash = (37 * hash) + PERFORMER_VEHICLE_FIELD_NUMBER;
@@ -3468,6 +3634,10 @@ public final class WorkflowChangedOuterClass {
 
           postponedParentUuid_ = "";
 
+          jobUuid_ = "";
+
+          parentJobUuid_ = "";
+
           performerUuid_ = "";
 
           performerVehicle_ = 0;
@@ -3534,6 +3704,8 @@ public final class WorkflowChangedOuterClass {
           result.postponedParentId_ = postponedParentId_;
           result.uuid_ = uuid_;
           result.postponedParentUuid_ = postponedParentUuid_;
+          result.jobUuid_ = jobUuid_;
+          result.parentJobUuid_ = parentJobUuid_;
           result.performerUuid_ = performerUuid_;
           result.performerVehicle_ = performerVehicle_;
           result.status_ = status_;
@@ -3623,6 +3795,14 @@ public final class WorkflowChangedOuterClass {
           }
           if (!other.getPostponedParentUuid().isEmpty()) {
             postponedParentUuid_ = other.postponedParentUuid_;
+            onChanged();
+          }
+          if (!other.getJobUuid().isEmpty()) {
+            jobUuid_ = other.jobUuid_;
+            onChanged();
+          }
+          if (!other.getParentJobUuid().isEmpty()) {
+            parentJobUuid_ = other.parentJobUuid_;
             onChanged();
           }
           if (!other.getPerformerUuid().isEmpty()) {
@@ -3993,6 +4173,198 @@ public final class WorkflowChangedOuterClass {
   checkByteStringIsUtf8(value);
           
           postponedParentUuid_ = value;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object jobUuid_ = "";
+        /**
+         * <pre>
+         * Идентификатор джобы назначения
+         * </pre>
+         *
+         * <code>string job_uuid = 18;</code>
+         * @return The jobUuid.
+         */
+        public java.lang.String getJobUuid() {
+          java.lang.Object ref = jobUuid_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            jobUuid_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <pre>
+         * Идентификатор джобы назначения
+         * </pre>
+         *
+         * <code>string job_uuid = 18;</code>
+         * @return The bytes for jobUuid.
+         */
+        public com.google.protobuf.ByteString
+            getJobUuidBytes() {
+          java.lang.Object ref = jobUuid_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            jobUuid_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <pre>
+         * Идентификатор джобы назначения
+         * </pre>
+         *
+         * <code>string job_uuid = 18;</code>
+         * @param value The jobUuid to set.
+         * @return This builder for chaining.
+         */
+        public Builder setJobUuid(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          jobUuid_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * Идентификатор джобы назначения
+         * </pre>
+         *
+         * <code>string job_uuid = 18;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearJobUuid() {
+          
+          jobUuid_ = getDefaultInstance().getJobUuid();
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * Идентификатор джобы назначения
+         * </pre>
+         *
+         * <code>string job_uuid = 18;</code>
+         * @param value The bytes for jobUuid to set.
+         * @return This builder for chaining.
+         */
+        public Builder setJobUuidBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          jobUuid_ = value;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object parentJobUuid_ = "";
+        /**
+         * <pre>
+         * Идентификатор джобы родительского назначения для отложенной доставки
+         * </pre>
+         *
+         * <code>string parent_job_uuid = 19;</code>
+         * @return The parentJobUuid.
+         */
+        public java.lang.String getParentJobUuid() {
+          java.lang.Object ref = parentJobUuid_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            parentJobUuid_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <pre>
+         * Идентификатор джобы родительского назначения для отложенной доставки
+         * </pre>
+         *
+         * <code>string parent_job_uuid = 19;</code>
+         * @return The bytes for parentJobUuid.
+         */
+        public com.google.protobuf.ByteString
+            getParentJobUuidBytes() {
+          java.lang.Object ref = parentJobUuid_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            parentJobUuid_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <pre>
+         * Идентификатор джобы родительского назначения для отложенной доставки
+         * </pre>
+         *
+         * <code>string parent_job_uuid = 19;</code>
+         * @param value The parentJobUuid to set.
+         * @return This builder for chaining.
+         */
+        public Builder setParentJobUuid(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          parentJobUuid_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * Идентификатор джобы родительского назначения для отложенной доставки
+         * </pre>
+         *
+         * <code>string parent_job_uuid = 19;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearParentJobUuid() {
+          
+          parentJobUuid_ = getDefaultInstance().getParentJobUuid();
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * Идентификатор джобы родительского назначения для отложенной доставки
+         * </pre>
+         *
+         * <code>string parent_job_uuid = 19;</code>
+         * @param value The bytes for parentJobUuid to set.
+         * @return This builder for chaining.
+         */
+        public Builder setParentJobUuidBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          parentJobUuid_ = value;
           onChanged();
           return this;
         }
@@ -12956,7 +13328,7 @@ public final class WorkflowChangedOuterClass {
       "\n\037workflow/workflow_changed.proto\022\010workf" +
       "low\032\035workflow/workflow_enums.proto\032\037goog" +
       "le/protobuf/timestamp.proto\032\036google/prot" +
-      "obuf/duration.proto\"\364\023\n\017WorkflowChanged\022" +
+      "obuf/duration.proto\"\237\024\n\017WorkflowChanged\022" +
       "\n\n\002id\030\001 \001(\004\022\026\n\016performer_uuid\030\003 \001(\t\0220\n\006s" +
       "tatus\030\004 \001(\0162 .workflow.WorkflowChanged.S" +
       "tatus\022\020\n\010shift_id\030\007 \001(\004\0223\n\017plan_started_" +
@@ -12974,55 +13346,56 @@ public final class WorkflowChangedOuterClass {
       "WorkflowChanged.Assignment\0223\n\010segments\030\017" +
       " \003(\0132!.workflow.WorkflowChanged.Segment\032" +
       "B\n\010Shipment\022\014\n\004uuid\030\001 \001(\t\022\023\n\013is_delivery" +
-      "\030\002 \001(\010\022\023\n\013is_assembly\030\003 \001(\010\032\207\006\n\nAssignme" +
+      "\030\002 \001(\010\022\023\n\013is_assembly\030\003 \001(\010\032\262\006\n\nAssignme" +
       "nt\022\n\n\002id\030\001 \001(\004\022\033\n\023postponed_parent_id\030\002 " +
       "\001(\004\022\014\n\004uuid\030\r \001(\t\022\035\n\025postponed_parent_uu" +
-      "id\030\014 \001(\t\022\026\n\016performer_uuid\030\004 \001(\t\0225\n\021perf" +
-      "ormer_vehicle\030\016 \001(\0162\032.workflow.Performer" +
-      "Vehicle\022;\n\006status\030\005 \001(\0162+.workflow.Workf" +
-      "lowChanged.Assignment.Status\022-\n\rdelivery" +
-      "_type\030\013 \001(\0162\026.workflow.DeliveryType\022)\n\013s" +
-      "ource_type\030\021 \001(\0162\024.workflow.SourceType\0225" +
-      "\n\tshipments\030\006 \003(\0132\".workflow.WorkflowCha" +
-      "nged.Shipment\022\024\n\014plan_payroll\030\007 \001(\002\022\031\n\021p" +
-      "lan_payroll_base\030\017 \001(\002\022\032\n\022plan_payroll_b" +
-      "onus\030\020 \001(\002\022<\n\004meta\030\010 \003(\0132..workflow.Work" +
-      "flowChanged.Assignment.MetaEntry\022.\n\ncrea" +
-      "ted_at\030\t \001(\0132\032.google.protobuf.Timestamp" +
-      "\022.\n\nupdated_at\030\n \001(\0132\032.google.protobuf.T" +
-      "imestamp\032+\n\tMetaEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005va" +
-      "lue\030\002 \001(\t:\0028\001\"n\n\006Status\022\007\n\003NEW\020\000\022\r\n\tPOST" +
-      "PONED\020\001\022\013\n\007OFFERED\020\002\022\010\n\004SEEN\020\003\022\014\n\010ACCEPT" +
-      "ED\020\004\022\014\n\010DECLINED\020\005\022\013\n\007TIMEOUT\020\006\022\014\n\010CANCE" +
-      "LED\020\007\032\335\005\n\007Segment\022\n\n\002id\030\001 \001(\004\022#\n\004type\030\002 " +
-      "\001(\0162\025.workflow.SegmentType\022\020\n\010position\030\003" +
-      " \001(\r\0225\n\tshipments\030\005 \003(\0132\".workflow.Workf" +
-      "lowChanged.Shipment\022*\n\016location_start\030\006 " +
-      "\001(\0132\022.workflow.Location\0223\n\017plan_started_" +
-      "at\030\007 \001(\0132\032.google.protobuf.Timestamp\022(\n\014" +
-      "location_end\030\010 \001(\0132\022.workflow.Location\0221" +
-      "\n\rplan_ended_at\030\t \001(\0132\032.google.protobuf." +
-      "Timestamp\0223\n\017fact_started_at\030\n \001(\0132\032.goo" +
-      "gle.protobuf.Timestamp\0221\n\rfact_ended_at\030" +
-      "\013 \001(\0132\032.google.protobuf.Timestamp\022+\n\010tim" +
-      "e_lag\030\014 \001(\0132\031.google.protobuf.Duration\0229" +
-      "\n\004meta\030\r \003(\0132+.workflow.WorkflowChanged." +
-      "Segment.MetaEntry\022.\n\ncreated_at\030\016 \001(\0132\032." +
-      "google.protobuf.Timestamp\022.\n\nupdated_at\030" +
-      "\017 \001(\0132\032.google.protobuf.Timestamp\022+\n\010dur" +
-      "ation\030\020 \001(\0132\031.google.protobuf.Duration\022\020" +
-      "\n\010distance\030\021 \001(\004\032+\n\tMetaEntry\022\013\n\003key\030\001 \001" +
-      "(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"K\n\006Status\022\007\n\003NEW\020\000" +
-      "\022\n\n\006QUEUED\020\001\022\017\n\013IN_PROGRESS\020\002\022\r\n\tCOMPLET" +
-      "ED\020\003\022\014\n\010CANCELED\020\004\"\345\001\n\032WorkflowCancellat" +
-      "ionReason\022\020\n\014NOT_CANCELED\020\000\022\027\n\023ASSIGNMEN" +
-      "T_DECLINED\020\001\022\027\n\023CANCEL_BY_PERFORMER\020\002\022\022\n" +
-      "\016ORDER_CANCELED\020\003\022\r\n\tMOVE_SLOT\020\004\022\020\n\014NOT_" +
-      "ASSIGNED\020\005\022\017\n\013NOT_STARTED\020\006\022\033\n\027PERFORMER" +
-      "_NOT_AVAILABLE\020\007\022\n\n\006MANUAL\020\010\022\024\n\020CANCEL_B" +
-      "Y_PARENT\020\tBRZPgitlab.sbermarket.tech/paa" +
-      "s/content/operations/workflow/pkg/server" +
-      "/grpc/workflowb\006proto3"
+      "id\030\014 \001(\t\022\020\n\010job_uuid\030\022 \001(\t\022\027\n\017parent_job" +
+      "_uuid\030\023 \001(\t\022\026\n\016performer_uuid\030\004 \001(\t\0225\n\021p" +
+      "erformer_vehicle\030\016 \001(\0162\032.workflow.Perfor" +
+      "merVehicle\022;\n\006status\030\005 \001(\0162+.workflow.Wo" +
+      "rkflowChanged.Assignment.Status\022-\n\rdeliv" +
+      "ery_type\030\013 \001(\0162\026.workflow.DeliveryType\022)" +
+      "\n\013source_type\030\021 \001(\0162\024.workflow.SourceTyp" +
+      "e\0225\n\tshipments\030\006 \003(\0132\".workflow.Workflow" +
+      "Changed.Shipment\022\024\n\014plan_payroll\030\007 \001(\002\022\031" +
+      "\n\021plan_payroll_base\030\017 \001(\002\022\032\n\022plan_payrol" +
+      "l_bonus\030\020 \001(\002\022<\n\004meta\030\010 \003(\0132..workflow.W" +
+      "orkflowChanged.Assignment.MetaEntry\022.\n\nc" +
+      "reated_at\030\t \001(\0132\032.google.protobuf.Timest" +
+      "amp\022.\n\nupdated_at\030\n \001(\0132\032.google.protobu" +
+      "f.Timestamp\032+\n\tMetaEntry\022\013\n\003key\030\001 \001(\t\022\r\n" +
+      "\005value\030\002 \001(\t:\0028\001\"n\n\006Status\022\007\n\003NEW\020\000\022\r\n\tP" +
+      "OSTPONED\020\001\022\013\n\007OFFERED\020\002\022\010\n\004SEEN\020\003\022\014\n\010ACC" +
+      "EPTED\020\004\022\014\n\010DECLINED\020\005\022\013\n\007TIMEOUT\020\006\022\014\n\010CA" +
+      "NCELED\020\007\032\335\005\n\007Segment\022\n\n\002id\030\001 \001(\004\022#\n\004type" +
+      "\030\002 \001(\0162\025.workflow.SegmentType\022\020\n\010positio" +
+      "n\030\003 \001(\r\0225\n\tshipments\030\005 \003(\0132\".workflow.Wo" +
+      "rkflowChanged.Shipment\022*\n\016location_start" +
+      "\030\006 \001(\0132\022.workflow.Location\0223\n\017plan_start" +
+      "ed_at\030\007 \001(\0132\032.google.protobuf.Timestamp\022" +
+      "(\n\014location_end\030\010 \001(\0132\022.workflow.Locatio" +
+      "n\0221\n\rplan_ended_at\030\t \001(\0132\032.google.protob" +
+      "uf.Timestamp\0223\n\017fact_started_at\030\n \001(\0132\032." +
+      "google.protobuf.Timestamp\0221\n\rfact_ended_" +
+      "at\030\013 \001(\0132\032.google.protobuf.Timestamp\022+\n\010" +
+      "time_lag\030\014 \001(\0132\031.google.protobuf.Duratio" +
+      "n\0229\n\004meta\030\r \003(\0132+.workflow.WorkflowChang" +
+      "ed.Segment.MetaEntry\022.\n\ncreated_at\030\016 \001(\013" +
+      "2\032.google.protobuf.Timestamp\022.\n\nupdated_" +
+      "at\030\017 \001(\0132\032.google.protobuf.Timestamp\022+\n\010" +
+      "duration\030\020 \001(\0132\031.google.protobuf.Duratio" +
+      "n\022\020\n\010distance\030\021 \001(\004\032+\n\tMetaEntry\022\013\n\003key\030" +
+      "\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"K\n\006Status\022\007\n\003NE" +
+      "W\020\000\022\n\n\006QUEUED\020\001\022\017\n\013IN_PROGRESS\020\002\022\r\n\tCOMP" +
+      "LETED\020\003\022\014\n\010CANCELED\020\004\"\345\001\n\032WorkflowCancel" +
+      "lationReason\022\020\n\014NOT_CANCELED\020\000\022\027\n\023ASSIGN" +
+      "MENT_DECLINED\020\001\022\027\n\023CANCEL_BY_PERFORMER\020\002" +
+      "\022\022\n\016ORDER_CANCELED\020\003\022\r\n\tMOVE_SLOT\020\004\022\020\n\014N" +
+      "OT_ASSIGNED\020\005\022\017\n\013NOT_STARTED\020\006\022\033\n\027PERFOR" +
+      "MER_NOT_AVAILABLE\020\007\022\n\n\006MANUAL\020\010\022\024\n\020CANCE" +
+      "L_BY_PARENT\020\tBJZHgitlab.sbmt.io/paas/con" +
+      "tent/operations/workflow/pkg/server/grpc" +
+      "/workflowb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -13048,7 +13421,7 @@ public final class WorkflowChangedOuterClass {
     internal_static_workflow_WorkflowChanged_Assignment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_workflow_WorkflowChanged_Assignment_descriptor,
-        new java.lang.String[] { "Id", "PostponedParentId", "Uuid", "PostponedParentUuid", "PerformerUuid", "PerformerVehicle", "Status", "DeliveryType", "SourceType", "Shipments", "PlanPayroll", "PlanPayrollBase", "PlanPayrollBonus", "Meta", "CreatedAt", "UpdatedAt", });
+        new java.lang.String[] { "Id", "PostponedParentId", "Uuid", "PostponedParentUuid", "JobUuid", "ParentJobUuid", "PerformerUuid", "PerformerVehicle", "Status", "DeliveryType", "SourceType", "Shipments", "PlanPayroll", "PlanPayrollBase", "PlanPayrollBonus", "Meta", "CreatedAt", "UpdatedAt", });
     internal_static_workflow_WorkflowChanged_Assignment_MetaEntry_descriptor =
       internal_static_workflow_WorkflowChanged_Assignment_descriptor.getNestedTypes().get(0);
     internal_static_workflow_WorkflowChanged_Assignment_MetaEntry_fieldAccessorTable = new

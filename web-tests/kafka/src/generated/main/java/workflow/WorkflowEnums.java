@@ -3029,9 +3029,9 @@ public final class WorkflowEnums {
       "R_DELIVERY\020\006*6\n\020PerformerVehicle\022\016\n\nPEDE" +
       "STRIAN\020\000\022\010\n\004AUTO\020\001\022\010\n\004BIKE\020\002*&\n\nSourceTy" +
       "pe\022\n\n\006MANUAL\020\000\022\014\n\010DISPATCH\020\001*%\n\014Delivery" +
-      "Type\022\013\n\007DEFAULT\020\000\022\010\n\004TAXI\020\001BRZPgitlab.sb" +
-      "ermarket.tech/paas/content/operations/wo" +
-      "rkflow/pkg/server/grpc/workflowb\006proto3"
+      "Type\022\013\n\007DEFAULT\020\000\022\010\n\004TAXI\020\001BJZHgitlab.sb" +
+      "mt.io/paas/content/operations/workflow/p" +
+      "kg/server/grpc/workflowb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

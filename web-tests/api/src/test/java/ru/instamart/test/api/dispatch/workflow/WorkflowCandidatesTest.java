@@ -19,6 +19,8 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 import workflow.ServiceGrpc;
 
+import java.util.Objects;
+
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.WorkflowCheckpoints.checkGrpcError;
@@ -92,8 +94,10 @@ public class WorkflowCandidatesTest extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void clearData() {
-        cancelWorkflow(clientWorkflow, secondShipmentUuid);
-        cancelWorkflow(clientWorkflow, shipmentUuid);
-        K8sPortForward.getInstance().clearPortForward();
+        if(Objects.nonNull(secondShipmentUuid)) {
+            cancelWorkflow(clientWorkflow, secondShipmentUuid);
+            cancelWorkflow(clientWorkflow, shipmentUuid);
+            K8sPortForward.getInstance().clearPortForward();
+        }
     }
 }

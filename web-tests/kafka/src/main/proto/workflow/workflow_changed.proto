@@ -2,80 +2,80 @@ syntax = "proto3";
 
 package workflow;
 
-option go_package = "gitlab.sbermarket.tech/paas/content/operations/workflow/pkg/server/grpc/workflow";
+option go_package = "gitlab.sbmt.io/paas/content/operations/workflow/pkg/server/grpc/workflow";
 
 import "workflow/workflow_enums.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
 
 message WorkflowChanged {
-  // Статус маршрутного листа
-  enum Status {
-    // Новый
-    NEW = 0;
-    // В очереди
-    QUEUED = 1;
-    // В процессе
-    IN_PROGRESS = 2;
-    // Завершен
-    COMPLETED = 3;
-    // Отменен
-    CANCELED = 4;
-  }
+	// Статус маршрутного листа
+	enum Status {
+		// Новый
+		NEW = 0;
+		// В очереди
+		QUEUED = 1;
+		// В процессе
+		IN_PROGRESS = 2;
+		// Завершен
+		COMPLETED = 3;
+		// Отменен
+		CANCELED = 4;
+	}
 
-  enum WorkflowCancellationReason {
-    // Не отменен
-    NOT_CANCELED = 0;
-    // Назначение отклонено
-    ASSIGNMENT_DECLINED = 1;
-    // Отмена исполнителем
-    CANCEL_BY_PERFORMER = 2;
-    // Заказ отменен
-    ORDER_CANCELED = 3;
-    // Перенос слота доставки
-    MOVE_SLOT = 4;
-    // Не произошло назначения на исполнение
-    NOT_ASSIGNED = 5;
-    // Работы не начаты
-    NOT_STARTED = 6;
-    // Исполнитель недоступен
-    PERFORMER_NOT_AVAILABLE = 7;
-	// Отмена вручную
-    MANUAL = 8;
-    // Отменен из-за отмены родителя
-    CANCEL_BY_PARENT = 9;
-  }
+	enum WorkflowCancellationReason {
+		// Не отменен
+		NOT_CANCELED = 0;
+		// Назначение отклонено
+		ASSIGNMENT_DECLINED = 1;
+		// Отмена исполнителем
+		CANCEL_BY_PERFORMER = 2;
+		// Заказ отменен
+		ORDER_CANCELED = 3;
+		// Перенос слота доставки
+		MOVE_SLOT = 4;
+		// Не произошло назначения на исполнение
+		NOT_ASSIGNED = 5;
+		// Работы не начаты
+		NOT_STARTED = 6;
+		// Исполнитель недоступен
+		PERFORMER_NOT_AVAILABLE = 7;
+		// Отмена вручную
+		MANUAL = 8;
+		// Отменен из-за отмены родителя
+		CANCEL_BY_PARENT = 9;
+	}
 
-  // Внутренний идентификатор маршрутного листа
-  uint64 id = 1;
-  // Идентификатор исполнителя
-  string performer_uuid = 3;
-  // Статус
-  Status status = 4;
-  // Идентификатор смены
-  uint64 shift_id = 7;
-  // Дата и время планируемого начала выполнения (мин из сегментов)
-  google.protobuf.Timestamp plan_started_at = 8;
-  // Дата и время планируемого завершения выполнения (макс из сегментов)
-  google.protobuf.Timestamp plan_ended_at = 9;
-  // Планируемая геопозиция начала выполнения (мин из сегментов)
-  Location location_start = 10;
-  // Планируемая геопозиция завершения выполнения (макс из сегментов)
-  Location location_end = 11;
-  // Дата и время создания
-  google.protobuf.Timestamp created_at = 5;
-  // Дата и время обновления
-  google.protobuf.Timestamp updated_at = 6;
-  // Причина отмены
-  WorkflowCancellationReason cancellation_reason = 12;
+	// Внутренний идентификатор маршрутного листа
+	uint64 id = 1;
+	// Идентификатор исполнителя
+	string performer_uuid = 3;
+	// Статус
+	Status status = 4;
+	// Идентификатор смены
+	uint64 shift_id = 7;
+	// Дата и время планируемого начала выполнения (мин из сегментов)
+	google.protobuf.Timestamp plan_started_at = 8;
+	// Дата и время планируемого завершения выполнения (макс из сегментов)
+	google.protobuf.Timestamp plan_ended_at = 9;
+	// Планируемая геопозиция начала выполнения (мин из сегментов)
+	Location location_start = 10;
+	// Планируемая геопозиция завершения выполнения (макс из сегментов)
+	Location location_end = 11;
+	// Дата и время создания
+	google.protobuf.Timestamp created_at = 5;
+	// Дата и время обновления
+	google.protobuf.Timestamp updated_at = 6;
+	// Причина отмены
+	WorkflowCancellationReason cancellation_reason = 12;
 
-  message Shipment {
-	  string uuid = 1;
-	  bool is_delivery = 2;
-	  bool is_assembly = 3;
-  }
+	message Shipment {
+		string uuid = 1;
+		bool is_delivery = 2;
+		bool is_assembly = 3;
+	}
 
-  repeated Shipment shipments = 13;
+	repeated Shipment shipments = 13;
 
 	// Состояние назначений
 	message Assignment {
@@ -106,6 +106,10 @@ message WorkflowChanged {
 		// Идентификатор родительского назначения для отложенной доставки
 		// (от диспатча)
 		string postponed_parent_uuid = 12;
+		// Идентификатор джобы назначения
+		string job_uuid = 18;
+		// Идентификатор джобы родительского назначения для отложенной доставки
+		string parent_job_uuid = 19;
 		// Идентификатор исполнителя
 		string performer_uuid = 4;
 		// Тип транспорта
