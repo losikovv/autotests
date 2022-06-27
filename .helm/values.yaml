@@ -13,6 +13,7 @@ ingressAnnotations:
     satisfy any;
   nginx.ingress.kubernetes.io/auth-url: "https://oauth-adfs.k-stage.sbermarket.tech/oauth2/auth"
   nginx.ingress.kubernetes.io/auth-signin: "https://oauth-adfs.k-stage.sbermarket.tech/oauth2/start"
+  nginx.ingress.kubernetes.io/ssl-redirect: "true"
 allure:
   image: "frankescobar/allure-docker-service"
   addenv:
