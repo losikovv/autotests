@@ -39,7 +39,6 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpt
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200or422;
 import static ru.instamart.api.common.RestStaticTestData.userPhone;
-import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 
 @Slf4j
 public final class ApiV2Helper {
@@ -237,7 +236,7 @@ public final class ApiV2Helper {
     }
 
     public List<ProductV2> getProducts(int sid) {
-        return getProducts(sid, "");
+        return getProducts(sid, "a");
     }
 
     @Step("Поиск продуктов {query} в {sid} магазине")

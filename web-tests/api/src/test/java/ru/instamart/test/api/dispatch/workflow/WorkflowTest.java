@@ -41,6 +41,7 @@ import workflow.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
@@ -662,7 +663,9 @@ public class WorkflowTest extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void clearData() {
-        cancelWorkflow(clientWorkflow, secondShipmentUuid);
-        cancelWorkflow(clientWorkflow, shipmentUuid);
+        if(Objects.nonNull(secondShipmentUuid)) {
+            cancelWorkflow(clientWorkflow, secondShipmentUuid);
+            cancelWorkflow(clientWorkflow, shipmentUuid);
+        }
     }
 }

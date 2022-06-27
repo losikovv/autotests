@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package workflow;
 
-option go_package = "gitlab.sbermarket.tech/paas/content/operations/workflow/pkg/server/grpc/workflow";
+option go_package = "gitlab.sbmt.io/paas/content/operations/workflow/pkg/server/grpc/workflow";
 
 import "workflow/workflow_enums.proto";
 import "google/protobuf/timestamp.proto";
@@ -19,8 +19,20 @@ service Service {
   rpc GetRegionSettings(GetRegionSettingsRequest) returns (GetRegionSettingsReply) {}
 }
 
+// Запрос на отмену активного маршрутного листа по переданному назначению
 message CancelActiveWorkflowByShipmentUuidRequest {
-	string shipment_uuid = 1;
+  enum JobType {
+    // Без фильтра по типу маршрутного листа
+    DEFAULT = 0;
+    // Маршрутный лист на сборку
+    ASSEMBLY = 1;
+    // Маршрутный лист на доставку
+    DELIVERY = 2;
+  }
+
+  string shipment_uuid = 1;
+  string reason = 2;
+  JobType job_type = 3;
 }
 
 // Запрос на создание маршрутных листов
@@ -57,8 +69,12 @@ message CreateWorkflowsResponse {
       PARENT_NOT_FOUND = 7;
       // Родительское назначение уже принято или отменено
       PARENT_NOT_AVAILABLE = 8;
-	  // Существует отложенная ручная отмена для shipment uuid
-	  HAS_PENDING_CANCELLATION = 9;
+      // Существует отложенная ручная отмена для shipment uuid
+      HAS_PENDING_CANCELLATION = 9;
+      // Маршрутный лист родительского назначения не найден
+      PARENT_WORKFLOW_NOT_FOUND = 10;
+      // Маршрутный лист родительского назначения отменён
+      PARENT_WORKFLOW_CANCELED = 11;
     }
 
     Status status = 1;
@@ -98,8 +114,12 @@ message CreateWorkflowsV2Response {
       PARENT_NOT_FOUND = 7;
       // Родительское назначение уже принято или отменено
       PARENT_NOT_AVAILABLE = 8;
-	  // Существует отложенная ручная отмена для shipment uuid
-	  HAS_PENDING_CANCELLATION = 9;
+      // Существует отложенная ручная отмена для shipment uuid
+      HAS_PENDING_CANCELLATION = 9;
+      // Маршрутный лист родительского назначения не найден
+      PARENT_WORKFLOW_NOT_FOUND = 10;
+      // Маршрутный лист родительского назначения отменён
+      PARENT_WORKFLOW_CANCELED = 11;
     }
 
     Status status = 1;
@@ -114,13 +134,13 @@ message CreateWorkflowsV2Response {
 
 // Запрос на отмену МЛ. Оба поля запроса обязательны
 message RejectWorkflowByShipmentUuidRequest {
-	string shipment_uuid = 1;
-	string reason = 2;
+  string shipment_uuid = 1;
+  string reason = 2;
 }
 
 // Список идентификаторов отмененных маршрутных листов
 message RejectWorkflowByShipmentUuidResponse {
-	repeated uint64 workflow_ids = 1;
+  repeated uint64 workflow_ids = 1;
 }
 
 message Shift {
@@ -152,6 +172,10 @@ message Assignment {
   map<string, string> meta = 7;
   // Данные активной смены
   Shift shift = 11;
+  // Идентификатор назначения для отложенной доставки
+  string job_uuid = 12;
+  // Идентификатор родительского назначения для отложенной доставки
+  string parent_job_uuid = 13;
 }
 
 // Сегмент
@@ -189,26 +213,30 @@ message Workflow {
 }
 
 message RegionSettings {
-	uint64 operational_zone_id = 1;
-	uint64 timeout_segment_pass_to_client_sec = 2;
+  uint64 operational_zone_id = 1;
+  uint64 timeout_segment_pass_to_client_sec = 2;
+  uint64 segment_assembly_tardiness_sec = 3;
+  float increasing_late_assembly_percentage = 4;
+  uint64 time_to_accept_offer_sec = 5;
+  uint64 server_offer_storage_time_sec = 6;
 }
 
 message PutRegionSettingsRequest {
-	RegionSettings region_settings = 1;
+  RegionSettings region_settings = 1;
 }
 
 message PutRegionSettingsReply {
-	bool ok = 1;
-	uint64 operational_zone_id = 2;
-	string error_msg = 3;
+  bool ok = 1;
+  uint64 operational_zone_id = 2;
+  string error_msg = 3;
 }
 
 message GetRegionSettingsRequest {
-	uint64 operational_zone_id = 1;
+  uint64 operational_zone_id = 1;
 }
 
 message GetRegionSettingsReply {
-	bool ok = 1;
-	RegionSettings region_settings = 2;
-	string error_msg = 3;
+  bool ok = 1;
+  RegionSettings region_settings = 2;
+  string error_msg = 3;
 }
