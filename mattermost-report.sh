@@ -71,9 +71,9 @@ duration=$(sed 's:.*<div class="infoBox" id="duration"><div class="counter">\([^
 # Процент пройденных тестов
 successRate=$(sed 's:.*<div class="percent">\([^<]*\)<.*:\1:' <<<"$text")
 
-if ["$failures"!="0"]; then
+if [ "$failures" != "0" ]; then
   #Text message
-  TEXT_MSG="*Результаты:* \n*Рабочее окружение: :* $3 \n*Продолжительность:* $duration \n *Всего сценариев:* $total \n *Всего успешных тестов:* $total-$failures-$ignored \n *Всего упавших тестов: :* $failures \n *Всего пропущенных тестов:* $ignored \n *% прошедших тестов:* $successRate \n *Отчет доступен по ссылке:* $allureReport \n"
+  TEXT_MSG="*Результаты:* \n*Рабочее окружение: :* $3 \n*Продолжительность:* $duration \n *Всего сценариев:* $total \n *Всего успешных тестов:* $(($total-$failures-$ignored)) \n *Всего упавших тестов: :* $failures \n *Всего пропущенных тестов:* $ignored \n *% прошедших тестов:* $successRate \n *Отчет доступен по ссылке:* $allureReport \n"
 
   #set -o xtrace
   echo "------------------SEND-RESULTS------------------"

@@ -31,13 +31,11 @@ public class CompanyDocumentV1 extends BaseObject {
 
     private String name;
 
-    @JsonSchema(required = true)
     private String inn;
 
     @Null
     private String kpp;
 
-    @JsonSchema(required = true)
     private Integer id;
 
     @JsonProperty(value = "user_id")
