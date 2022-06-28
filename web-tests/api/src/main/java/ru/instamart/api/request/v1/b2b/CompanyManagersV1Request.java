@@ -16,7 +16,7 @@ public class CompanyManagersV1Request extends ApiV1RequestBase {
     @Step("{method} /" + ApiV1Endpoints.COMPANY_MANAGERS)
     public static Response POST(Integer companyID, ManagerV1 manager) {
         // Можно использовать аннотацию @Run(onServer = "preprod", onTenant = "sbermarket") вместо if
-        if (EnvironmentProperties.Env.FULL_SITE_URL.contains("stf-kraken")) {
+        if (!EnvironmentProperties.Env.isProduction()) {
             JSONObject body = new JSONObject();
             JSONObject requestParams = new JSONObject();
             requestParams.put("user_id", manager.getUser().getId());

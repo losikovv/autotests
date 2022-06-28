@@ -8,7 +8,7 @@ public final class BrowserProperties {
 
     @Config(configName = NAME, fieldName = "defaultBrowser", defaultValue = "chrome_remote", args = "browser")
     public static String BROWSER;
-    @Config(configName = NAME, fieldName = "browserVersion", defaultValue = "latest", args = "version")
+    @Config(configName = NAME, fieldName = "browserVersion", defaultValue = "latest")
     public static String BROWSER_VERSION;
     @Config(configName = NAME, fieldName = "browserLocalVersion", defaultValue = "latest")
     public static String BROWSER_LOCAL_VERSION;

@@ -1,6 +1,7 @@
 package ru.instamart.reforged.next.page;
 
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.page.Page;
 
@@ -19,6 +20,6 @@ public interface StfPage extends Page {
     }
 
     default void goToPageFromTenant(final String url) {
-        Kraken.open(EnvironmentProperties.Env.FULL_B2C_URL_WITH_BASIC_AUTH + url);
+        Kraken.open(UiProperties.STF_URL + url);
     }
 }

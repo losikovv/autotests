@@ -1,11 +1,8 @@
 package ru.instamart.reforged.business.page;
 
-import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.page.Page;
-
-import java.util.Set;
 
 public interface BusinessPage extends Page {
 
@@ -14,6 +11,6 @@ public interface BusinessPage extends Page {
     }
 
     default void goToPage(final String url) {
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + url);
+        Kraken.open(UiProperties.B2B_URL + url);
     }
 }

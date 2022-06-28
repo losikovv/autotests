@@ -1,7 +1,7 @@
 package ru.instamart.reforged.selgros.page;
 
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.page.Page;
 
 public interface SelgrosPage extends Page {
@@ -11,6 +11,6 @@ public interface SelgrosPage extends Page {
     }
 
     default void goToPage(final String url) {
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + url);
+        Kraken.open(UiProperties.SELGROS_URL + url);
     }
 }

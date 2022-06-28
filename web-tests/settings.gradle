@@ -1,3 +1,2 @@
 rootProject.name = 'Kraken'
 include 'kraken', 'api', 'reforged', 'grpc', 'jdbc', 'kafka', 'k8s'
-

@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.business.block.header.B2BHeader;
 import ru.instamart.reforged.business.drawer.cart.B2BCart;
 import ru.instamart.reforged.business.frame.address.B2BAddress;
+import ru.instamart.reforged.business.frame.address.B2BAddressLarge;
 import ru.instamart.reforged.business.frame.auth.auth_modal.B2BAuthModal;
 import ru.instamart.reforged.business.frame.product_card.B2BProductCard;
 import ru.instamart.reforged.core.component.Button;
@@ -17,6 +18,7 @@ public interface B2BShopElement {
     B2BCart cart = new B2BCart();
     B2BAuthModal authModal = new B2BAuthModal();
     B2BAddress address = new B2BAddress();
+    B2BAddressLarge addressLarge = new B2BAddressLarge();
 
     Element spinner = new Element(By.xpath("//div[@data-qa='catalog_page_popular_products']/div"), "Спиннер блока рекомендаций");
 

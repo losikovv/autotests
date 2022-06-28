@@ -50,4 +50,9 @@ public interface B2BCartCheck extends Check, B2BCartElement {
         //Максимальное количество товаров при заказе через сайт - 199 шт, при вводе большего значения должно сбрасываться до 199
         Assert.assertEquals(itemCounter.getText(), itemCount, "Количество единиц товара в корзине отличается от ожидаемого");
     }
+
+    @Step("Проверяем, что кнопка 'Сделать заказ' доступна")
+    default boolean checkOrderButtonIsEnabled() {
+        return waitAction().shouldBeVisible(submitCheckout).isEnabled();
+    }
 }

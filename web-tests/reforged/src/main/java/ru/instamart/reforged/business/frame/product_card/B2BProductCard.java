@@ -1,11 +1,15 @@
 package ru.instamart.reforged.business.frame.product_card;
 
 import io.qameta.allure.Step;
-import ru.instamart.reforged.business.frame.B2BClose;
 
-public final class B2BProductCard implements B2BProductCardCheck, B2BClose {
+public final class B2BProductCard implements B2BProductCardCheck {
 
-    @Step("Нажимаем кнопку 'Купить'")
+    @Step("Нажимаем кнопку 'Закрыть'")
+    public void clickOnClose() {
+        close.click();
+    }
+
+        @Step("Нажимаем кнопку 'Купить'")
     public void clickOnBuy() {
         buy.click();
     }
