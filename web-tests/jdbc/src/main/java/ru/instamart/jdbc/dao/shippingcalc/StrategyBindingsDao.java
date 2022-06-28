@@ -18,20 +18,22 @@ public class StrategyBindingsDao implements Dao<Integer, StrategyBindingsEntity>
     private final String SELECT_SQL = "SELECT %s FROM strategy_bindings ";
     private final String INSERT_SQL = "INSERT INTO strategy_bindings ";
 
-    public StrategyBindingsEntity getStrategyBinding(Integer id, String storeId, String tenantId) {
+    public StrategyBindingsEntity getStrategyBinding(Integer id, String storeId, String tenantId, String shipping) {
         StrategyBindingsEntity strategyBinding = new StrategyBindingsEntity();
 
         try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE strategy_id = ? AND store_id = ? AND tenant_id = ? ")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE strategy_id = ? AND store_id = ? AND tenant_id = ? AND shipping = ?::delivery_type ")) {
             preparedStatement.setInt(1, id);
             preparedStatement.setString(2, storeId);
             preparedStatement.setString(3, tenantId);
+            preparedStatement.setString(4, shipping);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 strategyBinding = new StrategyBindingsEntity();
                 strategyBinding.setStrategyId(resultSet.getInt("strategy_id"));
                 strategyBinding.setStoreId(resultSet.getString("store_id"));
                 strategyBinding.setTenantId(resultSet.getString("tenant_id"));
+                strategyBinding.setShipping(resultSet.getString("shipping"));
             } else return null;
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
@@ -39,13 +41,14 @@ public class StrategyBindingsDao implements Dao<Integer, StrategyBindingsEntity>
         return strategyBinding;
     }
 
-    public boolean addStrategyBinding(Integer strategyId, String storeId, String tenantId) {
+    public boolean addStrategyBinding(Integer strategyId, String storeId, String tenantId, String shipping) {
         try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (strategy_id, store_id, tenant_id) " +
-                     " VALUES (?, ?, ?) ")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (strategy_id, store_id, tenant_id, shipping) " +
+                     " VALUES (?, ?, ?, ?::delivery_type) ")) {
             preparedStatement.setInt(1, strategyId);
             preparedStatement.setString(2, storeId);
             preparedStatement.setString(3, tenantId);
+            preparedStatement.setString(4, shipping);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
