@@ -118,4 +118,18 @@ public class AdminShipmentV1 extends BaseObject {
     @JsonSchema(required = true)
     @JsonProperty("vehicle_number")
     private String vehicleNumber;
+
+    @JsonSchema(required = true)
+    @JsonProperty("delivery_window_kind")
+    private String deliveryWindowKind;
+
+    @JsonSchema(required = true)
+    @JsonProperty("item_count")
+    private Integer itemCount;
+
+    @Null
+    @JsonProperty("jobs")
+    private String jobs;
+
+
 }

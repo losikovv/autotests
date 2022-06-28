@@ -173,7 +173,6 @@ public class ShipmentsV1Test extends RestBase {
         List<AdminShipmentV1> shipments = response.as(AdminShipmentsV1Response.class).getShipments();
         String storeUuid = StoresDao.INSTANCE.findById(EnvironmentProperties.DEFAULT_SID).get().getUuid();
         final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(shipments.size(), 10);
         shipments.forEach(s -> compareTwoObjects(s.getStore().getUuid(), storeUuid, softAssert));
         softAssert.assertAll();
     }
