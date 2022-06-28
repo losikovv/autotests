@@ -9,12 +9,13 @@ import ru.instamart.reforged.core.enums.ShopUrl;
 public class ShopAddPage implements AdminPage, ShopAddCheck {
 
     public void goToPage(final String shop) {
-        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD + "retailers/" + shop + "/stores/new");
+        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + "retailers/" + shop + "/stores/new");
     }
 
-    @Step("Выбираем тестовый регион: {0} в дропдауне регионов")
-    public void selectTestRegionInRegionsDropdown(String cityName) {
-        regionsDropdown.selectByText(cityName);
+    @Step("Вводим тестовый регион: {0} в инпут регионов")
+    public void fillRegion(String cityName) {
+        regionsInput.click();
+        regionsInput.fill(cityName);
     }
 
     @Override

@@ -45,11 +45,5 @@ public interface ShipmentsElement {
 
     Element title = new Element(By.xpath("//div[@class='table-cell']"), "empty");
 
-    Button nextPager = new Button(By.linkText("Следущая"), "ссылка Следующая страница");
-    Button previousPager = new Button(By.linkText("Предыдущая"), "ссылка Предыдущая страница");
-    Button lastPage = new Button(By.linkText("Последняя"), "ссылка Последняя страница");
-    Button firstPage = new Button(By.linkText("Первая"), "ссылка Первая страница");
-    Button currentPage = new Button(By.xpath("//span[@class='page current']"), "номер текущей страницы пейджера");
-
     DropDown inputSearchResults = new DropDown(By.xpath("//div[@class='select2-result-label']"), "Выпадающий список найденных результатов в поле ввода");
 }
