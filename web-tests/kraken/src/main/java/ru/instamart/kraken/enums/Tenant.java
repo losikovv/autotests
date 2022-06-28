@@ -15,6 +15,7 @@ public enum Tenant {
     OKEY("okey"),
     SELGROS("selgros"),
     SBERMARKET("sbermarket"),
+    INSTAMART("instamart"),
     AUCHAN("auchan"),
     BUSINESS("business"),
     OTHER("other");
