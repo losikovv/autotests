@@ -16,4 +16,9 @@ public interface B2BCheckoutCheck extends Check, B2BCheckoutElement {
     default void checkSubmitFromCheckoutActive() {
         waitAction().shouldBeClickable(submitCheckoutInLastStep);
     }
+
+    @Step("Проверяем что лоадер чекаута скрылся")
+    default void checkCheckoutLoaderNotVisible() {
+        waitAction().shouldNotBeVisible(checkoutLoader, 15);
+    }
 }

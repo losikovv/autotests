@@ -29,11 +29,6 @@ public interface Page extends PageCheck {
         Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + page);
     }
 
-    @Step("Открыть страницу {0} на B2C сайте")
-    default void openStfPage(final String page) {
-        Kraken.open(EnvironmentProperties.Env.FULL_B2C_URL_WITH_BASIC_AUTH + page);
-    }
-
     @Step("Обновить страницу")
     default void refresh() {
         Kraken.refresh();

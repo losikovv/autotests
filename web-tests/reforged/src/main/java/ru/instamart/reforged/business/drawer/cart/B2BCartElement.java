@@ -17,4 +17,7 @@ public interface B2BCartElement {
     Element totalVat = new Element(By.xpath("//div[@class='cart-checkout__total-vat-container']"), "Блок 'НДС к возврату'");
     ElementCollection retailers = new ElementCollection(By.xpath("//div[@class='cart-retailer']"), "Ритейлеры в корзине");
     ElementCollection items = new ElementCollection(By.xpath("//div[@data-qa='line-item']"), "Товары в корзине");
+    Element firstItem = new Element(By.xpath("//div[@data-qa='line-item']"), "Первый товар в корзине");
+
+    Button submitCheckout = new Button(By.xpath("//button[@data-qa='cart_checkout_button']"), "Кнопка 'Сделать заказ'");
 }

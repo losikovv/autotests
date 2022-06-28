@@ -31,6 +31,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
 
+import static ru.instamart.kraken.config.EnvironmentProperties.PROXY_HEADER_FORWARD_TO;
+import static ru.instamart.kraken.config.EnvironmentProperties.PROXY_HEADER_FORWARD_TO_BUSINESS;
+
 @Slf4j
 public abstract class AbstractBrowserProvider {
 
@@ -79,10 +82,13 @@ public abstract class AbstractBrowserProvider {
         initDevTools();
         if (BrowserProperties.ENABLE_PROXY) {
             //Проксирование для next фронта
-            CdpHeaders.addHeader(Map.of(
-                            "sbm-forward-feature-version-stf",
-                            EnvironmentProperties.PROXY_HEADER_FORWARD_TO),
-                    devTools);
+            devTools.addListener(Network.requestWillBeSent(), requestWillBeSent -> {
+                var bool = requestWillBeSent.getDocumentURL().contains("business");
+                CdpHeaders.addHeader(Map.of(
+                                "sbm-forward-feature-version-stf",
+                                bool ? PROXY_HEADER_FORWARD_TO_BUSINESS : PROXY_HEADER_FORWARD_TO),
+                        devTools);
+            });
         }
     }
 

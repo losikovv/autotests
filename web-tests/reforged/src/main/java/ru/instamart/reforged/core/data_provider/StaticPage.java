@@ -5,6 +5,7 @@ import ru.instamart.api.common.Specification;
 import ru.instamart.api.helper.ApiV1Helper;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.reforged.core.config.UiProperties;
 
 import java.util.List;
 
@@ -59,13 +60,13 @@ public final class StaticPage {
     @DataProvider(name = "selgrosFaqPage", parallel = true)
     public static Object[][] getSelgrosFaqPage() {
         return new Object[][] {
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosAbout().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosDelivery().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosRules().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosReturnPolicy().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosFaq().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosTerms().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosContacts().pageUrl()}
+                {UiProperties.SELGROS_URL + selgrosAbout().pageUrl()},
+                {UiProperties.SELGROS_URL + selgrosDelivery().pageUrl()},
+                {UiProperties.SELGROS_URL + selgrosRules().pageUrl()},
+                {UiProperties.SELGROS_URL + selgrosReturnPolicy().pageUrl()},
+                {UiProperties.SELGROS_URL + selgrosFaq().pageUrl()},
+                {UiProperties.SELGROS_URL + selgrosTerms().pageUrl()},
+                {UiProperties.SELGROS_URL + selgrosContacts().pageUrl()}
         };
     }
 
@@ -117,7 +118,7 @@ public final class StaticPage {
     @DataProvider(name = "selgrosAvailableRetailerPage")
     public static Object[][] getSelgrosAvailableRetailerPage() {
         return new Object[][] {
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgros().pageUrl()},
+                {UiProperties.SELGROS_URL + selgros().pageUrl()},
         };
     }
 

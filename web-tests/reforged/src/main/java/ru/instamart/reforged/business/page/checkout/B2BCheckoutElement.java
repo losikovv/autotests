@@ -8,6 +8,7 @@ import ru.instamart.reforged.business.page.checkout.paymentStep.B2BPaymentStep;
 import ru.instamart.reforged.business.page.checkout.replacementPolicyStep.B2BReplacementPolicyStep;
 import ru.instamart.reforged.business.page.checkout.slotsStep.B2BSlotStep;
 import ru.instamart.reforged.core.component.Button;
+import ru.instamart.reforged.core.component.Element;
 
 public interface B2BCheckoutElement {
 
@@ -18,6 +19,7 @@ public interface B2BCheckoutElement {
     B2BPaymentStep payment = new B2BPaymentStep();
     B2BEditPaymentCard editPaymentCardModal = new B2BEditPaymentCard();
 
+    Element checkoutLoader = new Element(By.xpath("//div[contains(@class, 'Loading')]"), "Лоадер чекаута");
     Button submitCheckoutInLastStep = new Button(By.xpath("//div[@class='checkout-panels']//button[@data-qa='checkout_order_button']"), "Кнопка 'Оформить заказ' в последнем шаге чекаута");
     Button submitFromCheckoutSidebar = new Button(By.xpath("//aside[@class='checkout-sidebar']//button[@data-qa='checkout_order_button']"), "Кнопка 'Оформить заказ' в сайдбаре корзины");
 }

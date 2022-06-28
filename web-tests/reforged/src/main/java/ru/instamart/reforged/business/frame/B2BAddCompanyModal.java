@@ -10,12 +10,18 @@ import static org.testng.Assert.assertEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 import static ru.instamart.reforged.core.config.WaitProperties.WAITING_TIMEOUT;
 
-public class B2BAddCompanyModal implements B2BClose {
+public class B2BAddCompanyModal {
 
     private final Input inn = new Input(By.xpath("//input[@id='FormGroup_inn']"), "Поле ввода ИНН");
     private final Element innError = new Element(By.xpath("//input[@id='FormGroup_inn']/following-sibling::label[2]"), "Ошибка ввода в поле 'ИНН'");
     private final Input name = new Input(By.xpath("//input[@id='FormGroup_name']"), WAITING_TIMEOUT, "Поле ввода названия");
     private final Button addCompany = new Button(By.xpath("//button[@data-qa='create_company_form_submit_button']"), "Кнопка 'Добавить компанию'");
+    private final Button close = new Button(By.xpath("//button[@aria-label='Закрыть']"), "Кнопка 'Закрыть'");
+
+    @Step("Закрываем модальное окно добавления компании")
+    public void closeModal() {
+        close.click();
+    }
 
     @Step("Проверяем, что окно 'Добавление компании' отображается")
     public void checkAddCompanyModalVisible() {

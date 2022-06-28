@@ -30,7 +30,7 @@ ext.versions = [
         logback: '1.2.11',
         julToSlf4j: '1.7.36',
 
-        common:'1.0.5',
+        common:'1.0.10',
         ab:'1.1.0',
         qase:'1.0.5',
         qa:'1.5.8'

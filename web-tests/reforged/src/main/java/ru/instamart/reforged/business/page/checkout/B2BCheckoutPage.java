@@ -36,7 +36,6 @@ public final class B2BCheckoutPage implements BusinessPage, B2BCheckoutCheck {
         return editPaymentCardModal;
     }
 
-
     @Step("Нажимаем 'Оформить заказ' в последнем шаге чекаута")
     public void clickToSubmitFromCheckoutColumn() {
         submitCheckoutInLastStep.scrollTo();

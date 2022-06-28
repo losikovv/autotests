@@ -97,9 +97,7 @@ public final class EnvironmentProperties {
     private static String BASIC_URL;
     @Config(configName = NAME, fieldName = "shopperUrl", defaultValue = "")
     private static String SHOPPER_URL;
-    //Для кейсов бизнес-витрины в связке с stf
-    @Config(configName = NAME, fieldName = "b2cUrl", defaultValue = "")
-    private static String B2C_URL;
+
     @Config(configName = NAME, fieldName = "protocol", defaultValue = "https", args = "protocol")
     private static String PROTOCOL;
     @Config(configName = NAME, fieldName = "qaUrl", defaultValue = "")
@@ -114,8 +112,10 @@ public final class EnvironmentProperties {
     public static int DEFAULT_PGSQL_POOL_SIZE;
     @Config(configName = NAME, fieldName = "adminPassword", defaultValue = "", crypted = true)
     public static String ADMIN_PASSWORD;
-    @Config(configName = NAME, fieldName = "headerForwardTo", defaultValue = "s-sb-stfkraken")
+    @Config(configName = NAME, fieldName = "headerForwardTo", defaultValue = "s-sb-stfkraken-sbermarket")
     public static String PROXY_HEADER_FORWARD_TO;
+    @Config(configName = NAME, fieldName = "headerForwardToBusiness", defaultValue = "s-sb-stfkraken-smbusiness")
+    public static String PROXY_HEADER_FORWARD_TO_BUSINESS;
     @Config(configName = NAME, fieldName = "metroToken", defaultValue = "", crypted = true)
     public static String METRO_TOKEN;
 
@@ -182,10 +182,8 @@ public final class EnvironmentProperties {
 
         public static String FULL_SITE_URL = PROTOCOL + "://" + BASIC_URL + "/";
         public static String FULL_SITE_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + Optional.ofNullable(HTTP_AUTH).orElse("") + BASIC_URL + "/";
-        public static String FULL_B2C_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + Optional.ofNullable(HTTP_AUTH).orElse("") + B2C_URL + "/";
         public static String FULL_ADMIN_URL = PROTOCOL + "://" + (isProduction()?ADMIN_URL:FULL_SITE_URL) + "admin/spa/";
         public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + (isProduction()?ADMIN_URL:BASIC_URL_WITH_AUTH) + "admin/spa/";
-        public static String FULL_ADMIN_URL_OLD = PROTOCOL + "://" + (isProduction()?ADMIN_URL:FULL_SITE_URL)+ "admin/";
         public static String FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD = PROTOCOL + "://" + (isProduction()?ADMIN_URL:BASIC_URL_WITH_AUTH) + "admin/";
         public static String FULL_SHOPPER_URL = PROTOCOL + "://" + SHOPPER_URL + "/";
         public static String PROD_FULL_SITE_URL = PROTOCOL + "://" + "api." + BASIC_URL + "/";

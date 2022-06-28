@@ -19,6 +19,7 @@ public final class CompaniesTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(21)
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Переход в раздел 'Компании'", groups = {"smoke", "regression"})
     public void gotoCompaniesFromHeader() {
         var user = UserManager.getQaUser();
@@ -28,10 +29,7 @@ public final class CompaniesTests {
         business().interactAuthModal().authViaPhone(user);
         business().interactHeader().checkProfileButtonVisible();
 
-        business().interactHeader().clickToProfile();
-        business().interactHeader().interactAccountMenu().checkAccountMenuVisible();
-        business().interactHeader().interactAccountMenu().clickToCompanies();
-
+        companies().goToPage();
         companies().checkCompaniesListIsEmpty();
         companies().checkProfileButtonVisible();
         companies().checkAddCompanyButtonVisible();
@@ -57,6 +55,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(22)
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Переход в профиль из раздела 'Компании'", groups = {"smoke", "regression"})
     public void gotoProfileFromCompanies() {
         var user = UserManager.getQaUser();
@@ -66,10 +65,7 @@ public final class CompaniesTests {
         business().interactAuthModal().authViaPhone(user);
         business().interactHeader().checkProfileButtonVisible();
 
-        business().interactHeader().clickToProfile();
-        business().interactHeader().interactAccountMenu().checkAccountMenuVisible();
-        business().interactHeader().interactAccountMenu().clickToCompanies();
-
+        companies().goToPage();
         companies().checkProfileButtonVisible();
         companies().clickProfile();
 
@@ -97,6 +93,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(23)
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Добавление новой компании из раздела 'Компании' / ввод корректного ИНН", groups = {"smoke", "regression"})
     public void addCompanyFromCompaniesPagePositive() {
         var company = JuridicalData.juridical();
@@ -156,6 +153,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(43)
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Добавление новой компании из ЛК / ввод некорректного ИНН", groups = {"smoke", "regression"})
     public void addCompanyFromCompaniesPageIncorrectINN() {
         var user = UserManager.getQaUser();
@@ -175,7 +173,7 @@ public final class CompaniesTests {
         companies().interactAddCompany().checkInnInputErrorIsVisible();
         companies().interactAddCompany().checkErrorTextEquals("Введите корректный ИНН");
 
-        companies().interactAddCompany().close();
+        companies().interactAddCompany().closeModal();
         companies().interactAddCompany().checkAddCompanyModalNotVisible();
         companies().checkCompaniesListIsEmpty();
     }
@@ -200,7 +198,7 @@ public final class CompaniesTests {
         b2cCompanies().interactAddCompany().checkInnInputErrorIsVisible();
         b2cCompanies().interactAddCompany().checkErrorTextEquals("Введите корректный ИНН");
 
-        b2cCompanies().interactAddCompany().close();
+        b2cCompanies().interactAddCompany().closeModal();
         b2cCompanies().interactAddCompany().checkAddCompanyModalNotVisible();
         b2cCompanies().checkCompaniesListIsEmpty();
     }

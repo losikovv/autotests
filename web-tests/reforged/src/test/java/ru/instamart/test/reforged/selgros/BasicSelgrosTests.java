@@ -5,10 +5,10 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -86,7 +86,7 @@ public final class BasicSelgrosTests {
             description = "Тест недоступности витрин ретейлеров Selgros",
             groups = "regression")
     public void successCheckSelgrosUnavailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
+        final String fullUrl = UiProperties.SELGROS_URL + retailer.getSlug();
         assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
     }
 

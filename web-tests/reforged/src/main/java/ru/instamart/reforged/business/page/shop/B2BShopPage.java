@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import ru.instamart.reforged.business.block.header.B2BHeader;
 import ru.instamart.reforged.business.drawer.cart.B2BCart;
 import ru.instamart.reforged.business.frame.address.B2BAddress;
+import ru.instamart.reforged.business.frame.address.B2BAddressLarge;
 import ru.instamart.reforged.business.frame.auth.auth_modal.B2BAuthModal;
 import ru.instamart.reforged.business.frame.product_card.B2BProductCard;
 import ru.instamart.reforged.business.page.BusinessPage;
@@ -30,6 +31,10 @@ public final class B2BShopPage implements BusinessPage, B2BShopCheck, Window {
 
     public B2BAddress interactAddress() {
         return address;
+    }
+
+    public B2BAddressLarge interactAddressLarge() {
+        return addressLarge;
     }
 
     @Step("Нажимаем на кнопку 'Добавить в корзину' у первого товара")
