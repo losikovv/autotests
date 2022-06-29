@@ -122,6 +122,20 @@ public final class StaticPage {
         };
     }
 
+    @DataProvider(name = "selgrosUnavailableRetailersSpree")
+    public static Object[][] getSelgrosUnavailableRetailerSpree() {
+        Specification.setResponseSpecDataProvider();
+
+        final List<RetailerV2> retailerList = apiV1.getAvailableRetailers();
+
+        Specification.setResponseSpecDefault();
+
+        return retailerList.stream()
+                .filter(r -> !r.getSlug().equals("selgros")) //Фильтрует только ретейлеров != целевому
+                .map(retailer -> new Object[]{retailer})
+                .toArray(Object[][]::new);
+    }
+
     @DataProvider(name = "filteredAvailableRetailersSpree", parallel = true)
     public static Object[][] getFilteredAvailableRetailersSpree() {
         Specification.setResponseSpecDataProvider();

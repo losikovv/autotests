@@ -112,10 +112,6 @@ public final class EnvironmentProperties {
     public static int DEFAULT_PGSQL_POOL_SIZE;
     @Config(configName = NAME, fieldName = "adminPassword", defaultValue = "", crypted = true)
     public static String ADMIN_PASSWORD;
-    @Config(configName = NAME, fieldName = "headerForwardTo", defaultValue = "s-sb-stfkraken-sbermarket")
-    public static String PROXY_HEADER_FORWARD_TO;
-    @Config(configName = NAME, fieldName = "headerForwardToBusiness", defaultValue = "s-sb-stfkraken-smbusiness")
-    public static String PROXY_HEADER_FORWARD_TO_BUSINESS;
     @Config(configName = NAME, fieldName = "metroToken", defaultValue = "", crypted = true)
     public static String METRO_TOKEN;
 

@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.selgros;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
@@ -79,10 +80,12 @@ public final class BasicSelgrosTests {
     }
 
     @DoNotOpenBrowser
+    @Issue("FEP-3229")
     @CaseId(2783)
     @Story("Витрины ретейлеров")
-    @Test(  dataProviderClass = StaticPage.class,
-            dataProvider = "filteredUnavailableRetailersSpree",
+    @Test(  enabled = false,
+            dataProviderClass = StaticPage.class,
+            dataProvider = "selgrosUnavailableRetailersSpree",
             description = "Тест недоступности витрин ретейлеров Selgros",
             groups = "regression")
     public void successCheckSelgrosUnavailableRetailers(final RetailerV2 retailer) {
