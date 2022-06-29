@@ -7,7 +7,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -276,7 +275,7 @@ public final class AdministrationRetailerTests {
         retailers().clickOnAddStore(retailerName);
 
         shopAdd().checkPageContains("retailers/"+ retailerName  + "_slug/stores/new");
-        shopAdd().checkRegionDropdownVisible();
+        shopAdd().checkRegionInputVisible();
     }
 
     @CaseId(580)

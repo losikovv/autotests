@@ -2,6 +2,7 @@ package ru.instamart.api.helper;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.jdbc.dao.shippingcalc.ConditionsDao;
 import ru.instamart.jdbc.dao.shippingcalc.RulesDao;
@@ -153,19 +154,23 @@ public class ShippingCalcHelper {
                 .setHasPaymentMethod(hasPaymentMethod)
                 .setDeliveryTypeValue(deliveryType)
                 .setTenantId(tenantId)
+                .setPlatformName(platformName)
+                .setPlatformVersion(platformVersion)
                 .build();
     }
 
     @Step("Проверяем стратегию")
-    public static void checkStrategy(Integer strategyId, String strategyName, Integer rulesAmount, Integer conditionsAmount, Integer conditionIndex) {
+    public static void checkStrategy(Integer strategyId, String strategyName, Integer rulesAmount, Integer conditionsAmount, Integer conditionIndex, String deliveryType) {
         StrategiesEntity strategy = StrategiesDao.INSTANCE.getStrategy(strategyId);
         List<RulesEntity> rules = RulesDao.INSTANCE.getRules(strategyId);
         ArrayList<Integer> rulesIds = new ArrayList();
         for (RulesEntity rule : rules) rulesIds.add(rule.getId());
         List<ConditionsEntity> conditions = ConditionsDao.INSTANCE.getConditions(rulesIds);
+        String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
 
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(strategyId, strategy.getId(), softAssert);
+        compareTwoObjects(shipping, strategy.getShipping(), softAssert);
         compareTwoObjects(rules.size(), rulesAmount, softAssert);
         compareTwoObjects(conditions.size(), conditionsAmount, softAssert);
         compareTwoObjects(strategy.getName(), strategyName, softAssert);
@@ -174,8 +179,8 @@ public class ShippingCalcHelper {
     }
 
     @Step("Проверяем обновленную стратегию")
-    public static void checkUpdatedStrategy(Integer strategyId, String strategyName, Integer rulesAmount, Integer conditionsAmount, Integer conditionIndex) {
-        checkStrategy(strategyId, strategyName, rulesAmount, conditionsAmount, conditionIndex);
+    public static void checkUpdatedStrategy(Integer strategyId, String strategyName, Integer rulesAmount, Integer conditionsAmount, Integer conditionIndex, String shipping) {
+        checkStrategy(strategyId, strategyName, rulesAmount, conditionsAmount, conditionIndex, shipping);
         StrategiesEntity strategy = StrategiesDao.INSTANCE.getStrategy(strategyId);
         List<RulesEntity> deletedRules = RulesDao.INSTANCE.getDeletedRules(strategyId);
 
@@ -186,8 +191,9 @@ public class ShippingCalcHelper {
     }
 
     @Step("Проверяем связку стратегии к магазину")
-    public static void checkBind(Integer strategyId, String storeId, String tenantId) {
-        StrategyBindingsEntity bind = StrategyBindingsDao.INSTANCE.getStrategyBinding(strategyId, storeId, tenantId);
+    public static void checkBind(Integer strategyId, String storeId, String tenantId, String deliveryType) {
+        String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
+        StrategyBindingsEntity bind = StrategyBindingsDao.INSTANCE.getStrategyBinding(strategyId, storeId, tenantId, shipping);
 
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertNotNull(bind, "Не нашли такую связку");
@@ -196,8 +202,9 @@ public class ShippingCalcHelper {
     }
 
     @Step("Проверяем отвязку стратегии от магазина")
-    public static void checkUnbind(Integer strategyId, String storeId, String tenantId) {
-        StrategyBindingsEntity bind = StrategyBindingsDao.INSTANCE.getStrategyBinding(strategyId, storeId, tenantId);
+    public static void checkUnbind(Integer strategyId, String storeId, String tenantId, String deliveryType) {
+        String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
+        StrategyBindingsEntity bind = StrategyBindingsDao.INSTANCE.getStrategyBinding(strategyId, storeId, tenantId, shipping);
 
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertNull(bind, "Связка не удалилась");
@@ -219,7 +226,8 @@ public class ShippingCalcHelper {
     }
 
     @Step("Добавляем стратегию в БД")
-    public static Integer addStrategy(Boolean global, Integer priority, String shipping) {
+    public static Integer addStrategy(Boolean global, Integer priority, String deliveryType) {
+        String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
         Integer strategyId = StrategiesDao.INSTANCE.addStrategy("autotest-insert", shipping, global, priority, "autotest-insert", "autotest-insert");
         Integer firstPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, 8, "{\"basicPrice\": \"0\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}", 0, "autotest-insert", "delivery_price");
         Integer secondPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, 9, "{\"baseMass\": \"30000\", \"basicPrice\": \"19900\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}", 1, "autotest-insert", "delivery_price");
@@ -254,8 +262,9 @@ public class ShippingCalcHelper {
     }
 
     @Step("Добавляем привязку магазина к стратегии")
-    public static void addBinding(Integer strategyId, String storeId, String tenantId) {
-        Boolean binding = StrategyBindingsDao.INSTANCE.addStrategyBinding(strategyId, storeId, tenantId);
+    public static void addBinding(Integer strategyId, String storeId, String tenantId, String deliveryType) {
+        String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
+        Boolean binding = StrategyBindingsDao.INSTANCE.addStrategyBinding(strategyId, storeId, tenantId, shipping);
         Allure.step("Проверяем что связка добавилась", () -> {
             assertTrue(binding, "Связка не добавилась");
         });

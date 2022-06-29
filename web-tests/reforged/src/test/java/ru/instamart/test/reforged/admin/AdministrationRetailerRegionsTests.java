@@ -36,7 +36,9 @@ public final class AdministrationRetailerRegionsTests {
         regions().checkRegionInTableVisible(regionName);
 
         shopAdd().goToPage();
-        shopAdd().selectTestRegionInRegionsDropdown(regionName);
+        shopAdd().checkGlobalLoaderNotVisible();
+        shopAdd().fillRegion(regionName);
+        shopAdd().checkRegionInSearchDropdownVisible(regionName);
     }
 
     @CaseId(472)

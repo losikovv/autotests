@@ -7,8 +7,18 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface ShopAddCheck extends Check, ShopAddElements {
 
-    @Step("Проверяем, что дропдаун выбора региона отображается")
-    default void checkRegionDropdownVisible() {
-        waitAction().shouldBeVisible(regionsDropdown);
+    @Step("Проверяем, что инпут поиска региона отображается")
+    default void checkRegionInputVisible() {
+        waitAction().shouldBeVisible(regionsInput);
+    }
+
+    @Step("Проверяем, что лоадер не отображается")
+    default void checkGlobalLoaderNotVisible() {
+        waitAction().shouldNotBeVisible(globalLoader);
+    }
+
+    @Step("Проверяем, что добавленный регион находится через поиск")
+    default void checkRegionInSearchDropdownVisible(String region) {
+        waitAction().shouldBeVisible(regionsSearchElement, region);
     }
 }
