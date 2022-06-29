@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.testng.SkipException;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v1.OrderKindV1;
@@ -37,7 +38,6 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.request.v1.CheckoutV1Request.getOrderAttributes;
 
@@ -198,6 +198,7 @@ public class ApiV1Helper {
     @Step("Завершаем заказ")
     public void finishOrder(UserData user, Long paymentToolId, OrderKindV1 orderKind) {
         final Response response = CheckoutV1Request.PUT(getOrderAttributes(user, paymentToolId, orderKind.getValue()));
+        if (response.statusCode() == 422 && response.as(ErrorsV1Response.class).getErrors().get(0).startsWith("Выбранный интервал стал недоступен")) throw new SkipException("Слот занят");
         checkStatusCode200(response);
     }
 

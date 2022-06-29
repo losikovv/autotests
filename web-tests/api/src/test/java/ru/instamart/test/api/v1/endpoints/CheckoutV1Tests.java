@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -21,6 +22,7 @@ import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.NextDeliveryV2;
 import ru.instamart.api.request.v1.CheckoutV1Request;
 import ru.instamart.api.response.v1.CompleteOrderV1Response;
+import ru.instamart.api.response.v1.ErrorsV1Response;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
@@ -146,6 +148,7 @@ public class CheckoutV1Tests extends RestBase {
         CheckoutV1Request.OrderAttributes orderAttributes = getOrderAttributes(user, paymentTool.getId(), OrderKindV1.HOME.getValue());
 
         final Response response = CheckoutV1Request.PUT(orderAttributes);
+        if (response.statusCode() == 422 && response.as(ErrorsV1Response.class).getErrors().get(0).startsWith("Выбранный интервал стал недоступен")) throw new SkipException("Слот занят");
         checkStatusCode200(response);
         checkResponseJsonSchema(response, CompleteOrderV1Response.class);
 
