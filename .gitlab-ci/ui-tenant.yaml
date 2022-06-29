@@ -1,22 +1,3 @@
-tests:metroSmoke:
-  extends:
-    - ".template_ui_tests"
-    - ".template_schedule"
-  script:
-    - gradle clean build metroRegression -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
-  after_script:
-    - bash ./report.sh reforged ui-metro-preprod
-
-# Тенант закрыт на неопределенный срок INFRADEV-6965
-#tests:okeySmoke:
-#  extends:
-#    - ".template_ui_tests"
-#    - ".template_schedule"
-#  script:
-#    - gradle clean build okeyRegression -Penv=okey-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
-#  after_script:
-#    - bash ./report.sh reforged ui-okey-preprod
-
 tests:selgrosSmoke:
   extends:
     - ".template_ui_tests"

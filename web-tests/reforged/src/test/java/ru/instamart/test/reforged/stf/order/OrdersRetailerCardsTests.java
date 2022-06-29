@@ -38,39 +38,6 @@ public final class OrdersRetailerCardsTests {
         helper.cancelAllActiveOrders(userData);
     }
 
-    @Run(onTenant = Tenant.METRO)
-    @CaseId(1632)
-    @Test(description = "Тест заказа с картой Метро (только METRO WL)", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
-    public void successOrderWithMetroRetailerCard() {
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
-        checkout().goToPage();
-        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
-        checkout().setDeliveryOptions().clickToSubmitForDelivery();
-
-        checkout().setContacts().fillContactInfo();
-        checkout().setContacts().clickToSubmit();
-
-        checkout().setReplacementPolicy().clickToSubmit();
-
-        checkout().setSlot().setLastActiveSlot();
-
-        checkout().clickToAddRetailerCard();
-        checkout().interactEditRetailerCardModal()
-                .fillValue(RetailerCards.metro().getCardNumber());
-        checkout().interactEditRetailerCardModal()
-                .clickToSaveModal();
-
-        checkout().setPayment().clickToSubmitFromCheckoutColumn();
-
-        userShipments().checkPageContains(userShipments().pageUrl());
-        userShipments().checkStatusShipmentReady();
-    }
-
     @Run(onTenant = Tenant.SBERMARKET, onServer = Server.PRODUCTION)
     @CaseId(1633)
     @Test(description = "Тест заказа с картой Вкусвилл (только Sbermarket)", groups = "regression")
