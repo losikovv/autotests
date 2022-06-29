@@ -10,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v102.network.Network;
+import org.openqa.selenium.devtools.v102.fetch.Fetch;
+import org.openqa.selenium.devtools.v102.fetch.model.HeaderEntry;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -24,15 +26,15 @@ import org.openqa.selenium.safari.SafariOptions;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.cdp.CdpHeaders;
 import ru.instamart.reforged.core.config.BrowserProperties;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.provider.chrome.ChromeDriverExtension;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
-
-import static ru.instamart.kraken.config.EnvironmentProperties.PROXY_HEADER_FORWARD_TO;
-import static ru.instamart.kraken.config.EnvironmentProperties.PROXY_HEADER_FORWARD_TO_BUSINESS;
+import java.util.stream.Collectors;
 
 @Slf4j
 public abstract class AbstractBrowserProvider {
@@ -83,11 +85,23 @@ public abstract class AbstractBrowserProvider {
         if (BrowserProperties.ENABLE_PROXY) {
             //Проксирование для next фронта
             devTools.addListener(Network.requestWillBeSent(), requestWillBeSent -> {
-                var bool = requestWillBeSent.getDocumentURL().contains("business");
-                CdpHeaders.addHeader(Map.of(
-                                "sbm-forward-feature-version-stf",
-                                bool ? PROXY_HEADER_FORWARD_TO_BUSINESS : PROXY_HEADER_FORWARD_TO),
-                        devTools);
+                final var url = requestWillBeSent.getDocumentURL();
+                if (url.contains(UiProperties.STF_URL)) {
+                    CdpHeaders.addHeader(Map.of(
+                                    "sbm-forward-feature-version-stf",
+                                    UiProperties.HEADER_STF_FORWARD_TO),
+                            devTools);
+                } else if (UiProperties.B2B_URL.contains(url)) {
+                    CdpHeaders.addHeader(Map.of(
+                                    "sbm-forward-feature-version-stf",
+                                    UiProperties.HEADER_B2B_FORWARD_TO),
+                            devTools);
+                } else if (url.contains(UiProperties.SELGROS_URL)) {
+                    CdpHeaders.addHeader(Map.of(
+                                    "sbm-forward-feature-version-stf",
+                                    UiProperties.HEADER_SELGROS_FORWARD_TO),
+                            devTools);
+                }
             });
         }
     }
