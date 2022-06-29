@@ -28,7 +28,7 @@ public final class Curl {
     @Step("Проверка недоступности страницы {0}")
     public static boolean pageUnavailable(final String url) {
         final int code = getResponseCode(url);
-        log.info("Страница '{}' вернула код '{}'", url, code);
+        log.debug("Страница '{}' вернула код '{}'", url, code);
         return code == 404;
     }
 

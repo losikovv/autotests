@@ -2,7 +2,6 @@ task selgrosSmoke(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/selgros.xml'
         includeGroups 'smoke'
-        systemProperty 'env', 'selgros-preprod'
     }
 }
 
@@ -10,7 +9,6 @@ task selgrosRegression(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/regress/selgros.xml'
         includeGroups 'regression'
-        systemProperty 'env', 'selgros-preprod'
     }
 }
 
