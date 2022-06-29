@@ -9,8 +9,6 @@ import ru.instamart.reforged.core.config.UiProperties;
 
 import java.util.List;
 
-import static ru.instamart.reforged.metro.page.MetroRouter.*;
-import static ru.instamart.reforged.okey.page.OkeyRouter.*;
 import static ru.instamart.reforged.selgros.page.SelgrosRouter.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -28,32 +26,6 @@ public final class StaticPage {
                 {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + howWeWork().pageUrl()},
                 {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + rules().pageUrl()},
                 {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + terms().pageUrl()}
-        };
-    }
-
-    @DataProvider(name = "metroFaqPage", parallel = true)
-    public static Object[][] getMetroFaqPage() {
-        return new Object[][] {
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroAbout().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroDelivery().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroRules().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroReturnPolicy().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroFaq().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroTerms().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroContacts().pageUrl()}
-        };
-    }
-
-    @DataProvider(name = "okeyFaqPage", parallel = true)
-    public static Object[][] getOkeyFaqPage() {
-        return new Object[][] {
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyAbout().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyDelivery().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyRules().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyReturnPolicy().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyFaq().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyTerms().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyContacts().pageUrl()}
         };
     }
 
@@ -98,20 +70,6 @@ public final class StaticPage {
     public static Object[][] getLandingPage() {
         return new Object[][] {
                 {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + aeroflot().pageUrl()}
-        };
-    }
-
-    @DataProvider(name = "metroAvailableRetailerPage")
-    public static Object[][] getMetroAvailableRetailerPage() {
-        return new Object[][] {
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metro().pageUrl()},
-        };
-    }
-
-    @DataProvider(name = "okeyAvailableRetailerPage")
-    public static Object[][] getOkeyAvailableRetailerPage() {
-        return new Object[][] {
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okey().pageUrl()},
         };
     }
 
