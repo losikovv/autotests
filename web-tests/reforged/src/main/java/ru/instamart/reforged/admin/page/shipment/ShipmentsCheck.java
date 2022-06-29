@@ -45,22 +45,6 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
         assertEquals(actualOrderNumber, expectedOrderNumber, "Найден неверный заказ");
     }
 
-    @Step("Проверяем, что был совершен переход на {0} страницу пейджера заказов")
-    default void checkCurrentPageNumber(final String expectedPage) {
-        assertEquals(currentPage.getText(), expectedPage,
-                "Номер страницы не соответствует ожидаемому значению");
-    }
-
-    @Step("Проверяем, что открылась последняя страница пейджера с заказами")
-    default void checkLastPagePager() {
-        waitAction().shouldNotBeVisible(lastPage);
-    }
-
-    @Step("Проверяем, что открылась первая страница пейджера с заказами")
-    default void checkFirstPagePager() {
-        waitAction().shouldNotBeVisible(firstPage);
-    }
-
     @Step("Проверяем, что колонка Дата и Время содержит только отфильтрованные значения: {0}")
     default void checkDateAndTimeShipmentsColumn(final String deliveryDate) {
         tableComponent

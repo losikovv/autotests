@@ -41,25 +41,6 @@ public final class AdministrationShipmentsSectionTests {
         shipments().checkCustomerSurName();
     }
 
-    @CaseId(176)
-    @Story("Тест на работоспособность пагинации списка заказов")
-    @Test(description = "Тест на работоспособность пагинации списка заказов", groups = {"regression", "smoke", "production"})
-    public void validatePagerOnAdminShipmentsPage() {
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
-        shipments().checkPageTitle();
-        shipments().nextPagerClick();
-        shipments().checkCurrentPageNumber("2");
-        shipments().previousPagerClick();
-        shipments().checkCurrentPageNumber("1");
-        shipments().lastPageClick();
-        shipments().checkLastPagePager();
-        shipments().firstPageClick();
-        shipments().checkFirstPagePager();
-    }
-
     @CaseId(172)
     @Story("Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ")
     @Test(description = "Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ", groups = {"regression", "smoke", "production"})
@@ -158,28 +139,6 @@ public final class AdministrationShipmentsSectionTests {
         shipments().waitPageLoad();
         final var shipmentsAfterFiltration = shipments().getNumberOfShipments();
         shipments().checkNumberOfShipmentsAfterFiltration(shipmentsBeforeFiltration, shipmentsAfterFiltration);
-        shipments().checkLastPagePager();
-    }
-
-    @CaseId(1225)
-    @Story("Тест на проверку изменения количества заказов после применения фильтра, с пейджером")
-    @Test(  description = "Тест на проверку изменения количества заказов после применения фильтра, с пейджером",
-            groups = {"regression", "smoke", "production"})
-    public void validateShipmentsAfterFiltrationWithPager() {
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
-        shipments().checkPageTitle();
-        final var shipmentsBeforeFiltration = shipments().getNumberOfShipments();
-        shipments().setPhoneFilterFromTableDefault("+7 990");
-        shipments().search();
-        shipments().waitPageLoad();
-        final var shipmentsAfterFiltration = shipments().getNumberOfShipments();
-        final var pages = shipments().getNumberOfPagesAfterFiltration(shipmentsAfterFiltration);
-        shipments().checkNumberOfShipmentsAfterFiltration(shipmentsBeforeFiltration, shipmentsAfterFiltration);
-        shipments().lastPageClick();
-        shipments().checkCurrentPageNumber(pages);
     }
 
     // TODO test shipmentsTableNotEmptyByDefault
