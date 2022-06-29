@@ -17,7 +17,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
     @Override
     public void createDriver(final String version) {
         final var options = new ChromeOptions();
-        WebDriverManager.chromedriver().browserVersion(BrowserProperties.BROWSER_LOCAL_VERSION).setup();
+        WebDriverManager.chromedriver().setup();
 
         if (BrowserProperties.ENABLE_PROFILE) {
             options.addArguments("--user-data-dir=" + BrowserProperties.PROFILE_PATH);

@@ -18,7 +18,7 @@ public final class LandingTests {
     //TODO Переход с STF на Business при текущей схеме невозможен см коммент https://jira.sbmt.io/browse/ATST-2251
     @Test(enabled = false, description = "Ссылка на лендинг для неавторизованного юзера", groups = {"smoke", "regression"})
     public void fromB2CToB2BNotAuthorized() {
-        b2cShop().goToPageFromTenant();
+        b2cShop().goToPage();
         b2cShop().interactHeader().clickBuyForBusiness();
 
         business().switchToNextWindow();

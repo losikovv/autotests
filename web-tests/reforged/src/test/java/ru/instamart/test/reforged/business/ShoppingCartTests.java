@@ -95,7 +95,7 @@ public final class ShoppingCartTests {
     public void testTransferCartNoSuchRetailer() {
         var userData = UserManager.getQaUser();
 
-        b2cShop().goToPageFromTenant(ShopUrl.AZBUKAVKUSA, true);
+        b2cShop().goToPage(ShopUrl.AZBUKAVKUSA, true);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -129,7 +129,7 @@ public final class ShoppingCartTests {
     public void testTransferCartB2CToB2B() {
         var userData = UserManager.getQaUser();
 
-        b2cShop().goToPageFromTenant(true);
+        b2cShop().goToPage(true);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -167,7 +167,7 @@ public final class ShoppingCartTests {
     public void testTransferCartB2CToB2BMultiply() {
         var userData = UserManager.getQaUser();
 
-        b2cShop().goToPageFromTenant(true);
+        b2cShop().goToPage(true);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();

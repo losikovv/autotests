@@ -1,8 +1,12 @@
 package ru.instamart.reforged.business.page;
 
-import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.cdp.CdpHeaders;
+import ru.instamart.reforged.core.config.BrowserProperties;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.page.Page;
+
+import java.util.Map;
 
 public interface BusinessPage extends Page {
 
@@ -11,6 +15,9 @@ public interface BusinessPage extends Page {
     }
 
     default void goToPage(final String url) {
+        if (BrowserProperties.ENABLE_PROXY) {
+            CdpHeaders.addHeader(Map.of("sbm-forward-feature-version-stf", UiProperties.HEADER_B2B_FORWARD_TO));
+        }
         Kraken.open(UiProperties.B2B_URL + url);
     }
 }
