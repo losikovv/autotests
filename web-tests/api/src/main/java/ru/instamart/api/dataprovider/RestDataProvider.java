@@ -1449,7 +1449,7 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "getAllFeatureFlags")
+    @DataProvider(name = "getAllFeatureFlags", parallel = true)
     public static Object[][] getAllFeatureFlags(){
         final Response response = FeatureFlagsV2Request.GET();
         checkStatusCode200(response);
