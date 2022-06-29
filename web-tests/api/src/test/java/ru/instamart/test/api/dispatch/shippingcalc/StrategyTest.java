@@ -239,7 +239,7 @@ public class StrategyTest extends RestBase {
     @Test(description = "Получение ошибки при несуществующем скрипте",
             groups = "dispatch-shippingcalc-regress",
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INTERNAL: cannot create strategy: cannot check scripts existence, cannot found next scripts: 1234567890, entity not found")
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot create strategy: scriptId 1234567890: entity not found")
     public void createStrategyWithNonExistentScript() {
         ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(1234567890, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
         clientShippingCalc.createStrategy(request);
@@ -607,7 +607,7 @@ public class StrategyTest extends RestBase {
     @Test(description = "Получение ошибки при обновлении существующей стратегии с правилом на несуществующий скрипт",
             groups = "dispatch-shippingcalc-regress",
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: cannot check scripts existence, cannot found next scripts: 1234567890, entity not found",
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: scriptId 1234567890: entity not found",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNonExistentScriptId() {
         ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(1234567890, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
@@ -1165,10 +1165,8 @@ public class StrategyTest extends RestBase {
 
     @CaseId(175)
     @Story("Get Strategies For Store")
-    @Test(description = "Получение ошибки при отсутствии искомой стратегии",
-            groups = "dispatch-shippingcalc-regress",
-            expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "NOT_FOUND: entity not found")
+    @Test(description = "Получение пустого списка при отсутствии искомой стратегии",
+            groups = "dispatch-shippingcalc-regress")
     public void getStrategiesForStoreNotFound() {
         ShippingcalcOuterClass.GetStrategiesForStoreRequest request = ShippingcalcOuterClass.GetStrategiesForStoreRequest.newBuilder()
                 .setStoreId(FIRST_STORE_ID)
@@ -1176,7 +1174,11 @@ public class StrategyTest extends RestBase {
                 .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
                 .build();
 
-        clientShippingCalc.getStrategiesForStore(request);
+        var response = clientShippingCalc.getStrategiesForStore(request);
+
+        Allure.step("Проверка стратегии в ответе", () -> {
+            compareTwoObjects(response.getStrategyCount(), 0);
+        });
     }
 
     @CaseId(351)
