@@ -8,11 +8,9 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.model.v2.FeatureFlagV2;
 import ru.instamart.api.request.v2.FeatureFlagsV2Request;
-import ru.instamart.api.response.v2.FeatureFlagV2Response;
 import ru.instamart.api.response.v2.FeatureFlagsV2Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -39,9 +37,6 @@ public class FeatureFlagsV2Test extends RestBase {
     public void getFeatureFlagsItem200(FeatureFlagV2 featureFlagsV2) {
         final Response response = FeatureFlagsV2Request.FeatureFlags.GET(featureFlagsV2.getName());
         checkStatusCode200(response);
-        FeatureFlagV2Response featureFlagV2 = response.as(FeatureFlagV2Response.class);
-        assertEquals(featureFlagV2.getFeatureFlag().getName(), featureFlagsV2.getName(), "Наименование фича-флага не совпадает");
-        assertEquals(featureFlagV2.getFeatureFlag().getEnabled(), featureFlagsV2.getEnabled(), "enabled фича-флага не совпадает");
     }
 
     @CaseId(792)
@@ -52,5 +47,4 @@ public class FeatureFlagsV2Test extends RestBase {
         checkStatusCode404(response);
         checkError(response, "ActiveRecord::RecordNotFound");
     }
-
 }
