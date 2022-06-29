@@ -5,8 +5,8 @@ public interface TestVariables {
     interface CompanyParams {
         String companyName = "sbermarket";
         String companyDomain = companyName + ".ru";
-        String companyHotlinePhoneNumber = "+7 800 222-11-00";
-        String companyHotlinePhoneLink = "tel:+78002221100";
+        String companyHotlinePhoneNumber = "+7 900 222-11-00";
+        String companyHotlinePhoneLink = "tel:+79002221100";
         String companyHotlineWorkhours = "Круглосуточно";
         String companyHotlineWorkhoursShort = "Круглосуточно";
         String companyFacebookLink = "https://www.facebook.com/sbermarket.ru/";
