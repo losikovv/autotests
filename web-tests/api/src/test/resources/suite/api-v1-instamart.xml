@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="REST API V1 Suite" parallel="tests" thread-count="30" data-provider-thread-count="10">
+<suite name="REST API V1 Suite" parallel="tests" thread-count="15" data-provider-thread-count="10">
     <listeners>
         <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
         <listener class-name="ru.instamart.api.listener.ApiListener"/>
@@ -11,7 +11,7 @@
         </method-selector>
     </method-selectors>
     <!-- api-v1-tests -->
-    <test verbose="1" name="API v1 Tests" parallel="none" thread-count="15">
+    <test verbose="1" name="API v1 Tests" parallel="none" thread-count="8">
         <classes>
             <class name="ru.instamart.test.api.v1.endpoints.CheckoutV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.ProductsV1Tests"/>
@@ -81,7 +81,7 @@
         </classes>
     </test>
     <!-- api-admin-tests -->
-    <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="12">
+    <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="6">
         <classes>
             <class name="ru.instamart.test.api.admin.CitiesAdminTest"/>
             <class name="ru.instamart.test.api.admin.GeneralSettingsAdminTest"/>
