@@ -3,7 +3,9 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.testng.annotations.AfterClass;
 import ru.instamart.api.response.v2.MergeStatusV2Response;
+import ru.instamart.kraken.data.user.UserData;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -35,12 +37,19 @@ public class MergedShipmentsV2Test extends RestBase {
 
     private List<ProductV2> products;
     private OrderV2 order;
+    private UserData userData;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
+        userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         products = apiV2.getProductsFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void cleanup() {
+        apiV2.cancelCurrentOrder();
     }
 
 
@@ -63,6 +72,7 @@ public class MergedShipmentsV2Test extends RestBase {
             description = "Добавление в подзаказ подзаказа из другого магазина",
             dependsOnMethods = "mergeShipments")
     public void mergeShipmentWithShipmentFromAnotherStore() {
+        SessionFactory.createSessionToken(SessionType.API_V2, userData);
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         OrderV2 newOrder = apiV2.getOpenOrder();
         final Response response = ShipmentsV2Request.Merge.POST(newOrder.getShipments().get(0).getNumber(), order.getShipments().get(0).getNumber());
@@ -92,6 +102,7 @@ public class MergedShipmentsV2Test extends RestBase {
             description = "Получение информации о статусе мержа для существующего заказа",
             dependsOnMethods = "mergeShipments")
     public void getMergeStatus() {
+        SessionFactory.createSessionToken(SessionType.API_V2, userData);
         final Response response = OrdersV2Request.MergeStatus.GET(order.getNumber());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, MergeStatusV2Response.class);
@@ -113,6 +124,7 @@ public class MergedShipmentsV2Test extends RestBase {
             description = "Добавление в подзаказ подзаказа с аптечной продукцией",
             dependsOnMethods = "mergeShipments")
     public void mergeShipmentWithPharmaShipment() {
+        SessionFactory.createSessionToken(SessionType.API_V2, userData);
         String orderNumber = apiV2.getOpenOrder().getNumber();
         SpreeOrdersDao.INSTANCE.updateShippingKind(orderNumber, ShippingMethodV2.PICKUP.getMethod());
         final Response response = LineItemsV2Request.POST(SpreeProductsDao.INSTANCE.getOfferIdForPharma(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID), 1, orderNumber);
