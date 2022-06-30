@@ -104,7 +104,7 @@ public final class OrdersPaymentsTests {
         userShipments().checkPageContains(userShipments().pageUrl());
 
         userShipments().checkStatusShipmentReady();
-        userShipments().checkPaymentMethodEquals("Картой курьеру");
+        userShipments().checkPaymentMethodEquals("Картой при получении");
     }
 
     @CaseId(1626)

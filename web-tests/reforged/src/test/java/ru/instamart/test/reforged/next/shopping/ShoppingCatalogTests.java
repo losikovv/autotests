@@ -110,7 +110,6 @@ public final class ShoppingCatalogTests {
     @Test(description = "Тест открывания/закрывания карточки продукта в department-категории", groups = "regression")
     public void successOperateItemCardOnDepartmentPage() {
         shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
@@ -141,7 +140,6 @@ public final class ShoppingCatalogTests {
     @Test(description = "Тест открывания/закрывания карточки продукта в taxon-категории", groups = "regression")
     public void successOperateItemCardOnTaxonPage() {
         shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
@@ -173,7 +171,6 @@ public final class ShoppingCatalogTests {
     @Test(description = "Тест открывания/закрывания карточки продукта в выдаче поиска", groups = "regression")
     public void successOperateItemCardOnSearchPage() {
         shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());

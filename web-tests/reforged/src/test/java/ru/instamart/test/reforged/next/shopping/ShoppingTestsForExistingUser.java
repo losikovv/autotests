@@ -8,6 +8,7 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.next.page.StfRouter.*;
@@ -36,7 +37,7 @@ public class ShoppingTestsForExistingUser {
 
         checkout().goToPage();
         shop().interactHeader().checkMinAmountAlertVisible();
-        shop().checkDefaultShopOpened();
+        home().checkPageUrl(UiProperties.STF_URL);
     }
 
     @CaseId(1617)

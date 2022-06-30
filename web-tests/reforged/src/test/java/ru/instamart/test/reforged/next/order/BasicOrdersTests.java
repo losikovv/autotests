@@ -436,6 +436,7 @@ public final class BasicOrdersTests {
 
         checkout().interactAddPaymentCardModal().fillCardData(card);
         checkout().interactAddPaymentCardModal().clickToSaveModal();
+        checkout().interactAddPaymentCardModal().checkModalWindowNotVisible();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 

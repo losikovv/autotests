@@ -88,4 +88,9 @@ public interface CartCheck extends Check, CartElement {
         waitAction().elementCollectionSizeShouldBeEqual(retailers, expectedRetailersCount);
     }
 
+    @Step("Проверяем, что рителер '{retailerName}' не отображается в корзине")
+    default void checkRetailerNotVisible(final String retailerName){
+        waitAction().shouldNotBeVisible(retailerByName, retailerName);
+    }
+
 }

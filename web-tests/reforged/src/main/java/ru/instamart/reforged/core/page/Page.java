@@ -7,9 +7,10 @@ import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.cdp.CdpCookie;
-import ru.instamart.reforged.core.config.UiProperties;
 
 import java.util.Set;
+
+import static ru.instamart.reforged.core.Kraken.addCookieIfNotExist;
 
 public interface Page extends PageCheck {
 
@@ -85,10 +86,17 @@ public interface Page extends PageCheck {
     }
 
     /**
-     * Проверяет наличие куки и подменяет ее на нужную
+     * Добавляет куку
      */
     default void cookieChange(final Cookie cookie) {
         CdpCookie.addCookie(cookie);
+    }
+
+    /**
+     * Проверяет наличие куки и подменяет ее на нужную
+     */
+    default void cookieReplace(final Cookie cookie) {
+        addCookieIfNotExist(cookie);
     }
 
     /**
@@ -104,6 +112,6 @@ public interface Page extends PageCheck {
      * @param cityName - название города, на английском: Moscow, Novosibirsk, Barnaul
      */
     default void setLocation(final String cityName) {
-        cookieChange(CookieFactory.setLocation(cityName));
+        cookieReplace(CookieFactory.setLocation(cityName));
     }
 }

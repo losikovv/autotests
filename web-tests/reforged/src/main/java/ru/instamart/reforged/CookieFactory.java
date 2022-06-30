@@ -50,9 +50,9 @@ public final class CookieFactory {
 
     public static Cookie setLocation(final String cityName) {
         return new Cookie("city_info",
-                "%7B%22slug%22%3A%22" + cityName + "%22%2C%22lat%22%3A00.0000%2C%22lon%22%3A00.0000%7D",
+                "%7B%22slug%22%3A%22" + cityName + "%22%2C%22name%22%3A%22%D0%91%D1%80%D1%8F%D0%BD%D1%81%D0%BA%22%2C%22lat%22%3A53.2859%2C%22lon%22%3A34.3691%7D",
                 COOKIE_DOMAIN,
                 "/",
-                date);
+                null);
     }
 }

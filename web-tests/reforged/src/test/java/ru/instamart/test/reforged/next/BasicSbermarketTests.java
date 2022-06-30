@@ -9,6 +9,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -166,7 +167,7 @@ public final class BasicSbermarketTests {
         home().interactFooter().clickToFooterElementWithText("Обработка персональных данных");
 
         home().switchToNextWindow();
-        privacyPolicy().checkPageUrl(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + privacyPolicy().pageUrl());
+        privacyPolicy().checkPageUrl(UiProperties.STF_URL + privacyPolicy().pageUrl());
         home().switchToFirstWindow();
 
         home().refresh();

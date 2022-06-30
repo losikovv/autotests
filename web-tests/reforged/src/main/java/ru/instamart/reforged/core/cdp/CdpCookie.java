@@ -46,7 +46,7 @@ public final class CdpCookie {
                 Optional.of(false),
                 Optional.of(false),
                 Optional.empty(),
-                Optional.of(new TimeSinceEpoch(cookie.getExpiry().getTime()/1000)),
+                cookie.getExpiry() == null ? Optional.empty() : Optional.of(new TimeSinceEpoch(cookie.getExpiry().getTime()/1000)),
                 Optional.of(CookiePriority.MEDIUM),
                 Optional.of(false),
                 Optional.of(CookieSourceScheme.SECURE),

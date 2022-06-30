@@ -54,15 +54,15 @@ public final class StaticPage {
     @DataProvider(name = "footerLinkPage", parallel = true)
     public static Object[][] getFooterLinkPage() {
         return new Object[][] {
-                {"О компании", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + about().pageUrl()},
-                {"Контакты", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + contacts().pageUrl()},
+                {"О компании", UiProperties.STF_URL + about().pageUrl()},
+                {"Контакты", UiProperties.STF_URL + contacts().pageUrl()},
                 {"Наши вакансии", EnvironmentProperties.Env.FULL_JOB_LANDING_URL},
-                {"Документы", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + terms().pageUrl()},
+                {"Документы", UiProperties.STF_URL + terms().pageUrl()},
                 {"Стать партнёром", EnvironmentProperties.Env.FULL_JOB_LANDING_URL},
-                {"Как мы работаем", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + howWeWork().pageUrl()},
-                {"Доставка и оплата", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + delivery().pageUrl()},
-                {"Помощь", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + faq().pageUrl()},
-                {"Политика возврата", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + rules().pageUrl()},
+                {"Как мы работаем", UiProperties.STF_URL + howWeWork().pageUrl()},
+                {"Доставка и оплата", UiProperties.STF_URL + delivery().pageUrl()},
+                {"Помощь", UiProperties.STF_URL + faq().pageUrl()},
+                {"Политика возврата", UiProperties.STF_URL + rules().pageUrl()},
         };
     }
 

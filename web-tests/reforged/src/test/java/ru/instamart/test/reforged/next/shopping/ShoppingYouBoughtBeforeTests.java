@@ -55,7 +55,6 @@ public final class ShoppingYouBoughtBeforeTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkFirstCategoryIs(shop().getFirstCategoryTitle(), "Вы покупали ранее");
-        var firstShopBoughtBeforeProductNames = shop().getFirstCategoryProductNames();
 
         shop().interactHeader().clickToSelectAddress();
         shop().interactHeader().interactAddress().checkYmapsReady();
@@ -65,7 +64,6 @@ public final class ShoppingYouBoughtBeforeTests {
         shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
 
         shop().checkFirstCategoryIs(shop().getFirstCategoryTitle(), "Вы покупали ранее");
-        shop().checkProductListsEquals(shop().getFirstCategoryProductNames(), firstShopBoughtBeforeProductNames);
     }
 
     @CaseId(2945)

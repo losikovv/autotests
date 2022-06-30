@@ -38,7 +38,7 @@ public interface HomeElement {
 
     //До ввода адреса отображается список ритейлеров в городе на основе геолокации или выбранного в лендинге города
     Element deliveryRetailersBlockContainer = new Element(By.xpath("//div[@data-qa='b2c_home_landing_delivery_retailers_block']"), "блок доставки лендинга Сбермаркета");
-    Element deliveryRetailersBlockTitle = new Element(By.xpath("//h2[@data-qa='b2c_home_landing_delivery_retailers_block_title']"), "блок доставки заголовок лендинга Сбермаркета");
+    Element deliveryRetailersBlockTitle = new Element(By.xpath("//h2[@data-qa='b2c_home_landing_delivery_retailers_block_title' and not(@option)]"), "блок доставки заголовок лендинга Сбермаркета");
     Element deliveryRetailersBlockSubTitle = new Element(By.xpath("//h4[@data-qa='b2c_home_landing_delivery_retailers_block_subtitle']"), "блок доставки sub заголовок лендинга Сбермаркета");
     ElementCollection deliveryRetailers = new ElementCollection(By.xpath("//div[contains(@data-qa, 'b2c_home_landing_delivery_retailers_block_retailer_card')]"), "Карточки ритейлеров");
 

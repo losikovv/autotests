@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.testng.Assert;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.Check;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.enums.ShopUrl;
 
 import java.util.List;
@@ -22,16 +23,6 @@ public interface ShopCheck extends Check, ShopElement {
         waitAction().shouldBeVisible(firstProductCard);
     }
 
-    @Step("Проверяем, не отображается спиннер")
-    default void checkSpinnerIsNotVisible() {
-        waitAction().shouldNotBeVisible(spinner);
-    }
-
-    @Step("Проверяем, отображается спиннер")
-    default void checkSpinnerVisible() {
-        waitAction().shouldBeVisible(spinner);
-    }
-
     @Step("Проверяем, что отображется сниппет каталога")
     default void checkSnippet() {
         waitAction().shouldBeVisible(firstProductCardProd);
@@ -39,7 +30,7 @@ public interface ShopCheck extends Check, ShopElement {
 
     @Step("Проверяем, что находимся на странице дефолтного магазина")
     default void checkDefaultShopOpened() {
-        waitAction().urlEquals(EnvironmentProperties.Env.FULL_SITE_URL + ShopUrl.DEFAULT.getUrl());
+        waitAction().urlEquals(UiProperties.STF_URL);
     }
 
     @Step("Проверяем, что изображение товара отображается")

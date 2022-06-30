@@ -4,9 +4,13 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestAddresses;
+import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
@@ -18,6 +22,8 @@ import static ru.instamart.reforged.next.page.StfRouter.shop;
 @Epic("STF UI")
 @Feature("Поиск товаров")
 public final class ShoppingSearchTests {
+
+    ApiHelper apiHelper = new ApiHelper();
 
     @CaseId(1609)
     @Story("Проверка наличия элементов")
@@ -33,7 +39,14 @@ public final class ShoppingSearchTests {
     @Story("Негативные сценарии")
     @Test(description = "Тест поиска по запросу, не возвращающему результатов", groups = "regression")
     public void successSearchForNonExistingItem() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
         shop().goToPage(true);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().fillSearch("смысл жизни");
         shop().interactHeader().clickSearchButton();
         search().checkEmptySearchPlaceholderVisible();
@@ -43,7 +56,14 @@ public final class ShoppingSearchTests {
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров", groups = "regression")
     public void successSearchItem() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
         shop().goToPage(true);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().fillSearch("молоко");
         shop().interactHeader().clickSearchButton();
         search().checkPageIsAvailable();
@@ -55,7 +75,14 @@ public final class ShoppingSearchTests {
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"production", "smoke", "regression"})
     public void successSearchItemUsingCategorySuggests() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
         shop().goToPage(true);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().fillSearch("сыры");
         shop().interactHeader().checkSuggesterVisible();
         shop().interactHeader().clickShowAllSearchResults();
@@ -67,7 +94,14 @@ public final class ShoppingSearchTests {
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {"regression"})
     public void successSearchItemUsingSuggests() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
         shop().goToPage(true);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().fillSearch("шоколад");
         shop().interactHeader().checkSearchSuggestsVisible();
         shop().interactHeader().clickOnFirstSuggesterSearchResult();
@@ -78,7 +112,14 @@ public final class ShoppingSearchTests {
     @Story("Позитивные сценарии")
     @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = {"regression"})
     public void changeAmountOnButtonSearchResult() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
         shop().goToPage(true);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().fillSearch("шоколад");
         shop().interactHeader().checkSearchSuggestsVisible();
         final String textOnButtonAllCategory = shop().interactHeader().getTextOnButtonSearchSuggester();
@@ -93,7 +134,14 @@ public final class ShoppingSearchTests {
     @Story("Позитивные сценарии")
     @Test(description = "Работоспособность стрелочки пролистывающей категории", groups = {"regression"})
     public void swipeCategoryItemInSuggester() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
         shop().goToPage(true);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().fillSearch("шоколад");
         shop().interactHeader().checkSearchSuggestsVisible();
         shop().interactHeader().swipeScrollTabHeadersRight();
@@ -108,7 +156,14 @@ public final class ShoppingSearchTests {
     @Story("Позитивные сценарии")
     @Test(description = "Удаление поискового запроса по крестику в поиске", groups = {"regression"})
     public void clearSearchBar() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
         shop().goToPage(true);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().fillSearch("шоколад");
         shop().interactHeader().checkSearchSuggestsVisible();
         shop().interactHeader().clearSearchInput();
@@ -119,7 +174,14 @@ public final class ShoppingSearchTests {
     @Story("Негативные сценарии")
     @Test(description = "Тест поиска по очень длинному запросу, не возвращающему результатов", groups = "regression")
     public void successSearchItemWithLongQuery() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
         shop().goToPage(true);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().fillSearch(Generate.string(1000));
         shop().interactHeader().clickSearchButton();
         search().checkEmptySearchPlaceholderVisible();
@@ -132,12 +194,10 @@ public final class ShoppingSearchTests {
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactAddressLarge().checkYmapsReady();
 
-        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddressLarge().selectFirstAddress();
-        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddressLarge().clickSave();
-        shop().interactStoreModal().checkStoreModalIsOpen();
-        shop().interactStoreModal().selectStoreWithSid(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddress().clickOnSave();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage(true);
@@ -155,7 +215,14 @@ public final class ShoppingSearchTests {
     @Test(description = "Работоспособность сортировки товаров", groups = {"regression"})
     @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successApplySort() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
         shop().goToPage(true);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().fillSearch("печенье");
         shop().interactHeader().clickSearchButton();
 
@@ -279,7 +346,14 @@ public final class ShoppingSearchTests {
     @CaseId(2737)
     @Test(description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна", groups = {"regression"})
     public void alcoholSearchModalClose() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
         shop().goToPage(true);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().fillSearch("вино красное");
         shop().interactHeader().checkSuggesterVisible();
         search().interactHeader().checkAlcoStubInSuggest();

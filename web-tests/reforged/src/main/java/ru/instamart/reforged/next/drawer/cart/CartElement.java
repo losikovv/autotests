@@ -1,6 +1,7 @@
 package ru.instamart.reforged.next.drawer.cart;
 
 import org.openqa.selenium.By;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
@@ -23,6 +24,7 @@ public interface CartElement {
     Element firstItem = new Element(By.xpath("//div[@data-qa='line-item']"), "Первый товар в корзине");
     ElementCollection items = new ElementCollection(By.xpath("//div[@data-qa='line-item']"), "Все товары в корзине");
     Element firstRetailer = new Element(By.xpath("//div[@class='cart-retailer']"), "Первый магазин в корзине");
+    Element retailerByName = new Element(ByKraken.xpathExpression("//div[@class='cart-retailer'][.//div[@class='cart-retailer-details__name'][contains(.,'%s')]]"), "Ритейлер по названию");
     ElementCollection retailers = new ElementCollection(By.xpath("//div[@class='cart-retailer']"), "Все магазины в корзине");
     Element viewOrder = new Element(By.xpath("//a[@data-qa='merged_products_look_button']"), "Кнопка 'посмотреть' заказ после мерджа товаров");
 

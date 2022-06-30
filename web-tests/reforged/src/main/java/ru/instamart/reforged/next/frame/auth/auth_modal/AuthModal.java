@@ -4,6 +4,8 @@ import io.qameta.allure.Issue;
 import io.qameta.allure.Step;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.ThreadUtil;
+import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.cdp.CdpHeaders;
 import ru.instamart.reforged.next.frame.Close;
 import ru.instamart.reforged.next.frame.auth.AuthFacebook;
 import ru.instamart.reforged.next.frame.auth.AuthMail;
@@ -89,11 +91,13 @@ public final class AuthModal implements Close, AuthModalCheck {
 
     @Step("Войти через sberId")
     public void authViaSberId() {
+        CdpHeaders.disableNetworkTacking();
         sberId.hoverAndClick();
     }
 
     @Step("Войти через SberBusinessId")
     public void authViaSberBusinessId() {
+        CdpHeaders.disableNetworkTacking();
         sberBusinessIdButton.hoverAndClick();
     }
 

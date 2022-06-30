@@ -8,6 +8,8 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -552,7 +554,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkRetailersCountShouldBe(2);
 
         shop().interactCart().getFirstRetailer().removeAllItemsFromRetailer();
-        shop().interactCart().checkRetailersCountShouldBe(1);
+        shop().interactCart().checkRetailerNotVisible("METRO");
     }
 
     @CaseId(2617)

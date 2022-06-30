@@ -23,8 +23,8 @@ public interface FooterElement {
     Link documentsLink = new Link(By.xpath("//footer//a[@href='/terms-sbermarket']"),
             "ссылка 'Документы' в футере");
     //Изменили в рамках https://instamart.atlassian.net/browse/STF-9748
-    Link partnersLink = new Link(By.xpath("//a[text()='Стать партнером']"),
-            "ссылка 'Стать партнером' в футере");
+    Link partnersLink = new Link(By.xpath("//a[text()='Стать партнёром']"),
+            "ссылка 'Стать партнёром' в футере");
 
 
     Element customerHelpTitle = new Element(By.xpath("//footer//div[@class='footer__title' and contains(text(),'Помощь')]"),
@@ -33,7 +33,7 @@ public interface FooterElement {
             "ссылка 'Как мы работаем' в футере");
     Link deliveryZone = new Link(By.xpath("//footer//button[text()='Зоны доставки']"),
             "ссылка 'Зоны доставки' в футере");
-    Link deliveryAndPayment = new Link(By.xpath("//footer//a[@href='/delivery2']"),
+    Link deliveryAndPayment = new Link(By.xpath("//footer//a[@href='/delivery-sbermarket']"),
             "ссылка 'Доставка и оплата' в футере");
     Link help = new Link(By.xpath("//footer//a[@href='/faq-sbermarket']"),
             "ссылка 'Помощь' в футере");
