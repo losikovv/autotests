@@ -3,7 +3,6 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.testng.annotations.AfterClass;
 import ru.instamart.api.response.v2.MergeStatusV2Response;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -44,10 +43,6 @@ public class MergedShipmentsV2Test extends RestBase {
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
     }
 
-    @AfterClass(alwaysRun = true)
-    public void cleanup() {
-        apiV2.cancelCurrentOrder();
-    }
 
     @CaseId(1029)
     @Story("Мердж подзаказа")
