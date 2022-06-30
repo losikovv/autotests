@@ -98,11 +98,6 @@ public class OrdersV2Test extends RestBase {
         checkStatusCode200(response);
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
         checkFieldIsNotEmpty(order.getPromotionCodes(), "промокоды");
-
-//        response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), promoCode);
-//        checkStatusCode200(response);
-//        order = response.as(OrderV2Response.class).getOrder();
-//        assertTrue(order.getPromotionCodes().isEmpty(), "Промокод не удалился");
     }
 
     @CaseId(314)
@@ -141,8 +136,7 @@ public class OrdersV2Test extends RestBase {
             description = "Заказ с пустой корзиной")
     public void orderWithPromoCodeAndEmptyCart() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        String orderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
-        final Response response = OrdersV2Request.Promotions.POST(orderNumber, promoCode);
+        final Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), promoCode);
         checkError(response, "Промокод неприменим");
         SessionFactory.clearSession(SessionType.API_V2);
     }
