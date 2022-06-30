@@ -185,6 +185,17 @@ public class StrategyTest extends RestBase {
         checkStrategy(strategyIdWithMultipleRulesAndConditions, "autotest", 6, 10, 2, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
     }
 
+    @CaseId(378)
+    @Story("Create Strategy")
+    @Test(description = "Получение ошибки валидации параметров скрипта при создании стратегии",
+            groups = "dispatch-shippingcalc-smoke",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot create strategy: no required for script parameters")
+    public void createStrategyNonValidScriptParams() {
+        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        clientShippingCalc.createStrategy(request);
+    }
+
     @CaseId(179)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии имени стратегии",
@@ -400,7 +411,7 @@ public class StrategyTest extends RestBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = "createStrategy")
     public void updateStrategy() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, strategyId, "autotest-update", "autotest-update", "autotest-update", true, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, strategyId, "autotest-update", "autotest-update", "autotest-update", true, ShippingcalcOuterClass.DeliveryType.B2B.getNumber());
         clientShippingCalc.updateStrategy(request);
         checkUpdatedStrategy(strategyId, "autotest-update", 4, 4, 2, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
     }
@@ -536,6 +547,18 @@ public class StrategyTest extends RestBase {
 
         clientShippingCalc.updateStrategy(request);
         checkUpdatedStrategy(strategyIdWithMultipleRulesAndConditions, "autotest-update", 12, 20, 11, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
+    }
+
+    @CaseId(379)
+    @Story("Create Strategy")
+    @Test(description = "Получение ошибки валидации параметров скрипта при обновлении стратегии",
+            groups = "dispatch-shippingcalc-smoke",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: no required for script parameters",
+            dependsOnMethods = "updateStrategy")
+    public void updateStrategyNonValidScriptParams() {
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        clientShippingCalc.updateStrategy(request);
     }
 
     @CaseId(192)
