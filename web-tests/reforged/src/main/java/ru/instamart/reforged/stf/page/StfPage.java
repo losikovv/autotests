@@ -1,9 +1,12 @@
 package ru.instamart.reforged.stf.page;
 
-import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.cdp.CdpHeaders;
+import ru.instamart.reforged.core.config.BrowserProperties;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.page.Page;
+
+import java.util.Map;
 
 public interface StfPage extends Page {
 
@@ -12,14 +15,9 @@ public interface StfPage extends Page {
     }
 
     default void goToPage(final String url) {
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + url);
-    }
-
-    default void goToPageFromTenant() {
-        goToPageFromTenant(pageUrl());
-    }
-
-    default void goToPageFromTenant(final String url) {
+        if (BrowserProperties.ENABLE_PROXY) {
+            CdpHeaders.addHeader(Map.of("sbm-forward-feature-version-stf", UiProperties.HEADER_STF_FORWARD_TO));
+        }
         Kraken.open(UiProperties.STF_URL + url);
     }
 }

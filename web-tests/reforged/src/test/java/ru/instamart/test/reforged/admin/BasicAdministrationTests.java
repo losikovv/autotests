@@ -4,11 +4,12 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Flaky;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
+import static ru.instamart.reforged.stf.page.StfRouter.home;
 
 @Epic("Админка STF")
 @Feature("Базовый функционал и навигация в админке")
@@ -48,8 +49,8 @@ public final class BasicAdministrationTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        oktell().openSitePage(oktell().pageUrl());
-        oktell().checkPageIsAvailable();
+        home().goToPage(oktell().pageUrl());
+        home().checkPageIsAvailable();
     }
 
     @CaseId(416)

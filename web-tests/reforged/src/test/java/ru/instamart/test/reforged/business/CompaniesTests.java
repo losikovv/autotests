@@ -40,7 +40,7 @@ public final class CompaniesTests {
     public void gotoCompaniesFromHeaderB2C() {
         var user = UserManager.getQaUser();
 
-        b2cShop().goToPageFromTenant();
+        b2cShop().goToPage();
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(user);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -77,7 +77,7 @@ public final class CompaniesTests {
     public void gotoProfileFromCompaniesB2C() {
         var user = UserManager.getQaUser();
 
-        b2cShop().goToPageFromTenant();
+        b2cShop().goToPage();
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(user);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -127,7 +127,7 @@ public final class CompaniesTests {
         var company = JuridicalData.juridical();
         var user = UserManager.getQaUser();
 
-        b2cShop().goToPageFromTenant();
+        b2cShop().goToPage();
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(user);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -146,7 +146,7 @@ public final class CompaniesTests {
         b2cCompanies().interactAddCompany().clickAddCompany();
         b2cCompanies().interactAddCompany().checkAddCompanyModalNotVisible();
 
-        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().goToPage();
         b2cCompanies().checkCompaniesListIsNotEmpty();
         b2cCompanies().checkCompaniesCount(1);
         b2cCompanies().checkCompaniesListContains(company.getJuridicalName());
@@ -183,12 +183,12 @@ public final class CompaniesTests {
     public void addCompanyFromCompaniesPageIncorrectINNB2C() {
         var user = UserManager.getQaUser();
 
-        b2cShop().goToPageFromTenant();
+        b2cShop().goToPage();
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(user);
         b2cShop().interactHeader().checkProfileButtonVisible();
 
-        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().goToPage();
         b2cCompanies().checkCompaniesListIsEmpty();
 
         b2cCompanies().clickAddCompany();
@@ -234,12 +234,12 @@ public final class CompaniesTests {
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
         helper.addManagerForCompany(company.getInn(), managerData);
 
-        b2cShop().goToPageFromTenant();
+        b2cShop().goToPage();
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
 
-        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().goToPage();
         b2cCompanies().checkCompaniesListIsNotEmpty();
         b2cCompanies().clickOnFirstCompanyName();
         b2cCompanyInfo().checkCompanyInfoIsVisible();
@@ -273,12 +273,12 @@ public final class CompaniesTests {
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
 
-        b2cShop().goToPageFromTenant();
+        b2cShop().goToPage();
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
 
-        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().goToPage();
         b2cCompanies().checkCompaniesListIsNotEmpty();
         b2cCompanies().clickOnFirstCompanyName();
         b2cCompanyInfo().checkCompanyInfoIsVisible();
@@ -338,12 +338,12 @@ public final class CompaniesTests {
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
         var companyId = helper.getCompanyId(company.getInn());
 
-        b2cShop().goToPageFromTenant();
+        b2cShop().goToPage();
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
 
-        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().goToPage();
         b2cCompanies().checkCompaniesListIsNotEmpty();
         b2cCompanies().clickOnFirstCompanyName();
         b2cCompanyInfo().checkCompanyInfoIsVisible();
@@ -425,12 +425,12 @@ public final class CompaniesTests {
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), companyHeadUser.getEmail());
         helper.addEmployeesForCompany(company.getInn(), otherUsers);
 
-        b2cShop().goToPageFromTenant();
+        b2cShop().goToPage();
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(companyHeadUser);
         b2cShop().interactHeader().checkProfileButtonVisible();
 
-        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().goToPage();
         b2cCompanies().clickOnFirstCompanyName();
         b2cCompanyInfo().checkSecurityBlockDisplayed();
 
@@ -442,12 +442,12 @@ public final class CompaniesTests {
         b2cCompanyInfo().interactHeader().interactAccountMenu().clickToLogout();
         b2cCompanyInfo().interactHeader().checkProfileButtonNotVisible();
 
-        b2cShop().goToPageFromTenant();
+        b2cShop().goToPage();
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(otherUsers.get(9));
         b2cShop().interactHeader().checkProfileButtonVisible();
 
-        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().goToPage();
         b2cCompanies().clickOnFirstCompanyName();
         b2cCompanyInfo().checkCompanyUsersDisplayed();
         b2cCompanyInfo().checkSecurityBlockNotDisplayed();
