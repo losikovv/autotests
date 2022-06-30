@@ -7,6 +7,7 @@ import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.cdp.CdpCookie;
+import ru.instamart.reforged.core.config.UiProperties;
 
 import java.util.Set;
 
@@ -22,11 +23,6 @@ public interface Page extends PageCheck {
     @Step("Открыть страницу {0} в админке")
     default void openAdminPageWithoutSpa(final String page) {
         Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD + page);
-    }
-
-    @Step("Открыть страницу {0} на сайте")
-    default void openSitePage(final String page) {
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + page);
     }
 
     @Step("Обновить страницу")

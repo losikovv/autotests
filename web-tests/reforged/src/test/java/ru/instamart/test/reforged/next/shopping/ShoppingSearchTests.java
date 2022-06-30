@@ -172,7 +172,7 @@ public final class ShoppingSearchTests {
     @Test(description = "Фильтрация товаров", groups = {"regression"})
     public void successApplyFilters() {
         shop().goToPage(true);
-        shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
+        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
         search().checkSearchImgLoaded();
 
         search().checkProductsQuantityVisible();
@@ -189,7 +189,7 @@ public final class ShoppingSearchTests {
 
         search().checkQuantitiesNotEquals(startProductsQuantity, discountFilterProductsQuantity);
 
-        shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
+        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
         search().checkSearchImgLoaded();
 
         search().clickOnFilter("Ультрапастеризованное");
@@ -210,7 +210,7 @@ public final class ShoppingSearchTests {
     @Test(description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности", groups = {"regression"})
     public void successApplyFiltersAndSortCheapAsc() {
         shop().goToPage(true);
-        shop().openSitePage("okey/search?keywords=кофе&sid=128");
+        shop().goToPage("okey/search?keywords=кофе&sid=128");
 
         search().checkSearchImgLoaded();
 
@@ -223,7 +223,7 @@ public final class ShoppingSearchTests {
         search().checkPageScrolled();
         search().checkPriceAscSortCorrect();
 
-        shop().openSitePage("okey/search?keywords=кофе&sid=128");
+        shop().goToPage("okey/search?keywords=кофе&sid=128");
 
         search().checkSortEnabled("По популярности");
         search().refresh();
@@ -236,7 +236,7 @@ public final class ShoppingSearchTests {
     @Test(description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд", groups = {"regression"})
     public void successApplyFiltersAndSortExpensiveDesc() {
         shop().goToPage(true);
-        shop().openSitePage("okey/search?keywords=чай&sid=128");
+        shop().goToPage("okey/search?keywords=чай&sid=128");
 
         search().checkSearchImgLoaded();
 
@@ -254,7 +254,7 @@ public final class ShoppingSearchTests {
         search().clickToDiscountFilter();
         search().checkPriceDescSortCorrect();
 
-        shop().openSitePage("okey/search?keywords=чай&sid=128");
+        shop().goToPage("okey/search?keywords=чай&sid=128");
         search().checkSearchImgLoaded();
 
         search().checkSortEnabled("По популярности");
@@ -267,7 +267,7 @@ public final class ShoppingSearchTests {
     @Test(description = "При применении фильтра для выданных товаров блокируются другие фильтры (неприменимые к ним)", groups = {"regression"})
     public void successApplyOtherFilters() {
         shop().goToPage(true);
-        shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
+        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
         search().checkSearchImgLoaded();
 
         search().clickToDiscountFilter();

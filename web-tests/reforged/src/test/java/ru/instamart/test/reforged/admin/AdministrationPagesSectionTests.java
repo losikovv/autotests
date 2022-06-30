@@ -10,9 +10,11 @@ import ru.instamart.jdbc.dao.stf.SpreePagesDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.StaticPages;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.stf.page.StfRouter;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("Админка STF")
 @Feature("Работа со статическими страницами")
@@ -46,8 +48,8 @@ public final class AdministrationPagesSectionTests {
         newPages().fillPageData(staticPage);
         newPages().submit();
 
-        pages().openSitePage(staticPage.getPageURL());
-        pages().checkPageIsAvailable();
+        home().goToPage(staticPage.getPageURL());
+        home().checkPageIsAvailable();
 
         pages().goToPage();
         pages().waitPageLoad();
@@ -79,10 +81,8 @@ public final class AdministrationPagesSectionTests {
         newPages().fillPageData(staticPageEdited);
         newPages().submit();
 
-        pages().waitPageLoad();
-        pages().openSitePage(staticPageEdited.getPageURL());
-        pages().waitPageLoad();
-        pages().checkPageIsAvailable();
+        home().goToPage(staticPageEdited.getPageURL());
+        home().checkPageIsAvailable();
     }
 
     @AfterClass(alwaysRun = true)

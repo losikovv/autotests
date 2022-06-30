@@ -608,7 +608,7 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openSitePage("metro/maslo-aro-extra-virgin-olivkovoe?sid=81");
+        shop().goToPage("metro/maslo-aro-extra-virgin-olivkovoe?sid=81");
         shop().interactProductCard().checkProductCardVisible();
         final var firstProductFromRecs = shop().interactProductCard().getFirstProductNameFromRecs();
 

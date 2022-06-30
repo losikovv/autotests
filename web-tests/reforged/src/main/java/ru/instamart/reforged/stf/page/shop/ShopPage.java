@@ -170,20 +170,6 @@ public final class ShopPage implements StfPage, ShopCheck {
         goToPage(shop.getUrl());
     }
 
-    @Override
-    public void goToPageFromTenant() {
-        goToPageFromTenant(ShopUrl.DEFAULT, false);
-    }
-
-    public void goToPageFromTenant(final boolean isFixedUUID) {
-        goToPageFromTenant(ShopUrl.DEFAULT, isFixedUUID);
-    }
-
-    public void goToPageFromTenant(final ShopUrl shop, final boolean isFixedUUID) {
-        cookiesChange(isFixedUUID);
-        goToPageFromTenant(shop.getUrl());
-    }
-
     /**
      * Метод создан для того, что бы в куках указывать фиксированный UUID пользователя, который заранее добавлен в нужную АБ группу
      *
