@@ -62,6 +62,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.TransferMethodLossesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.TransferMethodV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ActiveShipmentsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ActiveShipmentsNoAuthV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.CitiesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.SessionsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.CategoriesV2Test"/>

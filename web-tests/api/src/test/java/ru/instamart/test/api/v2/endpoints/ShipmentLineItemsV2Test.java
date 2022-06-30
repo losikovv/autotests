@@ -53,6 +53,13 @@ public class ShipmentLineItemsV2Test extends RestBase {
         DeliveryWindowsDao.INSTANCE.updateDeliveryWindowSettings(deliveryWindowId, 999, 1, 999, 1);
     }
 
+    @AfterClass(alwaysRun = true)
+    public void restoreData() {
+        StoreConfigsDao.INSTANCE.updateEditingSettings(1, 1, 0);
+        if(Objects.nonNull(deliveryWindowId)) DeliveryWindowsDao.INSTANCE.updateDeliveryWindowSettings(deliveryWindowId, 999, 0, 999, 0);
+        apiV2.cancelCurrentOrder();
+    }
+
     @CaseIDs(value = {@CaseId(1003), @CaseId(1004)})
     @Story("Добавление товара в заказ")
     @Test(groups = {"api-instamart-regress"},
@@ -184,11 +191,5 @@ public class ShipmentLineItemsV2Test extends RestBase {
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(4).getId(), 1);
         checkStatusCode422(response);
         checkErrorField(response, "invalid_shipment_state_canceled", "Заказ отменён. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void restoreData() {
-        StoreConfigsDao.INSTANCE.updateEditingSettings(1, 1, 0);
-        if(Objects.nonNull(deliveryWindowId)) DeliveryWindowsDao.INSTANCE.updateDeliveryWindowSettings(deliveryWindowId, 999, 0, 999, 0);
     }
 }

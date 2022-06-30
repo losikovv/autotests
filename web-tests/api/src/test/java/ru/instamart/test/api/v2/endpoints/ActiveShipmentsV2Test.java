@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -43,6 +44,10 @@ public class ActiveShipmentsV2Test extends RestBase {
         }
     }
 
+    @AfterClass(alwaysRun = true)
+    public void cleanup() {
+        apiV2.cancelCurrentOrder();
+    }
 
     @CaseId(1387)
     @Story("Текущий подзаказ")
@@ -70,17 +75,5 @@ public class ActiveShipmentsV2Test extends RestBase {
         compareTwoObjects(shipmentsFromResponse.size(), 2);
         checkShipmentInfo(shipmentsFromResponse.get(0), order);
         checkShipmentInfo(shipmentsFromResponse.get(1), orderFromAnotherStore);
-    }
-
-    @CaseId(1389)
-    @Story("Текущий подзаказ")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
-            description = "Получение текущего подзаказа без авторизации",
-            dependsOnMethods = "getActiveShipmentsForStore")
-    public void getActiveShipmentsWithoutAuth() {
-        SessionFactory.clearSession(SessionType.API_V2);
-        final Response response = ShipmentsV2Request.GET(null);
-        checkStatusCode401(response);
-        checkError(response, "Ключ доступа невалиден или отсутствует");
     }
 }
