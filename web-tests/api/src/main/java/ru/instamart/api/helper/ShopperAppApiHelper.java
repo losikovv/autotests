@@ -369,7 +369,7 @@ public class ShopperAppApiHelper {
     private List<OfferSHP.Data> getOffers() {
         log.debug("Поиск товаров в магазине");
         Response response = StoresSHPRequest.Offers.GET(
-                EnvironmentProperties.DEFAULT_SHOPPER_SID, "хлеб");
+                EnvironmentProperties.DEFAULT_SHOPPER_SID, "сыр");
         checkStatusCode200(response);
         return response.as(OffersSHPResponse.class).getData();
     }
