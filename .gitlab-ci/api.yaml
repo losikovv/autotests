@@ -118,6 +118,8 @@ tests:prodApiInstamart:
   extends:
     - ".template_api_tests"
     - ".template_run_all_jobs_at_a_time_on_master"
+  when: delayed
+  start_in: 6 minutes
   resource_group: apiInstamartProd
   script:
     - gradle clean build apiInstamartProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
