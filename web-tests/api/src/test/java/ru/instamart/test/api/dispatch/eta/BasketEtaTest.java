@@ -2,6 +2,8 @@ package ru.instamart.test.api.dispatch.eta;
 
 import eta.Eta;
 import eta.PredEtaGrpc;
+import io.grpc.StatusRuntimeException;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -34,6 +36,8 @@ import java.time.LocalTime;
 import java.util.Objects;
 import java.util.UUID;
 
+import static org.testng.Assert.*;
+import static org.testng.Assert.assertNotEquals;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.EtaCheckpoints.checkBasketEta;
@@ -47,6 +51,7 @@ public class BasketEtaTest extends RestBase {
 
     private PredEtaGrpc.PredEtaBlockingStub clientEta;
     private AddressV2 address;
+    private AddressV2 secondAddress;
     private UserData userData;
     private OrderV2 order;
     private String storeUuid;
@@ -56,10 +61,12 @@ public class BasketEtaTest extends RestBase {
     private boolean isMLTimeoutUpdated;
     private int storeId;
 
+
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientEta = PredEtaGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_ETA));
         address = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID);
+        secondAddress = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_AUCHAN_SID);
         SessionFactory.makeSession(SessionType.API_V2);
         userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
@@ -90,6 +97,47 @@ public class BasketEtaTest extends RestBase {
 
         var response = clientEta.getBasketEta(request);
         checkBasketEta(response, order.getUuid(), shipmentUuid, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
+    }
+
+    @CaseId(20)
+    @Story("Basket ETA")
+    @Test(description = "Изменение результата, при изменении координат пользователя",
+            groups = "dispatch-eta-smoke")
+    public void getBasketEtaForStoreWithDifferentCoordinates() {
+        Eta.UserEtaRequest requestFirstCoordinates = getUserEtaRequest(address, order, userData, shipmentUuid, order.getShipments().get(0).getStore().getUuid());
+        Eta.UserEtaRequest requestSecondCoordinates = getUserEtaRequest(secondAddress, order, userData, shipmentUuid, order.getShipments().get(0).getStore().getUuid());
+
+        var responseFirstCoordinates = clientEta.getBasketEta(requestFirstCoordinates);
+        var responseSecondCoordinates = clientEta.getBasketEta(requestSecondCoordinates);
+        checkBasketEta(responseFirstCoordinates, order.getUuid(), shipmentUuid, 0, "Поле eta меньше или равно нулю", Eta.EstimateSource.FALLBACK);
+        checkBasketEta(responseSecondCoordinates, order.getUuid(), shipmentUuid, 0, "Поле eta меньше или равно нулю", Eta.EstimateSource.FALLBACK);
+
+        Allure.step("Проверяем изменение результата при изменении координат пользователя", () -> {
+            assertNotEquals(responseFirstCoordinates.getOrder().getShipmentEtas(0).getEta(), responseSecondCoordinates.getOrder().getShipmentEtas(0).getEta(), "Поля eta равны для разных координат");
+        });
+    }
+
+    @CaseId(13)
+    @Story("Basket ETA")
+    @Test(description = "Отправка запроса с невалидным магазином",
+            groups = "dispatch-eta-smoke",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation failed")
+    public void getBasketEtaWithInvalidStore() {
+        Eta.UserEtaRequest request = getUserEtaRequest(address, order, userData, shipmentUuid, "test");
+
+        var response = clientEta.getBasketEta(request);
+    }
+
+    @CaseId(14)
+    @Story("Basket ETA")
+    @Test(description = "Отправка запроса с валидным, но несуществующим в БД store_uuid",
+            groups = "dispatch-eta-smoke")
+    public void getBasketEtaForNonExistentStore() {
+        Eta.UserEtaRequest request = getUserEtaRequest(address, order, userData, shipmentUuid, "12345678-1234-1234-1234-123456789098");
+
+        var response = clientEta.getBasketEta(request);
+        compareTwoObjects(response.toString(), "");
     }
 
     @CaseId(64)
@@ -252,15 +300,55 @@ public class BasketEtaTest extends RestBase {
         softAssert.assertAll();
     }
 
+    @CaseId(41)
+    @Story("Basket ETA")
+    @Test(description = "Отправка валидного запроса в закрытый магазин",
+            groups = "dispatch-eta-smoke")
+    public void getBasketEtaForClosedStore() {
+        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(2)));
+        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(1)));
+        StoresEntity store = getStoreWithUpdatedSchedule(openingDate, closingDate, "00:00:00");
+        Eta.UserEtaRequest request = getUserEtaRequest(address, order, userData, shipmentUuid, store.getUuid());
+
+        var response = clientEta.getBasketEta(request);
+        assertEquals(response.getOrder().getShipmentEtasCount(), 0, "Не пустая ЕТА");
+    }
+
+    @CaseId(49)
+    @Story("Basket ETA")
+    @Test(description = "Отправка запроса с одинаковым временем открытия и закрытия магазина (круглосуточный)",
+            groups = "dispatch-eta-smoke")
+    public void getBasketEtaForAlwaysOpenStore() {
+        StoresEntity store = getStoreWithUpdatedSchedule("00:00:00", "00:00:00", "00:00:00");
+        Eta.UserEtaRequest request = getUserEtaRequest(address, order, userData, shipmentUuid, store.getUuid());
+
+        var response = clientEta.getBasketEta(request);
+        checkBasketEta(response, order.getUuid(), shipmentUuid, 0, "Поле eta меньше или равно нулю", Eta.EstimateSource.FALLBACK);
+    }
+
     @CaseId(45)
     @Story("Basket ETA")
     @Test(description = "Отправка валидного запроса в пределах работы параметра OnDemandClosingDelta",
             groups = "dispatch-eta-smoke")
-    public void getBasketEtaForClosedStore() {
+    public void getBasketEtaForClosedStoreViaClosingDelta() {
         String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
         String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
         StoresEntity store = getStoreWithUpdatedSchedule(openingDate, closingDate, "00:30:00");
         var request = getUserEtaRequest(address, order, userData, shipmentUuid, store.getUuid());
+
+        var response = clientEta.getBasketEta(request);
+        compareTwoObjects(response.getOrder().getShipmentEtasCount(), 0);
+    }
+
+    @CaseId(50)
+    @Story("Basket ETA")
+    @Test(description = "Отправка запроса с OnDemandClosingDelta равным времени работы магазина",
+            groups = "dispatch-eta-regress")
+    public void getBasketEtaForClosedStoreEqualClosingDelta() {
+        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
+        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusHours(1)));
+        StoresEntity store = getStoreWithUpdatedSchedule(openingDate, closingDate, "02:00:00");
+        Eta.UserEtaRequest request = getUserEtaRequest(address, order, userData, shipmentUuid, store.getUuid());
 
         var response = clientEta.getBasketEta(request);
         compareTwoObjects(response.getOrder().getShipmentEtasCount(), 0);
@@ -282,18 +370,30 @@ public class BasketEtaTest extends RestBase {
         checkBasketEta(response, order.getUuid(), shipmentUuid, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
+    @CaseId(59)
+    @Story("Basket ETA")
+    @Test(description = "Получение ответа от ML",
+            groups = "dispatch-eta-smoke")
+    public void getBasketEtaWithML() {
+//    ML работает не со всеми магазинами на стейдже, с secondStoreUuid должно работать
+        String storeUuid = "c158f834-b944-4c84-9165-65f311e6aed4";
+        Eta.UserEtaRequest request = getUserEtaRequest(address, order, userData, shipmentUuid, storeUuid);
+
+        var response = clientEta.getBasketEta(request);
+        checkBasketEta(response, order.getUuid(), shipmentUuid, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.ML);
+    }
+
     @CaseId(37)
     @Story("Basket ETA")
     @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML возвращает ноль",
             groups = "dispatch-eta-smoke")
     public void getBasketEtaWithZeroML() {
-        apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_ON_DEMAND_SID);
-        OrderV2 order = apiV2.getOpenOrder();
-        String shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
-        var request = getUserEtaRequest(address, order, userData, shipmentUuid, UUID.randomUUID().toString());
+        //магазин, которого нет в ML, но есть в ETA
+        String storeUuid = "7f6b0fa1-ec20-41f9-9246-bfa0d6529dad";
+        var request = getUserEtaRequest(address, order, userData, shipmentUuid, storeUuid);
 
         var response = clientEta.getBasketEta(request);
-        Assert.assertTrue(response.toString().isEmpty(), "Пришел не пустой ответ");
+        Assert.assertFalse(response.toString().isEmpty(), "Пришел не пустой ответ");
     }
 
     @CaseId(61)
