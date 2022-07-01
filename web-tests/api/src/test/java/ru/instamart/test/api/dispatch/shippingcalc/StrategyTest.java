@@ -48,7 +48,7 @@ public class StrategyTest extends RestBase {
     @Test(description = "Создание стратегии с валидными данными",
             groups = "dispatch-shippingcalc-smoke")
     public void createStrategy() {
-        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         var response = clientShippingCalc.createStrategy(request);
         strategyId = response.getStrategyId();
         checkStrategy(strategyId, "autotest", 2, 2, 0, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
@@ -91,7 +91,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(false)
                 .setPriority(0)
                 .setDescription("autotest")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.B2B.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.B2B_VALUE)
                 .build();
 
         var response = clientShippingCalc.createStrategy(request);
@@ -177,7 +177,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(false)
                 .setPriority(0)
                 .setDescription("autotest")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         var response = clientShippingCalc.createStrategy(request);
@@ -192,7 +192,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot create strategy: no required for script parameters")
     public void createStrategyNonValidScriptParams() {
-        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -203,7 +203,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: strategy name cannot be empty")
     public void createStrategyWithNoName() {
-        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -214,7 +214,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: creator id cannot be empty")
     public void createStrategyWithNoCreatorId() {
-        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -239,7 +239,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(false)
                 .setPriority(0)
                 .setDescription("autotest")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         clientShippingCalc.createStrategy(request);
@@ -252,7 +252,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot create strategy: scriptId 1234567890: entity not found")
     public void createStrategyWithNonExistentScript() {
-        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(1234567890, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(1234567890, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -285,7 +285,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(false)
                 .setPriority(0)
                 .setDescription("autotest")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         clientShippingCalc.createStrategy(request);
@@ -298,7 +298,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid params")
     public void createStrategyWithNoScriptParams() {
-        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, "", 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, "", 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -328,7 +328,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(false)
                 .setPriority(0)
                 .setDescription("autotest")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         clientShippingCalc.createStrategy(request);
@@ -341,7 +341,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid condition 0, invalid params")
     public void createStrategyWithNoConditionParams() {
-        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "", 0, "autotest", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.CreateStrategyRequest request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "", 0, "autotest", "autotest", "autotest", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.createStrategy(request);
     }
 
@@ -367,7 +367,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(false)
                 .setPriority(0)
                 .setDescription("autotest")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         clientShippingCalc.createStrategy(request);
@@ -399,7 +399,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(false)
                 .setPriority(0)
                 .setDescription("autotest")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         clientShippingCalc.createStrategy(request);
@@ -411,7 +411,7 @@ public class StrategyTest extends RestBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = "createStrategy")
     public void updateStrategy() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, strategyId, "autotest-update", "autotest-update", "autotest-update", true, ShippingcalcOuterClass.DeliveryType.B2B.getNumber());
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, strategyId, "autotest-update", "autotest-update", "autotest-update", true, ShippingcalcOuterClass.DeliveryType.B2B_VALUE);
         clientShippingCalc.updateStrategy(request);
         checkUpdatedStrategy(strategyId, "autotest-update", 4, 4, 2, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
     }
@@ -455,7 +455,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(true)
                 .setPriority(100)
                 .setDescription("autotest-update")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.B2B.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.B2B_VALUE)
                 .build();
 
         clientShippingCalc.updateStrategy(request);
@@ -542,7 +542,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(true)
                 .setPriority(100)
                 .setDescription("autotest-update")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         clientShippingCalc.updateStrategy(request);
@@ -557,7 +557,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: no required for script parameters",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyNonValidScriptParams() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -569,7 +569,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: strategy name cannot be empty",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoName() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "autotest-update", "", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "autotest-update", "", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -580,7 +580,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: cannot check existence of strategy, entity not found")
     public void updateStrategyWithNonExistentStrategyId() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, 1234567890, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, 1234567890, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -592,7 +592,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: creator id cannot be empty",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoCreatorId() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -619,7 +619,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(false)
                 .setPriority(0)
                 .setDescription("autotest-update")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         clientShippingCalc.updateStrategy(request);
@@ -633,7 +633,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: scriptId 1234567890: entity not found",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNonExistentScriptId() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(1234567890, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(1234567890, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -668,7 +668,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(false)
                 .setPriority(0)
                 .setDescription("autotest-update")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         clientShippingCalc.updateStrategy(request);
@@ -682,7 +682,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid params",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoScriptParams() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "", 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "", 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -714,7 +714,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(false)
                 .setPriority(0)
                 .setDescription("autotest-update")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         clientShippingCalc.updateStrategy(request);
@@ -728,7 +728,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid condition 0, invalid params",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoConditionParams() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -756,7 +756,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(false)
                 .setPriority(0)
                 .setDescription("autotest-update")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         clientShippingCalc.updateStrategy(request);
@@ -790,7 +790,7 @@ public class StrategyTest extends RestBase {
                 .setGlobal(false)
                 .setPriority(0)
                 .setDescription("autotest-update")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         clientShippingCalc.updateStrategy(request);
@@ -802,7 +802,7 @@ public class StrategyTest extends RestBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = "createStrategy")
     public void bindStrategy() {
-        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, FIRST_STORE_ID, Tenant.METRO.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber(), false);
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, FIRST_STORE_ID, Tenant.METRO.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE, false);
         clientShippingCalc.bindStrategy(request);
         checkBind(strategyId, FIRST_STORE_ID, Tenant.METRO.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
     }
@@ -818,12 +818,12 @@ public class StrategyTest extends RestBase {
                 .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
                         .setStoreId(FIRST_STORE_ID)
                         .setTenantId(Tenant.SBERMARKET.getId())
-                        .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.B2B.getNumber())
+                        .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.B2B_VALUE)
                         .build())
                 .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
                         .setStoreId(SECOND_STORE_ID)
                         .setTenantId(Tenant.INSTAMART.getId())
-                        .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.B2B.getNumber())
+                        .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.B2B_VALUE)
                         .build())
                 .build();
 
@@ -838,7 +838,7 @@ public class StrategyTest extends RestBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = "bindStrategy")
     public void rebindStrategy() {
-        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.METRO.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber(), false);
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.METRO.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE, false);
         clientShippingCalc.bindStrategy(request);
         checkBind(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.METRO.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
     }
@@ -851,7 +851,7 @@ public class StrategyTest extends RestBase {
     public void bindStrategyWithReplaceAll() {
         addBinding(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.SBERMARKET.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
         addBinding(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.INSTAMART.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
-        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.METRO.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber(), true);
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.METRO.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE, true);
 
         clientShippingCalc.bindStrategy(request);
 
@@ -867,7 +867,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid StrategyId")
     public void bindStrategyWithNoStrategyId() {
-        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(0, FIRST_STORE_ID, "test", ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber(), false);
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(0, FIRST_STORE_ID, "test", ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE, false);
         clientShippingCalc.bindStrategy(request);
     }
 
@@ -894,7 +894,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot attach bind 0 without store id",
             dependsOnMethods = "createStrategy")
     public void bindStrategyWithNoStoreId() {
-        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, "", "test", ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber(), false);
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, "", "test", ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE, false);
         clientShippingCalc.bindStrategy(request);
     }
 
@@ -906,7 +906,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot attach bind 0 without tenant id",
             dependsOnMethods = "createStrategy")
     public void bindStrategyWithNoTenantId() {
-        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, FIRST_STORE_ID, "", ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber(), false);
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyId, FIRST_STORE_ID, "", ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE, false);
         clientShippingCalc.bindStrategy(request);
     }
 
@@ -937,7 +937,7 @@ public class StrategyTest extends RestBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = {"getStrategy", "getStrategiesWithAllFilter", "getStrategiesWithStoreFilter", "getStrategiesForStore"})
     public void unbindStrategy() {
-        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, FIRST_STORE_ID, Tenant.METRO.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, FIRST_STORE_ID, Tenant.METRO.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.unbindStrategy(request);
         checkUnbind(strategyId, FIRST_STORE_ID, Tenant.METRO.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
     }
@@ -953,12 +953,12 @@ public class StrategyTest extends RestBase {
                 .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
                         .setStoreId(FIRST_STORE_ID)
                         .setTenantId(Tenant.SBERMARKET.getId())
-                        .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.B2B.getNumber())
+                        .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.B2B_VALUE)
                         .build())
                 .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
                         .setStoreId(SECOND_STORE_ID)
                         .setTenantId(Tenant.INSTAMART.getId())
-                        .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.B2B.getNumber())
+                        .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.B2B_VALUE)
                         .build())
                 .build();
 
@@ -974,7 +974,7 @@ public class StrategyTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid StrategyId")
     public void unbindStrategyWithNoStrategyId() {
-        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(0, FIRST_STORE_ID, "test", ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(0, FIRST_STORE_ID, "test", ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.unbindStrategy(request);
     }
 
@@ -1001,7 +1001,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot use bind 0 without store id",
             dependsOnMethods = "bindStrategy")
     public void unbindStrategyWithNoStoreId() {
-        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, "", "test", ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, "", "test", ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.unbindStrategy(request);
     }
 
@@ -1013,7 +1013,7 @@ public class StrategyTest extends RestBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot use bind 0 without tenant id",
             dependsOnMethods = "bindStrategy")
     public void unbindStrategyWithNoTenantId() {
-        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, FIRST_STORE_ID, "", ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber());
+        ShippingcalcOuterClass.UnbindStrategyRequest request = getUnbindStrategyRequest(strategyId, FIRST_STORE_ID, "", ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.unbindStrategy(request);
     }
 
@@ -1103,7 +1103,7 @@ public class StrategyTest extends RestBase {
     public void getStrategiesWithAllFilter() {
         ShippingcalcOuterClass.GetStrategiesRequest request = ShippingcalcOuterClass.GetStrategiesRequest.newBuilder()
                 .setStrategyName("aut")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .addStores(FIRST_STORE_ID)
                 .build();
         var response = clientShippingCalc.getStrategies(request);
@@ -1115,7 +1115,7 @@ public class StrategyTest extends RestBase {
             softAssert.assertTrue(response.getStrategies(0).getName().contains("autotest"), "Не ожидаемое название стратегии");
             softAssert.assertTrue(response.getStrategies(0).getStoresCount() > 0, "В ответе пустой список привязок");
             softAssert.assertTrue(response.getStrategies(0).getStoresList().contains(FIRST_STORE_ID), "В ответе не нашли ожидаемую привязку");
-            softAssert.assertEquals(response.getStrategies(0).getDeliveryTypeValue(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber(), "Не ожидаемый тип доставки");
+            softAssert.assertEquals(response.getStrategies(0).getDeliveryTypeValue(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE, "Не ожидаемый тип доставки");
             softAssert.assertAll();
         });
     }
@@ -1147,7 +1147,7 @@ public class StrategyTest extends RestBase {
             dependsOnMethods = "createStrategy")
     public void getStrategiesWithDeliveryTypeFilter() {
         ShippingcalcOuterClass.GetStrategiesRequest request = ShippingcalcOuterClass.GetStrategiesRequest.newBuilder()
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
         var response = clientShippingCalc.getStrategies(request);
 
@@ -1155,7 +1155,7 @@ public class StrategyTest extends RestBase {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
             softAssert.assertTrue(response.getStrategies(0).getStrategyId() > 0, "В ответе пустое id стратегии");
-            softAssert.assertEquals(response.getStrategies(0).getDeliveryTypeValue(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber(), "Не ожидаемый тип доставки");
+            softAssert.assertEquals(response.getStrategies(0).getDeliveryTypeValue(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE, "Не ожидаемый тип доставки");
             softAssert.assertAll();
         });
     }
@@ -1190,7 +1190,7 @@ public class StrategyTest extends RestBase {
         ShippingcalcOuterClass.GetStrategiesForStoreRequest request = ShippingcalcOuterClass.GetStrategiesForStoreRequest.newBuilder()
                 .setStoreId(FIRST_STORE_ID)
                 .setTenant(Tenant.METRO.getId())
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
         var response = clientShippingCalc.getStrategiesForStore(request);
 
@@ -1211,7 +1211,7 @@ public class StrategyTest extends RestBase {
         ShippingcalcOuterClass.GetStrategiesForStoreRequest request = ShippingcalcOuterClass.GetStrategiesForStoreRequest.newBuilder()
                 .setStoreId(FIRST_STORE_ID)
                 .setTenant("test")
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         var response = clientShippingCalc.getStrategiesForStore(request);
@@ -1230,7 +1230,7 @@ public class StrategyTest extends RestBase {
     public void getStrategiesForStoreWithoutStoreId() {
         ShippingcalcOuterClass.GetStrategiesForStoreRequest request = ShippingcalcOuterClass.GetStrategiesForStoreRequest.newBuilder()
                 .setTenant(Tenant.METRO.getId())
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         clientShippingCalc.getStrategiesForStore(request);

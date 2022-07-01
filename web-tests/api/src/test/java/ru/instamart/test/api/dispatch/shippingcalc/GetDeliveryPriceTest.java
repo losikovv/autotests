@@ -54,7 +54,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, false,
                 1000, 1, 99900, STORE_ID, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
-                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.getNumber(),
+                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
@@ -70,7 +70,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 1, UUID.randomUUID().toString(), 99900, 0, 1000, UUID.randomUUID().toString(), false,
                 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
-                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.B2B.getNumber(),
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.B2B_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
@@ -88,7 +88,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 1, PRODUCT_ID, 300100, 0, 1000, SHIPMENT_ID, false,
                 1000, 1, 300100, STORE_ID, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 0, 1655822708, 55.57, 55.57,
-                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.getNumber(),
+                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
@@ -106,7 +106,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 1, UUID.randomUUID().toString(), 99900, 0, 1000, UUID.randomUUID().toString(), false,
                 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
-                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.getNumber(),
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         clientShippingCalc.getDeliveryPrice(request);
@@ -122,13 +122,13 @@ public class GetDeliveryPriceTest extends RestBase {
                 1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, false,
                 1000, 1, 99900, STORE_ID, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
-                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.getNumber(),
+                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
         ShippingcalcOuterClass.GetDeliveryPriceRequest newRequest = getDeliveryPriceRequest(
                 1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, false,
                 1000, 1, 99900, STORE_ID, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
-                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.getNumber(),
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var offerResponse = clientShippingCalc.getDeliveryPrice(offerRequest);
@@ -162,7 +162,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, false,
                 1000, 1, 99900, STORE_ID, "NEW", 1, 10000,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
-                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.getNumber(),
+                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
@@ -180,7 +180,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 1, PRODUCT_ID, 300099, 0, 1000, SHIPMENT_ID, false,
                 1000, 1, 300099, STORE_ID, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
-                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.getNumber(),
+                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
@@ -196,7 +196,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 1, PRODUCT_ID, 100000, 0, 40000, SHIPMENT_ID, false,
                 40000, 1, 100000, STORE_ID, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
-                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.getNumber(),
+                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
@@ -217,7 +217,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 1, UUID.randomUUID().toString(), 99900, 0, 1000, UUID.randomUUID().toString(), false,
                 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
-                "", false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.getNumber(),
+                "", false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         clientShippingCalc.getDeliveryPrice(request);
@@ -234,7 +234,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 1, UUID.randomUUID().toString(), 99900, 0, 1000, "", false,
                 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
-                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.getNumber(),
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         clientShippingCalc.getDeliveryPrice(request);
@@ -274,7 +274,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 .setIsPromocode(false)
                 .setPaymentMethod("Картой онлайн")
                 .setHasPaymentMethod(true)
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE)
                 .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
@@ -292,7 +292,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 1, UUID.randomUUID().toString(), 99900, 0, 1000, UUID.randomUUID().toString(), false,
                 1000, 1, 99900, "", "NEW", 1, 0,
                 55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
-                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.getNumber(),
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         clientShippingCalc.getDeliveryPrice(request);
@@ -319,7 +319,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 .setIsPromocode(false)
                 .setPaymentMethod("Картой онлайн")
                 .setHasPaymentMethod(true)
-                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.getNumber())
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE)
                 .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
