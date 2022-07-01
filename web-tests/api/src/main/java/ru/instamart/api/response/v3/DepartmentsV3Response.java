@@ -15,6 +15,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper=false)
 public class DepartmentsV3Response extends BaseResponseObject {
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty("promo_badges")
     private List<Object> promoBadges;
@@ -24,6 +25,7 @@ public class DepartmentsV3Response extends BaseResponseObject {
     @JsonProperty("favorite_products")
     private List<Object> favoriteProducts;
 
+    @Null
     @JsonSchema(required = true)
     private DepartmentV3 deals;
 
