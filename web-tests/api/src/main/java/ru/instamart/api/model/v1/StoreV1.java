@@ -26,6 +26,7 @@ public class StoreV1 extends BaseObject {
     @JsonProperty("auto_routing")
     private Boolean autoRouting;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty("available_on")
     private String availableOn;
