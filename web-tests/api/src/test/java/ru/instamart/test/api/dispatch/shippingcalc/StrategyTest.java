@@ -911,24 +911,22 @@ public class StrategyTest extends RestBase {
     }
 
     @CaseId(364)
-    @Issue("HG-658")
     @Story("Bind Strategy")
-    @Test(description = "Получении ошибки при привязке без типа доставки",
+    @Test(description = "Привязка стратегии к магазину без типа доставки",
             groups = "dispatch-shippingcalc-regress",
-            expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid delivery_type",
-            dependsOnMethods = "createStrategy",
-            enabled = false)
+            dependsOnMethods = "createStrategy")
     public void bindStrategyWithNoDeliveryType() {
         ShippingcalcOuterClass.BindStrategyRequest request = ShippingcalcOuterClass.BindStrategyRequest.newBuilder()
                 .setStrategyId(strategyId)
                 .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
-                        .setStoreId(FIRST_STORE_ID)
-                        .setTenantId("test")
+                        .setStoreId(SECOND_STORE_ID)
+                        .setTenantId(Tenant.OKEY.getId())
                         .build())
+                .setReplaceAll(false)
                 .build();
 
         clientShippingCalc.bindStrategy(request);
+        checkBind(strategyId, SECOND_STORE_ID, Tenant.OKEY.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(155)
@@ -1017,25 +1015,22 @@ public class StrategyTest extends RestBase {
         clientShippingCalc.unbindStrategy(request);
     }
 
-    @CaseId(364)
-    @Issue("HG-658")
+    @CaseId(365)
     @Story("Unbind Strategy")
-    @Test(description = "Получении ошибки при отвязке без типа доставки",
+    @Test(description = "Отвязка стратегии от магазина без типа доставки",
             groups = "dispatch-shippingcalc-regress",
-            expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid delivery_type",
-            dependsOnMethods = "createStrategy",
-            enabled = false)
+            dependsOnMethods = "bindStrategyWithNoDeliveryType")
     public void unbindStrategyWithNoDeliveryType() {
         ShippingcalcOuterClass.UnbindStrategyRequest request = ShippingcalcOuterClass.UnbindStrategyRequest.newBuilder()
                 .setStrategyId(strategyId)
                 .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
-                        .setStoreId(FIRST_STORE_ID)
-                        .setTenantId("test")
+                        .setStoreId(SECOND_STORE_ID)
+                        .setTenantId(Tenant.OKEY.getId())
                         .build())
                 .build();
 
         clientShippingCalc.unbindStrategy(request);
+        checkUnbind(strategyId, SECOND_STORE_ID, Tenant.OKEY.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(118)
