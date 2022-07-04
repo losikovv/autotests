@@ -1,10 +1,9 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,6 +17,7 @@ import ru.instamart.api.response.v2.FavoritesItemV2Response;
 import ru.instamart.api.response.v2.FavoritesListItemsV2Response;
 import ru.instamart.api.response.v2.ProductSkuV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
@@ -44,8 +44,9 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
         final Response response = FavoritesV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, FavoritesListItemsV2Response.class);
-        FavoritesListItemsV2Response favorites = response.as(FavoritesListItemsV2Response.class);
-        assertEquals(favorites.getItems().get(0), product.getItem(), "data mismatch");
+        Allure.step("Проверяем, что возвращаются корректные данные об избранных товарах", () ->
+                assertEquals(response.as(FavoritesListItemsV2Response.class).getItems().get(0), product.getItem(),
+                "Вернулись некорректные данные об избранном товаре"));
     }
 
     @Deprecated
@@ -100,8 +101,9 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
         var favorites = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);
         final Response response = FavoritesV2Request.ProductSku.GET();
         checkStatusCode200(response);
-        ProductSkuV2Response productSkuV2Response = response.as(ProductSkuV2Response.class);
-        assertEquals(productSkuV2Response.getProductsSku().get(0), favorites.getItem().getSku(), "product sku mismatch");
+        var productSkus = response.as(ProductSkuV2Response.class).getProductsSku();
+        assertFalse(productSkus.isEmpty(), "Не вернулись SKU товаров из избранного");
+        assertEquals(productSkus.get(0), favorites.getItem().getSku(), "Вернулся некорректный SKU товара из избранного");
     }
 
     @CaseId(523)

@@ -1160,6 +1160,7 @@ public final class ApiV2Helper {
         }
     }
 
+    @Step("Добавляем товар в избранное")
     public FavoritesItemV2Response addFavoritesProductBySid(Integer sid) {
         ProductV2 product = getProductFromEachDepartmentOnMainPage(sid).get(0);
         final Response response = FavoritesV2Request.POST(product.getId());
@@ -1167,6 +1168,7 @@ public final class ApiV2Helper {
         return response.as(FavoritesItemV2Response.class);
     }
 
+    @Step("Добавляем несколько товаров в избранное")
     public List<ProductV2> addFavoritesQtyListProductBySid(Integer sid, Integer qty) {
         List<ProductV2> products = getProductFromEachDepartmentOnMainPage(sid);
         List<ProductV2> productsList = new ArrayList<>();
@@ -1181,6 +1183,7 @@ public final class ApiV2Helper {
         return productsList;
     }
 
+    @Step("Добавляем несколько товаров в избранное")
     public void addFavoritesListProductBySid(final int sid, final int count) {
         getProductsFromEachDepartmentOnMainPage(sid)
                 .stream()
@@ -1191,6 +1194,7 @@ public final class ApiV2Helper {
                 });
     }
 
+    @Step("Добавляем товар в избранное")
     public void addFavoriteByProductId(final int id) {
         var response = FavoritesV2Request.POST(id);
         log.debug("Product '{}' was added with status = {}", id, response.statusCode());
