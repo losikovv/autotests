@@ -1211,9 +1211,7 @@ public class StrategyTest extends RestBase {
 
         var response = clientShippingCalc.getStrategiesForStore(request);
 
-        Allure.step("Проверка стратегии в ответе", () -> {
-            compareTwoObjects(response.getStrategyCount(), 0);
-        });
+        Allure.step("Проверка стратегии в ответе", () -> compareTwoObjects(response.getStrategyCount(), 0));
     }
 
     @CaseId(351)

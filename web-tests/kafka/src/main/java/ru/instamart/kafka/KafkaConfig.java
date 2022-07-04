@@ -9,9 +9,7 @@ public class KafkaConfig {
     public String clientId;
     @NonNull
     public String topic;
-    @NonNull
     public String groupName;
-
     public String login;
     public String password;
 }

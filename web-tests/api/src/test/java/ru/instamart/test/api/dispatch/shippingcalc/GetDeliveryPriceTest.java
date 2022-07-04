@@ -14,11 +14,14 @@ import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import shippingcalc.ShippingcalcGrpc;
 import shippingcalc.ShippingcalcOuterClass;
+import surgelevelevent.Surgelevelevent;
 
 import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
+import static ru.instamart.kafka.configs.KafkaConfigs.configSurgeLevel;
+import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 @Epic("On Demand")
@@ -39,7 +42,7 @@ public class GetDeliveryPriceTest extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientShippingCalc = ShippingcalcGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC));
-        localStrategyId = addStrategy(false, 0,ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.toString());
+        localStrategyId = addStrategy(false, 0, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.toString());
         firstGlobalStrategyId = addStrategy(true, 1, ShippingcalcOuterClass.DeliveryType.B2B.toString());
         secondGlobalStrategyId = addStrategy(true, 0, ShippingcalcOuterClass.DeliveryType.B2B.toString());
         addBinding(localStrategyId, STORE_ID, Tenant.SBERMARKET.getId(), ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.toString());
@@ -148,8 +151,66 @@ public class GetDeliveryPriceTest extends RestBase {
 
         });
 
-        Allure.step("Проверяем новую расчитанную цену", () -> {
-            checkDeliveryPrice(newResponse, localStrategyId, 19900, 100000, 3, 4, 0);
+        Allure.step("Проверяем новую расчитанную цену", () -> checkDeliveryPrice(newResponse, localStrategyId, 19900, 100000, 3, 4, 0));
+    }
+
+    @CaseId(288)
+    @Story("Get Delivery Price")
+    @Test(description = "Расчет цены с наценкой surge",
+            groups = "dispatch-shippingcalc-smoke")
+    public void getDeliveryPriceWithSurge() {
+        String storeId = UUID.randomUUID().toString();
+        Integer surgeLevel = 5;
+        addBinding(localStrategyId, storeId, Tenant.SBERMARKET.getId(), ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.toString());
+
+        ShippingcalcOuterClass.SetIntervalsSurgeRequest surgeIntervals = ShippingcalcOuterClass.SetIntervalsSurgeRequest.newBuilder()
+                .addIntervals(ShippingcalcOuterClass.SurgeInterval.newBuilder()
+                        .setLeftBoundary(0)
+                        .setRightBoundary(1)
+                        .setPriceAddition(0)
+                        .setPercentAddition(0)
+                        .build())
+                .addIntervals(ShippingcalcOuterClass.SurgeInterval.newBuilder()
+                        .setLeftBoundary(1)
+                        .setRightBoundary(surgeLevel)
+                        .setPriceAddition(10000)
+                        .setPercentAddition(10)
+                        .build())
+                .addIntervals(ShippingcalcOuterClass.SurgeInterval.newBuilder()
+                        .setLeftBoundary(surgeLevel)
+                        .setRightBoundary(10)
+                        .setPriceAddition(20000)
+                        .setPercentAddition(20)
+                        .build())
+                .build();
+        clientShippingCalc.setIntervalsSurge(surgeIntervals);
+
+        Surgelevelevent.SurgeEvent surgeEvent = Surgelevelevent.SurgeEvent.newBuilder()
+                .setStoreId(storeId)
+                .setMethod(Surgelevelevent.SurgeEvent.Method.ACTUAL)
+                .setPastSurgeLevel(surgeLevel)
+                .setPresentSurgeLevel(surgeLevel)
+                .setFutureSurgeLevel(surgeLevel)
+                .setStartedAt(getTimestamp())
+                .setStepSurgeLevel(1)
+                .build();
+        kafka.publish(configSurgeLevel(), surgeEvent.toByteArray());
+
+        ShippingcalcOuterClass.GetDeliveryPriceRequest request = getDeliveryPriceRequest(
+                1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, false,
+                1000, 1, 99900, storeId, "NEW", 1, 0,
+                55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
+                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0); // наценка по surgelevel не добавляется к финальной цене (пока прибито гвоздями в коде), если тут начнет падать, нужно изменить ожидание на финальную цену с наценкой
+        Allure.step("Проверяем наценку по surge", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getShipments(0).getSurgeUsed(), "Surge не использовался при расчете цены");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), surgeLevel.floatValue(), "Не верный surgelevel");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 11990, "Не верная наценка");
+            softAssert.assertAll();
         });
     }
 
@@ -201,9 +262,7 @@ public class GetDeliveryPriceTest extends RestBase {
 
         var response = clientShippingCalc.getDeliveryPrice(request);
         checkDeliveryPrice(response, localStrategyId, 14900, 100000, 3, 4, 0);
-        Allure.step("Проверяем наценку за перевес", () -> {
-            assertEquals(response.getShipments(0).getPriceExplanation().getPriceComponents(3).getPrice(), 5000, "Не ожидаемая наценка за перевес");
-        });
+        Allure.step("Проверяем наценку за перевес", () -> assertEquals(response.getShipments(0).getPriceExplanation().getPriceComponents(3).getPrice(), 5000, "Не ожидаемая наценка за перевес"));
     }
 
     @CaseId(208)

@@ -1,0 +1,24 @@
+syntax = "proto3";
+package surgelevelevent;
+option go_package = "gitlab.sbmt.io/paas/content/operations/surgelevel/pkg/server/events/surgelevelevent";
+import "google/protobuf/timestamp.proto";
+
+message SurgeEvent {
+    enum Method {
+        UNKNOWN = 0;
+        ACTUAL = 1;    
+        PREDICT = 2;
+    }
+    message Info {
+        int32 shipment_quantity = 1;
+        int32 candidate_quantity = 2;
+    }
+    string store_id = 1;
+    Method method = 2;
+    float past_surge_level = 3;
+    float present_surge_level = 4;
+    float future_surge_level = 5;
+    google.protobuf.Timestamp started_at = 6;
+    float step_surge_level = 7;  
+    Info info = 8;
+}
