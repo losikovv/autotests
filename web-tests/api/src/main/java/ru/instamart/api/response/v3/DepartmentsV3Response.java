@@ -8,6 +8,7 @@ import ru.instamart.api.model.v3.DepartmentV3;
 import ru.instamart.api.model.v3.MetaV3;
 import ru.instamart.api.response.BaseResponseObject;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Null;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class DepartmentsV3Response extends BaseResponseObject {
     @JsonSchema(required = true)
     private List<Object> purchased;
 
+    @NotEmpty
     @JsonSchema(required = true)
     private List<DepartmentV3> departments;
 
