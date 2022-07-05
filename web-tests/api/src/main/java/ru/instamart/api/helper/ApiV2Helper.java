@@ -781,7 +781,7 @@ public final class ApiV2Helper {
      */
     @Step("Отменяем заказ по номеру: {orderNumber}")
     public OrderV2 cancelOrder(String orderNumber) {
-        Response response = OrdersV2Request.Cancellations.POST(orderNumber, "test");
+        Response response = ShipmentsV2Request.Cancellations.POST(orderNumber, "test");
         checkStatusCode200(response);
         OrderV2 order = response.as(CancellationsV2Response.class).getCancellation().getOrder();
         log.debug("Отменен заказ: {}", order.getNumber());
@@ -846,13 +846,10 @@ public final class ApiV2Helper {
     public AddressV2 getAddressBySid(int sid) {
         currentSid.set(sid);
         Response response = StoresV2Request.GET(sid);
+        response.prettyPeek();
 
-        if (response.statusCode() == 422) {
-            if (response.as(ErrorResponse.class)
-                    .getErrors()
-                    .getBase()
-                    .contains("По указанному адресу"))
-                fail("Магазин отключен admin/stores/" + currentSid.get());
+        if (response.statusCode() == 404) {
+            new SkipException("Магазин отключен admin/stores/" + currentSid.get());
         }
         checkStatusCode200(response);
         StoreV2 store = response.as(StoreV2Response.class).getStore();

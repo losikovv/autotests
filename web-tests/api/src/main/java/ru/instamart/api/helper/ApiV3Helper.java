@@ -1,5 +1,6 @@
 package ru.instamart.api.helper;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,7 @@ public final class ApiV3Helper {
         return Arrays.asList(StoresV3Request.PickupFromStore.GET().as(StoreV3[].class));
     }
 
+    @Step("Ищем магазин по имени: {name}")
     public StoreV3 getStore(String name) {
         log.debug("Ищем магазин по имени: " + name);
         List<StoreV3> stores = getPickupStores();
@@ -59,6 +61,7 @@ public final class ApiV3Helper {
         return response.as(OrderOptionsV3Response.class);
     }
 
+    @Step("Поиск типа оплаты {type} из списка {paymentMethods}")
     public PaymentMethodV3 getPaymentMethod(String type, List<PaymentMethodV3> paymentMethods) {
         log.debug("Ищем payment метод: " + type);
 
@@ -69,7 +72,7 @@ public final class ApiV3Helper {
                 return paymentMethod;
             }
         }
-        Assert.fail("Метод не найден");
+        Assert.fail("Метод " + type + " не найден в списке оплаты");
         return paymentMethods.get(0);
     }
 
@@ -88,16 +91,19 @@ public final class ApiV3Helper {
         return paymentMethods.get(0);
     }
 
+    @Step("Ищем метод замен: {id}")
     public ReplacementOptionV3 getReplacementMethod(String id, List<ReplacementOptionV3> replacementMethods) {
         log.debug("Ищем метод замен: " + id);
 
         for (ReplacementOptionV3 replacementMethod : replacementMethods) {
             if (id.equals(replacementMethod.getId())) {
                 log.debug("Метод найден: " + id);
+                Allure.step("Метод найден: " + id);
                 return replacementMethod;
             }
         }
         log.error("Метод не найден");
+        Allure.step("Метод не найден");
         return replacementMethods.get(0);
     }
 
@@ -124,6 +130,7 @@ public final class ApiV3Helper {
         return createOrderDelivery(testData);
     }
 
+    @Step("Создание заказа с доставкой")
     public OrderV3 createOrderDelivery(ApiV3TestData testData) {
 
         Response response = OrderOptionsV3Request.Delivery.PUT(testData);
@@ -154,6 +161,7 @@ public final class ApiV3Helper {
         return response.as(OrderV3.class);
     }
 
+    @Step("Создание заказа на самовывоз для ритейлера is = {testData.retailer_id}  в storeId = {testData.storeId}")
     public OrderV3 createOrderPickupFromStore(ApiV3TestData testData) {
 
         Response response = OrderOptionsV3Request.PickupFromStore.PUT(testData);

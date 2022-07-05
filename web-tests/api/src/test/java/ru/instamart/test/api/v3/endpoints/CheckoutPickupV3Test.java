@@ -39,16 +39,17 @@ public class CheckoutPickupV3Test extends RestBase {
     private AddressV2 addressDefaultMoscowSid;
     private long offerDefaultMoscowSidId;
     private UserData user;
+    private int  defaultMetroMoscowSid = EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID;;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         user = UserManager.getQaUser();
         apiV1.authByPhone(user);
-        addressDefaultMoscowSid = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
-        offerDefaultMoscowSidId = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID).get(0).getId();
+        addressDefaultMoscowSid = apiV2.getAddressBySidMy(defaultMetroMoscowSid);
+        offerDefaultMoscowSidId = apiV2.getProductFromEachDepartmentOnMainPage(defaultMetroMoscowSid).get(0).getId();
         checkFlipper("checkout_web_force_all");
         apiV1.changeAddress(addressDefaultMoscowSid, ShippingMethodV2.BY_COURIER.getMethod());
-        apiV1.fillCart(addressDefaultMoscowSid, ShippingMethodV2.PICKUP.getMethod(), offerDefaultMoscowSidId, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        apiV1.fillCart(addressDefaultMoscowSid, ShippingMethodV2.PICKUP.getMethod(), offerDefaultMoscowSidId, defaultMetroMoscowSid);
         order = apiV1.getMultiRetailerOrder();
     }
 
@@ -77,8 +78,9 @@ public class CheckoutPickupV3Test extends RestBase {
             groups = "api-instamart-regress",
             dependsOnMethods = "validatePickupOrder")
     public void getOrderWithAlcohol() {
+        apiV1.authByPhone(user);
         apiV1.deleteShipment(order.getShipments().get(0).getNumber(), order.getToken());
-        long offerId = SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        long offerId = SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(defaultMetroMoscowSid);
         apiV1.fillCart(addressDefaultMoscowSid, ShippingMethodV2.PICKUP.getMethod(), offerId);
         order = apiV1.getMultiRetailerOrder();
         final Response response = CheckoutV3Request.GET(order.getNumber());

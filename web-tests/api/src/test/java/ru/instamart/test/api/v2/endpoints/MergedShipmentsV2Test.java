@@ -47,12 +47,6 @@ public class MergedShipmentsV2Test extends RestBase {
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
     }
 
-    @AfterClass(alwaysRun = true)
-    public void cleanup() {
-        apiV2.cancelCurrentOrder();
-    }
-
-
     @CaseId(1029)
     @Story("Мердж подзаказа")
     @Test(groups = {"api-instamart-regress"},
