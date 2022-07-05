@@ -79,6 +79,7 @@ public class CreateShiftsTest extends RestBase {
     @CaseId(10)
     @Story("Создание смены")
     @Test(groups = {"api-shifts"},
+            dependsOnMethods = "creationOfShift201",
             description = "Создание свободной смены (с нулевой оплатой)")
     public void creationOfShiftInZeroGuaranteedPayroll() {
         PlanningPeriodsSHPResponse planningPeriodItem = planningPeriod.get(2);
@@ -106,6 +107,7 @@ public class CreateShiftsTest extends RestBase {
     @CaseId(11)
     @Story("Создание смены")
     @Test(groups = {"api-shifts"},
+            dependsOnMethods = "creationOfShiftInZeroGuaranteedPayroll",
             description = "Создание смен на день больше чем максимальное установленное количество часов")
     public void create422() {
         List<ShiftsRequest.PlanningPeriods> planningPeriods = new ArrayList<>();
@@ -162,7 +164,7 @@ public class CreateShiftsTest extends RestBase {
     @CaseId(137)
     @Story("Создание смены")
     @Test(groups = {"api-shifts"},
-            dependsOnMethods = "creationOfShift201",
+            dependsOnMethods = "createTwoShifts422",
             description = "Партнер не может создать смену на одно время для двух магазинов")
     public void createShiftsBeforeOneMinutesToStart422() {
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
