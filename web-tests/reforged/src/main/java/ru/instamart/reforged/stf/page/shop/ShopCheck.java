@@ -26,11 +26,6 @@ public interface ShopCheck extends Check, ShopElement {
         waitAction().shouldBeVisible(firstProductCardProd);
     }
 
-    @Step("Проверяем, что находимся на странице дефолтного магазина")
-    default void checkDefaultShopOpened() {
-        waitAction().urlEquals(UiProperties.STF_URL);
-    }
-
     @Step("Проверяем, что изображение товара отображается")
     default void checkItemImageDisplayed() {
         waitAction().shouldBeVisible(imageInFirstItem);

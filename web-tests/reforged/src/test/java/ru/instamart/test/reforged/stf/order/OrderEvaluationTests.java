@@ -78,7 +78,7 @@ public final class OrderEvaluationTests {
     @Test(description = "Оценка заказа с комментарием", groups = "regression")
     public void orderEvaluationComment() {
         UserData userData = UserManager.getQaUser();
-            helper.makeAndCompleteOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
+        helper.makeAndCompleteOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

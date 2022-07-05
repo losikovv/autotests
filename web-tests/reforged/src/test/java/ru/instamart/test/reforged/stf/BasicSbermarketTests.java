@@ -184,7 +184,7 @@ public final class BasicSbermarketTests {
             description = "Тест доступности витрин ритейлеров Сбермаркета ",
             groups = "regression")
     public void successCheckSbermarketAvailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
+        final String fullUrl =  UiProperties.STF_URL + retailer.getSlug();
         assertTrue(Curl.pageAvailable(fullUrl), "Страница " + fullUrl + " недоступна");
     }
 
@@ -196,7 +196,7 @@ public final class BasicSbermarketTests {
             description = "Тест недоступности витрин ритейлеров Сбермаркета ",
             groups = "regression")
     public void successCheckSbermarketUnavailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
+        final String fullUrl =  UiProperties.STF_URL + retailer.getSlug();
         assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
     }
 
