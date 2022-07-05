@@ -24,7 +24,7 @@ public final class CoreProperties {
     @Config(configName = NAME, fieldName = "grpcPort", defaultValue = "443")
     public static int GRPC_PORT;
 
-    @Config(configName = NAME, fieldName = "kafkaServer", defaultValue = "84.201.149.206:9094")
+    @Config(configName = NAME, fieldName = "kafkaServer", defaultValue = "51.250.33.222:9094")
     public static String KAFKA_SERVER;
 
     @Config(configName = NAME, fieldName = "defaultQaServiceTimeout", defaultValue = "15")
