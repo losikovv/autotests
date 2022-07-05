@@ -11,7 +11,6 @@ import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.inner.InnerButton;
 import ru.instamart.reforged.core.component.inner.InnerCollectionComponent;
 import ru.instamart.reforged.core.component.inner.InnerElement;
-import ru.instamart.reforged.core.component.inner.InnerLink;
 import ru.instamart.reforged.core.custom_exceptions.NoSuchElementInCollection;
 
 import java.util.List;

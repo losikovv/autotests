@@ -44,10 +44,10 @@ public final class CheckoutPaymentStepTests {
     public void successDeleteSavedCard() {
         var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3dsWithSpasibo();
-        helper.bindCardToUser(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID,
+        helper.bindCardToUser(userData, EnvironmentProperties.DEFAULT_SID,
                 card);
 
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

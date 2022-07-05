@@ -2,7 +2,6 @@ package ru.instamart.test.reforged.stf.user;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -16,8 +15,6 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.sber_id_auth.SberIdPageRouter.sberId;
-import static ru.instamart.reforged.stf.page.StfRouter.checkout;
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Авторизация")
@@ -85,7 +82,6 @@ public final class UserAuthorisationTests {
     }
 
     //Короче FB опять заблокировал наш ip
-    //Запрещенная на территории РФ организация
     @CaseId(1459)
     @Story("Авторизация через Facebook")
     @Test(enabled = false, description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
@@ -110,7 +106,7 @@ public final class UserAuthorisationTests {
     @Story("Авторизация через VK")
     @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"production", "smoke", "regression"})
     public void successRegWithVkontakte() {
-        final var vkUser = UserManager.getNewVkUser();
+        UserData vkUser = UserManager.getNewVkUser();
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -144,6 +140,7 @@ public final class UserAuthorisationTests {
         shop().interactAuthModal().interactAuthMailWindow()
                 .fillPassword(UserManager.getDefaultMailRuUser().getPassword());
         shop().interactAuthModal().interactAuthMailWindow().clickToSubmit();
+        shop().interactAuthModal().interactAuthMailWindow().clickToAccept();
         shop().interactAuthModal().interactAuthMailWindow().switchToFirstWindow();
         shop().interactAuthModal().checkModalIsNotVisible();
 
@@ -186,11 +183,10 @@ public final class UserAuthorisationTests {
         sberId().checkPageContains(EnvironmentProperties.Env.FULL_SBER_ID_URL);
     }
 
-//    @CaseId(1459)
-    @Issue("B2C-8946")
+    //    @CaseId(1459)
     @Run(onServer = Server.PREPROD)
     @Story("Авторизация через СберБизнесID")
-    @Test(enabled = false, description = "Тест успешной авторизация через СберБизнесID", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешной авторизация через СберБизнесID", groups = {"smoke", "regression"})
     public void successRegWithSberBusinessID() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

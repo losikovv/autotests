@@ -7,11 +7,11 @@ import ru.instamart.reforged.business.page.user.companies.B2BUserCompaniesPage;
 import ru.instamart.reforged.business.page.user.companies.companyInfo.B2BCompanyInfoPage;
 import ru.instamart.reforged.business.page.user.profile.B2BUserProfilePage;
 import ru.instamart.reforged.core.page.Router;
-import ru.instamart.reforged.next.page.home.HomePage;
-import ru.instamart.reforged.next.page.shop.ShopPage;
-import ru.instamart.reforged.next.page.user.companies.UserCompaniesPage;
-import ru.instamart.reforged.next.page.user.companies.companyInfo.CompanyInfoPage;
-import ru.instamart.reforged.next.page.user.profile.UserProfilePage;
+import ru.instamart.reforged.stf.page.home.HomePage;
+import ru.instamart.reforged.stf.page.shop.ShopPage;
+import ru.instamart.reforged.stf.page.user.companies.UserCompaniesPage;
+import ru.instamart.reforged.stf.page.user.companies.companyInfo.CompanyInfoPage;
+import ru.instamart.reforged.stf.page.user.profile.UserProfilePage;
 
 public class BusinessRouter extends Router {
 

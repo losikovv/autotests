@@ -83,9 +83,14 @@ public interface CartCheck extends Check, CartElement {
         Assert.assertEquals(actualItemsCount, expectedItemsCount, "Количество товаров в корзине не соответствует ожидаемому");
     }
 
-    @Step("Проверяем, что количество магазинов в корзине равно {0}" )
+    @Step("Проверяем, что количество магазинов в корзине равно {0}")
     default void checkRetailersCountShouldBe(int expectedRetailersCount) {
         waitAction().elementCollectionSizeShouldBeEqual(retailers, expectedRetailersCount);
+    }
+
+    @Step("Проверяем, что рителер '{retailerName}' не отображается в корзине")
+    default void checkRetailerNotVisible(final String retailerName){
+        waitAction().shouldNotBeVisible(retailerByName, retailerName);
     }
 
 }

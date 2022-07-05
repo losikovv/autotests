@@ -99,7 +99,7 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
     @Step("Проверка соответствия даты и времени доставки ожидаемым {expectedDate}")
     default void checkDeliveryIntervalCorrect(final String expectedInterval) {
         Assert.assertEquals(
-                StringUtil.cutExtraZerosFromDate(deliveryInterval.getText()).replaceAll("\n"," "),
+                StringUtil.cutExtraZerosFromDate(deliveryInterval.getText()).replaceAll("\n", " "),
                 expectedInterval,
                 "Дата и время доставки не соответствует ожидаемым");
     }

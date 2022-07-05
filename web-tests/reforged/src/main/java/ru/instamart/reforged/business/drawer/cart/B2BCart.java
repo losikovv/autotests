@@ -2,7 +2,7 @@ package ru.instamart.reforged.business.drawer.cart;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
-import ru.instamart.reforged.next.drawer.cart.container.Item;
+import ru.instamart.reforged.stf.drawer.cart.container.Item;
 
 /**
  * Корзина. Основные элементы

@@ -3,19 +3,19 @@ package ru.instamart.test.reforged.stf.shopping;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.config.UiProperties;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
-import static ru.instamart.reforged.stf.page.StfRouter.search;
 
 @Epic("STF UI")
 @Feature("Заказ")
-public final class ShoppingTestsForExistingUser {
+public class ShoppingTestsForExistingUser {
 
     private final ApiHelper helper = new ApiHelper();
 
@@ -37,7 +37,7 @@ public final class ShoppingTestsForExistingUser {
 
         checkout().goToPage();
         shop().interactHeader().checkMinAmountAlertVisible();
-        shop().checkDefaultShopOpened();
+        home().checkPageUrl(UiProperties.STF_URL);
     }
 
     @CaseId(1617)

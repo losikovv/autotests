@@ -3,12 +3,12 @@ package ru.instamart.test.reforged.stf.user;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
@@ -21,11 +21,14 @@ public final class UserLogoutTests {
     @Story("Позитивный кейс")
     @Test(description = "Тест успешной быстрой деавторизации", groups = "regression")
     public void successQuickLogout() {
+        UserData userData = UserManager.getQaUser();
+
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().interactHeader().clearSessionLogout();
+
+        shop().interactHeader().clearSessionLogout(userData);
         shop().interactHeader().checkLoginIsVisible();
         home().goToPage();
         home().checkLoginButtonIsVisible();
@@ -33,7 +36,7 @@ public final class UserLogoutTests {
 
     @CaseId(1474)
     @Story("Позитивный кейс")
-    @Test(description = "Тест успешной деавторизации", groups = {"production", "smoke", "regression"})
+    @Test(description = "Тест успешной деавторизации", groups = {"production", "regression", "smoke"})
     public void successManualLogout() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

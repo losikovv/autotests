@@ -43,7 +43,6 @@ public interface ShopElement {
             "Кнопка добавить в корзину у элемента");
     Button minusItemFromCart = new Button(ByKraken.xpathExpression("//div[@data-qa='catalog_page_taxons_list_taxon_item_%s_product_item_%s']//button[contains(@title, 'Убрать из корзины')]"),
             "Кнопка убрать из корзины у элемента");
-    Element spinner = new Element(By.xpath("//div[@data-qa='catalog_page_popular_products']/div"), "Спиннер блока рекомендаций");
     Element productTitle = new Element(ByKraken.xpathExpression("//div[@data-qa='catalog_page_taxons_list_taxon_item_%s_product_item_%s']//h3"), "Имя первого товара в каталоге на стейдже");
 
     Element imageInFirstItem = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')]//img"), "Изображение товара");

@@ -27,7 +27,7 @@ public final class UserShipmentsPage implements StfPage, UserShipmentsCheck {
 
     @Step("Нажать на кнопку разворачивания деталей заказа")
     public void clickToDetails() {
-       orderDetailsTrigger.click();
+        orderDetailsTrigger.click();
     }
 
     @Step("Нажать на кнопку 'Повторить заказ' на странице заказа")

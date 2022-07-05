@@ -8,10 +8,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.AddressDetailsData;
-import ru.instamart.kraken.data.JuridicalData;
-import ru.instamart.kraken.data.PaymentCards;
-import ru.instamart.kraken.data.TestVariables;
+import ru.instamart.kraken.data.*;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
@@ -20,8 +17,8 @@ import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.Env.DEMO_RBSUAT_PAYMENTS_URL;
-import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
 
 @Epic("STF UI")
 @Feature("Покупка товара")
@@ -40,9 +37,9 @@ public final class BasicOrdersTests {
     @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successCompleteCheckoutWithNewJuridical() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
-        final var company = JuridicalData.juridical();
+        var company = JuridicalData.juridical();
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -55,10 +52,8 @@ public final class BasicOrdersTests {
 
         checkout().interactAddCompanyModal().fillCompany(company);
         checkout().interactAddCompanyModal().clickToOkButton();
-        checkout().checkCheckoutLoaderNotVisible();
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
-        checkout().setDeliveryOptions().fillComments("test");
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().checkCheckoutLoaderNotVisible();
@@ -82,9 +77,8 @@ public final class BasicOrdersTests {
     @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successCompleteCheckoutWithNewPaymentCard() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
-        var company = JuridicalData.juridical();
         var card = PaymentCards.testCard();
 
         shop().goToPage();
@@ -95,7 +89,7 @@ public final class BasicOrdersTests {
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
 
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().checkCheckoutLoaderNotVisible();
@@ -129,7 +123,6 @@ public final class BasicOrdersTests {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
 
-        var company = JuridicalData.juridical();
         var card = PaymentCards.testCardNo3dsWithSpasibo();
 
         shop().goToPage();
@@ -138,13 +131,9 @@ public final class BasicOrdersTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
+        checkout().setDeliveryOptions().clickToForSelf();
 
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().checkCheckoutLoaderNotVisible();
@@ -175,21 +164,15 @@ public final class BasicOrdersTests {
         helper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 1);
         helper.dropAndFillCartFromFavorites(userData, EnvironmentProperties.DEFAULT_SID);
 
-        var company = JuridicalData.juridical();
-
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
+        checkout().setDeliveryOptions().clickToForSelf();
 
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().checkCheckoutLoaderNotVisible();
@@ -209,11 +192,11 @@ public final class BasicOrdersTests {
     }
 
     @CaseId(1673)
-    @Test(description = "Тест успешного заказа с оплатой картой курьеру", groups = {"production", "smoke", "regression"})
+    @Test(description = "Тест успешного заказа с оплатой картой курьеру", groups = {"smoke", "regression"})
     @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithCardCourier() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -222,8 +205,10 @@ public final class BasicOrdersTests {
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
-        checkout().setDeliveryOptions().fillComments("test");
+
+        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
         checkout().checkCheckoutLoaderNotVisible();
 
         checkout().setContacts().fillContactInfo();
@@ -335,14 +320,14 @@ public final class BasicOrdersTests {
 
     @CaseId(2625)
     @Story("Заказ")
-    @Test(description = "Успешное оформление мультизаказа", groups = "regression")
+    @Test(enabled = false, description = "Успешное оформление мультизаказа", groups = "regression")
     @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successMultiOrder() {
+        //пока выключено, для некста отключен мультизаказ на данный момент
         userData = UserManager.getQaUser();
 
         helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, EnvironmentProperties.DEFAULT_AUCHAN_SID);
 
-        var company = JuridicalData.juridical();
         var card = PaymentCards.testCard();
 
         shop().goToPage();
@@ -354,13 +339,9 @@ public final class BasicOrdersTests {
         shop().interactCart().submitOrder();
 
         checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
+        checkout().setDeliveryOptions().clickToForSelf();
 
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().checkCheckoutLoaderNotVisible();
@@ -428,7 +409,6 @@ public final class BasicOrdersTests {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
-        var company = JuridicalData.juridical();
         var card = PaymentCards.testCard();
 
         shop().goToPage();
@@ -437,13 +417,9 @@ public final class BasicOrdersTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
+        checkout().setDeliveryOptions().clickToForSelf();
 
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().checkCheckoutLoaderNotVisible();
@@ -460,6 +436,7 @@ public final class BasicOrdersTests {
 
         checkout().interactAddPaymentCardModal().fillCardData(card);
         checkout().interactAddPaymentCardModal().clickToSaveModal();
+        checkout().interactAddPaymentCardModal().checkModalWindowNotVisible();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
@@ -472,9 +449,9 @@ public final class BasicOrdersTests {
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
+        checkout().setDeliveryOptions().clickToForSelf();
 
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().checkCheckoutLoaderNotVisible();

@@ -2,10 +2,10 @@ package ru.instamart.test.reforged.stf.landings;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.driversHiring;
 
 @Epic("STF UI")
 @Feature("Проверка лендингов")

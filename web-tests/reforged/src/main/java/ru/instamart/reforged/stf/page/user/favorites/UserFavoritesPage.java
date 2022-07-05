@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.user.favorites;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 import ru.instamart.reforged.stf.page.StfPage;
@@ -27,7 +28,8 @@ public final class UserFavoritesPage implements StfPage, UserFavoritesCheck {
 
     @Step("Добавить в корзину первый избранный товар")
     public void addToCartFirstFavoriteItem() {
-        addToCartNext.clickOnFirst();
+        ThreadUtil.simplyAwait(1);
+        addToCart.clickOnFirst();
     }
 
     @Step("Удалить все избранные товары")
@@ -55,10 +57,9 @@ public final class UserFavoritesPage implements StfPage, UserFavoritesCheck {
         return allFavorites.elementCount();
     }
 
-    @Step("Нажать на Показать больше")
-    public void showMore() {
-        showMore.scrollTo();
-        showMore.click();
+    @Step("Опускаемся к последнему видимому товару")
+    public void scrollToLastFavoriteItem() {
+        allFavorites.scrollToLast();
     }
 
     @Override

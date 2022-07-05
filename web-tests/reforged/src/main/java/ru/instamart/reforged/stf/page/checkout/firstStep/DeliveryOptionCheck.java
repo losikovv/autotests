@@ -3,8 +3,6 @@ package ru.instamart.reforged.stf.page.checkout.firstStep;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 
-import static ru.instamart.reforged.core.Check.krakenAssert;
-
 public interface DeliveryOptionCheck extends Check, DeliveryOptionElement {
 
     @Step("Проверяем, что радиобаттон 'Для себя' выбран")

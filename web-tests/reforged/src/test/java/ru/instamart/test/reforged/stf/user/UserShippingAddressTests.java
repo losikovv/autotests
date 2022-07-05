@@ -55,7 +55,7 @@ public final class UserShippingAddressTests {
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
-        shop().interactHeader().interactAddress().close();
+        shop().interactHeader().interactAddress().clickOnClose();
         shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotOpen();
         shop().interactHeader().checkIsShippingAddressNotSet();
     }
@@ -66,16 +66,16 @@ public final class UserShippingAddressTests {
     public void noAvailableShopsOutOfDeliveryZone() {
         shop().goToPage(true);
         shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactAddress().checkYmapsReady();
+        shop().interactAddressLarge().checkYmapsReady();
 
-        shop().interactAddress().fillAddress(Addresses.Moscow.outOfZoneAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkIsAddressOutOfZone();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.outOfZoneAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkIsAddressOutOfZone();
 
-        shop().interactAddress().close();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().close();
+        shop().interactAddressLarge().checkAddressModalNotVisible();
         shop().interactHeader().clickToStoreSelector();
 
         home().checkOutOfDeliveryAreaMessageDisplayed();
@@ -113,7 +113,7 @@ public final class UserShippingAddressTests {
         shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(testAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
-        shop().interactHeader().interactAddress().close();
+        shop().interactHeader().interactAddress().clickOnClose();
         shop().interactHeader().checkIsSetAddressEqualToInput(
                 defaultAddress,
                 shop().interactHeader().getShippingAddressFromHeader()
@@ -229,7 +229,6 @@ public final class UserShippingAddressTests {
         home().interactAddressModal().fillAddress(defaultAddress);
         home().interactAddressModal().selectFirstAddress();
         home().interactAddressModal().clickFindStores();
-        home().waitPageLoad();
         home().clickOnStoreWithSid(DEFAULT_METRO_MOSCOW_SID);
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().interactHeader().checkIsSetAddressEqualToInput(defaultAddress,
@@ -523,6 +522,7 @@ public final class UserShippingAddressTests {
         shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
 
         shop().goToPage(ShopUrl.VKUSVILL);
+        shop().interactHeader().checkEnteredAddressIsVisible();
         shop().plusItemToCart("1", "0");
         shop().interactStoreModal().checkStoreModalIsOpen();
     }

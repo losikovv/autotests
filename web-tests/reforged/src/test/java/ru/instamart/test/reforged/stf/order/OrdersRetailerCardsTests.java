@@ -20,6 +20,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
+//TODO не проверялся на next
 @Epic("STF UI")
 @Feature("Покупка товара со скидочной картой")
 public final class OrdersRetailerCardsTests {

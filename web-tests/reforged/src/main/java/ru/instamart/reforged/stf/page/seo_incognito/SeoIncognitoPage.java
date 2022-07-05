@@ -1,8 +1,6 @@
 package ru.instamart.reforged.stf.page.seo_incognito;
 
 import io.qameta.allure.Step;
-import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.page.StfPage;
 

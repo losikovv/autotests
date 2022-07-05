@@ -46,6 +46,7 @@ public final class HomePageTests {
 
         Kraken.back();
 
+        home().clearAddressInLanding();
         home().checkAddressInputClear();
         home().fillAddressInLanding(Addresses.Moscow.crossZone2MetroAddress());
 
@@ -102,16 +103,17 @@ public final class HomePageTests {
     @CaseId(3361)
     @Test(description = "Определение города по IP если в городе работает СберМаркет", groups = "regression")
     public void detectCityByIPAndChangeCityFromOnboarding() {
+
         home().goToPage(true);
         home().setLocation("Moscow");
         home().checkBannerTitleText(home().getAddressBlockText(), "Доставка из любимых магазинов в Москве");
 
-        String expectedDeliveryBlockTitle = String.format("Нашли %d магазинов в Москве", home().getRetailersCountInBlock());
+        String expectedDeliveryBlockTitle = String.format("Нашли %d магазинов в", home().getRetailersCountInBlock());
         home().checkDeliveryBlockTitle(home().getRetailersBlockTitle(), expectedDeliveryBlockTitle);
 
         home().clickShowAllCities();
         home().selectCity("Санкт-Петербург");
-        expectedDeliveryBlockTitle = String.format("Нашли %d магазин в Санкт-Петербурге", home().getRetailersCountInBlock());
+        expectedDeliveryBlockTitle = String.format("Нашли %d магазин в", home().getRetailersCountInBlock());
         home().checkDeliveryBlockTitle(home().getRetailersBlockTitle(), expectedDeliveryBlockTitle);
     }
 
@@ -145,7 +147,7 @@ public final class HomePageTests {
         home().checkOutOfDeliveryAreaMessageDisplayed();
         home().checkAddressBlockTextEquals(home().getAddressBlockText(), "Доставка из любимых магазинов");
 
-        home().checkDeliveryBlockTitle(home().getRetailersBlockTitle(), String.format("Нашли %d магазинов в Москве", home().getRetailersCountInBlock()));
+        home().checkDeliveryBlockTitle(home().getRetailersBlockTitle(), String.format("Нашли %d магазинов в", home().getRetailersCountInBlock()));
     }
 
     @CaseId(3364)

@@ -1,7 +1,7 @@
 package ru.instamart.reforged.business.frame.address;
 
 import io.qameta.allure.Step;
-import ru.instamart.reforged.next.frame.Close;
+import ru.instamart.reforged.stf.frame.Close;
 
 /**
  * Попап выбора адреса, открывается на главной странице, а также в других местах для пользователя, не исключенного из АБ

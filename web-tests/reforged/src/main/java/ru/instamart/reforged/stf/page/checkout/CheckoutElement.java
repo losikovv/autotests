@@ -6,19 +6,19 @@ import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
-import ru.instamart.reforged.stf.frame.checkout.subsections.*;
-import ru.instamart.reforged.stf.frame.checkout.subsections.create_company.AddCompany;
+import ru.instamart.reforged.stf.frame.checkout.subsections.EditRequisites;
 import ru.instamart.reforged.stf.frame.checkout.subsections.add_payment_card.AddPaymentCard;
+import ru.instamart.reforged.stf.frame.checkout.subsections.create_company.AddCompany;
 import ru.instamart.reforged.stf.frame.checkout.subsections.edit_payment_card.EditPaymentCard;
 import ru.instamart.reforged.stf.frame.checkout.subsections.edit_phone_number.EditPhoneNumber;
 import ru.instamart.reforged.stf.frame.checkout.subsections.loyaltycard_modal.EditLoyaltyCard;
 import ru.instamart.reforged.stf.frame.checkout.subsections.promocode_modal.EditPromoCode;
 import ru.instamart.reforged.stf.frame.checkout.subsections.retailer_card.EditRetailerCard;
-import ru.instamart.reforged.stf.page.checkout.fourthStep.SlotStep;
-import ru.instamart.reforged.stf.page.checkout.fifthStep.edit_company.EditCompany;
 import ru.instamart.reforged.stf.page.checkout.fifthStep.PaymentStep;
-import ru.instamart.reforged.stf.page.checkout.secondStep.ContactsStep;
+import ru.instamart.reforged.stf.page.checkout.fifthStep.edit_company.EditCompany;
 import ru.instamart.reforged.stf.page.checkout.firstStep.DeliveryOptionStep;
+import ru.instamart.reforged.stf.page.checkout.fourthStep.SlotStep;
+import ru.instamart.reforged.stf.page.checkout.secondStep.ContactsStep;
 import ru.instamart.reforged.stf.page.checkout.thirdStep.ReplacementPolicyStep;
 
 public interface CheckoutElement {
@@ -41,7 +41,7 @@ public interface CheckoutElement {
 
     Button submitFromCheckoutSidebar = new Button(By.xpath("//aside[@class='checkout-sidebar']//button[@data-qa='checkout_order_button']"), "Кнопка оформления заказа в сайдбаре корзины");
 
-    Button addRetailerCard = new Button(By.xpath("//div[@class='retailer-card__label']"),  "добавить карту ретейлера");
+    Button addRetailerCard = new Button(By.xpath("//div[@class='retailer-card__label']"), "добавить карту ретейлера");
 
     Button addPromoCode = new Button(By.xpath("//button[@data-qa='checkout_apply_coupon_code_button']"), "Кнопка добавления промокода в корзине");
     Button deletePromoCode = new Button(By.xpath("//button[@data-qa='checkout_delete_coupon_code_button']"), "Кнопка удаления промокода из корзины");
@@ -62,5 +62,5 @@ public interface CheckoutElement {
     Element sideBarSpinner = new Element(By.xpath("//div[@class='checkout-summary']//span[contains(text(), 'Загрузка...')]"), "Лоадер сайдбара");
 
     Element orderAmount = new Element(By.xpath("//span[@class='checkout-summary__price']"), "Лейбл суммы заказа");
-    Element positionsCount =  new Element(By.xpath("//div[@class='checkout-summary__weight']/preceding-sibling::div"), "Количество позиций корзины");
+    Element positionsCount = new Element(By.xpath("//div[@class='checkout-summary__weight']/preceding-sibling::div"), "Количество позиций корзины");
 }

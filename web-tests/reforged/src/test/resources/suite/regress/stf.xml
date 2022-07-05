@@ -1,68 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Web UI regress" data-provider-thread-count="5">
-  <listeners>
-    <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
-    <listener class-name="ru.instamart.reforged.core.listener.UiListener"/>
-  </listeners>
-  <method-selectors>
-    <method-selector>
-      <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
-    </method-selector>
-  </method-selectors>
-  <test verbose="1" name="Web UI tests" parallel="classes" thread-count="5">
-    <classes>
-      <class name="ru.instamart.test.reforged.stf.checkout.BasicCheckoutTests"/>
-      <class name="ru.instamart.test.reforged.stf.checkout.CheckoutAddressStepTests"/>
-      <class name="ru.instamart.test.reforged.stf.checkout.CheckoutBonusesTests"/>
-      <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPromocodeTests"/>
-      <class name="ru.instamart.test.reforged.stf.checkout.CheckoutContactsStepTests"/>
-      <class name="ru.instamart.test.reforged.stf.checkout.CheckoutAddressStepTests"/>
-      <class name="ru.instamart.test.reforged.stf.checkout.CheckoutDeliverySlotsTests"/>
+    <listeners>
+        <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
+        <listener class-name="ru.instamart.reforged.core.listener.UiListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="Web UI tests" parallel="classes" thread-count="5">
+        <classes>
+            <class name="ru.instamart.test.reforged.stf.BasicSbermarketTests"/>
+            <class name="ru.instamart.test.reforged.stf.Page404Tests"/>
+            <class name="ru.instamart.test.reforged.stf.SeoCatalogTests"/>
+            <class name="ru.instamart.test.reforged.stf.HelpDeskChatTests"/>
+            <class name="ru.instamart.test.reforged.stf.HomePageTests"/>
 
-      <class name="ru.instamart.test.reforged.stf.landings.DriversHiringLandingTests"/>
-      <class name="ru.instamart.test.reforged.stf.landings.SbermarketLandingTests"/>
+            <class name="ru.instamart.test.reforged.stf.user.UserAuthorisationTests"/>
+            <class name="ru.instamart.test.reforged.stf.user.UserFavoritesTests"/>
+            <class name="ru.instamart.test.reforged.stf.user.UserLogoutTests"/>
+            <class name="ru.instamart.test.reforged.stf.user.UserProfileTests"/>
+            <class name="ru.instamart.test.reforged.stf.user.UserRegistrationTests"/>
+            <class name="ru.instamart.test.reforged.stf.user.UserShippingAddressTests"/>
 
-      <class name="ru.instamart.test.reforged.stf.order.BasicOrdersTests"/>
-      <class name="ru.instamart.test.reforged.stf.order.OrderRepeatTests"/>
-      <class name="ru.instamart.test.reforged.stf.order.OrdersBonusesTests"/>
-      <class name="ru.instamart.test.reforged.stf.order.OrdersPaymentsTests"/>
-      <class name="ru.instamart.test.reforged.stf.order.OrdersPromoCodesTests"/>
-      <class name="ru.instamart.test.reforged.stf.order.OrdersReplacementsTests"/>
-      <class name="ru.instamart.test.reforged.stf.order.OrdersRetailerCardsTests"/>
-      <class name="ru.instamart.test.reforged.stf.order.OrdersCitiesTests"/>
-      <class name="ru.instamart.test.reforged.stf.order.OrdersRetailersTests"/>
-      <class name="ru.instamart.test.reforged.stf.order.OrderEvaluationTests"/>
-      <class name="ru.instamart.test.reforged.stf.order.OrdersPrereplacementsTests"/>
+            <class name="ru.instamart.test.reforged.stf.shopping.ShoppingTestsForExistingUser"/>
+            <class name="ru.instamart.test.reforged.stf.shopping.ShoppingTestsForUnauthorizedUser"/>
+            <class name="ru.instamart.test.reforged.stf.shopping.ShoppingYouBoughtBeforeTests"/>
+            <class name="ru.instamart.test.reforged.stf.shopping.ShoppingCartTests"/>
+            <class name="ru.instamart.test.reforged.stf.shopping.ShoppingCatalogTests"/>
+            <class name="ru.instamart.test.reforged.stf.shopping.ShoppingSearchTests"/>
 
-      <!-- Ждет включения данной фичи на стейдже или перехода на полноценный препрод -->
-      <!--
-      <class name="ru.instamart.test.reforged.stf.retail.RetailRocketCartWidgetsTests"/>
-      <class name="ru.instamart.test.reforged.stf.retail.RetailRocketItemCardWidgetsTests"/>
-      <class name="ru.instamart.test.reforged.stf.retail.RetailRocketRetailerPageWidgetsTests"/>
-      -->
+            <class name="ru.instamart.test.reforged.stf.order.OrdersPaymentsTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrdersPromoCodesTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrdersReplacementsTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrdersRetailerCardsTests"/>
 
-      <class name="ru.instamart.test.reforged.stf.shopping.ShoppingCartTests"/>
-      <class name="ru.instamart.test.reforged.stf.shopping.ShoppingCatalogTests"/>
-      <class name="ru.instamart.test.reforged.stf.shopping.ShoppingSearchTests"/>
-      <class name="ru.instamart.test.reforged.stf.shopping.ShoppingTestsForExistingUser"/>
-      <class name="ru.instamart.test.reforged.stf.shopping.ShoppingTestsForUnauthorizedUser"/>
-      <class name="ru.instamart.test.reforged.stf.shopping.ShoppingYouBoughtBeforeTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrderEvaluationTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrdersCitiesTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrdersPrereplacementsTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrdersRetailersTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.BasicOrdersTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrderRepeatTests"/>
+            <class name="ru.instamart.test.reforged.stf.landings.DriversHiringLandingTests"/>
+            <class name="ru.instamart.test.reforged.stf.landings.SbermarketLandingTests"/>
 
-      <class name="ru.instamart.test.reforged.stf.user.UserAuthorisationTests"/>
-      <class name="ru.instamart.test.reforged.stf.user.UserFavoritesTests"/>
-      <class name="ru.instamart.test.reforged.stf.user.UserLogoutTests"/>
-      <class name="ru.instamart.test.reforged.stf.user.UserProfileTests"/>
-      <class name="ru.instamart.test.reforged.stf.user.UserRegistrationTests"/>
-      <class name="ru.instamart.test.reforged.stf.user.UserShippingAddressTests"/>
+            <class name="ru.instamart.test.reforged.stf.checkout.CheckoutAddressStepTests"/>
+            <class name="ru.instamart.test.reforged.stf.checkout.CheckoutContactsStepTests"/>
+            <class name="ru.instamart.test.reforged.stf.checkout.CheckoutDeliverySlotsTests"/>
+            <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPromocodeTests"/>
+            <class name="ru.instamart.test.reforged.stf.checkout.CheckoutBonusesTests"/>
+            <class name="ru.instamart.test.reforged.stf.checkout.BasicCheckoutTests"/>
+            <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPaymentStepTests"/>
 
-      <class name="ru.instamart.test.reforged.stf.HomePageTests"/>
-
-      <class name="ru.instamart.test.reforged.stf.BasicSbermarketTests"/>
-      <class name="ru.instamart.test.reforged.stf.Page404Tests"/>
-      <class name="ru.instamart.test.reforged.stf.SeoCatalogTests"/>
-      <class name="ru.instamart.test.reforged.stf.HelpDeskChatTests"/>
-      <class name="ru.instamart.test.reforged.stf.CookieTests"/>
-    </classes>
-  </test>
+        </classes>
+    </test>
 </suite>

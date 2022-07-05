@@ -147,7 +147,7 @@ public interface HomeCheck extends Check, HomeElement {
 
     @Step("Проверяем, что заголовок блока найденных магазинов: '{expectedBlockTitle}'")
     default void checkDeliveryBlockTitle(final String actualBlockTitle, final String expectedBlockTitle) {
-        Assert.assertEquals(actualBlockTitle, expectedBlockTitle,
+        Assert.assertTrue(actualBlockTitle.contains(expectedBlockTitle),
                 String.format("Заголовок блока с магазинами (ритейлерами): '%s' отличается от ожидаемого: '%s' магазинов", actualBlockTitle, expectedBlockTitle));
     }
 

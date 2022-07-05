@@ -22,7 +22,7 @@ public final class ShoppingCartTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1571)
-    @Test(description = "Тест валидации дефолтной корзины", groups = "regression")
+    @Test(description = "Тест валидации дефолтной корзины", groups = {"regression"})
     public void successValidateDefaultCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -45,7 +45,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1572)
-    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = "regression")
+    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {"regression"})
     public void successAddItemToCartUnauthorized() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -64,7 +64,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1573)
-    @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = "regression")
+    @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {"regression"})
     public void successAddItemToCartFromItemCard() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -82,7 +82,7 @@ public final class ShoppingCartTests {
         shop().checkFirstProductCardIsVisible();
         shop().openFirstProductCard();
         shop().interactProductCard().clickOnBuy();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
@@ -117,7 +117,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1575)
-    @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = "regression")
+    @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {"regression"})
     public void successChangeItemQuantityInCartViaItemCard() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -146,7 +146,7 @@ public final class ShoppingCartTests {
         shop().checkFirstProductCardIsVisible();
         shop().openFirstProductCard();
         shop().interactProductCard().increaseItemCount();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
         shop().goToPage();
         shop().interactHeader().clickToCart();
@@ -158,7 +158,7 @@ public final class ShoppingCartTests {
         shop().checkFirstProductCardIsVisible();
         shop().openFirstProductCard();
         shop().interactProductCard().decreaseItemCount();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
 
         shop().goToPage();
@@ -168,7 +168,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1576)
-    @Test(description = "Тест на удаление товаров из корзины", groups = "regression")
+    @Test(description = "Тест на удаление товаров из корзины", groups = {"regression"})
     public void successRemoveItemsFromCart() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -190,7 +190,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1577)
-    @Test(description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге", groups = "regression")
+    @Test(description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге", groups = {"regression"})
     public void successAddItemToCartFromCatalogSnippet() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -282,13 +282,13 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCategoryMenu();
-        shop().waitPageLoad();
+        shop().checkFirstProductCardIsVisible();
         shop().interactCategoryMenu().clickToFirstLevelCategoryByName("Скидки");
 
         seo().openFirstProductCardOnDepartment();
         seo().interactProductCard().clickOnBuy();
         seo().interactProductCard().decreaseItemCount();
-        seo().interactProductCard().closeByEsc();
+        seo().interactProductCard().clickOnClose();
         seo().interactHeader().clickToCart();
         seo().interactCart().checkCartEmpty();
     }
@@ -307,7 +307,7 @@ public final class ShoppingCartTests {
 
         shop().openFirstProductCard();
         shop().interactProductCard().increaseItemCount();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -330,7 +330,7 @@ public final class ShoppingCartTests {
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().increaseItemCount();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -342,7 +342,7 @@ public final class ShoppingCartTests {
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().decreaseItemCount();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -552,7 +552,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkRetailersCountShouldBe(2);
 
         shop().interactCart().getFirstRetailer().removeAllItemsFromRetailer();
-        shop().interactCart().checkRetailersCountShouldBe(1);
+        shop().interactCart().checkRetailerNotVisible("METRO");
     }
 
     @CaseId(2617)
@@ -613,7 +613,7 @@ public final class ShoppingCartTests {
         final var firstProductFromRecs = shop().interactProductCard().getFirstProductNameFromRecs();
 
         shop().interactProductCard().plusFirstProductToCart();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();

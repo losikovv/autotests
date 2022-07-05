@@ -2,7 +2,6 @@ package ru.instamart.reforged.stf.frame.store_selector;
 
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.ByKraken;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Link;
