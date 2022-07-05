@@ -8,12 +8,17 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
+import ru.instamart.jdbc.dao.shippingcalc.RulesDao;
+import ru.instamart.jdbc.dao.shippingcalc.StrategiesDao;
+import ru.instamart.jdbc.entity.shippingcalc.RulesEntity;
+import ru.instamart.jdbc.entity.shippingcalc.StrategiesEntity;
 import ru.instamart.kraken.enums.Tenant;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import shippingcalc.ShippingcalcGrpc;
 import shippingcalc.ShippingcalcOuterClass;
 
+import java.util.List;
 import java.util.UUID;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -822,25 +827,25 @@ public class StrategyTest extends RestBase {
                         .build())
                 .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
                         .setStoreId(SECOND_STORE_ID)
-                        .setTenantId(Tenant.INSTAMART.getId())
+                        .setTenantId(Tenant.OKEY.getId())
                         .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.B2B_VALUE)
                         .build())
                 .build();
 
         clientShippingCalc.bindStrategy(request);
         checkBind(strategyIdWithDifferentScriptsInRules, FIRST_STORE_ID, Tenant.SBERMARKET.getId(), ShippingcalcOuterClass.DeliveryType.B2B.toString());
-        checkBind(strategyIdWithDifferentScriptsInRules, SECOND_STORE_ID, Tenant.INSTAMART.getId(), ShippingcalcOuterClass.DeliveryType.B2B.toString());
+        checkBind(strategyIdWithDifferentScriptsInRules, SECOND_STORE_ID, Tenant.OKEY.getId(), ShippingcalcOuterClass.DeliveryType.B2B.toString());
     }
 
     @CaseId(138)
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к магазину, у которого уже есть связка",
             groups = "dispatch-shippingcalc-smoke",
-            dependsOnMethods = "bindStrategy")
+            dependsOnMethods = "bindStrategyMultipleStores")
     public void rebindStrategy() {
-        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.METRO.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE, false);
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.OKEY.getId(), ShippingcalcOuterClass.DeliveryType.B2B_VALUE, false);
         clientShippingCalc.bindStrategy(request);
-        checkBind(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.METRO.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
+        checkBind(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.OKEY.getId(), ShippingcalcOuterClass.DeliveryType.B2B.toString());
     }
 
     @CaseId(366)
@@ -927,6 +932,18 @@ public class StrategyTest extends RestBase {
 
         clientShippingCalc.bindStrategy(request);
         checkBind(strategyId, SECOND_STORE_ID, Tenant.OKEY.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
+    }
+
+    @CaseId(376)
+    @Story("Bind Strategy")
+    @Test(description = "Получение ошибки при привязке к удаленной стратегии",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot bind strategy: entity not found",
+            dependsOnMethods = "deleteStrategy")
+    public void bindStrategyDeleted() {
+        ShippingcalcOuterClass.BindStrategyRequest request = getBindStrategyRequest(strategyIdWithDifferentScriptsInRules, FIRST_STORE_ID, Tenant.SELGROS.getId(), ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE, false);
+        clientShippingCalc.bindStrategy(request);
     }
 
     @CaseId(155)
@@ -1066,6 +1083,21 @@ public class StrategyTest extends RestBase {
     public void getStrategyNonExistent() {
         ShippingcalcOuterClass.GetStrategyRequest request = ShippingcalcOuterClass.GetStrategyRequest.newBuilder()
                 .setStrategyId(1234567890)
+                .build();
+
+        clientShippingCalc.getStrategy(request);
+    }
+
+    @CaseId(375)
+    @Story("Get Strategy")
+    @Test(description = "Получение ошибки при запросе удаленной стратегии",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "NOT_FOUND: cannot find strategy, entity not found",
+            dependsOnMethods = "deleteStrategy")
+    public void getStrategyDeleted() {
+        ShippingcalcOuterClass.GetStrategyRequest request = ShippingcalcOuterClass.GetStrategyRequest.newBuilder()
+                .setStrategyId(strategyIdWithDifferentScriptsInRules)
                 .build();
 
         clientShippingCalc.getStrategy(request);
@@ -1266,6 +1298,50 @@ public class StrategyTest extends RestBase {
                 .build();
 
         clientShippingCalc.getStrategiesForStore(request);
+    }
+
+    @CaseId(367)
+    @Story("Delete Strategy")
+    @Test(description = "Удаление стратегии без биндов",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "unbindStrategyMultipleStores")
+    public void deleteStrategy() {
+        ShippingcalcOuterClass.DeleteStrategyRequest request = getDeleteStrategyRequest(strategyIdWithDifferentScriptsInRules);
+        var response = clientShippingCalc.deleteStrategy(request);
+
+        StrategiesEntity strategy = StrategiesDao.INSTANCE.getStrategy(strategyIdWithDifferentScriptsInRules);
+        List<RulesEntity> rules = RulesDao.INSTANCE.getRules(strategyIdWithDifferentScriptsInRules);
+        List<RulesEntity> deletedRules = RulesDao.INSTANCE.getDeletedRules(strategyIdWithDifferentScriptsInRules);
+        Allure.step("Проверка удаления стратегии", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            compareTwoObjects(response.toString(), "", softAssert);
+            compareTwoObjects(rules.size(), deletedRules.size(), softAssert);
+            softAssert.assertNotNull(strategy.getDeletedAt(), "Стратегия не помечена удаленной");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(369)
+    @Story("Delete Strategy")
+    @Test(description = "Получение ошибки при удалении стратегии с биндами",
+            groups = "dispatch-shippingcalc-smoke",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "UNKNOWN: usecase: delete strategy [0-9]+ is imposible, bindings must be empty",
+            dependsOnMethods = "rebindStrategy")
+    public void deleteStrategyWithBind() {
+        ShippingcalcOuterClass.DeleteStrategyRequest request = getDeleteStrategyRequest(strategyIdWithMultipleRulesAndConditions);
+        clientShippingCalc.deleteStrategy(request);
+    }
+
+    @CaseId(372)
+    @Story("Delete Strategy")
+    @Test(description = "Получение ошибки при удалении несуществующей стратегии",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "UNKNOWN: usecase: delele strategy 1234567890: entity not found")
+    public void deleteStrategyNonExistent() {
+        ShippingcalcOuterClass.DeleteStrategyRequest request = getDeleteStrategyRequest(1234567890);
+        clientShippingCalc.deleteStrategy(request);
     }
 
     @AfterClass(alwaysRun = true)

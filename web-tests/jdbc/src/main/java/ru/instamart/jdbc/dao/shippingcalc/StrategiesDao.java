@@ -31,6 +31,7 @@ public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
                 strategy.setDescription(resultSet.getString("description"));
                 strategy.setCreatedAt(resultSet.getString("created_at"));
                 strategy.setUpdatedAt(resultSet.getString("updated_at"));
+                strategy.setDeletedAt(resultSet.getString("deleted_at"));
                 strategy.setCreatorId(resultSet.getString("creator_id"));
             } else return null;
         } catch (SQLException e) {
