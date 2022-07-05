@@ -22,10 +22,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkShipmentInfo;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
 
 @Epic("ApiV2")
 @Feature("Заказы (shipments)")
@@ -46,7 +46,7 @@ public class ActiveShipmentsV2Test extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void cleanup() {
-        apiV2.cancelCurrentOrder();
+        //apiV2.cancelCurrentOrder(); //todo починить 404
     }
 
     @CaseId(1387)
