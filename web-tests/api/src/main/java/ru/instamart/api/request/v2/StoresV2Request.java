@@ -34,7 +34,8 @@ public final class StoresV2Request extends ApiV2RequestBase {
      */
     @Step("{method} /" + ApiV2EndPoints.Stores.BY_SID)
     public static Response GET(int sid) {
-        return givenWithSpec().get(ApiV2EndPoints.Stores.BY_SID, sid);
+        return givenWithSpec()
+                .get(ApiV2EndPoints.Stores.BY_SID, sid);
     }
 
     public static class ForMap {
