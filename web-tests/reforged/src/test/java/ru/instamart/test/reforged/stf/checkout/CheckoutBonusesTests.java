@@ -3,15 +3,14 @@ package ru.instamart.test.reforged.stf.checkout;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.instamart.kraken.data.Generate;
-import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.data.BonusPrograms.aeroflot;
 import static ru.instamart.kraken.data.BonusPrograms.mnogoru;

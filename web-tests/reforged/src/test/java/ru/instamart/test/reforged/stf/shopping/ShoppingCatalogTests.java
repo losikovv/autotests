@@ -102,7 +102,7 @@ public final class ShoppingCatalogTests {
         shop().checkFirstProductCardIsVisible();
         shop().openFirstProductCard();
         shop().interactProductCard().checkProductCardVisible();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
     }
 
@@ -110,7 +110,6 @@ public final class ShoppingCatalogTests {
     @Test(description = "Тест открывания/закрывания карточки продукта в department-категории", groups = "regression")
     public void successOperateItemCardOnDepartmentPage() {
         shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
@@ -133,7 +132,7 @@ public final class ShoppingCatalogTests {
 
         seo().openFirstProductCardOnDepartment();
         seo().interactProductCard().checkProductCardVisible();
-        seo().interactProductCard().close();
+        seo().interactProductCard().clickOnClose();
         seo().interactProductCard().checkProductCardIsNotVisible();
     }
 
@@ -141,7 +140,6 @@ public final class ShoppingCatalogTests {
     @Test(description = "Тест открывания/закрывания карточки продукта в taxon-категории", groups = "regression")
     public void successOperateItemCardOnTaxonPage() {
         shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
@@ -165,7 +163,7 @@ public final class ShoppingCatalogTests {
 
         seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().checkProductCardVisible();
-        seo().interactProductCard().close();
+        seo().interactProductCard().clickOnClose();
         seo().interactProductCard().checkProductCardIsNotVisible();
     }
 
@@ -173,7 +171,6 @@ public final class ShoppingCatalogTests {
     @Test(description = "Тест открывания/закрывания карточки продукта в выдаче поиска", groups = "regression")
     public void successOperateItemCardOnSearchPage() {
         shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
@@ -193,7 +190,7 @@ public final class ShoppingCatalogTests {
         search().checkAddToCartButtonVisible();
         search().openFirstProductCard();
         search().interactProductCard().checkProductCardVisible();
-        search().interactProductCard().close();
+        search().interactProductCard().clickOnClose();
         search().interactProductCard().checkProductCardIsNotVisible();
     }
 
@@ -206,16 +203,14 @@ public final class ShoppingCatalogTests {
         shop().interactProductCard().checkProductCardVisible();
 
         String productLink = shop().interactProductCard().getProductPermalink();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
 
         shop().openProductCardByLink(ShopUrl.DEFAULT, productLink);
         shop().interactProductCard().checkProductCardVisible();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
 
-        //TODO добавочная проверка, что под карточкой отображается каталог, баг B2C-8423 в работе
-        //shop().checkDefaultShopOpened();
-        //shop().checkSnippet();
+        seo().checkProductGridVisible();
     }
 
     @CaseId(3520)
@@ -228,11 +223,9 @@ public final class ShoppingCatalogTests {
 
         shop().refresh();
         shop().interactProductCard().checkProductCardVisible();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
 
-        //TODO добавочная проверка, что под карточкой отображается каталог, баг B2C-8423 в работе
-        //shop().checkDefaultShopOpened();
-        //shop().checkSnippet();
+        seo().checkProductGridVisible();
     }
 
     @CaseId(2578)

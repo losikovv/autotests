@@ -3,13 +3,13 @@ package ru.instamart.test.reforged.stf.shopping;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
-import static ru.instamart.reforged.stf.page.StfRouter.search;
 
 @Epic("STF UI")
 @Feature("Заказ")
@@ -48,15 +48,14 @@ public final class ShoppingTestsForUnauthorizedUser {
     @Story("Тест набора корзины до суммы, достаточной для заказа")
     @Test(description = "Тест набора корзины до суммы, достаточной для заказа", groups = "regression")
     public void successCollectItemsForOrder() {
-        shop().goToPage();
-        shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        home().goToPage();
+        home().fillAddressInLanding(Addresses.Moscow.defaultAddress());
+        home().selectFirstAddressInFounded();
+        home().checkDeliveryStoresContainerVisible();
+        home().clickOnStoreWithSid(DEFAULT_METRO_MOSCOW_SID);
+
         shop().interactHeader().checkEnteredAddressIsVisible();
+        shop().checkFirstProductCardIsVisible();
         shop().plusItemToCart("1", "0");
 
         shop().goToPage();
@@ -67,7 +66,7 @@ public final class ShoppingTestsForUnauthorizedUser {
 
         checkout().goToPage();
         shop().interactHeader().checkAuthOrRegAlertVisible();
-        shop().checkDefaultShopOpened();
+        home().checkLoginButtonIsVisible();
     }
 
     @CaseId(2608)

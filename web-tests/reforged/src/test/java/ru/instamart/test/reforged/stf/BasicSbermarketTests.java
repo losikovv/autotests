@@ -9,6 +9,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -51,6 +52,7 @@ public final class BasicSbermarketTests {
         shop().goToPage();
         shop().interactHeader().clickToHowWeWork();
         howWeWork().checkPageIsAvailable();
+        howWeWork().checkPageOpened();
     }
 
     @CaseId(1810)
@@ -60,6 +62,7 @@ public final class BasicSbermarketTests {
         shop().goToPage();
         shop().interactHeader().clickToContacts();
         contacts().checkPageIsAvailable();
+        contacts().checkPageOpened();
     }
 
     @CaseId(1811)
@@ -69,6 +72,7 @@ public final class BasicSbermarketTests {
         shop().goToPage();
         shop().interactHeader().clickToHelp();
         faq().checkPageIsAvailable();
+        faq().checkPageOpened();
     }
 
     @CaseId(1812)
@@ -78,6 +82,7 @@ public final class BasicSbermarketTests {
         shop().goToPage();
         shop().interactHeader().clickToDeliveryAndPayment();
         delivery().checkPageIsAvailable();
+        delivery().checkPageOpened();
     }
 
     @CaseId(1813)
@@ -87,6 +92,7 @@ public final class BasicSbermarketTests {
         shop().goToPage();
         shop().interactHeader().clickToLogo();
         shop().checkPageIsAvailable();
+        shop().checkPageOpened();
     }
 
     @CaseId(1439)
@@ -151,7 +157,7 @@ public final class BasicSbermarketTests {
     @Story("Статические страницы")
     @Test(
             description = "Тест валидности переходов по ссылкам в футере Сбермаркета," +
-                            " кейсы с открытием документа и модального окна",
+                    " кейсы с открытием документа и модального окна",
             groups = "regression")
     @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successFooterLinkTransitionOtherCases() {
@@ -161,7 +167,7 @@ public final class BasicSbermarketTests {
         home().interactFooter().clickToFooterElementWithText("Обработка персональных данных");
 
         home().switchToNextWindow();
-        privacyPolicy().checkPageUrl(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + privacyPolicy().pageUrl());
+        privacyPolicy().checkPageUrl(UiProperties.STF_URL + privacyPolicy().pageUrl());
         home().switchToFirstWindow();
 
         home().refresh();
@@ -178,7 +184,7 @@ public final class BasicSbermarketTests {
             description = "Тест доступности витрин ритейлеров Сбермаркета ",
             groups = "regression")
     public void successCheckSbermarketAvailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
+        final String fullUrl =  UiProperties.STF_URL + retailer.getSlug();
         assertTrue(Curl.pageAvailable(fullUrl), "Страница " + fullUrl + " недоступна");
     }
 
@@ -190,7 +196,7 @@ public final class BasicSbermarketTests {
             description = "Тест недоступности витрин ритейлеров Сбермаркета ",
             groups = "regression")
     public void successCheckSbermarketUnavailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
+        final String fullUrl =  UiProperties.STF_URL + retailer.getSlug();
         assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
     }
 

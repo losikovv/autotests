@@ -33,7 +33,7 @@ public final class OrderRepeatTests {
     }
 
     @CaseId(2614)
-    @Test(description = "Добавление в корзину товаров из истории заказов", groups = {"production", "smoke", "regression"})
+    @Test(description = "Добавление в корзину товаров из истории заказов", groups = {"smoke", "regression"})
     public void successRepeatLastOrderFromOrderHistory() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -62,7 +62,6 @@ public final class OrderRepeatTests {
         userShipments().goToPage();
         userShipments().clickToFirstShipment();
         userShipments().clickToRepeatFromOrder();
-        userShipments().waitPageLoad();
         userShipments().interactRepeatModal().checkModalWindowVisible();
         userShipments().interactRepeatModal().clickToAccept();
 

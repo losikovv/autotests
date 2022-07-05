@@ -26,7 +26,8 @@ public class OrdersPrereplacementsTests {
     private final ApiHelper apiHelper = new ApiHelper();
     private final String product1WithReplacementLink = "tonik-green-mama-uspokaivayuschiy-s-morskimi-vodoroslyami-dlya-kozhi-sklonnoy-k-poyavleniyu-neestetichnoy-krasnoty";
     private final String product2WithReplacementLink = "krem-green-mama-dlya-ustavshih-tyazhelyh-nog-osvezhayuschiy-kashtan-i-propolis";
-    private final String productWithoutPreReplacementLink = "maslo-de-cecco-extra-virgin-olivkovoe";
+    private final String productWithOnlyOneReplacementLink = "melok-got2b-strand-up-dlya-volos-okrashivayuschiy-goluboy-denim-3-5-g";
+    private final String productWithoutPrereplacementLink = "maslo-de-cecco-extra-virgin-olivkovoe";
 
     private UserData user;
     private Long product1WithReplacementId, product2WithReplacementId, productWithOnlyOneReplacementId;
@@ -35,12 +36,11 @@ public class OrdersPrereplacementsTests {
     private void getOfferIdsForCurrentStage() {
         product1WithReplacementId = SpreeProductsDao.INSTANCE.getOfferIdByPermalink(product1WithReplacementLink, DEFAULT_PREREPLACEMENT_SID);
         product2WithReplacementId = SpreeProductsDao.INSTANCE.getOfferIdByPermalink(product2WithReplacementLink, DEFAULT_PREREPLACEMENT_SID);
-        final var productWithOnlyOneReplacementLink = "melok-got2b-strand-up-dlya-volos-okrashivayuschiy-goluboy-denim-3-5-g";
         productWithOnlyOneReplacementId = SpreeProductsDao.INSTANCE.getOfferIdByPermalink(productWithOnlyOneReplacementLink, DEFAULT_PREREPLACEMENT_SID);
     }
 
     @CaseId(3267)
-    @Test(description = "Выбор предзамены - один товар", groups = "regression")
+    @Test(description = "Выбор предзамены - один товар", groups = {"regression"})
     public void selectPrereplacementFromAlertPopup() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -69,7 +69,7 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3268)
-    @Test(description = "Выбор предзамены из корзины", groups = "regression")
+    @Test(description = "Выбор предзамены из корзины", groups = {"regression"})
     public void selectPrereplacementFromCart() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -107,7 +107,7 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3269)
-    @Test(description = "Изменение выбранных предзамен", groups = "regression")
+    @Test(description = "Изменение выбранных предзамен", groups = {"regression"})
     public void editPrereplacement() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -145,7 +145,7 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3270)
-    @Test(description = "Удаление выбранных предзамен", groups = "regression")
+    @Test(description = "Удаление выбранных предзамен", groups = {"regression"})
     public void removePrereplacement() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -174,7 +174,7 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3271)
-    @Test(description = "При открытии модалки из попапа отображается весь список товаров с рекомендованными предзаменами", groups = "regression")
+    @Test(description = "При открытии модалки из попапа отображается весь список товаров с рекомендованными предзаменами", groups = {"regression"})
     public void checkOnlyProductsWithRelacementViewInModal() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -185,9 +185,9 @@ public class OrdersPrereplacementsTests {
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openProductCardByLink(ShopUrl.LENTA, productWithoutPreReplacementLink);
+        shop().openProductCardByLink(ShopUrl.LENTA, productWithoutPrereplacementLink);
         shop().interactProductCard().clickOnBuy();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
 
         shop().interactHeader().checkPrereplacementPopupDisplayed();
@@ -200,7 +200,7 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3273)
-    @Test(description = "Попап при добавлении товара с предзаменами в корзину", groups = "regression")
+    @Test(description = "Попап при добавлении товара с предзаменами в корзину", groups = {"regression"})
     public void alertDisplayedWhenAddingProduct() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -212,14 +212,14 @@ public class OrdersPrereplacementsTests {
 
         shop().openProductCardByLink(ShopUrl.LENTA, product1WithReplacementLink);
         shop().interactProductCard().clickOnBuy();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
 
         shop().interactHeader().checkPrereplacementPopupDisplayed();
     }
 
     @CaseId(3274)
-    @Test(description = "Повторное отображение попапа при добавлении товара в корзину", groups = "regression")
+    @Test(description = "Повторное отображение попапа при добавлении товара в корзину", groups = {"regression"})
     public void alertDisplayedWhenAddingAnotherProduct() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -234,21 +234,21 @@ public class OrdersPrereplacementsTests {
         shop().interactHeader().closePrereplacementPopup();
         shop().interactHeader().checkPrereplacementPopupNotDisplayed();
 
-        shop().openProductCardByLink(ShopUrl.LENTA, productWithoutPreReplacementLink);
+        shop().openProductCardByLink(ShopUrl.LENTA, productWithoutPrereplacementLink);
         shop().interactProductCard().clickOnBuy();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
         shop().interactHeader().checkPrereplacementPopupNotDisplayed();
 
         shop().openProductCardByLink(ShopUrl.LENTA, product2WithReplacementLink);
         shop().interactProductCard().clickOnBuy();
-        shop().interactProductCard().close();
+        shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
         shop().interactHeader().checkPrereplacementPopupDisplayed();
     }
 
     @CaseId(3275)
-    @Test(description = "Выбор предзамены - любой товар", groups = "regression")
+    @Test(description = "Выбор предзамены - любой товар", groups = {"regression"})
     public void selectAnyWillPrereplacementFromAlertPopup() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -276,7 +276,7 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3276)
-    @Test(description = "Отображение товаров с доступными предзаменами в корзине", groups = "regression")
+    @Test(description = "Отображение товаров с доступными предзаменами в корзине", groups = {"regression"})
     public void cartPrereplacementCheck() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -292,7 +292,7 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3277)
-    @Test(description = "Отображение товара с единственной предзаменой в модалке", groups = "regression")
+    @Test(description = "Отображение товара с единственной предзаменой в модалке", groups = {"regression"})
     public void onlyOneReplacementCheck() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -314,7 +314,7 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3278)
-    @Test(description = "Отображение товара с несколькими предзаменами в модалке", groups = "regression")
+    @Test(description = "Отображение товара с несколькими предзаменами в модалке", groups = {"regression"})
     public void severalReplacementCheck() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());

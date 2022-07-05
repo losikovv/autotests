@@ -66,7 +66,7 @@ public final class OrdersPaymentsTests {
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
 
-        checkout().interactAddPaymentCardModal().fillCardData(PaymentCards.testCard());
+        checkout().interactAddPaymentCardModal().fillCardData(PaymentCards.testCardNo3dsWithSpasibo());
         checkout().interactAddPaymentCardModal().clickToSaveModal();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
@@ -104,7 +104,7 @@ public final class OrdersPaymentsTests {
         userShipments().checkPageContains(userShipments().pageUrl());
 
         userShipments().checkStatusShipmentReady();
-        userShipments().checkPaymentMethodEquals("Картой курьеру");
+        userShipments().checkPaymentMethodEquals("Картой при получении");
     }
 
     @CaseId(1626)

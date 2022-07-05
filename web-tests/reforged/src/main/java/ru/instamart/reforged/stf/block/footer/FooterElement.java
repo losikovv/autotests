@@ -24,7 +24,7 @@ public interface FooterElement {
             "ссылка 'Документы' в футере");
     //Изменили в рамках https://instamart.atlassian.net/browse/STF-9748
     Link partnersLink = new Link(By.xpath("//a[text()='Стать партнёром']"),
-            "ссылка 'Стать партнером' в футере");
+            "ссылка 'Стать партнёром' в футере");
 
 
     Element customerHelpTitle = new Element(By.xpath("//footer//div[@class='footer__title' and contains(text(),'Помощь')]"),

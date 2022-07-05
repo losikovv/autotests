@@ -2,7 +2,7 @@ package ru.instamart.reforged.stf.page.checkout.fifthStep.edit_company;
 
 import io.qameta.allure.Step;
 
-public class EditCompany implements EditCompanyElement{
+public class EditCompany implements EditCompanyElement {
 
     @Step("Ввести Название '{0}'")
     public void fillName(final String data) {

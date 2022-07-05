@@ -18,6 +18,11 @@ public interface SeoCatalogCheck extends Check, SeoCatalogElement {
         waitAction().shouldBeVisible(productGrid);
     }
 
+    @Step("Отображается товар")
+    default void checkProductVisible() {
+        waitAction().shouldBeVisible(firstProductCard);
+    }
+
     @Step("Отображается загаловок страницы каталога")
     default void checkCatalogTitleVisible() {
         waitAction().shouldBeVisible(catalogPageTitle);

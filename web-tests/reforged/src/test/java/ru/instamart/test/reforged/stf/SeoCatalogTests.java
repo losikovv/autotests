@@ -2,7 +2,6 @@ package ru.instamart.test.reforged.stf;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -10,9 +9,11 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
+import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
+import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.stf.page.StfRouter.*;
-import static ru.instamart.reforged.stf.page.StfRouter.search;
+import static ru.instamart.reforged.stf.page.StfRouter.seo;
 
 @Epic("STF UI")
 @Feature("Seo Каталог")
@@ -21,20 +22,25 @@ public final class SeoCatalogTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1802)
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Тест доступности страницы SEO-каталога", groups = "regression")
     public void successCheckSeoPage() {
         seo().goToPage();
         seo().checkPageIsAvailable();
+        seo().checkPageOpened();
     }
 
     @CaseId(1803)
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Тест доступности товаров на странице SEO-каталога", groups = "regression")
     public void successCheckProductsOnSeoCatalog() {
         seo().goToPage();
         seo().checkProductGridVisible();
+        seo().checkProductVisible();
     }
 
     @CaseId(1804)
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Тест открытия карточки товара на странице SEO-каталога", groups = "regression")
     public void successOpenItemCardOnSeoCatalog() {
         seo().goToPage();
@@ -44,7 +50,8 @@ public final class SeoCatalogTests {
     }
 
     @CaseId(1805)
-    @Test(description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога", groups = "regression" )
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
+    @Test(description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога", groups = "regression")
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() {
         seo().goToPage();
         seo().refreshWithoutBasicAuth();
@@ -59,28 +66,29 @@ public final class SeoCatalogTests {
 
     @Run(onServer = Server.PRODUCTION)
     @CaseId(1582)
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Добавление товара в корзину из SEO-каталога", groups = "regression")
     public void successAddItemToCartFromSEOCatalog() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
         seo().goToPage();
-        seo().refreshWithoutBasicAuth();
+        seo().interactHeader().clickToLogin();
+        seo().interactAuthModal().authViaPhone(userData);
+        seo().interactHeader().checkProfileButtonVisible();
+
+        seo().interactHeader().checkEnteredAddressIsVisible();
         seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().clickOnBuy();
-        seo().interactProductCard().close();
+        seo().interactProductCard().clickOnClose();
         seo().interactHeader().clickToCart();
         seo().interactCart().checkCartOpen();
         seo().interactCart().checkCartNotEmpty();
     }
 
     @CaseId(2589)
-    @Test(description = "Работоспособность сортировки товаров(сначала дешевые)", groups = "regression" )
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
+    @Test(description = "Работоспособность сортировки товаров(сначала дешевые)", groups = "regression")
     public void successSortProductsViaCheap() {
         seo().goToPage("auchan/c/new-sladosti/piechienie/ovsianoie");
 

@@ -3,10 +3,10 @@ package ru.instamart.test.reforged.stf.user;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -32,7 +32,7 @@ public final class UserRegistrationTests {
         home().goToPage();
         home().openLoginModal();
         home().interactAuthModal().authViaPhone(UserManager.getQaUser());
-        home().checkAuthoredBlockVisible();
+        home().checkLogoutButtonDisplayed();
     }
 
     @CaseId(1543)
@@ -82,7 +82,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1545)
     @Story("Регистрация на странице ретейлера")
-    @Test(description = "Тест успешной регистрации без проставленной галки Получать выгодные предложения", groups = "regression" )
+    @Test(description = "Тест успешной регистрации без проставленной галки Получать выгодные предложения", groups = "regression")
     public void successRegWithoutMailingCheckbox() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

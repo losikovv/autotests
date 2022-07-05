@@ -1,8 +1,6 @@
 package ru.instamart.reforged.stf.page.seo;
 
 import io.qameta.allure.Step;
-import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
@@ -59,7 +57,7 @@ public final class SeoCatalogPage implements StfPage, SeoCatalogCheck {
     }
 
     public void goToPage(final ShopUrl shop) {
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + shop.getUrl() + pageUrl());
+        goToPage(shop.getUrl() + pageUrl());
     }
 
     @Step("Выбрать сортировку {text}")

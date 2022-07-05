@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.JuridicalData;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
@@ -40,8 +40,6 @@ public final class CheckoutDeliverySlotsTests {
     @Test(description = "Изменение ранее выбранного слота доставки", groups = "regression")
     @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successChangePreviousDeliverySlotAndOrder() {
-        var company = JuridicalData.juridical();
-
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
@@ -51,13 +49,9 @@ public final class CheckoutDeliverySlotsTests {
         shop().interactCart().submitOrder();
 
         checkout().checkCheckoutButtonIsVisible();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
+        checkout().setDeliveryOptions().clickToForSelf();
 
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().checkCheckoutLoaderNotVisible();
@@ -103,8 +97,6 @@ public final class CheckoutDeliverySlotsTests {
     @Test(description = "Невозможность завершения заказа при невыбранном слоте доставки", groups = "regression")
     @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void failedContinueWithUnselectedDeliverySlot() {
-        var company = JuridicalData.juridical();
-
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
@@ -114,13 +106,9 @@ public final class CheckoutDeliverySlotsTests {
         shop().interactCart().submitOrder();
 
         checkout().checkCheckoutButtonIsVisible();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
+        checkout().setDeliveryOptions().clickToForSelf();
 
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().checkCheckoutLoaderNotVisible();

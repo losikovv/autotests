@@ -2,7 +2,7 @@ package ru.instamart.reforged.stf.page.checkout.thirdStep;
 
 import io.qameta.allure.Step;
 
-public class ReplacementPolicyStep implements ReplacementPolicyCheck{
+public class ReplacementPolicyStep implements ReplacementPolicyCheck {
 
     @Step("Выбрать способ замены: {0}")
     public void clickToPolicy(String policy) {

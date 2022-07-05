@@ -10,7 +10,6 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
-import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
@@ -46,21 +45,15 @@ public final class CheckoutContactsStepTests {
 
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
-        var company = JuridicalData.juridical();
-
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
+        checkout().setDeliveryOptions().clickToForSelf();
 
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().checkCheckoutLoaderNotVisible();

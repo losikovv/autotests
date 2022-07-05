@@ -3,7 +3,6 @@ package ru.instamart.test.reforged.stf.checkout;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,6 +11,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Promos;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
@@ -27,7 +27,7 @@ public final class CheckoutPromocodeTests {
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
         this.userData = UserManager.getQaUser();
-        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")

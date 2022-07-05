@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.frame.checkout.subsections.retailer_card;
 
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Input;
 
 public interface EditRetailerCardElement {

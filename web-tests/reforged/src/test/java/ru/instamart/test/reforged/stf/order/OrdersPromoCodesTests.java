@@ -93,7 +93,6 @@ public final class OrdersPromoCodesTests {
         var company = JuridicalData.juridical();
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
         final String yesterday = getPastZoneDbDate(1L);
-        //TODO: добавить в тест создание промоакций через апи метод
 
         helper.createPromotionCode(promo, 2760, yesterday, yesterday, 100);
 
@@ -147,7 +146,6 @@ public final class OrdersPromoCodesTests {
         var company = JuridicalData.juridical();
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
         final String yesterday = getPastZoneDbDate(1L);
-        //TODO: добавить в тест создание промоакций через апи метод
 
         ordersUser = UserManager.getQaUser();
 
@@ -230,7 +228,4 @@ public final class OrdersPromoCodesTests {
         checkout().checkPromoCodeNotApplied();
     }
 }
-
-
-
 

@@ -8,7 +8,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.stf.page.StfRouter;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_AUCHAN_SID;
@@ -56,7 +55,6 @@ public final class ShoppingYouBoughtBeforeTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkFirstCategoryIs(shop().getFirstCategoryTitle(), "Вы покупали ранее");
-        var firstShopBoughtBeforeProductNames = shop().getFirstCategoryProductNames();
 
         shop().interactHeader().clickToSelectAddress();
         shop().interactHeader().interactAddress().checkYmapsReady();
@@ -66,7 +64,6 @@ public final class ShoppingYouBoughtBeforeTests {
         shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
 
         shop().checkFirstCategoryIs(shop().getFirstCategoryTitle(), "Вы покупали ранее");
-        shop().checkProductListsEquals(shop().getFirstCategoryProductNames(), firstShopBoughtBeforeProductNames);
     }
 
     @CaseId(2945)

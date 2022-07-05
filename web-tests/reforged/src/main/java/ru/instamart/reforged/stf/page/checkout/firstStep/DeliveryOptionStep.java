@@ -3,8 +3,6 @@ package ru.instamart.reforged.stf.page.checkout.firstStep;
 import io.qameta.allure.Step;
 import ru.instamart.kraken.data.AddressDetailsData;
 
-import static ru.instamart.reforged.stf.page.StfRouter.checkout;
-
 public class DeliveryOptionStep implements DeliveryOptionCheck {
 
     @Step("Нажать 'Доставка'")

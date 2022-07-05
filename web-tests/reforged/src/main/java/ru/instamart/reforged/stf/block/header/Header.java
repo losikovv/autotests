@@ -1,6 +1,8 @@
 package ru.instamart.reforged.stf.block.header;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.service.QaService;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.core.cdp.CdpCookie;
@@ -191,6 +193,13 @@ public final class Header implements HeaderCheck {
     @Step("js логаут с очисткой сессии")
     public void clearSessionLogout() {
         JsAction.clearSession();
+        CdpCookie.deleteAllCookies();
+        Kraken.refresh();
+    }
+
+    @Step("Логаут с очисткой сессии")
+    public void clearSessionLogout(final UserData userData) {
+        QaService.INSTANCE.deleteSession(userData.getId());
         CdpCookie.deleteAllCookies();
         Kraken.refresh();
     }

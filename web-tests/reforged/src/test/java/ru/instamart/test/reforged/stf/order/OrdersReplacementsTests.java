@@ -38,10 +38,10 @@ public final class OrdersReplacementsTests {
 
     @CaseIDs(value = {@CaseId(1634), @CaseId(1635), @CaseId(1636), @CaseId(1637)})
     @Story("Тест заказа с политикой Звонить / Заменять")
-    @Test(  description = "Тест заказа с политикой Звонить / Заменять",
+    @Test(description = "Тест заказа с политикой Звонить / Заменять",
             groups = "regression",
             dataProviderClass = ReplacePolicyProvider.class,
-            dataProvider = "replacementPolicy" )
+            dataProvider = "replacementPolicy")
     @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithReplacementPolicy(final String replacementPolicy) {
         shop().goToPage();

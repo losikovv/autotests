@@ -4,12 +4,16 @@ import io.qameta.allure.Step;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
-import ru.instamart.reforged.stf.frame.Close;
 
-public final class ProductCard implements ProductCardCheck, Close {
+public final class ProductCard implements ProductCardCheck {
 
     public RetailRocket interactRetailRocket() {
         return retailRocket;
+    }
+
+    @Step("Нажать 'Закрыть'")
+    public void clickOnClose() {
+        close.click();
     }
 
     @Step("Нажать купить")

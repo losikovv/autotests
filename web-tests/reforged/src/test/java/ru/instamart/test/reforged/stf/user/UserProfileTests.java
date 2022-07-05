@@ -3,19 +3,19 @@ package ru.instamart.test.reforged.stf.user;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.pages;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Профиль пользователя")
-public final class UserProfileTests {
+public class UserProfileTests {
 
     private UserData userData;
 
@@ -53,7 +53,7 @@ public final class UserProfileTests {
 
     @CaseId(1527)
     @Story("Выпадающее меню")
-    @Test(description = "Тест валидации кнопки 'Условия использования' в меню профиля", groups = "regression" )
+    @Test(description = "Тест валидации кнопки 'Условия использования' в меню профиля", groups = "regression")
     public void successValidateTermsButton() {
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToTerms();
@@ -84,8 +84,6 @@ public final class UserProfileTests {
     public void successCheckProfilePagesAreAvailable() {
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
-        pages().checkPageIsAvailable();
-        userEdit().openFavoritePage();
         pages().checkPageIsAvailable();
         userEdit().openOrders();
         pages().checkPageIsAvailable();

@@ -62,6 +62,8 @@ public final class OrdersRetailersTests {
         checkout().setReplacementPolicy().clickToSubmit();
 
         checkout().setSlot().setLastActiveSlot();
+
+        checkout().setPayment().clickToByCardToCourier();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipments().checkPageContains(userShipments().pageUrl());

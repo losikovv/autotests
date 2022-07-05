@@ -110,6 +110,7 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(290)
+    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Проверка обязательной авторизации при добавлении товара в корзину", groups = "regression")
     public void testNeedAuthAddToFavourites() {
         shop().goToPage();

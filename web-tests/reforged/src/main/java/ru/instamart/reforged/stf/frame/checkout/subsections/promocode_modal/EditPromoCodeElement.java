@@ -13,7 +13,7 @@ public interface EditPromoCodeElement {
     Button promoCodeApplyButton = new Button(By.xpath("//button[@data-qa='checkout_coupon_modal_add_button']"), "Кнопка применения промокода на модальном окне промокода");
     Button promoCodeCancelButton = new Button(By.xpath("//button[@data-qa='checkout_coupon_modal_cancel_button']"), "Кнопка отмены ввода промокода на модальном окне промокода");
 
-    Element firstPromoAlert = new Element(By.xpath("//div[@class='checkout-input-error' and contains(text(),'только на первый заказ')]"),"Алерт о том что заказ должен быть первым у покупателя");
-    Element nonExistPromoAlert = new Element(By.xpath("//div[@class='checkout-input-error' and contains(text(),'Промокод не существует')]"),"Алерт о несуществующем промокоде");
+    Element firstPromoAlert = new Element(By.xpath("//div[@class='checkout-input-error' and contains(text(),'только на первый заказ')]"), "Алерт о том что заказ должен быть первым у покупателя");
+    Element nonExistPromoAlert = new Element(By.xpath("//div[@class='checkout-input-error' and contains(text(),'Промокод не существует')]"), "Алерт о несуществующем промокоде");
 
 }

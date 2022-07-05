@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.frame.store_selector;
 
 import io.qameta.allure.Step;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.frame.Close;
 
 public class StoreSelector implements StoreSelectorCheck, Close {
@@ -17,7 +16,7 @@ public class StoreSelector implements StoreSelectorCheck, Close {
     }
 
     @Step("Выбираем магазин с Sid = '{storeSid}'")
-    public void clickToStoreWithSid(final int storeSid){
+    public void clickToStoreWithSid(final int storeSid) {
         storeBySid.click(storeSid);
     }
 
