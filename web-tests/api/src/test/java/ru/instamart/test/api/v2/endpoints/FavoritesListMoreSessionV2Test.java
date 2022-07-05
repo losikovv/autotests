@@ -76,7 +76,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
 
     @CaseId(520)
     @Story("Получить список избранных товаров")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"}, // "api-instamart-prod"}, TODO ATST-2281
             description = "Получаем пустой список любимых товаров у дефолтного магазина")
     public void emptyFavoritesForDefaultSid() {
         final Response response = FavoritesV2Request.GET(EnvironmentProperties.DEFAULT_SID);
@@ -95,7 +95,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
 
     @CaseId(522)
     @Story("Список SKU товаров из избранного")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"}, // "api-instamart-prod"}, TODO ATST-2281
             description = "Список SKU товаров из избранного. Один товар в избранном")
     public void getFavoritesSku() {
         var favorites = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);
@@ -139,7 +139,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
 
     @CaseId(527)
     @Story("Удаление товара из избранного")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},// "api-instamart-prod"}, TODO ATST-2281
             description = "Удаление товара из избранного с существующим id")
     public void deleteFavoritesList200() {
         var favorites = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);
