@@ -94,35 +94,33 @@ public final class Kraken extends KrakenDriver {
         return getAllLogs().get(logType);
     }
 
-    public static void addCookieIfNotExist(final Cookie cookie) {
-        final var cookies = CdpCookie.getAllCookies()
+    public static void addOrReplaceCookie(final Cookie cookie) {
+        final var listOfCookies = CdpCookie.getAllCookies()
                 .stream()
                 .filter(c -> c.getName().equals(cookie.getName())
                         && (!c.getValue().equals(cookie.getValue())
-                        || c.getExpires().longValue() != cookie.getExpiry().getTime()/1000))
+                        || c.getExpires().longValue() != cookie.getExpiry().getTime() / 1000))
                 .collect(Collectors.toSet());
-
-        cookies.forEach(c -> {
-            CdpCookie.deleteCookie(c);
-            CdpCookie.addCookie(cookie);
-            refresh();
-        });
+        if (listOfCookies.size() > 0) {
+            listOfCookies.forEach(CdpCookie::deleteCookie);
+        }
+        CdpCookie.addCookie(cookie);
+        refresh();
     }
 
-    public static void addCookiesIfNotExist(final Set<Cookie> newCookies) {
+    public static void addOrReplaceCookies(final Set<Cookie> newCookies) {
         final var listOfCookies = CdpCookie.getAllCookies()
                 .stream()
                 .filter(c -> newCookies.stream().anyMatch(a ->
                         a.getName().equals(c.getName())
                                 && (!a.getValue().equals(a.getValue())
-                                || a.getExpiry().getTime()/1000 != c.getExpires().longValue())))
+                                || a.getExpiry().getTime() / 1000 != c.getExpires().longValue())))
                 .collect(Collectors.toSet());
-
         if (listOfCookies.size() > 0) {
             listOfCookies.forEach(CdpCookie::deleteCookie);
-            newCookies.forEach(CdpCookie::addCookie);
-            refresh();
         }
+        newCookies.forEach(CdpCookie::addCookie);
+        refresh();
     }
 
     @SuppressWarnings("unchecked")
