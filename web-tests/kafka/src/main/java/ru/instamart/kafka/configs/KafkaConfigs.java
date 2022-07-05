@@ -120,7 +120,7 @@ public class KafkaConfigs {
                 .clientId("surgelevel")
                 .topic("yc.surge.fct.result.0")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lNLTflx90VI0n6hzBgecvll6tdcTqGMheErKEU2y3QOl"))
-                .password(Crypt.INSTANCE.decrypt("RHAGYsBrXLaQwbmjpcoqzg=="))
+                .password(Crypt.INSTANCE.decrypt("2lS1gYSsa7AkjKFObDuh0Q=="))
                 .build();
     }
 }
