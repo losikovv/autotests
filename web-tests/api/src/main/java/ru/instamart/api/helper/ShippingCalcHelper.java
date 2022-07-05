@@ -160,6 +160,13 @@ public class ShippingCalcHelper {
                 .build();
     }
 
+    @Step("Получаем запрос для удаления стратегии")
+    public static ShippingcalcOuterClass.DeleteStrategyRequest getDeleteStrategyRequest(Integer strategyId) {
+        return ShippingcalcOuterClass.DeleteStrategyRequest.newBuilder()
+                .setStrategyId(strategyId)
+                .build();
+    }
+
     @Step("Проверяем стратегию")
     public static void checkStrategy(Integer strategyId, String strategyName, Integer rulesAmount, Integer conditionsAmount, Integer conditionIndex, String deliveryType) {
         StrategiesEntity strategy = StrategiesDao.INSTANCE.getStrategy(strategyId);
