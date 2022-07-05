@@ -66,8 +66,7 @@ public class ShiftsPlanTest extends RestBase {
 
     @CaseId(38)
     @Story("Создание смены")
-    @Test(enabled = false, //TODO уточнить почему нельзя зарезирвировать вторую смену сразу после начала другой
-            groups = {"api-shifts"},
+    @Test(groups = {"api-shifts"},
             dependsOnMethods = "startShift200",
             description = "Событие \"Начать смену\". Партнер имеет незавершенные смены")
     public void startShift() {
@@ -84,7 +83,7 @@ public class ShiftsPlanTest extends RestBase {
     @CaseId(75)
     @Story("Пауза смены")
     @Test(groups = {"api-shifts"},
-            dependsOnMethods = "startShift200",
+            dependsOnMethods = "startShift",
             description = "Взять паузу в in_progress смене (лимит не израсходован)")
     public void pauseShifts200() {
         final Response response = ShiftsRequest.Pause.POST(planningPeriodId);
