@@ -113,7 +113,7 @@ public class ShopperAppApiHelper {
     public ShipmentSHP.Data getShipment(String shipmentNumber, String additionalInfoForError) {
         ShipmentSHP.Data shipment;
         String error = "Оформленного заказа нет в списке " + shipmentNumber;
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 48; i++) {
             shipment = getShipmentIteration(shipmentNumber);
             if (Objects.nonNull(shipment)) return shipment;
         }
