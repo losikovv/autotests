@@ -40,7 +40,7 @@ public final class Input extends AbstractComponent {
         return component;
     }
 
-    public void fill(final String data, final Object... args) {
+    public synchronized void fill(final String data, final Object... args) {
         setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         fill(data);
     }

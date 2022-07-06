@@ -74,14 +74,6 @@ public final class EnvironmentProperties {
     public static String DB_PGSQL_USERNAME;
     @Config(configName = NAME, fieldName = "dbPgPassword", defaultValue = "", crypted = true)
     public static String DB_PGSQL_PASSWORD;
-    @Config(configName = NAME, fieldName = "cloudPaymentsUrl", defaultValue = "")
-    public static String CLOUD_PAYMENTS_URL;
-    @Config(configName = NAME, fieldName = "sberIdUrl", defaultValue = "")
-    public static String SBER_ID_URL;
-    @Config(configName = NAME, fieldName = "rbsuatPaymentsUrl", defaultValue = "")
-    public static String RBSUAT_PAYMENTS_URL;
-    @Config(configName = NAME, fieldName = "jobLandingUrl", defaultValue = "")
-    public static String JOB_LANDING_URL;
     @Config(configName = NAME, fieldName = "publicCryptoKey", defaultValue = "")
     public static String PUBLIC_CRYPTO_KEY;
 
@@ -114,11 +106,6 @@ public final class EnvironmentProperties {
     public static String ADMIN_PASSWORD;
     @Config(configName = NAME, fieldName = "metroToken", defaultValue = "", crypted = true)
     public static String METRO_TOKEN;
-
-    @Config(configName = NAME, fieldName = "basicAuthUsername", defaultValue = "", crypted = true)
-    public static String BASIC_AUTH_USERNAME;
-    @Config(configName = NAME, fieldName = "basicAuthPassword", defaultValue = "", crypted = true)
-    public static String BASIC_AUTH_PASSWORD;
 
 
     public static class Env {
@@ -188,10 +175,6 @@ public final class EnvironmentProperties {
         public static String ONE_SESSION = System.getProperty("one_session");
         public static String FULL_SHOPPER_GW_URL = PROTOCOL + "://" + SHOPPER_GW_URL + "/";
         public static String FULL_SSO_AUTH_URL = PROTOCOL + "://" + SSO_AUTH_URL + "/";
-        public static String DEMO_CLOUD_PAYMENTS_URL = PROTOCOL + "://" + CLOUD_PAYMENTS_URL + "/";
-        public static String DEMO_RBSUAT_PAYMENTS_URL = PROTOCOL + "://" + RBSUAT_PAYMENTS_URL + "/";
-        public static String FULL_JOB_LANDING_URL = PROTOCOL + "://" + JOB_LANDING_URL + "/";
-        public static String FULL_SBER_ID_URL = PROTOCOL + "://" + SBER_ID_URL + "/";
 
         public static boolean isPreprod() {
             return Server.PREPROD.name().equalsIgnoreCase(EnvironmentProperties.SERVER);

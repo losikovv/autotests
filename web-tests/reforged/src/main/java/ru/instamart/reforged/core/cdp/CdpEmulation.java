@@ -1,7 +1,7 @@
 package ru.instamart.reforged.core.cdp;
 
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.devtools.v102.emulation.Emulation;
+import org.openqa.selenium.devtools.v103.emulation.Emulation;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.cdp.model.DeviceMetrics;
 import ru.instamart.reforged.core.cdp.model.GeoLocation;

@@ -103,7 +103,6 @@ public final class HomePageTests {
     @CaseId(3361)
     @Test(description = "Определение города по IP если в городе работает СберМаркет", groups = "regression")
     public void detectCityByIPAndChangeCityFromOnboarding() {
-
         home().goToPage(true);
         home().setLocation("Moscow");
         home().checkBannerTitleText(home().getAddressBlockText(), "Доставка из любимых магазинов в Москве");

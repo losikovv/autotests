@@ -43,7 +43,7 @@ public final class Element extends AbstractComponent {
         return getComponent();
     }
 
-    public void click(final Object... args) {
+    public synchronized void click(final Object... args) {
         setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         click();
     }
@@ -53,7 +53,7 @@ public final class Element extends AbstractComponent {
         getComponent().click();
     }
 
-    public String getText(final Object... args) {
+    public synchronized String getText(final Object... args) {
         setBy(ByKraken.xpathExpression(getLocator(), args));
         return getText();
     }
@@ -75,7 +75,7 @@ public final class Element extends AbstractComponent {
         return attributeValue;
     }
 
-    public String getTitleOrText(final Object... args) {
+    public synchronized String getTitleOrText(final Object... args) {
         setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         final var component = getComponent();
         final var title = component.getAttribute("title");

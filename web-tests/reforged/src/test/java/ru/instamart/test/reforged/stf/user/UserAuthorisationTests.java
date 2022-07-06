@@ -11,10 +11,11 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.sber_id_auth.SberIdPageRouter.sberId;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Авторизация")
@@ -180,7 +181,7 @@ public final class UserAuthorisationTests {
         shop().interactAuthModal().authViaSberId();
 
         sberId().checkPhoneInputVisible();
-        sberId().checkPageContains(EnvironmentProperties.Env.FULL_SBER_ID_URL);
+        sberId().checkPageContains(UiProperties.SBER_ID_URL);
     }
 
     //    @CaseId(1459)

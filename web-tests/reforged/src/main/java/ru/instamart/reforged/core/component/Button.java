@@ -38,7 +38,7 @@ public final class Button extends AbstractComponent {
         return component;
     }
 
-    public void click(final Object... args) {
+    public synchronized void click(final Object... args) {
         setBy(ByKraken.xpathExpression(((ByKraken)getBy()).getDefaultXpathExpression(), args));
         click();
     }

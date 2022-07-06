@@ -4,7 +4,6 @@ import org.testng.annotations.DataProvider;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.helper.ApiV1Helper;
 import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.config.UiProperties;
 
 import java.util.List;
@@ -19,13 +18,13 @@ public final class StaticPage {
     @DataProvider(name = "faqPage", parallel = true)
     public static Object[][] getFaqPage() {
         return new Object[][] {
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + about().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + contacts().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + delivery().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + faq().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + howWeWork().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + rules().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + terms().pageUrl()}
+                {UiProperties.STF_URL + about().pageUrl()},
+                {UiProperties.STF_URL + contacts().pageUrl()},
+                {UiProperties.STF_URL + delivery().pageUrl()},
+                {UiProperties.STF_URL + faq().pageUrl()},
+                {UiProperties.STF_URL + howWeWork().pageUrl()},
+                {UiProperties.STF_URL + rules().pageUrl()},
+                {UiProperties.STF_URL + terms().pageUrl()}
         };
     }
 
@@ -45,8 +44,8 @@ public final class StaticPage {
     @DataProvider(name = "servicePage", parallel = true)
     public static Object[][] getServicePage() {
         return new Object[][] {
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + certificate().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + driversHiring().pageUrl()},
+                {UiProperties.STF_URL + certificate().pageUrl()},
+                {UiProperties.STF_URL + driversHiring().pageUrl()},
                 {job().pageUrl()}
         };
     }
@@ -56,9 +55,9 @@ public final class StaticPage {
         return new Object[][] {
                 {"О компании", UiProperties.STF_URL + about().pageUrl()},
                 {"Контакты", UiProperties.STF_URL + contacts().pageUrl()},
-                {"Наши вакансии", EnvironmentProperties.Env.FULL_JOB_LANDING_URL},
+                {"Наши вакансии", UiProperties.JOB_LANDING_URL},
                 {"Документы", UiProperties.STF_URL + terms().pageUrl()},
-                {"Стать партнёром", EnvironmentProperties.Env.FULL_JOB_LANDING_URL},
+                {"Стать партнёром", UiProperties.JOB_LANDING_URL},
                 {"Как мы работаем", UiProperties.STF_URL + howWeWork().pageUrl()},
                 {"Доставка и оплата", UiProperties.STF_URL + delivery().pageUrl()},
                 {"Помощь", UiProperties.STF_URL + faq().pageUrl()},
@@ -69,7 +68,7 @@ public final class StaticPage {
     @DataProvider(name = "landingPage", parallel = true)
     public static Object[][] getLandingPage() {
         return new Object[][] {
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + aeroflot().pageUrl()}
+                {UiProperties.STF_URL + aeroflot().pageUrl()}
         };
     }
 
