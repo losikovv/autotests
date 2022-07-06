@@ -8,9 +8,10 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.cdp.CdpCookie;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import static ru.instamart.reforged.core.Kraken.addCookieIfNotExist;
+import static ru.instamart.reforged.core.Kraken.*;
 
 public interface Page extends PageCheck {
 
@@ -77,12 +78,15 @@ public interface Page extends PageCheck {
         cookieChange(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID);
     }
 
+    /**
+     * Добавляет или подменяет куки на нужные
+     */
     default void cookiesChange(final boolean isFixedUUID) {
-        final var abCookie = isFixedUUID ? CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE : CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID;
-        if (EnvironmentProperties.Env.isProduction()) {
-            CdpCookie.addCookie(CookieFactory.USER_ADULT_18_PLUS_ALERT);
-        }
-        cookiesChange(Set.of(abCookie, CookieFactory.RETAILERS_REMINDER_MODAL));
+        Set<Cookie> cookies = new HashSet<>();
+        if (isFixedUUID) cookies.add(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE);
+        if (EnvironmentProperties.Env.isProduction()) cookies.add(CookieFactory.USER_ADULT_18_PLUS_ALERT);
+        cookies.add(CookieFactory.RETAILERS_REMINDER_MODAL);
+        addOrReplaceCookies(cookies);
     }
 
     /**
@@ -93,17 +97,17 @@ public interface Page extends PageCheck {
     }
 
     /**
-     * Проверяет наличие куки и подменяет ее на нужную
+     * Добавляет или подменяет куку на нужную
      */
     default void cookieReplace(final Cookie cookie) {
-        addCookieIfNotExist(cookie);
+        addOrReplaceCookie(cookie);
     }
 
     /**
      * Проверяет наличие нескольких кук и подменяет их на нужные
      */
-    default void cookiesChange(final Set<Cookie> cookies) {
-        CdpCookie.addCookies(cookies);
+    default void cookiesReplace(final Set<Cookie> cookies) {
+        addOrReplaceCookies(cookies);
     }
 
     /**
