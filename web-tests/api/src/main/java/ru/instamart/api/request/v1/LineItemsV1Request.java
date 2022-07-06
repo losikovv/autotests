@@ -33,7 +33,6 @@ public class LineItemsV1Request extends ApiV1RequestBase {
         return givenWithAuth()
                 .contentType(ContentType.JSON)
                 .body(body)
-                .log().all()
                 .post(ApiV1Endpoints.LINE_ITEMS);
     }
 
