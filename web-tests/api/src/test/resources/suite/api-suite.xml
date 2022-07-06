@@ -3,7 +3,7 @@
 <suite name="REST API Suite" parallel="tests" thread-count="4" data-provider-thread-count="20">
   <listeners>
     <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
-    <listener class-name="ru.instamart.api.listener.ApiListener"/>
+    <listener class-name="ru.instamart.api.listener.ApiTestSuiteListener"/>
   </listeners>
   <method-selectors>
     <method-selector>

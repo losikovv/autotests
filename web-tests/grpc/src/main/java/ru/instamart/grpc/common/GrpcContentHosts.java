@@ -11,7 +11,7 @@ public final class GrpcContentHosts {
     public static final String PAAS_CONTENT_OPERATIONS_WORKFLOW = "paas-content-operations-workflow.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_ANALYTICS_ORDER_PRICING = "paas-content-analytics-order-pricing.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_ETA = "paas-content-operations-eta.k-stage.sbmt.io";
-    public static final String PAAS_CONTENT_CANDIDATES_ETA = "paas-content-operations-candidates.k-stage.sbmt.io";
+    public static final String PAAS_CONTENT_OPERATIONS_CANDIDATES = "paas-content-operations-candidates.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_TAG_MANAGER = "paas-content-operations-tag-manager.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_SHIPPINGCALC = "paas-content-operations-shippingcalc.k-stage.sbmt.io";
 }

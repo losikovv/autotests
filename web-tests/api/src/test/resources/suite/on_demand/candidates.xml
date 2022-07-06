@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="REST API Suite" data-provider-thread-count="20">
+<suite name="ON-DEMAND Suite" parallel="tests" thread-count="3">
     <listeners>
-        <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
+        <listener class-name="ru.instamart.api.listener.on_demand.CandidatesExecutionListener"/>
         <listener class-name="ru.instamart.api.listener.ApiTestSuiteListener"/>
     </listeners>
     <method-selectors>
@@ -10,9 +10,10 @@
             <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
         </method-selector>
     </method-selectors>
-    <test verbose="1" name="API v2 Zones Tests">
+    <test verbose="1" name="CANDIDATES" parallel="classes" thread-count="1">
         <classes>
-            <class name="ru.instamart.test.api.v2.e2e.RetailerE2ETests"/>
+            <class name="ru.instamart.test.api.on_demand.candidates.СandidatesTest"/>
         </classes>
     </test>
 </suite>
+
