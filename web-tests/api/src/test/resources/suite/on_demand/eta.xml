@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ON-DEMAND Suite" parallel="tests" thread-count="3">
+    <listeners>
+        <listener class-name="ru.instamart.api.listener.on_demand.EtaExecutionListener"/>
+        <listener class-name="ru.instamart.api.listener.ApiTestSuiteListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="ETA" parallel="classes" thread-count="6">
+        <classes>
+            <class name="ru.instamart.test.api.on_demand.eta.StoreEtaTest"/>
+            <class name="ru.instamart.test.api.on_demand.eta.BasketEtaTest"/>
+            <class name="ru.instamart.test.api.on_demand.eta.CourierEtaTest"/>
+            <class name="ru.instamart.test.api.on_demand.eta.RetailerParametersEtaTest"/>
+            <class name="ru.instamart.test.api.on_demand.eta.StoreParametersEtaTest"/>
+            <class name="ru.instamart.test.api.on_demand.eta.ServiceParametersEtaTest"/>
+        </classes>
+    </test>
+</suite>
+

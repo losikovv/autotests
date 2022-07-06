@@ -2,7 +2,7 @@
 <suite name="CONTENT GRPC SUITE" verbose="1">
   <listeners>
     <listener class-name="ru.instamart.grpc.listener.GrpcContentExecutionListener"/>
-    <listener class-name="ru.instamart.grpc.listener.GrpcListener"/>
+    <listener class-name="ru.instamart.grpc.listener.GrpcTestSuiteListener"/>
   </listeners>
   <method-selectors>
     <method-selector>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="REST API Suite" parallel="tests" thread-count="1">
+    <listeners>
+        <listener class-name="ru.instamart.api.listener.on_demand.ShiftsExecutionListener"/>
+        <listener class-name="ru.instamart.api.listener.ApiTestSuiteListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="Shifts service smoke API Tests" parallel="none" thread-count="1">
+        <classes>
+            <class name="ru.instamart.test.api.on_demand.shifts.CreateShiftsTest"/>
+            <class name="ru.instamart.test.api.on_demand.shifts.DeleteShiftsTest"/>
+            <class name="ru.instamart.test.api.on_demand.shifts.ShiftsCancelTest"/>
+            <class name="ru.instamart.test.api.on_demand.shifts.ShiftsPlanningAreaTest"/>
+            <class name="ru.instamart.test.api.on_demand.shifts.ShiftsPlanningPeriodsTest"/>
+            <class name="ru.instamart.test.api.on_demand.shifts.ShiftsPlanTest"/>
+            <class name="ru.instamart.test.api.on_demand.shifts.StartShiftsNegativeTest"/>
+            <class name="ru.instamart.test.api.on_demand.shifts.ShiftsStoreChangedTest"/>
+            <class name="ru.instamart.test.api.on_demand.shifts.ShiftsWorkflowTest"/>
+            <class name="ru.instamart.test.api.on_demand.shifts.ShiftTariffDescriptionTest"/>
+        </classes>
+    </test>
+</suite>

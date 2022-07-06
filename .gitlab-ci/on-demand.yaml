@@ -85,3 +85,16 @@ tests:on:demand:shippingcalc:
     - gradle clean build onDemandShippingCalc -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh api on-demand-shippingcalc
+
+tests:on:demand:candidates:
+  resource_group: onDemandCandidates
+  extends:
+    - ".template_api_tests"
+  only:
+    variables:
+      - $ON_DEMAND_CANDIDATES == 'true'
+  when: always
+  script:
+    - gradle clean build onDemandCandidates -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh api on-demand-candidates

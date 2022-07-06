@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
+<suite name="ON DEMAND GRPC SUITE" verbose="1">
+  <listeners>
+    <listener class-name="ru.instamart.grpc.listener.TagManagerExecutionListener"/>
+    <listener class-name="ru.instamart.grpc.listener.GrpcTestSuiteListener"/>
+  </listeners>
+  <method-selectors>
+    <method-selector>
+      <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+    </method-selector>
+  </method-selectors>
+  <test verbose="1" name="Tag Manager">
+    <classes>
+      <class name="ru.instamart.test.content.operations.TagManagerTest"/>
+    </classes>
+  </test>
+</suite>
