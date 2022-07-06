@@ -62,7 +62,6 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void cleanup() {
         shopperApp.authorisation(UserManager.getDefaultShopper());
         shopperApp.deleteCurrentAssembly();
-        apiV2.canselCurrentShipment();
     }
 
     @Story("Начало сборки")

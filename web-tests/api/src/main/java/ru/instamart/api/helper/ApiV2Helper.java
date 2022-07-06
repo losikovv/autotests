@@ -781,19 +781,7 @@ public final class ApiV2Helper {
      */
     @Step("Отменяем заказ по номеру: {orderNumber}")
     public OrderV2 cancelOrder(String orderNumber) {
-        Response response = OrdersV2Request.Cancellations.POST(orderNumber, "test");
-        checkStatusCode200(response);
-        OrderV2 order = response.as(CancellationsV2Response.class).getCancellation().getOrder();
-        log.debug("Отменен заказ: {}", order.getNumber());
-        return order;
-    }
-
-    /**
-     * Отменяем доставки по номеру
-     */
-    @Step("Отменяем доставки по номеру: {shipmentsNumber}")
-    public OrderV2 cancelShipment(String shipmentsNumber) {
-        Response response = ShipmentsV2Request.Cancellations.POST(shipmentsNumber, "test");
+        Response response = ShipmentsV2Request.Cancellations.POST(orderNumber, "test");
         checkStatusCode200(response);
         OrderV2 order = response.as(CancellationsV2Response.class).getCancellation().getOrder();
         log.debug("Отменен заказ: {}", order.getNumber());
@@ -1384,14 +1372,6 @@ public final class ApiV2Helper {
     public void cancelCurrentOrder() {
         if (currentOrderNumber.get() != null && orderCompleted.get() != null && orderCompleted.get())
             cancelOrder(currentOrderNumber.get());
-    }
-
-    /**
-     * Отменить последнюю доставку (с которым взаимодействовали в этой сессии через REST API)
-     */
-    public void canselCurrentShipment(){
-        if (currentShipmentNumber.get() != null && orderCompleted.get() != null && orderCompleted.get())
-            cancelShipment(currentShipmentNumber.get());
     }
 
     /**
