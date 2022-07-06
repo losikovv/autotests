@@ -16,7 +16,7 @@ import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.kraken.config.EnvironmentProperties.Env.DEMO_RBSUAT_PAYMENTS_URL;
+import static ru.instamart.reforged.core.config.UiProperties.RBSUAT_PAYMENTS_URL;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
 
@@ -109,7 +109,7 @@ public final class BasicOrdersTests {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        sberPayments().checkPageContains(DEMO_RBSUAT_PAYMENTS_URL + "acs");
+        sberPayments().checkPageContains(RBSUAT_PAYMENTS_URL + "acs");
         sberPayments().checkPasswordInputVisible();
         sberPayments().fillPassword(card.getPassword());
 
@@ -369,7 +369,7 @@ public final class BasicOrdersTests {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        sberPayments().checkPageContains(DEMO_RBSUAT_PAYMENTS_URL + "acs");
+        sberPayments().checkPageContains(RBSUAT_PAYMENTS_URL + "acs");
         sberPayments().checkPasswordInputVisible();
         sberPayments().fillPassword(card.getPassword());
 
@@ -440,7 +440,7 @@ public final class BasicOrdersTests {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        sberPayments().checkPageContains(DEMO_RBSUAT_PAYMENTS_URL + "acs");
+        sberPayments().checkPageContains(RBSUAT_PAYMENTS_URL + "acs");
         sberPayments().checkPasswordInputVisible();
         sberPayments().fillPassword(card.getPassword());
 
@@ -466,7 +466,7 @@ public final class BasicOrdersTests {
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        sberPayments().checkPageContains(DEMO_RBSUAT_PAYMENTS_URL + "acs");
+        sberPayments().checkPageContains(RBSUAT_PAYMENTS_URL + "acs");
         sberPayments().checkPasswordInputVisible();
         sberPayments().fillPassword(card.getPassword());
 

@@ -2,6 +2,7 @@ package ru.instamart.reforged;
 
 import org.openqa.selenium.Cookie;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
 import java.util.Calendar;
@@ -29,7 +30,7 @@ public final class CookieFactory {
             "/",
             date);
 
-    public static final Cookie EXTERNAL_ANALYTICS_ANONYMOUS_ID = new Cookie("external_analytics_anonymous_id",
+    public static final Cookie EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST = new Cookie("external_analytics_anonymous_id",
             ANONYMOUS_ID,
             COOKIE_DOMAIN,
             "/",

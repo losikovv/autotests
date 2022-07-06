@@ -70,7 +70,7 @@ public final class CustomReport {
         final var cookies = CdpCookie.getAllCookies();
         final int maxLineLength = cookies
                 .stream()
-                .map(org.openqa.selenium.devtools.v102.network.model.Cookie::getValue)
+                .map(org.openqa.selenium.devtools.v103.network.model.Cookie::getValue)
                 .mapToInt(String::length)
                 .max().orElse(0);
         final int count = maxLineLength >= 20 ? Math.min(maxLineLength + 1, 120) : 20;

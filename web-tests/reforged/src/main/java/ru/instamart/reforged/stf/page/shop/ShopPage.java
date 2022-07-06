@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.shop;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.CollectionUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.enums.ShopUrl;
@@ -176,7 +177,6 @@ public final class ShopPage implements StfPage, ShopCheck {
      * @param isFixedUUID - служит идентификатором для UUID
      */
     public void goToPage(final boolean isFixedUUID) {
-        cookiesChange(isFixedUUID);
         goToPage(ShopUrl.DEFAULT, isFixedUUID);
     }
 

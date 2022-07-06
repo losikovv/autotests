@@ -3,9 +3,9 @@ package ru.instamart.reforged.core.cdp.model;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import org.openqa.selenium.devtools.v102.emulation.model.DisplayFeature;
-import org.openqa.selenium.devtools.v102.emulation.model.ScreenOrientation;
-import org.openqa.selenium.devtools.v102.page.model.Viewport;
+import org.openqa.selenium.devtools.v103.emulation.model.DisplayFeature;
+import org.openqa.selenium.devtools.v103.emulation.model.ScreenOrientation;
+import org.openqa.selenium.devtools.v103.page.model.Viewport;
 
 @Getter
 @Builder(setterPrefix = "with")

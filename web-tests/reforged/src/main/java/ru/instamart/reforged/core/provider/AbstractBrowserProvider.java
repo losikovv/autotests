@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v102.network.Network;
+import org.openqa.selenium.devtools.v103.network.Network;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -23,6 +23,7 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.config.BrowserProperties;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.provider.chrome.ChromeDriverExtension;
 
 import java.net.URI;
@@ -89,7 +90,7 @@ public abstract class AbstractBrowserProvider {
         ((HasAuthentication) driver).register(
                 //Basic auth только на стейджах
                 url -> url.getHost().contains("sbermarket.tech"),
-                UsernameAndPassword.of(EnvironmentProperties.BASIC_AUTH_USERNAME, EnvironmentProperties.BASIC_AUTH_PASSWORD)
+                UsernameAndPassword.of(UiProperties.BASIC_AUTH_USERNAME, UiProperties.BASIC_AUTH_PASSWORD)
         );
     }
 

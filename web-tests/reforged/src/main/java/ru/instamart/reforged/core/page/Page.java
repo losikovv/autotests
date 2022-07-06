@@ -3,7 +3,9 @@ package ru.instamart.reforged.core.page;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.cdp.CdpCookie;
@@ -71,22 +73,26 @@ public interface Page extends PageCheck {
     }
 
     /**
-     * Проверят что есть кука {@link CookieFactory#EXTERNAL_ANALYTICS_ANONYMOUS_ID}
+     * Проверят что есть кука {@link CookieFactory#EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST}
      * после чего пытается её обновить на куку с исключённым из всех АБ тестов anonymousId
      */
     default void excludeGuestFromAllAb() {
-        cookieChange(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID);
+        cookieChange(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST);
     }
 
     /**
      * Добавляет или подменяет куки на нужные
      */
     default void cookiesChange(final boolean isFixedUUID) {
-        Set<Cookie> cookies = new HashSet<>();
-        if (isFixedUUID) cookies.add(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE);
+        final Set<Cookie> cookies = new HashSet<>();
+        if (isFixedUUID) {
+            cookies.add(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE);
+        } else {
+            cookies.add(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST);
+        }
         if (EnvironmentProperties.Env.isProduction()) cookies.add(CookieFactory.USER_ADULT_18_PLUS_ALERT);
         cookies.add(CookieFactory.RETAILERS_REMINDER_MODAL);
-        addOrReplaceCookies(cookies);
+        CdpCookie.addCookies(cookies);
     }
 
     /**
@@ -116,6 +122,7 @@ public interface Page extends PageCheck {
      * @param cityName - название города, на английском: Moscow, Novosibirsk, Barnaul
      */
     default void setLocation(final String cityName) {
-        cookieReplace(CookieFactory.setLocation(cityName));
+        CdpCookie.addCookie(CookieFactory.setLocation(cityName));
+        refresh();
     }
 }

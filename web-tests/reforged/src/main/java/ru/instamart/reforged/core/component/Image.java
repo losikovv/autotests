@@ -27,7 +27,7 @@ public final class Image extends AbstractComponent {
     /**
      * ожидание загрузки элемента
      */
-    public void waitImgLoad(final Object... args) {
+    public synchronized void waitImgLoad(final Object... args) {
         setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         waitImgLoad();
     }

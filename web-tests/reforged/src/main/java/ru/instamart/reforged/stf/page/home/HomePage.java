@@ -2,7 +2,6 @@ package ru.instamart.reforged.stf.page.home;
 
 import io.qameta.allure.Step;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.page.Window;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.drawer.cookie.CookieDrawer;
@@ -151,7 +150,7 @@ public final class HomePage implements StfPage, Window, HomeCheck {
     }
 
     public void goToPage(final boolean isFixedUUID) {
-        cookieChange(isFixedUUID ? CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE : CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID);
+        cookiesChange(isFixedUUID);
         goToPage(pageUrl());
     }
 }

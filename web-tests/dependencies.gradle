@@ -24,7 +24,7 @@ ext.versions = [
         swaggerCoverage:'1.4.5',
         protobufUtil: '3.20.0',
 
-        selenium: '4.2.0',
+        selenium: '4.3.0',
         webdrivermanager: '5.2.0',
 
         logback: '1.2.11',

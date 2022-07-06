@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static java.util.Objects.isNull;
@@ -55,8 +56,9 @@ public final class UploadComponent extends AbstractComponent {
     }
 
     private String getAbsoluteFilePath(final String filePath) {
-        if (!Paths.get(filePath).isAbsolute())
-            return Paths.get(filePath).toAbsolutePath().toString();
+        final var of = Path.of(filePath);
+        if (!of.isAbsolute())
+            return of.toAbsolutePath().toString();
         return filePath;
     }
 }
