@@ -220,16 +220,16 @@ public class ShippingCalcHelper {
     }
 
     @Step("Проверяем расчитанную цену доставки")
-    public static void checkDeliveryPrice(ShippingcalcOuterClass.GetDeliveryPriceResponse response, int strategyId, long deliveryPrice, long minCartPrice, int stepAmount, int hintAmount, int passedConditionAmount) {
+    public static void checkDeliveryPrice(ShippingcalcOuterClass.GetDeliveryPriceResponse response, int strategyId, long totalDeliveryPrice, long minCartPrice, int stepAmount, int hintAmount, int passedConditionAmount, int shipmentIndex) {
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(response.getIsOrderPossible(), "Заказ не возможен");
-        softAssert.assertFalse(response.getShipments(0).getWeHadOffer(), "Получили цену из оффера");
-        softAssert.assertEquals(response.getTotalShippingPrice(), deliveryPrice, "Не ожидаемая цена доставки");
-        softAssert.assertEquals(response.getShipments(0).getStrategyId(), strategyId, "Посчитали по неверной стратегии");
-        softAssert.assertEquals(response.getShipments(0).getMinimalCartPrice(), minCartPrice, "Отдали неверную цену мин. корзины");
-        softAssert.assertEquals(response.getShipments(0).getLadderCount(), stepAmount, "В лесенке не ожидаемое кол-во ступеней");
-        softAssert.assertEquals(response.getShipments(0).getHintsCount(), hintAmount, "Не ожидаемое кол-во подсказок");
-        softAssert.assertEquals(response.getShipments(0).getPriceExplanation().getPassedConditionsCount(), passedConditionAmount, "Не ожидаемое кол-во прошедших условий");
+        softAssert.assertFalse(response.getShipments(shipmentIndex).getWeHadOffer(), "Получили цену из оффера");
+        softAssert.assertEquals(response.getTotalShippingPrice(), totalDeliveryPrice, "Не ожидаемая общая цена доставки");
+        softAssert.assertEquals(response.getShipments(shipmentIndex).getStrategyId(), strategyId, "Посчитали по неверной стратегии");
+        softAssert.assertEquals(response.getShipments(shipmentIndex).getMinimalCartPrice(), minCartPrice, "Отдали неверную цену мин. корзины");
+        softAssert.assertEquals(response.getShipments(shipmentIndex).getLadderCount(), stepAmount, "В лесенке не ожидаемое кол-во ступеней");
+        softAssert.assertEquals(response.getShipments(shipmentIndex).getHintsCount(), hintAmount, "Не ожидаемое кол-во подсказок");
+        softAssert.assertEquals(response.getShipments(shipmentIndex).getPriceExplanation().getPassedConditionsCount(), passedConditionAmount, "Не ожидаемое кол-во прошедших условий");
         softAssert.assertAll();
     }
 
@@ -273,9 +273,7 @@ public class ShippingCalcHelper {
     public static void addBinding(Integer strategyId, String storeId, String tenantId, String deliveryType) {
         String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
         Boolean binding = StrategyBindingsDao.INSTANCE.addStrategyBinding(strategyId, storeId, tenantId, shipping);
-        Allure.step("Проверяем что связка добавилась", () -> {
-            assertTrue(binding, "Связка не добавилась");
-        });
+        Allure.step("Проверяем что связка добавилась", () -> assertTrue(binding, "Связка не добавилась"));
     }
 
     @Step("Удаляем созданную стратегию из БД")
