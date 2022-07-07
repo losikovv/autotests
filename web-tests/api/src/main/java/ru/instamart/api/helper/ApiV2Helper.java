@@ -858,7 +858,6 @@ public final class ApiV2Helper {
     public AddressV2 getAddressBySid(int sid) {
         currentSid.set(sid);
         Response response = StoresV2Request.GET(sid);
-        response.prettyPeek();
 
         if (response.statusCode() == 404) {
             new SkipException("Магазин отключен admin/stores/" + currentSid.get());

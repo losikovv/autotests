@@ -95,7 +95,6 @@ public class NextV1Tests extends RestBase {
             description = "Получение промо-карточек ретейлера")
     public void getRetailerPromoCards() {
         final Response response = NextV1Request.RetailerPromoCards.GET(1L);
-        response.prettyPeek();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailerPromoCardsV1Response.class);
         List<RetailerPromoCardV1> retailerPromoCards = response.as(RetailerPromoCardsV1Response.class).getPromoCards();

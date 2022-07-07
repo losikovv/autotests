@@ -116,7 +116,6 @@ public class ApiV1Helper {
     @Step("Добавляем товар в корзину")
     public LineItemV1 addItemToCart(Long offerId) {
         final Response response = LineItemsV1Request.POST(offerId);
-        response.prettyPeek();
         checkStatusCode200(response);
         currentLineItem.set(response.as(LineItemV1Response.class).getLineItem());
         return currentLineItem.get();
