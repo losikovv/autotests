@@ -4,6 +4,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.StopWatch;
 import org.testng.Assert;
 import org.testng.SkipException;
 import ru.instamart.api.enums.SessionType;
@@ -112,13 +113,20 @@ public class ShopperAppApiHelper {
     @Step("Получаем оформленный заказ")
     public ShipmentSHP.Data getShipment(String shipmentNumber, String additionalInfoForError) {
         ShipmentSHP.Data shipment;
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
         String error = "Оформленного заказа нет в списке " + shipmentNumber;
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 48; i++) {
             shipment = getShipmentIteration(shipmentNumber);
-            if (Objects.nonNull(shipment)) return shipment;
+            if (Objects.nonNull(shipment)){
+                stopWatch.stop();
+                Allure.step(" >>> Время поиска, мс: " + stopWatch.getTime() + " <<<");
+                return shipment;
+            }
         }
         log.error(error);
-        Assert.fail(error + "\n" + additionalInfoForError);
+        stopWatch.stop();
+        Assert.fail(error + ". Время поиска, мс: " + stopWatch.getTime() + "\n" + additionalInfoForError);
         return null;
     }
 
