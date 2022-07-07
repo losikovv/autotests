@@ -61,7 +61,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0);
+        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0, 0);
     }
 
     @CaseIDs(value = {@CaseId(242), @CaseId(244)})
@@ -77,7 +77,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, secondGlobalStrategyId, 19900, 100000, 3, 4, 0);
+        checkDeliveryPrice(response, secondGlobalStrategyId, 19900, 100000, 3, 4, 0, 0);
     }
 
     @CaseIDs(value = {@CaseId(248), @CaseId(325), @CaseId(329)})
@@ -95,7 +95,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 0, 50000, 1, 0, 1);
+        checkDeliveryPrice(response, localStrategyId, 0, 50000, 1, 0, 1, 0);
     }
 
     @CaseId(237)
@@ -113,6 +113,93 @@ public class GetDeliveryPriceTest extends RestBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         clientShippingCalc.getDeliveryPrice(request);
+    }
+
+    @CaseId(380)
+    @Story("Get Delivery Price")
+    @Test(description = "Получение цены доставки для мультизаказа",
+            groups = "dispatch-shippingcalc-smoke")
+    public void getDeliveryPriceMultipleShipments() {
+        String storeId = UUID.randomUUID().toString();
+        addBinding(localStrategyId, storeId, Tenant.SBERMARKET.getId(), ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.toString());
+
+        ShippingcalcOuterClass.GetDeliveryPriceRequest request = ShippingcalcOuterClass.GetDeliveryPriceRequest.newBuilder()
+                .addShipments(ShippingcalcOuterClass.Shipment.newBuilder()
+                        .addProducts(ShippingcalcOuterClass.ProductRequest.newBuilder()
+                                .setQuantity(1)
+                                .setId(UUID.randomUUID().toString())
+                                .setPrice(99900)
+                                .setDiscountPrice(0)
+                                .setWeight(1000)
+                                .build())
+                        .addProducts(ShippingcalcOuterClass.ProductRequest.newBuilder()
+                                .setQuantity(2)
+                                .setId(UUID.randomUUID().toString())
+                                .setPrice(99900)
+                                .setDiscountPrice(0)
+                                .setWeight(1000)
+                                .build())
+                        .setId(UUID.randomUUID().toString())
+                        .setIsOndemand(false)
+                        .setWeight(3000)
+                        .setItemsCount(3)
+                        .setPrice(299700)
+                        .setStoreId(STORE_ID)
+                        .setStatus("NEW")
+                        .setRegionId(1)
+                        .setSurgeDeliveryWindowAddition(0)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .build())
+                .addShipments(ShippingcalcOuterClass.Shipment.newBuilder()
+                        .addProducts(ShippingcalcOuterClass.ProductRequest.newBuilder()
+                                .setQuantity(2)
+                                .setId(UUID.randomUUID().toString())
+                                .setPrice(10000)
+                                .setDiscountPrice(0)
+                                .setWeight(1000)
+                                .build())
+                        .addProducts(ShippingcalcOuterClass.ProductRequest.newBuilder()
+                                .setQuantity(1)
+                                .setId(UUID.randomUUID().toString())
+                                .setPrice(50000)
+                                .setDiscountPrice(0)
+                                .setWeight(1000)
+                                .build())
+                        .setId(UUID.randomUUID().toString())
+                        .setIsOndemand(false)
+                        .setWeight(3000)
+                        .setItemsCount(3)
+                        .setPrice(70000)
+                        .setStoreId(storeId)
+                        .setStatus("NEW")
+                        .setRegionId(1)
+                        .setSurgeDeliveryWindowAddition(0)
+                        .setLat(55.56f)
+                        .setLon(55.56f)
+                        .build())
+                .setCustomer(ShippingcalcOuterClass.Customer.newBuilder()
+                        .setId(CUSTOMER_ID)
+                        .setAnonymousId(ANONYMOUS_ID)
+                        .setOrdersCount(1)
+                        .setRegisteredAt(1655822708)
+                        .setLat(55.57f)
+                        .setLon(55.57f)
+                        .build())
+                .setOrderId(UUID.randomUUID().toString())
+                .setIsB2BOrder(false)
+                .setIsPromocode(false)
+                .setPaymentMethod("Картой онлайн")
+                .setHasPaymentMethod(true)
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE)
+                .setTenantId(Tenant.SBERMARKET.getId())
+                .setPlatformName(AppVersion.WEB.getName())
+                .setPlatformVersion(AppVersion.WEB.getVersion())
+                .build();
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, localStrategyId, 29800, 100000, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 29800, 100000, 3, 4, 0, 1);
     }
 
     @CaseIDs(value = {@CaseId(240), @CaseId(274), @CaseId(1)})
@@ -151,7 +238,7 @@ public class GetDeliveryPriceTest extends RestBase {
 
         });
 
-        Allure.step("Проверяем новую расчитанную цену", () -> checkDeliveryPrice(newResponse, localStrategyId, 19900, 100000, 3, 4, 0));
+        Allure.step("Проверяем новую расчитанную цену", () -> checkDeliveryPrice(newResponse, localStrategyId, 19900, 100000, 3, 4, 0, 0));
     }
 
     @CaseId(288)
@@ -204,7 +291,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0); // наценка по surgelevel не добавляется к финальной цене (пока прибито гвоздями в коде), если тут начнет падать, нужно изменить ожидание на финальную цену с наценкой
+        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0, 0); // наценка по surgelevel не добавляется к финальной цене (пока прибито гвоздями в коде), если тут начнет падать, нужно изменить ожидание на финальную цену с наценкой
         Allure.step("Проверяем наценку по surge", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(response.getShipments(0).getSurgeUsed(), "Surge не использовался при расчете цены");
@@ -227,7 +314,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 29900, 100000, 3, 4, 0);
+        checkDeliveryPrice(response, localStrategyId, 29900, 100000, 3, 4, 0, 0);
     }
 
     @CaseIDs(value = {@CaseId(357), @CaseId(326), @CaseId(332)})
@@ -245,7 +332,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 1, 4, 0);
+        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 1, 4, 0, 0);
     }
 
     @CaseIDs(value = {@CaseId(360), @CaseId(331)})
@@ -261,7 +348,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 14900, 100000, 3, 4, 0);
+        checkDeliveryPrice(response, localStrategyId, 14900, 100000, 3, 4, 0, 0);
         Allure.step("Проверяем наценку за перевес", () -> assertEquals(response.getShipments(0).getPriceExplanation().getPriceComponents(3).getPrice(), 5000, "Не ожидаемая наценка за перевес"));
     }
 
