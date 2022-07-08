@@ -35,8 +35,8 @@ public final class UserAuthorisationTests {
     @CaseId(2543)
     @Test(description = "Авторизация по номеру телефона", groups = {"production", "regression", "smoke"})
     public void successAuthOnMainPageUserWithOrder() {
-        UserData user = UserManager.getQaUser();
-        apiHelper.dropAndFillCart(user, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        final var user = UserManager.getQaUser();
+        apiHelper.dropAndFillCart(user, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 1);
 
         home().goToPage(true);
         home().openLoginModal();
@@ -141,7 +141,6 @@ public final class UserAuthorisationTests {
         shop().interactAuthModal().interactAuthMailWindow()
                 .fillPassword(UserManager.getDefaultMailRuUser().getPassword());
         shop().interactAuthModal().interactAuthMailWindow().clickToSubmit();
-        shop().interactAuthModal().interactAuthMailWindow().clickToAccept();
         shop().interactAuthModal().interactAuthMailWindow().switchToFirstWindow();
         shop().interactAuthModal().checkModalIsNotVisible();
 

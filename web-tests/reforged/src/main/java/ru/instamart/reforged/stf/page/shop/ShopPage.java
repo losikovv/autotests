@@ -117,7 +117,7 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Step("Открыть карточку первого товара на стейдже")
     public void openFirstProductCard() {
-        firstProductCard.click();
+        firstProductCard.getActions().moveToElementAndClick();
     }
 
     @Step("Получаем цену товара")
