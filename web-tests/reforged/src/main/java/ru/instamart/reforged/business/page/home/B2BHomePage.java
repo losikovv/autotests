@@ -7,8 +7,6 @@ import ru.instamart.reforged.business.frame.auth.auth_modal.B2BAuthModal;
 import ru.instamart.reforged.business.page.BusinessPage;
 import ru.instamart.reforged.core.page.Window;
 
-import static ru.instamart.reforged.CookieFactory.RETAILERS_REMINDER_MODAL;
-
 public final class B2BHomePage implements BusinessPage, B2BHomeCheck, Window {
 
     public B2BAuthModal interactAuthModal() {
@@ -41,7 +39,6 @@ public final class B2BHomePage implements BusinessPage, B2BHomeCheck, Window {
     @Override
     public void goToPage() {
         goToPage(pageUrl());
-        addCookie(RETAILERS_REMINDER_MODAL);
     }
 
 }

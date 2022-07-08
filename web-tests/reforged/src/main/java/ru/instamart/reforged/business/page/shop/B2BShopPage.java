@@ -59,7 +59,6 @@ public final class B2BShopPage implements BusinessPage, B2BShopCheck, Window {
 
     @Override
     public void goToPage() {
-        cookiesChange(false);
         goToPage(ShopUrl.DEFAULT);
     }
 

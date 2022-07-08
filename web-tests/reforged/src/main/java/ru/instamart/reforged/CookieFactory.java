@@ -2,7 +2,6 @@ package ru.instamart.reforged;
 
 import org.openqa.selenium.Cookie;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
 import java.util.Calendar;

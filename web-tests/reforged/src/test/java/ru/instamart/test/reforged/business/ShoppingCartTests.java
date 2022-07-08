@@ -3,7 +3,9 @@ package ru.instamart.test.reforged.business;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -23,30 +25,20 @@ public final class ShoppingCartTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(261)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Отображение TOTAL НДС", groups = {"smoke", "regression"})
     public void testTotalVatDisplayed() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
-
-        shop().plusFirstItemToCart();
-        shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -54,35 +46,20 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(263)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Отображение TOTAL НДС мультизаказ", groups = {"smoke", "regression"})
     public void testTotalVatDisplayedMultiply() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, EnvironmentProperties.DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
-
-        shop().plusFirstItemToCart();
-        shop().interactHeader().checkCartNotificationIsVisible();
-
-        shop().goToPage(ShopUrl.LENTA.getUrl());
-        shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().plusFirstItemToCart();
-        shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -210,30 +187,19 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(731)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Изменение количества товаров в корзине вводом числа", groups = {"smoke", "regression"})
     public void testChangeItemCountFromKeyboard() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
-
-        shop().plusFirstItemToCart();
-        shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();

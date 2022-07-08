@@ -19,7 +19,7 @@ public final class CompaniesTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(21)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Переход в раздел 'Компании'", groups = {"smoke", "regression"})
     public void gotoCompaniesFromHeader() {
         var user = UserManager.getQaUser();
@@ -36,6 +36,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(750)
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Переход в раздел 'Компании' (B2C-витрина)", groups = {"smoke", "regression"})
     public void gotoCompaniesFromHeaderB2C() {
         var user = UserManager.getQaUser();
@@ -55,7 +56,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(22)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Переход в профиль из раздела 'Компании'", groups = {"smoke", "regression"})
     public void gotoProfileFromCompanies() {
         var user = UserManager.getQaUser();
@@ -73,6 +74,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(751)
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Переход в профиль из раздела 'Компании' (B2C-витрина)", groups = {"smoke", "regression"})
     public void gotoProfileFromCompaniesB2C() {
         var user = UserManager.getQaUser();
@@ -93,7 +95,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(23)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Добавление новой компании из раздела 'Компании' / ввод корректного ИНН", groups = {"smoke", "regression"})
     public void addCompanyFromCompaniesPagePositive() {
         var company = JuridicalData.juridical();
@@ -122,6 +124,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(752)
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Добавление новой компании из раздела 'Компании' / ввод корректного ИНН  (B2C-витрина)", groups = {"smoke", "regression"})
     public void addCompanyFromCompaniesPagePositiveB2C() {
         var company = JuridicalData.juridical();
@@ -153,7 +156,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(43)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Добавление новой компании из ЛК / ввод некорректного ИНН", groups = {"smoke", "regression"})
     public void addCompanyFromCompaniesPageIncorrectINN() {
         var user = UserManager.getQaUser();
@@ -179,6 +182,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(758)
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Добавление новой компании из ЛК / ввод некорректного ИНН (B2c-витрина)", groups = {"smoke", "regression"})
     public void addCompanyFromCompaniesPageIncorrectINNB2C() {
         var user = UserManager.getQaUser();
@@ -204,6 +208,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(37)
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Отображение  блока 'менеджер' в кабинете компании", groups = {"smoke", "regression"})
     public void testCompanyManagerInfo() {
         var userData = UserManager.getQaUser();
@@ -226,6 +231,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(754)
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Отображение  блока 'менеджер' в кабинете компании (B2C-витрина)", groups = {"smoke", "regression"})
     public void testCompanyManagerInfoB2C() {
         var userData = UserManager.getQaUser();
@@ -248,6 +254,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(38)
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Переход в профиль компании", groups = {"smoke", "regression"})
     public void testCompanyInfo() {
         var company = JuridicalData.juridical();
@@ -267,6 +274,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(755)
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Переход в профиль компании (B2C-витрина)", groups = {"smoke", "regression"})
     public void testCompanyInfoB2C() {
         var company = JuridicalData.juridical();
@@ -286,6 +294,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(39)
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Кнопка 'обновления баланса' и 'подсказка'", groups = {"smoke", "regression"})
     public void testCompanyBalance() {
         var company = JuridicalData.juridical();
@@ -331,6 +340,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(756)
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Кнопка 'обновления баланса' и 'подсказка' (B2C-витрина)", groups = {"smoke", "regression"})
     public void testCompanyBalanceB2C() {
         var company = JuridicalData.juridical();
@@ -376,8 +386,8 @@ public final class CompaniesTests {
     }
 
     @CaseId(42)
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Блок 'Код безопасности'", groups = {"smoke", "regression"})
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void testSecurityCodeBlock() {
         var company = JuridicalData.juridical();
         var companyHeadUser = UserManager.getQaUser();
@@ -416,8 +426,8 @@ public final class CompaniesTests {
     }
 
     @CaseId(757)
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Блок 'Код безопасности' (B2C-витрина)", groups = {"smoke", "regression"})
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void testSecurityCodeBlockB2C() {
         var company = JuridicalData.juridical();
         var companyHeadUser = UserManager.getQaUser();

@@ -8,6 +8,8 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
+import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.business.page.BusinessRouter.business;
@@ -18,6 +20,7 @@ public final class UserAuthorisationBusinessTests {
 
     @CaseId(230)
     @Story("Авторизация")
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Вход по мобильному телефону (B2B)", groups = {"smoke", "regression"})
     public void successAuthOnMainPage() {
         business().goToPage();
@@ -32,6 +35,7 @@ public final class UserAuthorisationBusinessTests {
     @Issue("DEVB2B-1977")
     @CaseId(231)
     @Story("Авторизация")
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(enabled = false, description = "Вход по СберБизнес ID (B2B)", groups = {"smoke", "regression"})
     public void successRegWithSberBusinessID() {
         business().goToPage();

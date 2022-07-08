@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CookieProvider {
 
-    String[] cookies() default {};
+    String[] cookies() default {"COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"};
     Class<?> cookieFactory() default Object.class;
 }
