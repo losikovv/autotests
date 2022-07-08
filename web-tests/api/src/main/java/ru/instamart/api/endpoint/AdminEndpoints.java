@@ -33,6 +33,12 @@ public final class AdminEndpoints {
 
     public static final String PAGE = "pages/{pageId}";
     public static final String PAGES = "pages";
+    public static final String PRODUCTS= "products";
+
+    public static final class Products {
+        public static final String BY_PERMALINK = "products/{permalink}";
+        public static final String REFERENCES = "products/references";
+    }
 
     public static final String PROMOTION_CODES = "promotion_codes";
 
