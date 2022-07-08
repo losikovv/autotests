@@ -47,7 +47,7 @@ public class CandidatesTest extends RestBase {
 
     @CaseId(24)
     @Test(description = "Кандидаты находятся в пределах радиуса вокруг координаты магазина",
-            groups = "dispatch-сandidates-smoke")
+            groups = "dispatch-candidates-smoke")
     public void candidatesAreWithinARadius() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
@@ -68,7 +68,7 @@ public class CandidatesTest extends RestBase {
 
     @CaseId(24)
     @Test(description = "Превышение даты/времени последней фиксации геолокации при фильтрации",
-            groups = "dispatch-сandidates-smoke",
+            groups = "dispatch-candidates-smoke",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: geo_started_at should be for the last day"
     )
