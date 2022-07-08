@@ -17,7 +17,6 @@ import ru.instamart.jdbc.dao.eta.StoreParametersDao;
 import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.jdbc.dao.stf.StoresDao;
 import ru.instamart.jdbc.entity.stf.StoresEntity;
-import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
 
 import java.time.LocalTime;
@@ -38,7 +37,7 @@ public class EtaHelper {
     }
 
     @Step("Получаем запрос для user ETA")
-    public static Eta.StoreUserEtaRequest getStoreUserEtaRequest(String storeUuid, float lat, float lon) {
+    public static Eta.StoreUserEtaRequest getStoreUserEtaRequest(final String storeUuid, final float lat, final float lon) {
         return Eta.StoreUserEtaRequest.newBuilder()
                 .addStoreUuids(storeUuid)
                 .setLat(lat)
@@ -93,18 +92,18 @@ public class EtaHelper {
     @Step("Изменяем настройки ETA сервиса")
     public static void updateServiceParameters(ServiceParametersEtaResponse serviceParameters) {
         final Response response = ServiceParametersEtaRequest.PUT(serviceParameters);
-        checkStatusCode(response, 200, "");
+        checkStatusCode(response, 200);
     }
 
     @Step("Изменяем настройки ритейлера")
     public static void updateRetailerParameters(String retailerId, RetailerParametersEtaResponse retailerParameters) {
         final Response response = RetailerParametersEtaRequest.PUT(retailerId, retailerParameters);
-        checkStatusCode(response, 200, "");
+        checkStatusCode(response, 200);
     }
 
     @Step("Изменяем настройки магазина")
     public static void updateStoreParameters(String storeId, StoreParametersEtaResponse storeParameters) {
         final Response response = StoreParametersEtaRequest.PUT(storeId, storeParameters);
-        checkStatusCode(response, 200, "");
+        checkStatusCode(response, 200);
     }
 }

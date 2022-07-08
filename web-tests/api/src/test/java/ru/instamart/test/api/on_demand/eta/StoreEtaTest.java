@@ -25,9 +25,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.UUID;
 
 import static org.testng.Assert.assertNotEquals;
@@ -155,8 +153,8 @@ public class StoreEtaTest extends RestBase {
     @Test(description = "Отправка валидного запроса в закрытый магазин",
             groups = "dispatch-eta-smoke")
     public void getEtaForClosedStore() {
-        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(2)));
-        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(1)));
+        String openingDate = getZoneDbDate(LocalDateTime.now().minusMinutes(2));
+        String closingDate = getZoneDbDate(LocalDateTime.now().minusMinutes(1));
         StoresEntity store = getStoreWithUpdatedSchedule(openingDate, closingDate, "00:00:00");
         Eta.StoreUserEtaRequest request = getStoreUserEtaRequest(store.getUuid(), address.getLat().floatValue(), address.getLon().floatValue());
 
@@ -181,8 +179,8 @@ public class StoreEtaTest extends RestBase {
     @Test(description = "Отправка валидного запроса в пределах работы параметра OnDemandClosingDelta",
             groups = "dispatch-eta-smoke")
     public void getEtaForClosedStoreViaClosingDelta() {
-        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
-        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusMinutes(30)));
+        String openingDate = getZoneDbDate(LocalDateTime.now().minusHours(1));
+        String closingDate = getZoneDbDate(LocalDateTime.now().plusMinutes(30));
         StoresEntity store = getStoreWithUpdatedSchedule(openingDate, closingDate, "00:30:00");
         Eta.StoreUserEtaRequest request = getStoreUserEtaRequest(store.getUuid(), address.getLat().floatValue(), address.getLon().floatValue());
 
@@ -195,8 +193,8 @@ public class StoreEtaTest extends RestBase {
     @Test(description = "Отправка запроса с OnDemandClosingDelta равным времени работы магазина",
             groups = "dispatch-eta-regress")
     public void getEtaForClosedStoreEqualClosingDelta() {
-        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
-        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusHours(1)));
+        String openingDate = getZoneDbDate(LocalDateTime.now().minusHours(1));
+        String closingDate = getZoneDbDate(LocalDateTime.now().plusHours(1));
         StoresEntity store = getStoreWithUpdatedSchedule(openingDate, closingDate, "02:00:00");
         Eta.StoreUserEtaRequest request = getStoreUserEtaRequest(store.getUuid(), address.getLat().floatValue(), address.getLon().floatValue());
 
@@ -209,8 +207,8 @@ public class StoreEtaTest extends RestBase {
     @Test(description = "Отправка валидного запроса в магазин, который в одном часовом поясе открыт, а другом закрыт",
             groups = "dispatch-eta-regress")
     public void getEtaForClosedStoreInDifferentTimezone() {
-        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(5)));
-        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusMinutes(5)));
+        String openingDate = getZoneDbDate(LocalDateTime.now().minusMinutes(5));
+        String closingDate = getZoneDbDate(LocalDateTime.now().plusMinutes(5));
         StoresEntity store = getStoreWithDifferentTimezone(openingDate, closingDate, "00:00:00", "Europe/Kaliningrad");
         Eta.StoreUserEtaRequest request = getStoreUserEtaRequest(store.getUuid(), address.getLat().floatValue(), address.getLon().floatValue());
 
