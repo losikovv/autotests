@@ -215,7 +215,7 @@ task onDemandShippingCalc(type: Test) {
     systemProperty 'qase.Title', 'ShippingCalc Autotests'
 }
 
-task onDemandСandidates(type: Test) {
+task onDemandCandidates(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/on_demand/candidates.xml'
         includeGroups 'dispatch-сandidates-smoke'
