@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.business;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.JuridicalData;
@@ -20,25 +21,18 @@ public final class ShoppingCatalogTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(302)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Добавление товара в корзину из плитки (+удаление)", groups = "regression")
     public void testAddedAndRemoveProductFromShop() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().plusFirstItemToCart();
@@ -59,25 +53,18 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(303)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Добавление товара в корзину из карточки товара (+удаление)", groups = "regression")
     public void testAddedAndRemoveProductFromProductCard() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().openFirstProductCard();
@@ -110,17 +97,17 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(290)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Проверка обязательной авторизации при добавлении товара в корзину", groups = "regression")
     public void testNeedAuthAddToFavourites() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddressLarge().checkYmapsReady();
-        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddressLarge().selectFirstAddress();
-        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddressLarge().clickSave();
-        shop().interactAddressLarge().checkAddressModalNotVisible();
+        shop().interactAddress().checkYmapsReady();
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddress().clickOnSave();
+        shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().addFirstItemToFavourites();

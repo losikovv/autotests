@@ -4,7 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.data.Addresses;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserManager;
@@ -12,7 +12,8 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.business.page.BusinessRouter.*;
+import static ru.instamart.reforged.business.page.BusinessRouter.checkout;
+import static ru.instamart.reforged.business.page.BusinessRouter.shop;
 
 @Epic("SMBUSINESS UI")
 @Feature("Чекаут B2B")
@@ -21,32 +22,20 @@ public final class CheckoutTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(738)
+    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Способ оплаты корп. картой в чекауте", groups = {"smoke", "regression"})
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     public void addBusinessCardInCheckout() {
         var company = JuridicalData.juridical();
         var user = UserManager.getQaUser();
         var card = PaymentCards.testBusinessCard();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), user.getEmail());
+        helper.dropAndFillCart(user, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
-
-        shop().plusFirstItemToCart();
-        shop().interactHeader().checkCartNotificationIsVisible();
-        shop().interactHeader().clickToCart();
-        shop().interactCart().increaseFirstItemCountToMin();
 
         checkout().goToPage();
         checkout().checkCheckoutLoaderNotVisible();
