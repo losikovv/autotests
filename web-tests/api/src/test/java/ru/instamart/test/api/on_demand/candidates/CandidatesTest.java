@@ -25,7 +25,7 @@ import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
 
 @Epic("On Demand")
 @Feature("Candidates")
-public class СandidatesTest extends RestBase {
+public class CandidatesTest extends RestBase {
 
     private CandidatesGrpc.CandidatesBlockingStub clientCandidates;
     private UserData user;
