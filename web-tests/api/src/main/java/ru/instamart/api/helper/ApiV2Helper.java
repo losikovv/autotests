@@ -367,6 +367,24 @@ public final class ApiV2Helper {
         return lineItem;
     }
 
+    @Step("Добавляем товар в корзину: id товара = {productId} и количество = {quantity} ")
+    public void addItemToCartOrLogError(long productId, int quantity) {
+        final var response = LineItemsV2Request.POST(productId, quantity, currentOrderNumber.get());
+        checkStatusCode200or422(response);
+
+        switch (response.getStatusCode()) {
+            case 200: {
+                final var lineItem = response.as(LineItemV2Response.class).getLineItem();
+                log.debug(lineItem.toString());
+                break;
+            }
+            case 422: {
+                log.error("Невозможно добавить товар в корзину '{}'", response.as(ErrorResponse.class).getErrors().getBase());
+                break;
+            }
+        }
+    }
+
     @Step("Добавляем товары в корзину")
     public List<LineItemV2> addItemsToCart(List<Long> productIDs) {
         return productIDs.stream()
@@ -1163,6 +1181,31 @@ public final class ApiV2Helper {
             else {
                 log.debug(cartWeightText);
                 if (minSumNotReached.get()) addItemToCart(product.getId(), quantity);
+                break;
+            }
+        }
+    }
+
+    public void fillCartOneByOne(final Collection<ProductV2> products, final int quantity) {
+        double cartWeight = 0;
+        final var cartWeightText = "Вес корзины: %s кг.\n";
+        final var anotherProductText = "Выбираем другой товар\n";
+
+        for (final var product : products) {
+            addItemToCartOrLogError(product.getId(), quantity);
+            cartWeight += (getProductWeight(product) * product.getItemsPerPack());
+
+            getMinSumFromAlert();
+            if (minSumNotReached.get()) {
+                cartWeight += roundBigDecimal(getProductWeight(product) * quantity, 3);
+                if (cartWeight > 40) {
+                    log.error(String.format(cartWeightText, cartWeight) + anotherProductText);
+                    break;
+                } else if (productWeightNotDefined.get()) {
+                    log.error(anotherProductText);
+                }
+            } else {
+                log.debug(String.format(cartWeightText, cartWeight));
                 break;
             }
         }

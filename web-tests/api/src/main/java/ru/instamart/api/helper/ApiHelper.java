@@ -95,7 +95,7 @@ public final class ApiHelper {
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
-        apiV2.fillCart(apiV2.getProductFromEachDepartmentOnMainPage(sid));
+        apiV2.fillCartOneByOne(apiV2.getProductFromEachDepartmentOnMainPage(sid), 5);
     }
 
     @Step("Удаляем ритейлера: '{retailerName}'")
@@ -142,7 +142,7 @@ public final class ApiHelper {
      */
     @Step("Наполняем корзину с помощью API")
     public void dropAndFillCart(final UserData user, final Integer sid, final Integer itemsNumber) {
-        apiV2.authByPhone(user);
+        apiV2.authByQA(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));

@@ -14,6 +14,7 @@
     <logger name="org.openqa.selenium.devtools.CdpVersionFinder" level="OFF"/>
     <logger name="io.netty" level="OFF"/>
     <logger name="org.asynchttpclient.netty" level="OFF"/>
+    <logger name="org.apache.http" level="OFF"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
