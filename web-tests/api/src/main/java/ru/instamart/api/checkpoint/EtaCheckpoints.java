@@ -16,7 +16,7 @@ public class EtaCheckpoints {
     private static final List<Eta.EstimateSource> acceptableEstimateSource = List.of(Eta.EstimateSource.FALLBACK, Eta.EstimateSource.ML);
 
     @Step("Проверяем ETA магазина")
-    public static void checkStoreEta(Eta.StoreUserEtaResponse response, String storeUuid, int eta, String error, Eta.EstimateSource estimateSource) {
+    public static void checkStoreEta(Eta.StoreUserEtaResponse response, String storeUuid,final int eta, String error, Eta.EstimateSource estimateSource) {
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(response.getData(0).getStoreUuid(), storeUuid, softAssert);
         compareTwoObjects(response.getData(0).getEstimateSource(), estimateSource, softAssert);
