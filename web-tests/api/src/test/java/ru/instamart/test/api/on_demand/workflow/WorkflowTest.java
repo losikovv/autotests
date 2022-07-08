@@ -232,14 +232,15 @@ public class WorkflowTest extends RestBase {
         compareTwoObjects(segments.get(1).getStoreName(), "METRO, Дмитровское ш", softAssert);
         compareTwoObjects(segments.get(1).getStoreAddress(), "Москва, Дмитровское ш, 165Б", softAssert);
         compareTwoObjects(segments.get(2).getStoreName(), "METRO, просп. Мира", softAssert);
-       // compareTwoObjects(segments.get(2).getStoreAddress(), "Москва, просп. Мира, 211, стр. 1", softAssert);
+        // compareTwoObjects(segments.get(2).getStoreAddress(), "Москва, просп. Мира, 211, стр. 1", softAssert);
         softAssert.assertAll();
     }
 
     @CaseId(120)
     @Test(description = "Создание отложенного назначения отдельно от родительского",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "createWorkflowWithDifferentStores")
+            dependsOnMethods = "createWorkflowWithDifferentStores",
+            enabled = false)
     public void createWorkflowWithNotAvailableParentWorkflow() {
         var request = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, order, shipmentUuid, workflowUuid);
 
@@ -251,7 +252,8 @@ public class WorkflowTest extends RestBase {
     @CaseIDs(value = {@CaseId(37), @CaseId(123), @CaseId(93)})
     @Test(description = "Создание маршрутного листа за 30 секунд от текущего времени",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "createWorkflowWithNotAvailableParentWorkflow")
+            dependsOnMethods = "createWorkflowWithDifferentStores")
+    //dependsOnMethods = "createWorkflowWithNotAvailableParentWorkflow")
     public void createWorkflow30SecToNow() {
         var request = getWorkflowsRequest(order, shipmentUuid, getDateMinusSec(30), WorkflowEnums.DeliveryType.DEFAULT);
         var response = clientWorkflow.createWorkflows(request);
@@ -663,7 +665,7 @@ public class WorkflowTest extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void clearData() {
-        if(Objects.nonNull(secondShipmentUuid)) {
+        if (Objects.nonNull(secondShipmentUuid)) {
             cancelWorkflow(clientWorkflow, secondShipmentUuid);
             cancelWorkflow(clientWorkflow, shipmentUuid);
         }

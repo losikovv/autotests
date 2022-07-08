@@ -41,7 +41,7 @@ public class KafkaConfigs {
                 .topic("yc.workflow.fct.assignment.0")
                 .groupName("dispatch_2b4a0c6a")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
-                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .password(Crypt.INSTANCE.decrypt("KHB/9bQkCFnzOfzl8kW7zQ=="))
                 .build();
     }
 
@@ -51,7 +51,7 @@ public class KafkaConfigs {
                 .topic("yc.workflow.cmd.external-delivery.0")
                 .groupName("dispatch_2b4a0c6a")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
-                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .password(Crypt.INSTANCE.decrypt("KHB/9bQkCFnzOfzl8kW7zQ=="))
                 .build();
     }
 
@@ -61,7 +61,7 @@ public class KafkaConfigs {
                 .topic("yc.workflow.fct.segment.0")
                 .groupName("dispatch_2b4a0c6a")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
-                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .password(Crypt.INSTANCE.decrypt("KHB/9bQkCFnzOfzl8kW7zQ=="))
                 .build();
     }
 
@@ -71,7 +71,7 @@ public class KafkaConfigs {
                 .topic("yc.workflow.fct.workflow.0")
                 .groupName("dispatch_2b4a0c6a")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
-                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .password(Crypt.INSTANCE.decrypt("KHB/9bQkCFnzOfzl8kW7zQ=="))
                 .build();
     }
 
@@ -81,7 +81,7 @@ public class KafkaConfigs {
                 .topic("yc.notifications.cmd.push.0")
                 .groupName("dispatch_2b4a0c6a")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
-                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .password(Crypt.INSTANCE.decrypt("KHB/9bQkCFnzOfzl8kW7zQ=="))
                 .build();
     }
 
@@ -91,7 +91,7 @@ public class KafkaConfigs {
                 .topic("yc.operations.cdc.store-changed.0")
                 .groupName("paas-content-operations-shifts-874d2e41-874d2e41")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
-                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .password(Crypt.INSTANCE.decrypt("KHB/9bQkCFnzOfzl8kW7zQ=="))
                 .build();
     }
 
@@ -101,7 +101,7 @@ public class KafkaConfigs {
                 .topic("yc.shifts.cmd.planning_periods.0")
                 .groupName("paas-content-operations-shifts-874d2e41-874d2e41")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
-                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .password(Crypt.INSTANCE.decrypt("KHB/9bQkCFnzOfzl8kW7zQ=="))
                 .build();
     }
 
@@ -111,7 +111,7 @@ public class KafkaConfigs {
                 .topic("yc.shifts.cmd.planning_periods.0")
                 .groupName("paas-content-operations-shifts-874d2e41-874d2e41")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
-                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .password(Crypt.INSTANCE.decrypt("KHB/9bQkCFnzOfzl8kW7zQ=="))
                 .build();
     }
 
