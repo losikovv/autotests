@@ -218,10 +218,10 @@ task onDemandShippingCalc(type: Test) {
 task onDemandCandidates(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/on_demand/candidates.xml'
-        includeGroups 'dispatch-сandidates-smoke'
+        includeGroups 'dispatch-candidates-smoke'
     }
     systemProperty 'qase.Project', 'ODSC'
-    systemProperty 'qase.Title', 'On Demand Сandidates Smoke'
+    systemProperty 'qase.Title', 'On Demand Candidates Smoke'
     systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
     systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
 }
