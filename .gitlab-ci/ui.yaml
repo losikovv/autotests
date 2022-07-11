@@ -16,9 +16,9 @@ tests:UiRegress:
     - ".template_ui_tests"
     - ".template_schedule"
   needs:
-       - "tests:apiInstamartV1Regress"
-       - "tests:apiInstamartV2Regress"
-       - "tests:apiInstamartV3Regress"
+    - "tests:ApiV1InstamartRegress"
+    - "tests:ApiV2InstamartRegress"
+    - "tests:ApiV3InstamartRegress"
   script:
     - gradle clean build sberRegression -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
@@ -42,9 +42,9 @@ tests:AdminUiRegress:
     - ".template_ui_tests"
     - ".template_schedule"
   needs:
-        - "tests:apiInstamartV1Regress"
-        - "tests:apiInstamartV2Regress"
-        - "tests:apiInstamartV3Regress"
+    - "tests:ApiV1InstamartRegress"
+    - "tests:ApiV2InstamartRegress"
+    - "tests:ApiV3InstamartRegress"
   script:
     - gradle clean build adminUiRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
