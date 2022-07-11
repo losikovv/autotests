@@ -119,7 +119,7 @@ public class KafkaHelper {
 
     @Step("Получаем данные кафки о маршрутных листах по id: {workflowId}")
     public List<WorkflowChangedOuterClass.WorkflowChanged> waitDataInKafkaTopicWorkflow(long workflowId) {
-        var kafkaConsumers = new KafkaConsumers(configWorkflow(), 10L);
+        var kafkaConsumers = new KafkaConsumers(configWorkflow());
         List<WorkflowChangedOuterClass.WorkflowChanged> longWorkflowsHashMap = kafkaConsumers.consumeWorkflows(workflowId);
         kafkaConsumers.close();
         assertTrue(longWorkflowsHashMap.size() > 0, "Logs is empty");

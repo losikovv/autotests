@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package workflow;
-option go_package = "gitlab.sbermarket.tech/paas/content/operations/workflow/pkg/server/grpc/workflow";
+option go_package = "gitlab.sbmt.io/paas/content/operations/workflow/pkg/server/grpc/workflow";
 
 import "workflow/workflow_enums.proto";
 import "google/protobuf/timestamp.proto";
@@ -33,6 +33,10 @@ message AssignmentChanged {
   string uuid = 13;
   // Идентификатор родительского назначения для отложенной доставки
   string postponed_parent_uuid = 12;
+  // Идентификатор джобы назначения
+  string job_uuid = 18;
+  // Идентификатор родительской джобы назначения для отложенной доставки
+  string parent_job_uuid = 19;
   // Внутренний идентификатор маршрутного листа
   uint64 workflow_id = 3;
   // Идентификатор исполнителя
