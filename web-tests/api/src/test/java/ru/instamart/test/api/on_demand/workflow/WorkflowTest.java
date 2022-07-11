@@ -588,7 +588,8 @@ public class WorkflowTest extends RestBase {
     @CaseId(97)
     @Test(description = "Отмена заказа для назначения в статусе offered",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "startQueuedWorkflowAfterCancellingPrevious")
+            dependsOnMethods = "startQueuedWorkflowAfterCancellingPrevious",
+            enabled = false)
     public void cancelOrderWithOfferedWorkflow() {
         String workflowUuid = getWorkflowUuid(secondOrder, secondShipmentUuid, getDateMinusSec(30), clientWorkflow);
 
@@ -603,7 +604,8 @@ public class WorkflowTest extends RestBase {
     @CaseId(98)
     @Test(description = "Отмена заказа для назначения в статусе in progress",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "cancelOrderWithOfferedWorkflow")
+            dependsOnMethods = "cancelOrderWithOfferedWorkflow",
+            enabled = false)
     public void cancelOrderWithWorkflow() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
         AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
@@ -620,7 +622,8 @@ public class WorkflowTest extends RestBase {
     @CaseId(98)
     @Test(description = "Отмена заказа для назначения в статусе queued",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "cancelOrderWithWorkflow")
+            dependsOnMethods = "cancelOrderWithWorkflow",
+            enabled = false)
     public void cancelOrderWithQueuedWorkflow() {
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -647,7 +650,8 @@ public class WorkflowTest extends RestBase {
     @CaseId(97)
     @Test(description = "Отмена заказа для назначения в статусе seen",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "cancelOrderWithQueuedWorkflow")
+            dependsOnMethods = "cancelOrderWithQueuedWorkflow",
+            enabled = false)
     public void cancelOrderWithSeenWorkflow() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(700000), clientWorkflow);
         AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
