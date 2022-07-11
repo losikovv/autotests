@@ -81,21 +81,19 @@ public class GetDeliveryPriceTest extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(248), @CaseId(325), @CaseId(329)})
-    @Issue("HG-620")
     @Story("Get Delivery Price")
     @Test(description = "Получение цены по более приоритетному правилу в стратегии",
-            groups = "dispatch-shippingcalc-smoke",
-            enabled = false)
+            groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryPriceHighestPriorityRule() {
         ShippingcalcOuterClass.GetDeliveryPriceRequest request = getDeliveryPriceRequest(
-                1, PRODUCT_ID, 300100, 0, 1000, SHIPMENT_ID, false,
-                1000, 1, 300100, STORE_ID, "NEW", 1, 0,
+                1, PRODUCT_ID, 90000, 0, 1000, SHIPMENT_ID, false,
+                1000, 1, 90000, STORE_ID, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 0, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 0, 50000, 1, 0, 1, 0);
+        checkDeliveryPrice(response, localStrategyId, 0, 100000, 1, 0, 1, 0);
     }
 
     @CaseId(237)
@@ -318,11 +316,9 @@ public class GetDeliveryPriceTest extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(357), @CaseId(326), @CaseId(332)})
-    @Issue("HG-620")
     @Story("Get Delivery Price")
     @Test(description = "Проверка расчета по самому дорогому правилу стратегии, когда не прошли ни по какому условию",
-            groups = "dispatch-shippingcalc-regress",
-            enabled = false)
+            groups = "dispatch-shippingcalc-regress")
     public void getDeliveryPriceMostExpensiveRule() {
         ShippingcalcOuterClass.GetDeliveryPriceRequest request = getDeliveryPriceRequest(
                 1, PRODUCT_ID, 300099, 0, 1000, SHIPMENT_ID, false,
