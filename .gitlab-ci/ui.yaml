@@ -11,14 +11,14 @@ tests:UiSmoke:
   after_script:
     - bash ./report.sh reforged ui-stf-smoke
 
-#tests:UiRegress:
-#  extends:
-#    - ".template_ui_tests"
-#    - ".template_schedule"
-#  script:
-#    - gradle clean build sberRegression -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
-#  after_script:
-#    - bash ./report.sh reforged ui-stf-regress
+tests:UiRegress:
+  extends:
+    - ".template_ui_tests"
+    - ".template_schedule"
+  script:
+    - gradle clean build sberRegression -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
+  after_script:
+    - bash ./report.sh reforged ui-stf-regress
 
 tests:AdminUiSmoke:
   only:
@@ -33,14 +33,14 @@ tests:AdminUiSmoke:
   after_script:
     - bash ./report.sh reforged ui-admin-smoke
 
-#tests:AdminUiRegress:
-#  extends:
-#    - ".template_ui_tests"
-#    - ".template_schedule"
-#  script:
-#    - gradle clean build adminUiRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
-#  after_script:
-#    - bash ./report.sh reforged ui-admin-regress
+tests:AdminUiRegress:
+  extends:
+    - ".template_ui_tests"
+    - ".template_schedule"
+  script:
+    - gradle clean build adminUiRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
+  after_script:
+    - bash ./report.sh reforged ui-admin-regress
 
 # tests:prodUiSmoke:
 #   extends:
