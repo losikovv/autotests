@@ -2,6 +2,8 @@ package ru.instamart.reforged.core.config;
 
 import ru.sbermarket.common.config.Config;
 
+import java.util.List;
+
 public final class UiProperties {
 
     public static final String NAME = "ui";
@@ -38,4 +40,7 @@ public final class UiProperties {
     public static String RBSUAT_PAYMENTS_URL;
     @Config(configName = NAME, fieldName = "demoCloudPaymentsUrl", defaultValue = "https://demo.cloudpayments.ru/")
     public static String DEMO_CLOUD_PAYMENTS_URL;
+
+    @Config(configName = NAME, fieldName = "defaultCookies", defaultValue = "")
+    public static List DEFAULT_COOKIES;
 }

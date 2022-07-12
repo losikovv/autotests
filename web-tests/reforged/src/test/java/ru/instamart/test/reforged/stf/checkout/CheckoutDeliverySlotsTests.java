@@ -38,7 +38,6 @@ public final class CheckoutDeliverySlotsTests {
     @CaseId(2648)
     @Story("Корзина")
     @Test(description = "Изменение ранее выбранного слота доставки", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successChangePreviousDeliverySlotAndOrder() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -95,7 +94,6 @@ public final class CheckoutDeliverySlotsTests {
     @CaseId(2649)
     @Story("Корзина")
     @Test(description = "Невозможность завершения заказа при невыбранном слоте доставки", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void failedContinueWithUnselectedDeliverySlot() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

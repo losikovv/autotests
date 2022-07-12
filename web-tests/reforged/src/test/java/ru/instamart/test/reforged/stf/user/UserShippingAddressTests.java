@@ -10,7 +10,6 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
@@ -38,9 +37,11 @@ public final class UserShippingAddressTests {
 
     @CaseId(1559)
     @Story("Дефолтные настройки адреса доставки")
+    //TODO fixedUUID - костыль для обхода невыпиленного АБ-теста с новыми ЯндексКартами https://jira.sbmt.io/browse/DVR-4901
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "Тест дефолтного списка магазинов, при отсутствии адреса доставки", groups = "regression")
     public void successOperateDefaultShopList() {
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToStoreSelector();
         home().checkDeliveryRetailersContainerVisible();
         home().clickOnFirstRetailer();
@@ -64,15 +65,15 @@ public final class UserShippingAddressTests {
     @Story("Зона доставки")
     @Test(description = "Тест на отсутствие доступных магазинов по адресу вне зоны доставки", groups = "regression")
     public void noAvailableShopsOutOfDeliveryZone() {
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactAddressLarge().checkYmapsReady();
 
-        shop().interactAddressLarge().fillAddress(Addresses.Moscow.outOfZoneAddress());
-        shop().interactAddressLarge().selectFirstAddress();
-        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddressLarge().clickSave();
-        shop().interactAddressLarge().checkIsAddressOutOfZone();
+        shop().interactAddress().fillAddress(Addresses.Moscow.outOfZoneAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddress().clickOnSave();
+        shop().interactAddress().checkIsAddressOutOfZone();
 
         shop().interactAddressLarge().close();
         shop().interactAddressLarge().checkAddressModalNotVisible();
@@ -221,9 +222,11 @@ public final class UserShippingAddressTests {
 
     @CaseIDs({@CaseId(2568), @CaseId(2570)})
     @Story("Сохранение и изменение адреса доставки")
+    //TODO fixedUUID - костыль для обхода невыпиленного АБ-теста с новыми ЯндексКартами https://jira.sbmt.io/browse/DVR-4901
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "Адрес сохраняется при регистрации нового пользователя", groups = "regression")
     public void testSuccessSaveAddressAfterRegistration() {
-        home().goToPage(true);
+        home().goToPage();
         home().clickToSetAddress();
         home().interactAddressModal().checkYmapsReady();
         home().interactAddressModal().fillAddress(defaultAddress);
@@ -275,7 +278,6 @@ public final class UserShippingAddressTests {
     @CaseIDs({@CaseId(2576), @CaseId(2574)})
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Сохранение адреса за пользователем при оформлении заказа", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void saveAddressForNextOrder() {
         final var addressData = TestVariables.testAddressData();
         final var userData = UserManager.getQaUser();
@@ -313,6 +315,7 @@ public final class UserShippingAddressTests {
 
         helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_SID);
 
+        //TODO Пофиксить изменяется сумма минимального заказа при повторном заказе
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
 
@@ -327,11 +330,10 @@ public final class UserShippingAddressTests {
     @CaseId(2575)
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Сохранение нескольких адресов за пользователем при оформлении заказа", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void testSuccessFewAddressesOnCheckout() {
         final var userData = UserManager.getQaUser();
-        this.helper.makeAndCancelOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
-        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        this.helper.makeAndCancelOrder(userData, DEFAULT_METRO_MOSCOW_SID, 2);
+        this.helper.dropAndFillCart(userData, DEFAULT_METRO_MOSCOW_SID);
         this.helper.setAddress(userData, RestAddresses.Chelyabinsk.defaultAddress());
 
         shop().goToPage();
@@ -374,7 +376,6 @@ public final class UserShippingAddressTests {
     @CaseId(2577)
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Редактирование параметров сохраненного адреса", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void editSavedParamsAddressOnCheckoutPage() {
         final var addressData = TestVariables.testAddressData();
         final var addressChangeData = TestVariables.testChangeAddressData();
@@ -438,6 +439,7 @@ public final class UserShippingAddressTests {
 
         this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_SID);
 
+        //TODO Пофиксить изменяется сумма минимального заказа при повторном заказе
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
 

@@ -22,7 +22,6 @@ public final class SeoCatalogTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1802)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Тест доступности страницы SEO-каталога", groups = "regression")
     public void successCheckSeoPage() {
         seo().goToPage();
@@ -31,7 +30,6 @@ public final class SeoCatalogTests {
     }
 
     @CaseId(1803)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Тест доступности товаров на странице SEO-каталога", groups = "regression")
     public void successCheckProductsOnSeoCatalog() {
         seo().goToPage();
@@ -40,7 +38,6 @@ public final class SeoCatalogTests {
     }
 
     @CaseId(1804)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Тест открытия карточки товара на странице SEO-каталога", groups = "regression")
     public void successOpenItemCardOnSeoCatalog() {
         seo().goToPage();
@@ -50,7 +47,6 @@ public final class SeoCatalogTests {
     }
 
     @CaseId(1805)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога", groups = "regression")
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() {
         seo().goToPage();
@@ -66,7 +62,6 @@ public final class SeoCatalogTests {
 
     @Run(onServer = Server.PRODUCTION)
     @CaseId(1582)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Добавление товара в корзину из SEO-каталога", groups = "regression")
     public void successAddItemToCartFromSEOCatalog() {
         var userData = UserManager.getQaUser();
@@ -87,7 +82,6 @@ public final class SeoCatalogTests {
     }
 
     @CaseId(2589)
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Работоспособность сортировки товаров(сначала дешевые)", groups = "regression")
     public void successSortProductsViaCheap() {
         seo().goToPage("auchan/c/new-sladosti/piechienie/ovsianoie");

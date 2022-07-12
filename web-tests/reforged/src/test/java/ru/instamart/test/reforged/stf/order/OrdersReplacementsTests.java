@@ -42,7 +42,6 @@ public final class OrdersReplacementsTests {
             groups = "regression",
             dataProviderClass = ReplacePolicyProvider.class,
             dataProvider = "replacementPolicy")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithReplacementPolicy(final String replacementPolicy) {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

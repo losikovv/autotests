@@ -25,7 +25,6 @@ public final class ShoppingCartTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(261)
-    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Отображение TOTAL НДС", groups = {"smoke", "regression"})
     public void testTotalVatDisplayed() {
         var company = JuridicalData.juridical();
@@ -46,7 +45,6 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(263)
-    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Отображение TOTAL НДС мультизаказ", groups = {"smoke", "regression"})
     public void testTotalVatDisplayedMultiply() {
         var company = JuridicalData.juridical();
@@ -72,7 +70,7 @@ public final class ShoppingCartTests {
     public void testTransferCartNoSuchRetailer() {
         var userData = UserManager.getQaUser();
 
-        b2cShop().goToPage(ShopUrl.AZBUKAVKUSA, true);
+        b2cShop().goToPage(ShopUrl.AZBUKAVKUSA);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -106,7 +104,7 @@ public final class ShoppingCartTests {
     public void testTransferCartB2CToB2B() {
         var userData = UserManager.getQaUser();
 
-        b2cShop().goToPage(true);
+        b2cShop().goToPage();
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -144,7 +142,7 @@ public final class ShoppingCartTests {
     public void testTransferCartB2CToB2BMultiply() {
         var userData = UserManager.getQaUser();
 
-        b2cShop().goToPage(true);
+        b2cShop().goToPage();
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -187,7 +185,6 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(731)
-    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Изменение количества товаров в корзине вводом числа", groups = {"smoke", "regression"})
     public void testChangeItemCountFromKeyboard() {
         var company = JuridicalData.juridical();

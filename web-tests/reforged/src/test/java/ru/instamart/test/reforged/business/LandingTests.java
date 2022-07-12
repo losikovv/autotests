@@ -17,7 +17,6 @@ import static ru.instamart.reforged.business.page.BusinessRouter.*;
 public final class LandingTests {
 
     @CaseId(25)
-    @CookieProvider(cookieFactory = CookieFactory.class)
     //TODO Переход с STF на Business при текущей схеме невозможен см коммент https://jira.sbmt.io/browse/ATST-2251
     @Test(enabled = false, description = "Ссылка на лендинг для неавторизованного юзера", groups = {"smoke", "regression"})
     public void fromB2CToB2BNotAuthorized() {
@@ -31,7 +30,6 @@ public final class LandingTests {
     }
 
     @CaseId(26)
-    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Переход на страницу лендинга", groups = {"smoke", "regression"})
     public void basicLandingCheck() {
         business().goToPage();
@@ -48,7 +46,6 @@ public final class LandingTests {
     }
 
     @CaseId(27)
-    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Добавление компании с лендинга", groups = {"smoke", "regression"})
     public void addCompanyFromLanding() {
         var user = UserManager.getQaUser();
@@ -63,7 +60,6 @@ public final class LandingTests {
     }
 
     @CaseId(28)
-    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Заказать обратный звонок с лендинга", groups = {"smoke", "regression"})
     public void getCallback() {
         var user = UserManager.getQaUser();
@@ -82,7 +78,6 @@ public final class LandingTests {
     }
 
     @CaseId(733)
-    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Отображение всех доступных ритейлеров в блоке 'до 20% от чека' на лендинге.", groups = {"smoke", "regression"})
     public void retailersOnLanding() {
         var expectedTopThreeRetailers = List.of("METRO", "Лента", "Ашан");

@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -180,7 +181,7 @@ public final class ShoppingCatalogTests {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().interactHeader().fillSearch("молоко");
         shop().interactHeader().clickSearchButton();
@@ -229,9 +230,11 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(2578)
+    //TODO fixedUUID - костыль для обхода невыпиленного АБ-теста с новыми ЯндексКартами https://jira.sbmt.io/browse/DVR-4901
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "Переход в витрину магазина с главной страницы сайта", groups = "regression")
     public void successShowcaseTransitionFromMainLanding() {
-        home().goToPage(true);
+        home().goToPage();
         home().clickToSetAddress();
         home().interactAddressModal().checkYmapsReady();
         home().interactAddressModal().fillAddress(Addresses.Moscow.defaultAddress());

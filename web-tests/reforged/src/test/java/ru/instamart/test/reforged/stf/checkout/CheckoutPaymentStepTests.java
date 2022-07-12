@@ -40,7 +40,6 @@ public final class CheckoutPaymentStepTests {
     @CaseId(1678)
     @Story("Корзина")
     @Test(description = "Тест удаления карты оплаты", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successDeleteSavedCard() {
         var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3dsWithSpasibo();

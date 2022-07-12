@@ -22,7 +22,6 @@ public final class CheckoutTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(738)
-    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Способ оплаты корп. картой в чекауте", groups = {"smoke", "regression"})
     public void addBusinessCardInCheckout() {
         var company = JuridicalData.juridical();

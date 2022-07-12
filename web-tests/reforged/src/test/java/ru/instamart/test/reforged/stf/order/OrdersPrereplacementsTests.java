@@ -9,6 +9,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.jdbc.dao.stf.SpreeProductsDao;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -40,13 +41,14 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3267)
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "Выбор предзамены - один товар", groups = {"regression"})
     public void selectPrereplacementFromAlertPopup() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
         apiHelper.addItemsToCart(user, DEFAULT_PREREPLACEMENT_SID, List.of(product1WithReplacementId));
 
-        shop().goToPage(ShopUrl.LENTA, true);
+        shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();
@@ -69,13 +71,14 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3268)
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "Выбор предзамены из корзины", groups = {"regression"})
     public void selectPrereplacementFromCart() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
         apiHelper.addItemsToCart(user, DEFAULT_PREREPLACEMENT_SID, List.of(product1WithReplacementId));
 
-        shop().goToPage(ShopUrl.LENTA, true);
+        shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();
@@ -107,13 +110,14 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3269)
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "Изменение выбранных предзамен", groups = {"regression"})
     public void editPrereplacement() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
         apiHelper.addItemsToCart(user, DEFAULT_PREREPLACEMENT_SID, List.of(product1WithReplacementId));
 
-        shop().goToPage(ShopUrl.LENTA, true);
+        shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();
@@ -145,13 +149,14 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3270)
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "Удаление выбранных предзамен", groups = {"regression"})
     public void removePrereplacement() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
         apiHelper.addItemsToCart(user, DEFAULT_PREREPLACEMENT_SID, List.of(product1WithReplacementId));
 
-        shop().goToPage(ShopUrl.LENTA, true);
+        shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();
@@ -174,13 +179,14 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3271)
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "При открытии модалки из попапа отображается весь список товаров с рекомендованными предзаменами", groups = {"regression"})
     public void checkOnlyProductsWithRelacementViewInModal() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
         apiHelper.addItemsToCart(user, DEFAULT_PREREPLACEMENT_SID, Arrays.asList(product1WithReplacementId, product2WithReplacementId));
 
-        shop().goToPage(ShopUrl.LENTA, true);
+        shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();
@@ -200,12 +206,13 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3273)
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "Попап при добавлении товара с предзаменами в корзину", groups = {"regression"})
     public void alertDisplayedWhenAddingProduct() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
 
-        shop().goToPage(ShopUrl.LENTA, true);
+        shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();
@@ -219,13 +226,14 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3274)
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "Повторное отображение попапа при добавлении товара в корзину", groups = {"regression"})
     public void alertDisplayedWhenAddingAnotherProduct() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
         apiHelper.addItemsToCart(user, DEFAULT_PREREPLACEMENT_SID, List.of(product1WithReplacementId));
 
-        shop().goToPage(ShopUrl.LENTA, true);
+        shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();
@@ -248,13 +256,14 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3275)
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "Выбор предзамены - любой товар", groups = {"regression"})
     public void selectAnyWillPrereplacementFromAlertPopup() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
         apiHelper.addItemsToCart(user, DEFAULT_PREREPLACEMENT_SID, List.of(product1WithReplacementId));
 
-        shop().goToPage(ShopUrl.LENTA, true);
+        shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();
@@ -276,13 +285,14 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3276)
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "Отображение товаров с доступными предзаменами в корзине", groups = {"regression"})
     public void cartPrereplacementCheck() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
         apiHelper.addItemsToCart(user, DEFAULT_PREREPLACEMENT_SID, List.of(product1WithReplacementId));
 
-        shop().goToPage(ShopUrl.LENTA, true);
+        shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();
@@ -292,13 +302,14 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3277)
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "Отображение товара с единственной предзаменой в модалке", groups = {"regression"})
     public void onlyOneReplacementCheck() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
         apiHelper.addItemsToCart(user, DEFAULT_PREREPLACEMENT_SID, List.of(productWithOnlyOneReplacementId));
 
-        shop().goToPage(ShopUrl.LENTA, true);
+        shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();
@@ -314,13 +325,14 @@ public class OrdersPrereplacementsTests {
     }
 
     @CaseId(3278)
+    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
     @Test(description = "Отображение товара с несколькими предзаменами в модалке", groups = {"regression"})
     public void severalReplacementCheck() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
         apiHelper.addItemsToCart(user, DEFAULT_PREREPLACEMENT_SID, List.of(product1WithReplacementId));
 
-        shop().goToPage(ShopUrl.LENTA, true);
+        shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();

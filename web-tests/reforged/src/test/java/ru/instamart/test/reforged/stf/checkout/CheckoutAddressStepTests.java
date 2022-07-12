@@ -9,7 +9,6 @@ import ru.instamart.kraken.data.AddressDetailsData;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -28,7 +27,6 @@ public final class CheckoutAddressStepTests {
 
     @CaseIDs({@CaseId(1698), @CaseId(1699), @CaseId(1700), @CaseId(1701)})
     @Test(description = "Тесты заполнения, изменения и очистки всех полей", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successFillAllFieldsAndProceedNext() {
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 

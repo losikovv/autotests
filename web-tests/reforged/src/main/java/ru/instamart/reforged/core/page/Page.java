@@ -76,6 +76,7 @@ public interface Page extends PageCheck {
      * Проверят что есть кука {@link CookieFactory#EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST}
      * после чего пытается её обновить на куку с исключённым из всех АБ тестов anonymousId
      */
+    @Deprecated
     default void excludeGuestFromAllAb() {
         cookieChange(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST);
     }
@@ -83,6 +84,7 @@ public interface Page extends PageCheck {
     /**
      * Добавляет или подменяет куки на нужные
      */
+    @Deprecated
     default void cookiesChange(final boolean isFixedUUID) {
         final Set<Cookie> cookies = new HashSet<>();
         if (isFixedUUID) {
@@ -100,20 +102,6 @@ public interface Page extends PageCheck {
      */
     default void cookieChange(final Cookie cookie) {
         CdpCookie.addCookie(cookie);
-    }
-
-    /**
-     * Добавляет или подменяет куку на нужную
-     */
-    default void cookieReplace(final Cookie cookie) {
-        addOrReplaceCookie(cookie);
-    }
-
-    /**
-     * Проверяет наличие нескольких кук и подменяет их на нужные
-     */
-    default void cookiesReplace(final Set<Cookie> cookies) {
-        addOrReplaceCookies(cookies);
     }
 
     /**

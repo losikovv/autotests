@@ -145,12 +145,6 @@ public final class HomePage implements StfPage, Window, HomeCheck {
 
     @Override
     public void goToPage() {
-        excludeGuestFromAllAb();
-        goToPage(pageUrl());
-    }
-
-    public void goToPage(final boolean isFixedUUID) {
-        cookiesChange(isFixedUUID);
         goToPage(pageUrl());
     }
 }

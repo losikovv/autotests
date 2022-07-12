@@ -9,11 +9,13 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import ru.instamart.kraken.retry.RetryAnalyzer;
 import ru.instamart.kraken.service.QaseService;
+import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.KrakenParams;
 import ru.instamart.reforged.core.cdp.CdpCookie;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.listener.allure.AllureTestNgListener;
 import ru.instamart.reforged.core.report.CustomReport;
 import ru.sbermarket.qase.enums.RunResultStatus;
@@ -22,7 +24,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static java.util.Objects.nonNull;
+import static java.util.Objects.isNull;
 
 @Slf4j
 public final class UiListener extends AllureTestNgListener {
@@ -127,16 +129,16 @@ public final class UiListener extends AllureTestNgListener {
 
     private void addCookie(final IInvokedMethod method) {
         try {
-            final var cookie = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(CookieProvider.class);
-            if (nonNull(cookie)) {
-                final var cookieFactory = cookie.cookieFactory();
-                final var cookies = cookie.cookies();
-                final var fields = FieldUtils.getAllFieldsList(cookieFactory)
+            final var doNotOpenBrowser = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(DoNotOpenBrowser.class);
+            if (isNull(doNotOpenBrowser)) {
+                final var customCookies = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(CookieProvider.class);
+                final var cookies = isNull(customCookies) ? UiProperties.DEFAULT_COOKIES : Arrays.asList(customCookies.cookies());
+                final var fields = FieldUtils.getAllFieldsList(CookieFactory.class)
                         .stream()
-                        .filter(f -> Arrays.asList(cookies).contains(f.getName()))
+                        .filter(f -> cookies.contains(f.getName()))
                         .map(r -> {
                             try {
-                                return (Cookie) FieldUtils.readField(r, cookieFactory, true);
+                                return (Cookie) FieldUtils.readField(r, CookieFactory.class, true);
                             } catch (IllegalAccessException e) {
                                 throw new RuntimeException(e);
                             }
