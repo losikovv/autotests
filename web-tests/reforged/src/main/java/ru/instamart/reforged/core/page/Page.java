@@ -73,31 +73,6 @@ public interface Page extends PageCheck {
     }
 
     /**
-     * Проверят что есть кука {@link CookieFactory#EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST}
-     * после чего пытается её обновить на куку с исключённым из всех АБ тестов anonymousId
-     */
-    @Deprecated
-    default void excludeGuestFromAllAb() {
-        cookieChange(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST);
-    }
-
-    /**
-     * Добавляет или подменяет куки на нужные
-     */
-    @Deprecated
-    default void cookiesChange(final boolean isFixedUUID) {
-        final Set<Cookie> cookies = new HashSet<>();
-        if (isFixedUUID) {
-            cookies.add(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE);
-        } else {
-            cookies.add(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST);
-        }
-        if (EnvironmentProperties.Env.isProduction()) cookies.add(CookieFactory.USER_ADULT_18_PLUS_ALERT);
-        cookies.add(CookieFactory.RETAILERS_REMINDER_MODAL);
-        CdpCookie.addCookies(cookies);
-    }
-
-    /**
      * Добавляет куку
      */
     default void cookieChange(final Cookie cookie) {
