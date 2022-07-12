@@ -38,7 +38,6 @@ public final class CheckoutContactsStepTests {
     @CaseId(1679)
     @Story("Корзина")
     @Test(description = "Тест на изменение телефона и контактов", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successChangePhoneAndContacts() {
         helper.makeOrder(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());

@@ -11,6 +11,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -38,7 +39,7 @@ public final class UserAuthorisationTests {
         final var user = UserManager.getQaUser();
         apiHelper.dropAndFillCart(user, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 1);
 
-        home().goToPage(true);
+        home().goToPage();
         home().openLoginModal();
         home().interactAuthModal().authViaPhone(user);
 

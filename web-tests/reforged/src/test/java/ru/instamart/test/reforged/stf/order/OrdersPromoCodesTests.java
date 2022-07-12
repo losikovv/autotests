@@ -41,7 +41,6 @@ public final class OrdersPromoCodesTests {
             dataProviderClass = PromoCodeProvider.class,
             dataProvider = "promo_code",
             groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithPromoCode(final PromoData data) {
         var company = JuridicalData.juridical();
 
@@ -88,7 +87,6 @@ public final class OrdersPromoCodesTests {
     @CaseId(1641)
     @Story("Тест применения промокода")
     @Test(description = "Тест применения промокода со фиксированной ограниченной скидкой", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithPromoCodeFixedDiscountWithBorders() {
         var company = JuridicalData.juridical();
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -141,7 +139,6 @@ public final class OrdersPromoCodesTests {
     @CaseId(1642)
     @Story("Тест применения промокода")
     @Test(description = "Тест применения промокода на первый заказ старым пользователем", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void failedOrderForOldUserWithFirstOrderPromo() {
         var company = JuridicalData.juridical();
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -188,7 +185,6 @@ public final class OrdersPromoCodesTests {
     @CaseId(2640)
     @Story("Тест применения промокода")
     @Test(description = "Тест применения несуществующего промокода", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void failedOrderWithNonExistingPromo() {
         var company = JuridicalData.juridical();
         var promo = Generate.string(8);

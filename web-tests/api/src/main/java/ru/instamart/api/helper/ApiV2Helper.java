@@ -1441,7 +1441,7 @@ public final class ApiV2Helper {
      */
     @Step("Отменяем активные (принят, собирается, в пути) заказы")
     public void cancelActiveOrders() {
-        getActiveOrders().forEach(order -> cancelOrder(order.getShipments().get(0).getNumber()));
+        getActiveOrders().forEach(order -> cancelOrder(order.getNumber()));
     }
 
     @Step("Получаем дынные о номерах телефонов")

@@ -36,7 +36,6 @@ public final class OrdersRetailersTests {
             groups = "regression",
             dataProviderClass = StoreProvider.class,
             dataProvider = "storeData" )
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderInDifferentRetailers(int storeId, ShopUrl shopUrl) {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, storeId);

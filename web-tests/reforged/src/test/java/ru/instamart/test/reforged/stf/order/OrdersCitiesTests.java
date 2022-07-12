@@ -36,7 +36,6 @@ public final class OrdersCitiesTests {
             groups = {"regression"},
             dataProviderClass = CityProvider.class,
             dataProvider = "city")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderFromCity(final AddressV2 address) {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, "METRO", address);

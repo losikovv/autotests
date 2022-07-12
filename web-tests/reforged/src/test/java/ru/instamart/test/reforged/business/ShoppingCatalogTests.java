@@ -21,7 +21,6 @@ public final class ShoppingCatalogTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(302)
-    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Добавление товара в корзину из плитки (+удаление)", groups = "regression")
     public void testAddedAndRemoveProductFromShop() {
         var company = JuridicalData.juridical();
@@ -53,7 +52,6 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(303)
-    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Добавление товара в корзину из карточки товара (+удаление)", groups = "regression")
     public void testAddedAndRemoveProductFromProductCard() {
         var company = JuridicalData.juridical();
@@ -97,7 +95,6 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(290)
-    @CookieProvider(cookieFactory = CookieFactory.class)
     @Test(description = "Проверка обязательной авторизации при добавлении товара в корзину", groups = "regression")
     public void testNeedAuthAddToFavourites() {
         shop().goToPage();

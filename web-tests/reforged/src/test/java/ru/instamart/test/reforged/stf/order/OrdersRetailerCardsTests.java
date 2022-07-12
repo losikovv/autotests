@@ -42,7 +42,6 @@ public final class OrdersRetailerCardsTests {
     @Run(onTenant = Tenant.SBERMARKET, onServer = Server.PRODUCTION)
     @CaseId(1633)
     @Test(description = "Тест заказа с картой Вкусвилл (только Sbermarket)", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithVkusvillRetailerCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

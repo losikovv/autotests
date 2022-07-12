@@ -6,7 +6,6 @@ import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.config.UiProperties;
@@ -23,9 +22,10 @@ public final class BasicSelgrosTests {
 
     @CaseId(2781)
     @Story("Валидация элементов")
+    @CookieProvider(cookies = {"COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Тест валидности элементов и ссылок в шапке Selgros", groups = "regression")
     public void successValidateSelgrosTenantHeader() {
-        selgros().goToPage(true);
+        selgros().goToPage();
         selgros().checkPageIsAvailable();
 
         selgros().interactHeader().checkHeaderVisible();
@@ -49,7 +49,6 @@ public final class BasicSelgrosTests {
     @CaseId(2782)
     @Story("Валидация элементов")
     @Test(description = "Тест валидности элементов и ссылок в подвале Selgros", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successValidateSelgrosTenantFooter() {
         selgros().goToPage();
         selgros().checkPageIsAvailable();
@@ -65,7 +64,7 @@ public final class BasicSelgrosTests {
         selgros().interactFooter().checkHotlineTextVisible();
         selgros().interactFooter().checkHotlinePhoneNumberVisible();
         selgros().interactFooter().checkHotlineWorkHoursVisible();
-        
+
         selgros().interactFooter().checkDisclaimerVisible();
 
         selgros().interactFooter().checkCustomerHelpVisible();
@@ -83,7 +82,7 @@ public final class BasicSelgrosTests {
     @Issue("FEP-3229")
     @CaseId(2783)
     @Story("Витрины ретейлеров")
-    @Test(  enabled = false,
+    @Test(enabled = false,
             dataProviderClass = StaticPage.class,
             dataProvider = "selgrosUnavailableRetailersSpree",
             description = "Тест недоступности витрин ретейлеров Selgros",
@@ -96,7 +95,7 @@ public final class BasicSelgrosTests {
     @DoNotOpenBrowser
     @CaseId(2783)
     @Story("Витрины ретейлеров")
-    @Test(  dataProviderClass = StaticPage.class,
+    @Test(dataProviderClass = StaticPage.class,
             dataProvider = "selgrosAvailableRetailerPage",
             description = "Тест доступности витрин ретейлеров Selgros",
             groups = "regression")

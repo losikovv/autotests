@@ -5,8 +5,6 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.data_provider.StaticPage;
@@ -24,7 +22,7 @@ public final class BasicSbermarketTests {
     @Story("Валидация элементов")
     @Test(description = "Тест валидности элементов и ссылок в шапке Сбермаркета", groups = {"regression", "MRAutoCheck"})
     public void successValidateHeader() {
-        shop().goToPage(true);
+        shop().goToPage();
         shop().checkPageIsAvailable();
 
         shop().interactHeader().checkHeaderVisible();
@@ -97,7 +95,6 @@ public final class BasicSbermarketTests {
     @CaseId(1439)
     @Story("Валидация элементов")
     @Test(description = "Тест валидности элементов в футере Сбермаркета", groups = {"regression", "MRAutoCheck"})
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successValidateElementInFooterSbermarket() {
         shop().goToPage();
         shop().checkPageIsAvailable();
@@ -143,7 +140,6 @@ public final class BasicSbermarketTests {
             dataProvider = "footerLinkPage",
             description = "Тест валидности переходов по ссылкам в футере Сбермаркета",
             groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successFooterLinkTransition(final String text, final String url) {
         home().goToPage();
         home().scrollDown();
@@ -158,7 +154,6 @@ public final class BasicSbermarketTests {
             description = "Тест валидности переходов по ссылкам в футере Сбермаркета," +
                     " кейсы с открытием документа и модального окна",
             groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successFooterLinkTransitionOtherCases() {
         home().goToPage();
         home().scrollDown();
@@ -183,7 +178,7 @@ public final class BasicSbermarketTests {
             description = "Тест доступности витрин ритейлеров Сбермаркета ",
             groups = "regression")
     public void successCheckSbermarketAvailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl =  UiProperties.STF_URL + retailer.getSlug();
+        final String fullUrl = UiProperties.STF_URL + retailer.getSlug();
         assertTrue(Curl.pageAvailable(fullUrl), "Страница " + fullUrl + " недоступна");
     }
 
@@ -195,7 +190,7 @@ public final class BasicSbermarketTests {
             description = "Тест недоступности витрин ритейлеров Сбермаркета ",
             groups = "regression")
     public void successCheckSbermarketUnavailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl =  UiProperties.STF_URL + retailer.getSlug();
+        final String fullUrl = UiProperties.STF_URL + retailer.getSlug();
         assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
     }
 

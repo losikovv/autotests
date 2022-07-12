@@ -14,8 +14,6 @@ import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -44,7 +42,6 @@ public final class OrdersPaymentsTests {
     @CaseId(1624)
     @Story("Тест заказа с оплатой картой онлайн")
     @Test(description = "Тест заказа с оплатой картой онлайн", groups = {"smoke", "regression"})
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithCardOnline() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -79,7 +76,6 @@ public final class OrdersPaymentsTests {
     @CaseId(1625)
     @Story("Тест заказа с оплатой картой курьеру")
     @Test(description = "Тест заказа с оплатой картой курьеру", groups = {"production", "smoke", "regression"})
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithCardCourier() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -110,7 +106,6 @@ public final class OrdersPaymentsTests {
     @CaseId(1626)
     @Story("Тест заказа с оплатой банковским переводом")
     @Test(description = "Тест заказа с оплатой банковским переводом", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successOrderWithBankTransfer() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -152,7 +147,6 @@ public final class OrdersPaymentsTests {
     @CaseIDs({@CaseId(3238), @CaseId(3235)})
     @Story("Ошибки валидации")
     @Test(description = "Добавление новой карты после попытки ввода некорректного номера карты", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void testAddPaymentCardAfterCardNumberValidation() {
         final var data = TestVariables.testAddressData();
 
@@ -193,7 +187,6 @@ public final class OrdersPaymentsTests {
     @CaseIDs({@CaseId(3236), @CaseId(3239)})
     @Story("Ошибки валидации")
     @Test(description = "Добавление новой карты. Некорректная дата окончания действия карты", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void testAddPaymentCardAfterCardExpireDataValidation() {
         final var data = TestVariables.testAddressData();
 
@@ -238,7 +231,6 @@ public final class OrdersPaymentsTests {
     @CaseIDs({@CaseId(3239), @CaseId(3237)})
     @Story("Ошибки валидации")
     @Test(description = "Добавление новой карты после попытки ввода некорректного имя держателя", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void testAddPaymentCardAfterCardHolderValidation() {
         final var data = TestVariables.testAddressData();
 

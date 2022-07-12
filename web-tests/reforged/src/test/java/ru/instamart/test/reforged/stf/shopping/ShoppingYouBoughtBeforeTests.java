@@ -73,7 +73,7 @@ public final class ShoppingYouBoughtBeforeTests {
         helper.makeOrder(shoppingCartUser, DEFAULT_METRO_MOSCOW_SID, 3);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();

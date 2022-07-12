@@ -6,6 +6,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID;
@@ -30,7 +31,7 @@ public final class ShoppingTestsForUnauthorizedUser {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().interactHeader().fillSearch("молоко");
         shop().interactHeader().clickSearchButton();

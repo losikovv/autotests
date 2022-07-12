@@ -8,6 +8,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.Kraken;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -30,7 +31,7 @@ public final class HomePageTests {
         final String zone2DeliveryInterval = apiHelper.getNextDeliveryInfo(DEFAULT_METRO_CROSSZONES_SID, RestAddresses.Moscow.metroCrossZone2Address());
         checkDeliveryIntervalsNonEquals(zone1DeliveryInterval, zone2DeliveryInterval);
 
-        home().goToPage(true);
+        home().goToPage();
         home().checkLoginButtonIsVisible();
 
         home().fillAddressInLanding(Addresses.Moscow.crossZone1MetroAddress());
@@ -68,7 +69,7 @@ public final class HomePageTests {
         checkDeliveryIntervalsNonEquals(zone1DeliveryInterval, zone2DeliveryInterval);
         final String nearestDeliveryInterval = getNearestInterval(zone1DeliveryInterval, zone2DeliveryInterval);
 
-        home().goToPage(true);
+        home().goToPage();
         home().checkLoginButtonIsVisible();
         home().fillAddressInLanding(Addresses.Moscow.crossZonesMetroAddress());
         home().selectFirstAddressInFounded();
@@ -88,7 +89,7 @@ public final class HomePageTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        home().goToPage(true);
+        home().goToPage();
         home().checkLoginButtonIsVisible();
 
         home().openLoginModal();
@@ -103,7 +104,7 @@ public final class HomePageTests {
     @CaseId(3361)
     @Test(description = "Определение города по IP если в городе работает СберМаркет", groups = "regression")
     public void detectCityByIPAndChangeCityFromOnboarding() {
-        home().goToPage(true);
+        home().goToPage();
         home().setLocation("Moscow");
         home().checkBannerTitleText(home().getAddressBlockText(), "Доставка из любимых магазинов в Москве");
 
@@ -122,7 +123,7 @@ public final class HomePageTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        home().goToPage(true);
+        home().goToPage();
         home().checkLoginButtonIsVisible();
 
         home().openLoginModal();
@@ -136,7 +137,7 @@ public final class HomePageTests {
     @CaseId(3363)
     @Test(description = "Отображение магазинов после ввода адреса вне города доставки", groups = "regression")
     public void outOfDeliveryLocation() {
-        home().goToPage(true);
+        home().goToPage();
         home().checkLoginButtonIsVisible();
         home().setLocation("Moscow");
 
@@ -152,7 +153,7 @@ public final class HomePageTests {
     @CaseId(3364)
     @Test(description = "Определение города по IP и координатам", groups = "regression")
     public void retailerNotInCity() {
-        home().goToPage(true);
+        home().goToPage();
         home().checkLoginButtonIsVisible();
         home().setLocation("Nizhniy-novgorod");
 
@@ -173,7 +174,7 @@ public final class HomePageTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        home().goToPage(true);
+        home().goToPage();
         home().checkLoginButtonIsVisible();
         home().setLocation("Moscow");
 
@@ -198,7 +199,7 @@ public final class HomePageTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        home().goToPage(true);
+        home().goToPage();
         home().checkLoginButtonIsVisible();
 
         home().fillAddressInLanding(Addresses.Moscow.defaultAddress());

@@ -10,8 +10,6 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -28,7 +26,7 @@ public final class ShoppingSearchTests {
     @Story("Проверка наличия элементов")
     @Test(description = "Тест валидации элементов поиска", groups = "regression")
     public void successValidateSearch() {
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().checkSearchContainerVisible();
         shop().interactHeader().checkSearchInputVisible();
         shop().interactHeader().checkSearchButtonVisible();
@@ -41,7 +39,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -58,7 +56,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -77,7 +75,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -96,7 +94,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -114,7 +112,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -136,7 +134,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -158,7 +156,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -176,7 +174,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -189,7 +187,7 @@ public final class ShoppingSearchTests {
     @CaseId(1581)
     @Test(description = "Добавление товара в корзину из поиска товаров", groups = "regression")
     public void successAddItemToCartFromSearchResults() {
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactAddressLarge().checkYmapsReady();
 
@@ -199,7 +197,7 @@ public final class ShoppingSearchTests {
         shop().interactAddress().clickOnSave();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().fillSearch("сыры");
         shop().interactHeader().clickSearchButton();
         search().checkSearchImgLoaded();
@@ -212,12 +210,11 @@ public final class ShoppingSearchTests {
 
     @CaseId(2589)
     @Test(description = "Работоспособность сортировки товаров", groups = {"regression"})
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successApplySort() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -237,7 +234,7 @@ public final class ShoppingSearchTests {
     @CaseId(2590)
     @Test(description = "Фильтрация товаров", groups = {"regression"})
     public void successApplyFilters() {
-        shop().goToPage(true);
+        shop().goToPage();
         shop().goToPage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
         search().checkSearchImgLoaded();
 
@@ -275,7 +272,7 @@ public final class ShoppingSearchTests {
     @CaseId(2591)
     @Test(description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности", groups = {"regression"})
     public void successApplyFiltersAndSortCheapAsc() {
-        shop().goToPage(true);
+        shop().goToPage();
         shop().goToPage("okey/search?keywords=кофе&sid=128");
 
         search().checkSearchImgLoaded();
@@ -301,7 +298,7 @@ public final class ShoppingSearchTests {
     @CaseId(2591)
     @Test(description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд", groups = {"regression"})
     public void successApplyFiltersAndSortExpensiveDesc() {
-        shop().goToPage(true);
+        shop().goToPage();
         shop().goToPage("okey/search?keywords=чай&sid=128");
 
         search().checkSearchImgLoaded();
@@ -332,7 +329,7 @@ public final class ShoppingSearchTests {
     @CaseId(2592)
     @Test(description = "При применении фильтра для выданных товаров блокируются другие фильтры (неприменимые к ним)", groups = {"regression"})
     public void successApplyOtherFilters() {
-        shop().goToPage(true);
+        shop().goToPage();
         shop().goToPage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
         search().checkSearchImgLoaded();
 
@@ -348,7 +345,7 @@ public final class ShoppingSearchTests {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage(true);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();

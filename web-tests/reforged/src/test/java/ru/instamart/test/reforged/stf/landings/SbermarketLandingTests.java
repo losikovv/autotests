@@ -15,7 +15,6 @@ public final class SbermarketLandingTests {
 
     @CaseId(1687)
     @Test(description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = "regression")
-    @CookieProvider(cookieFactory = CookieFactory.class, cookies = "COOKIE_ALERT")
     public void successValidateSbermarketLanding() {
         home().goToPage();
         home().checkHeaderContainerIsVisible();
