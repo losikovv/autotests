@@ -345,7 +345,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
                 .lon(zone.getLon())
                 .build(), currentOrderNumber);
         checkStatusCode200(response);
-        compareTwoObjects(AnalyzeResultV2.ALCOHOL_DISAPPEARS.getValue(), response.as(TransferMethodAnalyzeV2Response.class).getResult());
+        compareTwoObjects(AnalyzeResultV2.OK.getValue(), response.as(TransferMethodAnalyzeV2Response.class).getResult());
     }
 
     @CaseId(1083)
