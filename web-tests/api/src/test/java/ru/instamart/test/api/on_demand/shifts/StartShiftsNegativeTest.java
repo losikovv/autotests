@@ -48,12 +48,13 @@ public class StartShiftsNegativeTest extends RestBase {
     @CaseId(29)
     @Story("Создание смены")
     @Test(groups = {"api-shifts"},
-            description = "Событие \"Начать смену\". Партнер вне зоны территории смены (с включенной проверкой геолокации)")
+            description = "Событие \"Начать смену\". Партнер вне зоны территории смены (с включенной проверкой геолокации)",
+            enabled = false)
     public void startShift422() {
         final Response response = ShiftsRequest.Start.PATCH(planningPeriodId, 55.646977, 38.650011);
         checkStatusCode422(response);
         ErrorTypeResponse errorTypeResponse = response.as(ErrorTypeResponse.class);
-        Allure.step("Проверка ошибки при начале смены", ()-> {
+        Allure.step("Проверка ошибки при начале смены", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(errorTypeResponse.getStatus(), 422, "Error status message not valid");
             softAssert.assertEquals(errorTypeResponse.getTitle(), "Partner is outside area", "Error title message not valid");
