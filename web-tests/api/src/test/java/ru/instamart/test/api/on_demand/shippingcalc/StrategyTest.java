@@ -9,6 +9,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.shippingcalc.RulesDao;
+import ru.instamart.jdbc.dao.shippingcalc.ScriptsDao;
 import ru.instamart.jdbc.dao.shippingcalc.StrategiesDao;
 import ru.instamart.jdbc.entity.shippingcalc.RulesEntity;
 import ru.instamart.jdbc.entity.shippingcalc.StrategiesEntity;
@@ -35,8 +36,8 @@ public class StrategyTest extends RestBase {
     private Integer strategyIdWithMultipleRulesAndConditions;
     private final String FIRST_STORE_ID = UUID.randomUUID().toString();
     private final String SECOND_STORE_ID = UUID.randomUUID().toString();
-    private final Integer FIRST_SCRIPT_ID = 8;
-    private final Integer SECOND_SCRIPT_ID = 9;
+    private final Integer FIRST_SCRIPT_ID = ScriptsDao.INSTANCE.getScriptByName("Фиксированная цена, с подсказками и объяснением").getId();
+    private final Integer SECOND_SCRIPT_ID = ScriptsDao.INSTANCE.getScriptByName("Цена с учётом сложности, с подсказками и объяснением").getId();
     private final String SCRIPT_PARAMS = "{\"basicPrice\": \"10000\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
     private final String FIRST_SCRIPT_PARAMS = "{\"basicPrice\": \"0\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
     private final String SECOND_SCRIPT_PARAMS = "{\"baseMass\": \"30000\", \"basicPrice\": \"29900\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}";

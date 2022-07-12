@@ -4,10 +4,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.jdbc.dao.shippingcalc.ConditionsDao;
-import ru.instamart.jdbc.dao.shippingcalc.RulesDao;
-import ru.instamart.jdbc.dao.shippingcalc.StrategiesDao;
-import ru.instamart.jdbc.dao.shippingcalc.StrategyBindingsDao;
+import ru.instamart.jdbc.dao.shippingcalc.*;
 import ru.instamart.jdbc.entity.shippingcalc.ConditionsEntity;
 import ru.instamart.jdbc.entity.shippingcalc.RulesEntity;
 import ru.instamart.jdbc.entity.shippingcalc.StrategiesEntity;
@@ -236,11 +233,13 @@ public class ShippingCalcHelper {
     @Step("Добавляем стратегию в БД")
     public static Integer addStrategy(Boolean global, Integer priority, String deliveryType) {
         String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
+        Integer firstScriptId = ScriptsDao.INSTANCE.getScriptByName("Фиксированная цена, с подсказками и объяснением").getId();
+        Integer secondScriptId = ScriptsDao.INSTANCE.getScriptByName("Цена с учётом сложности, с подсказками и объяснением").getId();
         Integer strategyId = StrategiesDao.INSTANCE.addStrategy("autotest-insert", shipping, global, priority, "autotest-insert", "autotest-insert");
-        Integer firstPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, 8, "{\"basicPrice\": \"0\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}", 0, "autotest-insert", "delivery_price");
-        Integer secondPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, 9, "{\"baseMass\": \"30000\", \"basicPrice\": \"19900\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}", 1, "autotest-insert", "delivery_price");
-        Integer thirdPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, 9, "{\"baseMass\": \"30000\", \"basicPrice\": \"9900\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}", 2, "autotest-insert", "delivery_price");
-        Integer fourthPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, 9, "{\"baseMass\": \"30000\", \"basicPrice\": \"0\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}", 3, "autotest-insert", "delivery_price");
+        Integer firstPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, firstScriptId, "{\"basicPrice\": \"0\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}", 0, "autotest-insert", "delivery_price");
+        Integer secondPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, secondScriptId, "{\"baseMass\": \"30000\", \"basicPrice\": \"19900\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}", 1, "autotest-insert", "delivery_price");
+        Integer thirdPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, secondScriptId, "{\"baseMass\": \"30000\", \"basicPrice\": \"9900\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}", 2, "autotest-insert", "delivery_price");
+        Integer fourthPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, secondScriptId, "{\"baseMass\": \"30000\", \"basicPrice\": \"0\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}", 3, "autotest-insert", "delivery_price");
         Integer firstMinCartRuleId = RulesDao.INSTANCE.addRule(strategyId, 0, "100000", 0, "autotest-insert", "min_cart");
         Integer secondMinCartRuleId = RulesDao.INSTANCE.addRule(strategyId, 0, "50000", 1, "autotest-insert", "min_cart");
         boolean firstCondition = ConditionsDao.INSTANCE.addCondition(firstPriceRuleId, "{\"Count\": 1}", "first_n_orders");
