@@ -125,7 +125,7 @@ public final class StoresV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
-            description = "Получение списка магазинов  с валидными значениями")
+            description = "Получение списка магазинов с валидными значениями")
     public void getStores(StoresV2Request.Store store) {
         final Response response = StoresV2Request.GET(store);
         checkStatusCode200(response);
@@ -134,7 +134,7 @@ public final class StoresV2Test extends RestBase {
 
     @Deprecated
     @Test(groups = {},
-            description = "Получение списка магазинов  с невалидным shippingMethod")
+            description = "Получение списка магазинов с невалидным shippingMethod")
     public void getStoresNOtValidShippingMethod() {
         final Response response = StoresV2Request.GET(StoresV2Request.Store.builder()
                 .lat(RestAddresses.NizhnyNovgorod.defaultAddress().getLat())
@@ -148,7 +148,7 @@ public final class StoresV2Test extends RestBase {
 
     @Deprecated
     @Test(groups = {},
-            description = "Получение списка магазинов  с невалидным shippingMethod")
+            description = "Получение списка магазинов с невалидным shippingMethod")
     public void getStoresNOtValidOperationalZoneId() {
         final Response response = StoresV2Request.GET(StoresV2Request.Store.builder()
                 .lat(RestAddresses.Moscow.defaultAddress().getLat())
