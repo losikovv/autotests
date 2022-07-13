@@ -10,12 +10,13 @@ import org.testng.SkipException;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.shopper.AssemblyStateSHP;
 import ru.instamart.api.enums.shopper.PackageSetLocationSHP;
+import ru.instamart.api.enums.shopper.PricerSHP;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.shopper.admin.ShipmentsItemSHP;
 import ru.instamart.api.model.shopper.app.*;
+import ru.instamart.api.request.localtor.LocatorRequest;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.request.shopper.app.*;
-import ru.instamart.api.request.localtor.LocatorRequest;
 import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
@@ -359,7 +360,7 @@ public class ShopperAppApiHelper {
                     ReplacementSHP.Data replacement = replaceItem(items.get(i).getId(), offers.get(0).getAttributes().getUuid());
                     approveItem(replacement.getAttributes().getToItemId().toString());
 
-                    AssemblyItemSHP.Data assemblyItem = additionalItemForReplacement(replacement.getId(), offers.get(1).getId());
+                    AssemblyItemSHP.Data assemblyItem = additionalItemForReplacement(replacement.getId(), offers.get(1));
                     approveItem(assemblyItem.getId());
                     break;
                 default:
@@ -464,9 +465,11 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Дополнительный товар для замены")
-    private AssemblyItemSHP.Data additionalItemForReplacement(String replacementId, String offerUuid) {
+    private AssemblyItemSHP.Data additionalItemForReplacement(String replacementId, OfferSHP.Data offer) {
         log.debug("Дополнительный товар для замены");
-        Response response = ReplacementsSHPRequest.AdditionalItems.POST(replacementId, offerUuid, 2);
+
+        Response response = ReplacementsSHPRequest.AdditionalItems.POST(replacementId, offer.getId(),
+                offer.getAttributes().getPricerType().equals(PricerSHP.PER_WEIGHT.getType()) ? 2000 : 2);
         checkStatusCode200(response);
         Assert.assertEquals(response.as(AssemblyItemSHPResponse.class).getData().getAttributes().getState(),
                 "need_review");
