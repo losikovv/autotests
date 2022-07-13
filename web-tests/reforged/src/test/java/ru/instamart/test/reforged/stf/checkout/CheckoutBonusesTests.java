@@ -6,11 +6,10 @@ import io.qameta.allure.Story;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.data.BonusPrograms.aeroflot;
@@ -28,7 +27,7 @@ public final class CheckoutBonusesTests {
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
         this.userData = UserManager.getQaUser();
-        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
     }
 
     @CaseId(1702)

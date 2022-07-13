@@ -7,7 +7,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.*;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -16,7 +15,7 @@ import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.core.config.UiProperties.RBSUAT_PAYMENTS_URL;
+import static ru.instamart.reforged.core.config.UiProperties.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
 
@@ -36,7 +35,7 @@ public final class BasicOrdersTests {
     @Test(description = "Тест заказа с добавлением нового юр. лица", groups = {"smoke", "regression"})
     public void successCompleteCheckoutWithNewJuridical() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, DEFAULT_SID);
 
         var company = JuridicalData.juridical();
 
@@ -74,7 +73,7 @@ public final class BasicOrdersTests {
     @Test(description = "Тест заказа с новой картой оплаты c 3ds", groups = {"regression", "smoke"})
     public void successCompleteCheckoutWithNewPaymentCard() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, DEFAULT_SID);
 
         var card = PaymentCards.testCard();
 
@@ -117,7 +116,7 @@ public final class BasicOrdersTests {
     @Test(description = "Тест заказа с новой картой оплаты без 3ds", groups = "regression")
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        helper.dropAndFillCart(userData, DEFAULT_METRO_MOSCOW_SID);
 
         var card = PaymentCards.testCardNo3dsWithSpasibo();
 
@@ -156,8 +155,8 @@ public final class BasicOrdersTests {
     @Test(description = "Тест заказа с любимыми товарами", groups = "regression")
     public void successOrderWithFavProducts() {
         userData = UserManager.getQaUser();
-        helper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 1);
-        helper.dropAndFillCartFromFavorites(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.addFavorites(userData, DEFAULT_SID, 1);
+        helper.dropAndFillCartFromFavorites(userData, DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -190,7 +189,7 @@ public final class BasicOrdersTests {
     @Test(description = "Тест успешного заказа с оплатой картой курьеру", groups = {"smoke", "regression"})
     public void successOrderWithCardCourier() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -225,7 +224,7 @@ public final class BasicOrdersTests {
         final AddressDetailsData data = TestVariables.testAddressData();
         //Тут используется не qa ручка, потому что в ней уже задано имя для пользователя
         userData = UserManager.getUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -264,7 +263,7 @@ public final class BasicOrdersTests {
     @Test(description = "Отмена заказа", groups = "regression")
     public void successOrderCancel() {
         userData = UserManager.getQaUser();
-        helper.makeOrder(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 1);
+        helper.makeOrder(userData, DEFAULT_METRO_MOSCOW_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -290,7 +289,7 @@ public final class BasicOrdersTests {
     public void successAddItemsInActiveOrder() {
         userData = UserManager.getQaUser();
 
-        helper.makeOrderOnTomorrow(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 1);
+        helper.makeOrderOnTomorrow(userData, DEFAULT_METRO_MOSCOW_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -317,7 +316,7 @@ public final class BasicOrdersTests {
         //пока выключено, для некста отключен мультизаказ на данный момент
         userData = UserManager.getQaUser();
 
-        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, EnvironmentProperties.DEFAULT_AUCHAN_SID);
+        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID);
 
         var card = PaymentCards.testCard();
 
@@ -372,7 +371,7 @@ public final class BasicOrdersTests {
     @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = "regression")
     public void successCancelMultiOrderViaCancelOneOrder() {
         userData = UserManager.getQaUser();
-        helper.makeMultipleOrder(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, EnvironmentProperties.DEFAULT_AUCHAN_SID);
+        helper.makeMultipleOrder(userData, RestAddresses.Moscow.defaultAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID);
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
@@ -396,7 +395,7 @@ public final class BasicOrdersTests {
     public void successCompleteCheckoutWithNewPaymentCard3DSAlreadyIn() {
         //TODO: после починки addCreditCard() нужно добавить сюда добавление карты через апи
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, DEFAULT_SID);
 
         var card = PaymentCards.testCard();
 
@@ -435,7 +434,7 @@ public final class BasicOrdersTests {
 
         userShipments().checkPageContains(userShipments().pageUrl());
 
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, DEFAULT_SID);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();

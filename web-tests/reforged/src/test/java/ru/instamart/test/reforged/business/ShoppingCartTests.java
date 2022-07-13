@@ -5,7 +5,6 @@ import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -15,8 +14,9 @@ import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_AUCHAN_SID;
 import static ru.instamart.reforged.business.page.BusinessRouter.*;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
 
 @Epic("SMBUSINESS UI")
 @Feature("Основные тесты корзины")
@@ -30,7 +30,7 @@ public final class ShoppingCartTests {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        helper.dropAndFillCart(userData, DEFAULT_METRO_MOSCOW_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -50,7 +50,7 @@ public final class ShoppingCartTests {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
-        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, EnvironmentProperties.DEFAULT_AUCHAN_SID);
+        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -190,7 +190,7 @@ public final class ShoppingCartTests {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        helper.dropAndFillCart(userData, DEFAULT_METRO_MOSCOW_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

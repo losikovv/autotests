@@ -8,12 +8,12 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.TimeUtil;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.login;
@@ -206,7 +206,7 @@ public final class AdministrationShipmentsSectionTests {
     public void successResumeAndCancelOrder() {
         final ApiHelper helper = new ApiHelper();
         final UserData userData = UserManager.getQaUser();
-        final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 3);
+        final OrderV2 orderV2 = helper.makeOrder(userData, UiProperties.DEFAULT_SID, 3);
         helper.cancelOrder(userData, orderV2.getNumber());
 
         //TODO: Заказ появляется в админке с задержкой рандомной

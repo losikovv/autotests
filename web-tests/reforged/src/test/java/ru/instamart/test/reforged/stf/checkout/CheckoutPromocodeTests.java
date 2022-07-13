@@ -7,11 +7,10 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Promos;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
@@ -28,7 +27,7 @@ public final class CheckoutPromocodeTests {
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
         this.userData = UserManager.getQaUser();
-        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")

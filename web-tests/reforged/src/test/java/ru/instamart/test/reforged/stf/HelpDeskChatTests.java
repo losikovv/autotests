@@ -4,9 +4,9 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -21,7 +21,7 @@ public final class HelpDeskChatTests {
         final ApiHelper apiHelper = new ApiHelper();
         final UserData userData = UserManager.getQaUser();
 
-        apiHelper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        apiHelper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

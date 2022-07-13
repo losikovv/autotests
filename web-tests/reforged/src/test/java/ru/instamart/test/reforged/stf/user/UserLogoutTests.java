@@ -5,9 +5,9 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.home;
@@ -53,7 +53,7 @@ public final class UserLogoutTests {
     public void noShipAddressAndEmptyCartAfterLogout() {
         final ApiHelper apiHelper = new ApiHelper();
         final UserData userData = UserManager.getQaUser();
-        apiHelper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        apiHelper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

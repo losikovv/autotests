@@ -7,13 +7,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -31,7 +31,7 @@ public final class OrdersPaymentsTests {
     public void beforeTest() {
         this.company = JuridicalData.juridical();
         this.ordersUser = UserManager.getQaUser();
-        this.helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        this.helper.dropAndFillCart(ordersUser, UiProperties.DEFAULT_METRO_MOSCOW_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")

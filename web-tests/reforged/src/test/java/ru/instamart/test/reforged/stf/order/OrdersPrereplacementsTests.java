@@ -16,7 +16,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.Arrays;
 import java.util.List;
 
-import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_PREREPLACEMENT_SID;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_PREREPLACEMENT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")

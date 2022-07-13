@@ -6,11 +6,11 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -134,7 +134,7 @@ public final class AdministrationUsersSectionTests {
     public void testBlockPaymentCards() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3dsWithSpasibo();
-        helper.bindCardToUser(userData, EnvironmentProperties.DEFAULT_SID,
+        helper.bindCardToUser(userData, UiProperties.DEFAULT_SID,
                 card);
 
         login().goToPage();

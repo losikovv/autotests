@@ -12,7 +12,7 @@ import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.kraken.config.EnvironmentProperties.*;
+import static ru.instamart.reforged.core.config.UiProperties.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
