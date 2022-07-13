@@ -8,12 +8,12 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -39,10 +39,10 @@ public final class CheckoutContactsStepTests {
     @Story("Корзина")
     @Test(description = "Тест на изменение телефона и контактов", groups = "regression")
     public void successChangePhoneAndContacts() {
-        helper.makeOrder(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 1);
+        helper.makeOrder(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

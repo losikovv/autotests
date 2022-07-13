@@ -5,9 +5,8 @@ import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
@@ -24,7 +23,7 @@ public final class BasicCheckoutTests {
     public void testCheckoutAccessForUserWithCart() {
         final var userData = UserManager.getQaUser();
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

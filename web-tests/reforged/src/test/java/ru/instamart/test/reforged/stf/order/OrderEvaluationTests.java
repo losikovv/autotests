@@ -4,11 +4,11 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
@@ -21,7 +21,7 @@ public final class OrderEvaluationTests {
     @Test(description = "Оценка заказа | положительная", groups = "regression")
     public void orderPositiveEvaluation() {
         UserData userData = UserManager.getQaUser();
-        helper.makeAndCompleteOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
+        helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -39,7 +39,7 @@ public final class OrderEvaluationTests {
     @Test(description = "Оценка заказа | отрицательная", groups = "regression")
     public void orderNegativeEvaluation() {
         UserData userData = UserManager.getQaUser();
-        helper.makeAndCompleteOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
+        helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -57,7 +57,7 @@ public final class OrderEvaluationTests {
     @Test(description = "Выбор тегов для оценки заказа", groups = "regression")
     public void orderNegativeEvaluationTags() {
         UserData userData = UserManager.getQaUser();
-        helper.makeAndCompleteOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
+        helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -78,7 +78,7 @@ public final class OrderEvaluationTests {
     @Test(description = "Оценка заказа с комментарием", groups = "regression")
     public void orderEvaluationComment() {
         UserData userData = UserManager.getQaUser();
-        helper.makeAndCompleteOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
+        helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -98,7 +98,7 @@ public final class OrderEvaluationTests {
     @Test(description = "Оценка заказа с фото", groups = "regression")
     public void orderEvaluationPhoto() {
         UserData userData = UserManager.getQaUser();
-        helper.makeAndCompleteOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
+        helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

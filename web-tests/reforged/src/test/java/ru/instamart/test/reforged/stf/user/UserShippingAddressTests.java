@@ -6,7 +6,6 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserManager;
@@ -15,7 +14,8 @@ import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -189,7 +189,7 @@ public final class UserShippingAddressTests {
     @Test(description = "Тест изменения адреса на предыдущий из списка адресной модалки", groups = "regression")
     public void successChangeShippingAddressToRecent() {
         final var user = UserManager.getQaUser();
-        this.helper.makeAndCancelOrder(user, EnvironmentProperties.DEFAULT_SID, 1, RestAddresses.NizhnyNovgorod.defaultAddress());
+        this.helper.makeAndCancelOrder(user, DEFAULT_SID, 1, RestAddresses.NizhnyNovgorod.defaultAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -281,8 +281,8 @@ public final class UserShippingAddressTests {
     public void saveAddressForNextOrder() {
         final var addressData = TestVariables.testAddressData();
         final var userData = UserManager.getQaUser();
-        this.helper.makeAndCancelOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
-        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        this.helper.makeAndCancelOrder(userData, DEFAULT_SID, 2);
+        this.helper.dropAndFillCart(userData, DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -313,7 +313,7 @@ public final class UserShippingAddressTests {
 
         userShipments().checkPageContains(userShipments().pageUrl());
 
-        helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_SID);
 
         //TODO Пофиксить изменяется сумма минимального заказа при повторном заказе
         checkout().goToPage();
@@ -380,8 +380,8 @@ public final class UserShippingAddressTests {
         final var addressData = TestVariables.testAddressData();
         final var addressChangeData = TestVariables.testChangeAddressData();
         final var userData = UserManager.getQaUser();
-        this.helper.makeAndCancelOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
-        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        this.helper.makeAndCancelOrder(userData, DEFAULT_SID, 2);
+        this.helper.dropAndFillCart(userData, DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -412,7 +412,7 @@ public final class UserShippingAddressTests {
 
         userShipments().checkPageContains(userShipments().pageUrl());
 
-        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_SID);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
@@ -437,7 +437,7 @@ public final class UserShippingAddressTests {
 
         userShipments().checkPageContains(userShipments().pageUrl());
 
-        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_SID);
 
         //TODO Пофиксить изменяется сумма минимального заказа при повторном заказе
         checkout().goToPage();

@@ -5,14 +5,16 @@ import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -62,7 +64,7 @@ public final class UserFavoritesTests {
     public void successDeleteFavoriteOnItemCard() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 2);
+        apiHelper.addFavorites(userData, DEFAULT_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -81,7 +83,7 @@ public final class UserFavoritesTests {
     public void successCleanupFavorites() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 1);
+        apiHelper.addFavorites(userData, DEFAULT_SID, 1);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -100,7 +102,7 @@ public final class UserFavoritesTests {
     public void successApplyFilters() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 10);
+        apiHelper.addFavorites(userData, DEFAULT_METRO_MOSCOW_SID, 10);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -121,7 +123,7 @@ public final class UserFavoritesTests {
     public void successShowMoreLoad() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_AUCHAN_SID, 35);
+        apiHelper.addFavorites(userData, UiProperties.DEFAULT_AUCHAN_SID, 35);
 
         shop().goToPage(ShopUrl.AUCHAN);
         shop().interactHeader().clickToLogin();
@@ -165,14 +167,14 @@ public final class UserFavoritesTests {
     public void successAddFavoriteProductToCart() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.getDefaultAddress());
-        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 3);
+        apiHelper.addFavorites(userData, DEFAULT_METRO_MOSCOW_SID, 3);
 
         home().goToPage();
         home().openLoginModal();
         home().interactAuthModal().authViaPhone(userData);
         home().checkDeliveryStoresContainerVisible();
 
-        home().clickOnStoreWithSid(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        home().clickOnStoreWithSid(DEFAULT_METRO_MOSCOW_SID);
 
         userFavorites().goToPage();
         userFavorites().interactHeader().checkEnteredAddressIsVisible();
@@ -186,7 +188,7 @@ public final class UserFavoritesTests {
     public void successAddFavoriteProductsFromCardToCart() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 3);
+        apiHelper.addFavorites(userData, DEFAULT_SID, 3);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

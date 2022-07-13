@@ -42,5 +42,21 @@ public final class UiProperties {
     public static String DEMO_CLOUD_PAYMENTS_URL;
 
     @Config(configName = NAME, fieldName = "defaultCookies", defaultValue = "")
-    public static List DEFAULT_COOKIES;
+    public static List<String> DEFAULT_COOKIES;
+
+    @Config(configName = NAME, fieldName = "defaultSid", defaultValue = "81")
+    public static int DEFAULT_SID;
+
+    @Config(configName = NAME, fieldName = "defaultMetroMoscowSid", defaultValue = "1")
+    public static int DEFAULT_METRO_MOSCOW_SID;
+    @Config(configName = NAME, fieldName = "defaultMetroMoscowUuid", defaultValue = "")
+    public static String DEFAULT_METRO_MOSCOW_UUID;
+    @Config(configName = NAME, fieldName = "defaultMetroCrossZonesSid", defaultValue = "8")
+    public static int DEFAULT_METRO_CROSSZONES_SID;
+
+    @Config(configName = NAME, fieldName = "defaultAuchanSid", defaultValue = "72")
+    public static int DEFAULT_AUCHAN_SID;
+
+    @Config(configName = NAME, fieldName = "defaultPrereplacementSid", defaultValue = "6")
+    public static int DEFAULT_PREREPLACEMENT_SID;
 }

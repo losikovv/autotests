@@ -7,11 +7,11 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.data_provider.ReplacePolicyProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -28,7 +28,7 @@ public final class OrdersReplacementsTests {
     @BeforeMethod(alwaysRun = true, description = "Создание юзера и наполнение корзины")
     public void beforeTest() {
         this.ordersUser = UserManager.getQaUser();
-        this.helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(ordersUser, UiProperties.DEFAULT_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")

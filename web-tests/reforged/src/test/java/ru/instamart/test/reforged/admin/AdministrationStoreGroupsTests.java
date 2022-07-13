@@ -8,15 +8,14 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.AdminHelper;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.v1.RetailerV1;
-import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.jdbc.dao.stf.StoreLabelsDao;
 import ru.instamart.jdbc.dao.stf.StoresDao;
 import ru.instamart.jdbc.entity.stf.StoresEntity;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.StoreLabelData;
 import ru.instamart.kraken.data.StoreLabels;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -142,7 +141,7 @@ public class AdministrationStoreGroupsTests {
         storeGroups().openAdminPageWithoutSpa(storeGroups().pageUrl());
         storeGroups().checkAddNewGroupButtonVisible();
 
-        storeEdit().goToPage(ShopUrl.DEFAULT.name(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_UUID);
+        storeEdit().goToPage(ShopUrl.DEFAULT.name(), UiProperties.DEFAULT_METRO_MOSCOW_UUID);
         storeEdit().checkRegionDropdownVisible();
         storeEdit().checkStoreGroupsContains(storeLabel.getTitle());
 
@@ -151,7 +150,7 @@ public class AdministrationStoreGroupsTests {
 
         store().checkBackToStoresListButtonVisible();
 
-        storeEdit().goToPage(ShopUrl.DEFAULT.name(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_UUID);
+        storeEdit().goToPage(ShopUrl.DEFAULT.name(), UiProperties.DEFAULT_METRO_MOSCOW_UUID);
         storeEdit().checkRegionDropdownVisible();
         storeEdit().checkGroupSelected(storeLabel.getTitle());
     }

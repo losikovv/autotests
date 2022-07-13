@@ -4,12 +4,12 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.business.page.BusinessRouter.checkout;
@@ -28,7 +28,7 @@ public final class CheckoutTests {
         var user = UserManager.getQaUser();
         var card = PaymentCards.testBusinessCard();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), user.getEmail());
-        helper.dropAndFillCart(user, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        helper.dropAndFillCart(user, UiProperties.DEFAULT_METRO_MOSCOW_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

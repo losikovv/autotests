@@ -14,7 +14,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkDeliveryIntervalsNonEquals;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.getNearestInterval;
-import static ru.instamart.kraken.config.EnvironmentProperties.*;
+import static ru.instamart.reforged.core.config.UiProperties.*;
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 

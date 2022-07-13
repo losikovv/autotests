@@ -5,7 +5,6 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -15,6 +14,7 @@ import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
 import static ru.instamart.reforged.sber_id_auth.SberIdPageRouter.sberId;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -37,7 +37,7 @@ public final class UserAuthorisationTests {
     @Test(description = "Авторизация по номеру телефона", groups = {"production", "regression", "smoke"})
     public void successAuthOnMainPageUserWithOrder() {
         final var user = UserManager.getQaUser();
-        apiHelper.dropAndFillCart(user, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 1);
+        apiHelper.dropAndFillCart(user, DEFAULT_METRO_MOSCOW_SID, 1);
 
         home().goToPage();
         home().openLoginModal();

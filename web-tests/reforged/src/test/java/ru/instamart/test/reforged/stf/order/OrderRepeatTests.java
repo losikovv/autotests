@@ -6,9 +6,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
@@ -24,7 +24,7 @@ public final class OrderRepeatTests {
     @BeforeMethod(alwaysRun = true, description = "Аутентификация и выбор адреса доставки")
     public void preconditions() {
         userData = UserManager.getQaUser();
-        helper.makeOrder(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 2);
+        helper.makeOrder(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID, 2);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена заказа")

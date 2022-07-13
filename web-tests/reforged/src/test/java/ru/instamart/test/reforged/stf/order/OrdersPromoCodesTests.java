@@ -6,7 +6,6 @@ import io.qameta.allure.Story;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.PromoData;
@@ -19,6 +18,7 @@ import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -45,7 +45,7 @@ public final class OrdersPromoCodesTests {
         var company = JuridicalData.juridical();
 
         ordersUser = UserManager.getQaUser();
-        helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(ordersUser, DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -95,7 +95,7 @@ public final class OrdersPromoCodesTests {
         helper.createPromotionCode(promo, 2760, yesterday, yesterday, 100);
 
         ordersUser = UserManager.getQaUser();
-        helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(ordersUser, DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -146,9 +146,9 @@ public final class OrdersPromoCodesTests {
 
         ordersUser = UserManager.getQaUser();
 
-        helper.makeOrder(ordersUser, EnvironmentProperties.DEFAULT_SID, 1);
+        helper.makeOrder(ordersUser, DEFAULT_SID, 1);
         helper.createPromotionCode(promo, 2761, yesterday, yesterday, 100);
-        helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(ordersUser, DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -190,7 +190,7 @@ public final class OrdersPromoCodesTests {
         var promo = Generate.string(8);
 
         ordersUser = UserManager.getQaUser();
-        helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(ordersUser, DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
