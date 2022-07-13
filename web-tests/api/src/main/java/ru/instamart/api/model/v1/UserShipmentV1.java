@@ -36,7 +36,6 @@ public class UserShipmentV1 extends BaseObject {
     private List<String> documentTypes;
 
     @Null
-    @JsonSchema(required = true)
     @JsonProperty("driver_name")
     private String driverName;
 
@@ -129,12 +128,10 @@ public class UserShipmentV1 extends BaseObject {
     private List<Object> shippingTeamMembers;
 
     @Null
-    @JsonSchema(required = true)
     @JsonProperty("shopper_name")
     private String shopperName;
 
     @Null
-    @JsonSchema(required = true)
     @JsonProperty("shopper_phone")
     private String shopperPhone;
 

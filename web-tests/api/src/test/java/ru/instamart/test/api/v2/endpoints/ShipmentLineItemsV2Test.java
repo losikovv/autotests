@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
+import static ru.instamart.kraken.config.EnvironmentProperties.Env.isProduction;
 
 @Epic("ApiV2")
 @Feature("Заказы (shipments)")
@@ -56,8 +57,11 @@ public class ShipmentLineItemsV2Test extends RestBase {
     @AfterClass(alwaysRun = true)
     public void restoreData() {
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 1, 0);
-        if(Objects.nonNull(deliveryWindowId)) DeliveryWindowsDao.INSTANCE.updateDeliveryWindowSettings(deliveryWindowId, 999, 0, 999, 0);
-        apiV2.cancelCurrentOrder();
+        if (Objects.nonNull(deliveryWindowId))
+            DeliveryWindowsDao.INSTANCE.updateDeliveryWindowSettings(deliveryWindowId, 999, 0, 999, 0);
+        if (isProduction()) {
+            apiV2.cancelCurrentOrder();
+        }
     }
 
     @CaseIDs(value = {@CaseId(1003), @CaseId(1004)})
@@ -138,7 +142,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 48, 0);
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(4).getId(), 1);
         checkStatusCode422(response);
-        checkErrorField(response, "order_not_editable", "Заказ скоро начнут собирать. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
+        checkErrorField(response, "invalid_shipment_state_collecting", "Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
     }
 
     @CaseId(1152)

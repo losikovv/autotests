@@ -47,7 +47,7 @@ public class OffersV1Tests extends RestBase {
 
     @Story("Поиск товаров")
     @CaseId(111)
-    @Test(  description = "Контрактный тест поиска товаров в магазине",
+    @Test(description = "Контрактный тест поиска товаров в магазине",
             groups = {"api-instamart-smoke", "api-instamart-prod"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "offerOfEachRetailer-parallel")
@@ -60,7 +60,7 @@ public class OffersV1Tests extends RestBase {
 
     @Story("Поиск товаров")
     @CaseId(1382)
-    @Test(  description = "Поиск товаров в магазине по SKU",
+    @Test(description = "Поиск товаров в магазине по SKU",
             groups = {"api-instamart-smoke", "api-instamart-prod"},
             dependsOnMethods = "getOffer")
     public void getOfferBySku() {
@@ -73,7 +73,8 @@ public class OffersV1Tests extends RestBase {
 
     @Story("Поиск товаров")
     @CaseId(1383)
-    @Test(  description = "Поиск товаров в магазине по нескольким SKU",
+    @Test(enabled = false,
+            description = "Поиск товаров в магазине по нескольким SKU",
             groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getOffer")
     public void getOfferBySkus() {
@@ -84,7 +85,10 @@ public class OffersV1Tests extends RestBase {
         final Response response = StoresV1Request.Offers.GET(firstOffer.getStoreId(), firstOffer.getProductSku() + ";" + secondOffer.getProductSku());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, OffersV1Response.class);
-        List<OfferV1> offersFromResponse = response.as(OffersV1Response.class).getOffers().stream().sorted(Comparator.comparing(OfferV1::getId)).collect(Collectors.toList());
+        List<OfferV1> offersFromResponse = response.as(OffersV1Response.class)
+                .getOffers().stream()
+                .sorted(Comparator.comparing(OfferV1::getId))
+                .collect(Collectors.toList());
         compareTwoObjects(offersFromResponse.size(), 2);
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(offersFromResponse.get(0), firstOffer, softAssert);
@@ -94,7 +98,7 @@ public class OffersV1Tests extends RestBase {
 
     @Story("Поиск товаров")
     @CaseId(1384)
-    @Test(  description = "Поиск товаров в магазине без SKU",
+    @Test(description = "Поиск товаров в магазине без SKU",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getOfferWithoutSkus() {
         final Response response = StoresV1Request.Offers.GET(EnvironmentProperties.DEFAULT_SID, null);
@@ -104,7 +108,7 @@ public class OffersV1Tests extends RestBase {
 
     @Story("Поиск товаров")
     @CaseId(1385)
-    @Test(  description = "Поиск товаров в несуществующем магазине по SKU",
+    @Test(description = "Поиск товаров в несуществующем магазине по SKU",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getOfferForNonExistentStore() {
         final Response response = StoresV1Request.Offers.GET(0, "123");
@@ -114,7 +118,7 @@ public class OffersV1Tests extends RestBase {
 
     @Story("Поиск товаров")
     @CaseId(1386)
-    @Test(  description = "Поиск товаров в магазине по несуществующему SKU",
+    @Test(description = "Поиск товаров в магазине по несуществующему SKU",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getOfferByNonExistentSkus() {
         final Response response = StoresV1Request.Offers.GET(EnvironmentProperties.DEFAULT_SID, "000");
@@ -128,7 +132,7 @@ public class OffersV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
             dataProvider = "priceTypes",
             dataProviderClass = RestDataProvider.class,
-            dependsOnMethods = {"getOfferBySku", "getOfferBySkus"})
+            dependsOnMethods = {"getOfferBySku"})//, "getOfferBySkus"})
     public void createOffer(ProductPriceTypeV2 priceType) {
         OfferForRequest offer = OfferForRequest.builder()
                 .offer(OfferForRequest.OfferParams.builder()

@@ -151,7 +151,7 @@ public class ApiClientsV1Tests extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получение несуществующего API клиента")
     public void getNonExistentApiClient() {
-        final Response response = ApiClientsV1Request.GET(apiClientId);
+        final Response response = ApiClientsV1Request.GET(99999L);
         checkStatusCode404(response);
         checkErrorText(response, "Объект не найден");
     }
