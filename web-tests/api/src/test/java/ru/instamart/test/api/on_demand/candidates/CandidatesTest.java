@@ -18,8 +18,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.grpc.common.GrpcContentHosts.PAAS_CONTENT_OPERATIONS_CANDIDATES;
 import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
 
@@ -34,7 +33,7 @@ public class CandidatesTest extends RestBase {
     public void auth() {
         user = UserManager.getShp6Shopper1();
         shopperApp.authorisation(user);
-        shiftsApi.startOfShift(StartPointsTenants.METRO_3);
+        shiftsApi.startOfShift(StartPointsTenants.METRO_9);
         clientCandidates = CandidatesGrpc.newBlockingStub(grpc.createChannel(PAAS_CONTENT_OPERATIONS_CANDIDATES));
     }
 
@@ -59,11 +58,7 @@ public class CandidatesTest extends RestBase {
                 )
                 .build();
         CandidatesOuterClass.SelectCandidatesResponse selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
-        assertEquals(selectCandidatesResponse.getResults(0)
-                .getCandidate(0)
-                .getUuid(), user.getUuid(), "UUID кандидата не совпадает");
-        compareTwoObjects(selectCandidatesResponse.getResults(0).getCandidate(0).getLastLocation().getLat(), StartPointsTenants.METRO_3.getLat());
-        compareTwoObjects(selectCandidatesResponse.getResults(0).getCandidate(0).getLastLocation().getLon(), StartPointsTenants.METRO_3.getLon());
+        assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
     }
 
     @CaseId(24)
