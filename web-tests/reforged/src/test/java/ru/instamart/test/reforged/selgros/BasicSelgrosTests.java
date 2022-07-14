@@ -9,7 +9,6 @@ import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.instamart.reforged.core.data_provider.CurlCommand;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -90,7 +89,7 @@ public final class BasicSelgrosTests {
             groups = "regression")
     public void successCheckSelgrosUnavailableRetailers(final RetailerV2 retailer) {
         final String fullUrl = UiProperties.SELGROS_URL + retailer.getSlug();
-        assertTrue(Curl.pageUnavailable(CurlCommand.getStatusCodeSelgros() + fullUrl), "Страница " + fullUrl + " доступна");
+        assertTrue(Curl.pageUnavailable(fullUrl, UiProperties.HEADER_SELGROS_FORWARD_TO), "Страница " + fullUrl + " доступна");
     }
 
     @DoNotOpenBrowser
@@ -101,7 +100,7 @@ public final class BasicSelgrosTests {
             description = "Тест доступности витрин ретейлеров Selgros",
             groups = "regression")
     public void successCheckSelgrosAvailableRetailers(final String url) {
-        assertTrue(Curl.pageAvailable(CurlCommand.getStatusCodeSelgros() + url), "Страница " + url + " доступна");
+        assertTrue(Curl.pageAvailable(url, UiProperties.HEADER_SELGROS_FORWARD_TO), "Страница " + url + " доступна");
     }
 
     @DoNotOpenBrowser
@@ -113,6 +112,6 @@ public final class BasicSelgrosTests {
             description = "Тест доступности статических страниц на Selgros",
             groups = "regression")
     public void successCheckSelgrosStaticPagesAreAvailable(final String url) {
-        assertTrue(Curl.pageAvailable(CurlCommand.getStatusCodeSelgros() + url), "Страница " + url + " недоступна");
+        assertTrue(Curl.pageAvailable(url, UiProperties.HEADER_SELGROS_FORWARD_TO), "Страница " + url + " недоступна");
     }
 }
