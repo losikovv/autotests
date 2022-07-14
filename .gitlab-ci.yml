@@ -45,6 +45,7 @@ stages:
   - tests-api-ui
   - generate-report
   - tests-ui
+  - tests-ui-tenant
   - custom-run
 
 .template_only_branches:
