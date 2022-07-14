@@ -5,7 +5,6 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.StopWatch;
-import org.testng.Assert;
 import org.testng.SkipException;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.shopper.AssemblyStateSHP;
@@ -32,6 +31,7 @@ import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
@@ -127,7 +127,7 @@ public class ShopperAppApiHelper {
         }
         log.error(error);
         stopWatch.stop();
-        Assert.fail(error + ". Время поиска, мс: " + stopWatch.getTime() + "\n" + additionalInfoForError);
+        fail(error + ". Время поиска, мс: " + stopWatch.getTime() + "\n" + additionalInfoForError);
         return null;
     }
 
@@ -277,14 +277,14 @@ public class ShopperAppApiHelper {
         ShipmentSHP.Data shipment = getShipment(shipmentNumber);
 
         AssemblySHP.Data assembly = startAssembly(shipment.getId());
-        Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.COLLECTING.getState(), "Статус сборки не валиден");
+        assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.COLLECTING.getState(), "Статус сборки не валиден");
 
         simplyAwait(3); //Пауза перед передачей в сборку. В БД не успевает поменяться статус
         //Отдаём сборку другому сборщику
         suspendAssembly();
         simplyAwait(3); //Пауза перед получением в сборку. В БД не успевает поменяться статус
         assembly = startAssembly(shipment.getId());
-        Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.COLLECTING.getState(), "Статус сборки не валиден");
+        assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.COLLECTING.getState(), "Статус сборки не валиден");
 
         //Сборка всех позиций заказа
         assemblyItems();
@@ -294,7 +294,7 @@ public class ShopperAppApiHelper {
         pauseAssembly();
         simplyAwait(3); //пауза перед сборкой
         assembly = startAssembly(shipment.getId());
-        Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.ON_APPROVAL.getState(), "Статус сборки не валиден");
+        assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.ON_APPROVAL.getState(), "Статус сборки не валиден");
 
         startPaymentVerification();
         shopperCreatesPackageSets();
@@ -376,11 +376,18 @@ public class ShopperAppApiHelper {
 
     @Step("Поиск товаров в магазине")
     private List<OfferSHP.Data> getOffers() {
-        log.debug("Поиск товаров в магазине");
+        String query = "сыр";
+        log.debug("Поиск товаров в магазине по запросу " + query);
         Response response = StoresSHPRequest.Offers.GET(
-                EnvironmentProperties.DEFAULT_SHOPPER_SID, "сыр");
+                EnvironmentProperties.DEFAULT_SHOPPER_SID, query);
         checkStatusCode200(response);
-        return response.as(OffersSHPResponse.class).getData();
+
+        List<OfferSHP.Data> offers = response.as(OffersSHPResponse.class).getData();
+        assertFalse(offers.isEmpty(), "Поиск не нашел ни одного товара по запросу " + query);
+        assertNotEquals(offers.size(), 1, "Поиск нашел всего один товар по запросу " + query);
+        assertNotEquals(offers.size(), 2, "Поиск нашел всего два товара по запросу " + query);
+
+        return offers;
     }
 
     /**
@@ -471,7 +478,7 @@ public class ShopperAppApiHelper {
         Response response = ReplacementsSHPRequest.AdditionalItems.POST(replacementId, offer.getId(),
                 offer.getAttributes().getPricerType().equals(PricerSHP.PER_WEIGHT.getType()) ? 2000 : 2);
         checkStatusCode200(response);
-        Assert.assertEquals(response.as(AssemblyItemSHPResponse.class).getData().getAttributes().getState(),
+        assertEquals(response.as(AssemblyItemSHPResponse.class).getData().getAttributes().getState(),
                 "need_review");
         return response.as(AssemblyItemSHPResponse.class).getData();
     }
@@ -481,7 +488,7 @@ public class ShopperAppApiHelper {
         log.debug("Подтверждаем позицию");
         Response response = AssemblyItemsSHPRequest.Approve.PATCH(assemblyItemId);
         checkStatusCode200(response);
-        Assert.assertEquals(response.as(AssemblyItemSHPResponse.class).getData().getAttributes().getState(),
+        assertEquals(response.as(AssemblyItemSHPResponse.class).getData().getAttributes().getState(),
                 "approved");
     }
 
@@ -499,7 +506,7 @@ public class ShopperAppApiHelper {
         log.debug("Подтверждаем прохождение оплаты у сборки для передачи упаковщику");
         Response response = AssembliesSHPRequest.StartPaymentVerification.PUT(currentAssemblyId.get());
         checkStatusCode200(response);
-        Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
+        assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.PAYMENT_VERIFICATION.getState());
     }
 
@@ -509,7 +516,7 @@ public class ShopperAppApiHelper {
         int boxNumber = 10;
         Response response = AssembliesSHPRequest.PackageSets.POST(currentAssemblyId.get(), boxNumber);
         checkStatusCode200(response);
-        Assert.assertEquals(response.as(PackageSetsSHPResponse.class).getData().size(), boxNumber);
+        assertEquals(response.as(PackageSetsSHPResponse.class).getData().size(), boxNumber);
     }
 
     @Step("Завершаем сборку для передачи упаковщику")
@@ -518,9 +525,9 @@ public class ShopperAppApiHelper {
         Response response = AssembliesSHPRequest.FinishAssembling.PUT(currentAssemblyId.get());
         checkStatusCode200(response);
         AssemblySHP.Data.Attributes attributes = response.as(AssemblySHPResponse.class).getData().getAttributes();
-        Assert.assertEquals(attributes.getState(),
+        assertEquals(attributes.getState(),
                 AssemblyStateSHP.ASSEMBLED.getState());
-        Assert.assertNull(attributes.getPackerId());
+        assertNull(attributes.getPackerId());
     }
 
     @Step("Берем сборку упаковщиком")
@@ -529,7 +536,7 @@ public class ShopperAppApiHelper {
         Response response = AssembliesSHPRequest.Packer.PUT(currentAssemblyId.get());
         checkStatusCode200(response);
         AssemblySHP.Data.Attributes attributes = response.as(AssemblySHPResponse.class).getData().getAttributes();
-        Assert.assertEquals(attributes.getState(),
+        assertEquals(attributes.getState(),
                 AssemblyStateSHP.ASSEMBLED.getState());
         checkFieldIsNotEmpty(attributes.getPackerId(), "packerId");
     }
@@ -539,7 +546,7 @@ public class ShopperAppApiHelper {
         log.debug("Начинаем оплату на кассе");
         Response response = AssembliesSHPRequest.StartPurchasing.PUT(currentAssemblyId.get());
         checkStatusCode200(response);
-        Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
+        assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.ON_CASH_DESK.getState());
     }
 
@@ -566,11 +573,11 @@ public class ShopperAppApiHelper {
                 transactionDetails);
         checkStatusCode200(response);
         ReceiptsSHP.Data.Attributes receipts = response.as(ReceiptsSHPResponse.class).getData().getAttributes();
-        Assert.assertEquals(receipts.getTotal(), total);
-        Assert.assertEquals(receipts.getFiscalSecret(), fiscalSecret);
-        Assert.assertEquals(receipts.getFiscalDocumentNumber(), fiscalDocumentNumber);
-        Assert.assertEquals(receipts.getFiscalChecksum(), fiscalChecksum);
-        Assert.assertEquals(receipts.getTransactionDetails(), transactionDetails);
+        assertEquals(receipts.getTotal(), total);
+        assertEquals(receipts.getFiscalSecret(), fiscalSecret);
+        assertEquals(receipts.getFiscalDocumentNumber(), fiscalDocumentNumber);
+        assertEquals(receipts.getFiscalChecksum(), fiscalChecksum);
+        assertEquals(receipts.getTransactionDetails(), transactionDetails);
     }
 
     @Step("Упаковка заказа")
@@ -578,7 +585,7 @@ public class ShopperAppApiHelper {
         log.debug("Начинаем упаковку");
         Response response = AssembliesSHPRequest.StartPackaging.PATCH(currentAssemblyId.get());
         checkStatusCode200(response);
-        Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
+        assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.PACKAGING.getState());
     }
 
@@ -596,10 +603,10 @@ public class ShopperAppApiHelper {
                 currentAssemblyId.get(), 1, 1, 1, 1);
         checkStatusCode200(response);
         List<PackageSetSHP.Data> packageSets = response.as(PackageSetsSHPResponse.class).getData();
-        Assert.assertEquals(packageSets.get(0).getAttributes().getLocation(), PackageSetLocationSHP.BASKET.getLocation());
-        Assert.assertEquals(packageSets.get(1).getAttributes().getLocation(), PackageSetLocationSHP.RACK.getLocation());
-        Assert.assertEquals(packageSets.get(2).getAttributes().getLocation(), PackageSetLocationSHP.FRIDGE.getLocation());
-        Assert.assertEquals(packageSets.get(3).getAttributes().getLocation(), PackageSetLocationSHP.FREEZER.getLocation());
+        assertEquals(packageSets.get(0).getAttributes().getLocation(), PackageSetLocationSHP.BASKET.getLocation());
+        assertEquals(packageSets.get(1).getAttributes().getLocation(), PackageSetLocationSHP.RACK.getLocation());
+        assertEquals(packageSets.get(2).getAttributes().getLocation(), PackageSetLocationSHP.FRIDGE.getLocation());
+        assertEquals(packageSets.get(3).getAttributes().getLocation(), PackageSetLocationSHP.FREEZER.getLocation());
     }
 
     @Step("Завершаем упаковку")
@@ -607,7 +614,7 @@ public class ShopperAppApiHelper {
         log.debug("Завершаем упаковку");
         Response response = AssembliesSHPRequest.Purchase.PATCH(currentAssemblyId.get());
         checkStatusCode200(response);
-        Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
+        assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.READY_TO_SHIP.getState());
     }
 
@@ -616,7 +623,7 @@ public class ShopperAppApiHelper {
         log.debug("Ставим сборку на паузу");
         Response response = AssembliesSHPRequest.Pause.PATCH(currentAssemblyId.get());
         checkStatusCode200(response);
-        Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
+        assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.PAUSED.getState());
     }
 
@@ -625,7 +632,7 @@ public class ShopperAppApiHelper {
         log.debug("Отдаём сборку другому сборщику");
         Response response = AssembliesSHPRequest.Suspend.PATCH(currentAssemblyId.get());
         checkStatusCode200(response);
-        Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
+        assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.SUSPENDED.getState());
     }
 
@@ -641,7 +648,7 @@ public class ShopperAppApiHelper {
         log.debug("Отмечаем сборку как доставленную");
         Response response = AssembliesSHPRequest.Ship.PATCH(currentAssemblyId.get());
         checkStatusCode200(response);
-        Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
+        assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.SHIPPED.getState());
     }
 
