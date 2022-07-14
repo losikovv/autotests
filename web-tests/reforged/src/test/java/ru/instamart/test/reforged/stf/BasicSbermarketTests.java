@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.config.UiProperties;
+import ru.instamart.reforged.core.data_provider.CurlCommand;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -178,8 +179,8 @@ public final class BasicSbermarketTests {
             description = "Тест доступности витрин ритейлеров Сбермаркета ",
             groups = "regression")
     public void successCheckSbermarketAvailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl = UiProperties.STF_URL + retailer.getSlug();
-        assertTrue(Curl.pageAvailable(fullUrl), "Страница " + fullUrl + " недоступна");
+        final String fullUrl =  UiProperties.STF_URL + retailer.getSlug();
+        assertTrue(Curl.pageAvailable(CurlCommand.getStatusCodeSbermarket() + fullUrl), "Страница " + fullUrl + " недоступна");
     }
 
     @DoNotOpenBrowser
@@ -190,8 +191,8 @@ public final class BasicSbermarketTests {
             description = "Тест недоступности витрин ритейлеров Сбермаркета ",
             groups = "regression")
     public void successCheckSbermarketUnavailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl = UiProperties.STF_URL + retailer.getSlug();
-        assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
+        final String fullUrl =  UiProperties.STF_URL + retailer.getSlug();
+        assertTrue(Curl.pageUnavailable(CurlCommand.getStatusCodeSbermarket() + fullUrl), "Страница " + fullUrl + " доступна");
     }
 
     @DoNotOpenBrowser
@@ -203,7 +204,7 @@ public final class BasicSbermarketTests {
             description = "Тест доступности партнерских лендингов",
             groups = "regression")
     public void successCheckPartnerLandingsAreAvailable(final String url) {
-        assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
+        assertTrue(Curl.pageAvailable(CurlCommand.getStatusCodeSbermarket() + url), "Страница " + url + " недоступна");
     }
 
     @DoNotOpenBrowser
@@ -215,7 +216,15 @@ public final class BasicSbermarketTests {
             description = "Тест доступности сервисных страниц",
             groups = "regression")
     public void successCheckServicePagesAreAvailable(final String url) {
-        assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
+        assertTrue(Curl.pageAvailable(CurlCommand.getStatusCodeSbermarket() + url), "Страница " + url + " недоступна");
+    }
+
+    @CaseId(1814)
+    @Story("Сервисные страницы")
+    @Test(description = "Тест доступности сервисных страниц", groups = "regression")
+    public void successCheckJobLandingAreAvailable() {
+        job().goToPage();
+        job().checkPageIsAvailable();
     }
 
     @DoNotOpenBrowser
@@ -227,6 +236,6 @@ public final class BasicSbermarketTests {
             description = "Тест доступности статических страниц",
             groups = "regression")
     public void successCheckStaticPagesAreAvailable(final String url) {
-        assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
+        assertTrue(Curl.pageAvailable(CurlCommand.getStatusCodeSbermarket() + url), "Страница " + url + " недоступна");
     }
 }

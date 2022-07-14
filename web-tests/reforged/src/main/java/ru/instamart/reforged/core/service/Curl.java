@@ -12,12 +12,6 @@ import java.io.InputStreamReader;
 @Slf4j
 public final class Curl {
 
-    // -s скрывает прогресс
-    // -o записать овтет в
-    // --head получить только заголовок
-    // -w вывести только
-    private static final String CURL_RESPONSE_CODE = "curl -s -o --head -w \"%{http_code}\" ";
-
     @Step("Проверка доступности страницы {0}")
     public static boolean pageAvailable(final String url) {
         final int code = getResponseCode(url);
@@ -32,13 +26,16 @@ public final class Curl {
         return code == 404;
     }
 
-    public static int getResponseCode(final String url) {
-        final Process process;
+    public static int getResponseCode(final String curl) {
+        Process process;
+        int code;
         try {
-            process = Runtime.getRuntime().exec(CURL_RESPONSE_CODE + url);
-            return StringUtil.extractNumberFromString(readResponse(process.getInputStream()));
+            process = Runtime.getRuntime().exec(curl);
+            code = StringUtil.extractNumberFromString(readResponse(process.getInputStream()));
+            process.destroy();
+            return code;
         } catch (IOException e) {
-            log.error("FATAL: Crash while exec curl request with url={}", url);
+            log.error("FATAL: Crash while exec curl request with url={}", curl);
         }
         return 0;
     }
