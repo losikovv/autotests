@@ -19,14 +19,18 @@ import ru.instamart.api.model.shopper.app.AssemblySHP;
 import ru.instamart.api.model.shopper.app.ShipmentSHP;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.shopper.app.AssembliesSHPRequest;
+import ru.instamart.api.response.shopper.app.ErrorSHPResponse;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Run;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Objects;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkIsDeliveryToday;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
@@ -41,7 +45,7 @@ public class ShopperAppE2ETest extends RestBase {
     public void preconditions() {
         shopperApp.authorisation(UserManager.getDefaultShopper());
         shopperApp.deleteCurrentAssembly();
-        String COMMENT = EnvironmentProperties.Env.isProduction() ? "SHP-TEST-MULTI" + RandomUtils.nextInt(1, 50): "SHP-TEST-MULTI";
+        String COMMENT = EnvironmentProperties.Env.isProduction() ? "SHP-TEST-MULTI" + RandomUtils.nextInt(1, 50) : "SHP-TEST-MULTI";
         shipment = shopperApp.getShipmentByComment(COMMENT);
 
         if (Objects.isNull(shipment)) {
@@ -127,12 +131,10 @@ public class ShopperAppE2ETest extends RestBase {
         shopperApp.shipAssembly();
     }
 
-
     @Story("Сборка заказа")
-    @Issue("SHP-2286")
-    @Test(enabled = false,
-            description = "Дублирование существующего чека",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+    @CaseId(110)
+    @Test(description = "Дублирование существующего чека",
+            groups = {"api-shopper-regress"})
     public void simpleCollectNonUniqueFiscalNumber() {
         String currentAssemblyId = shopperApp.startAssembly(shipment.getId()).getId();
         shopperApp.assemblyItemsWithOriginalQty();
@@ -143,15 +145,20 @@ public class ShopperAppE2ETest extends RestBase {
         shopperApp.packer();
         shopperApp.startPurchasing();
 
+        //fiscalSecret и fiscalDocumentNumber - должны быть из ранее прикрепленного чека
         Response response = AssembliesSHPRequest.Receipts.POST(
                 currentAssemblyId,
                 "1.0",
                 "1",
-                "1", //невалидный номер
+                "1",
                 "1",
                 getDateFromMSK(),
                 "1");
+
         checkStatusCode422(response);
-        checkError(response, "Этот чек уже прикреплён к другому заказу");
+        Assert.assertEquals(
+                response.as(ErrorSHPResponse.class).getErrors().get(0).getDetail(),
+                "Этот чек уже прикреплён к другому заказу",
+                "Ошибка в ответе отличается от ожидаемой");
     }
 }

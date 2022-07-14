@@ -554,7 +554,6 @@ public class ShopperAppApiHelper {
         createReceipts(Generate.digitalString(10));
     }
 
-
     @Step("Регистрация чека: {fiscalDocumentNumber}")
     public void createReceipts(String fiscalDocumentNumber) {
         log.debug("Отправляем инфу о чеке");
