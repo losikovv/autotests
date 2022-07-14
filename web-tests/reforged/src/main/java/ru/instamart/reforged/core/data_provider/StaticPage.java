@@ -41,13 +41,6 @@ public final class StaticPage {
         };
     }
 
-    @DataProvider(name = "servicePage", parallel = true)
-    public static Object[][] getServicePage() {
-        return new Object[][] {
-                {UiProperties.STF_URL + driversHiring().pageUrl()},
-        };
-    }
-
     @DataProvider(name = "footerLinkPage", parallel = true)
     public static Object[][] getFooterLinkPage() {
         return new Object[][] {

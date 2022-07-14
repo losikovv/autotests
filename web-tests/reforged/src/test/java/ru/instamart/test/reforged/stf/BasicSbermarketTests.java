@@ -210,12 +210,11 @@ public final class BasicSbermarketTests {
     @CaseId(1814)
     @Story("Сервисные страницы")
     @Test(
-            dataProviderClass = StaticPage.class,
-            dataProvider = "servicePage",
             description = "Тест доступности сервисных страниц",
             groups = "regression")
-    public void successCheckServicePagesAreAvailable(final String url) {
-        assertTrue(Curl.pageAvailable(url, UiProperties.HEADER_STF_FORWARD_TO), "Страница " + url + " недоступна");
+    public void successCheckServicePagesAreAvailable() {
+        final String fullUrl = UiProperties.STF_URL + driversHiring().pageUrl();
+        assertTrue(Curl.pageAvailable(fullUrl, UiProperties.HEADER_STF_FORWARD_TO), "Страница " + fullUrl + " недоступна");
     }
 
     @CaseId(1814)
