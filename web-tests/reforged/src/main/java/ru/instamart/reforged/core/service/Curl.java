@@ -1,6 +1,7 @@
 package ru.instamart.reforged.core.service;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.util.StringUtil;
 
@@ -8,43 +9,40 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Slf4j
 public final class Curl {
 
+    @Getter
+    private final List<String> opt;
+
+    public Curl(List<String> opt) {
+        this.opt = opt;
+    }
+
     @Step("Проверка доступности страницы {0}")
     public static boolean pageAvailable(final String url, final String header) {
-        final int code = getResponseCode(
-                new Builder()
-                        .setUrl(url)
-                        .setHeader("sbm-forward-feature-version-stf", header)
-                        .getCurl());
+        final int code = getResponseCode(new Curl.Builder(url).withHeader(header).build());
         log.debug("Страница '{}' вернула код '{}'", url, code);
         return code == 200;
     }
 
     @Step("Проверка недоступности страницы {0}")
     public static boolean pageUnavailable(final String url, final String header) {
-        final int code = getResponseCode(
-                new Builder()
-                        .setUrl(url)
-                        .setHeader("sbm-forward-feature-version-stf", header)
-                        .getCurl());
+        final int code = getResponseCode(new Curl.Builder(url).withHeader(header).build());
         log.debug("Страница '{}' вернула код '{}'", url, code);
         return code == 404;
     }
 
-    public static int getResponseCode(final String curl) {
-        Process process;
-        int code;
+    public static int getResponseCode(final Curl curl) {
+        final Process process;
         try {
-            process = Runtime.getRuntime().exec(curl);
-            code = StringUtil.extractNumberFromString(readResponse(process.getInputStream()));
+            final var pb = new ProcessBuilder(curl.getOpt());
+            process = pb.start();
+            final var result = StringUtil.extractNumberFromString(readResponse(process.getInputStream()));
             process.destroy();
-            return code;
+            return result;
         } catch (IOException e) {
             log.error("FATAL: Crash while exec curl request with url={}", curl);
         }
@@ -64,44 +62,31 @@ public final class Curl {
         return sb.toString();
     }
 
-    public static class Builder {
-        private final Map<String, String> headers = new HashMap<>();
-        private String url;
+    public static final class Builder {
 
-        public Builder() {
-        }
+        private final List<String> opt;
+        private final String url;
 
-        private static void appendHeader(final StringBuilder builder, final String key, final String value) {
-            builder.append("-H ")
-                    .append(key)
-                    .append(":")
-                    .append(value)
-                    .append(" ");
-        }
-
-        public Builder setHeader(final String name, final String value) {
-            Objects.requireNonNull(name, "Header name must not be null value");
-            Objects.requireNonNull(value, "Header value must not be null value");
-            this.headers.put(name, value);
-            return this;
-        }
-
-        public Builder setUrl(final String url) {
+        public Builder(final String url) {
+            this.opt = new ArrayList<>();
             this.url = url;
+            this.opt.add("curl");
+            this.opt.add("-s");
+            this.opt.add("-o");
+            this.opt.add("--head");
+            this.opt.add("-w");
+            this.opt.add("%{http_code}");
+        }
+
+        public Builder withHeader(final String header) {
+            this.opt.add("-H");
+            this.opt.add("sbm-forward-feature-version-stf:" + header);
             return this;
         }
 
         public Curl build() {
-            return new Curl();
+            this.opt.add(url);
+            return new Curl(opt);
         }
-
-        private String getCurl() {
-            final StringBuilder builder = new StringBuilder("curl -s -o --head ");
-            headers.forEach((key, value) -> appendHeader(builder, key, value));
-            builder.append(" -w \"%{http_code}\" ");
-            builder.append(url);
-            return builder.toString();
-        }
-
     }
 }
