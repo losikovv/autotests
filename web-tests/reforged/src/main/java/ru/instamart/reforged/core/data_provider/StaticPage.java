@@ -56,20 +56,6 @@ public final class StaticPage {
         };
     }
 
-    @DataProvider(name = "landingPage", parallel = true)
-    public static Object[][] getLandingPage() {
-        return new Object[][] {
-                {UiProperties.STF_URL + aeroflot().pageUrl()}
-        };
-    }
-
-    @DataProvider(name = "selgrosAvailableRetailerPage")
-    public static Object[][] getSelgrosAvailableRetailerPage() {
-        return new Object[][] {
-                {UiProperties.SELGROS_URL + selgros().pageUrl()},
-        };
-    }
-
     @DataProvider(name = "selgrosUnavailableRetailersSpree")
     public static Object[][] getSelgrosUnavailableRetailerSpree() {
         Specification.setResponseSpecDataProvider();
@@ -88,7 +74,7 @@ public final class StaticPage {
     public static Object[][] getFilteredAvailableRetailersSpree() {
         Specification.setResponseSpecDataProvider();
 
-        List<RetailerV2> retailerList = apiV1.getAvailableRetailers();
+        final List<RetailerV2> retailerList = apiV1.getAvailableRetailers();
 
         Specification.setResponseSpecDefault();
 

@@ -4,7 +4,7 @@ tests:selgrosSmoke:
     - ".template_schedule"
   stage: tests-ui-tenant
   script:
-    - gradle clean build selgrosRegression -Penv=selgros-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build selgrosRegression -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh reforged ui-selgros-preprod
 
@@ -14,6 +14,6 @@ tests:businessRegression:
     - ".template_schedule"
   stage: tests-ui-tenant
   script:
-    - gradle clean build businessRegression -Penv=business-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build businessRegression -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh reforged ui-business-preprod

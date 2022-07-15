@@ -111,7 +111,7 @@ public final class UiListener extends AllureTestNgListener {
             return;
         }
         if (!result.isSuccess()) {
-            CustomReport.addSourcePage();
+            //CustomReport.addSourcePage();
             CustomReport.addBrowserLog();
             CustomReport.addCookieLog();
             CustomReport.takeScreenshot(getParamsOrNull(method));
