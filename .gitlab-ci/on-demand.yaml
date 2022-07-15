@@ -82,7 +82,8 @@ tests:on:demand:shippingcalc:
       - $ON_DEMAND_SHIPPINGCALC == 'true'
   when: always
   script:
-    - gradle clean build onDemandShippingCalc -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - echo $URL_PAAS_SHIPPINGCALC
+    - gradle clean build onDemandShippingCalc -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_paas_shippingcalc=$URL_PAAS_SHIPPINGCALC
   after_script:
     - bash ./report.sh api on-demand-shippingcalc
 
