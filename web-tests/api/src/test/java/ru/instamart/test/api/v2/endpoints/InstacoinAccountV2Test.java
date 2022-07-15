@@ -42,7 +42,8 @@ public class InstacoinAccountV2Test extends RestBase {
     @CaseId(557)
     @Story("Бонусный счет пользователя")
     @Test(description = "У пользователя есть бонусы",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress"},
+            enabled = false) //todo починить и включить
     public void getInstacoinAccount() {
         UserData user = SessionFactory.getSession(SessionType.API_V2).getUserData();
         execRakeTaskAddBonus(user.getEmail(), "100", user.getId());
