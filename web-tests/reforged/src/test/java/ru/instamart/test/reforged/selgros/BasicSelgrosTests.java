@@ -10,7 +10,7 @@ import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.data_provider.StaticPage;
-import ru.instamart.reforged.core.service.Curl;
+import ru.instamart.reforged.core.service.CurlService;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
@@ -89,18 +89,16 @@ public final class BasicSelgrosTests {
             groups = "regression")
     public void successCheckSelgrosUnavailableRetailers(final RetailerV2 retailer) {
         final String fullUrl = UiProperties.SELGROS_URL + retailer.getSlug();
-        assertTrue(Curl.pageUnavailable(fullUrl, UiProperties.HEADER_SELGROS_FORWARD_TO), "Страница " + fullUrl + " доступна");
+        assertTrue(CurlService.pageUnavailable(fullUrl, UiProperties.HEADER_SELGROS_FORWARD_TO), "Страница " + fullUrl + " доступна");
     }
 
     @DoNotOpenBrowser
     @CaseId(2783)
     @Story("Витрины ретейлеров")
-    @Test(dataProviderClass = StaticPage.class,
-            dataProvider = "selgrosAvailableRetailerPage",
-            description = "Тест доступности витрин ретейлеров Selgros",
-            groups = "regression")
-    public void successCheckSelgrosAvailableRetailers(final String url) {
-        assertTrue(Curl.pageAvailable(url, UiProperties.HEADER_SELGROS_FORWARD_TO), "Страница " + url + " доступна");
+    @Test(description = "Тест доступности витрин ретейлеров Selgros", groups = "regression")
+    public void successCheckSelgrosAvailableRetailers() {
+        final var fullUrl = UiProperties.SELGROS_URL + selgros().pageUrl();
+        assertTrue(CurlService.pageAvailable(fullUrl, UiProperties.HEADER_SELGROS_FORWARD_TO), "Страница " + fullUrl + " доступна");
     }
 
     @DoNotOpenBrowser
@@ -112,6 +110,6 @@ public final class BasicSelgrosTests {
             description = "Тест доступности статических страниц на Selgros",
             groups = "regression")
     public void successCheckSelgrosStaticPagesAreAvailable(final String url) {
-        assertTrue(Curl.pageAvailable(url, UiProperties.HEADER_SELGROS_FORWARD_TO), "Страница " + url + " недоступна");
+        assertTrue(CurlService.pageAvailable(url, UiProperties.HEADER_SELGROS_FORWARD_TO), "Страница " + url + " недоступна");
     }
 }

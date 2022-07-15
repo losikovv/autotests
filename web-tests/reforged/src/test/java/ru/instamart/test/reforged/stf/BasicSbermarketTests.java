@@ -9,6 +9,7 @@ import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
+import ru.instamart.reforged.core.service.CurlService;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
@@ -178,8 +179,8 @@ public final class BasicSbermarketTests {
             description = "Тест доступности витрин ритейлеров Сбермаркета ",
             groups = "regression")
     public void successCheckSbermarketAvailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl =  UiProperties.STF_URL + retailer.getSlug();
-        assertTrue(Curl.pageAvailable(fullUrl, UiProperties.HEADER_STF_FORWARD_TO), "Страница " + fullUrl + " недоступна");
+        final String fullUrl = UiProperties.STF_URL + retailer.getSlug();
+        assertTrue(CurlService.pageAvailable(fullUrl, UiProperties.HEADER_STF_FORWARD_TO), "Страница " + fullUrl + " недоступна");
     }
 
     @DoNotOpenBrowser
@@ -190,39 +191,35 @@ public final class BasicSbermarketTests {
             description = "Тест недоступности витрин ритейлеров Сбермаркета ",
             groups = "regression")
     public void successCheckSbermarketUnavailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl =  UiProperties.STF_URL + retailer.getSlug();
-        assertTrue(Curl.pageUnavailable(fullUrl, UiProperties.HEADER_STF_FORWARD_TO), "Страница " + fullUrl + " доступна");
+        final var fullUrl = UiProperties.STF_URL + retailer.getSlug();
+        assertTrue(CurlService.pageUnavailable(fullUrl, UiProperties.HEADER_STF_FORWARD_TO), "Страница " + fullUrl + " доступна");
     }
 
     @DoNotOpenBrowser
     @CaseId(1433)
     @Story("Партнерские лендинги")
-    @Test(
-            dataProviderClass = StaticPage.class,
-            dataProvider = "landingPage",
-            description = "Тест доступности партнерских лендингов",
-            groups = "regression")
-    public void successCheckPartnerLandingsAreAvailable(final String url) {
-        assertTrue(Curl.pageAvailable(url, UiProperties.HEADER_STF_FORWARD_TO), "Страница " + url + " недоступна");
+    @Test(description = "Тест доступности партнерских лендингов", groups = "regression")
+    public void successCheckPartnerLandingsAreAvailable() {
+        final var fullUrl = UiProperties.STF_URL + aeroflot().pageUrl();
+        assertTrue(CurlService.pageAvailable(fullUrl, UiProperties.HEADER_STF_FORWARD_TO), "Страница " + fullUrl + " недоступна");
     }
 
     @DoNotOpenBrowser
     @CaseId(1814)
     @Story("Сервисные страницы")
-    @Test(
-            description = "Тест доступности сервисных страниц",
-            groups = "regression")
+    @Test(description = "Тест доступности сервисных страниц", groups = "regression")
     public void successCheckServicePagesAreAvailable() {
         final String fullUrl = UiProperties.STF_URL + driversHiring().pageUrl();
-        assertTrue(Curl.pageAvailable(fullUrl, UiProperties.HEADER_STF_FORWARD_TO), "Страница " + fullUrl + " недоступна");
+        assertTrue(CurlService.pageAvailable(fullUrl, UiProperties.HEADER_STF_FORWARD_TO), "Страница " + fullUrl + " недоступна");
     }
 
+    @DoNotOpenBrowser
     @CaseId(1814)
     @Story("Сервисные страницы")
     @Test(description = "Тест доступности сервисных страниц", groups = "regression")
     public void successCheckJobLandingAreAvailable() {
-        job().goToPage();
-        job().checkPageIsAvailable();
+        final var curl = new Curl.Builder(UiProperties.JOB_LANDING_URL).withUserAgent("Autotest").build();
+        assertTrue(CurlService.pageAvailable(curl), "Страница " + UiProperties.JOB_LANDING_URL + " недоступна");
     }
 
     @DoNotOpenBrowser
@@ -234,6 +231,6 @@ public final class BasicSbermarketTests {
             description = "Тест доступности статических страниц",
             groups = "regression")
     public void successCheckStaticPagesAreAvailable(final String url) {
-        assertTrue(Curl.pageAvailable(url, UiProperties.HEADER_STF_FORWARD_TO), "Страница " + url + " недоступна");
+        assertTrue(CurlService.pageAvailable(url, UiProperties.HEADER_STF_FORWARD_TO), "Страница " + url + " недоступна");
     }
 }

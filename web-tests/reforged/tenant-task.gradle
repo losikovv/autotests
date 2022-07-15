@@ -3,6 +3,7 @@ task selgrosSmoke(type: Test) {
         suites 'src/test/resources/suite/smoke/selgros.xml'
         includeGroups 'smoke'
     }
+    systemProperty 'env', 'selgros-preprod'
 }
 
 task selgrosRegression(type: Test) {
@@ -10,6 +11,7 @@ task selgrosRegression(type: Test) {
         suites 'src/test/resources/suite/regress/selgros.xml'
         includeGroups 'regression'
     }
+    systemProperty 'env', 'selgros-preprod'
 }
 
 task businessSmoke(type: Test) {
@@ -17,6 +19,7 @@ task businessSmoke(type: Test) {
         suites 'src/test/resources/suite/smoke/business.xml'
         includeGroups 'smoke'
     }
+    systemProperty 'env', 'business-preprod'
     systemProperty 'qase.Project', 'B2B'
     systemProperty 'qase.Title', 'B2B UI Smoke'
 }
@@ -26,6 +29,7 @@ task businessRegression(type: Test) {
         suites 'src/test/resources/suite/regress/business.xml'
         includeGroups 'regression'
     }
+    systemProperty 'env', 'business-preprod'
     systemProperty 'qase.Project', 'B2B'
     systemProperty 'qase.Title', 'B2B UI Regression'
 }
