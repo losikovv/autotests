@@ -92,7 +92,8 @@ public class CheckoutCompletionV3Test extends RestBase {
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа без выбранного способа оплаты",
             groups = "api-instamart-regress",
-            dependsOnMethods = "completeOrder")
+            dependsOnMethods = "completeOrder",
+            enabled = false) //todo починить и включить
     public void completeOrderWithoutPaymentTool() {
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
         apiV1.addReplacementPolicy();
@@ -108,7 +109,8 @@ public class CheckoutCompletionV3Test extends RestBase {
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа без выбранного окна доставки",
             groups = "api-instamart-regress",
-            dependsOnMethods = "completeOrderWithoutPaymentTool")
+            dependsOnMethods = "completeOrderWithoutPaymentTool",
+            enabled = false) //todo починить и включить
     public void completeOrderWithoutDeliveryWindow() {
         apiV1.deleteShipment(order.getShipments().get(0).getNumber(), order.getToken());
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
@@ -125,7 +127,8 @@ public class CheckoutCompletionV3Test extends RestBase {
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа неавторизованным пользователем",
             groups = "api-instamart-regress",
-            dependsOnMethods = "completeOrderWithoutDeliveryWindow")
+            dependsOnMethods = "completeOrderWithoutDeliveryWindow",
+            enabled = false) //todo починить и включить
     public void completeOrderWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V1);
         final Response response = CheckoutV3Request.Completion.POST(order.getNumber(), Collections.singletonList(order.getShipments().get(0).getNumber()));

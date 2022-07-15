@@ -66,7 +66,8 @@ public class CheckoutPickupV3Test extends RestBase {
     @Story("Валидация")
     @Test(description = "Запрос на валидацию с заказом, доступным для пользователя, самовывоз",
             groups = "api-instamart-regress",
-            dependsOnMethods = "initializeCheckoutWithPickup")
+            dependsOnMethods = "initializeCheckoutWithPickup",
+            enabled = false) //todo починить и включить
     public void validatePickupOrder() {
         final Response response = CheckoutV3Request.Validation.GET(order.getNumber());
         checkStatusCode(response, 204);
@@ -76,7 +77,8 @@ public class CheckoutPickupV3Test extends RestBase {
     @Story("Получение данных заказа")
     @Test(description = "Получение данных о заказе, содержащем алкоголь",
             groups = "api-instamart-regress",
-            dependsOnMethods = "validatePickupOrder")
+            dependsOnMethods = "validatePickupOrder",
+            enabled = false) //todo починить и включить
     public void getOrderWithAlcohol() {
         apiV1.authByPhone(user);
         apiV1.deleteShipment(order.getShipments().get(0).getNumber(), order.getToken());
@@ -93,7 +95,8 @@ public class CheckoutPickupV3Test extends RestBase {
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по заказу c алкоголем",
             groups = "api-instamart-regress",
-            dependsOnMethods = "getOrderWithAlcohol")
+            dependsOnMethods = "getOrderWithAlcohol",
+            enabled = false) //todo починить и включить
     public void addPaymentToolsForOrderWithAlcohol() {
         PaymentToolV3 paymentTool = apiV3.getPaymentTools(order.getNumber()).get(0);
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
@@ -116,7 +119,8 @@ public class CheckoutPickupV3Test extends RestBase {
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения с самовывоза на доставку для заказа с алкоголем",
             groups = "api-instamart-regress",
-            dependsOnMethods = "addPaymentToolsForOrderWithAlcohol")
+            dependsOnMethods = "addPaymentToolsForOrderWithAlcohol",
+            enabled = false) //todo починить и включить
     public void changeShippingMethodForOrderWithAlcohol() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
