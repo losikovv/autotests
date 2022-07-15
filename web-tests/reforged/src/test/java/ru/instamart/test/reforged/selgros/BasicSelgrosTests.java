@@ -89,7 +89,7 @@ public final class BasicSelgrosTests {
             groups = "regression")
     public void successCheckSelgrosUnavailableRetailers(final RetailerV2 retailer) {
         final String fullUrl = UiProperties.SELGROS_URL + retailer.getSlug();
-        assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
+        assertTrue(Curl.pageUnavailable(fullUrl, UiProperties.HEADER_SELGROS_FORWARD_TO), "Страница " + fullUrl + " доступна");
     }
 
     @DoNotOpenBrowser
@@ -100,7 +100,7 @@ public final class BasicSelgrosTests {
             description = "Тест доступности витрин ретейлеров Selgros",
             groups = "regression")
     public void successCheckSelgrosAvailableRetailers(final String url) {
-        assertTrue(Curl.pageAvailable(url), "Страница " + url + " доступна");
+        assertTrue(Curl.pageAvailable(url, UiProperties.HEADER_SELGROS_FORWARD_TO), "Страница " + url + " доступна");
     }
 
     @DoNotOpenBrowser
@@ -112,6 +112,6 @@ public final class BasicSelgrosTests {
             description = "Тест доступности статических страниц на Selgros",
             groups = "regression")
     public void successCheckSelgrosStaticPagesAreAvailable(final String url) {
-        assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
+        assertTrue(Curl.pageAvailable(url, UiProperties.HEADER_SELGROS_FORWARD_TO), "Страница " + url + " недоступна");
     }
 }
