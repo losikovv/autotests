@@ -41,4 +41,7 @@ tasks.withType(Test) {
     if (project.hasProperty('one_session')) {
         systemProperty 'one_session',"${one_session}"
     }
+    if (project.hasProperty('url_paas_shippingcalc')) {
+        systemProperty 'url_paas_shippingcalc',"${url_paas_shippingcalc}"
+    }
 }
