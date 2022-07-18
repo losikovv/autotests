@@ -23,7 +23,17 @@ public final class ProductsV2Request extends ApiV2RequestBase {
      * Получить инфо о продукте
      */
     @Step("{method} /" + ApiV2EndPoints.Products.BY_ID)
-    public static Response GET(Long productId) {
+    public static Response GET(final Long productId) {
         return givenWithSpec().get(ApiV2EndPoints.Products.BY_ID, productId);
+    }
+
+    /**
+     * Получить инфо о продукте
+     */
+    @Step("{method} /" + ApiV2EndPoints.Products.BY_ID)
+    public static Response GET(final Long productId, final int sid) {
+        return givenWithSpec()
+                .queryParam("sid", sid)
+                .get(ApiV2EndPoints.Products.BY_ID, productId);
     }
 }

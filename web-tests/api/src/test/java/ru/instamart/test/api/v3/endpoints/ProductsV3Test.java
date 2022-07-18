@@ -174,6 +174,7 @@ public class ProductsV3Test extends RestBase {
     @Test(description = "Получаем отфильтрованные по бренду продукты",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsFilteredByBrand() {
+        final String brandName = "metro";
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .query("сыр")
                 .brandFilter(EnvironmentProperties.DEFAULT_BRAND_ID)
@@ -183,16 +184,17 @@ public class ProductsV3Test extends RestBase {
         checkResponseJsonSchema(response, ProductsV3Response.class);
         final ProductsV3Response productsV3Response = response.as(ProductsV3Response.class);
         final List<ProductV3> products = productsV3Response.getProducts();
-        Allure.step("Проверяем, что пришли отфильтрованные по бренду продукты", () -> {
-            products.forEach(product -> assertTrue(product.getName().contains("Valio"), "Пришел неверный бренд"));
+        Allure.step("Проверяем, что пришли отфильтрованные по бренду ( " + brandName + ") продукты", () -> {
+            products.forEach(product -> {
+                assertTrue(product.getName().toLowerCase().contains(brandName), "Пришел неверный бренд для продукта \"" + product.getName() + "\" c id=" + product.getId());
+            });
         });
     }
 
     @CaseId(1376)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по стране изготовителя продукты",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
-            enabled = false) //todo разобраться почему не возвращаются продукты
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsFilteredByCountry() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .query("сыр")
