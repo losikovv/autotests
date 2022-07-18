@@ -315,7 +315,6 @@ public final class UserShippingAddressTests {
 
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_SID);
 
-        //TODO Пофиксить изменяется сумма минимального заказа при повторном заказе
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
 
@@ -439,7 +438,6 @@ public final class UserShippingAddressTests {
 
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_SID);
 
-        //TODO Пофиксить изменяется сумма минимального заказа при повторном заказе
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
 
