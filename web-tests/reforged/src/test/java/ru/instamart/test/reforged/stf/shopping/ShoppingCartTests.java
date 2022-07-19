@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -12,6 +13,7 @@ import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
 import static ru.instamart.reforged.core.config.UiProperties.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -234,23 +236,33 @@ public final class ShoppingCartTests {
         shop().interactHeader().clickToCart();
         final var firstOrderMinAmount = shop().interactCart().getFirstRetailer().getMinOrderAmount();
 
-        helper.makeAndCompleteOrder(shoppingCartUser, DEFAULT_AUCHAN_SID, 3);
-        helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
+        helper.dropAndFillCart(shoppingCartUser, DEFAULT_AUCHAN_SID);
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForSelf();
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+        checkout().setContacts().fillContactInfo();
+        checkout().setContacts().clickToSubmit();
+        checkout().setReplacementPolicy().clickToSubmit();
+        checkout().setSlot().setLastActiveSlot();
+        checkout().setPayment().clickToByCardToCourier();
+        checkout().setPayment().clickToSubmitFromCheckoutColumn();
+
+        userShipments().checkPageContains(userShipments().pageUrl());
 
         shop().goToPage(ShopUrl.AUCHAN);
-        shop().interactHeader().fillSearch("молоко");
-        shop().interactHeader().clickSearchButton();
         shop().interactHeader().checkEnteredAddressIsVisible();
-        search().checkAddToCartButtonVisible();
-        search().clickAddToCartFirstSearchResult();
+
+        shop().plusItemToCart("1", "0");
         shop().interactHeader().checkCartNotificationIsVisible();
 
-        shop().goToPage(ShopUrl.AUCHAN);
         shop().interactHeader().clickToCart();
         final var repeatedOrderMinAmount = shop().interactCart().getFirstRetailer().getMinOrderAmount();
 
         shop().interactCart().checkFirstMinAmountLessThanRepeated(firstOrderMinAmount, repeatedOrderMinAmount);
     }
+
+
 
     @CaseId(2616)
     @Test(description = "Добавление/удаление товара из карточки товара", groups = "regression")
