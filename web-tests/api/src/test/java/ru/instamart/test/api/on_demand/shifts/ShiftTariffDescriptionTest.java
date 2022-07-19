@@ -20,7 +20,7 @@ public class ShiftTariffDescriptionTest extends RestBase {
     @BeforeClass(alwaysRun = true,
             description = "Авторизация в шопере")
     public void preconditions() {
-        UserData user = UserManager.getShp6Shopper2();
+        UserData user = UserManager.getShp6Shopper1();
         shopperApp.authorisation(user);
     }
 

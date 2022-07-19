@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package dispatch_shipment_status;
+
+message EventStatus {
+    string shipment_uuid = 1;
+    string order_uuid = 2;
+    ShipmentStatus shipment_status = 3;
+    google.protobuf.Timestamp time = 4;
+    optional DispatchMeta dispatch_meta = 5;
+    map<string,string> event_data = 6;
+}
+
+message EventStatusRequest {
+    string shipment_uuid = 1;
+    ShipmentStatus status = 2;
+    google.protobuf.Timestamp change_time = 3;
+    optional string dispatch_id = 4;
+    optional DispatchMeta dispatch_meta = 5;
+    optional string user_uuid = 6;
+    optional Tasks task = 7;
+    optional Performer performer = 8;
+}
+
+enum ShipmentStatus {
+    NEW = 0;
+    POSTPONED = 1;
+    AUTOMATIC_ROUTING = 2;
+    MANUAL_ROUTING = 3;
+    OFFERING = 4;
+    OFFERED = 5;
+    DECLINED = 6;
+    CANCELED = 7;
+    SHIPPED = 8;
+    REDISPATCH = 9;
+}
+
+message DispatchMeta {
+    uint64 dispatch_count = 1;
+    google.protobuf.Timestamp dispatch_start = 2;
+    repeated string dispatch_ids = 3;
+    string dispatch_id = 4;
+    optional Tasks decline_task = 5;
+    optional string decline_performer_uuid = 6;
+}
+
+enum Tasks {
+    DELIVERY = 0;
+    ASSEMBLY = 1;
+    ASSEMBLY_AND_DELIVERY = 2;
+}
+
+message Performer {
+    string uuid = 1;
+    string name = 2;
+    string login = 3;
+    string phone = 4;
+}

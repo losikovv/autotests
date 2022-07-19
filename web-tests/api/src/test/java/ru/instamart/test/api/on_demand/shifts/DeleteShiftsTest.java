@@ -22,8 +22,12 @@ public class DeleteShiftsTest extends RestBase {
     @BeforeClass(alwaysRun = true,
             description = "Авторизация")
     public void auth() {
-        UserData user = UserManager.getShp6Shopper2();
+        UserData user = UserManager.getShp6Shopper1();
         shopperApp.authorisation(user);
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
+        //Подготовка
         planningPeriodId = shiftsApi.createSecondDaysShift().getId();
     }
 

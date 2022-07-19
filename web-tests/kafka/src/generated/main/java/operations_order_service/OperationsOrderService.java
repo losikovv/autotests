@@ -43,16 +43,15 @@ public final class OperationsOrderService {
         getOrderUuidBytes();
 
     /**
-     * <code>string shipment_status = 3;</code>
+     * <code>.operations_order_service.EventOrder.ShipmentStatus shipment_status = 3;</code>
+     * @return The enum numeric value on the wire for shipmentStatus.
+     */
+    int getShipmentStatusValue();
+    /**
+     * <code>.operations_order_service.EventOrder.ShipmentStatus shipment_status = 3;</code>
      * @return The shipmentStatus.
      */
-    java.lang.String getShipmentStatus();
-    /**
-     * <code>string shipment_status = 3;</code>
-     * @return The bytes for shipmentStatus.
-     */
-    com.google.protobuf.ByteString
-        getShipmentStatusBytes();
+    operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus getShipmentStatus();
 
     /**
      * <code>.operations_order_service.EventOrder.RequestOrderType shipment_type = 4;</code>
@@ -148,6 +147,41 @@ public final class OperationsOrderService {
      * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 11;</code>
      */
     com.google.protobuf.TimestampOrBuilder getDeliveryPromiseUpperDttmStartsAtOrBuilder();
+
+    /**
+     * <code>string number = 12;</code>
+     * @return The number.
+     */
+    java.lang.String getNumber();
+    /**
+     * <code>string number = 12;</code>
+     * @return The bytes for number.
+     */
+    com.google.protobuf.ByteString
+        getNumberBytes();
+
+    /**
+     * <code>float items_total_amount = 13;</code>
+     * @return The itemsTotalAmount.
+     */
+    float getItemsTotalAmount();
+
+    /**
+     * <code>bool is_new = 14;</code>
+     * @return The isNew.
+     */
+    boolean getIsNew();
+
+    /**
+     * <code>.operations_order_service.EventOrder.ShippingMethodKind shipping_method_kind = 15;</code>
+     * @return The enum numeric value on the wire for shippingMethodKind.
+     */
+    int getShippingMethodKindValue();
+    /**
+     * <code>.operations_order_service.EventOrder.ShippingMethodKind shipping_method_kind = 15;</code>
+     * @return The shippingMethodKind.
+     */
+    operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind getShippingMethodKind();
   }
   /**
    * Protobuf type {@code operations_order_service.EventOrder}
@@ -164,9 +198,11 @@ public final class OperationsOrderService {
     private EventOrder() {
       shipmentUuid_ = "";
       orderUuid_ = "";
-      shipmentStatus_ = "";
+      shipmentStatus_ = 0;
       shipmentType_ = 0;
       placeUuid_ = "";
+      number_ = "";
+      shippingMethodKind_ = 0;
     }
 
     @java.lang.Override
@@ -211,10 +247,10 @@ public final class OperationsOrderService {
               orderUuid_ = s;
               break;
             }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 24: {
+              int rawValue = input.readEnum();
 
-              shipmentStatus_ = s;
+              shipmentStatus_ = rawValue;
               break;
             }
             case 32: {
@@ -289,6 +325,28 @@ public final class OperationsOrderService {
                 deliveryPromiseUpperDttmStartsAt_ = subBuilder.buildPartial();
               }
 
+              break;
+            }
+            case 98: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              number_ = s;
+              break;
+            }
+            case 109: {
+
+              itemsTotalAmount_ = input.readFloat();
+              break;
+            }
+            case 112: {
+
+              isNew_ = input.readBool();
+              break;
+            }
+            case 120: {
+              int rawValue = input.readEnum();
+
+              shippingMethodKind_ = rawValue;
               break;
             }
             default: {
@@ -429,6 +487,276 @@ public final class OperationsOrderService {
       }
 
       // @@protoc_insertion_point(enum_scope:operations_order_service.EventOrder.RequestOrderType)
+    }
+
+    /**
+     * Protobuf enum {@code operations_order_service.EventOrder.ShipmentStatus}
+     */
+    public enum ShipmentStatus
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>PENDING = 0;</code>
+       */
+      PENDING(0),
+      /**
+       * <code>READY = 1;</code>
+       */
+      READY(1),
+      /**
+       * <code>COLLECTING = 2;</code>
+       */
+      COLLECTING(2),
+      /**
+       * <code>READY_TO_SHIP = 3;</code>
+       */
+      READY_TO_SHIP(3),
+      /**
+       * <code>SHIPPING = 4;</code>
+       */
+      SHIPPING(4),
+      /**
+       * <code>SHIPPED = 5;</code>
+       */
+      SHIPPED(5),
+      /**
+       * <code>CANCELED = 6;</code>
+       */
+      CANCELED(6),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>PENDING = 0;</code>
+       */
+      public static final int PENDING_VALUE = 0;
+      /**
+       * <code>READY = 1;</code>
+       */
+      public static final int READY_VALUE = 1;
+      /**
+       * <code>COLLECTING = 2;</code>
+       */
+      public static final int COLLECTING_VALUE = 2;
+      /**
+       * <code>READY_TO_SHIP = 3;</code>
+       */
+      public static final int READY_TO_SHIP_VALUE = 3;
+      /**
+       * <code>SHIPPING = 4;</code>
+       */
+      public static final int SHIPPING_VALUE = 4;
+      /**
+       * <code>SHIPPED = 5;</code>
+       */
+      public static final int SHIPPED_VALUE = 5;
+      /**
+       * <code>CANCELED = 6;</code>
+       */
+      public static final int CANCELED_VALUE = 6;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static ShipmentStatus valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static ShipmentStatus forNumber(int value) {
+        switch (value) {
+          case 0: return PENDING;
+          case 1: return READY;
+          case 2: return COLLECTING;
+          case 3: return READY_TO_SHIP;
+          case 4: return SHIPPING;
+          case 5: return SHIPPED;
+          case 6: return CANCELED;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ShipmentStatus>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          ShipmentStatus> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ShipmentStatus>() {
+              public ShipmentStatus findValueByNumber(int number) {
+                return ShipmentStatus.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return operations_order_service.OperationsOrderService.EventOrder.getDescriptor().getEnumTypes().get(1);
+      }
+
+      private static final ShipmentStatus[] VALUES = values();
+
+      public static ShipmentStatus valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private ShipmentStatus(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:operations_order_service.EventOrder.ShipmentStatus)
+    }
+
+    /**
+     * Protobuf enum {@code operations_order_service.EventOrder.ShippingMethodKind}
+     */
+    public enum ShippingMethodKind
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>BY_COURIER = 0;</code>
+       */
+      BY_COURIER(0),
+      /**
+       * <code>BY_COURIER_FOR_COMPANIES = 1;</code>
+       */
+      BY_COURIER_FOR_COMPANIES(1),
+      /**
+       * <code>PICKUP = 2;</code>
+       */
+      PICKUP(2),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>BY_COURIER = 0;</code>
+       */
+      public static final int BY_COURIER_VALUE = 0;
+      /**
+       * <code>BY_COURIER_FOR_COMPANIES = 1;</code>
+       */
+      public static final int BY_COURIER_FOR_COMPANIES_VALUE = 1;
+      /**
+       * <code>PICKUP = 2;</code>
+       */
+      public static final int PICKUP_VALUE = 2;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static ShippingMethodKind valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static ShippingMethodKind forNumber(int value) {
+        switch (value) {
+          case 0: return BY_COURIER;
+          case 1: return BY_COURIER_FOR_COMPANIES;
+          case 2: return PICKUP;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ShippingMethodKind>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          ShippingMethodKind> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ShippingMethodKind>() {
+              public ShippingMethodKind findValueByNumber(int number) {
+                return ShippingMethodKind.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return operations_order_service.OperationsOrderService.EventOrder.getDescriptor().getEnumTypes().get(2);
+      }
+
+      private static final ShippingMethodKind[] VALUES = values();
+
+      public static ShippingMethodKind valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private ShippingMethodKind(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:operations_order_service.EventOrder.ShippingMethodKind)
     }
 
     public interface ClientLocationOrBuilder extends
@@ -1070,41 +1398,22 @@ public final class OperationsOrderService {
     }
 
     public static final int SHIPMENT_STATUS_FIELD_NUMBER = 3;
-    private volatile java.lang.Object shipmentStatus_;
+    private int shipmentStatus_;
     /**
-     * <code>string shipment_status = 3;</code>
-     * @return The shipmentStatus.
+     * <code>.operations_order_service.EventOrder.ShipmentStatus shipment_status = 3;</code>
+     * @return The enum numeric value on the wire for shipmentStatus.
      */
-    @java.lang.Override
-    public java.lang.String getShipmentStatus() {
-      java.lang.Object ref = shipmentStatus_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        shipmentStatus_ = s;
-        return s;
-      }
+    @java.lang.Override public int getShipmentStatusValue() {
+      return shipmentStatus_;
     }
     /**
-     * <code>string shipment_status = 3;</code>
-     * @return The bytes for shipmentStatus.
+     * <code>.operations_order_service.EventOrder.ShipmentStatus shipment_status = 3;</code>
+     * @return The shipmentStatus.
      */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getShipmentStatusBytes() {
-      java.lang.Object ref = shipmentStatus_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        shipmentStatus_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    @java.lang.Override public operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus getShipmentStatus() {
+      @SuppressWarnings("deprecation")
+      operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus result = operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus.valueOf(shipmentStatus_);
+      return result == null ? operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus.UNRECOGNIZED : result;
     }
 
     public static final int SHIPMENT_TYPE_FIELD_NUMBER = 4;
@@ -1290,6 +1599,85 @@ public final class OperationsOrderService {
       return getDeliveryPromiseUpperDttmStartsAt();
     }
 
+    public static final int NUMBER_FIELD_NUMBER = 12;
+    private volatile java.lang.Object number_;
+    /**
+     * <code>string number = 12;</code>
+     * @return The number.
+     */
+    @java.lang.Override
+    public java.lang.String getNumber() {
+      java.lang.Object ref = number_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        number_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string number = 12;</code>
+     * @return The bytes for number.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNumberBytes() {
+      java.lang.Object ref = number_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        number_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ITEMS_TOTAL_AMOUNT_FIELD_NUMBER = 13;
+    private float itemsTotalAmount_;
+    /**
+     * <code>float items_total_amount = 13;</code>
+     * @return The itemsTotalAmount.
+     */
+    @java.lang.Override
+    public float getItemsTotalAmount() {
+      return itemsTotalAmount_;
+    }
+
+    public static final int IS_NEW_FIELD_NUMBER = 14;
+    private boolean isNew_;
+    /**
+     * <code>bool is_new = 14;</code>
+     * @return The isNew.
+     */
+    @java.lang.Override
+    public boolean getIsNew() {
+      return isNew_;
+    }
+
+    public static final int SHIPPING_METHOD_KIND_FIELD_NUMBER = 15;
+    private int shippingMethodKind_;
+    /**
+     * <code>.operations_order_service.EventOrder.ShippingMethodKind shipping_method_kind = 15;</code>
+     * @return The enum numeric value on the wire for shippingMethodKind.
+     */
+    @java.lang.Override public int getShippingMethodKindValue() {
+      return shippingMethodKind_;
+    }
+    /**
+     * <code>.operations_order_service.EventOrder.ShippingMethodKind shipping_method_kind = 15;</code>
+     * @return The shippingMethodKind.
+     */
+    @java.lang.Override public operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind getShippingMethodKind() {
+      @SuppressWarnings("deprecation")
+      operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind result = operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind.valueOf(shippingMethodKind_);
+      return result == null ? operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1310,8 +1698,8 @@ public final class OperationsOrderService {
       if (!getOrderUuidBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, orderUuid_);
       }
-      if (!getShipmentStatusBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, shipmentStatus_);
+      if (shipmentStatus_ != operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus.PENDING.getNumber()) {
+        output.writeEnum(3, shipmentStatus_);
       }
       if (shipmentType_ != operations_order_service.OperationsOrderService.EventOrder.RequestOrderType.ON_DEMAND.getNumber()) {
         output.writeEnum(4, shipmentType_);
@@ -1337,6 +1725,18 @@ public final class OperationsOrderService {
       if (deliveryPromiseUpperDttmStartsAt_ != null) {
         output.writeMessage(11, getDeliveryPromiseUpperDttmStartsAt());
       }
+      if (!getNumberBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, number_);
+      }
+      if (itemsTotalAmount_ != 0F) {
+        output.writeFloat(13, itemsTotalAmount_);
+      }
+      if (isNew_ != false) {
+        output.writeBool(14, isNew_);
+      }
+      if (shippingMethodKind_ != operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind.BY_COURIER.getNumber()) {
+        output.writeEnum(15, shippingMethodKind_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -1352,8 +1752,9 @@ public final class OperationsOrderService {
       if (!getOrderUuidBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, orderUuid_);
       }
-      if (!getShipmentStatusBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, shipmentStatus_);
+      if (shipmentStatus_ != operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus.PENDING.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, shipmentStatus_);
       }
       if (shipmentType_ != operations_order_service.OperationsOrderService.EventOrder.RequestOrderType.ON_DEMAND.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
@@ -1386,6 +1787,21 @@ public final class OperationsOrderService {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(11, getDeliveryPromiseUpperDttmStartsAt());
       }
+      if (!getNumberBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, number_);
+      }
+      if (itemsTotalAmount_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(13, itemsTotalAmount_);
+      }
+      if (isNew_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(14, isNew_);
+      }
+      if (shippingMethodKind_ != operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind.BY_COURIER.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(15, shippingMethodKind_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1405,8 +1821,7 @@ public final class OperationsOrderService {
           .equals(other.getShipmentUuid())) return false;
       if (!getOrderUuid()
           .equals(other.getOrderUuid())) return false;
-      if (!getShipmentStatus()
-          .equals(other.getShipmentStatus())) return false;
+      if (shipmentStatus_ != other.shipmentStatus_) return false;
       if (shipmentType_ != other.shipmentType_) return false;
       if (hasDeliveryPromiseUpperDttmEndsAt() != other.hasDeliveryPromiseUpperDttmEndsAt()) return false;
       if (hasDeliveryPromiseUpperDttmEndsAt()) {
@@ -1434,6 +1849,14 @@ public final class OperationsOrderService {
         if (!getDeliveryPromiseUpperDttmStartsAt()
             .equals(other.getDeliveryPromiseUpperDttmStartsAt())) return false;
       }
+      if (!getNumber()
+          .equals(other.getNumber())) return false;
+      if (java.lang.Float.floatToIntBits(getItemsTotalAmount())
+          != java.lang.Float.floatToIntBits(
+              other.getItemsTotalAmount())) return false;
+      if (getIsNew()
+          != other.getIsNew()) return false;
+      if (shippingMethodKind_ != other.shippingMethodKind_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1450,7 +1873,7 @@ public final class OperationsOrderService {
       hash = (37 * hash) + ORDER_UUID_FIELD_NUMBER;
       hash = (53 * hash) + getOrderUuid().hashCode();
       hash = (37 * hash) + SHIPMENT_STATUS_FIELD_NUMBER;
-      hash = (53 * hash) + getShipmentStatus().hashCode();
+      hash = (53 * hash) + shipmentStatus_;
       hash = (37 * hash) + SHIPMENT_TYPE_FIELD_NUMBER;
       hash = (53 * hash) + shipmentType_;
       if (hasDeliveryPromiseUpperDttmEndsAt()) {
@@ -1477,6 +1900,16 @@ public final class OperationsOrderService {
         hash = (37 * hash) + DELIVERY_PROMISE_UPPER_DTTM_STARTS_AT_FIELD_NUMBER;
         hash = (53 * hash) + getDeliveryPromiseUpperDttmStartsAt().hashCode();
       }
+      hash = (37 * hash) + NUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + getNumber().hashCode();
+      hash = (37 * hash) + ITEMS_TOTAL_AMOUNT_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getItemsTotalAmount());
+      hash = (37 * hash) + IS_NEW_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsNew());
+      hash = (37 * hash) + SHIPPING_METHOD_KIND_FIELD_NUMBER;
+      hash = (53 * hash) + shippingMethodKind_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1614,7 +2047,7 @@ public final class OperationsOrderService {
 
         orderUuid_ = "";
 
-        shipmentStatus_ = "";
+        shipmentStatus_ = 0;
 
         shipmentType_ = 0;
 
@@ -1648,6 +2081,14 @@ public final class OperationsOrderService {
           deliveryPromiseUpperDttmStartsAt_ = null;
           deliveryPromiseUpperDttmStartsAtBuilder_ = null;
         }
+        number_ = "";
+
+        itemsTotalAmount_ = 0F;
+
+        isNew_ = false;
+
+        shippingMethodKind_ = 0;
+
         return this;
       }
 
@@ -1701,6 +2142,10 @@ public final class OperationsOrderService {
         } else {
           result.deliveryPromiseUpperDttmStartsAt_ = deliveryPromiseUpperDttmStartsAtBuilder_.build();
         }
+        result.number_ = number_;
+        result.itemsTotalAmount_ = itemsTotalAmount_;
+        result.isNew_ = isNew_;
+        result.shippingMethodKind_ = shippingMethodKind_;
         onBuilt();
         return result;
       }
@@ -1757,9 +2202,8 @@ public final class OperationsOrderService {
           orderUuid_ = other.orderUuid_;
           onChanged();
         }
-        if (!other.getShipmentStatus().isEmpty()) {
-          shipmentStatus_ = other.shipmentStatus_;
-          onChanged();
+        if (other.shipmentStatus_ != 0) {
+          setShipmentStatusValue(other.getShipmentStatusValue());
         }
         if (other.shipmentType_ != 0) {
           setShipmentTypeValue(other.getShipmentTypeValue());
@@ -1785,6 +2229,19 @@ public final class OperationsOrderService {
         }
         if (other.hasDeliveryPromiseUpperDttmStartsAt()) {
           mergeDeliveryPromiseUpperDttmStartsAt(other.getDeliveryPromiseUpperDttmStartsAt());
+        }
+        if (!other.getNumber().isEmpty()) {
+          number_ = other.number_;
+          onChanged();
+        }
+        if (other.getItemsTotalAmount() != 0F) {
+          setItemsTotalAmount(other.getItemsTotalAmount());
+        }
+        if (other.getIsNew() != false) {
+          setIsNew(other.getIsNew());
+        }
+        if (other.shippingMethodKind_ != 0) {
+          setShippingMethodKindValue(other.getShippingMethodKindValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1967,78 +2424,56 @@ public final class OperationsOrderService {
         return this;
       }
 
-      private java.lang.Object shipmentStatus_ = "";
+      private int shipmentStatus_ = 0;
       /**
-       * <code>string shipment_status = 3;</code>
-       * @return The shipmentStatus.
+       * <code>.operations_order_service.EventOrder.ShipmentStatus shipment_status = 3;</code>
+       * @return The enum numeric value on the wire for shipmentStatus.
        */
-      public java.lang.String getShipmentStatus() {
-        java.lang.Object ref = shipmentStatus_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          shipmentStatus_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      @java.lang.Override public int getShipmentStatusValue() {
+        return shipmentStatus_;
       }
       /**
-       * <code>string shipment_status = 3;</code>
-       * @return The bytes for shipmentStatus.
-       */
-      public com.google.protobuf.ByteString
-          getShipmentStatusBytes() {
-        java.lang.Object ref = shipmentStatus_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          shipmentStatus_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string shipment_status = 3;</code>
-       * @param value The shipmentStatus to set.
+       * <code>.operations_order_service.EventOrder.ShipmentStatus shipment_status = 3;</code>
+       * @param value The enum numeric value on the wire for shipmentStatus to set.
        * @return This builder for chaining.
        */
-      public Builder setShipmentStatus(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      public Builder setShipmentStatusValue(int value) {
+        
         shipmentStatus_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string shipment_status = 3;</code>
+       * <code>.operations_order_service.EventOrder.ShipmentStatus shipment_status = 3;</code>
+       * @return The shipmentStatus.
+       */
+      @java.lang.Override
+      public operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus getShipmentStatus() {
+        @SuppressWarnings("deprecation")
+        operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus result = operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus.valueOf(shipmentStatus_);
+        return result == null ? operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.operations_order_service.EventOrder.ShipmentStatus shipment_status = 3;</code>
+       * @param value The shipmentStatus to set.
+       * @return This builder for chaining.
+       */
+      public Builder setShipmentStatus(operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        shipmentStatus_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.operations_order_service.EventOrder.ShipmentStatus shipment_status = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearShipmentStatus() {
         
-        shipmentStatus_ = getDefaultInstance().getShipmentStatus();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string shipment_status = 3;</code>
-       * @param value The bytes for shipmentStatus to set.
-       * @return This builder for chaining.
-       */
-      public Builder setShipmentStatusBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        shipmentStatus_ = value;
+        shipmentStatus_ = 0;
         onChanged();
         return this;
       }
@@ -2710,6 +3145,198 @@ public final class OperationsOrderService {
         }
         return deliveryPromiseUpperDttmStartsAtBuilder_;
       }
+
+      private java.lang.Object number_ = "";
+      /**
+       * <code>string number = 12;</code>
+       * @return The number.
+       */
+      public java.lang.String getNumber() {
+        java.lang.Object ref = number_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          number_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string number = 12;</code>
+       * @return The bytes for number.
+       */
+      public com.google.protobuf.ByteString
+          getNumberBytes() {
+        java.lang.Object ref = number_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          number_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string number = 12;</code>
+       * @param value The number to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNumber(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        number_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string number = 12;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNumber() {
+        
+        number_ = getDefaultInstance().getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string number = 12;</code>
+       * @param value The bytes for number to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNumberBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        number_ = value;
+        onChanged();
+        return this;
+      }
+
+      private float itemsTotalAmount_ ;
+      /**
+       * <code>float items_total_amount = 13;</code>
+       * @return The itemsTotalAmount.
+       */
+      @java.lang.Override
+      public float getItemsTotalAmount() {
+        return itemsTotalAmount_;
+      }
+      /**
+       * <code>float items_total_amount = 13;</code>
+       * @param value The itemsTotalAmount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setItemsTotalAmount(float value) {
+        
+        itemsTotalAmount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float items_total_amount = 13;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearItemsTotalAmount() {
+        
+        itemsTotalAmount_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private boolean isNew_ ;
+      /**
+       * <code>bool is_new = 14;</code>
+       * @return The isNew.
+       */
+      @java.lang.Override
+      public boolean getIsNew() {
+        return isNew_;
+      }
+      /**
+       * <code>bool is_new = 14;</code>
+       * @param value The isNew to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsNew(boolean value) {
+        
+        isNew_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool is_new = 14;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsNew() {
+        
+        isNew_ = false;
+        onChanged();
+        return this;
+      }
+
+      private int shippingMethodKind_ = 0;
+      /**
+       * <code>.operations_order_service.EventOrder.ShippingMethodKind shipping_method_kind = 15;</code>
+       * @return The enum numeric value on the wire for shippingMethodKind.
+       */
+      @java.lang.Override public int getShippingMethodKindValue() {
+        return shippingMethodKind_;
+      }
+      /**
+       * <code>.operations_order_service.EventOrder.ShippingMethodKind shipping_method_kind = 15;</code>
+       * @param value The enum numeric value on the wire for shippingMethodKind to set.
+       * @return This builder for chaining.
+       */
+      public Builder setShippingMethodKindValue(int value) {
+        
+        shippingMethodKind_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.operations_order_service.EventOrder.ShippingMethodKind shipping_method_kind = 15;</code>
+       * @return The shippingMethodKind.
+       */
+      @java.lang.Override
+      public operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind getShippingMethodKind() {
+        @SuppressWarnings("deprecation")
+        operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind result = operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind.valueOf(shippingMethodKind_);
+        return result == null ? operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.operations_order_service.EventOrder.ShippingMethodKind shipping_method_kind = 15;</code>
+       * @param value The shippingMethodKind to set.
+       * @return This builder for chaining.
+       */
+      public Builder setShippingMethodKind(operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        shippingMethodKind_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.operations_order_service.EventOrder.ShippingMethodKind shipping_method_kind = 15;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearShippingMethodKind() {
+        
+        shippingMethodKind_ = 0;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2784,23 +3411,35 @@ public final class OperationsOrderService {
     java.lang.String[] descriptorData = {
       "\n\036operations_order_service.proto\022\030operat" +
       "ions_order_service\032\037google/protobuf/time" +
-      "stamp.proto\"\357\004\n\nEventOrder\022\025\n\rshipment_u" +
-      "uid\030\001 \001(\t\022\022\n\norder_uuid\030\002 \001(\t\022\027\n\017shipmen" +
-      "t_status\030\003 \001(\t\022L\n\rshipment_type\030\004 \001(\01625." +
-      "operations_order_service.EventOrder.Requ" +
-      "estOrderType\022G\n#delivery_promise_upper_d" +
-      "ttm_ends_at\030\005 \001(\0132\032.google.protobuf.Time" +
-      "stamp\022L\n\017client_location\030\006 \001(\01323.operati" +
-      "ons_order_service.EventOrder.ClientLocat" +
-      "ion\022\022\n\nplace_uuid\030\007 \001(\t\022$\n\034number_of_pos" +
-      "itions_in_order\030\010 \001(\004\022\033\n\023order_weight_gr" +
-      "amms\030\t \001(\004\022/\n\013create_time\030\n \001(\0132\032.google" +
-      ".protobuf.Timestamp\022I\n%delivery_promise_" +
-      "upper_dttm_starts_at\030\013 \001(\0132\032.google.prot" +
-      "obuf.Timestamp\0325\n\016ClientLocation\022\020\n\010lati" +
+      "stamp.proto\"\375\007\n\nEventOrder\022\025\n\rshipment_u" +
+      "uid\030\001 \001(\t\022\022\n\norder_uuid\030\002 \001(\t\022L\n\017shipmen" +
+      "t_status\030\003 \001(\01623.operations_order_servic" +
+      "e.EventOrder.ShipmentStatus\022L\n\rshipment_" +
+      "type\030\004 \001(\01625.operations_order_service.Ev" +
+      "entOrder.RequestOrderType\022G\n#delivery_pr" +
+      "omise_upper_dttm_ends_at\030\005 \001(\0132\032.google." +
+      "protobuf.Timestamp\022L\n\017client_location\030\006 " +
+      "\001(\01323.operations_order_service.EventOrde" +
+      "r.ClientLocation\022\022\n\nplace_uuid\030\007 \001(\t\022$\n\034" +
+      "number_of_positions_in_order\030\010 \001(\004\022\033\n\023or" +
+      "der_weight_gramms\030\t \001(\004\022/\n\013create_time\030\n" +
+      " \001(\0132\032.google.protobuf.Timestamp\022I\n%deli" +
+      "very_promise_upper_dttm_starts_at\030\013 \001(\0132" +
+      "\032.google.protobuf.Timestamp\022\016\n\006number\030\014 " +
+      "\001(\t\022\032\n\022items_total_amount\030\r \001(\002\022\016\n\006is_ne" +
+      "w\030\016 \001(\010\022U\n\024shipping_method_kind\030\017 \001(\01627." +
+      "operations_order_service.EventOrder.Ship" +
+      "pingMethodKind\0325\n\016ClientLocation\022\020\n\010lati" +
       "tude\030\001 \001(\001\022\021\n\tlongitude\030\002 \001(\001\".\n\020Request" +
-      "OrderType\022\r\n\tON_DEMAND\020\000\022\013\n\007PLANNED\020\001b\006p" +
-      "roto3"
+      "OrderType\022\r\n\tON_DEMAND\020\000\022\013\n\007PLANNED\020\001\"t\n" +
+      "\016ShipmentStatus\022\013\n\007PENDING\020\000\022\t\n\005READY\020\001\022" +
+      "\016\n\nCOLLECTING\020\002\022\021\n\rREADY_TO_SHIP\020\003\022\014\n\010SH" +
+      "IPPING\020\004\022\013\n\007SHIPPED\020\005\022\014\n\010CANCELED\020\006\"N\n\022S" +
+      "hippingMethodKind\022\016\n\nBY_COURIER\020\000\022\034\n\030BY_" +
+      "COURIER_FOR_COMPANIES\020\001\022\n\n\006PICKUP\020\002BLZJg" +
+      "itlab.sbmt.io/nstmrt/instamart/pkg/serve" +
+      "r/events/operations_order_serviceb\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2812,7 +3451,7 @@ public final class OperationsOrderService {
     internal_static_operations_order_service_EventOrder_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_operations_order_service_EventOrder_descriptor,
-        new java.lang.String[] { "ShipmentUuid", "OrderUuid", "ShipmentStatus", "ShipmentType", "DeliveryPromiseUpperDttmEndsAt", "ClientLocation", "PlaceUuid", "NumberOfPositionsInOrder", "OrderWeightGramms", "CreateTime", "DeliveryPromiseUpperDttmStartsAt", });
+        new java.lang.String[] { "ShipmentUuid", "OrderUuid", "ShipmentStatus", "ShipmentType", "DeliveryPromiseUpperDttmEndsAt", "ClientLocation", "PlaceUuid", "NumberOfPositionsInOrder", "OrderWeightGramms", "CreateTime", "DeliveryPromiseUpperDttmStartsAt", "Number", "ItemsTotalAmount", "IsNew", "ShippingMethodKind", });
     internal_static_operations_order_service_EventOrder_ClientLocation_descriptor =
       internal_static_operations_order_service_EventOrder_descriptor.getNestedTypes().get(0);
     internal_static_operations_order_service_EventOrder_ClientLocation_fieldAccessorTable = new

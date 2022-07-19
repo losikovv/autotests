@@ -12,13 +12,10 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.shifts.ShiftsRequest;
 import ru.instamart.api.response.ErrorTypeResponse;
-import ru.instamart.api.response.shifts.ShiftResponse;
 import ru.instamart.jdbc.dao.shifts.ShiftsDao;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
-
-import java.util.List;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 
@@ -28,11 +25,14 @@ public class StartShiftsNegativeTest extends RestBase {
 
     private int planningPeriodId;
 
-    @BeforeClass(alwaysRun = true,
-            description = "Оформляем смену")
+    @BeforeClass(alwaysRun = true, description = "Оформляем смену")
     public void preconditions() {
-        UserData user = UserManager.getShp6Shopper3();
+        UserData user = UserManager.getShp6Shopper1();
         shopperApp.authorisation(user);
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
+        //
         shiftsApi.createShift();
         planningPeriodId = shiftsApi.shifts().get(0).getId();
         ShiftsDao.INSTANCE.updateState(planningPeriodId);
@@ -40,16 +40,14 @@ public class StartShiftsNegativeTest extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void after() {
-        List<ShiftResponse> shifts = shiftsApi.shifts();
-        shifts.stream()
-                .forEach(item -> shiftsApi.cancelShifts(item.getId()));
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
     }
 
     @CaseId(29)
     @Story("Создание смены")
-    @Test(groups = {"api-shifts"},
-            description = "Событие \"Начать смену\". Партнер вне зоны территории смены (с включенной проверкой геолокации)",
-            enabled = false)
+    @Test(groups = {"api-shifts"}, description = "Событие \"Начать смену\". Партнер вне зоны территории смены (с включенной проверкой геолокации)", enabled = false)
     public void startShift422() {
         final Response response = ShiftsRequest.Start.PATCH(planningPeriodId, 55.646977, 38.650011);
         checkStatusCode422(response);

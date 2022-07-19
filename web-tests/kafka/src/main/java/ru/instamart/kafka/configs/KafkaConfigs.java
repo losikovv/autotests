@@ -31,7 +31,7 @@ public class KafkaConfigs {
                 .topic("yc.operations-order-service.fct.order-enrichment.0")
                 .groupName("dispatch_2b4a0c6a")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lFFIilsK0XE3QDBBJ5Mp5mLg7qqzpEpt9aWM7PuwzRaD"))
-                .password(Crypt.INSTANCE.decrypt("oxtATtB9KZVs9w97BTNtYg=="))
+                .password(Crypt.INSTANCE.decrypt("PKAvj0y9ppJkNVRO4kEYHw=="))
                 .build();
     }
 

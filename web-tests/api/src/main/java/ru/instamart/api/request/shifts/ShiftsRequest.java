@@ -69,9 +69,9 @@ public class ShiftsRequest extends ShiftsRequestBase {
 
     public static class Stop {
         @Step("{method} /" + ShiftsV1Endpoints.Shifts.STOP)
-        public static Response POST(final long id) {
+        public static Response PATCH(final long id) {
             return givenWithAuth()
-                    .post(ShiftsV1Endpoints.Shifts.STOP, id);
+                    .patch(ShiftsV1Endpoints.Shifts.STOP, id);
         }
     }
 
