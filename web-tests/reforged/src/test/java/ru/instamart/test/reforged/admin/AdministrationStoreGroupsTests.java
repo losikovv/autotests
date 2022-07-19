@@ -15,6 +15,7 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.StoreLabelData;
 import ru.instamart.kraken.data.StoreLabels;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -44,6 +45,7 @@ public class AdministrationStoreGroupsTests {
     }
 
     @AfterMethod(alwaysRun = true)
+    @DoNotOpenBrowser
     private void clearData() {
         StoreLabelsDao.INSTANCE.deleteStoreLabelLink(
                 adminApi.getStoreLabelByName(storeLabel.getTitle()).getId(),
@@ -73,8 +75,9 @@ public class AdministrationStoreGroupsTests {
         editStoreGroup().clickSubmit();
 
         storeGroups().checkAddNewGroupButtonVisible();
+        storeGroups().checkGroupsVisible();
         storeGroups().checkGroupExists(storeLabel.getTitle());
-        storeEdit().goToPage(retailer.getName(), storeDB.getUuid());
+        storeEdit().goToPage(retailer.getSlug(), storeDB.getUuid());
         storeEdit().checkRegionDropdownVisible();
         storeEdit().checkStoreGroupsContains(storeLabel.getTitle());
     }
@@ -94,13 +97,15 @@ public class AdministrationStoreGroupsTests {
         storeGroups().editGroup(storeLabel.getTitle());
 
         storeLabel.setTitle(storeLabel.getTitle() + "_edited");
+        editStoreGroup().checkTitleInputVisible();
         editStoreGroup().fillTitle(storeLabel.getTitle());
         editStoreGroup().clickSubmit();
 
         storeGroups().checkAddNewGroupButtonVisible();
+        storeGroups().checkGroupsVisible();
         storeGroups().checkGroupExists(storeLabel.getTitle());
 
-        storeEdit().goToPage(retailer.getName(), storeDB.getUuid());
+        storeEdit().goToPage(retailer.getSlug(), storeDB.getUuid());
         storeEdit().checkRegionDropdownVisible();
         storeEdit().checkStoreGroupsContains(storeLabel.getTitle());
     }
@@ -125,7 +130,7 @@ public class AdministrationStoreGroupsTests {
         storeGroups().checkNoticeTextEquals("Группа успешно удалена");
         storeGroups().checkGroupNotExists(storeLabel.getTitle());
 
-        storeEdit().goToPage(retailer.getName(), storeDB.getUuid());
+        storeEdit().goToPage(retailer.getSlug(), storeDB.getUuid());
         storeEdit().checkRegionDropdownVisible();
         storeEdit().checkStoreGroupsNotContains(storeLabel.getTitle());
     }
@@ -141,7 +146,7 @@ public class AdministrationStoreGroupsTests {
         storeGroups().openAdminPageWithoutSpa(storeGroups().pageUrl());
         storeGroups().checkAddNewGroupButtonVisible();
 
-        storeEdit().goToPage(ShopUrl.DEFAULT.name(), UiProperties.DEFAULT_METRO_MOSCOW_UUID);
+        storeEdit().goToPage(ShopUrl.DEFAULT.getUrl(), UiProperties.DEFAULT_METRO_MOSCOW_UUID);
         storeEdit().checkRegionDropdownVisible();
         storeEdit().checkStoreGroupsContains(storeLabel.getTitle());
 
@@ -150,7 +155,7 @@ public class AdministrationStoreGroupsTests {
 
         store().checkBackToStoresListButtonVisible();
 
-        storeEdit().goToPage(ShopUrl.DEFAULT.name(), UiProperties.DEFAULT_METRO_MOSCOW_UUID);
+        storeEdit().goToPage(ShopUrl.DEFAULT.getUrl(), UiProperties.DEFAULT_METRO_MOSCOW_UUID);
         storeEdit().checkRegionDropdownVisible();
         storeEdit().checkGroupSelected(storeLabel.getTitle());
     }

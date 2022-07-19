@@ -7,10 +7,9 @@ import ru.instamart.reforged.core.component.Selector;
 
 public interface StoreEditElements {
 
-    Selector regionsDropdown = new Selector(By.id("store_operational_zone_id"), "Выпадающий список доступных регионов");
-
-    ElementCollection storeGroups = new ElementCollection(By.xpath("(//div[./legend[contains(.,'Группы (характеристики)')]])[1]/div"), "Список групп магазинов");
-    ElementCollection selectedStoreGroups = new ElementCollection(By.xpath("(//div[./legend[contains(.,'Группы (характеристики)')]])[1]/div[.//input[@checked]]"), "Выбранные группы магазина");
+    Selector regionsDropdown = new Selector(By.xpath("//div[@data-qa='operationalZoneId']"), "Выпадающий список доступных регионов");
+    ElementCollection storeGroups = new ElementCollection(By.xpath("//div[@data-qa='labelIdsSbermarket']/label/span[2]"), "Список групп магазинов");
+    ElementCollection selectedStoreGroups = new ElementCollection(By.xpath("//div[@data-qa='labelIdsSbermarket']/label[contains(@class,'checked')]/span[2]"), "Выбранные группы магазина");
 
     Button submit = new Button(By.xpath("//button[@type='submit']"), "Кнопка 'Изменить'");
 }

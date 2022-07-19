@@ -10,12 +10,12 @@ public interface StoreEditCheck extends Check, StoreEditElements {
 
     @Step("Проверяем, что в списке групп магазинов есть группа: '{groupName}'")
     default void checkStoreGroupsContains(final String groupName) {
-        Assert.assertTrue(storeGroups.getTextFromAllElements().contains(groupName.toUpperCase()), "В списке групп магазина не найдена группа " + groupName);
+        Assert.assertTrue(storeGroups.getTextFromAllElements().contains(groupName), "В списке групп магазина не найдена группа " + groupName);
     }
 
     @Step("Проверяем, что в списке групп магазинов нет группы: '{groupName}'")
     default void checkStoreGroupsNotContains(final String groupName) {
-        Assert.assertFalse(storeGroups.getTextFromAllElements().contains(groupName.toUpperCase()), "В списке групп магазина найдена группа " + groupName);
+        Assert.assertFalse(storeGroups.getTextFromAllElements().contains(groupName), "В списке групп магазина найдена группа " + groupName);
     }
 
     @Step("Проверяем, что дропдаун выбора региона отображается")
@@ -25,6 +25,6 @@ public interface StoreEditCheck extends Check, StoreEditElements {
 
     @Step("Проверяем, что группа выбрана")
     default void checkGroupSelected(final String groupName) {
-        Assert.assertTrue(selectedStoreGroups.getTextFromAllElements().contains(groupName.toUpperCase()), "Среди присвоенных магазину групп не найдена группа " + groupName);
+        Assert.assertTrue(selectedStoreGroups.getTextFromAllElements().contains(groupName), "Среди присвоенных магазину групп не найдена группа " + groupName);
     }
 }
