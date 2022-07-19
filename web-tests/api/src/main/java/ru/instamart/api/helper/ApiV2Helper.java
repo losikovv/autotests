@@ -1155,7 +1155,9 @@ public final class ApiV2Helper {
     }
 
     public void fillCart(List<ProductV2> products, int limit) {
-        products = products.stream().filter(product -> !product.getHumanVolume().contains(" шт.")).limit(limit).collect(Collectors.toList());
+        products = products.stream().limit(limit).collect(Collectors.toList());
+        //todo разобраться в падении тестов
+//        products = products.stream().filter(product -> !product.getHumanVolume().contains(" шт.")).limit(limit).collect(Collectors.toList());
         double initialCartWeight = 0;
 
         for (final ProductV2 product : products) {
