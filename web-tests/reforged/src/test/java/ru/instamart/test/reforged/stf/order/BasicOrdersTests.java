@@ -10,8 +10,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.*;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -105,6 +103,7 @@ public final class BasicOrdersTests {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
+        sberPayments().checkFrameOpened();
         sberPayments().checkPageContains(RBSUAT_PAYMENTS_URL + "acs");
         sberPayments().checkPasswordInputVisible();
         sberPayments().fillPassword(card.getPassword());
@@ -251,8 +250,10 @@ public final class BasicOrdersTests {
         checkout().setPayment().clickToByCardToCourier();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
+        userShipments().checkFrameOpened();
         userShipments().checkPageContains(userShipments().pageUrl());
 
+        userEdit().checkFrameOpened();
         userEdit().goToPage();
 
         userEdit().checkFullName(userEdit().getName(), userData.getName());
@@ -359,6 +360,7 @@ public final class BasicOrdersTests {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
+        sberPayments().checkFrameOpened();
         sberPayments().checkPageContains(RBSUAT_PAYMENTS_URL + "acs");
         sberPayments().checkPasswordInputVisible();
         sberPayments().fillPassword(card.getPassword());
@@ -426,8 +428,10 @@ public final class BasicOrdersTests {
         checkout().interactAddPaymentCardModal().clickToSaveModal();
         checkout().interactAddPaymentCardModal().checkModalWindowNotVisible();
 
+        checkout().setPayment().checkSubmitOrderButtonClickable();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
+        sberPayments().checkFrameOpened();
         sberPayments().checkPageContains(RBSUAT_PAYMENTS_URL + "acs");
         sberPayments().checkPasswordInputVisible();
         sberPayments().fillPassword(card.getPassword());
@@ -453,10 +457,6 @@ public final class BasicOrdersTests {
 
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
-
-        sberPayments().checkPageContains(RBSUAT_PAYMENTS_URL + "acs");
-        sberPayments().checkPasswordInputVisible();
-        sberPayments().fillPassword(card.getPassword());
 
         userShipments().checkPageContains(userShipments().pageUrl());
     }

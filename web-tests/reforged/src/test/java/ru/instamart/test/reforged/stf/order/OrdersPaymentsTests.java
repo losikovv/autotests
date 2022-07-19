@@ -212,11 +212,9 @@ public final class OrdersPaymentsTests {
 
         checkout().interactAddPaymentCardModal().fillCardNumber("4242 4242 4242 4242");
         checkout().interactAddPaymentCardModal().fillExpMonth("0");
-        checkout().interactAddPaymentCardModal().fillExpYear("21");
         checkout().interactAddPaymentCardModal().fillCvv("1");
         checkout().interactAddPaymentCardModal().fillHolderName("TEST TEST");
         checkout().interactAddPaymentCardModal().checkValidationErrorVisible("Некорректный месяц");
-        checkout().interactAddPaymentCardModal().checkValidationErrorVisible("Некорректный год");
         checkout().interactAddPaymentCardModal().checkValidationErrorVisible("Код CVV должен содержать 3 символа");
 
         checkout().interactAddPaymentCardModal().fillExpMonth("12");

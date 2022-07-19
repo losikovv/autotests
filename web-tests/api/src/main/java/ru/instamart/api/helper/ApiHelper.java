@@ -91,7 +91,7 @@ public final class ApiHelper {
      */
     @Step("Наполняем корзину с помощью API")
     public void dropAndFillCart(final UserData user, final Integer sid) {
-        apiV2.authByQA(user);
+        apiV2.authByPhone(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
