@@ -13,6 +13,11 @@ public interface StoreGroupsCheck extends Check, StoreGroupsElements {
         waitAction().shouldBeVisible(addNewGroup);
     }
 
+    @Step("Проверяем, что отображается список групп")
+    default void checkGroupsVisible() {
+        waitAction().shouldBeVisible(groupsTable);
+    }
+
     @Step("Проверяем, что в таблице присутствует группа: {groupName}")
     default void checkGroupExists(final String groupName) {
         Assert.assertTrue(groupsTable.getGroupNames().contains(groupName), "В таблице не найдена группа " + groupName);

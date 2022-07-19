@@ -7,7 +7,7 @@ public class StoreEditPage implements AdminPage, StoreEditCheck {
 
     @Step("Кликаем на группу магазинов: {storeLabel}")
     public void clickOnStoreLabel(final String storeLabel) {
-        storeGroups.clickOnElementWithText(storeLabel.toUpperCase());
+        storeGroups.clickOnElementWithText(storeLabel);
     }
 
     @Step("Кликаем 'Изменить'")

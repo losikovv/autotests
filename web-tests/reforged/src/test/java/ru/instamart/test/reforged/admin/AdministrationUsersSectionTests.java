@@ -65,7 +65,6 @@ public final class AdministrationUsersSectionTests {
         usersEdit().interactAuthoredHeader().clickToProfileMenu();
         usersEdit().interactAuthoredHeader().clickToLogout();
 
-        login().goToPage();
         login().setUsername(userData.getEmail());
         login().setPassword(password);
         login().submit();
@@ -75,7 +74,6 @@ public final class AdministrationUsersSectionTests {
         usersEdit().interactAuthoredHeader().clickToProfileMenu();
         usersEdit().interactAuthoredHeader().clickToLogout();
 
-        login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
         users().goToPage();
@@ -91,7 +89,6 @@ public final class AdministrationUsersSectionTests {
         usersEdit().interactAuthoredHeader().clickToProfileMenu();
         usersEdit().interactAuthoredHeader().clickToLogout();
 
-        login().goToPage();
         login().setUsername(userData.getEmail());
         login().setPassword(password);
         login().submit();
