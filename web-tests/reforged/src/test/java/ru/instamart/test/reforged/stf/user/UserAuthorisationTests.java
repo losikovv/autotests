@@ -203,6 +203,8 @@ public final class UserAuthorisationTests {
         shop().interactAuthModal().interactAuthSberBusinessIdPage().clickToNext();
         shop().interactAuthModal().interactAuthSberBusinessIdPage()
                 .enterCode(UserManager.getDefaultSberBusinessIdUser().getSmsCode());
+
+        //TODO По информации от Артёма Кофтаенко, сейчас проблемы с авторизацией по SberBusinessID на тестах, разбираются
         shop().waitPageLoad();
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
