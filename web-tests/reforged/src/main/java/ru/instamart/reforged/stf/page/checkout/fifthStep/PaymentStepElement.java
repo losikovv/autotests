@@ -8,7 +8,7 @@ public interface PaymentStepElement {
 
     Button byCardToCourier = new Button(By.xpath("//button[@data-qa='checkout_form_payment_method_lifepay']"), "empty");
     Button byBusinessAccount = new Button(By.xpath("//button[@data-qa='checkout_form_payment_method_sber_bank_invoice']"), "empty");
-    Button byCardOnline = new Button(By.xpath("//button[@data-qa='checkout_form_payment_method_sber_gateway']"), "empty");
+    Button byCardOnline = new Button(By.xpath("//button[@data-qa='checkout_form_payment_method_sber_gateway']"), 15, "Кнопка оплаты картой");
     //byBankInvoice
     Input inn = new Input(By.xpath("//input[@name='requisites.inn']"), "empty");
     Input requisitesName = new Input(By.xpath("//input[@name='requisites.name']"), "empty");
@@ -19,7 +19,7 @@ public interface PaymentStepElement {
     Button change = new Button(By.xpath("//div[contains(@class, 'checkout-panel--active')]//button[contains(text(),'Изменить')]"), "empty");//общий локтатор для карты и бизнеса
 
     Button addNewPaymentCard = new Button(By.xpath("//span[contains(text(),'Добавить новую карту')]"), "empty");
-    Button submitFromCheckoutColumn = new Button(By.xpath("//div[@class='checkout-column']//button[@data-qa='checkout_order_button']"), "Кнопка 'Оформить заказ'");
+    Button submitFromCheckoutColumn = new Button(By.xpath("//div[@class='checkout-column']//button[@data-qa='checkout_order_button']"), 15, "Кнопка 'Оформить заказ'");
     ElementCollection selectPaymentCard = new ElementCollection(By.xpath("//input[contains(@name,'payment_tool_id')]/parent::div"), "Коллекция элементов привязанных карт");
     ElementCollection changeFirstPaymentCard = new ElementCollection(By.xpath("//div[contains(@class, 'checkout-panel--active')]//button[contains(text(),'Изменить')]"), "empty");
     Element changeButtonOnCardWithNumber = new Element(ByKraken.xpathExpression("//div[contains(text(),'%s')]/ancestor::button/following-sibling::button[text()='Изменить']"), "Кнопка изменить у определенной карты");

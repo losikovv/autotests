@@ -58,4 +58,9 @@ public interface PageCheck extends PageElement {
     default void checkPageOpened() {
         Kraken.waitAction().shouldNotBeVisible(page404Error);
     }
+
+    @Step("Проверяем, что на странице открылся фрейм")
+    default void checkFrameOpened() {
+        Kraken.waitAction().frameShouldBeVisible(0);
+    }
 }

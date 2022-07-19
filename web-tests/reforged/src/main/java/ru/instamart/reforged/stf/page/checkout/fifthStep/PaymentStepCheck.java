@@ -11,4 +11,9 @@ public interface PaymentStepCheck extends Check, PaymentStepElement {
     default void checkSubmitOrderButtonNotClickable() {
         waitAction().shouldNotBeClickable(submitFromCheckoutColumn);
     }
+
+    @Step("Проверяем, что кнопка заказа кликабельна")
+    default void checkSubmitOrderButtonClickable() {
+        waitAction().shouldBeClickable(submitFromCheckoutColumn);
+    }
 }
