@@ -113,7 +113,7 @@ public final class ApiHelper {
         apiV2.authByPhone(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
-        apiV2.fillCart(apiV2.getProducts(sid));
+        apiV2.fillCartOneByOne(apiV2.getProducts(sid), 1);
     }
 
     @Step("Наполняем корзину с помощью API")
