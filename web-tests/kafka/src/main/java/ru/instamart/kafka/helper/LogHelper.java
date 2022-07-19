@@ -20,6 +20,7 @@ import static org.testng.Assert.assertTrue;
 import static ru.instamart.k8s.K8sConsumer.getLogs;
 import static ru.instamart.k8s.K8sConsumer.getPodList;
 import static ru.instamart.kafka.helper.ProtoHelper.parseResponseToProto;
+import static ru.instamart.kraken.helper.UUIDHelper.getFirstUUID;
 
 @Slf4j
 public class LogHelper {
@@ -77,11 +78,9 @@ public class LogHelper {
     @Step("Все исполнители полученные от сервиса кандидатов")
     public List<String> getPerformersUUID(List<String> logs) {
         List<String> buf = new ArrayList<>();
-        Estimator.GetRouteEstimationResponse.Builder routeEstimationResponse = Estimator.GetRouteEstimationResponse.newBuilder();
         logs.stream().forEach(
                 item -> {
-                    Estimator.GetRouteEstimationResponse.Builder builder = parseResponseToProto(item, routeEstimationResponse);
-                    String uuid = builder.getPerformers(0).getUuid();
+                    String uuid = getFirstUUID(item);
                     buf.add(uuid);
                 }
         );

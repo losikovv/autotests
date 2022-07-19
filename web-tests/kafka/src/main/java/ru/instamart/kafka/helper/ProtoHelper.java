@@ -13,9 +13,10 @@ public class ProtoHelper {
 
     public static  <T extends Message.Builder> T parseResponseToProto(final String item, final T builder) {
         try {
-            String response = Mapper.INSTANCE.jsonToObject(Objects.requireNonNull(item), Response.class).getResponse();
-            if (Objects.nonNull(response)) {
-                com.google.protobuf.TextFormat.getParser().merge(response, builder);
+            Response response = Mapper.INSTANCE.jsonToObject(Objects.requireNonNull(item), Response.class);
+            String msg = response.getMsg();
+            if (Objects.nonNull(msg)) {
+                com.google.protobuf.TextFormat.getParser().merge(msg, builder);
                 return builder;
             }
         } catch (TextFormat.ParseException e) {

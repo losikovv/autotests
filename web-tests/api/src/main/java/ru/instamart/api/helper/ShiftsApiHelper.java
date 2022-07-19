@@ -117,7 +117,7 @@ public class ShiftsApiHelper {
 
     @Step("Завершение смены")
     public void stopShifts(final long id) {
-        final Response response = ShiftsRequest.Stop.POST(id);
+        final Response response = ShiftsRequest.Stop.PATCH(id);
         checkStatusCode200or422(response);
     }
 
@@ -125,7 +125,7 @@ public class ShiftsApiHelper {
     public void stopAllActiveShifts() {
         List<ShiftResponse> shifts = shifts();
         shifts.stream()
-                .filter(line -> line.getState().equals("in_progress"))
+                .filter(line -> line.getState().equals("in_progress") || line.getState().equals("on_pause"))
                 .forEach(item -> stopShifts(item.getId()));
     }
 
@@ -133,7 +133,7 @@ public class ShiftsApiHelper {
     public void cancelAllActiveShifts() {
         List<ShiftResponse> shifts = shifts();
         shifts.stream()
-                .filter(line -> !line.getState().equals("in_progress"))
+                .filter(line -> !line.getState().equals("in_progress") || !line.getState().equals("on_pause"))
                 .forEach(item -> cancelShifts(item.getId()));
     }
 
@@ -143,7 +143,7 @@ public class ShiftsApiHelper {
         var shifts = shifts().stream().map(item -> item.getPlanningPeriods().get(0).getId()).collect(Collectors.toList());
         var planningAreaList = getPlanningArea();
         //условие для универсалов с единственной зоной планирования
-        if (Objects.nonNull(planningAreaList) && planningAreaList.size()==1) {
+        if (Objects.nonNull(planningAreaList) && planningAreaList.size() == 1) {
             defaultShiftZone = planningAreaList.get(0).getId();
         }
         var planningPeriodItem = getPlanningPeriod();
@@ -151,6 +151,25 @@ public class ShiftsApiHelper {
                 .filter(item -> !shifts.contains(item.getId()))
                 .collect(Collectors.toList());
         var planningitem = collect.get(0);
+        planningPeriodId.set(planningitem.getId());
+        log.debug("Shifts accept: {}", planningPeriodId.get());
+        return postShift(planningitem);
+    }
+
+    @Step("Создание ближайшей смены")
+    public ShiftResponse createShift(final int plusId) {
+        getShopperInfo();
+        var shifts = shifts().stream().map(item -> item.getPlanningPeriods().get(0).getId()).collect(Collectors.toList());
+        var planningAreaList = getPlanningArea();
+        //условие для универсалов с единственной зоной планирования
+        if (Objects.nonNull(planningAreaList) && planningAreaList.size() == 1) {
+            defaultShiftZone = planningAreaList.get(0).getId();
+        }
+        var planningPeriodItem = getPlanningPeriod();
+        List<PlanningPeriodsSHPResponse> collect = planningPeriodItem.stream()
+                .filter(item -> !shifts.contains(item.getId()))
+                .collect(Collectors.toList());
+        var planningitem = collect.get(plusId);
         planningPeriodId.set(planningitem.getId());
         log.debug("Shifts accept: {}", planningPeriodId.get());
         return postShift(planningitem);
@@ -164,7 +183,7 @@ public class ShiftsApiHelper {
         List<PlanningPeriodsSHPResponse> collect = planningPeriodItem.stream()
                 .filter(item -> !shifts.contains(item.getId()))
                 .collect(Collectors.toList());
-        var planningitem = collect.get(1);
+        var planningitem = collect.get(0);
         planningPeriodId.set(planningitem.getId());
         log.debug("Shifts accept: {}", planningPeriodId.get());
         return postShift(planningitem);

@@ -3,19 +3,36 @@ syntax = "proto3";
 import "google/protobuf/timestamp.proto";
 
 package operations_order_service;
+option go_package = "gitlab.sbmt.io/nstmrt/instamart/pkg/server/events/operations_order_service";
 
 message EventOrder {
     enum RequestOrderType {
         ON_DEMAND = 0;
         PLANNED = 1;
     }
+    enum ShipmentStatus {
+        PENDING = 0;
+        READY = 1;
+        COLLECTING = 2;
+        READY_TO_SHIP = 3;
+        SHIPPING = 4;
+        SHIPPED = 5;
+        CANCELED = 6;
+    }
     message ClientLocation {
         double latitude = 1;
         double longitude = 2;
     }
+
+    enum ShippingMethodKind {
+        BY_COURIER = 0;
+        BY_COURIER_FOR_COMPANIES = 1;
+        PICKUP= 2;
+    }
+
     string shipment_uuid = 1;
     string order_uuid = 2;
-    string shipment_status = 3;
+    ShipmentStatus shipment_status = 3;
     RequestOrderType shipment_type = 4;
     google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 5;
     ClientLocation client_location = 6;
@@ -24,4 +41,8 @@ message EventOrder {
     uint64 order_weight_gramms = 9;
     google.protobuf.Timestamp create_time = 10;
     google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 11;
+    string number = 12;
+    float items_total_amount = 13;
+    bool is_new = 14;
+    ShippingMethodKind shipping_method_kind = 15;
 }

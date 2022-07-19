@@ -5,6 +5,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -41,12 +42,23 @@ public class ShiftsWorkflowTest extends RestBase {
             description = "Оформляем смену и маршрутный лист")
     public void preconditions() {
         clientWorkflow = ServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW));
-        UserData user = UserManager.getShp6Shopper2();
+        UserData user = UserManager.getShp6Shopper1();
         shopperApp.authorisation(user);
+
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
+        //
         planningPeriodId = shiftsApi.startOfShift(StartPointsTenants.METRO_3);
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
+    }
+    @AfterClass(alwaysRun = true)
+    public void after(){
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
     }
 
     @CaseId(168)

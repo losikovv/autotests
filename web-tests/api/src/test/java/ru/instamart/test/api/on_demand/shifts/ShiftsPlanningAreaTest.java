@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -31,13 +32,25 @@ public class ShiftsPlanningAreaTest extends RestBase {
     @BeforeClass(alwaysRun = true,
             description = "Авторизация")
     public void preconditions() {
-        UserData user = UserManager.getShp6Shopper2();
+        UserData user = UserManager.getShp6Shopper1();
         shopperApp.authorisation(user);
+
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
+        //
         ShopperSHPResponse shopperInfo = shiftsApi.getShopperInfo();
         List<ShopperSHPResponse.Included> stores = shopperInfo.getIncluded().stream()
                 .filter(item -> item.getType().equals("stores"))
                 .collect(Collectors.toList());
         currentRegion = stores.get(0).getAttributes().getOperationalZoneId();
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void after(){
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
     }
 
     @CaseIDs({@CaseId(100),@CaseId(102)})

@@ -3,6 +3,7 @@ package ru.instamart.test.api.on_demand;
 import com.google.protobuf.Timestamp;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
+import io.restassured.response.Response;
 import operations_order_service.OperationsOrderService;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -10,6 +11,9 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v2.DeliveryWindowV2;
 import ru.instamart.api.dataprovider.DispatchDataProvider;
+import ru.instamart.api.model.v2.NextDeliveryV2;
+import ru.instamart.api.request.v1.StoresV1Request;
+import ru.instamart.api.response.v2.NextDeliveriesV2Response;
 import ru.instamart.kafka.enums.Pods;
 import ru.instamart.kafka.enums.StatusOrder;
 import ru.instamart.kraken.data.user.UserData;
@@ -37,15 +41,17 @@ public class KafkaDispatchTest extends RestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
-        DeliveryWindowV2 availableDeliveryWindowOnDemand = apiV2.getAvailableDeliveryWindowOnDemand(UserManager.getStf6ApiUser(), 3);
+        final Response response = StoresV1Request.NextDeliveries.GET(3, new StoresV1Request.NextDeliveriesParams());
+        NextDeliveriesV2Response nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
+        NextDeliveryV2 nextDeliveryV2 = nextDeliveriesV2Response.getNextDeliveries().get(0);
         orderUuid = UUID.randomUUID().toString();
         shipmentUuid = UUID.randomUUID().toString();
 
         Allure.step("orderUuid: " + orderUuid);
         Allure.step("shipmentUuid: " + shipmentUuid);
         Allure.step("placeUUID: " + placeUUID);
-        Timestamp deliveryPromiseUpperDttmStartsAt = getTimestampFromString(availableDeliveryWindowOnDemand.getStartsAt());
-        Timestamp deliveryPromiseUpperDttmEndsAt = getTimestampFromString(availableDeliveryWindowOnDemand.getEndsAt());
+        Timestamp deliveryPromiseUpperDttmStartsAt = getTimestampFromString(nextDeliveryV2.getStartsAt());
+        Timestamp deliveryPromiseUpperDttmEndsAt = getTimestampFromString(nextDeliveryV2.getEndsAt());
 
         //Step 1
         OperationsOrderService.EventOrder orderEvent = OperationsOrderService.EventOrder.newBuilder()
@@ -60,6 +66,7 @@ public class KafkaDispatchTest extends RestBase {
                 .setOrderUuid(orderUuid)
                 .setOrderWeightGramms(2000)
                 .setShipmentType(OperationsOrderService.EventOrder.RequestOrderType.ON_DEMAND)
+                .setShipmentStatus(OperationsOrderService.EventOrder.ShipmentStatus.READY)
                 .setPlaceUuid(placeUUID)
                 .setShipmentUuid(shipmentUuid)
                 .build();
@@ -91,6 +98,7 @@ public class KafkaDispatchTest extends RestBase {
 
         //Step 2
         kafka.waitDataInKafkaTopicFtcOrder(configFctOrderStf(), orderUuid);
+
         kafka.waitDataInKafkaTopicStatusOrderRequest(shipmentUuid, StatusOrder.AUTOMATIC_ROUTING);
 
         //Step 3
@@ -122,10 +130,10 @@ public class KafkaDispatchTest extends RestBase {
         softAssert.assertAll();
 
         //Step5
-        var logs1 = kubeLog.awaitLogsPod(Pods.DISPATCH, placeUUID, "\"grpc.service\":\"candidates.Candidates\",\"method\":\"SelectCandidates\"");
+        var logs1 = kubeLog.awaitLogsPod(Pods.DISPATCH, placeUUID, "grpc.service: candidates.Candidates\\nmethod: SelectCandidates");
         assertTrue(logs1.size() > 0, "Логов по отправке запроса в сервис кандидатов для получения списка доступных исполнителей нет");
         //ThreadUtil.simplyAwait(30);
-        var logs2 = kubeLog.awaitLogsPod(Pods.DISPATCH, placeUUID, "\"grpc.service\":\"estimator.RouteEstimator\",\"method\":\"GetRouteEstimation\"");
+        var logs2 = kubeLog.awaitLogsPod(Pods.DISPATCH, placeUUID, "grpc.service: estimator.RouteEstimator\\nmethod: GetRouteEstimation");
         assertTrue(logs2.size() > 0, "Логи отправки в сервис оценки маршрутов для доступных исполнителей нет");
 
         List<String> performersUUID = kubeLog.getPerformersUUID(logs2);

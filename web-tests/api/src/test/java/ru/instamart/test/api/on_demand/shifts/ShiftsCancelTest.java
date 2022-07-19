@@ -5,6 +5,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -27,14 +28,24 @@ public class ShiftsCancelTest extends RestBase {
     @BeforeClass(alwaysRun = true,
             description = "Авторизация")
     public void auth() {
-        UserData user = UserManager.getShp6Shopper2();
+        UserData user = UserManager.getShp6Shopper1();
         shopperApp.authorisation(user);
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
     }
 
     @BeforeMethod(alwaysRun = true,
             description = "Оформляем смену")
     public void preconditions() {
         planningPeriodId = shiftsApi.createShift().getId();
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void after(){
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
     }
 
     @CaseId(30)

@@ -24,6 +24,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -40,9 +41,15 @@ public class CreateShiftsTest extends RestBase {
     @BeforeClass(alwaysRun = true,
             description = "Оформляем смену")
     public void preconditions() {
-        UserData user = UserManager.getShp6Shopper2();
+        //Подготовка
+        UserData user = UserManager.getShp6Shopper1();
         shopperApp.authorisation(user);
         shiftsApi.getShopperInfo();
+
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
+
         var planningAreaList = shiftsApi.getPlanningArea();
         //условие для универсалов с единственной зоной планирования
         if (Objects.nonNull(planningAreaList) && planningAreaList.size() == 1) {
@@ -118,10 +125,11 @@ public class CreateShiftsTest extends RestBase {
     @Test(groups = {"api-shifts"},
             dependsOnMethods = "creationOfShiftInZeroGuaranteedPayroll",
             description = "Создание смен на день больше чем максимальное установленное количество часов")
-    public void create400() {
+    public void create422() {
         List<ShiftsRequest.PlanningPeriods> planningPeriods = new ArrayList<>();
-        planningPeriods.stream()
-                .filter(item -> shiftsApi.shiftsId().contains(item.getId()))
+        Set<Integer> shiftsId = shiftsApi.shiftsId();
+        planningPeriod.stream()
+                .filter(item -> shiftsId.contains(item.getId()))
                 .limit(10)
                 .forEach(item -> planningPeriods.add(ShiftsRequest.PlanningPeriods.builder()
                         .guaranteedPayroll(0)
@@ -129,17 +137,13 @@ public class CreateShiftsTest extends RestBase {
                         .build())
                 );
 
-        final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
+        ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
                 .planningAreaId(defaultShiftZone)
                 .role(RoleSHP.UNIVERSAL.getRole())
                 .planningPeriods(planningPeriods)
                 .build();
         final Response response = ShiftsRequest.POST(postShift);
-        checkStatusCode(response, 400);
-        ShiftResponse shiftResponse = response.as(ShiftResponse.class);
-        Allure.step("Проверка ответа статуса State", () -> {
-            assertEquals(shiftResponse.getState(), "new", "State пришел не отличной от new");
-        });
+        checkStatusCode(response, 422);
     }
 
     @CaseId(137)
