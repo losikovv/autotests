@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package order_redispatch;
+option go_package = "gitlab.sbmt.io/paas/content/operations/order-service/pkg/server/grpc/order_redispatch";
+
+import "google/protobuf/timestamp.proto";
+
+
+service Order {
+  rpc Redispatch (RedispatchRequest) returns (RedispatchReply) {}
+}
+
+message RedispatchReply {
+  bool success = 1;
+  string shipment_uuid = 2;
+  enum ShipmentStatus {
+    NEW = 0;
+    POSTPONED = 1;
+    AUTOMATIC_ROUTING = 2;
+    MANUAL_ROUTING = 3;
+    OFFERING = 4;
+    OFFERED = 5;
+    DECLINED = 6;
+    CANCELED = 7;
+    SHIPPED = 8;
+    REDISPATCH = 9;
+  }
+  ShipmentStatus shipment_status = 3;
+}
+
+message RedispatchRequest {
+    string shipment_uuid = 1;
+    google.protobuf.Timestamp upper_dtm = 2;
+    google.protobuf.Timestamp lower_dtm = 3;
+    string place_uuid = 4;
+    google.protobuf.Timestamp time = 5;
+}
