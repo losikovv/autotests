@@ -13,6 +13,7 @@
     <test verbose="1" name="KAFKA">
         <classes>
             <class name="ru.instamart.test.api.on_demand.KafkaDispatchTest"/>
+            <class name="ru.instamart.test.api.on_demand.orderservice.OrderRedispatchTest"/>
         </classes>
     </test>
 </suite>
