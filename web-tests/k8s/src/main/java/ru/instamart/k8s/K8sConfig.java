@@ -43,7 +43,8 @@ public class K8sConfig {
                             )
                     )
             );
-            apiClient.setReadTimeout(0);
+            apiClient.setReadTimeout(10000);
+            apiClient.setWriteTimeout(10000);
             Configuration.setDefaultApiClient(apiClient);
             podLogs = new PodLogs(apiClient);
             coreV1Api = new CoreV1Api(apiClient);

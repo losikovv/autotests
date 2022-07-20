@@ -1,7 +1,5 @@
 package ru.instamart.grpc.common;
 
-import java.util.Optional;
-
 public final class GrpcContentHosts {
     public static final String PAAS_CONTENT_PRODUCT_HUB_FRONT = "paas-content-product-hub.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_PRODUCT_HUB_BACK = "paas-content-product-hub-back.k-stage.sbmt.io";
@@ -15,7 +13,7 @@ public final class GrpcContentHosts {
     public static final String PAAS_CONTENT_OPERATIONS_ETA = "paas-content-operations-eta.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_CANDIDATES = "paas-content-operations-candidates.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_TAG_MANAGER = "paas-content-operations-tag-manager.k-stage.sbmt.io";
-    public static final String PAAS_CONTENT_OPERATIONS_SHIPPINGCALC = Optional.ofNullable(System.getProperty("url_paas_shippingcalc")).orElse("paas-content-operations-shippingcalc") + ".k-stage.sbmt.io";
+    public static final String PAAS_CONTENT_OPERATIONS_SHIPPINGCALC = System.getProperty("url_paas_shippingcalc", "paas-content-operations-shippingcalc") + ".k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_ORDER_SERVICE = "paas-content-operations-order-service.k-stage.sbmt.io";
 
 }
