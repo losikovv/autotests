@@ -9,9 +9,9 @@ import lombok.ToString;
 @Getter
 public enum AppVersion {
 
-    WEB("web", "102.0"),
-    IOS("ios", "65.0"),
-    ANDROID("android", "65.0");
+    WEB("web", ""),
+    IOS("SbermarketIOS", "6.29.0"),
+    ANDROID("SbermarketAndroid", "6.29.0");
 
     private final String name;
     private final String version;

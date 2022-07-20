@@ -315,6 +315,22 @@ public class GetDeliveryPriceTest extends RestBase {
         checkDeliveryPrice(response, localStrategyId, 29900, 100000, 3, 4, 0, 0);
     }
 
+    @CaseId(389)
+    @Story("Get Delivery Price")
+    @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID",
+            groups = "dispatch-shippingcalc-smoke")
+    public void getDeliveryPriceWithEmptyCustomerId() {
+        ShippingcalcOuterClass.GetDeliveryPriceRequest request = getDeliveryPriceRequest(
+                1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, false,
+                1000, 1, 99900, STORE_ID, "NEW", 1, 0,
+                55.55, 55.55, "", ANONYMOUS_ID, 0, 1655822708, 55.57, 55.57,
+                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0, 0);
+    }
+
     @CaseIDs(value = {@CaseId(357), @CaseId(326), @CaseId(332)})
     @Story("Get Delivery Price")
     @Test(description = "Проверка расчета по самому дорогому правилу стратегии, когда не прошли ни по какому условию",
