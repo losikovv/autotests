@@ -12,12 +12,11 @@ public class PlanningAreasEntity {
     private String name;
     private Long regionId;
     private String poly;
-    private String maxFixPayrollPerHour;
-    private Boolean surged;
     private Long externalId;
     private Long storeId;
     private Long deliveryAreaId;
     private String maxFixPayrollPerHourByRole;
     private String surgedByRole;
     private Long maxShiftDuration;
+    private Boolean maxPeoplesCountEnabled;
 }

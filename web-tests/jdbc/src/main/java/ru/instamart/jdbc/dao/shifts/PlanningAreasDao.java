@@ -34,14 +34,13 @@ public class PlanningAreasDao extends AbstractDao<Long, PlanningPeriodsEntity> {
                 planningAreasEntity.setName(resultSet.getString("name"));
                 planningAreasEntity.setRegionId(resultSet.getLong("region_id"));
                 planningAreasEntity.setPoly(resultSet.getString("poly"));
-                planningAreasEntity.setMaxFixPayrollPerHour(resultSet.getString("max_fix_payroll_per_hour"));
-                planningAreasEntity.setSurged(resultSet.getBoolean("surged"));
                 planningAreasEntity.setExternalId(resultSet.getLong("external_id"));
                 planningAreasEntity.setStoreId(resultSet.getLong("store_id"));
                 planningAreasEntity.setDeliveryAreaId(resultSet.getLong("delivery_area_id"));
                 planningAreasEntity.setMaxFixPayrollPerHourByRole(resultSet.getString("max_fix_payroll_per_hour_by_role"));
                 planningAreasEntity.setSurgedByRole(resultSet.getString("surged_by_role"));
                 planningAreasEntity.setMaxShiftDuration(resultSet.getLong("max_shift_duration"));
+                planningAreasEntity.setMaxPeoplesCountEnabled(resultSet.getBoolean("max_peoples_count_enabled"));
                 planningAreasResult.add(planningAreasEntity);
             }
         } catch (SQLException e) {
