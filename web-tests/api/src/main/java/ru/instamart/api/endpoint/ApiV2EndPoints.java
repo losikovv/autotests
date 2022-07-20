@@ -184,6 +184,10 @@ public final class ApiV2EndPoints {
         }
     }
 
+    public static final class SeparateReviews {
+        public static final String SHIPMENT_REVIEW_RATES = "v2/separate_reviews/shipment_review_rates";
+    }
+
     public static final class Sessions {
         public static final String BY_TOKEN = "v2/sessions/{token}";
         public static final String USER = "v2/sessions/{token}/user";
