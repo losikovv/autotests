@@ -1,6 +1,7 @@
 package ru.instamart.test.api.on_demand.shifts;
 
 import candidates.StoreChangedOuterClass;
+import com.google.protobuf.UInt32Value;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -29,6 +30,7 @@ import static org.testng.Assert.*;
 import static ru.instamart.kafka.configs.KafkaConfigs.configPlanningPeriods;
 import static ru.instamart.kafka.configs.KafkaConfigs.configStoreChanged;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
+import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
 @Epic("Shifts")
@@ -134,7 +136,7 @@ public class ShiftsStoreChangedTest extends RestBase {
         var periodsImport = ImportPlanningPeriods.PlaningPeriodsImport.newBuilder()
                 .setId(String.valueOf(RandomUtils.nextLong(1000000L, 9999999L)))
                 .setSentAt(date + "T12:00:00+03:00")
-                .setPlanningPeriods(0,
+                .addPlanningPeriods(
                         ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
                                 .setPlanningAreaId(deliveryAreaId)
                                 .setRole(RoleSHP.UNIVERSAL.getRole())
@@ -144,9 +146,10 @@ public class ShiftsStoreChangedTest extends RestBase {
                                 .setBaseGuaranteedPayroll(200)
                                 .setBasePredictedPayroll(200)
                                 .setIsActive(true)
+                                .setMaxPeoplesCount(UInt32Value.newBuilder().setValue(1).build())
                                 .build()
                 )
-                .setPlanningPeriods(1,
+                .addPlanningPeriods(
                         ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
                                 .setPlanningAreaId(deliveryAreaId)
                                 .setRole(RoleSHP.UNIVERSAL.getRole())
@@ -156,14 +159,14 @@ public class ShiftsStoreChangedTest extends RestBase {
                                 .setBaseGuaranteedPayroll(200)
                                 .setBasePredictedPayroll(200)
                                 .setIsActive(true)
+                                .setMaxPeoplesCount(UInt32Value.newBuilder().setValue(1).build())
                                 .build()
                 )
                 .build();
 
         kafka.publish(configPlanningPeriods(), periodsImport.toByteArray());
-        var pod = Pods.stream()
-                .filter(item -> item.getNameSpace() == EnvironmentProperties.SERVICE)
-                .findFirst().get();
+        var pod = Pods.SHIFT_SERVICE;
+        simplyAwait(2);
         List<String> logsPods = kubeLog.getLogsPods(pod.getNameSpace(), pod.getLabel(), "\"planning_area_id\": " + deliveryAreaId);
         Allure.step("Asserts", () ->
                 assertTrue(logsPods.size() > 0, "Вернулись пустые логи")
@@ -185,7 +188,7 @@ public class ShiftsStoreChangedTest extends RestBase {
         var periodsImportStep2 = ImportPlanningPeriods.PlaningPeriodsImport.newBuilder()
                 .setId(String.valueOf(RandomUtils.nextLong(1000000L, 9999999L)))
                 .setSentAt(date + "T12:00:00+03:00")
-                .addPlanningPeriods(0,
+                .addPlanningPeriods(
                         ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
                                 .setPlanningAreaId(deliveryAreaId)
                                 .setRole(RoleSHP.UNIVERSAL.getRole())
@@ -197,7 +200,7 @@ public class ShiftsStoreChangedTest extends RestBase {
                                 .setIsActive(true)
                                 .build()
                 )
-                .addPlanningPeriods(1,
+                .addPlanningPeriods(
                         ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
                                 .setPlanningAreaId(deliveryAreaId)
                                 .setRole(RoleSHP.UNIVERSAL.getRole())
@@ -235,6 +238,7 @@ public class ShiftsStoreChangedTest extends RestBase {
                                 .setBaseGuaranteedPayroll(200)
                                 .setBasePredictedPayroll(200)
                                 .setIsActive(true)
+                                .setMaxPeoplesCount(UInt32Value.newBuilder().setValue(1).build())
                                 .build()
                 )
                 .addPlanningPeriods(1,
@@ -247,6 +251,7 @@ public class ShiftsStoreChangedTest extends RestBase {
                                 .setBaseGuaranteedPayroll(200)
                                 .setBasePredictedPayroll(200)
                                 .setIsActive(true)
+                                .setMaxPeoplesCount(UInt32Value.newBuilder().setValue(1).build())
                                 .build()
                 )
                 .addPlanningPeriods(2,
@@ -259,6 +264,7 @@ public class ShiftsStoreChangedTest extends RestBase {
                                 .setBaseGuaranteedPayroll(200)
                                 .setBasePredictedPayroll(200)
                                 .setIsActive(true)
+                                .setMaxPeoplesCount(UInt32Value.newBuilder().setValue(1).build())
                                 .build()
                 )
                 .addPlanningPeriods(3,
@@ -271,6 +277,7 @@ public class ShiftsStoreChangedTest extends RestBase {
                                 .setBaseGuaranteedPayroll(200)
                                 .setBasePredictedPayroll(200)
                                 .setIsActive(true)
+                                .setMaxPeoplesCount(UInt32Value.newBuilder().setValue(1).build())
                                 .build()
                 )
                 .addPlanningPeriods(4,
@@ -283,6 +290,7 @@ public class ShiftsStoreChangedTest extends RestBase {
                                 .setBaseGuaranteedPayroll(200)
                                 .setBasePredictedPayroll(200)
                                 .setIsActive(true)
+                                .setMaxPeoplesCount(UInt32Value.newBuilder().setValue(1).build())
                                 .build()
                 )
                 .addPlanningPeriods(5,
@@ -295,6 +303,7 @@ public class ShiftsStoreChangedTest extends RestBase {
                                 .setBaseGuaranteedPayroll(200)
                                 .setBasePredictedPayroll(200)
                                 .setIsActive(true)
+                                .setMaxPeoplesCount(UInt32Value.newBuilder().setValue(1).build())
                                 .build()
                 )
                 .build();
@@ -304,6 +313,7 @@ public class ShiftsStoreChangedTest extends RestBase {
                 .importId(randomId)
                 .build();
         var planningPeriods = PlanningPeriodsDao.INSTANCE.getPlanningPeriods(filters);
+        simplyAwait(10);
         Allure.step("Asserts", () ->
                 assertEquals(planningPeriods.size(), 1, "Данные shops пустые или вернулось более одного магазина")
         );

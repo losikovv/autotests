@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 import static org.testng.Assert.fail;
+import static ru.instamart.kraken.util.StringUtil.camelToSnake;
 
 public class JdbsHelpers {
 
@@ -21,7 +22,7 @@ public class JdbsHelpers {
                             Object value = pd.getReadMethod().invoke(bean);
                             if (value != null) {
                                 parameters.accept(value);
-                                whereSql.accept(pd.getName() + " = ?");
+                                whereSql.accept(camelToSnake(pd.getName()) + " = ?");
                             }
                         } catch (Exception e) {
                             fail("Errors: " + e.getMessage());

@@ -20,6 +20,7 @@ public final class StringUtil {
     private static final String AVAILABLE_SLOT_COUNT = "\\/.+";
     private static final String TOTAL_SLOT_COUNT = "^.+\\/";
     private static final Pattern DOUBLE_PATTERN = Pattern.compile("(?!=\\d\\.\\d\\.)([\\d.]+)");
+    private static final String STRING_PATTERN = "([a-z])([A-Z]+)";
 
     private StringUtil() {
     }
@@ -42,8 +43,7 @@ public final class StringUtil {
         final var matcher = DOUBLE_PATTERN.matcher(stringToParse);
         if (matcher.find()) {
             return Double.parseDouble(matcher.group());
-        }
-        else return 0.00d;
+        } else return 0.00d;
     }
 
     public static Long stringToLong(final String stringToParse) {
@@ -152,5 +152,11 @@ public final class StringUtil {
             return CoreProperties.DEFAULT_UI_SMS;
         }
         return phone.substring(phone.length() - 6);
+    }
+
+    public static String camelToSnake(String str) {
+        String replacement = "$1_$2";
+        str = str.replaceAll(STRING_PATTERN, replacement).toLowerCase();
+        return str;
     }
 }

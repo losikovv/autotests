@@ -14,6 +14,7 @@ import ru.sbermarket.common.Mapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertTrue;
@@ -28,13 +29,17 @@ public class LogHelper {
     @Step("Логи пода для nameSpace:{nameSpace} label={label} ")
     public List<String> getLogsPods(String nameSpace, String label, String filterData) {
         V1PodList podList = getPodList(nameSpace, label);
+        List<String> collect = new ArrayList<>();
+        podList.getItems().forEach(
+                item->{
+                    List<String> logs = getLogs(item, "app", 0);
+                    Allure.addAttachment("Все логи", String.join("\r\n", logs));
 
-        List<String> logs = getLogs(podList.getItems().get(0), "app", 0);
-        Allure.addAttachment("Все логи", String.join("\r\n", logs));
-
-        List<String> collect = logs.stream()
-                .filter(str -> str.contains(filterData))
-                .collect(Collectors.toList());
+                    collect.addAll(logs.stream()
+                            .filter(str -> str.contains(filterData))
+                            .collect(Collectors.toList()));
+                }
+        );
         Allure.addAttachment("Логи пода в которых есть упоминание UUID:  " + filterData, collect.stream().collect(Collectors.joining("\n")));
         return collect;
     }

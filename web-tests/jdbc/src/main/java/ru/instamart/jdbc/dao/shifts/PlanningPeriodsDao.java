@@ -83,6 +83,7 @@ public class PlanningPeriodsDao extends AbstractDao<Long, PlanningPeriodsEntity>
                 planningPeriodEntity.setPublishedTimes(resultSet.getString("published_times"));
                 planningPeriodEntity.setPublishedTime(resultSet.getString("published_time"));
                 planningPeriodEntity.setPeoplesCountPredicted(resultSet.getInt("peoples_count_predicted"));
+                planningPeriodEntity.setMaxPeoplesCountEnabled(resultSet.getBoolean("max_peoples_count_enabled"));
                 result.add(planningPeriodEntity);
             }
             return result;
