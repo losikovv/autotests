@@ -153,7 +153,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1374)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по наличию скидки продукты",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress"}) //, "api-instamart-prod"}) todo отключили по ошибке каталога https://mattermost.sbermarket.tech/sbermarket/pl/rkm4xshmy3gj9p3eygj15trpwh
     public void getProductsFilteredByDiscount() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .query("сыр")
