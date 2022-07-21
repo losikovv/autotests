@@ -65,9 +65,9 @@ public class ShiftsApiHelper {
         final Response response = RegionsRequest.GET(currentRegion.get());
         checkStatusCode200(response);
         var planningAreaShifts = Arrays.asList(response.getBody().as(PlanningAreaShiftsItemSHPResponse[].class));
-        var planningAreaShiftsFilter = planningAreaShifts.stream().filter(item -> item.getId() == defaultShiftZone).collect(Collectors.toList());
-        assertTrue(planningAreaShiftsFilter.size() > 0, "Не найдены данные дефолтной зоны");
-        return planningAreaShiftsFilter;
+//        var planningAreaShiftsFilter = planningAreaShifts.stream().filter(item -> item.getId() == defaultShiftZone).collect(Collectors.toList());
+        assertTrue(planningAreaShifts.size() > 0, "Не найдены данные дефолтной зоны");
+        return planningAreaShifts;
     }
 
     @Step("Перечень периодов планирования области планирования.")
@@ -193,7 +193,8 @@ public class ShiftsApiHelper {
     public Integer startOfShift(StartPointsTenants startPointsTenants) {
         createShift();
         var planningId = shifts().get(0).getId();
-        ShiftsDao.INSTANCE.updateState(planningId);
+        boolean state = ShiftsDao.INSTANCE.updateState(planningId);
+        assertTrue(state, String.format("Статус смены %s не изменился", planningId ));
         activateShiftsPartner(startPointsTenants);
         return planningPeriodId.get();
     }
