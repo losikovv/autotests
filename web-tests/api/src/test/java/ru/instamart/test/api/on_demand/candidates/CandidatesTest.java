@@ -16,6 +16,8 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import static org.testng.Assert.assertTrue;
@@ -28,13 +30,23 @@ public class CandidatesTest extends RestBase {
 
     private CandidatesGrpc.CandidatesBlockingStub clientCandidates;
     private UserData user;
+    private UserData user2;
+    private long calendar = Calendar.getInstance().getTimeInMillis();
+    private String timeStamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(calendar-900000);
 
     @BeforeClass(alwaysRun = true)
     public void auth() {
-        user = UserManager.getShp6Shopper1();
-        shopperApp.authorisation(user);
-        shiftsApi.startOfShift(StartPointsTenants.METRO_9);
-        clientCandidates = CandidatesGrpc.newBlockingStub(grpc.createChannel(PAAS_CONTENT_OPERATIONS_CANDIDATES));
+       user = UserManager.getShp6Shopper1();
+       shopperApp.authorisation(user);
+       shiftsApi.startOfShift(StartPointsTenants.METRO_9);
+       shopperApp.sendCurrentLocator(55.7012984,37.7283669, null);
+
+       user2 = UserManager.getShp6Shopper2();
+       shopperApp.authorisation(user2);
+       shiftsApi.startOfShift(StartPointsTenants.METRO_9);
+       shopperApp.sendCurrentLocator(55.7012984,37.7283669, null);
+
+       clientCandidates = CandidatesGrpc.newBlockingStub(grpc.createChannel(PAAS_CONTENT_OPERATIONS_CANDIDATES));
     }
 
     @AfterClass(alwaysRun = true)
@@ -71,12 +83,30 @@ public class CandidatesTest extends RestBase {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
                         .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
-                                .setLat(55.7012984)
-                                .setLon(37.7283669)
-                                .setCreatedAt(getTimestampFromString("2021-11-22T04:04:05.999+03:00"))
+                                .setLat(55.701298)
+                                .setLon(37.728367)
+                                .setCreatedAt(getTimestampFromString("2021-11-22T00:04:05.999+03:00"))
                                 .build())
                 )
                 .build();
         clientCandidates.selectCandidates(requestBody);
     }
-}
+    @CaseId(45)
+    @Test(description = "Отбор кандидатов по дате/времени последней фиксации геопозиции",
+            groups = "dispatch-candidates-smoke")
+    public void candidatesAreWithinADateTime() {
+        var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
+                .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
+                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                                .setLat(55.7012984)
+                                .setLon(37.7283669)
+                                .setCreatedAt(getTimestampFromString(timeStamp))
+                                .build())
+                )
+                .build();
+        CandidatesOuterClass.SelectCandidatesResponse selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+        assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
+
+        }
+  }
+
