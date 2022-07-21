@@ -6,7 +6,7 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.40.0)",
-    comments = "Source: content/operations/eta.proto")
+    comments = "Source: on_demand/eta.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class PredEtaGrpc {
 

@@ -17,6 +17,7 @@ import ru.instamart.jdbc.dao.eta.StoreParametersDao;
 import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.jdbc.dao.stf.StoresDao;
 import ru.instamart.jdbc.entity.stf.StoresEntity;
+import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
 
 import java.time.LocalTime;
@@ -49,9 +50,9 @@ public class EtaHelper {
     public static Eta.UserEtaRequest getUserEtaRequest(AddressV2 address, OrderV2 order, UserData userData, String shipmentUuid, String storeUuid) {
         return Eta.UserEtaRequest.newBuilder()
                 .setUser(Eta.UserData.newBuilder()
-                        .setUserUuid(SpreeUsersDao.INSTANCE.getEmailByLogin(userData.getEmail()))
-                        .setLat(address.getLat().floatValue())
-                        .setLon(address.getLon().floatValue())
+                        .setUserUuid(SpreeUsersDao.INSTANCE.getUUIDByLogin(userData.getEmail()))
+                        .setLat(StartPointsTenants.ETA.getLat().floatValue())
+                        .setLon(StartPointsTenants.ETA.getLon().floatValue())
                         .build())
                 .setOrder(Eta.OrderData.newBuilder()
                         .setOrderUuid(order.getUuid())
