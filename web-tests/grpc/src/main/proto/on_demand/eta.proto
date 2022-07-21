@@ -27,6 +27,7 @@ message StoreUserEtaRequest {
   float lat = 2;
   float lon = 3;
   string anonymousId = 4;
+  string userId = 5;
 }
 message StoreUserEtaResponse {
   repeated StoreEta data = 1;
@@ -69,7 +70,6 @@ message OrderData {
 message UserEtaRequest {
   UserData user = 1;
   OrderData order = 2;
-  string anonymousId = 4;
 }
 
 message ShipmentEta {
@@ -113,6 +113,7 @@ message CourierEtaRequest {
   string shipment_uuid = 3;
   string anonymous_id = 4;
   ClientPoint client_point = 5;
+  string userId = 6;
 }
 
 message CourierEtaResponse {

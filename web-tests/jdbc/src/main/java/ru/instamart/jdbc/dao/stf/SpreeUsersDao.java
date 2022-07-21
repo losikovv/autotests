@@ -73,13 +73,13 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
         }
     }
 
-    public String getEmailByLogin(String login) {
+    public String getUUIDByLogin(String login) {
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "email") + " WHERE login = ?")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "uuid") + " WHERE login = ?")) {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            return resultSet.getString("email");
+            return resultSet.getString("uuid");
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
