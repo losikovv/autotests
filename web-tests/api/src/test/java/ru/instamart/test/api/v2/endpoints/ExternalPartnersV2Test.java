@@ -10,6 +10,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ExternalPartnersV2Request;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
@@ -28,8 +29,9 @@ public class ExternalPartnersV2Test extends RestBase {
     }
 
     @Deprecated
+    @Skip
     @CaseId(270)
-    @Test(enabled = false, //Прайм -10% выпилен с прода DMND-1912
+    @Test(//Прайм -10% выпилен с прода DMND-1912
             groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Отправка запроса без store_id")
     public void testWithoutShopId() {
         final Response response = ExternalPartnersV2Request.Banners.SberPrime.GET("");
@@ -38,8 +40,9 @@ public class ExternalPartnersV2Test extends RestBase {
     }
 
     @Deprecated
+    @Skip
     @CaseId(269)
-    @Test(enabled = false, //Прайм -10% выпилен с прода DMND-1912
+    @Test(//Прайм -10% выпилен с прода DMND-1912
             groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Отправка запроса c store_id")
     public void testWithShopId() {
         final Response response = ExternalPartnersV2Request.Banners.SberPrime.GET("1");
@@ -58,8 +61,7 @@ public class ExternalPartnersV2Test extends RestBase {
     @CaseId(1086)
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {"api-instamart-regress"},
-            description = "Подписка SberPrime активна",
-            enabled = false) //todo починить и включить
+            description = "Подписка SberPrime активна")
     public void getActiveSubscription() {
         addSberPrime(apiV2.getProfile().getUser().getEmail());
         final Response response = ExternalPartnersV2Request.Services.GET();
