@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request;
 
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class CalculatorTypeV1 extends BaseObject {
@@ -16,5 +18,5 @@ public class CalculatorTypeV1 extends BaseObject {
     @JsonSchema(required = true)
     private String name;
     @JsonSchema(required = true)
-    private ShippingMethodsV1Request.Preferences preferences;
+    private List<AdminPreferenceV1> preferences;
 }
