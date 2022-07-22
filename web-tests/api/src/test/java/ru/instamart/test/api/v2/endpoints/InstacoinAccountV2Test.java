@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
@@ -40,10 +41,11 @@ public class InstacoinAccountV2Test extends RestBase {
     }
 
     @CaseId(557)
+    @Deprecated
+    @Skip
     @Story("Бонусный счет пользователя")
     @Test(description = "У пользователя есть бонусы",
-            groups = {"api-instamart-regress"},
-            enabled = false) //todo починить и включить
+            groups = {"api-instamart-regress"}) //инстакоины выпилены напрочь
     public void getInstacoinAccount() {
         UserData user = SessionFactory.getSession(SessionType.API_V2).getUserData();
         execRakeTaskAddBonus(user.getEmail(), "100", user.getId());
