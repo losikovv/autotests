@@ -57,6 +57,7 @@ public final class AdministrationPaymentsTests {
 
         shipmentNewPayment().checkSendNotificationModalVisisble();
         shipmentNewPayment().clickOnSendNotificationModalButton();
+        shipmentNewPayment().checkSendNotificationModalNotVisisble();
 
         shipmentNewPayment().clickOnSave();
 

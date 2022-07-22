@@ -16,6 +16,7 @@ public class RulesV1 extends BaseObject {
     @JsonSchema(required = true)
     private ShippingMethodsV1Request.Preferences preferences;
 
+    //поменял тут тип поля с RuleTypeV1 в соответствии с доками
     @JsonSchema(required = true)
-    private RuleTypeV1 type;
+    private String type;
 }

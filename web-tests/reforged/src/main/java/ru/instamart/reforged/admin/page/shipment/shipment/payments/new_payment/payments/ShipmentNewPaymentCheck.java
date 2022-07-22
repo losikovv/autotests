@@ -11,4 +11,9 @@ public interface ShipmentNewPaymentCheck extends Check, ShipmentNewPaymentElemen
     default void checkSendNotificationModalVisisble() {
         waitAction().shouldBeVisible(sendNotificationModal);
     }
+
+    @Step("Проверяем, что модальное окно отправки уведомления показано")
+    default void checkSendNotificationModalNotVisisble() {
+        waitAction().shouldNotBeVisible(sendNotificationModal);
+    }
 }
