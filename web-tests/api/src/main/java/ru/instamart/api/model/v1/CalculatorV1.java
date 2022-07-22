@@ -16,6 +16,7 @@ public class CalculatorV1 extends BaseObject {
     @JsonSchema(required = true)
     private ShippingMethodsV1Request.Preferences preferences;
 
+    //поменял тут тип поля с CalculatorTypeV1 в соответствии с доками
     @JsonSchema(required = true)
-    private CalculatorTypeV1 type;
+    private String type;
 }

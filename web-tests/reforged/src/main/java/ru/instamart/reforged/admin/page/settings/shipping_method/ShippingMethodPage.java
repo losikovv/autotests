@@ -17,6 +17,7 @@ public final class ShippingMethodPage implements AdminPage, ShippingMethodCheck 
 
     @Step("Открыть на редактирование первый элемент таблица")
     public void clickToEditShipmentMethod(final String name) {
+        editButton.scrollTo(name);
         editButton.click(name);
     }
 

@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.api.model.v1.ShippingMethodV1;
+import ru.instamart.api.model.v1.*;
 import ru.instamart.api.request.admin.ShippingMethodsRequest.ShippingMethod;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.Calculators;
@@ -151,9 +151,8 @@ public final class AdministrationShippingSettingsTests {
     }
 
     //Нельзя добавить только маркетинговое правило
-    @Skip
     @CaseId(512)
-    @Test(description = "Добавить правило маркетинговой стоимости доставки", groups = "regression")
+    @Test(enabled = false, description = "Добавить правило маркетинговой стоимости доставки", groups = "regression")
     public void testAddMarketingRule() {
         shippingMethod().goToPage();
         shippingMethod().clickToEditShipmentMethod("Autotest");
@@ -169,9 +168,8 @@ public final class AdministrationShippingSettingsTests {
     }
 
     //Нельзя добавить только номинальное правило
-    @Skip
     @CaseId(513)
-    @Test(description = "Добавить правило номинальной стоимости доставки", groups = "regression")
+    @Test(enabled = false, description = "Добавить правило номинальной стоимости доставки", groups = "regression")
     public void testAddNominalRule() {
         shippingMethod().goToPage();
         shippingMethod().clickToEditShipmentMethod("Autotest");

@@ -18,7 +18,7 @@ public final class AdministrationGeneralSettingsTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        settings().openAdminPageWithoutSpa(settings().pageUrl());
+        settings().goToPage();
 
         settings().checkGeneralSettingsPageHeaderVisible();
         settings().checkSeoSettingsSectionVisible();
@@ -82,6 +82,34 @@ public final class AdministrationGeneralSettingsTests {
         settings().checkGooglePlayLinkVisible();
         settings().checkAppGalleryLinkLabelVisible();
         settings().checkAppGalleryLinkVisible();
+
+        settings().checkMobileAppVersionSectionVisible();
+        settings().checkMinimalIosVersionLabelVisible();
+        settings().checkMinimalIosVersionVisible();
+        settings().checkRecommendIosVersionLabelVisible();
+        settings().checkRecommendIosVersionVisible();
+        settings().checkMinimalAndroidVersionLabelVisible();
+        settings().checkMinimalAndroidVersionVisible();
+        settings().checkRecommendAndroidVersionLabelVisible();
+        settings().checkRecommendAndroidVersionVisible();
+
+        settings().checkMobileAnalyticsSectionVisible();
+        settings().checkAnalyticsUrlIosLabelVisible();
+        settings().checkAnalyticsUrlIosVisible();
+        settings().checkAnalyticsKeyIosLabelVisible();
+        settings().checkAnalyticsKeyIosVisible();
+        settings().checkAnalyticsUrlAndroidLabelVisible();
+        settings().checkAnalyticsUrlAndroidVisible();
+        settings().checkAnalyticsKeyAndroidLabelVisible();
+        settings().checkAnalyticsKeyAndroidVisible();
+
+        settings().checkMobileAppDomenWhitelistSectionVisible();
+        settings().checkDomensLabelVisible();
+        settings().checkDomensVisible();
+
+        settings().checkFraudModerationSectionVisible();
+        settings().checkModerationLimitLabelVisible();
+        settings().checkModerationLimitVisible();
 
         settings().checkCurrencySettingsSectionVisible();
         settings().checkCurrencyLabelVisible();

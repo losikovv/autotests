@@ -7,6 +7,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.config.WaitProperties;
 
@@ -76,6 +77,15 @@ public abstract class AbstractComponent implements Component {
      */
     public void scrollTo() {
         log.debug("Scroll to element {} '{}'", description, by);
+        Kraken.jsAction().scrollToElement(getLocator());
+    }
+
+    /**
+     * В обход дома через js скролит до элемента
+     */
+    public void scrollTo(final Object... args) {
+        log.debug("Scroll to element {} '{}'", description, by);
+        setBy(ByKraken.xpathExpression(((ByKraken)getBy()).getDefaultXpathExpression(), args));
         Kraken.jsAction().scrollToElement(getLocator());
     }
 

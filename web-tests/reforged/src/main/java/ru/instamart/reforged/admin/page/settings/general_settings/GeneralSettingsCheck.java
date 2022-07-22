@@ -292,9 +292,129 @@ public interface GeneralSettingsCheck extends Check, GeneralSettingsElements {
         waitAction().shouldBeVisible(appGalleryLinkLabel);
     }
 
-    @Step("Проверяем, что Инпут ссылки на app gallery отображается")
+    @Step("Проверяем, что инпут ссылки на app gallery отображается")
     default void checkAppGalleryLinkVisible() {
         waitAction().shouldBeVisible(appGalleryLink);
+    }
+
+    @Step("Проверяем, что лейбл раздела версии моб приложений отображается")
+    default void checkMobileAppVersionSectionVisible() {
+        waitAction().shouldBeVisible(mobileAppVersionSection);
+    }
+
+    @Step("Проверяем, что лейбл минимальной версии айос отображается")
+    default void checkMinimalIosVersionLabelVisible() {
+        waitAction().shouldBeVisible(minimalIosVersionLabel);
+    }
+
+    @Step("Проверяем, что инпут минимальной версии айос отображается")
+    default void checkMinimalIosVersionVisible() {
+        waitAction().shouldBeVisible(minimalIosVersion);
+    }
+
+    @Step("Проверяем, что лейбл рекомендуемой версии айос отображается")
+    default void checkRecommendIosVersionLabelVisible() {
+        waitAction().shouldBeVisible(recommendIosVersionLabel);
+    }
+
+    @Step("Проверяем, что инпут рекомендуемой версии айос отображается")
+    default void checkRecommendIosVersionVisible() {
+        waitAction().shouldBeVisible(recommendIosVersion);
+    }
+
+    @Step("Проверяем, что лейбл минимальной версии андроида отображается")
+    default void checkMinimalAndroidVersionLabelVisible() {
+        waitAction().shouldBeVisible(minimalAndroidVersionLabel);
+    }
+
+    @Step("Проверяем, что инпут минимальной версии андроида отображается")
+    default void checkMinimalAndroidVersionVisible() {
+        waitAction().shouldBeVisible(minimalAndroidVersion);
+    }
+
+    @Step("Проверяем, что лейбл рекомендуемой версии андроид отображается")
+    default void checkRecommendAndroidVersionLabelVisible() {
+        waitAction().shouldBeVisible(recommendAndroidVersionLabel);
+    }
+
+    @Step("Проверяем, что инпут рекомендуемой версии андроид отображается")
+    default void checkRecommendAndroidVersionVisible() {
+        waitAction().shouldBeVisible(recommendAndroidVersion);
+    }
+
+    @Step("Проверяем, что лейбл раздела аналитики в мобильных приложениях отображается")
+    default void checkMobileAnalyticsSectionVisible() {
+        waitAction().shouldBeVisible(mobileAnalyticsSection);
+    }
+
+    @Step("Проверяем, что лейбл урла аналитики на айос отображается")
+    default void checkAnalyticsUrlIosLabelVisible() {
+        waitAction().shouldBeVisible(analyticsUrlIosLabel);
+    }
+
+    @Step("Проверяем, что инпут урла аналитики на айос отображается")
+    default void checkAnalyticsUrlIosVisible() {
+        waitAction().shouldBeVisible(analyticsUrlIos);
+    }
+
+    @Step("Проверяем, что лейбл ключа аналитики на айос отображается")
+    default void checkAnalyticsKeyIosLabelVisible() {
+        waitAction().shouldBeVisible(analyticsKeyIosLabel);
+    }
+
+    @Step("Проверяем, что инпут ключа аналитики на айос отображается")
+    default void checkAnalyticsKeyIosVisible() {
+        waitAction().shouldBeVisible(analyticsKeyIos);
+    }
+
+    @Step("Проверяем, что лейбл урла аналитики на андроид отображается")
+    default void checkAnalyticsUrlAndroidLabelVisible() {
+        waitAction().shouldBeVisible(analyticsUrlAndroidLabel);
+    }
+
+    @Step("Проверяем, что инпут урла аналитики на андроид отображается")
+    default void checkAnalyticsUrlAndroidVisible() {
+        waitAction().shouldBeVisible(analyticsUrlAndroid);
+    }
+
+    @Step("Проверяем, что лейбл ключа аналитики на андроид отображается")
+    default void checkAnalyticsKeyAndroidLabelVisible() {
+        waitAction().shouldBeVisible(analyticsKeyAndroidLabel);
+    }
+
+    @Step("Проверяем, что инпут ключа аналитики на андроид отображается")
+    default void checkAnalyticsKeyAndroidVisible() {
+        waitAction().shouldBeVisible(analyticsKeyAndroid);
+    }
+
+    @Step("Проверяем, что лейбл раздела вайтлиста доменов для моб приложений отображается")
+    default void checkMobileAppDomenWhitelistSectionVisible() {
+        waitAction().shouldBeVisible(mobileAppDomenWhitelistSection);
+    }
+
+    @Step("Проверяем, что лейбл доменов для моб приложений отображается")
+    default void checkDomensLabelVisible() {
+        waitAction().shouldBeVisible(domensLabel);
+    }
+
+    @Step("Проверяем, что инпут доменов для моб приложений отображается")
+    default void checkDomensVisible() {
+        waitAction().shouldBeVisible(domens);
+    }
+
+    @Step("Проверяем, что лейбл раздела фрод модерации отображается")
+    default void checkFraudModerationSectionVisible() {
+        waitAction().shouldBeVisible(fraudModerationSection);
+    }
+
+    @Step("Проверяем, что лейбл лимита для премодерации отображается")
+    default void checkModerationLimitLabelVisible() {
+        waitAction().shouldBeVisible(moderationLimitLabel);
+    }
+
+    @Step("Проверяем, что инпут лимита для премодерации отображается")
+    default void checkModerationLimitVisible() {
+        waitAction().shouldBeVisible(moderationLimit);
     }
 
     @Step("Проверяем, что лейбл заголовка настроек валюты отображается")
@@ -309,7 +429,7 @@ public interface GeneralSettingsCheck extends Check, GeneralSettingsElements {
 
     @Step("Проверяем, что селектор валюты отображается")
     default void checkCurrencyDropDownVisible() {
-        waitAction().shouldBeVisible(currenccyDropDown);
+        waitAction().shouldBeVisible(currencyDropDown);
     }
 
     @Step("Проверяем, что кнопка применения изменений отображается")
