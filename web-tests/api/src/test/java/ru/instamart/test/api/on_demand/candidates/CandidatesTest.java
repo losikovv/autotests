@@ -36,6 +36,7 @@ public class CandidatesTest extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void auth() {
+
        user = UserManager.getShp6Shopper1();
        shopperApp.authorisation(user);
        shiftsApi.startOfShift(StartPointsTenants.METRO_9);
@@ -47,6 +48,7 @@ public class CandidatesTest extends RestBase {
        shopperApp.sendCurrentLocator(55.7012984,37.7283669, null);
 
        clientCandidates = CandidatesGrpc.newBlockingStub(grpc.createChannel(PAAS_CONTENT_OPERATIONS_CANDIDATES));
+
     }
 
     @AfterClass(alwaysRun = true)
@@ -63,14 +65,31 @@ public class CandidatesTest extends RestBase {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
                         .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
-                                .setLat(55.7012984)
-                                .setLon(37.7283669)
+                                .setLat(55.700683) //координаты метро шоссейного
+                                .setLon(37.726683)
                                 .build())
-                        .setRadius(100.00F)
+                        .setRadius(200.00F)
                 )
                 .build();
         CandidatesOuterClass.SelectCandidatesResponse selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
+    }
+
+    @CaseId(25)
+    @Test(description = "Кандидаты находятся вне  радиуса вокруг координаты магазина",
+            groups = "dispatch-candidates-smoke")
+    public void candidatesAreOutOfRadius() {
+        var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
+                .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
+                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                                .setLat(55.775353) //координаты рядом с магазином магазина ,55.700905, 37.735048  55.723251, 37.718116
+                                .setLon(37.592168)
+                                .build())
+                        .setRadius(200.00F)
+                )
+                .build();
+        CandidatesOuterClass.SelectCandidatesResponse selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+        assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount()  <= 0, "UUID кандидата вернулся");
     }
 
     @CaseId(24)
