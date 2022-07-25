@@ -38,7 +38,7 @@ public final class UserShippingAddressTests {
     @CaseId(1559)
     @Story("Дефолтные настройки адреса доставки")
     //TODO fixedUUID - костыль для обхода невыпиленного АБ-теста с новыми ЯндексКартами https://jira.sbmt.io/browse/DVR-4901
-    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Тест дефолтного списка магазинов, при отсутствии адреса доставки", groups = "regression")
     public void successOperateDefaultShopList() {
         shop().goToPage();
@@ -223,7 +223,7 @@ public final class UserShippingAddressTests {
     @CaseIDs({@CaseId(2568), @CaseId(2570)})
     @Story("Сохранение и изменение адреса доставки")
     //TODO fixedUUID - костыль для обхода невыпиленного АБ-теста с новыми ЯндексКартами https://jira.sbmt.io/browse/DVR-4901
-    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Адрес сохраняется при регистрации нового пользователя", groups = "regression")
     public void testSuccessSaveAddressAfterRegistration() {
         home().goToPage();
