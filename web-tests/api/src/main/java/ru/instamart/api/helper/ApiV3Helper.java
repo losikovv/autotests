@@ -213,6 +213,14 @@ public final class ApiV3Helper {
         }
     }
 
+    @Step("Проверяем, выключен ли фича-флаг во флиппере, и выключаем, если это не так")
+    public static void checkFlipperOff(String featureKey) {
+        FlipperGatesEntity flipper = FlipperGatesDao.INSTANCE.getFlipperByKey(featureKey);
+        if (flipper != null) {
+            FlipperGatesDao.INSTANCE.deleteFlipper(featureKey);
+        }
+    }
+
     @Step("Получаем доступные способы оплаты")
     public List<PaymentToolV3> getPaymentTools(String orderNumber) {
         final Response response = CheckoutV3Request.PaymentTools.GET(orderNumber);
