@@ -31,7 +31,6 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "headerSelgrosForwardTo", defaultValue = "s-sb-stfkraken-selgros")
     public static String HEADER_SELGROS_FORWARD_TO;
 
-
     @Config(configName = NAME, fieldName = "sberIdUrl", defaultValue = "https://online.sberbank.ru/")
     public static String SBER_ID_URL;
     @Config(configName = NAME, fieldName = "jobLandingUrl", defaultValue = "https://job.sbermarket.ru/")

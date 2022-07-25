@@ -231,7 +231,7 @@ public final class ShoppingCatalogTests {
 
     @CaseId(2578)
     //TODO fixedUUID - костыль для обхода невыпиленного АБ-теста с новыми ЯндексКартами https://jira.sbmt.io/browse/DVR-4901
-    @CookieProvider(cookies = "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE")
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Переход в витрину магазина с главной страницы сайта", groups = "regression")
     public void successShowcaseTransitionFromMainLanding() {
         home().goToPage();

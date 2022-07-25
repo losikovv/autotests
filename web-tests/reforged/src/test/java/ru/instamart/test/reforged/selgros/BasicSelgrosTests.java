@@ -22,7 +22,7 @@ public final class BasicSelgrosTests {
 
     @CaseId(2781)
     @Story("Валидация элементов")
-    @CookieProvider(cookies = {"COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_SELGROS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
     @Test(description = "Тест валидности элементов и ссылок в шапке Selgros", groups = "regression")
     public void successValidateSelgrosTenantHeader() {
         selgros().goToPage();

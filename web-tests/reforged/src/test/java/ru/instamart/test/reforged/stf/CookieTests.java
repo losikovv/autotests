@@ -13,7 +13,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.home;
 public final class CookieTests {
 
     @CaseId(2282)
-    @CookieProvider(cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
     @Test(description = "Отображение предупреждения без записи в cookies", groups = "regression")
     public void checkVisibilityCookieAlert() {
         home().goToPage();
@@ -21,7 +21,7 @@ public final class CookieTests {
     }
 
     @CaseId(2283)
-    @CookieProvider(cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
     @Test(description = "Проверка верстки предупреждения", groups = "regression")
     public void checkElementCookieAlert() {
         home().goToPage();
@@ -31,7 +31,7 @@ public final class CookieTests {
     }
 
     @CaseId(2284)
-    @CookieProvider(cookies = {"EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
     @Test(description = "Скрытие предупреждения о сборе cookies", groups = "regression")
     public void checkCookieAlertWasHide() {
         home().goToPage();

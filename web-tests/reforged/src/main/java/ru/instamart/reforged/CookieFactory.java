@@ -3,6 +3,7 @@ package ru.instamart.reforged;
 import org.openqa.selenium.Cookie;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.config.UiProperties;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -44,6 +45,24 @@ public final class CookieFactory {
     //user_is_adult true
     public static final Cookie USER_ADULT_18_PLUS_ALERT = new Cookie("user_is_adult",
             "true",
+            COOKIE_DOMAIN,
+            "/",
+            date);
+
+    public static final Cookie FORWARD_FEATURE_STF = new Cookie("sbm-forward-feature-version-stf",
+            UiProperties.HEADER_STF_FORWARD_TO,
+            COOKIE_DOMAIN,
+            "/",
+            date);
+
+    public static final Cookie FORWARD_FEATURE_BUSINESS = new Cookie("sbm-forward-feature-version-stf",
+            UiProperties.HEADER_B2B_FORWARD_TO,
+            COOKIE_DOMAIN,
+            "/",
+            date);
+
+    public static final Cookie FORWARD_FEATURE_SELGROS = new Cookie("sbm-forward-feature-version-stf",
+            UiProperties.HEADER_SELGROS_FORWARD_TO,
             COOKIE_DOMAIN,
             "/",
             date);
