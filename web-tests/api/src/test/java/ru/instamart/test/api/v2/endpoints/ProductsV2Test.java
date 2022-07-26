@@ -27,8 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static io.qameta.allure.Allure.step;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkSort;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -49,7 +48,14 @@ public final class ProductsV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductV2Response.class);
         ProductV2 productFromResponse = response.as(ProductV2Response.class).getProduct();
-        compareTwoObjects(productFromResponse, product);
+        Allure.step(String.format("Проверка продукта с id = %n (%s)", product.getId(), product.getName()), ()->{
+            assertEquals(productFromResponse.getName(), product.getName(), "Наименование продукта не совпадает");
+            assertEquals(productFromResponse.getGramsPerUnit(), product.getGramsPerUnit(), "grams_per_unit не совпадает");
+            assertEquals(productFromResponse.getOriginalPrice(), product.getOriginalPrice(), "original_price не совпадает");
+            assertEquals(productFromResponse.getOriginalUnitPrice(), product.getOriginalUnitPrice(), "original_unit_price не совпадает");
+            assertEquals(productFromResponse.getPrice(), product.getPrice(), "price не совпадает");
+            assertEquals(productFromResponse.getPriceType(), product.getPriceType(), "price_type не совпадает");
+        });
     }
 
     @CaseId(560)
