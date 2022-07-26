@@ -411,6 +411,151 @@ public class StrategyTest extends RestBase {
         clientShippingCalc.createStrategy(request);
     }
 
+    @CaseId(379)
+    @Story("Create Strategy")
+    @Test(description = "Получение ошибки валидации параметров скрипта при обновлении стратегии",
+            groups = "dispatch-shippingcalc-smoke",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: no required for script parameters",
+            dependsOnMethods = "updateStrategy")
+    public void updateStrategyNonValidScriptParams() {
+        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
+        clientShippingCalc.updateStrategy(request);
+    }
+
+    @CaseId(401)
+    @Story("Create Strategy")
+    @Test(description = "Получение ошибки при не уникальном приоритете в правилах",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: rules: priority 0 conflict")
+    public void createStrategyWithNonUniqueRulesPriority() {
+        ShippingcalcOuterClass.CreateStrategyRequest request = ShippingcalcOuterClass.CreateStrategyRequest.newBuilder()
+                .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(ShippingcalcOuterClass.MinCartRuleObject.newBuilder()
+                        .setMinCartValue(0)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .setCreatorId("autotest")
+                .setName("autotest")
+                .setGlobal(false)
+                .setPriority(0)
+                .setDescription("autotest")
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
+                .build();
+
+        clientShippingCalc.createStrategy(request);
+    }
+
+    @CaseId(402)
+    @Story("Create Strategy")
+    @Test(description = "Получение ошибки при не уникальном приоритете в правилах минимальной корзины",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: priority 0 conflict")
+    public void createStrategyWithNonUniqueMinCartRulesPriority() {
+        ShippingcalcOuterClass.CreateStrategyRequest request = ShippingcalcOuterClass.CreateStrategyRequest.newBuilder()
+                .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(ShippingcalcOuterClass.MinCartRuleObject.newBuilder()
+                        .setMinCartValue(50000)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(ShippingcalcOuterClass.MinCartRuleObject.newBuilder()
+                        .setMinCartValue(100000)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .setCreatorId("autotest")
+                .setName("autotest")
+                .setGlobal(false)
+                .setPriority(0)
+                .setDescription("autotest")
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
+                .build();
+
+        clientShippingCalc.createStrategy(request);
+    }
+
+    @CaseId(403)
+    @Story("Create Strategy")
+    @Test(description = "Получение ошибки при не уникальном значении минимальной корзины",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: mincartvalue 50000 conflict")
+    public void createStrategyWithNonUniqueMinCartRulesValue() {
+        ShippingcalcOuterClass.CreateStrategyRequest request = ShippingcalcOuterClass.CreateStrategyRequest.newBuilder()
+                .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(ShippingcalcOuterClass.MinCartRuleObject.newBuilder()
+                        .setMinCartValue(50000)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(ShippingcalcOuterClass.MinCartRuleObject.newBuilder()
+                        .setMinCartValue(50000)
+                        .setPriority(1)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .setCreatorId("autotest")
+                .setName("autotest")
+                .setGlobal(false)
+                .setPriority(0)
+                .setDescription("autotest")
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
+                .build();
+
+        clientShippingCalc.createStrategy(request);
+    }
+
     @CaseIDs(value = {@CaseId(81), @CaseId(91), @CaseId(205), @CaseId(342), @CaseId(346), @CaseId(363)})
     @Story("Update Strategy")
     @Test(description = "Обновление существующей стратегии с валидными данными",
@@ -553,18 +698,6 @@ public class StrategyTest extends RestBase {
 
         clientShippingCalc.updateStrategy(request);
         checkUpdatedStrategy(strategyIdWithMultipleRulesAndConditions, "autotest-update", 12, 20, 11, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY.toString());
-    }
-
-    @CaseId(379)
-    @Story("Create Strategy")
-    @Test(description = "Получение ошибки валидации параметров скрипта при обновлении стратегии",
-            groups = "dispatch-shippingcalc-smoke",
-            expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: no required for script parameters",
-            dependsOnMethods = "updateStrategy")
-    public void updateStrategyNonValidScriptParams() {
-        ShippingcalcOuterClass.UpdateStrategyRequest request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE);
-        clientShippingCalc.updateStrategy(request);
     }
 
     @CaseId(192)
@@ -751,6 +884,145 @@ public class StrategyTest extends RestBase {
                         .setScriptId(FIRST_SCRIPT_ID)
                         .setScriptParamValues(SCRIPT_PARAMS)
                         .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .setStrategyId(strategyId)
+                .setCreatorId("autotest-update")
+                .setName("autotest-update")
+                .setGlobal(false)
+                .setPriority(0)
+                .setDescription("autotest-update")
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
+                .build();
+
+        clientShippingCalc.updateStrategy(request);
+    }
+
+    @CaseId(404)
+    @Story("Update Strategy")
+    @Test(description = "Получение ошибки при не уникальном приоритете в правилах",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: rules: priority 0 conflict",
+            dependsOnMethods = "updateStrategy")
+    public void updateStrategyWithNonUniqueRulesPriority() {
+        ShippingcalcOuterClass.UpdateStrategyRequest request = ShippingcalcOuterClass.UpdateStrategyRequest.newBuilder()
+                .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(ShippingcalcOuterClass.MinCartRuleObject.newBuilder()
+                        .setMinCartValue(0)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .setStrategyId(strategyId)
+                .setCreatorId("autotest-update")
+                .setName("autotest-update")
+                .setGlobal(false)
+                .setPriority(0)
+                .setDescription("autotest-update")
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
+                .build();
+
+        clientShippingCalc.updateStrategy(request);
+    }
+
+    @CaseId(405)
+    @Story("Update Strategy")
+    @Test(description = "Получение ошибки при не уникальном приоритете в правилах минимальной корзины",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: priority 0 conflict",
+            dependsOnMethods = "updateStrategy")
+    public void updateStrategyWithNonUniqueMinCartRulesPriority() {
+        ShippingcalcOuterClass.UpdateStrategyRequest request = ShippingcalcOuterClass.UpdateStrategyRequest.newBuilder()
+                .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(ShippingcalcOuterClass.MinCartRuleObject.newBuilder()
+                        .setMinCartValue(50000)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(ShippingcalcOuterClass.MinCartRuleObject.newBuilder()
+                        .setMinCartValue(100000)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .setStrategyId(strategyId)
+                .setCreatorId("autotest-update")
+                .setName("autotest-update")
+                .setGlobal(false)
+                .setPriority(0)
+                .setDescription("autotest-update")
+                .setDeliveryTypeValue(ShippingcalcOuterClass.DeliveryType.SELF_DELIVERY_VALUE)
+                .build();
+
+        clientShippingCalc.updateStrategy(request);
+    }
+
+    @CaseId(406)
+    @Story("Update Strategy")
+    @Test(description = "Получение ошибки при не уникальном значении минимальной корзины",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: mincartvalue 50000 conflict",
+            dependsOnMethods = "updateStrategy")
+    public void updateStrategyWithNonUniqueMinCartRulesValue() {
+        ShippingcalcOuterClass.UpdateStrategyRequest request = ShippingcalcOuterClass.UpdateStrategyRequest.newBuilder()
+                .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(ShippingcalcOuterClass.MinCartRuleObject.newBuilder()
+                        .setMinCartValue(50000)
+                        .setPriority(0)
+                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(ShippingcalcOuterClass.MinCartRuleObject.newBuilder()
+                        .setMinCartValue(50000)
+                        .setPriority(1)
                         .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
                                 .setConditionTypeValue(2)
                                 .setParams("{}")
