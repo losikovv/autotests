@@ -11,6 +11,7 @@ import static ru.instamart.api.enums.BashCommands.Instacoins.ADD_USER_INSTACOIN;
 import static ru.instamart.api.enums.BashCommands.Promotions.CREATE_COMPENSATION_PROMOTIONS;
 import static ru.instamart.api.enums.BashCommands.ShipmentDelays.COMPUTE_EXPECTED_DATES;
 import static ru.instamart.api.enums.BashCommands.ShipmentDelays.SEND_NOTIFICATIONS;
+import static ru.instamart.api.enums.RailsConsole.ApiClient.FIND_OR_CREATE_QA_SERVICE;
 import static ru.instamart.api.enums.RailsConsole.ApiV3.*;
 import static ru.instamart.api.enums.RailsConsole.ExternalPartners.SUBSCRIPTION;
 import static ru.instamart.api.enums.RailsConsole.Order.Flipper;
@@ -224,6 +225,12 @@ public class K8sHelper {
     @Step("Обновляем индексы по статусу оплаты")
     public static void reindexShipmentsByPaymentState(String paymentState) {
         List<String> strings = execRailsCommandWithPod(UPDATE_SHIPMENT_INDEX_BY_PAYMENT_STATE.get(paymentState));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Включаем QA сервис")
+    public static void createQaService() {
+        List<String> strings = execRailsCommandWithPod(FIND_OR_CREATE_QA_SERVICE.get());
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 }
