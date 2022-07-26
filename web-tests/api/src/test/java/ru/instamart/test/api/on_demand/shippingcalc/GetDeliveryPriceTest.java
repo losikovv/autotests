@@ -101,7 +101,7 @@ public class GetDeliveryPriceTest extends RestBase {
     @Test(description = "Получение ошибки при расчете цены для магазина, для которого не смогли найти стратегию",
             groups = "dispatch-shippingcalc-smoke",
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INTERNAL: cannot GetDeliveryPrice: don't calculated price for some shipment")
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot GetDeliveryPrice: can't calculate price for some shipments")
     public void getDeliveryPriceForStoreWithNoBinds() {
         ShippingcalcOuterClass.GetDeliveryPriceRequest request = getDeliveryPriceRequest(
                 1, UUID.randomUUID().toString(), 99900, 0, 1000, UUID.randomUUID().toString(), false,
