@@ -178,4 +178,15 @@ public interface RailsConsole {
             return format(command, (Object[]) values);
         }
     }
+
+    @AllArgsConstructor
+    enum ApiClient implements RailsConsole {
+        FIND_OR_CREATE_QA_SERVICE("ApiClient.find_or_create_by(client_id: ApiClient::SBER_APP_ID, tenant_id: 'sbermarket')");
+
+        private String command;
+
+        public String get(String... values) {
+            return format(command, (Object[]) values);
+        }
+    }
 }

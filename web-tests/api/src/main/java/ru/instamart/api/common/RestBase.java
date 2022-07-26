@@ -1,10 +1,10 @@
 package ru.instamart.api.common;
 
-import io.grpc.ManagedChannel;
 import io.qameta.allure.Allure;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import ru.instamart.api.helper.*;
 import ru.instamart.grpc.helper.GrpcHelper;
 import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
@@ -24,11 +24,17 @@ public class RestBase {
     protected static final AdminHelper admin = new AdminHelper();
     protected final ShopperAdminApiHelper shopperAdmin = new ShopperAdminApiHelper();
     protected Response response;
-    protected ManagedChannel channel;
     protected GrpcHelper grpc = new GrpcHelper();
     protected static final KafkaHelper kafka = new KafkaHelper();
     protected static final LogHelper kubeLog = new LogHelper();
     protected static final ShiftsApiHelper shiftsApi = new ShiftsApiHelper();
+
+    @BeforeSuite(alwaysRun = true)
+    public void qaService() {
+        if (!EnvironmentProperties.Env.isProduction()) {
+            K8sHelper.createQaService();
+        }
+    }
 
     @AfterSuite(alwaysRun = true)
     public void clearData() {
