@@ -189,4 +189,16 @@ public interface RailsConsole {
             return format(command, (Object[]) values);
         }
     }
+
+    @AllArgsConstructor
+    enum WebhookClient implements RailsConsole {
+        SEND_MESSAGE("Api::V3::WebhookClient.new(ApiClient.find_by(client_id: '%s')).delivery_windows_updated('%s')"),
+        ADD_WEBHOOK_URL("ApiClientHook.kinds.each { |(kind, i)| (ApiClient.find_by(client_id: '%s')).api_client_hooks.create!(kind: i, url: '%s') }");
+
+        private String command;
+
+        public String get(String... values) {
+            return format(command, (Object[]) values);
+        }
+    }
 }

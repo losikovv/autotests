@@ -85,6 +85,7 @@
     <test verbose="1" name="API KUBERNETES Tests" parallel="classes" thread-count="1">
         <classes>
             <class name="ru.instamart.test.api.KubernetesClientTest"/>
+            <class name="ru.instamart.test.api.WebHookTest"/>
         </classes>
     </test>
 

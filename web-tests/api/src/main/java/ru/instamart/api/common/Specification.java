@@ -11,6 +11,7 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.io.IOException;
@@ -42,6 +43,8 @@ public enum Specification {
     @Getter private RequestSpecification prodAdminRequestSpec;
     @Getter private RequestSpecification shopperAdminRequestSpec;
     @Getter private RequestSpecification locatorRequestSpec;
+    //Внешние сервисы
+    @Getter private RequestSpecification webhookSteRequestSpec;
 
     public void initSpec() {
         final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH;
@@ -203,25 +206,12 @@ public enum Specification {
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
 
-//        prodRequestSpec = new RequestSpecBuilder()
-//                .setBaseUri(prodFullUrl)
-//                .setAccept(ContentType.JSON)
-//                .addFilter(new AllureRestAssuredCustom())
-//                .build();
-
-//        prodWebRequestSpec = new RequestSpecBuilder()
-//                .setBaseUri(prodWebUrl)
-//                .setBasePath("api/")
-//                .setAccept(ContentType.JSON)
-//                .addFilter(new AllureRestAssuredCustom())
-//                .build();
-
-//        prodAdminRequestSpec = new RequestSpecBuilder()
-//                .setBaseUri(prodAdminUrl)
-//                .setBasePath("api/")
-//                .setAccept(ContentType.JSON)
-//                .addFilter(new AllureRestAssuredCustom())
-//                .build();
+        //Внешние сервисы
+        webhookSteRequestSpec = new RequestSpecBuilder()
+                .setBaseUri(CoreProperties.DEFAULT_WEBHOOK_SITE_URL)
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
     }
 
     static public void setResponseSpecDataProvider() {
