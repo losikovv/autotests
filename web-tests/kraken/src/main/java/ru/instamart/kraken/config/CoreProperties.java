@@ -32,4 +32,6 @@ public final class CoreProperties {
 
     @Config(configName = NAME, fieldName = "mySqlPoolSize", defaultValue = "1")
     public static int DEFAULT_MYSQL_POOL_SIZE;
+    @Config(configName = NAME, fieldName = "webhookSiteUrl", defaultValue = "https://webhook.site")
+    public static String DEFAULT_WEBHOOK_SITE_URL;
 }

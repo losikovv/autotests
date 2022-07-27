@@ -20,6 +20,8 @@ import static ru.instamart.api.enums.RailsConsole.Other.DELETE_COMPENSATIONS_CAC
 import static ru.instamart.api.enums.RailsConsole.Other.DELETE_SHIPMENT_RETURN;
 import static ru.instamart.api.enums.RailsConsole.Shipments.UPDATE_SHIPMENT_INDEX_BY_PAYMENT_STATE;
 import static ru.instamart.api.enums.RailsConsole.User.*;
+import static ru.instamart.api.enums.RailsConsole.WebhookClient.ADD_WEBHOOK_URL;
+import static ru.instamart.api.enums.RailsConsole.WebhookClient.SEND_MESSAGE;
 import static ru.instamart.k8s.K8sConsumer.*;
 
 public class K8sHelper {
@@ -231,6 +233,18 @@ public class K8sHelper {
     @Step("Включаем QA сервис")
     public static void createQaService() {
         List<String> strings = execRailsCommandWithPod(FIND_OR_CREATE_QA_SERVICE.get());
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Отправляем сообщение через webhook")
+    public static void sendMessageFromWebhook(final String clientId, final String msg) {
+        List<String> strings = execRailsCommandWithPod(SEND_MESSAGE.get(clientId, msg));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Отправляем сообщение через webhook")
+    public static void addWebhookUrl(final String clientId, final String url) {
+        List<String> strings = execRailsCommandWithPod(ADD_WEBHOOK_URL.get(clientId, url));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 }
