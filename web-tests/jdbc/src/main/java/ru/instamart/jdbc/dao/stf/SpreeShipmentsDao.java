@@ -91,4 +91,17 @@ public class SpreeShipmentsDao extends AbstractDao<Long, SpreeShipmentsEntity> {
         }
         return shipment;
     }
+
+    public Integer updateShipmentsByNumber(String shippedAt, String shipmentsNumber) {
+        try (Connection connection = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL + " SET shipped_at = ? WHERE number = ?");
+        ) {
+            preparedStatement.setString(1, shippedAt);
+            preparedStatement.setString(2, shipmentsNumber);
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return null;
+    }
 }
