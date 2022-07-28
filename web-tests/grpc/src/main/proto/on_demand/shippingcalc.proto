@@ -3,6 +3,7 @@ syntax = "proto3";
 package shippingcalc;
 
 option go_package = "gitlab.sbmt.io/paas/content/operations/shippingcalc/pkg/server/grpc/shippingcalc";
+option java_multiple_files = true;
 
 service Shippingcalc {
 	// Создать стратегию
@@ -45,13 +46,17 @@ service Shippingcalc {
 	rpc GetSwitchbackExperiments (GetSwitchbackExperimentsRequest) returns (GetSwitchbackExperimentsResponse);
 	// Получить минимальные корзины по списку
 	rpc GetMinCartAmounts (GetMinCartAmountsRequest) returns (GetMinCartAmountsResponse);
+	// Наиболее выгодные условия доставки для магазинов
+	rpc GetDeliveryConditions (GetDeliveryConditionsRequest) returns (GetDeliveryConditionsResponse);
 }
 
 enum DeliveryType {
 	NONE = 0;
 	SELF_DELIVERY = 1;
 	COURIER_DELIVERY = 2;
+	// aka B2B courier delivery
 	B2B = 3;
+	B2B_SELF_DELIVERY = 4;
 }
 
 message CreateStrategyRequest {
@@ -126,6 +131,7 @@ enum ConditionType {
 	AB_TEST_ENTRANCE = 3;
 	ORDER_DISTANCE_RANGE = 4;
 	PLATFORMS = 5;
+	REGISTERED_AFTER = 6;
 }
 
 message NewConditionObject {
@@ -468,7 +474,7 @@ message GetDeliveryPriceRequest {
 	DeliveryType delivery_type = 9;
 	// Идентификатор тенанта
 	string tenant_id = 11;
-	
+
 	// Название и версия платформы
 	string platform_name = 12;
 	string platform_version = 13;
@@ -620,6 +626,8 @@ message LadderStep {
 	optional uint64 price_to = 2; // null означает "до бесконечности"
 	// Цена отгрузки
 	uint64 shipping_price = 3;
+	// Компоненты цены отгрузки
+	repeated PriceComponent price_components = 4;
 }
 
 // Один интервал для surge
@@ -639,11 +647,11 @@ message SetIntervalsSurgeRequest {
 }
 
 message SetIntervalsSurgeResponse {
-	
+
 }
 
 message GetIntervalsSurgeRequest {
-	
+
 }
 
 message GetIntervalsSurgeResponse {
@@ -673,11 +681,11 @@ message SetSwitchbackExperimentsRequest {
 }
 
 message SetSwitchbackExperimentsResponse {
-	
+
 }
 
 message GetSwitchbackExperimentsRequest {
-	
+
 }
 
 message GetSwitchbackExperimentsResponse {
@@ -689,6 +697,9 @@ message GetMinCartAmountsRequest {
 	Customer customer = 2;
 	string tenant = 3;
 	DeliveryType delivery_type = 4;
+	// Название и версия платформы
+	string platform_name = 5;
+	string platform_version = 6;
 }
 
 message Store {
@@ -711,3 +722,37 @@ message MinCartAmount {
 	uint64 amount = 2;
 }
 
+message GetDeliveryConditionsRequest {
+	repeated Store stores = 1;
+	Customer customer = 2;
+	string tenant = 3;
+	DeliveryType delivery_type = 4;
+	// Название и версия платформы
+	string platform_name = 5;
+	string platform_version = 6;
+}
+
+message Surge {
+	// Флаг сурджа
+	bool is_on = 1;
+	// Уровень сурджа
+	float level = 2;
+	// Остаточный TTL для текущего сурджа
+	int64 ttl = 3;
+}
+
+message DeliveryCondition {
+	// Идентификатор магазина
+	string store_id = 1;
+	// Минимальная цена корзины
+	uint64 min_cart_amount = 2;
+	// Состояние сурджа
+	Surge surge = 3;
+	// Лесенка цен доставки
+	repeated LadderStep ladder = 4;
+}
+
+message GetDeliveryConditionsResponse {
+	// Условия доставки
+	repeated DeliveryCondition delivery_conditions = 1;
+}

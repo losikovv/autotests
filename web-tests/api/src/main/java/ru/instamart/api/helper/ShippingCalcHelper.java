@@ -9,7 +9,7 @@ import ru.instamart.jdbc.entity.shippingcalc.ConditionsEntity;
 import ru.instamart.jdbc.entity.shippingcalc.RulesEntity;
 import ru.instamart.jdbc.entity.shippingcalc.StrategiesEntity;
 import ru.instamart.jdbc.entity.shippingcalc.StrategyBindingsEntity;
-import shippingcalc.ShippingcalcOuterClass;
+import shippingcalc.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,23 +21,23 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 public class ShippingCalcHelper {
 
     @Step("Получаем запрос для создания стратегии")
-    public static ShippingcalcOuterClass.CreateStrategyRequest getCreateStrategyRequest(
+    public static CreateStrategyRequest getCreateStrategyRequest(
             Integer scriptId, String scriptParams, Integer priority, Integer conditionType, String params,
             Integer minCart, String creatorId, String name, String description, Boolean global, Integer deliveryType) {
-        return ShippingcalcOuterClass.CreateStrategyRequest.newBuilder()
-                .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
+        return CreateStrategyRequest.newBuilder()
+                .addRules(NewRuleObject.newBuilder()
                         .setScriptId(scriptId)
                         .setScriptParamValues(scriptParams)
                         .setPriority(priority)
-                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                        .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(conditionType)
                                 .setParams(params)
                                 .build())
                         .build())
-                .addMinCartRules(ShippingcalcOuterClass.MinCartRuleObject.newBuilder()
+                .addMinCartRules(MinCartRuleObject.newBuilder()
                         .setMinCartValue(minCart)
                         .setPriority(priority)
-                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                        .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(conditionType)
                                 .setParams(params)
                                 .build())
@@ -52,23 +52,23 @@ public class ShippingCalcHelper {
     }
 
     @Step("Получаем запрос для обновления стратегии")
-    public static ShippingcalcOuterClass.UpdateStrategyRequest getUpdateStrategyRequest(
+    public static UpdateStrategyRequest getUpdateStrategyRequest(
             Integer scriptId, String scriptParams, Integer priority, Integer conditionType, String params,
             Integer minCart, Integer strategyId, String creatorId, String name, String description, Boolean global, Integer deliveryType) {
-        return ShippingcalcOuterClass.UpdateStrategyRequest.newBuilder()
-                .addRules(ShippingcalcOuterClass.NewRuleObject.newBuilder()
+        return UpdateStrategyRequest.newBuilder()
+                .addRules(NewRuleObject.newBuilder()
                         .setScriptId(scriptId)
                         .setScriptParamValues(scriptParams)
                         .setPriority(priority)
-                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                        .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(conditionType)
                                 .setParams(params)
                                 .build())
                         .build())
-                .addMinCartRules(ShippingcalcOuterClass.MinCartRuleObject.newBuilder()
+                .addMinCartRules(MinCartRuleObject.newBuilder()
                         .setMinCartValue(minCart)
                         .setPriority(priority)
-                        .addConditions(ShippingcalcOuterClass.NewConditionObject.newBuilder()
+                        .addConditions(NewConditionObject.newBuilder()
                                 .setConditionTypeValue(conditionType)
                                 .setParams(params)
                                 .build())
@@ -84,10 +84,10 @@ public class ShippingCalcHelper {
     }
 
     @Step("Получаем запрос для привязки стратегии к магазину")
-    public static ShippingcalcOuterClass.BindStrategyRequest getBindStrategyRequest(Integer strategyId, String storeId, String tenantId, Integer deliveryTypeValue, Boolean replaceAll) {
-        return ShippingcalcOuterClass.BindStrategyRequest.newBuilder()
+    public static BindStrategyRequest getBindStrategyRequest(Integer strategyId, String storeId, String tenantId, Integer deliveryTypeValue, Boolean replaceAll) {
+        return BindStrategyRequest.newBuilder()
                 .setStrategyId(strategyId)
-                .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
+                .addBinds(StrategyBinding.newBuilder()
                         .setStoreId(storeId)
                         .setTenantId(tenantId)
                         .setDeliveryTypeValue(deliveryTypeValue)
@@ -97,10 +97,10 @@ public class ShippingCalcHelper {
     }
 
     @Step("Получаем запрос для отвязки стратегии к магазину")
-    public static ShippingcalcOuterClass.UnbindStrategyRequest getUnbindStrategyRequest(Integer strategyId, String storeId, String tenantId, Integer deliveryTypeValue) {
-        return ShippingcalcOuterClass.UnbindStrategyRequest.newBuilder()
+    public static UnbindStrategyRequest getUnbindStrategyRequest(Integer strategyId, String storeId, String tenantId, Integer deliveryTypeValue) {
+        return UnbindStrategyRequest.newBuilder()
                 .setStrategyId(strategyId)
-                .addBinds(ShippingcalcOuterClass.StrategyBinding.newBuilder()
+                .addBinds(StrategyBinding.newBuilder()
                         .setStoreId(storeId)
                         .setTenantId(tenantId)
                         .setDeliveryTypeValue(deliveryTypeValue)
@@ -109,16 +109,16 @@ public class ShippingCalcHelper {
     }
 
     @Step("Получаем запрос для получения цены доставки")
-    public static ShippingcalcOuterClass.GetDeliveryPriceRequest getDeliveryPriceRequest(
+    public static GetDeliveryPriceRequest getDeliveryPriceRequest(
             Integer quantity, String productId, Integer productPrice, Integer discountPrice, Integer productWeight,
             String shipmentId, Boolean isOndemand, Integer shipmentWeight, Integer itemsCount, Integer shipmentPrice,
             String storeId, String status, Integer regionId, Integer surgeDeliveryWindowAddition, Double storeLat, Double storeLon,
             String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Double customerLat, Double customerLon,
             String orderId, Boolean isB2bOrder, Boolean isPromocode, String paymentMethod, Boolean hasPaymentMethod, Integer deliveryType,
             String tenantId, String platformName, String platformVersion) {
-        return ShippingcalcOuterClass.GetDeliveryPriceRequest.newBuilder()
-                .addShipments(ShippingcalcOuterClass.Shipment.newBuilder()
-                        .addProducts(ShippingcalcOuterClass.ProductRequest.newBuilder()
+        return GetDeliveryPriceRequest.newBuilder()
+                .addShipments(Shipment.newBuilder()
+                        .addProducts(ProductRequest.newBuilder()
                                 .setQuantity(quantity)
                                 .setId(productId)
                                 .setPrice(productPrice)
@@ -137,7 +137,7 @@ public class ShippingCalcHelper {
                         .setLat(storeLat.floatValue())
                         .setLon(storeLon.floatValue())
                         .build())
-                .setCustomer(ShippingcalcOuterClass.Customer.newBuilder()
+                .setCustomer(Customer.newBuilder()
                         .setId(customerId)
                         .setAnonymousId(anonymousId)
                         .setOrdersCount(ordersCount)
@@ -158,8 +158,8 @@ public class ShippingCalcHelper {
     }
 
     @Step("Получаем запрос для удаления стратегии")
-    public static ShippingcalcOuterClass.DeleteStrategyRequest getDeleteStrategyRequest(Integer strategyId) {
-        return ShippingcalcOuterClass.DeleteStrategyRequest.newBuilder()
+    public static DeleteStrategyRequest getDeleteStrategyRequest(Integer strategyId) {
+        return DeleteStrategyRequest.newBuilder()
                 .setStrategyId(strategyId)
                 .build();
     }
@@ -217,7 +217,7 @@ public class ShippingCalcHelper {
     }
 
     @Step("Проверяем расчитанную цену доставки")
-    public static void checkDeliveryPrice(ShippingcalcOuterClass.GetDeliveryPriceResponse response, int strategyId, long totalDeliveryPrice, long minCartPrice, int stepAmount, int hintAmount, int passedConditionAmount, int shipmentIndex) {
+    public static void checkDeliveryPrice(GetDeliveryPriceResponse response, int strategyId, long totalDeliveryPrice, long minCartPrice, int stepAmount, int hintAmount, int passedConditionAmount, int shipmentIndex) {
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(response.getIsOrderPossible(), "Заказ не возможен");
         softAssert.assertFalse(response.getShipments(shipmentIndex).getWeHadOffer(), "Получили цену из оффера");
