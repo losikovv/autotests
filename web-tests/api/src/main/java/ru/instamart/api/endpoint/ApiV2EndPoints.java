@@ -186,6 +186,7 @@ public final class ApiV2EndPoints {
 
     public static final class SeparateReviews {
         public static final String SHIPMENT_REVIEW_RATES = "v2/separate_reviews/shipment_review_rates";
+        public static final String REVIEWABLE_SHIPMENT = "v2/separate_reviews/reviewable_shipment";
     }
 
     public static final class Sessions {
