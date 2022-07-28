@@ -15,29 +15,29 @@ public final class ShippingcalcGrpc {
   public static final String SERVICE_NAME = "shippingcalc.Shippingcalc";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.CreateStrategyRequest,
-      shippingcalc.ShippingcalcOuterClass.CreateStrategyResponse> getCreateStrategyMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.CreateStrategyRequest,
+      shippingcalc.CreateStrategyResponse> getCreateStrategyMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "CreateStrategy",
-      requestType = shippingcalc.ShippingcalcOuterClass.CreateStrategyRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.CreateStrategyResponse.class,
+      requestType = shippingcalc.CreateStrategyRequest.class,
+      responseType = shippingcalc.CreateStrategyResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.CreateStrategyRequest,
-      shippingcalc.ShippingcalcOuterClass.CreateStrategyResponse> getCreateStrategyMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.CreateStrategyRequest, shippingcalc.ShippingcalcOuterClass.CreateStrategyResponse> getCreateStrategyMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.CreateStrategyRequest,
+      shippingcalc.CreateStrategyResponse> getCreateStrategyMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.CreateStrategyRequest, shippingcalc.CreateStrategyResponse> getCreateStrategyMethod;
     if ((getCreateStrategyMethod = ShippingcalcGrpc.getCreateStrategyMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getCreateStrategyMethod = ShippingcalcGrpc.getCreateStrategyMethod) == null) {
           ShippingcalcGrpc.getCreateStrategyMethod = getCreateStrategyMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.CreateStrategyRequest, shippingcalc.ShippingcalcOuterClass.CreateStrategyResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.CreateStrategyRequest, shippingcalc.CreateStrategyResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CreateStrategy"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.CreateStrategyRequest.getDefaultInstance()))
+                  shippingcalc.CreateStrategyRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.CreateStrategyResponse.getDefaultInstance()))
+                  shippingcalc.CreateStrategyResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("CreateStrategy"))
               .build();
         }
@@ -46,29 +46,29 @@ public final class ShippingcalcGrpc {
     return getCreateStrategyMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.UpdateStrategyRequest,
-      shippingcalc.ShippingcalcOuterClass.UpdateStrategyResponse> getUpdateStrategyMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.UpdateStrategyRequest,
+      shippingcalc.UpdateStrategyResponse> getUpdateStrategyMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "UpdateStrategy",
-      requestType = shippingcalc.ShippingcalcOuterClass.UpdateStrategyRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.UpdateStrategyResponse.class,
+      requestType = shippingcalc.UpdateStrategyRequest.class,
+      responseType = shippingcalc.UpdateStrategyResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.UpdateStrategyRequest,
-      shippingcalc.ShippingcalcOuterClass.UpdateStrategyResponse> getUpdateStrategyMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.UpdateStrategyRequest, shippingcalc.ShippingcalcOuterClass.UpdateStrategyResponse> getUpdateStrategyMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.UpdateStrategyRequest,
+      shippingcalc.UpdateStrategyResponse> getUpdateStrategyMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.UpdateStrategyRequest, shippingcalc.UpdateStrategyResponse> getUpdateStrategyMethod;
     if ((getUpdateStrategyMethod = ShippingcalcGrpc.getUpdateStrategyMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getUpdateStrategyMethod = ShippingcalcGrpc.getUpdateStrategyMethod) == null) {
           ShippingcalcGrpc.getUpdateStrategyMethod = getUpdateStrategyMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.UpdateStrategyRequest, shippingcalc.ShippingcalcOuterClass.UpdateStrategyResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.UpdateStrategyRequest, shippingcalc.UpdateStrategyResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateStrategy"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.UpdateStrategyRequest.getDefaultInstance()))
+                  shippingcalc.UpdateStrategyRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.UpdateStrategyResponse.getDefaultInstance()))
+                  shippingcalc.UpdateStrategyResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("UpdateStrategy"))
               .build();
         }
@@ -77,29 +77,29 @@ public final class ShippingcalcGrpc {
     return getUpdateStrategyMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.BindStrategyRequest,
-      shippingcalc.ShippingcalcOuterClass.BindStrategyResponse> getBindStrategyMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.BindStrategyRequest,
+      shippingcalc.BindStrategyResponse> getBindStrategyMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "BindStrategy",
-      requestType = shippingcalc.ShippingcalcOuterClass.BindStrategyRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.BindStrategyResponse.class,
+      requestType = shippingcalc.BindStrategyRequest.class,
+      responseType = shippingcalc.BindStrategyResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.BindStrategyRequest,
-      shippingcalc.ShippingcalcOuterClass.BindStrategyResponse> getBindStrategyMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.BindStrategyRequest, shippingcalc.ShippingcalcOuterClass.BindStrategyResponse> getBindStrategyMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.BindStrategyRequest,
+      shippingcalc.BindStrategyResponse> getBindStrategyMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.BindStrategyRequest, shippingcalc.BindStrategyResponse> getBindStrategyMethod;
     if ((getBindStrategyMethod = ShippingcalcGrpc.getBindStrategyMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getBindStrategyMethod = ShippingcalcGrpc.getBindStrategyMethod) == null) {
           ShippingcalcGrpc.getBindStrategyMethod = getBindStrategyMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.BindStrategyRequest, shippingcalc.ShippingcalcOuterClass.BindStrategyResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.BindStrategyRequest, shippingcalc.BindStrategyResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "BindStrategy"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.BindStrategyRequest.getDefaultInstance()))
+                  shippingcalc.BindStrategyRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.BindStrategyResponse.getDefaultInstance()))
+                  shippingcalc.BindStrategyResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("BindStrategy"))
               .build();
         }
@@ -108,29 +108,29 @@ public final class ShippingcalcGrpc {
     return getBindStrategyMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.UnbindStrategyRequest,
-      shippingcalc.ShippingcalcOuterClass.UnbindStrategyResponse> getUnbindStrategyMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.UnbindStrategyRequest,
+      shippingcalc.UnbindStrategyResponse> getUnbindStrategyMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "UnbindStrategy",
-      requestType = shippingcalc.ShippingcalcOuterClass.UnbindStrategyRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.UnbindStrategyResponse.class,
+      requestType = shippingcalc.UnbindStrategyRequest.class,
+      responseType = shippingcalc.UnbindStrategyResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.UnbindStrategyRequest,
-      shippingcalc.ShippingcalcOuterClass.UnbindStrategyResponse> getUnbindStrategyMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.UnbindStrategyRequest, shippingcalc.ShippingcalcOuterClass.UnbindStrategyResponse> getUnbindStrategyMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.UnbindStrategyRequest,
+      shippingcalc.UnbindStrategyResponse> getUnbindStrategyMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.UnbindStrategyRequest, shippingcalc.UnbindStrategyResponse> getUnbindStrategyMethod;
     if ((getUnbindStrategyMethod = ShippingcalcGrpc.getUnbindStrategyMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getUnbindStrategyMethod = ShippingcalcGrpc.getUnbindStrategyMethod) == null) {
           ShippingcalcGrpc.getUnbindStrategyMethod = getUnbindStrategyMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.UnbindStrategyRequest, shippingcalc.ShippingcalcOuterClass.UnbindStrategyResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.UnbindStrategyRequest, shippingcalc.UnbindStrategyResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UnbindStrategy"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.UnbindStrategyRequest.getDefaultInstance()))
+                  shippingcalc.UnbindStrategyRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.UnbindStrategyResponse.getDefaultInstance()))
+                  shippingcalc.UnbindStrategyResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("UnbindStrategy"))
               .build();
         }
@@ -139,29 +139,29 @@ public final class ShippingcalcGrpc {
     return getUnbindStrategyMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetStrategiesRequest,
-      shippingcalc.ShippingcalcOuterClass.GetStrategiesResponse> getGetStrategiesMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetStrategiesRequest,
+      shippingcalc.GetStrategiesResponse> getGetStrategiesMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetStrategies",
-      requestType = shippingcalc.ShippingcalcOuterClass.GetStrategiesRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.GetStrategiesResponse.class,
+      requestType = shippingcalc.GetStrategiesRequest.class,
+      responseType = shippingcalc.GetStrategiesResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetStrategiesRequest,
-      shippingcalc.ShippingcalcOuterClass.GetStrategiesResponse> getGetStrategiesMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetStrategiesRequest, shippingcalc.ShippingcalcOuterClass.GetStrategiesResponse> getGetStrategiesMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.GetStrategiesRequest,
+      shippingcalc.GetStrategiesResponse> getGetStrategiesMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetStrategiesRequest, shippingcalc.GetStrategiesResponse> getGetStrategiesMethod;
     if ((getGetStrategiesMethod = ShippingcalcGrpc.getGetStrategiesMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getGetStrategiesMethod = ShippingcalcGrpc.getGetStrategiesMethod) == null) {
           ShippingcalcGrpc.getGetStrategiesMethod = getGetStrategiesMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.GetStrategiesRequest, shippingcalc.ShippingcalcOuterClass.GetStrategiesResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.GetStrategiesRequest, shippingcalc.GetStrategiesResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetStrategies"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetStrategiesRequest.getDefaultInstance()))
+                  shippingcalc.GetStrategiesRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetStrategiesResponse.getDefaultInstance()))
+                  shippingcalc.GetStrategiesResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetStrategies"))
               .build();
         }
@@ -170,29 +170,29 @@ public final class ShippingcalcGrpc {
     return getGetStrategiesMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetStrategyRequest,
-      shippingcalc.ShippingcalcOuterClass.GetStrategyResponse> getGetStrategyMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetStrategyRequest,
+      shippingcalc.GetStrategyResponse> getGetStrategyMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetStrategy",
-      requestType = shippingcalc.ShippingcalcOuterClass.GetStrategyRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.GetStrategyResponse.class,
+      requestType = shippingcalc.GetStrategyRequest.class,
+      responseType = shippingcalc.GetStrategyResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetStrategyRequest,
-      shippingcalc.ShippingcalcOuterClass.GetStrategyResponse> getGetStrategyMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetStrategyRequest, shippingcalc.ShippingcalcOuterClass.GetStrategyResponse> getGetStrategyMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.GetStrategyRequest,
+      shippingcalc.GetStrategyResponse> getGetStrategyMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetStrategyRequest, shippingcalc.GetStrategyResponse> getGetStrategyMethod;
     if ((getGetStrategyMethod = ShippingcalcGrpc.getGetStrategyMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getGetStrategyMethod = ShippingcalcGrpc.getGetStrategyMethod) == null) {
           ShippingcalcGrpc.getGetStrategyMethod = getGetStrategyMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.GetStrategyRequest, shippingcalc.ShippingcalcOuterClass.GetStrategyResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.GetStrategyRequest, shippingcalc.GetStrategyResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetStrategy"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetStrategyRequest.getDefaultInstance()))
+                  shippingcalc.GetStrategyRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetStrategyResponse.getDefaultInstance()))
+                  shippingcalc.GetStrategyResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetStrategy"))
               .build();
         }
@@ -201,29 +201,29 @@ public final class ShippingcalcGrpc {
     return getGetStrategyMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreRequest,
-      shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreResponse> getGetStrategiesForStoreMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetStrategiesForStoreRequest,
+      shippingcalc.GetStrategiesForStoreResponse> getGetStrategiesForStoreMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetStrategiesForStore",
-      requestType = shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreResponse.class,
+      requestType = shippingcalc.GetStrategiesForStoreRequest.class,
+      responseType = shippingcalc.GetStrategiesForStoreResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreRequest,
-      shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreResponse> getGetStrategiesForStoreMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreRequest, shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreResponse> getGetStrategiesForStoreMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.GetStrategiesForStoreRequest,
+      shippingcalc.GetStrategiesForStoreResponse> getGetStrategiesForStoreMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetStrategiesForStoreRequest, shippingcalc.GetStrategiesForStoreResponse> getGetStrategiesForStoreMethod;
     if ((getGetStrategiesForStoreMethod = ShippingcalcGrpc.getGetStrategiesForStoreMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getGetStrategiesForStoreMethod = ShippingcalcGrpc.getGetStrategiesForStoreMethod) == null) {
           ShippingcalcGrpc.getGetStrategiesForStoreMethod = getGetStrategiesForStoreMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreRequest, shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.GetStrategiesForStoreRequest, shippingcalc.GetStrategiesForStoreResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetStrategiesForStore"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreRequest.getDefaultInstance()))
+                  shippingcalc.GetStrategiesForStoreRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreResponse.getDefaultInstance()))
+                  shippingcalc.GetStrategiesForStoreResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetStrategiesForStore"))
               .build();
         }
@@ -232,29 +232,29 @@ public final class ShippingcalcGrpc {
     return getGetStrategiesForStoreMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.DeleteStrategyRequest,
-      shippingcalc.ShippingcalcOuterClass.DeleteStrategyResponse> getDeleteStrategyMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.DeleteStrategyRequest,
+      shippingcalc.DeleteStrategyResponse> getDeleteStrategyMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "DeleteStrategy",
-      requestType = shippingcalc.ShippingcalcOuterClass.DeleteStrategyRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.DeleteStrategyResponse.class,
+      requestType = shippingcalc.DeleteStrategyRequest.class,
+      responseType = shippingcalc.DeleteStrategyResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.DeleteStrategyRequest,
-      shippingcalc.ShippingcalcOuterClass.DeleteStrategyResponse> getDeleteStrategyMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.DeleteStrategyRequest, shippingcalc.ShippingcalcOuterClass.DeleteStrategyResponse> getDeleteStrategyMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.DeleteStrategyRequest,
+      shippingcalc.DeleteStrategyResponse> getDeleteStrategyMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.DeleteStrategyRequest, shippingcalc.DeleteStrategyResponse> getDeleteStrategyMethod;
     if ((getDeleteStrategyMethod = ShippingcalcGrpc.getDeleteStrategyMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getDeleteStrategyMethod = ShippingcalcGrpc.getDeleteStrategyMethod) == null) {
           ShippingcalcGrpc.getDeleteStrategyMethod = getDeleteStrategyMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.DeleteStrategyRequest, shippingcalc.ShippingcalcOuterClass.DeleteStrategyResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.DeleteStrategyRequest, shippingcalc.DeleteStrategyResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteStrategy"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.DeleteStrategyRequest.getDefaultInstance()))
+                  shippingcalc.DeleteStrategyRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.DeleteStrategyResponse.getDefaultInstance()))
+                  shippingcalc.DeleteStrategyResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("DeleteStrategy"))
               .build();
         }
@@ -263,29 +263,29 @@ public final class ShippingcalcGrpc {
     return getDeleteStrategyMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.CreateScriptRequest,
-      shippingcalc.ShippingcalcOuterClass.CreateScriptResponse> getCreateScriptMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.CreateScriptRequest,
+      shippingcalc.CreateScriptResponse> getCreateScriptMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "CreateScript",
-      requestType = shippingcalc.ShippingcalcOuterClass.CreateScriptRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.CreateScriptResponse.class,
+      requestType = shippingcalc.CreateScriptRequest.class,
+      responseType = shippingcalc.CreateScriptResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.CreateScriptRequest,
-      shippingcalc.ShippingcalcOuterClass.CreateScriptResponse> getCreateScriptMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.CreateScriptRequest, shippingcalc.ShippingcalcOuterClass.CreateScriptResponse> getCreateScriptMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.CreateScriptRequest,
+      shippingcalc.CreateScriptResponse> getCreateScriptMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.CreateScriptRequest, shippingcalc.CreateScriptResponse> getCreateScriptMethod;
     if ((getCreateScriptMethod = ShippingcalcGrpc.getCreateScriptMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getCreateScriptMethod = ShippingcalcGrpc.getCreateScriptMethod) == null) {
           ShippingcalcGrpc.getCreateScriptMethod = getCreateScriptMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.CreateScriptRequest, shippingcalc.ShippingcalcOuterClass.CreateScriptResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.CreateScriptRequest, shippingcalc.CreateScriptResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CreateScript"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.CreateScriptRequest.getDefaultInstance()))
+                  shippingcalc.CreateScriptRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.CreateScriptResponse.getDefaultInstance()))
+                  shippingcalc.CreateScriptResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("CreateScript"))
               .build();
         }
@@ -294,29 +294,29 @@ public final class ShippingcalcGrpc {
     return getCreateScriptMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.UpdateScriptRequest,
-      shippingcalc.ShippingcalcOuterClass.UpdateScriptResponse> getUpdateScriptMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.UpdateScriptRequest,
+      shippingcalc.UpdateScriptResponse> getUpdateScriptMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "UpdateScript",
-      requestType = shippingcalc.ShippingcalcOuterClass.UpdateScriptRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.UpdateScriptResponse.class,
+      requestType = shippingcalc.UpdateScriptRequest.class,
+      responseType = shippingcalc.UpdateScriptResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.UpdateScriptRequest,
-      shippingcalc.ShippingcalcOuterClass.UpdateScriptResponse> getUpdateScriptMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.UpdateScriptRequest, shippingcalc.ShippingcalcOuterClass.UpdateScriptResponse> getUpdateScriptMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.UpdateScriptRequest,
+      shippingcalc.UpdateScriptResponse> getUpdateScriptMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.UpdateScriptRequest, shippingcalc.UpdateScriptResponse> getUpdateScriptMethod;
     if ((getUpdateScriptMethod = ShippingcalcGrpc.getUpdateScriptMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getUpdateScriptMethod = ShippingcalcGrpc.getUpdateScriptMethod) == null) {
           ShippingcalcGrpc.getUpdateScriptMethod = getUpdateScriptMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.UpdateScriptRequest, shippingcalc.ShippingcalcOuterClass.UpdateScriptResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.UpdateScriptRequest, shippingcalc.UpdateScriptResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateScript"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.UpdateScriptRequest.getDefaultInstance()))
+                  shippingcalc.UpdateScriptRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.UpdateScriptResponse.getDefaultInstance()))
+                  shippingcalc.UpdateScriptResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("UpdateScript"))
               .build();
         }
@@ -325,29 +325,29 @@ public final class ShippingcalcGrpc {
     return getUpdateScriptMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetScriptRequest,
-      shippingcalc.ShippingcalcOuterClass.GetScriptResponse> getGetScriptMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetScriptRequest,
+      shippingcalc.GetScriptResponse> getGetScriptMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetScript",
-      requestType = shippingcalc.ShippingcalcOuterClass.GetScriptRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.GetScriptResponse.class,
+      requestType = shippingcalc.GetScriptRequest.class,
+      responseType = shippingcalc.GetScriptResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetScriptRequest,
-      shippingcalc.ShippingcalcOuterClass.GetScriptResponse> getGetScriptMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetScriptRequest, shippingcalc.ShippingcalcOuterClass.GetScriptResponse> getGetScriptMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.GetScriptRequest,
+      shippingcalc.GetScriptResponse> getGetScriptMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetScriptRequest, shippingcalc.GetScriptResponse> getGetScriptMethod;
     if ((getGetScriptMethod = ShippingcalcGrpc.getGetScriptMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getGetScriptMethod = ShippingcalcGrpc.getGetScriptMethod) == null) {
           ShippingcalcGrpc.getGetScriptMethod = getGetScriptMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.GetScriptRequest, shippingcalc.ShippingcalcOuterClass.GetScriptResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.GetScriptRequest, shippingcalc.GetScriptResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetScript"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetScriptRequest.getDefaultInstance()))
+                  shippingcalc.GetScriptRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetScriptResponse.getDefaultInstance()))
+                  shippingcalc.GetScriptResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetScript"))
               .build();
         }
@@ -356,29 +356,29 @@ public final class ShippingcalcGrpc {
     return getGetScriptMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetScriptsRequest,
-      shippingcalc.ShippingcalcOuterClass.GetScriptsResponse> getGetScriptsMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetScriptsRequest,
+      shippingcalc.GetScriptsResponse> getGetScriptsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetScripts",
-      requestType = shippingcalc.ShippingcalcOuterClass.GetScriptsRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.GetScriptsResponse.class,
+      requestType = shippingcalc.GetScriptsRequest.class,
+      responseType = shippingcalc.GetScriptsResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetScriptsRequest,
-      shippingcalc.ShippingcalcOuterClass.GetScriptsResponse> getGetScriptsMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetScriptsRequest, shippingcalc.ShippingcalcOuterClass.GetScriptsResponse> getGetScriptsMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.GetScriptsRequest,
+      shippingcalc.GetScriptsResponse> getGetScriptsMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetScriptsRequest, shippingcalc.GetScriptsResponse> getGetScriptsMethod;
     if ((getGetScriptsMethod = ShippingcalcGrpc.getGetScriptsMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getGetScriptsMethod = ShippingcalcGrpc.getGetScriptsMethod) == null) {
           ShippingcalcGrpc.getGetScriptsMethod = getGetScriptsMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.GetScriptsRequest, shippingcalc.ShippingcalcOuterClass.GetScriptsResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.GetScriptsRequest, shippingcalc.GetScriptsResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetScripts"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetScriptsRequest.getDefaultInstance()))
+                  shippingcalc.GetScriptsRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetScriptsResponse.getDefaultInstance()))
+                  shippingcalc.GetScriptsResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetScripts"))
               .build();
         }
@@ -387,29 +387,29 @@ public final class ShippingcalcGrpc {
     return getGetScriptsMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsRequest,
-      shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsResponse> getGetScriptTestResultsMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetScriptTestResultsRequest,
+      shippingcalc.GetScriptTestResultsResponse> getGetScriptTestResultsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetScriptTestResults",
-      requestType = shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsResponse.class,
+      requestType = shippingcalc.GetScriptTestResultsRequest.class,
+      responseType = shippingcalc.GetScriptTestResultsResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsRequest,
-      shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsResponse> getGetScriptTestResultsMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsRequest, shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsResponse> getGetScriptTestResultsMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.GetScriptTestResultsRequest,
+      shippingcalc.GetScriptTestResultsResponse> getGetScriptTestResultsMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetScriptTestResultsRequest, shippingcalc.GetScriptTestResultsResponse> getGetScriptTestResultsMethod;
     if ((getGetScriptTestResultsMethod = ShippingcalcGrpc.getGetScriptTestResultsMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getGetScriptTestResultsMethod = ShippingcalcGrpc.getGetScriptTestResultsMethod) == null) {
           ShippingcalcGrpc.getGetScriptTestResultsMethod = getGetScriptTestResultsMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsRequest, shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.GetScriptTestResultsRequest, shippingcalc.GetScriptTestResultsResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetScriptTestResults"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsRequest.getDefaultInstance()))
+                  shippingcalc.GetScriptTestResultsRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsResponse.getDefaultInstance()))
+                  shippingcalc.GetScriptTestResultsResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetScriptTestResults"))
               .build();
         }
@@ -418,29 +418,29 @@ public final class ShippingcalcGrpc {
     return getGetScriptTestResultsMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.DeleteScriptRequest,
-      shippingcalc.ShippingcalcOuterClass.DeleteScriptResponse> getDeleteScriptMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.DeleteScriptRequest,
+      shippingcalc.DeleteScriptResponse> getDeleteScriptMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "DeleteScript",
-      requestType = shippingcalc.ShippingcalcOuterClass.DeleteScriptRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.DeleteScriptResponse.class,
+      requestType = shippingcalc.DeleteScriptRequest.class,
+      responseType = shippingcalc.DeleteScriptResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.DeleteScriptRequest,
-      shippingcalc.ShippingcalcOuterClass.DeleteScriptResponse> getDeleteScriptMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.DeleteScriptRequest, shippingcalc.ShippingcalcOuterClass.DeleteScriptResponse> getDeleteScriptMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.DeleteScriptRequest,
+      shippingcalc.DeleteScriptResponse> getDeleteScriptMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.DeleteScriptRequest, shippingcalc.DeleteScriptResponse> getDeleteScriptMethod;
     if ((getDeleteScriptMethod = ShippingcalcGrpc.getDeleteScriptMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getDeleteScriptMethod = ShippingcalcGrpc.getDeleteScriptMethod) == null) {
           ShippingcalcGrpc.getDeleteScriptMethod = getDeleteScriptMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.DeleteScriptRequest, shippingcalc.ShippingcalcOuterClass.DeleteScriptResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.DeleteScriptRequest, shippingcalc.DeleteScriptResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteScript"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.DeleteScriptRequest.getDefaultInstance()))
+                  shippingcalc.DeleteScriptRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.DeleteScriptResponse.getDefaultInstance()))
+                  shippingcalc.DeleteScriptResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("DeleteScript"))
               .build();
         }
@@ -449,29 +449,29 @@ public final class ShippingcalcGrpc {
     return getDeleteScriptMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceRequest,
-      shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceResponse> getGetDeliveryPriceMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetDeliveryPriceRequest,
+      shippingcalc.GetDeliveryPriceResponse> getGetDeliveryPriceMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetDeliveryPrice",
-      requestType = shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceResponse.class,
+      requestType = shippingcalc.GetDeliveryPriceRequest.class,
+      responseType = shippingcalc.GetDeliveryPriceResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceRequest,
-      shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceResponse> getGetDeliveryPriceMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceRequest, shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceResponse> getGetDeliveryPriceMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.GetDeliveryPriceRequest,
+      shippingcalc.GetDeliveryPriceResponse> getGetDeliveryPriceMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetDeliveryPriceRequest, shippingcalc.GetDeliveryPriceResponse> getGetDeliveryPriceMethod;
     if ((getGetDeliveryPriceMethod = ShippingcalcGrpc.getGetDeliveryPriceMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getGetDeliveryPriceMethod = ShippingcalcGrpc.getGetDeliveryPriceMethod) == null) {
           ShippingcalcGrpc.getGetDeliveryPriceMethod = getGetDeliveryPriceMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceRequest, shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.GetDeliveryPriceRequest, shippingcalc.GetDeliveryPriceResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetDeliveryPrice"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceRequest.getDefaultInstance()))
+                  shippingcalc.GetDeliveryPriceRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceResponse.getDefaultInstance()))
+                  shippingcalc.GetDeliveryPriceResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetDeliveryPrice"))
               .build();
         }
@@ -480,29 +480,29 @@ public final class ShippingcalcGrpc {
     return getGetDeliveryPriceMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeRequest,
-      shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeResponse> getSetIntervalsSurgeMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.SetIntervalsSurgeRequest,
+      shippingcalc.SetIntervalsSurgeResponse> getSetIntervalsSurgeMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "SetIntervalsSurge",
-      requestType = shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeResponse.class,
+      requestType = shippingcalc.SetIntervalsSurgeRequest.class,
+      responseType = shippingcalc.SetIntervalsSurgeResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeRequest,
-      shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeResponse> getSetIntervalsSurgeMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeRequest, shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeResponse> getSetIntervalsSurgeMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.SetIntervalsSurgeRequest,
+      shippingcalc.SetIntervalsSurgeResponse> getSetIntervalsSurgeMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.SetIntervalsSurgeRequest, shippingcalc.SetIntervalsSurgeResponse> getSetIntervalsSurgeMethod;
     if ((getSetIntervalsSurgeMethod = ShippingcalcGrpc.getSetIntervalsSurgeMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getSetIntervalsSurgeMethod = ShippingcalcGrpc.getSetIntervalsSurgeMethod) == null) {
           ShippingcalcGrpc.getSetIntervalsSurgeMethod = getSetIntervalsSurgeMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeRequest, shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.SetIntervalsSurgeRequest, shippingcalc.SetIntervalsSurgeResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetIntervalsSurge"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeRequest.getDefaultInstance()))
+                  shippingcalc.SetIntervalsSurgeRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeResponse.getDefaultInstance()))
+                  shippingcalc.SetIntervalsSurgeResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("SetIntervalsSurge"))
               .build();
         }
@@ -511,29 +511,29 @@ public final class ShippingcalcGrpc {
     return getSetIntervalsSurgeMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeRequest,
-      shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeResponse> getGetIntervalsSurgeMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetIntervalsSurgeRequest,
+      shippingcalc.GetIntervalsSurgeResponse> getGetIntervalsSurgeMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetIntervalsSurge",
-      requestType = shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeResponse.class,
+      requestType = shippingcalc.GetIntervalsSurgeRequest.class,
+      responseType = shippingcalc.GetIntervalsSurgeResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeRequest,
-      shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeResponse> getGetIntervalsSurgeMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeRequest, shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeResponse> getGetIntervalsSurgeMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.GetIntervalsSurgeRequest,
+      shippingcalc.GetIntervalsSurgeResponse> getGetIntervalsSurgeMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetIntervalsSurgeRequest, shippingcalc.GetIntervalsSurgeResponse> getGetIntervalsSurgeMethod;
     if ((getGetIntervalsSurgeMethod = ShippingcalcGrpc.getGetIntervalsSurgeMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getGetIntervalsSurgeMethod = ShippingcalcGrpc.getGetIntervalsSurgeMethod) == null) {
           ShippingcalcGrpc.getGetIntervalsSurgeMethod = getGetIntervalsSurgeMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeRequest, shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.GetIntervalsSurgeRequest, shippingcalc.GetIntervalsSurgeResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetIntervalsSurge"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeRequest.getDefaultInstance()))
+                  shippingcalc.GetIntervalsSurgeRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeResponse.getDefaultInstance()))
+                  shippingcalc.GetIntervalsSurgeResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetIntervalsSurge"))
               .build();
         }
@@ -542,29 +542,29 @@ public final class ShippingcalcGrpc {
     return getGetIntervalsSurgeMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsRequest,
-      shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsResponse> getSetSwitchbackExperimentsMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.SetSwitchbackExperimentsRequest,
+      shippingcalc.SetSwitchbackExperimentsResponse> getSetSwitchbackExperimentsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "SetSwitchbackExperiments",
-      requestType = shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsResponse.class,
+      requestType = shippingcalc.SetSwitchbackExperimentsRequest.class,
+      responseType = shippingcalc.SetSwitchbackExperimentsResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsRequest,
-      shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsResponse> getSetSwitchbackExperimentsMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsRequest, shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsResponse> getSetSwitchbackExperimentsMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.SetSwitchbackExperimentsRequest,
+      shippingcalc.SetSwitchbackExperimentsResponse> getSetSwitchbackExperimentsMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.SetSwitchbackExperimentsRequest, shippingcalc.SetSwitchbackExperimentsResponse> getSetSwitchbackExperimentsMethod;
     if ((getSetSwitchbackExperimentsMethod = ShippingcalcGrpc.getSetSwitchbackExperimentsMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getSetSwitchbackExperimentsMethod = ShippingcalcGrpc.getSetSwitchbackExperimentsMethod) == null) {
           ShippingcalcGrpc.getSetSwitchbackExperimentsMethod = getSetSwitchbackExperimentsMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsRequest, shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.SetSwitchbackExperimentsRequest, shippingcalc.SetSwitchbackExperimentsResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetSwitchbackExperiments"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsRequest.getDefaultInstance()))
+                  shippingcalc.SetSwitchbackExperimentsRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsResponse.getDefaultInstance()))
+                  shippingcalc.SetSwitchbackExperimentsResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("SetSwitchbackExperiments"))
               .build();
         }
@@ -573,29 +573,29 @@ public final class ShippingcalcGrpc {
     return getSetSwitchbackExperimentsMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest,
-      shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse> getGetSwitchbackExperimentsMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetSwitchbackExperimentsRequest,
+      shippingcalc.GetSwitchbackExperimentsResponse> getGetSwitchbackExperimentsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetSwitchbackExperiments",
-      requestType = shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse.class,
+      requestType = shippingcalc.GetSwitchbackExperimentsRequest.class,
+      responseType = shippingcalc.GetSwitchbackExperimentsResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest,
-      shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse> getGetSwitchbackExperimentsMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest, shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse> getGetSwitchbackExperimentsMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.GetSwitchbackExperimentsRequest,
+      shippingcalc.GetSwitchbackExperimentsResponse> getGetSwitchbackExperimentsMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetSwitchbackExperimentsRequest, shippingcalc.GetSwitchbackExperimentsResponse> getGetSwitchbackExperimentsMethod;
     if ((getGetSwitchbackExperimentsMethod = ShippingcalcGrpc.getGetSwitchbackExperimentsMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getGetSwitchbackExperimentsMethod = ShippingcalcGrpc.getGetSwitchbackExperimentsMethod) == null) {
           ShippingcalcGrpc.getGetSwitchbackExperimentsMethod = getGetSwitchbackExperimentsMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest, shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.GetSwitchbackExperimentsRequest, shippingcalc.GetSwitchbackExperimentsResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetSwitchbackExperiments"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest.getDefaultInstance()))
+                  shippingcalc.GetSwitchbackExperimentsRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse.getDefaultInstance()))
+                  shippingcalc.GetSwitchbackExperimentsResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetSwitchbackExperiments"))
               .build();
         }
@@ -604,35 +604,66 @@ public final class ShippingcalcGrpc {
     return getGetSwitchbackExperimentsMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest,
-      shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse> getGetMinCartAmountsMethod;
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetMinCartAmountsRequest,
+      shippingcalc.GetMinCartAmountsResponse> getGetMinCartAmountsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetMinCartAmounts",
-      requestType = shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest.class,
-      responseType = shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse.class,
+      requestType = shippingcalc.GetMinCartAmountsRequest.class,
+      responseType = shippingcalc.GetMinCartAmountsResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest,
-      shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse> getGetMinCartAmountsMethod() {
-    io.grpc.MethodDescriptor<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest, shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse> getGetMinCartAmountsMethod;
+  public static io.grpc.MethodDescriptor<shippingcalc.GetMinCartAmountsRequest,
+      shippingcalc.GetMinCartAmountsResponse> getGetMinCartAmountsMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetMinCartAmountsRequest, shippingcalc.GetMinCartAmountsResponse> getGetMinCartAmountsMethod;
     if ((getGetMinCartAmountsMethod = ShippingcalcGrpc.getGetMinCartAmountsMethod) == null) {
       synchronized (ShippingcalcGrpc.class) {
         if ((getGetMinCartAmountsMethod = ShippingcalcGrpc.getGetMinCartAmountsMethod) == null) {
           ShippingcalcGrpc.getGetMinCartAmountsMethod = getGetMinCartAmountsMethod =
-              io.grpc.MethodDescriptor.<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest, shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse>newBuilder()
+              io.grpc.MethodDescriptor.<shippingcalc.GetMinCartAmountsRequest, shippingcalc.GetMinCartAmountsResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetMinCartAmounts"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest.getDefaultInstance()))
+                  shippingcalc.GetMinCartAmountsRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse.getDefaultInstance()))
+                  shippingcalc.GetMinCartAmountsResponse.getDefaultInstance()))
               .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetMinCartAmounts"))
               .build();
         }
       }
     }
     return getGetMinCartAmountsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetDeliveryConditionsRequest,
+      shippingcalc.GetDeliveryConditionsResponse> getGetDeliveryConditionsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetDeliveryConditions",
+      requestType = shippingcalc.GetDeliveryConditionsRequest.class,
+      responseType = shippingcalc.GetDeliveryConditionsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shippingcalc.GetDeliveryConditionsRequest,
+      shippingcalc.GetDeliveryConditionsResponse> getGetDeliveryConditionsMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetDeliveryConditionsRequest, shippingcalc.GetDeliveryConditionsResponse> getGetDeliveryConditionsMethod;
+    if ((getGetDeliveryConditionsMethod = ShippingcalcGrpc.getGetDeliveryConditionsMethod) == null) {
+      synchronized (ShippingcalcGrpc.class) {
+        if ((getGetDeliveryConditionsMethod = ShippingcalcGrpc.getGetDeliveryConditionsMethod) == null) {
+          ShippingcalcGrpc.getGetDeliveryConditionsMethod = getGetDeliveryConditionsMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.GetDeliveryConditionsRequest, shippingcalc.GetDeliveryConditionsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetDeliveryConditions"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.GetDeliveryConditionsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.GetDeliveryConditionsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetDeliveryConditions"))
+              .build();
+        }
+      }
+    }
+    return getGetDeliveryConditionsMethod;
   }
 
   /**
@@ -688,8 +719,8 @@ public final class ShippingcalcGrpc {
      * Создать стратегию
      * </pre>
      */
-    public void createStrategy(shippingcalc.ShippingcalcOuterClass.CreateStrategyRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.CreateStrategyResponse> responseObserver) {
+    public void createStrategy(shippingcalc.CreateStrategyRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.CreateStrategyResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreateStrategyMethod(), responseObserver);
     }
 
@@ -698,8 +729,8 @@ public final class ShippingcalcGrpc {
      * Обновить стратегию
      * </pre>
      */
-    public void updateStrategy(shippingcalc.ShippingcalcOuterClass.UpdateStrategyRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.UpdateStrategyResponse> responseObserver) {
+    public void updateStrategy(shippingcalc.UpdateStrategyRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.UpdateStrategyResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateStrategyMethod(), responseObserver);
     }
 
@@ -708,8 +739,8 @@ public final class ShippingcalcGrpc {
      * Прикрепить стратегию к магазину
      * </pre>
      */
-    public void bindStrategy(shippingcalc.ShippingcalcOuterClass.BindStrategyRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.BindStrategyResponse> responseObserver) {
+    public void bindStrategy(shippingcalc.BindStrategyRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.BindStrategyResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getBindStrategyMethod(), responseObserver);
     }
 
@@ -718,8 +749,8 @@ public final class ShippingcalcGrpc {
      * Открепить стратегию от магазина
      * </pre>
      */
-    public void unbindStrategy(shippingcalc.ShippingcalcOuterClass.UnbindStrategyRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.UnbindStrategyResponse> responseObserver) {
+    public void unbindStrategy(shippingcalc.UnbindStrategyRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.UnbindStrategyResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUnbindStrategyMethod(), responseObserver);
     }
 
@@ -728,8 +759,8 @@ public final class ShippingcalcGrpc {
      * Получить все существующие стратегии
      * </pre>
      */
-    public void getStrategies(shippingcalc.ShippingcalcOuterClass.GetStrategiesRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetStrategiesResponse> responseObserver) {
+    public void getStrategies(shippingcalc.GetStrategiesRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetStrategiesResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetStrategiesMethod(), responseObserver);
     }
 
@@ -738,8 +769,8 @@ public final class ShippingcalcGrpc {
      * Получить стратегию по идентификатору
      * </pre>
      */
-    public void getStrategy(shippingcalc.ShippingcalcOuterClass.GetStrategyRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetStrategyResponse> responseObserver) {
+    public void getStrategy(shippingcalc.GetStrategyRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetStrategyResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetStrategyMethod(), responseObserver);
     }
 
@@ -748,8 +779,8 @@ public final class ShippingcalcGrpc {
      * Получить стратегии для магазина
      * </pre>
      */
-    public void getStrategiesForStore(shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreResponse> responseObserver) {
+    public void getStrategiesForStore(shippingcalc.GetStrategiesForStoreRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetStrategiesForStoreResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetStrategiesForStoreMethod(), responseObserver);
     }
 
@@ -758,8 +789,8 @@ public final class ShippingcalcGrpc {
      * Удалить стратегию по идентификатору
      * </pre>
      */
-    public void deleteStrategy(shippingcalc.ShippingcalcOuterClass.DeleteStrategyRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.DeleteStrategyResponse> responseObserver) {
+    public void deleteStrategy(shippingcalc.DeleteStrategyRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.DeleteStrategyResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteStrategyMethod(), responseObserver);
     }
 
@@ -768,8 +799,8 @@ public final class ShippingcalcGrpc {
      * Создать скрипт
      * </pre>
      */
-    public void createScript(shippingcalc.ShippingcalcOuterClass.CreateScriptRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.CreateScriptResponse> responseObserver) {
+    public void createScript(shippingcalc.CreateScriptRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.CreateScriptResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreateScriptMethod(), responseObserver);
     }
 
@@ -778,8 +809,8 @@ public final class ShippingcalcGrpc {
      * Обновить скрипт
      * </pre>
      */
-    public void updateScript(shippingcalc.ShippingcalcOuterClass.UpdateScriptRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.UpdateScriptResponse> responseObserver) {
+    public void updateScript(shippingcalc.UpdateScriptRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.UpdateScriptResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateScriptMethod(), responseObserver);
     }
 
@@ -788,8 +819,8 @@ public final class ShippingcalcGrpc {
      * Получить скрипт по идентификатору
      * </pre>
      */
-    public void getScript(shippingcalc.ShippingcalcOuterClass.GetScriptRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetScriptResponse> responseObserver) {
+    public void getScript(shippingcalc.GetScriptRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetScriptResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetScriptMethod(), responseObserver);
     }
 
@@ -798,8 +829,8 @@ public final class ShippingcalcGrpc {
      * Получить все существующие скрипты
      * </pre>
      */
-    public void getScripts(shippingcalc.ShippingcalcOuterClass.GetScriptsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetScriptsResponse> responseObserver) {
+    public void getScripts(shippingcalc.GetScriptsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetScriptsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetScriptsMethod(), responseObserver);
     }
 
@@ -808,8 +839,8 @@ public final class ShippingcalcGrpc {
      * Получить результаты теста скрипта
      * </pre>
      */
-    public void getScriptTestResults(shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsResponse> responseObserver) {
+    public void getScriptTestResults(shippingcalc.GetScriptTestResultsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetScriptTestResultsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetScriptTestResultsMethod(), responseObserver);
     }
 
@@ -818,8 +849,8 @@ public final class ShippingcalcGrpc {
      * Удалить скрипт по идентификатору
      * </pre>
      */
-    public void deleteScript(shippingcalc.ShippingcalcOuterClass.DeleteScriptRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.DeleteScriptResponse> responseObserver) {
+    public void deleteScript(shippingcalc.DeleteScriptRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.DeleteScriptResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteScriptMethod(), responseObserver);
     }
 
@@ -828,8 +859,8 @@ public final class ShippingcalcGrpc {
      * Получить стоимость доставки
      * </pre>
      */
-    public void getDeliveryPrice(shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceResponse> responseObserver) {
+    public void getDeliveryPrice(shippingcalc.GetDeliveryPriceRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetDeliveryPriceResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetDeliveryPriceMethod(), responseObserver);
     }
 
@@ -838,8 +869,8 @@ public final class ShippingcalcGrpc {
      * Установить сразу все интервалы surge
      * </pre>
      */
-    public void setIntervalsSurge(shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeResponse> responseObserver) {
+    public void setIntervalsSurge(shippingcalc.SetIntervalsSurgeRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.SetIntervalsSurgeResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetIntervalsSurgeMethod(), responseObserver);
     }
 
@@ -848,8 +879,8 @@ public final class ShippingcalcGrpc {
      * Получить все интервалы surge
      * </pre>
      */
-    public void getIntervalsSurge(shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeResponse> responseObserver) {
+    public void getIntervalsSurge(shippingcalc.GetIntervalsSurgeRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetIntervalsSurgeResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetIntervalsSurgeMethod(), responseObserver);
     }
 
@@ -858,8 +889,8 @@ public final class ShippingcalcGrpc {
      * Установить сразу все интервалы switchback experiments for surge
      * </pre>
      */
-    public void setSwitchbackExperiments(shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsResponse> responseObserver) {
+    public void setSwitchbackExperiments(shippingcalc.SetSwitchbackExperimentsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.SetSwitchbackExperimentsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetSwitchbackExperimentsMethod(), responseObserver);
     }
 
@@ -868,8 +899,8 @@ public final class ShippingcalcGrpc {
      * Получить все интервалы switchback experiments for surge
      * </pre>
      */
-    public void getSwitchbackExperiments(shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse> responseObserver) {
+    public void getSwitchbackExperiments(shippingcalc.GetSwitchbackExperimentsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetSwitchbackExperimentsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetSwitchbackExperimentsMethod(), responseObserver);
     }
 
@@ -878,9 +909,19 @@ public final class ShippingcalcGrpc {
      * Получить минимальные корзины по списку
      * </pre>
      */
-    public void getMinCartAmounts(shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse> responseObserver) {
+    public void getMinCartAmounts(shippingcalc.GetMinCartAmountsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetMinCartAmountsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetMinCartAmountsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Наиболее выгодные условия доставки для магазинов
+     * </pre>
+     */
+    public void getDeliveryConditions(shippingcalc.GetDeliveryConditionsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetDeliveryConditionsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetDeliveryConditionsMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -889,142 +930,149 @@ public final class ShippingcalcGrpc {
             getCreateStrategyMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.CreateStrategyRequest,
-                shippingcalc.ShippingcalcOuterClass.CreateStrategyResponse>(
+                shippingcalc.CreateStrategyRequest,
+                shippingcalc.CreateStrategyResponse>(
                   this, METHODID_CREATE_STRATEGY)))
           .addMethod(
             getUpdateStrategyMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.UpdateStrategyRequest,
-                shippingcalc.ShippingcalcOuterClass.UpdateStrategyResponse>(
+                shippingcalc.UpdateStrategyRequest,
+                shippingcalc.UpdateStrategyResponse>(
                   this, METHODID_UPDATE_STRATEGY)))
           .addMethod(
             getBindStrategyMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.BindStrategyRequest,
-                shippingcalc.ShippingcalcOuterClass.BindStrategyResponse>(
+                shippingcalc.BindStrategyRequest,
+                shippingcalc.BindStrategyResponse>(
                   this, METHODID_BIND_STRATEGY)))
           .addMethod(
             getUnbindStrategyMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.UnbindStrategyRequest,
-                shippingcalc.ShippingcalcOuterClass.UnbindStrategyResponse>(
+                shippingcalc.UnbindStrategyRequest,
+                shippingcalc.UnbindStrategyResponse>(
                   this, METHODID_UNBIND_STRATEGY)))
           .addMethod(
             getGetStrategiesMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.GetStrategiesRequest,
-                shippingcalc.ShippingcalcOuterClass.GetStrategiesResponse>(
+                shippingcalc.GetStrategiesRequest,
+                shippingcalc.GetStrategiesResponse>(
                   this, METHODID_GET_STRATEGIES)))
           .addMethod(
             getGetStrategyMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.GetStrategyRequest,
-                shippingcalc.ShippingcalcOuterClass.GetStrategyResponse>(
+                shippingcalc.GetStrategyRequest,
+                shippingcalc.GetStrategyResponse>(
                   this, METHODID_GET_STRATEGY)))
           .addMethod(
             getGetStrategiesForStoreMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreRequest,
-                shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreResponse>(
+                shippingcalc.GetStrategiesForStoreRequest,
+                shippingcalc.GetStrategiesForStoreResponse>(
                   this, METHODID_GET_STRATEGIES_FOR_STORE)))
           .addMethod(
             getDeleteStrategyMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.DeleteStrategyRequest,
-                shippingcalc.ShippingcalcOuterClass.DeleteStrategyResponse>(
+                shippingcalc.DeleteStrategyRequest,
+                shippingcalc.DeleteStrategyResponse>(
                   this, METHODID_DELETE_STRATEGY)))
           .addMethod(
             getCreateScriptMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.CreateScriptRequest,
-                shippingcalc.ShippingcalcOuterClass.CreateScriptResponse>(
+                shippingcalc.CreateScriptRequest,
+                shippingcalc.CreateScriptResponse>(
                   this, METHODID_CREATE_SCRIPT)))
           .addMethod(
             getUpdateScriptMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.UpdateScriptRequest,
-                shippingcalc.ShippingcalcOuterClass.UpdateScriptResponse>(
+                shippingcalc.UpdateScriptRequest,
+                shippingcalc.UpdateScriptResponse>(
                   this, METHODID_UPDATE_SCRIPT)))
           .addMethod(
             getGetScriptMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.GetScriptRequest,
-                shippingcalc.ShippingcalcOuterClass.GetScriptResponse>(
+                shippingcalc.GetScriptRequest,
+                shippingcalc.GetScriptResponse>(
                   this, METHODID_GET_SCRIPT)))
           .addMethod(
             getGetScriptsMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.GetScriptsRequest,
-                shippingcalc.ShippingcalcOuterClass.GetScriptsResponse>(
+                shippingcalc.GetScriptsRequest,
+                shippingcalc.GetScriptsResponse>(
                   this, METHODID_GET_SCRIPTS)))
           .addMethod(
             getGetScriptTestResultsMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsRequest,
-                shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsResponse>(
+                shippingcalc.GetScriptTestResultsRequest,
+                shippingcalc.GetScriptTestResultsResponse>(
                   this, METHODID_GET_SCRIPT_TEST_RESULTS)))
           .addMethod(
             getDeleteScriptMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.DeleteScriptRequest,
-                shippingcalc.ShippingcalcOuterClass.DeleteScriptResponse>(
+                shippingcalc.DeleteScriptRequest,
+                shippingcalc.DeleteScriptResponse>(
                   this, METHODID_DELETE_SCRIPT)))
           .addMethod(
             getGetDeliveryPriceMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceRequest,
-                shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceResponse>(
+                shippingcalc.GetDeliveryPriceRequest,
+                shippingcalc.GetDeliveryPriceResponse>(
                   this, METHODID_GET_DELIVERY_PRICE)))
           .addMethod(
             getSetIntervalsSurgeMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeRequest,
-                shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeResponse>(
+                shippingcalc.SetIntervalsSurgeRequest,
+                shippingcalc.SetIntervalsSurgeResponse>(
                   this, METHODID_SET_INTERVALS_SURGE)))
           .addMethod(
             getGetIntervalsSurgeMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeRequest,
-                shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeResponse>(
+                shippingcalc.GetIntervalsSurgeRequest,
+                shippingcalc.GetIntervalsSurgeResponse>(
                   this, METHODID_GET_INTERVALS_SURGE)))
           .addMethod(
             getSetSwitchbackExperimentsMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsRequest,
-                shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsResponse>(
+                shippingcalc.SetSwitchbackExperimentsRequest,
+                shippingcalc.SetSwitchbackExperimentsResponse>(
                   this, METHODID_SET_SWITCHBACK_EXPERIMENTS)))
           .addMethod(
             getGetSwitchbackExperimentsMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest,
-                shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse>(
+                shippingcalc.GetSwitchbackExperimentsRequest,
+                shippingcalc.GetSwitchbackExperimentsResponse>(
                   this, METHODID_GET_SWITCHBACK_EXPERIMENTS)))
           .addMethod(
             getGetMinCartAmountsMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest,
-                shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse>(
+                shippingcalc.GetMinCartAmountsRequest,
+                shippingcalc.GetMinCartAmountsResponse>(
                   this, METHODID_GET_MIN_CART_AMOUNTS)))
+          .addMethod(
+            getGetDeliveryConditionsMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shippingcalc.GetDeliveryConditionsRequest,
+                shippingcalc.GetDeliveryConditionsResponse>(
+                  this, METHODID_GET_DELIVERY_CONDITIONS)))
           .build();
     }
   }
@@ -1048,8 +1096,8 @@ public final class ShippingcalcGrpc {
      * Создать стратегию
      * </pre>
      */
-    public void createStrategy(shippingcalc.ShippingcalcOuterClass.CreateStrategyRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.CreateStrategyResponse> responseObserver) {
+    public void createStrategy(shippingcalc.CreateStrategyRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.CreateStrategyResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getCreateStrategyMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1059,8 +1107,8 @@ public final class ShippingcalcGrpc {
      * Обновить стратегию
      * </pre>
      */
-    public void updateStrategy(shippingcalc.ShippingcalcOuterClass.UpdateStrategyRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.UpdateStrategyResponse> responseObserver) {
+    public void updateStrategy(shippingcalc.UpdateStrategyRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.UpdateStrategyResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getUpdateStrategyMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1070,8 +1118,8 @@ public final class ShippingcalcGrpc {
      * Прикрепить стратегию к магазину
      * </pre>
      */
-    public void bindStrategy(shippingcalc.ShippingcalcOuterClass.BindStrategyRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.BindStrategyResponse> responseObserver) {
+    public void bindStrategy(shippingcalc.BindStrategyRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.BindStrategyResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getBindStrategyMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1081,8 +1129,8 @@ public final class ShippingcalcGrpc {
      * Открепить стратегию от магазина
      * </pre>
      */
-    public void unbindStrategy(shippingcalc.ShippingcalcOuterClass.UnbindStrategyRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.UnbindStrategyResponse> responseObserver) {
+    public void unbindStrategy(shippingcalc.UnbindStrategyRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.UnbindStrategyResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getUnbindStrategyMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1092,8 +1140,8 @@ public final class ShippingcalcGrpc {
      * Получить все существующие стратегии
      * </pre>
      */
-    public void getStrategies(shippingcalc.ShippingcalcOuterClass.GetStrategiesRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetStrategiesResponse> responseObserver) {
+    public void getStrategies(shippingcalc.GetStrategiesRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetStrategiesResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetStrategiesMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1103,8 +1151,8 @@ public final class ShippingcalcGrpc {
      * Получить стратегию по идентификатору
      * </pre>
      */
-    public void getStrategy(shippingcalc.ShippingcalcOuterClass.GetStrategyRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetStrategyResponse> responseObserver) {
+    public void getStrategy(shippingcalc.GetStrategyRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetStrategyResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetStrategyMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1114,8 +1162,8 @@ public final class ShippingcalcGrpc {
      * Получить стратегии для магазина
      * </pre>
      */
-    public void getStrategiesForStore(shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreResponse> responseObserver) {
+    public void getStrategiesForStore(shippingcalc.GetStrategiesForStoreRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetStrategiesForStoreResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetStrategiesForStoreMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1125,8 +1173,8 @@ public final class ShippingcalcGrpc {
      * Удалить стратегию по идентификатору
      * </pre>
      */
-    public void deleteStrategy(shippingcalc.ShippingcalcOuterClass.DeleteStrategyRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.DeleteStrategyResponse> responseObserver) {
+    public void deleteStrategy(shippingcalc.DeleteStrategyRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.DeleteStrategyResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getDeleteStrategyMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1136,8 +1184,8 @@ public final class ShippingcalcGrpc {
      * Создать скрипт
      * </pre>
      */
-    public void createScript(shippingcalc.ShippingcalcOuterClass.CreateScriptRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.CreateScriptResponse> responseObserver) {
+    public void createScript(shippingcalc.CreateScriptRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.CreateScriptResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getCreateScriptMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1147,8 +1195,8 @@ public final class ShippingcalcGrpc {
      * Обновить скрипт
      * </pre>
      */
-    public void updateScript(shippingcalc.ShippingcalcOuterClass.UpdateScriptRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.UpdateScriptResponse> responseObserver) {
+    public void updateScript(shippingcalc.UpdateScriptRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.UpdateScriptResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getUpdateScriptMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1158,8 +1206,8 @@ public final class ShippingcalcGrpc {
      * Получить скрипт по идентификатору
      * </pre>
      */
-    public void getScript(shippingcalc.ShippingcalcOuterClass.GetScriptRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetScriptResponse> responseObserver) {
+    public void getScript(shippingcalc.GetScriptRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetScriptResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetScriptMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1169,8 +1217,8 @@ public final class ShippingcalcGrpc {
      * Получить все существующие скрипты
      * </pre>
      */
-    public void getScripts(shippingcalc.ShippingcalcOuterClass.GetScriptsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetScriptsResponse> responseObserver) {
+    public void getScripts(shippingcalc.GetScriptsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetScriptsResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetScriptsMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1180,8 +1228,8 @@ public final class ShippingcalcGrpc {
      * Получить результаты теста скрипта
      * </pre>
      */
-    public void getScriptTestResults(shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsResponse> responseObserver) {
+    public void getScriptTestResults(shippingcalc.GetScriptTestResultsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetScriptTestResultsResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetScriptTestResultsMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1191,8 +1239,8 @@ public final class ShippingcalcGrpc {
      * Удалить скрипт по идентификатору
      * </pre>
      */
-    public void deleteScript(shippingcalc.ShippingcalcOuterClass.DeleteScriptRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.DeleteScriptResponse> responseObserver) {
+    public void deleteScript(shippingcalc.DeleteScriptRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.DeleteScriptResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getDeleteScriptMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1202,8 +1250,8 @@ public final class ShippingcalcGrpc {
      * Получить стоимость доставки
      * </pre>
      */
-    public void getDeliveryPrice(shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceResponse> responseObserver) {
+    public void getDeliveryPrice(shippingcalc.GetDeliveryPriceRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetDeliveryPriceResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetDeliveryPriceMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1213,8 +1261,8 @@ public final class ShippingcalcGrpc {
      * Установить сразу все интервалы surge
      * </pre>
      */
-    public void setIntervalsSurge(shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeResponse> responseObserver) {
+    public void setIntervalsSurge(shippingcalc.SetIntervalsSurgeRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.SetIntervalsSurgeResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getSetIntervalsSurgeMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1224,8 +1272,8 @@ public final class ShippingcalcGrpc {
      * Получить все интервалы surge
      * </pre>
      */
-    public void getIntervalsSurge(shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeResponse> responseObserver) {
+    public void getIntervalsSurge(shippingcalc.GetIntervalsSurgeRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetIntervalsSurgeResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetIntervalsSurgeMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1235,8 +1283,8 @@ public final class ShippingcalcGrpc {
      * Установить сразу все интервалы switchback experiments for surge
      * </pre>
      */
-    public void setSwitchbackExperiments(shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsResponse> responseObserver) {
+    public void setSwitchbackExperiments(shippingcalc.SetSwitchbackExperimentsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.SetSwitchbackExperimentsResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getSetSwitchbackExperimentsMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1246,8 +1294,8 @@ public final class ShippingcalcGrpc {
      * Получить все интервалы switchback experiments for surge
      * </pre>
      */
-    public void getSwitchbackExperiments(shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse> responseObserver) {
+    public void getSwitchbackExperiments(shippingcalc.GetSwitchbackExperimentsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetSwitchbackExperimentsResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetSwitchbackExperimentsMethod(), getCallOptions()), request, responseObserver);
     }
@@ -1257,10 +1305,21 @@ public final class ShippingcalcGrpc {
      * Получить минимальные корзины по списку
      * </pre>
      */
-    public void getMinCartAmounts(shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest request,
-        io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse> responseObserver) {
+    public void getMinCartAmounts(shippingcalc.GetMinCartAmountsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetMinCartAmountsResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetMinCartAmountsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Наиболее выгодные условия доставки для магазинов
+     * </pre>
+     */
+    public void getDeliveryConditions(shippingcalc.GetDeliveryConditionsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetDeliveryConditionsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetDeliveryConditionsMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -1283,7 +1342,7 @@ public final class ShippingcalcGrpc {
      * Создать стратегию
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.CreateStrategyResponse createStrategy(shippingcalc.ShippingcalcOuterClass.CreateStrategyRequest request) {
+    public shippingcalc.CreateStrategyResponse createStrategy(shippingcalc.CreateStrategyRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getCreateStrategyMethod(), getCallOptions(), request);
     }
@@ -1293,7 +1352,7 @@ public final class ShippingcalcGrpc {
      * Обновить стратегию
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.UpdateStrategyResponse updateStrategy(shippingcalc.ShippingcalcOuterClass.UpdateStrategyRequest request) {
+    public shippingcalc.UpdateStrategyResponse updateStrategy(shippingcalc.UpdateStrategyRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getUpdateStrategyMethod(), getCallOptions(), request);
     }
@@ -1303,7 +1362,7 @@ public final class ShippingcalcGrpc {
      * Прикрепить стратегию к магазину
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.BindStrategyResponse bindStrategy(shippingcalc.ShippingcalcOuterClass.BindStrategyRequest request) {
+    public shippingcalc.BindStrategyResponse bindStrategy(shippingcalc.BindStrategyRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getBindStrategyMethod(), getCallOptions(), request);
     }
@@ -1313,7 +1372,7 @@ public final class ShippingcalcGrpc {
      * Открепить стратегию от магазина
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.UnbindStrategyResponse unbindStrategy(shippingcalc.ShippingcalcOuterClass.UnbindStrategyRequest request) {
+    public shippingcalc.UnbindStrategyResponse unbindStrategy(shippingcalc.UnbindStrategyRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getUnbindStrategyMethod(), getCallOptions(), request);
     }
@@ -1323,7 +1382,7 @@ public final class ShippingcalcGrpc {
      * Получить все существующие стратегии
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.GetStrategiesResponse getStrategies(shippingcalc.ShippingcalcOuterClass.GetStrategiesRequest request) {
+    public shippingcalc.GetStrategiesResponse getStrategies(shippingcalc.GetStrategiesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetStrategiesMethod(), getCallOptions(), request);
     }
@@ -1333,7 +1392,7 @@ public final class ShippingcalcGrpc {
      * Получить стратегию по идентификатору
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.GetStrategyResponse getStrategy(shippingcalc.ShippingcalcOuterClass.GetStrategyRequest request) {
+    public shippingcalc.GetStrategyResponse getStrategy(shippingcalc.GetStrategyRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetStrategyMethod(), getCallOptions(), request);
     }
@@ -1343,7 +1402,7 @@ public final class ShippingcalcGrpc {
      * Получить стратегии для магазина
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreResponse getStrategiesForStore(shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreRequest request) {
+    public shippingcalc.GetStrategiesForStoreResponse getStrategiesForStore(shippingcalc.GetStrategiesForStoreRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetStrategiesForStoreMethod(), getCallOptions(), request);
     }
@@ -1353,7 +1412,7 @@ public final class ShippingcalcGrpc {
      * Удалить стратегию по идентификатору
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.DeleteStrategyResponse deleteStrategy(shippingcalc.ShippingcalcOuterClass.DeleteStrategyRequest request) {
+    public shippingcalc.DeleteStrategyResponse deleteStrategy(shippingcalc.DeleteStrategyRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getDeleteStrategyMethod(), getCallOptions(), request);
     }
@@ -1363,7 +1422,7 @@ public final class ShippingcalcGrpc {
      * Создать скрипт
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.CreateScriptResponse createScript(shippingcalc.ShippingcalcOuterClass.CreateScriptRequest request) {
+    public shippingcalc.CreateScriptResponse createScript(shippingcalc.CreateScriptRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getCreateScriptMethod(), getCallOptions(), request);
     }
@@ -1373,7 +1432,7 @@ public final class ShippingcalcGrpc {
      * Обновить скрипт
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.UpdateScriptResponse updateScript(shippingcalc.ShippingcalcOuterClass.UpdateScriptRequest request) {
+    public shippingcalc.UpdateScriptResponse updateScript(shippingcalc.UpdateScriptRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getUpdateScriptMethod(), getCallOptions(), request);
     }
@@ -1383,7 +1442,7 @@ public final class ShippingcalcGrpc {
      * Получить скрипт по идентификатору
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.GetScriptResponse getScript(shippingcalc.ShippingcalcOuterClass.GetScriptRequest request) {
+    public shippingcalc.GetScriptResponse getScript(shippingcalc.GetScriptRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetScriptMethod(), getCallOptions(), request);
     }
@@ -1393,7 +1452,7 @@ public final class ShippingcalcGrpc {
      * Получить все существующие скрипты
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.GetScriptsResponse getScripts(shippingcalc.ShippingcalcOuterClass.GetScriptsRequest request) {
+    public shippingcalc.GetScriptsResponse getScripts(shippingcalc.GetScriptsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetScriptsMethod(), getCallOptions(), request);
     }
@@ -1403,7 +1462,7 @@ public final class ShippingcalcGrpc {
      * Получить результаты теста скрипта
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsResponse getScriptTestResults(shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsRequest request) {
+    public shippingcalc.GetScriptTestResultsResponse getScriptTestResults(shippingcalc.GetScriptTestResultsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetScriptTestResultsMethod(), getCallOptions(), request);
     }
@@ -1413,7 +1472,7 @@ public final class ShippingcalcGrpc {
      * Удалить скрипт по идентификатору
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.DeleteScriptResponse deleteScript(shippingcalc.ShippingcalcOuterClass.DeleteScriptRequest request) {
+    public shippingcalc.DeleteScriptResponse deleteScript(shippingcalc.DeleteScriptRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getDeleteScriptMethod(), getCallOptions(), request);
     }
@@ -1423,7 +1482,7 @@ public final class ShippingcalcGrpc {
      * Получить стоимость доставки
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceResponse getDeliveryPrice(shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceRequest request) {
+    public shippingcalc.GetDeliveryPriceResponse getDeliveryPrice(shippingcalc.GetDeliveryPriceRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetDeliveryPriceMethod(), getCallOptions(), request);
     }
@@ -1433,7 +1492,7 @@ public final class ShippingcalcGrpc {
      * Установить сразу все интервалы surge
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeResponse setIntervalsSurge(shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeRequest request) {
+    public shippingcalc.SetIntervalsSurgeResponse setIntervalsSurge(shippingcalc.SetIntervalsSurgeRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getSetIntervalsSurgeMethod(), getCallOptions(), request);
     }
@@ -1443,7 +1502,7 @@ public final class ShippingcalcGrpc {
      * Получить все интервалы surge
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeResponse getIntervalsSurge(shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeRequest request) {
+    public shippingcalc.GetIntervalsSurgeResponse getIntervalsSurge(shippingcalc.GetIntervalsSurgeRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetIntervalsSurgeMethod(), getCallOptions(), request);
     }
@@ -1453,7 +1512,7 @@ public final class ShippingcalcGrpc {
      * Установить сразу все интервалы switchback experiments for surge
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsResponse setSwitchbackExperiments(shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsRequest request) {
+    public shippingcalc.SetSwitchbackExperimentsResponse setSwitchbackExperiments(shippingcalc.SetSwitchbackExperimentsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getSetSwitchbackExperimentsMethod(), getCallOptions(), request);
     }
@@ -1463,7 +1522,7 @@ public final class ShippingcalcGrpc {
      * Получить все интервалы switchback experiments for surge
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse getSwitchbackExperiments(shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest request) {
+    public shippingcalc.GetSwitchbackExperimentsResponse getSwitchbackExperiments(shippingcalc.GetSwitchbackExperimentsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetSwitchbackExperimentsMethod(), getCallOptions(), request);
     }
@@ -1473,9 +1532,19 @@ public final class ShippingcalcGrpc {
      * Получить минимальные корзины по списку
      * </pre>
      */
-    public shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse getMinCartAmounts(shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest request) {
+    public shippingcalc.GetMinCartAmountsResponse getMinCartAmounts(shippingcalc.GetMinCartAmountsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetMinCartAmountsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Наиболее выгодные условия доставки для магазинов
+     * </pre>
+     */
+    public shippingcalc.GetDeliveryConditionsResponse getDeliveryConditions(shippingcalc.GetDeliveryConditionsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetDeliveryConditionsMethod(), getCallOptions(), request);
     }
   }
 
@@ -1498,8 +1567,8 @@ public final class ShippingcalcGrpc {
      * Создать стратегию
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.CreateStrategyResponse> createStrategy(
-        shippingcalc.ShippingcalcOuterClass.CreateStrategyRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.CreateStrategyResponse> createStrategy(
+        shippingcalc.CreateStrategyRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getCreateStrategyMethod(), getCallOptions()), request);
     }
@@ -1509,8 +1578,8 @@ public final class ShippingcalcGrpc {
      * Обновить стратегию
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.UpdateStrategyResponse> updateStrategy(
-        shippingcalc.ShippingcalcOuterClass.UpdateStrategyRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.UpdateStrategyResponse> updateStrategy(
+        shippingcalc.UpdateStrategyRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getUpdateStrategyMethod(), getCallOptions()), request);
     }
@@ -1520,8 +1589,8 @@ public final class ShippingcalcGrpc {
      * Прикрепить стратегию к магазину
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.BindStrategyResponse> bindStrategy(
-        shippingcalc.ShippingcalcOuterClass.BindStrategyRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.BindStrategyResponse> bindStrategy(
+        shippingcalc.BindStrategyRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getBindStrategyMethod(), getCallOptions()), request);
     }
@@ -1531,8 +1600,8 @@ public final class ShippingcalcGrpc {
      * Открепить стратегию от магазина
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.UnbindStrategyResponse> unbindStrategy(
-        shippingcalc.ShippingcalcOuterClass.UnbindStrategyRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.UnbindStrategyResponse> unbindStrategy(
+        shippingcalc.UnbindStrategyRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getUnbindStrategyMethod(), getCallOptions()), request);
     }
@@ -1542,8 +1611,8 @@ public final class ShippingcalcGrpc {
      * Получить все существующие стратегии
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.GetStrategiesResponse> getStrategies(
-        shippingcalc.ShippingcalcOuterClass.GetStrategiesRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetStrategiesResponse> getStrategies(
+        shippingcalc.GetStrategiesRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetStrategiesMethod(), getCallOptions()), request);
     }
@@ -1553,8 +1622,8 @@ public final class ShippingcalcGrpc {
      * Получить стратегию по идентификатору
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.GetStrategyResponse> getStrategy(
-        shippingcalc.ShippingcalcOuterClass.GetStrategyRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetStrategyResponse> getStrategy(
+        shippingcalc.GetStrategyRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetStrategyMethod(), getCallOptions()), request);
     }
@@ -1564,8 +1633,8 @@ public final class ShippingcalcGrpc {
      * Получить стратегии для магазина
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreResponse> getStrategiesForStore(
-        shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetStrategiesForStoreResponse> getStrategiesForStore(
+        shippingcalc.GetStrategiesForStoreRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetStrategiesForStoreMethod(), getCallOptions()), request);
     }
@@ -1575,8 +1644,8 @@ public final class ShippingcalcGrpc {
      * Удалить стратегию по идентификатору
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.DeleteStrategyResponse> deleteStrategy(
-        shippingcalc.ShippingcalcOuterClass.DeleteStrategyRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.DeleteStrategyResponse> deleteStrategy(
+        shippingcalc.DeleteStrategyRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getDeleteStrategyMethod(), getCallOptions()), request);
     }
@@ -1586,8 +1655,8 @@ public final class ShippingcalcGrpc {
      * Создать скрипт
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.CreateScriptResponse> createScript(
-        shippingcalc.ShippingcalcOuterClass.CreateScriptRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.CreateScriptResponse> createScript(
+        shippingcalc.CreateScriptRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getCreateScriptMethod(), getCallOptions()), request);
     }
@@ -1597,8 +1666,8 @@ public final class ShippingcalcGrpc {
      * Обновить скрипт
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.UpdateScriptResponse> updateScript(
-        shippingcalc.ShippingcalcOuterClass.UpdateScriptRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.UpdateScriptResponse> updateScript(
+        shippingcalc.UpdateScriptRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getUpdateScriptMethod(), getCallOptions()), request);
     }
@@ -1608,8 +1677,8 @@ public final class ShippingcalcGrpc {
      * Получить скрипт по идентификатору
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.GetScriptResponse> getScript(
-        shippingcalc.ShippingcalcOuterClass.GetScriptRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetScriptResponse> getScript(
+        shippingcalc.GetScriptRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetScriptMethod(), getCallOptions()), request);
     }
@@ -1619,8 +1688,8 @@ public final class ShippingcalcGrpc {
      * Получить все существующие скрипты
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.GetScriptsResponse> getScripts(
-        shippingcalc.ShippingcalcOuterClass.GetScriptsRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetScriptsResponse> getScripts(
+        shippingcalc.GetScriptsRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetScriptsMethod(), getCallOptions()), request);
     }
@@ -1630,8 +1699,8 @@ public final class ShippingcalcGrpc {
      * Получить результаты теста скрипта
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsResponse> getScriptTestResults(
-        shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetScriptTestResultsResponse> getScriptTestResults(
+        shippingcalc.GetScriptTestResultsRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetScriptTestResultsMethod(), getCallOptions()), request);
     }
@@ -1641,8 +1710,8 @@ public final class ShippingcalcGrpc {
      * Удалить скрипт по идентификатору
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.DeleteScriptResponse> deleteScript(
-        shippingcalc.ShippingcalcOuterClass.DeleteScriptRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.DeleteScriptResponse> deleteScript(
+        shippingcalc.DeleteScriptRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getDeleteScriptMethod(), getCallOptions()), request);
     }
@@ -1652,8 +1721,8 @@ public final class ShippingcalcGrpc {
      * Получить стоимость доставки
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceResponse> getDeliveryPrice(
-        shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetDeliveryPriceResponse> getDeliveryPrice(
+        shippingcalc.GetDeliveryPriceRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetDeliveryPriceMethod(), getCallOptions()), request);
     }
@@ -1663,8 +1732,8 @@ public final class ShippingcalcGrpc {
      * Установить сразу все интервалы surge
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeResponse> setIntervalsSurge(
-        shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.SetIntervalsSurgeResponse> setIntervalsSurge(
+        shippingcalc.SetIntervalsSurgeRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSetIntervalsSurgeMethod(), getCallOptions()), request);
     }
@@ -1674,8 +1743,8 @@ public final class ShippingcalcGrpc {
      * Получить все интервалы surge
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeResponse> getIntervalsSurge(
-        shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetIntervalsSurgeResponse> getIntervalsSurge(
+        shippingcalc.GetIntervalsSurgeRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetIntervalsSurgeMethod(), getCallOptions()), request);
     }
@@ -1685,8 +1754,8 @@ public final class ShippingcalcGrpc {
      * Установить сразу все интервалы switchback experiments for surge
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsResponse> setSwitchbackExperiments(
-        shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.SetSwitchbackExperimentsResponse> setSwitchbackExperiments(
+        shippingcalc.SetSwitchbackExperimentsRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSetSwitchbackExperimentsMethod(), getCallOptions()), request);
     }
@@ -1696,8 +1765,8 @@ public final class ShippingcalcGrpc {
      * Получить все интервалы switchback experiments for surge
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse> getSwitchbackExperiments(
-        shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetSwitchbackExperimentsResponse> getSwitchbackExperiments(
+        shippingcalc.GetSwitchbackExperimentsRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetSwitchbackExperimentsMethod(), getCallOptions()), request);
     }
@@ -1707,10 +1776,21 @@ public final class ShippingcalcGrpc {
      * Получить минимальные корзины по списку
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse> getMinCartAmounts(
-        shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetMinCartAmountsResponse> getMinCartAmounts(
+        shippingcalc.GetMinCartAmountsRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetMinCartAmountsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Наиболее выгодные условия доставки для магазинов
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetDeliveryConditionsResponse> getDeliveryConditions(
+        shippingcalc.GetDeliveryConditionsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetDeliveryConditionsMethod(), getCallOptions()), request);
     }
   }
 
@@ -1734,6 +1814,7 @@ public final class ShippingcalcGrpc {
   private static final int METHODID_SET_SWITCHBACK_EXPERIMENTS = 17;
   private static final int METHODID_GET_SWITCHBACK_EXPERIMENTS = 18;
   private static final int METHODID_GET_MIN_CART_AMOUNTS = 19;
+  private static final int METHODID_GET_DELIVERY_CONDITIONS = 20;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1753,84 +1834,88 @@ public final class ShippingcalcGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_CREATE_STRATEGY:
-          serviceImpl.createStrategy((shippingcalc.ShippingcalcOuterClass.CreateStrategyRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.CreateStrategyResponse>) responseObserver);
+          serviceImpl.createStrategy((shippingcalc.CreateStrategyRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.CreateStrategyResponse>) responseObserver);
           break;
         case METHODID_UPDATE_STRATEGY:
-          serviceImpl.updateStrategy((shippingcalc.ShippingcalcOuterClass.UpdateStrategyRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.UpdateStrategyResponse>) responseObserver);
+          serviceImpl.updateStrategy((shippingcalc.UpdateStrategyRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.UpdateStrategyResponse>) responseObserver);
           break;
         case METHODID_BIND_STRATEGY:
-          serviceImpl.bindStrategy((shippingcalc.ShippingcalcOuterClass.BindStrategyRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.BindStrategyResponse>) responseObserver);
+          serviceImpl.bindStrategy((shippingcalc.BindStrategyRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.BindStrategyResponse>) responseObserver);
           break;
         case METHODID_UNBIND_STRATEGY:
-          serviceImpl.unbindStrategy((shippingcalc.ShippingcalcOuterClass.UnbindStrategyRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.UnbindStrategyResponse>) responseObserver);
+          serviceImpl.unbindStrategy((shippingcalc.UnbindStrategyRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.UnbindStrategyResponse>) responseObserver);
           break;
         case METHODID_GET_STRATEGIES:
-          serviceImpl.getStrategies((shippingcalc.ShippingcalcOuterClass.GetStrategiesRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetStrategiesResponse>) responseObserver);
+          serviceImpl.getStrategies((shippingcalc.GetStrategiesRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetStrategiesResponse>) responseObserver);
           break;
         case METHODID_GET_STRATEGY:
-          serviceImpl.getStrategy((shippingcalc.ShippingcalcOuterClass.GetStrategyRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetStrategyResponse>) responseObserver);
+          serviceImpl.getStrategy((shippingcalc.GetStrategyRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetStrategyResponse>) responseObserver);
           break;
         case METHODID_GET_STRATEGIES_FOR_STORE:
-          serviceImpl.getStrategiesForStore((shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetStrategiesForStoreResponse>) responseObserver);
+          serviceImpl.getStrategiesForStore((shippingcalc.GetStrategiesForStoreRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetStrategiesForStoreResponse>) responseObserver);
           break;
         case METHODID_DELETE_STRATEGY:
-          serviceImpl.deleteStrategy((shippingcalc.ShippingcalcOuterClass.DeleteStrategyRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.DeleteStrategyResponse>) responseObserver);
+          serviceImpl.deleteStrategy((shippingcalc.DeleteStrategyRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.DeleteStrategyResponse>) responseObserver);
           break;
         case METHODID_CREATE_SCRIPT:
-          serviceImpl.createScript((shippingcalc.ShippingcalcOuterClass.CreateScriptRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.CreateScriptResponse>) responseObserver);
+          serviceImpl.createScript((shippingcalc.CreateScriptRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.CreateScriptResponse>) responseObserver);
           break;
         case METHODID_UPDATE_SCRIPT:
-          serviceImpl.updateScript((shippingcalc.ShippingcalcOuterClass.UpdateScriptRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.UpdateScriptResponse>) responseObserver);
+          serviceImpl.updateScript((shippingcalc.UpdateScriptRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.UpdateScriptResponse>) responseObserver);
           break;
         case METHODID_GET_SCRIPT:
-          serviceImpl.getScript((shippingcalc.ShippingcalcOuterClass.GetScriptRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetScriptResponse>) responseObserver);
+          serviceImpl.getScript((shippingcalc.GetScriptRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetScriptResponse>) responseObserver);
           break;
         case METHODID_GET_SCRIPTS:
-          serviceImpl.getScripts((shippingcalc.ShippingcalcOuterClass.GetScriptsRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetScriptsResponse>) responseObserver);
+          serviceImpl.getScripts((shippingcalc.GetScriptsRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetScriptsResponse>) responseObserver);
           break;
         case METHODID_GET_SCRIPT_TEST_RESULTS:
-          serviceImpl.getScriptTestResults((shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetScriptTestResultsResponse>) responseObserver);
+          serviceImpl.getScriptTestResults((shippingcalc.GetScriptTestResultsRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetScriptTestResultsResponse>) responseObserver);
           break;
         case METHODID_DELETE_SCRIPT:
-          serviceImpl.deleteScript((shippingcalc.ShippingcalcOuterClass.DeleteScriptRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.DeleteScriptResponse>) responseObserver);
+          serviceImpl.deleteScript((shippingcalc.DeleteScriptRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.DeleteScriptResponse>) responseObserver);
           break;
         case METHODID_GET_DELIVERY_PRICE:
-          serviceImpl.getDeliveryPrice((shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetDeliveryPriceResponse>) responseObserver);
+          serviceImpl.getDeliveryPrice((shippingcalc.GetDeliveryPriceRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetDeliveryPriceResponse>) responseObserver);
           break;
         case METHODID_SET_INTERVALS_SURGE:
-          serviceImpl.setIntervalsSurge((shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.SetIntervalsSurgeResponse>) responseObserver);
+          serviceImpl.setIntervalsSurge((shippingcalc.SetIntervalsSurgeRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.SetIntervalsSurgeResponse>) responseObserver);
           break;
         case METHODID_GET_INTERVALS_SURGE:
-          serviceImpl.getIntervalsSurge((shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetIntervalsSurgeResponse>) responseObserver);
+          serviceImpl.getIntervalsSurge((shippingcalc.GetIntervalsSurgeRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetIntervalsSurgeResponse>) responseObserver);
           break;
         case METHODID_SET_SWITCHBACK_EXPERIMENTS:
-          serviceImpl.setSwitchbackExperiments((shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.SetSwitchbackExperimentsResponse>) responseObserver);
+          serviceImpl.setSwitchbackExperiments((shippingcalc.SetSwitchbackExperimentsRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.SetSwitchbackExperimentsResponse>) responseObserver);
           break;
         case METHODID_GET_SWITCHBACK_EXPERIMENTS:
-          serviceImpl.getSwitchbackExperiments((shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetSwitchbackExperimentsResponse>) responseObserver);
+          serviceImpl.getSwitchbackExperiments((shippingcalc.GetSwitchbackExperimentsRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetSwitchbackExperimentsResponse>) responseObserver);
           break;
         case METHODID_GET_MIN_CART_AMOUNTS:
-          serviceImpl.getMinCartAmounts((shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsRequest) request,
-              (io.grpc.stub.StreamObserver<shippingcalc.ShippingcalcOuterClass.GetMinCartAmountsResponse>) responseObserver);
+          serviceImpl.getMinCartAmounts((shippingcalc.GetMinCartAmountsRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetMinCartAmountsResponse>) responseObserver);
+          break;
+        case METHODID_GET_DELIVERY_CONDITIONS:
+          serviceImpl.getDeliveryConditions((shippingcalc.GetDeliveryConditionsRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetDeliveryConditionsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -1913,6 +1998,7 @@ public final class ShippingcalcGrpc {
               .addMethod(getSetSwitchbackExperimentsMethod())
               .addMethod(getGetSwitchbackExperimentsMethod())
               .addMethod(getGetMinCartAmountsMethod())
+              .addMethod(getGetDeliveryConditionsMethod())
               .build();
         }
       }
