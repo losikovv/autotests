@@ -233,39 +233,28 @@ public class ShippingCalcHelper {
     @Step("Добавляем стратегию в БД")
     public static Integer addStrategy(Boolean global, Integer priority, String deliveryType) {
         String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
-        Integer firstScriptId = ScriptsDao.INSTANCE.getScriptByName("Фиксированная цена, с подсказками и объяснением").getId();
-        Integer secondScriptId = ScriptsDao.INSTANCE.getScriptByName("Цена с учётом сложности, с подсказками и объяснением").getId();
         Integer strategyId = StrategiesDao.INSTANCE.addStrategy("autotest-insert", shipping, global, priority, "autotest-insert", "autotest-insert");
-        Integer firstPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, firstScriptId, "{\"basicPrice\": \"0\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}", 0, "autotest-insert", "delivery_price");
-        Integer secondPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, secondScriptId, "{\"baseMass\": \"30000\", \"basicPrice\": \"19900\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}", 1, "autotest-insert", "delivery_price");
-        Integer thirdPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, secondScriptId, "{\"baseMass\": \"30000\", \"basicPrice\": \"9900\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}", 2, "autotest-insert", "delivery_price");
-        Integer fourthPriceRuleId = RulesDao.INSTANCE.addRule(strategyId, secondScriptId, "{\"baseMass\": \"30000\", \"basicPrice\": \"0\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}", 3, "autotest-insert", "delivery_price");
-        Integer firstMinCartRuleId = RulesDao.INSTANCE.addRule(strategyId, 0, "100000", 0, "autotest-insert", "min_cart");
-        Integer secondMinCartRuleId = RulesDao.INSTANCE.addRule(strategyId, 0, "50000", 1, "autotest-insert", "min_cart");
-        boolean firstCondition = ConditionsDao.INSTANCE.addCondition(firstPriceRuleId, "{\"Count\": 1}", "first_n_orders");
-        boolean secondCondition = ConditionsDao.INSTANCE.addCondition(secondPriceRuleId, "{\"Max\": 100000, \"Min\": 0}", "order_value_range");
-        boolean thirdCondition = ConditionsDao.INSTANCE.addCondition(thirdPriceRuleId, "{\"Max\": 300000, \"Min\": 100000}", "order_value_range");
-        boolean fourthCondition = ConditionsDao.INSTANCE.addCondition(fourthPriceRuleId, "{\"Max\": 1000000000000000, \"Min\": 300100}", "order_value_range"); // ожидаемая дырка в условиях
-        boolean fifthCondition = ConditionsDao.INSTANCE.addCondition(firstMinCartRuleId, "{\"Max\": 300000, \"Min\": 0}", "order_value_range");
-        boolean sixthCondition = ConditionsDao.INSTANCE.addCondition(secondMinCartRuleId, "{\"Max\": 1000000000000000, \"Min\": 300100}", "order_value_range"); // ожидаемая дырка в условиях
-        Allure.step("Проверяем что стратегия добавилась", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertTrue(strategyId > 0, "Пустое id стратегии");
-            softAssert.assertTrue(firstPriceRuleId > 0, "Пустое id правила");
-            softAssert.assertTrue(secondPriceRuleId > 0, "Пустое id правила");
-            softAssert.assertTrue(thirdPriceRuleId > 0, "Пустое id правила");
-            softAssert.assertTrue(fourthPriceRuleId > 0, "Пустое id правила");
-            softAssert.assertTrue(firstMinCartRuleId > 0, "Пустое id правила");
-            softAssert.assertTrue(secondMinCartRuleId > 0, "Пустое id правила");
-            softAssert.assertTrue(firstCondition, "Условие не создалось");
-            softAssert.assertTrue(secondCondition, "Условие не создалось");
-            softAssert.assertTrue(thirdCondition, "Условие не создалось");
-            softAssert.assertTrue(fourthCondition, "Условие не создалось");
-            softAssert.assertTrue(fifthCondition, "Условие не создалось");
-            softAssert.assertTrue(sixthCondition, "Условие не создалось");
-            softAssert.assertAll();
-        });
+        Allure.step("Проверяем что стратегия добавилась", () -> assertTrue(strategyId > 0, "Пустое id стратегии"));
         return strategyId;
+    }
+
+    @Step("Добавляем правило к стратегии в БД")
+    public static Integer addRule(Integer strategyId, String scriptName, String scriptParams, Integer priority, String ruleType) {
+        Integer scriptId;
+        if (!scriptName.isEmpty()) {
+            scriptId = ScriptsDao.INSTANCE.getScriptByName(scriptName).getId();
+        } else {
+            scriptId = 0;
+        }
+        Integer ruleId = RulesDao.INSTANCE.addRule(strategyId, scriptId, scriptParams, priority, "autotest-insert", ruleType);
+        Allure.step("Проверяем что правило добавилась", () -> assertTrue(ruleId > 0, "Пустое id правила"));
+        return ruleId;
+    }
+
+    @Step("Добавляем условие к правилу в БД")
+    public static void addCondition(Integer ruleId, String params, String conditionType) {
+        boolean condition = ConditionsDao.INSTANCE.addCondition(ruleId, params, conditionType);
+        Allure.step("Проверяем что условие добавилась", () -> assertTrue(condition, "Условие не создалось"));
     }
 
     @Step("Добавляем привязку магазина к стратегии")
