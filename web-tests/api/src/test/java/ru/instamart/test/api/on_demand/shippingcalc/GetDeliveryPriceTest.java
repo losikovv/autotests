@@ -30,6 +30,7 @@ public class GetDeliveryPriceTest extends RestBase {
 
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
     private Integer localStrategyId;
+    private Integer conditionStrategyId;
     private Integer firstGlobalStrategyId;
     private Integer secondGlobalStrategyId;
     private final String STORE_ID = UUID.randomUUID().toString();
@@ -38,17 +39,38 @@ public class GetDeliveryPriceTest extends RestBase {
     private final String CUSTOMER_ID = UUID.randomUUID().toString();
     private final String ANONYMOUS_ID = UUID.randomUUID().toString();
     private final String ORDER_ID = UUID.randomUUID().toString();
+    private final String SIMPLE_SCRIPT_NAME = "Фиксированная цена, с подсказками и объяснением";
+    private final String COMPLEX_SCRIPT_NAME = "Цена с учётом сложности, с подсказками и объяснением";
+    private final String SIMPLE_SCRIPT_PARAMS = "{\"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
+    private final String COMPLEX_SCRIPT_PARAMS = "{\"baseMass\": \"30000\", \"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"basePositions\": \"30\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}";
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientShippingCalc = ShippingcalcGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC));
+
         localStrategyId = addStrategy(false, 0, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.toString());
-        firstGlobalStrategyId = addStrategy(true, 1, ShippingcalcOuterClass.DeliveryType.B2B.toString());
-        secondGlobalStrategyId = addStrategy(true, 0, ShippingcalcOuterClass.DeliveryType.B2B.toString());
+        addCondition(addRule(localStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "0"), 0, "delivery_price"), "{\"Count\": 1}", "first_n_orders");
+        addCondition(addRule(localStrategyId, COMPLEX_SCRIPT_NAME, String.format(COMPLEX_SCRIPT_PARAMS, "19900"), 1, "delivery_price"), "{\"Max\": 100000, \"Min\": 0}", "order_value_range");
+        addCondition(addRule(localStrategyId, COMPLEX_SCRIPT_NAME, String.format(COMPLEX_SCRIPT_PARAMS, "9900"), 2, "delivery_price"), "{\"Max\": 300000, \"Min\": 100000}", "order_value_range");
+        addCondition(addRule(localStrategyId, COMPLEX_SCRIPT_NAME, String.format(COMPLEX_SCRIPT_PARAMS, "0"), 3, "delivery_price"), "{\"Max\": 1000000000000000, \"Min\": 300100}", "order_value_range");
+        addCondition(addRule(localStrategyId, "", "100000", 0, "min_cart"), "{\"Max\": 300000, \"Min\": 0}", "order_value_range");
+        addCondition(addRule(localStrategyId, "", "50000", 1, "min_cart"), "{\"Max\": 1000000000000000, \"Min\": 300100}", "order_value_range");
         addBinding(localStrategyId, STORE_ID, Tenant.SBERMARKET.getId(), ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.toString());
+
+        conditionStrategyId = addStrategy(false, 0, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.toString());
+        addCondition(addRule(conditionStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "0"), 0, "delivery_price"), "{\"Count\": 1}", "first_n_orders");
+        addCondition(addRule(conditionStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "9900"), 1, "delivery_price"), "{\"Max\": 2000, \"Min\": 0}", "order_distance_range");
+        addCondition(addRule(conditionStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "14900"), 2, "delivery_price"), "{\"platforms\": [{\"name\": \"SbermarketIOS\", \"version\": \"6.28.0\"}]}", "platforms");
+        addCondition(addRule(conditionStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "19900"), 3, "delivery_price"), "{\"registered_after\": \"2022-06-20T12:00:00Z\"}", "registered_after");
+        Integer multipleConditionRuleId = addRule(conditionStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "0"), 4, "delivery_price");
+        addCondition(multipleConditionRuleId, "{\"Count\": 2}", "first_n_orders");
+        addCondition(multipleConditionRuleId, "{\"Max\": 1000000000000000, \"Min\": 300000}", "order_value_range");
+        addCondition(addRule(conditionStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "29900"), 5, "delivery_price"), "{}", "always");
+        addCondition(addRule(conditionStrategyId, "", "100000", 0, "min_cart"), "{}", "always");
+        addBinding(conditionStrategyId, STORE_ID, Tenant.INSTAMART.getId(), ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY.toString());
     }
 
-    @CaseIDs(value = {@CaseId(355), @CaseId(356), @CaseId(289), @CaseId(321), @CaseId(322), @CaseId(328), @CaseId(330)})
+    @CaseIDs(value = {@CaseId(355), @CaseId(356), @CaseId(289), @CaseId(321), @CaseId(322), @CaseId(328), @CaseId(330), @CaseId(383)})
     @Story("Get Delivery Price")
     @Test(description = "Получение цены по локальной стратегии",
             groups = "dispatch-shippingcalc-smoke")
@@ -64,11 +86,19 @@ public class GetDeliveryPriceTest extends RestBase {
         checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0, 0);
     }
 
-    @CaseIDs(value = {@CaseId(242), @CaseId(244)})
+    @CaseIDs(value = {@CaseId(242), @CaseId(244), @CaseId(381)})
     @Story("Get Delivery Price")
     @Test(description = "Получение цены по глобальной стратегии",
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryPriceForGlobalStrategy() {
+        firstGlobalStrategyId = addStrategy(true, 1, ShippingcalcOuterClass.DeliveryType.B2B.toString());
+        addCondition(addRule(firstGlobalStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "5000"), 0, "delivery_price"), "{}", "always");
+        addCondition(addRule(firstGlobalStrategyId, "", "100000", 0, "min_cart"), "{}", "always");
+
+        secondGlobalStrategyId = addStrategy(true, 0, ShippingcalcOuterClass.DeliveryType.B2B.toString());
+        addCondition(addRule(secondGlobalStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "10000"), 0, "delivery_price"), "{}", "always");
+        addCondition(addRule(secondGlobalStrategyId, "", "100000", 0, "min_cart"), "{}", "always");
+
         ShippingcalcOuterClass.GetDeliveryPriceRequest request = getDeliveryPriceRequest(
                 1, UUID.randomUUID().toString(), 99900, 0, 1000, UUID.randomUUID().toString(), false,
                 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 0,
@@ -77,10 +107,10 @@ public class GetDeliveryPriceTest extends RestBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, secondGlobalStrategyId, 19900, 100000, 3, 4, 0, 0);
+        checkDeliveryPrice(response, secondGlobalStrategyId, 10000, 100000, 1, 0, 0, 0);
     }
 
-    @CaseIDs(value = {@CaseId(248), @CaseId(325), @CaseId(329)})
+    @CaseIDs(value = {@CaseId(248), @CaseId(325), @CaseId(329), @CaseId(382)})
     @Story("Get Delivery Price")
     @Test(description = "Получение цены по более приоритетному правилу в стратегии",
             groups = "dispatch-shippingcalc-smoke")
@@ -501,9 +531,74 @@ public class GetDeliveryPriceTest extends RestBase {
         clientShippingCalc.getDeliveryPrice(request);
     }
 
+    @CaseId(385)
+    @Story("Get Delivery Price")
+    @Test(description = "Получение цены доставки при прохождении условия ORDER_DISTANCE_RANGE",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryPriceOrderDistanceRange() {
+        ShippingcalcOuterClass.GetDeliveryPriceRequest request = getDeliveryPriceRequest(
+                1, PRODUCT_ID, 100000, 0, 40000, SHIPMENT_ID, false,
+                40000, 1, 100000, STORE_ID, "NEW", 1, 0,
+                55.9311, 38.242613, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.9211, 38.242613,
+                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, conditionStrategyId, 9900, 100000, 1, 0, 1, 0);
+    }
+
+    @CaseId(386)
+    @Story("Get Delivery Price")
+    @Test(description = "Получение цены доставки при прохождении условия PLATFORMS",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryPricePlatforms() {
+        ShippingcalcOuterClass.GetDeliveryPriceRequest request = getDeliveryPriceRequest(
+                1, PRODUCT_ID, 100000, 0, 40000, SHIPMENT_ID, false,
+                40000, 1, 100000, STORE_ID, "NEW", 1, 0,
+                55.9311, 38.242613, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 50.9211, 30.232613,
+                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.INSTAMART.getId(), AppVersion.IOS.getName(), AppVersion.IOS.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, conditionStrategyId, 14900, 100000, 1, 0, 1, 0);
+    }
+
+    @CaseId(407)
+    @Story("Get Delivery Price")
+    @Test(description = "Получение цены доставки при прохождении условия REGISTERED_AFTER",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryPriceRegisteredAfter() {
+        ShippingcalcOuterClass.GetDeliveryPriceRequest request = getDeliveryPriceRequest(
+                1, PRODUCT_ID, 100000, 0, 40000, SHIPMENT_ID, false,
+                40000, 1, 100000, STORE_ID, "NEW", 1, 0,
+                55.9311, 38.242613, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 50.9211, 30.232613,
+                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, conditionStrategyId, 19900, 100000, 1, 0, 1, 0);
+    }
+
+    @CaseId(387)
+    @Story("Get Delivery Price")
+    @Test(description = "Получение цены доставки при прохождении комбинации условий",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryPriceMultipleConditions() {
+        ShippingcalcOuterClass.GetDeliveryPriceRequest request = getDeliveryPriceRequest(
+                1, PRODUCT_ID, 300000, 0, 40000, SHIPMENT_ID, false,
+                40000, 1, 300000, STORE_ID, "NEW", 1, 0,
+                55.9311, 38.242613, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655635906, 50.9211, 30.232613,
+                ORDER_ID, false, false, "Картой онлайн", true, ShippingcalcOuterClass.DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, conditionStrategyId, 0, 100000, 2, 0, 1, 0);
+    }
+
     @AfterClass(alwaysRun = true)
     public void postConditions() {
         deleteCreatedStrategy(localStrategyId);
+        deleteCreatedStrategy(conditionStrategyId);
         deleteCreatedStrategy(firstGlobalStrategyId);
         deleteCreatedStrategy(secondGlobalStrategyId);
     }
