@@ -34,18 +34,19 @@ public class CandidatesTest extends RestBase {
     private long calendar = Calendar.getInstance().getTimeInMillis();
     private String timeStamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(calendar-900000);
 
+
     @BeforeClass(alwaysRun = true)
     public void auth() {
 
        user = UserManager.getShp6Shopper1();
        shopperApp.authorisation(user);
        shiftsApi.startOfShift(StartPointsTenants.METRO_9);
-       shopperApp.sendCurrentLocator(55.7012984,37.7283669, null);
+       shopperApp.sendCurrentLocator(55.915098,37.541685, null);
 
        user2 = UserManager.getShp6Shopper2();
        shopperApp.authorisation(user2);
        shiftsApi.startOfShift(StartPointsTenants.METRO_9);
-       shopperApp.sendCurrentLocator(55.7012984,37.7283669, null);
+       shopperApp.sendCurrentLocator(55.915098,37.541685, null);
 
        clientCandidates = CandidatesGrpc.newBlockingStub(grpc.createChannel(PAAS_CONTENT_OPERATIONS_CANDIDATES));
 
@@ -65,8 +66,8 @@ public class CandidatesTest extends RestBase {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
                         .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
-                                .setLat(55.700683) //координаты метро шоссейного
-                                .setLon(37.726683)
+                                .setLat(55.700679) //координаты метро шоссейного 55.700679, 37.726331   55.700683, 37.726683
+                                .setLon(37.726331)
                                 .build())
                         .setRadius(200.00F)
                 )
@@ -127,5 +128,21 @@ public class CandidatesTest extends RestBase {
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
 
         }
+
+    @CaseId(30)
+    @Test(description = "Отбор кандидатов по транспорту", groups = "dispatch-candidates-smoke")
+    public void transportCandidate() {
+        var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
+                .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
+                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                                .setLat(55.915098)
+                                .setLon(37.541685)
+                                .build())
+                        .addTransports(CandidatesOuterClass.CandidateTransport.forNumber(2)) //2 = велосипед
+                )
+                .build();
+        CandidatesOuterClass.SelectCandidatesResponse selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+        assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
+    }
   }
 
