@@ -120,10 +120,9 @@ public final class TimeUtil {
         return zdtz.format(ZonedDateTime.now(ZONE_ID).plusDays(days));
     }
 
-//    public static String getNearestDateTime(){
-//        java.util.Date date = Date.from(ZonedDateTime.now(ZONE_ID).toInstant());
-//        return DateUtils.round(date.getTime())
-//    }
+    public static String getPastDateTime(Long seconds) {
+        return zdtz.format(ZonedDateTime.now(ZONE_ID).minusSeconds(seconds));
+    }
 
     /**
      * Парсит строку типа "15 ноября 2016" в (ZoneDateTime) 2016-11-15T00:00+07:00[Asia/Novosibirsk]
