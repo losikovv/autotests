@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.SpreePaymentsEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class SpreePaymentsDao extends AbstractDao<Long, SpreePaymentsEntity> {
 
     public SpreePaymentsEntity getPaymentByOrderId(Long orderId) {
         SpreePaymentsEntity spreePaymentsEntity = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE order_id = ? ORDER BY id DESC LIMIT 1")) {
             preparedStatement.setLong(1, orderId);
@@ -39,7 +40,7 @@ public class SpreePaymentsDao extends AbstractDao<Long, SpreePaymentsEntity> {
 
     public int getCountByOrderId(Long orderId) {
         int resultCount = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE order_id = ?")) {
             preparedStatement.setLong(1, orderId);
             ResultSet resultSet = preparedStatement.executeQuery();

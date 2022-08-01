@@ -1,93 +1,32 @@
 package ru.instamart.k8s;
 
-import io.kubernetes.client.PortForward;
 import io.kubernetes.client.openapi.ApiException;
-import io.kubernetes.client.openapi.models.V1PodList;
 import lombok.extern.slf4j.Slf4j;
-import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.io.IOException;
-import java.util.Objects;
-import java.util.Optional;
 
 import static org.testng.Assert.fail;
 import static ru.instamart.k8s.K8sConsumer.getK8sPortForward;
 import static ru.instamart.k8s.K8sConsumer.getPodList;
 
 @Slf4j
-public final class K8sPortForward {
+public enum K8sPortForward {
 
-    private static volatile K8sPortForward INSTANCE;
-    private static PortForward.PortForwardResult k8sConnectMySql;
-    private static PortForward.PortForwardResult k8sConnectPgSql;
-    private static PortForward.PortForwardResult k8sConnectPgSqlStage;
+    INSTANCE;
 
-    private K8sPortForward() {
-    }
-
-    public static K8sPortForward getInstance() {
-        K8sPortForward RESULT = INSTANCE;
-        if (RESULT != null) {
-            return INSTANCE;
-        }
-        synchronized (K8sPortForward.class) {
-            if (INSTANCE == null) {
-                INSTANCE = new K8sPortForward();
+    public void portForward(final String namespace, final String label, final int internalPort, final int containerPort) {
+        log.debug("Forward for - namespace: {}, label: {}, internalPort: {}, containerPort: {}", namespace, label, internalPort, containerPort);
+        try {
+            final var podList = getPodList(namespace, label);
+            final var pod = podList.getItems().stream().findFirst();
+            if (pod.isPresent()) {
+                getK8sPortForward(pod.get(), internalPort, containerPort);
+            } else {
+                throw new IOException("Первый под не найден");
             }
-            return INSTANCE;
+        } catch (IOException | ApiException e) {
+            log.error("Ошибка проброса порта {}:{} до пода. Error: {}", containerPort, internalPort, e.getMessage());
+            fail("Ошибка проброса порта " + containerPort + ":" + internalPort + " до пода. Error: " + e.getMessage());
         }
-    }
-
-
-    public void portForwardMySQL() {
-        if (Objects.isNull(k8sConnectMySql)) {
-            final String namespace = EnvironmentProperties.K8S_NAME_STF_SPACE;
-            final String labelSelector = EnvironmentProperties.K8S_LABEL_STF_SELECTOR;
-
-            try {
-                V1PodList podList = getPodList(namespace, labelSelector);
-                k8sConnectMySql = getK8sPortForward(namespace, podList.getItems().get(0).getMetadata().getName(),
-                        EnvironmentProperties.DB_PORT, EnvironmentProperties.DB_PORT);
-            } catch (IOException | ApiException e) {
-                fail("Ошибка проброса порта 3306 до пода. Error: " + e.getMessage());
-            }
-        }
-    }
-
-    public void portForwardPgSQL() {
-        if (Objects.isNull(k8sConnectPgSql)) {
-            final String namespace = EnvironmentProperties.K8S_NAME_SHP_SPACE;
-            final String labelSelector = EnvironmentProperties.K8S_LABEL_SHP_SELECTOR;
-
-            try {
-                V1PodList podList = getPodList(namespace, labelSelector);
-                k8sConnectPgSql = getK8sPortForward(namespace, podList.getItems().get(0).getMetadata().getName(),
-                        EnvironmentProperties.DB_PG_PORT, EnvironmentProperties.DB_PG_PORT);
-            } catch (IOException | ApiException e) {
-                fail("Ошибка проброса порта " + EnvironmentProperties.DB_PG_PORT + " до пода. Error: " + e.getMessage());
-            }
-        }
-    }
-
-    public PortForward.PortForwardResult portForwardPgSQLService(String namespace, int port) {
-        if (Objects.isNull(k8sConnectPgSqlStage)) {
-            String label = "statefulset.kubernetes.io/pod-name=postgresql-0";
-            int targetPort = 5432;
-            int localPort = port;
-            log.info("ports: {}", localPort);
-            try {
-                V1PodList podList = getPodList(namespace, label);
-                k8sConnectPgSqlStage = getK8sPortForward(namespace, podList.getItems().get(0).getMetadata().getName(),
-                        localPort, targetPort);
-                return k8sConnectPgSqlStage;
-            } catch (IOException | ApiException e) {
-                fail("Ошибка проброса порта " + localPort + ":" + targetPort + " до пода. Error: " + e.getMessage());
-            }
-        }
-        return null;
-    }
-
-    public void clearPortForward() {
-        k8sConnectPgSqlStage = null;
     }
 }

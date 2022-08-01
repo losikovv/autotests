@@ -3,7 +3,8 @@ package ru.instamart.jdbc.dao.stf;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.OffersEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 import ru.instamart.kraken.util.TimeUtil;
 
 import java.sql.Connection;
@@ -23,7 +24,7 @@ public final class StoreLabelsDao extends AbstractDao<Long, OffersEntity> {
     private static final String DELETE = "DELETE FROM store_label_items";
 
     public void addStoreLabelToStore(Integer store_label_id, Integer store_id, String tenant_id) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL)) {
             preparedStatement.setInt(1, store_label_id);
             preparedStatement.setInt(2, store_id);
@@ -37,7 +38,7 @@ public final class StoreLabelsDao extends AbstractDao<Long, OffersEntity> {
     }
 
     public void deleteStoreLabelLink(Integer storeLabelId, Integer storeId) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE + " WHERE store_label_id = ? AND store_id = ?")) {
             preparedStatement.setInt(1, storeLabelId);
             preparedStatement.setInt(2, storeId);

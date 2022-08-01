@@ -1,9 +1,9 @@
 package ru.instamart.jdbc.dao.workflow;
 
 import ru.instamart.jdbc.dao.AbstractDao;
-import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
 import ru.instamart.jdbc.entity.workflow.ChangelogsEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLWorkflowManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ public class ChangelogsDao extends AbstractDao<Long, ChangelogsEntity> {
 
     public ChangelogsEntity getChangelogByWorkflowId(long workflowId) {
         ChangelogsEntity changelogsEntity = null;
-        try (Connection connect = ConnectionPgSQLWorkflowManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_WORKFLOW);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE workflow_id = ?")) {
             preparedStatement.setLong(1, workflowId);
             ResultSet resultSet = preparedStatement.executeQuery();

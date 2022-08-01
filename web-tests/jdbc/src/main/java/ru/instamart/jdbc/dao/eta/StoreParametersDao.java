@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.eta;
 
 import ru.instamart.jdbc.dao.Dao;
 import ru.instamart.jdbc.entity.eta.StoreParametersEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLEtaManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class StoreParametersDao implements Dao<String, StoreParametersEntity> {
     private final String SELECT_SQL = "SELECT %s FROM store_parameters";
 
     public void updateStoreParameters(String storeUuid, String openingTime, String closingTime, String closingDelta) {
-        try (Connection connect = ConnectionPgSQLEtaManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_ETA);
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " store_opening_time = ?::timetz, store_closing_time = ?::timetz, on_demand_closing_delta = ?::interval " +
                      "WHERE id = ?::uuid")) {
             preparedStatement.setString(1, openingTime);
@@ -51,7 +52,7 @@ public class StoreParametersDao implements Dao<String, StoreParametersEntity> {
     @Override
     public Optional<StoreParametersEntity> findById(String id) {
         StoreParametersEntity storeParameters = null;
-        try (Connection connect = ConnectionPgSQLEtaManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_ETA);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?::uuid")) {
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();

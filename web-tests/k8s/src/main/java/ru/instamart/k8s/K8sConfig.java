@@ -7,6 +7,7 @@ import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.util.Config;
 import io.kubernetes.client.util.KubeConfig;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.config.CoreProperties;
 
 import java.io.IOException;
@@ -14,27 +15,19 @@ import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-public class K8sConfig {
-    private static K8sConfig INSTANCE;
-    private static CoreV1Api coreV1Api;
+import static java.util.Objects.isNull;
+
+@Slf4j
+public final class K8sConfig {
+
     @Getter
-    private ApiClient apiClient;
+    private final ApiClient apiClient;
     @Getter
-    private PodLogs podLogs;
+    private final CoreV1Api coreV1Api;
 
     private K8sConfig() {
-    }
-
-    public static K8sConfig getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new K8sConfig();
-        }
-        return INSTANCE;
-    }
-
-    public CoreV1Api getCoreV1Api() throws IOException {
-        if (apiClient == null) {
-            apiClient = Config.fromConfig(
+        try {
+            this.apiClient = Config.fromConfig(
                     KubeConfig.loadKubeConfig(
                             new StringReader(
                                     new String(Base64.getDecoder().decode(
@@ -43,13 +36,22 @@ public class K8sConfig {
                             )
                     )
             );
-            apiClient.setReadTimeout(10000);
-            apiClient.setWriteTimeout(10000);
+            this.apiClient.setConnectTimeout(10000);
+            this.apiClient.setReadTimeout(10000);
+            this.apiClient.setWriteTimeout(10000);
             Configuration.setDefaultApiClient(apiClient);
-            podLogs = new PodLogs(apiClient);
-            coreV1Api = new CoreV1Api(apiClient);
+        } catch (IOException e) {
+            log.error("FATAL: Can't init k8s api client");
+            throw new RuntimeException(e);
         }
-        return coreV1Api;
+        this.coreV1Api = new CoreV1Api(apiClient);
     }
 
+    public static K8sConfig getInstance() {
+        return Singleton.INSTANCE;
+    }
+
+    private static class Singleton {
+        private static final K8sConfig INSTANCE = new K8sConfig();
+    }
 }

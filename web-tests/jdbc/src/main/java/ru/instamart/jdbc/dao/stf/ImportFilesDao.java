@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.ImportFilesEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,10 +17,9 @@ public class ImportFilesDao extends AbstractDao<Long, ImportFilesEntity> {
     public static final ImportFilesDao INSTANCE = new ImportFilesDao();
     private final String SELECT_SQL = "SELECT %s FROM import_files";
 
-
     public int getCount(String type) {
         int resultCount = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE type LIKE ?")) {
             preparedStatement.setString(1, String.format("%%%s%%", type));
             ResultSet resultSet = preparedStatement.executeQuery();

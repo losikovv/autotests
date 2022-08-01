@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.ShipmentDelaysEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 import ru.instamart.kraken.util.ThreadUtil;
 
 import java.sql.Connection;
@@ -42,7 +43,7 @@ public class ShipmentDelaysDao extends AbstractDao<Long, ShipmentDelaysEntity> {
     }
 
     private boolean updateDeadlineDateData(String deadlineAt, Long shipmentId) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " SET deadline_at = ? WHERE shipment_id = ?")) {
             preparedStatement.setString(1, deadlineAt);
             preparedStatement.setLong(2, shipmentId);
@@ -54,7 +55,7 @@ public class ShipmentDelaysDao extends AbstractDao<Long, ShipmentDelaysEntity> {
     }
 
     private boolean updateNotificationDateData(String notificationSentAt, Long shipmentId) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " SET notification_sent_at = ?, state = 1 WHERE shipment_id = ?")) {
             preparedStatement.setString(1, notificationSentAt);
             preparedStatement.setLong(2, shipmentId);
@@ -67,7 +68,7 @@ public class ShipmentDelaysDao extends AbstractDao<Long, ShipmentDelaysEntity> {
 
     public String getNotificationTimeByShipmentId(Long shipmentId) {
         String notificationSentAt = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "notification_sent_at") +
                      " WHERE shipment_id = ?")) {
             preparedStatement.setLong(1, shipmentId);

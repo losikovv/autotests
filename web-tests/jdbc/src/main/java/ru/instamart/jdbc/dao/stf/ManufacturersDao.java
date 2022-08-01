@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.ManufacturersEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class ManufacturersDao extends AbstractDao<Long, ManufacturersEntity> {
 
     public ManufacturersEntity getIdByName(String name) {
         ManufacturersEntity manufacturers = new ManufacturersEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_SQL +
                      " WHERE name = ?")) {
             preparedStatement.setString(1, name);

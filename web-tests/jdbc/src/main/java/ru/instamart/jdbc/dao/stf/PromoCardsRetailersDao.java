@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.PromoCardsRetailersEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class PromoCardsRetailersDao extends AbstractDao<Long, PromoCardsRetailer
 
     public int getCountByRetailerId(Long retailerId) {
         int resultCount = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " pcr JOIN promo_cards pc ON pcr.promo_card_id  = pc.id" +
                      " WHERE pcr.retailer_id = ?")) {
             preparedStatement.setLong(1, retailerId);

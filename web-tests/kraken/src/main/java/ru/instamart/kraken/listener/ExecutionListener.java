@@ -61,7 +61,7 @@ public abstract class ExecutionListener implements IExecutionListener {
         log.debug("We wait {} seconds", ThreadUtil.ALL_WAIT_TIME.doubleValue());
         log.debug("All tests finished for {}", getReadableTime(System.nanoTime() - start));
         // Тут может быть код для очистки окружения после прогона тестов
-        log.debug("We create {} new users", UserManager.getUserDataList().size());
+        log.debug("We create {} new users", UserManager.userDataCount());
         UserManager.cleanupUsers();
     }
 

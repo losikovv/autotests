@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.ApiClientsEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class ApiClientsDao extends AbstractDao<Long, ApiClientsEntity> {
 
     public String getClientTokenByName(String clientName) {
        String token = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "act.value") +
                      " ac JOIN api_client_tokens act ON ac.id = act.api_client_id WHERE ac.client_id = ?")) {
             preparedStatement.setString(1, clientName);
@@ -34,7 +35,7 @@ public class ApiClientsDao extends AbstractDao<Long, ApiClientsEntity> {
 
     public Long getClientIdByName(String clientName) {
         Long id = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE client_id = ?")) {
             preparedStatement.setString(1, clientName);
             ResultSet resultSet = preparedStatement.executeQuery();

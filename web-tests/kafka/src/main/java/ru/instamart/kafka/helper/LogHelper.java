@@ -1,7 +1,5 @@
 package ru.instamart.kafka.helper;
 
-import estimator.Estimator;
-import io.kubernetes.client.openapi.models.V1PodList;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
@@ -14,13 +12,11 @@ import ru.sbermarket.common.Mapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.k8s.K8sConsumer.getLogs;
 import static ru.instamart.k8s.K8sConsumer.getPodList;
-import static ru.instamart.kafka.helper.ProtoHelper.parseResponseToProto;
 import static ru.instamart.kraken.helper.UUIDHelper.getFirstUUID;
 
 @Slf4j
@@ -28,11 +24,11 @@ public class LogHelper {
 
     @Step("Логи пода для nameSpace:{nameSpace} label={label} ")
     public List<String> getLogsPods(String nameSpace, String label, String filterData) {
-        V1PodList podList = getPodList(nameSpace, label);
-        List<String> collect = new ArrayList<>();
+        final var podList = getPodList(nameSpace, label);
+        final var collect = new ArrayList<String>();
         podList.getItems().forEach(
-                item->{
-                    List<String> logs = getLogs(item, "app", 0);
+                item -> {
+                    final var logs = getLogs(item, "app", 0);
                     Allure.addAttachment("Все логи", String.join("\r\n", logs));
 
                     collect.addAll(logs.stream()
@@ -40,7 +36,7 @@ public class LogHelper {
                             .collect(Collectors.toList()));
                 }
         );
-        Allure.addAttachment("Логи пода в которых есть упоминание UUID:  " + filterData, collect.stream().collect(Collectors.joining("\n")));
+        Allure.addAttachment("Логи пода в которых есть упоминание UUID:  " + filterData, String.join("\n", collect));
         return collect;
     }
 
@@ -49,7 +45,7 @@ public class LogHelper {
         List<String> collect = logList.stream()
                 .filter(str -> str.contains(status.getValue()))
                 .collect(Collectors.toList());
-        Allure.addAttachment("Логи пода в которых статус: " + status.getValue(), collect.stream().collect(Collectors.joining("\n")));
+        Allure.addAttachment("Логи пода в которых статус: " + status.getValue(), String.join("\n", collect));
         assertTrue(collect.size() > 0, "Логов по status ордера нет");
         return collect;
     }
@@ -61,8 +57,7 @@ public class LogHelper {
 
     public List<String> getLogsPodAndCheck(Pods pods, String filterString, StatusOrder statusOrder) {
         var logsPodsList = getLogsPods(pods.getNameSpace(), pods.getLabel(), filterString);
-        var filterList = checkChangeStatusOrder(logsPodsList, statusOrder);
-        return filterList;
+        return checkChangeStatusOrder(logsPodsList, statusOrder);
     }
 
     @Step("Ожидание появления из пода nameSpace: {pods.nameSpace} логов с {idMsg} и {waitString}")
@@ -83,13 +78,13 @@ public class LogHelper {
     @Step("Все исполнители полученные от сервиса кандидатов")
     public List<String> getPerformersUUID(List<String> logs) {
         List<String> buf = new ArrayList<>();
-        logs.stream().forEach(
+        logs.forEach(
                 item -> {
                     String uuid = getFirstUUID(item);
                     buf.add(uuid);
                 }
         );
-        Allure.addAttachment("Логи с исполнителями", buf.stream().collect(Collectors.joining("\n")));
+        Allure.addAttachment("Логи с исполнителями", String.join("\n", buf));
         return buf;
     }
 }

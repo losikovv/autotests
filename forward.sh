@@ -1,5 +1,30 @@
 #!/bin/bash
 
+# Redis Forward
+redis () {
+  while true; do
+    local PS3='Select Redis option: '
+    local options=("Forward" "Back")
+    local opt
+    select opt in "${options[@]}"
+    do
+        case $opt in
+        "Forward")
+            while [ -z "$pod" ]; do
+                echo "Please enter pod name: "
+                read -r pod
+            done
+            # shellcheck disable=SC2046
+            kubectl -n "$pod" port-forward svc/redis 6379:6379
+            break
+            ;;
+        "Back") return;;
+        *) echo "invalid option $REPLY";;
+        esac
+    done
+  done
+}
+
 # SHP Forward
 shp () {
   while true; do
@@ -62,12 +87,13 @@ stf () {
 # Main menu
 while true; do
   PS3='Please select option: '
-  options=("STF" "SHP" "Exit")
+  options=("STF" "SHP" "REDIS" "Exit")
   select opt in "${options[@]}"
   do
       case $opt in
           "STF") stf; break ;;
           "SHP") shp; break ;;
+          "REDIS") redis; break ;;
           "Exit") exit;;
           *) echo "invalid option $REPLY";;
       esac

@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.SpreeStatesEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class SpreeStatesDao extends AbstractDao<Long, SpreeStatesEntity> {
 
     public SpreeStatesEntity getStateByAbbr(String stateAbbr) {
         SpreeStatesEntity state = new SpreeStatesEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE abbr = ?")) {
             preparedStatement.setString(1, stateAbbr);
@@ -38,7 +39,7 @@ public class SpreeStatesDao extends AbstractDao<Long, SpreeStatesEntity> {
     public Optional<SpreeStatesEntity> findById(Long id) {
         SpreeStatesEntity spreeStatesEntity = null;
         var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setObject(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -56,7 +57,7 @@ public class SpreeStatesDao extends AbstractDao<Long, SpreeStatesEntity> {
 
     public int getCount() {
         int resultCount = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();

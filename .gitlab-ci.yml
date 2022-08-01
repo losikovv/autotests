@@ -234,7 +234,7 @@ tests:AutoMRCheck:
     expire_in: 1 week
   allow_failure: true
 
-tests:Debug:
+tests:Debug:UI:
   extends: ".template_only_branches"
   stage: tests-api
   script:
@@ -248,7 +248,26 @@ tests:Debug:
     when: always
     paths:
       - web-tests/reforged/build/allure-results/
+      - web-tests/reforged/build/reports/
       - web-tests/reforged/logs/
+    expire_in: 1 week
+
+tests:Debug:API:
+  extends: ".template_only_branches"
+  stage: tests-api
+  script:
+    - echo $P_ENV
+    - gradle clean build :api:debug -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh api debug
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/api/build/allure-results/
+      - web-tests/api/build/reports/
+      - web-tests/api/logs/
     expire_in: 1 week
 
 qase:actualize:

@@ -17,6 +17,108 @@ apply from: 'task.gradle'
 apply from: 'allprojects.gradle'
 apply from: 'subproject.gradle'
 
+project(":kraken") {
+    apply plugin: "java-library"
+
+    dependencies {
+        api lib.common
+        api lib.ab
+        api lib.qase
+        api lib.qa
+
+        api lib.testng
+        api lib.jsonSimple
+        api lib.jackson
+        api lib.aspectjweaver
+        api lib.allureJavaCommons
+
+        api lib.lombok
+
+        api lib.logback
+        api lib.julToSlf4j
+
+        api lib.commonsLang3
+        api lib.grpcProtobuf
+        api lib.grpcStub
+
+        compileOnly lib.lombok
+        annotationProcessor lib.lombok
+    }
+}
+
+project(":k8s") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":kraken")
+
+        api lib.kubernetesClient
+
+        implementation lib.jacksonAnnotations
+        implementation lib.guava
+
+        annotationProcessor lib.lombok
+    }
+}
+
+project(":jdbc") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":kraken")
+        implementation project(":k8s")
+
+        implementation lib.dbPool
+        api lib.mysqlJDBC
+        api lib.pgsqlJDBC
+
+        implementation lib.jacksonAnnotations
+
+        annotationProcessor lib.lombok
+    }
+}
+
+project(":redis") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":kraken")
+        implementation project(":k8s")
+
+        api lib.jedis
+
+        annotationProcessor lib.lombok
+    }
+}
+
+project(":kafka") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":kraken")
+        implementation project(":jdbc")
+        implementation project(":k8s")
+
+        api lib.kafkaClients
+
+        implementation lib.allureRestAssuredReport
+        implementation lib.allureTestng
+
+        implementation lib.grpcNettyShaded
+
+        implementation lib.javax
+        implementation lib.tomcatAnnotationsApi
+
+        implementation lib.kafkaProtobuf
+
+        annotationProcessor lib.lombok
+        testImplementation lib.logback
+        testCompileOnly lib.lombok
+        testCompileOnly lib.truthPproto
+        testAnnotationProcessor lib.lombok
+    }
+}
+
 project(":reforged") {
     apply plugin: "java-library"
 
@@ -25,50 +127,9 @@ project(":reforged") {
         implementation project(":api")
         implementation project(":jdbc")
 
-        implementation lib.common
-        implementation lib.qase
-
-        implementation lib.jackson
-        implementation lib.aspectjweaver
         implementation lib.seleniumJava
-        implementation lib.allureJavaCommons
-        implementation lib.testng
-        implementation lib.jsonSimple
         implementation lib.webdrivermanager
 
-        compileOnly lib.lombok
-
-        annotationProcessor lib.lombok
-        testImplementation lib.logback
-        testCompileOnly lib.lombok
-        testAnnotationProcessor lib.lombok
-    }
-}
-
-project(":kraken") {
-    apply plugin: "java-library"
-
-    dependencies {
-        implementation lib.common
-        implementation lib.ab
-        implementation lib.qase
-        implementation lib.qa
-
-        implementation lib.testng
-        implementation lib.jsonSimple
-        implementation lib.jackson
-        implementation lib.aspectjweaver
-        implementation lib.allureJavaCommons
-        implementation lib.pgsqlJDBC
-
-        implementation lib.logback
-        implementation lib.julToSlf4j
-
-        implementation lib.commonsLang3
-        implementation lib.grpcProtobuf
-        implementation lib.grpcStub
-
-        compileOnly lib.lombok
         annotationProcessor lib.lombok
         testImplementation lib.logback
         testCompileOnly lib.lombok
@@ -83,65 +144,13 @@ project(":grpc") {
         implementation project(":kraken")
         implementation project(":jdbc")
 
-        implementation lib.common
-        implementation lib.qase
-
-        implementation lib.aspectjweaver
         implementation lib.allureRestAssuredReport
         implementation lib.allureTestng
-        implementation lib.allureJavaCommons
-
-        implementation lib.testng
 
         implementation lib.grpcNettyShaded
-        implementation lib.grpcProtobuf
-        implementation lib.grpcStub
 
         implementation lib.javax
         implementation lib.tomcatAnnotationsApi
-
-        implementation lib.mysqlJDBC
-
-        compileOnly lib.lombok
-
-        annotationProcessor lib.lombok
-        testImplementation lib.logback
-        testCompileOnly lib.lombok
-        testCompileOnly lib.truthPproto
-        testAnnotationProcessor lib.lombok
-    }
-}
-
-
-project(":kafka") {
-    apply plugin: "java-library"
-
-    dependencies {
-        implementation project(":kraken")
-        implementation project(":jdbc")
-        implementation project(":k8s")
-
-        implementation lib.common
-        implementation lib.qase
-
-        implementation lib.aspectjweaver
-        implementation lib.allureRestAssuredReport
-        implementation lib.allureTestng
-        implementation lib.allureJavaCommons
-
-        implementation lib.testng
-
-        implementation lib.grpcNettyShaded
-        implementation lib.grpcProtobuf
-        implementation lib.grpcStub
-        implementation lib.kubernetesClient
-
-        implementation lib.javax
-        implementation lib.tomcatAnnotationsApi
-        implementation lib.kafkaClients
-        implementation lib.kafkaProtobuf
-
-        compileOnly lib.lombok
 
         annotationProcessor lib.lombok
         testImplementation lib.logback
@@ -160,78 +169,24 @@ project(":api") {
         implementation project(":k8s")
         implementation project(":grpc")
         implementation project(":kafka")
-
-        implementation lib.common
-        implementation lib.qase
-        implementation lib.qa
+        implementation project(":redis")
 
         implementation lib.restAssured
-        implementation lib.aspectjweaver
         implementation lib.allureRestAssuredReport
         implementation lib.allureTestng
-        implementation lib.allureJavaCommons
-        implementation lib.jsonSimple
-        implementation lib.testng
         implementation lib.restAssuredSchemaValidator
 
-        implementation lib.pgsqlJDBC
-        implementation lib.mysqlJDBC
-        implementation lib.kubernetesClient
-        implementation lib.kafkaClients
         implementation lib.javaxValidation
         implementation lib.imifouJsonSchema
         implementation lib.victoolsSchemaGenerator
         implementation lib.victoolsSchemaModuleJackson
         implementation lib.victoolsSchemaModuleJavaxValidation
         implementation lib.swaggerCoverage
-        implementation lib.grpcStub
         implementation lib.protobufUtil
-
-        compileOnly lib.lombok
 
         annotationProcessor lib.lombok
         testImplementation lib.logback
         testCompileOnly lib.lombok
         testAnnotationProcessor lib.lombok
-    }
-}
-
-project(":jdbc") {
-    apply plugin: "java-library"
-
-    dependencies {
-        implementation project(":kraken")
-        implementation project(":k8s")
-
-        implementation lib.common
-
-        implementation lib.lombok
-        implementation lib.kubernetesClient
-        implementation lib.jacksonAnnotations
-        implementation lib.jackson
-        implementation lib.logback
-        implementation lib.testng
-
-        annotationProcessor lib.lombok
-    }
-}
-
-project(":k8s") {
-    apply plugin: "java-library"
-
-    dependencies {
-        implementation project(":kraken")
-
-        implementation lib.common
-
-        implementation lib.lombok
-        implementation lib.logback
-        implementation lib.kubernetesClient
-        implementation lib.jacksonAnnotations
-        implementation lib.jackson
-        implementation lib.testng
-        implementation lib.guava
-
-        annotationProcessor lib.lombok
     }
 }

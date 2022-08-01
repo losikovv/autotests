@@ -94,10 +94,9 @@ public class WorkflowCandidatesTest extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void clearData() {
-        if(Objects.nonNull(secondShipmentUuid)) {
+        if (Objects.nonNull(secondShipmentUuid)) {
             cancelWorkflow(clientWorkflow, secondShipmentUuid);
             cancelWorkflow(clientWorkflow, shipmentUuid);
-            K8sPortForward.getInstance().clearPortForward();
         }
     }
 }

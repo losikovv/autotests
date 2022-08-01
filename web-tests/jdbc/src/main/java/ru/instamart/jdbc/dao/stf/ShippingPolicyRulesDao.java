@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.ShippingPolicyRulesEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +23,7 @@ public class ShippingPolicyRulesDao extends AbstractDao<Long, ShippingPolicyRule
     public Optional<ShippingPolicyRulesEntity> findById(Long id) {
         ShippingPolicyRulesEntity shippingPolicyRulesEntity = null;
         var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setObject(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -39,7 +40,7 @@ public class ShippingPolicyRulesDao extends AbstractDao<Long, ShippingPolicyRule
     }
 
     public void deleteRulesByShippingPolicyId(Long shippingPolicyId) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE shipping_policy_id = ?")) {
             preparedStatement.setLong(1, shippingPolicyId);
             preparedStatement.executeUpdate();

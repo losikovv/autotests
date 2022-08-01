@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.EansEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class EansDao extends AbstractDao<Long, EansEntity> {
 
     public EansEntity getEanByRetailerSku(String retailerSku) {
         EansEntity ean = new EansEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE offer_retailer_sku = ?")) {
             preparedStatement.setString(1, retailerSku);
@@ -38,7 +39,7 @@ public class EansDao extends AbstractDao<Long, EansEntity> {
     @Override
     public boolean delete(Long id) {
         int result = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = ?")) {
             preparedStatement.setLong(1, id);
             result = preparedStatement.executeUpdate();

@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.shippingcalc;
 
 import ru.instamart.jdbc.dao.Dao;
 import ru.instamart.jdbc.entity.shippingcalc.ScriptsEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLShippingCalcManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class ScriptsDao implements Dao<Integer, ScriptsEntity> {
 
     public ScriptsEntity getScriptByName(String name) {
         ScriptsEntity script = new ScriptsEntity();
-        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE name = ? ")) {
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();

@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.StoresEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 import ru.instamart.jdbc.util.Transactional;
 
 import java.sql.Connection;
@@ -29,7 +30,7 @@ public class SpreeRetailersCleanDao extends AbstractDao<Long, StoresEntity> {
     private final String DELETE_FROM_RETAILERS_SQL = "DELETE FROM spree_retailers WHERE name = '%s'";
 
     public void deleteRetailerWithStores(String retailerName) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              Statement statement = connect.createStatement();
              Transactional transactional = new Transactional(connect, false);
         ) {

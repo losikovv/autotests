@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.ImageDraftsEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class ImagesDraftsDao extends AbstractDao<Long, ImageDraftsEntity> {
 
     public int getCount(String fileName) {
         int resultCount = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE image_file_name LIKE ?")) {
             preparedStatement.setString(1, String.format("%s%%", fileName));
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -32,7 +33,7 @@ public class ImagesDraftsDao extends AbstractDao<Long, ImageDraftsEntity> {
     }
 
     public void deleteImagesByName(String fileName) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE image_file_name LIKE ?")) {
             preparedStatement.setString(1, String.format("%s%%", fileName));
             preparedStatement.executeUpdate();

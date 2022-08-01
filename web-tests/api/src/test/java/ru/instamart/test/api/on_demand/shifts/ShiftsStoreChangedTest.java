@@ -21,10 +21,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 import shifts.ImportPlanningPeriods;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static org.testng.Assert.*;
 import static ru.instamart.kafka.configs.KafkaConfigs.configPlanningPeriods;
@@ -309,11 +306,11 @@ public class ShiftsStoreChangedTest extends RestBase {
                 .build();
 
         kafka.publish(configPlanningPeriods(), periodsImport.toByteArray());
+        simplyAwait(10);
         var filters = PlanningPeriodFilters.builder()
                 .importId(randomId)
                 .build();
         var planningPeriods = PlanningPeriodsDao.INSTANCE.getPlanningPeriods(filters);
-        simplyAwait(10);
         Allure.step("Asserts", () ->
                 assertEquals(planningPeriods.size(), 1, "Данные shops пустые или вернулось более одного магазина")
         );
@@ -348,8 +345,9 @@ public class ShiftsStoreChangedTest extends RestBase {
                 .build();
 
         kafka.publish(configPlanningPeriods(), periodsImport.toByteArray());
+        simplyAwait(10);
         var pod = Pods.stream()
-                .filter(item -> item.getNameSpace() == EnvironmentProperties.SERVICE)
+                .filter(item -> Objects.equals(item.getNameSpace(), EnvironmentProperties.SERVICE))
                 .findFirst().get();
         List<String> logsPods = kubeLog.getLogsPods(pod.getNameSpace(), pod.getLabel(), "\"planning_area_id\": " + deliveryAreaId);
         Allure.step("Asserts", () ->

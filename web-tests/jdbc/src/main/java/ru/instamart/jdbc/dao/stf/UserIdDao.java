@@ -3,7 +3,8 @@ package ru.instamart.jdbc.dao.stf;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.SpreeUsersEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.SQLException;
 
@@ -26,7 +27,7 @@ public class UserIdDao extends AbstractDao<Long, SpreeUsersEntity> {
     public String findUserId(String phone) {
         var sql = SQL_SELECT_USER_ID + "WHERE phone_tokens.value= ? LIMIT 10";
 
-        try (var connect = ConnectionMySQLManager.get();
+        try (var connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              var preparedStatement = connect.prepareStatement(sql)) {
 
             preparedStatement.setObject(1, "7" + phone);

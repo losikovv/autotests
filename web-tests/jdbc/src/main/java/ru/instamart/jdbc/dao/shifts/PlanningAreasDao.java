@@ -3,7 +3,8 @@ package ru.instamart.jdbc.dao.shifts;
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.shifts.PlanningAreasEntity;
 import ru.instamart.jdbc.entity.shifts.PlanningPeriodsEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLShiftsManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class PlanningAreasDao extends AbstractDao<Long, PlanningPeriodsEntity> {
 
     public List<PlanningAreasEntity> getPlanningAreas(Integer deliveryAreaId) {
         List<PlanningAreasEntity> planningAreasResult = new ArrayList<>();
-        try (Connection connect = ConnectionPgSQLShiftsManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIFT);
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_SQL)) {
             preparedStatement.setLong(1, deliveryAreaId);
             ResultSet resultSet = preparedStatement.executeQuery();

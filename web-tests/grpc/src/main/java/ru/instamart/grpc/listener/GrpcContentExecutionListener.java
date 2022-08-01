@@ -25,7 +25,7 @@ public final class GrpcContentExecutionListener extends ExecutionListener {
     public void onExecutionFinish() {
         super.onExecutionFinish();
         // Тут может быть код для очистки окружения после прогона тестов
-        log.debug("We create {} new users", UserManager.getUserDataList().size());
+        log.debug("We create {} new users", UserManager.userDataCount());
     }
 
     @Override

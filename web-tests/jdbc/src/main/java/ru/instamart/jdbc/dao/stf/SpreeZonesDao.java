@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.SpreeZonesEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class SpreeZonesDao extends AbstractDao<Long, SpreeZonesEntity> {
 
     public SpreeZonesEntity getZoneByDescription(String zoneDescription) {
         SpreeZonesEntity zone = new SpreeZonesEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE description = ?")) {
             preparedStatement.setString(1, zoneDescription);
@@ -40,7 +41,7 @@ public class SpreeZonesDao extends AbstractDao<Long, SpreeZonesEntity> {
     public Optional<SpreeZonesEntity> findById(Long id) {
         SpreeZonesEntity spreeZonesEntity = null;
         var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setObject(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -57,7 +58,7 @@ public class SpreeZonesDao extends AbstractDao<Long, SpreeZonesEntity> {
     }
 
     public void deleteZonesByName(String zoneName) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE name LIKE ?")) {
             preparedStatement.setString(1,String.format("%s%%", zoneName));
             preparedStatement.executeUpdate();

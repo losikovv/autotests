@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.shippingcalc;
 
 import ru.instamart.jdbc.dao.Dao;
 import ru.instamart.jdbc.entity.shippingcalc.StrategyBindingsEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLShippingCalcManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class StrategyBindingsDao implements Dao<Integer, StrategyBindingsEntity>
     public StrategyBindingsEntity getStrategyBinding(Integer id, String storeId, String tenantId, String shipping) {
         StrategyBindingsEntity strategyBinding = new StrategyBindingsEntity();
 
-        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE strategy_id = ? AND store_id = ? AND tenant_id = ? AND shipping = ?::delivery_type ")) {
             preparedStatement.setInt(1, id);
             preparedStatement.setString(2, storeId);
@@ -42,7 +43,7 @@ public class StrategyBindingsDao implements Dao<Integer, StrategyBindingsEntity>
     }
 
     public boolean addStrategyBinding(Integer strategyId, String storeId, String tenantId, String shipping) {
-        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (strategy_id, store_id, tenant_id, shipping) " +
                      " VALUES (?, ?, ?, ?::delivery_type) ")) {
             preparedStatement.setInt(1, strategyId);

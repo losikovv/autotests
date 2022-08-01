@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.OperationalZonesEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class OperationalZonesDao extends AbstractDao<Long, OperationalZonesEntit
     @Override
     public boolean delete(Long id) {
         int result = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + String.format("WHERE id = '%s'", id))) {
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -30,7 +31,7 @@ public class OperationalZonesDao extends AbstractDao<Long, OperationalZonesEntit
     }
 
     public void deleteZoneByName(String zoneName) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + "WHERE name = ?")) {
             preparedStatement.setString(1, zoneName);
             preparedStatement.executeUpdate();
@@ -41,7 +42,7 @@ public class OperationalZonesDao extends AbstractDao<Long, OperationalZonesEntit
 
     public int getCount() {
         int resultCount = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -54,7 +55,7 @@ public class OperationalZonesDao extends AbstractDao<Long, OperationalZonesEntit
 
     public Long getIdByName(String name) {
         Long id = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE name = ?")) {
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();

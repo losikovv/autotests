@@ -2,9 +2,13 @@ package ru.instamart.jdbc.dao.eta;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.eta.ServiceParametersEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLEtaManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
 
@@ -16,7 +20,7 @@ public class ServiceParametersDao extends AbstractDao<Long, ServiceParametersEnt
 
     public ServiceParametersEntity getServiceParameters() {
         ServiceParametersEntity serviceParametersEntity = new ServiceParametersEntity();
-        try (Connection connect = ConnectionPgSQLEtaManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_ETA);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*"))) {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -42,7 +46,7 @@ public class ServiceParametersDao extends AbstractDao<Long, ServiceParametersEnt
     }
 
     public void updateWaitMlTimeout(String waitMlTimeout) {
-        try (Connection connect = ConnectionPgSQLEtaManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_ETA);
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " wait_ml_timeout = ?::interval")) {
             preparedStatement.setString(1, waitMlTimeout);
             preparedStatement.executeUpdate();

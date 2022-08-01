@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.SpreeTaxonsEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class SpreeTaxonsDao extends AbstractDao<Long, SpreeTaxonsEntity> {
 
     public SpreeTaxonsEntity getTaxonByInstamartId(Integer instamartId) {
         SpreeTaxonsEntity taxon = new SpreeTaxonsEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE instamart_id = ?")) {
             preparedStatement.setInt(1, instamartId);
@@ -44,7 +45,7 @@ public class SpreeTaxonsDao extends AbstractDao<Long, SpreeTaxonsEntity> {
     }
 
     public void updateTaxonIcon(String iconFileName, String iconContentType, Integer iconFileSize, Integer instamartId) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " SET icon_file_name = ?, icon_content_type = ?, " +
                      "icon_file_size = ? WHERE instamart_id = ?")) {
             preparedStatement.setObject(1, iconFileName);

@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.workflow;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.workflow.SegmentsEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLWorkflowManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class SegmentsDao extends AbstractDao<Long, SegmentsEntity> {
 
     public List<SegmentsEntity> getSegmentsByWorkflowUuid(String workflowUuid) {
         List<SegmentsEntity> segmentsEntities = new ArrayList<>();
-        try (Connection connect = ConnectionPgSQLWorkflowManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_WORKFLOW);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "s.*") + " s JOIN assignments a ON s.workflow_id = a.workflow_id " +
                      "WHERE a.uuid = ?")) {
             preparedStatement.setString(1, workflowUuid);

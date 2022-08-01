@@ -38,9 +38,9 @@ public class ApiExecutionListener extends ExecutionListener {
         filterCollect(list, Method.PATCH);
         HashSet<String> orderSet = new HashSet<>(ArtifactFactory.getOrderList());
         log.debug("Order list using in test: ");
-        orderSet.stream().forEach(log::debug);
+        orderSet.forEach(log::debug);
         HashSet<String> shippingSet = new HashSet<>(ArtifactFactory.getShippingList());
         log.debug("Shipping list using in test: ");
-        shippingSet.stream().forEach(log::debug);
+        shippingSet.forEach(log::debug);
     }
 }

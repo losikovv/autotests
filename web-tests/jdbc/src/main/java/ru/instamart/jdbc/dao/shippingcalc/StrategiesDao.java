@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.shippingcalc;
 
 import ru.instamart.jdbc.dao.Dao;
 import ru.instamart.jdbc.entity.shippingcalc.StrategiesEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLShippingCalcManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.*;
 import java.util.List;
@@ -18,7 +19,7 @@ public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
 
     public StrategiesEntity getStrategy(Integer id) {
         StrategiesEntity strategy = new StrategiesEntity();
-        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ? ")) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -41,7 +42,7 @@ public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
     }
 
     public Integer addStrategy(String name, String shipping, Boolean global, Integer priority, String description, String creatorId) {
-        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (name, shipping, global, priority, description, creator_id) " +
                      " VALUES (?, ?::delivery_type, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, name);
@@ -63,7 +64,7 @@ public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
 
     @Override
     public boolean delete(Integer id) {
-        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = ? ")) {
             preparedStatement.setInt(1, id);
             return preparedStatement.executeUpdate() > 0;

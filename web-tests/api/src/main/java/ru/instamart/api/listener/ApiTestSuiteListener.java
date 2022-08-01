@@ -23,10 +23,8 @@ public final class ApiTestSuiteListener implements ITestListener, ISuiteListener
     @Override
     public void onStart(ISuite suite) {
         long count;
-        try {
-            count = Files.walk(Paths.get("build/allure-results"))
-                    .filter(Files::isRegularFile)
-                    .count();
+        try(final var streamPath = Files.walk(Paths.get("build/allure-results"))) {
+            count = streamPath.filter(Files::isRegularFile).count();
             if (count <= 1) {
                 this.qaseService.createTestRun();
             }
