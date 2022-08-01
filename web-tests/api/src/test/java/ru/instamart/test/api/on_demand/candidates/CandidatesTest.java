@@ -22,6 +22,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.grpc.common.GrpcContentHosts.PAAS_CONTENT_OPERATIONS_CANDIDATES;
+import static ru.instamart.kraken.util.TimeUtil.getPastDateTime;
 import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
 
 @Epic("On Demand")
@@ -31,9 +32,7 @@ public class CandidatesTest extends RestBase {
     private CandidatesGrpc.CandidatesBlockingStub clientCandidates;
     private UserData user;
     private UserData user2;
-    private long calendar = Calendar.getInstance().getTimeInMillis();
-    private String timeStamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(calendar-900000);
-
+    private String timeStamp = getPastDateTime(900L);
 
     @BeforeClass(alwaysRun = true)
     public void auth() {
@@ -72,7 +71,7 @@ public class CandidatesTest extends RestBase {
                         .setRadius(200.00F)
                 )
                 .build();
-        CandidatesOuterClass.SelectCandidatesResponse selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+        var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
     }
 
@@ -89,7 +88,7 @@ public class CandidatesTest extends RestBase {
                         .setRadius(200.00F)
                 )
                 .build();
-        CandidatesOuterClass.SelectCandidatesResponse selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+        var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount()  <= 0, "UUID кандидата вернулся");
     }
 
@@ -124,7 +123,7 @@ public class CandidatesTest extends RestBase {
                                 .build())
                 )
                 .build();
-        CandidatesOuterClass.SelectCandidatesResponse selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+        var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
 
         }
@@ -138,10 +137,10 @@ public class CandidatesTest extends RestBase {
                                 .setLat(55.915098)
                                 .setLon(37.541685)
                                 .build())
-                        .addTransports(CandidatesOuterClass.CandidateTransport.forNumber(2)) //2 = велосипед
+                        .addTransports(CandidatesOuterClass.CandidateTransport.BICYCLE) //2 = велосипед
                 )
                 .build();
-        CandidatesOuterClass.SelectCandidatesResponse selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+        var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
     }
   }
