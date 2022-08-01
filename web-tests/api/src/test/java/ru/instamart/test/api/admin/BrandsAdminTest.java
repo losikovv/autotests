@@ -1,16 +1,26 @@
 package ru.instamart.test.api.admin;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.admin.BrandsAdminRequest;
+import ru.instamart.jdbc.dao.stf.SpreeBrandsDao;
 import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import java.util.Objects;
+
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
 
@@ -18,10 +28,18 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode3
 @Feature("Бренды")
 public class BrandsAdminTest extends RestBase {
     private String permalink;
+    private Long brandId;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         admin.auth();
+    }
+
+    @BeforeMethod(alwaysRun = true, description = "Повторная авторизация если токен протух или invalid")
+    public void auth() {
+        if (Objects.equals(SessionFactory.getSession(SessionType.ADMIN).getToken(), "invalid")) {
+            admin.auth();
+        }
     }
 
     @CaseId(1945)
@@ -43,7 +61,17 @@ public class BrandsAdminTest extends RestBase {
                 permalink,
                 "brand-keyword-" + postfix);
         checkStatusCode302(response);
-        //todo добавить проверку через базу
+        var brand = SpreeBrandsDao.INSTANCE.getBrandByName("brand-name-" + postfix);
+        Allure.step("Проверка на null данных из БД", () -> assertNotNull(brand, "Данные из БД вернулись пустые"));
+
+        brandId = brand.getId();
+        Allure.step("Проверка на соответствии данных в БД", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(brand.getKeywords(), "brand-keyword-" + postfix, "brand-keyword не совпадает с введенным");
+            softAssert.assertEquals(brand.getPermalink(), permalink, "brand-permalink не совпадает с введенным");
+            softAssert.assertAll();
+        });
+
     }
 
     @CaseId(1947)
@@ -57,7 +85,16 @@ public class BrandsAdminTest extends RestBase {
                 permalink,
                 "brand-keyword-" + postfix);
         checkStatusCode302(response);
-        //todo добавить проверку через базу
+
+        var brand = SpreeBrandsDao.INSTANCE.getBrandById(brandId);
+        Allure.step("Проверка на null данных из БД", () -> assertNotNull(brand, "Данные из БД вернулись пустые"));
+        Allure.step("Проверка на соответствии данных в БД", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(brand.getName(), "brand-name-" + postfix, "brand-name не совпадает с введенным");
+            softAssert.assertEquals(brand.getKeywords(), "brand-keyword-" + postfix, "brand-keyword не совпадает с введенным");
+            softAssert.assertEquals(brand.getPermalink(), permalink, "brand-permalink не совпадает с введенным");
+            softAssert.assertAll();
+        });
     }
 
     @CaseId(1948)
@@ -67,6 +104,7 @@ public class BrandsAdminTest extends RestBase {
     public void deleteBrand() {
         final Response response = BrandsAdminRequest.DELETE(permalink);
         checkStatusCode302(response);
-        //todo добавить проверку через базу
+        var brand = SpreeBrandsDao.INSTANCE.getBrandById(brandId);
+        Allure.step("Проверка удаления " + permalink + " из БД", () -> assertNull(brand, "Бренд не удалился"));
     }
 }

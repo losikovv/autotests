@@ -25,8 +25,33 @@ public class SpreeBrandsDao extends AbstractDao<Long, SpreeBrandsEntity> {
                      " WHERE name = ?")) {
             preparedStatement.setString(1, brandName);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 brand.setId(resultSet.getLong("id"));
+                brand.setName(resultSet.getString("name"));
+                brand.setCreatedAt(resultSet.getString("created_at"));
+                brand.setUpdatedAt(resultSet.getString("updated_at"));
+                brand.setPermalink(resultSet.getString("permalink"));
+                brand.setKeywords(resultSet.getString("keywords"));
+            } else return null;
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return brand;
+    }
+
+    public SpreeBrandsEntity getBrandById(Long id) {
+        SpreeBrandsEntity brand = new SpreeBrandsEntity();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+                     " WHERE id = ?")) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                brand.setId(resultSet.getLong("id"));
+                brand.setName(resultSet.getString("name"));
+                brand.setCreatedAt(resultSet.getString("created_at"));
+                brand.setUpdatedAt(resultSet.getString("updated_at"));
+                brand.setPermalink(resultSet.getString("permalink"));
                 brand.setKeywords(resultSet.getString("keywords"));
             } else return null;
         } catch (SQLException e) {

@@ -98,7 +98,6 @@ public final class AddressesV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    //TODO: Валидацию не завезли, отписал апсекам, завели баг
     //217-230
     @Deprecated
     @Issue("SBUG-35")
