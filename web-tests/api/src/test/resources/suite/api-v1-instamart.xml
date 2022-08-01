@@ -61,6 +61,7 @@
             <class name="ru.instamart.test.api.admin_api.ShipmentsV1Test"/>
             <class name="ru.instamart.test.api.admin_api.MainNavigationV1Test"/>
             <class name="ru.instamart.test.api.admin_api.UserPermissionsV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.PromotionDetailsV1Test"/>
             <class name="ru.instamart.test.api.v1.endpoints.ImportsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.ShoppersEventsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.PromotionCardsV1Tests"/>

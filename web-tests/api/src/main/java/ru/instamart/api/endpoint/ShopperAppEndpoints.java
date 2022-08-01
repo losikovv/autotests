@@ -59,7 +59,6 @@ public final class ShopperAppEndpoints {
         public static final String START_PAYMENT_VERIFICATION = "assemblies/{assemblyId}/start_payment_verification";
         public static final String START_PURCHASING = "assemblies/{assemblyId}/start_purchasing";
         public static final String SUSPEND = "assemblies/{assemblyId}/suspend";
-        //todo
         public static final String APPROVE_NEED_REVIEW_ITEMS = "assemblies/{assemblyId}/approve_need_review_items";
         public static final String TROLLEYS = "assemblies/{assemblyId}/trolleys";
 

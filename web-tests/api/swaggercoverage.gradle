@@ -9,12 +9,6 @@ ext.swaggerlib = [
         coverageDir: './.coverage'
 ]
 
-// TODO: Скачивание выключено. Пока надо редактировать swagger файл
-//task swaggerDownload(type: Download) {
-//    src "${swaggerlib.swaggerApiV2DownloadUrl}"
-//    dest "${swaggerlib.coverageSwagger}"
-//}
-
 task swaggerDownloadCommandline(type: Download) {
     src "$swaggerlib.coverageDownloadUrl"
     dest file("$swaggerlib.coverageDir/commandline.zip")

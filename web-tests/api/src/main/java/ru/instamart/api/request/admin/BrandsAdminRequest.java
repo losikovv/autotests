@@ -30,12 +30,14 @@ public class BrandsAdminRequest extends AdminRequestBase {
     @Step("{method} /" + AdminEndpoints.BRAND)
     public static Response PATCH(String name, String permalink, String keywords) {
         final Map<String, Object> formParams = new HashMap<>();
+        formParams.put("_method", "patch");
         formParams.put("brand[name]", name);
         formParams.put("brand[permalink]", permalink);
         formParams.put("brand[keywords]", keywords);
+        formParams.put("button","");
         return givenWithAuth()
                 .formParams(formParams)
-                .patch(AdminEndpoints.BRAND, permalink);
+                .post(AdminEndpoints.BRAND, permalink);
     }
 
     @Step("{method} /" + AdminEndpoints.BRAND)

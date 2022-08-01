@@ -1,5 +1,6 @@
 package ru.instamart.test.api.admin;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
@@ -8,9 +9,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.admin.OptionTypesAdminRequest;
+import ru.instamart.jdbc.dao.stf.SpreeOptionTypesDao;
 import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
 
@@ -39,10 +42,21 @@ public class OptionTypesAdminTest extends RestBase {
         String postfix = Generate.literalString(6);
         final Response response = OptionTypesAdminRequest.POST("name-" + postfix, "presentation-" + postfix);
         checkStatusCode302(response);
-        //todo добавить проверку через базу
 
+        var spreeOptionTypes = SpreeOptionTypesDao.INSTANCE.getByName("name-" + postfix);
+        Allure.step("Проверка на null ответа БД по name", () -> assertNotNull(spreeOptionTypes, "Значение из БД вернулось пустым"));
+        Allure.step("Проверка установленных верных значений",
+                () -> assertEquals(spreeOptionTypes.getPresentation(), "presentation-" + postfix, "presentation  не равен введенному"));
         String[] location = response.getHeader("location").split("/");
         optionTypeId = location[location.length - 2];
+
+        var spreeOptionTypesById = SpreeOptionTypesDao.INSTANCE.getById(optionTypeId);
+        Allure.step("Проверка на null ответа БД по name", () -> assertNotNull(spreeOptionTypesById, "Значение из БД вернулось пустым"));
+        Allure.step("Проверка установленных верных значений",
+                () -> {
+                    assertEquals(spreeOptionTypesById.getPresentation(), "presentation-" + postfix, "presentation  не равен введенному");
+                    assertEquals(spreeOptionTypesById.getName(), "name-" + postfix, "name не равен введенному");
+                });
     }
 
     @CaseId(1938)
@@ -56,7 +70,13 @@ public class OptionTypesAdminTest extends RestBase {
                 "name-" + postfix,
                 "presentation-" + postfix);
         checkStatusCode302(response);
-        //todo добавить проверку через базу
+        var spreeOptionTypesById = SpreeOptionTypesDao.INSTANCE.getById(optionTypeId);
+        Allure.step("Проверка на null ответа БД по name", () -> assertNotNull(spreeOptionTypesById, "Значение из БД вернулось пустым"));
+        Allure.step("Проверка установленных верных значений",
+                () -> {
+                    assertEquals(spreeOptionTypesById.getPresentation(), "presentation-" + postfix, "presentation  не равен введенному");
+                    assertEquals(spreeOptionTypesById.getName(), "name-" + postfix, "name не равен введенному");
+                });
     }
 
     @CaseId(1939)
@@ -75,7 +95,15 @@ public class OptionTypesAdminTest extends RestBase {
                 "value-presentation-" + postfix,
                 false);
         checkStatusCode302(response);
-        //todo добавить проверку через базу
+        var spreeOptionTypesById = SpreeOptionTypesDao.INSTANCE.getById(optionTypeId);
+        Allure.step("Проверка на null ответа БД по name", () -> assertNotNull(spreeOptionTypesById, "Значение из БД вернулось пустым"));
+        Allure.step("Проверка установленных верных значений",
+                () -> {
+                    assertEquals(spreeOptionTypesById.getName(), "option-name-" + postfix, "name не равен введенному");
+                    assertEquals(spreeOptionTypesById.getPresentation(), "option-presentation-" + postfix, "presentation  не равен введенному");
+                    assertEquals(spreeOptionTypesById.getValueName(), "value-name-" + postfix, "value name не равен введенному");
+                    assertEquals(spreeOptionTypesById.getValuePresentation(), "value-presentation-" + postfix, "value presentation не равен введенному");
+                });
     }
 
     @CaseId(1940)
@@ -85,6 +113,7 @@ public class OptionTypesAdminTest extends RestBase {
     public void deleteOptionType() {
         Response response = OptionTypesAdminRequest.DELETE(optionTypeId);
         checkStatusCode302(response);
-        //todo добавить проверку через базу
+        var spreeOptionTypesById = SpreeOptionTypesDao.INSTANCE.getById(optionTypeId);
+        Allure.step("Проверка на удаление значения из БД по id: " + optionTypeId, () -> assertNull(spreeOptionTypesById, "Значние из бд не удалено"));
     }
 }
