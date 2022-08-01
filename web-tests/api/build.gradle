@@ -6,6 +6,7 @@ plugins {
 }
 
 apply from: 'api-task.gradle'
+apply from: 'task.gradle'
 apply from: 'swaggercoverage.gradle'
 
 allure {

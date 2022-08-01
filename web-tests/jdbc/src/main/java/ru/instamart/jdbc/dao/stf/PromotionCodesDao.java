@@ -4,7 +4,8 @@ package ru.instamart.jdbc.dao.stf;
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.dto.stf.PromotionCodesFilters;
 import ru.instamart.jdbc.entity.stf.PromotionCodesEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -65,7 +66,7 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
                 .collect(joining(" AND ", " WHERE ", " LIMIT ? OFFSET ? "));
         var sql = SQL_SELECT_PROMO_CODE + where;
 
-        try (var connect = ConnectionMySQLManager.get();
+        try (var connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              var preparedStatement = connect.prepareStatement(sql)) {
             for (int i = 0; i < parameters.size(); i++) {
                 preparedStatement.setObject(i + 1, parameters.get(i));
@@ -86,7 +87,7 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
     }
 
     public void updateUsageLimit(Integer usageLimit, String promoCode) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement("UPDATE promotion_codes SET usage_limit = ? WHERE value = ?")) {
             preparedStatement.setInt(1, usageLimit);
             preparedStatement.setString(2, promoCode);
@@ -97,7 +98,7 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
     }
 
     public void createPromoCode(String value, Integer promotionId, String createdAt, String updatedAt, Integer usageLimit) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(SQL_INSERT_PROMO_CODE)) {
             preparedStatement.setString(1, value);
             preparedStatement.setInt(2, promotionId);

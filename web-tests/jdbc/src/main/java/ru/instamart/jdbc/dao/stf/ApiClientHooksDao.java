@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.ApiClientHooksEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class ApiClientHooksDao extends AbstractDao<Long, ApiClientHooksEntity> {
     private final String UPDATE_SQL = "UPDATE api_client_hooks SET url='%s' WHERE api_client_id=?";
 
     public Boolean updateUrlHook(final Long api_client_id, final String url) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(UPDATE_SQL, url))) {
             preparedStatement.setLong(1, api_client_id);
             return preparedStatement.executeUpdate() > 0;

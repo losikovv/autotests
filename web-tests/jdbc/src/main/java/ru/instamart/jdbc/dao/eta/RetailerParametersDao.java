@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.eta;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.eta.RetailerParametersEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLEtaManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class RetailerParametersDao extends AbstractDao<Long, RetailerParametersE
     @Override
     public Optional<RetailerParametersEntity> findById(Long id) {
         RetailerParametersEntity retailerParameters = null;
-        try (Connection connect = ConnectionPgSQLEtaManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_ETA);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();

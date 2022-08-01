@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.shippingcalc;
 
 import ru.instamart.jdbc.dao.Dao;
 import ru.instamart.jdbc.entity.shippingcalc.RulesEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLShippingCalcManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class RulesDao implements Dao<Integer, RulesEntity> {
 
     public List<RulesEntity> getRules(Integer id) {
         List<RulesEntity> rulesResult = new ArrayList<>();
-        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE strategy_id = ? ORDER BY id ")) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -44,7 +45,7 @@ public class RulesDao implements Dao<Integer, RulesEntity> {
 
     public List<RulesEntity> getDeletedRules(Integer id) {
         List<RulesEntity> rulesResult = new ArrayList<>();
-        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE strategy_id = ? AND deleted_at IS NOT NULL ORDER BY id ")) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -68,7 +69,7 @@ public class RulesDao implements Dao<Integer, RulesEntity> {
     }
 
     public Integer addRule(Integer strategyId, Integer scriptId, String scriptParams, Integer priority, String creatorId, String ruleType) {
-        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (strategy_id, script_id, script_params, priority, creator_id, rule_type) " +
                      " VALUES (?, ?, ?::jsonb, ?, ?, ?::rule_type) ", Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setInt(1, strategyId);
@@ -90,7 +91,7 @@ public class RulesDao implements Dao<Integer, RulesEntity> {
 
     @Override
     public boolean delete(Integer id) {
-        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE strategy_id = ? ")) {
             preparedStatement.setInt(1, id);
             return preparedStatement.executeUpdate() > 0;

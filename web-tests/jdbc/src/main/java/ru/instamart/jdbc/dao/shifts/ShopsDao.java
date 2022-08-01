@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.shifts;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.shifts.ShopsEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLShiftsManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class ShopsDao extends AbstractDao<Long, ShopsEntity> {
 
     public List<ShopsEntity> getOriginalId() {
         List<ShopsEntity> shopsResult = new ArrayList<>();
-        try (Connection connect = ConnectionPgSQLShiftsManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIFT);
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_ORIGINAL_ID_DESK)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -37,7 +38,7 @@ public class ShopsDao extends AbstractDao<Long, ShopsEntity> {
     }
 
     public boolean delete(Integer baseStoreId) {
-        try (Connection connect = ConnectionPgSQLShiftsManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIFT);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE + " WHERE delivery_area_id = ?")) {
             preparedStatement.setInt(1, baseStoreId);
             return preparedStatement.executeUpdate() > 0;

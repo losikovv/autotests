@@ -3,7 +3,8 @@ package ru.instamart.jdbc.dao.stf;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.SpreeProductsEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class SpreeProductsDao extends AbstractDao<Long, SpreeProductsEntity> {
 
     public Long getOfferIdBySku(String sku, Integer storeId) {
         Long id = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "o.id") +
                      " sp JOIN offers o ON sp.id = o.product_id WHERE sp.sku = ? AND o.store_id = ?")) {
             preparedStatement.setString(1, sku);
@@ -37,7 +38,7 @@ public class SpreeProductsDao extends AbstractDao<Long, SpreeProductsEntity> {
 
     public Long getOfferIdForAlcohol(Integer storeId) {
         Long id = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "o.id") +
                      " sp JOIN offers o ON sp.id = o.product_id WHERE sp.shipping_category_id = 3 AND o.store_id = ? AND o.published = 1 AND sp.deleted_at IS NULL AND o.deleted_at IS NULL LIMIT 1")) {
             preparedStatement.setInt(1, storeId);
@@ -53,7 +54,7 @@ public class SpreeProductsDao extends AbstractDao<Long, SpreeProductsEntity> {
 
     public Long getOfferIdForPharma(Integer storeId) {
         Long id = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "o.id") +
                      " sp JOIN offers o ON sp.id = o.product_id WHERE sp.shipping_category_id = 4 AND o.store_id = ? AND o.published = 1 AND sp.deleted_at IS NULL AND o.deleted_at IS NULL")) {
             preparedStatement.setInt(1, storeId);
@@ -68,7 +69,7 @@ public class SpreeProductsDao extends AbstractDao<Long, SpreeProductsEntity> {
 
     public Long getOfferIdByPermalink(String permalink, Integer storeId) {
         Long id = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "o.id") +
                      " sp JOIN offers o ON sp.id = o.product_id WHERE sp.permalink = ? AND o.store_id = ? AND o.published = 1 AND sp.deleted_at IS NULL AND o.deleted_at IS NULL")) {
             preparedStatement.setString(1, permalink);
@@ -84,7 +85,7 @@ public class SpreeProductsDao extends AbstractDao<Long, SpreeProductsEntity> {
 
     public SpreeProductsEntity getProduct() {
         SpreeProductsEntity spreeProductsEntity = new SpreeProductsEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE deleted_at IS NULL AND permalink NOT LIKE '%1%' AND shipping_category_id != 3 LIMIT 1")) {
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -104,7 +105,7 @@ public class SpreeProductsDao extends AbstractDao<Long, SpreeProductsEntity> {
 
     public SpreeProductsEntity getProductBySku(String sku) {
         SpreeProductsEntity spreeProductsEntity = new SpreeProductsEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE sku = ?")) {
             preparedStatement.setString(1, sku);
@@ -127,7 +128,7 @@ public class SpreeProductsDao extends AbstractDao<Long, SpreeProductsEntity> {
     @Override
     public boolean delete(Long id) {
         int result = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = ?")) {
             preparedStatement.setLong(1, id);
             result = preparedStatement.executeUpdate();

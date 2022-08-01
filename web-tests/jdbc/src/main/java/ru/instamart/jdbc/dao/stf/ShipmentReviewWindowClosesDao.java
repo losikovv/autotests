@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.ShipmentReviewWindowClosesEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ public class ShipmentReviewWindowClosesDao extends AbstractDao<Long, ShipmentRev
     public static final ShipmentReviewWindowClosesDao INSTANCE = new ShipmentReviewWindowClosesDao();
 
     public void updateNumberOfCloses(Integer number, Integer shipmentId) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement("UPDATE shipment_review_window_closes SET number = ? WHERE shipment_id = ?")) {
             preparedStatement.setInt(1, number);
             preparedStatement.setInt(2, shipmentId);

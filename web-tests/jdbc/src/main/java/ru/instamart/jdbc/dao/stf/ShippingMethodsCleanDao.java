@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.SpreeShippingMethodsEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 import ru.instamart.jdbc.util.Transactional;
 
 import java.sql.Connection;
@@ -23,7 +24,7 @@ public class ShippingMethodsCleanDao extends AbstractDao<Long, SpreeShippingMeth
     private final String DELETE_FROM_SHIPPING_METHODS_SQL = "DELETE FROM spree_shipping_methods WHERE id = ";
 
     public void deleteShippineMethods(int shippingMethodId) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              Statement statement = connect.createStatement();
              Transactional transactional = new Transactional(connect, false);
         ) {

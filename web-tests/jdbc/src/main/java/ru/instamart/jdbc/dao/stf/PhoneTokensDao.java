@@ -3,7 +3,8 @@ package ru.instamart.jdbc.dao.stf;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.PhoneTokensEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class PhoneTokensDao extends AbstractDao<Long, PhoneTokensEntity> {
     private final String SELECT_SQL = "SELECT %s FROM phone_tokens";
 
     public void deleteQAPhones() {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE value LIKE '7990%'")) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -30,7 +31,7 @@ public class PhoneTokensDao extends AbstractDao<Long, PhoneTokensEntity> {
 
     public PhoneTokensEntity getByPhoneValue(String phone) {
         PhoneTokensEntity phoneTokensEntity = new PhoneTokensEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, '*') + " WHERE value LIKE ?")) {
             preparedStatement.setString(1, '%' + phone);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -45,7 +46,7 @@ public class PhoneTokensDao extends AbstractDao<Long, PhoneTokensEntity> {
     }
 
     public void deletePhoneTokenByUserId(String userId) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE user_id = ?")) {
             preparedStatement.setString(1, userId);
             preparedStatement.executeUpdate();

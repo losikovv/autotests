@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
+<suite name="MR-SUITE" parallel="tests" thread-count="2" verbose="1">
+    <listeners>
+        <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
+        <listener class-name="ru.instamart.api.listener.ApiTestSuiteListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="Debug API" parallel="classes" thread-count="1">
+        <classes>
+            <class name="ru.instamart.test.api.on_demand.eta.RedisEtaTest"/>
+        </classes>
+    </test>
+</suite>

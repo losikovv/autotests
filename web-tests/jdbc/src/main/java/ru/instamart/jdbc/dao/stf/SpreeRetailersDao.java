@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.SpreeRetailersEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class SpreeRetailersDao extends AbstractDao<Long, SpreeRetailersEntity> {
 
     public int getCount() {
         int resultCount = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -33,7 +34,7 @@ public class SpreeRetailersDao extends AbstractDao<Long, SpreeRetailersEntity> {
 
     public Long getIdBySlug(String slug) {
         Long id = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE slug = ?")) {
             preparedStatement.setString(1, slug);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -47,7 +48,7 @@ public class SpreeRetailersDao extends AbstractDao<Long, SpreeRetailersEntity> {
 
     public Long getIdByName(String name) {
         Long id = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE name = ?")) {
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -61,7 +62,7 @@ public class SpreeRetailersDao extends AbstractDao<Long, SpreeRetailersEntity> {
 
     public int getCountByOperationalZoneId(Long operationalZoneId) {
         int resultCount = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(DISTINCT sr.id) AS total") +
                      " sr JOIN stores s ON sr.id = s.retailer_id WHERE s.operational_zone_id = ?")) {
             preparedStatement.setLong(1, operationalZoneId);
@@ -76,7 +77,7 @@ public class SpreeRetailersDao extends AbstractDao<Long, SpreeRetailersEntity> {
 
     public int getCountByAccessibility() {
         int resultCount = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(DISTINCT sr.id) AS total") +
                      " sr JOIN stores s ON sr.id = s.retailer_id WHERE s.available_on IS NOT NULL")) {
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -91,7 +92,7 @@ public class SpreeRetailersDao extends AbstractDao<Long, SpreeRetailersEntity> {
     @Override
     public boolean delete(Long id) {
         int result = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + ", retailer_appearances USING spree_retailers, retailer_appearances " +
                      "WHERE spree_retailers.id  = retailer_appearances.retailer_id AND spree_retailers.id = ?")) {
             preparedStatement.setLong(1, id);
@@ -105,7 +106,7 @@ public class SpreeRetailersDao extends AbstractDao<Long, SpreeRetailersEntity> {
     @Override
     public Optional<SpreeRetailersEntity> findById(Long id) {
         SpreeRetailersEntity retailer = new SpreeRetailersEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -126,7 +127,7 @@ public class SpreeRetailersDao extends AbstractDao<Long, SpreeRetailersEntity> {
     }
 
     public void deleteRetailerByName(String retailerName) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE name = ?")) {
             preparedStatement.setString(1, retailerName);
             preparedStatement.executeUpdate();

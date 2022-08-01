@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.PricesEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class PricesDao extends AbstractDao<Long, PricesEntity> {
 
     public PricesEntity getPriceByOfferId(Long offerId) {
         PricesEntity price = new PricesEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE offer_id = ?")) {
             preparedStatement.setLong(1, offerId);
@@ -41,7 +42,7 @@ public class PricesDao extends AbstractDao<Long, PricesEntity> {
     }
 
     public void deletePriceByOfferId(Long offerId) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE offer_id = ?")) {
             preparedStatement.setLong(1, offerId);
             preparedStatement.executeUpdate();
@@ -51,7 +52,7 @@ public class PricesDao extends AbstractDao<Long, PricesEntity> {
     }
 
     public void deletePriceByStoreId(Integer storeId) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);
             preparedStatement.executeUpdate();

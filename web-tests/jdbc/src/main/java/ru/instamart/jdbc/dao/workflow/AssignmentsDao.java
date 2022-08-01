@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.workflow;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLWorkflowManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class AssignmentsDao extends AbstractDao<Long, AssignmentsEntity> {
 
     public AssignmentsEntity getAssignmentByWorkflowUuid(String workflowUuid) {
         AssignmentsEntity assignmentsEntity = null;
-        try (Connection connect = ConnectionPgSQLWorkflowManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_WORKFLOW);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE uuid = ?")) {
             preparedStatement.setString(1, workflowUuid);
             ResultSet resultSet = preparedStatement.executeQuery();

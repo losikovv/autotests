@@ -5,7 +5,8 @@ import ru.instamart.jdbc.dto.shifts.PlanningPeriodFilters;
 import ru.instamart.jdbc.entity.shifts.PlanningPeriodCustomEntity;
 import ru.instamart.jdbc.entity.shifts.PlanningPeriodEntity;
 import ru.instamart.jdbc.entity.shifts.PlanningPeriodsEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLShiftsManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +32,7 @@ public class PlanningPeriodsDao extends AbstractDao<Long, PlanningPeriodsEntity>
 
     public Optional<PlanningPeriodCustomEntity> getClientTokenByName(final Long id) {
         PlanningPeriodCustomEntity planningPeriodCustomEntity = null;
-        try (Connection connect = ConnectionPgSQLShiftsManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIFT);
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_JOIN_SQL)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -56,7 +57,7 @@ public class PlanningPeriodsDao extends AbstractDao<Long, PlanningPeriodsEntity>
         var where = whereSql.stream()
                 .collect(joining(" AND ", " WHERE ", " LIMIT 10"));
         var sql = SELECT_SQL + where;
-        try (Connection connect = ConnectionPgSQLShiftsManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIFT);
              PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
             for (int i = 0; i < parameters.size(); i++) {
                 preparedStatement.setObject(i + 1, parameters.get(i));

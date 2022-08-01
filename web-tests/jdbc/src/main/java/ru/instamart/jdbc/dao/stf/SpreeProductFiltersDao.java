@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.SpreeProductFiltersEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class SpreeProductFiltersDao extends AbstractDao<Long, SpreeProductFilter
 
     public SpreeProductFiltersEntity getFilterByInstamartId(Long instamartId) {
         SpreeProductFiltersEntity spreeProductsFilter = new SpreeProductFiltersEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE instamart_id = ?")) {
             preparedStatement.setLong(1, instamartId);
@@ -40,7 +41,7 @@ public class SpreeProductFiltersDao extends AbstractDao<Long, SpreeProductFilter
     @Override
     public boolean delete(Long id) {
         int result = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = ?")) {
             preparedStatement.setLong(1, id);
             result = preparedStatement.executeUpdate();

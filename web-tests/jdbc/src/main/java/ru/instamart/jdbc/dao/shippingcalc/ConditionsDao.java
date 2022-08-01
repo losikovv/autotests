@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.shippingcalc;
 
 import ru.instamart.jdbc.dao.Dao;
 import ru.instamart.jdbc.entity.shippingcalc.ConditionsEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLShippingCalcManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +25,7 @@ public class ConditionsDao implements Dao<Integer, ConditionsEntity> {
         String params = builder.append("?,".repeat(rulesIds.size())).deleteCharAt(builder.length() - 1).toString();
         String selectSql = "SELECT * FROM conditions WHERE rule_id IN (" + params + ") ORDER BY rule_id";
 
-        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
              PreparedStatement preparedStatement = connect.prepareStatement(selectSql)) {
             int index = 1;
             for (Object ruleId : rulesIds) preparedStatement.setObject(index++, ruleId);
@@ -43,7 +44,7 @@ public class ConditionsDao implements Dao<Integer, ConditionsEntity> {
     }
 
     public boolean addCondition(Integer ruleId, String params, String conditionType) {
-        try (Connection connect = ConnectionPgSQLShippingCalcManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (rule_id, params, condition_type) " +
                      " VALUES (?, ?::jsonb, ?::condition_type_enum) ")) {
             preparedStatement.setInt(1, ruleId);

@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.shopper;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.shopper.RetailersShopperEntity;
-import ru.instamart.jdbc.util.ConnectionPgSQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ public class RetailersShopperDao extends AbstractDao<Long, RetailersShopperEntit
     private final String DELETE_SQL = "DELETE FROM retailers ";
 
     public void deleteRetailerByNameFromShopper(String retailerName) {
-        try (Connection connect = ConnectionPgSQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHP);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + "WHERE name = ?")) {
             preparedStatement.setString(1, retailerName);
             preparedStatement.executeUpdate();

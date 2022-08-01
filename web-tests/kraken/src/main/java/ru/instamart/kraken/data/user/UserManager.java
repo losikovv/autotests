@@ -576,8 +576,12 @@ public final class UserManager {
         return newUser;
     }
 
-    public static List<UserData> getUserDataList() {
-        return USER_DATA_LIST;
+    public static int userDataCount() {
+        return USER_DATA_LIST.size();
+    }
+
+    public static boolean isUserDataEmpty() {
+        return USER_DATA_LIST.isEmpty();
     }
 
     public static void cleanupUsers() {
@@ -590,6 +594,5 @@ public final class UserManager {
                         log.debug("Remove user {}", userData.getPhone());
                     }
                 });
-
     }
 }

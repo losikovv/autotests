@@ -3,7 +3,8 @@ package ru.instamart.jdbc.dao.stf;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.OffersEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 import ru.instamart.kraken.util.TimeUtil;
 
 import java.sql.Connection;
@@ -23,7 +24,7 @@ public final class CompanyPaymentAccountsDao extends AbstractDao<Long, OffersEnt
     private static final String UPDATE_SQL = "UPDATE company_payment_accounts SET balance = ? WHERE company_id = ?";
 
     public void createCompanyAccount(Integer companyId, Integer balance) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL)) {
             preparedStatement.setInt(1, companyId);
             preparedStatement.setInt(2, balance);
@@ -37,7 +38,7 @@ public final class CompanyPaymentAccountsDao extends AbstractDao<Long, OffersEnt
     }
 
     public void updateBalance(Integer companyId, Integer balance) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL)) {
             preparedStatement.setInt(1, balance);
             preparedStatement.setInt(2, companyId);

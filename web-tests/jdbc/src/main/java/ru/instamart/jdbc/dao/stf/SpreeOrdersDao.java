@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.SpreeOrdersEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
     private final String UPDATE_SQL = "UPDATE spree_orders";
 
     public void updateShippingKind(String orderNumber, String shippingKind) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " SET shipping_method_kind = ? WHERE number = ?")) {
             preparedStatement.setString(1, shippingKind);
             preparedStatement.setString(2, orderNumber);
@@ -30,7 +31,7 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
 
     public SpreeOrdersEntity getOrderByNumber(String orderNumber) {
         SpreeOrdersEntity order = new SpreeOrdersEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE number = ?")) {
             preparedStatement.setString(1, orderNumber);
@@ -56,7 +57,7 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
 
     public SpreeOrdersEntity getActiveOrderByComment(String comment) {
         SpreeOrdersEntity order = new SpreeOrdersEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE special_instructions = ? AND state = 'complete' ORDER BY id DESC LIMIT 1")) {
             preparedStatement.setString(1, comment);
@@ -82,7 +83,7 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
 
     public SpreeOrdersEntity getOrderByShipment(String shipmentNumber) {
         SpreeOrdersEntity order = new SpreeOrdersEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " so JOIN spree_shipments ss ON ss.order_id = so.id" +
                      " WHERE ss.number = ?")) {
@@ -109,7 +110,7 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
     }
 
     public void updateShipmentStateToShip(String orderNumber, String shippedAt) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " so JOIN spree_shipments ss ON so.id = ss.order_id " +
                      "SET so.state = 'shipped', ss.state = 'shipped', ss.shipped_at = ? WHERE so.number = ?")) {
             preparedStatement.setString(1, shippedAt);
@@ -121,7 +122,7 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
     }
 
     public void updateShipmentState(String orderNumber, String state) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " so JOIN spree_shipments ss ON so.id = ss.order_id " +
                      "SET so.state = ?, so.shipment_state = ?, ss.state = ? WHERE so.number = ?")) {
             preparedStatement.setString(1, state);
@@ -136,7 +137,7 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
 
     public SpreeOrdersEntity getOrderOfAnotherUser(long userId) {
         SpreeOrdersEntity order = new SpreeOrdersEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE user_id != ? ORDER BY id DESC LIMIT 1")) {
             preparedStatement.setLong(1, userId);

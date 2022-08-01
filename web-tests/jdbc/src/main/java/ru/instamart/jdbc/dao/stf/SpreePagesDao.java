@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.SpreePagesEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class SpreePagesDao extends AbstractDao<Long, SpreePagesEntity> {
 
     public SpreePagesEntity getPageBySlug(String pageSlug) {
         SpreePagesEntity page = new SpreePagesEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_SQL +
                      " WHERE slug = ?")) {
             preparedStatement.setString(1, pageSlug);
@@ -47,7 +48,7 @@ public class SpreePagesDao extends AbstractDao<Long, SpreePagesEntity> {
     }
 
     public void deletePageBySlug(String slug) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE slug LIKE ?")) {
             preparedStatement.setString(1, slug + "%");
             preparedStatement.executeUpdate();

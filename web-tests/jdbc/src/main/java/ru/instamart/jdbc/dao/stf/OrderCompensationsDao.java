@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.OrderCompensationsEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 import ru.instamart.kraken.util.ThreadUtil;
 
 import java.sql.Connection;
@@ -23,7 +24,7 @@ public class OrderCompensationsDao extends AbstractDao<Long, OrderCompensationsE
     @Override
     public Optional<OrderCompensationsEntity> findById(Long id) {
         OrderCompensationsEntity orderCompensationsEntity = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement( String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setObject(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -60,7 +61,7 @@ public class OrderCompensationsDao extends AbstractDao<Long, OrderCompensationsE
     }
 
     private boolean updateStateData(Long orderCompensationId, int state) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " SET state = ? WHERE id = ?")) {
             preparedStatement.setInt(1, state);
             preparedStatement.setLong(2, orderCompensationId);

@@ -3,7 +3,8 @@ package ru.instamart.jdbc.dao.stf;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.SpreeUsersEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +25,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     @Override
     public Optional<SpreeUsersEntity> findById(Long id) {
         SpreeUsersEntity user = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement( String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setObject(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -45,7 +46,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
 
     public SpreeUsersEntity getUserByEmail(String email) {
         SpreeUsersEntity user = new SpreeUsersEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE email = ?")) {
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -64,7 +65,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     }
 
     public void deleteUserByEmail(String email) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE email = ?")) {
             preparedStatement.setString(1, email);
             preparedStatement.executeUpdate();
@@ -74,7 +75,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     }
 
     public String getUUIDByLogin(String login) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "uuid") + " WHERE login = ?")) {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -87,7 +88,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     }
 
     public void deleteQAUsers() {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + ", phone_tokens USING spree_users, phone_tokens" +
                      " WHERE spree_users.id = phone_tokens.user_id AND spree_users.email LIKE 'qasession+%' AND spree_users.locked_at IS NOT NULL")) {
             preparedStatement.executeUpdate();
@@ -97,7 +98,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     }
 
     public String getEmailByPhone(String phone) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "email") + " su JOIN phone_tokens pt ON su.id = pt.user_id WHERE pt.value = ?")) {
             preparedStatement.setString(1, phone);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -110,7 +111,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     }
 
     public void addRoleToUser(Integer userId, Integer roleId) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL)) {
             preparedStatement.setInt(1, roleId);
             preparedStatement.setInt(2, userId);

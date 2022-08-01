@@ -3,7 +3,8 @@ package ru.instamart.jdbc.dao.shifts;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.shifts.ShiftsEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLShiftsManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class ShiftsDao extends AbstractDao<Long, ShiftsEntity> {
     private static final String SQL_UPDATE_READY_TO_START = "UPDATE shifts SET state='ready_to_start' WHERE id=?";
 
     public boolean updateState(int id) {
-        try (Connection connect = ConnectionPgSQLShiftsManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIFT);
              PreparedStatement preparedStatement = connect.prepareStatement(SQL_UPDATE_READY_TO_START)) {
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0;

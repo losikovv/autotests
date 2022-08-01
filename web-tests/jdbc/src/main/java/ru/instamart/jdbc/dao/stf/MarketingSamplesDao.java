@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.MarketingSamplesEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class MarketingSamplesDao extends AbstractDao<Long, MarketingSamplesEntit
     public Optional<MarketingSamplesEntity> findByIdWithUser(Long id) {
         MarketingSamplesEntity marketingSamplesEntity = new MarketingSamplesEntity();
         var sql = String.format(SELECT_SQL, "*") + " s JOIN marketing_samples_users u ON s.id = u.marketing_sample_id WHERE s.id = ?";
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setObject(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -42,7 +43,7 @@ public class MarketingSamplesDao extends AbstractDao<Long, MarketingSamplesEntit
     public Optional<MarketingSamplesEntity> findById(Long id) {
         MarketingSamplesEntity marketingSamplesEntity = new MarketingSamplesEntity();
         var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setObject(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -60,7 +61,7 @@ public class MarketingSamplesDao extends AbstractDao<Long, MarketingSamplesEntit
 
     public int getCount() {
         int resultCount = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE deleted_at IS NULL")) {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();

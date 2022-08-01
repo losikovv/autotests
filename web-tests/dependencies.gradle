@@ -6,10 +6,6 @@ ext.versions = [
         aspectjweaver: '1.9.6',
         lombok: '1.18.20',
         jackson: '2.12.3',
-        pgsqlJDBC: '42.2.1',
-        kafkaClients: '3.2.0',
-        kubernetesClient: '16.0.0',
-        mysqlJDBC: '8.0.26',
         gRPC: '1.40.0',
         tomcatAnnotationsApi: '10.0.10',
         protobufProtoc: '3.17.3',
@@ -23,6 +19,13 @@ ext.versions = [
         commonsLang3:'3.12.0',
         swaggerCoverage:'1.4.5',
         protobufUtil: '3.20.0',
+
+        hikari: '5.0.1',
+        pgsqlJDBC: '42.2.1',
+        kafkaClients: '3.2.0',
+        kubernetesClient: '16.0.0',
+        mysqlJDBC: '8.0.26',
+        jedis: '4.2.0',
 
         selenium: '4.3.0',
         webdrivermanager: '5.2.0',
@@ -48,10 +51,6 @@ ext.lib = [
         lombok: "org.projectlombok:lombok:$versions.lombok",
         jackson: "com.fasterxml.jackson.core:jackson-databind:$versions.jackson",
         jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson",
-        pgsqlJDBC: "org.postgresql:postgresql:$versions.pgsqlJDBC",
-        kafkaClients: "org.apache.kafka:kafka-clients:$versions.kafkaClients",
-        kubernetesClient: "io.kubernetes:client-java:$versions.kubernetesClient",
-        mysqlJDBC: "mysql:mysql-connector-java:$versions.mysqlJDBC",
         grpcNettyShaded: "io.grpc:grpc-netty-shaded:$versions.gRPC",
         grpcProtobuf: "io.grpc:grpc-protobuf:$versions.gRPC",
         grpcStub: "io.grpc:grpc-stub:$versions.gRPC",
@@ -71,6 +70,13 @@ ext.lib = [
         swaggerCoverage: "com.github.viclovsky:swagger-coverage-rest-assured:$versions.swaggerCoverage",
         protobufUtil: "com.google.protobuf:protobuf-java-util:$versions.protobufUtil",
 
+        dbPool: "com.zaxxer:HikariCP:$versions.hikari",
+        pgsqlJDBC: "org.postgresql:postgresql:$versions.pgsqlJDBC",
+        kafkaClients: "org.apache.kafka:kafka-clients:$versions.kafkaClients",
+        kubernetesClient: "io.kubernetes:client-java:$versions.kubernetesClient",
+        mysqlJDBC: "mysql:mysql-connector-java:$versions.mysqlJDBC",
+        jedis: "redis.clients:jedis:$versions.jedis",
+
         seleniumJava: "org.seleniumhq.selenium:selenium-java:$versions.selenium",
         webdrivermanager: "io.github.bonigarcia:webdrivermanager:$versions.webdrivermanager",
 
@@ -80,5 +86,5 @@ ext.lib = [
         common:"ru.sbermarket.common:common:$versions.common",
         ab:"ru.sbermarket.ab:ab:$versions.ab",
         qase:"ru.sbermarket.qase:qase:$versions.qase",
-        qa:"ru.sbermarket.qa:qa:$versions.qa",
+        qa:"ru.sbermarket.qa:qa:$versions.qa"
 ]

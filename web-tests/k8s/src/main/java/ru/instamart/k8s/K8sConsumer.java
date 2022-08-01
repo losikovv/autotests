@@ -2,21 +2,22 @@ package ru.instamart.k8s;
 
 import com.google.common.io.ByteStreams;
 import io.kubernetes.client.Exec;
-import io.kubernetes.client.PodLogs;
 import io.kubernetes.client.PortForward;
-import io.kubernetes.client.openapi.ApiClient;
+import io.kubernetes.client.PortForward.PortForwardResult;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.common.Mapper;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -29,87 +30,38 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static java.lang.System.console;
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
-public class K8sConsumer {
+@Slf4j
+public final class K8sConsumer {
 
-    private static final Logger log = LoggerFactory.getLogger(K8sConsumer.class);
     private static final ExecutorService executorService = Executors.newCachedThreadPool();
-    private static ApiClient apiClient;
 
     /**
-     * получение имени пода
-     *
-     * @param namespace     example: s-sb-stfkraken
-     * @param labelSelector example: app=app-stf-sbermarket
-     * @return
+     * @param namespace example: s-sb-stfkraken
+     * @param label     example: app=app-stf-sbermarket
+     * @return - получение первого пода в списке
      */
-    private static String getPodName(String namespace, String labelSelector) {
-        try {
-            V1PodList list = K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
-                    null, labelSelector, null, null, null, null, null);
-            return list.getItems().get(0).getMetadata().getName();
-        } catch (ApiException | IOException e) {
-            throw new RuntimeException("Не получилось вызвать api k8s");
-        }
+    public static V1Pod getPod(final String namespace, final String label) {
+        return getPodList(namespace, label).getItems().stream().findFirst().orElse(null);
     }
 
-    /**
-     * получение первого пода в списке
-     *
-     * @param namespace     example: s-sb-stfkraken
-     * @param labelSelector example: app=app-stf-sbermarket
-     * @return
-     */
-    public static V1Pod getPod(String namespace, String labelSelector) {
-        try {
-            V1PodList list = K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
-                    null, labelSelector, null, null, null, null, null);
-            return list.getItems().get(0);
-        } catch (ApiException | IOException e) {
-            throw new RuntimeException("Не получилось вызвать api k8s");
-        }
-    }
-
-    public static V1PodList getPodList(String namespace, String labelSelector) {
+    public static V1PodList getPodList(final String namespace, final String label) {
         try {
             return K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
-                    null, labelSelector, null, null, null, null, null);
-        } catch (ApiException | IOException e) {
+                    null, label, null, null, null, null, null);
+        } catch (ApiException e) {
             throw new RuntimeException("Не получилось вызвать api k8s: " + e.getMessage());
         }
     }
 
-    /**
-     * Выполнение команды в контейнере
-     *
-     * @param namespace example: s-sb-stfkraken
-     * @param podName   получаем методом getPodName()
-     * @param commands
-     * @return
-     */
-    private static Process execCommandWithPod(String namespace, String podName, String[] commands) {
-        try {
-            K8sConfig.getInstance().getCoreV1Api();
+    public static List<String> execRailsCommandWithPod(final String commands) {
+        final List<String> result = new CopyOnWriteArrayList<>();
+        final var nameSpace = EnvironmentProperties.K8S_NAME_STF_SPACE;
+        final var labelSelector = EnvironmentProperties.K8S_LABEL_STF_SELECTOR;
+        final var pod = getPod(nameSpace, labelSelector);
 
-            Exec exec = new Exec();
-            boolean tty = console() != null;
-            return exec.exec(namespace, podName, commands, true, tty);
-        } catch (IOException e) {
-            log.error("Error: " + e.getMessage());
-            throw new RuntimeException("Error: " + e.getMessage());
-        } catch (ApiException ex) {
-            log.error("Error k8s api: " + ex.getMessage());
-            throw new RuntimeException("Error k8s api: " + ex.getMessage());
-        }
-    }
-
-    public static List<String> execRailsCommandWithPod(String commands) {
-        List<String> result = new CopyOnWriteArrayList<>();
-
-        String nameSpace = EnvironmentProperties.K8S_NAME_STF_SPACE;
-        String labelSelector = EnvironmentProperties.K8S_LABEL_STF_SELECTOR;
-
-        final V1Pod pod = getPod(nameSpace, labelSelector);
         try {
             execRailsCommandWithPod(pod, commands, result::add, true).close();
         } catch (IOException e) {
@@ -118,21 +70,21 @@ public class K8sConsumer {
         return result;
     }
 
-    public static <T> T getClassWithExecRailsCommand(String commands, Class<T> clazz) {
-        List<String> result = new CopyOnWriteArrayList<>();
-        T getRetailerResponse = null;
-        String nameSpace = EnvironmentProperties.K8S_NAME_STF_SPACE;
-        String labelSelector = EnvironmentProperties.K8S_LABEL_STF_SELECTOR;
+    public static <T> T getClassWithExecRailsCommand(final String commands, final Class<T> clazz) {
+        final List<String> result = new CopyOnWriteArrayList<>();
+        final var namespace = EnvironmentProperties.K8S_NAME_STF_SPACE;
+        final var label = EnvironmentProperties.K8S_LABEL_STF_SELECTOR;
+        final var pod = getPod(namespace, label);
 
-        final V1Pod pod = getPod(nameSpace, labelSelector);
+        T getRetailerResponse = null;
         try {
             execRailsCommandWithPod(pod, commands, result::add, true).close();
-            String join = result.stream()
+            final var join = result.stream()
                     .filter(item -> !item.startsWith("{\"host\":\"app-"))
                     .collect(Collectors.joining(""));
 
             getRetailerResponse = Mapper.INSTANCE.jsonToObject(Objects.requireNonNull(join), clazz);
-            if (Objects.isNull(getRetailerResponse)) {
+            if (isNull(getRetailerResponse)) {
                 throw new RuntimeException("FATAL: JSON not valid. Response: " + result);
             }
         } catch (IOException e) {
@@ -141,48 +93,114 @@ public class K8sConsumer {
         return getRetailerResponse;
     }
 
-    public static List<String> execBashCommandWithPod(String commands) {
-        List<String> result = new CopyOnWriteArrayList<>();
+    public static List<String> execBashCommandWithPod(final String commands) {
+        final List<String> result = new CopyOnWriteArrayList<>();
+        final var namespace = EnvironmentProperties.K8S_NAME_STF_SPACE;
+        final var label = EnvironmentProperties.K8S_LABEL_STF_SELECTOR;
+        final var pod = getPod(namespace, label);
 
-        String nameSpace = EnvironmentProperties.K8S_NAME_STF_SPACE;
-        String labelSelector = EnvironmentProperties.K8S_LABEL_STF_SELECTOR;
-
-        final V1Pod pod = getPod(nameSpace, labelSelector);
         try {
             execBashCommandWithPod(pod, commands, result::add, true).close();
         } catch (IOException e) {
             log.error("Error: {}", e.getMessage());
-            e.printStackTrace();
         }
         return result;
     }
 
+    /**
+     * Получение логов в list
+     */
+    public static List<String> getLogs(final V1Pod pod, final String container, final int tailLines) {
+        final List<String> logResult = new CopyOnWriteArrayList<>();
+        try {
+            var call = K8sConfig.getInstance().getCoreV1Api().readNamespacedPodLogCall(
+                    pod.getMetadata().getName(),
+                    pod.getMetadata().getNamespace(),
+                    container,
+                    false,
+                    null,
+                    null,
+                    "false",
+                    false,
+                    null,
+                    tailLines == 0 ? null : tailLines,
+                    null,
+                    null
+            );
 
-    private static Closeable execRailsCommandWithPod(V1Pod pod, String commands, Consumer<String> outputFun, boolean waiting) {
-        String[] commandExec = new String[]{"/bin/bash", "-c", "/vault/vault-env bundle exec rails runner \"puts " + commands + "\""};
+            try (final var response = call.execute();
+                 final var in = response.body().byteStream();
+                 final var br = new BufferedReader(new InputStreamReader(in))) {
+                String msg;
+                while (nonNull(msg = br.readLine())) {
+                    logResult.add(msg);
+                }
+                return logResult;
+            }
+        } catch (IOException | ApiException e) {
+            log.error("FATAL: Can't obtain pod logs for container '{}'", container);
+        }
+        return Collections.emptyList();
+    }
+
+    public static PortForwardResult getK8sPortForward(final V1Pod pod, final int internalPort, final int containerPort) throws IOException, ApiException {
+        final var result = new PortForward().forward(pod, List.of(internalPort, containerPort));
+        final var ss = new ServerSocket(internalPort);
+        final var s = new AtomicReference<Socket>();
+        final var isOpen = new AtomicBoolean(true);
+
+        executorService.execute(() -> {
+            try {
+                while (isOpen.get()) {
+                    s.set(ss.accept());
+                    ByteStreams.copy(s.get().getInputStream(), result.getOutboundStream(containerPort));
+                }
+            } catch (IOException e) {
+                if (isOpen.get()) {
+                    log.error("Froward error", e);
+                }
+            }
+        });
+        executorService.execute(() -> {
+            try {
+                while (isOpen.get()) {
+                    if (nonNull(s.get())) {
+                        ByteStreams.copy(result.getInputStream(containerPort), s.get().getOutputStream());
+                    }
+                }
+            } catch (IOException e) {
+                if (isOpen.get()) {
+                    log.error("Forward error", e);
+                }
+            }
+        });
+        log.debug("Connect address: <Current Host> <{}>", internalPort);
+
+        return result;
+    }
+
+    private static Closeable execRailsCommandWithPod(final V1Pod pod, final String commands, final Consumer<String> outputFun, final boolean waiting) {
+        final var commandExec = new String[]{"/bin/bash", "-c", "/vault/vault-env", "bundle", "exec", "rails", "runner", "\"puts " + commands + "\""};
         log.debug("Exec command: {}", String.join("\n", commandExec));
         return execCommandWithPod(pod, commandExec, outputFun, waiting);
     }
 
-    private static Closeable execBashCommandWithPod(V1Pod pod, String commands, Consumer<String> outputFun, boolean waiting) {
-        String[] commandExec = new String[]{"/bin/bash", "-c", commands};
+    private static Closeable execBashCommandWithPod(final V1Pod pod, final String commands, final Consumer<String> outputFun, final boolean waiting) {
+        final var commandExec = new String[]{"/bin/bash", "-c", commands};
         return execCommandWithPod(pod, commandExec, outputFun, waiting);
     }
 
     /**
      * Выполнение команды в контейнере
-     *
-     * @param commands
-     * @return
      */
-    private static Closeable execCommandWithPod(V1Pod pod, String[] commands, Consumer<String> outputFun, boolean waiting) {
+    private static Closeable execCommandWithPod(final V1Pod pod, final String[] commands, final Consumer<String> outputFun, final boolean waiting) {
         try {
-            AtomicBoolean closed = new AtomicBoolean(false);
-            CountDownLatch cdl = new CountDownLatch(1);
+            final var closed = new AtomicBoolean(false);
+            final var cdl = new CountDownLatch(1);
 
-            boolean tty = console() != null;
-            ApiClient apiClient = K8sConfig.getInstance().getApiClient();
-            final Process proc = new Exec(apiClient).exec(pod, commands, "puma", true, tty);
+            final boolean tty = nonNull(console());
+            final var apiClient = K8sConfig.getInstance().getApiClient();
+            final var proc = new Exec(apiClient).exec(pod, commands, "puma", true, tty);
 
             executorService.execute(() -> {
                 try {
@@ -195,12 +213,8 @@ public class K8sConsumer {
             });
 
             executorService.execute(() -> {
-                try {
-                    BufferedReader outputReader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-                    String outputLine;
-                    while ((outputLine = outputReader.readLine()) != null) {
-                        outputFun.accept(outputLine);
-                    }
+                try (final var outputReader = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
+                    outputReader.lines().forEach(outputFun);
                 } catch (IOException e) {
                     if (!closed.get()) {
                         log.error("Exec error", e);
@@ -231,130 +245,31 @@ public class K8sConsumer {
     }
 
     /**
-     * Получение логов в list
-     *
-     * @param pod
-     * @param tailLines
-     * @return
+     * @param namespace example: s-sb-stfkraken
+     * @param podName   получаем методом getPodName()
+     * @param commands  - команда к поду
+     * @return - Выполнение команды в контейнере
      */
-    public static List<String> getLogs(V1Pod pod, String container, int tailLines) {
-        List<String> logResult = new CopyOnWriteArrayList<>();
-        Closeable closeable = getLogs(pod, container,  logResult::add, tailLines);//(name, container, namespace, logResult::add, tailLines);
-
+    private static Process execCommandWithPod(final String namespace, final String podName, final String[] commands) {
         try {
-            // Ожидание сбора журнала
-            // TODO оптимизировать получение журнала
-            Thread.sleep(2000);
-            int length = 0;
-            while (true) {
-                if (logResult.size() == length) {
-                    // TODO не придумал более удобного варианта
-                    closeable.close();
-                    return logResult;
-                } else {
-                    length = logResult.size();
-                }
-                Thread.sleep(1);
-            }
-        } catch (InterruptedException | IOException ex) {
-            Thread.currentThread().interrupt();
-            return logResult;
+            final var exec = new Exec();
+            boolean tty = nonNull(console());
+            return exec.exec(namespace, podName, commands, true, tty);
+        } catch (IOException e) {
+            log.error("Error: " + e.getMessage());
+            throw new RuntimeException("Error: " + e.getMessage());
+        } catch (ApiException ex) {
+            log.error("Error k8s api: " + ex.getMessage());
+            throw new RuntimeException("Error k8s api: " + ex.getMessage());
         }
-
     }
 
     /**
-     * приватный closable метод для получения логав
-     *
-     * @param pod           под
-     * @param tailFollowFun логгер
-     * @param tailLines
+     * @param namespace example: s-sb-stfkraken
+     * @param label     example: app=app-stf-sbermarket
+     * @return - получение имени пода
      */
-    private static Closeable getLogs(V1Pod pod, String container, Consumer<String> tailFollowFun, int tailLines ) {
-        try {
-            K8sConfig.getInstance().getCoreV1Api();
-            PodLogs logs = K8sConfig.getInstance().getPodLogs();
-
-            AtomicBoolean closed = new AtomicBoolean(false);
-            InputStream is = logs.streamNamespacedPodLog(pod.getMetadata().getNamespace(),
-                    pod.getMetadata().getName(),
-                    container,
-                    null,
-                    tailLines == 0 ? null : tailLines,
-                    false
-            );
-            BufferedReader r = new BufferedReader(new InputStreamReader(is));
-            executorService.execute(() -> {
-                try {
-                    String msg;
-                    while ((msg = r.readLine()) != null) {
-                        tailFollowFun.accept(msg);
-                    }
-                } catch (IOException e) {
-                    if (!closed.get()) {
-                        log.error("Output log error", e);
-                    }
-                } finally {
-                    try {
-                        closed.set(true);
-                        is.close();
-                        r.close();
-                    } catch (IOException e) {
-                        log.error("Close log stream error", e);
-                    }
-                }
-            });
-            return () -> {
-                closed.set(true);
-                is.close();
-                r.close();
-            };
-        } catch (IOException | ApiException e) {
-            log.error("Output log error", e);
-        }
-        return () -> {
-        };
+    private static String getPodName(final String namespace, final String label) {
+        return Objects.requireNonNull(getPod(namespace, label).getMetadata()).getName();
     }
-
-
-    public static PortForward.PortForwardResult getK8sPortForward(String namespace, String name, Integer localPort, Integer targetPort) throws IOException, ApiException {
-        AtomicBoolean closed = new AtomicBoolean(false);
-        PortForward.PortForwardResult result = new PortForward().forward(namespace, name, new ArrayList<>() {
-            {
-                add(localPort);
-                add(targetPort);
-            }
-        });
-        ServerSocket ss = new ServerSocket(localPort);
-        AtomicReference<Socket> s = new AtomicReference<>();
-        executorService.execute(() -> {
-            try {
-                while (!closed.get()) {
-                    s.set(ss.accept());
-                    ByteStreams.copy(s.get().getInputStream(), result.getOutboundStream(targetPort));
-                }
-            } catch (IOException e) {
-                if (!closed.get()) {
-                    log.error("Froward error", e);
-                }
-            }
-        });
-        executorService.execute(() -> {
-            try {
-                while (!closed.get()) {
-                    if (s.get() != null) {
-                        ByteStreams.copy(result.getInputStream(targetPort), s.get().getOutputStream());
-                    }
-                }
-            } catch (IOException e) {
-                if (!closed.get()) {
-                    log.error("Forward error", e);
-                }
-            }
-        });
-        log.debug("Connect address: <Current Host> <" + localPort + ">");
-        return result;
-    }
-
-
 }

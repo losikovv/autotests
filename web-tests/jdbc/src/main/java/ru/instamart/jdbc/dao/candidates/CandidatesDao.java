@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.candidates;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.candidates.CandidatesEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLCandidateManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class CandidatesDao extends AbstractDao<Long, CandidatesEntity> {
 
     public CandidatesEntity getCandidateByUuid(String candidateUuid) {
         CandidatesEntity candidatesEntity = null;
-        try (Connection connect = ConnectionPgSQLCandidateManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_CANDIDATE);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE uuid = ?")) {
             preparedStatement.setString(1, candidateUuid);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -37,7 +38,7 @@ public class CandidatesDao extends AbstractDao<Long, CandidatesEntity> {
 
     public String getCandidateUuidByStatus(boolean status) {
         String uuid = null;
-        try (Connection connect = ConnectionPgSQLCandidateManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_CANDIDATE);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "uuid") + " WHERE active = ? LIMIT 1")) {
             preparedStatement.setBoolean(1, status);
             ResultSet resultSet = preparedStatement.executeQuery();

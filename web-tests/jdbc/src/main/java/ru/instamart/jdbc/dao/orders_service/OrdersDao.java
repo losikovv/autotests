@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.orders_service;
 
 import ru.instamart.jdbc.dao.Dao;
 import ru.instamart.jdbc.entity.order_service.OrdersEntity;
-import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLOrderServiceManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +36,7 @@ public class OrdersDao implements Dao<String, OrdersEntity> {
     @Override
     public Optional<OrdersEntity> findById(String shipmentUuid) {
         OrdersEntity ordersEntity = null;
-        try (Connection connect = ConnectionPgSQLOrderServiceManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.PG_ORDER);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE shipment_uuid = ?")) {
             preparedStatement.setString(1, shipmentUuid);
             ResultSet resultSet = preparedStatement.executeQuery();

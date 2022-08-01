@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.Dao;
 import ru.instamart.jdbc.entity.stf.StoresEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,7 +28,7 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
     @Override
     public boolean delete(Integer id) {
         int result = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL +
                      "WHERE stores.id  = store_locations.store_id AND stores.id = ?")) {
             preparedStatement.setLong(1, id);
@@ -50,7 +51,7 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
 
     public boolean updateWithSetAvailability(Integer storeId, final String availabilityDate) {
         int result = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + "available_on = ? WHERE id = ?")) {
             preparedStatement.setString(1, availabilityDate);
             preparedStatement.setLong(2, storeId);
@@ -63,7 +64,7 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
 
     public int getCount() {
         int resultCount = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_COUNT_SQL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -76,7 +77,7 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
 
     public StoresEntity getStoreByCoordinates(Double lat, Double lon) {
         StoresEntity store = new StoresEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_JOIN_STORE_LOCATIONS +
                      " WHERE sl.lat = ? AND sl.lon = ? ORDER by sl.id DESC LIMIT 1")) {
             preparedStatement.setDouble(1, lat);
@@ -98,7 +99,7 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
 
     public int getUniqueCitiesCountByShippingMethod(String shippingMethod) {
         int resultCount = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_JOIN_STORE_SHIPPING_METHODS +
                      " WHERE sm.kind = ? AND s.available_on IS NOT NULL")) {
             preparedStatement.setString(1, shippingMethod);
@@ -115,7 +116,7 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
     public Optional<StoresEntity> findById(Integer id) {
         StoresEntity store = new StoresEntity();
         var sql = SELECT_SQL + " WHERE id = ?";
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -134,7 +135,7 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
 
     public StoresEntity getUnavailableStore() {
         StoresEntity store = new StoresEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_SQL + "  WHERE available_on IS NULL ORDER BY rand() LIMIT 1")) {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -153,7 +154,7 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
 
     public StoresEntity getStoreWithTimezone(String timeZone) {
         StoresEntity store = new StoresEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(SELECT_SQL + " WHERE time_zone = ? ORDER BY rand() LIMIT 1")) {
             preparedStatement.setString(1, timeZone);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -172,7 +173,7 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
     }
 
     public void updateOnDemandStore(int storeId, String openingTime, String closingTime, int closingDelta) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " on_demand = 1, opening_time = ?, closing_time = ?, on_demand_closing_delta = ? WHERE id = ?")) {
             preparedStatement.setString(1, openingTime);
             preparedStatement.setString(2, closingTime);

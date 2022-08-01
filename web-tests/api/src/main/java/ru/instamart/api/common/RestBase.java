@@ -11,6 +11,7 @@ import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kafka.helper.KafkaHelper;
 import ru.instamart.kafka.helper.LogHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserManager;
 
 import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
@@ -38,7 +39,7 @@ public class RestBase {
 
     @AfterSuite(alwaysRun = true)
     public void clearData() {
-        if (!EnvironmentProperties.Env.isProduction()) {
+        if (!EnvironmentProperties.Env.isProduction() && !UserManager.isUserDataEmpty()) {
             SpreeUsersDao.INSTANCE.deleteQAUsers();
         }
     }

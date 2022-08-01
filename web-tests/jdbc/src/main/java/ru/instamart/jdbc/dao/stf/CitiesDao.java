@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.CitiesEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class CitiesDao extends AbstractDao<Long, CitiesEntity> {
 
     public CitiesEntity getCityByName(String cityName) {
         CitiesEntity city = new CitiesEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE name = ?")) {
             preparedStatement.setString(1, cityName);
@@ -40,7 +41,7 @@ public class CitiesDao extends AbstractDao<Long, CitiesEntity> {
     }
 
     public void deleteCityByName(String cityName) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE name = ?")) {
             preparedStatement.setString(1, cityName);
             preparedStatement.executeUpdate();
@@ -51,7 +52,7 @@ public class CitiesDao extends AbstractDao<Long, CitiesEntity> {
 
     public int getCount() {
         int resultCount = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -65,7 +66,7 @@ public class CitiesDao extends AbstractDao<Long, CitiesEntity> {
     @Override
     public boolean delete(Long id) {
         int result = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = ?")) {
             preparedStatement.setLong(1, id);
             result = preparedStatement.executeUpdate();
@@ -78,7 +79,7 @@ public class CitiesDao extends AbstractDao<Long, CitiesEntity> {
     @Override
     public Optional<CitiesEntity> findById(Long id) {
         CitiesEntity city = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();

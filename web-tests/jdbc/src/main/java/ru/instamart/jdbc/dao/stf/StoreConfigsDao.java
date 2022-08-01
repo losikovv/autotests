@@ -2,7 +2,8 @@ package ru.instamart.jdbc.dao.stf;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.StoreConfigsEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class StoreConfigsDao extends AbstractDao<Long, StoreConfigsEntity> {
     private final String DELETE_SQL = "DELETE FROM store_configs ";
 
     public void updateEditingSettings(Integer storeId, Integer hours, Integer editingAllowed) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement("UPDATE store_configs SET disallow_order_editing_hours = ?, hours_order_edit_locked = ? WHERE store_id = ?")) {
             preparedStatement.setInt(1, hours);
             preparedStatement.setInt(2, editingAllowed);
@@ -31,7 +32,7 @@ public class StoreConfigsDao extends AbstractDao<Long, StoreConfigsEntity> {
 
     public StoreConfigsEntity getConfigsByStoreId(Integer storeId) {
         StoreConfigsEntity storeConfigs = new StoreConfigsEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -51,7 +52,7 @@ public class StoreConfigsDao extends AbstractDao<Long, StoreConfigsEntity> {
     }
 
     public void deleteByStoreId(Integer storeId) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + "WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);
             preparedStatement.executeUpdate();

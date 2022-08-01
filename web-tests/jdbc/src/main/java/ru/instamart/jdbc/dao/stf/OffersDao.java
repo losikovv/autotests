@@ -3,7 +3,8 @@ package ru.instamart.jdbc.dao.stf;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.stf.OffersEntity;
-import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionManager;
+import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +24,7 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
     private final String UPDATE_SQL = "UPDATE offers ";
 
     public int getSoldProduct() {
-        try (final var connect = ConnectionMySQLManager.get();
+        try (final var connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + "WHERE stock = 0 AND published = 0 LIMIT 1");
              final var resultSet = preparedStatement.executeQuery()) {
             resultSet.next();
@@ -37,7 +38,7 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
 
     public OffersEntity getOfferByStoreId(Integer storeId) {
         OffersEntity offer = new OffersEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + "WHERE store_id = ? AND published = 1 AND deleted_at IS NULL LIMIT 1")) {
             preparedStatement.setInt(1, storeId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -60,7 +61,7 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
     @Override
     public Optional<OffersEntity> findById(Long id) {
         OffersEntity offer = null;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement( String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setObject(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -86,7 +87,7 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
     @Override
     public boolean delete(Long id) {
         int result = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = ?")) {
             preparedStatement.setLong(1, id);
             result = preparedStatement.executeUpdate();
@@ -99,7 +100,7 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
 
     public boolean deleteByStoreId(Integer storeId) {
         int result = 0;
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);
             result = preparedStatement.executeUpdate();
@@ -110,7 +111,7 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
     }
 
     public void updateOfferStock(Long offerId, Integer stock) {
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + "SET stock = ? WHERE id = ?")) {
             preparedStatement.setInt(1, stock);
             preparedStatement.setLong(2, offerId);
@@ -122,7 +123,7 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
 
     public OffersEntity getSkuByPricer(long retailerId, int storeId, long shippingCategoryId, String pricer) {
         OffersEntity offersEntity = new OffersEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "o.*") +
                      " o JOIN spree_products sp ON sp.id = o.product_id WHERE o.store_id = ? AND sp.shipping_category_id = ? " +
                      "AND o.retailer_id = ? AND o.pricer = ? AND o.deleted_at is NULL AND sp.deleted_at is NULL AND o.published = 1 ORDER BY o.id DESC LIMIT 1")) {
@@ -143,7 +144,7 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
 
     public OffersEntity getOfferWithSpecificPrice(int storeId, double price) {
         OffersEntity offersEntity = new OffersEntity();
-        try (Connection connect = ConnectionMySQLManager.get();
+        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "o.*") +
                      " o JOIN prices p ON o.id = p.offer_id JOIN spree_products sp ON sp.id = o.product_id " +
                      "WHERE o.store_id = ? AND p.price < ? AND o.deleted_at is NULL AND sp.deleted_at is NULL AND o.published = 1 ORDER BY o.id DESC LIMIT 1")) {
