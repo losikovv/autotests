@@ -40,12 +40,12 @@ public class CandidatesTest extends RestBase {
        user = UserManager.getShp6Shopper1();
        shopperApp.authorisation(user);
        shiftsApi.startOfShift(StartPointsTenants.METRO_9);
-       shopperApp.sendCurrentLocator(55.915098,37.541685, null);
+       shopperApp.sendCurrentLocator(55.7012984,37.7283669, null);
 
        user2 = UserManager.getShp6Shopper2();
        shopperApp.authorisation(user2);
        shiftsApi.startOfShift(StartPointsTenants.METRO_9);
-       shopperApp.sendCurrentLocator(55.915098,37.541685, null);
+       shopperApp.sendCurrentLocator(55.7012984,37.7283669, null);
 
        clientCandidates = CandidatesGrpc.newBlockingStub(grpc.createChannel(PAAS_CONTENT_OPERATIONS_CANDIDATES));
 
@@ -65,8 +65,8 @@ public class CandidatesTest extends RestBase {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
                         .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
-                                .setLat(55.700679) //координаты метро шоссейного 55.700679, 37.726331   55.700683, 37.726683
-                                .setLon(37.726331)
+                                .setLat(55.700683) //координаты метро шоссейного
+                                .setLon(37.726683)
                                 .build())
                         .setRadius(200.00F)
                 )
@@ -138,6 +138,21 @@ public class CandidatesTest extends RestBase {
                                 .setLon(37.541685)
                                 .build())
                         .addTransports(CandidatesOuterClass.CandidateTransport.BICYCLE) //2 = велосипед
+                )
+                .build();
+        var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+        assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
+    }
+    @CaseId(28)
+    @Test(description = "Отбор кандидатов по роли", groups = "dispatch-candidates-smoke")
+    public void roleCandidate() {
+        var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
+                .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
+                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                                .setLat(55.915098)
+                                .setLon(37.541685)
+                                .build())
+                        .addRoles(CandidatesOuterClass.CandidateRole.UNIVERSAL) //2 = универсал
                 )
                 .build();
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
