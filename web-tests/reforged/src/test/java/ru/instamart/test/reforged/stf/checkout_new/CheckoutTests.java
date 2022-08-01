@@ -26,14 +26,14 @@ public final class CheckoutTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void checkAndSwitchFlagsOn() {
         checkFlipper("checkout_web_new");
         checkFlipper("checkout_web_force_all");
     }
 
-    @AfterClass
-    public void checkAndSwitchFlagsOff() {
+    @AfterClass(alwaysRun = true)
+    public void switchFlagsOff() {
         checkFlipperOff("checkout_web_new");
         checkFlipperOff("checkout_web_force_all");
     }

@@ -31,27 +31,27 @@ public class CheckoutPage implements StfPage, CheckoutCheck {
         return addressTitle.getText();
     }
 
-    @Step("Вводим в поле 'Кв, офис': 'apartmentValue'")
+    @Step("Вводим в поле 'Кв, офис': '{apartmentValue}'")
     public void fillApartment(final String apartmentValue) {
         apartment.fill(apartmentValue);
     }
 
-    @Step("Вводим в поле 'Подъезд': 'entranceValue'")
+    @Step("Вводим в поле 'Подъезд': '{entranceValue}'")
     public void fillEntrance(final String entranceValue) {
         entrance.fill(entranceValue);
     }
 
-    @Step("Вводим в поле 'Этаж': 'floorValue'")
+    @Step("Вводим в поле 'Этаж': '{floorValue}'")
     public void fillFloor(final String floorValue) {
         floor.fill(floorValue);
     }
 
-    @Step("Вводим в поле 'Домофон': 'doorPhoneValue'")
+    @Step("Вводим в поле 'Домофон': '{doorPhoneValue}'")
     public void fillDoorPhone(final String doorPhoneValue) {
         doorPhone.fill(doorPhoneValue);
     }
 
-    @Step("Вводим в поле 'Комментарий': 'commentValue'")
+    @Step("Вводим в поле 'Комментарий': '{commentValue}'")
     public void fillComment(final String commentValue) {
         entrance.fill(commentValue);
     }
@@ -135,12 +135,12 @@ public class CheckoutPage implements StfPage, CheckoutCheck {
         contactsEdit.click();
     }
 
-    @Step("Вводим в поле 'Телефон': 'phoneValue'")
+    @Step("Вводим в поле 'Телефон': '{phoneValue}'")
     public void fillPhone(final String phoneValue) {
         contactsPhone.fill(phoneValue);
     }
 
-    @Step("Вводим в поле 'Email': 'emailValue'")
+    @Step("Вводим в поле 'Email': '{emailValue}'")
     public void fillEmail(final String emailValue) {
         contactsEmail.fill(emailValue);
     }

@@ -14,33 +14,33 @@ public class AddPaymentCardModal implements AddPaymentCardCheck {
         fillHolderName(data.getCardholderName());
     }
 
-    @Step("Заполняем поле 'Номер карты'")
+    @Step("Заполняем поле 'Номер карты': '{data}'")
     public void fillCardNumber(String data) {
         cardNumber.fill(data);
     }
 
-    @Step("Заполняем 'Месяц'")
+    @Step("Заполняем 'Месяц': '{data}'")
     public void fillExpMonth(String data) {
         expPeriod.fill(data);
     }
 
-    @Step("Заполняем 'Год'")
+    @Step("Заполняем 'Год': '{data}'")
     public void fillExpYear(String data) {
         expPeriod.fill(data);
     }
 
-    @Step("Заполняем поле 'CVV'")
+    @Step("Заполняем поле 'CVV': '{data}'")
     public void fillCvv(String data) {
         cvv.fill(data);
     }
 
-    @Step("Заполняем поле 'Имя Держателя'")
+    @Step("Заполняем поле 'Имя Держателя': '{data}'")
     public void fillHolderName(String data) {
         holderName.fill(data);
     }
 
     @Step("Нажимаем кнопку 'Добавить'")
-    public void clickAdd(){
+    public void clickAdd() {
         addCard.click();
     }
 }

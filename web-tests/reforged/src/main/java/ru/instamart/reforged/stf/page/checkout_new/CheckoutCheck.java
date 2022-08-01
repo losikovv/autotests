@@ -82,7 +82,7 @@ public interface CheckoutCheck extends Check, CheckoutElement {
         Assert.assertEquals(activeDeliverySlotCost.getText(), expectedDeliverySlotPrice, "Стоимость в выбранном слоте доставки отличается от ожидаемой");
     }
 
-    @Step("Проверяем, что отображается цена в слоте доставки")
+    @Step("Проверяем, что активен слот в {activeSlotPosition}-й позиции")
     default void checkSlotActive(final int activeSlotPosition) {
         Kraken.waitAction().shouldBeVisible(activeSlotByPosition, activeSlotPosition);
     }
@@ -138,12 +138,12 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     }
 
     @Step("Проверяем, что отображается кнопка 'Применить' промокод")
-    default void checkPromoApplyButtonVisible(){
+    default void checkPromoApplyButtonVisible() {
         Kraken.waitAction().shouldBeVisible(promoCodeApply);
     }
 
     @Step("Проверяем, что отображается кнопка 'Отменить' промокод")
-    default void checkPromoCancelButtonVisible(){
+    default void checkPromoCancelButtonVisible() {
         Kraken.waitAction().shouldBeVisible(promoCodeCancel);
     }
 
@@ -156,6 +156,7 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     default void checkPromoAppliedDiscountVisible() {
         Kraken.waitAction().shouldBeVisible(promoAppliedDiscount);
     }
+
     @Step("Проверяем, что отображается сообщение об ошибке поля ввода промокода")
     default void checkPromoCodeErrorVisible() {
         Kraken.waitAction().shouldBeVisible(promoCodeError);

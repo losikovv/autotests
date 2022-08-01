@@ -63,12 +63,12 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
     }
 
     @Step("Проверяем, что отображается номер заказа")
-    default void checkShipmentNumberVisible(){
+    default void checkShipmentNumberVisible() {
         Kraken.waitAction().shouldBeVisible(shipmentNumber);
     }
 
     @Step("Проверяем, что отображается адрес доставки")
-    default void checkShippingAddressVisible(){
+    default void checkShippingAddressVisible() {
         Kraken.waitAction().shouldBeVisible(shippingAddress);
     }
 
@@ -78,17 +78,17 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
     }
 
     @Step("Проверяем, что отображается стоимость товаров")
-    default void checkProductsCostVisible(){
+    default void checkProductsCostVisible() {
         Kraken.waitAction().shouldBeVisible(productsCost);
     }
 
     @Step("Проверяем, что отображается стоимость доставки")
-    default void checkShipmentCostVisible(){
+    default void checkShipmentCostVisible() {
         Kraken.waitAction().shouldBeVisible(shipmentCost);
     }
 
     @Step("Проверяем, что отображается сумма 'Итого'")
-    default void checkTotalCostVisible(){
+    default void checkTotalCostVisible() {
         Kraken.waitAction().shouldBeVisible(totalCost);
     }
 

@@ -213,12 +213,9 @@ public final class ApiV3Helper {
         }
     }
 
-    @Step("Проверяем, выключен ли фича-флаг во флиппере, и выключаем, если это не так")
+    @Step("Выключаем фича-флаг: '{featureKey}'")
     public static void checkFlipperOff(String featureKey) {
-        FlipperGatesEntity flipper = FlipperGatesDao.INSTANCE.getFlipperByKey(featureKey);
-        if (flipper != null) {
-            FlipperGatesDao.INSTANCE.deleteFlipper(featureKey);
-        }
+        FlipperGatesDao.INSTANCE.deleteFlipper(featureKey);
     }
 
     @Step("Получаем доступные способы оплаты")
