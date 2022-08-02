@@ -213,6 +213,11 @@ public final class ApiV3Helper {
         }
     }
 
+    @Step("Выключаем фича-флаг: '{featureKey}'")
+    public static void checkFlipperOff(String featureKey) {
+        FlipperGatesDao.INSTANCE.deleteFlipper(featureKey);
+    }
+
     @Step("Получаем доступные способы оплаты")
     public List<PaymentToolV3> getPaymentTools(String orderNumber) {
         final Response response = CheckoutV3Request.PaymentTools.GET(orderNumber);

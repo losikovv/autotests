@@ -2,7 +2,7 @@ package ru.instamart.reforged.stf.page;
 
 import ru.instamart.reforged.core.page.Router;
 import ru.instamart.reforged.stf.page.business.BusinessPage;
-import ru.instamart.reforged.stf.page.checkout.CheckoutPage;
+import ru.instamart.reforged.stf.page.checkout_new.CheckoutPage;
 import ru.instamart.reforged.stf.page.faq.*;
 import ru.instamart.reforged.stf.page.home.HomePage;
 import ru.instamart.reforged.stf.page.landings.AeroflotPage;
@@ -76,7 +76,11 @@ public final class StfRouter extends Router {
         return (HowWeWorkPage) getPage(HowWeWorkPage.class);
     }
 
-    public static CheckoutPage checkout() {
+    public static ru.instamart.reforged.stf.page.checkout.CheckoutPage checkout() {
+        return (ru.instamart.reforged.stf.page.checkout.CheckoutPage) getPage(ru.instamart.reforged.stf.page.checkout.CheckoutPage.class);
+    }
+
+    public static CheckoutPage checkoutNew() {
         return (CheckoutPage) getPage(CheckoutPage.class);
     }
 

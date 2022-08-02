@@ -23,6 +23,11 @@ public interface UserShipmentsElement {
     Element shipmentStatusCancel = new Element(By.xpath("//div[@data-qa='user-shipment-status']//div[text()='Ваш заказ отменен']"), "статус заказа 'Ваш заказ отменен'");
     Element shipmentStatusShipmentReady = new Element(By.xpath("//div[@data-qa='user-shipment-status' and @id='shipment-ready']"), "статус заказа 'Готово к отправке'");
     Element userShipmentPromocode = new Element(By.xpath("//div[@data-qa='user-shipment-promocode']"), "промокод на странице статуса заказа");
+    Element shipmentNumber = new Element(By.xpath("//div[@data-qa='user-shipment-number']"), "Номер заказа");
+    Element shippingAddress = new Element(By.xpath("//span[@data-qa='user-shipment-address']"), "Адрес доставки");
+    Element productsCost = new Element(By.xpath("//span[@data-qa='user-shipment-products-cost']"), "Стоимость продуктов");
+    Element shipmentCost = new Element(By.xpath("//div[@data-qa='user-shipment-cost']"), "Стоимость доставки");
+    Element totalCost = new Element(By.xpath("//span[@data-qa='user-shipment-total']"), "Итого");
     Element paymentMethod = new Element(By.xpath("//span[@data-qa='user-shipment-payment-method']"), "Метод оплаты в заказе");
 
     Element discountSumm = new Element(By.xpath("//span[@data-qa='user-shipment-product-discount']"), "сумма скидки");

@@ -5,6 +5,7 @@ import org.testng.Assert;
 import ru.instamart.kraken.util.CollectionUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
+import ru.instamart.reforged.core.Kraken;
 
 import java.util.List;
 
@@ -61,9 +62,34 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
                 "Список продуктов не соответствует ожидаемому");
     }
 
+    @Step("Проверяем, что отображается номер заказа")
+    default void checkShipmentNumberVisible() {
+        Kraken.waitAction().shouldBeVisible(shipmentNumber);
+    }
+
+    @Step("Проверяем, что отображается адрес доставки")
+    default void checkShippingAddressVisible() {
+        Kraken.waitAction().shouldBeVisible(shippingAddress);
+    }
+
     @Step("Проверяем, что метод оплаты: '{expectedPaymentMethod}'")
     default void checkPaymentMethodEquals(final String expectedPaymentMethod) {
         Assert.assertEquals(paymentMethod.getText(), expectedPaymentMethod, "Метод оплаты в заказе отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что отображается стоимость товаров")
+    default void checkProductsCostVisible() {
+        Kraken.waitAction().shouldBeVisible(productsCost);
+    }
+
+    @Step("Проверяем, что отображается стоимость доставки")
+    default void checkShipmentCostVisible() {
+        Kraken.waitAction().shouldBeVisible(shipmentCost);
+    }
+
+    @Step("Проверяем, что отображается сумма 'Итого'")
+    default void checkTotalCostVisible() {
+        Kraken.waitAction().shouldBeVisible(totalCost);
     }
 
     @Step("Проверка метода политики замен {0}")

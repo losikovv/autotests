@@ -99,6 +99,13 @@ public final class StringUtil {
     }
 
     /**
+     * Парсит строку типа "9000000000" в "+7 (900) 000 00 00" для проверки номера в новом чекауте
+     */
+    public static String convertDigitsStringToPhoneNumberWithBracketsNoDash(final String text) {
+        return text.replaceFirst(PHONE_PATTERN, "+7 ($1) $2 $3 $4");
+    }
+
+    /**
      * Парсит строку типа "09:00-10:00" в "9:00-10:00" для сравнения времени доставки
      */
     public static String cutExtraZerosFromDate(String hours) {
@@ -158,5 +165,15 @@ public final class StringUtil {
         String replacement = "$1_$2";
         str = str.replaceAll(STRING_PATTERN, replacement).toLowerCase();
         return str;
+    }
+
+    /**
+     * Получаем 'Сегодня'/'Завтра' или дату из строки вида 'Сегодня, 1 января'/'Завтра, 2 января'/'Пн, 3 января'
+     */
+    public static String getTodayTomorrowOrDate(final String dayText) {
+        var delimiter = ',';
+        return dayText.indexOf(delimiter) < 6
+                ? dayText.substring(dayText.indexOf(delimiter) + 2).replaceAll("\\.", "")
+                : dayText.substring(0, dayText.indexOf(delimiter));
     }
 }
