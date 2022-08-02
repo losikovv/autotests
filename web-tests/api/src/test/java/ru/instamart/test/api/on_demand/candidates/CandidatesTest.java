@@ -158,5 +158,20 @@ public class CandidatesTest extends RestBase {
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
     }
+    @CaseId(29)
+    @Test(description = "Отсутствие необходимой роли у кандидата", groups = "dispatch-candidates-smoke")
+    public void withoutRoleCandidate() {
+        var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
+                .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
+                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                                .setLat(55.915098)
+                                .setLon(37.541685)
+                                .build())
+                        .addRoles(CandidatesOuterClass.CandidateRole.DRIVER)
+                )
+                .build();
+        var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+        assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() <= 0, "UUID кандидата вернулся");
+    }
   }
 
