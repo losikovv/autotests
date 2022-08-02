@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.business;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -20,6 +21,7 @@ public final class ShoppingCatalogTests {
 
     private final ApiHelper helper = new ApiHelper();
 
+    @Issue("B2C-9789")
     @CaseId(302)
     @Test(description = "Добавление товара в корзину из плитки (+удаление)", groups = "regression")
     public void testAddedAndRemoveProductFromShop() {
@@ -51,6 +53,7 @@ public final class ShoppingCatalogTests {
         shop().interactCart().checkCartEmpty();
     }
 
+    @Issue("B2C-9789")
     @CaseId(303)
     @Test(description = "Добавление товара в корзину из карточки товара (+удаление)", groups = "regression")
     public void testAddedAndRemoveProductFromProductCard() {
