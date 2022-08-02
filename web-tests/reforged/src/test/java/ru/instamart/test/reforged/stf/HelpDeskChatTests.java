@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
@@ -43,7 +44,8 @@ public final class HelpDeskChatTests {
     }
 
     @CaseId(1761)
-    @Test(description = "Тест работы с виджетом HelpDesk на странице 404", groups = "regression")
+    @Issue("CC-762")
+    @Test(enabled = false, description = "Тест работы с виджетом HelpDesk на странице 404", groups = "regression")
     public void successOperateHelpDeskWidgetOnPage404() {
         notfound().goToPage();
         notfound().interactHelpDesk().openChat();
