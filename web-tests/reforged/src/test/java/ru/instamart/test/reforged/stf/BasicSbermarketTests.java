@@ -151,9 +151,7 @@ public final class BasicSbermarketTests {
 
     @CaseId(3504)
     @Story("Статические страницы")
-    @Test(
-            description = "Тест валидности переходов по ссылкам в футере Сбермаркета," +
-                    " кейсы с открытием документа и модального окна",
+    @Test(description = "Тест валидности переходов по ссылкам в футере Сбермаркета, кейсы с открытием документа и модального окна",
             groups = "regression")
     public void successFooterLinkTransitionOtherCases() {
         home().goToPage();

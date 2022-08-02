@@ -309,7 +309,7 @@ public final class ShoppingCartTests {
     @Test(description = "Добавление товара после изменения адреса доставки", groups = "regression")
     public void testAddProductAfterChangeAddress() {
         var userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, DEFAULT_SID);
+        helper.dropAndFillCartByOneProduct(userData, DEFAULT_SID, 5);
         helper.setAddress(userData, RestAddresses.NizhnyNovgorod.defaultAddress());
 
         shop().goToPage();
@@ -323,7 +323,7 @@ public final class ShoppingCartTests {
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().getFirstItem().compareItemQuantityInCart(5);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(6);
         shop().assertAll();
     }
 
