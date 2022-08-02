@@ -21,13 +21,13 @@ public interface SearchElement {
     Button firstAddToCartButton = new Button(By.xpath("//button[@title='Добавить в корзину']"), "Кнопка добавить в корзину у первого элемента на странице поиска");
     Element firstProductCard = new Element(By.xpath("//div[@data-qa='search_result_products_products_grid_item_0']"), "Карточка первого товара на странице поиска");
 
-    ElementCollection searchProductsCollection = new ElementCollection(By.xpath("//div[contains(@data-qa, 'search_result_products_products_grid_item')]"), "Коллекция продуктов в поиске");
+    ElementCollection searchProductsCollection = new ElementCollection(By.xpath("//div[contains(@data-qa, 'search_result_products_products_grid')]//a"), "Коллекция продуктов в поиске");
     Element searchSpinner = new Element(By.xpath("//div[contains(@class, 'Spinner')]"), "Спиннер в поиске");
     Element infiniteSearchSpinner = new Element(By.xpath("//div[contains(@class, 'InfiniteScroll')]"), "Спиннер в бесконечном поиске");
 
     ElementCollection searchProductsImagesCollection = new ElementCollection(By.xpath("//div[contains(@data-qa, 'grid_item')]//img"), "Коллекция картинок продуктов в поиске");
 
-    ElementCollection searchProductsCollectionImagesAlco = new ElementCollection(By.xpath("//div[@data-qa='search_result_products_products_grid']//img[contains(@src, 'adult-warning')]"), "Коллекция картинок-заглушек алко в поиске");
+    ElementCollection searchProductsCollectionImagesAlco = new ElementCollection(By.xpath("//div[contains(@data-qa, 'search_result_products_products_grid')]//a//img[contains(@src, 'adult-warning')]"), "Коллекция картинок-заглушек алко в поиске");
 
     Selector selectSort = new Selector(By.xpath("//div[@data-qa='search_result_products_filter']//select"), "Селектор сортировки продуктов");
     Selector selectSortApplied = new Selector(ByKraken.xpathExpression("//div[@data-qa='search_result_products_filter']//select/option[contains(text(),'%s')]"), "Селектор сортировки продуктов");

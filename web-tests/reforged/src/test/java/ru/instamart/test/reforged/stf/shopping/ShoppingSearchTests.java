@@ -360,7 +360,11 @@ public final class ShoppingSearchTests {
         search().checkSearchProductsSpinnerNotVisible();
 
         search().checkAlcoStubInProductsSearch();
-        search().interactDisclaimerModal().clickOffTheModalToCloseDisclaimer();
+
+        //TODO В результатах поиска с алкоголем модалка предупреждения 18+ не выскакивает автоматом
+        // https://mattermost.sbermarket.tech/sbermarket/pl/meqt33xezt8idkkw7oyiqhuucr
+        //search().interactDisclaimerModal().clickOffTheModalToCloseDisclaimer();
+
         search().clickOnFirstSearchResult();
         search().interactDisclaimerModal().clickOffTheModalToCloseDisclaimer();
 
