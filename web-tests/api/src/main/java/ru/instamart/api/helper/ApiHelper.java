@@ -150,6 +150,23 @@ public final class ApiHelper {
     }
 
     /**
+     * Добавить в корзину один продукт с № количеством
+     * добавление происходит без учетов минимальной стомости и веса.
+     * Просто кидается один первый товар с указанным количеством
+     * @param user
+     * @param sid
+     * @param count
+     */
+    @Step("Наполняем корзину с помощью API одним товаром с количеством {count}")
+    public void dropAndFillCartByOneProduct(final UserData user, final int sid, final int count) {
+        apiV2.authByQA(user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.fillCartByOneProduct(apiV2.getProductFromEachDepartmentOnMainPage(sid), count);
+    }
+
+    /**
      * На стейдже работать не будет для {@link ru.instamart.api.common.RestAddresses}, так как нет большей части магазинов
      */
     @Step("Наполняем корзину с помощью API")

@@ -15,23 +15,17 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Профиль пользователя")
-public class UserProfileTests {
-
-    private UserData userData;
-
-    @BeforeMethod(alwaysRun = true, description = "Авторизация")
-    public void login() {
-        this.userData = UserManager.getQaUser();
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-    }
+public final class UserProfileTests {
 
     @CaseId(1524)
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации меню профиля Sbermarket", groups = "regression")
     public void successValidateSbermarketTenantProfileMenu() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().checkProfileNameExists();
         shop().interactHeader().interactAccountMenu().checkProfileButtonExists();
@@ -46,6 +40,11 @@ public class UserProfileTests {
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'Профиль' в меню профиля", groups = "regression")
     public void successValidateUserProfileButton() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
         pages().checkPageIsAvailable();
@@ -55,6 +54,11 @@ public class UserProfileTests {
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'Условия использования' в меню профиля", groups = "regression")
     public void successValidateTermsButton() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToTerms();
         pages().checkPageIsAvailable();
@@ -64,6 +68,11 @@ public class UserProfileTests {
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'Доставка' в меню профиля", groups = "regression")
     public void successValidateDeliveryButton() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToDelivery();
         pages().checkPageIsAvailable();
@@ -73,6 +82,11 @@ public class UserProfileTests {
     @Story("Выпадающее меню")
     @Test(description = "Тест валидации кнопки 'FAQ' в меню профиля", groups = "regression")
     public void successValidateFaqButton() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToFaq();
         pages().checkPageIsAvailable();
@@ -82,6 +96,11 @@ public class UserProfileTests {
     @Story("навигация в меню пользователя")
     @Test(description = "Тест доступности страниц профиля пользователя", groups = "regression")
     public void successCheckProfilePagesAreAvailable() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
         pages().checkPageIsAvailable();
@@ -93,6 +112,11 @@ public class UserProfileTests {
     @Story("Заказы")
     @Test(description = "Тест валидации дефолтных страниц истории заказов", groups = "regression")
     public void successValidateDefaultOrderHistory() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
         pages().checkPageIsAvailable();
@@ -108,6 +132,12 @@ public class UserProfileTests {
     @Story("Данные профиля пользователя")
     @Test(description = "Добавление имени и фамилии для новых пользователей", groups = "regression")
     public void addFullName() {
+        final var userData = UserManager.getQaUser();
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         userEdit().goToPage();
         userEdit().clickToChangeName();
         userEdit().interactFullNameForm().fillFirstName(userData.getFirstName());
@@ -121,6 +151,12 @@ public class UserProfileTests {
     @Story("Данные профиля пользователя")
     @Test(description = "Добавление E-mail для новых пользователей", groups = "regression")
     public void addEmail() {
+        final var userData = UserManager.getQaUser();
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         userEdit().goToPage();
         userEdit().clickToChangeEmail();
         userEdit().interactEmailFrame().fillEmail(userData.getEmail());
@@ -133,6 +169,12 @@ public class UserProfileTests {
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение имени и фамилии для существующих пользователей", groups = "regression")
     public void changeFullName() {
+        final var userData = UserManager.getQaUser();
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         userEdit().goToPage();
         userEdit().clickToChangeName();
         userEdit().interactFullNameForm().fillFirstName(userData.getFirstName());
@@ -158,6 +200,12 @@ public class UserProfileTests {
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение E-mail для существующих пользователей", groups = "regression")
     public void changeEmail() {
+        final var userData = UserManager.getQaUser();
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
         userEdit().goToPage();
         userEdit().clickToChangeEmail();
         userEdit().interactEmailFrame().fillEmail(userData.getEmail());
@@ -170,6 +218,11 @@ public class UserProfileTests {
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение телефона для существующих пользователей", groups = "regression")
     public void changePhone() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().interactHeader().checkProfileButtonVisible();
+
         final var newUser = UserManager.getUser();
         userEdit().goToPage();
         userEdit().clickToChangePhone();
@@ -182,6 +235,11 @@ public class UserProfileTests {
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение E-mail на тот, который уже есть в системе", groups = "regression")
     public void changeToExistingEmail() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().interactHeader().checkProfileButtonVisible();
+
         userEdit().goToPage();
         userEdit().clickToChangeEmail();
         userEdit().interactEmailFrame().fillEmail(UserManager.getDefaultAdmin().getEmail());

@@ -17,7 +17,7 @@ public interface SeoCatalogElement {
 
     Element catalogPageTitle = new Element(By.xpath("//h1[@data-qa='category_header_title']"), "Заголовок страницы каталога");
     Element productGrid = new Element(By.xpath("//div[@data-qa='category_taxon_products_products_grid']"), "Продукты на странице каталога");
-    Element firstProductCard = new Element(By.xpath("//div[@data-qa='category_taxon_products_products_grid_item_0']"), "Карточка первого товара на странице каталога");
+    Element firstProductCard = new Element(By.xpath("//div[@data-qa='category_taxon_products_products_grid']/div/div[1]"), "Карточка первого товара на странице каталога");
     Element firstProductCardOnDepartment = new Element(By.xpath("//div[@data-qa='category_department_taxons_list_taxon_item_0_product_item_0']"), "Карточка первого товара на странице каталога");
     Button firstProductAddToCart = new Button(By.xpath("//div[@data-qa='category_department_taxons_list_taxon_item_0_product_item_0']//button[@title='Добавить в корзину']"), "Кнопка 'Добавить в корзину' первого товара в каталоге");
     Button firstProductRemoveFromCart = new Button(By.xpath("//div[@data-qa='category_department_taxons_list_taxon_item_0_product_item_0']//button[@title='Убрать из корзины']"), "Кнопка 'Убрать из корзины' первого товара в каталоге");
@@ -28,9 +28,9 @@ public interface SeoCatalogElement {
     Element productsStub = new Element(By.xpath("//div[@data-qa='category_taxon_products_products_grid']//ul[@aria-hidden='true']"), "Заглушка загрузки товаров");
 
     ElementCollection seoProductPrices = new ElementCollection(By.xpath("//span[contains(text(),'Цена за 1 шт.') or contains(text(), 'со скидкой')]/parent::div"), "Коллекция элементов цен товаров в сео каталоге");
-    ElementCollection seoProductsImagesCollection = new ElementCollection(By.xpath("//div[contains(@data-qa, 'grid_item')]//img"), "Коллекция картинок продуктов в сео каталоге");
+    ElementCollection seoProductsImagesCollection = new ElementCollection(By.xpath("//div[@data-qa ='category_taxon_products_products_grid']//img"), "Коллекция картинок продуктов в сео каталоге");
 
-    Image productImg = new Image(ByKraken.xpathExpression("//img[contains(@src, '%s')]"), "Конкретное отдельное изображение на странице");
+    Image productImg = new Image(ByKraken.xpathExpression("//img[@src='%s']"), "Конкретное отдельное изображение на странице");
 
     Selector selectSortApplied = new Selector(ByKraken.xpathExpression("//option[@value='popularity']/parent::select/option[contains(text(),'%s')]"), "Селектор сортировки продуктов");
 }

@@ -368,7 +368,7 @@ public final class ApiV2Helper {
     }
 
     @Step("Добавляем товар в корзину: id товара = {productId} и количество = {quantity} ")
-    public void addItemToCartOrLogError(long productId, int quantity) {
+    public void addItemToCartOrLogError(final long productId, final int quantity) {
         final var response = LineItemsV2Request.POST(productId, quantity, currentOrderNumber.get());
         checkStatusCode200or422(response);
 
@@ -1186,6 +1186,10 @@ public final class ApiV2Helper {
                 break;
             }
         }
+    }
+
+    public void fillCartByOneProduct(final Collection<ProductV2> products, final int count) {
+        products.stream().findFirst().ifPresent(productV2 -> addItemToCartOrLogError(productV2.getId(), count));
     }
 
     public void fillCartOneByOne(final Collection<ProductV2> products, final int quantity) {
