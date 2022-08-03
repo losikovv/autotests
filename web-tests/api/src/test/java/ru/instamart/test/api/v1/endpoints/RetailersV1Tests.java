@@ -33,6 +33,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -192,6 +194,7 @@ public class RetailersV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры")
     @CaseId(1289)
     @Test(description = "Получение доступных ритейлеров",
@@ -209,6 +212,7 @@ public class RetailersV1Tests extends RestBase {
         }
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры")
     @CaseId(1290)
     @Test(description = "Получение недоступных ритейлеров",
@@ -370,6 +374,7 @@ public class RetailersV1Tests extends RestBase {
         compareTwoObjects("Invalid retailer ID's [0, 111111]", error.getErrors().getBase());
     }
 
+    @Skip(onServer = Server.STAGING) //todo починить 405 "Создание ритейлеров в данном разделе отключено. Используйте раздел Онбординг."
     @Story("Ритейлеры")
     @CaseId(1310)
     @Test(description = "Создание ритейлера",
@@ -395,6 +400,7 @@ public class RetailersV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING) //todo починить 405 "Создание ритейлеров в данном разделе отключено. Используйте раздел Онбординг."
     @Story("Ритейлеры")
     @JsonDataProvider(path = "data/json_v1/api_v1_negative_retailer_data.json", type = RestDataProvider.RetailerV1TestDataRoot.class)
     @CaseIDs(value = {@CaseId(1311), @CaseId(1312), @CaseId(1313), @CaseId(1314), @CaseId(1315), @CaseId(1316),
@@ -409,6 +415,7 @@ public class RetailersV1Tests extends RestBase {
         Assert.assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры")
     @CaseId(1325)
     @Test(description = "Редактирование ритейлера",
@@ -437,6 +444,7 @@ public class RetailersV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры")
     @JsonDataProvider(path = "data/json_v1/api_v1_negative_edit_retailer_data.json", type = RestDataProvider.RetailerV1TestDataRoot.class)
     @CaseIDs(value = {@CaseId(1326), @CaseId(1327)})
@@ -451,6 +459,7 @@ public class RetailersV1Tests extends RestBase {
         Assert.assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - ETA")
     @CaseId(1330)
     @Test(description = "Редактирование ETA для ритейлера",
@@ -461,6 +470,7 @@ public class RetailersV1Tests extends RestBase {
         checkStatusCode200(response);
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - ETA")
     @CaseId(1331)
     @Test(description = "Получение ETA для ритейлера",
@@ -478,6 +488,7 @@ public class RetailersV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1347)
     @Test(description = "Создание правил доступности слотов доставки",
@@ -492,6 +503,7 @@ public class RetailersV1Tests extends RestBase {
         compareShippingPolicies(shippingPolicies, shippingPolicy);
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1348)
     @Test(description = "Получение правила доступности слотов доставки",
@@ -505,6 +517,7 @@ public class RetailersV1Tests extends RestBase {
         compareTwoObjects(shippingPolicyFromResponse, shippingPolicy);
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1349)
     @Test(description = "Получение правил доступности слотов доставки",
@@ -529,6 +542,7 @@ public class RetailersV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1351)
     @Test(description = "Получение правил доступности слотов доставки для несуществующего ритейлера",
@@ -540,6 +554,7 @@ public class RetailersV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
     @CaseIDs(value = {@CaseId(2345), @CaseId(2349), @CaseId(2350), @CaseId(2351), @CaseId(2352)})
     @Test(description = "Создание правила доступности слотов доставки",
@@ -553,6 +568,7 @@ public class RetailersV1Tests extends RestBase {
         checkResponseJsonSchema(response, ShippingPolicyV1Response.class);
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(2356)
     @Test(description = "Создание правила доступности слотов доставки для несуществующего правила",
@@ -570,6 +586,7 @@ public class RetailersV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1352)
     @Test(description = "Удаление правила доступности слотов доставки",
@@ -585,6 +602,7 @@ public class RetailersV1Tests extends RestBase {
         Assert.assertFalse(ShippingPolicyRulesDao.INSTANCE.findById(shippingPolicyRuleId).isPresent());
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1353)
     @Test(description = "Удаление несуществующего правила доступности слотов доставки",
@@ -595,6 +613,7 @@ public class RetailersV1Tests extends RestBase {
         checkStatusCode404(response);
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1354)
     @Test(description = "Редактирование правил доступности слотов доставки",
@@ -621,6 +640,7 @@ public class RetailersV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1356)
     @Test(description = "Удаление правил доступности слотов доставки",

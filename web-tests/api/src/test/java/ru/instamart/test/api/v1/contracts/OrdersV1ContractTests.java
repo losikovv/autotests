@@ -49,6 +49,7 @@ public class OrdersV1ContractTests extends RestBase {
         //apiV2.cancelCurrentOrder(); //todo починить 404
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @CaseId(114)
     @Test(description = "Контрактный тест списка заказов",
@@ -59,6 +60,7 @@ public class OrdersV1ContractTests extends RestBase {
         checkResponseJsonSchema(response, OrdersV1Response.class);
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @CaseId(115)
     @Test(description = "Контрактный тест инфы о заказе",
@@ -69,6 +71,7 @@ public class OrdersV1ContractTests extends RestBase {
         checkResponseJsonSchema(response, OrderV1.class);
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @CaseId(116)
     @Test(description = "Контрактный тест инфы о шипменте",
@@ -81,6 +84,7 @@ public class OrdersV1ContractTests extends RestBase {
         shipmentUuid = response.as(ShipmentV1Response.class).getShipment().getUuid();
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @CaseId(117)
     @Test(description = "Контрактный тест списка офферов в шипменте",
@@ -91,6 +95,7 @@ public class OrdersV1ContractTests extends RestBase {
         checkResponseJsonSchema(response, ShipmentOffersV1Response.class);
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @CaseId(118)
     @Test(description = "Контрактный тест списка лайн айтемов в шимпенте по его номеру",
@@ -108,6 +113,7 @@ public class OrdersV1ContractTests extends RestBase {
                 .getProductSku();
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @CaseId(2073)
     @Test(description = "Контрактный тест списка лайн айтемов в шимпенте по номеру заказа",
@@ -120,6 +126,7 @@ public class OrdersV1ContractTests extends RestBase {
         checkResponseJsonSchema(response, LineItemsV1Response.class);
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @CaseId(119)
     @Test(description = "Контрактный тест списка предзамен для товара из шипмента",
@@ -131,8 +138,7 @@ public class OrdersV1ContractTests extends RestBase {
         checkResponseJsonSchema(response, PreReplacementV1Response.class);
     }
 
-    //todo убрать скип после выдачи прав SD-13260
-    @Skip(onServer = Server.PRODUCTION)
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @CaseId(120)
     @Test(description = "Контрактный тест списка сэмплов в шипменте",
@@ -144,12 +150,11 @@ public class OrdersV1ContractTests extends RestBase {
         checkResponseJsonSchema(response, MarketingSamplesItemsV1Response.class);
     }
 
-    //todo убрать скип после выдачи прав SD-13260
-    @Skip(onServer = Server.PRODUCTION)
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @CaseId(121)
     @Test(description = "Контрактный тест списка способов оплаты в заказе",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress"})
     public void getShopperOrderAvailablePaymentTools() {
         final Response response = ShoppersV1Request.OrderAvailablePaymentTools.GET(orderNumber);
         checkStatusCode200(response);

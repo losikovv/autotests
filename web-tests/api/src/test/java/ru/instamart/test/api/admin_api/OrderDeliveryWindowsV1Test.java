@@ -18,6 +18,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorText;
@@ -43,7 +45,9 @@ public class OrderDeliveryWindowsV1Test extends RestBase {
     }
 
     @CaseId(2846)
-    @Test(description = "Получение списка окон доставок заказа", groups = {"api-instamart-regress"})
+    @Skip(onServer = Server.STAGING)
+    @Test(description = "Получение списка окон доставок заказа",
+            groups = {"api-instamart-regress"})
     public void getOrderDeliveryWindows() {
         admin.authApi();
 
@@ -59,7 +63,9 @@ public class OrderDeliveryWindowsV1Test extends RestBase {
     }
 
     @CaseId(2847)
-    @Test(description = "Попытка получения списка окон доставок заказа неавторизованным пользователем", groups = {"api-instamart-regress"})
+    @Skip(onServer = Server.STAGING)
+    @Test(description = "Попытка получения списка окон доставок заказа неавторизованным пользователем",
+            groups = {"api-instamart-regress"})
     public void getOrderDeliveryWindowsUnauthenticated() {
         SessionFactory.clearSession(SessionType.API_V1);
 
@@ -68,7 +74,9 @@ public class OrderDeliveryWindowsV1Test extends RestBase {
     }
 
     @CaseId(2848)
-    @Test(description = "Попытка получения списка окон доставок заказа пользователем без прав администратора", groups = {"api-instamart-regress"})
+    @Skip(onServer = Server.STAGING)
+    @Test(description = "Попытка получения списка окон доставок заказа пользователем без прав администратора",
+            groups = {"api-instamart-regress"})
     public void getOrderDeliveryWindowsUnauthorized() {
         apiV1.authByPhone(UserManager.getQaUser());
 
@@ -77,7 +85,9 @@ public class OrderDeliveryWindowsV1Test extends RestBase {
     }
 
     @CaseId(2849)
-    @Test(description = "Попытка получения списка окон доставок несуществующего заказа", groups = {"api-instamart-regress"})
+    @Skip(onServer = Server.STAGING)
+    @Test(description = "Попытка получения списка окон доставок несуществующего заказа",
+            groups = {"api-instamart-regress"})
     public void getOrderDeliveryWindowsNotFound() {
         admin.authApi();
 

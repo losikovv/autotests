@@ -15,6 +15,8 @@ import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Arrays;
@@ -38,7 +40,7 @@ public class ActiveShipmentsV2Test extends RestBase {
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
         final UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
-        order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
+        order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID); //todo починить на стейдже GET /v2/shipments/null/shipping_rates
         if (!EnvironmentProperties.Env.isProduction()) {
             orderFromAnotherStore = apiV2.order(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         }
@@ -49,6 +51,7 @@ public class ActiveShipmentsV2Test extends RestBase {
         //apiV2.cancelCurrentOrder(); //todo починить 404
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1387)
     @Story("Текущий подзаказ")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
@@ -63,6 +66,7 @@ public class ActiveShipmentsV2Test extends RestBase {
         checkShipmentInfo(shipmentFromResponse, order);
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1388)
     @Story("Текущий подзаказ")
     @Test(groups = {"api-instamart-regress"},

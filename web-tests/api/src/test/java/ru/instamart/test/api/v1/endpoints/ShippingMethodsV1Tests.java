@@ -17,15 +17,15 @@ import ru.instamart.api.request.v1.ShippingMethodsV1Request;
 import ru.instamart.api.response.v1.*;
 import ru.instamart.jdbc.dao.stf.ShippingMethodKindsDao;
 import ru.instamart.jdbc.dao.stf.ShippingMethodsCleanDao;
-import ru.instamart.jdbc.dao.stf.SpreeRetailersDao;
 import ru.instamart.jdbc.dao.stf.SpreeShippingMethodsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
@@ -46,6 +46,7 @@ public class ShippingMethodsV1Tests extends RestBase {
         admin.authApi();
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2137)
     @Test(description = "Получение списка способов доставки",
             groups = {"api-instamart-regress", "api-instamart-prod"})

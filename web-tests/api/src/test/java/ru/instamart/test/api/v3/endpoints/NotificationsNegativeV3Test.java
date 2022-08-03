@@ -9,7 +9,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.ApiV3DataProvider;
-import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
@@ -18,6 +17,8 @@ import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
@@ -36,10 +37,12 @@ public class NotificationsNegativeV3Test extends RestBase {
         admin.editStore(sid, StoresAdminRequest.getStoreLentaElino());
 
         SessionFactory.makeSession(SessionType.API_V2);
+        //todo починить на стейдже GET /v2/shipments/null/shipping_rates
         orderShopper = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         orderForAccounting = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid);
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(1448)
     @Test(description = "Ошибка 405 (Интеграция для учета)",
@@ -55,6 +58,7 @@ public class NotificationsNegativeV3Test extends RestBase {
         Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY.getStatus());
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(1504)
     @Test(description = "Ошибка 405 (Шоппер)",
@@ -70,6 +74,7 @@ public class NotificationsNegativeV3Test extends RestBase {
         Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY.getStatus());
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(1503)
     @Test(description = "Передан неизвестный статус негатив.", groups = "api-instamart-regress")

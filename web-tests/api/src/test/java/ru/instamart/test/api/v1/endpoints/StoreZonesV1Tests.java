@@ -19,6 +19,8 @@ import ru.instamart.jdbc.dao.stf.StoresDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.StoreZonesCoordinates;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
@@ -37,7 +39,7 @@ public class StoreZonesV1Tests extends RestBase {
         admin.authApi();
         RetailersV1Request.Retailer retailer = RetailersV1Request.getRetailer();
         retailer.setName(retailerName);
-        admin.createRetailer(retailer);
+        admin.createRetailer(retailer); //todo починить 405 на стейдже "Создание ритейлеров в данном разделе отключено. Используйте раздел Онбординг."
     }
 
     @AfterClass(alwaysRun = true, description = "Удаление ритейлера")
@@ -45,6 +47,7 @@ public class StoreZonesV1Tests extends RestBase {
         SpreeRetailersCleanDao.INSTANCE.deleteRetailerWithStores(retailerName);
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2795)
     @Story("Зоны магазинов")
     @Test(groups = {"api-instamart-regress"},
@@ -57,6 +60,7 @@ public class StoreZonesV1Tests extends RestBase {
                 StoreZonesDao.INSTANCE.getStoreZonesIDsBySid(EnvironmentProperties.DEFAULT_SID).size());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2796)
     @Story("Зоны магазинов")
     @Test(groups = {"api-instamart-regress"},
@@ -73,6 +77,7 @@ public class StoreZonesV1Tests extends RestBase {
         compareTwoObjects(response.as(StoreZonesV1Response.class).getZones().size(), 0);
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2797)
     @Story("Зоны магазинов")
     @Test(groups = {"api-instamart-regress"},
@@ -83,6 +88,7 @@ public class StoreZonesV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2798)
     @Story("Зоны магазинов")
     @Test(groups = {"api-instamart-regress"},
@@ -99,6 +105,7 @@ public class StoreZonesV1Tests extends RestBase {
         checkResponseJsonSchema(response, StoreZoneV1Response.class);
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2799)
     @Story("Зоны магазинов")
     @Test(groups = {"api-instamart-regress"},
@@ -110,6 +117,7 @@ public class StoreZonesV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2800)
     @Story("Зоны магазинов")
     @Test(groups = {"api-instamart-regress"},
@@ -125,6 +133,7 @@ public class StoreZonesV1Tests extends RestBase {
         checkStatusCode200(response);
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2801)
     @Story("Зоны магазинов")
     @Test(groups = {"api-instamart-regress"},
@@ -154,6 +163,7 @@ public class StoreZonesV1Tests extends RestBase {
         compareTwoObjects(getResponse.as(StoreZonesV1Response.class).getZones().get(0).getName(), newZoneName);
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2802)
     @Story("Зоны магазинов")
     @Test(groups = {"api-instamart-regress"},

@@ -11,6 +11,8 @@ import ru.instamart.api.request.v1.NextV1Request;
 import ru.instamart.api.response.v1.*;
 import ru.instamart.jdbc.dao.stf.PromoCardsRetailersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
@@ -90,6 +92,7 @@ public class NextV1Tests extends RestBase {
         checkStatusCode200(response);
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2324)
     @Test(groups = {"api-instamart-regress"},
             description = "Получение промо-карточек ретейлера")

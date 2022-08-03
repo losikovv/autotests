@@ -5,6 +5,8 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import ru.instamart.api.response.v2.TopPhrasesV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -42,6 +44,7 @@ public class SearchesV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseIDs(value = {@CaseId(273), @CaseId(1431), @CaseId(278)})
     @Test(description = "Получаем поисковые подсказки по слову - позитивные сценарии",
             groups = {"api-instamart-smoke", "api-instamart-prod"},

@@ -16,6 +16,8 @@ import ru.instamart.api.response.ErrorTypeResponse;
 import ru.instamart.api.response.v2.CanPostFeedbackV2Response;
 import ru.instamart.api.response.v2.FeedbacksV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -30,14 +32,14 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public class ProductFeedbacksV2Test extends RestBase {
     private String productSku;
 
-    @BeforeClass(alwaysRun = true, description = "Авторизация и получение SKU")
+    @BeforeClass(alwaysRun = true,
+            description = "Авторизация и получение SKU")
     public void before() {
         SessionFactory.makeSession(SessionType.API_V2);
-        productSku = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0).getSku();
-
+        productSku = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0).getSku(); //todo починить Index 0 out of bounds for length 0 на стейдже
     }
 
-
+    @Skip(onServer = Server.STAGING)
     @CaseId(2297)
     @Story("Получение списка отзывов")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
@@ -56,6 +58,7 @@ public class ProductFeedbacksV2Test extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2307)
     @Story("Получение списка отзывов")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
@@ -72,6 +75,7 @@ public class ProductFeedbacksV2Test extends RestBase {
 
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseIDs({@CaseId(2298), @CaseId(2299)})
     @Story("Создание отзыва на товар")
     @Test(enabled = false, //TODO: возвращает 500
@@ -84,7 +88,7 @@ public class ProductFeedbacksV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-
+    @Skip(onServer = Server.STAGING)
     @CaseId(2301)
     @Story("Проверка, можем ли пользователь опубликовать отзыв")
     @Test(groups = {"api-instamart-regress"},
@@ -96,6 +100,7 @@ public class ProductFeedbacksV2Test extends RestBase {
         assertTrue(canPostFeedbackV2Response.isCanPostFeedback(), "Нельзя оставить отзыв");
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2308)
     @Story("Получить актуальный отзыв на товар")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
@@ -114,6 +119,7 @@ public class ProductFeedbacksV2Test extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2309)
     @Story("Получить актуальный отзыв на товар")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},

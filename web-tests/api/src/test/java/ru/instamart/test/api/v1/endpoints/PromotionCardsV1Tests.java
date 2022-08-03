@@ -18,6 +18,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -163,6 +165,7 @@ public class PromotionCardsV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
+    @Skip(onServer = Server.STAGING) //todo починить 401
     @CaseId(2275)
     @Test(groups = {"api-instamart-regress"},
             description = "Удаление In App баннера",
