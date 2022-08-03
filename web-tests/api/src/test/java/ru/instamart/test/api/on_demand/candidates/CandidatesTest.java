@@ -16,8 +16,6 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import static org.testng.Assert.assertTrue;
@@ -128,6 +126,7 @@ public class CandidatesTest extends RestBase {
 
         }
 
+
     @CaseId(30)
     @Test(description = "Отбор кандидатов по транспорту", groups = "dispatch-candidates-smoke")
     public void transportCandidate() {
@@ -143,6 +142,7 @@ public class CandidatesTest extends RestBase {
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
     }
+
     @CaseId(28)
     @Test(description = "Отбор кандидатов по роли", groups = "dispatch-candidates-smoke")
     public void roleCandidate() {
@@ -157,6 +157,24 @@ public class CandidatesTest extends RestBase {
                 .build();
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
+    }
+
+    @CaseId(31)
+    @Test(description = "Отсутствие необходимого транспорта у кандидата",
+            groups = "dispatch-candidates-smoke")
+    public void LackOfTransportCandidates() {
+        var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
+                .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
+                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                                .setLat(55.7012984)
+                                .setLon(37.7283669)
+                                .build())
+                        .addTransports(CandidatesOuterClass.CandidateTransport.PEDESTRIAN)
+                )
+                .build();
+        var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+        assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() <= 0, "UUID кандидата вернулся");
+
     }
     @CaseId(29)
     @Test(description = "Отсутствие необходимой роли у кандидата", groups = "dispatch-candidates-smoke")
