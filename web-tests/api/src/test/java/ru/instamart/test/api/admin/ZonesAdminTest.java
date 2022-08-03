@@ -15,6 +15,8 @@ import ru.instamart.api.request.admin.ZonesAdminRequest;
 import ru.instamart.jdbc.dao.stf.SpreeZonesDao;
 import ru.instamart.jdbc.entity.stf.SpreeZonesEntity;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -105,6 +107,7 @@ public class ZonesAdminTest extends RestBase {
     }
 
     @CaseId(2066)
+    @Skip(onServer = Server.STAGING)
     @Test(groups = {"api-instamart-regress"},
             description = "Удаление торговой зоны",
             dependsOnMethods = {"editZone", "editZoneWithoutName"})

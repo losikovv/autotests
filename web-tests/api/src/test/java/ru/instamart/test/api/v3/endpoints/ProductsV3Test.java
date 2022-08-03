@@ -21,6 +21,8 @@ import ru.instamart.api.response.v2.ProductsV2Response;
 import ru.instamart.api.response.v3.ErrorsV3Response;
 import ru.instamart.api.response.v3.ProductsV3Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
@@ -40,6 +42,7 @@ public class ProductsV3Test extends RestBase {
 
     private ProductV3 product;
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1368)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
@@ -55,6 +58,7 @@ public class ProductsV3Test extends RestBase {
         product = products.get(0);
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2709)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "В категории больше 3 дефолтных фильтров",
@@ -85,6 +89,7 @@ public class ProductsV3Test extends RestBase {
         compareTwoObjects(response.as(ErrorsV3Response.class).getErrors().get(0).getMessage(), "Магазин не существует");
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1370)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
@@ -105,6 +110,7 @@ public class ProductsV3Test extends RestBase {
         });
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1371)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по популярности",
@@ -120,6 +126,7 @@ public class ProductsV3Test extends RestBase {
         checkSort(ProductSortTypeV2.POPULARITY, productsV3Response.getSort());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1372)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по возрастанию цены",
@@ -135,6 +142,7 @@ public class ProductsV3Test extends RestBase {
         checkSort(ProductSortTypeV2.PRICE_ASC, productsV3Response.getSort());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1373)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по убыванию цены",
@@ -150,6 +158,7 @@ public class ProductsV3Test extends RestBase {
         checkSort(ProductSortTypeV2.PRICE_DESC, productsV3Response.getSort());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1374)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по наличию скидки продукты",
@@ -169,6 +178,7 @@ public class ProductsV3Test extends RestBase {
         });
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1375)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по бренду продукты",
@@ -191,6 +201,7 @@ public class ProductsV3Test extends RestBase {
         });
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1376)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по стране изготовителя продукты",
@@ -213,6 +224,7 @@ public class ProductsV3Test extends RestBase {
         });
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1377)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные по выгодному весу",
@@ -228,6 +240,7 @@ public class ProductsV3Test extends RestBase {
         checkSort(ProductSortTypeV2.UNIT_PRICE_ASC, productsV3Response.getSort());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1378)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по категории с одиннадцатой страницы",
@@ -247,6 +260,7 @@ public class ProductsV3Test extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1379)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по запросу со второй страницы",

@@ -71,7 +71,7 @@ public class UsersV1Test extends RestBase {
                         .b2b(false)
                         .email(Generate.email())
                         .password("sbermarket")
-                        .roleIds(List.of(1L, 48L, 55L))
+                        .roleIds(List.of(1L, 48L))
                         .passwordConfirmation("sbermarket")
                         .customerComment(Generate.literalString(5))
                         .preferredCardPaymentMethod("card_courier")

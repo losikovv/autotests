@@ -22,6 +22,8 @@ import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -40,6 +42,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         }
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позиции заказа")
     @CaseId(945)
     @Test(description = "Заказ собран без изменений (все типы упаковок)",
@@ -74,6 +77,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позиции заказа")
     @CaseId(874)
     @Test(enabled = false,
@@ -110,6 +114,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позиции заказа")
     @CaseId(875)
     @Test(description = "Собрано больше изначального количества",
@@ -144,6 +149,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @CaseId(949)
     @Test(description = "Вес передан ритейлером (весовые товары)",
@@ -189,6 +195,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @CaseId(1959)
     @Test(description = "Вес передан ритейлером (фасованные товары)",
@@ -234,6 +241,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @CaseId(950)
     @Test(description = "Вес передан ритейлером (штучные товары)",
@@ -278,6 +286,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @CaseId(1960)
     @Test(description = "Вес передан ритейлером (упаковки)",
@@ -322,6 +331,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @CaseId(2042)
     @Test(description = "Передан 0 вес ритейлером (штучные товары)",
@@ -365,6 +375,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @CaseId(2043)
     @Test(description = "Передан 0 вес ритейлером (упаковки)",
@@ -408,6 +419,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @CaseId(976)
     @Test(description = "Передано 0 квантов при не 0 весе ритейлером (весовые)",
@@ -453,6 +465,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @CaseId(1959)
     @Test(description = "Передано 0 квантов при не 0 весе ритейлером (фасованные)",
@@ -498,6 +511,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @CaseId(1092)
     @Test(description = "Собрано меньше 1 кванта (весовые товары)",
@@ -543,6 +557,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Передача точного веса")
     @CaseId(1961)
     @Test(description = "Собрано меньше 1 кванта (фасованные товары)",

@@ -18,6 +18,8 @@ import ru.instamart.api.model.v2.AssemblyItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v3.NotificationsV3Request;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -68,6 +70,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 //        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus());
 //    }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1461)
     @Test(description = "Canceled после создания (Сборка ритейлера, доставка Сбермаркета)",
@@ -80,6 +83,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1461)
     @Test(description = "Canceled после создания (Сборка и доставка ритейлером)",
@@ -92,6 +96,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1462)
     @Test(description = "Canceled после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
@@ -106,6 +111,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1462)
     @Test(description = "Canceled после order.in_work (Сборка и доставка ритейлером)",
@@ -120,6 +126,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1463)
     @Test(description = "Canceled после order.assembled (Сборка ритейлера, доставка Сбермаркета)",
@@ -136,6 +143,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1463)
     @Test(description = "Canceled после order.assembled (Сборка и доставка ритейлером)",
@@ -152,6 +160,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1464)
     @Test(description = "Canceled после order.ready_for_delivery (Сборка ритейлера, доставка Сбермаркета)",
@@ -168,6 +177,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1464)
     @Test(description = "Canceled после order.ready_for_delivery (Сборка и доставка ритейлером)",
@@ -184,6 +194,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1466)
     @Test(description = "In_work после создания (Сборка ритейлера, доставка Сбермаркета)",
@@ -196,6 +207,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не перешел в статус Собирается");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1466)
     @Test(description = "In_work после создания (Сборка и доставка ритейлером)",
@@ -208,6 +220,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не перешел в статус Собирается");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1467)
     @Test(description = "Assembled после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
@@ -222,6 +235,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не перешел в статус Собирается");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1467)
     @Test(description = "Assembled после order.in_work (Сборка и доставка ритейлером)",
@@ -236,6 +250,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не перешел в статус Собирается");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1468)
     @Test(description = "Ready_for_delivery после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
@@ -260,10 +275,9 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
-
-
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(1468)
     @Test(description = "Ready_for_delivery после order.in_work (Сборка и доставка ритейлером)",
@@ -290,6 +304,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(2075)
     @Test(description = "Delivered после ready_for_delivery (Сборка и доставка ритейлером)",
@@ -323,6 +338,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(1465)
     @Test(description = "Canceled после доставки негатив.",
@@ -355,6 +371,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не остался в статусе Доставлен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(2189)
     @Test(description = "Повторная отправка in_work негатив. (Сборка ритейлера, доставка Сбермаркета)",
@@ -369,6 +386,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(2189)
     @Test(description = "Повторная отправка in_work негатив. (Сборка и доставка ритейлером)",
@@ -383,6 +401,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(2190)
     @Test(description = "In_work после ready_for_delivery негатив. (Сборка ритейлера, доставка Сбермаркета)",
@@ -411,6 +430,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(2190)
     @Test(description = "In_work после ready_for_delivery негатив. (Сборка и доставка ритейлером)",
@@ -439,6 +459,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(2191)
     @Test(description = "In_work после доставки негатив.",
@@ -471,6 +492,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не остался в статусе Доставлен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(2192)
     @Test(description = "In_work после отмены негатив. (Сборка ритейлера, доставка Сбермаркета)",
@@ -485,6 +507,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(2192)
     @Test(description = "In_work после отмены негатив. (Сборка и доставка ритейлером)",
@@ -499,6 +522,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(2186)
     @Test(description = "Повторная отправка ready_for_delivery негатив. (Сборка ритейлера, доставка Сбермаркета)",
@@ -532,6 +556,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(2186)
     @Test(description = "Повторная отправка ready_for_delivery негатив. (Сборка и доставка ритейлером)",
@@ -565,6 +590,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(2187)
     @Test(description = "Ready_for_delivery после доставки негатив.",
@@ -601,6 +627,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не остался в статусе Доставлен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(2188)
     @Test(description = "Ready_for_delivery после отмены негатив. (Сборка ритейлера, доставка Сбермаркета)",
@@ -623,6 +650,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
     }
 
+    @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(2188)
     @Test(description = "Ready_for_delivery после отмены негатив. (Сборка и доставка ритейлером)",
@@ -644,5 +672,4 @@ public class NotificationsPositiveV3Test extends RestBase {
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
     }
-
 }

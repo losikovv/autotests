@@ -18,6 +18,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorText;
@@ -43,7 +45,9 @@ public class OrderSidebarV1Test extends RestBase {
     }
 
     @CaseId(2850)
-    @Test(description = "Получение информации для сайдбара заказа", groups = {"api-instamart-regress"})
+    @Skip(onServer = Server.STAGING)
+    @Test(description = "Получение информации для сайдбара заказа",
+            groups = {"api-instamart-regress"})
     public void getOrderDeliveryWindows() {
         admin.authApi();
 
@@ -58,7 +62,9 @@ public class OrderSidebarV1Test extends RestBase {
     }
 
     @CaseId(2851)
-    @Test(description = "Попытка получения информации для сайдбара заказа неавторизованным пользователем", groups = {"api-instamart-regress"})
+    @Skip(onServer = Server.STAGING)
+    @Test(description = "Попытка получения информации для сайдбара заказа неавторизованным пользователем",
+            groups = {"api-instamart-regress"})
     public void getOrderDeliveryWindowsUnauthenticated() {
         SessionFactory.clearSession(SessionType.API_V1);
 
@@ -67,7 +73,9 @@ public class OrderSidebarV1Test extends RestBase {
     }
 
     @CaseId(2852)
-    @Test(description = "Попытка получения информации для сайдбара заказа пользователем без прав администратора", groups = {"api-instamart-regress"})
+    @Skip(onServer = Server.STAGING)
+    @Test(description = "Попытка получения информации для сайдбара заказа пользователем без прав администратора",
+            groups = {"api-instamart-regress"})
     public void getOrderDeliveryWindowsUnauthorized() {
         apiV1.authByPhone(UserManager.getQaUser());
 
@@ -76,7 +84,9 @@ public class OrderSidebarV1Test extends RestBase {
     }
 
     @CaseId(2853)
-    @Test(description = "Попытка получения информации для сайдбара несуществующего заказа", groups = {"api-instamart-regress"})
+    @Skip(onServer = Server.STAGING)
+    @Test(description = "Попытка получения информации для сайдбара несуществующего заказа",
+            groups = {"api-instamart-regress"})
     public void getOrderDeliveryWindowsNotFound() {
         admin.authApi();
 

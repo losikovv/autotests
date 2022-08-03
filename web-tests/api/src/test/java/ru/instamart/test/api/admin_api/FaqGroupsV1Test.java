@@ -19,6 +19,8 @@ import ru.instamart.api.response.v1.FaqsV1Response;
 import ru.instamart.jdbc.dao.stf.SpreeFaqDao;
 import ru.instamart.jdbc.dao.stf.SpreeFaqGroupsDao;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
@@ -221,6 +223,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2524)
+    @Skip(onServer = Server.STAGING)
     @Test(groups = {"api-instamart-regress"},
             description = "Удаление FAQ",
             dependsOnMethods = {"getAllFaqs", "getFaq"})
@@ -241,6 +244,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2198)
+    @Skip(onServer = Server.STAGING)
     @Test(groups = {"api-instamart-regress"},
             description = "Удаление группы FAQ",
             dependsOnMethods = "deleteFaq")

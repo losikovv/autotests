@@ -33,6 +33,7 @@ public class AdminUserV1 extends BaseObject {
     @JsonSchema(required = true)
     private UserConfigV1 config;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty("contact_email")
     private String contactEmail;

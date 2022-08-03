@@ -35,6 +35,7 @@ public class SettingsV1Test extends RestBase {
     }
 
     @CaseId(2535)
+    @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
     @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о настройках компании")
@@ -47,6 +48,7 @@ public class SettingsV1Test extends RestBase {
     }
 
     @CaseId(2536)
+    @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
     @Test(groups = {"api-instamart-regress"},
             description = "Редактирование информации о настройках компании",
@@ -73,6 +75,7 @@ public class SettingsV1Test extends RestBase {
     }
 
     @CaseId(2538)
+    @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
     @Test(groups = {"api-instamart-regress"},
             description = "Редактирование информации о фича-флагах",
@@ -98,6 +101,7 @@ public class SettingsV1Test extends RestBase {
     }
 
     @CaseId(2540)
+    @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
     @Test(groups = {"api-instamart-regress"},
             description = "Редактирование информации об общих настройках",
@@ -122,6 +126,7 @@ public class SettingsV1Test extends RestBase {
     }
 
     @CaseId(2542)
+    @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
     @Test(groups = {"api-instamart-regress"},
             description = "Редактирование информации о логистической плотности")

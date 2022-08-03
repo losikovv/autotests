@@ -111,6 +111,7 @@ public class StoreV1 extends BaseObject {
     @JsonProperty("seconds_for_assembly_item")
     private Object secondsForAssemblyItem;
 
+    @Null
     @JsonProperty("store_schedule")
     private StoreScheduleV1 storeSchedule;
 

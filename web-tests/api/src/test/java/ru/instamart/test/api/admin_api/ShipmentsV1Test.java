@@ -48,6 +48,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(2092), @CaseId(2093)})
+    @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы с разными статусами",
             dataProvider = "shipmentStatuses",
@@ -66,6 +67,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2094)
+    @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы с разными типами платежей",
             dataProvider = "paymentTools",
@@ -88,6 +90,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2095)
+    @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы с ограничением по весу",
             groups = {"api-instamart-regress"})
@@ -106,6 +109,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2096)
+    @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы для определенной операционной зоны",
             groups = {"api-instamart-regress"})
@@ -124,6 +128,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2097)
+    @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы с определенным количеством товаров",
             groups = {"api-instamart-regress"})
@@ -142,6 +147,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(2098), @CaseId(2099), @CaseId(2100), @CaseId(2101), @CaseId(2102)})
+    @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы с разными статусами оплаты",
             dataProvider = "paymentStatuses",
@@ -160,6 +166,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2103)
+    @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по id магазина",
             groups = {"api-instamart-regress"})
@@ -178,6 +185,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2104)
+    @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по id ритейлера",
             groups = {"api-instamart-regress"})
@@ -210,6 +218,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2106)
+    @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по api-client id",
             groups = {"api-instamart-regress"})
@@ -258,6 +267,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2109)
+    @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по окнам доставки",
             groups = {"api-instamart-regress"})
@@ -271,6 +281,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2110)
+    @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по датам завершения",
             groups = {"api-instamart-regress"})
@@ -284,6 +295,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2128)
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @Test(description = "Редактирование комментария к заказу",
             groups = {"api-instamart-regress"},
@@ -297,6 +309,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2129)
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @Test(description = "Возврат на диспетчеризацию", enabled = false, //ATST-2003
             groups = {"api-instamart-regress"},
@@ -307,6 +320,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2130)
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @Test(description = "Редактирование комментария к несуществующему заказу",
             groups = {"api-instamart-regress"})
@@ -317,6 +331,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2131)
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @Test(description = "Возврат на диспетчеризацию несуществующего заказа", enabled = false, //ATST-2003
             groups = {"api-instamart-regress"})
@@ -327,6 +342,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2134)
+    @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @Test(description = "Получение документов для несуществующего заказа", //TODO:Добавить позитивные тесты, когда станут понятны предусловия
             groups = {"api-instamart-regress"})

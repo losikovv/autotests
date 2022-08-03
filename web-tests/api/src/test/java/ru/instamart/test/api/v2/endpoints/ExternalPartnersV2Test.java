@@ -10,6 +10,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ExternalPartnersV2Request;
+import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -49,6 +50,7 @@ public class ExternalPartnersV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
+    @Skip(onServer = Server.STAGING) //todo убрать хардкод текста
     @CaseId(810)
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {"api-instamart-regress"}, description = "Подписка SberPrime неактивна")
@@ -58,6 +60,7 @@ public class ExternalPartnersV2Test extends RestBase {
         checkExternalPartnersServices(response, false, "3 бесплатные доставки");
     }
 
+    @Skip(onServer = Server.STAGING) //todo убрать хардкод текста
     @CaseId(1086)
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {"api-instamart-regress"},

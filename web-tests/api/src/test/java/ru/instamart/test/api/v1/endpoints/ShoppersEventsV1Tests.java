@@ -16,6 +16,8 @@ import ru.instamart.api.request.v1.EventsV1Request;
 import ru.instamart.jdbc.dao.stf.*;
 import ru.instamart.jdbc.entity.stf.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -45,7 +47,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
     }
 
-
+    @Skip(onServer = Server.STAGING)
     @CaseId(2149)
     @Test(description = "Healthcheck магазина",
             groups = {"api-instamart-regress"})
@@ -54,6 +56,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         checkStatusCode(response, 202);
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2150)
     @Test(description = "Обновление способа оплаты",
             groups = {"api-instamart-regress"})
@@ -74,6 +77,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         compareTwoObjects(orderFromDb.getPaymentToolId(), paymentToolId);
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2153)
     @Test(description = "Добавление нового товара",
             groups = {"api-instamart-regress"},
@@ -119,6 +123,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2154)
     @Test(description = "Отмена товара",
             groups = {"api-instamart-regress"},
@@ -143,6 +148,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2155)
     @Test(description = "Восстановление товара",
             groups = {"api-instamart-regress"},
@@ -170,6 +176,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         Assert.assertNull(cancelledLineItemFromDb.getAssemblyIssue(), "Товар не восстановился");
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2156)
     @Test(description = "Изменение товара",
             groups = {"api-instamart-regress"},
@@ -207,6 +214,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2157)
     @Test(description = "Возврат товара",
             groups = {"api-instamart-regress"},
@@ -231,6 +239,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         compareTwoObjects(updatedLineItemFromDb.getAssemblyIssue(), "Возврат: Забыли доставить");
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2158)
     @Test(description = "Начало сборки",
             groups = {"api-instamart-regress"},
@@ -244,6 +253,7 @@ public class ShoppersEventsV1Tests extends RestBase {
 
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2159)
     @Test(description = "Изменение сборки",
             groups = {"api-instamart-regress"},
@@ -272,6 +282,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2160)
     @Test(description = "Разбор сборки",
             groups = {"api-instamart-regress"},
@@ -284,6 +295,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         compareTwoObjects(updatedShipment.getState(), StateV2.READY.getValue());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2161)
     @Test(description = "Подтверждение сборки",
             groups = {"api-instamart-regress"},
@@ -298,6 +310,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         compareTwoObjects(updatedShipment.getState(), StateV2.COLLECTING.getValue());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2162)
     @Test(description = "Оплата сборки",
             groups = {"api-instamart-regress"},
@@ -310,6 +323,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         compareTwoObjects(updatedShipment.getState(), StateV2.READY_TO_SHIP.getValue());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2163)
     @Test(description = "Начало доставки",
             groups = {"api-instamart-regress"},
@@ -322,6 +336,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         compareTwoObjects(updatedShipment.getState(), StateV2.SHIPPING.getValue());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2164)
     @Test(description = "Приостановка доставки",
             groups = {"api-instamart-regress"},
@@ -334,6 +349,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         compareTwoObjects(updatedShipment.getState(), StateV2.READY_TO_SHIP.getValue());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2165)
     @Test(description = "Окончание доставки",
             groups = {"api-instamart-regress"},
@@ -348,6 +364,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         compareTwoObjects(updatedShipment.getState(), StateV2.SHIPPED.getValue());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2150)
     @Test(description = "Создание чека",
             groups = {"api-instamart-regress"},

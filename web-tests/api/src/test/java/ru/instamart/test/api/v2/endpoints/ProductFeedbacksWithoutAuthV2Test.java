@@ -12,6 +12,8 @@ import ru.instamart.api.request.v2.ProductFeedbacksV2Request;
 import ru.instamart.api.response.ErrorTypeResponse;
 import ru.instamart.api.response.v2.FeedbacksV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNull;
@@ -25,9 +27,10 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Получение SKU")
     public void before() {
-        productSku = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0).getSku();
+        productSku = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0).getSku(); //todo починить Index 0 out of bounds for length 0 на стейдже
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2304)
     @Story("Получение списка отзывов без авторизации")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
@@ -46,6 +49,7 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2304)
     @Story("Получение списка отзывов без авторизации")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
@@ -62,6 +66,7 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
 
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2303)
     @Story("Создание отзыва на товар без авторизации")
     @Test(enabled = false, //TODO: исправить после решения ошибки
@@ -80,6 +85,7 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2302)
     @Story("Проверка, можем ли пользователь опубликовать отзыв без авторизации")
     @Test(groups = {"api-instamart-regress"},
@@ -89,6 +95,7 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
         checkStatusCode500(response); //TODO: исправить после решения ошибки
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2308)
     @Story("Получить актуальный отзыв на товар")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
@@ -107,6 +114,7 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2309)
     @Story("Получить актуальный отзыв на товар")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},

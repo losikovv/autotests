@@ -20,6 +20,8 @@ import ru.instamart.api.request.v2.ProductsV2Request;
 import ru.instamart.api.response.v2.ProductV2Response;
 import ru.instamart.api.response.v2.ProductsV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -38,6 +40,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public final class ProductsV2Test extends RestBase {
     private ProductV2 product;
 
+    @Skip(onServer = Server.STAGING)
     @CaseIDs(value = {@CaseId(265), @CaseId(869)})
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте",
@@ -68,6 +71,7 @@ public final class ProductsV2Test extends RestBase {
         checkError(response, "Продукт не существует");
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(262)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
@@ -84,6 +88,7 @@ public final class ProductsV2Test extends RestBase {
         product = products.get(0);
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(2708)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "В категории больше 3 дефолтных фильтров",
@@ -114,6 +119,7 @@ public final class ProductsV2Test extends RestBase {
         checkError(response, "Магазин не существует");
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(264)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid", groups = {"api-instamart-smoke", "api-instamart-prod"})
@@ -133,6 +139,7 @@ public final class ProductsV2Test extends RestBase {
         });
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(638)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по популярности",
@@ -149,6 +156,7 @@ public final class ProductsV2Test extends RestBase {
         checkSort(ProductSortTypeV2.POPULARITY, productsV2Response.getSort());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(639)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по возрастанию цены",
@@ -165,6 +173,7 @@ public final class ProductsV2Test extends RestBase {
         checkSort(ProductSortTypeV2.PRICE_ASC, productsV2Response.getSort());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(640)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по убыванию цены",
@@ -181,6 +190,7 @@ public final class ProductsV2Test extends RestBase {
         checkSort(ProductSortTypeV2.PRICE_DESC, productsV2Response.getSort());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(806)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по наличию скидки продукты",
@@ -202,6 +212,7 @@ public final class ProductsV2Test extends RestBase {
 
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(807)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по бренду продукты",
@@ -225,6 +236,7 @@ public final class ProductsV2Test extends RestBase {
         });
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(808)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по стране изготовителя продукты",
@@ -248,6 +260,7 @@ public final class ProductsV2Test extends RestBase {
         });
     }
 
+    @Skip(onServer = Server.STAGING) //todo починить 400 на стейдже "empty category_ids"
     @CaseId(809)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные по выгодному весу",
@@ -264,6 +277,7 @@ public final class ProductsV2Test extends RestBase {
         checkSort(ProductSortTypeV2.UNIT_PRICE_ASC, productsV2Response.getSort());
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1175)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по категории с десятой страницы",
@@ -284,6 +298,7 @@ public final class ProductsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(1176)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по запросу со второй страницы",

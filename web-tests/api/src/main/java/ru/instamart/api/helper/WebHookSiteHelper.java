@@ -44,7 +44,7 @@ public class WebHookSiteHelper {
 
     public TokenResponse updateServiceConfig(TokenRequest.TokenRequestData params) {
         final Response response = TokenRequest.PUT(token, params);
-        checkStatusCode(response, 201);
+        checkStatusCode(response, 200);
         return response.as(TokenResponse.class);
     }
 

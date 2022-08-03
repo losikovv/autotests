@@ -10,6 +10,8 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
@@ -19,6 +21,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Заказы (shipments)")
 public class ShipmentsOtherAuthV2Test extends RestBase {
 
+    @Skip(onServer = Server.STAGING)
     @CaseId(785)
     @Story("Получения статуса шипмента")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
