@@ -7,6 +7,8 @@ import ru.instamart.api.helper.WebHookSiteHelper;
 import ru.instamart.api.request.webhook_site.TokenRequest;
 import ru.instamart.api.response.webhook_site.RequestsResponse;
 import ru.instamart.jdbc.dao.stf.ApiClientHooksDao;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
 
 import static org.testng.Assert.assertTrue;
@@ -32,6 +34,7 @@ public class WebHookTest {
         WebHookSiteHelper.getInstance().updateServiceConfig(requestData);
     }
 
+    @Skip(onServer = Server.STAGING)
     @Test(groups = {"api-instamart-regress"}, description = "Проверка webhook")
     public void webHookTest() {
         //Отправка сообщения

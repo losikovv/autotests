@@ -203,6 +203,7 @@ public class ShipmentsV1Test extends RestBase {
     }
 
     @CaseId(2105)
+    @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по номеру заказа",
             groups = {"api-instamart-regress"},
