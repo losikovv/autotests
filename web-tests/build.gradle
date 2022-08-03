@@ -22,7 +22,6 @@ project(":kraken") {
 
     dependencies {
         api lib.common
-        api lib.ab
         api lib.qase
         api lib.qa
 
@@ -31,6 +30,10 @@ project(":kraken") {
         api lib.jackson
         api lib.aspectjweaver
         api lib.allureJavaCommons
+
+        api lib.restAssured
+        api lib.allureRestAssuredReport
+        api lib.restAssuredSchemaValidator
 
         api lib.lombok
 
@@ -101,7 +104,6 @@ project(":kafka") {
 
         api lib.kafkaClients
 
-        implementation lib.allureRestAssuredReport
         implementation lib.allureTestng
 
         implementation lib.grpcNettyShaded
@@ -144,7 +146,6 @@ project(":grpc") {
         implementation project(":kraken")
         implementation project(":jdbc")
 
-        implementation lib.allureRestAssuredReport
         implementation lib.allureTestng
 
         implementation lib.grpcNettyShaded
@@ -171,10 +172,7 @@ project(":api") {
         implementation project(":kafka")
         implementation project(":redis")
 
-        implementation lib.restAssured
-        implementation lib.allureRestAssuredReport
         implementation lib.allureTestng
-        implementation lib.restAssuredSchemaValidator
 
         implementation lib.javaxValidation
         implementation lib.imifouJsonSchema

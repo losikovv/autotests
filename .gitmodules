@@ -2,10 +2,6 @@
 	path = qa
 	url = ../qa.git
 	branch = master
-[submodule "ab"]
-	path = ab
-	url = ../ab-service.git
-	branch = master
 [submodule "common"]
 	path = common
 	url = ../common.git

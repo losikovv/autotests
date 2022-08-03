@@ -34,7 +34,6 @@ ext.versions = [
         julToSlf4j: '1.7.36',
 
         common:'1.0.13',
-        ab:'1.1.3',
         qase:'1.0.5',
         qa:'1.5.10'
 ]
@@ -84,7 +83,6 @@ ext.lib = [
         julToSlf4j: "org.slf4j:jul-to-slf4j:$versions.julToSlf4j",
 
         common:"ru.sbermarket.common:common:$versions.common",
-        ab:"ru.sbermarket.ab:ab:$versions.ab",
         qase:"ru.sbermarket.qase:qase:$versions.qase",
         qa:"ru.sbermarket.qa:qa:$versions.qa"
 ]

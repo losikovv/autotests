@@ -47,7 +47,8 @@ public final class UiListener extends AllureTestNgListener {
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
         super.beforeInvocation(method, testResult);
-        addCookie(method);
+        if (method.isTestMethod())
+            addCookie(method);
     }
 
     @Override

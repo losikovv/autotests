@@ -7,7 +7,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.retry.StepRetry;
-import ru.instamart.kraken.service.AbService;
+import ru.instamart.kraken.service.ab.AbService;
 import ru.instamart.kraken.service.QaService;
 import ru.sbermarket.common.Crypt;
 import ru.sbermarket.qa.model.response.QaSessionResponse;
@@ -57,6 +57,7 @@ public final class UserManager {
     private static UserData defaultUserWithoutPermission;
     private static UserData forB2BUser;
     private static UserData addressUser;
+    private static UserData abServiceUser;
 
     public static UserData getDefaultUser() {
         if (isNull(defaultUser)) {
@@ -418,6 +419,16 @@ public final class UserManager {
                 .phone(Crypt.INSTANCE.decrypt("Il5CC+ZHETemFCNdOxuR0w=="))
                 .email(Crypt.INSTANCE.decrypt("OvdigRywldL077CUQY5nV7DaRhGzRl2X0i18kkhZj9w="))
                 .build();
+    }
+
+    public static UserData getDefaultAbUser() {
+        if (isNull(abServiceUser)) {
+            abServiceUser = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("xsgWkIGVrwj0lHZaP7QICWE5QMclQo2TQ54YaDTOeCk="))
+                    .password(Crypt.INSTANCE.decrypt("q0ZylSwt4ousASKzV9fcm4xG20UvV1IOGxOOplS0Cvw="))
+                    .build();
+        }
+        return abServiceUser;
     }
 
     public static UserData getNullUser() {
