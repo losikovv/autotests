@@ -402,29 +402,23 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
         Response responseGet = ShopperAdminRequest.Stores.GET(retailerUUID);
 
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
-                        .getStoreEstimatorSetting().getAvgParkingMinVehicle(),
+        StoreEstimatorSettingV1 routeEstimator = responseGet.as(RouteEstimatorResponse.class).getStoreEstimatorSetting();
+
+        BaseApiCheckpoints.compareTwoObjects(routeEstimator.getAvgParkingMinVehicle(),
                 parameters.getSettingsRes().getEstimatorParameters().getAvgParkingMinVehicle());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
-                        .getStoreEstimatorSetting().getAverageSpeedForStraightDistanceToClientMin(),
+        BaseApiCheckpoints.compareTwoObjects(routeEstimator.getAverageSpeedForStraightDistanceToClientMin(),
                 parameters.getSettingsRes().getEstimatorParameters().getAverageSpeedForStraightDistanceToClientMin());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
-                        .getStoreEstimatorSetting().getAdditionalFactorForStraightDistanceToClientMin(),
+        BaseApiCheckpoints.compareTwoObjects(routeEstimator.getAdditionalFactorForStraightDistanceToClientMin(),
                 parameters.getSettingsRes().getEstimatorParameters().getAdditionalFactorForStraightDistanceToClientMin());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
-                        .getStoreEstimatorSetting().getAvgToPlaceMinExternal(),
+        BaseApiCheckpoints.compareTwoObjects(routeEstimator.getAvgToPlaceMinExternal(),
                 parameters.getSettingsRes().getEstimatorParameters().getAvgToPlaceMinExternal());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
-                        .getStoreEstimatorSetting().getOrderTransferTimeFromDeliveryToClientMin(),
+        BaseApiCheckpoints.compareTwoObjects(routeEstimator.getOrderTransferTimeFromDeliveryToClientMin(),
                 parameters.getSettingsRes().getEstimatorParameters().getOrderTransferTimeFromDeliveryToClientMin());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
-                        .getStoreEstimatorSetting().getOrderTransferTimeFromAssemblyToDeliveryMin(),
+        BaseApiCheckpoints.compareTwoObjects(routeEstimator.getOrderTransferTimeFromAssemblyToDeliveryMin(),
                 parameters.getSettingsRes().getEstimatorParameters().getOrderTransferTimeFromAssemblyToDeliveryMin());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
-                        .getStoreEstimatorSetting().getOrderReceiveTimeFromAssemblyToDeliveryMin(),
+        BaseApiCheckpoints.compareTwoObjects(routeEstimator.getOrderReceiveTimeFromAssemblyToDeliveryMin(),
                 parameters.getSettingsRes().getEstimatorParameters().getOrderReceiveTimeFromAssemblyToDeliveryMin());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(RouteEstimatorResponse.class)
-                        .getStoreEstimatorSetting().getStoreUuid(),
+        BaseApiCheckpoints.compareTwoObjects(routeEstimator.getStoreUuid(),
                 parameters.getSettingsRes().getEstimatorParameters().getStoreUuid());
     }
 }

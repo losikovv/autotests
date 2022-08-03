@@ -13,7 +13,7 @@ public class StoreDispatchSettingsV1 extends BaseObject {
 
     @Null
     @JsonSchema(required = true)
-    private Long id;
+    private Integer id;
 
     @JsonSchema(required = true)
     private Integer storeId;
@@ -74,5 +74,8 @@ public class StoreDispatchSettingsV1 extends BaseObject {
 
     @JsonSchema(required = true)
     private boolean taxiAvailable;
+
+    @JsonSchema(required = true)
+    private Integer maxWaitingTimeForCourierMin;
 
 }
