@@ -32,6 +32,7 @@ public final class ConnectionManager {
         final var hikariConfig = new HikariConfig();
         db.setInternalPort(Socket.findAvailablePort());
         K8sPortForward.INSTANCE.portForward(db.getNamespace(), db.getLabel(), db.getInternalPort(), db.getContainerPort());
+
         hikariConfig.setJdbcUrl(formatUrl(db));
         hikariConfig.setUsername(db.getUsername());
         hikariConfig.setPassword(db.getPassword());
@@ -40,9 +41,8 @@ public final class ConnectionManager {
         hikariConfig.setPoolName(db.name());
         hikariConfig.setMaximumPoolSize(db.getPoolSize());
 
-        hikariConfig.setConnectionTimeout(Duration.ofSeconds(10).toMillis());
-        hikariConfig.setMinimumIdle(10);
-        hikariConfig.setMaxLifetime(Duration.ofMinutes(30).toMillis());
+        hikariConfig.setConnectionTimeout(Duration.ofSeconds(20).toMillis());
+        hikariConfig.setMaxLifetime(Duration.ofMinutes(10).toMillis());
 
         hikariConfig.addDataSourceProperty("cachePrepStmts", true);
         hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");

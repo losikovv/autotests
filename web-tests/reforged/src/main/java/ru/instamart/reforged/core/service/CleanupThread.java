@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Slf4j
 public final class CleanupThread extends Thread {
@@ -46,9 +47,7 @@ public final class CleanupThread extends Thread {
 
     private void closeWebDriver(final Thread thread) {
         final var driverSession = this.threadWebDriver.remove(thread.getId());
-        if (isNull(driverSession) || isNull(driverSession.getDriver())) {
-            log.debug("No WebDriver found for thread : {}  - nothing to close", thread.getId());
-        } else {
+        if (nonNull(driverSession) && nonNull(driverSession.getDriver())) {
             driverSession.getDriver().quit();
             log.debug("Close WebDriver for threadId : {}", thread.getId());
         }
