@@ -27,7 +27,13 @@ variables:
   GIT_DEPTH: 10
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   CI_RUN_ALL_JOBS: "true"
-  URL_STF:
+  URL_STF_FRONT:
+    value: "https://user:password@next-default.k-stage.sbermarket.tech/"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Нужно указывать полный url фронта, вместе с basic auth"
+  STF_FORWARD:
+    value: "s-sb-stfkraken-sbermarket"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Связь фронта с бекендом"
+  URL_STF_BACKEND:
     value: "stf-kraken.k-stage.sbermarket.tech" # this would be the default value
     description: "ОБЯЗАТЕЛЬНО!!! Имя stf стейджа на котором запускаем тесты"
   URL_SHP:
