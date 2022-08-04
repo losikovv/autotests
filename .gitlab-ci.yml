@@ -102,7 +102,7 @@ stages:
   except:
     refs:
       - schedules
-  when: always
+  when: manual
 
 .template_api_tests:
   stage: tests-api
@@ -172,7 +172,7 @@ stages:
       - web-tests/reforged/logs/
       - web-tests/reforged/build/reports/tests/
     expire_in: 1 week
-  allow_failure: true
+  allow_failure: false
 
 java_gradle:build:
   extends: ".template_only_branches"
