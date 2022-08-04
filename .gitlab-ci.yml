@@ -102,7 +102,7 @@ stages:
   except:
     refs:
       - schedules
-  when: always
+  when: manual
 
 .template_api_tests:
   stage: tests-api
