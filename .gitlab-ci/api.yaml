@@ -6,15 +6,15 @@ tests:ApiInstamart:
   extends:
     - ".template_api_tests"
     - ".template_run_all_jobs_at_a_time_on_master"
-  resource_group: apiInstamart:$URL_STF
+  resource_group: apiInstamart:$URL_STF_BACKEND
   when: manual
   script:
     - echo $P_ENV
-    - echo $URL_STF
+    - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle clean build apiInstamartSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
+    - gradle clean build apiInstamartSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
   after_script:
-    - if [ $URL_STF == "stf-kraken.k-stage.sbermarket.tech" ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
+    - if [ $URL_STF_BACKEND == "stf-kraken.k-stage.sbermarket.tech" ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
     - echo $ALLURE_POSTFIX
     - bash ./report.sh api api-instamart-$ALLURE_POSTFIX-smoke
 
@@ -22,12 +22,12 @@ tests:ApiV2InstamartRegress:
   extends:
     - ".template_api_tests"
     - ".template_schedule"
-  resource_group: apiInstamart:$URL_STF
+  resource_group: apiInstamart:$URL_STF_BACKEND
   script:
     - echo $P_ENV
-    - echo $URL_STF
+    - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle clean build apiV2InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
+    - gradle clean build apiV2InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
   after_script:
     - bash ./clean-directory.sh api api-instamart-preprod-regress
     - bash ./send-files.sh api api-instamart-preprod-regress
@@ -36,12 +36,12 @@ tests:ApiV1InstamartRegress:
   extends:
     - ".template_api_ui_tests"
     - ".template_schedule"
-  resource_group: apiInstamartUI:$URL_STF
+  resource_group: apiInstamartUI:$URL_STF_BACKEND
   script:
     - echo $P_ENV
-    - echo $URL_STF
+    - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle clean build apiV1InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
+    - gradle clean build apiV1InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
   after_script:
     - bash ./send-files.sh api api-instamart-preprod-regress
 
@@ -49,12 +49,12 @@ tests:ApiV3InstamartRegress:
   extends:
     - ".template_api_ui_tests"
     - ".template_schedule"
-  resource_group: apiInstamartUI:$URL_STF
+  resource_group: apiInstamartUI:$URL_STF_BACKEND
   script:
     - echo $P_ENV
-    - echo $URL_STF
+    - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle clean build apiV3InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
+    - gradle clean build apiV3InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
   after_script:
     - bash ./send-files.sh api api-instamart-preprod-regress
 
@@ -63,16 +63,16 @@ tests:ApiV2InstamartRegress:manual:
   extends:
     - ".template_api_tests"
     - ".template_web"
-  resource_group: apiInstamart:$URL_STF
+  resource_group: apiInstamart:$URL_STF_BACKEND
   except:
     variables:
-      - $URL_STF =~ /next-stf-preprod.*/ # Исключаем из прогона на стейдже. Только фронт
+      - $URL_STF_BACKEND =~ /next-stf-preprod.*/ # Исключаем из прогона на стейдже. Только фронт
   when: manual
   script:
     - echo $P_ENV
-    - echo $URL_STF
+    - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle clean build apiV2InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
+    - gradle clean build apiV2InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
   after_script:
     - bash ./clean-directory.sh api api-instamart-staging-regress
     - bash ./send-files.sh api api-instamart-staging-regress
@@ -81,12 +81,12 @@ tests:ApiV1InstamartRegressManual:
   extends:
     - ".template_api_ui_tests"
     - ".template_web"
-  resource_group: apiInstamartUI:$URL_STF
+  resource_group: apiInstamartUI:$URL_STF_BACKEND
   script:
     - echo $P_ENV
-    - echo $URL_STF
+    - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle clean build apiV1InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
+    - gradle clean build apiV1InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
   after_script:
     - bash ./send-files.sh api api-instamart-staging-regress
 
@@ -94,12 +94,12 @@ tests:ApiV3InstamartRegressManual:
   extends:
     - ".template_api_ui_tests"
     - ".template_web"
-  resource_group: apiInstamartUI:$URL_STF
+  resource_group: apiInstamartUI:$URL_STF_BACKEND
   script:
     - echo $P_ENV
-    - echo $URL_STF
+    - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle clean build apiV3InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
+    - gradle clean build apiV3InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
   after_script:
     - bash ./send-files.sh api api-instamart-staging-regress
 
@@ -107,7 +107,7 @@ tests:ApiV3InstamartRegressManual:
     #  extends:
     #  - ".template_api_tests"
     # - ".template_prod"
-    #  resource_group: apiInstamart:$URL_STF
+    #  resource_group: apiInstamart:$URL_STF_BACKEND
     #  when: manual
     #  script:
     #    - gradle clean build apiInstamartRegress -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL

@@ -16,9 +16,9 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "", crypted = true)
     public static String ADMIN_URL;
 
-    @Config(configName = NAME, fieldName = "stfUrl", defaultValue = "", crypted = true)
+    @Config(configName = NAME, fieldName = "stfUrl", defaultValue = "", crypted = true, args = "url_stf_front")
     public static String STF_URL;
-    @Config(configName = NAME, fieldName = "headerStfForwardTo", defaultValue = "s-sb-stfkraken-sbermarket")
+    @Config(configName = NAME, fieldName = "headerStfForwardTo", defaultValue = "s-sb-stfkraken-sbermarket", args = "stf_forward")
     public static String HEADER_STF_FORWARD_TO;
 
     @Config(configName = NAME, fieldName = "b2bUrl", defaultValue = "", crypted = true)

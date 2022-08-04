@@ -38,6 +38,12 @@ tasks.withType(Test) {
     if (project.hasProperty('url_shp')) {
         systemProperty 'url_shp',"${url_shp}"
     }
+    if (project.hasProperty('url_stf_front')) {
+        systemProperty 'url_stf_front',"${url_stf_front}"
+    }
+    if (project.hasProperty('stf_forward')) {
+        systemProperty 'stf_forward',"${stf_forward}"
+    }
     if (project.hasProperty('one_session')) {
         systemProperty 'one_session',"${one_session}"
     }
