@@ -155,18 +155,9 @@ public final class BasicSbermarketTests {
             groups = "regression")
     public void successFooterLinkTransitionOtherCases() {
         home().goToPage();
-        home().scrollDown();
-
         home().interactFooter().clickToFooterElementWithText("Обработка персональных данных");
-
         home().switchToNextWindow();
         privacyPolicy().checkPageUrl(UiProperties.STF_URL + privacyPolicy().pageUrl());
-        home().switchToFirstWindow();
-
-        home().refresh();
-        home().scrollDown();
-        home().interactFooter().clickToDeliveryZones();
-        home().interactDeliveryZonesModal().checkDeliveryZonesModalIsOpen();
     }
 
     @DoNotOpenBrowser

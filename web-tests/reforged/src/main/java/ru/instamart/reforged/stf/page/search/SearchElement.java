@@ -19,13 +19,13 @@ public interface SearchElement {
 
     ElementCollection subCategories = new ElementCollection(By.xpath("//a[contains(@class, 'SimpleTaxons')]"), "Подкатегории");
     Button firstAddToCartButton = new Button(By.xpath("//button[@title='Добавить в корзину']"), "Кнопка добавить в корзину у первого элемента на странице поиска");
-    Element firstProductCard = new Element(By.xpath("//div[@data-qa='search_result_products_products_grid_item_0']"), "Карточка первого товара на странице поиска");
+    Element firstProductCard = new Element(By.xpath("//div[@data-qa='search_result_products_products_grid']/div/div[1]"), "Карточка первого товара на странице поиска");
 
     ElementCollection searchProductsCollection = new ElementCollection(By.xpath("//div[contains(@data-qa, 'search_result_products_products_grid')]//a"), "Коллекция продуктов в поиске");
     Element searchSpinner = new Element(By.xpath("//div[contains(@class, 'Spinner')]"), "Спиннер в поиске");
     Element infiniteSearchSpinner = new Element(By.xpath("//div[contains(@class, 'InfiniteScroll')]"), "Спиннер в бесконечном поиске");
 
-    ElementCollection searchProductsImagesCollection = new ElementCollection(By.xpath("//div[contains(@data-qa, 'grid_item')]//img"), "Коллекция картинок продуктов в поиске");
+    ElementCollection searchProductsImagesCollection = new ElementCollection(By.xpath("//div[@data-qa='search_result_products_products_grid']/div/div//img"), "Коллекция картинок продуктов в поиске");
 
     ElementCollection searchProductsCollectionImagesAlco = new ElementCollection(By.xpath("//div[contains(@data-qa, 'search_result_products_products_grid')]//a//img[contains(@src, 'adult-warning')]"), "Коллекция картинок-заглушек алко в поиске");
 
@@ -47,7 +47,7 @@ public interface SearchElement {
 
     Element productsStub = new Element(By.xpath("//div[@data-qa='search_result_products_products_grid']//span[text()='Загрузка...']"), "Заглушка загрузки товаров");
 
-    Image productImg = new Image(ByKraken.xpathExpression("//img[contains(@src, '%s')]"), "Конкретное отдельное изображение на странице");
+    Image productImg = new Image(ByKraken.xpathExpression("//img[@src='%s']"), "Конкретное отдельное изображение на странице");
 
     Element filterActivePin = new Element(By.xpath("//span[contains(text(), 'фильтр активен')]"), "Пин активного фильтра с текстом");
 }
