@@ -5,16 +5,14 @@ import io.qameta.allure.Step;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.jdbc.dao.shippingcalc.*;
-import ru.instamart.jdbc.entity.shippingcalc.ConditionsEntity;
-import ru.instamart.jdbc.entity.shippingcalc.RulesEntity;
-import ru.instamart.jdbc.entity.shippingcalc.StrategiesEntity;
-import ru.instamart.jdbc.entity.shippingcalc.StrategyBindingsEntity;
+import ru.instamart.jdbc.entity.shippingcalc.*;
 import shippingcalc.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 
@@ -273,5 +271,28 @@ public class ShippingCalcHelper {
             RulesDao.INSTANCE.delete(strategyId);
             StrategiesDao.INSTANCE.delete(strategyId);
         }
+    }
+
+    @Step("Получаем запрос для создания скрипта")
+    public static CreateScriptRequest getCreateScriptRequest(String scriptName, String scriptBody, String creatorId) {
+        return CreateScriptRequest.newBuilder()
+                .setScriptName(scriptName)
+                .setScriptBody(scriptBody)
+                .setCreatorId(creatorId)
+                .build();
+    }
+
+    @Step("Проверяем скрипт")
+    public static void checkScript(Integer scriptId, String scriptName, String state) {
+        ScriptsEntity script = ScriptsDao.INSTANCE.getScriptById(scriptId);
+
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(scriptId, script.getId(), softAssert);
+        compareTwoObjects(script.getName(), scriptName, softAssert);
+        softAssert.assertNotNull(script.getCode(), "Code вернулся null");
+        softAssert.assertNotNull(script.getRequiredParams(), "requiredParams вернулся null");
+        compareTwoObjects(script.getState(), state, softAssert);
+        assertNotNull(script, "Данные из БД вернулись пустые");
+        softAssert.assertAll();
     }
 }
