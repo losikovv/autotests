@@ -39,7 +39,6 @@ public class CourierEtaTest extends RestBase {
     private String storeUuid;
     private String shipmentUuid;
 
-
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientEta = PredEtaGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_ETA));

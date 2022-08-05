@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="ON-DEMAND Suite" parallel="tests" thread-count="3">
+<suite name="ON-DEMAND Suite" parallel="tests" thread-count="1">
     <listeners>
         <listener class-name="ru.instamart.api.listener.on_demand.EtaExecutionListener"/>
         <listener class-name="ru.instamart.api.listener.ApiTestSuiteListener"/>
@@ -18,6 +18,11 @@
             <class name="ru.instamart.test.api.on_demand.eta.RetailerParametersEtaTest"/>
             <class name="ru.instamart.test.api.on_demand.eta.StoreParametersEtaTest"/>
             <class name="ru.instamart.test.api.on_demand.eta.ServiceParametersEtaTest"/>
+        </classes>
+    </test>
+    <test verbose="1" name="ETA ML Timeout" parallel="classes" thread-count="1">
+        <classes>
+            <class name="ru.instamart.test.api.on_demand.eta.MLTimeoutTest"/>
         </classes>
     </test>
 </suite>
