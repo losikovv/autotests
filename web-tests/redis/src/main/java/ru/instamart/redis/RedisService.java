@@ -1,8 +1,8 @@
 package ru.instamart.redis;
 
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,7 +13,7 @@ public final class RedisService {
      * @param key
      * @param newValue
      */
-    public static void update(final JedisPool pool, final String key, final String newValue) {
+    public static synchronized void update(final JedisPool pool, final String key, final String newValue) {
         try (final var client = pool.getResource()) {
             client.append(key, newValue);
         }
@@ -25,7 +25,7 @@ public final class RedisService {
      * @param toKey
      * @return - переименование ключа
      */
-    public static void rename(final JedisPool pool, final String fromKey, final String toKey) {
+    public static synchronized void rename(final JedisPool pool, final String fromKey, final String toKey) {
         try (final var client = pool.getResource()) {
             client.rename(fromKey, toKey);
         }
@@ -36,7 +36,7 @@ public final class RedisService {
      * @param key
      * @return - проверка на существование ключа
      */
-    public static boolean isExist(final JedisPool pool, final String key) {
+    public static synchronized boolean isExist(final JedisPool pool, final String key) {
         try (final var client = pool.getResource()) {
             return client.exists(key);
         }
@@ -47,7 +47,7 @@ public final class RedisService {
      * @param key
      * @return - тип хранимого значения
      */
-    public static String getType(final JedisPool pool, final String key) {
+    public static synchronized String getType(final JedisPool pool, final String key) {
         try (final var client = pool.getResource()) {
             return client.type(key);
         }
@@ -57,7 +57,7 @@ public final class RedisService {
      *
      * @return - получить список всех ключей
      */
-    public static Set<String> getAll(final JedisPool pool) {
+    public static synchronized  Set<String> getAll(final JedisPool pool) {
         try (final var client = pool.getResource()) {
             return client.keys("*");
         }
@@ -68,7 +68,7 @@ public final class RedisService {
      * @param key
      * @return - получить value по ключу
      */
-    public static String get(final JedisPool pool, final String key) {
+    public static synchronized String get(final JedisPool pool, final String key) {
         try (final var client = pool.getResource()) {
             return client.get(key);
         }
@@ -78,7 +78,7 @@ public final class RedisService {
      * Отправка батчем(одним большим упакованным запросом, вместо кучи мелких)
      * @param data
      */
-    public static void set(final JedisPool pool, final Map<String, String> data) {
+    public static synchronized void set(final JedisPool pool, final Map<String, String> data) {
         try (final var client = pool.getResource()) {
             final var p = client.pipelined();
             data.forEach(p::set);
@@ -90,7 +90,7 @@ public final class RedisService {
      * @param key
      * @return - Получить TTL для ключа в секундах
      */
-    public static long getTtl(final JedisPool pool, final String key) {
+    public static synchronized long getTtl(final JedisPool pool, final String key) {
         try (final var client = pool.getResource()) {
             return client.ttl(key);
         }
@@ -101,7 +101,7 @@ public final class RedisService {
      * @param key
      * @param ttl - время в секундах
      */
-    public static void setTtl(final JedisPool pool, final String key, final int ttl) {
+    public static synchronized void setTtl(final JedisPool pool, final String key, final int ttl) {
         try (final var client = pool.getResource()) {
             client.expire(key, ttl);
         }
@@ -111,7 +111,7 @@ public final class RedisService {
      * Удалить TTL
      * @param key - имя
      */
-    public static void removeTtl(final JedisPool pool, final String key) {
+    public static synchronized void removeTtl(final JedisPool pool, final String key) {
         try (final var client = pool.getResource()) {
             client.persist(key);
         }
@@ -122,7 +122,7 @@ public final class RedisService {
      * @param key
      * @param value
      */
-    public static void set(final JedisPool pool, final String key, final String value) {
+    public static synchronized void set(final JedisPool pool, final String key, final String value) {
         try (final var client = pool.getResource()) {
             client.set(key, value);
         }
@@ -134,7 +134,7 @@ public final class RedisService {
      * @param value
      * @param ttl
      */
-    public static void set(final JedisPool pool, final String key, final String value, final int ttl) {
+    public static synchronized void set(final JedisPool pool, final String key, final String value, final int ttl) {
         try (final var client = pool.getResource()) {
             client.setex(key, ttl, value);
         }
@@ -144,9 +144,17 @@ public final class RedisService {
      * Удалить значение по имени ключа
      * @param key
      */
-    public static void del(final JedisPool pool, final String key) {
+    public static synchronized void del(final JedisPool pool, final String key) {
         try (final var client = pool.getResource()) {
-            client.del(key);
+             client.del(key);
+        }
+    }
+
+    public static synchronized void del(final JedisPool pool, final List<String> data) {
+        try (final var client = pool.getResource()) {
+            final var p = client.pipelined();
+            data.forEach(p::del);
+            p.sync();
         }
     }
 }

@@ -36,7 +36,6 @@ public class StoreParametersEtaTest extends RestBase {
         storeUuid = StoresDao.INSTANCE.findById(EnvironmentProperties.DEFAULT_ON_DEMAND_SID).get().getUuid();
     }
 
-
     @CaseId(29)
     @Story("Параметры магазинов")
     @Test(description = "Получение параметров магазина",
