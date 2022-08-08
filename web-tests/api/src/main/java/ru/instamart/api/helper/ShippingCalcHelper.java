@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 
 public class ShippingCalcHelper {
@@ -198,10 +197,8 @@ public class ShippingCalcHelper {
         String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
         StrategyBindingsEntity bind = StrategyBindingsDao.INSTANCE.getStrategyBinding(strategyId, storeId, tenantId, shipping);
 
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertNotNull(bind, "Не нашли такую связку");
-        compareTwoObjects(bind.getStrategyId(), strategyId, softAssert);
-        softAssert.assertAll();
+        assertNotNull(bind, "Не нашли такую связку");
+        compareTwoObjects(bind.getStrategyId(), strategyId);
     }
 
     @Step("Проверяем отвязку стратегии от магазина")
@@ -209,9 +206,7 @@ public class ShippingCalcHelper {
         String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
         StrategyBindingsEntity bind = StrategyBindingsDao.INSTANCE.getStrategyBinding(strategyId, storeId, tenantId, shipping);
 
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertNull(bind, "Связка не удалилась");
-        softAssert.assertAll();
+        assertNull(bind, "Связка не удалилась");
     }
 
     @Step("Проверяем расчитанную цену доставки")

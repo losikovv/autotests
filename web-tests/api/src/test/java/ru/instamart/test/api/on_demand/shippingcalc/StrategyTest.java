@@ -1109,15 +1109,18 @@ public class StrategyTest extends RestBase {
         checkBind(strategyIdWithDifferentScriptsInRules, SECOND_STORE_ID, Tenant.OKEY.getId(), DeliveryType.B2B.toString());
     }
 
-    @CaseId(138)
+    @CaseId(139)
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к магазину, у которого уже есть связка",
             groups = "dispatch-shippingcalc-smoke",
-            dependsOnMethods = "bindStrategyMultipleStores")
+            dependsOnMethods = {"createStrategy", "createStrategyWithMultipleRulesAndConditions"})
     public void rebindStrategy() {
-        var request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.OKEY.getId(), DeliveryType.B2B_VALUE, false);
+        addBinding(strategyId, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY.toString());
+        var request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY_VALUE, false);
         clientShippingCalc.bindStrategy(request);
-        checkBind(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.OKEY.getId(), DeliveryType.B2B.toString());
+
+        checkBind(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY.toString());
+        checkUnbind(strategyId, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(366)
@@ -1244,14 +1247,14 @@ public class StrategyTest extends RestBase {
                         .build())
                 .addBinds(StrategyBinding.newBuilder()
                         .setStoreId(SECOND_STORE_ID)
-                        .setTenantId(Tenant.INSTAMART.getId())
+                        .setTenantId(Tenant.OKEY.getId())
                         .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
                         .build())
                 .build();
 
         clientShippingCalc.unbindStrategy(request);
         checkUnbind(strategyIdWithDifferentScriptsInRules, FIRST_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.B2B.toString());
-        checkUnbind(strategyIdWithDifferentScriptsInRules, SECOND_STORE_ID, Tenant.INSTAMART.getId(), DeliveryType.B2B.toString());
+        checkUnbind(strategyIdWithDifferentScriptsInRules, SECOND_STORE_ID, Tenant.OKEY.getId(), DeliveryType.B2B.toString());
     }
 
     @CaseId(159)
