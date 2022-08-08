@@ -277,6 +277,17 @@ public class ShippingCalcHelper {
                 .build();
     }
 
+    @Step("Получаем запрос для обновления скрипта")
+    public static UpdateScriptRequest getUpdateScriptRequest(
+            Integer scriptId, String scriptName, String scriptBody, String creatorId) {
+        return UpdateScriptRequest.newBuilder()
+                .setScriptId(scriptId)
+                .setScriptName(scriptName)
+                .setScriptBody(scriptBody)
+                .setCreatorId(creatorId)
+                .build();
+    }
+
     @Step("Проверяем скрипт")
     public static void checkScript(Integer scriptId, String scriptName, String state) {
         ScriptsEntity script = ScriptsDao.INSTANCE.getScriptById(scriptId);
@@ -289,5 +300,14 @@ public class ShippingCalcHelper {
         compareTwoObjects(script.getState(), state, softAssert);
         assertNotNull(script, "Данные из БД вернулись пустые");
         softAssert.assertAll();
+    }
+
+    @Step("Проверяем обновленный скрипт")
+    public static void checkUpdatedScript(Integer scriptId, String scriptName, String state) {
+        checkScript(scriptId, scriptName, state);
+        ScriptsEntity script = ScriptsDao.INSTANCE.getScriptById(scriptId);
+
+        assertNotNull(script, "Данные из БД вернулись пустые");
+        assertFalse(script.getUpdatedAt().equals(script.getCreatedAt()), "Поле updated_at не обновилось");
     }
 }

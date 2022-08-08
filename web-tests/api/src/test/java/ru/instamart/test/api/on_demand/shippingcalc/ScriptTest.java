@@ -87,6 +87,75 @@ public class ScriptTest extends RestBase {
         clientShippingCalc.createScript(request);
     }
 
+    @CaseId(15)
+    @Story("Update Script")
+    @Test(description = "Обновление существующего скрипта с валидными данными",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "createScriptWithInvalidData")
+    public void updateScript() {
+        var request = getUpdateScriptRequest(secondScriptId, "autotest-update", FIXED_PRICE_SCRIPT, "autotest-update");
+        clientShippingCalc.updateScript(request);
+        checkUpdatedScript(secondScriptId, "autotest-update", "TestOk");
+    }
+
+    @CaseId(18)
+    @Story("Update Script")
+    @Test(description = "Обновление существующего скрипта с невалидными данными",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "createScript")
+    public void updateScriptWithInvalidData() {
+        var request = getUpdateScriptRequest(scriptId, "autotest-update", "test", "autotest-update");
+        clientShippingCalc.updateScript(request);
+        checkUpdatedScript(scriptId, "autotest-update", "TestFailed");
+    }
+
+    @CaseId(16)
+    @Story("Update Script")
+    @Test(description = "Получение ошибки, при обновлении несуществующего скрипта с валидными данными",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot update script: entity not found")
+    public void updateScriptWithNonExistentScriptId() {
+        var request = getUpdateScriptRequest(1243254621, "autotest-update", FIXED_PRICE_SCRIPT, "autotest-update");
+        clientShippingCalc.updateScript(request);
+    }
+
+    @CaseId(20)
+    @Story("Update Script")
+    @Test(description = "Получение ошибки, при обновлении существующего скрипта с пустым именем",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: script name cannot be empty",
+            dependsOnMethods = "createScript")
+    public void updateScriptWithEmptyName() {
+        var request = getUpdateScriptRequest(scriptId, "", FIXED_PRICE_SCRIPT, "autotest-update");
+        clientShippingCalc.updateScript(request);
+    }
+
+    @CaseId(26)
+    @Story("Update Script")
+    @Test(description = "Получение ошибки, при обновлении существующего скрипта с пустым телом скрипта",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: script body cannot be empty",
+            dependsOnMethods = "createScript")
+    public void updateScriptWithEmptyScriptBody() {
+        var request = getUpdateScriptRequest(scriptId, "autotest-update", "", "autotest-update");
+        clientShippingCalc.updateScript(request);
+    }
+
+    @CaseId(29)
+    @Story("Update Script")
+    @Test(description = "Получение ошибки, при обновлении существующего скрипта с пустым автором",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: creator_id cannot be empty",
+            dependsOnMethods = "createScript")
+    public void updateScriptWithEmptyCreatorId() {
+        var request = getUpdateScriptRequest(scriptId, "autotest-update", FIXED_PRICE_SCRIPT, "");
+        clientShippingCalc.updateScript(request);
+    }
+
     @AfterClass(alwaysRun = true)
     public void postConditions() {
         if (Objects.nonNull(scriptId) ) {
