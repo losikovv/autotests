@@ -8,6 +8,11 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface CompanyInfoCheck extends Check, CompanyInfoElement {
 
+    @Step("Проверяем, что не отображается спиннер загрузки информации")
+    default void checkLoadingSpinnerNotVisible(){
+        waitAction().shouldNotBeVisible(loadingSpinner);
+    }
+
     @Step("Проверяем, что информация о компании видна")
     default void checkCompanyInfoIsVisible() {
         waitAction().shouldBeVisible(companyInfo);

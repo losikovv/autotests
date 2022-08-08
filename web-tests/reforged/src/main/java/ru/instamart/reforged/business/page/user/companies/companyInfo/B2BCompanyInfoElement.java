@@ -9,6 +9,8 @@ public interface B2BCompanyInfoElement {
 
     B2BHeader header = new B2BHeader();
 
+    Element loadingSpinner = new Element(By.xpath("//div[contains(@class, 'Loading_root')]"),"Спиннер загрузки");
+
     Element navigationBlock = new Element(By.xpath("//div[@class='ui-content-wrapper']//nav"), "Меню страницы 'Компания'");
 
     Button addCompany = new Button(By.xpath("//button[@data-qa='user_companies_add_company_button']"), "Кнопка 'Добавить компанию'");
