@@ -259,6 +259,7 @@ public final class CompaniesTests {
         companies().checkCompaniesListIsNotEmpty();
         companies().clickOnFirstCompanyName();
         companyInfoPage().checkCompanyInfoIsVisible();
+        companyInfoPage().checkLoadingSpinnerNotVisible();
         companyInfoPage().checkCompanyInfoContainsText(company.getJuridicalName());
     }
 
@@ -278,6 +279,7 @@ public final class CompaniesTests {
         b2cCompanies().checkCompaniesListIsNotEmpty();
         b2cCompanies().clickOnFirstCompanyName();
         b2cCompanyInfo().checkCompanyInfoIsVisible();
+        b2cCompanyInfo().checkLoadingSpinnerNotVisible();
         b2cCompanyInfo().checkCompanyInfoContainsText(company.getJuridicalName());
     }
 
