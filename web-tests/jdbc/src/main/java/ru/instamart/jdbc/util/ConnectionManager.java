@@ -36,7 +36,6 @@ public final class ConnectionManager {
         hikariConfig.setJdbcUrl(formatUrl(db));
         hikariConfig.setUsername(db.getUsername());
         hikariConfig.setPassword(db.getPassword());
-        hikariConfig.setDriverClassName(db.getDriver());
 
         hikariConfig.setPoolName(db.name());
         hikariConfig.setMaximumPoolSize(db.getPoolSize());
@@ -44,9 +43,23 @@ public final class ConnectionManager {
         hikariConfig.setConnectionTimeout(Duration.ofSeconds(20).toMillis());
         hikariConfig.setMaxLifetime(Duration.ofMinutes(10).toMillis());
 
-        hikariConfig.addDataSourceProperty("cachePrepStmts", true);
-        hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
-        hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        if (db.getType() == DbType.MYSQL) {
+            // {@link https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration}
+            // {@link https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference-configuration-properties.html}
+            // {@link https://cdn.oreillystatic.com/en/assets/1/event/21/Connector_J%20Performance%20Gems%20Presentation.pdf}
+            hikariConfig.addDataSourceProperty("cachePrepStmts", true);
+            hikariConfig.addDataSourceProperty("prepStmtCacheSize", 250);
+            hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", 2048);
+            hikariConfig.addDataSourceProperty("useServerPrepStmts", true);
+            hikariConfig.addDataSourceProperty("useLocalSessionState", true);
+            hikariConfig.addDataSourceProperty("useLocalTransactionState", true);
+            hikariConfig.addDataSourceProperty("rewriteBatchedStatements", true);
+            hikariConfig.addDataSourceProperty("cacheResultSetMetadata", true);
+            hikariConfig.addDataSourceProperty("cacheServerConfiguration", true);
+            hikariConfig.addDataSourceProperty("elideSetAutoCommits", true);
+            hikariConfig.addDataSourceProperty("maintainTimeStats", false);
+        }
+
         return hikariConfig;
     }
 

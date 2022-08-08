@@ -21,10 +21,10 @@ ext.versions = [
         protobufUtil: '3.20.0',
 
         hikari: '5.0.1',
-        pgsqlJDBC: '42.2.1',
+        pgsqlJDBC: '42.4.1',
         kafkaClients: '3.2.0',
         kubernetesClient: '16.0.0',
-        mysqlJDBC: '8.0.26',
+        mysqlJDBC: '8.0.30',
         jedis: '4.2.0',
 
         selenium: '4.3.0',
