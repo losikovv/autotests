@@ -318,7 +318,7 @@ public class GetDeliveryPriceTest extends RestBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0, 0); // наценка по surgelevel не добавляется к финальной цене (пока прибито гвоздями в коде), если тут начнет падать, нужно изменить ожидание на финальную цену с наценкой
+        checkDeliveryPrice(response, localStrategyId, 31890, 100000, 3, 4, 0, 0);
         Allure.step("Проверяем наценку по surge", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(response.getShipments(0).getSurgeUsed(), "Surge не использовался при расчете цены");
