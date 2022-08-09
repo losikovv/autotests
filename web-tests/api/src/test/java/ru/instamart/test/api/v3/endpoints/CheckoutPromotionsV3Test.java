@@ -25,6 +25,7 @@ import ru.instamart.jdbc.dto.stf.PromotionCodesFilters;
 import ru.instamart.jdbc.entity.stf.PromotionCodesEntity;
 import ru.instamart.jdbc.entity.stf.SpreeOrdersEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -41,7 +42,7 @@ import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
 
 @Epic("ApiV3")
 @Feature("Чекаут")
-public class PromotionsV3Test extends RestBase {
+public class CheckoutPromotionsV3Test extends RestBase {
 
     private UserData user;
     private MultiretailerOrderV1Response order;
@@ -61,7 +62,7 @@ public class PromotionsV3Test extends RestBase {
     @CaseId(2607)
     @Story("Промокоды")
     @Test(description = "Запрос на применение промокода",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "debug"})
     public void addPromoСode() {
         final Response response = CheckoutV3Request.Promotions.POST(order.getNumber(), promoСode, Collections.singletonList(order.getShipments().get(0).getNumber()));
         checkStatusCode200(response);
@@ -76,7 +77,7 @@ public class PromotionsV3Test extends RestBase {
     @CaseId(2608)
     @Story("Промокоды")
     @Test(description = "Запрос на применение истекшего промокода",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "debug"})
     public void addExpiredPromoСode() {
         String promoСode = getExpiredPromotionCode();
         final Response response = CheckoutV3Request.Promotions.POST(order.getNumber(), promoСode, Collections.singletonList(order.getShipments().get(0).getNumber()));
@@ -87,7 +88,7 @@ public class PromotionsV3Test extends RestBase {
     @CaseId(2610)
     @Story("Промокоды")
     @Test(description = "Запрос на применение промокода к чужому заказу",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "debug"})
     public void addPromoСodeToAnotherUserOrder() {
         SpreeOrdersEntity anotherOrder = SpreeOrdersDao.INSTANCE.getOrderOfAnotherUser(Long.parseLong(user.getId()));
         final Response response = CheckoutV3Request.Promotions.POST(anotherOrder.getNumber(), promoСode, Collections.singletonList(order.getShipments().get(0).getNumber()));
@@ -99,7 +100,7 @@ public class PromotionsV3Test extends RestBase {
     @CaseId(2611)
     @Story("Промокоды")
     @Test(description = "Запрос на применение промокода к чужому шипменту",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "debug"})
     public void addPromoСodeToAnotherUserShipment() {
         String anotherShipmentNumber = SpreeShipmentsDao.INSTANCE.getShipmentOfAnotherUser(Long.parseLong(user.getId())).getNumber();
         final Response response = CheckoutV3Request.Promotions.POST(order.getNumber(), promoСode, Collections.singletonList(anotherShipmentNumber));
@@ -110,7 +111,7 @@ public class PromotionsV3Test extends RestBase {
     @CaseId(2612)
     @Story("Промокоды")
     @Test(description = "Запрос на применение несуществующего промокода",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "debug"})
     public void addNonExistentPromoСode() {
         final Response response = CheckoutV3Request.Promotions.POST(order.getNumber(), "failedPromoCode", Collections.singletonList(order.getShipments().get(0).getNumber()));
         checkStatusCode422(response);
@@ -120,7 +121,7 @@ public class PromotionsV3Test extends RestBase {
     @CaseId(2613)
     @Story("Промокоды")
     @Test(description = "Запрос на применение нескольких прокодов",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "debug"})
     public void addSeveralPromoСodes() {
         List<PromotionCodesEntity> promoCodes = PromotionCodesDao.INSTANCE.findAll(PromotionCodesFilters.builder()
                 .value("auto%")
@@ -137,7 +138,7 @@ public class PromotionsV3Test extends RestBase {
     @CaseId(2615)
     @Story("Промокоды")
     @Test(description = "Запрос на применение промокода, когда не выполнены условия для применения",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "debug"})
     public void addPromoСodeWithIncorrectConditions() {
         String promoСode = PromotionCodesDao.INSTANCE.findAll(PromotionCodesFilters.builder()
                 .promotionId(53266)
@@ -151,11 +152,10 @@ public class PromotionsV3Test extends RestBase {
     @CaseId(2619)
     @Story("Промокоды")
     @Test(description = "Удаление промокода",
-            groups = "api-instamart-regress",
-            priority = 1,
-            enabled = false) //todo починить и включить
-    public void deletePromoСode() {
-        final Response response = CheckoutV3Request.Promotions.DELETE(order.getNumber(), promoСode, Collections.singletonList(order.getShipments().get(0).getNumber()));
+            groups = {"api-instamart-regress", "debug"},
+            priority = 1)
+    public void removePromoСode() {
+        final Response response = CheckoutV3Request.PromotionRemove.POST(order.getNumber(), promoСode, Collections.singletonList(order.getShipments().get(0).getNumber()));
         checkStatusCode200(response);
         checkResponseJsonSchema(response, OrderV3Response.class);
         compareTwoObjects(response.as(OrderV3Response.class).getOrder().getPromotionCodes().size(), 0);
@@ -164,22 +164,33 @@ public class PromotionsV3Test extends RestBase {
     @CaseId(2616)
     @Story("Промокоды")
     @Test(description = "Удаление промокода по чужому заказу",
-            groups = "api-instamart-regress",
-            priority = 2,
-            enabled = false) //todo починить и включить
-    public void deleteAnotherUserPromoСode() {
+            groups = {"api-instamart-regress", "debug"},
+            priority = 100)
+    public void removeAnotherUserPromoСode() {
         apiV1.authByPhone(UserManager.getQaUser());
-        final Response response = CheckoutV3Request.Promotions.DELETE(order.getNumber(), promoСode, Collections.singletonList(order.getShipments().get(0).getNumber()));
+        final Response response = CheckoutV3Request.PromotionRemove.POST(order.getNumber(), promoСode, Collections.singletonList(order.getShipments().get(0).getNumber()));
         checkStatusCode403(response);
         List<ErrorV3> errors = response.as(ErrorsV3Response.class).getErrors();
         compareTwoObjects(errors.get(0).getMessage(), "Пользователь не может выполнить это действие");
     }
 
+    @CaseId(2990)
+    @Story("Промокоды")
+    @Test(description = "Удаление несуществующего промокода",
+            groups = {"api-instamart-regress", "debug"},
+            priority = 2)
+    public void removePromoCodeNotFound() {
+        final Response response = CheckoutV3Request.PromotionRemove.POST(order.getNumber(), Generate.literalString(8), Collections.singletonList(order.getShipments().get(0).getNumber()));
+        checkStatusCode404(response);
+        List<ErrorV3> errors = response.as(ErrorsV3Response.class).getErrors();
+        compareTwoObjects(errors.get(0).getMessage(), "Промокод не существует");
+    }
+
     @CaseId(2614)
     @Story("Промокоды")
     @Test(description = "Запрос на применение промокода без авторизации",
-            groups = "api-instamart-regress",
-            priority = 3)
+            groups = {"api-instamart-regress", "debug"},
+            priority = 100)
     public void addPromoCodeWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V1);
         final Response response = CheckoutV3Request.Promotions.POST(order.getNumber(), promoСode, Collections.singletonList(order.getShipments().get(0).getNumber()));
@@ -189,12 +200,11 @@ public class PromotionsV3Test extends RestBase {
     @CaseId(2618)
     @Story("Промокоды")
     @Test(description = "Удаление промокода без авторизации",
-            groups = "api-instamart-regress",
-            priority = 3,
-            enabled = false) //todo починить и включить
+            groups = {"api-instamart-regress", "debug"},
+            priority = 100)
     public void deletePromoCodeWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V1);
-        final Response response = CheckoutV3Request.Promotions.DELETE(order.getNumber(), promoСode, Collections.singletonList(order.getShipments().get(0).getNumber()));
+        final Response response = CheckoutV3Request.PromotionRemove.POST(order.getNumber(), promoСode, Collections.singletonList(order.getShipments().get(0).getNumber()));
         checkStatusCode401(response);
     }
 }

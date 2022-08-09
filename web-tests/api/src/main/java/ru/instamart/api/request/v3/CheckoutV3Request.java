@@ -20,20 +20,22 @@ import java.util.List;
 
 public class CheckoutV3Request extends ApiV3RequestBase {
 
-    @Step("{method} /" + ApiV3Endpoints.Checkout.Orders.INITIALIZATION)
-    public static Response POST(String orderNumber, List<String> shipmentNumbers) {
-        JSONObject body = new JSONObject();
-        body.put("shipment_numbers", shipmentNumbers);
-        return givenWithAuth(ClientV3.SBERMARKET_WEB)
-                .contentType(ContentType.JSON)
-                .body(body)
-                .post(ApiV3Endpoints.Checkout.Orders.INITIALIZATION, orderNumber);
-    }
-
     @Step("{method} /" + ApiV3Endpoints.Checkout.ORDER)
     public static Response GET(String orderNumber) {
         return givenWithAuth(ClientV3.SBERMARKET_WEB)
                 .get(ApiV3Endpoints.Checkout.ORDER, orderNumber);
+    }
+
+    public static class Initialization {
+        @Step("{method} /" + ApiV3Endpoints.Checkout.Orders.INITIALIZATION)
+        public static Response POST(String orderNumber, List<String> shipmentNumbers) {
+            JSONObject body = new JSONObject();
+            body.put("shipment_numbers", shipmentNumbers);
+            return givenWithAuth(ClientV3.SBERMARKET_WEB)
+                    .contentType(ContentType.JSON)
+                    .body(body)
+                    .post(ApiV3Endpoints.Checkout.Orders.INITIALIZATION, orderNumber);
+        }
     }
 
     public static class Completion {
@@ -67,15 +69,17 @@ public class CheckoutV3Request extends ApiV3RequestBase {
                     .body(body)
                     .post(ApiV3Endpoints.Checkout.Orders.PROMOTIONS, orderNumber);
         }
+    }
 
-        @Step("{method} /" + ApiV3Endpoints.Checkout.Orders.PROMOTION)
-        public static Response DELETE(String orderNumber, String promotionCode, List<String> shipmentNumbers) {
+    public static class PromotionRemove {
+        @Step("{method} /" + ApiV3Endpoints.Checkout.Orders.Promotions.REMOVE)
+        public static Response POST(String orderNumber, String promotionCode, List<String> shipmentNumbers) {
             JSONObject body = new JSONObject();
             body.put("shipment_numbers", shipmentNumbers);
             return givenWithAuth(ClientV3.SBERMARKET_WEB)
                     .contentType(ContentType.JSON)
                     .body(body)
-                    .delete(ApiV3Endpoints.Checkout.Orders.PROMOTION, orderNumber, promotionCode);
+                    .post(ApiV3Endpoints.Checkout.Orders.Promotions.REMOVE, orderNumber, promotionCode);
         }
     }
 
@@ -111,7 +115,6 @@ public class CheckoutV3Request extends ApiV3RequestBase {
                 .body(order)
                 .put(ApiV3Endpoints.Checkout.ORDER, orderNumber);
     }
-
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder

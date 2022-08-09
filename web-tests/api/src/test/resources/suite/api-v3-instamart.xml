@@ -39,7 +39,7 @@
             <class name="ru.instamart.test.api.v3.endpoints.PaymentToolsV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.CheckoutCompletionV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.CheckoutCompletionWithCardV3Test"/>
-            <class name="ru.instamart.test.api.v3.endpoints.PromotionsV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.CheckoutPromotionsV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.CheckoutShippingMethodV3Test"/>
         </classes>
     </test>
