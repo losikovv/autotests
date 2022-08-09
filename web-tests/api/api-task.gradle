@@ -144,6 +144,15 @@ task autoMr(type: Test) {
     }
 }
 
+task apiShadowcat(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/api-shadowcat.xml'
+        includeGroups 'api-shadowcat'
+    }
+    systemProperty 'qase.Project', 'Shadowcat'
+    systemProperty 'qase.Title', 'Shadowcat API Regress'
+}
+
 task apiSurge(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/surge-api.xml'

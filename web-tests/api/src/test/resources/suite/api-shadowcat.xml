@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
+<suite name="SURGE-API-SUITE" parallel="tests" thread-count="1" verbose="1">
+    <listeners>
+        <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
+        <listener class-name="ru.instamart.api.listener.ApiTestSuiteListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="SHADOWCAT API" parallel="none">
+        <classes>
+            <class name="ru.instamart.test.api.shadowcat.GetPromotionsTest"/>
+        </classes>
+    </test>
+</suite>
