@@ -60,8 +60,8 @@ public class GenerateDataTest {
     public void generateUIOrdersWithSingleItemForSberPay() {
         var userData = UserManager.getQaUser();
         helper.bindCardToUser(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID,
-                PaymentCards.testCardNo3dsWithSpasibo());
-        for (int i = 0; i < shipmentSingleForUICount; i++) {
+                PaymentCards.testBusinessCard());
+        for (int i = 0; i < 1; i++) {
             log.info("Создание заказа для тестов UI с 1 товаром");
             helper.makeOrderWithComment(userData,
                     EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID,
