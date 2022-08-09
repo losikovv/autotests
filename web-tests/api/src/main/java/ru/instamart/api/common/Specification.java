@@ -35,6 +35,7 @@ public enum Specification {
     @Getter private RequestSpecification apiV2RequestSpec;
     @Getter private RequestSpecification apiV1RequestSpec;
     @Getter private RequestSpecification apiAdminRequestSpec;
+    @Getter private RequestSpecification shadowcatRequestSpec;
     @Getter private RequestSpecification shopperRequestSpec;
     @Getter private RequestSpecification surgeRequestSpec;
     @Getter private RequestSpecification etaRequestSpec;
@@ -45,6 +46,7 @@ public enum Specification {
     @Getter private RequestSpecification locatorRequestSpec;
     //Внешние сервисы
     @Getter private RequestSpecification webhookSteRequestSpec;
+
 
     public void initSpec() {
         final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH;
@@ -205,13 +207,20 @@ public enum Specification {
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
-
         //Внешние сервисы
         webhookSteRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(CoreProperties.DEFAULT_WEBHOOK_SITE_URL)
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
+
+        shadowcatRequestSpec = new RequestSpecBuilder()
+                .setBaseUri("https://paas-content-demand-shadowcat.gw-stage.sbmt.io")
+                .setBasePath("api/v1/admin/")
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
     }
 
     static public void setResponseSpecDataProvider() {
