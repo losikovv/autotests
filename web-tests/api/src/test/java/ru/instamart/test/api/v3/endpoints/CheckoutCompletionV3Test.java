@@ -18,6 +18,7 @@ import ru.instamart.api.model.v3.ErrorV3;
 import ru.instamart.api.request.v3.CheckoutV3Request;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
 import ru.instamart.api.response.v3.CompletionShipmentV3Response;
+import ru.instamart.api.response.v3.ErrorV3Response;
 import ru.instamart.api.response.v3.ErrorsV3Response;
 import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
@@ -29,6 +30,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.Collections;
 import java.util.List;
 
+import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.ApiV3Checkpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -36,6 +38,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV3")
 @Feature("Чекаут")
+@Test(singleThreaded = true)
 public class CheckoutCompletionV3Test extends RestBase {
 
     private UserData user;
@@ -62,7 +65,8 @@ public class CheckoutCompletionV3Test extends RestBase {
         checkResponseJsonSchema(response, CompletionShipmentV3Response.class);
         Allure.step("Проверяем, что в урле корректный номер заказа", () -> {
             Assert.assertTrue(response.as(CompletionShipmentV3Response.class).getShipmentUrl().contains(order.getShipments().get(0).getNumber()),
-                    "Пришел неверный номер заказа");});
+                    "Пришел неверный номер заказа");
+        });
     }
 
     @CaseId(2576)
@@ -92,43 +96,42 @@ public class CheckoutCompletionV3Test extends RestBase {
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа без выбранного способа оплаты",
             groups = "api-instamart-regress",
-            dependsOnMethods = "completeOrder",
-            enabled = false) //todo починить и включить
+            dependsOnMethods = "completeOrder")
     public void completeOrderWithoutPaymentTool() {
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
         apiV1.addReplacementPolicy();
         apiV1.addDeliveryWindow();
         order = apiV1.getMultiRetailerOrder();
-        final Response response = CheckoutV3Request.Completion.POST(order.getNumber(), Collections.singletonList(order.getShipments().get(0).getNumber()));checkStatusCode422(response);
+        final Response response = CheckoutV3Request.Completion.POST(order.getNumber(), Collections.singletonList(order.getShipments().get(0).getNumber()));
         checkStatusCode422(response);
-        List<ErrorV3> errors = response.as(ErrorsV3Response.class).getErrors();
-        compareTwoObjects(errors.get(0).getMessage(), "Cannot transition state via :complete from :cart (Reason(s): Payments Не выбран способ оплаты)");
+        checkStatusCode422(response);
+        assertEquals(response.as(ErrorV3Response.class).getType(), "payments", "'type' в сообщении об ощибке отличается от ожидаемого");
+        assertEquals(response.as(ErrorV3Response.class).getTitle(), "Не выбран способ оплаты", "'title' в сообщении об ощибке отличается от ожидаемого");
     }
 
     @CaseId(2579)
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа без выбранного окна доставки",
             groups = "api-instamart-regress",
-            dependsOnMethods = "completeOrderWithoutPaymentTool",
-            enabled = false) //todo починить и включить
+            dependsOnMethods = "completeOrderWithoutPaymentTool")
     public void completeOrderWithoutDeliveryWindow() {
         apiV1.deleteShipment(order.getShipments().get(0).getNumber(), order.getToken());
         apiV1.fillCart(addressDefaultSid, ShippingMethodV2.BY_COURIER.getMethod(), offerDefaultSidId);
         apiV1.addReplacementPolicy();
         order = apiV1.getMultiRetailerOrder();
         apiV3.addPaymentTool(order, PaymentToolV2.LIFEPAY.getKey());
-        final Response response = CheckoutV3Request.Completion.POST(order.getNumber(), Collections.singletonList(order.getShipments().get(0).getNumber()));checkStatusCode422(response);
+        final Response response = CheckoutV3Request.Completion.POST(order.getNumber(), Collections.singletonList(order.getShipments().get(0).getNumber()));
         checkStatusCode422(response);
-        List<ErrorV3> errors = response.as(ErrorsV3Response.class).getErrors();
-        compareTwoObjects(errors.get(0).getMessage(), "Cannot transition state via :complete from :cart (Reason(s): Shipments Выберите время доставки из METRO.)");
+        checkStatusCode422(response);
+        assertEquals(response.as(ErrorV3Response.class).getType(), "shipments", "'type' в сообщении об ощибке отличается от ожидаемого");
+        assertEquals(response.as(ErrorV3Response.class).getTitle(), "Выберите время доставки из METRO.", "'title' в сообщении об ощибке отличается от ожидаемого");
     }
 
     @CaseId(2580)
     @Story("Завершение заказа")
     @Test(description = "Завершение заказа неавторизованным пользователем",
             groups = "api-instamart-regress",
-            dependsOnMethods = "completeOrderWithoutDeliveryWindow",
-            enabled = false) //todo починить и включить
+            dependsOnMethods = "completeOrderWithoutDeliveryWindow")
     public void completeOrderWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V1);
         final Response response = CheckoutV3Request.Completion.POST(order.getNumber(), Collections.singletonList(order.getShipments().get(0).getNumber()));

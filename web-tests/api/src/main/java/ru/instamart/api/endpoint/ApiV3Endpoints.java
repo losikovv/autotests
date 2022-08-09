@@ -23,10 +23,14 @@ public class ApiV3Endpoints {
             public static final String COMPLETION = "v3/checkout/orders/{orderNumber}/completion";
             public static final String INITIALIZATION = "v3/checkout/orders/{orderNumber}/initialization";
             public static final String PAYMENT_TOOLS = "v3/checkout/orders/{orderNumber}/payment_tools";
-            public static final String PROMOTION = "v3/checkout/orders/{orderNumber}/promotions/{promocode}";
             public static final String PROMOTIONS = "v3/checkout/orders/{orderNumber}/promotions";
             public static final String VALIDATION = "v3/checkout/orders/{orderNumber}/validation";
+
+            public static final class Promotions {
+                public static final String REMOVE = "v3/checkout/orders/{orderNumber}/promotions/{promocode}/remove";
+            }
         }
+
 
         public static final class Shipments {
             public static final String SHIPPING_RATES = "v3/checkout/shipments/{shipmentNumber}/shipping_rates";
@@ -39,7 +43,7 @@ public class ApiV3Endpoints {
     }
 
     public static final class Orders {
-        public static final String CANCEL ="v3/orders/{UUID}/status";
+        public static final String CANCEL = "v3/orders/{UUID}/status";
         public static final String DELIVERY = "v3/orders/delivery";
         public static final String PICKUP_FROM_STORE = "v3/orders/pickup_from_store";
     }

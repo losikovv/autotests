@@ -29,7 +29,6 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.helper.ApiV3Helper.checkFlipper;
 
-
 @Epic("ApiV3")
 @Feature("Чекаут")
 @Test(singleThreaded = true)
@@ -39,7 +38,7 @@ public class CheckoutPickupV3Test extends RestBase {
     private AddressV2 addressDefaultMoscowSid;
     private long offerDefaultMoscowSidId;
     private UserData user;
-    private int  defaultMetroMoscowSid = EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID;;
+    private int defaultMetroMoscowSid = EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
@@ -58,7 +57,7 @@ public class CheckoutPickupV3Test extends RestBase {
     @Test(description = "Запрос на инициализацию с заказом, созданным данным пользователем, самовывоз",
             groups = "api-instamart-regress")
     public void initializeCheckoutWithPickup() {
-        final Response response = CheckoutV3Request.POST(order.getNumber(), Collections.singletonList(order.getShipments().get(0).getNumber()));
+        final Response response = CheckoutV3Request.Initialization.POST(order.getNumber(), Collections.singletonList(order.getShipments().get(0).getNumber()));
         checkStatusCode(response, 204);
     }
 
@@ -66,8 +65,7 @@ public class CheckoutPickupV3Test extends RestBase {
     @Story("Валидация")
     @Test(description = "Запрос на валидацию с заказом, доступным для пользователя, самовывоз",
             groups = "api-instamart-regress",
-            dependsOnMethods = "initializeCheckoutWithPickup",
-            enabled = false) //todo починить и включить
+            dependsOnMethods = "initializeCheckoutWithPickup")
     public void validatePickupOrder() {
         final Response response = CheckoutV3Request.Validation.GET(order.getNumber());
         checkStatusCode(response, 204);
@@ -76,15 +74,17 @@ public class CheckoutPickupV3Test extends RestBase {
     @CaseId(2047)
     @Story("Получение данных заказа")
     @Test(description = "Получение данных о заказе, содержащем алкоголь",
-            groups = "api-instamart-regress",
-            dependsOnMethods = "validatePickupOrder",
-            enabled = false) //todo починить и включить
+            groups = "api-instamart-regress")
     public void getOrderWithAlcohol() {
         apiV1.authByPhone(user);
         apiV1.deleteShipment(order.getShipments().get(0).getNumber(), order.getToken());
         long offerId = SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(defaultMetroMoscowSid);
         apiV1.fillCart(addressDefaultMoscowSid, ShippingMethodV2.PICKUP.getMethod(), offerId);
         order = apiV1.getMultiRetailerOrder();
+
+        final Response initializeResponse = CheckoutV3Request.Initialization.POST(order.getNumber(), Collections.singletonList(order.getShipments().get(0).getNumber()));
+        checkStatusCode(initializeResponse, 204);
+
         final Response response = CheckoutV3Request.GET(order.getNumber());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, OrderV3Response.class);
@@ -95,8 +95,7 @@ public class CheckoutPickupV3Test extends RestBase {
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по заказу c алкоголем",
             groups = "api-instamart-regress",
-            dependsOnMethods = "getOrderWithAlcohol",
-            enabled = false) //todo починить и включить
+            dependsOnMethods = "getOrderWithAlcohol")
     public void addPaymentToolsForOrderWithAlcohol() {
         PaymentToolV3 paymentTool = apiV3.getPaymentTools(order.getNumber()).get(0);
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
@@ -119,8 +118,7 @@ public class CheckoutPickupV3Test extends RestBase {
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения с самовывоза на доставку для заказа с алкоголем",
             groups = "api-instamart-regress",
-            dependsOnMethods = "addPaymentToolsForOrderWithAlcohol",
-            enabled = false) //todo починить и включить
+            dependsOnMethods = "addPaymentToolsForOrderWithAlcohol")
     public void changeShippingMethodForOrderWithAlcohol() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
