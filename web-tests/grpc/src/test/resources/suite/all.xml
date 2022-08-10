@@ -1,0 +1,37 @@
+<!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
+<suite name="Custom Run GRPC" verbose="1">
+    <listeners>
+        <listener class-name="ru.instamart.grpc.listener.GrpcTestSuiteListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="CATALOG">
+        <classes>
+            <class name="ru.instamart.test.content.catalog.CatalogApiV2Test"/>
+            <class name="ru.instamart.test.content.catalog.CatalogTest"/>
+            <class name="ru.instamart.test.content.catalog.NavigationTest"/>
+            <class name="ru.instamart.test.content.catalog.ShelfTest"/>
+        </classes>
+    </test>
+    <test verbose="1" name="Tag Manager">
+        <classes>
+            <class name="ru.instamart.test.content.operations.TagManagerTest"/>
+        </classes>
+    </test>
+    <test verbose="1" name="PRODUCT FILTER">
+        <classes>
+            <class name="ru.instamart.test.content.product_filter.ProductFilterTest"/>
+        </classes>
+    </test>
+    <test verbose="1" name="PRODUCT HUB">
+        <classes>
+            <class name="ru.instamart.test.content.product_hub.ProductHubBackStreamTest"/>
+            <class name="ru.instamart.test.content.product_hub.ProductHubBackTest"/>
+            <class name="ru.instamart.test.content.product_hub.ProductHubFrontDataTest"/>
+            <class name="ru.instamart.test.content.product_hub.ProductHubFrontMetaTest"/>
+        </classes>
+    </test>
+</suite>

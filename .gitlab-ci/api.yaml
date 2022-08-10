@@ -58,51 +58,6 @@ tests:ApiV3InstamartRegress:
   after_script:
     - bash ./send-files.sh api api-instamart-preprod-regress
 
-
-tests:ApiV2InstamartRegress:manual:
-  extends:
-    - ".template_api_tests"
-    - ".template_web"
-  resource_group: apiInstamart:$URL_STF_BACKEND
-  except:
-    variables:
-      - $URL_STF_BACKEND =~ /next-stf-preprod.*/ # Исключаем из прогона на стейдже. Только фронт
-  when: manual
-  script:
-    - echo $P_ENV
-    - echo $URL_STF_BACKEND
-    - echo $URL_SHP
-    - gradle clean build apiV2InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
-  after_script:
-    - bash ./clean-directory.sh api api-instamart-staging-regress
-    - bash ./send-files.sh api api-instamart-staging-regress
-
-tests:ApiV1InstamartRegressManual:
-  extends:
-    - ".template_api_ui_tests"
-    - ".template_web"
-  resource_group: apiInstamartUI:$URL_STF_BACKEND
-  script:
-    - echo $P_ENV
-    - echo $URL_STF_BACKEND
-    - echo $URL_SHP
-    - gradle clean build apiV1InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
-  after_script:
-    - bash ./send-files.sh api api-instamart-staging-regress
-
-tests:ApiV3InstamartRegressManual:
-  extends:
-    - ".template_api_ui_tests"
-    - ".template_web"
-  resource_group: apiInstamartUI:$URL_STF_BACKEND
-  script:
-    - echo $P_ENV
-    - echo $URL_STF_BACKEND
-    - echo $URL_SHP
-    - gradle clean build apiV3InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
-  after_script:
-    - bash ./send-files.sh api api-instamart-staging-regress
-
     #tests:preprodApiMetro:
     #  extends:
     #  - ".template_api_tests"

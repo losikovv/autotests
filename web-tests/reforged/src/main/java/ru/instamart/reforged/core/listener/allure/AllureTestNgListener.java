@@ -9,14 +9,21 @@ import io.qameta.allure.util.ResultsUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.openqa.selenium.Cookie;
 import org.testng.*;
 import org.testng.annotations.Parameters;
 import org.testng.internal.ConstructorOrMethod;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
+import ru.instamart.kraken.retry.RetryAnalyzer;
+import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.KrakenParams;
+import ru.instamart.reforged.core.cdp.CdpCookie;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.report.CustomReport;
 
 import java.lang.reflect.AnnotatedElement;
@@ -221,6 +228,72 @@ public class AllureTestNgListener implements ISuiteListener, ITestListener, IInv
         final var uuid = getUniqueUuid(suite);
         getLifecycle().stopTestContainer(uuid);
         getLifecycle().writeTestContainer(uuid);
+    }
+
+    protected void fireRetryTest(final ITestResult result) {
+        final var retryAnalyzer = result.getMethod().getRetryAnalyzer(result);
+        //TODO: Wait Pattern Matching for instanceof Java 14++
+        if (retryAnalyzer instanceof RetryAnalyzer) {
+            final var retry = (RetryAnalyzer) retryAnalyzer;
+            retry.retry(result);
+        }
+    }
+
+    /**
+     * Создание фейкового контейнера, в который кладём необходимую дополнительную информацию о браузере
+     * и завершаем сессию.
+     */
+    protected void stopFake(final ITestResult testResult) {
+        tearDownFixtureStarted(testResult.getMethod());
+        tearDown(testResult.getMethod().getConstructorOrMethod().getMethod(), testResult);
+        tearDownFixtureStop();
+        stopContainer(testResult.getMethod());
+    }
+
+    protected void tearDown(final Method method, final ITestResult result) {
+        CustomReport.addSystemLog();
+        if (method.isAnnotationPresent(DoNotOpenBrowser.class) || !Kraken.isAlive()) {
+            return;
+        }
+        if (!result.isSuccess()) {
+            //CustomReport.addSourcePage();
+            CustomReport.addBrowserLog();
+            CustomReport.addCookieLog();
+            CustomReport.takeScreenshot(getParamsOrNull(method));
+            CustomReport.addLocalStorage();
+        }
+        Kraken.closeBrowser();
+    }
+
+    protected KrakenParams getParamsOrNull(final Method method) {
+        if (method.isAnnotationPresent(KrakenParams.class)) {
+            return method.getAnnotation(KrakenParams.class);
+        }
+        return null;
+    }
+
+    protected void addCookie(final IInvokedMethod method) {
+        try {
+            final var doNotOpenBrowser = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(DoNotOpenBrowser.class);
+            if (isNull(doNotOpenBrowser)) {
+                final var customCookies = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(CookieProvider.class);
+                final var cookies = isNull(customCookies) ? UiProperties.DEFAULT_COOKIES : Arrays.asList(customCookies.cookies());
+                final var fields = FieldUtils.getAllFieldsList(CookieFactory.class)
+                        .stream()
+                        .filter(f -> cookies.contains(f.getName()))
+                        .map(r -> {
+                            try {
+                                return (Cookie) FieldUtils.readField(r, CookieFactory.class, true);
+                            } catch (IllegalAccessException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .collect(Collectors.toUnmodifiableSet());
+                CdpCookie.addCookies(fields);
+            }
+        } catch (Exception e) {
+            log.error("FATAL: Can't add cookie for method {}", method);
+        }
     }
 
     public void tearDownFixtureStarted(final ITestNGMethod testMethod) {

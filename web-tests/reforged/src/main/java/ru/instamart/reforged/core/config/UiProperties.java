@@ -21,9 +21,9 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "headerStfForwardTo", defaultValue = "s-sb-stfkraken-sbermarket", args = "stf_forward")
     public static String HEADER_STF_FORWARD_TO;
 
-    @Config(configName = NAME, fieldName = "b2bUrl", defaultValue = "", crypted = true)
+    @Config(configName = NAME, fieldName = "b2bUrl", defaultValue = "", crypted = true, args = "url_b2b_front")
     public static String B2B_URL;
-    @Config(configName = NAME, fieldName = "headerB2bForwardTo", defaultValue = "s-sb-stfkraken-smbusiness")
+    @Config(configName = NAME, fieldName = "headerB2bForwardTo", defaultValue = "s-sb-stfkraken-smbusiness", args = "b2b_forward")
     public static String HEADER_B2B_FORWARD_TO;
 
     @Config(configName = NAME, fieldName = "selgrosUrl", defaultValue = "", crypted = true)
