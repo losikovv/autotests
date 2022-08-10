@@ -40,6 +40,9 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "demoCloudPaymentsUrl", defaultValue = "https://demo.cloudpayments.ru/")
     public static String DEMO_CLOUD_PAYMENTS_URL;
 
+    @Config(configName = NAME, fieldName = "activeDirectoryUrl", defaultValue = "https://adfs.sbmt.team/")
+    public static String ACTIVE_DIRECTORY_URL;
+
     @Config(configName = NAME, fieldName = "defaultCookies", defaultValue = "")
     public static List<String> DEFAULT_COOKIES;
 

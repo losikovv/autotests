@@ -26,3 +26,12 @@ task uiAdminSmokeProduction(type: Test) {
     systemProperty 'qase.Project', 'Prod'
     systemProperty 'qase.Title', 'Admin UI Production Smoke'
 }
+
+task adminKeycloak(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/submodule/admin-keycloak.xml'
+        includeGroups 'admin-keycloak'
+    }
+    systemProperty 'qase.Project', 'CA'
+    systemProperty 'qase.Title', 'STF admin keycloak tests'
+}
