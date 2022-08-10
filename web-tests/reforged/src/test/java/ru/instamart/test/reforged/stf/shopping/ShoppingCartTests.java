@@ -24,7 +24,7 @@ public final class ShoppingCartTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1571)
-    @Test(description = "Тест валидации дефолтной корзины", groups = {"regression"})
+    @Test(description = "Тест валидации дефолтной корзины", groups = {"regression", "all-cart"})
     public void successValidateDefaultCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -47,7 +47,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1572)
-    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {"regression"})
+    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {"regression", "all-cart"})
     public void successAddItemToCartUnauthorized() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -66,7 +66,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1573)
-    @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {"regression"})
+    @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {"regression", "all-cart"})
     public void successAddItemToCartFromItemCard() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -91,7 +91,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1574)
-    @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = "regression")
+    @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = {"regression", "all-cart"})
     public void successChangeItemQuantityInCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -119,7 +119,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1575)
-    @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {"regression"})
+    @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {"regression", "all-cart"})
     public void successChangeItemQuantityInCartViaItemCard() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -170,7 +170,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1576)
-    @Test(description = "Тест на удаление товаров из корзины", groups = {"regression"})
+    @Test(description = "Тест на удаление товаров из корзины", groups = {"regression", "all-cart"})
     public void successRemoveItemsFromCart() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -192,7 +192,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1577)
-    @Test(description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге", groups = {"regression"})
+    @Test(description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге", groups = {"regression", "all-cart"})
     public void successAddItemToCartFromCatalogSnippet() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -217,7 +217,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1578)
-    @Test(description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = "regression")
+    @Test(description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = {"regression", "all-cart"})
     public void successChangeMinOrderSum() {
         final var shoppingCartUser = UserManager.getQaUser();
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
@@ -265,7 +265,7 @@ public final class ShoppingCartTests {
 
 
     @CaseId(2616)
-    @Test(description = "Добавление/удаление товара из карточки товара", groups = "regression")
+    @Test(description = "Добавление/удаление товара из карточки товара", groups = {"regression", "all-cart"})
     public void testAddedAndRemoveProductFromProductCard() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -283,7 +283,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2618)
-    @Test(description = "Добавление/удаление товара из раздела 'Скидки'", groups = "regression")
+    @Test(description = "Добавление/удаление товара из раздела 'Скидки'", groups = {"regression", "all-cart"})
     public void testAddProductFromSale() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -306,7 +306,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2619)
-    @Test(description = "Добавление товара после изменения адреса доставки", groups = "regression")
+    @Test(description = "Добавление товара после изменения адреса доставки", groups = {"regression", "all-cart"})
     public void testAddProductAfterChangeAddress() {
         var userData = UserManager.getQaUser();
         helper.dropAndFillCartByOneProduct(userData, DEFAULT_SID, 5);
@@ -328,7 +328,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseIDs(value = {@CaseId(2620), @CaseId(2937), @CaseId(2938)})
-    @Test(description = "Многократное добавление и удаление одной позиции", groups = "regression")
+    @Test(description = "Многократное добавление и удаление одной позиции", groups = {"regression", "all-cart"})
     public void testMultipleAddAndRemoveProduct() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -362,7 +362,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2605)
-    @Test(description = "Тест успешного добавления товара в пустую корзину", groups = "regression")
+    @Test(description = "Тест успешного добавления товара в пустую корзину", groups = {"regression", "all-cart"})
     public void testSuccessAddItemInEmptyCart() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -383,7 +383,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2607)
-    @Test(description = "Изменение количества единиц товаров в корзине", groups = "regression")
+    @Test(description = "Изменение количества единиц товаров в корзине", groups = {"regression", "all-cart"})
     public void testAddProductsInCart() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -412,7 +412,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2609)
-    @Test(description = "Подтягивание адреса и мердж корзины из профиля при авторизации", groups = "regression")
+    @Test(description = "Подтягивание адреса и мердж корзины из профиля при авторизации", groups = {"regression", "all-cart"})
     public void testAddressAndCartGetFromProfileAuth() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.learningCenter());
@@ -450,7 +450,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2610)
-    @Test(description = "Удаление позиции товара", groups = "regression")
+    @Test(description = "Удаление позиции товара", groups = {"regression", "all-cart"})
     public void testRemoveProduct() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -480,7 +480,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1572)
-    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = "regression")
+    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {"regression", "all-cart"})
     public void testAddToCartNonAuthUser() {
         shop().goToPage();
         shop().openAddressFrame();
@@ -502,7 +502,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2611)
-    @Test(description = "Удаление всех товаров в корзине", groups = "regression")
+    @Test(description = "Удаление всех товаров в корзине", groups = {"regression", "all-cart"})
     public void testRemoveRetailerFromCart() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -523,7 +523,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2612)
-    @Test(description = "Отображение нескольких магазинов в корзине, разбивка товаров по магазинам", groups = "regression")
+    @Test(description = "Отображение нескольких магазинов в корзине, разбивка товаров по магазинам", groups = {"regression", "all-cart"})
     public void testMultiplyOrderGroupingProductsByRetailers() {
         var userData = UserManager.getQaUser();
         helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), DEFAULT_METRO_MOSCOW_SID, 2, DEFAULT_AUCHAN_SID, 3);
@@ -544,7 +544,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2613)
-    @Test(description = "Удаление магазина из корзины, при удалении всех его товаров в корзине", groups = "regression")
+    @Test(description = "Удаление магазина из корзины, при удалении всех его товаров в корзине", groups = {"regression", "all-cart"})
     public void testAutoRemoveRetailerAfterRemoveAllProducts() {
         var userData = UserManager.getQaUser();
         helper.dropAndFillCartMultiple(userData,
@@ -568,7 +568,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2617)
-    @Test(description = "Добавление/удаление товара из категории", groups = "regression")
+    @Test(description = "Добавление/удаление товара из категории", groups = {"regression", "all-cart"})
     public void testAddRemoveProductFromCategory() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -597,7 +597,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(3042)
-    @Test(description = "Добавление товара в корзину из seo-каталога", groups = "regression")
+    @Test(description = "Добавление товара в корзину из seo-каталога", groups = {"regression", "all-cart"})
     public void testAddProductFromSEOCategory() {
         seoIncognito().goToPage();
         seoIncognito().checkProductGridVisible();
@@ -610,7 +610,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2615)
-    @Test(description = "Добавление товара в корзину из блока рекомендаций на карточке товара", groups = "regression")
+    @Test(description = "Добавление товара в корзину из блока рекомендаций на карточке товара", groups = {"regression", "all-cart"})
     public void successAddToCardFromProductCardRecommendations() {
         var userData = UserManager.getQaUser();
         helper.setAddressBySid(userData, DEFAULT_SID);

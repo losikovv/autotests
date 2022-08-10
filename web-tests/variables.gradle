@@ -44,6 +44,12 @@ tasks.withType(Test) {
     if (project.hasProperty('stf_forward')) {
         systemProperty 'stf_forward',"${stf_forward}"
     }
+    if (project.hasProperty('url_b2b_front')) {
+        systemProperty 'url_b2b_front',"${url_b2b_front}"
+    }
+    if (project.hasProperty('b2b_forward')) {
+        systemProperty 'b2b_forward',"${b2b_forward}"
+    }
     if (project.hasProperty('one_session')) {
         systemProperty 'one_session',"${one_session}"
     }

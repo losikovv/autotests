@@ -48,6 +48,7 @@ public final class BasicSelgrosTests {
 
     @CaseId(2782)
     @Story("Валидация элементов")
+    @CookieProvider(cookies = {"FORWARD_FEATURE_SELGROS", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
     @Test(description = "Тест валидности элементов и ссылок в подвале Selgros", groups = "regression")
     public void successValidateSelgrosTenantFooter() {
         selgros().goToPage();

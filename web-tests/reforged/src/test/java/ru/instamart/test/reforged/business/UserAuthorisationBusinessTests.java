@@ -20,6 +20,7 @@ public final class UserAuthorisationBusinessTests {
 
     @CaseId(230)
     @Story("Авторизация")
+    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
     @Test(description = "Вход по мобильному телефону (B2B)", groups = {"smoke", "regression"})
     public void successAuthOnMainPage() {
         business().goToPage();
@@ -34,6 +35,7 @@ public final class UserAuthorisationBusinessTests {
     @Issue("DEVB2B-1977")
     @CaseId(231)
     @Story("Авторизация")
+    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
     @Test(enabled = false, description = "Вход по СберБизнес ID (B2B)", groups = {"smoke", "regression"})
     public void successRegWithSberBusinessID() {
         business().goToPage();

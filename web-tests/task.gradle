@@ -9,3 +9,29 @@ task allureCopyHistoryDir(type: Copy) {
     duplicatesStrategy = DuplicatesStrategy.WARN
     into "build/allure-results/"
 }
+
+task ciRun(type: Test) {
+    def ci_module = System.getenv('CI_MODULE')
+
+    switch (ci_module) {
+        case 'ui': dependsOn(':reforged:ciRunUi')
+            break
+        case 'api': dependsOn(':api:ciRunApi')
+            break
+        case 'grpc': dependsOn(':grpc:ciRunGrpc')
+            break
+        default:  println('U miss ci_module')
+            break
+    }
+}
+
+task copyAllAllureHistory(type: Copy) {
+    sleep(5 * 1000)
+    def paths = []
+    subprojects.each {
+        paths += it.getBuildDir().path + "/allure-results".toString()
+    }
+    from paths
+    duplicatesStrategy = DuplicatesStrategy.WARN
+    into "build/allure-results/"
+}

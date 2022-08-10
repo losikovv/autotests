@@ -26,6 +26,7 @@ public final class TagManagerExecutionListener extends ExecutionListener {
         // Тут может быть код для очистки окружения после прогона тестов
     }
 
+    @Override
     public void setupAllureReport() {
         AllureHelper.allureEnvironmentWriter(
                 Map.ofEntries(
@@ -33,6 +34,7 @@ public final class TagManagerExecutionListener extends ExecutionListener {
                 System.getProperty("user.dir") + "/build/allure-results/");
     }
 
+    @Override
     public void revealKraken() {
         log.debug("gRPC {}", GrpcContentHosts.PAAS_CONTENT_OPERATIONS_TAG_MANAGER);
         log.debug("TEST RUN ID: {}", runId);

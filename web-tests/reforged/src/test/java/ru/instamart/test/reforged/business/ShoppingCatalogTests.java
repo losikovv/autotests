@@ -23,6 +23,7 @@ public final class ShoppingCatalogTests {
 
     @Issue("B2C-9789")
     @CaseId(302)
+    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
     @Test(description = "Добавление товара в корзину из плитки (+удаление)", groups = "regression")
     public void testAddedAndRemoveProductFromShop() {
         var company = JuridicalData.juridical();
@@ -55,6 +56,7 @@ public final class ShoppingCatalogTests {
 
     @Issue("B2C-9789")
     @CaseId(303)
+    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
     @Test(description = "Добавление товара в корзину из карточки товара (+удаление)", groups = "regression")
     public void testAddedAndRemoveProductFromProductCard() {
         var company = JuridicalData.juridical();
@@ -98,6 +100,7 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(290)
+    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
     @Test(description = "Проверка обязательной авторизации при добавлении товара в корзину", groups = "regression")
     public void testNeedAuthAddToFavourites() {
         shop().goToPage();

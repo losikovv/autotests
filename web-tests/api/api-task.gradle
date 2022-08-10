@@ -137,13 +137,6 @@ task apiShopperProduction(type: Test) {
     systemProperty 'one_session', 'true'
 }
 
-task autoMr(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/mr.xml'
-        includeGroups 'MRAutoCheck'
-    }
-}
-
 task apiShadowcat(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/api-shadowcat.xml'
@@ -232,41 +225,4 @@ task onDemandCandidates(type: Test) {
     }
     systemProperty 'qase.Project', 'ODSC'
     systemProperty 'qase.Title', 'On Demand Candidates Smoke'
-}
-
-task localRun(type: Test) {
-    useTestNG() {
-        options {
-            listeners.add("ru.instamart.api.listener.ApiExecutionListener")
-            listeners.add("ru.instamart.api.listener.ApiTestSuiteListener")
-        }
-    }
-}
-
-task qaseActualize(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/util.xml'
-        includeGroups 'qase-actualize'
-    }
-}
-
-task qaseCleanup(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/util.xml'
-        includeGroups 'qase-cleanup'
-    }
-}
-
-task generateData(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/util.xml'
-        includeGroups 'generate-data'
-    }
-}
-
-task generateDataUI(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/util.xml'
-        includeGroups 'generate-data-ui'
-    }
 }

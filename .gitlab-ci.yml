@@ -3,7 +3,6 @@ include:
   - local: '/.gitlab-ci/shopper.yaml'
   - local: '/.gitlab-ci/grpc.yaml'
   - local: '/.gitlab-ci/ui.yaml'
-#  - local: '/.gitlab-ci/ui-next.yaml'
   - local: '/.gitlab-ci/ui-tenant.yaml'
   - local: '/.gitlab-ci/kafka.yaml'
   - local: '/.gitlab-ci/on-demand.yaml'
@@ -33,13 +32,21 @@ variables:
   STF_FORWARD:
     value: "s-sb-stfkraken-sbermarket"
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Связь фронта с бекендом"
+  URL_B2B_FRONT:
+    value: "https://user:password@next-default-smbusiness.k-stage.sbermarket.tech/"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Нужно указывать полный url фронта, вместе с basic auth"
+  B2B_FORWARD:
+    value: "s-sb-stfkraken-smbusiness"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Связь фронта с бекендом"
   URL_STF_BACKEND:
     value: "stf-kraken.k-stage.sbermarket.tech" # this would be the default value
     description: "ОБЯЗАТЕЛЬНО!!! Имя stf стейджа на котором запускаем тесты"
   URL_SHP:
     description: "Имя shp стейджа на котором запускаем тесты. Для номерных стейджей можно пропустить"
-  REGRESSION:
-    description: "ОБЯЗАТЕЛЬНО!!! Если указано \"true\", то запускаются регресс тесты, а если \"false\" - смок тесты"
+  CI_MODULE:
+    description: "Например: ui  -Возможные варианты: ui/api/grpc/kafka/"
+  CI_GROUP:
+    description: "Например: all-cart Возможные варианты: all-cart/all-order/api-instamart-smoke/api-instamart-regress"
 
 before_script:
   - export GRADLE_USER_HOME=$(pwd)/web-tests/.gradle
@@ -92,17 +99,6 @@ stages:
       - schedules
       - web
       - pushes
-
-.template_web:
-  only:
-    refs:
-      - web
-    variables:
-      - $REGRESSION == 'true'
-  except:
-    refs:
-      - schedules
-  when: manual
 
 .template_api_tests:
   stage: tests-api
@@ -187,35 +183,34 @@ java_gradle:build:
     - docker tag ${JDK_GRADLE} ${JDK11_GRADLE_IMAGE}
     - docker push ${JDK11_GRADLE_IMAGE}
 
-CustomSuiteTestRun:
+tests:customRun:
   only:
-    variables:
-      - $TEST_API_INSTAMART == 'false' && $CI_RUN_ALL_JOBS == 'false' && $API_SHOPPER_ALONE == 'false'
-  allow_failure: true
-  when: manual
+    - web
+  except:
+    - schedules
+    - merge_request
+  resource_group: customRun
   stage: custom-run
   script:
     - echo $P_ENV
-    - echo $TEST_SET
-    - echo $QASE
-    - echo $BROWSER
-    - echo $PROXY_IP
-    - echo $PROXY_PORT
-    - echo $PROXY_TIMEOUT
-    - echo $URL_STF
+    - echo $CI_PIPELINE_URL
+    - echo $URL_STF_BACKEND
+    - echo $URL_STF_FRONT
+    - echo $STF_FORWARD
+    - echo $URL_B2B_FRONT
+    - echo $B2B_FORWARD
     - echo $URL_SHP
-    - gradle clean build $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE -Purl_stf=$URL_STF -Purl_shp=$URL_SHP -Pkey=$ATST_APP_SECRET_KEY
+    - gradle --continue clean build ciRun copyAllAllureHistory -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_b2b_front=$URL_B2B_FRONT -Pb2b_forward=$B2B_FORWARD -Purl_shp=$URL_SHP
   after_script:
-    - bash ./report.sh reforged default
+    - bash ./report.sh . custom-run
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/reforged/build/allure-results/
-      - web-tests/reforged/logs/
-      - web-tests/reforged/build/reports/tests/
+      - web-tests/build/allure-results/
     expire_in: 1 week
+  allow_failure: true
 
 tests:AutoMRCheck:
   only:

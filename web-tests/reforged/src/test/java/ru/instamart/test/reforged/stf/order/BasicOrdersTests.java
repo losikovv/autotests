@@ -30,7 +30,7 @@ public final class BasicOrdersTests {
     }
 
     @CaseId(1674)
-    @Test(description = "Тест заказа с добавлением нового юр. лица", groups = {"smoke", "regression"})
+    @Test(description = "Тест заказа с добавлением нового юр. лица", groups = {"smoke", "regression", "all-order"})
     public void successCompleteCheckoutWithNewJuridical() {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, DEFAULT_SID);
