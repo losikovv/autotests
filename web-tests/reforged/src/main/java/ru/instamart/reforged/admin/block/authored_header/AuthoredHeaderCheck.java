@@ -19,7 +19,7 @@ public interface AuthoredHeaderCheck extends Check, AuthoredHeaderElement {
         waitAction().shouldBeVisible(adminName);
     }
 
-    @Step("Пользователь авторизовался")
+    @Step("Пользователь {0} авторизовался")
     default void checkUserName(final String userName) {
         Assert.assertEquals(adminName.getText(), userName, "Имя пользователя: " + adminName.getText() + " не соответствует ожидаемому: " + userName);
     }
