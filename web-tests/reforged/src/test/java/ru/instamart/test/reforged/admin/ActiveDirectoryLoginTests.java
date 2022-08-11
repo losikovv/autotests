@@ -43,7 +43,7 @@ public class ActiveDirectoryLoginTests {
 
     @CaseIDs(value = {@CaseId(33), @CaseId(34)})
     @Story("Неуспешная авторизация через Active Directory")
-    @Test(description = "Нет залогина при вводе несуществующего логина", groups = {"regression", "admin-keycloak"})
+    @Test(description = "Нет залогина при вводе несуществующего логина или пароля", groups = {"regression", "admin-keycloak"})
     public void noAuthWrongLoginViaActiveDirectory() {
         UserData activeDirectoryUser = UserManager.getActiveDirectoryUser();
 
