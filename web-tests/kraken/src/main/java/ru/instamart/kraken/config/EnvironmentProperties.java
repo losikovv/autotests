@@ -24,18 +24,12 @@ public final class EnvironmentProperties {
     public static String SERVER;
     @Config(configName = NAME, fieldName = "service", defaultValue = "")
     public static String SERVICE;
-    @Config(configName = NAME, fieldName = "servicePgPort", defaultValue = "")
-    public static int SERVICE_PG_PORT;
     @Config(configName = NAME, fieldName = "stage", defaultValue = "")
     public static String STAGE;
-    @Config(configName = NAME, fieldName = "httpAuth", defaultValue = "", crypted = true)
-    public static String HTTP_AUTH;
     @Config(configName = NAME, fieldName = "defaultSid", defaultValue = "81")
     public static int DEFAULT_SID;
     @Config(configName = NAME, fieldName = "defaultMetroMoscowSid", defaultValue = "1")
     public static int DEFAULT_METRO_MOSCOW_SID;
-    @Config(configName = NAME, fieldName = "defaultAuchanSid", defaultValue = "72")
-    public static int DEFAULT_AUCHAN_SID;
     @Config(configName = NAME, fieldName = "defaultOnDemandSid", defaultValue = "94")
     public static int DEFAULT_ON_DEMAND_SID;
     @Config(configName = NAME, fieldName = "defaultTid", defaultValue = "")
@@ -84,8 +78,6 @@ public final class EnvironmentProperties {
     @Config(configName = NAME, fieldName = "shopperUrl", defaultValue = "")
     private static String SHOPPER_URL;
 
-    @Config(configName = NAME, fieldName = "protocol", defaultValue = "https", args = "protocol")
-    private static String PROTOCOL;
     @Config(configName = NAME, fieldName = "qaUrl", defaultValue = "")
     private static String QA_URL;
     @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "")
@@ -100,7 +92,6 @@ public final class EnvironmentProperties {
     public static String ADMIN_PASSWORD;
     @Config(configName = NAME, fieldName = "metroToken", defaultValue = "", crypted = true)
     public static String METRO_TOKEN;
-
 
     public static class Env {
 
@@ -155,20 +146,19 @@ public final class EnvironmentProperties {
         }
 
         public static String ENV_NAME = TENANT + "-" + SERVER;
-        public static String BASIC_URL_WITH_AUTH = Optional.ofNullable(HTTP_AUTH).orElse("") + BASIC_URL + "/";
 
-        public static String FULL_SITE_URL = PROTOCOL + "://" + BASIC_URL + "/";
-        public static String FULL_SITE_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + Optional.ofNullable(HTTP_AUTH).orElse("") + BASIC_URL + "/";
-        public static String FULL_ADMIN_URL = PROTOCOL + "://" + (isProduction()?ADMIN_URL + "/":BASIC_URL + "/") + "admin/spa/";
-        public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + (isProduction()?ADMIN_URL + "/":BASIC_URL_WITH_AUTH) + "admin/spa/";
-        public static String FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD = PROTOCOL + "://" + (isProduction()?ADMIN_URL + "/":BASIC_URL_WITH_AUTH) + "admin/";
-        public static String FULL_SHOPPER_URL = PROTOCOL + "://" + SHOPPER_URL + "/";
-        public static String PROD_FULL_SITE_URL = PROTOCOL + "://" + "api." + BASIC_URL + "/";
-        public static String QA_FULL_URL = PROTOCOL + "://" + QA_URL + "/";
-        public static String ADMIN_FULL_URL = PROTOCOL + "://" + Optional.ofNullable(ADMIN_URL).orElse(BASIC_URL_WITH_AUTH) + "/";
+        public static String FULL_SITE_URL = "https://" + BASIC_URL + "/";
+        public static String FULL_SITE_URL_WITH_BASIC_AUTH = "https://" + BASIC_URL + "/";
+        public static String FULL_ADMIN_URL = "https://" + (isProduction() ? ADMIN_URL + "/":BASIC_URL + "/") + "admin/spa/";
+        public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = "https://" + (isProduction() ? ADMIN_URL + "/": BASIC_URL + "/") + "admin/spa/";
+        public static String FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD = "https://" + (isProduction() ? ADMIN_URL + "/": BASIC_URL + "/") + "admin/";
+        public static String FULL_SHOPPER_URL = "https://" + SHOPPER_URL + "/";
+        public static String PROD_FULL_SITE_URL = "https://" + "api." + BASIC_URL + "/";
+        public static String QA_FULL_URL = "https://" + QA_URL + "/";
+        public static String ADMIN_FULL_URL = "https://" + Optional.ofNullable(ADMIN_URL).orElse(BASIC_URL) + "/";
         public static String ONE_SESSION = System.getProperty("one_session");
-        public static String FULL_SHOPPER_GW_URL = PROTOCOL + "://" + SHOPPER_GW_URL + "/";
-        public static String FULL_SSO_AUTH_URL = PROTOCOL + "://" + SSO_AUTH_URL + "/";
+        public static String FULL_SHOPPER_GW_URL = "https://" + SHOPPER_GW_URL + "/";
+        public static String FULL_SSO_AUTH_URL = "https://" + SSO_AUTH_URL + "/";
 
         public static boolean isPreprod() {
             return Server.PREPROD.name().equalsIgnoreCase(EnvironmentProperties.SERVER);

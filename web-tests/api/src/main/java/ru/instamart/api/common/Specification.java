@@ -14,14 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-
 import static io.restassured.RestAssured.*;
 import static io.restassured.config.EncoderConfig.encoderConfig;
-import static io.restassured.specification.ProxySpecification.host;
-import static java.util.Objects.nonNull;
 import static org.hamcrest.Matchers.not;
 
 @Slf4j
@@ -62,21 +56,6 @@ public enum Specification {
                 (EnvironmentProperties.K8S_NAME_SHP_SPACE).replace("kraken", EnvironmentProperties.STAGE);
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
         defaultParser = Parser.JSON;
-
-        final boolean sslValidation = Boolean.parseBoolean(System.getProperty("ssl", "true"));
-        if (!sslValidation) {
-            log.debug("Enable SSL ignore");
-            useRelaxedHTTPSValidation();
-        }
-
-        final String proxyIp = System.getProperty("proxy_ip");
-        final int proxyPort = Integer.parseInt(System.getProperty("proxy_port", "443"));
-        final int proxyTimeout = Integer.parseInt(System.getProperty("proxy_timeout", "5000"));
-
-        if (nonNull(proxyIp) && addressReachable(proxyIp, proxyPort, proxyTimeout)) {
-            log.debug("Setup proxy with url {}:{}", proxyIp, proxyPort);
-            proxy = host(proxyIp).withPort(proxyPort);
-        }
 
         responseSpecDefault = new ResponseSpecBuilder()
                 //.expectResponseTime(lessThan(30000L))
@@ -229,15 +208,5 @@ public enum Specification {
 
     static public void setResponseSpecDefault() {
         responseSpecification = responseSpecDefault;
-    }
-
-    private static boolean addressReachable(final String address, final int port, final int timeout) {
-        try (final Socket socket = new Socket()) {
-            socket.connect(new InetSocketAddress(address, port), timeout);
-            return true;
-        } catch (IOException exception) {
-            log.error("Broken proxy ! Skip proxy setup and continue without proxy");
-            return false;
-        }
     }
 }

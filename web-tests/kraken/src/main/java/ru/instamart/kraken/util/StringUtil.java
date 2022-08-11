@@ -51,11 +51,7 @@ public final class StringUtil {
     }
 
     public static String cutBasicAuthFromUrl(final String url) {
-        return url.replace(EnvironmentProperties.HTTP_AUTH, "");
-    }
-
-    public static String addBasicAuthToUrl(final String url) {
-        return url.replace("://", "://" + EnvironmentProperties.HTTP_AUTH);
+        return url.replaceAll("[^/]+@", "");
     }
 
     public static String getPhone(final String phone) {
