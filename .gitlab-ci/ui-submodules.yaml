@@ -1,7 +1,7 @@
 tests:adminKeycloak:
   only:
     variables:
-      - $RUN_KEYCLOAK == 'true' && $CI_RUN_ALL_JOBS == 'false'
+      - $RUN_KEYCLOAK == 'true'
   extends:
     - ".template_ui_tests"
   when: manual
