@@ -9,6 +9,7 @@ import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.cdp.CdpCookie;
+import ru.instamart.reforged.core.config.UiProperties;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +17,8 @@ import java.util.Set;
 import static ru.instamart.reforged.core.Kraken.*;
 
 public interface Page extends PageCheck {
+
+    String BASIC_AUTH = UiProperties.BASIC_AUTH_USERNAME + ":" + UiProperties.BASIC_AUTH_PASSWORD + "@";
 
     String pageUrl();
 
@@ -44,7 +47,7 @@ public interface Page extends PageCheck {
     @Step("Обновить страницу, добавив basic auth")
     default void refreshWithBasicAuth() {
         final var currentUrl = Kraken.getWebDriver().getCurrentUrl();
-        Kraken.open(StringUtil.addBasicAuthToUrl(currentUrl));
+        Kraken.open(addBasicAuthToUrl(currentUrl));
     }
 
     @Step("Добавить куки {0}")
@@ -87,5 +90,9 @@ public interface Page extends PageCheck {
     default void setLocation(final String cityName) {
         CdpCookie.addCookie(CookieFactory.setLocation(cityName));
         refresh();
+    }
+
+    default String addBasicAuthToUrl(final String url) {
+        return url.replace("://", "://" + BASIC_AUTH);
     }
 }
