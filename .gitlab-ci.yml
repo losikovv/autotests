@@ -6,6 +6,7 @@ include:
   - local: '/.gitlab-ci/ui-tenant.yaml'
   - local: '/.gitlab-ci/kafka.yaml'
   - local: '/.gitlab-ci/on-demand.yaml'
+  - local: '/.gitlab-ci/ui-submodules.yaml'
 
 image: ${JDK11_GRADLE_IMAGE}
 
