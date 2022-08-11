@@ -24,4 +24,5 @@ public interface LoginElement {
             "ошибка авторизации 'Неверный email или пароль'");
     Element errorNoPermission = new Element(By.xpath("//div[@class = 'flash error' and text()='У вас нет прав для этого действия. Если они вам необходимы, обратитесь за помощью в Helpdesk.']"),
             "нотификация с ошибкой 'У вас нет прав для этого действия'");
+    Button activeDirectoryLoginButton = new Button(By.xpath("//button[@data-qa='login_keycloak_btn']"), "Кнопка 'Войти через Active Directory'");
 }

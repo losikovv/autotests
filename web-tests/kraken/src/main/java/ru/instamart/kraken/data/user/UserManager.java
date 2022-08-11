@@ -58,6 +58,7 @@ public final class UserManager {
     private static UserData forB2BUser;
     private static UserData addressUser;
     private static UserData abServiceUser;
+    private static UserData activeDirectoryUser;
 
     public static UserData getDefaultUser() {
         if (isNull(defaultUser)) {
@@ -205,6 +206,16 @@ public final class UserManager {
                     .build();
         }
         return krakenUniversal3;
+    }
+
+    public static UserData getActiveDirectoryUser() {
+        if (isNull(activeDirectoryUser)) {
+            activeDirectoryUser = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("jbLnzLjta1V4pY9Hh1oFzBpbBGZdWIhYb645pKKM3V8="))
+                    .password(Crypt.INSTANCE.decrypt("MYkGiIbAAYmHoCFi7xG5rA=="))
+                    .build();
+        }
+        return activeDirectoryUser;
     }
 
     public static UserData getDefaultShopper() {

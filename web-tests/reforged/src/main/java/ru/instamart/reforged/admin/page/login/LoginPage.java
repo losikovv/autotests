@@ -31,6 +31,11 @@ public final class LoginPage implements AdminPage, LoginCheck {
         submit.click();
     }
 
+    @Step("Нажать на кнопку логина через Active Directory")
+    public void clickOnLoginViaActiveDirectory() {
+        activeDirectoryLoginButton.click();
+    }
+
     @Override
     public String pageUrl() {
         return "login";
