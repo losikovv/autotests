@@ -4,11 +4,10 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.active_directory.ActiveDirectoryRouter.activeDirectory;
-import static ru.instamart.reforged.admin.AdminRout.login;
-import static ru.instamart.reforged.admin.AdminRout.main;
+import static ru.instamart.reforged.admin.AdminRout.*;
 
 public class ActiveDirectoryLoginTests {
 
@@ -26,11 +25,12 @@ public class ActiveDirectoryLoginTests {
         activeDirectory().clickOnLoginButton();
 
         main().interactAuthoredHeader().checkAdminAuth();
+        main().interactAuthoredHeader().checkUserName("Test User");
     }
 
     @CaseId(32)
-    @Story("Успешная авторизация через Active Directory")
-    @Test(description = "Успешная аутентификация через Active Directory в админке STF", groups = {"regression", "admin-keycloak"})
+    @Story("Неуспешная авторизация через Active Directory")
+    @Test(description = "Нет залогина при вводе некорректного пароля и логина", groups = {"regression", "admin-keycloak"})
     public void noAuthUnexistLoginViaActiveDirectory() {
         login().goToPage();
         login().clickOnLoginViaActiveDirectory();
@@ -39,13 +39,11 @@ public class ActiveDirectoryLoginTests {
         activeDirectory().fillPassword("wrong");
         activeDirectory().clickOnLoginButton();
         activeDirectory().checkWrongLoginFormatAlertVisible();
-
-        main().interactAuthoredHeader().checkIsNotAuth();
     }
 
-    @CaseId(33)
-    @Story("Успешная авторизация через Active Directory")
-    @Test(description = "Успешная аутентификация через Active Directory в админке STF", groups = {"regression", "admin-keycloak"})
+    @CaseIDs(value = {@CaseId(33), @CaseId(34)})
+    @Story("Неуспешная авторизация через Active Directory")
+    @Test(description = "Нет залогина при вводе несуществующего логина", groups = {"regression", "admin-keycloak"})
     public void noAuthWrongLoginViaActiveDirectory() {
         UserData activeDirectoryUser = UserManager.getActiveDirectoryUser();
 
@@ -57,23 +55,9 @@ public class ActiveDirectoryLoginTests {
         activeDirectory().clickOnLoginButton();
         activeDirectory().checkWrongUserDataAlertVisible();
 
-        main().interactAuthoredHeader().checkIsNotAuth();
-    }
-
-    @CaseId(34)
-    @Story("Успешная авторизация через Active Directory")
-    @Test(description = "Успешная аутентификация через Active Directory в админке STF", groups = {"regression", "admin-keycloak"})
-    public void noAuthWrongPasswordViaActiveDirectory() {
-        UserData activeDirectoryUser = UserManager.getActiveDirectoryUser();
-
-        login().goToPage();
-        login().clickOnLoginViaActiveDirectory();
-
         activeDirectory().fillMail(activeDirectoryUser.getEmail());
         activeDirectory().fillPassword("wrong");
         activeDirectory().clickOnLoginButton();
         activeDirectory().checkWrongUserDataAlertVisible();
-
-        main().interactAuthoredHeader().checkIsNotAuth();
     }
 }

@@ -1,9 +1,9 @@
-package ru.instamart.reforged.active_directory.login_page;
+package ru.instamart.reforged.admin.page.active_directory.login_page;
 
 import io.qameta.allure.Step;
-import ru.instamart.reforged.active_directory.ActiveDirectoryPage;
+import ru.instamart.reforged.core.page.Page;
 
-public class ActiveDirectoryLoginPage implements ActiveDirectoryPage, ActiveDirectoryLoginPageCheck {
+public class ActiveDirectoryLoginPage implements Page, ActiveDirectoryLoginPageCheck {
 
     @Step("Заполнить почту {0}")
     public void fillMail(final String data) {

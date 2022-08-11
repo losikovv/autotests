@@ -1,4 +1,4 @@
-package ru.instamart.reforged.active_directory.login_page;
+package ru.instamart.reforged.admin.page.active_directory.login_page;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;

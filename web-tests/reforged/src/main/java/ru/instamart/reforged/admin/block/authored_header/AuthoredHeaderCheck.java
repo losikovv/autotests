@@ -1,6 +1,7 @@
 package ru.instamart.reforged.admin.block.authored_header;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
@@ -16,6 +17,11 @@ public interface AuthoredHeaderCheck extends Check, AuthoredHeaderElement {
     @Step("Пользователь авторизовался")
     default void checkAdminAuth() {
         waitAction().shouldBeVisible(adminName);
+    }
+
+    @Step("Пользователь авторизовался")
+    default void checkUserName(final String userName) {
+        Assert.assertEquals(adminName.getText(), userName, "Имя пользователя: " + adminName.getText() + " не соответствует ожидаемому: " + userName);
     }
 
     @Step("Проверяем, что отображается adminAvatar")

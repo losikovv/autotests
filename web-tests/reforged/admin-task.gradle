@@ -32,6 +32,6 @@ task adminKeycloak(type: Test) {
         suites 'src/test/resources/suite/submodule/admin-keycloak.xml'
         includeGroups 'admin-keycloak'
     }
-    systemProperty 'qase.Project', 'CA'
+    systemProperty 'qase.Project', 'CS'
     systemProperty 'qase.Title', 'STF admin keycloak tests'
 }

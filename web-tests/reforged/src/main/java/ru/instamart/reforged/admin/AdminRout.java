@@ -1,5 +1,6 @@
 package ru.instamart.reforged.admin;
 
+import ru.instamart.reforged.admin.page.active_directory.login_page.ActiveDirectoryLoginPage;
 import ru.instamart.reforged.admin.page.companies.CompaniesPage;
 import ru.instamart.reforged.admin.page.companies.company.CompanyPage;
 import ru.instamart.reforged.admin.page.companies.new_companies.NewCompaniesPage;
@@ -38,6 +39,10 @@ public final class AdminRout extends Router {
 
     public static LoginPage login() {
         return (LoginPage) getPage(LoginPage.class);
+    }
+
+    public static ActiveDirectoryLoginPage activeDirectory() {
+        return (ActiveDirectoryLoginPage) getPage(ActiveDirectoryLoginPage.class);
     }
 
     public static Pages pages() {

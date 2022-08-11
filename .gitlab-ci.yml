@@ -170,21 +170,6 @@ stages:
     expire_in: 1 week
   allow_failure: false
 
-.template_ui_keycloak_tests:
-    resource_group: ui:$CI_COMMIT_REF_SLUG
-    stage: tests-ui
-    tags:
-      - k8s-stage
-    artifacts:
-      when: always
-      paths:
-        - web-tests/reforged/build/allure-results/
-        - web-tests/reforged/logs/
-        - web-tests/reforged/build/reports/tests/
-      expire_in: 1 week
-    allow_failure: false
-
-
 java_gradle:build:
   extends: ".template_only_branches"
   stage: build
