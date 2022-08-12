@@ -2,22 +2,20 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import org.testng.asserts.SoftAssert;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.v2.AvailableProviderV2;
-import ru.instamart.api.response.v2.AuthParamsSberbankV2Response;
-import ru.instamart.api.response.v2.AuthParamsV2Response;
-import ru.instamart.api.response.v2.AvailableProvidersForAttachV2Response;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
+import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.AuthProviderV2;
+import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.v2.AvailableProviderV2;
 import ru.instamart.api.request.v2.AuthProvidersV2Request;
+import ru.instamart.api.response.v2.AvailableProvidersForAttachV2Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.UUID;
 
@@ -44,7 +42,7 @@ public final class AuthProviderV2Test extends RestBase {
     }
 
     @CaseId(168)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Авторизуемся через стороннего провайдера")
     public void postAuthProviderSessions200() {
         final Response response = AuthProvidersV2Request.Sessions.POST(AuthProviderV2.FACEBOOK);
@@ -53,7 +51,7 @@ public final class AuthProviderV2Test extends RestBase {
     }
 
     @CaseId(827)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Получение списка провайдеров для пользователя")
     public void getProvidersList() {
         SessionFactory.makeSession(SessionType.API_V2);
@@ -68,7 +66,7 @@ public final class AuthProviderV2Test extends RestBase {
     }
 
     @CaseId(1476)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Получение списка провайдеров для пользователя без авторизации")
     public void getProvidersListWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V2);
@@ -80,7 +78,7 @@ public final class AuthProviderV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(790), @CaseId(1481), @CaseId(1482), @CaseId(1483)})
     @Test(dataProvider = "authProvidersWithParams",
             dataProviderClass = RestDataProvider.class,
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Получаем параметры для авторизации через стороннего провайдера")
     public void getAuthParams(AuthProviderV2 provider, Class clazz) {
         final Response response = AuthProvidersV2Request.AuthParams.POST(provider.getId());

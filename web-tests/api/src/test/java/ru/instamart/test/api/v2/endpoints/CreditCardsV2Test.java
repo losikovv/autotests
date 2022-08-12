@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.Assert;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.CryptCard;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -41,11 +42,11 @@ public class CreditCardsV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
     }
 
+    @Skip
     @Issue("STF-6633")
     @CaseId(500)
     @Story("Добавить новую карту")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавить новую карту с указанием обязательных параметров")
     public void addANewCardWithRequiredParameters() {
         String card = CreditCardsV2.CARD2.getNumber();
@@ -72,11 +73,11 @@ public class CreditCardsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip
     @Issue("STF-6633")
     @CaseId(501)
     @Story("Добавить новую карту")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавить новую карту с дополнительным полем title")
     public void addANewCardWithAnAdditionalTitleField() {
         String card = CreditCardsV2.CARD1.getNumber();
@@ -101,11 +102,11 @@ public class CreditCardsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip
     @Issue("STF-6633")
     @CaseId(502)
     @Story("Добавить новую карту")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавить новую карту с дополнительным полем title")
     public void addNewCard() {
         String card = CreditCardsV2.CARD1.getNumber();
@@ -127,7 +128,7 @@ public class CreditCardsV2Test extends RestBase {
 
     @CaseId(495)
     @Story("Получение списка всех банковских карт")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "У пользователя нет добавленных карт")
     public void testNoCreditCards() {
         final Response response = CreditCardsV2Request.GET();
@@ -136,11 +137,11 @@ public class CreditCardsV2Test extends RestBase {
         Assert.assertTrue(creditCardsV2Response.getCreditCards().isEmpty(), "credit_cards вернулся не пустым");
     }
 
+    @Skip
     @Issue("STF-6633")
     @CaseId(496)
     @Story("Получение списка всех банковских карт")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "У пользователя одна добавленная карта",
             dependsOnMethods = "addANewCardWithRequiredParameters")
     public void testOneCreditCards() {
@@ -151,11 +152,11 @@ public class CreditCardsV2Test extends RestBase {
         softAssert.assertEquals(creditCardsV2Response.getCreditCards().size(), 1, "credit_cards вернулся пустым или несколько");
     }
 
+    @Skip
     @Issue("STF-6633")
     @CaseId(497)
     @Story("Получение списка всех банковских карт")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "У пользователя несколько добавленных карт",
             dependsOnMethods = "addNewCard")
     public void testSomeCreditCards() {
@@ -168,7 +169,7 @@ public class CreditCardsV2Test extends RestBase {
 
     @CaseId(506)
     @Story("Получение списка всех банковских карт")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Удаление карты по не существующим ID"
     )
     public void failedTestDeleteCreditCards() {
@@ -177,11 +178,11 @@ public class CreditCardsV2Test extends RestBase {
         checkError(response, "Кредитная карта не существует");
     }
 
+    @Skip
     @Issue("STF-6633")
     @CaseId(505)
     @Story("Получение списка всех банковских карт")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Удаление карты по существующему ID",
             dependsOnMethods = "addNewCard")
     public void testDeleteCreditCards() {

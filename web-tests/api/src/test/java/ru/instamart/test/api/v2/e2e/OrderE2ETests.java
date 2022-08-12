@@ -9,8 +9,6 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.enums.Server;
-import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 @Epic("ApiV2")
@@ -29,10 +27,10 @@ public class OrderE2ETests extends RestBase {
         //apiV2.cancelCurrentOrder(); //todo починить 404
     }
 
-    @Skip(onServer = Server.STAGING) //todo починить на стейдже GET /v2/shipments/null/shipping_rates
+    //@Skip(onServer = Server.STAGING) //todo починить на стейдже GET /v2/shipments/null/shipping_rates
     @CaseId(101)
     @Test(description = "Тест оформления заказа",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"})
     public void order() {
         apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
     }

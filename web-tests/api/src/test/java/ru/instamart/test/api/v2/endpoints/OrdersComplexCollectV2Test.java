@@ -48,7 +48,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
 
     @CaseId(306)
     @Story("История заказов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Получение истории заказов (1-ая страница)")
     public void getPreviousOrder200() {
         final Response response = OrdersV2Request.GET(1);
@@ -66,7 +66,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
 
     @CaseId(1406)
     @Story("История заказов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Получение информации о предыдущем заказе")
     public void getPreviousOrder() {
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -79,7 +79,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
 
     @CaseId(307)
     @Story("История заказов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Получение информации о предыдущем заказе. Нет предыдущих заказов",
             dependsOnMethods = {"getPreviousOrder", "getPreviousOrder200"})
     public void getPreviousNonExistentOrder() {

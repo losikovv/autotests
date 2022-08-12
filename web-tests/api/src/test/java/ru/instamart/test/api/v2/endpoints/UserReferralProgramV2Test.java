@@ -28,7 +28,7 @@ public class UserReferralProgramV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(551), @CaseId(552)})
     @Story("Реферальная программа пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Существующий пользователь",
             dataProvider = "userDataForReferralProgram",
             dataProviderClass = RestDataProvider.class)
@@ -44,7 +44,7 @@ public class UserReferralProgramV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(553), @CaseId(554)})
     @Story("Реферальная программа пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Несуществующий пользователь",
             dataProvider = "invalidUserDataForReferralProgram",
             dataProviderClass = RestDataProvider.class)

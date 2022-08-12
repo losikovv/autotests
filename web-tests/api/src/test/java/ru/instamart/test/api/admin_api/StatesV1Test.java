@@ -16,6 +16,7 @@ import ru.instamart.api.response.v1.admin.StatesV1Response;
 import ru.instamart.jdbc.dao.stf.SpreeStatesDao;
 import ru.instamart.jdbc.entity.stf.SpreeStatesEntity;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
@@ -129,11 +130,11 @@ public class StatesV1Test extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
+    @Skip //todo починить 403 (похоже не хватает какой-то роли админу)
     @CaseId(2072)
     @Test(groups = {"api-instamart-regress"},
             description = "Удаление региона",
-            dependsOnMethods = "getState",
-            enabled = false) //todo починить 403 (похоже не хватает какой-то роли админу)
+            dependsOnMethods = "getState")
     public void deleteState() {
         final Response response = StatesAdminV1Request.DELETE(1L, stateId);
         checkStatusCode(response, 204);

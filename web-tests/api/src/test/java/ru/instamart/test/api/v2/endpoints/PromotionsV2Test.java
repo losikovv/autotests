@@ -29,7 +29,8 @@ public class PromotionsV2Test extends RestBase {
     @Skip(onServer = Server.PRODUCTION) // DMND-1222
     @CaseId(824)
     @Story("Реферальная программа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Общие сведения о реферальной программе")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+            description = "Общие сведения о реферальной программе")
     public void getReferralProgram() {
         final Response response = PromotionsV2Request.ReferralProgram.GET();
         checkStatusCode200(response);
@@ -38,7 +39,8 @@ public class PromotionsV2Test extends RestBase {
 
     @CaseId(292)
     @Story("Список продуктов для активации промо")
-    @Test(groups = {"api-instamart-smoke"}, description = "Существующий productId и существующий id магазина")
+    @Test(groups = {"api-instamart-smoke", "api-v2"},
+            description = "Существующий productId и существующий id магазина")
     public void testGetListOfProductWithValidProductId() {
         final Response response = PromotionsV2Request.PromoProducts.GET(2707, EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
@@ -48,7 +50,8 @@ public class PromotionsV2Test extends RestBase {
 
     @CaseId(293)
     @Story("Список продуктов для активации промо")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий productId")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+            description = "Несуществующий productId")
     public void testGetListOfProductWithInvalidProductId() {
         final Response response = PromotionsV2Request.PromoProducts.GET(1, EnvironmentProperties.DEFAULT_SID);
         checkStatusCode404(response);
@@ -56,7 +59,8 @@ public class PromotionsV2Test extends RestBase {
 
     @CaseId(295)
     @Story("Список продуктов для активации промо")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий sid")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+            description = "Несуществующий sid")
     public void testGetListOfProductWithInvalidSid() {
         final Response response = PromotionsV2Request.PromoProducts.GET(2707, 0);
         checkStatusCode404(response);
@@ -64,7 +68,8 @@ public class PromotionsV2Test extends RestBase {
 
     @CaseId(1484)
     @Story("Бесплатная доставка")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получение информации о бесплатной доставке")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+            description = "Получение информации о бесплатной доставке")
     public void getFreeDelivery() {
         SessionFactory.makeSession(SessionType.API_V2);
         final Response response = PromotionsV2Request.FreeDelivery.GET();

@@ -3,10 +3,6 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.instamart.kraken.enums.Server;
-import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -19,12 +15,15 @@ import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.ZoneV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
-import ru.instamart.api.response.v2.OrderV2Response;
 import ru.instamart.api.response.v2.TransferMethodAnalyzeV2Response;
 import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.jdbc.dao.stf.SpreeProductsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -38,17 +37,17 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
     private UserData userData;
     private String currentOrderNumber;
 
-    @BeforeClass(alwaysRun = true, description = "Авторизация")
+    @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-        currentOrderNumber = apiV2.getOpenOrder().getNumber();
+        currentOrderNumber = apiV2.createOrder().getNumber();
     }
 
     @CaseIDs(value = {@CaseId(994), @CaseId(995), @CaseId(996), @CaseId(997), @CaseId(998)})
     @Story("Трансфер доставка-доставка")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
             dataProvider = "storesDataForTransferMethodOnlyCourier",
             dataProviderClass = RestDataProvider.class)
@@ -65,7 +64,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1048), @CaseId(1050)})
     @Story("Трансфер доставка-самовывоз")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
             dataProvider = "negativeStoresForPickupTransferMethodOnlyCourier",
             dataProviderClass = RestDataProvider.class)
@@ -80,7 +79,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1049), @CaseId(1051), @CaseId(1052)})
     @Story("Трансфер доставка-самовывоз")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
             dataProvider = "storesDataForPickupTransferMethodOnlyCourier",
             dataProviderClass = RestDataProvider.class)
@@ -95,7 +94,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseId(1167)
     @Story("Трансфер доставка-доставка")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери c отсуствующим обязательным параметром")
     public void analyzeTransferWoRequiredParams() {
         final Response response = OrdersV2Request.TransferMethod.Analyze.GET(OrdersV2Request.TransferMethodParams.builder()
@@ -107,7 +106,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseId(1168)
     @Story("Трансфер доставка-самовывоз")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери c отсуствующим обязательным параметром",
             priority = 1)
     public void analyzePickupTransferWoRequiredParams() {
@@ -118,13 +117,13 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
         checkError(response, "Недопустимые параметры запроса: pickup_store_id Для способа доставки самовывоз, требуется указать pickup_store_id");
 
         apiV2.dropCart(userData, apiV2.getAddressBySid(1));
-        currentOrderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
+        currentOrderNumber = apiV2.createOrder().getNumber();
         apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentOnMainPage(1).get(0).getId(), 1);
     }
 
     @CaseIDs(value = {@CaseId(959), @CaseId(960), @CaseId(991), @CaseId(992), @CaseId(993)})
     @Story("Трансфер доставка-доставка")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
             priority = 2,
             dataProvider = "storesDataForTransferMethodAllShipping",
@@ -144,7 +143,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(1042), @CaseId(1043), @CaseId(1045), @CaseId(1046)})
     @Skip(onServer = Server.STAGING)
     @Story("Трансфер доставка-самовывоз")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
             priority = 3,
             dataProvider = "storesDataForPickupTransferMethodAll",
@@ -160,7 +159,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseId(1044)
     @Story("Трансфер доставка-самовывоз")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
             priority = 3)
     public void analyzeNegativePickupTransferForStoreWithAll() {
@@ -174,7 +173,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseId(1001)
     @Story("Трансфер доставка-доставка")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для несуществующей зоны",
             priority = 3)
     public void analyzeTransferForNotExistingZone() {
@@ -189,7 +188,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1053), @CaseId(1055), @CaseId(1056), @CaseId(1057), @CaseId(1058)})
     @Story("Трансфер самовывоз-доставка")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
             priority = 4,
             dataProvider = "storesDataForTransferMethodAllShipping",
@@ -210,7 +209,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(1065), @CaseId(1066), @CaseId(1068), @CaseId(1069)})
     @Skip(onServer = Server.STAGING)
     @Story("Трансфер самовывоз-самовывоз")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
             priority = 5,
             dataProvider = "storesDataForPickupTransferMethodAll",
@@ -226,7 +225,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseId(1067)
     @Story("Трансфер самовывоз-самовывоз")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
             priority = 5)
     public void analyzeNegativePickupsTransferForStoreWithAll() {
@@ -240,12 +239,12 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseId(1000)
     @Story("Трансфер доставка-доставка")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для пустой корзины",
             priority = 6)
     public void analyzeTransferForEmptyCart() {
         apiV2.dropCart(userData, apiV2.getAddressBySid(22));
-        currentOrderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
+        currentOrderNumber = apiV2.createOrder().getNumber();
         ZoneV2 zone = apiV2.getCoordinates(EnvironmentProperties.DEFAULT_SID);
 
         final Response response = OrdersV2Request.TransferMethod.Analyze.GET(OrdersV2Request.TransferMethodParams.builder()
@@ -262,7 +261,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1059), @CaseId(1060), @CaseId(1061), @CaseId(1062), @CaseId(1063)})
     @Story("Трансфер самовывоз-доставка")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступен только самовывоз",
             priority = 7,
             dataProvider = "storesDataForCourierTransferMethod",
@@ -282,7 +281,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(1070), @CaseId(1074), @CaseId(1071), @CaseId(1073)})
     @Skip(onServer = Server.STAGING)
     @Story("Трансфер самовывоз-самовывоз")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступен только самовывоз",
             priority = 7,
             dataProvider = "storesDataForPickupTransferMethod",
@@ -298,7 +297,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseId(1067)
     @Story("Трансфер самовывоз-самовывоз")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
             priority = 7)
     public void analyzeNegativePickupsTransferForStoreWithPickup() {
@@ -312,12 +311,12 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseId(1075)
     @Story("Трансфер самовывоз-самовывоз")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для пустой корзины",
             priority = 8)
     public void analyzePickupsTransferForEmptyCart() {
         apiV2.dropCart(userData, apiV2.getAddressBySid(1));
-        currentOrderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
+        currentOrderNumber = apiV2.createOrder().getNumber();
 
         final Response response = OrdersV2Request.TransferMethod.Analyze.GET(OrdersV2Request.TransferMethodParams.builder()
                 .shippingMethod(ShippingMethodV2.PICKUP.getMethod())
@@ -332,7 +331,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1080), @CaseId(1081), @CaseId(1082)})
     @Story("Трансфер доставка, алкоголь")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина c разными способами доставки",
             priority = 9,
             dataProvider = "storesDataForCourierAlcoholTransferMethod",
@@ -350,7 +349,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseId(1083)
     @Story("Трансфер доставка, алкоголь")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для несуществующего адреса",
             priority = 9)
     public void analyzeCourierTransferForAlcoholWoStore() {
@@ -365,7 +364,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1077), @CaseId(1078), @CaseId(1079)})
     @Story("Трансфер самовывоз, алкоголь")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина c разными способами доставки",
             priority = 9,
             dataProvider = "storesDataForPickupAlcoholTransferMethod",
@@ -381,7 +380,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseId(1076)
     @Story("Трансфер самовывоз, алкоголь")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина без самовывоза",
             priority = 9)
     public void analyzePickupTransferForAlcoholWoPickup() {
@@ -395,12 +394,12 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseId(1084)
     @Story("Мультиритейлерная корзина")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери при смене ритейлера на одного из списка",
             priority = 10)
     public void analyzePickupTransferForMultiRetailers() {
         apiV2.dropCart(userData, apiV2.getAddressBySid(1));
-        currentOrderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
+        currentOrderNumber = apiV2.createOrder().getNumber();
         SpreeOrdersDao.INSTANCE.updateShippingKind(currentOrderNumber, ShippingMethodV2.BY_COURIER.getMethod());
         apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentOnMainPage(1).get(0).getId(), 1);
         apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentOnMainPage(72).get(0).getId(), 1);
@@ -414,7 +413,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseId(1085)
     @Story("Мультиритейлерная корзина")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери при смене ритейлера на стороннего",
             priority = 11)
     public void analyzeCourierTransferForMultiRetailers() {

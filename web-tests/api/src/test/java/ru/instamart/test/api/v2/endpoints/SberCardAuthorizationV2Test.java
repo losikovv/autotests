@@ -3,11 +3,9 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.testng.annotations.BeforeClass;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
@@ -15,8 +13,11 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.PaymentsV2Request;
 import ru.instamart.api.response.v2.CreditCardAuthorizationV2Response;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
@@ -32,7 +33,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(509), @CaseId(510)})
     @Story("Начало авторизации")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Получение номера транзакции для заказа",
             dataProvider = "orderNumbers",
             dataProviderClass = RestDataProvider.class)
@@ -46,7 +47,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(512), @CaseId(1033)})
     @Story("Продолжение авторизации")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Продолжение авторизации с невалидными данными",
             dataProvider = "transactionNumbers",
             dataProviderClass = RestDataProvider.class)
@@ -58,7 +59,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     @CaseId(513)
     @Story("Продолжение авторизации")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Продолжение авторизации с невалидным токеном авторизации",
             dependsOnMethods = "getTransactionNumber")
     public void authorizeCardWithInvalidToken() {
@@ -70,13 +71,13 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(515), @CaseId(1041)})
     @Story("Финальный шаг авторизации карты")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Завершение авторизации карты с невалидными данными",
             dataProvider = "invalidTransactionData",
             dataProviderClass = RestDataProvider.class)
     public void finishCardAuthorizationWithoutCard(String transactionNumber, String orderNumber, String userUuid, String errorMessage) {
         final Response response = PaymentsV2Request.GET(transactionNumber, orderNumber, userUuid);
-        checkStatusCode404(response);
+        checkStatusCode(response, 404, ContentType.JSON);
         checkError(response, errorMessage);
     }
 }

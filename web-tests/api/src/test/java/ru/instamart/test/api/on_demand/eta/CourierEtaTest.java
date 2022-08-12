@@ -21,6 +21,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -46,17 +47,17 @@ public class CourierEtaTest extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
         userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_ON_DEMAND_SID);
-        order = apiV2.getOpenOrder();
+        order = apiV2.createOrder();
         storeUuid = StoresDao.INSTANCE.findById(EnvironmentProperties.DEFAULT_ON_DEMAND_SID).get().getUuid();
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
         admin.auth();
         shopperApp.authorisation(UserManager.getKrakenUniversal());
     }
 
+    @Skip
     @CaseIDs(value = {@CaseId(105), @CaseId(123)})
     @Story("Courier ETA")
-    @Test(enabled = false,
-            description = "Отправка запроса с валидными данными",
+    @Test(description = "Отправка запроса с валидными данными",
             groups = "dispatch-eta-smoke")
     public void getCourierEta() {
         shopperApp.sendCurrentLocator(StartPointsTenants.ETA.getLat(), StartPointsTenants.ETA.getLon(), 81.68728);
@@ -100,10 +101,10 @@ public class CourierEtaTest extends RestBase {
         var response = clientEta.getCourierEta(request);
     }
 
+    @Skip
     @CaseId(216)
     @Story("Courier ETA")
-    @Test(enabled = false,
-            description = "Получение установленного минимального времени расчета",
+    @Test(description = "Получение установленного минимального времени расчета",
             groups = "dispatch-eta-smoke")
     public void getMinCourierEta() {
         shopperApp.sendCurrentLocator(StartPointsTenants.ETA.getLat(), StartPointsTenants.ETA.getLon(), 81.68728);

@@ -39,7 +39,7 @@ public final class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(282)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
             description = "Упрощенный запрос нативной рекламы с обязательными параметрами")
     public void simpleAdsTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -124,7 +124,7 @@ public final class SimpleAdsV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(284), @CaseId(1087), @CaseId(1088), @CaseId(1089)})
     @JsonDataProvider(path = "data/json_v2/api_v2_blank_simple_ads_data.json", type = RestDataProvider.SimpleAdsV2TestDataRoot.class)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
             description = "Упрощенный запрос нативной рекламы с отсуствующими параметрами")
@@ -139,7 +139,7 @@ public final class SimpleAdsV2Test extends RestBase {
     @Skip(onServer = Server.PRODUCTION)
     @CaseIDs(value = {@CaseId(283), @CaseId(1090)})
     @JsonDataProvider(path = "data/json_v2/api_v2_invalid_simple_ads_data.json", type = RestDataProvider.SimpleAdsV2TestDataRoot.class)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
             description = "Упрощенный запрос нативной рекламы с невалидными параметрами")
@@ -151,7 +151,7 @@ public final class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(285)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
             description = "Запрос проверки существующего изображения")
     public void simpleAdsGetExistingImageTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -190,9 +190,8 @@ public final class SimpleAdsV2Test extends RestBase {
         checkContentTypeImage(responseImage);
     }
 
-
     @CaseId(286)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Запрос проверки не существующего изображения")
     public void simpleAdsGetNotExistingImageTest() {
         String imagePath = "imageNotFound";

@@ -11,6 +11,7 @@ import ru.instamart.api.request.v3.CategoriesV3Request;
 import ru.instamart.api.response.v3.CategoriesV3Response;
 import ru.instamart.api.response.v3.CategoryV3Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -30,10 +31,10 @@ public class CategoriesV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
+    @Skip //todo разобраться почему в метро обучение на проде возвращается пустой массов
     @CaseId(2315)
     @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
-            description = "Получение дерева категорий",
-            enabled = false) //todo разобраться почему в метро обучение на проде возвращается пустой массов
+            description = "Получение дерева категорий")
     public void getCategories()  {
         Response response = CategoriesV3Request.GET(sid);
         checkStatusCode200(response);
@@ -41,11 +42,11 @@ public class CategoriesV3Test extends RestBase {
         category = response.as(CategoriesV3Response.class).getCategories().get(0);
     }
 
+    @Skip //todo разобраться почему в метро обучение на проде возвращается пустой массов
     @CaseId(2316)
     @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Получение поддерева категорий по id категории",
-            dependsOnMethods = "getCategories",
-            enabled = false) //todo разобраться почему в метро обучение на проде возвращается пустой массов
+            dependsOnMethods = "getCategories")
     public void getCategory()  {
         Response response = CategoriesV3Request.GET(sid, category.getId());
         checkStatusCode200(response);

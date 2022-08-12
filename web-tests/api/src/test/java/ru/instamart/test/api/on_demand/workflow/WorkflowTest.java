@@ -30,6 +30,7 @@ import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
 import ru.instamart.jdbc.entity.workflow.SegmentsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.common.Mapper;
 import ru.sbermarket.qase.annotation.CaseIDs;
@@ -236,11 +237,11 @@ public class WorkflowTest extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip
     @CaseId(120)
     @Test(description = "Создание отложенного назначения отдельно от родительского",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "createWorkflowWithDifferentStores",
-            enabled = false)
+            dependsOnMethods = "createWorkflowWithDifferentStores")
     public void createWorkflowWithNotAvailableParentWorkflow() {
         var request = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, order, shipmentUuid, workflowUuid);
 
@@ -585,11 +586,11 @@ public class WorkflowTest extends RestBase {
         cancelWorkflow(clientWorkflow, secondShipmentUuid);
     }
 
+    @Skip
     @CaseId(97)
     @Test(description = "Отмена заказа для назначения в статусе offered",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "startQueuedWorkflowAfterCancellingPrevious",
-            enabled = false)
+            dependsOnMethods = "startQueuedWorkflowAfterCancellingPrevious")
     public void cancelOrderWithOfferedWorkflow() {
         String workflowUuid = getWorkflowUuid(secondOrder, secondShipmentUuid, getDateMinusSec(30), clientWorkflow);
 
@@ -601,11 +602,11 @@ public class WorkflowTest extends RestBase {
         checkStatuses(assignments, workflows, CANCELED);
     }
 
+    @Skip
     @CaseId(98)
     @Test(description = "Отмена заказа для назначения в статусе in progress",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "cancelOrderWithOfferedWorkflow",
-            enabled = false)
+            dependsOnMethods = "cancelOrderWithOfferedWorkflow")
     public void cancelOrderWithWorkflow() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
         AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
@@ -619,11 +620,11 @@ public class WorkflowTest extends RestBase {
         checkStatuses(assignments, workflows, ACCEPTED);
     }
 
+    @Skip
     @CaseId(98)
     @Test(description = "Отмена заказа для назначения в статусе queued",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "cancelOrderWithWorkflow",
-            enabled = false)
+            dependsOnMethods = "cancelOrderWithWorkflow")
     public void cancelOrderWithQueuedWorkflow() {
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -647,11 +648,11 @@ public class WorkflowTest extends RestBase {
         cancelWorkflow(clientWorkflow, shipmentUuid);
     }
 
+    @Skip
     @CaseId(97)
     @Test(description = "Отмена заказа для назначения в статусе seen",
             groups = "dispatch-workflow-smoke",
-            dependsOnMethods = "cancelOrderWithQueuedWorkflow",
-            enabled = false)
+            dependsOnMethods = "cancelOrderWithQueuedWorkflow")
     public void cancelOrderWithSeenWorkflow() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(700000), clientWorkflow);
         AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);

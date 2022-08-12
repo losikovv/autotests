@@ -5,6 +5,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.config.RedirectConfig;
 import io.restassured.config.RestAssuredConfig;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.specification.RequestSpecification;
@@ -86,6 +87,7 @@ public enum Specification {
                 .addFilter(new SwaggerCoverageV3RestAssured())
                 .addFilter(new CounterFilter())
                 .build();
+
         prodAdminRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(prodAdminUrl)
                 .setBasePath("api/")
@@ -103,12 +105,13 @@ public enum Specification {
 
         apiV2RequestSpec = new RequestSpecBuilder()
                 .setBaseUri(apiV2FullUrl)
-                .setBasePath("api/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new SwaggerCoverageV3RestAssured())
                 .addFilter(new CounterFilter())
                 .build();
+        //todo убрать после того как на проде можно будет обойтись без "api/v2"
+        apiV2RequestSpec.basePath(EnvironmentProperties.BASIC_URL.contains("m.k-stage") ? "" : "api/v2/");
 
         prodRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(prodFullUrl)
@@ -199,7 +202,6 @@ public enum Specification {
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
-
     }
 
     static public void setResponseSpecDataProvider() {

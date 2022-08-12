@@ -24,6 +24,7 @@ import ru.instamart.api.response.v2.*;
 import ru.instamart.jdbc.dao.stf.UserIdDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
@@ -43,16 +44,16 @@ public class OrdersV2Test extends RestBase {
 
     private String promoCode;
 
-    @BeforeClass(alwaysRun = true, description = "Авторизация")
+    @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
-        OrdersV2Request.POST();
+        apiV2.createOrder();
         promoCode = getPromotionCode();
     }
 
     @CaseId(1419)
     @Story("Получение заказов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Получаем заказы")
     public void getOrders() {
         final Response response = OrdersV2Request.GET();
@@ -89,7 +90,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(313) //TODO:добавить caseId 838 после выполнения задачи ATST-847
     @Story("Применение промокода")
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke", "api-v2"},
             description = "Существующий id")
     public void orderWithPromoCode() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -102,7 +103,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(314)
     @Story("Применение промокода")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Несуществующий номер заказа")
     public void orderWithPromoCodeAndInvalidOrderNumber() {
         final Response response = OrdersV2Request.Promotions.POST("failedOrder", promoCode);
@@ -111,7 +112,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(840)
     @Story("Применение промокода")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Несуществующий промокод")
     public void orderWithInvalidPromoCode() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -122,7 +123,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(839)
     @Story("Применение промокода")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Истекший промокод")
     public void orderWithExpiredPromoCode() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -132,7 +133,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(1111)
     @Story("Применение промокода")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Заказ с пустой корзиной")
     public void orderWithPromoCodeAndEmptyCart() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
@@ -143,7 +144,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(315)
     @Story("Удаление промокода")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Существующий id")
     public void deletePromoCodeForOrder() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -162,7 +163,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(316)
     @Story("Удаление промокода")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Несуществующий id заказа")
     public void deletePromoCodeForInvalidOrder() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -179,7 +180,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(318)
     @Story("Удаление промокода")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Несуществующий promoCode")
     public void deleteInvalidPromoCode() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -296,7 +297,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(331)
     @Story("Добавление позиции к заказу")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
             description = "Добавление позиции к заказу с обязательными полями")
     public void setLineItems200() {
         List<ProductV2> products = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID);
@@ -311,7 +312,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(332)
     @Story("Добавление позиции к заказу")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             dataProvider = "ordersLineItems",
             dataProviderClass = RestDataProvider.class,
             description = "Добавление позиции к заказу с невалидными данными")
@@ -323,7 +324,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(333)
     @Story("Редактирование позиции заказа")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
             description = "Редактирование позиции заказа с существующим id")
     public void changeLineItems200() {
         List<LineItemV2> cart = apiV2.dropAndFillCart(
@@ -344,7 +345,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(334)
     @Story("Редактирование позиции заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             dataProvider = "changeLineItems",
             dataProviderClass = RestDataProvider.class,
             description = "Редактирование позиции заказа с несуществующим id")
@@ -356,7 +357,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(335)
     @Story("Удаление позиции заказа")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
             description = "Успешное удаление позиции заказа")
     public void deleteLineItems200() {
         Integer productId = apiV2.dropAndFillCart(
@@ -371,7 +372,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(336)
     @Story("Удаление позиции заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Удаление несуществующей позиции заказа")
     public void deleteLineItems404() {
         final Response response = LineItemsV2Request.DELETE(0);
@@ -381,7 +382,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(337)
     @Story("Заполнение информации о заказе")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
             description = "Заполнение информации о заказе с существующим id")
     public void fillingInOrderInformation200() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -405,7 +406,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(338)
     @Story("Заполнение информации о заказе")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             dataProvider = "fillingInOrderInformationDp",
             dataProviderClass = RestDataProvider.class,
             description = "Заполнение информации о заказе с несуществующим id")
@@ -427,7 +428,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(341)
     @Story("Отмена заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Отмена заказа с существующим номером заказа")
     public void cancellationsOrders200() {
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(),
@@ -446,7 +447,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(342)
     @Story("Отмена заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Отмена заказа с несуществующим номером заказа")
     public void cancellationsOrders404() {
         final Response response = OrdersV2Request.Cancellations.POST("failedOrderNumber", "test");
@@ -457,7 +458,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(343)
     @Story("Завершение заказа")
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke", "api-v2"},
             description = "Завершение заказа с существующим id")
     public void orderCompletion200() {
         String orderNumber = apiV2.getCurrentOrderNumber();
@@ -491,7 +492,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(344)
     @Story("Завершение заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Завершение заказа с несуществующим id")
     public void orderCompletion404() {
         final Response response = OrdersV2Request.Completion.POST("failedOrderNumber");
@@ -533,7 +534,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(347)
     @Story("Очистка подзаказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Очистка подзаказа с существующим id")
     public void clearShipments200() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -558,7 +559,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(348)
     @Story("Очистка подзаказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Очистка подзаказа с несуществующим id")
     public void clearShipments404() {
         response = ShipmentsV2Request.DELETE("failedNumber");
@@ -568,7 +569,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(812)
     @Story("Создание нового заказа")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
             description = "Создание нового заказа")
     public void createNewOrder() {
         SessionFactory.clearSession(SessionType.API_V2);
@@ -582,12 +583,12 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(300)
     @Story("Получение данных о заказе")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
             description = "Получение данных о заказе по номеру")
     public void getOrderByNumber() {
         SessionFactory.clearSession(SessionType.API_V2);
         SessionFactory.makeSession(SessionType.API_V2);
-        OrderV2 order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
+        OrderV2 order = apiV2.createOrder();
         final Response response = OrdersV2Request.GET(order.getNumber());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, OrderV2Response.class);
@@ -597,7 +598,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(301)
     @Story("Получение данных о заказе")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Получение данных о заказе по несуществующему номеру")
     public void getOrderByNonExistingNumber() {
         final Response response = OrdersV2Request.GET("failedNumber");
@@ -607,7 +608,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(303)
     @Story("Получение текущего заказа")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
             description = "Получение текущего заказа пользователем, у которого есть заказ")
     public void getCurrentOrder() {
         final Response response = OrdersV2Request.Current.GET();
@@ -617,7 +618,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(302)
     @Story("Получение текущего заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Получение текущего заказа пользователем, у которого нет заказа")
     public void getNonExistingCurrentOrder() {
         SessionFactory.clearSession(SessionType.API_V2);
@@ -629,13 +630,11 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(304)
     @Story("Мердж заказа без авторизации с текущим заказом пользователя")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Мердж существующего заказа без авторизации с текущим заказом пользователя")
     public void mergeCurrentOrderWithUnauthorizedOrder() {
         SessionFactory.clearSession(SessionType.API_V2);
-        final Response responseForUnauthorizedOrder = OrdersV2Request.POST();
-        checkStatusCode200(responseForUnauthorizedOrder);
-        OrderV2 unauthorizedOrder = responseForUnauthorizedOrder.as(OrderV2Response.class).getOrder();
+        OrderV2 unauthorizedOrder = apiV2.createOrder();
         SessionFactory.makeSession(SessionType.API_V2);
 
         final Response responseForCurrentOrder = OrdersV2Request.Current.PUT(unauthorizedOrder.getUuid());
@@ -647,7 +646,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(305)
     @Story("Мердж заказа без авторизации с текущим заказом пользователя")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Мердж несуществующего заказа без авторизации с текущим заказом пользователя")
     public void mergeCurrentOrderWithNonExistingOrder() {
         final Response response = OrdersV2Request.Current.PUT("failedUuid");
@@ -657,7 +656,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(305)
     @Story("Мердж заказа без авторизации с текущим заказом пользователя")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Мердж несуществующего заказа без авторизации с текущим заказом пользователя")
     public void mergeCurrentOrderWithNullOrder() {
         final Response response = OrdersV2Request.Current.PUT("");
@@ -665,10 +664,11 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Заказ не существует");
     }
 
+    @Deprecated //Оплата инстакоинами выпилена
+    @Skip
     @CaseId(816)
     @Story("Применение бонуса")
-    @Test(enabled = false, //Оплата инстакоинами выпилина
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Использование бонусов для оплаты. Заказ нельзя оплатить бонусами")
     public void checkOrderPayInstacoin() {
         SessionFactory.clearSession(SessionType.API_V2);
@@ -683,10 +683,11 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Этот заказ можно оплатить бонусами до 0 ₽");
     }
 
+    @Skip
     @Issue("B2C-8558")
     @CaseId(835)
     @Story("Бонусы спасибо")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false,
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Получение информации о возможности оплатить бонусами")
     public void getSpasiboInfo() {
         final Response response = OrdersV2Request.SpasiboInfo.GET(apiV2.getCurrentOrderNumber());
@@ -696,7 +697,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(1432)
     @Story("Бонусы спасибо")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Получение информации о возможности оплатить бонусами для несуществующего заказа")
     public void getSpasiboInfoForNonexistentOrder() {
         final Response response = OrdersV2Request.SpasiboInfo.GET("failedOrderNumber");
@@ -706,7 +707,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(2142)
     @Story("Бонусы спасибо")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Получение информации о возможности оплатить бонусами для чужого заказа")
     public void getSpasiboInfoForSomeoneElsesOrder() {
         String currentOrderNumber = apiV2.getCurrentOrderNumber();

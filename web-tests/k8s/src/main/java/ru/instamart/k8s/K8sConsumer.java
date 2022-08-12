@@ -7,6 +7,7 @@ import io.kubernetes.client.PortForward.PortForwardResult;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.common.Mapper;
@@ -110,7 +111,7 @@ public final class K8sConsumer {
     /**
      * Получение логов в list
      */
-    public static List<String> getLogs(final V1Pod pod, final String container, final int tailLines) {
+    public static List<String> getLogs(@NonNull final V1Pod pod, final String container, final int tailLines) {
         final List<String> logResult = new CopyOnWriteArrayList<>();
         try {
             var call = K8sConfig.getInstance().getCoreV1Api().readNamespacedPodLogCall(

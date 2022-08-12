@@ -39,7 +39,7 @@ public class AdjustmentsV1Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
         UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-        order = apiV2.getOpenOrder();
+        order = apiV2.createOrder();
         apiV2.applyPromoCode(order.getNumber(),getPromotionCode());
         admin.authApi();
     }

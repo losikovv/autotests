@@ -58,12 +58,11 @@ public class ProductsV3Test extends RestBase {
         product = products.get(0);
     }
 
-    @Skip(onServer = Server.STAGING)
+    @Skip //todo ожидаем фикса
     @CaseId(2709)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "В категории больше 3 дефолтных фильтров",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
-            enabled = false) //todo ожидаем фикса
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsWithManyFilters() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_FILTERS_TID)

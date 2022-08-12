@@ -37,9 +37,8 @@ public class ReviewableShipmentNewV2Test extends RestBase {
         SpreeShipmentsDao.INSTANCE.updateShipmentsByNumber(pastZoneDbDate, shipmentNumber);
     }
 
-
     @CaseId(2337)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Получение информации о заказе | заказ старше 7 дней")
     public void getReviewableShipment() {
         final Response response = SeparatReviewsV2Request.ReviewableShipment.GET();

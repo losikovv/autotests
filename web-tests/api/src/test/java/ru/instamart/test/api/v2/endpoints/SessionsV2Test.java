@@ -45,7 +45,7 @@ public final class SessionsV2Test extends RestBase {
 
     @CaseId(1436)
     @Story("Валидация данных по сессионному токену")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Токен существующего пользователя")
     public void testUserData() {
         final UserData userData = UserManager.getDefaultApiUser();

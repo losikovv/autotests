@@ -32,7 +32,7 @@ public class InstacoinAccountV2Test extends RestBase {
     @CaseId(555)
     @Story("Бонусный счет пользователя")
     @Test(description = "У пользователя нет бонусов",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"})
     public void getNonExistingInstacoinAccount() {
         final Response response = InstacoinAccountV2Request.GET();
         checkStatusCode200(response);
@@ -45,7 +45,7 @@ public class InstacoinAccountV2Test extends RestBase {
     @Skip
     @Story("Бонусный счет пользователя")
     @Test(description = "У пользователя есть бонусы",
-            groups = {"api-instamart-regress"}) //инстакоины выпилены напрочь
+            groups = {"api-instamart-regress", "api-v2"}) //инстакоины выпилены напрочь
     public void getInstacoinAccount() {
         UserData user = SessionFactory.getSession(SessionType.API_V2).getUserData();
         execRakeTaskAddBonus(user.getEmail(), "100", user.getId());

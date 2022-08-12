@@ -1084,7 +1084,8 @@ public final class ApiV2Helper {
         return currentShipmentNumber.get();
     }
 
-    public OrderV2 getOpenOrder() {
+    @Step("Создаём новый заказ (или получаем старый, если заказ не создан)")
+    public OrderV2 createOrder() {
         Response response = OrdersV2Request.POST();
         checkStatusCode200(response);
         return response.as(OrderV2Response.class).getOrder();

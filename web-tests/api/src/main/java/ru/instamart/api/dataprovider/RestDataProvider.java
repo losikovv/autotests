@@ -641,7 +641,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "orderNumbers")
     public static Object[][] getOrderNumber() {
-        OrderV2 order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
+        OrderV2 order = apiV2.createOrder();
         return new Object[][]{
                 {order.getNumber()},
                 {"failedNumber"}
@@ -650,7 +650,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "transactionNumbers")
     public static Object[][] getTransactionNumber() {
-        OrderV2 order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
+        OrderV2 order = apiV2.createOrder();
         CreditCardAuthorizationV2 creditCardAuthorization = PaymentsV2Request.POST(order.getNumber()).
                 as(CreditCardAuthorizationV2Response.class).getCreditCardAuthorization();
         return new Object[][]{
@@ -661,7 +661,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "invalidTransactionData")
     public static Object[][] getInvalidTransactionData() {
-        String orderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
+        String orderNumber = apiV2.createOrder().getNumber();
         String userUuid = apiV2.getProfile().getUser().getId();
         String transactionNumber = PaymentsV2Request.POST(orderNumber).
                 as(CreditCardAuthorizationV2Response.class).getCreditCardAuthorization().getTransactionNumber();
@@ -674,7 +674,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "simpleRecsData")
     public static Object[][] getSimpleRecsData() {
         SessionFactory.makeSession(SessionType.API_V2);
-        String orderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
+        String orderNumber = apiV2.createOrder().getNumber();
         Long offerId = SpreeProductsDao.INSTANCE.getOfferIdBySku("26331", EnvironmentProperties.DEFAULT_SID);
         LineItemsV2Request.POST(offerId, 1, orderNumber);
         return new Object[][]{
@@ -1357,7 +1357,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "notificationsFailed")
     public static Object[][] notificationsFailed() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
-        String orderNumber = apiV2.getOpenOrder().getNumber();
+        String orderNumber = apiV2.createOrder().getNumber();
 
         return new Object[][]{
                 {

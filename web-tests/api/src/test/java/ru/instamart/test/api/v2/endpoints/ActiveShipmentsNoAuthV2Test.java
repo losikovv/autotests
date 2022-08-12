@@ -20,7 +20,7 @@ public class ActiveShipmentsNoAuthV2Test extends RestBase {
 
     @CaseId(1389)
     @Story("Текущий подзаказ")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Получение текущего подзаказа без авторизации")
     public void getActiveShipmentsWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V2);

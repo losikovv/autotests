@@ -21,6 +21,7 @@ import ru.instamart.api.response.v1.OffersV1Response;
 import ru.instamart.jdbc.dao.stf.OffersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -71,10 +72,10 @@ public class OffersV1Tests extends RestBase {
         compareTwoObjects(offerFromResponse, offerForRequest);
     }
 
+    @Skip
     @Story("Поиск товаров")
     @CaseId(1383)
-    @Test(enabled = false,
-            description = "Поиск товаров в магазине по нескольким SKU",
+    @Test(description = "Поиск товаров в магазине по нескольким SKU",
             groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getOffer")
     public void getOfferBySkus() {

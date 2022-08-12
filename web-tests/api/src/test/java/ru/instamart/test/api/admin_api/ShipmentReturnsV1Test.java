@@ -20,7 +20,6 @@ import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.TimeUtil;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -55,9 +54,9 @@ public class ShipmentReturnsV1Test extends RestBase {
         lineItem = order.getShipments().get(0).getLineItems().get(0);
     }
 
-    @Skip(onServer = Server.STAGING)
+    @Skip // TODO: Сейчас 500-ая
     @CaseId(2311)
-    @Test(groups = {"api-instamart-regress"}, enabled = false, // TODO: Сейчас 500-ая
+    @Test(groups = {"api-instamart-regress"},
             //undefined method `shipments' for nil:NilClass , уточнить у Манаса, что еще требуется
             description = "Полный возврат средств за заказ включая доставку и сборку на стр. возвратов (sberpayments)")
     public void postShipmentReturns() {
@@ -90,9 +89,9 @@ public class ShipmentReturnsV1Test extends RestBase {
         checkShipmentReturn(body, shipmentReturn);
     }
 
-    @Skip(onServer = Server.STAGING)
+    @Skip
     @CaseId(2312)
-    @Test(groups = {"api-instamart-regress"}, enabled = false,
+    @Test(groups = {"api-instamart-regress"},
             description = "Отображение истории возвратов на стр. возвратов (sberpayments)",
             dependsOnMethods = "postShipmentReturns")
     public void getShipmentReturns() {
@@ -104,9 +103,9 @@ public class ShipmentReturnsV1Test extends RestBase {
     }
 
     @Issue("B2C-6444")
-    @Skip(onServer = Server.STAGING)
+    @Skip
     @CaseId(2313)
-    @Test(groups = {"api-instamart-regress"}, enabled = false,
+    @Test(groups = {"api-instamart-regress"},
             description = "Детализация истории возвратов на стр. возвратов (sberpayments)",
             dependsOnMethods = "postShipmentReturns")
     public void getShipmentReturn() {

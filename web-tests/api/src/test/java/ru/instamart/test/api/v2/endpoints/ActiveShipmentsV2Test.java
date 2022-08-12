@@ -54,7 +54,7 @@ public class ActiveShipmentsV2Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(1387)
     @Story("Текущий подзаказ")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Получение текущего подзаказа для конкретного магазина")
     public void getActiveShipmentsForStore() {
         final Response response = ShipmentsV2Request.GET(EnvironmentProperties.DEFAULT_SID);
@@ -69,7 +69,7 @@ public class ActiveShipmentsV2Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(1388)
     @Story("Текущий подзаказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Получение текущего подзаказа")
     public void getActiveShipments() {
         final Response response = ShipmentsV2Request.GET(null);

@@ -2,7 +2,6 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -104,7 +103,7 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(788)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Получаем пустой список любимых товаров без обязательного параметра sid")
     public void testEmptyFavoritesList400() {
         final Response response = FavoritesV2Request.GET();
@@ -113,7 +112,7 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(788)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Получаем пустой список любимых товаров без обязательного параметра sid")
     public void testEmptyFavoritesListWithSidParams400() {
         final Response response = FavoritesV2Request.GET("");
@@ -123,7 +122,7 @@ public class FavoritesListV2Test extends RestBase {
 
     @CaseId(524)
     @Story("Список SKU товаров из избранного")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Список SKU товаров из избранного. В избранном нет товаров")
     public void getFavoritesSku() {
         final Response response = FavoritesV2Request.ProductSku.GET();
@@ -134,7 +133,7 @@ public class FavoritesListV2Test extends RestBase {
 
     @CaseId(526)
     @Story("Добавить товар в избранное")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Добавить товар в избранное с несуществующим id")
     public void addFavoritesList404() {
         final Response response = FavoritesV2Request.POST("invalidNumber_0120102012");
@@ -144,7 +143,7 @@ public class FavoritesListV2Test extends RestBase {
 
     @CaseId(528)
     @Story("Удаление товара из избранного")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Удаление товара из избранного с несуществующим id")
     public void deleteFavoritesList404() {
         final Response response = FavoritesV2Request.DELETE("invalidNumber_0120102012");

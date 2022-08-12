@@ -24,7 +24,7 @@ public class OnboardingV2PagesV2Test extends RestBase {
 
     @CaseId(821)
     @Test(description = "Получение экранов онбординга при старте приложения",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"})
     public void getOnboardingPages() {
         final Response response = OnboardingV2PagesV2Request.GET();
         checkStatusCode200(response);
