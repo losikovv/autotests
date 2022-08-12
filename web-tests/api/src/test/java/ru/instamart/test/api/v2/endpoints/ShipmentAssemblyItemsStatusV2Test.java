@@ -40,19 +40,19 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
 
     private ShipmentV2 shipment;
 
-    @BeforeClass(alwaysRun = true, description = "Авторизация")
+    @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
         UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID, ProductPriceTypeV2.PER_ITEM);
-        OrderV2 order = apiV2.getOpenOrder();
+        OrderV2 order = apiV2.createOrder();
         shipment = order.getShipments().get(0);
     }
 
 
     @CaseId(529)
     @Story("Детали по сборке подзаказа")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
             description = "Детали по существующему подзаказу до сборки")
     public void getAssemblyItemsOfExistingShipment() {
         final Response response = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
@@ -65,7 +65,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
 
     @CaseId(536)
     @Story("Детали по сборке подзаказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Детали по сборке несуществующего подзаказа")
     public void getAssemblyItemsOfNonExistingShipment() {
         final Response response = ShipmentsV2Request.AssemblyItems.GET("failedShipmentNumber");
@@ -75,7 +75,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
 
     @CaseId(822)
     @Story("Детали по сборке подзаказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Детали по сборке cобранного подзаказа",
             dependsOnMethods = "getAssemblyItemsOfExistingShipment")
     public void getAssemblyItemsOfShipmentAfterAssembling() {
@@ -88,7 +88,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
 
     @CaseId(531)
     @Story("Детали по сборке подзаказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Детали по сборке отмененного подзаказа",
             dependsOnMethods = {"getAssemblyItemsOfExistingShipment", "getAssemblyItemsOfShipmentAfterAssembling"})
     public void getCancelledAssemblyItemsOfShipment() {
@@ -103,7 +103,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
     @Skip(onServer = Server.STAGING) // на stf-0 нет офферов с Pricer::PerPack
     @CaseIDs(value = {@CaseId(534), @CaseId(535)})
     @Story("Детали по сборке подзаказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Детали по сборке существующего подзаказа c выбранным типом цены",
             dataProvider = "priceTypes",
             dataProviderClass = RestDataProvider.class,
@@ -111,7 +111,7 @@ public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
     public void getAssemblyItemsWithPriceType(ProductPriceTypeV2 priceType) {
         UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID, priceType);
-        ShipmentV2 shipment = apiV2.getOpenOrder().getShipments().get(0);
+        ShipmentV2 shipment = apiV2.createOrder().getShipments().get(0);
         final Response response = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
         checkStatusCode200(response);
         AssemblyItemV2 assemblyItem = response.as(AssemblyItemsV2Response.class).getAssemblyItems().get(0);

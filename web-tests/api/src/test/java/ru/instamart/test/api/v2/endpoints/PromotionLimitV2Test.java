@@ -29,7 +29,7 @@ public final class PromotionLimitV2Test extends RestBase {
     }
 
     @CaseId(309)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверка условий оплаты бонусами")
     public void bonusPaymentTermsTest() {
         apiV2.dropAndFillCart(
@@ -53,7 +53,7 @@ public final class PromotionLimitV2Test extends RestBase {
     }
 
     @CaseId(310)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Условия оплаты бонусами для несуществующего заказа")
     public void termsOfPaymentWithBonusesforNonExistentParametres() {
         String orderNumber = "test";

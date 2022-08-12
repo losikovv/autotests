@@ -30,7 +30,7 @@ public class LoyaltiesV2Test extends RestBase {
     }
 
     @Story("Список программ лояльности")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Проверка статус сообщения об отключении программы лояльности")
     public void loyalities422() {
         final Response response = LoyaltiesV2Request.GET();
@@ -39,7 +39,7 @@ public class LoyaltiesV2Test extends RestBase {
     }
 
     @Story("Запрос информации о лояльности СберЛоялти")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Информация о лояльности СберЛоялти")
     public void getSberLoyaltyInfo200() {
         final Response response = LoyaltiesV2Request.SberLoyaltyInfo.GET();
@@ -76,6 +76,4 @@ public class LoyaltiesV2Test extends RestBase {
 
         softAssert.assertAll();
     }
-
-
 }

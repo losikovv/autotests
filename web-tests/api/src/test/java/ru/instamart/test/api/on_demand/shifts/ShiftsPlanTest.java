@@ -10,7 +10,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.model.shifts.PlanningPeriodsItem;
 import ru.instamart.api.request.shifts.ShiftsRequest;
 import ru.instamart.api.response.ErrorTypeResponse;
 import ru.instamart.api.response.shifts.PlanningPeriodsSHPResponse;
@@ -18,6 +17,7 @@ import ru.instamart.api.response.shifts.ShiftResponse;
 import ru.instamart.jdbc.dao.shifts.ShiftsDao;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
@@ -122,11 +122,11 @@ public class ShiftsPlanTest extends RestBase {
         });
     }
 
+    @Skip
     @CaseId(55)
     @Story("Завершение смены")
     @Test(groups = {"api-shifts"},
-            description = "Завершение смены досрочно, более чем 10 мин до планового окончания, с указанием причины",
-            enabled = false)
+            description = "Завершение смены досрочно, более чем 10 мин до планового окончания, с указанием причины")
     public void stopShifts200() {
         final Response response = ShiftsRequest.Stop.PATCH(planningPeriodId);
         simplyAwait(30);//Без него падает с 422 слишком рано заканчивает смену

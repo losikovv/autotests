@@ -45,7 +45,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
     private Double newPrice;
     private Integer deliveryWindowId;
 
-    @BeforeClass(alwaysRun = true, description = "Авторизация")
+    @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
         products = apiV2.getProductsFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
@@ -66,7 +66,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1003), @CaseId(1004)})
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление другого товара из этого же магазина")
     public void mergeLineItem() {
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(1).getId(), 1);
@@ -86,7 +86,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1006)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление того же товара",
             priority = 1)
     public void mergeSameLineItem() {
@@ -111,7 +111,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1011)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление другого товара с превышением веса",
             priority = 2)
     public void mergeLineItemWithExtraWeight() {
@@ -122,7 +122,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1008), @CaseId(1012), @CaseId(2045)})
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление товара c невалидным productId",
             dataProvider = "invalidProductsId",
             dataProviderClass = RestDataProvider.class,
@@ -135,7 +135,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1009)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление другого товара - время редактирования заказа истекло",
             priority = 3)
     public void mergeLineItemForExpiredEditingPeriod() {
@@ -147,7 +147,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1152)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление другого товара - редактирование запрещено",
             priority = 4)
     public void mergeLineItemEditingForbidden() {
@@ -160,7 +160,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1010)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление другого товара с превышение количества товаров",
             priority = 5)
     public void mergeLineItemWithExtraItems() {
@@ -174,7 +174,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1005)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление другого товара - заказ собирается",
             priority = 6)
     public void mergeLineItemForCollectingOrder() {
@@ -187,7 +187,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1007)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление другого товара - заказ отменен",
             priority = 7)
     public void mergeLineItemForCancelledOrder() {

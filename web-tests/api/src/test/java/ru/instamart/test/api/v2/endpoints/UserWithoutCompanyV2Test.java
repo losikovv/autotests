@@ -33,7 +33,7 @@ public class UserWithoutCompanyV2Test extends RestBase {
 
     @CaseId(2344)
     @Story("Получить факт наличия компаний у пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Получить факт наличия компаний у пользователя без компании")
     public void getCompaniesExist200() {
         final Response response = UserV2Request.Exist.GET();
@@ -43,7 +43,7 @@ public class UserWithoutCompanyV2Test extends RestBase {
 
     @CaseId(2360)
     @Story("Создание")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Создание компании без",
             dependsOnMethods = "getCompaniesExist200")
     public void createCompany200() {
@@ -56,5 +56,4 @@ public class UserWithoutCompanyV2Test extends RestBase {
         softAssert.assertEquals(companyV2Response.getCompany().getInn(), inn, "ИНН не совпадает с введенным");
         softAssert.assertAll();
     }
-
 }

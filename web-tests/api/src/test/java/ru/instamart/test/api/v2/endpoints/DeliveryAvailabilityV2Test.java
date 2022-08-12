@@ -26,7 +26,7 @@ public class DeliveryAvailabilityV2Test extends RestBase {
     @Parameters({"lat", "lon"})
     @Test(dataProvider = "deliveryAvailabilityV2TestData",
             dataProviderClass = RestDataProvider.class,
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Негативный тест без указания lan или lon, или обеих")
     public void testWithoutLatAndLon(String lat, String lon) {
         final Response response = DeliveryAvailabilityV2Request.GET(lat, lon);
@@ -36,7 +36,7 @@ public class DeliveryAvailabilityV2Test extends RestBase {
     }
 
     @CaseId(1477)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Указаны координаты")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"}, description = "Указаны координаты")
     public void testWithLatAndLon() {
         AddressV2 address = apiV2.getAddressBySid(EnvironmentProperties.DEFAULT_SID);
         final Response response = DeliveryAvailabilityV2Request.GET(address.getLat().toString(), address.getLon().toString());

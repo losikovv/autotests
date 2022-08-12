@@ -6,6 +6,7 @@ import io.qameta.allure.Story;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Parameters;
@@ -30,7 +31,7 @@ public class LegalEntityV2Test extends RestBase {
 
     @CaseId(479)
     @Story("Запрос на получение данных юр. лица по ИНН")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             dataProvider = "innFailedList",
             dataProviderClass = RestDataProvider.class,
             description = "Запрос на получение данных юр. лица по ИНН для несуществущего ИНН")
@@ -43,7 +44,7 @@ public class LegalEntityV2Test extends RestBase {
 
     @CaseId(482)
     @Story("Создание нового реквизита для юр лица")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Создание нового реквизита для юр лица с заполнением обязательных полей")
     public void postCompanyDocuments200() {
         SessionFactory.makeSession(SessionType.API_V2);
@@ -81,7 +82,7 @@ public class LegalEntityV2Test extends RestBase {
 
     @CaseId(483)
     @Story("Создание нового реквизита для юр лица")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Создание нового реквизита для юр лица с не уникальным ИНН")
     public void postCompanyDocuments422() {
         SessionFactory.makeSession(SessionType.API_V2);
@@ -107,7 +108,7 @@ public class LegalEntityV2Test extends RestBase {
 
     @CaseId(484)
     @Story("Создание нового реквизита для юр лица")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Создание нового реквизита для юр лица с заполнением всех полей")
     public void postCompanyAllDocuments200() {
         SessionFactory.makeSession(SessionType.API_V2);
@@ -147,11 +148,10 @@ public class LegalEntityV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-
+    @Skip //TODO разобраться с данными по компаниям
     @CaseId(482)
     @Story("Создание нового реквизита для юр лица")
-    @Test(enabled = false, //TODO разобраться с данными по компаниям
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Создание нового реквизита для юр лица с заполнением обязательных полей")
     public void postCompanyAllDocuments200_1() {
         UserData defaultApiUser = UserManager.getDefaultApiUser();
@@ -160,10 +160,9 @@ public class LegalEntityV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-
     @CaseId(856)
     @Story("Создание нового реквизита для юр лица")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             dataProvider = "postCompanyDocuments",
             dataProviderClass = RestDataProvider.class,
             description = "Создание нового реквизита для юр лица с заполнением обязательных полей")
@@ -174,5 +173,4 @@ public class LegalEntityV2Test extends RestBase {
         checkStatusCode422(response);
         checkError(response, errorMessage);
     }
-
 }

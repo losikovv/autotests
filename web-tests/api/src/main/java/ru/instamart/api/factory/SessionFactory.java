@@ -49,7 +49,8 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Slf4j
 public final class SessionFactory {
 
-    private static final SessionProvider provider = SessionProvider.QA;
+    @Setter
+    private static SessionProvider provider = SessionProvider.QA;
 
     @Getter
     private static final Map<SessionId, SessionInfo> sessionMap = new ConcurrentHashMap<>();

@@ -3,10 +3,6 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.testng.annotations.AfterClass;
-import ru.instamart.api.response.v2.MergeStatusV2Response;
-import ru.instamart.kraken.data.user.UserData;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -20,10 +16,13 @@ import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.request.v2.LineItemsV2Request;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
+import ru.instamart.api.response.v2.MergeStatusV2Response;
 import ru.instamart.api.response.v2.OrderV2Response;
 import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.jdbc.dao.stf.SpreeProductsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserData;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class MergedShipmentsV2Test extends RestBase {
     private OrderV2 order;
     private UserData userData;
 
-    @BeforeClass(alwaysRun = true, description = "Авторизация")
+    @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
         userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
@@ -49,12 +48,12 @@ public class MergedShipmentsV2Test extends RestBase {
 
     @CaseId(1029)
     @Story("Мердж подзаказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление в подзаказ другого подзаказа")
     public void mergeShipments() {
-        final Response response = LineItemsV2Request.POST(products.get(4).getId(), 1, apiV2.getOpenOrder().getNumber());
+        final Response response = LineItemsV2Request.POST(products.get(4).getId(), 1, apiV2.createOrder().getNumber());
         checkStatusCode200(response);
-        OrderV2 newOrder = apiV2.getOpenOrder();
+        OrderV2 newOrder = apiV2.createOrder();
         final Response responseForMerge = ShipmentsV2Request.Merge.POST(newOrder.getShipments().get(0).getNumber(), order.getShipments().get(0).getNumber());
         checkStatusCode200(responseForMerge);
         checkResponseJsonSchema(responseForMerge, OrderV2Response.class);
@@ -62,13 +61,13 @@ public class MergedShipmentsV2Test extends RestBase {
 
     @CaseId(1030)
     @Story("Мердж подзаказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление в подзаказ подзаказа из другого магазина",
             dependsOnMethods = "mergeShipments")
     public void mergeShipmentWithShipmentFromAnotherStore() {
         SessionFactory.createSessionToken(SessionType.API_V2, userData);
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
-        OrderV2 newOrder = apiV2.getOpenOrder();
+        OrderV2 newOrder = apiV2.createOrder();
         final Response response = ShipmentsV2Request.Merge.POST(newOrder.getShipments().get(0).getNumber(), order.getShipments().get(0).getNumber());
         checkStatusCode422(response);
         Assert.assertTrue(response.asString().contains("\"store_id\":\"Дозаказать можно только из того же магазина\""));
@@ -76,11 +75,11 @@ public class MergedShipmentsV2Test extends RestBase {
 
     @CaseId(1031)
     @Story("Мердж подзаказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление в подзаказ подзаказа с алкоголем",
             dependsOnMethods = "mergeShipments")
     public void mergeShipmentWithAlcoholShipment() {
-        String orderNumber = apiV2.getOpenOrder().getNumber();
+        String orderNumber = apiV2.createOrder().getNumber();
         SpreeOrdersDao.INSTANCE.updateShippingKind(orderNumber, ShippingMethodV2.PICKUP.getMethod());
         final Response response = LineItemsV2Request.POST(SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID), 1, orderNumber);
         checkStatusCode200(response);
@@ -92,7 +91,7 @@ public class MergedShipmentsV2Test extends RestBase {
 
     @CaseId(1474)
     @Story("Статус мержа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Получение информации о статусе мержа для существующего заказа",
             dependsOnMethods = "mergeShipments")
     public void getMergeStatus() {
@@ -104,7 +103,7 @@ public class MergedShipmentsV2Test extends RestBase {
 
     @CaseId(1475)
     @Story("Статус мержа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Получение информации о статусе мержа для несуществующего заказа")
     public void getMergeStatusOfNonexistentOrder() {
         final Response response = OrdersV2Request.MergeStatus.GET("failedOrder");
@@ -114,12 +113,12 @@ public class MergedShipmentsV2Test extends RestBase {
 
     @CaseId(2046)
     @Story("Мердж подзаказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление в подзаказ подзаказа с аптечной продукцией",
             dependsOnMethods = "mergeShipments")
     public void mergeShipmentWithPharmaShipment() {
         SessionFactory.createSessionToken(SessionType.API_V2, userData);
-        String orderNumber = apiV2.getOpenOrder().getNumber();
+        String orderNumber = apiV2.createOrder().getNumber();
         SpreeOrdersDao.INSTANCE.updateShippingKind(orderNumber, ShippingMethodV2.PICKUP.getMethod());
         final Response response = LineItemsV2Request.POST(SpreeProductsDao.INSTANCE.getOfferIdForPharma(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID), 1, orderNumber);
         checkStatusCode200(response);

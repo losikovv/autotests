@@ -77,15 +77,13 @@ public class NotificationsPositionsV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
+    @Skip //todo включить когда появится возможность создавать заказы с количеством товара больше 1
     @Story("Позиции заказа")
     @CaseId(874)
-    @Test(enabled = false,
-            description = "Собрано меньше изначального количества",
+    @Test(description = "Собрано меньше изначального количества",
             groups = {"api-instamart-regress"},
             dataProvider = "ordersWithDifferentPricers",
             dataProviderClass = ApiV3DataProvider.class)
-    //todo включить когда появится возможность создавать заказы с количеством товара больше 1
     public void less(OrderV2 order) {
         String retailerSku = order.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = order.getShipments().get(0).getLineItems().get(0).getPacks();

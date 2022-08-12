@@ -74,7 +74,7 @@ public final class EnvironmentProperties {
     @Config(configName = NAME, fieldName = "k8sLabelShpSelector", defaultValue = "")
     public static String K8S_LABEL_SHP_SELECTOR;
     @Config(configName = NAME, fieldName = "basicUrl", defaultValue = "")
-    private static String BASIC_URL;
+    public static String BASIC_URL;
     @Config(configName = NAME, fieldName = "shopperUrl", defaultValue = "")
     private static String SHOPPER_URL;
 

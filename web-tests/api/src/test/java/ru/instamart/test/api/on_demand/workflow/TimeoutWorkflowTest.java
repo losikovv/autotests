@@ -19,6 +19,7 @@ import ru.instamart.jdbc.entity.workflow.SegmentsEntity;
 import ru.instamart.jdbc.entity.workflow.WorkflowsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 import shipment_pricing.ShipmentPriceServiceGrpc;
@@ -30,14 +31,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.WorkflowCheckpoints.checkStatuses;
 import static ru.instamart.api.checkpoint.WorkflowCheckpoints.checkWorkflowChanges;
 import static ru.instamart.api.helper.WorkflowHelper.*;
 import static ru.instamart.kraken.data.StartPointsTenants.METRO_WORKFLOW_END;
 import static ru.instamart.kraken.util.TimeUtil.getDateMinusSec;
 import static ru.instamart.kraken.util.TimeUtil.getDatePlusSec;
-import static workflow.AssignmentChangedOuterClass.AssignmentChanged.Status.*;
+import static workflow.AssignmentChangedOuterClass.AssignmentChanged.Status.CANCELED;
+import static workflow.AssignmentChangedOuterClass.AssignmentChanged.Status.TIMEOUT;
 
 @Epic("On Demand")
 @Feature("Workflow")
@@ -63,8 +64,9 @@ public class TimeoutWorkflowTest extends RestBase {
         shopperApp.authorisation(UserManager.getShp6Shopper4());
     }
 
+    @Skip //TODO: посмотреть, как стабилизировать тесты, кроме увеличения времени
     @CaseId(35)
-    @Test(description = "Таймаут назначения", enabled = false, //TODO: посмотреть, как стабилизировать тесты, кроме увеличения времени
+    @Test(description = "Таймаут назначения",
             groups = "dispatch-workflow-smoke")
     public void checkStatusAfterTimeout() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
@@ -77,8 +79,9 @@ public class TimeoutWorkflowTest extends RestBase {
         checkStatuses(assignments, workflows, TIMEOUT);
     }
 
+    @Skip //TODO: посмотреть, как стабилизировать тесты, кроме увеличения времени
     @CaseId(125)
-    @Test(description = "Таймаут отложенного назначения", enabled = false, //TODO: посмотреть, как стабилизировать тесты, кроме увеличения времени
+    @Test(description = "Таймаут отложенного назначения",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "checkStatusAfterTimeout")
     public void checkChildWorkflowStatusAfterTimeout() {
@@ -99,8 +102,9 @@ public class TimeoutWorkflowTest extends RestBase {
         checkStatuses(assignments, workflows, TIMEOUT);
     }
 
+    @Skip //TODO: посмотреть, как стабилизировать тесты, кроме увеличения времени
     @CaseId(126)
-    @Test(description = "Отмена отложенного назначения при timeout родительского назначения", enabled = false,  //TODO: посмотреть, как стабилизировать тесты, кроме увеличения времени
+    @Test(description = "Отмена отложенного назначения при timeout родительского назначения",
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "checkChildWorkflowStatusAfterTimeout")
     public void checkChildWorkflowStatusAfterParentTimeout() {
@@ -119,8 +123,9 @@ public class TimeoutWorkflowTest extends RestBase {
         checkStatuses(assignments, workflows, CANCELED);
     }
 
+    @Skip
     @CaseId(144)
-    @Test(description = "Обновление таймингов in_progress маршрутного листа с текущим сегментом arrive/delivery", enabled = false,
+    @Test(description = "Обновление таймингов in_progress маршрутного листа с текущим сегментом arrive/delivery",
             groups = "dispatch-workflow-smoke")
     public void updateTimingsForWorkflowInProgress() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, Timestamps.MAX_VALUE, clientWorkflow);
@@ -137,8 +142,9 @@ public class TimeoutWorkflowTest extends RestBase {
         cancelWorkflow(clientWorkflow, shipmentUuid);
     }
 
+    @Skip //TODO Требует уточнения условий
     @CaseId(148)
-    @Test(description = "Обновление таймингов маршрутного листа в очереди", enabled = false, // Требует уточнения условий
+    @Test(description = "Обновление таймингов маршрутного листа в очереди",
             groups = "dispatch-workflow-smoke")
             //dependsOnMethods = "updateTimingsForWorkflowInProgress")
     public void updateTimingsForQueuedWorkflow() {

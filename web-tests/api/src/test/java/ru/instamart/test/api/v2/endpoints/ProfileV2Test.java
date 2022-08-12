@@ -2,16 +2,12 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import ru.instamart.api.enums.shopper.ItemStateSHP;
-import ru.sbermarket.qase.annotation.CaseId;
-import io.restassured.response.Response;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.UserV2;
@@ -19,12 +15,13 @@ import ru.instamart.api.request.v2.ProfileV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.ProfileV2Response;
 import ru.instamart.kraken.data.Generate;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.UUID;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 import static ru.instamart.kraken.helper.PhoneNumberHelper.getHumanPhoneNumber;
 import static ru.instamart.kraken.helper.UUIDHelper.isValidUUID;
 
@@ -44,7 +41,7 @@ public class ProfileV2Test extends RestBase {
 
     @CaseId(159)
     @Test(description = "Получение данных профиля пользователя. Запрос с токеном",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"})
     public void getProfile200() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
         final Response response = ProfileV2Request.GET();
@@ -67,7 +64,7 @@ public class ProfileV2Test extends RestBase {
 
     @CaseId(150)
     @Test(description = "Обновление профиля пользователя",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"})
     public void putProfile200() {
         final String newEmail = UUID.randomUUID() + "@autotestmail.dev";
         final String newFirstName = Generate.literalString(10);
@@ -91,7 +88,7 @@ public class ProfileV2Test extends RestBase {
 
     @CaseId(151)
     @Test(description = "Обновление профиля пользователя с невалидными данными",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"})
     public void putProfile422() {
         final String newEmail = "test###autotestmail.dev";
         final String newFirstName = "!@#$%";

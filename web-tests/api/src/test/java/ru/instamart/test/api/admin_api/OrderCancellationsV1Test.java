@@ -31,14 +31,16 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV1")
 @Feature("Отмены заказа")
-public class OrderCancellationsV1Test extends RestBase {
-    UserData user = UserManager.getQaUser();
-    OrderV2 order = new OrderV2();
-    OrderV2 orderToCancel = new OrderV2();
-    OrderV2 cancelledOrder = new OrderV2();
+public final class OrderCancellationsV1Test extends RestBase {
+
+    private UserData user;
+    private OrderV2 order;
+    private OrderV2 orderToCancel;
+    private OrderV2 cancelledOrder;
 
     @BeforeClass(alwaysRun = true)
     public void prepareOrders() {
+        this.user = UserManager.getQaUser();
         apiV2.authByQA(user);
         apiV2.dropAndFillCart(user, EnvironmentProperties.DEFAULT_SID);
         order = apiV2.setDefaultAttributesAndCompleteOrder();

@@ -14,6 +14,7 @@ import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.TimeUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -40,8 +41,9 @@ public class LeftoversV1Test extends RestBase {
         shipmentUUID = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
     }
 
+    @Skip // TODO: Сейчас 500-ая
     @CaseId(2310)
-    @Test(groups = {"api-instamart-regress"}, enabled = false, // TODO: Сейчас 500-ая
+    @Test(groups = {"api-instamart-regress"},
             //undefined method `shipments' for nil:NilClass , уточнить у Манаса, что еще требуется
             description = "Отображение таблицы товаров на стр. возвратов (sberpayments)")
     public void getLeftovers() {

@@ -3,9 +3,6 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -17,6 +14,7 @@ import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.ShipAddressChangeV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.response.v2.ShipAddressChangeV2Response;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
@@ -100,7 +98,8 @@ public final class ShipAddressV2Test extends RestBase {
 
     @CaseId(241)
     @Story("Изменить адрес доставки для заказа")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Существующий id для авторизованных")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
+            description = "Существующий id для авторизованных")
     public void testChangeAddressWithValidIdAndValidAuth() {
         final AddressV2 address = AddressV2.builder()
                 .city("Москва")
@@ -118,7 +117,8 @@ public final class ShipAddressV2Test extends RestBase {
 
     @CaseId(242)
     @Story("Изменить адрес доставки для заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий id для авторизованных")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+            description = "Несуществующий id для авторизованных")
     public void testChangeAddressWithInvalidIdAndValidAuth() {
         final AddressV2 address = AddressV2.builder()
                 .city("Москва")

@@ -33,7 +33,8 @@ public class ExternalPartnersV2Test extends RestBase {
     @Skip
     @CaseId(270)
     @Test(//Прайм -10% выпилен с прода DMND-1912
-            groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Отправка запроса без store_id")
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+            description = "Отправка запроса без store_id")
     public void testWithoutShopId() {
         final Response response = ExternalPartnersV2Request.Banners.SberPrime.GET("");
         checkStatusCode400(response);
@@ -44,7 +45,8 @@ public class ExternalPartnersV2Test extends RestBase {
     @Skip
     @CaseId(269)
     @Test(//Прайм -10% выпилен с прода DMND-1912
-            groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Отправка запроса c store_id")
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+            description = "Отправка запроса c store_id")
     public void testWithShopId() {
         final Response response = ExternalPartnersV2Request.Banners.SberPrime.GET("1");
         checkStatusCode200(response);
@@ -53,7 +55,8 @@ public class ExternalPartnersV2Test extends RestBase {
     @Skip(onServer = Server.STAGING) //todo убрать хардкод текста
     @CaseId(810)
     @Story("Получение списка подписок для пользователя")
-    @Test(groups = {"api-instamart-regress"}, description = "Подписка SberPrime неактивна")
+    @Test(groups = {"api-instamart-regress", "api-v2"},
+            description = "Подписка SberPrime неактивна")
     public void getInactiveSubscription() {
         final Response response = ExternalPartnersV2Request.Services.GET();
         checkStatusCode200(response);
@@ -63,7 +66,7 @@ public class ExternalPartnersV2Test extends RestBase {
     @Skip(onServer = Server.STAGING) //todo убрать хардкод текста
     @CaseId(1086)
     @Story("Получение списка подписок для пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Подписка SberPrime активна")
     public void getActiveSubscription() {
         addSberPrime(apiV2.getProfile().getUser().getEmail());

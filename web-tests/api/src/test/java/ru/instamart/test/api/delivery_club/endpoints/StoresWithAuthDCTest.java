@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -211,13 +212,13 @@ public class StoresWithAuthDCTest extends RestBase {
         checkStatusCode400(response);
     }
 
+    @Skip // todo сейчас возвращает 500 - похоже на баг
     @Issue("STF-9241")
     @CaseId(582)
     @Story("Заказ")
     @Test(groups = {"api-instamart-regress"},
             dependsOnMethods = {"getStoresSlotsAvailable200"},
-            description = "Создание заказа с несуществующим товаром",
-            enabled = false) // сейчас возвращает 500 - похоже на баг
+            description = "Создание заказа с несуществующим товаром")
     public void postStoresOrders404WrongProductId() {
         final Response response = StoresDCRequest.Orders.POST(sid, slotId, wrongProductId);
         checkStatusCode404(response);

@@ -15,6 +15,7 @@ import ru.instamart.api.response.ErrorTypeResponse;
 import ru.instamart.jdbc.dao.shifts.ShiftsDao;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
@@ -45,9 +46,11 @@ public class StartShiftsNegativeTest extends RestBase {
         shiftsApi.stopAllActiveShifts();
     }
 
+    @Skip
     @CaseId(29)
     @Story("Создание смены")
-    @Test(groups = {"api-shifts"}, description = "Событие \"Начать смену\". Партнер вне зоны территории смены (с включенной проверкой геолокации)", enabled = false)
+    @Test(groups = {"api-shifts"},
+            description = "Событие \"Начать смену\". Партнер вне зоны территории смены (с включенной проверкой геолокации)")
     public void startShift422() {
         final Response response = ShiftsRequest.Start.PATCH(planningPeriodId, 55.646977, 38.650011);
         checkStatusCode422(response);

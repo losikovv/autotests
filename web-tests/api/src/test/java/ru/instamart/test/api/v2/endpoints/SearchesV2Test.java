@@ -3,6 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.restassured.http.ContentType;
 import ru.instamart.api.response.v2.TopPhrasesV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
@@ -29,7 +30,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(271)
     @Test(description = "Получаем поисковые подсказки",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"})
     public void getSearchSuggestions200() {
         final Response response = SearchesV2Request.Suggestions.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
@@ -38,7 +39,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(272)
     @Test(description = "Получаем поисковые подсказки в несуществующем магазине",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"})
     public void getSearchSuggestions404() {
         response = SearchesV2Request.Suggestions.GET(0);
         checkStatusCode404(response);
@@ -47,7 +48,7 @@ public class SearchesV2Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseIDs(value = {@CaseId(273), @CaseId(1431), @CaseId(278)})
     @Test(description = "Получаем поисковые подсказки по слову - позитивные сценарии",
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
             dataProvider = "positiveQuery",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithQuery(String query) {
@@ -58,7 +59,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(276), @CaseId(277), @CaseId(279)})
     @Test(description = "Получаем поисковые подсказки по слову - негативные сценарии",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             dataProvider = "negativeQuery",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithSqlQuery(String query) {
@@ -70,7 +71,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(274)
     @Test(description = "Получаем поисковые подсказки по слову для несуществующего магазина",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"})
     public void getSearchSuggestionsWithQueryAndNonExistentShop() {
         final Response response = SearchesV2Request.Suggestions.GET(0, "сыр");
         checkStatusCode404(response);
@@ -79,7 +80,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(275)
     @Test(description = "Получаем поисковые подсказки c пустым запросом",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             dataProvider = "emptyQueries",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithEmptyQuery(String query) {
@@ -90,7 +91,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(2472)
     @Story("Список популярных запросов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
         description = "Список популярных запросов без sid")
     public void topPhrasesTest() {
         final Response response = SearchesV2Request.Suggestions.TopPhrases.GET();
@@ -100,17 +101,17 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(2473)
     @Story("Список популярных запросов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Список популярных запросов с несуществующим sid")
     public void topPhrasesTest1() {
         final Response response = SearchesV2Request.Suggestions.TopPhrases.GET(0);
-        checkStatusCode404(response);
+        checkStatusCode(response, 404, ContentType.JSON);
         checkError(response, "Магазин не существует");
     }
 
     @CaseId(2474)
     @Story("Список популярных запросов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Список популярных запросов с существующим sid")
     public void topPhrasesSidTest() {
         final Response response = SearchesV2Request.Suggestions.TopPhrases.GET(EnvironmentProperties.DEFAULT_SID);

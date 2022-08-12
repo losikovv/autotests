@@ -459,12 +459,11 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Skip(onServer = Server.STAGING)
+    @Skip //todo починить и включить
     @Story("Негативные тесты")
     @CaseId(2191)
     @Test(description = "In_work после доставки негатив.",
-            groups = "api-instamart-regress",
-            enabled = false) //todo починить и включить
+            groups = "api-instamart-regress")
     public void orderInWorkAfterDeliveredDeliveryByRetailer() {
         String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();

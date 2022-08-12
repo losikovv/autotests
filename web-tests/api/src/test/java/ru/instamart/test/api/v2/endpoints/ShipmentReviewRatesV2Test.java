@@ -44,7 +44,7 @@ public class ShipmentReviewRatesV2Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2642)
     @Test(description = "Оценить заказ | доставка + сборка",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v2"})
     public void postShipmentReviewRates200() {
         Response response = ShipmentReviewRatesV2Request.POST(shipmentNumber, shippingRate, assemblyRate);
 
@@ -60,7 +60,7 @@ public class ShipmentReviewRatesV2Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2790)
     @Test(description = "Оценить заказ | несуществующий номер заказа",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v2"})
     public void postShipmentReviewRates404() {
         Response response = ShipmentReviewRatesV2Request.POST("H37574873852", shippingRate, assemblyRate);
 

@@ -28,12 +28,14 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV1")
 @Feature("Сайдбар для заказа")
-public class OrderSidebarV1Test extends RestBase {
-    UserData user = UserManager.getQaUser();
-    OrderV2 order = new OrderV2();
+public final class OrderSidebarV1Test extends RestBase {
+
+    private UserData user;
+    private OrderV2 order;
 
     @BeforeClass(alwaysRun = true)
     public void before() {
+        this.user = UserManager.getQaUser();
         apiV2.authByQA(user);
         apiV2.dropAndFillCart(user, EnvironmentProperties.DEFAULT_SID);
         order = apiV2.setDefaultAttributesAndCompleteOrder();
