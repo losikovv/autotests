@@ -40,7 +40,7 @@ public class ActiveShipmentsV2Test extends RestBase {
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
         final UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
-        order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID); //todo починить на стейдже GET /v2/shipments/null/shipping_rates
+        order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
         if (!EnvironmentProperties.Env.isProduction()) {
             orderFromAnotherStore = apiV2.order(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         }
@@ -51,7 +51,7 @@ public class ActiveShipmentsV2Test extends RestBase {
         //apiV2.cancelCurrentOrder(); //todo починить 404
     }
 
-    @Skip(onServer = Server.STAGING)
+    @Skip(onServer = Server.STAGING) //todo не работает с 1 сидом на стейджах
     @CaseId(1387)
     @Story("Текущий подзаказ")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
@@ -66,7 +66,7 @@ public class ActiveShipmentsV2Test extends RestBase {
         checkShipmentInfo(shipmentFromResponse, order);
     }
 
-    @Skip(onServer = Server.STAGING)
+    @Skip(onServer = Server.STAGING) //todo не работает с 1 сидом на стейджах
     @CaseId(1388)
     @Story("Текущий подзаказ")
     @Test(groups = {"api-instamart-regress", "api-v2"},

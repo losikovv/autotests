@@ -4,7 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
@@ -24,9 +24,9 @@ import static ru.instamart.kraken.data.Generate.string;
 @Feature("Компании")
 public class UserWithoutCompanyV2Test extends RestBase {
 
-    private String inn = generateINN(10);
+    private final String inn = generateINN(10);
 
-    @BeforeClass(alwaysRun = true, description = "Авторизация")
+    @BeforeMethod(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         makeSession(SessionType.API_V2);
     }
@@ -44,7 +44,7 @@ public class UserWithoutCompanyV2Test extends RestBase {
     @CaseId(2360)
     @Story("Создание")
     @Test(groups = {"api-instamart-regress", "api-v2"},
-            description = "Создание компании без",
+            description = "Создание компании",
             dependsOnMethods = "getCompaniesExist200")
     public void createCompany200() {
         String name = "Autotest_" + string(10);

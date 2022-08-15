@@ -89,9 +89,9 @@ public class ProductFeedbacksV2Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @CaseId(2301)
-    @Story("Проверка, можем ли пользователь опубликовать отзыв")
+    @Story("Проверка, может ли пользователь опубликовать отзыв")
     @Test(groups = {"api-instamart-regress", "api-v2"},
-            description = "Проверка, можем ли пользователь опубликовать отзыв")
+            description = "Проверка, может ли пользователь опубликовать отзыв")
     public void canPostFeedback200() {
         final Response response = ProductFeedbacksV2Request.CanPostFeedback.GET(String.valueOf(EnvironmentProperties.DEFAULT_SID), productSku);
         checkStatusCode200(response);

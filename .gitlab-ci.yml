@@ -190,7 +190,7 @@ tests:customRun:
   except:
     - schedules
     - merge_request
-  resource_group: customRun
+  resource_group: customRun:$CI_GROUP:$URL_STF_BACKEND
   stage: custom-run
   script:
     - echo $P_ENV
