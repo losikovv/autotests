@@ -15,8 +15,7 @@ tests:product:hub:schedule:
   extends:
     - ".template_grpc_tests"
     - ".template_schedule"
-  stage:
-    - tests-api-service
+  stage: tests-api-service
   script:
     - gradle clean build grpcProductHub -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:

@@ -13,8 +13,7 @@ tests:ApiShopperRegress:
     - ".template_api_tests"
     - ".template_shopper_regress"
     - ".template_schedule"
-  stage:
-    - tests-api-shopper
+  stage: tests-api-shopper
 
 tests:ApiShopper:alone:
   only:

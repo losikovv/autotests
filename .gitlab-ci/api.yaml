@@ -129,8 +129,7 @@ tests:ris:exporter:schedule:
   extends:
     - ".template_api_tests"
     - ".template_schedule"
-  stage:
-    - tests-api-service
+  stage: tests-api-service
   resource_group: testRisExporter
   script:
     - gradle clean build apiRisExporter -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
