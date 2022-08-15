@@ -71,7 +71,7 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
     @Story("Создание отзыва на товар без авторизации")
     @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Создание отзыва на товар")
-    public void senfProductFeedbacks200() {
+    public void sendProductFeedbacks200() {
         final Response response = ProductFeedbacksV2Request.POST(
                 ProductFeedbacksV2Request.Feedbacks.builder()
                         .sku(productSku)
@@ -86,12 +86,12 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @CaseId(2302)
-    @Story("Проверка, можем ли пользователь опубликовать отзыв без авторизации")
+    @Story("Проверка, может ли пользователь опубликовать отзыв без авторизации")
     @Test(groups = {"api-instamart-regress", "api-v2"},
-            description = "Проверка, можем ли пользователь опубликовать отзыв")
+            description = "Проверка, может ли пользователь опубликовать отзыв")
     public void canPostFeedback200() {
         final Response response = ProductFeedbacksV2Request.CanPostFeedback.GET(String.valueOf(EnvironmentProperties.DEFAULT_SID), productSku);
-        checkStatusCode500(response); //TODO: исправить после решения ошибки
+        checkStatusCode200(response);
     }
 
     @Skip(onServer = Server.STAGING)

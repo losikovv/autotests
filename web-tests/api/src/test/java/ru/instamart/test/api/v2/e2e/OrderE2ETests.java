@@ -27,7 +27,6 @@ public class OrderE2ETests extends RestBase {
         //apiV2.cancelCurrentOrder(); //todo починить 404
     }
 
-    //@Skip(onServer = Server.STAGING) //todo починить на стейдже GET /v2/shipments/null/shipping_rates
     @CaseId(101)
     @Test(description = "Тест оформления заказа",
             groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"})

@@ -183,7 +183,7 @@ public class ProductsV3Test extends RestBase {
     @Test(description = "Получаем отфильтрованные по бренду продукты",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsFilteredByBrand() {
-        final String brandName = "metro";
+        final String brandName = "valio";
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .query("сыр")
                 .brandFilter(EnvironmentProperties.DEFAULT_BRAND_ID)

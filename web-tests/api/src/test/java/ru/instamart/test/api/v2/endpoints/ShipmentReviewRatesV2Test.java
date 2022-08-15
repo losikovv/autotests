@@ -14,8 +14,6 @@ import ru.instamart.api.request.v2.ShipmentReviewRatesV2Request;
 import ru.instamart.api.response.v2.ShipmentReviewRatesV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.enums.Server;
-import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertEquals;
@@ -31,17 +29,14 @@ public class ShipmentReviewRatesV2Test extends RestBase {
     private final int assemblyRate = 5;
     private final int shippingRate = 2;
 
-
     @BeforeClass(alwaysRun = true)
     public void precondition() {
         apiV2.authByPhone(UserManager.getDefaultApiUser());
-        //todo починить на стейдже GET /v2/shipments/null/shipping_rates
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         shipmentNumber = order.getShipments().get(0).getNumber();
         K8sHelper.changeToShip(shipmentNumber);
     }
 
-    @Skip(onServer = Server.STAGING)
     @CaseId(2642)
     @Test(description = "Оценить заказ | доставка + сборка",
             groups = {"api-instamart-regress", "api-v2"})
@@ -57,7 +52,6 @@ public class ShipmentReviewRatesV2Test extends RestBase {
         assertEquals(rates.get(1).getRate(), shippingRate);
     }
 
-    @Skip(onServer = Server.STAGING)
     @CaseId(2790)
     @Test(description = "Оценить заказ | несуществующий номер заказа",
             groups = {"api-instamart-regress", "api-v2"})

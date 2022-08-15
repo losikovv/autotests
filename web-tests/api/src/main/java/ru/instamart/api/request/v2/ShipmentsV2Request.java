@@ -103,7 +103,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
          * Получаем доступные слоты
          */
         @Step("{method} /" + ApiV2EndPoints.Shipments.SHIPPING_RATES)
-        public static Response GET(final String shipmentNumber, final String date) {
+        public static Response GET(@NonNull final String shipmentNumber, final String date) {
             JSONObject query = new JSONObject();
             if (Objects.nonNull(date)) {
                 query.put("date", date);

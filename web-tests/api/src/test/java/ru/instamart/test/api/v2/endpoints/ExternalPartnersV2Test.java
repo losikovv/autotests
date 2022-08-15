@@ -63,6 +63,7 @@ public class ExternalPartnersV2Test extends RestBase {
         checkExternalPartnersServices(response, false, "3 бесплатные доставки");
     }
 
+    //todo на кракене приходит "active": false
     @Skip(onServer = Server.STAGING) //todo убрать хардкод текста
     @CaseId(1086)
     @Story("Получение списка подписок для пользователя")

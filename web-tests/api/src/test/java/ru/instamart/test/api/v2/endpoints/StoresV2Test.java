@@ -116,7 +116,6 @@ public final class StoresV2Test extends RestBase {
         StoresV2Response storesV2Response = response.as(StoresV2Response.class);
         final SoftAssert sa = new SoftAssert();
         sa.assertTrue(storesV2Response.getStoreLabels().isEmpty(), "Stores Labels not empty");
-        sa.assertEquals(storesV2Response.getStores().get(0).getId().intValue(), EnvironmentProperties.DEFAULT_SID, "Id магазина отличается");
         sa.assertEquals(storesV2Response.getStores().get(0).getName(), "METRO, Нижний Новгород Нартова", "Наименование отличается");
         sa.assertEquals(storesV2Response.getStores().get(0).getRetailer().getId(), Integer.valueOf(1), "Ретейлер не соответствует");
         sa.assertAll();

@@ -243,7 +243,9 @@ public final class ApiV2Helper {
     public List<ProductV2> getProducts(int sid, String query) {
         Response response = ProductsV2Request.GET(ProductsFilterParams.builder().sid(sid).query(query).build());
         checkStatusCode200(response);
-        return response.as(ProductsV2Response.class).getProducts();
+        List<ProductV2> products = response.as(ProductsV2Response.class).getProducts();
+        assertFalse(products.isEmpty(), "Вернулся пустой список продуктов по запросу '" + query + "' в магазине " + sid);
+        return products;
     }
 
     @Step("Поиск продуктов {priceType.value} в {sid} магазине")
@@ -1220,7 +1222,7 @@ public final class ApiV2Helper {
 
     @Step("Добавляем товар в избранное")
     public FavoritesItemV2Response addFavoritesProductBySid(Integer sid) {
-        ProductV2 product = getProductFromEachDepartmentOnMainPage(sid).get(0);
+        ProductV2 product = getProducts(sid).get(0);
         final Response response = FavoritesV2Request.POST(product.getId());
         checkStatusCode200(response);
         return response.as(FavoritesItemV2Response.class);
