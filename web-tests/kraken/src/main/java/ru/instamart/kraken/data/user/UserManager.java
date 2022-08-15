@@ -9,8 +9,8 @@ import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.retry.StepRetry;
 import ru.instamart.kraken.service.ab.AbService;
 import ru.instamart.kraken.service.qa.QaService;
+import ru.instamart.kraken.service.qa.response.QaSessionResponse;
 import ru.sbermarket.common.Crypt;
-import ru.sbermarket.qa.model.response.QaSessionResponse;
 
 import java.util.*;
 
