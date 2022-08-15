@@ -21,9 +21,9 @@ import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.config.BrowserProperties;
-import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.provider.chrome.ChromeDriverExtension;
 
 import java.net.URI;
@@ -90,7 +90,7 @@ public abstract class AbstractBrowserProvider {
         ((HasAuthentication) driver).register(
                 //Basic auth только на стейджах
                 url -> url.getHost().contains("sbermarket.tech"),
-                UsernameAndPassword.of(UiProperties.BASIC_AUTH_USERNAME, UiProperties.BASIC_AUTH_PASSWORD)
+                UsernameAndPassword.of(CoreProperties.BASIC_AUTH_USERNAME, CoreProperties.BASIC_AUTH_PASSWORD)
         );
     }
 

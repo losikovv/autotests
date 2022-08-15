@@ -114,22 +114,23 @@ tests:surge:
     - bash ./report.sh api api-surge
 
 tests:ris:exporter:
+  extends:
+    - ".template_api_tests"
   resource_group: testRisExporter
   only:
     variables:
       - $API_RIS_EXPORTER_ALONE == 'true' && $CI_RUN_ALL_JOBS == 'false'
-  extends:
-    - ".template_api_tests"
   script:
     - gradle clean build apiRisExporter -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh api api-ris-exporter
 
 tests:ris:exporter:schedule:
-  resource_group: testRisExporter
   extends:
     - ".template_api_tests"
     - ".template_schedule"
+  stage: tests-api-service
+  resource_group: testRisExporter
   script:
     - gradle clean build apiRisExporter -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:

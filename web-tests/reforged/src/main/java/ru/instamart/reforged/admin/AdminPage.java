@@ -12,12 +12,12 @@ public interface AdminPage extends Page {
     }
 
     default void goToPage(final String pageUrl) {
-        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + pageUrl);
+        Kraken.open(addBasicAuthToUrl(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + pageUrl));
         Kraken.jsAction().waitForDocumentReady();
     }
 
     default void goToPageOld(final String pageUrl) {
-        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD + pageUrl);
+        Kraken.open(addBasicAuthToUrl(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD + pageUrl));
         Kraken.jsAction().waitForDocumentReady();
     }
 

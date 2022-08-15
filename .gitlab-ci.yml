@@ -55,9 +55,12 @@ before_script:
 
 stages:
   - build
+  - tests-api-shopper
   - tests-api
   - tests-api-ui
+  - tests-api-service
   - generate-report
+  - tests-ui-admin
   - tests-ui
   - tests-ui-tenant
   - custom-run
