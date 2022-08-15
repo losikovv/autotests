@@ -16,7 +16,7 @@ public enum QaService {
      */
     public QaSessionResponse createSession(final String password) {
         final var response = QaSessionRequest.POST(password);
-        response.then().statusCode(200);
+        response.then().statusCode(201);
         return response.as(QaSessionResponse.class);
     }
 
