@@ -8,11 +8,6 @@ public final class UiProperties {
 
     public static final String NAME = "ui";
 
-    @Config(configName = NAME, fieldName = "basicAuthUsername", defaultValue = "", crypted = true)
-    public static String BASIC_AUTH_USERNAME;
-    @Config(configName = NAME, fieldName = "basicAuthPassword", defaultValue = "", crypted = true)
-    public static String BASIC_AUTH_PASSWORD;
-
     @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "", crypted = true)
     public static String ADMIN_URL;
 

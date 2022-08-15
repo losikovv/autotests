@@ -8,7 +8,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -20,23 +19,25 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     public static final SpreeUsersDao INSTANCE = new SpreeUsersDao();
     private final String SELECT_SQL = "SELECT %s FROM spree_users";
     private final String DELETE_SQL = "DELETE FROM spree_users";
+
     private static final String INSERT_SQL = "INSERT INTO spree_roles_users(role_id, user_id) VALUES(?, ?)";
 
     @Override
     public Optional<SpreeUsersEntity> findById(Long id) {
         SpreeUsersEntity user = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement( String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
+        try (final var connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+             final var preparedStatement = connect.prepareStatement( String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setObject(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                user = new SpreeUsersEntity();
-                user.setId(resultSet.getLong("id"));
-                user.setLogin(resultSet.getString("login"));
-                user.setSpreeApiKey(resultSet.getString("spree_api_key"));
-                user.setFirstname(resultSet.getString("firstname"));
-                user.setLastname(resultSet.getString("lastname"));
-                user.setUuid(resultSet.getString("uuid"));
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = new SpreeUsersEntity();
+                    user.setId(resultSet.getLong("id"));
+                    user.setLogin(resultSet.getString("login"));
+                    user.setSpreeApiKey(resultSet.getString("spree_api_key"));
+                    user.setFirstname(resultSet.getString("firstname"));
+                    user.setLastname(resultSet.getString("lastname"));
+                    user.setUuid(resultSet.getString("uuid"));
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
@@ -45,19 +46,20 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     }
 
     public SpreeUsersEntity getUserByEmail(String email) {
-        SpreeUsersEntity user = new SpreeUsersEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE email = ?")) {
+        final var user = new SpreeUsersEntity();
+        try (final var connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE email = ?")) {
             preparedStatement.setString(1, email);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                user.setId(resultSet.getLong("id"));
-                user.setLogin(resultSet.getString("login"));
-                user.setSpreeApiKey(resultSet.getString("spree_api_key"));
-                user.setFirstname(resultSet.getString("firstname"));
-                user.setLastname(resultSet.getString("lastname"));
-                user.setUuid(resultSet.getString("uuid"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    user.setId(resultSet.getLong("id"));
+                    user.setLogin(resultSet.getString("login"));
+                    user.setSpreeApiKey(resultSet.getString("spree_api_key"));
+                    user.setFirstname(resultSet.getString("firstname"));
+                    user.setLastname(resultSet.getString("lastname"));
+                    user.setUuid(resultSet.getString("uuid"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -75,12 +77,13 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     }
 
     public String getUUIDByLogin(String login) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "uuid") + " WHERE login = ?")) {
+        try (final var connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "uuid") + " WHERE login = ?")) {
             preparedStatement.setString(1, login);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            return resultSet.getString("uuid");
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return resultSet.getString("uuid");
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -98,12 +101,13 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     }
 
     public String getEmailByPhone(String phone) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "email") + " su JOIN phone_tokens pt ON su.id = pt.user_id WHERE pt.value = ?")) {
+        try (final var connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "email") + " su JOIN phone_tokens pt ON su.id = pt.user_id WHERE pt.value = ?")) {
             preparedStatement.setString(1, phone);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            return resultSet.getString("email");
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return resultSet.getString("email");
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }

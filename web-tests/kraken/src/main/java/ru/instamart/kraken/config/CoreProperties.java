@@ -37,4 +37,9 @@ public final class CoreProperties {
 
     @Config(configName = NAME, fieldName = "abServiceUrl", defaultValue = "https://paas-content-growth-ab-platform-back.k-stage.sbmt.io")
     public static String AB_SERVICE_URL;
+
+    @Config(configName = NAME, fieldName = "basicAuthUsername", defaultValue = "", crypted = true)
+    public static String BASIC_AUTH_USERNAME;
+    @Config(configName = NAME, fieldName = "basicAuthPassword", defaultValue = "", crypted = true)
+    public static String BASIC_AUTH_PASSWORD;
 }

@@ -2,34 +2,27 @@ package ru.instamart.reforged.core.page;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.StringUtil;
-import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.cdp.CdpCookie;
-import ru.instamart.reforged.core.config.UiProperties;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import static ru.instamart.reforged.core.Kraken.*;
 
 public interface Page extends PageCheck {
 
-    String BASIC_AUTH = UiProperties.BASIC_AUTH_USERNAME + ":" + UiProperties.BASIC_AUTH_PASSWORD + "@";
+    String BASIC_AUTH = CoreProperties.BASIC_AUTH_USERNAME + ":" + CoreProperties.BASIC_AUTH_PASSWORD + "@";
 
     String pageUrl();
 
     @Step("Открыть страницу {0} в админке")
     default void openAdminPage(final String page) {
-        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + page);
+        Kraken.open(addBasicAuthToUrl(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + page));
     }
 
     @Step("Открыть страницу {0} в админке")
     default void openAdminPageWithoutSpa(final String page) {
-        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD + page);
+        Kraken.open(addBasicAuthToUrl(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD + page));
     }
 
     @Step("Обновить страницу")

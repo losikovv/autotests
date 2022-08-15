@@ -1,11 +1,12 @@
 package ru.instamart.api.common;
 
 import com.github.viclovsky.swagger.coverage.SwaggerCoverageV3RestAssured;
+import io.restassured.authentication.NoAuthScheme;
+import io.restassured.authentication.PreemptiveBasicAuthScheme;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.config.RedirectConfig;
 import io.restassured.config.RestAssuredConfig;
-import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.specification.RequestSpecification;
@@ -44,6 +45,10 @@ public enum Specification {
 
 
     public void initSpec() {
+        final var basicAuthScheme = new PreemptiveBasicAuthScheme();
+        basicAuthScheme.setUserName(CoreProperties.BASIC_AUTH_USERNAME);
+        basicAuthScheme.setPassword(CoreProperties.BASIC_AUTH_PASSWORD);
+
         final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH;
         final String adminFullUrl = EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD;
         final String apiV2FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
@@ -83,6 +88,7 @@ public enum Specification {
                 .setBaseUri(apiV1FullUrl)
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
+                .setAuth(EnvironmentProperties.Env.isProduction() ? new NoAuthScheme() : basicAuthScheme)
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new SwaggerCoverageV3RestAssured())
                 .addFilter(new CounterFilter())
@@ -98,6 +104,7 @@ public enum Specification {
 
         apiAdminRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(adminFullUrl)
+                .setAuth(EnvironmentProperties.Env.isProduction() ? new NoAuthScheme() : basicAuthScheme)
                 .setConfig(RestAssuredConfig.newConfig().redirect(RedirectConfig.redirectConfig().followRedirects(true)))
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new CounterFilter())
