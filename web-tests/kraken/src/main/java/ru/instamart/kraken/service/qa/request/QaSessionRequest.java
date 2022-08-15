@@ -17,14 +17,14 @@ public final class QaSessionRequest extends QaRequestBase {
         final var request = new QaSession();
         request.setUser(user);
 
-        return givenWithSpec()
+        return givenWithAuth()
                 .body(Mapper.INSTANCE.objectToMap(request))
                 .post(QaEndpoint.SESSION);
     }
 
     @Step("{method} /" + QaEndpoint.DELETE_SESSION)
     public static Response DELETE(final String userId) {
-        return givenWithSpec()
+        return givenWithAuth()
                 .delete(QaEndpoint.DELETE_SESSION, userId);
     }
 }
