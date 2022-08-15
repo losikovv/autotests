@@ -23,7 +23,6 @@ project(":kraken") {
     dependencies {
         api lib.common
         api lib.qase
-        api lib.qa
 
         api lib.testng
         api lib.jsonSimple

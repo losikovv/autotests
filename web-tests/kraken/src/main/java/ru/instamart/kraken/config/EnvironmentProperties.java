@@ -78,8 +78,6 @@ public final class EnvironmentProperties {
     @Config(configName = NAME, fieldName = "shopperUrl", defaultValue = "")
     private static String SHOPPER_URL;
 
-    @Config(configName = NAME, fieldName = "qaUrl", defaultValue = "")
-    private static String QA_URL;
     @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "")
     private static String ADMIN_URL;
     @Config(configName = NAME, fieldName = "shopperGwUrl", defaultValue = "")
@@ -120,11 +118,9 @@ public final class EnvironmentProperties {
                 if (BASIC_URL.contains("stf-")) {
                     K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("kraken", STAGE);
                     K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("kraken", STAGE);
-                    QA_URL = QA_URL.replace("kraken", STAGE);
                 } else {
                     K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("stfkraken", STAGE);
                     K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("shpkraken", STAGE);
-                    QA_URL = QA_URL.replace("stf-kraken", STAGE);
                 }
                 log.debug("Кастомные данные при ручном запуске на стейджах");
                 log.debug("BASIC_URL: {}", BASIC_URL);
@@ -132,7 +128,6 @@ public final class EnvironmentProperties {
                 log.debug("Stage: {}", STAGE);
                 log.debug("DB_URL: {}", DB_URL);
                 log.debug("DB_PGSQL_URL: {}", DB_PGSQL_URL);
-                log.debug("QA_URL: {}", QA_URL);
                 log.debug("K8S_NAME_STF_SPACE: {}", K8S_NAME_STF_SPACE);
                 log.debug("K8S_NAME_SHP_SPACE: {}", K8S_NAME_SHP_SPACE);
 
@@ -154,7 +149,6 @@ public final class EnvironmentProperties {
         public static String FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD = "https://" + (isProduction() ? ADMIN_URL + "/": BASIC_URL + "/") + "admin/";
         public static String FULL_SHOPPER_URL = "https://" + SHOPPER_URL + "/";
         public static String PROD_FULL_SITE_URL = "https://" + "api." + BASIC_URL + "/";
-        public static String QA_FULL_URL = "https://" + QA_URL + "/";
         public static String ADMIN_FULL_URL = "https://" + Optional.ofNullable(ADMIN_URL).orElse(BASIC_URL) + "/";
         public static String ONE_SESSION = System.getProperty("one_session");
         public static String FULL_SHOPPER_GW_URL = "https://" + SHOPPER_GW_URL + "/";
