@@ -5,10 +5,10 @@ import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+import ru.instamart.api.helper.KafkaHelper;
 import ru.instamart.grpc.helper.GrpcHelper;
 import ru.instamart.jdbc.dao.shippingcalc.IntervalsSurgeDao;
 import ru.instamart.jdbc.entity.shippingcalc.IntervalsSurgeEntity;
-import ru.instamart.kafka.helper.KafkaHelper;
 
 import java.util.List;
 

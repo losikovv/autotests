@@ -11,8 +11,8 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.*;
 import ru.instamart.grpc.helper.GrpcHelper;
 import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
-import ru.instamart.kafka.helper.KafkaHelper;
-import ru.instamart.kafka.helper.LogHelper;
+import ru.instamart.api.helper.KafkaHelper;
+import ru.instamart.api.helper.LogHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 

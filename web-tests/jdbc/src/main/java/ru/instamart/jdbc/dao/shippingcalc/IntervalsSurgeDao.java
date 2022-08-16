@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +21,17 @@ public class IntervalsSurgeDao implements Dao<Integer, IntervalsSurgeEntity> {
 
     public List<IntervalsSurgeEntity> getIntervals() {
         List<IntervalsSurgeEntity> intervalsResult = new ArrayList<>();
-        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*"))) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                var intervalSurgeEntity = new IntervalsSurgeEntity();
-                intervalSurgeEntity.setLeftBoundary(resultSet.getInt("left_boundary"));
-                intervalSurgeEntity.setRightBoundary(resultSet.getInt("right_boundary"));
-                intervalSurgeEntity.setPriceAddition(resultSet.getInt("price_addition"));
-                intervalSurgeEntity.setPercentAddition(resultSet.getInt("percent_addition"));
-                intervalsResult.add(intervalSurgeEntity);
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*"))) {
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    var intervalSurgeEntity = new IntervalsSurgeEntity();
+                    intervalSurgeEntity.setLeftBoundary(resultSet.getInt("left_boundary"));
+                    intervalSurgeEntity.setRightBoundary(resultSet.getInt("right_boundary"));
+                    intervalSurgeEntity.setPriceAddition(resultSet.getInt("price_addition"));
+                    intervalSurgeEntity.setPercentAddition(resultSet.getInt("percent_addition"));
+                    intervalsResult.add(intervalSurgeEntity);
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
@@ -40,8 +40,8 @@ public class IntervalsSurgeDao implements Dao<Integer, IntervalsSurgeEntity> {
     }
 
     public boolean setIntervals(List<IntervalsSurgeEntity> intervalsList) {
-        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
-             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (left_boundary, right_boundary, price_addition, percent_addition) " +
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(INSERT_SQL + " (left_boundary, right_boundary, price_addition, percent_addition) " +
                      " VALUES (?, ?, ?, ?) ")) {
             int result = 0;
             for (IntervalsSurgeEntity intervalsSurgeEntity : intervalsList) {
@@ -62,7 +62,7 @@ public class IntervalsSurgeDao implements Dao<Integer, IntervalsSurgeEntity> {
     }
 
     public void clearIntervals() {
-        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement("TRUNCATE TABLE intervals_surge")) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

@@ -3,16 +3,13 @@ package ru.instamart.api.checkpoint;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.jdbc.dao.candidates.CandidatesDao;
 import ru.instamart.jdbc.dao.workflow.ChangelogsDao;
 import ru.instamart.jdbc.dao.workflow.SegmentsDao;
 import ru.instamart.jdbc.dao.workflow.WorkflowsDao;
-import ru.instamart.jdbc.entity.candidates.CandidatesEntity;
 import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
 import ru.instamart.jdbc.entity.workflow.SegmentsEntity;
 import ru.instamart.jdbc.entity.workflow.WorkflowsEntity;
-import ru.instamart.kafka.helper.KafkaHelper;
-import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.api.helper.KafkaHelper;
 import workflow.*;
 
 import java.util.Comparator;

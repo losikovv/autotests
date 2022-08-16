@@ -1,4 +1,4 @@
-package ru.instamart.kafka.helper;
+package ru.instamart.api.helper;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
@@ -28,7 +28,7 @@ public class LogHelper {
         final var collect = new ArrayList<String>();
         podList.getItems().forEach(
                 item -> {
-                    final var logs = getLogs(item, "app", 0);
+                    final var logs = getLogs(item, "app", 100);
                     Allure.addAttachment("Все логи", String.join("\r\n", logs));
 
                     collect.addAll(logs.stream()

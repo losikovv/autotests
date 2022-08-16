@@ -117,6 +117,8 @@ stages:
       - web-tests/api/swagger-coverage-output
       - web-tests/api/build/report.html
     expire_in: 1 week
+    reports:
+      junit: web-tests/api/build/test-results/*/TEST-*.xml
   allow_failure: false
 
 .template_api_ui_tests:
@@ -132,6 +134,8 @@ stages:
       - web-tests/api/swagger-coverage-output
       - web-tests/api/build/report.html
     expire_in: 1 week
+    reports:
+      junit: web-tests/api/build/test-results/*/TEST-*.xml
   allow_failure: false
 
 .template_grpc_tests:

@@ -1,8 +1,7 @@
-package ru.instamart.kafka.helper;
+package ru.instamart.api.helper;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import lombok.Cleanup;
 import order.Order;
 import order_enrichment.OrderEnrichment;
 import order_status.OrderStatus;
@@ -26,10 +25,8 @@ public class KafkaHelper {
 
     @Step("Получаем данные из топика {config.topic} кафки по orderUUID: {orderUUID}")
     public List<Order.EventOrder> waitDataInKafkaTopicFtcOrder(KafkaConfig config, String orderUUID, StatusOrder postponed) {
-        @Cleanup
         var kafkaConsumers = new KafkaConsumers(config, 10L);
         List<Order.EventOrder> longEventOrderHashMap = kafkaConsumers.consumeEventOrder(orderUUID, postponed);
-        kafkaConsumers.close();
         assertTrue(longEventOrderHashMap.size() > 0, "Logs is empty");
         return longEventOrderHashMap;
     }
@@ -85,7 +82,6 @@ public class KafkaHelper {
     public List<OrderStatus.EventStatusRequest> waitDataInKafkaTopicStatusOrderRequest(String shipmentUuid, StatusOrder automaticRouting) {
         var kafkaConsumers = new KafkaConsumers(configCmdStatusOrderRequest(), 10L);
         List<OrderStatus.EventStatusRequest> longEventOrderHashMap = kafkaConsumers.consumeOrderStatus(shipmentUuid, automaticRouting);
-        kafkaConsumers.close();
         assertTrue(longEventOrderHashMap.size() > 0, "Logs is empty");
         return longEventOrderHashMap;
     }
@@ -94,7 +90,6 @@ public class KafkaHelper {
     public List<AssignmentChangedOuterClass.AssignmentChanged> waitDataInKafkaTopicWorkflowAssignment(String uuid) {
         var kafkaConsumers = new KafkaConsumers(configWorkflowAssignment(), 10L);
         List<AssignmentChangedOuterClass.AssignmentChanged> longAssignmentsHashMap = kafkaConsumers.consumeAssignments(uuid);
-        kafkaConsumers.close();
         assertTrue(longAssignmentsHashMap.size() > 0, "Logs is empty");
         return longAssignmentsHashMap;
     }
@@ -103,7 +98,6 @@ public class KafkaHelper {
     public List<ExternalDeliveryOuterClass.ExternalDelivery> waitDataInKafkaTopicWorkflowExternalDelivery(String uuid) {
         var kafkaConsumers = new KafkaConsumers(configWorkflowExternalDelivery(), 10L);
         List<ExternalDeliveryOuterClass.ExternalDelivery> longExternalDeliveriesHashMap = kafkaConsumers.consumeExternalDeliveries(uuid);
-        kafkaConsumers.close();
         assertTrue(longExternalDeliveriesHashMap.size() > 0, "Logs is empty");
         return longExternalDeliveriesHashMap;
     }
@@ -112,7 +106,6 @@ public class KafkaHelper {
     public List<SegmentChangedOuterClass.SegmentChanged> waitDataInKafkaTopicWorkflowSegment(long segmentId) {
         var kafkaConsumers = new KafkaConsumers(configWorkflowSegment(), 10L);
         List<SegmentChangedOuterClass.SegmentChanged> longSegmentsHashMap = kafkaConsumers.consumeSegments(segmentId);
-        kafkaConsumers.close();
         assertTrue(longSegmentsHashMap.size() > 0, "Logs is empty");
         return longSegmentsHashMap;
     }
@@ -121,7 +114,6 @@ public class KafkaHelper {
     public List<WorkflowChangedOuterClass.WorkflowChanged> waitDataInKafkaTopicWorkflow(long workflowId) {
         var kafkaConsumers = new KafkaConsumers(configWorkflow());
         List<WorkflowChangedOuterClass.WorkflowChanged> longWorkflowsHashMap = kafkaConsumers.consumeWorkflows(workflowId);
-        kafkaConsumers.close();
         assertTrue(longWorkflowsHashMap.size() > 0, "Logs is empty");
         return longWorkflowsHashMap;
     }
@@ -130,7 +122,6 @@ public class KafkaHelper {
     public List<Push.EventPushNotification> waitDataInKafkaTopicNotifications(long workflowId) {
         var kafkaConsumers = new KafkaConsumers(configNotifications(), 10L);
         List<Push.EventPushNotification> longNotificationHashMap = kafkaConsumers.consumeNotifications(workflowId);
-        kafkaConsumers.close();
         assertTrue(longNotificationHashMap.size() > 0, "Logs is empty");
         return longNotificationHashMap;
     }
