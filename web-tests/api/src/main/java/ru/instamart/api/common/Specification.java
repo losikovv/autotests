@@ -122,6 +122,7 @@ public enum Specification {
 
         prodRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(prodFullUrl)
+                .setBasePath("v2/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new CounterFilter())
