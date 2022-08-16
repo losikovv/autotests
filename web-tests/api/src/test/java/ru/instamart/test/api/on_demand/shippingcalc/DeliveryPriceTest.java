@@ -6,7 +6,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.api.common.RestBase;
+import ru.instamart.api.common.ShippingCalcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.kraken.enums.AppVersion;
 import ru.instamart.kraken.enums.Tenant;
@@ -25,7 +25,7 @@ import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 @Epic("On Demand")
 @Feature("ShippingCalc")
-public class GetDeliveryPriceTest extends RestBase {
+public class DeliveryPriceTest extends ShippingCalcBase {
 
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
     private Integer localStrategyId;
@@ -38,9 +38,9 @@ public class GetDeliveryPriceTest extends RestBase {
     private final String CUSTOMER_ID = UUID.randomUUID().toString();
     private final String ANONYMOUS_ID = UUID.randomUUID().toString();
     private final String ORDER_ID = UUID.randomUUID().toString();
-    private final String SIMPLE_SCRIPT_NAME = "Фиксированная цена, с подсказками и объяснением";
+    private final String FIXED_SCRIPT_NAME = "Фиксированная цена, с подсказками и объяснением";
     private final String COMPLEX_SCRIPT_NAME = "Цена с учётом сложности, с подсказками и объяснением";
-    private final String SIMPLE_SCRIPT_PARAMS = "{\"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
+    private final String FIXED_SCRIPT_PARAMS = "{\"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
     private final String COMPLEX_SCRIPT_PARAMS = "{\"baseMass\": \"30000\", \"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"basePositions\": \"30\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}";
 
     @BeforeClass(alwaysRun = true)
@@ -48,7 +48,7 @@ public class GetDeliveryPriceTest extends RestBase {
         clientShippingCalc = ShippingcalcGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC));
 
         localStrategyId = addStrategy(false, 0, DeliveryType.COURIER_DELIVERY.toString());
-        addCondition(addRule(localStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "0"), 0, "delivery_price"), "{\"Count\": 1}", ConditionType.FIRST_N_ORDERS.name().toLowerCase());
+        addCondition(addRule(localStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "0"), 0, "delivery_price"), "{\"Count\": 1}", ConditionType.FIRST_N_ORDERS.name().toLowerCase());
         addCondition(addRule(localStrategyId, COMPLEX_SCRIPT_NAME, String.format(COMPLEX_SCRIPT_PARAMS, "19900"), 1, "delivery_price"), "{\"Max\": 100000, \"Min\": 0}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
         addCondition(addRule(localStrategyId, COMPLEX_SCRIPT_NAME, String.format(COMPLEX_SCRIPT_PARAMS, "9900"), 2, "delivery_price"), "{\"Max\": 300000, \"Min\": 100000}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
         addCondition(addRule(localStrategyId, COMPLEX_SCRIPT_NAME, String.format(COMPLEX_SCRIPT_PARAMS, "0"), 3, "delivery_price"), "{\"Max\": 1000000000000000, \"Min\": 300100}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
@@ -57,14 +57,14 @@ public class GetDeliveryPriceTest extends RestBase {
         addBinding(localStrategyId, STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
 
         conditionStrategyId = addStrategy(false, 0, DeliveryType.COURIER_DELIVERY.toString());
-        addCondition(addRule(conditionStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "0"), 0, "delivery_price"), "{\"Count\": 1}", ConditionType.FIRST_N_ORDERS.name().toLowerCase());
-        addCondition(addRule(conditionStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "9900"), 1, "delivery_price"), "{\"Max\": 2000, \"Min\": 0}", ConditionType.ORDER_DISTANCE_RANGE.name().toLowerCase());
-        addCondition(addRule(conditionStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "14900"), 2, "delivery_price"), "{\"platforms\": [{\"name\": \"SbermarketIOS\", \"version\": \"6.28.0\"}]}", ConditionType.PLATFORMS.name().toLowerCase());
-        addCondition(addRule(conditionStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "19900"), 3, "delivery_price"), "{\"registered_after\": \"2022-06-20T12:00:00Z\"}", ConditionType.REGISTERED_AFTER.name().toLowerCase());
-        Integer multipleConditionRuleId = addRule(conditionStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "0"), 4, "delivery_price");
+        addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "0"), 0, "delivery_price"), "{\"Count\": 1}", ConditionType.FIRST_N_ORDERS.name().toLowerCase());
+        addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "9900"), 1, "delivery_price"), "{\"Max\": 2000, \"Min\": 0}", ConditionType.ORDER_DISTANCE_RANGE.name().toLowerCase());
+        addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "14900"), 2, "delivery_price"), "{\"platforms\": [{\"name\": \"SbermarketIOS\", \"version\": \"6.28.0\"}]}", ConditionType.PLATFORMS.name().toLowerCase());
+        addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "19900"), 3, "delivery_price"), "{\"registered_after\": \"2022-06-20T12:00:00Z\"}", ConditionType.REGISTERED_AFTER.name().toLowerCase());
+        Integer multipleConditionRuleId = addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "0"), 4, "delivery_price");
         addCondition(multipleConditionRuleId, "{\"Count\": 2}", ConditionType.FIRST_N_ORDERS.name().toLowerCase());
         addCondition(multipleConditionRuleId, "{\"Max\": 1000000000000000, \"Min\": 300000}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
-        addCondition(addRule(conditionStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "29900"), 5, "delivery_price"), "{}", ConditionType.ALWAYS.name().toLowerCase());
+        addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "29900"), 5, "delivery_price"), "{}", ConditionType.ALWAYS.name().toLowerCase());
         addCondition(addRule(conditionStrategyId, "", "100000", 0, "min_cart"), "{}", ConditionType.ALWAYS.name().toLowerCase());
         addBinding(conditionStrategyId, STORE_ID, Tenant.INSTAMART.getId(), DeliveryType.COURIER_DELIVERY.toString());
     }
@@ -91,11 +91,11 @@ public class GetDeliveryPriceTest extends RestBase {
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryPriceForGlobalStrategy() {
         firstGlobalStrategyId = addStrategy(true, 1, DeliveryType.B2B.toString());
-        addCondition(addRule(firstGlobalStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "5000"), 0, "delivery_price"), "{}", "always");
+        addCondition(addRule(firstGlobalStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "5000"), 0, "delivery_price"), "{}", "always");
         addCondition(addRule(firstGlobalStrategyId, "", "100000", 0, "min_cart"), "{}", "always");
 
         secondGlobalStrategyId = addStrategy(true, 0, DeliveryType.B2B.toString());
-        addCondition(addRule(secondGlobalStrategyId, SIMPLE_SCRIPT_NAME, String.format(SIMPLE_SCRIPT_PARAMS, "10000"), 0, "delivery_price"), "{}", "always");
+        addCondition(addRule(secondGlobalStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "10000"), 0, "delivery_price"), "{}", "always");
         addCondition(addRule(secondGlobalStrategyId, "", "100000", 0, "min_cart"), "{}", "always");
 
         var request = getDeliveryPriceRequest(
@@ -262,7 +262,6 @@ public class GetDeliveryPriceTest extends RestBase {
             softAssert.assertEquals(offerResponse.getShipments(0).getHintsCount(), 4, "Не ожидаемое кол-во подсказок");
             softAssert.assertEquals(offerResponse.getShipments(0).getPriceExplanation().getPassedConditionsCount(), 0, "Не ожидаемое кол-во прошедших условий");
             softAssert.assertAll();
-
         });
 
         Allure.step("Проверяем новую расчитанную цену", () -> checkDeliveryPrice(newResponse, localStrategyId, 19900, 100000, 3, 4, 0, 0));
@@ -274,30 +273,7 @@ public class GetDeliveryPriceTest extends RestBase {
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryPriceWithSurge() {
         String storeId = UUID.randomUUID().toString();
-        Integer surgeLevel = 5;
         addBinding(localStrategyId, storeId, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
-
-        var surgeIntervalsRequest = SetIntervalsSurgeRequest.newBuilder()
-                .addIntervals(SurgeInterval.newBuilder()
-                        .setLeftBoundary(0)
-                        .setRightBoundary(1)
-                        .setPriceAddition(0)
-                        .setPercentAddition(0)
-                        .build())
-                .addIntervals(SurgeInterval.newBuilder()
-                        .setLeftBoundary(1)
-                        .setRightBoundary(surgeLevel)
-                        .setPriceAddition(10000)
-                        .setPercentAddition(10)
-                        .build())
-                .addIntervals(SurgeInterval.newBuilder()
-                        .setLeftBoundary(surgeLevel)
-                        .setRightBoundary(10)
-                        .setPriceAddition(20000)
-                        .setPercentAddition(20)
-                        .build())
-                .build();
-        clientShippingCalc.setIntervalsSurge(surgeIntervalsRequest);
 
         Surgelevelevent.SurgeEvent surgeEvent = Surgelevelevent.SurgeEvent.newBuilder()
                 .setStoreId(storeId)
@@ -322,7 +298,7 @@ public class GetDeliveryPriceTest extends RestBase {
         Allure.step("Проверяем наценку по surge", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(response.getShipments(0).getSurgeUsed(), "Surge не использовался при расчете цены");
-            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), surgeLevel.floatValue(), "Не верный surgelevel");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), (float) surgeLevel, "Не верный surgelevel");
             softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 11990, "Не верная наценка");
             softAssert.assertAll();
         });

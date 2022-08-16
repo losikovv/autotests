@@ -10,11 +10,12 @@
             <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
         </method-selector>
     </method-selectors>
-    <test verbose="1" name="SHIPPINGCALC" parallel="classes" thread-count="3">
+    <test verbose="1" name="SHIPPINGCALC" parallel="classes" thread-count="4">
         <classes>
             <class name="ru.instamart.test.api.on_demand.shippingcalc.StrategyTest"/>
-            <class name="ru.instamart.test.api.on_demand.shippingcalc.GetDeliveryPriceTest"/>
             <class name="ru.instamart.test.api.on_demand.shippingcalc.ScriptTest"/>
+            <class name="ru.instamart.test.api.on_demand.shippingcalc.DeliveryPriceTest"/>
+            <class name="ru.instamart.test.api.on_demand.shippingcalc.MinCartTest"/>
         </classes>
     </test>
 </suite>
