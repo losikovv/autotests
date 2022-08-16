@@ -307,8 +307,9 @@ public final class CheckoutTests {
 
         checkoutNew().checkPaymentMethodEmpty();
 
-        //TODO Добавить проверку бабла, когда он появится
-        checkoutNew().checkSelectedPaymentMethodContains("Тут по кейсу должна быть проверка бабла, но его пока не завезли, поэтому мы фейлим тест");
+        checkoutNew().checkNotificationVisible();
+        checkoutNew().checkNotificationTitle("Оплата картой курьеру недоступна");
+        checkoutNew().checkNotificationText("Вы выбрали бесконтактную доставку, заказ нужно оплатить онлайн");
     }
 
     @Issue("B2C-9777")
