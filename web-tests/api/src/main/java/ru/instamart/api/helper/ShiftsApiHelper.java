@@ -193,6 +193,7 @@ public class ShiftsApiHelper {
     public Integer startOfShift(StartPointsTenants startPointsTenants) {
         createShift();
         var planningId = shifts().get(0).getId();
+        planningPeriodId.set(planningId);
         boolean state = ShiftsDao.INSTANCE.updateState(planningId);
         assertTrue(state, String.format("Статус смены %s не изменился", planningId ));
         activateShiftsPartner(startPointsTenants);

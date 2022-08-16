@@ -26,6 +26,7 @@ import java.util.*;
 import static org.testng.Assert.*;
 import static ru.instamart.kafka.configs.KafkaConfigs.configPlanningPeriods;
 import static ru.instamart.kafka.configs.KafkaConfigs.configStoreChanged;
+import static ru.instamart.kafka.enums.Pods.SHIFT_SERVICE;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
@@ -36,7 +37,7 @@ public class ShiftsStoreChangedTest extends RestBase {
 
     private Integer baseStoreId;
     private Integer deliveryAreaId;
-    private String storeUUID = UUID.randomUUID().toString();
+    private final String storeUUID = "4872ead0-274b-49a2-955e-a5101a7de9cb";
     private String date = getDateFromMSK();
 
     @BeforeClass(alwaysRun = true,
@@ -46,29 +47,29 @@ public class ShiftsStoreChangedTest extends RestBase {
         assertTrue(shopsEntity.size() > 0, "Данные по id shops пустые");
         baseStoreId = shopsEntity.get(0).getOriginalId() + 1;
         deliveryAreaId = baseStoreId + 1;
-        var storeChanged = StoreChangedOuterClass.StoreChanged.newBuilder()
-                .setId(baseStoreId)
-                .setUuid(storeUUID)
-                .setName("Ашан, Севастопольский просп.")
-                .setCreatedAt(getTimestamp())
-                .setUpdatedAt(getTimestamp())
-                .setTimeZone("Europe/Moscow")
-                .setOperationalZoneId(1)
-                .setRetailerId(15)
-                .setImportKeyPostfix("1")
-                .setLocation("{\"id\":171,\"lat\":55.686856,\"lon\":37.603826,\"area\":null,\"city\":\"Москва\",\"kind\":null,\"block\":null,\"floor\":null,\"phone\":null,\"region\":null,\"street\":\"Севастопольский просп.\",\"building\":\"11Е\",\"comments\":null,\"entrance\":null,\"apartment\":null,\"door_phone\":null,\"settlement\":null,\"elevator\":null,\"delivery_to_door\":false,\"full_address\":\"Москва, Севастопольский просп., 11Е\"}")
-                .setHelpdeskeddyId(1293)
-                .setFastPaymentMetroStoreDns("MOW11MPSU010001")
-                .setFastPaymentMetroBarcodeCiphertext("OCTZ3Td/m0q3TPPKOBgcP+7oo78S5b22IQVokP7KHw6flEiaQbvC7UWOhKgvTin2hUI=")
-                .setExpressDelivery(true)
-                .setBaseStoreId(baseStoreId)
-                .setDeliveryAreaId(deliveryAreaId)
-                .setRetailerStoreId("-1")
-                .setScheduleType("list")
-                .setStoreZones("[{\"id\":47,\"area\":[[[37.6387751,56.0294056],[37.3970759,55.8679255],[37.0070613,55.8771711],[37.2597468,55.7042236],[37.0043147,55.5631378],[37.3696101,55.564691],[37.5975764,55.3981549],[37.7870906,55.5476029],[38.1963313,55.5476029],[37.8887141,55.7181496],[38.2265437,55.8679255],[37.8530085,55.8710076],[37.6387751,56.0294056]]],\"name\":\"Москва TEST\"}]")
-                .setAvailableOn(getTimestamp())
-                .build();
-        kafka.publish(configStoreChanged(), storeChanged.toByteArray());
+//        var storeChanged = StoreChangedOuterClass.StoreChanged.newBuilder()
+//                .setId(baseStoreId)
+//                .setUuid(storeUUID)
+//                .setName("Ашан, Севастопольский просп.")
+//                .setCreatedAt(getTimestamp())
+//                .setUpdatedAt(getTimestamp())
+//                .setTimeZone("Europe/Moscow")
+//                .setOperationalZoneId(1)
+//                .setRetailerId(15)
+//                .setImportKeyPostfix("1")
+//                .setLocation("{\"id\":171,\"lat\":55.686856,\"lon\":37.603826,\"area\":null,\"city\":\"Москва\",\"kind\":null,\"block\":null,\"floor\":null,\"phone\":null,\"region\":null,\"street\":\"Севастопольский просп.\",\"building\":\"11Е\",\"comments\":null,\"entrance\":null,\"apartment\":null,\"door_phone\":null,\"settlement\":null,\"elevator\":null,\"delivery_to_door\":false,\"full_address\":\"Москва, Севастопольский просп., 11Е\"}")
+//                .setHelpdeskeddyId(1293)
+//                .setFastPaymentMetroStoreDns("MOW11MPSU010001")
+//                .setFastPaymentMetroBarcodeCiphertext("OCTZ3Td/m0q3TPPKOBgcP+7oo78S5b22IQVokP7KHw6flEiaQbvC7UWOhKgvTin2hUI=")
+//                .setExpressDelivery(true)
+//                .setBaseStoreId(baseStoreId)
+//                .setDeliveryAreaId(deliveryAreaId)
+//                .setRetailerStoreId("-1")
+//                .setScheduleType("list")
+//                .setStoreZones("[{\"id\":47,\"area\":[[[37.6387751,56.0294056],[37.3970759,55.8679255],[37.0070613,55.8771711],[37.2597468,55.7042236],[37.0043147,55.5631378],[37.3696101,55.564691],[37.5975764,55.3981549],[37.7870906,55.5476029],[38.1963313,55.5476029],[37.8887141,55.7181496],[38.2265437,55.8679255],[37.8530085,55.8710076],[37.6387751,56.0294056]]],\"name\":\"Москва TEST\"}]")
+//                .setAvailableOn(getTimestamp())
+//                .build();
+//        kafka.publish(configStoreChanged(), storeChanged.toByteArray());
     }
 
     @AfterClass(alwaysRun = true, description = "Clear")
@@ -162,9 +163,7 @@ public class ShiftsStoreChangedTest extends RestBase {
                 .build();
 
         kafka.publish(configPlanningPeriods(), periodsImport.toByteArray());
-        var pod = Pods.SHIFT_SERVICE;
-        simplyAwait(2);
-        List<String> logsPods = kubeLog.getLogsPods(pod.getNameSpace(), pod.getLabel(), "\"planning_area_id\": " + deliveryAreaId);
+        List<String> logsPods = kubeLog.getLogsPods(SHIFT_SERVICE.getNameSpace(), SHIFT_SERVICE.getLabel(), "\"planning_area_id\": " + deliveryAreaId);
         Allure.step("Asserts", () ->
                 assertTrue(logsPods.size() > 0, "Вернулись пустые логи")
         );

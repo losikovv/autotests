@@ -31,6 +31,7 @@ import static ru.instamart.kraken.util.TimeUtil.getZonedDate;
 public class KafkaConsumers {
     private static String saslConfigs = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";";
     private KafkaConsumer<String, byte[]> consumer;
+    private final int giveUp = 100;
 
     public KafkaConsumers(KafkaConfig config) {
         this.consumer = createConsumer(config, null);
@@ -46,7 +47,7 @@ public class KafkaConsumers {
         props.put(ConsumerConfig.CLIENT_ID_CONFIG, config.clientId);
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, CoreProperties.KAFKA_SERVER);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, config.groupName);
-//        props.put("session.timeout.ms", "30000");
+        props.put("session.timeout.ms", "30000");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 //        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
 
@@ -61,26 +62,24 @@ public class KafkaConsumers {
         return props;
     }
 
-    private KafkaConsumer<String, byte[]> createConsumer(final KafkaConfig config, Long time) {
-        Properties props = consumerProperties(config);
-        KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<>(props);
+    private KafkaConsumer<String, byte[]> createConsumer(final KafkaConfig config, final Long time) {
+        final Properties props = consumerProperties(config);
+        final KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<>(props);
         if (Objects.nonNull(time)) {
-            log.info("time not null");
-            TopicPartition topicPartition0 = new TopicPartition(config.topic, 0);
+            final TopicPartition topicPartition0 = new TopicPartition(config.topic, 0);
             consumer.assign(Collections.singletonList(topicPartition0));
-            Map<TopicPartition, Long> startOffsetsMap = new HashMap<>();
+            final Map<TopicPartition, Long> startOffsetsMap = new HashMap<>();
             startOffsetsMap.put(topicPartition0, getDbDateMinusMinutes(time));
-            Map<TopicPartition, OffsetAndTimestamp> startPartitionOffsetsMap = consumer
+            final Map<TopicPartition, OffsetAndTimestamp> startPartitionOffsetsMap = consumer
                     .offsetsForTimes(startOffsetsMap);
             long partition0StartOffset = 0;
             if (startOffsetsMap.get(topicPartition0) != null) {
                 partition0StartOffset = startPartitionOffsetsMap.get(topicPartition0).offset();
             }
 
-            log.info("Начальное смещение раздела:{}", partition0StartOffset);
+            log.debug("Начальное смещение раздела:{}", partition0StartOffset);
             consumer.seek(topicPartition0, partition0StartOffset);
         } else {
-            log.info("time null");
             consumer.subscribe(Collections.singleton(config.topic));
         }
         return consumer;
@@ -88,16 +87,14 @@ public class KafkaConsumers {
 
     public List<Order.EventOrder> consumeEventOrder(String filter, StatusOrder postponed) {
         final List<Order.EventOrder> allLogs = new ArrayList<>();
-        final int giveUp = 100;
         int noRecordsCount = 0;
         List<Order.EventOrder> result = new ArrayList<>();
         while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(50));
             for (ConsumerRecord<String, byte[]> record : records) {
-                Order.EventOrder parseEventOrder = null;
                 try {
                     if (record.value() != null) {
-                        parseEventOrder = Order.EventOrder.parseFrom(record.value());
+                        var parseEventOrder = Order.EventOrder.parseFrom(record.value());
                         log.debug("record: {}", parseEventOrder.toString());
                         allLogs.add(parseEventOrder);
                         if (parseEventOrder != null && parseEventOrder.getOrderUuid().equals(filter)) {
@@ -131,18 +128,15 @@ public class KafkaConsumers {
 
 
     public List<OrderStatus.EventStatusRequest> consumeOrderStatus(KafkaConsumer<String, byte[]> consumer, String filter, StatusOrder postponed) {
-
-        final int giveUp = 200;
         int noRecordsCount = 0;
         List<OrderStatus.EventStatusRequest> result = new ArrayList<>();
         while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(10000));
             for (ConsumerRecord<String, byte[]> record : records) {
-                OrderStatus.EventStatusRequest parseOrderStatus = null;
                 try {
                     if (record.value() != null) {
                         log.info("record: {}", record.value().toString());
-                        parseOrderStatus = OrderStatus.EventStatusRequest.parseFrom(record.value());
+                        var parseOrderStatus = OrderStatus.EventStatusRequest.parseFrom(record.value());
                         if (parseOrderStatus != null && parseOrderStatus.getShipmentUuid().equals(filter)) {
                             if (parseOrderStatus.getStatus().equals(postponed)) {
                                 result.add(parseOrderStatus);
@@ -171,16 +165,14 @@ public class KafkaConsumers {
 
     public List<OrderEnrichment.EventOrderEnrichment> consumeOrderEnrichment(String shipmentUuid, StatusOrder automaticRouting) {
         List<OrderEnrichment.EventOrderEnrichment> allLogs = new ArrayList<>();
-        final int giveUp = 100;
         int noRecordsCount = 0;
         List<OrderEnrichment.EventOrderEnrichment> result = new ArrayList<>();
         while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(10000));
             for (ConsumerRecord<String, byte[]> record : records) {
-                OrderEnrichment.EventOrderEnrichment parseEventOrder = null;
                 try {
                     if (record.value() != null) {
-                        parseEventOrder = OrderEnrichment.EventOrderEnrichment.parseFrom(record.value());
+                        var parseEventOrder = OrderEnrichment.EventOrderEnrichment.parseFrom(record.value());
                         log.info("record: {}", parseEventOrder.toString());
                         allLogs.add(parseEventOrder);
                         if (parseEventOrder != null && parseEventOrder.getShipmentUuid().equals(shipmentUuid)) {
@@ -215,16 +207,14 @@ public class KafkaConsumers {
 
     public List<OrderStatus.EventStatusRequest> consumeOrderStatus(String shipmentUuid, StatusOrder automaticRouting) {
         List<String> allLogs = new ArrayList<>();
-        final int giveUp = 100;
         int noRecordsCount = 0;
         List<OrderStatus.EventStatusRequest> result = new ArrayList<>();
         while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
             for (ConsumerRecord<String, byte[]> record : records) {
-                OrderStatus.EventStatusRequest parseEventOrder = null;
                 try {
                     if (record.value() != null) {
-                        parseEventOrder = OrderStatus.EventStatusRequest.parseFrom(record.value());
+                        var parseEventOrder = OrderStatus.EventStatusRequest.parseFrom(record.value());
                         log.debug("record: {}", parseEventOrder.toString());
                         allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseEventOrder.toString());
                         log.info("parseEventOrder.shipmentUuid: {}", parseEventOrder.getShipmentUuid());
@@ -269,10 +259,9 @@ public class KafkaConsumers {
         while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
             for (ConsumerRecord<String, byte[]> record : records) {
-                AssignmentChangedOuterClass.AssignmentChanged parseAssignment = null;
                 try {
                     if (record.value() != null) {
-                        parseAssignment = AssignmentChangedOuterClass.AssignmentChanged.parseFrom(record.value());
+                        var parseAssignment = AssignmentChangedOuterClass.AssignmentChanged.parseFrom(record.value());
                         log.debug("record: {}", parseAssignment.toString());
                         allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseAssignment);
 
@@ -304,16 +293,14 @@ public class KafkaConsumers {
 
     public List<ExternalDeliveryOuterClass.ExternalDelivery> consumeExternalDeliveries(String workflowUuid) {
         List<String> allLogs = new ArrayList<>();
-        final int giveUp = 100;
         int noRecordsCount = 0;
         List<ExternalDeliveryOuterClass.ExternalDelivery> result = new ArrayList<>();
         while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
             for (ConsumerRecord<String, byte[]> record : records) {
-                ExternalDeliveryOuterClass.ExternalDelivery parseExternalDelivery = null;
                 try {
                     if (record.value() != null) {
-                        parseExternalDelivery = ExternalDeliveryOuterClass.ExternalDelivery.parseFrom(record.value());
+                        var parseExternalDelivery = ExternalDeliveryOuterClass.ExternalDelivery.parseFrom(record.value());
                         log.debug("record: {}", parseExternalDelivery.toString());
                         allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseExternalDelivery);
 
@@ -345,16 +332,14 @@ public class KafkaConsumers {
 
     public List<SegmentChangedOuterClass.SegmentChanged> consumeSegments(long segmentId) {
         List<String> allLogs = new ArrayList<>();
-        final int giveUp = 100;
         int noRecordsCount = 0;
         List<SegmentChangedOuterClass.SegmentChanged> result = new ArrayList<>();
         while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
             for (ConsumerRecord<String, byte[]> record : records) {
-                SegmentChangedOuterClass.SegmentChanged parseSegment = null;
                 try {
                     if (record.value() != null) {
-                        parseSegment = SegmentChangedOuterClass.SegmentChanged.parseFrom(record.value());
+                        var parseSegment = SegmentChangedOuterClass.SegmentChanged.parseFrom(record.value());
                         log.debug("record: {}", parseSegment.toString());
                         allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseSegment);
 
@@ -392,10 +377,9 @@ public class KafkaConsumers {
         while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
             for (ConsumerRecord<String, byte[]> record : records) {
-                WorkflowChangedOuterClass.WorkflowChanged parseWorkflow = null;
                 try {
                     if (record.value() != null) {
-                        parseWorkflow = WorkflowChangedOuterClass.WorkflowChanged.parseFrom(record.value());
+                        var parseWorkflow = WorkflowChangedOuterClass.WorkflowChanged.parseFrom(record.value());
                         log.debug("record: {}", parseWorkflow.toString());
                         allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseWorkflow);
 
@@ -433,10 +417,9 @@ public class KafkaConsumers {
         while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
             for (ConsumerRecord<String, byte[]> record : records) {
-                Push.EventPushNotification parseNotification = null;
                 try {
                     if (record.value() != null) {
-                        parseNotification = Push.EventPushNotification.parseFrom(record.value());
+                        var parseNotification = Push.EventPushNotification.parseFrom(record.value());
                         log.debug("record: {}", parseNotification.toString());
                         allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseNotification);
 
@@ -466,9 +449,5 @@ public class KafkaConsumers {
         Allure.addAttachment("Filter logs", result.toString());
         Allure.addAttachment("All logs", allLogs.toString());
         return result;
-    }
-
-    public void close() {
-        consumer.close();
     }
 }

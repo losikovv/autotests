@@ -22,5 +22,5 @@ public class PlanningPeriodEntity {
     private String publishedTimes;
     private String publishedTime;
     private Integer peoplesCountPredicted;
-    private Boolean maxPeoplesCountEnabled;
+    private Boolean maxPeoplesCount;
 }

@@ -174,11 +174,14 @@ public final class QaseService {
 
         if (caseIDs != null && result instanceof TestResult) {
             int index = ((TestResult) result).getParameterIndex();
-            Long caseIdItem = caseIDs[index].value();
-            if (caseIdItem != null) {
+            Long caseIdItem = null;
+            if (index < caseIDs.length) {
+                caseIdItem = caseIDs[index].value();
+            }
+            if (Objects.nonNull(caseIdItem)) {
                 createTestResult(caseIdItem, status, timeSpent, comment, stacktrace, isDefect, attachmentHash);
             }
-            if (result.getParameters().length == 0) {
+            if (Objects.equals(result.getParameters().length, 0)) {
                 Arrays.stream(caseIDs)
                         .filter(Objects::nonNull)
                         .forEach(item -> createTestResult(item.value(), status, timeSpent, comment, stacktrace, isDefect, attachmentHash));

@@ -8,6 +8,7 @@ import ru.instamart.jdbc.entity.shifts.PlanningPeriodsEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class PlanningPeriodsDao extends AbstractDao<Long, PlanningPeriodsEntity>
         final var where = whereSql.stream()
                 .collect(joining(" AND ", " WHERE ", " LIMIT 10"));
         final var sql = SELECT_SQL + where;
-        
+
         try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIFT).getConnection();
              final var preparedStatement = connect.prepareStatement(sql)) {
             for (int i = 0; i < parameters.size(); i++) {
@@ -83,7 +84,7 @@ public class PlanningPeriodsDao extends AbstractDao<Long, PlanningPeriodsEntity>
                     planningPeriodEntity.setPublishedTimes(resultSet.getString("published_times"));
                     planningPeriodEntity.setPublishedTime(resultSet.getString("published_time"));
                     planningPeriodEntity.setPeoplesCountPredicted(resultSet.getInt("peoples_count_predicted"));
-                    planningPeriodEntity.setMaxPeoplesCountEnabled(resultSet.getBoolean("max_peoples_count_enabled"));
+                    planningPeriodEntity.setMaxPeoplesCount(resultSet.getBoolean("max_peoples_count"));
                     result.add(planningPeriodEntity);
                 }
                 return result;
@@ -93,4 +94,5 @@ public class PlanningPeriodsDao extends AbstractDao<Long, PlanningPeriodsEntity>
         }
         return null;
     }
+
 }

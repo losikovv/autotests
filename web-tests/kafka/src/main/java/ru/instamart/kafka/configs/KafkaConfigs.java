@@ -1,5 +1,6 @@
 package ru.instamart.kafka.configs;
 
+import order.Order;
 import ru.instamart.kafka.KafkaConfig;
 import ru.sbermarket.common.Crypt;
 
@@ -100,8 +101,8 @@ public class KafkaConfigs {
                 .clientId("shifts")
                 .topic("yc.shifts.cmd.planning_periods.0")
                 .groupName("paas-content-operations-shifts-874d2e41-874d2e41")
-                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
-                .password(Crypt.INSTANCE.decrypt("KHB/9bQkCFnzOfzl8kW7zQ=="))
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lMkECi+EDMxY8zgsSNyrupA="))
+                .password(Crypt.INSTANCE.decrypt("o/PIVwB3B/gWRDI86IdONw=="))
                 .build();
     }
 

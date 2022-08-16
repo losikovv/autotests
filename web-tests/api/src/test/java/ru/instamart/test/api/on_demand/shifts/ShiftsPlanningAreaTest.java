@@ -6,6 +6,7 @@ import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.DispatchDataProvider;
@@ -69,10 +70,10 @@ public class ShiftsPlanningAreaTest extends RestBase {
             dataProvider = "shopperRole",
             dataProviderClass = DispatchDataProvider.class,
             description = "Получение списка территорий доставки с ограничением allowed_planning_areas_ids (несколько регионов)")
+    @Parameters("Роль")
     public void getPlanningAreaWithRole200(String role) {
         final Response response = RegionsRequest.GET(currentRegion, role);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, PlanningAreaShiftsItemSHPResponse[].class);
     }
-
 }
