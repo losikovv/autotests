@@ -10,13 +10,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.response.shifts.ShiftResponse;
 import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
-
-import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.grpc.common.GrpcContentHosts.PAAS_CONTENT_OPERATIONS_CANDIDATES;
@@ -30,6 +27,7 @@ public class CandidatesTest extends RestBase {
     private CandidatesGrpc.CandidatesBlockingStub clientCandidates;
     private UserData user;
     private UserData user2;
+    private UserData user3;
     private String timeStamp = getPastDateTime(900L);
 
     @BeforeClass(alwaysRun = true)
@@ -38,12 +36,17 @@ public class CandidatesTest extends RestBase {
        user = UserManager.getShp6Shopper1();
        shopperApp.authorisation(user);
        shiftsApi.startOfShift(StartPointsTenants.METRO_9);
-       shopperApp.sendCurrentLocator(55.7012984,37.7283669, null);
+       shopperApp.sendCurrentLocator(55.915098,37.541685, null);
 
        user2 = UserManager.getShp6Shopper2();
        shopperApp.authorisation(user2);
        shiftsApi.startOfShift(StartPointsTenants.METRO_9);
-       shopperApp.sendCurrentLocator(55.7012984,37.7283669, null);
+       shopperApp.sendCurrentLocator(55.915098,37.541685, null);
+
+       user3 = UserManager.getShp6Shopper3();
+        shopperApp.authorisation(user3);
+        shiftsApi.startOfShift(StartPointsTenants.METRO_3);
+        shopperApp.sendCurrentLocator(55.857291,38.440348, null);
 
        clientCandidates = CandidatesGrpc.newBlockingStub(grpc.createChannel(PAAS_CONTENT_OPERATIONS_CANDIDATES));
 
@@ -51,10 +54,16 @@ public class CandidatesTest extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void after() {
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
+    }
+
+    /*@AfterClass(alwaysRun = true)
+    public void after() {
         List<ShiftResponse> shifts = shiftsApi.shifts();
         shifts.stream()
                 .forEach(item -> shiftsApi.cancelShifts(item.getId()));
-    }
+    }*/
 
     @CaseId(24)
     @Test(description = "Кандидаты находятся в пределах радиуса вокруг координаты магазина",
@@ -63,8 +72,8 @@ public class CandidatesTest extends RestBase {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
                         .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
-                                .setLat(55.700683) //координаты метро шоссейного
-                                .setLon(37.726683)
+                                .setLat(55.915098)
+                                .setLon(37.541685)
                                 .build())
                         .setRadius(200.00F)
                 )
@@ -100,8 +109,8 @@ public class CandidatesTest extends RestBase {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
                         .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
-                                .setLat(55.701298)
-                                .setLon(37.728367)
+                                .setLat(55.915098)
+                                .setLon(37.541685)
                                 .setCreatedAt(getTimestampFromString("2021-11-22T00:04:05.999+03:00"))
                                 .build())
                 )
@@ -115,8 +124,8 @@ public class CandidatesTest extends RestBase {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
                         .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
-                                .setLat(55.7012984)
-                                .setLon(37.7283669)
+                                .setLat(55.915098)
+                                .setLon(37.541685)
                                 .setCreatedAt(getTimestampFromString(timeStamp))
                                 .build())
                 )
@@ -166,8 +175,8 @@ public class CandidatesTest extends RestBase {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
                         .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
-                                .setLat(55.7012984)
-                                .setLon(37.7283669)
+                                .setLat(55.915098)
+                                .setLon(37.541685)
                                 .build())
                         .addTransports(CandidatesOuterClass.CandidateTransport.PEDESTRIAN)
                 )
@@ -191,5 +200,30 @@ public class CandidatesTest extends RestBase {
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() <= 0, "UUID кандидата вернулся");
     }
-  }
+    @CaseId(38)
+    @Test(description = "Отбор кандидатов по нескольким фильтрам", groups = "dispatch-candidates-smoke")
+    public void SelectionByManyFilters() {
+        var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
+                .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
+                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                                .setLat(55.915098)
+                                .setLon(37.541685)
+                                .build())
+                        .setRadius(200.00F)
+                        .addRoles(CandidatesOuterClass.CandidateRole.UNIVERSAL)
+                )
+                .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
+                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                                .setLat(55.857291)
+                                .setLon(38.440348)
+                                .build())
+                        .setRadius(200.00F)
+                        .addTransports(CandidatesOuterClass.CandidateTransport.BICYCLE)
+                )
+                .build();
+        var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+        assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
+        assertTrue(selectCandidatesResponse.getResults(1).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
+    }
+}
 
