@@ -15,6 +15,114 @@ public final class OrderEnrichment {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   /**
+   * Protobuf enum {@code order_enrichment.JobType}
+   */
+  public enum JobType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>Assembly = 0;</code>
+     */
+    Assembly(0),
+    /**
+     * <code>Delivery = 1;</code>
+     */
+    Delivery(1),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>Assembly = 0;</code>
+     */
+    public static final int Assembly_VALUE = 0;
+    /**
+     * <code>Delivery = 1;</code>
+     */
+    public static final int Delivery_VALUE = 1;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static JobType valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static JobType forNumber(int value) {
+      switch (value) {
+        case 0: return Assembly;
+        case 1: return Delivery;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<JobType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        JobType> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<JobType>() {
+            public JobType findValueByNumber(int number) {
+              return JobType.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return order_enrichment.OrderEnrichment.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final JobType[] VALUES = values();
+
+    public static JobType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private JobType(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:order_enrichment.JobType)
+  }
+
+  /**
    * Protobuf enum {@code order_enrichment.Tasks}
    */
   public enum Tasks
@@ -105,7 +213,7 @@ public final class OrderEnrichment {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return order_enrichment.OrderEnrichment.getDescriptor().getEnumTypes().get(0);
+      return order_enrichment.OrderEnrichment.getDescriptor().getEnumTypes().get(1);
     }
 
     private static final Tasks[] VALUES = values();
@@ -172,15 +280,15 @@ public final class OrderEnrichment {
         getPlaceUuidBytes();
 
     /**
-     * <code>.enums.ShipmentStatus shipment_status = 4;</code>
+     * <code>.order_enrichment.EventOrderEnrichment.ShipmentStatus shipment_status = 4;</code>
      * @return The enum numeric value on the wire for shipmentStatus.
      */
     int getShipmentStatusValue();
     /**
-     * <code>.enums.ShipmentStatus shipment_status = 4;</code>
+     * <code>.order_enrichment.EventOrderEnrichment.ShipmentStatus shipment_status = 4;</code>
      * @return The shipmentStatus.
      */
-    enums.Enums.ShipmentStatus getShipmentStatus();
+    order_enrichment.OrderEnrichment.EventOrderEnrichment.ShipmentStatus getShipmentStatus();
 
     /**
      * <code>string shipment_type = 5;</code>
@@ -201,34 +309,34 @@ public final class OrderEnrichment {
     long getWeight();
 
     /**
-     * <code>.enums.Location client_location = 7;</code>
+     * <code>.order_enrichment.Location client_location = 7;</code>
      * @return Whether the clientLocation field is set.
      */
     boolean hasClientLocation();
     /**
-     * <code>.enums.Location client_location = 7;</code>
+     * <code>.order_enrichment.Location client_location = 7;</code>
      * @return The clientLocation.
      */
-    enums.Enums.Location getClientLocation();
+    order_enrichment.OrderEnrichment.Location getClientLocation();
     /**
-     * <code>.enums.Location client_location = 7;</code>
+     * <code>.order_enrichment.Location client_location = 7;</code>
      */
-    enums.Enums.LocationOrBuilder getClientLocationOrBuilder();
+    order_enrichment.OrderEnrichment.LocationOrBuilder getClientLocationOrBuilder();
 
     /**
-     * <code>.enums.Location place_location = 8;</code>
+     * <code>.order_enrichment.Location place_location = 8;</code>
      * @return Whether the placeLocation field is set.
      */
     boolean hasPlaceLocation();
     /**
-     * <code>.enums.Location place_location = 8;</code>
+     * <code>.order_enrichment.Location place_location = 8;</code>
      * @return The placeLocation.
      */
-    enums.Enums.Location getPlaceLocation();
+    order_enrichment.OrderEnrichment.Location getPlaceLocation();
     /**
-     * <code>.enums.Location place_location = 8;</code>
+     * <code>.order_enrichment.Location place_location = 8;</code>
      */
-    enums.Enums.LocationOrBuilder getPlaceLocationOrBuilder();
+    order_enrichment.OrderEnrichment.LocationOrBuilder getPlaceLocationOrBuilder();
 
     /**
      * <code>uint64 assembly_time_min = 9;</code>
@@ -321,6 +429,135 @@ public final class OrderEnrichment {
      * @return The numberOfPositionsInOrder.
      */
     long getNumberOfPositionsInOrder();
+
+    /**
+     * <pre>
+     * номер заказа H24485347826
+     * </pre>
+     *
+     * <code>string order_number = 15;</code>
+     * @return The orderNumber.
+     */
+    java.lang.String getOrderNumber();
+    /**
+     * <pre>
+     * номер заказа H24485347826
+     * </pre>
+     *
+     * <code>string order_number = 15;</code>
+     * @return The bytes for orderNumber.
+     */
+    com.google.protobuf.ByteString
+        getOrderNumberBytes();
+
+    /**
+     * <pre>
+     * общая стоимость всех позиций в заказе в рублях
+     * </pre>
+     *
+     * <code>float items_total_amount = 16;</code>
+     * @return The itemsTotalAmount.
+     */
+    float getItemsTotalAmount();
+
+    /**
+     * <pre>
+     * признак того, что заказ новый
+     * </pre>
+     *
+     * <code>bool is_new = 17;</code>
+     * @return The isNew.
+     */
+    boolean getIsNew();
+
+    /**
+     * <code>repeated .order_enrichment.Job jobs = 18;</code>
+     */
+    java.util.List<order_enrichment.OrderEnrichment.Job> 
+        getJobsList();
+    /**
+     * <code>repeated .order_enrichment.Job jobs = 18;</code>
+     */
+    order_enrichment.OrderEnrichment.Job getJobs(int index);
+    /**
+     * <code>repeated .order_enrichment.Job jobs = 18;</code>
+     */
+    int getJobsCount();
+    /**
+     * <code>repeated .order_enrichment.Job jobs = 18;</code>
+     */
+    java.util.List<? extends order_enrichment.OrderEnrichment.JobOrBuilder> 
+        getJobsOrBuilderList();
+    /**
+     * <code>repeated .order_enrichment.Job jobs = 18;</code>
+     */
+    order_enrichment.OrderEnrichment.JobOrBuilder getJobsOrBuilder(
+        int index);
+
+    /**
+     * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+     * @return Whether the deliveryPromiseUpperDttmStartsAt field is set.
+     */
+    boolean hasDeliveryPromiseUpperDttmStartsAt();
+    /**
+     * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+     * @return The deliveryPromiseUpperDttmStartsAt.
+     */
+    com.google.protobuf.Timestamp getDeliveryPromiseUpperDttmStartsAt();
+    /**
+     * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getDeliveryPromiseUpperDttmStartsAtOrBuilder();
+
+    /**
+     * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+     * @return Whether the deliveryPromiseUpperDttmEndsAt field is set.
+     */
+    boolean hasDeliveryPromiseUpperDttmEndsAt();
+    /**
+     * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+     * @return The deliveryPromiseUpperDttmEndsAt.
+     */
+    com.google.protobuf.Timestamp getDeliveryPromiseUpperDttmEndsAt();
+    /**
+     * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getDeliveryPromiseUpperDttmEndsAtOrBuilder();
+
+    /**
+     * <code>int64 delivery_area_id = 21;</code>
+     * @return The deliveryAreaId.
+     */
+    long getDeliveryAreaId();
+
+    /**
+     * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+     * @return A list containing the jobsToDispatch.
+     */
+    java.util.List<order_enrichment.OrderEnrichment.JobType> getJobsToDispatchList();
+    /**
+     * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+     * @return The count of jobsToDispatch.
+     */
+    int getJobsToDispatchCount();
+    /**
+     * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+     * @param index The index of the element to return.
+     * @return The jobsToDispatch at the given index.
+     */
+    order_enrichment.OrderEnrichment.JobType getJobsToDispatch(int index);
+    /**
+     * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+     * @return A list containing the enum numeric values on the wire for jobsToDispatch.
+     */
+    java.util.List<java.lang.Integer>
+    getJobsToDispatchValueList();
+    /**
+     * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of jobsToDispatch at the given index.
+     */
+    int getJobsToDispatchValue(int index);
   }
   /**
    * <pre>
@@ -346,6 +583,9 @@ public final class OrderEnrichment {
       shipmentType_ = "";
       assembly_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       delivery_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      orderNumber_ = "";
+      jobs_ = java.util.Collections.emptyList();
+      jobsToDispatch_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -415,11 +655,11 @@ public final class OrderEnrichment {
               break;
             }
             case 58: {
-              enums.Enums.Location.Builder subBuilder = null;
+              order_enrichment.OrderEnrichment.Location.Builder subBuilder = null;
               if (clientLocation_ != null) {
                 subBuilder = clientLocation_.toBuilder();
               }
-              clientLocation_ = input.readMessage(enums.Enums.Location.parser(), extensionRegistry);
+              clientLocation_ = input.readMessage(order_enrichment.OrderEnrichment.Location.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(clientLocation_);
                 clientLocation_ = subBuilder.buildPartial();
@@ -428,11 +668,11 @@ public final class OrderEnrichment {
               break;
             }
             case 66: {
-              enums.Enums.Location.Builder subBuilder = null;
+              order_enrichment.OrderEnrichment.Location.Builder subBuilder = null;
               if (placeLocation_ != null) {
                 subBuilder = placeLocation_.toBuilder();
               }
-              placeLocation_ = input.readMessage(enums.Enums.Location.parser(), extensionRegistry);
+              placeLocation_ = input.readMessage(order_enrichment.OrderEnrichment.Location.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(placeLocation_);
                 placeLocation_ = subBuilder.buildPartial();
@@ -494,6 +734,85 @@ public final class OrderEnrichment {
               numberOfPositionsInOrder_ = input.readUInt64();
               break;
             }
+            case 122: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              orderNumber_ = s;
+              break;
+            }
+            case 133: {
+
+              itemsTotalAmount_ = input.readFloat();
+              break;
+            }
+            case 136: {
+
+              isNew_ = input.readBool();
+              break;
+            }
+            case 146: {
+              if (!((mutable_bitField0_ & 0x00000010) != 0)) {
+                jobs_ = new java.util.ArrayList<order_enrichment.OrderEnrichment.Job>();
+                mutable_bitField0_ |= 0x00000010;
+              }
+              jobs_.add(
+                  input.readMessage(order_enrichment.OrderEnrichment.Job.parser(), extensionRegistry));
+              break;
+            }
+            case 154: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (deliveryPromiseUpperDttmStartsAt_ != null) {
+                subBuilder = deliveryPromiseUpperDttmStartsAt_.toBuilder();
+              }
+              deliveryPromiseUpperDttmStartsAt_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(deliveryPromiseUpperDttmStartsAt_);
+                deliveryPromiseUpperDttmStartsAt_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 162: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (deliveryPromiseUpperDttmEndsAt_ != null) {
+                subBuilder = deliveryPromiseUpperDttmEndsAt_.toBuilder();
+              }
+              deliveryPromiseUpperDttmEndsAt_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(deliveryPromiseUpperDttmEndsAt_);
+                deliveryPromiseUpperDttmEndsAt_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 168: {
+
+              deliveryAreaId_ = input.readInt64();
+              break;
+            }
+            case 176: {
+              int rawValue = input.readEnum();
+              if (!((mutable_bitField0_ & 0x00000020) != 0)) {
+                jobsToDispatch_ = new java.util.ArrayList<java.lang.Integer>();
+                mutable_bitField0_ |= 0x00000020;
+              }
+              jobsToDispatch_.add(rawValue);
+              break;
+            }
+            case 178: {
+              int length = input.readRawVarint32();
+              int oldLimit = input.pushLimit(length);
+              while(input.getBytesUntilLimit() > 0) {
+                int rawValue = input.readEnum();
+                if (!((mutable_bitField0_ & 0x00000020) != 0)) {
+                  jobsToDispatch_ = new java.util.ArrayList<java.lang.Integer>();
+                  mutable_bitField0_ |= 0x00000020;
+                }
+                jobsToDispatch_.add(rawValue);
+              }
+              input.popLimit(oldLimit);
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -515,6 +834,12 @@ public final class OrderEnrichment {
         if (((mutable_bitField0_ & 0x00000002) != 0)) {
           delivery_ = delivery_.getUnmodifiableView();
         }
+        if (((mutable_bitField0_ & 0x00000010) != 0)) {
+          jobs_ = java.util.Collections.unmodifiableList(jobs_);
+        }
+        if (((mutable_bitField0_ & 0x00000020) != 0)) {
+          jobsToDispatch_ = java.util.Collections.unmodifiableList(jobsToDispatch_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -530,6 +855,186 @@ public final class OrderEnrichment {
       return order_enrichment.OrderEnrichment.internal_static_order_enrichment_EventOrderEnrichment_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               order_enrichment.OrderEnrichment.EventOrderEnrichment.class, order_enrichment.OrderEnrichment.EventOrderEnrichment.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code order_enrichment.EventOrderEnrichment.ShipmentStatus}
+     */
+    public enum ShipmentStatus
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>NEW = 0;</code>
+       */
+      NEW(0),
+      /**
+       * <code>POSTPONED = 1;</code>
+       */
+      POSTPONED(1),
+      /**
+       * <code>AUTOMATIC_ROUTING = 2;</code>
+       */
+      AUTOMATIC_ROUTING(2),
+      /**
+       * <code>MANUAL_ROUTING = 3;</code>
+       */
+      MANUAL_ROUTING(3),
+      /**
+       * <code>OFFERING = 4;</code>
+       */
+      OFFERING(4),
+      /**
+       * <code>OFFERED = 5;</code>
+       */
+      OFFERED(5),
+      /**
+       * <code>DECLINED = 6;</code>
+       */
+      DECLINED(6),
+      /**
+       * <code>CANCELED = 7;</code>
+       */
+      CANCELED(7),
+      /**
+       * <code>SHIPPED = 8;</code>
+       */
+      SHIPPED(8),
+      /**
+       * <code>REDISPATCH = 9;</code>
+       */
+      REDISPATCH(9),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>NEW = 0;</code>
+       */
+      public static final int NEW_VALUE = 0;
+      /**
+       * <code>POSTPONED = 1;</code>
+       */
+      public static final int POSTPONED_VALUE = 1;
+      /**
+       * <code>AUTOMATIC_ROUTING = 2;</code>
+       */
+      public static final int AUTOMATIC_ROUTING_VALUE = 2;
+      /**
+       * <code>MANUAL_ROUTING = 3;</code>
+       */
+      public static final int MANUAL_ROUTING_VALUE = 3;
+      /**
+       * <code>OFFERING = 4;</code>
+       */
+      public static final int OFFERING_VALUE = 4;
+      /**
+       * <code>OFFERED = 5;</code>
+       */
+      public static final int OFFERED_VALUE = 5;
+      /**
+       * <code>DECLINED = 6;</code>
+       */
+      public static final int DECLINED_VALUE = 6;
+      /**
+       * <code>CANCELED = 7;</code>
+       */
+      public static final int CANCELED_VALUE = 7;
+      /**
+       * <code>SHIPPED = 8;</code>
+       */
+      public static final int SHIPPED_VALUE = 8;
+      /**
+       * <code>REDISPATCH = 9;</code>
+       */
+      public static final int REDISPATCH_VALUE = 9;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static ShipmentStatus valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static ShipmentStatus forNumber(int value) {
+        switch (value) {
+          case 0: return NEW;
+          case 1: return POSTPONED;
+          case 2: return AUTOMATIC_ROUTING;
+          case 3: return MANUAL_ROUTING;
+          case 4: return OFFERING;
+          case 5: return OFFERED;
+          case 6: return DECLINED;
+          case 7: return CANCELED;
+          case 8: return SHIPPED;
+          case 9: return REDISPATCH;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ShipmentStatus>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          ShipmentStatus> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ShipmentStatus>() {
+              public ShipmentStatus findValueByNumber(int number) {
+                return ShipmentStatus.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return order_enrichment.OrderEnrichment.EventOrderEnrichment.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final ShipmentStatus[] VALUES = values();
+
+      public static ShipmentStatus valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private ShipmentStatus(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:order_enrichment.EventOrderEnrichment.ShipmentStatus)
     }
 
     private int bitField0_;
@@ -650,20 +1155,20 @@ public final class OrderEnrichment {
     public static final int SHIPMENT_STATUS_FIELD_NUMBER = 4;
     private int shipmentStatus_;
     /**
-     * <code>.enums.ShipmentStatus shipment_status = 4;</code>
+     * <code>.order_enrichment.EventOrderEnrichment.ShipmentStatus shipment_status = 4;</code>
      * @return The enum numeric value on the wire for shipmentStatus.
      */
     @java.lang.Override public int getShipmentStatusValue() {
       return shipmentStatus_;
     }
     /**
-     * <code>.enums.ShipmentStatus shipment_status = 4;</code>
+     * <code>.order_enrichment.EventOrderEnrichment.ShipmentStatus shipment_status = 4;</code>
      * @return The shipmentStatus.
      */
-    @java.lang.Override public enums.Enums.ShipmentStatus getShipmentStatus() {
+    @java.lang.Override public order_enrichment.OrderEnrichment.EventOrderEnrichment.ShipmentStatus getShipmentStatus() {
       @SuppressWarnings("deprecation")
-      enums.Enums.ShipmentStatus result = enums.Enums.ShipmentStatus.valueOf(shipmentStatus_);
-      return result == null ? enums.Enums.ShipmentStatus.UNRECOGNIZED : result;
+      order_enrichment.OrderEnrichment.EventOrderEnrichment.ShipmentStatus result = order_enrichment.OrderEnrichment.EventOrderEnrichment.ShipmentStatus.valueOf(shipmentStatus_);
+      return result == null ? order_enrichment.OrderEnrichment.EventOrderEnrichment.ShipmentStatus.UNRECOGNIZED : result;
     }
 
     public static final int SHIPMENT_TYPE_FIELD_NUMBER = 5;
@@ -716,9 +1221,9 @@ public final class OrderEnrichment {
     }
 
     public static final int CLIENT_LOCATION_FIELD_NUMBER = 7;
-    private enums.Enums.Location clientLocation_;
+    private order_enrichment.OrderEnrichment.Location clientLocation_;
     /**
-     * <code>.enums.Location client_location = 7;</code>
+     * <code>.order_enrichment.Location client_location = 7;</code>
      * @return Whether the clientLocation field is set.
      */
     @java.lang.Override
@@ -726,25 +1231,25 @@ public final class OrderEnrichment {
       return clientLocation_ != null;
     }
     /**
-     * <code>.enums.Location client_location = 7;</code>
+     * <code>.order_enrichment.Location client_location = 7;</code>
      * @return The clientLocation.
      */
     @java.lang.Override
-    public enums.Enums.Location getClientLocation() {
-      return clientLocation_ == null ? enums.Enums.Location.getDefaultInstance() : clientLocation_;
+    public order_enrichment.OrderEnrichment.Location getClientLocation() {
+      return clientLocation_ == null ? order_enrichment.OrderEnrichment.Location.getDefaultInstance() : clientLocation_;
     }
     /**
-     * <code>.enums.Location client_location = 7;</code>
+     * <code>.order_enrichment.Location client_location = 7;</code>
      */
     @java.lang.Override
-    public enums.Enums.LocationOrBuilder getClientLocationOrBuilder() {
+    public order_enrichment.OrderEnrichment.LocationOrBuilder getClientLocationOrBuilder() {
       return getClientLocation();
     }
 
     public static final int PLACE_LOCATION_FIELD_NUMBER = 8;
-    private enums.Enums.Location placeLocation_;
+    private order_enrichment.OrderEnrichment.Location placeLocation_;
     /**
-     * <code>.enums.Location place_location = 8;</code>
+     * <code>.order_enrichment.Location place_location = 8;</code>
      * @return Whether the placeLocation field is set.
      */
     @java.lang.Override
@@ -752,18 +1257,18 @@ public final class OrderEnrichment {
       return placeLocation_ != null;
     }
     /**
-     * <code>.enums.Location place_location = 8;</code>
+     * <code>.order_enrichment.Location place_location = 8;</code>
      * @return The placeLocation.
      */
     @java.lang.Override
-    public enums.Enums.Location getPlaceLocation() {
-      return placeLocation_ == null ? enums.Enums.Location.getDefaultInstance() : placeLocation_;
+    public order_enrichment.OrderEnrichment.Location getPlaceLocation() {
+      return placeLocation_ == null ? order_enrichment.OrderEnrichment.Location.getDefaultInstance() : placeLocation_;
     }
     /**
-     * <code>.enums.Location place_location = 8;</code>
+     * <code>.order_enrichment.Location place_location = 8;</code>
      */
     @java.lang.Override
-    public enums.Enums.LocationOrBuilder getPlaceLocationOrBuilder() {
+    public order_enrichment.OrderEnrichment.LocationOrBuilder getPlaceLocationOrBuilder() {
       return getPlaceLocation();
     }
 
@@ -911,6 +1416,243 @@ public final class OrderEnrichment {
       return numberOfPositionsInOrder_;
     }
 
+    public static final int ORDER_NUMBER_FIELD_NUMBER = 15;
+    private volatile java.lang.Object orderNumber_;
+    /**
+     * <pre>
+     * номер заказа H24485347826
+     * </pre>
+     *
+     * <code>string order_number = 15;</code>
+     * @return The orderNumber.
+     */
+    @java.lang.Override
+    public java.lang.String getOrderNumber() {
+      java.lang.Object ref = orderNumber_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        orderNumber_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * номер заказа H24485347826
+     * </pre>
+     *
+     * <code>string order_number = 15;</code>
+     * @return The bytes for orderNumber.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOrderNumberBytes() {
+      java.lang.Object ref = orderNumber_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        orderNumber_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ITEMS_TOTAL_AMOUNT_FIELD_NUMBER = 16;
+    private float itemsTotalAmount_;
+    /**
+     * <pre>
+     * общая стоимость всех позиций в заказе в рублях
+     * </pre>
+     *
+     * <code>float items_total_amount = 16;</code>
+     * @return The itemsTotalAmount.
+     */
+    @java.lang.Override
+    public float getItemsTotalAmount() {
+      return itemsTotalAmount_;
+    }
+
+    public static final int IS_NEW_FIELD_NUMBER = 17;
+    private boolean isNew_;
+    /**
+     * <pre>
+     * признак того, что заказ новый
+     * </pre>
+     *
+     * <code>bool is_new = 17;</code>
+     * @return The isNew.
+     */
+    @java.lang.Override
+    public boolean getIsNew() {
+      return isNew_;
+    }
+
+    public static final int JOBS_FIELD_NUMBER = 18;
+    private java.util.List<order_enrichment.OrderEnrichment.Job> jobs_;
+    /**
+     * <code>repeated .order_enrichment.Job jobs = 18;</code>
+     */
+    @java.lang.Override
+    public java.util.List<order_enrichment.OrderEnrichment.Job> getJobsList() {
+      return jobs_;
+    }
+    /**
+     * <code>repeated .order_enrichment.Job jobs = 18;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends order_enrichment.OrderEnrichment.JobOrBuilder> 
+        getJobsOrBuilderList() {
+      return jobs_;
+    }
+    /**
+     * <code>repeated .order_enrichment.Job jobs = 18;</code>
+     */
+    @java.lang.Override
+    public int getJobsCount() {
+      return jobs_.size();
+    }
+    /**
+     * <code>repeated .order_enrichment.Job jobs = 18;</code>
+     */
+    @java.lang.Override
+    public order_enrichment.OrderEnrichment.Job getJobs(int index) {
+      return jobs_.get(index);
+    }
+    /**
+     * <code>repeated .order_enrichment.Job jobs = 18;</code>
+     */
+    @java.lang.Override
+    public order_enrichment.OrderEnrichment.JobOrBuilder getJobsOrBuilder(
+        int index) {
+      return jobs_.get(index);
+    }
+
+    public static final int DELIVERY_PROMISE_UPPER_DTTM_STARTS_AT_FIELD_NUMBER = 19;
+    private com.google.protobuf.Timestamp deliveryPromiseUpperDttmStartsAt_;
+    /**
+     * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+     * @return Whether the deliveryPromiseUpperDttmStartsAt field is set.
+     */
+    @java.lang.Override
+    public boolean hasDeliveryPromiseUpperDttmStartsAt() {
+      return deliveryPromiseUpperDttmStartsAt_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+     * @return The deliveryPromiseUpperDttmStartsAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getDeliveryPromiseUpperDttmStartsAt() {
+      return deliveryPromiseUpperDttmStartsAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : deliveryPromiseUpperDttmStartsAt_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getDeliveryPromiseUpperDttmStartsAtOrBuilder() {
+      return getDeliveryPromiseUpperDttmStartsAt();
+    }
+
+    public static final int DELIVERY_PROMISE_UPPER_DTTM_ENDS_AT_FIELD_NUMBER = 20;
+    private com.google.protobuf.Timestamp deliveryPromiseUpperDttmEndsAt_;
+    /**
+     * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+     * @return Whether the deliveryPromiseUpperDttmEndsAt field is set.
+     */
+    @java.lang.Override
+    public boolean hasDeliveryPromiseUpperDttmEndsAt() {
+      return deliveryPromiseUpperDttmEndsAt_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+     * @return The deliveryPromiseUpperDttmEndsAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getDeliveryPromiseUpperDttmEndsAt() {
+      return deliveryPromiseUpperDttmEndsAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : deliveryPromiseUpperDttmEndsAt_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getDeliveryPromiseUpperDttmEndsAtOrBuilder() {
+      return getDeliveryPromiseUpperDttmEndsAt();
+    }
+
+    public static final int DELIVERY_AREA_ID_FIELD_NUMBER = 21;
+    private long deliveryAreaId_;
+    /**
+     * <code>int64 delivery_area_id = 21;</code>
+     * @return The deliveryAreaId.
+     */
+    @java.lang.Override
+    public long getDeliveryAreaId() {
+      return deliveryAreaId_;
+    }
+
+    public static final int JOBS_TO_DISPATCH_FIELD_NUMBER = 22;
+    private java.util.List<java.lang.Integer> jobsToDispatch_;
+    private static final com.google.protobuf.Internal.ListAdapter.Converter<
+        java.lang.Integer, order_enrichment.OrderEnrichment.JobType> jobsToDispatch_converter_ =
+            new com.google.protobuf.Internal.ListAdapter.Converter<
+                java.lang.Integer, order_enrichment.OrderEnrichment.JobType>() {
+              public order_enrichment.OrderEnrichment.JobType convert(java.lang.Integer from) {
+                @SuppressWarnings("deprecation")
+                order_enrichment.OrderEnrichment.JobType result = order_enrichment.OrderEnrichment.JobType.valueOf(from);
+                return result == null ? order_enrichment.OrderEnrichment.JobType.UNRECOGNIZED : result;
+              }
+            };
+    /**
+     * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+     * @return A list containing the jobsToDispatch.
+     */
+    @java.lang.Override
+    public java.util.List<order_enrichment.OrderEnrichment.JobType> getJobsToDispatchList() {
+      return new com.google.protobuf.Internal.ListAdapter<
+          java.lang.Integer, order_enrichment.OrderEnrichment.JobType>(jobsToDispatch_, jobsToDispatch_converter_);
+    }
+    /**
+     * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+     * @return The count of jobsToDispatch.
+     */
+    @java.lang.Override
+    public int getJobsToDispatchCount() {
+      return jobsToDispatch_.size();
+    }
+    /**
+     * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+     * @param index The index of the element to return.
+     * @return The jobsToDispatch at the given index.
+     */
+    @java.lang.Override
+    public order_enrichment.OrderEnrichment.JobType getJobsToDispatch(int index) {
+      return jobsToDispatch_converter_.convert(jobsToDispatch_.get(index));
+    }
+    /**
+     * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+     * @return A list containing the enum numeric values on the wire for jobsToDispatch.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Integer>
+    getJobsToDispatchValueList() {
+      return jobsToDispatch_;
+    }
+    /**
+     * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of jobsToDispatch at the given index.
+     */
+    @java.lang.Override
+    public int getJobsToDispatchValue(int index) {
+      return jobsToDispatch_.get(index);
+    }
+    private int jobsToDispatchMemoizedSerializedSize;
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -925,6 +1667,7 @@ public final class OrderEnrichment {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      getSerializedSize();
       if (!getShipmentUuidBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, shipmentUuid_);
       }
@@ -934,7 +1677,7 @@ public final class OrderEnrichment {
       if (!getPlaceUuidBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, placeUuid_);
       }
-      if (shipmentStatus_ != enums.Enums.ShipmentStatus.NEW.getNumber()) {
+      if (shipmentStatus_ != order_enrichment.OrderEnrichment.EventOrderEnrichment.ShipmentStatus.NEW.getNumber()) {
         output.writeEnum(4, shipmentStatus_);
       }
       if (!getShipmentTypeBytes().isEmpty()) {
@@ -967,6 +1710,34 @@ public final class OrderEnrichment {
       if (numberOfPositionsInOrder_ != 0L) {
         output.writeUInt64(14, numberOfPositionsInOrder_);
       }
+      if (!getOrderNumberBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 15, orderNumber_);
+      }
+      if (itemsTotalAmount_ != 0F) {
+        output.writeFloat(16, itemsTotalAmount_);
+      }
+      if (isNew_ != false) {
+        output.writeBool(17, isNew_);
+      }
+      for (int i = 0; i < jobs_.size(); i++) {
+        output.writeMessage(18, jobs_.get(i));
+      }
+      if (deliveryPromiseUpperDttmStartsAt_ != null) {
+        output.writeMessage(19, getDeliveryPromiseUpperDttmStartsAt());
+      }
+      if (deliveryPromiseUpperDttmEndsAt_ != null) {
+        output.writeMessage(20, getDeliveryPromiseUpperDttmEndsAt());
+      }
+      if (deliveryAreaId_ != 0L) {
+        output.writeInt64(21, deliveryAreaId_);
+      }
+      if (getJobsToDispatchList().size() > 0) {
+        output.writeUInt32NoTag(178);
+        output.writeUInt32NoTag(jobsToDispatchMemoizedSerializedSize);
+      }
+      for (int i = 0; i < jobsToDispatch_.size(); i++) {
+        output.writeEnumNoTag(jobsToDispatch_.get(i));
+      }
       unknownFields.writeTo(output);
     }
 
@@ -985,7 +1756,7 @@ public final class OrderEnrichment {
       if (!getPlaceUuidBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, placeUuid_);
       }
-      if (shipmentStatus_ != enums.Enums.ShipmentStatus.NEW.getNumber()) {
+      if (shipmentStatus_ != order_enrichment.OrderEnrichment.EventOrderEnrichment.ShipmentStatus.NEW.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, shipmentStatus_);
       }
@@ -1035,6 +1806,45 @@ public final class OrderEnrichment {
       if (numberOfPositionsInOrder_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(14, numberOfPositionsInOrder_);
+      }
+      if (!getOrderNumberBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, orderNumber_);
+      }
+      if (itemsTotalAmount_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(16, itemsTotalAmount_);
+      }
+      if (isNew_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(17, isNew_);
+      }
+      for (int i = 0; i < jobs_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(18, jobs_.get(i));
+      }
+      if (deliveryPromiseUpperDttmStartsAt_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(19, getDeliveryPromiseUpperDttmStartsAt());
+      }
+      if (deliveryPromiseUpperDttmEndsAt_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(20, getDeliveryPromiseUpperDttmEndsAt());
+      }
+      if (deliveryAreaId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(21, deliveryAreaId_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < jobsToDispatch_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeEnumSizeNoTag(jobsToDispatch_.get(i));
+        }
+        size += dataSize;
+        if (!getJobsToDispatchList().isEmpty()) {  size += 2;
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32SizeNoTag(dataSize);
+        }jobsToDispatchMemoizedSerializedSize = dataSize;
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1090,6 +1900,28 @@ public final class OrderEnrichment {
       }
       if (getNumberOfPositionsInOrder()
           != other.getNumberOfPositionsInOrder()) return false;
+      if (!getOrderNumber()
+          .equals(other.getOrderNumber())) return false;
+      if (java.lang.Float.floatToIntBits(getItemsTotalAmount())
+          != java.lang.Float.floatToIntBits(
+              other.getItemsTotalAmount())) return false;
+      if (getIsNew()
+          != other.getIsNew()) return false;
+      if (!getJobsList()
+          .equals(other.getJobsList())) return false;
+      if (hasDeliveryPromiseUpperDttmStartsAt() != other.hasDeliveryPromiseUpperDttmStartsAt()) return false;
+      if (hasDeliveryPromiseUpperDttmStartsAt()) {
+        if (!getDeliveryPromiseUpperDttmStartsAt()
+            .equals(other.getDeliveryPromiseUpperDttmStartsAt())) return false;
+      }
+      if (hasDeliveryPromiseUpperDttmEndsAt() != other.hasDeliveryPromiseUpperDttmEndsAt()) return false;
+      if (hasDeliveryPromiseUpperDttmEndsAt()) {
+        if (!getDeliveryPromiseUpperDttmEndsAt()
+            .equals(other.getDeliveryPromiseUpperDttmEndsAt())) return false;
+      }
+      if (getDeliveryAreaId()
+          != other.getDeliveryAreaId()) return false;
+      if (!jobsToDispatch_.equals(other.jobsToDispatch_)) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1144,6 +1976,33 @@ public final class OrderEnrichment {
       hash = (37 * hash) + NUMBER_OF_POSITIONS_IN_ORDER_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getNumberOfPositionsInOrder());
+      hash = (37 * hash) + ORDER_NUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + getOrderNumber().hashCode();
+      hash = (37 * hash) + ITEMS_TOTAL_AMOUNT_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getItemsTotalAmount());
+      hash = (37 * hash) + IS_NEW_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsNew());
+      if (getJobsCount() > 0) {
+        hash = (37 * hash) + JOBS_FIELD_NUMBER;
+        hash = (53 * hash) + getJobsList().hashCode();
+      }
+      if (hasDeliveryPromiseUpperDttmStartsAt()) {
+        hash = (37 * hash) + DELIVERY_PROMISE_UPPER_DTTM_STARTS_AT_FIELD_NUMBER;
+        hash = (53 * hash) + getDeliveryPromiseUpperDttmStartsAt().hashCode();
+      }
+      if (hasDeliveryPromiseUpperDttmEndsAt()) {
+        hash = (37 * hash) + DELIVERY_PROMISE_UPPER_DTTM_ENDS_AT_FIELD_NUMBER;
+        hash = (53 * hash) + getDeliveryPromiseUpperDttmEndsAt().hashCode();
+      }
+      hash = (37 * hash) + DELIVERY_AREA_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getDeliveryAreaId());
+      if (getJobsToDispatchCount() > 0) {
+        hash = (37 * hash) + JOBS_TO_DISPATCH_FIELD_NUMBER;
+        hash = (53 * hash) + jobsToDispatch_.hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1278,6 +2137,7 @@ public final class OrderEnrichment {
                 .alwaysUseFieldBuilders) {
           getDispatchMetaFieldBuilder();
           getSettingsFieldBuilder();
+          getJobsFieldBuilder();
         }
       }
       @java.lang.Override
@@ -1327,6 +2187,34 @@ public final class OrderEnrichment {
         bitField0_ = (bitField0_ & ~0x00000008);
         numberOfPositionsInOrder_ = 0L;
 
+        orderNumber_ = "";
+
+        itemsTotalAmount_ = 0F;
+
+        isNew_ = false;
+
+        if (jobsBuilder_ == null) {
+          jobs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+        } else {
+          jobsBuilder_.clear();
+        }
+        if (deliveryPromiseUpperDttmStartsAtBuilder_ == null) {
+          deliveryPromiseUpperDttmStartsAt_ = null;
+        } else {
+          deliveryPromiseUpperDttmStartsAt_ = null;
+          deliveryPromiseUpperDttmStartsAtBuilder_ = null;
+        }
+        if (deliveryPromiseUpperDttmEndsAtBuilder_ == null) {
+          deliveryPromiseUpperDttmEndsAt_ = null;
+        } else {
+          deliveryPromiseUpperDttmEndsAt_ = null;
+          deliveryPromiseUpperDttmEndsAtBuilder_ = null;
+        }
+        deliveryAreaId_ = 0L;
+
+        jobsToDispatch_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -1399,6 +2287,34 @@ public final class OrderEnrichment {
           to_bitField0_ |= 0x00000002;
         }
         result.numberOfPositionsInOrder_ = numberOfPositionsInOrder_;
+        result.orderNumber_ = orderNumber_;
+        result.itemsTotalAmount_ = itemsTotalAmount_;
+        result.isNew_ = isNew_;
+        if (jobsBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) != 0)) {
+            jobs_ = java.util.Collections.unmodifiableList(jobs_);
+            bitField0_ = (bitField0_ & ~0x00000010);
+          }
+          result.jobs_ = jobs_;
+        } else {
+          result.jobs_ = jobsBuilder_.build();
+        }
+        if (deliveryPromiseUpperDttmStartsAtBuilder_ == null) {
+          result.deliveryPromiseUpperDttmStartsAt_ = deliveryPromiseUpperDttmStartsAt_;
+        } else {
+          result.deliveryPromiseUpperDttmStartsAt_ = deliveryPromiseUpperDttmStartsAtBuilder_.build();
+        }
+        if (deliveryPromiseUpperDttmEndsAtBuilder_ == null) {
+          result.deliveryPromiseUpperDttmEndsAt_ = deliveryPromiseUpperDttmEndsAt_;
+        } else {
+          result.deliveryPromiseUpperDttmEndsAt_ = deliveryPromiseUpperDttmEndsAtBuilder_.build();
+        }
+        result.deliveryAreaId_ = deliveryAreaId_;
+        if (((bitField0_ & 0x00000020) != 0)) {
+          jobsToDispatch_ = java.util.Collections.unmodifiableList(jobsToDispatch_);
+          bitField0_ = (bitField0_ & ~0x00000020);
+        }
+        result.jobsToDispatch_ = jobsToDispatch_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1507,6 +2423,61 @@ public final class OrderEnrichment {
         }
         if (other.getNumberOfPositionsInOrder() != 0L) {
           setNumberOfPositionsInOrder(other.getNumberOfPositionsInOrder());
+        }
+        if (!other.getOrderNumber().isEmpty()) {
+          orderNumber_ = other.orderNumber_;
+          onChanged();
+        }
+        if (other.getItemsTotalAmount() != 0F) {
+          setItemsTotalAmount(other.getItemsTotalAmount());
+        }
+        if (other.getIsNew() != false) {
+          setIsNew(other.getIsNew());
+        }
+        if (jobsBuilder_ == null) {
+          if (!other.jobs_.isEmpty()) {
+            if (jobs_.isEmpty()) {
+              jobs_ = other.jobs_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+            } else {
+              ensureJobsIsMutable();
+              jobs_.addAll(other.jobs_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.jobs_.isEmpty()) {
+            if (jobsBuilder_.isEmpty()) {
+              jobsBuilder_.dispose();
+              jobsBuilder_ = null;
+              jobs_ = other.jobs_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+              jobsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getJobsFieldBuilder() : null;
+            } else {
+              jobsBuilder_.addAllMessages(other.jobs_);
+            }
+          }
+        }
+        if (other.hasDeliveryPromiseUpperDttmStartsAt()) {
+          mergeDeliveryPromiseUpperDttmStartsAt(other.getDeliveryPromiseUpperDttmStartsAt());
+        }
+        if (other.hasDeliveryPromiseUpperDttmEndsAt()) {
+          mergeDeliveryPromiseUpperDttmEndsAt(other.getDeliveryPromiseUpperDttmEndsAt());
+        }
+        if (other.getDeliveryAreaId() != 0L) {
+          setDeliveryAreaId(other.getDeliveryAreaId());
+        }
+        if (!other.jobsToDispatch_.isEmpty()) {
+          if (jobsToDispatch_.isEmpty()) {
+            jobsToDispatch_ = other.jobsToDispatch_;
+            bitField0_ = (bitField0_ & ~0x00000020);
+          } else {
+            ensureJobsToDispatchIsMutable();
+            jobsToDispatch_.addAll(other.jobsToDispatch_);
+          }
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1768,14 +2739,14 @@ public final class OrderEnrichment {
 
       private int shipmentStatus_ = 0;
       /**
-       * <code>.enums.ShipmentStatus shipment_status = 4;</code>
+       * <code>.order_enrichment.EventOrderEnrichment.ShipmentStatus shipment_status = 4;</code>
        * @return The enum numeric value on the wire for shipmentStatus.
        */
       @java.lang.Override public int getShipmentStatusValue() {
         return shipmentStatus_;
       }
       /**
-       * <code>.enums.ShipmentStatus shipment_status = 4;</code>
+       * <code>.order_enrichment.EventOrderEnrichment.ShipmentStatus shipment_status = 4;</code>
        * @param value The enum numeric value on the wire for shipmentStatus to set.
        * @return This builder for chaining.
        */
@@ -1786,21 +2757,21 @@ public final class OrderEnrichment {
         return this;
       }
       /**
-       * <code>.enums.ShipmentStatus shipment_status = 4;</code>
+       * <code>.order_enrichment.EventOrderEnrichment.ShipmentStatus shipment_status = 4;</code>
        * @return The shipmentStatus.
        */
       @java.lang.Override
-      public enums.Enums.ShipmentStatus getShipmentStatus() {
+      public order_enrichment.OrderEnrichment.EventOrderEnrichment.ShipmentStatus getShipmentStatus() {
         @SuppressWarnings("deprecation")
-        enums.Enums.ShipmentStatus result = enums.Enums.ShipmentStatus.valueOf(shipmentStatus_);
-        return result == null ? enums.Enums.ShipmentStatus.UNRECOGNIZED : result;
+        order_enrichment.OrderEnrichment.EventOrderEnrichment.ShipmentStatus result = order_enrichment.OrderEnrichment.EventOrderEnrichment.ShipmentStatus.valueOf(shipmentStatus_);
+        return result == null ? order_enrichment.OrderEnrichment.EventOrderEnrichment.ShipmentStatus.UNRECOGNIZED : result;
       }
       /**
-       * <code>.enums.ShipmentStatus shipment_status = 4;</code>
+       * <code>.order_enrichment.EventOrderEnrichment.ShipmentStatus shipment_status = 4;</code>
        * @param value The shipmentStatus to set.
        * @return This builder for chaining.
        */
-      public Builder setShipmentStatus(enums.Enums.ShipmentStatus value) {
+      public Builder setShipmentStatus(order_enrichment.OrderEnrichment.EventOrderEnrichment.ShipmentStatus value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -1810,7 +2781,7 @@ public final class OrderEnrichment {
         return this;
       }
       /**
-       * <code>.enums.ShipmentStatus shipment_status = 4;</code>
+       * <code>.order_enrichment.EventOrderEnrichment.ShipmentStatus shipment_status = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearShipmentStatus() {
@@ -1927,31 +2898,31 @@ public final class OrderEnrichment {
         return this;
       }
 
-      private enums.Enums.Location clientLocation_;
+      private order_enrichment.OrderEnrichment.Location clientLocation_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          enums.Enums.Location, enums.Enums.Location.Builder, enums.Enums.LocationOrBuilder> clientLocationBuilder_;
+          order_enrichment.OrderEnrichment.Location, order_enrichment.OrderEnrichment.Location.Builder, order_enrichment.OrderEnrichment.LocationOrBuilder> clientLocationBuilder_;
       /**
-       * <code>.enums.Location client_location = 7;</code>
+       * <code>.order_enrichment.Location client_location = 7;</code>
        * @return Whether the clientLocation field is set.
        */
       public boolean hasClientLocation() {
         return clientLocationBuilder_ != null || clientLocation_ != null;
       }
       /**
-       * <code>.enums.Location client_location = 7;</code>
+       * <code>.order_enrichment.Location client_location = 7;</code>
        * @return The clientLocation.
        */
-      public enums.Enums.Location getClientLocation() {
+      public order_enrichment.OrderEnrichment.Location getClientLocation() {
         if (clientLocationBuilder_ == null) {
-          return clientLocation_ == null ? enums.Enums.Location.getDefaultInstance() : clientLocation_;
+          return clientLocation_ == null ? order_enrichment.OrderEnrichment.Location.getDefaultInstance() : clientLocation_;
         } else {
           return clientLocationBuilder_.getMessage();
         }
       }
       /**
-       * <code>.enums.Location client_location = 7;</code>
+       * <code>.order_enrichment.Location client_location = 7;</code>
        */
-      public Builder setClientLocation(enums.Enums.Location value) {
+      public Builder setClientLocation(order_enrichment.OrderEnrichment.Location value) {
         if (clientLocationBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1965,10 +2936,10 @@ public final class OrderEnrichment {
         return this;
       }
       /**
-       * <code>.enums.Location client_location = 7;</code>
+       * <code>.order_enrichment.Location client_location = 7;</code>
        */
       public Builder setClientLocation(
-          enums.Enums.Location.Builder builderForValue) {
+          order_enrichment.OrderEnrichment.Location.Builder builderForValue) {
         if (clientLocationBuilder_ == null) {
           clientLocation_ = builderForValue.build();
           onChanged();
@@ -1979,13 +2950,13 @@ public final class OrderEnrichment {
         return this;
       }
       /**
-       * <code>.enums.Location client_location = 7;</code>
+       * <code>.order_enrichment.Location client_location = 7;</code>
        */
-      public Builder mergeClientLocation(enums.Enums.Location value) {
+      public Builder mergeClientLocation(order_enrichment.OrderEnrichment.Location value) {
         if (clientLocationBuilder_ == null) {
           if (clientLocation_ != null) {
             clientLocation_ =
-              enums.Enums.Location.newBuilder(clientLocation_).mergeFrom(value).buildPartial();
+              order_enrichment.OrderEnrichment.Location.newBuilder(clientLocation_).mergeFrom(value).buildPartial();
           } else {
             clientLocation_ = value;
           }
@@ -1997,7 +2968,7 @@ public final class OrderEnrichment {
         return this;
       }
       /**
-       * <code>.enums.Location client_location = 7;</code>
+       * <code>.order_enrichment.Location client_location = 7;</code>
        */
       public Builder clearClientLocation() {
         if (clientLocationBuilder_ == null) {
@@ -2011,33 +2982,33 @@ public final class OrderEnrichment {
         return this;
       }
       /**
-       * <code>.enums.Location client_location = 7;</code>
+       * <code>.order_enrichment.Location client_location = 7;</code>
        */
-      public enums.Enums.Location.Builder getClientLocationBuilder() {
+      public order_enrichment.OrderEnrichment.Location.Builder getClientLocationBuilder() {
         
         onChanged();
         return getClientLocationFieldBuilder().getBuilder();
       }
       /**
-       * <code>.enums.Location client_location = 7;</code>
+       * <code>.order_enrichment.Location client_location = 7;</code>
        */
-      public enums.Enums.LocationOrBuilder getClientLocationOrBuilder() {
+      public order_enrichment.OrderEnrichment.LocationOrBuilder getClientLocationOrBuilder() {
         if (clientLocationBuilder_ != null) {
           return clientLocationBuilder_.getMessageOrBuilder();
         } else {
           return clientLocation_ == null ?
-              enums.Enums.Location.getDefaultInstance() : clientLocation_;
+              order_enrichment.OrderEnrichment.Location.getDefaultInstance() : clientLocation_;
         }
       }
       /**
-       * <code>.enums.Location client_location = 7;</code>
+       * <code>.order_enrichment.Location client_location = 7;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          enums.Enums.Location, enums.Enums.Location.Builder, enums.Enums.LocationOrBuilder> 
+          order_enrichment.OrderEnrichment.Location, order_enrichment.OrderEnrichment.Location.Builder, order_enrichment.OrderEnrichment.LocationOrBuilder> 
           getClientLocationFieldBuilder() {
         if (clientLocationBuilder_ == null) {
           clientLocationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              enums.Enums.Location, enums.Enums.Location.Builder, enums.Enums.LocationOrBuilder>(
+              order_enrichment.OrderEnrichment.Location, order_enrichment.OrderEnrichment.Location.Builder, order_enrichment.OrderEnrichment.LocationOrBuilder>(
                   getClientLocation(),
                   getParentForChildren(),
                   isClean());
@@ -2046,31 +3017,31 @@ public final class OrderEnrichment {
         return clientLocationBuilder_;
       }
 
-      private enums.Enums.Location placeLocation_;
+      private order_enrichment.OrderEnrichment.Location placeLocation_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          enums.Enums.Location, enums.Enums.Location.Builder, enums.Enums.LocationOrBuilder> placeLocationBuilder_;
+          order_enrichment.OrderEnrichment.Location, order_enrichment.OrderEnrichment.Location.Builder, order_enrichment.OrderEnrichment.LocationOrBuilder> placeLocationBuilder_;
       /**
-       * <code>.enums.Location place_location = 8;</code>
+       * <code>.order_enrichment.Location place_location = 8;</code>
        * @return Whether the placeLocation field is set.
        */
       public boolean hasPlaceLocation() {
         return placeLocationBuilder_ != null || placeLocation_ != null;
       }
       /**
-       * <code>.enums.Location place_location = 8;</code>
+       * <code>.order_enrichment.Location place_location = 8;</code>
        * @return The placeLocation.
        */
-      public enums.Enums.Location getPlaceLocation() {
+      public order_enrichment.OrderEnrichment.Location getPlaceLocation() {
         if (placeLocationBuilder_ == null) {
-          return placeLocation_ == null ? enums.Enums.Location.getDefaultInstance() : placeLocation_;
+          return placeLocation_ == null ? order_enrichment.OrderEnrichment.Location.getDefaultInstance() : placeLocation_;
         } else {
           return placeLocationBuilder_.getMessage();
         }
       }
       /**
-       * <code>.enums.Location place_location = 8;</code>
+       * <code>.order_enrichment.Location place_location = 8;</code>
        */
-      public Builder setPlaceLocation(enums.Enums.Location value) {
+      public Builder setPlaceLocation(order_enrichment.OrderEnrichment.Location value) {
         if (placeLocationBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2084,10 +3055,10 @@ public final class OrderEnrichment {
         return this;
       }
       /**
-       * <code>.enums.Location place_location = 8;</code>
+       * <code>.order_enrichment.Location place_location = 8;</code>
        */
       public Builder setPlaceLocation(
-          enums.Enums.Location.Builder builderForValue) {
+          order_enrichment.OrderEnrichment.Location.Builder builderForValue) {
         if (placeLocationBuilder_ == null) {
           placeLocation_ = builderForValue.build();
           onChanged();
@@ -2098,13 +3069,13 @@ public final class OrderEnrichment {
         return this;
       }
       /**
-       * <code>.enums.Location place_location = 8;</code>
+       * <code>.order_enrichment.Location place_location = 8;</code>
        */
-      public Builder mergePlaceLocation(enums.Enums.Location value) {
+      public Builder mergePlaceLocation(order_enrichment.OrderEnrichment.Location value) {
         if (placeLocationBuilder_ == null) {
           if (placeLocation_ != null) {
             placeLocation_ =
-              enums.Enums.Location.newBuilder(placeLocation_).mergeFrom(value).buildPartial();
+              order_enrichment.OrderEnrichment.Location.newBuilder(placeLocation_).mergeFrom(value).buildPartial();
           } else {
             placeLocation_ = value;
           }
@@ -2116,7 +3087,7 @@ public final class OrderEnrichment {
         return this;
       }
       /**
-       * <code>.enums.Location place_location = 8;</code>
+       * <code>.order_enrichment.Location place_location = 8;</code>
        */
       public Builder clearPlaceLocation() {
         if (placeLocationBuilder_ == null) {
@@ -2130,33 +3101,33 @@ public final class OrderEnrichment {
         return this;
       }
       /**
-       * <code>.enums.Location place_location = 8;</code>
+       * <code>.order_enrichment.Location place_location = 8;</code>
        */
-      public enums.Enums.Location.Builder getPlaceLocationBuilder() {
+      public order_enrichment.OrderEnrichment.Location.Builder getPlaceLocationBuilder() {
         
         onChanged();
         return getPlaceLocationFieldBuilder().getBuilder();
       }
       /**
-       * <code>.enums.Location place_location = 8;</code>
+       * <code>.order_enrichment.Location place_location = 8;</code>
        */
-      public enums.Enums.LocationOrBuilder getPlaceLocationOrBuilder() {
+      public order_enrichment.OrderEnrichment.LocationOrBuilder getPlaceLocationOrBuilder() {
         if (placeLocationBuilder_ != null) {
           return placeLocationBuilder_.getMessageOrBuilder();
         } else {
           return placeLocation_ == null ?
-              enums.Enums.Location.getDefaultInstance() : placeLocation_;
+              order_enrichment.OrderEnrichment.Location.getDefaultInstance() : placeLocation_;
         }
       }
       /**
-       * <code>.enums.Location place_location = 8;</code>
+       * <code>.order_enrichment.Location place_location = 8;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          enums.Enums.Location, enums.Enums.Location.Builder, enums.Enums.LocationOrBuilder> 
+          order_enrichment.OrderEnrichment.Location, order_enrichment.OrderEnrichment.Location.Builder, order_enrichment.OrderEnrichment.LocationOrBuilder> 
           getPlaceLocationFieldBuilder() {
         if (placeLocationBuilder_ == null) {
           placeLocationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              enums.Enums.Location, enums.Enums.Location.Builder, enums.Enums.LocationOrBuilder>(
+              order_enrichment.OrderEnrichment.Location, order_enrichment.OrderEnrichment.Location.Builder, order_enrichment.OrderEnrichment.LocationOrBuilder>(
                   getPlaceLocation(),
                   getParentForChildren(),
                   isClean());
@@ -2686,6 +3657,837 @@ public final class OrderEnrichment {
         onChanged();
         return this;
       }
+
+      private java.lang.Object orderNumber_ = "";
+      /**
+       * <pre>
+       * номер заказа H24485347826
+       * </pre>
+       *
+       * <code>string order_number = 15;</code>
+       * @return The orderNumber.
+       */
+      public java.lang.String getOrderNumber() {
+        java.lang.Object ref = orderNumber_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          orderNumber_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * номер заказа H24485347826
+       * </pre>
+       *
+       * <code>string order_number = 15;</code>
+       * @return The bytes for orderNumber.
+       */
+      public com.google.protobuf.ByteString
+          getOrderNumberBytes() {
+        java.lang.Object ref = orderNumber_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          orderNumber_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * номер заказа H24485347826
+       * </pre>
+       *
+       * <code>string order_number = 15;</code>
+       * @param value The orderNumber to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrderNumber(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        orderNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * номер заказа H24485347826
+       * </pre>
+       *
+       * <code>string order_number = 15;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOrderNumber() {
+        
+        orderNumber_ = getDefaultInstance().getOrderNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * номер заказа H24485347826
+       * </pre>
+       *
+       * <code>string order_number = 15;</code>
+       * @param value The bytes for orderNumber to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrderNumberBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        orderNumber_ = value;
+        onChanged();
+        return this;
+      }
+
+      private float itemsTotalAmount_ ;
+      /**
+       * <pre>
+       * общая стоимость всех позиций в заказе в рублях
+       * </pre>
+       *
+       * <code>float items_total_amount = 16;</code>
+       * @return The itemsTotalAmount.
+       */
+      @java.lang.Override
+      public float getItemsTotalAmount() {
+        return itemsTotalAmount_;
+      }
+      /**
+       * <pre>
+       * общая стоимость всех позиций в заказе в рублях
+       * </pre>
+       *
+       * <code>float items_total_amount = 16;</code>
+       * @param value The itemsTotalAmount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setItemsTotalAmount(float value) {
+        
+        itemsTotalAmount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * общая стоимость всех позиций в заказе в рублях
+       * </pre>
+       *
+       * <code>float items_total_amount = 16;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearItemsTotalAmount() {
+        
+        itemsTotalAmount_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private boolean isNew_ ;
+      /**
+       * <pre>
+       * признак того, что заказ новый
+       * </pre>
+       *
+       * <code>bool is_new = 17;</code>
+       * @return The isNew.
+       */
+      @java.lang.Override
+      public boolean getIsNew() {
+        return isNew_;
+      }
+      /**
+       * <pre>
+       * признак того, что заказ новый
+       * </pre>
+       *
+       * <code>bool is_new = 17;</code>
+       * @param value The isNew to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsNew(boolean value) {
+        
+        isNew_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * признак того, что заказ новый
+       * </pre>
+       *
+       * <code>bool is_new = 17;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsNew() {
+        
+        isNew_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<order_enrichment.OrderEnrichment.Job> jobs_ =
+        java.util.Collections.emptyList();
+      private void ensureJobsIsMutable() {
+        if (!((bitField0_ & 0x00000010) != 0)) {
+          jobs_ = new java.util.ArrayList<order_enrichment.OrderEnrichment.Job>(jobs_);
+          bitField0_ |= 0x00000010;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          order_enrichment.OrderEnrichment.Job, order_enrichment.OrderEnrichment.Job.Builder, order_enrichment.OrderEnrichment.JobOrBuilder> jobsBuilder_;
+
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public java.util.List<order_enrichment.OrderEnrichment.Job> getJobsList() {
+        if (jobsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(jobs_);
+        } else {
+          return jobsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public int getJobsCount() {
+        if (jobsBuilder_ == null) {
+          return jobs_.size();
+        } else {
+          return jobsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public order_enrichment.OrderEnrichment.Job getJobs(int index) {
+        if (jobsBuilder_ == null) {
+          return jobs_.get(index);
+        } else {
+          return jobsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public Builder setJobs(
+          int index, order_enrichment.OrderEnrichment.Job value) {
+        if (jobsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureJobsIsMutable();
+          jobs_.set(index, value);
+          onChanged();
+        } else {
+          jobsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public Builder setJobs(
+          int index, order_enrichment.OrderEnrichment.Job.Builder builderForValue) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          jobs_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          jobsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public Builder addJobs(order_enrichment.OrderEnrichment.Job value) {
+        if (jobsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureJobsIsMutable();
+          jobs_.add(value);
+          onChanged();
+        } else {
+          jobsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public Builder addJobs(
+          int index, order_enrichment.OrderEnrichment.Job value) {
+        if (jobsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureJobsIsMutable();
+          jobs_.add(index, value);
+          onChanged();
+        } else {
+          jobsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public Builder addJobs(
+          order_enrichment.OrderEnrichment.Job.Builder builderForValue) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          jobs_.add(builderForValue.build());
+          onChanged();
+        } else {
+          jobsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public Builder addJobs(
+          int index, order_enrichment.OrderEnrichment.Job.Builder builderForValue) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          jobs_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          jobsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public Builder addAllJobs(
+          java.lang.Iterable<? extends order_enrichment.OrderEnrichment.Job> values) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, jobs_);
+          onChanged();
+        } else {
+          jobsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public Builder clearJobs() {
+        if (jobsBuilder_ == null) {
+          jobs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+          onChanged();
+        } else {
+          jobsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public Builder removeJobs(int index) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          jobs_.remove(index);
+          onChanged();
+        } else {
+          jobsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public order_enrichment.OrderEnrichment.Job.Builder getJobsBuilder(
+          int index) {
+        return getJobsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public order_enrichment.OrderEnrichment.JobOrBuilder getJobsOrBuilder(
+          int index) {
+        if (jobsBuilder_ == null) {
+          return jobs_.get(index);  } else {
+          return jobsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public java.util.List<? extends order_enrichment.OrderEnrichment.JobOrBuilder> 
+           getJobsOrBuilderList() {
+        if (jobsBuilder_ != null) {
+          return jobsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(jobs_);
+        }
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public order_enrichment.OrderEnrichment.Job.Builder addJobsBuilder() {
+        return getJobsFieldBuilder().addBuilder(
+            order_enrichment.OrderEnrichment.Job.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public order_enrichment.OrderEnrichment.Job.Builder addJobsBuilder(
+          int index) {
+        return getJobsFieldBuilder().addBuilder(
+            index, order_enrichment.OrderEnrichment.Job.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .order_enrichment.Job jobs = 18;</code>
+       */
+      public java.util.List<order_enrichment.OrderEnrichment.Job.Builder> 
+           getJobsBuilderList() {
+        return getJobsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          order_enrichment.OrderEnrichment.Job, order_enrichment.OrderEnrichment.Job.Builder, order_enrichment.OrderEnrichment.JobOrBuilder> 
+          getJobsFieldBuilder() {
+        if (jobsBuilder_ == null) {
+          jobsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              order_enrichment.OrderEnrichment.Job, order_enrichment.OrderEnrichment.Job.Builder, order_enrichment.OrderEnrichment.JobOrBuilder>(
+                  jobs_,
+                  ((bitField0_ & 0x00000010) != 0),
+                  getParentForChildren(),
+                  isClean());
+          jobs_ = null;
+        }
+        return jobsBuilder_;
+      }
+
+      private com.google.protobuf.Timestamp deliveryPromiseUpperDttmStartsAt_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> deliveryPromiseUpperDttmStartsAtBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+       * @return Whether the deliveryPromiseUpperDttmStartsAt field is set.
+       */
+      public boolean hasDeliveryPromiseUpperDttmStartsAt() {
+        return deliveryPromiseUpperDttmStartsAtBuilder_ != null || deliveryPromiseUpperDttmStartsAt_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+       * @return The deliveryPromiseUpperDttmStartsAt.
+       */
+      public com.google.protobuf.Timestamp getDeliveryPromiseUpperDttmStartsAt() {
+        if (deliveryPromiseUpperDttmStartsAtBuilder_ == null) {
+          return deliveryPromiseUpperDttmStartsAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : deliveryPromiseUpperDttmStartsAt_;
+        } else {
+          return deliveryPromiseUpperDttmStartsAtBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+       */
+      public Builder setDeliveryPromiseUpperDttmStartsAt(com.google.protobuf.Timestamp value) {
+        if (deliveryPromiseUpperDttmStartsAtBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          deliveryPromiseUpperDttmStartsAt_ = value;
+          onChanged();
+        } else {
+          deliveryPromiseUpperDttmStartsAtBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+       */
+      public Builder setDeliveryPromiseUpperDttmStartsAt(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (deliveryPromiseUpperDttmStartsAtBuilder_ == null) {
+          deliveryPromiseUpperDttmStartsAt_ = builderForValue.build();
+          onChanged();
+        } else {
+          deliveryPromiseUpperDttmStartsAtBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+       */
+      public Builder mergeDeliveryPromiseUpperDttmStartsAt(com.google.protobuf.Timestamp value) {
+        if (deliveryPromiseUpperDttmStartsAtBuilder_ == null) {
+          if (deliveryPromiseUpperDttmStartsAt_ != null) {
+            deliveryPromiseUpperDttmStartsAt_ =
+              com.google.protobuf.Timestamp.newBuilder(deliveryPromiseUpperDttmStartsAt_).mergeFrom(value).buildPartial();
+          } else {
+            deliveryPromiseUpperDttmStartsAt_ = value;
+          }
+          onChanged();
+        } else {
+          deliveryPromiseUpperDttmStartsAtBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+       */
+      public Builder clearDeliveryPromiseUpperDttmStartsAt() {
+        if (deliveryPromiseUpperDttmStartsAtBuilder_ == null) {
+          deliveryPromiseUpperDttmStartsAt_ = null;
+          onChanged();
+        } else {
+          deliveryPromiseUpperDttmStartsAt_ = null;
+          deliveryPromiseUpperDttmStartsAtBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getDeliveryPromiseUpperDttmStartsAtBuilder() {
+        
+        onChanged();
+        return getDeliveryPromiseUpperDttmStartsAtFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getDeliveryPromiseUpperDttmStartsAtOrBuilder() {
+        if (deliveryPromiseUpperDttmStartsAtBuilder_ != null) {
+          return deliveryPromiseUpperDttmStartsAtBuilder_.getMessageOrBuilder();
+        } else {
+          return deliveryPromiseUpperDttmStartsAt_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : deliveryPromiseUpperDttmStartsAt_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getDeliveryPromiseUpperDttmStartsAtFieldBuilder() {
+        if (deliveryPromiseUpperDttmStartsAtBuilder_ == null) {
+          deliveryPromiseUpperDttmStartsAtBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getDeliveryPromiseUpperDttmStartsAt(),
+                  getParentForChildren(),
+                  isClean());
+          deliveryPromiseUpperDttmStartsAt_ = null;
+        }
+        return deliveryPromiseUpperDttmStartsAtBuilder_;
+      }
+
+      private com.google.protobuf.Timestamp deliveryPromiseUpperDttmEndsAt_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> deliveryPromiseUpperDttmEndsAtBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+       * @return Whether the deliveryPromiseUpperDttmEndsAt field is set.
+       */
+      public boolean hasDeliveryPromiseUpperDttmEndsAt() {
+        return deliveryPromiseUpperDttmEndsAtBuilder_ != null || deliveryPromiseUpperDttmEndsAt_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+       * @return The deliveryPromiseUpperDttmEndsAt.
+       */
+      public com.google.protobuf.Timestamp getDeliveryPromiseUpperDttmEndsAt() {
+        if (deliveryPromiseUpperDttmEndsAtBuilder_ == null) {
+          return deliveryPromiseUpperDttmEndsAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : deliveryPromiseUpperDttmEndsAt_;
+        } else {
+          return deliveryPromiseUpperDttmEndsAtBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+       */
+      public Builder setDeliveryPromiseUpperDttmEndsAt(com.google.protobuf.Timestamp value) {
+        if (deliveryPromiseUpperDttmEndsAtBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          deliveryPromiseUpperDttmEndsAt_ = value;
+          onChanged();
+        } else {
+          deliveryPromiseUpperDttmEndsAtBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+       */
+      public Builder setDeliveryPromiseUpperDttmEndsAt(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (deliveryPromiseUpperDttmEndsAtBuilder_ == null) {
+          deliveryPromiseUpperDttmEndsAt_ = builderForValue.build();
+          onChanged();
+        } else {
+          deliveryPromiseUpperDttmEndsAtBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+       */
+      public Builder mergeDeliveryPromiseUpperDttmEndsAt(com.google.protobuf.Timestamp value) {
+        if (deliveryPromiseUpperDttmEndsAtBuilder_ == null) {
+          if (deliveryPromiseUpperDttmEndsAt_ != null) {
+            deliveryPromiseUpperDttmEndsAt_ =
+              com.google.protobuf.Timestamp.newBuilder(deliveryPromiseUpperDttmEndsAt_).mergeFrom(value).buildPartial();
+          } else {
+            deliveryPromiseUpperDttmEndsAt_ = value;
+          }
+          onChanged();
+        } else {
+          deliveryPromiseUpperDttmEndsAtBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+       */
+      public Builder clearDeliveryPromiseUpperDttmEndsAt() {
+        if (deliveryPromiseUpperDttmEndsAtBuilder_ == null) {
+          deliveryPromiseUpperDttmEndsAt_ = null;
+          onChanged();
+        } else {
+          deliveryPromiseUpperDttmEndsAt_ = null;
+          deliveryPromiseUpperDttmEndsAtBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getDeliveryPromiseUpperDttmEndsAtBuilder() {
+        
+        onChanged();
+        return getDeliveryPromiseUpperDttmEndsAtFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getDeliveryPromiseUpperDttmEndsAtOrBuilder() {
+        if (deliveryPromiseUpperDttmEndsAtBuilder_ != null) {
+          return deliveryPromiseUpperDttmEndsAtBuilder_.getMessageOrBuilder();
+        } else {
+          return deliveryPromiseUpperDttmEndsAt_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : deliveryPromiseUpperDttmEndsAt_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 20;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getDeliveryPromiseUpperDttmEndsAtFieldBuilder() {
+        if (deliveryPromiseUpperDttmEndsAtBuilder_ == null) {
+          deliveryPromiseUpperDttmEndsAtBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getDeliveryPromiseUpperDttmEndsAt(),
+                  getParentForChildren(),
+                  isClean());
+          deliveryPromiseUpperDttmEndsAt_ = null;
+        }
+        return deliveryPromiseUpperDttmEndsAtBuilder_;
+      }
+
+      private long deliveryAreaId_ ;
+      /**
+       * <code>int64 delivery_area_id = 21;</code>
+       * @return The deliveryAreaId.
+       */
+      @java.lang.Override
+      public long getDeliveryAreaId() {
+        return deliveryAreaId_;
+      }
+      /**
+       * <code>int64 delivery_area_id = 21;</code>
+       * @param value The deliveryAreaId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeliveryAreaId(long value) {
+        
+        deliveryAreaId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 delivery_area_id = 21;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDeliveryAreaId() {
+        
+        deliveryAreaId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<java.lang.Integer> jobsToDispatch_ =
+        java.util.Collections.emptyList();
+      private void ensureJobsToDispatchIsMutable() {
+        if (!((bitField0_ & 0x00000020) != 0)) {
+          jobsToDispatch_ = new java.util.ArrayList<java.lang.Integer>(jobsToDispatch_);
+          bitField0_ |= 0x00000020;
+        }
+      }
+      /**
+       * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+       * @return A list containing the jobsToDispatch.
+       */
+      public java.util.List<order_enrichment.OrderEnrichment.JobType> getJobsToDispatchList() {
+        return new com.google.protobuf.Internal.ListAdapter<
+            java.lang.Integer, order_enrichment.OrderEnrichment.JobType>(jobsToDispatch_, jobsToDispatch_converter_);
+      }
+      /**
+       * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+       * @return The count of jobsToDispatch.
+       */
+      public int getJobsToDispatchCount() {
+        return jobsToDispatch_.size();
+      }
+      /**
+       * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+       * @param index The index of the element to return.
+       * @return The jobsToDispatch at the given index.
+       */
+      public order_enrichment.OrderEnrichment.JobType getJobsToDispatch(int index) {
+        return jobsToDispatch_converter_.convert(jobsToDispatch_.get(index));
+      }
+      /**
+       * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+       * @param index The index to set the value at.
+       * @param value The jobsToDispatch to set.
+       * @return This builder for chaining.
+       */
+      public Builder setJobsToDispatch(
+          int index, order_enrichment.OrderEnrichment.JobType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureJobsToDispatchIsMutable();
+        jobsToDispatch_.set(index, value.getNumber());
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+       * @param value The jobsToDispatch to add.
+       * @return This builder for chaining.
+       */
+      public Builder addJobsToDispatch(order_enrichment.OrderEnrichment.JobType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureJobsToDispatchIsMutable();
+        jobsToDispatch_.add(value.getNumber());
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+       * @param values The jobsToDispatch to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllJobsToDispatch(
+          java.lang.Iterable<? extends order_enrichment.OrderEnrichment.JobType> values) {
+        ensureJobsToDispatchIsMutable();
+        for (order_enrichment.OrderEnrichment.JobType value : values) {
+          jobsToDispatch_.add(value.getNumber());
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearJobsToDispatch() {
+        jobsToDispatch_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000020);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+       * @return A list containing the enum numeric values on the wire for jobsToDispatch.
+       */
+      public java.util.List<java.lang.Integer>
+      getJobsToDispatchValueList() {
+        return java.util.Collections.unmodifiableList(jobsToDispatch_);
+      }
+      /**
+       * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of jobsToDispatch at the given index.
+       */
+      public int getJobsToDispatchValue(int index) {
+        return jobsToDispatch_.get(index);
+      }
+      /**
+       * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of jobsToDispatch at the given index.
+       * @return This builder for chaining.
+       */
+      public Builder setJobsToDispatchValue(
+          int index, int value) {
+        ensureJobsToDispatchIsMutable();
+        jobsToDispatch_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+       * @param value The enum numeric value on the wire for jobsToDispatch to add.
+       * @return This builder for chaining.
+       */
+      public Builder addJobsToDispatchValue(int value) {
+        ensureJobsToDispatchIsMutable();
+        jobsToDispatch_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .order_enrichment.JobType jobs_to_dispatch = 22;</code>
+       * @param values The enum numeric values on the wire for jobsToDispatch to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllJobsToDispatchValue(
+          java.lang.Iterable<java.lang.Integer> values) {
+        ensureJobsToDispatchIsMutable();
+        for (int value : values) {
+          jobsToDispatch_.add(value);
+        }
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2734,6 +4536,1493 @@ public final class OrderEnrichment {
 
     @java.lang.Override
     public order_enrichment.OrderEnrichment.EventOrderEnrichment getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface JobOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:order_enrichment.Job)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <code>.order_enrichment.JobType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    int getTypeValue();
+    /**
+     * <code>.order_enrichment.JobType type = 2;</code>
+     * @return The type.
+     */
+    order_enrichment.OrderEnrichment.JobType getType();
+
+    /**
+     * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+     * @return Whether the estimatedJobStart field is set.
+     */
+    boolean hasEstimatedJobStart();
+    /**
+     * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+     * @return The estimatedJobStart.
+     */
+    com.google.protobuf.Timestamp getEstimatedJobStart();
+    /**
+     * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getEstimatedJobStartOrBuilder();
+
+    /**
+     * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+     * @return Whether the estimatedJobEnd field is set.
+     */
+    boolean hasEstimatedJobEnd();
+    /**
+     * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+     * @return The estimatedJobEnd.
+     */
+    com.google.protobuf.Timestamp getEstimatedJobEnd();
+    /**
+     * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getEstimatedJobEndOrBuilder();
+
+    /**
+     * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+     * @return Whether the factJobStart field is set.
+     */
+    boolean hasFactJobStart();
+    /**
+     * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+     * @return The factJobStart.
+     */
+    com.google.protobuf.Timestamp getFactJobStart();
+    /**
+     * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getFactJobStartOrBuilder();
+
+    /**
+     * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+     * @return Whether the factJobEnd field is set.
+     */
+    boolean hasFactJobEnd();
+    /**
+     * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+     * @return The factJobEnd.
+     */
+    com.google.protobuf.Timestamp getFactJobEnd();
+    /**
+     * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getFactJobEndOrBuilder();
+  }
+  /**
+   * Protobuf type {@code order_enrichment.Job}
+   */
+  public static final class Job extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:order_enrichment.Job)
+      JobOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Job.newBuilder() to construct.
+    private Job(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Job() {
+      id_ = "";
+      type_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Job();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Job(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
+              break;
+            }
+            case 26: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (estimatedJobStart_ != null) {
+                subBuilder = estimatedJobStart_.toBuilder();
+              }
+              estimatedJobStart_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(estimatedJobStart_);
+                estimatedJobStart_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 34: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (estimatedJobEnd_ != null) {
+                subBuilder = estimatedJobEnd_.toBuilder();
+              }
+              estimatedJobEnd_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(estimatedJobEnd_);
+                estimatedJobEnd_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 42: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (factJobStart_ != null) {
+                subBuilder = factJobStart_.toBuilder();
+              }
+              factJobStart_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(factJobStart_);
+                factJobStart_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 50: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (factJobEnd_ != null) {
+                subBuilder = factJobEnd_.toBuilder();
+              }
+              factJobEnd_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(factJobEnd_);
+                factJobEnd_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return order_enrichment.OrderEnrichment.internal_static_order_enrichment_Job_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return order_enrichment.OrderEnrichment.internal_static_order_enrichment_Job_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              order_enrichment.OrderEnrichment.Job.class, order_enrichment.OrderEnrichment.Job.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 2;
+    private int type_;
+    /**
+     * <code>.order_enrichment.JobType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    @java.lang.Override public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <code>.order_enrichment.JobType type = 2;</code>
+     * @return The type.
+     */
+    @java.lang.Override public order_enrichment.OrderEnrichment.JobType getType() {
+      @SuppressWarnings("deprecation")
+      order_enrichment.OrderEnrichment.JobType result = order_enrichment.OrderEnrichment.JobType.valueOf(type_);
+      return result == null ? order_enrichment.OrderEnrichment.JobType.UNRECOGNIZED : result;
+    }
+
+    public static final int ESTIMATEDJOBSTART_FIELD_NUMBER = 3;
+    private com.google.protobuf.Timestamp estimatedJobStart_;
+    /**
+     * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+     * @return Whether the estimatedJobStart field is set.
+     */
+    @java.lang.Override
+    public boolean hasEstimatedJobStart() {
+      return estimatedJobStart_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+     * @return The estimatedJobStart.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getEstimatedJobStart() {
+      return estimatedJobStart_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : estimatedJobStart_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getEstimatedJobStartOrBuilder() {
+      return getEstimatedJobStart();
+    }
+
+    public static final int ESTIMATEDJOBEND_FIELD_NUMBER = 4;
+    private com.google.protobuf.Timestamp estimatedJobEnd_;
+    /**
+     * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+     * @return Whether the estimatedJobEnd field is set.
+     */
+    @java.lang.Override
+    public boolean hasEstimatedJobEnd() {
+      return estimatedJobEnd_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+     * @return The estimatedJobEnd.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getEstimatedJobEnd() {
+      return estimatedJobEnd_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : estimatedJobEnd_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getEstimatedJobEndOrBuilder() {
+      return getEstimatedJobEnd();
+    }
+
+    public static final int FACTJOBSTART_FIELD_NUMBER = 5;
+    private com.google.protobuf.Timestamp factJobStart_;
+    /**
+     * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+     * @return Whether the factJobStart field is set.
+     */
+    @java.lang.Override
+    public boolean hasFactJobStart() {
+      return factJobStart_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+     * @return The factJobStart.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getFactJobStart() {
+      return factJobStart_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : factJobStart_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getFactJobStartOrBuilder() {
+      return getFactJobStart();
+    }
+
+    public static final int FACTJOBEND_FIELD_NUMBER = 6;
+    private com.google.protobuf.Timestamp factJobEnd_;
+    /**
+     * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+     * @return Whether the factJobEnd field is set.
+     */
+    @java.lang.Override
+    public boolean hasFactJobEnd() {
+      return factJobEnd_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+     * @return The factJobEnd.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getFactJobEnd() {
+      return factJobEnd_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : factJobEnd_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getFactJobEndOrBuilder() {
+      return getFactJobEnd();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      if (type_ != order_enrichment.OrderEnrichment.JobType.Assembly.getNumber()) {
+        output.writeEnum(2, type_);
+      }
+      if (estimatedJobStart_ != null) {
+        output.writeMessage(3, getEstimatedJobStart());
+      }
+      if (estimatedJobEnd_ != null) {
+        output.writeMessage(4, getEstimatedJobEnd());
+      }
+      if (factJobStart_ != null) {
+        output.writeMessage(5, getFactJobStart());
+      }
+      if (factJobEnd_ != null) {
+        output.writeMessage(6, getFactJobEnd());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      if (type_ != order_enrichment.OrderEnrichment.JobType.Assembly.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, type_);
+      }
+      if (estimatedJobStart_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getEstimatedJobStart());
+      }
+      if (estimatedJobEnd_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getEstimatedJobEnd());
+      }
+      if (factJobStart_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, getFactJobStart());
+      }
+      if (factJobEnd_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, getFactJobEnd());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof order_enrichment.OrderEnrichment.Job)) {
+        return super.equals(obj);
+      }
+      order_enrichment.OrderEnrichment.Job other = (order_enrichment.OrderEnrichment.Job) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (type_ != other.type_) return false;
+      if (hasEstimatedJobStart() != other.hasEstimatedJobStart()) return false;
+      if (hasEstimatedJobStart()) {
+        if (!getEstimatedJobStart()
+            .equals(other.getEstimatedJobStart())) return false;
+      }
+      if (hasEstimatedJobEnd() != other.hasEstimatedJobEnd()) return false;
+      if (hasEstimatedJobEnd()) {
+        if (!getEstimatedJobEnd()
+            .equals(other.getEstimatedJobEnd())) return false;
+      }
+      if (hasFactJobStart() != other.hasFactJobStart()) return false;
+      if (hasFactJobStart()) {
+        if (!getFactJobStart()
+            .equals(other.getFactJobStart())) return false;
+      }
+      if (hasFactJobEnd() != other.hasFactJobEnd()) return false;
+      if (hasFactJobEnd()) {
+        if (!getFactJobEnd()
+            .equals(other.getFactJobEnd())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
+      if (hasEstimatedJobStart()) {
+        hash = (37 * hash) + ESTIMATEDJOBSTART_FIELD_NUMBER;
+        hash = (53 * hash) + getEstimatedJobStart().hashCode();
+      }
+      if (hasEstimatedJobEnd()) {
+        hash = (37 * hash) + ESTIMATEDJOBEND_FIELD_NUMBER;
+        hash = (53 * hash) + getEstimatedJobEnd().hashCode();
+      }
+      if (hasFactJobStart()) {
+        hash = (37 * hash) + FACTJOBSTART_FIELD_NUMBER;
+        hash = (53 * hash) + getFactJobStart().hashCode();
+      }
+      if (hasFactJobEnd()) {
+        hash = (37 * hash) + FACTJOBEND_FIELD_NUMBER;
+        hash = (53 * hash) + getFactJobEnd().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static order_enrichment.OrderEnrichment.Job parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static order_enrichment.OrderEnrichment.Job parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static order_enrichment.OrderEnrichment.Job parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static order_enrichment.OrderEnrichment.Job parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static order_enrichment.OrderEnrichment.Job parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static order_enrichment.OrderEnrichment.Job parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static order_enrichment.OrderEnrichment.Job parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static order_enrichment.OrderEnrichment.Job parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static order_enrichment.OrderEnrichment.Job parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static order_enrichment.OrderEnrichment.Job parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static order_enrichment.OrderEnrichment.Job parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static order_enrichment.OrderEnrichment.Job parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(order_enrichment.OrderEnrichment.Job prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code order_enrichment.Job}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:order_enrichment.Job)
+        order_enrichment.OrderEnrichment.JobOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return order_enrichment.OrderEnrichment.internal_static_order_enrichment_Job_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return order_enrichment.OrderEnrichment.internal_static_order_enrichment_Job_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                order_enrichment.OrderEnrichment.Job.class, order_enrichment.OrderEnrichment.Job.Builder.class);
+      }
+
+      // Construct using order_enrichment.OrderEnrichment.Job.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        type_ = 0;
+
+        if (estimatedJobStartBuilder_ == null) {
+          estimatedJobStart_ = null;
+        } else {
+          estimatedJobStart_ = null;
+          estimatedJobStartBuilder_ = null;
+        }
+        if (estimatedJobEndBuilder_ == null) {
+          estimatedJobEnd_ = null;
+        } else {
+          estimatedJobEnd_ = null;
+          estimatedJobEndBuilder_ = null;
+        }
+        if (factJobStartBuilder_ == null) {
+          factJobStart_ = null;
+        } else {
+          factJobStart_ = null;
+          factJobStartBuilder_ = null;
+        }
+        if (factJobEndBuilder_ == null) {
+          factJobEnd_ = null;
+        } else {
+          factJobEnd_ = null;
+          factJobEndBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return order_enrichment.OrderEnrichment.internal_static_order_enrichment_Job_descriptor;
+      }
+
+      @java.lang.Override
+      public order_enrichment.OrderEnrichment.Job getDefaultInstanceForType() {
+        return order_enrichment.OrderEnrichment.Job.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public order_enrichment.OrderEnrichment.Job build() {
+        order_enrichment.OrderEnrichment.Job result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public order_enrichment.OrderEnrichment.Job buildPartial() {
+        order_enrichment.OrderEnrichment.Job result = new order_enrichment.OrderEnrichment.Job(this);
+        result.id_ = id_;
+        result.type_ = type_;
+        if (estimatedJobStartBuilder_ == null) {
+          result.estimatedJobStart_ = estimatedJobStart_;
+        } else {
+          result.estimatedJobStart_ = estimatedJobStartBuilder_.build();
+        }
+        if (estimatedJobEndBuilder_ == null) {
+          result.estimatedJobEnd_ = estimatedJobEnd_;
+        } else {
+          result.estimatedJobEnd_ = estimatedJobEndBuilder_.build();
+        }
+        if (factJobStartBuilder_ == null) {
+          result.factJobStart_ = factJobStart_;
+        } else {
+          result.factJobStart_ = factJobStartBuilder_.build();
+        }
+        if (factJobEndBuilder_ == null) {
+          result.factJobEnd_ = factJobEnd_;
+        } else {
+          result.factJobEnd_ = factJobEndBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof order_enrichment.OrderEnrichment.Job) {
+          return mergeFrom((order_enrichment.OrderEnrichment.Job)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(order_enrichment.OrderEnrichment.Job other) {
+        if (other == order_enrichment.OrderEnrichment.Job.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
+        }
+        if (other.hasEstimatedJobStart()) {
+          mergeEstimatedJobStart(other.getEstimatedJobStart());
+        }
+        if (other.hasEstimatedJobEnd()) {
+          mergeEstimatedJobEnd(other.getEstimatedJobEnd());
+        }
+        if (other.hasFactJobStart()) {
+          mergeFactJobStart(other.getFactJobStart());
+        }
+        if (other.hasFactJobEnd()) {
+          mergeFactJobEnd(other.getFactJobEnd());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        order_enrichment.OrderEnrichment.Job parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (order_enrichment.OrderEnrichment.Job) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 1;</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int type_ = 0;
+      /**
+       * <code>.order_enrichment.JobType type = 2;</code>
+       * @return The enum numeric value on the wire for type.
+       */
+      @java.lang.Override public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.order_enrichment.JobType type = 2;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeValue(int value) {
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.order_enrichment.JobType type = 2;</code>
+       * @return The type.
+       */
+      @java.lang.Override
+      public order_enrichment.OrderEnrichment.JobType getType() {
+        @SuppressWarnings("deprecation")
+        order_enrichment.OrderEnrichment.JobType result = order_enrichment.OrderEnrichment.JobType.valueOf(type_);
+        return result == null ? order_enrichment.OrderEnrichment.JobType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.order_enrichment.JobType type = 2;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(order_enrichment.OrderEnrichment.JobType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.order_enrichment.JobType type = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp estimatedJobStart_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> estimatedJobStartBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+       * @return Whether the estimatedJobStart field is set.
+       */
+      public boolean hasEstimatedJobStart() {
+        return estimatedJobStartBuilder_ != null || estimatedJobStart_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+       * @return The estimatedJobStart.
+       */
+      public com.google.protobuf.Timestamp getEstimatedJobStart() {
+        if (estimatedJobStartBuilder_ == null) {
+          return estimatedJobStart_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : estimatedJobStart_;
+        } else {
+          return estimatedJobStartBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+       */
+      public Builder setEstimatedJobStart(com.google.protobuf.Timestamp value) {
+        if (estimatedJobStartBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          estimatedJobStart_ = value;
+          onChanged();
+        } else {
+          estimatedJobStartBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+       */
+      public Builder setEstimatedJobStart(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (estimatedJobStartBuilder_ == null) {
+          estimatedJobStart_ = builderForValue.build();
+          onChanged();
+        } else {
+          estimatedJobStartBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+       */
+      public Builder mergeEstimatedJobStart(com.google.protobuf.Timestamp value) {
+        if (estimatedJobStartBuilder_ == null) {
+          if (estimatedJobStart_ != null) {
+            estimatedJobStart_ =
+              com.google.protobuf.Timestamp.newBuilder(estimatedJobStart_).mergeFrom(value).buildPartial();
+          } else {
+            estimatedJobStart_ = value;
+          }
+          onChanged();
+        } else {
+          estimatedJobStartBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+       */
+      public Builder clearEstimatedJobStart() {
+        if (estimatedJobStartBuilder_ == null) {
+          estimatedJobStart_ = null;
+          onChanged();
+        } else {
+          estimatedJobStart_ = null;
+          estimatedJobStartBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getEstimatedJobStartBuilder() {
+        
+        onChanged();
+        return getEstimatedJobStartFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getEstimatedJobStartOrBuilder() {
+        if (estimatedJobStartBuilder_ != null) {
+          return estimatedJobStartBuilder_.getMessageOrBuilder();
+        } else {
+          return estimatedJobStart_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : estimatedJobStart_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobStart = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getEstimatedJobStartFieldBuilder() {
+        if (estimatedJobStartBuilder_ == null) {
+          estimatedJobStartBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getEstimatedJobStart(),
+                  getParentForChildren(),
+                  isClean());
+          estimatedJobStart_ = null;
+        }
+        return estimatedJobStartBuilder_;
+      }
+
+      private com.google.protobuf.Timestamp estimatedJobEnd_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> estimatedJobEndBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+       * @return Whether the estimatedJobEnd field is set.
+       */
+      public boolean hasEstimatedJobEnd() {
+        return estimatedJobEndBuilder_ != null || estimatedJobEnd_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+       * @return The estimatedJobEnd.
+       */
+      public com.google.protobuf.Timestamp getEstimatedJobEnd() {
+        if (estimatedJobEndBuilder_ == null) {
+          return estimatedJobEnd_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : estimatedJobEnd_;
+        } else {
+          return estimatedJobEndBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+       */
+      public Builder setEstimatedJobEnd(com.google.protobuf.Timestamp value) {
+        if (estimatedJobEndBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          estimatedJobEnd_ = value;
+          onChanged();
+        } else {
+          estimatedJobEndBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+       */
+      public Builder setEstimatedJobEnd(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (estimatedJobEndBuilder_ == null) {
+          estimatedJobEnd_ = builderForValue.build();
+          onChanged();
+        } else {
+          estimatedJobEndBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+       */
+      public Builder mergeEstimatedJobEnd(com.google.protobuf.Timestamp value) {
+        if (estimatedJobEndBuilder_ == null) {
+          if (estimatedJobEnd_ != null) {
+            estimatedJobEnd_ =
+              com.google.protobuf.Timestamp.newBuilder(estimatedJobEnd_).mergeFrom(value).buildPartial();
+          } else {
+            estimatedJobEnd_ = value;
+          }
+          onChanged();
+        } else {
+          estimatedJobEndBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+       */
+      public Builder clearEstimatedJobEnd() {
+        if (estimatedJobEndBuilder_ == null) {
+          estimatedJobEnd_ = null;
+          onChanged();
+        } else {
+          estimatedJobEnd_ = null;
+          estimatedJobEndBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getEstimatedJobEndBuilder() {
+        
+        onChanged();
+        return getEstimatedJobEndFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getEstimatedJobEndOrBuilder() {
+        if (estimatedJobEndBuilder_ != null) {
+          return estimatedJobEndBuilder_.getMessageOrBuilder();
+        } else {
+          return estimatedJobEnd_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : estimatedJobEnd_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp EstimatedJobEnd = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getEstimatedJobEndFieldBuilder() {
+        if (estimatedJobEndBuilder_ == null) {
+          estimatedJobEndBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getEstimatedJobEnd(),
+                  getParentForChildren(),
+                  isClean());
+          estimatedJobEnd_ = null;
+        }
+        return estimatedJobEndBuilder_;
+      }
+
+      private com.google.protobuf.Timestamp factJobStart_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> factJobStartBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+       * @return Whether the factJobStart field is set.
+       */
+      public boolean hasFactJobStart() {
+        return factJobStartBuilder_ != null || factJobStart_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+       * @return The factJobStart.
+       */
+      public com.google.protobuf.Timestamp getFactJobStart() {
+        if (factJobStartBuilder_ == null) {
+          return factJobStart_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : factJobStart_;
+        } else {
+          return factJobStartBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+       */
+      public Builder setFactJobStart(com.google.protobuf.Timestamp value) {
+        if (factJobStartBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          factJobStart_ = value;
+          onChanged();
+        } else {
+          factJobStartBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+       */
+      public Builder setFactJobStart(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (factJobStartBuilder_ == null) {
+          factJobStart_ = builderForValue.build();
+          onChanged();
+        } else {
+          factJobStartBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+       */
+      public Builder mergeFactJobStart(com.google.protobuf.Timestamp value) {
+        if (factJobStartBuilder_ == null) {
+          if (factJobStart_ != null) {
+            factJobStart_ =
+              com.google.protobuf.Timestamp.newBuilder(factJobStart_).mergeFrom(value).buildPartial();
+          } else {
+            factJobStart_ = value;
+          }
+          onChanged();
+        } else {
+          factJobStartBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+       */
+      public Builder clearFactJobStart() {
+        if (factJobStartBuilder_ == null) {
+          factJobStart_ = null;
+          onChanged();
+        } else {
+          factJobStart_ = null;
+          factJobStartBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getFactJobStartBuilder() {
+        
+        onChanged();
+        return getFactJobStartFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getFactJobStartOrBuilder() {
+        if (factJobStartBuilder_ != null) {
+          return factJobStartBuilder_.getMessageOrBuilder();
+        } else {
+          return factJobStart_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : factJobStart_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobStart = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getFactJobStartFieldBuilder() {
+        if (factJobStartBuilder_ == null) {
+          factJobStartBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getFactJobStart(),
+                  getParentForChildren(),
+                  isClean());
+          factJobStart_ = null;
+        }
+        return factJobStartBuilder_;
+      }
+
+      private com.google.protobuf.Timestamp factJobEnd_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> factJobEndBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+       * @return Whether the factJobEnd field is set.
+       */
+      public boolean hasFactJobEnd() {
+        return factJobEndBuilder_ != null || factJobEnd_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+       * @return The factJobEnd.
+       */
+      public com.google.protobuf.Timestamp getFactJobEnd() {
+        if (factJobEndBuilder_ == null) {
+          return factJobEnd_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : factJobEnd_;
+        } else {
+          return factJobEndBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+       */
+      public Builder setFactJobEnd(com.google.protobuf.Timestamp value) {
+        if (factJobEndBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          factJobEnd_ = value;
+          onChanged();
+        } else {
+          factJobEndBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+       */
+      public Builder setFactJobEnd(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (factJobEndBuilder_ == null) {
+          factJobEnd_ = builderForValue.build();
+          onChanged();
+        } else {
+          factJobEndBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+       */
+      public Builder mergeFactJobEnd(com.google.protobuf.Timestamp value) {
+        if (factJobEndBuilder_ == null) {
+          if (factJobEnd_ != null) {
+            factJobEnd_ =
+              com.google.protobuf.Timestamp.newBuilder(factJobEnd_).mergeFrom(value).buildPartial();
+          } else {
+            factJobEnd_ = value;
+          }
+          onChanged();
+        } else {
+          factJobEndBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+       */
+      public Builder clearFactJobEnd() {
+        if (factJobEndBuilder_ == null) {
+          factJobEnd_ = null;
+          onChanged();
+        } else {
+          factJobEnd_ = null;
+          factJobEndBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getFactJobEndBuilder() {
+        
+        onChanged();
+        return getFactJobEndFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getFactJobEndOrBuilder() {
+        if (factJobEndBuilder_ != null) {
+          return factJobEndBuilder_.getMessageOrBuilder();
+        } else {
+          return factJobEnd_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : factJobEnd_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp FactJobEnd = 6;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getFactJobEndFieldBuilder() {
+        if (factJobEndBuilder_ == null) {
+          factJobEndBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getFactJobEnd(),
+                  getParentForChildren(),
+                  isClean());
+          factJobEnd_ = null;
+        }
+        return factJobEndBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:order_enrichment.Job)
+    }
+
+    // @@protoc_insertion_point(class_scope:order_enrichment.Job)
+    private static final order_enrichment.OrderEnrichment.Job DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new order_enrichment.OrderEnrichment.Job();
+    }
+
+    public static order_enrichment.OrderEnrichment.Job getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Job>
+        PARSER = new com.google.protobuf.AbstractParser<Job>() {
+      @java.lang.Override
+      public Job parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Job(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Job> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Job> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public order_enrichment.OrderEnrichment.Job getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2804,24 +6093,12 @@ public final class OrderEnrichment {
     boolean getPlaceLocationCenter();
 
     /**
-     * <code>uint64 search_radius_transport_pedestrian = 11;</code>
-     * @return The searchRadiusTransportPedestrian.
-     */
-    long getSearchRadiusTransportPedestrian();
-
-    /**
-     * <code>uint64 search_radius_transport_auto = 12;</code>
-     * @return The searchRadiusTransportAuto.
-     */
-    long getSearchRadiusTransportAuto();
-
-    /**
-     * <code>uint64 search_radius_transport_bike = 13;</code>
-     * @return The searchRadiusTransportBike.
-     */
-    long getSearchRadiusTransportBike();
-
-    /**
+     * <pre>
+     *	uint64  search_radius_transport_pedestrian                    = 11;
+     *	uint64  search_radius_transport_auto                          = 12;
+     *	uint64  search_radius_transport_bike                          = 13;
+     * </pre>
+     *
      * <code>uint64 last_position_expire = 14;</code>
      * @return The lastPositionExpire.
      */
@@ -2852,12 +6129,10 @@ public final class OrderEnrichment {
     long getOfferServerTimeoutSec();
 
     /**
-     * <code>uint64 search_radius_manual_routing = 19;</code>
-     * @return The searchRadiusManualRouting.
-     */
-    long getSearchRadiusManualRouting();
-
-    /**
+     * <pre>
+     *	uint64  search_radius_manual_routing                          = 19;
+     * </pre>
+     *
      * <code>bool external_assembliers_presented = 20;</code>
      * @return The externalAssembliersPresented.
      */
@@ -2874,6 +6149,12 @@ public final class OrderEnrichment {
      * @return The taxiAvailable.
      */
     boolean getTaxiAvailable();
+
+    /**
+     * <code>uint64 max_waiting_time_for_courier_min = 23;</code>
+     * @return The maxWaitingTimeForCourierMin.
+     */
+    long getMaxWaitingTimeForCourierMin();
   }
   /**
    * Protobuf type {@code order_enrichment.Settings}
@@ -2970,21 +6251,6 @@ public final class OrderEnrichment {
               placeLocationCenter_ = input.readBool();
               break;
             }
-            case 88: {
-
-              searchRadiusTransportPedestrian_ = input.readUInt64();
-              break;
-            }
-            case 96: {
-
-              searchRadiusTransportAuto_ = input.readUInt64();
-              break;
-            }
-            case 104: {
-
-              searchRadiusTransportBike_ = input.readUInt64();
-              break;
-            }
             case 112: {
 
               lastPositionExpire_ = input.readUInt64();
@@ -3010,11 +6276,6 @@ public final class OrderEnrichment {
               offerServerTimeoutSec_ = input.readUInt64();
               break;
             }
-            case 152: {
-
-              searchRadiusManualRouting_ = input.readUInt64();
-              break;
-            }
             case 160: {
 
               externalAssembliersPresented_ = input.readBool();
@@ -3028,6 +6289,11 @@ public final class OrderEnrichment {
             case 176: {
 
               taxiAvailable_ = input.readBool();
+              break;
+            }
+            case 184: {
+
+              maxWaitingTimeForCourierMin_ = input.readUInt64();
               break;
             }
             default: {
@@ -3172,42 +6438,15 @@ public final class OrderEnrichment {
       return placeLocationCenter_;
     }
 
-    public static final int SEARCH_RADIUS_TRANSPORT_PEDESTRIAN_FIELD_NUMBER = 11;
-    private long searchRadiusTransportPedestrian_;
-    /**
-     * <code>uint64 search_radius_transport_pedestrian = 11;</code>
-     * @return The searchRadiusTransportPedestrian.
-     */
-    @java.lang.Override
-    public long getSearchRadiusTransportPedestrian() {
-      return searchRadiusTransportPedestrian_;
-    }
-
-    public static final int SEARCH_RADIUS_TRANSPORT_AUTO_FIELD_NUMBER = 12;
-    private long searchRadiusTransportAuto_;
-    /**
-     * <code>uint64 search_radius_transport_auto = 12;</code>
-     * @return The searchRadiusTransportAuto.
-     */
-    @java.lang.Override
-    public long getSearchRadiusTransportAuto() {
-      return searchRadiusTransportAuto_;
-    }
-
-    public static final int SEARCH_RADIUS_TRANSPORT_BIKE_FIELD_NUMBER = 13;
-    private long searchRadiusTransportBike_;
-    /**
-     * <code>uint64 search_radius_transport_bike = 13;</code>
-     * @return The searchRadiusTransportBike.
-     */
-    @java.lang.Override
-    public long getSearchRadiusTransportBike() {
-      return searchRadiusTransportBike_;
-    }
-
     public static final int LAST_POSITION_EXPIRE_FIELD_NUMBER = 14;
     private long lastPositionExpire_;
     /**
+     * <pre>
+     *	uint64  search_radius_transport_pedestrian                    = 11;
+     *	uint64  search_radius_transport_auto                          = 12;
+     *	uint64  search_radius_transport_bike                          = 13;
+     * </pre>
+     *
      * <code>uint64 last_position_expire = 14;</code>
      * @return The lastPositionExpire.
      */
@@ -3260,20 +6499,13 @@ public final class OrderEnrichment {
       return offerServerTimeoutSec_;
     }
 
-    public static final int SEARCH_RADIUS_MANUAL_ROUTING_FIELD_NUMBER = 19;
-    private long searchRadiusManualRouting_;
-    /**
-     * <code>uint64 search_radius_manual_routing = 19;</code>
-     * @return The searchRadiusManualRouting.
-     */
-    @java.lang.Override
-    public long getSearchRadiusManualRouting() {
-      return searchRadiusManualRouting_;
-    }
-
     public static final int EXTERNAL_ASSEMBLIERS_PRESENTED_FIELD_NUMBER = 20;
     private boolean externalAssembliersPresented_;
     /**
+     * <pre>
+     *	uint64  search_radius_manual_routing                          = 19;
+     * </pre>
+     *
      * <code>bool external_assembliers_presented = 20;</code>
      * @return The externalAssembliersPresented.
      */
@@ -3302,6 +6534,17 @@ public final class OrderEnrichment {
     @java.lang.Override
     public boolean getTaxiAvailable() {
       return taxiAvailable_;
+    }
+
+    public static final int MAX_WAITING_TIME_FOR_COURIER_MIN_FIELD_NUMBER = 23;
+    private long maxWaitingTimeForCourierMin_;
+    /**
+     * <code>uint64 max_waiting_time_for_courier_min = 23;</code>
+     * @return The maxWaitingTimeForCourierMin.
+     */
+    @java.lang.Override
+    public long getMaxWaitingTimeForCourierMin() {
+      return maxWaitingTimeForCourierMin_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -3348,15 +6591,6 @@ public final class OrderEnrichment {
       if (placeLocationCenter_ != false) {
         output.writeBool(10, placeLocationCenter_);
       }
-      if (searchRadiusTransportPedestrian_ != 0L) {
-        output.writeUInt64(11, searchRadiusTransportPedestrian_);
-      }
-      if (searchRadiusTransportAuto_ != 0L) {
-        output.writeUInt64(12, searchRadiusTransportAuto_);
-      }
-      if (searchRadiusTransportBike_ != 0L) {
-        output.writeUInt64(13, searchRadiusTransportBike_);
-      }
       if (lastPositionExpire_ != 0L) {
         output.writeUInt64(14, lastPositionExpire_);
       }
@@ -3372,9 +6606,6 @@ public final class OrderEnrichment {
       if (offerServerTimeoutSec_ != 0L) {
         output.writeUInt64(18, offerServerTimeoutSec_);
       }
-      if (searchRadiusManualRouting_ != 0L) {
-        output.writeUInt64(19, searchRadiusManualRouting_);
-      }
       if (externalAssembliersPresented_ != false) {
         output.writeBool(20, externalAssembliersPresented_);
       }
@@ -3383,6 +6614,9 @@ public final class OrderEnrichment {
       }
       if (taxiAvailable_ != false) {
         output.writeBool(22, taxiAvailable_);
+      }
+      if (maxWaitingTimeForCourierMin_ != 0L) {
+        output.writeUInt64(23, maxWaitingTimeForCourierMin_);
       }
       unknownFields.writeTo(output);
     }
@@ -3433,18 +6667,6 @@ public final class OrderEnrichment {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(10, placeLocationCenter_);
       }
-      if (searchRadiusTransportPedestrian_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(11, searchRadiusTransportPedestrian_);
-      }
-      if (searchRadiusTransportAuto_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(12, searchRadiusTransportAuto_);
-      }
-      if (searchRadiusTransportBike_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(13, searchRadiusTransportBike_);
-      }
       if (lastPositionExpire_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(14, lastPositionExpire_);
@@ -3465,10 +6687,6 @@ public final class OrderEnrichment {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(18, offerServerTimeoutSec_);
       }
-      if (searchRadiusManualRouting_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(19, searchRadiusManualRouting_);
-      }
       if (externalAssembliersPresented_ != false) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(20, externalAssembliersPresented_);
@@ -3480,6 +6698,10 @@ public final class OrderEnrichment {
       if (taxiAvailable_ != false) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(22, taxiAvailable_);
+      }
+      if (maxWaitingTimeForCourierMin_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(23, maxWaitingTimeForCourierMin_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3516,12 +6738,6 @@ public final class OrderEnrichment {
           != other.getAvgToPlaceMin()) return false;
       if (getPlaceLocationCenter()
           != other.getPlaceLocationCenter()) return false;
-      if (getSearchRadiusTransportPedestrian()
-          != other.getSearchRadiusTransportPedestrian()) return false;
-      if (getSearchRadiusTransportAuto()
-          != other.getSearchRadiusTransportAuto()) return false;
-      if (getSearchRadiusTransportBike()
-          != other.getSearchRadiusTransportBike()) return false;
       if (getLastPositionExpire()
           != other.getLastPositionExpire()) return false;
       if (getTaxiDeliveryOnly()
@@ -3532,14 +6748,14 @@ public final class OrderEnrichment {
           != other.getOrderReceiveTimeFromAssemblyToDeliveryMin()) return false;
       if (getOfferServerTimeoutSec()
           != other.getOfferServerTimeoutSec()) return false;
-      if (getSearchRadiusManualRouting()
-          != other.getSearchRadiusManualRouting()) return false;
       if (getExternalAssembliersPresented()
           != other.getExternalAssembliersPresented()) return false;
       if (getGapTaxiPunishMin()
           != other.getGapTaxiPunishMin()) return false;
       if (getTaxiAvailable()
           != other.getTaxiAvailable()) return false;
+      if (getMaxWaitingTimeForCourierMin()
+          != other.getMaxWaitingTimeForCourierMin()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -3581,15 +6797,6 @@ public final class OrderEnrichment {
       hash = (37 * hash) + PLACE_LOCATION_CENTER_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getPlaceLocationCenter());
-      hash = (37 * hash) + SEARCH_RADIUS_TRANSPORT_PEDESTRIAN_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getSearchRadiusTransportPedestrian());
-      hash = (37 * hash) + SEARCH_RADIUS_TRANSPORT_AUTO_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getSearchRadiusTransportAuto());
-      hash = (37 * hash) + SEARCH_RADIUS_TRANSPORT_BIKE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getSearchRadiusTransportBike());
       hash = (37 * hash) + LAST_POSITION_EXPIRE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getLastPositionExpire());
@@ -3605,9 +6812,6 @@ public final class OrderEnrichment {
       hash = (37 * hash) + OFFER_SERVER_TIMEOUT_SEC_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getOfferServerTimeoutSec());
-      hash = (37 * hash) + SEARCH_RADIUS_MANUAL_ROUTING_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getSearchRadiusManualRouting());
       hash = (37 * hash) + EXTERNAL_ASSEMBLIERS_PRESENTED_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getExternalAssembliersPresented());
@@ -3617,6 +6821,9 @@ public final class OrderEnrichment {
       hash = (37 * hash) + TAXI_AVAILABLE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getTaxiAvailable());
+      hash = (37 * hash) + MAX_WAITING_TIME_FOR_COURIER_MIN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getMaxWaitingTimeForCourierMin());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3770,12 +6977,6 @@ public final class OrderEnrichment {
 
         placeLocationCenter_ = false;
 
-        searchRadiusTransportPedestrian_ = 0L;
-
-        searchRadiusTransportAuto_ = 0L;
-
-        searchRadiusTransportBike_ = 0L;
-
         lastPositionExpire_ = 0L;
 
         taxiDeliveryOnly_ = false;
@@ -3786,13 +6987,13 @@ public final class OrderEnrichment {
 
         offerServerTimeoutSec_ = 0L;
 
-        searchRadiusManualRouting_ = 0L;
-
         externalAssembliersPresented_ = false;
 
         gapTaxiPunishMin_ = 0L;
 
         taxiAvailable_ = false;
+
+        maxWaitingTimeForCourierMin_ = 0L;
 
         return this;
       }
@@ -3830,18 +7031,15 @@ public final class OrderEnrichment {
         result.avgToPlaceMinExternal_ = avgToPlaceMinExternal_;
         result.avgToPlaceMin_ = avgToPlaceMin_;
         result.placeLocationCenter_ = placeLocationCenter_;
-        result.searchRadiusTransportPedestrian_ = searchRadiusTransportPedestrian_;
-        result.searchRadiusTransportAuto_ = searchRadiusTransportAuto_;
-        result.searchRadiusTransportBike_ = searchRadiusTransportBike_;
         result.lastPositionExpire_ = lastPositionExpire_;
         result.taxiDeliveryOnly_ = taxiDeliveryOnly_;
         result.orderTransferTimeFromDeliveryToClientMin_ = orderTransferTimeFromDeliveryToClientMin_;
         result.orderReceiveTimeFromAssemblyToDeliveryMin_ = orderReceiveTimeFromAssemblyToDeliveryMin_;
         result.offerServerTimeoutSec_ = offerServerTimeoutSec_;
-        result.searchRadiusManualRouting_ = searchRadiusManualRouting_;
         result.externalAssembliersPresented_ = externalAssembliersPresented_;
         result.gapTaxiPunishMin_ = gapTaxiPunishMin_;
         result.taxiAvailable_ = taxiAvailable_;
+        result.maxWaitingTimeForCourierMin_ = maxWaitingTimeForCourierMin_;
         onBuilt();
         return result;
       }
@@ -3920,15 +7118,6 @@ public final class OrderEnrichment {
         if (other.getPlaceLocationCenter() != false) {
           setPlaceLocationCenter(other.getPlaceLocationCenter());
         }
-        if (other.getSearchRadiusTransportPedestrian() != 0L) {
-          setSearchRadiusTransportPedestrian(other.getSearchRadiusTransportPedestrian());
-        }
-        if (other.getSearchRadiusTransportAuto() != 0L) {
-          setSearchRadiusTransportAuto(other.getSearchRadiusTransportAuto());
-        }
-        if (other.getSearchRadiusTransportBike() != 0L) {
-          setSearchRadiusTransportBike(other.getSearchRadiusTransportBike());
-        }
         if (other.getLastPositionExpire() != 0L) {
           setLastPositionExpire(other.getLastPositionExpire());
         }
@@ -3944,9 +7133,6 @@ public final class OrderEnrichment {
         if (other.getOfferServerTimeoutSec() != 0L) {
           setOfferServerTimeoutSec(other.getOfferServerTimeoutSec());
         }
-        if (other.getSearchRadiusManualRouting() != 0L) {
-          setSearchRadiusManualRouting(other.getSearchRadiusManualRouting());
-        }
         if (other.getExternalAssembliersPresented() != false) {
           setExternalAssembliersPresented(other.getExternalAssembliersPresented());
         }
@@ -3955,6 +7141,9 @@ public final class OrderEnrichment {
         }
         if (other.getTaxiAvailable() != false) {
           setTaxiAvailable(other.getTaxiAvailable());
+        }
+        if (other.getMaxWaitingTimeForCourierMin() != 0L) {
+          setMaxWaitingTimeForCourierMin(other.getMaxWaitingTimeForCourierMin());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4295,101 +7484,14 @@ public final class OrderEnrichment {
         return this;
       }
 
-      private long searchRadiusTransportPedestrian_ ;
-      /**
-       * <code>uint64 search_radius_transport_pedestrian = 11;</code>
-       * @return The searchRadiusTransportPedestrian.
-       */
-      @java.lang.Override
-      public long getSearchRadiusTransportPedestrian() {
-        return searchRadiusTransportPedestrian_;
-      }
-      /**
-       * <code>uint64 search_radius_transport_pedestrian = 11;</code>
-       * @param value The searchRadiusTransportPedestrian to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSearchRadiusTransportPedestrian(long value) {
-        
-        searchRadiusTransportPedestrian_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint64 search_radius_transport_pedestrian = 11;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearSearchRadiusTransportPedestrian() {
-        
-        searchRadiusTransportPedestrian_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private long searchRadiusTransportAuto_ ;
-      /**
-       * <code>uint64 search_radius_transport_auto = 12;</code>
-       * @return The searchRadiusTransportAuto.
-       */
-      @java.lang.Override
-      public long getSearchRadiusTransportAuto() {
-        return searchRadiusTransportAuto_;
-      }
-      /**
-       * <code>uint64 search_radius_transport_auto = 12;</code>
-       * @param value The searchRadiusTransportAuto to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSearchRadiusTransportAuto(long value) {
-        
-        searchRadiusTransportAuto_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint64 search_radius_transport_auto = 12;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearSearchRadiusTransportAuto() {
-        
-        searchRadiusTransportAuto_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private long searchRadiusTransportBike_ ;
-      /**
-       * <code>uint64 search_radius_transport_bike = 13;</code>
-       * @return The searchRadiusTransportBike.
-       */
-      @java.lang.Override
-      public long getSearchRadiusTransportBike() {
-        return searchRadiusTransportBike_;
-      }
-      /**
-       * <code>uint64 search_radius_transport_bike = 13;</code>
-       * @param value The searchRadiusTransportBike to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSearchRadiusTransportBike(long value) {
-        
-        searchRadiusTransportBike_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint64 search_radius_transport_bike = 13;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearSearchRadiusTransportBike() {
-        
-        searchRadiusTransportBike_ = 0L;
-        onChanged();
-        return this;
-      }
-
       private long lastPositionExpire_ ;
       /**
+       * <pre>
+       *	uint64  search_radius_transport_pedestrian                    = 11;
+       *	uint64  search_radius_transport_auto                          = 12;
+       *	uint64  search_radius_transport_bike                          = 13;
+       * </pre>
+       *
        * <code>uint64 last_position_expire = 14;</code>
        * @return The lastPositionExpire.
        */
@@ -4398,6 +7500,12 @@ public final class OrderEnrichment {
         return lastPositionExpire_;
       }
       /**
+       * <pre>
+       *	uint64  search_radius_transport_pedestrian                    = 11;
+       *	uint64  search_radius_transport_auto                          = 12;
+       *	uint64  search_radius_transport_bike                          = 13;
+       * </pre>
+       *
        * <code>uint64 last_position_expire = 14;</code>
        * @param value The lastPositionExpire to set.
        * @return This builder for chaining.
@@ -4409,6 +7517,12 @@ public final class OrderEnrichment {
         return this;
       }
       /**
+       * <pre>
+       *	uint64  search_radius_transport_pedestrian                    = 11;
+       *	uint64  search_radius_transport_auto                          = 12;
+       *	uint64  search_radius_transport_bike                          = 13;
+       * </pre>
+       *
        * <code>uint64 last_position_expire = 14;</code>
        * @return This builder for chaining.
        */
@@ -4543,39 +7657,12 @@ public final class OrderEnrichment {
         return this;
       }
 
-      private long searchRadiusManualRouting_ ;
-      /**
-       * <code>uint64 search_radius_manual_routing = 19;</code>
-       * @return The searchRadiusManualRouting.
-       */
-      @java.lang.Override
-      public long getSearchRadiusManualRouting() {
-        return searchRadiusManualRouting_;
-      }
-      /**
-       * <code>uint64 search_radius_manual_routing = 19;</code>
-       * @param value The searchRadiusManualRouting to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSearchRadiusManualRouting(long value) {
-        
-        searchRadiusManualRouting_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint64 search_radius_manual_routing = 19;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearSearchRadiusManualRouting() {
-        
-        searchRadiusManualRouting_ = 0L;
-        onChanged();
-        return this;
-      }
-
       private boolean externalAssembliersPresented_ ;
       /**
+       * <pre>
+       *	uint64  search_radius_manual_routing                          = 19;
+       * </pre>
+       *
        * <code>bool external_assembliers_presented = 20;</code>
        * @return The externalAssembliersPresented.
        */
@@ -4584,6 +7671,10 @@ public final class OrderEnrichment {
         return externalAssembliersPresented_;
       }
       /**
+       * <pre>
+       *	uint64  search_radius_manual_routing                          = 19;
+       * </pre>
+       *
        * <code>bool external_assembliers_presented = 20;</code>
        * @param value The externalAssembliersPresented to set.
        * @return This builder for chaining.
@@ -4595,6 +7686,10 @@ public final class OrderEnrichment {
         return this;
       }
       /**
+       * <pre>
+       *	uint64  search_radius_manual_routing                          = 19;
+       * </pre>
+       *
        * <code>bool external_assembliers_presented = 20;</code>
        * @return This builder for chaining.
        */
@@ -4663,6 +7758,37 @@ public final class OrderEnrichment {
       public Builder clearTaxiAvailable() {
         
         taxiAvailable_ = false;
+        onChanged();
+        return this;
+      }
+
+      private long maxWaitingTimeForCourierMin_ ;
+      /**
+       * <code>uint64 max_waiting_time_for_courier_min = 23;</code>
+       * @return The maxWaitingTimeForCourierMin.
+       */
+      @java.lang.Override
+      public long getMaxWaitingTimeForCourierMin() {
+        return maxWaitingTimeForCourierMin_;
+      }
+      /**
+       * <code>uint64 max_waiting_time_for_courier_min = 23;</code>
+       * @param value The maxWaitingTimeForCourierMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMaxWaitingTimeForCourierMin(long value) {
+        
+        maxWaitingTimeForCourierMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 max_waiting_time_for_courier_min = 23;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMaxWaitingTimeForCourierMin() {
+        
+        maxWaitingTimeForCourierMin_ = 0L;
         onChanged();
         return this;
       }
@@ -6665,6 +9791,11 @@ public final class OrderEnrichment {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_order_enrichment_EventOrderEnrichment_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_order_enrichment_Job_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_order_enrichment_Job_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_order_enrichment_Settings_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -6689,60 +9820,77 @@ public final class OrderEnrichment {
   static {
     java.lang.String[] descriptorData = {
       "\n\026order_enrichment.proto\022\020order_enrichme" +
-      "nt\032\013enums.proto\032\037google/protobuf/timesta" +
-      "mp.proto\"\362\003\n\024EventOrderEnrichment\022\025\n\rshi" +
-      "pment_uuid\030\001 \001(\t\022\022\n\norder_uuid\030\002 \001(\t\022\022\n\n" +
-      "place_uuid\030\003 \001(\t\022.\n\017shipment_status\030\004 \001(" +
-      "\0162\025.enums.ShipmentStatus\022\025\n\rshipment_typ" +
-      "e\030\005 \001(\t\022\016\n\006weight\030\006 \001(\004\022(\n\017client_locati" +
-      "on\030\007 \001(\0132\017.enums.Location\022\'\n\016place_locat" +
-      "ion\030\010 \001(\0132\017.enums.Location\022\031\n\021assembly_t" +
-      "ime_min\030\t \001(\004\022\020\n\010assembly\030\n \003(\t\022\020\n\010deliv" +
-      "ery\030\013 \003(\t\022:\n\rdispatch_meta\030\014 \001(\0132\036.order" +
-      "_enrichment.DispatchMetaH\000\210\001\001\0221\n\010setting" +
-      "s\030\r \001(\0132\032.order_enrichment.SettingsH\001\210\001\001" +
-      "\022$\n\034number_of_positions_in_order\030\016 \001(\004B\020" +
-      "\n\016_dispatch_metaB\013\n\t_settings\"\220\007\n\010Settin" +
-      "gs\022$\n\034max_order_assign_retry_count\030\001 \001(\004" +
-      "\022\037\n\027avg_parking_min_vehicle\030\002 \001(\004\022&\n\036max" +
-      "_current_order_assign_queue\030\003 \001(\004\022:\n2ord" +
-      "er_weight_threshold_to_assign_to_vehicle" +
-      "_gramms\030\004 \001(\006\0229\n1average_speed_for_strai" +
-      "ght_distance_to_client_min\030\005 \001(\004\022=\n5addi" +
-      "tional_factor_for_straight_distance_to_c" +
-      "lient_min\030\006 \001(\004\0229\n1order_transfer_time_f" +
-      "rom_assembly_to_delivery_min\030\007 \001(\004\022!\n\031av" +
-      "g_to_place_min_external\030\010 \001(\004\022\030\n\020avg_to_" +
-      "place_min\030\t \001(\004\022\035\n\025place_location_center" +
-      "\030\n \001(\010\022*\n\"search_radius_transport_pedest" +
-      "rian\030\013 \001(\004\022$\n\034search_radius_transport_au" +
-      "to\030\014 \001(\004\022$\n\034search_radius_transport_bike" +
-      "\030\r \001(\004\022\034\n\024last_position_expire\030\016 \001(\004\022\032\n\022" +
-      "taxi_delivery_only\030\017 \001(\010\0227\n/order_transf" +
-      "er_time_from_delivery_to_client_min\030\020 \001(" +
-      "\004\0228\n0order_receive_time_from_assembly_to" +
-      "_delivery_min\030\021 \001(\004\022 \n\030offer_server_time" +
-      "out_sec\030\022 \001(\004\022$\n\034search_radius_manual_ro" +
-      "uting\030\023 \001(\004\022&\n\036external_assembliers_pres" +
-      "ented\030\024 \001(\010\022\033\n\023gap_taxi_punish_min\030\025 \001(\004" +
-      "\022\026\n\016taxi_available\030\026 \001(\010\"\212\002\n\014DispatchMet" +
-      "a\022\026\n\016dispatch_count\030\001 \001(\004\0222\n\016dispatch_st" +
-      "art\030\002 \001(\0132\032.google.protobuf.Timestamp\022\024\n" +
-      "\014dispatch_ids\030\003 \003(\t\022\023\n\013dispatch_id\030\004 \001(\t" +
-      "\0222\n\014decline_task\030\005 \001(\0162\027.order_enrichmen" +
-      "t.TasksH\000\210\001\001\022#\n\026decline_performer_uuid\030\006" +
-      " \001(\tH\001\210\001\001B\017\n\r_decline_taskB\031\n\027_decline_p" +
-      "erformer_uuid\"/\n\010Location\022\020\n\010latitude\030\001 " +
-      "\001(\001\022\021\n\tlongitude\030\002 \001(\001*>\n\005Tasks\022\014\n\010DELIV" +
-      "ERY\020\000\022\014\n\010ASSEMBLY\020\001\022\031\n\025ASSEMBLY_AND_DELI" +
-      "VERY\020\002BaZ_gitlab.sbermarket.tech/paas/co" +
-      "ntent/operations/order-service/pkg/serve" +
-      "r/events/order_enrichmentb\006proto3"
+      "nt\032\037google/protobuf/timestamp.proto\"\234\010\n\024" +
+      "EventOrderEnrichment\022\025\n\rshipment_uuid\030\001 " +
+      "\001(\t\022\022\n\norder_uuid\030\002 \001(\t\022\022\n\nplace_uuid\030\003 " +
+      "\001(\t\022N\n\017shipment_status\030\004 \001(\01625.order_enr" +
+      "ichment.EventOrderEnrichment.ShipmentSta" +
+      "tus\022\025\n\rshipment_type\030\005 \001(\t\022\016\n\006weight\030\006 \001" +
+      "(\004\0223\n\017client_location\030\007 \001(\0132\032.order_enri" +
+      "chment.Location\0222\n\016place_location\030\010 \001(\0132" +
+      "\032.order_enrichment.Location\022\031\n\021assembly_" +
+      "time_min\030\t \001(\004\022\020\n\010assembly\030\n \003(\t\022\020\n\010deli" +
+      "very\030\013 \003(\t\022:\n\rdispatch_meta\030\014 \001(\0132\036.orde" +
+      "r_enrichment.DispatchMetaH\000\210\001\001\0221\n\010settin" +
+      "gs\030\r \001(\0132\032.order_enrichment.SettingsH\001\210\001" +
+      "\001\022$\n\034number_of_positions_in_order\030\016 \001(\004\022" +
+      "\024\n\014order_number\030\017 \001(\t\022\032\n\022items_total_amo" +
+      "unt\030\020 \001(\002\022\016\n\006is_new\030\021 \001(\010\022#\n\004jobs\030\022 \003(\0132" +
+      "\025.order_enrichment.Job\022I\n%delivery_promi" +
+      "se_upper_dttm_starts_at\030\023 \001(\0132\032.google.p" +
+      "rotobuf.Timestamp\022G\n#delivery_promise_up" +
+      "per_dttm_ends_at\030\024 \001(\0132\032.google.protobuf" +
+      ".Timestamp\022\030\n\020delivery_area_id\030\025 \001(\003\0223\n\020" +
+      "jobs_to_dispatch\030\026 \003(\0162\031.order_enrichmen" +
+      "t.JobType\"\247\001\n\016ShipmentStatus\022\007\n\003NEW\020\000\022\r\n" +
+      "\tPOSTPONED\020\001\022\025\n\021AUTOMATIC_ROUTING\020\002\022\022\n\016M" +
+      "ANUAL_ROUTING\020\003\022\014\n\010OFFERING\020\004\022\013\n\007OFFERED" +
+      "\020\005\022\014\n\010DECLINED\020\006\022\014\n\010CANCELED\020\007\022\013\n\007SHIPPE" +
+      "D\020\010\022\016\n\nREDISPATCH\020\tB\020\n\016_dispatch_metaB\013\n" +
+      "\t_settings\"\210\002\n\003Job\022\n\n\002id\030\001 \001(\t\022\'\n\004type\030\002" +
+      " \001(\0162\031.order_enrichment.JobType\0225\n\021Estim" +
+      "atedJobStart\030\003 \001(\0132\032.google.protobuf.Tim" +
+      "estamp\0223\n\017EstimatedJobEnd\030\004 \001(\0132\032.google" +
+      ".protobuf.Timestamp\0220\n\014FactJobStart\030\005 \001(" +
+      "\0132\032.google.protobuf.Timestamp\022.\n\nFactJob" +
+      "End\030\006 \001(\0132\032.google.protobuf.Timestamp\"\234\006" +
+      "\n\010Settings\022$\n\034max_order_assign_retry_cou" +
+      "nt\030\001 \001(\004\022\037\n\027avg_parking_min_vehicle\030\002 \001(" +
+      "\004\022&\n\036max_current_order_assign_queue\030\003 \001(" +
+      "\004\022:\n2order_weight_threshold_to_assign_to" +
+      "_vehicle_gramms\030\004 \001(\006\0229\n1average_speed_f" +
+      "or_straight_distance_to_client_min\030\005 \001(\004" +
+      "\022=\n5additional_factor_for_straight_dista" +
+      "nce_to_client_min\030\006 \001(\004\0229\n1order_transfe" +
+      "r_time_from_assembly_to_delivery_min\030\007 \001" +
+      "(\004\022!\n\031avg_to_place_min_external\030\010 \001(\004\022\030\n" +
+      "\020avg_to_place_min\030\t \001(\004\022\035\n\025place_locatio" +
+      "n_center\030\n \001(\010\022\034\n\024last_position_expire\030\016" +
+      " \001(\004\022\032\n\022taxi_delivery_only\030\017 \001(\010\0227\n/orde" +
+      "r_transfer_time_from_delivery_to_client_" +
+      "min\030\020 \001(\004\0228\n0order_receive_time_from_ass" +
+      "embly_to_delivery_min\030\021 \001(\004\022 \n\030offer_ser" +
+      "ver_timeout_sec\030\022 \001(\004\022&\n\036external_assemb" +
+      "liers_presented\030\024 \001(\010\022\033\n\023gap_taxi_punish" +
+      "_min\030\025 \001(\004\022\026\n\016taxi_available\030\026 \001(\010\022(\n ma" +
+      "x_waiting_time_for_courier_min\030\027 \001(\004\"\212\002\n" +
+      "\014DispatchMeta\022\026\n\016dispatch_count\030\001 \001(\004\0222\n" +
+      "\016dispatch_start\030\002 \001(\0132\032.google.protobuf." +
+      "Timestamp\022\024\n\014dispatch_ids\030\003 \003(\t\022\023\n\013dispa" +
+      "tch_id\030\004 \001(\t\0222\n\014decline_task\030\005 \001(\0162\027.ord" +
+      "er_enrichment.TasksH\000\210\001\001\022#\n\026decline_perf" +
+      "ormer_uuid\030\006 \001(\tH\001\210\001\001B\017\n\r_decline_taskB\031" +
+      "\n\027_decline_performer_uuid\"/\n\010Location\022\020\n" +
+      "\010latitude\030\001 \001(\001\022\021\n\tlongitude\030\002 \001(\001*%\n\007Jo" +
+      "bType\022\014\n\010Assembly\020\000\022\014\n\010Delivery\020\001*>\n\005Tas" +
+      "ks\022\014\n\010DELIVERY\020\000\022\014\n\010ASSEMBLY\020\001\022\031\n\025ASSEMB" +
+      "LY_AND_DELIVERY\020\002BYZWgitlab.sbmt.io/paas" +
+      "/content/operations/order-service/pkg/se" +
+      "rver/events/order_enrichmentb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          enums.Enums.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_order_enrichment_EventOrderEnrichment_descriptor =
@@ -6750,26 +9898,31 @@ public final class OrderEnrichment {
     internal_static_order_enrichment_EventOrderEnrichment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_order_enrichment_EventOrderEnrichment_descriptor,
-        new java.lang.String[] { "ShipmentUuid", "OrderUuid", "PlaceUuid", "ShipmentStatus", "ShipmentType", "Weight", "ClientLocation", "PlaceLocation", "AssemblyTimeMin", "Assembly", "Delivery", "DispatchMeta", "Settings", "NumberOfPositionsInOrder", "DispatchMeta", "Settings", });
-    internal_static_order_enrichment_Settings_descriptor =
+        new java.lang.String[] { "ShipmentUuid", "OrderUuid", "PlaceUuid", "ShipmentStatus", "ShipmentType", "Weight", "ClientLocation", "PlaceLocation", "AssemblyTimeMin", "Assembly", "Delivery", "DispatchMeta", "Settings", "NumberOfPositionsInOrder", "OrderNumber", "ItemsTotalAmount", "IsNew", "Jobs", "DeliveryPromiseUpperDttmStartsAt", "DeliveryPromiseUpperDttmEndsAt", "DeliveryAreaId", "JobsToDispatch", "DispatchMeta", "Settings", });
+    internal_static_order_enrichment_Job_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_order_enrichment_Job_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_order_enrichment_Job_descriptor,
+        new java.lang.String[] { "Id", "Type", "EstimatedJobStart", "EstimatedJobEnd", "FactJobStart", "FactJobEnd", });
+    internal_static_order_enrichment_Settings_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_order_enrichment_Settings_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_order_enrichment_Settings_descriptor,
-        new java.lang.String[] { "MaxOrderAssignRetryCount", "AvgParkingMinVehicle", "MaxCurrentOrderAssignQueue", "OrderWeightThresholdToAssignToVehicleGramms", "AverageSpeedForStraightDistanceToClientMin", "AdditionalFactorForStraightDistanceToClientMin", "OrderTransferTimeFromAssemblyToDeliveryMin", "AvgToPlaceMinExternal", "AvgToPlaceMin", "PlaceLocationCenter", "SearchRadiusTransportPedestrian", "SearchRadiusTransportAuto", "SearchRadiusTransportBike", "LastPositionExpire", "TaxiDeliveryOnly", "OrderTransferTimeFromDeliveryToClientMin", "OrderReceiveTimeFromAssemblyToDeliveryMin", "OfferServerTimeoutSec", "SearchRadiusManualRouting", "ExternalAssembliersPresented", "GapTaxiPunishMin", "TaxiAvailable", });
+        new java.lang.String[] { "MaxOrderAssignRetryCount", "AvgParkingMinVehicle", "MaxCurrentOrderAssignQueue", "OrderWeightThresholdToAssignToVehicleGramms", "AverageSpeedForStraightDistanceToClientMin", "AdditionalFactorForStraightDistanceToClientMin", "OrderTransferTimeFromAssemblyToDeliveryMin", "AvgToPlaceMinExternal", "AvgToPlaceMin", "PlaceLocationCenter", "LastPositionExpire", "TaxiDeliveryOnly", "OrderTransferTimeFromDeliveryToClientMin", "OrderReceiveTimeFromAssemblyToDeliveryMin", "OfferServerTimeoutSec", "ExternalAssembliersPresented", "GapTaxiPunishMin", "TaxiAvailable", "MaxWaitingTimeForCourierMin", });
     internal_static_order_enrichment_DispatchMeta_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_order_enrichment_DispatchMeta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_order_enrichment_DispatchMeta_descriptor,
         new java.lang.String[] { "DispatchCount", "DispatchStart", "DispatchIds", "DispatchId", "DeclineTask", "DeclinePerformerUuid", "DeclineTask", "DeclinePerformerUuid", });
     internal_static_order_enrichment_Location_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_order_enrichment_Location_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_order_enrichment_Location_descriptor,
         new java.lang.String[] { "Latitude", "Longitude", });
-    enums.Enums.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 

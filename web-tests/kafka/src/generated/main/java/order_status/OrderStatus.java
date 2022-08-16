@@ -131,6 +131,114 @@ public final class OrderStatus {
     // @@protoc_insertion_point(enum_scope:order_status.Tasks)
   }
 
+  /**
+   * Protobuf enum {@code order_status.JobType}
+   */
+  public enum JobType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>Assembly = 0;</code>
+     */
+    Assembly(0),
+    /**
+     * <code>Delivery = 1;</code>
+     */
+    Delivery(1),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>Assembly = 0;</code>
+     */
+    public static final int Assembly_VALUE = 0;
+    /**
+     * <code>Delivery = 1;</code>
+     */
+    public static final int Delivery_VALUE = 1;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static JobType valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static JobType forNumber(int value) {
+      switch (value) {
+        case 0: return Assembly;
+        case 1: return Delivery;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<JobType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        JobType> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<JobType>() {
+            public JobType findValueByNumber(int number) {
+              return JobType.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return order_status.OrderStatus.getDescriptor().getEnumTypes().get(1);
+    }
+
+    private static final JobType[] VALUES = values();
+
+    public static JobType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private JobType(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:order_status.JobType)
+  }
+
   public interface EventStatusRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:order_status.EventStatusRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -148,15 +256,15 @@ public final class OrderStatus {
         getShipmentUuidBytes();
 
     /**
-     * <code>.enums.ShipmentStatus status = 2;</code>
+     * <code>.order_status.EventStatusRequest.ShipmentStatus status = 2;</code>
      * @return The enum numeric value on the wire for status.
      */
     int getStatusValue();
     /**
-     * <code>.enums.ShipmentStatus status = 2;</code>
+     * <code>.order_status.EventStatusRequest.ShipmentStatus status = 2;</code>
      * @return The status.
      */
-    enums.Enums.ShipmentStatus getStatus();
+    order_status.OrderStatus.EventStatusRequest.ShipmentStatus getStatus();
 
     /**
      * <code>.google.protobuf.Timestamp change_time = 3;</code>
@@ -204,6 +312,78 @@ public final class OrderStatus {
      * <code>optional .order_status.DispatchMeta dispatch_meta = 5;</code>
      */
     order_status.OrderStatus.DispatchMetaOrBuilder getDispatchMetaOrBuilder();
+
+    /**
+     * <code>optional string user_uuid = 6;</code>
+     * @return Whether the userUuid field is set.
+     */
+    boolean hasUserUuid();
+    /**
+     * <code>optional string user_uuid = 6;</code>
+     * @return The userUuid.
+     */
+    java.lang.String getUserUuid();
+    /**
+     * <code>optional string user_uuid = 6;</code>
+     * @return The bytes for userUuid.
+     */
+    com.google.protobuf.ByteString
+        getUserUuidBytes();
+
+    /**
+     * <code>optional .order_status.Tasks task = 7;</code>
+     * @return Whether the task field is set.
+     */
+    boolean hasTask();
+    /**
+     * <code>optional .order_status.Tasks task = 7;</code>
+     * @return The enum numeric value on the wire for task.
+     */
+    int getTaskValue();
+    /**
+     * <code>optional .order_status.Tasks task = 7;</code>
+     * @return The task.
+     */
+    order_status.OrderStatus.Tasks getTask();
+
+    /**
+     * <code>optional .order_status.Performer performer = 8;</code>
+     * @return Whether the performer field is set.
+     */
+    boolean hasPerformer();
+    /**
+     * <code>optional .order_status.Performer performer = 8;</code>
+     * @return The performer.
+     */
+    order_status.OrderStatus.Performer getPerformer();
+    /**
+     * <code>optional .order_status.Performer performer = 8;</code>
+     */
+    order_status.OrderStatus.PerformerOrBuilder getPerformerOrBuilder();
+
+    /**
+     * <code>repeated .order_status.Job jobs = 9;</code>
+     */
+    java.util.List<order_status.OrderStatus.Job> 
+        getJobsList();
+    /**
+     * <code>repeated .order_status.Job jobs = 9;</code>
+     */
+    order_status.OrderStatus.Job getJobs(int index);
+    /**
+     * <code>repeated .order_status.Job jobs = 9;</code>
+     */
+    int getJobsCount();
+    /**
+     * <code>repeated .order_status.Job jobs = 9;</code>
+     */
+    java.util.List<? extends order_status.OrderStatus.JobOrBuilder> 
+        getJobsOrBuilderList();
+    /**
+     * <code>repeated .order_status.Job jobs = 9;</code>
+     */
+    order_status.OrderStatus.JobOrBuilder getJobsOrBuilder(
+        int index);
   }
   /**
    * <pre>
@@ -225,6 +405,9 @@ public final class OrderStatus {
       shipmentUuid_ = "";
       status_ = 0;
       dispatchId_ = "";
+      userUuid_ = "";
+      task_ = 0;
+      jobs_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -302,6 +485,40 @@ public final class OrderStatus {
               bitField0_ |= 0x00000002;
               break;
             }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000004;
+              userUuid_ = s;
+              break;
+            }
+            case 56: {
+              int rawValue = input.readEnum();
+              bitField0_ |= 0x00000008;
+              task_ = rawValue;
+              break;
+            }
+            case 66: {
+              order_status.OrderStatus.Performer.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000010) != 0)) {
+                subBuilder = performer_.toBuilder();
+              }
+              performer_ = input.readMessage(order_status.OrderStatus.Performer.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(performer_);
+                performer_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000010;
+              break;
+            }
+            case 74: {
+              if (!((mutable_bitField0_ & 0x00000020) != 0)) {
+                jobs_ = new java.util.ArrayList<order_status.OrderStatus.Job>();
+                mutable_bitField0_ |= 0x00000020;
+              }
+              jobs_.add(
+                  input.readMessage(order_status.OrderStatus.Job.parser(), extensionRegistry));
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -317,6 +534,9 @@ public final class OrderStatus {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000020) != 0)) {
+          jobs_ = java.util.Collections.unmodifiableList(jobs_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -332,6 +552,186 @@ public final class OrderStatus {
       return order_status.OrderStatus.internal_static_order_status_EventStatusRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               order_status.OrderStatus.EventStatusRequest.class, order_status.OrderStatus.EventStatusRequest.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code order_status.EventStatusRequest.ShipmentStatus}
+     */
+    public enum ShipmentStatus
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>NEW = 0;</code>
+       */
+      NEW(0),
+      /**
+       * <code>POSTPONED = 1;</code>
+       */
+      POSTPONED(1),
+      /**
+       * <code>AUTOMATIC_ROUTING = 2;</code>
+       */
+      AUTOMATIC_ROUTING(2),
+      /**
+       * <code>MANUAL_ROUTING = 3;</code>
+       */
+      MANUAL_ROUTING(3),
+      /**
+       * <code>OFFERING = 4;</code>
+       */
+      OFFERING(4),
+      /**
+       * <code>OFFERED = 5;</code>
+       */
+      OFFERED(5),
+      /**
+       * <code>DECLINED = 6;</code>
+       */
+      DECLINED(6),
+      /**
+       * <code>CANCELED = 7;</code>
+       */
+      CANCELED(7),
+      /**
+       * <code>SHIPPED = 8;</code>
+       */
+      SHIPPED(8),
+      /**
+       * <code>REDISPATCH = 9;</code>
+       */
+      REDISPATCH(9),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>NEW = 0;</code>
+       */
+      public static final int NEW_VALUE = 0;
+      /**
+       * <code>POSTPONED = 1;</code>
+       */
+      public static final int POSTPONED_VALUE = 1;
+      /**
+       * <code>AUTOMATIC_ROUTING = 2;</code>
+       */
+      public static final int AUTOMATIC_ROUTING_VALUE = 2;
+      /**
+       * <code>MANUAL_ROUTING = 3;</code>
+       */
+      public static final int MANUAL_ROUTING_VALUE = 3;
+      /**
+       * <code>OFFERING = 4;</code>
+       */
+      public static final int OFFERING_VALUE = 4;
+      /**
+       * <code>OFFERED = 5;</code>
+       */
+      public static final int OFFERED_VALUE = 5;
+      /**
+       * <code>DECLINED = 6;</code>
+       */
+      public static final int DECLINED_VALUE = 6;
+      /**
+       * <code>CANCELED = 7;</code>
+       */
+      public static final int CANCELED_VALUE = 7;
+      /**
+       * <code>SHIPPED = 8;</code>
+       */
+      public static final int SHIPPED_VALUE = 8;
+      /**
+       * <code>REDISPATCH = 9;</code>
+       */
+      public static final int REDISPATCH_VALUE = 9;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static ShipmentStatus valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static ShipmentStatus forNumber(int value) {
+        switch (value) {
+          case 0: return NEW;
+          case 1: return POSTPONED;
+          case 2: return AUTOMATIC_ROUTING;
+          case 3: return MANUAL_ROUTING;
+          case 4: return OFFERING;
+          case 5: return OFFERED;
+          case 6: return DECLINED;
+          case 7: return CANCELED;
+          case 8: return SHIPPED;
+          case 9: return REDISPATCH;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ShipmentStatus>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          ShipmentStatus> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ShipmentStatus>() {
+              public ShipmentStatus findValueByNumber(int number) {
+                return ShipmentStatus.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return order_status.OrderStatus.EventStatusRequest.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final ShipmentStatus[] VALUES = values();
+
+      public static ShipmentStatus valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private ShipmentStatus(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:order_status.EventStatusRequest.ShipmentStatus)
     }
 
     private int bitField0_;
@@ -376,20 +776,20 @@ public final class OrderStatus {
     public static final int STATUS_FIELD_NUMBER = 2;
     private int status_;
     /**
-     * <code>.enums.ShipmentStatus status = 2;</code>
+     * <code>.order_status.EventStatusRequest.ShipmentStatus status = 2;</code>
      * @return The enum numeric value on the wire for status.
      */
     @java.lang.Override public int getStatusValue() {
       return status_;
     }
     /**
-     * <code>.enums.ShipmentStatus status = 2;</code>
+     * <code>.order_status.EventStatusRequest.ShipmentStatus status = 2;</code>
      * @return The status.
      */
-    @java.lang.Override public enums.Enums.ShipmentStatus getStatus() {
+    @java.lang.Override public order_status.OrderStatus.EventStatusRequest.ShipmentStatus getStatus() {
       @SuppressWarnings("deprecation")
-      enums.Enums.ShipmentStatus result = enums.Enums.ShipmentStatus.valueOf(status_);
-      return result == null ? enums.Enums.ShipmentStatus.UNRECOGNIZED : result;
+      order_status.OrderStatus.EventStatusRequest.ShipmentStatus result = order_status.OrderStatus.EventStatusRequest.ShipmentStatus.valueOf(status_);
+      return result == null ? order_status.OrderStatus.EventStatusRequest.ShipmentStatus.UNRECOGNIZED : result;
     }
 
     public static final int CHANGE_TIME_FIELD_NUMBER = 3;
@@ -490,6 +890,144 @@ public final class OrderStatus {
       return dispatchMeta_ == null ? order_status.OrderStatus.DispatchMeta.getDefaultInstance() : dispatchMeta_;
     }
 
+    public static final int USER_UUID_FIELD_NUMBER = 6;
+    private volatile java.lang.Object userUuid_;
+    /**
+     * <code>optional string user_uuid = 6;</code>
+     * @return Whether the userUuid field is set.
+     */
+    @java.lang.Override
+    public boolean hasUserUuid() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <code>optional string user_uuid = 6;</code>
+     * @return The userUuid.
+     */
+    @java.lang.Override
+    public java.lang.String getUserUuid() {
+      java.lang.Object ref = userUuid_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        userUuid_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string user_uuid = 6;</code>
+     * @return The bytes for userUuid.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUserUuidBytes() {
+      java.lang.Object ref = userUuid_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userUuid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TASK_FIELD_NUMBER = 7;
+    private int task_;
+    /**
+     * <code>optional .order_status.Tasks task = 7;</code>
+     * @return Whether the task field is set.
+     */
+    @java.lang.Override public boolean hasTask() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <code>optional .order_status.Tasks task = 7;</code>
+     * @return The enum numeric value on the wire for task.
+     */
+    @java.lang.Override public int getTaskValue() {
+      return task_;
+    }
+    /**
+     * <code>optional .order_status.Tasks task = 7;</code>
+     * @return The task.
+     */
+    @java.lang.Override public order_status.OrderStatus.Tasks getTask() {
+      @SuppressWarnings("deprecation")
+      order_status.OrderStatus.Tasks result = order_status.OrderStatus.Tasks.valueOf(task_);
+      return result == null ? order_status.OrderStatus.Tasks.UNRECOGNIZED : result;
+    }
+
+    public static final int PERFORMER_FIELD_NUMBER = 8;
+    private order_status.OrderStatus.Performer performer_;
+    /**
+     * <code>optional .order_status.Performer performer = 8;</code>
+     * @return Whether the performer field is set.
+     */
+    @java.lang.Override
+    public boolean hasPerformer() {
+      return ((bitField0_ & 0x00000010) != 0);
+    }
+    /**
+     * <code>optional .order_status.Performer performer = 8;</code>
+     * @return The performer.
+     */
+    @java.lang.Override
+    public order_status.OrderStatus.Performer getPerformer() {
+      return performer_ == null ? order_status.OrderStatus.Performer.getDefaultInstance() : performer_;
+    }
+    /**
+     * <code>optional .order_status.Performer performer = 8;</code>
+     */
+    @java.lang.Override
+    public order_status.OrderStatus.PerformerOrBuilder getPerformerOrBuilder() {
+      return performer_ == null ? order_status.OrderStatus.Performer.getDefaultInstance() : performer_;
+    }
+
+    public static final int JOBS_FIELD_NUMBER = 9;
+    private java.util.List<order_status.OrderStatus.Job> jobs_;
+    /**
+     * <code>repeated .order_status.Job jobs = 9;</code>
+     */
+    @java.lang.Override
+    public java.util.List<order_status.OrderStatus.Job> getJobsList() {
+      return jobs_;
+    }
+    /**
+     * <code>repeated .order_status.Job jobs = 9;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends order_status.OrderStatus.JobOrBuilder> 
+        getJobsOrBuilderList() {
+      return jobs_;
+    }
+    /**
+     * <code>repeated .order_status.Job jobs = 9;</code>
+     */
+    @java.lang.Override
+    public int getJobsCount() {
+      return jobs_.size();
+    }
+    /**
+     * <code>repeated .order_status.Job jobs = 9;</code>
+     */
+    @java.lang.Override
+    public order_status.OrderStatus.Job getJobs(int index) {
+      return jobs_.get(index);
+    }
+    /**
+     * <code>repeated .order_status.Job jobs = 9;</code>
+     */
+    @java.lang.Override
+    public order_status.OrderStatus.JobOrBuilder getJobsOrBuilder(
+        int index) {
+      return jobs_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -507,7 +1045,7 @@ public final class OrderStatus {
       if (!getShipmentUuidBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, shipmentUuid_);
       }
-      if (status_ != enums.Enums.ShipmentStatus.NEW.getNumber()) {
+      if (status_ != order_status.OrderStatus.EventStatusRequest.ShipmentStatus.NEW.getNumber()) {
         output.writeEnum(2, status_);
       }
       if (changeTime_ != null) {
@@ -518,6 +1056,18 @@ public final class OrderStatus {
       }
       if (((bitField0_ & 0x00000002) != 0)) {
         output.writeMessage(5, getDispatchMeta());
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, userUuid_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        output.writeEnum(7, task_);
+      }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        output.writeMessage(8, getPerformer());
+      }
+      for (int i = 0; i < jobs_.size(); i++) {
+        output.writeMessage(9, jobs_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -531,7 +1081,7 @@ public final class OrderStatus {
       if (!getShipmentUuidBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, shipmentUuid_);
       }
-      if (status_ != enums.Enums.ShipmentStatus.NEW.getNumber()) {
+      if (status_ != order_status.OrderStatus.EventStatusRequest.ShipmentStatus.NEW.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, status_);
       }
@@ -545,6 +1095,21 @@ public final class OrderStatus {
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, getDispatchMeta());
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, userUuid_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(7, task_);
+      }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, getPerformer());
+      }
+      for (int i = 0; i < jobs_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(9, jobs_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -579,6 +1144,22 @@ public final class OrderStatus {
         if (!getDispatchMeta()
             .equals(other.getDispatchMeta())) return false;
       }
+      if (hasUserUuid() != other.hasUserUuid()) return false;
+      if (hasUserUuid()) {
+        if (!getUserUuid()
+            .equals(other.getUserUuid())) return false;
+      }
+      if (hasTask() != other.hasTask()) return false;
+      if (hasTask()) {
+        if (task_ != other.task_) return false;
+      }
+      if (hasPerformer() != other.hasPerformer()) return false;
+      if (hasPerformer()) {
+        if (!getPerformer()
+            .equals(other.getPerformer())) return false;
+      }
+      if (!getJobsList()
+          .equals(other.getJobsList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -605,6 +1186,22 @@ public final class OrderStatus {
       if (hasDispatchMeta()) {
         hash = (37 * hash) + DISPATCH_META_FIELD_NUMBER;
         hash = (53 * hash) + getDispatchMeta().hashCode();
+      }
+      if (hasUserUuid()) {
+        hash = (37 * hash) + USER_UUID_FIELD_NUMBER;
+        hash = (53 * hash) + getUserUuid().hashCode();
+      }
+      if (hasTask()) {
+        hash = (37 * hash) + TASK_FIELD_NUMBER;
+        hash = (53 * hash) + task_;
+      }
+      if (hasPerformer()) {
+        hash = (37 * hash) + PERFORMER_FIELD_NUMBER;
+        hash = (53 * hash) + getPerformer().hashCode();
+      }
+      if (getJobsCount() > 0) {
+        hash = (37 * hash) + JOBS_FIELD_NUMBER;
+        hash = (53 * hash) + getJobsList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -739,6 +1336,8 @@ public final class OrderStatus {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
           getDispatchMetaFieldBuilder();
+          getPerformerFieldBuilder();
+          getJobsFieldBuilder();
         }
       }
       @java.lang.Override
@@ -762,6 +1361,22 @@ public final class OrderStatus {
           dispatchMetaBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
+        userUuid_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        task_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        if (performerBuilder_ == null) {
+          performer_ = null;
+        } else {
+          performerBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000010);
+        if (jobsBuilder_ == null) {
+          jobs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000020);
+        } else {
+          jobsBuilder_.clear();
+        }
         return this;
       }
 
@@ -808,6 +1423,31 @@ public final class OrderStatus {
             result.dispatchMeta_ = dispatchMetaBuilder_.build();
           }
           to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.userUuid_ = userUuid_;
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.task_ = task_;
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          if (performerBuilder_ == null) {
+            result.performer_ = performer_;
+          } else {
+            result.performer_ = performerBuilder_.build();
+          }
+          to_bitField0_ |= 0x00000010;
+        }
+        if (jobsBuilder_ == null) {
+          if (((bitField0_ & 0x00000020) != 0)) {
+            jobs_ = java.util.Collections.unmodifiableList(jobs_);
+            bitField0_ = (bitField0_ & ~0x00000020);
+          }
+          result.jobs_ = jobs_;
+        } else {
+          result.jobs_ = jobsBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -875,6 +1515,43 @@ public final class OrderStatus {
         }
         if (other.hasDispatchMeta()) {
           mergeDispatchMeta(other.getDispatchMeta());
+        }
+        if (other.hasUserUuid()) {
+          bitField0_ |= 0x00000004;
+          userUuid_ = other.userUuid_;
+          onChanged();
+        }
+        if (other.hasTask()) {
+          setTask(other.getTask());
+        }
+        if (other.hasPerformer()) {
+          mergePerformer(other.getPerformer());
+        }
+        if (jobsBuilder_ == null) {
+          if (!other.jobs_.isEmpty()) {
+            if (jobs_.isEmpty()) {
+              jobs_ = other.jobs_;
+              bitField0_ = (bitField0_ & ~0x00000020);
+            } else {
+              ensureJobsIsMutable();
+              jobs_.addAll(other.jobs_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.jobs_.isEmpty()) {
+            if (jobsBuilder_.isEmpty()) {
+              jobsBuilder_.dispose();
+              jobsBuilder_ = null;
+              jobs_ = other.jobs_;
+              bitField0_ = (bitField0_ & ~0x00000020);
+              jobsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getJobsFieldBuilder() : null;
+            } else {
+              jobsBuilder_.addAllMessages(other.jobs_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -984,14 +1661,14 @@ public final class OrderStatus {
 
       private int status_ = 0;
       /**
-       * <code>.enums.ShipmentStatus status = 2;</code>
+       * <code>.order_status.EventStatusRequest.ShipmentStatus status = 2;</code>
        * @return The enum numeric value on the wire for status.
        */
       @java.lang.Override public int getStatusValue() {
         return status_;
       }
       /**
-       * <code>.enums.ShipmentStatus status = 2;</code>
+       * <code>.order_status.EventStatusRequest.ShipmentStatus status = 2;</code>
        * @param value The enum numeric value on the wire for status to set.
        * @return This builder for chaining.
        */
@@ -1002,21 +1679,21 @@ public final class OrderStatus {
         return this;
       }
       /**
-       * <code>.enums.ShipmentStatus status = 2;</code>
+       * <code>.order_status.EventStatusRequest.ShipmentStatus status = 2;</code>
        * @return The status.
        */
       @java.lang.Override
-      public enums.Enums.ShipmentStatus getStatus() {
+      public order_status.OrderStatus.EventStatusRequest.ShipmentStatus getStatus() {
         @SuppressWarnings("deprecation")
-        enums.Enums.ShipmentStatus result = enums.Enums.ShipmentStatus.valueOf(status_);
-        return result == null ? enums.Enums.ShipmentStatus.UNRECOGNIZED : result;
+        order_status.OrderStatus.EventStatusRequest.ShipmentStatus result = order_status.OrderStatus.EventStatusRequest.ShipmentStatus.valueOf(status_);
+        return result == null ? order_status.OrderStatus.EventStatusRequest.ShipmentStatus.UNRECOGNIZED : result;
       }
       /**
-       * <code>.enums.ShipmentStatus status = 2;</code>
+       * <code>.order_status.EventStatusRequest.ShipmentStatus status = 2;</code>
        * @param value The status to set.
        * @return This builder for chaining.
        */
-      public Builder setStatus(enums.Enums.ShipmentStatus value) {
+      public Builder setStatus(order_status.OrderStatus.EventStatusRequest.ShipmentStatus value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -1026,7 +1703,7 @@ public final class OrderStatus {
         return this;
       }
       /**
-       * <code>.enums.ShipmentStatus status = 2;</code>
+       * <code>.order_status.EventStatusRequest.ShipmentStatus status = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearStatus() {
@@ -1357,6 +2034,510 @@ public final class OrderStatus {
         }
         return dispatchMetaBuilder_;
       }
+
+      private java.lang.Object userUuid_ = "";
+      /**
+       * <code>optional string user_uuid = 6;</code>
+       * @return Whether the userUuid field is set.
+       */
+      public boolean hasUserUuid() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>optional string user_uuid = 6;</code>
+       * @return The userUuid.
+       */
+      public java.lang.String getUserUuid() {
+        java.lang.Object ref = userUuid_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          userUuid_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string user_uuid = 6;</code>
+       * @return The bytes for userUuid.
+       */
+      public com.google.protobuf.ByteString
+          getUserUuidBytes() {
+        java.lang.Object ref = userUuid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userUuid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string user_uuid = 6;</code>
+       * @param value The userUuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserUuid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        userUuid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string user_uuid = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUserUuid() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        userUuid_ = getDefaultInstance().getUserUuid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string user_uuid = 6;</code>
+       * @param value The bytes for userUuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserUuidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        bitField0_ |= 0x00000004;
+        userUuid_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int task_ = 0;
+      /**
+       * <code>optional .order_status.Tasks task = 7;</code>
+       * @return Whether the task field is set.
+       */
+      @java.lang.Override public boolean hasTask() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <code>optional .order_status.Tasks task = 7;</code>
+       * @return The enum numeric value on the wire for task.
+       */
+      @java.lang.Override public int getTaskValue() {
+        return task_;
+      }
+      /**
+       * <code>optional .order_status.Tasks task = 7;</code>
+       * @param value The enum numeric value on the wire for task to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTaskValue(int value) {
+        bitField0_ |= 0x00000008;
+        task_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .order_status.Tasks task = 7;</code>
+       * @return The task.
+       */
+      @java.lang.Override
+      public order_status.OrderStatus.Tasks getTask() {
+        @SuppressWarnings("deprecation")
+        order_status.OrderStatus.Tasks result = order_status.OrderStatus.Tasks.valueOf(task_);
+        return result == null ? order_status.OrderStatus.Tasks.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>optional .order_status.Tasks task = 7;</code>
+       * @param value The task to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTask(order_status.OrderStatus.Tasks value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000008;
+        task_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .order_status.Tasks task = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTask() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        task_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private order_status.OrderStatus.Performer performer_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          order_status.OrderStatus.Performer, order_status.OrderStatus.Performer.Builder, order_status.OrderStatus.PerformerOrBuilder> performerBuilder_;
+      /**
+       * <code>optional .order_status.Performer performer = 8;</code>
+       * @return Whether the performer field is set.
+       */
+      public boolean hasPerformer() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <code>optional .order_status.Performer performer = 8;</code>
+       * @return The performer.
+       */
+      public order_status.OrderStatus.Performer getPerformer() {
+        if (performerBuilder_ == null) {
+          return performer_ == null ? order_status.OrderStatus.Performer.getDefaultInstance() : performer_;
+        } else {
+          return performerBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .order_status.Performer performer = 8;</code>
+       */
+      public Builder setPerformer(order_status.OrderStatus.Performer value) {
+        if (performerBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          performer_ = value;
+          onChanged();
+        } else {
+          performerBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      /**
+       * <code>optional .order_status.Performer performer = 8;</code>
+       */
+      public Builder setPerformer(
+          order_status.OrderStatus.Performer.Builder builderForValue) {
+        if (performerBuilder_ == null) {
+          performer_ = builderForValue.build();
+          onChanged();
+        } else {
+          performerBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      /**
+       * <code>optional .order_status.Performer performer = 8;</code>
+       */
+      public Builder mergePerformer(order_status.OrderStatus.Performer value) {
+        if (performerBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) != 0) &&
+              performer_ != null &&
+              performer_ != order_status.OrderStatus.Performer.getDefaultInstance()) {
+            performer_ =
+              order_status.OrderStatus.Performer.newBuilder(performer_).mergeFrom(value).buildPartial();
+          } else {
+            performer_ = value;
+          }
+          onChanged();
+        } else {
+          performerBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      /**
+       * <code>optional .order_status.Performer performer = 8;</code>
+       */
+      public Builder clearPerformer() {
+        if (performerBuilder_ == null) {
+          performer_ = null;
+          onChanged();
+        } else {
+          performerBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
+      /**
+       * <code>optional .order_status.Performer performer = 8;</code>
+       */
+      public order_status.OrderStatus.Performer.Builder getPerformerBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return getPerformerFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .order_status.Performer performer = 8;</code>
+       */
+      public order_status.OrderStatus.PerformerOrBuilder getPerformerOrBuilder() {
+        if (performerBuilder_ != null) {
+          return performerBuilder_.getMessageOrBuilder();
+        } else {
+          return performer_ == null ?
+              order_status.OrderStatus.Performer.getDefaultInstance() : performer_;
+        }
+      }
+      /**
+       * <code>optional .order_status.Performer performer = 8;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          order_status.OrderStatus.Performer, order_status.OrderStatus.Performer.Builder, order_status.OrderStatus.PerformerOrBuilder> 
+          getPerformerFieldBuilder() {
+        if (performerBuilder_ == null) {
+          performerBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              order_status.OrderStatus.Performer, order_status.OrderStatus.Performer.Builder, order_status.OrderStatus.PerformerOrBuilder>(
+                  getPerformer(),
+                  getParentForChildren(),
+                  isClean());
+          performer_ = null;
+        }
+        return performerBuilder_;
+      }
+
+      private java.util.List<order_status.OrderStatus.Job> jobs_ =
+        java.util.Collections.emptyList();
+      private void ensureJobsIsMutable() {
+        if (!((bitField0_ & 0x00000020) != 0)) {
+          jobs_ = new java.util.ArrayList<order_status.OrderStatus.Job>(jobs_);
+          bitField0_ |= 0x00000020;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          order_status.OrderStatus.Job, order_status.OrderStatus.Job.Builder, order_status.OrderStatus.JobOrBuilder> jobsBuilder_;
+
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public java.util.List<order_status.OrderStatus.Job> getJobsList() {
+        if (jobsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(jobs_);
+        } else {
+          return jobsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public int getJobsCount() {
+        if (jobsBuilder_ == null) {
+          return jobs_.size();
+        } else {
+          return jobsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public order_status.OrderStatus.Job getJobs(int index) {
+        if (jobsBuilder_ == null) {
+          return jobs_.get(index);
+        } else {
+          return jobsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public Builder setJobs(
+          int index, order_status.OrderStatus.Job value) {
+        if (jobsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureJobsIsMutable();
+          jobs_.set(index, value);
+          onChanged();
+        } else {
+          jobsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public Builder setJobs(
+          int index, order_status.OrderStatus.Job.Builder builderForValue) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          jobs_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          jobsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public Builder addJobs(order_status.OrderStatus.Job value) {
+        if (jobsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureJobsIsMutable();
+          jobs_.add(value);
+          onChanged();
+        } else {
+          jobsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public Builder addJobs(
+          int index, order_status.OrderStatus.Job value) {
+        if (jobsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureJobsIsMutable();
+          jobs_.add(index, value);
+          onChanged();
+        } else {
+          jobsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public Builder addJobs(
+          order_status.OrderStatus.Job.Builder builderForValue) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          jobs_.add(builderForValue.build());
+          onChanged();
+        } else {
+          jobsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public Builder addJobs(
+          int index, order_status.OrderStatus.Job.Builder builderForValue) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          jobs_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          jobsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public Builder addAllJobs(
+          java.lang.Iterable<? extends order_status.OrderStatus.Job> values) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, jobs_);
+          onChanged();
+        } else {
+          jobsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public Builder clearJobs() {
+        if (jobsBuilder_ == null) {
+          jobs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000020);
+          onChanged();
+        } else {
+          jobsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public Builder removeJobs(int index) {
+        if (jobsBuilder_ == null) {
+          ensureJobsIsMutable();
+          jobs_.remove(index);
+          onChanged();
+        } else {
+          jobsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public order_status.OrderStatus.Job.Builder getJobsBuilder(
+          int index) {
+        return getJobsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public order_status.OrderStatus.JobOrBuilder getJobsOrBuilder(
+          int index) {
+        if (jobsBuilder_ == null) {
+          return jobs_.get(index);  } else {
+          return jobsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public java.util.List<? extends order_status.OrderStatus.JobOrBuilder> 
+           getJobsOrBuilderList() {
+        if (jobsBuilder_ != null) {
+          return jobsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(jobs_);
+        }
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public order_status.OrderStatus.Job.Builder addJobsBuilder() {
+        return getJobsFieldBuilder().addBuilder(
+            order_status.OrderStatus.Job.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public order_status.OrderStatus.Job.Builder addJobsBuilder(
+          int index) {
+        return getJobsFieldBuilder().addBuilder(
+            index, order_status.OrderStatus.Job.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .order_status.Job jobs = 9;</code>
+       */
+      public java.util.List<order_status.OrderStatus.Job.Builder> 
+           getJobsBuilderList() {
+        return getJobsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          order_status.OrderStatus.Job, order_status.OrderStatus.Job.Builder, order_status.OrderStatus.JobOrBuilder> 
+          getJobsFieldBuilder() {
+        if (jobsBuilder_ == null) {
+          jobsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              order_status.OrderStatus.Job, order_status.OrderStatus.Job.Builder, order_status.OrderStatus.JobOrBuilder>(
+                  jobs_,
+                  ((bitField0_ & 0x00000020) != 0),
+                  getParentForChildren(),
+                  isClean());
+          jobs_ = null;
+        }
+        return jobsBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1405,6 +2586,681 @@ public final class OrderStatus {
 
     @java.lang.Override
     public order_status.OrderStatus.EventStatusRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface JobOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:order_status.Job)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <code>.order_status.JobType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    int getTypeValue();
+    /**
+     * <code>.order_status.JobType type = 2;</code>
+     * @return The type.
+     */
+    order_status.OrderStatus.JobType getType();
+  }
+  /**
+   * Protobuf type {@code order_status.Job}
+   */
+  public static final class Job extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:order_status.Job)
+      JobOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Job.newBuilder() to construct.
+    private Job(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Job() {
+      id_ = "";
+      type_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Job();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Job(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return order_status.OrderStatus.internal_static_order_status_Job_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return order_status.OrderStatus.internal_static_order_status_Job_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              order_status.OrderStatus.Job.class, order_status.OrderStatus.Job.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 2;
+    private int type_;
+    /**
+     * <code>.order_status.JobType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    @java.lang.Override public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <code>.order_status.JobType type = 2;</code>
+     * @return The type.
+     */
+    @java.lang.Override public order_status.OrderStatus.JobType getType() {
+      @SuppressWarnings("deprecation")
+      order_status.OrderStatus.JobType result = order_status.OrderStatus.JobType.valueOf(type_);
+      return result == null ? order_status.OrderStatus.JobType.UNRECOGNIZED : result;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      if (type_ != order_status.OrderStatus.JobType.Assembly.getNumber()) {
+        output.writeEnum(2, type_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      if (type_ != order_status.OrderStatus.JobType.Assembly.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, type_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof order_status.OrderStatus.Job)) {
+        return super.equals(obj);
+      }
+      order_status.OrderStatus.Job other = (order_status.OrderStatus.Job) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (type_ != other.type_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static order_status.OrderStatus.Job parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static order_status.OrderStatus.Job parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static order_status.OrderStatus.Job parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static order_status.OrderStatus.Job parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static order_status.OrderStatus.Job parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static order_status.OrderStatus.Job parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static order_status.OrderStatus.Job parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static order_status.OrderStatus.Job parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static order_status.OrderStatus.Job parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static order_status.OrderStatus.Job parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static order_status.OrderStatus.Job parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static order_status.OrderStatus.Job parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(order_status.OrderStatus.Job prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code order_status.Job}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:order_status.Job)
+        order_status.OrderStatus.JobOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return order_status.OrderStatus.internal_static_order_status_Job_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return order_status.OrderStatus.internal_static_order_status_Job_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                order_status.OrderStatus.Job.class, order_status.OrderStatus.Job.Builder.class);
+      }
+
+      // Construct using order_status.OrderStatus.Job.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        type_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return order_status.OrderStatus.internal_static_order_status_Job_descriptor;
+      }
+
+      @java.lang.Override
+      public order_status.OrderStatus.Job getDefaultInstanceForType() {
+        return order_status.OrderStatus.Job.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public order_status.OrderStatus.Job build() {
+        order_status.OrderStatus.Job result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public order_status.OrderStatus.Job buildPartial() {
+        order_status.OrderStatus.Job result = new order_status.OrderStatus.Job(this);
+        result.id_ = id_;
+        result.type_ = type_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof order_status.OrderStatus.Job) {
+          return mergeFrom((order_status.OrderStatus.Job)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(order_status.OrderStatus.Job other) {
+        if (other == order_status.OrderStatus.Job.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        order_status.OrderStatus.Job parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (order_status.OrderStatus.Job) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 1;</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int type_ = 0;
+      /**
+       * <code>.order_status.JobType type = 2;</code>
+       * @return The enum numeric value on the wire for type.
+       */
+      @java.lang.Override public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.order_status.JobType type = 2;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeValue(int value) {
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.order_status.JobType type = 2;</code>
+       * @return The type.
+       */
+      @java.lang.Override
+      public order_status.OrderStatus.JobType getType() {
+        @SuppressWarnings("deprecation")
+        order_status.OrderStatus.JobType result = order_status.OrderStatus.JobType.valueOf(type_);
+        return result == null ? order_status.OrderStatus.JobType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.order_status.JobType type = 2;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(order_status.OrderStatus.JobType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.order_status.JobType type = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:order_status.Job)
+    }
+
+    // @@protoc_insertion_point(class_scope:order_status.Job)
+    private static final order_status.OrderStatus.Job DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new order_status.OrderStatus.Job();
+    }
+
+    public static order_status.OrderStatus.Job getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Job>
+        PARSER = new com.google.protobuf.AbstractParser<Job>() {
+      @java.lang.Override
+      public Job parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Job(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Job> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Job> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public order_status.OrderStatus.Job getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2788,16 +4644,1044 @@ public final class OrderStatus {
 
   }
 
+  public interface PerformerOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:order_status.Performer)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string uuid = 1;</code>
+     * @return The uuid.
+     */
+    java.lang.String getUuid();
+    /**
+     * <code>string uuid = 1;</code>
+     * @return The bytes for uuid.
+     */
+    com.google.protobuf.ByteString
+        getUuidBytes();
+
+    /**
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>string login = 3;</code>
+     * @return The login.
+     */
+    java.lang.String getLogin();
+    /**
+     * <code>string login = 3;</code>
+     * @return The bytes for login.
+     */
+    com.google.protobuf.ByteString
+        getLoginBytes();
+
+    /**
+     * <code>string phone = 4;</code>
+     * @return The phone.
+     */
+    java.lang.String getPhone();
+    /**
+     * <code>string phone = 4;</code>
+     * @return The bytes for phone.
+     */
+    com.google.protobuf.ByteString
+        getPhoneBytes();
+  }
+  /**
+   * Protobuf type {@code order_status.Performer}
+   */
+  public static final class Performer extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:order_status.Performer)
+      PerformerOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Performer.newBuilder() to construct.
+    private Performer(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Performer() {
+      uuid_ = "";
+      name_ = "";
+      login_ = "";
+      phone_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Performer();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Performer(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              uuid_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              login_ = s;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              phone_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return order_status.OrderStatus.internal_static_order_status_Performer_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return order_status.OrderStatus.internal_static_order_status_Performer_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              order_status.OrderStatus.Performer.class, order_status.OrderStatus.Performer.Builder.class);
+    }
+
+    public static final int UUID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object uuid_;
+    /**
+     * <code>string uuid = 1;</code>
+     * @return The uuid.
+     */
+    @java.lang.Override
+    public java.lang.String getUuid() {
+      java.lang.Object ref = uuid_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        uuid_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string uuid = 1;</code>
+     * @return The bytes for uuid.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUuidBytes() {
+      java.lang.Object ref = uuid_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uuid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object name_;
+    /**
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    @java.lang.Override
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LOGIN_FIELD_NUMBER = 3;
+    private volatile java.lang.Object login_;
+    /**
+     * <code>string login = 3;</code>
+     * @return The login.
+     */
+    @java.lang.Override
+    public java.lang.String getLogin() {
+      java.lang.Object ref = login_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        login_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string login = 3;</code>
+     * @return The bytes for login.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getLoginBytes() {
+      java.lang.Object ref = login_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        login_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PHONE_FIELD_NUMBER = 4;
+    private volatile java.lang.Object phone_;
+    /**
+     * <code>string phone = 4;</code>
+     * @return The phone.
+     */
+    @java.lang.Override
+    public java.lang.String getPhone() {
+      java.lang.Object ref = phone_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        phone_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string phone = 4;</code>
+     * @return The bytes for phone.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPhoneBytes() {
+      java.lang.Object ref = phone_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        phone_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getUuidBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, uuid_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
+      }
+      if (!getLoginBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, login_);
+      }
+      if (!getPhoneBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, phone_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getUuidBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, uuid_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
+      }
+      if (!getLoginBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, login_);
+      }
+      if (!getPhoneBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, phone_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof order_status.OrderStatus.Performer)) {
+        return super.equals(obj);
+      }
+      order_status.OrderStatus.Performer other = (order_status.OrderStatus.Performer) obj;
+
+      if (!getUuid()
+          .equals(other.getUuid())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getLogin()
+          .equals(other.getLogin())) return false;
+      if (!getPhone()
+          .equals(other.getPhone())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + UUID_FIELD_NUMBER;
+      hash = (53 * hash) + getUuid().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + LOGIN_FIELD_NUMBER;
+      hash = (53 * hash) + getLogin().hashCode();
+      hash = (37 * hash) + PHONE_FIELD_NUMBER;
+      hash = (53 * hash) + getPhone().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static order_status.OrderStatus.Performer parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static order_status.OrderStatus.Performer parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static order_status.OrderStatus.Performer parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static order_status.OrderStatus.Performer parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static order_status.OrderStatus.Performer parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static order_status.OrderStatus.Performer parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static order_status.OrderStatus.Performer parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static order_status.OrderStatus.Performer parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static order_status.OrderStatus.Performer parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static order_status.OrderStatus.Performer parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static order_status.OrderStatus.Performer parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static order_status.OrderStatus.Performer parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(order_status.OrderStatus.Performer prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code order_status.Performer}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:order_status.Performer)
+        order_status.OrderStatus.PerformerOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return order_status.OrderStatus.internal_static_order_status_Performer_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return order_status.OrderStatus.internal_static_order_status_Performer_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                order_status.OrderStatus.Performer.class, order_status.OrderStatus.Performer.Builder.class);
+      }
+
+      // Construct using order_status.OrderStatus.Performer.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        uuid_ = "";
+
+        name_ = "";
+
+        login_ = "";
+
+        phone_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return order_status.OrderStatus.internal_static_order_status_Performer_descriptor;
+      }
+
+      @java.lang.Override
+      public order_status.OrderStatus.Performer getDefaultInstanceForType() {
+        return order_status.OrderStatus.Performer.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public order_status.OrderStatus.Performer build() {
+        order_status.OrderStatus.Performer result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public order_status.OrderStatus.Performer buildPartial() {
+        order_status.OrderStatus.Performer result = new order_status.OrderStatus.Performer(this);
+        result.uuid_ = uuid_;
+        result.name_ = name_;
+        result.login_ = login_;
+        result.phone_ = phone_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof order_status.OrderStatus.Performer) {
+          return mergeFrom((order_status.OrderStatus.Performer)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(order_status.OrderStatus.Performer other) {
+        if (other == order_status.OrderStatus.Performer.getDefaultInstance()) return this;
+        if (!other.getUuid().isEmpty()) {
+          uuid_ = other.uuid_;
+          onChanged();
+        }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (!other.getLogin().isEmpty()) {
+          login_ = other.login_;
+          onChanged();
+        }
+        if (!other.getPhone().isEmpty()) {
+          phone_ = other.phone_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        order_status.OrderStatus.Performer parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (order_status.OrderStatus.Performer) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object uuid_ = "";
+      /**
+       * <code>string uuid = 1;</code>
+       * @return The uuid.
+       */
+      public java.lang.String getUuid() {
+        java.lang.Object ref = uuid_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          uuid_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string uuid = 1;</code>
+       * @return The bytes for uuid.
+       */
+      public com.google.protobuf.ByteString
+          getUuidBytes() {
+        java.lang.Object ref = uuid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          uuid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string uuid = 1;</code>
+       * @param value The uuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUuid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        uuid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string uuid = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUuid() {
+        
+        uuid_ = getDefaultInstance().getUuid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string uuid = 1;</code>
+       * @param value The bytes for uuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUuidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        uuid_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>string name = 2;</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object login_ = "";
+      /**
+       * <code>string login = 3;</code>
+       * @return The login.
+       */
+      public java.lang.String getLogin() {
+        java.lang.Object ref = login_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          login_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string login = 3;</code>
+       * @return The bytes for login.
+       */
+      public com.google.protobuf.ByteString
+          getLoginBytes() {
+        java.lang.Object ref = login_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          login_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string login = 3;</code>
+       * @param value The login to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLogin(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        login_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string login = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLogin() {
+        
+        login_ = getDefaultInstance().getLogin();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string login = 3;</code>
+       * @param value The bytes for login to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLoginBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        login_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object phone_ = "";
+      /**
+       * <code>string phone = 4;</code>
+       * @return The phone.
+       */
+      public java.lang.String getPhone() {
+        java.lang.Object ref = phone_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          phone_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string phone = 4;</code>
+       * @return The bytes for phone.
+       */
+      public com.google.protobuf.ByteString
+          getPhoneBytes() {
+        java.lang.Object ref = phone_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          phone_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string phone = 4;</code>
+       * @param value The phone to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPhone(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        phone_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string phone = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPhone() {
+        
+        phone_ = getDefaultInstance().getPhone();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string phone = 4;</code>
+       * @param value The bytes for phone to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPhoneBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        phone_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:order_status.Performer)
+    }
+
+    // @@protoc_insertion_point(class_scope:order_status.Performer)
+    private static final order_status.OrderStatus.Performer DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new order_status.OrderStatus.Performer();
+    }
+
+    public static order_status.OrderStatus.Performer getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Performer>
+        PARSER = new com.google.protobuf.AbstractParser<Performer>() {
+      @java.lang.Override
+      public Performer parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Performer(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Performer> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Performer> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public order_status.OrderStatus.Performer getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_order_status_EventStatusRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_order_status_EventStatusRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_order_status_Job_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_order_status_Job_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_order_status_DispatchMeta_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_order_status_DispatchMeta_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_order_status_Performer_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_order_status_Performer_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2807,31 +5691,43 @@ public final class OrderStatus {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\022order_status.proto\022\014order_status\032\013enum" +
-      "s.proto\032\037google/protobuf/timestamp.proto" +
-      "\"\367\001\n\022EventStatusRequest\022\025\n\rshipment_uuid" +
-      "\030\001 \001(\t\022%\n\006status\030\002 \001(\0162\025.enums.ShipmentS" +
-      "tatus\022/\n\013change_time\030\003 \001(\0132\032.google.prot" +
-      "obuf.Timestamp\022\030\n\013dispatch_id\030\004 \001(\tH\000\210\001\001" +
-      "\0226\n\rdispatch_meta\030\005 \001(\0132\032.order_status.D" +
-      "ispatchMetaH\001\210\001\001B\016\n\014_dispatch_idB\020\n\016_dis" +
-      "patch_meta\"\206\002\n\014DispatchMeta\022\026\n\016dispatch_" +
-      "count\030\001 \001(\004\0222\n\016dispatch_start\030\002 \001(\0132\032.go" +
-      "ogle.protobuf.Timestamp\022\024\n\014dispatch_ids\030" +
-      "\003 \003(\t\022\023\n\013dispatch_id\030\004 \001(\t\022.\n\014decline_ta" +
-      "sk\030\005 \001(\0162\023.order_status.TasksH\000\210\001\001\022#\n\026de" +
-      "cline_performer_uuid\030\006 \001(\tH\001\210\001\001B\017\n\r_decl" +
-      "ine_taskB\031\n\027_decline_performer_uuid*>\n\005T" +
-      "asks\022\014\n\010DELIVERY\020\000\022\014\n\010ASSEMBLY\020\001\022\031\n\025ASSE" +
-      "MBLY_AND_DELIVERY\020\002B]Z[gitlab.sbermarket" +
-      ".tech/paas/content/operations/order-serv" +
-      "ice/pkg/server/events/order_statusb\006prot" +
-      "o3"
+      "\n\022order_status.proto\022\014order_status\032\037goog" +
+      "le/protobuf/timestamp.proto\"\362\004\n\022EventSta" +
+      "tusRequest\022\025\n\rshipment_uuid\030\001 \001(\t\022?\n\006sta" +
+      "tus\030\002 \001(\0162/.order_status.EventStatusRequ" +
+      "est.ShipmentStatus\022/\n\013change_time\030\003 \001(\0132" +
+      "\032.google.protobuf.Timestamp\022\030\n\013dispatch_" +
+      "id\030\004 \001(\tH\000\210\001\001\0226\n\rdispatch_meta\030\005 \001(\0132\032.o" +
+      "rder_status.DispatchMetaH\001\210\001\001\022\026\n\tuser_uu" +
+      "id\030\006 \001(\tH\002\210\001\001\022&\n\004task\030\007 \001(\0162\023.order_stat" +
+      "us.TasksH\003\210\001\001\022/\n\tperformer\030\010 \001(\0132\027.order" +
+      "_status.PerformerH\004\210\001\001\022\037\n\004jobs\030\t \003(\0132\021.o" +
+      "rder_status.Job\"\247\001\n\016ShipmentStatus\022\007\n\003NE" +
+      "W\020\000\022\r\n\tPOSTPONED\020\001\022\025\n\021AUTOMATIC_ROUTING\020" +
+      "\002\022\022\n\016MANUAL_ROUTING\020\003\022\014\n\010OFFERING\020\004\022\013\n\007O" +
+      "FFERED\020\005\022\014\n\010DECLINED\020\006\022\014\n\010CANCELED\020\007\022\013\n\007" +
+      "SHIPPED\020\010\022\016\n\nREDISPATCH\020\tB\016\n\014_dispatch_i" +
+      "dB\020\n\016_dispatch_metaB\014\n\n_user_uuidB\007\n\005_ta" +
+      "skB\014\n\n_performer\"6\n\003Job\022\n\n\002id\030\001 \001(\t\022#\n\004t" +
+      "ype\030\002 \001(\0162\025.order_status.JobType\"\206\002\n\014Dis" +
+      "patchMeta\022\026\n\016dispatch_count\030\001 \001(\004\0222\n\016dis" +
+      "patch_start\030\002 \001(\0132\032.google.protobuf.Time" +
+      "stamp\022\024\n\014dispatch_ids\030\003 \003(\t\022\023\n\013dispatch_" +
+      "id\030\004 \001(\t\022.\n\014decline_task\030\005 \001(\0162\023.order_s" +
+      "tatus.TasksH\000\210\001\001\022#\n\026decline_performer_uu" +
+      "id\030\006 \001(\tH\001\210\001\001B\017\n\r_decline_taskB\031\n\027_decli" +
+      "ne_performer_uuid\"E\n\tPerformer\022\014\n\004uuid\030\001" +
+      " \001(\t\022\014\n\004name\030\002 \001(\t\022\r\n\005login\030\003 \001(\t\022\r\n\005pho" +
+      "ne\030\004 \001(\t*>\n\005Tasks\022\014\n\010DELIVERY\020\000\022\014\n\010ASSEM" +
+      "BLY\020\001\022\031\n\025ASSEMBLY_AND_DELIVERY\020\002*%\n\007JobT" +
+      "ype\022\014\n\010Assembly\020\000\022\014\n\010Delivery\020\001BUZSgitla" +
+      "b.sbmt.io/paas/content/operations/order-" +
+      "service/pkg/server/events/order_statusb\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          enums.Enums.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_order_status_EventStatusRequest_descriptor =
@@ -2839,14 +5735,25 @@ public final class OrderStatus {
     internal_static_order_status_EventStatusRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_order_status_EventStatusRequest_descriptor,
-        new java.lang.String[] { "ShipmentUuid", "Status", "ChangeTime", "DispatchId", "DispatchMeta", "DispatchId", "DispatchMeta", });
-    internal_static_order_status_DispatchMeta_descriptor =
+        new java.lang.String[] { "ShipmentUuid", "Status", "ChangeTime", "DispatchId", "DispatchMeta", "UserUuid", "Task", "Performer", "Jobs", "DispatchId", "DispatchMeta", "UserUuid", "Task", "Performer", });
+    internal_static_order_status_Job_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_order_status_Job_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_order_status_Job_descriptor,
+        new java.lang.String[] { "Id", "Type", });
+    internal_static_order_status_DispatchMeta_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_order_status_DispatchMeta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_order_status_DispatchMeta_descriptor,
         new java.lang.String[] { "DispatchCount", "DispatchStart", "DispatchIds", "DispatchId", "DeclineTask", "DeclinePerformerUuid", "DeclineTask", "DeclinePerformerUuid", });
-    enums.Enums.getDescriptor();
+    internal_static_order_status_Performer_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_order_status_Performer_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_order_status_Performer_descriptor,
+        new java.lang.String[] { "Uuid", "Name", "Login", "Phone", });
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 
