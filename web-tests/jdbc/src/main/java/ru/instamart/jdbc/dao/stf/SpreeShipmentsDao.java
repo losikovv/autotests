@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -20,28 +19,29 @@ public class SpreeShipmentsDao extends AbstractDao<Long, SpreeShipmentsEntity> {
     private final String UPDATE_SQL = "UPDATE spree_shipments";
 
     public SpreeShipmentsEntity getShipmentByNumber(String shipmentNumber) {
-        SpreeShipmentsEntity shipment = new SpreeShipmentsEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+        final var shipment = new SpreeShipmentsEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE number = ?")) {
             preparedStatement.setString(1, shipmentNumber);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                shipment.setId(resultSet.getLong("id"));
-                shipment.setCost(resultSet.getDouble("cost"));
-                shipment.setOrderId(resultSet.getLong("order_id"));
-                shipment.setState(resultSet.getString("state"));
-                shipment.setDeliveryWindowId(resultSet.getLong("delivery_window_id"));
-                shipment.setRetailerId(resultSet.getLong("retailer_id"));
-                shipment.setStoreId(resultSet.getInt("store_id"));
-                shipment.setTotalWeight(resultSet.getDouble("total_weight"));
-                shipment.setTotal(resultSet.getDouble("total"));
-                shipment.setItemCount(resultSet.getInt("item_count"));
-                shipment.setTotalQuantity(resultSet.getInt("total_quantity"));
-                shipment.setUuid(resultSet.getString("uuid"));
-                shipment.setInvoiceNumber(resultSet.getString("invoice_number"));
-                shipment.setInvoiceTotal(resultSet.getDouble("invoice_total"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    shipment.setId(resultSet.getLong("id"));
+                    shipment.setCost(resultSet.getDouble("cost"));
+                    shipment.setOrderId(resultSet.getLong("order_id"));
+                    shipment.setState(resultSet.getString("state"));
+                    shipment.setDeliveryWindowId(resultSet.getLong("delivery_window_id"));
+                    shipment.setRetailerId(resultSet.getLong("retailer_id"));
+                    shipment.setStoreId(resultSet.getInt("store_id"));
+                    shipment.setTotalWeight(resultSet.getDouble("total_weight"));
+                    shipment.setTotal(resultSet.getDouble("total"));
+                    shipment.setItemCount(resultSet.getInt("item_count"));
+                    shipment.setTotalQuantity(resultSet.getInt("total_quantity"));
+                    shipment.setUuid(resultSet.getString("uuid"));
+                    shipment.setInvoiceNumber(resultSet.getString("invoice_number"));
+                    shipment.setInvoiceTotal(resultSet.getDouble("invoice_total"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -49,7 +49,7 @@ public class SpreeShipmentsDao extends AbstractDao<Long, SpreeShipmentsEntity> {
     }
 
     public void updateShipmentState(String shipmentNumber, String state) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " SET state = ?  WHERE number = ?")) {
             preparedStatement.setString(1, state);
             preparedStatement.setString(2, shipmentNumber);
@@ -60,7 +60,7 @@ public class SpreeShipmentsDao extends AbstractDao<Long, SpreeShipmentsEntity> {
     }
 
     public void updateShipmentOrderByNumber(long orderId, String shipmentNumber) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " SET order_id = ? WHERE number = ?")) {
             preparedStatement.setLong(1, orderId);
             preparedStatement.setString(2, shipmentNumber);
@@ -71,22 +71,23 @@ public class SpreeShipmentsDao extends AbstractDao<Long, SpreeShipmentsEntity> {
     }
 
     public SpreeShipmentsEntity getShipmentOfAnotherUser(long userId) {
-        SpreeShipmentsEntity shipment = new SpreeShipmentsEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+        final var shipment = new SpreeShipmentsEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " ss JOIN spree_orders so ON ss.order_id = so.id WHERE so.user_id != ? ORDER BY so.id DESC LIMIT 1")) {
             preparedStatement.setLong(1, userId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                shipment.setId(resultSet.getLong("id"));
-                shipment.setNumber(resultSet.getString("number"));
-                shipment.setState(resultSet.getString("state"));
-                shipment.setDeliveryWindowId(resultSet.getLong("delivery_window_id"));
-                shipment.setUuid(resultSet.getString("uuid"));
-                shipment.setStoreId(resultSet.getInt("store_id"));
-                shipment.setTotalWeight(resultSet.getDouble("total_weight"));
-                shipment.setTotal(resultSet.getDouble("total"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    shipment.setId(resultSet.getLong("id"));
+                    shipment.setNumber(resultSet.getString("number"));
+                    shipment.setState(resultSet.getString("state"));
+                    shipment.setDeliveryWindowId(resultSet.getLong("delivery_window_id"));
+                    shipment.setUuid(resultSet.getString("uuid"));
+                    shipment.setStoreId(resultSet.getInt("store_id"));
+                    shipment.setTotalWeight(resultSet.getDouble("total_weight"));
+                    shipment.setTotal(resultSet.getDouble("total"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -94,9 +95,8 @@ public class SpreeShipmentsDao extends AbstractDao<Long, SpreeShipmentsEntity> {
     }
 
     public Integer updateShipmentsByNumber(String shippedAt, String shipmentsNumber) {
-        try (Connection connection = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL + " SET shipped_at = ? WHERE number = ?");
-        ) {
+        try (Connection connection = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL + " SET shipped_at = ? WHERE number = ?")) {
             preparedStatement.setString(1, shippedAt);
             preparedStatement.setString(2, shipmentsNumber);
             return preparedStatement.executeUpdate();

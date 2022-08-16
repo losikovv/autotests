@@ -24,7 +24,7 @@ public final class StoreLabelsDao extends AbstractDao<Long, OffersEntity> {
     private static final String DELETE = "DELETE FROM store_label_items";
 
     public void addStoreLabelToStore(Integer store_label_id, Integer store_id, String tenant_id) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL)) {
             preparedStatement.setInt(1, store_label_id);
             preparedStatement.setInt(2, store_id);
@@ -38,7 +38,7 @@ public final class StoreLabelsDao extends AbstractDao<Long, OffersEntity> {
     }
 
     public void deleteStoreLabelLink(Integer storeLabelId, Integer storeId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE + " WHERE store_label_id = ? AND store_id = ?")) {
             preparedStatement.setInt(1, storeLabelId);
             preparedStatement.setInt(2, storeId);

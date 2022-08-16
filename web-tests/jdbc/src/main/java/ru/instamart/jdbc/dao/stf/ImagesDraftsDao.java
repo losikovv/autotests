@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -20,12 +19,14 @@ public class ImagesDraftsDao extends AbstractDao<Long, ImageDraftsEntity> {
 
     public int getCount(String fileName) {
         int resultCount = 0;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE image_file_name LIKE ?")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE image_file_name LIKE ?")) {
             preparedStatement.setString(1, String.format("%s%%", fileName));
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            resultCount = resultSet.getInt("total");
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    resultCount = resultSet.getInt("total");
+                }
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -33,7 +34,7 @@ public class ImagesDraftsDao extends AbstractDao<Long, ImageDraftsEntity> {
     }
 
     public void deleteImagesByName(String fileName) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE image_file_name LIKE ?")) {
             preparedStatement.setString(1, String.format("%s%%", fileName));
             preparedStatement.executeUpdate();

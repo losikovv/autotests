@@ -16,7 +16,7 @@ public class RetailersShopperDao extends AbstractDao<Long, RetailersShopperEntit
     private final String DELETE_SQL = "DELETE FROM retailers ";
 
     public void deleteRetailerByNameFromShopper(String retailerName) {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHP);
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHP).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + "WHERE name = ?")) {
             preparedStatement.setString(1, retailerName);
             preparedStatement.executeUpdate();

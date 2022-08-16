@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -20,14 +19,16 @@ public class DeliveryWindowsDao extends AbstractDao<Long, DeliveryWindowsEntity>
 
     public int getCount(Integer storeId, String start, String end) {
         int resultCount = 0;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE store_id = ? AND kind != 'on_demand' AND starts_at BETWEEN ? AND ?")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE store_id = ? AND kind != 'on_demand' AND starts_at BETWEEN ? AND ?")) {
             preparedStatement.setInt(1, storeId);
             preparedStatement.setString(2, start);
             preparedStatement.setString(3, end);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            resultCount = resultSet.getInt("total");
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    resultCount = resultSet.getInt("total");
+                }
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -35,7 +36,7 @@ public class DeliveryWindowsDao extends AbstractDao<Long, DeliveryWindowsEntity>
     }
 
     public void updateDeliveryWindowSettings(Integer id, Integer shipmentsLimit, Integer shipmentsCount, Integer baseItemsCount, Integer totalItemsCount) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement("UPDATE delivery_windows SET shipments_limit = ?, shipments_count = ?, " +
                      "shipment_base_items_count = ?, shipments_total_items_count = ?, " +
                      "state = 'open' WHERE id = ?")) {

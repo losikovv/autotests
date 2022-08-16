@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -19,22 +18,23 @@ public class PricesDao extends AbstractDao<Long, PricesEntity> {
     private final String DELETE_SQL = "DELETE FROM prices";
 
     public PricesEntity getPriceByOfferId(Long offerId) {
-        PricesEntity price = new PricesEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+        final var price = new PricesEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE offer_id = ?")) {
             preparedStatement.setLong(1, offerId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
-                price.setId(resultSet.getLong("id"));
-                price.setProductSku(resultSet.getString("product_sku"));
-                price.setStoreId(resultSet.getInt("store_id"));
-                price.setTenantId(resultSet.getString("tenant_id"));
-                price.setRetailerPrice(resultSet.getDouble("retailer_price"));
-                price.setOfferPrice(resultSet.getDouble("offer_price"));
-                price.setOfferRetailerPrice(resultSet.getDouble("offer_retailer_price"));
-                price.setCostPrice(resultSet.getDouble("cost_price"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    price.setId(resultSet.getLong("id"));
+                    price.setProductSku(resultSet.getString("product_sku"));
+                    price.setStoreId(resultSet.getInt("store_id"));
+                    price.setTenantId(resultSet.getString("tenant_id"));
+                    price.setRetailerPrice(resultSet.getDouble("retailer_price"));
+                    price.setOfferPrice(resultSet.getDouble("offer_price"));
+                    price.setOfferRetailerPrice(resultSet.getDouble("offer_retailer_price"));
+                    price.setCostPrice(resultSet.getDouble("cost_price"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -42,7 +42,7 @@ public class PricesDao extends AbstractDao<Long, PricesEntity> {
     }
 
     public void deletePriceByOfferId(Long offerId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE offer_id = ?")) {
             preparedStatement.setLong(1, offerId);
             preparedStatement.executeUpdate();
@@ -52,7 +52,7 @@ public class PricesDao extends AbstractDao<Long, PricesEntity> {
     }
 
     public void deletePriceByStoreId(Integer storeId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);
             preparedStatement.executeUpdate();

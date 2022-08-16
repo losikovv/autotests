@@ -27,7 +27,6 @@ import ru.instamart.api.response.v1.imports.OffersFilesV1Response;
 import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.StoreLabelData;
-import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
 import java.util.List;
@@ -36,6 +35,10 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.helper.K8sHelper.createAdmin;
 
 public class AdminHelper {
+
+    private static final ThreadLocal<Boolean> defaultAdmin = ThreadLocal.withInitial(() -> false);
+    private static final ThreadLocal<Boolean> defaultAdminV1 = ThreadLocal.withInitial(() -> false);
+    private static final ThreadLocal<Boolean> defaultAdminV1NewRole = ThreadLocal.withInitial(() -> false);
 
     public void createCity(CitiesAdminRequest.City city) {
         final Response response = CitiesAdminRequest.POST(city);
@@ -173,22 +176,24 @@ public class AdminHelper {
 
     @Step("Авторизация администратором")
     public void auth() {
-        UserData user = UserManager.getDefaultAdmin();
-        if (!EnvironmentProperties.Env.isProduction()) {
+        final var user = UserManager.getDefaultAdmin();
+        if (!EnvironmentProperties.Env.isProduction() && !defaultAdmin.get()) {
             if (SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
                 createAdmin(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
             }
+            defaultAdmin.set(true);
         }
         SessionFactory.createSessionToken(SessionType.ADMIN, user);
     }
 
     @Step("Авторизация администратором для API")
     public void authApi() {
-        UserData user = UserManager.getDefaultAdmin();
-        if (!EnvironmentProperties.Env.isProduction()) {
+        final var user = UserManager.getDefaultAdmin();
+        if (!EnvironmentProperties.Env.isProduction() && !defaultAdminV1.get()) {
             if (SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
                 createAdmin(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
             }
+            defaultAdminV1.set(true);
         }
         SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, user);
     }
@@ -196,11 +201,12 @@ public class AdminHelper {
     @Step("Авторизация администратором со включенными новыми ролями для API")
     //временное решение, пока полностью не переделают админку
     public void authApiWithAdminNewRoles() {
-        UserData user = UserManager.getDefaultAdminAllRoles();
-        if (!EnvironmentProperties.Env.isProduction()) {
+        final var user = UserManager.getDefaultAdminAllRoles();
+        if (!EnvironmentProperties.Env.isProduction() && !defaultAdminV1NewRole.get()) {
             if (SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
                 createAdmin(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
             }
+            defaultAdminV1NewRole.set(true);
         }
         SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, user);
     }

@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -21,7 +20,7 @@ public class OperationalZonesDao extends AbstractDao<Long, OperationalZonesEntit
     @Override
     public boolean delete(Long id) {
         int result = 0;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + String.format("WHERE id = '%s'", id))) {
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -31,7 +30,7 @@ public class OperationalZonesDao extends AbstractDao<Long, OperationalZonesEntit
     }
 
     public void deleteZoneByName(String zoneName) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + "WHERE name = ?")) {
             preparedStatement.setString(1, zoneName);
             preparedStatement.executeUpdate();
@@ -42,11 +41,12 @@ public class OperationalZonesDao extends AbstractDao<Long, OperationalZonesEntit
 
     public int getCount() {
         int resultCount = 0;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            resultCount = resultSet.getInt("total");
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"));
+             final var resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                resultCount = resultSet.getInt("total");
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -55,12 +55,14 @@ public class OperationalZonesDao extends AbstractDao<Long, OperationalZonesEntit
 
     public Long getIdByName(String name) {
         Long id = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE name = ?")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE name = ?")) {
             preparedStatement.setString(1, name);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            id = resultSet.getLong("id");
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    id = resultSet.getLong("id");
+                }
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }

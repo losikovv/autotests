@@ -19,7 +19,7 @@ public class StoreSchedulesDao extends AbstractDao<Long, StoreSchedulesEntity> {
 
     public boolean deleteByStoreId(Integer storeId) {
         int result = 0;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + "WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);
             result = preparedStatement.executeUpdate();

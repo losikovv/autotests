@@ -2,7 +2,7 @@ package ru.instamart.reforged.stf.block.header;
 
 import io.qameta.allure.Step;
 import ru.instamart.kraken.data.user.UserData;
-import ru.instamart.kraken.service.QaService;
+import ru.instamart.kraken.service.qa.QaService;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.core.cdp.CdpCookie;

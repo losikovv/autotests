@@ -6,10 +6,7 @@ import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 import ru.instamart.jdbc.util.Transactional;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import static org.testng.Assert.fail;
 
@@ -24,11 +21,11 @@ public class ShippingMethodsCleanDao extends AbstractDao<Long, SpreeShippingMeth
     private final String DELETE_FROM_SHIPPING_METHODS_SQL = "DELETE FROM spree_shipping_methods WHERE id = ";
 
     public void deleteShippineMethods(int shippingMethodId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             Statement statement = connect.createStatement();
-             Transactional transactional = new Transactional(connect, false);
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var statement = connect.createStatement();
+             final var transactional = new Transactional(connect, false);
+             final var resultSet = statement.executeQuery(SELECT_FROM_SHIPPING_METHODS_SQL + shippingMethodId)
         ) {
-            ResultSet resultSet = statement.executeQuery(SELECT_FROM_SHIPPING_METHODS_SQL + shippingMethodId);
             while (resultSet.next()) {
                 statement.addBatch(DELETE_FROM_CALCULATORS_SQL + resultSet.getInt("id"));
                 statement.addBatch(DELETE_FROM_RULES_SQL + resultSet.getInt("id"));

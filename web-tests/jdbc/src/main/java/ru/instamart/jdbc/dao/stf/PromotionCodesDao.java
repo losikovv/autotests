@@ -66,20 +66,21 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
                 .collect(joining(" AND ", " WHERE ", " LIMIT ? OFFSET ? "));
         var sql = SQL_SELECT_PROMO_CODE + where;
 
-        try (var connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             var preparedStatement = connect.prepareStatement(sql)) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(sql)) {
             for (int i = 0; i < parameters.size(); i++) {
                 preparedStatement.setObject(i + 1, parameters.get(i));
             }
-            var resultQuery = preparedStatement.executeQuery();
-            List<PromotionCodesEntity> result = new ArrayList<>();
-            while (resultQuery.next()) {
-                PromotionCodesEntity entity = new PromotionCodesEntity();
-                entity.setValue(resultQuery.getString("value"));
-                entity.setId(resultQuery.getLong("id"));
-                result.add(entity);
+            try (final var resultQuery = preparedStatement.executeQuery()) {
+                final var result = new ArrayList<PromotionCodesEntity>();
+                while (resultQuery.next()) {
+                    final var entity = new PromotionCodesEntity();
+                    entity.setValue(resultQuery.getString("value"));
+                    entity.setId(resultQuery.getLong("id"));
+                    result.add(entity);
+                }
+                return result;
             }
-            return result;
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -87,7 +88,7 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
     }
 
     public void updateUsageLimit(Integer usageLimit, String promoCode) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement("UPDATE promotion_codes SET usage_limit = ? WHERE value = ?")) {
             preparedStatement.setInt(1, usageLimit);
             preparedStatement.setString(2, promoCode);
@@ -98,7 +99,7 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
     }
 
     public void createPromoCode(String value, Integer promotionId, String createdAt, String updatedAt, Integer usageLimit) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(SQL_INSERT_PROMO_CODE)) {
             preparedStatement.setString(1, value);
             preparedStatement.setInt(2, promotionId);

@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +20,10 @@ public class ShopsDao extends AbstractDao<Long, ShopsEntity> {
     private final String DELETE = "DELETE FROM public.shops";
 
     public List<ShopsEntity> getOriginalId() {
-        List<ShopsEntity> shopsResult = new ArrayList<>();
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIFT);
-             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_ORIGINAL_ID_DESK)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
+        final var shopsResult = new ArrayList<ShopsEntity>();
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIFT).getConnection();
+             final var preparedStatement = connect.prepareStatement(SELECT_ORIGINAL_ID_DESK);
+             final var resultSet = preparedStatement.executeQuery()) {
             if (resultSet.next()) {
                 var shopsEntity = new ShopsEntity();
                 shopsEntity.setUuid(resultSet.getString("uuid"));
@@ -38,7 +37,7 @@ public class ShopsDao extends AbstractDao<Long, ShopsEntity> {
     }
 
     public boolean delete(Integer baseStoreId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIFT);
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIFT).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE + " WHERE delivery_area_id = ?")) {
             preparedStatement.setInt(1, baseStoreId);
             return preparedStatement.executeUpdate() > 0;

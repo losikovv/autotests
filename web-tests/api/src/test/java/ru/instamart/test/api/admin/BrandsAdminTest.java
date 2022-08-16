@@ -26,7 +26,8 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode3
 
 @Epic("Admin")
 @Feature("Бренды")
-public class BrandsAdminTest extends RestBase {
+public final class BrandsAdminTest extends RestBase {
+
     private String permalink;
     private Long brandId;
 

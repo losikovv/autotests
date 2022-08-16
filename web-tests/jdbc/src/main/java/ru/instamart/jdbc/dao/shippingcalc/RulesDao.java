@@ -5,7 +5,10 @@ import ru.instamart.jdbc.entity.shippingcalc.RulesEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,23 +22,25 @@ public class RulesDao implements Dao<Integer, RulesEntity> {
     private final String DELETE_SQL = "DELETE FROM rules ";
 
     public List<RulesEntity> getRules(Integer id) {
-        List<RulesEntity> rulesResult = new ArrayList<>();
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE strategy_id = ? ORDER BY id ")) {
+        final var rulesResult = new ArrayList<RulesEntity>();
+
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE strategy_id = ? ORDER BY id ")) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                var rulesEntity = new RulesEntity();
-                rulesEntity.setId(resultSet.getInt("id"));
-                rulesEntity.setStrategyId(resultSet.getInt("strategy_id"));
-                rulesEntity.setScriptId(resultSet.getInt("script_id"));
-                rulesEntity.setScriptParams(resultSet.getString("script_params"));
-                rulesEntity.setPriority(resultSet.getInt("priority"));
-                rulesEntity.setCreatedAt(resultSet.getString("created_at"));
-                rulesEntity.setDeletedAt(resultSet.getString("deleted_at"));
-                rulesEntity.setCreatorId(resultSet.getString("creator_id"));
-                rulesEntity.setRuleType(resultSet.getString("rule_type"));
-                rulesResult.add(rulesEntity);
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    var rulesEntity = new RulesEntity();
+                    rulesEntity.setId(resultSet.getInt("id"));
+                    rulesEntity.setStrategyId(resultSet.getInt("strategy_id"));
+                    rulesEntity.setScriptId(resultSet.getInt("script_id"));
+                    rulesEntity.setScriptParams(resultSet.getString("script_params"));
+                    rulesEntity.setPriority(resultSet.getInt("priority"));
+                    rulesEntity.setCreatedAt(resultSet.getString("created_at"));
+                    rulesEntity.setDeletedAt(resultSet.getString("deleted_at"));
+                    rulesEntity.setCreatorId(resultSet.getString("creator_id"));
+                    rulesEntity.setRuleType(resultSet.getString("rule_type"));
+                    rulesResult.add(rulesEntity);
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
@@ -44,23 +49,25 @@ public class RulesDao implements Dao<Integer, RulesEntity> {
     }
 
     public List<RulesEntity> getDeletedRules(Integer id) {
-        List<RulesEntity> rulesResult = new ArrayList<>();
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE strategy_id = ? AND deleted_at IS NOT NULL ORDER BY id ")) {
+        final var rulesResult = new ArrayList<RulesEntity>();
+
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE strategy_id = ? AND deleted_at IS NOT NULL ORDER BY id ")) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                var rulesEntity = new RulesEntity();
-                rulesEntity.setId(resultSet.getInt("id"));
-                rulesEntity.setStrategyId(resultSet.getInt("strategy_id"));
-                rulesEntity.setScriptId(resultSet.getInt("script_id"));
-                rulesEntity.setScriptParams(resultSet.getString("script_params"));
-                rulesEntity.setPriority(resultSet.getInt("priority"));
-                rulesEntity.setCreatedAt(resultSet.getString("created_at"));
-                rulesEntity.setDeletedAt(resultSet.getString("deleted_at"));
-                rulesEntity.setCreatorId(resultSet.getString("creator_id"));
-                rulesEntity.setRuleType(resultSet.getString("rule_type"));
-                rulesResult.add(rulesEntity);
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    var rulesEntity = new RulesEntity();
+                    rulesEntity.setId(resultSet.getInt("id"));
+                    rulesEntity.setStrategyId(resultSet.getInt("strategy_id"));
+                    rulesEntity.setScriptId(resultSet.getInt("script_id"));
+                    rulesEntity.setScriptParams(resultSet.getString("script_params"));
+                    rulesEntity.setPriority(resultSet.getInt("priority"));
+                    rulesEntity.setCreatedAt(resultSet.getString("created_at"));
+                    rulesEntity.setDeletedAt(resultSet.getString("deleted_at"));
+                    rulesEntity.setCreatorId(resultSet.getString("creator_id"));
+                    rulesEntity.setRuleType(resultSet.getString("rule_type"));
+                    rulesResult.add(rulesEntity);
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
@@ -69,8 +76,8 @@ public class RulesDao implements Dao<Integer, RulesEntity> {
     }
 
     public Integer addRule(Integer strategyId, Integer scriptId, String scriptParams, Integer priority, String creatorId, String ruleType) {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
-             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (strategy_id, script_id, script_params, priority, creator_id, rule_type) " +
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(INSERT_SQL + " (strategy_id, script_id, script_params, priority, creator_id, rule_type) " +
                      " VALUES (?, ?, ?::jsonb, ?, ?, ?::rule_type) ", Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setInt(1, strategyId);
             preparedStatement.setInt(2, scriptId);
@@ -79,9 +86,10 @@ public class RulesDao implements Dao<Integer, RulesEntity> {
             preparedStatement.setString(5, creatorId);
             preparedStatement.setString(6, ruleType);
             preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                return resultSet.getInt(1);
+            try (final var resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
@@ -91,7 +99,7 @@ public class RulesDao implements Dao<Integer, RulesEntity> {
 
     @Override
     public boolean delete(Integer id) {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE strategy_id = ? ")) {
             preparedStatement.setInt(1, id);
             return preparedStatement.executeUpdate() > 0;

@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -19,7 +18,7 @@ public class StoreConfigsDao extends AbstractDao<Long, StoreConfigsEntity> {
     private final String DELETE_SQL = "DELETE FROM store_configs ";
 
     public void updateEditingSettings(Integer storeId, Integer hours, Integer editingAllowed) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement("UPDATE store_configs SET disallow_order_editing_hours = ?, hours_order_edit_locked = ? WHERE store_id = ?")) {
             preparedStatement.setInt(1, hours);
             preparedStatement.setInt(2, editingAllowed);
@@ -31,20 +30,21 @@ public class StoreConfigsDao extends AbstractDao<Long, StoreConfigsEntity> {
     }
 
     public StoreConfigsEntity getConfigsByStoreId(Integer storeId) {
-        StoreConfigsEntity storeConfigs = new StoreConfigsEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE store_id = ?")) {
+        final var storeConfigs = new StoreConfigsEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                storeConfigs.setShipmentBaseWeight(resultSet.getDouble("shipment_base_weight"));
-                storeConfigs.setMinOrderAmount(resultSet.getInt("min_order_amount"));
-                storeConfigs.setMinFirstOrderAmount(resultSet.getInt("min_first_order_amount"));
-                storeConfigs.setShipmentBaseItemsCount(resultSet.getInt("shipment_base_items_count"));
-                storeConfigs.setMinOrderAmountPickup(resultSet.getInt("min_order_amount_pickup"));
-                storeConfigs.setMinFirstOrderAmountPickup(resultSet.getInt("min_first_order_amount_pickup"));
-                storeConfigs.setDisallowOrderEditingHours(resultSet.getInt("disallow_order_editing_hours"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    storeConfigs.setShipmentBaseWeight(resultSet.getDouble("shipment_base_weight"));
+                    storeConfigs.setMinOrderAmount(resultSet.getInt("min_order_amount"));
+                    storeConfigs.setMinFirstOrderAmount(resultSet.getInt("min_first_order_amount"));
+                    storeConfigs.setShipmentBaseItemsCount(resultSet.getInt("shipment_base_items_count"));
+                    storeConfigs.setMinOrderAmountPickup(resultSet.getInt("min_order_amount_pickup"));
+                    storeConfigs.setMinFirstOrderAmountPickup(resultSet.getInt("min_first_order_amount_pickup"));
+                    storeConfigs.setDisallowOrderEditingHours(resultSet.getInt("disallow_order_editing_hours"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -52,7 +52,7 @@ public class StoreConfigsDao extends AbstractDao<Long, StoreConfigsEntity> {
     }
 
     public void deleteByStoreId(Integer storeId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + "WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);
             preparedStatement.executeUpdate();

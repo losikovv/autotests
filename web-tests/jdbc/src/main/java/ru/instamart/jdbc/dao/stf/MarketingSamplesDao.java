@@ -5,9 +5,6 @@ import ru.instamart.jdbc.entity.stf.MarketingSamplesEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -20,18 +17,20 @@ public class MarketingSamplesDao extends AbstractDao<Long, MarketingSamplesEntit
 
 
     public Optional<MarketingSamplesEntity> findByIdWithUser(Long id) {
-        MarketingSamplesEntity marketingSamplesEntity = new MarketingSamplesEntity();
-        var sql = String.format(SELECT_SQL, "*") + " s JOIN marketing_samples_users u ON s.id = u.marketing_sample_id WHERE s.id = ?";
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
+        final var marketingSamplesEntity = new MarketingSamplesEntity();
+        final var sql = String.format(SELECT_SQL, "*") + " s JOIN marketing_samples_users u ON s.id = u.marketing_sample_id WHERE s.id = ?";
+
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setObject(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                marketingSamplesEntity.setName(resultSet.getString("name"));
-                marketingSamplesEntity.setDescription(resultSet.getString("description"));
-                marketingSamplesEntity.setComment(resultSet.getString("comment"));
-                marketingSamplesEntity.setUserId(resultSet.getLong("user_id"));
-                marketingSamplesEntity.setDeletedAt(resultSet.getString("deleted_at"));
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    marketingSamplesEntity.setName(resultSet.getString("name"));
+                    marketingSamplesEntity.setDescription(resultSet.getString("description"));
+                    marketingSamplesEntity.setComment(resultSet.getString("comment"));
+                    marketingSamplesEntity.setUserId(resultSet.getLong("user_id"));
+                    marketingSamplesEntity.setDeletedAt(resultSet.getString("deleted_at"));
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
@@ -41,17 +40,19 @@ public class MarketingSamplesDao extends AbstractDao<Long, MarketingSamplesEntit
 
     @Override
     public Optional<MarketingSamplesEntity> findById(Long id) {
-        MarketingSamplesEntity marketingSamplesEntity = new MarketingSamplesEntity();
-        var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
+        final var marketingSamplesEntity = new MarketingSamplesEntity();
+        final var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
+
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setObject(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                marketingSamplesEntity.setName(resultSet.getString("name"));
-                marketingSamplesEntity.setDescription(resultSet.getString("description"));
-                marketingSamplesEntity.setComment(resultSet.getString("comment"));
-                marketingSamplesEntity.setDeletedAt(resultSet.getString("deleted_at"));
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    marketingSamplesEntity.setName(resultSet.getString("name"));
+                    marketingSamplesEntity.setDescription(resultSet.getString("description"));
+                    marketingSamplesEntity.setComment(resultSet.getString("comment"));
+                    marketingSamplesEntity.setDeletedAt(resultSet.getString("deleted_at"));
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
@@ -61,11 +62,13 @@ public class MarketingSamplesDao extends AbstractDao<Long, MarketingSamplesEntit
 
     public int getCount() {
         int resultCount = 0;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE deleted_at IS NULL")) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            resultCount = resultSet.getInt("total");
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE deleted_at IS NULL")) {
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    resultCount = resultSet.getInt("total");
+                }
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }

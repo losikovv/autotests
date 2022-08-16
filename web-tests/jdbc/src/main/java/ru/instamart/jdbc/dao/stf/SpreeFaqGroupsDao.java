@@ -5,9 +5,6 @@ import ru.instamart.jdbc.entity.stf.SpreeFaqGroupsEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -20,12 +17,13 @@ public class SpreeFaqGroupsDao extends AbstractDao<Long, SpreeFaqGroupsEntity> {
 
     public Long getIdByName(String name) {
         Long id = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE name = ?")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE name = ?")) {
             preparedStatement.setString(1, name);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                id = resultSet.getLong("id");
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    id = resultSet.getLong("id");
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
@@ -36,15 +34,16 @@ public class SpreeFaqGroupsDao extends AbstractDao<Long, SpreeFaqGroupsEntity> {
     @Override
     public Optional<SpreeFaqGroupsEntity> findById(Long id) {
         SpreeFaqGroupsEntity spreeFaqGroupsEntity = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setObject(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                spreeFaqGroupsEntity = new SpreeFaqGroupsEntity();
-                spreeFaqGroupsEntity.setId(resultSet.getLong("id"));
-                spreeFaqGroupsEntity.setName(resultSet.getString("name"));
-                spreeFaqGroupsEntity.setPosition(resultSet.getInt("position"));
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    spreeFaqGroupsEntity = new SpreeFaqGroupsEntity();
+                    spreeFaqGroupsEntity.setId(resultSet.getLong("id"));
+                    spreeFaqGroupsEntity.setName(resultSet.getString("name"));
+                    spreeFaqGroupsEntity.setPosition(resultSet.getInt("position"));
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
@@ -54,11 +53,13 @@ public class SpreeFaqGroupsDao extends AbstractDao<Long, SpreeFaqGroupsEntity> {
 
     public int getCount() {
         int resultCount = 0;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            resultCount = resultSet.getInt("total");
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    resultCount = resultSet.getInt("total");
+                }
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }

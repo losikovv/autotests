@@ -5,9 +5,6 @@ import ru.instamart.jdbc.entity.candidates.CandidatesEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -19,17 +16,18 @@ public class CandidatesDao extends AbstractDao<Long, CandidatesEntity> {
 
     public CandidatesEntity getCandidateByUuid(String candidateUuid) {
         CandidatesEntity candidatesEntity = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_CANDIDATE);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE uuid = ?")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_CANDIDATE).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE uuid = ?")) {
             preparedStatement.setString(1, candidateUuid);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                candidatesEntity = new CandidatesEntity();
-                candidatesEntity.setId(resultSet.getLong("id"));
-                candidatesEntity.setActive(resultSet.getBoolean("active"));
-                candidatesEntity.setFullName(resultSet.getString("full_name"));
-                candidatesEntity.setTransport(resultSet.getString("transport"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    candidatesEntity = new CandidatesEntity();
+                    candidatesEntity.setId(resultSet.getLong("id"));
+                    candidatesEntity.setActive(resultSet.getBoolean("active"));
+                    candidatesEntity.setFullName(resultSet.getString("full_name"));
+                    candidatesEntity.setTransport(resultSet.getString("transport"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLCandidateManager. Error: " + e.getMessage());
         }
@@ -38,12 +36,14 @@ public class CandidatesDao extends AbstractDao<Long, CandidatesEntity> {
 
     public String getCandidateUuidByStatus(boolean status) {
         String uuid = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_CANDIDATE);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "uuid") + " WHERE active = ? LIMIT 1")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_CANDIDATE).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "uuid") + " WHERE active = ? LIMIT 1")) {
             preparedStatement.setBoolean(1, status);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            uuid = resultSet.getString("uuid");
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    uuid = resultSet.getString("uuid");
+                }
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLManagerService. Error: " + e.getMessage());
         }

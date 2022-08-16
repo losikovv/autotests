@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -20,17 +19,18 @@ public class SpreeZonesDao extends AbstractDao<Long, SpreeZonesEntity> {
     private final String DELETE_SQL = "DELETE FROM spree_zones";
 
     public SpreeZonesEntity getZoneByDescription(String zoneDescription) {
-        SpreeZonesEntity zone = new SpreeZonesEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+        final var zone = new SpreeZonesEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE description = ?")) {
             preparedStatement.setString(1, zoneDescription);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                zone.setId(resultSet.getLong("id"));
-                zone.setName(resultSet.getString("name"));
-                zone.setZoneMembersCount(resultSet.getInt("zone_members_count"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    zone.setId(resultSet.getLong("id"));
+                    zone.setName(resultSet.getString("name"));
+                    zone.setZoneMembersCount(resultSet.getInt("zone_members_count"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -41,15 +41,16 @@ public class SpreeZonesDao extends AbstractDao<Long, SpreeZonesEntity> {
     public Optional<SpreeZonesEntity> findById(Long id) {
         SpreeZonesEntity spreeZonesEntity = null;
         var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setObject(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                spreeZonesEntity = new SpreeZonesEntity();
-                spreeZonesEntity.setId(resultSet.getLong("id"));
-                spreeZonesEntity.setName(resultSet.getString("name"));
-                spreeZonesEntity.setDescription(resultSet.getString("description"));
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    spreeZonesEntity = new SpreeZonesEntity();
+                    spreeZonesEntity.setId(resultSet.getLong("id"));
+                    spreeZonesEntity.setName(resultSet.getString("name"));
+                    spreeZonesEntity.setDescription(resultSet.getString("description"));
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
@@ -58,7 +59,7 @@ public class SpreeZonesDao extends AbstractDao<Long, SpreeZonesEntity> {
     }
 
     public void deleteZonesByName(String zoneName) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE name LIKE ?")) {
             preparedStatement.setString(1,String.format("%s%%", zoneName));
             preparedStatement.executeUpdate();

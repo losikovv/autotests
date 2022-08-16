@@ -5,9 +5,6 @@ import ru.instamart.jdbc.entity.stf.PromotionCardsEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -20,11 +17,12 @@ public class PromotionCardsDao extends AbstractDao<Long, PromotionCardsEntity> {
 
     public int getCount() {
         int resultCount = 0;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            resultCount = resultSet.getInt("total");
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"));
+             final var resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                resultCount = resultSet.getInt("total");
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -34,23 +32,24 @@ public class PromotionCardsDao extends AbstractDao<Long, PromotionCardsEntity> {
     @Override
     public Optional<PromotionCardsEntity> findById(Long id) {
         PromotionCardsEntity promotionCardsEntity = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement( String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement( String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setObject(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                promotionCardsEntity = new PromotionCardsEntity();
-                promotionCardsEntity.setId(resultSet.getLong("id"));
-                promotionCardsEntity.setTitle(resultSet.getString("title"));
-                promotionCardsEntity.setShortDescription(resultSet.getString("short_description"));
-                promotionCardsEntity.setFullDescription(resultSet.getString("full_description"));
-                promotionCardsEntity.setBackgroundColor(resultSet.getString("background_color"));
-                promotionCardsEntity.setMessageColor(resultSet.getString("message_color"));
-                promotionCardsEntity.setPromotionId(resultSet.getLong("promotion_id"));
-                promotionCardsEntity.setPublished(resultSet.getInt("published"));
-                promotionCardsEntity.setType(resultSet.getString("type"));
-                promotionCardsEntity.setCategoryId(resultSet.getLong("category_id"));
-                promotionCardsEntity.setPosition(resultSet.getInt("position"));
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    promotionCardsEntity = new PromotionCardsEntity();
+                    promotionCardsEntity.setId(resultSet.getLong("id"));
+                    promotionCardsEntity.setTitle(resultSet.getString("title"));
+                    promotionCardsEntity.setShortDescription(resultSet.getString("short_description"));
+                    promotionCardsEntity.setFullDescription(resultSet.getString("full_description"));
+                    promotionCardsEntity.setBackgroundColor(resultSet.getString("background_color"));
+                    promotionCardsEntity.setMessageColor(resultSet.getString("message_color"));
+                    promotionCardsEntity.setPromotionId(resultSet.getLong("promotion_id"));
+                    promotionCardsEntity.setPublished(resultSet.getInt("published"));
+                    promotionCardsEntity.setType(resultSet.getString("type"));
+                    promotionCardsEntity.setCategoryId(resultSet.getLong("category_id"));
+                    promotionCardsEntity.setPosition(resultSet.getInt("position"));
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());

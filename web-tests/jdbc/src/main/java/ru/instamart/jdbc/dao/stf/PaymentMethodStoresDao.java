@@ -17,7 +17,7 @@ public class PaymentMethodStoresDao extends AbstractDao<Long, PaymentMethodStore
     private final String DELETE_SQL = "DELETE FROM payment_methods_stores";
 
     public void deletePaymentMethodByStoreId(int storeId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE store_id = ?")) {
             preparedStatement.setInt(1, storeId);
             preparedStatement.executeUpdate();

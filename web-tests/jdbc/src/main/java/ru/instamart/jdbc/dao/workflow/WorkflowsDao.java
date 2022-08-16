@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -22,18 +21,19 @@ public class WorkflowsDao extends AbstractDao<Long, WorkflowsEntity> {
     @Override
     public Optional<WorkflowsEntity> findById(Long id) {
         WorkflowsEntity workflowsEntity = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_WORKFLOW);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_WORKFLOW).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setObject(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                workflowsEntity = new WorkflowsEntity();
-                workflowsEntity.setId(resultSet.getLong("id"));
-                workflowsEntity.setStatus(resultSet.getInt("status"));
-                workflowsEntity.setPlanStartedAt(resultSet.getString("plan_started_at"));
-                workflowsEntity.setPlanEndedAt(resultSet.getString("plan_ended_at"));
-                workflowsEntity.setShiftId(resultSet.getLong("shift_id"));
-                workflowsEntity.setShipments(resultSet.getString("shipments"));
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    workflowsEntity = new WorkflowsEntity();
+                    workflowsEntity.setId(resultSet.getLong("id"));
+                    workflowsEntity.setStatus(resultSet.getInt("status"));
+                    workflowsEntity.setPlanStartedAt(resultSet.getString("plan_started_at"));
+                    workflowsEntity.setPlanEndedAt(resultSet.getString("plan_ended_at"));
+                    workflowsEntity.setShiftId(resultSet.getLong("shift_id"));
+                    workflowsEntity.setShipments(resultSet.getString("shipments"));
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLWorkflowManager. Error: " + e.getMessage());
@@ -42,7 +42,7 @@ public class WorkflowsDao extends AbstractDao<Long, WorkflowsEntity> {
     }
 
     public void updateStatus(int status, long workflowId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_WORKFLOW);
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_WORKFLOW).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " status = ? WHERE id = ?")) {
             preparedStatement.setInt(1, status);
             preparedStatement.setLong(2, workflowId);

@@ -5,9 +5,6 @@ import ru.instamart.jdbc.entity.stf.SpreeShippingMethodsEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -19,12 +16,14 @@ public class SpreeShippingMethodsDao extends AbstractDao<Long, SpreeShippingMeth
 
     public Long getShippingMethodId(String kind) {
         Long id = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE kind = ? AND deleted_at IS NULL LIMIT 1")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE kind = ? AND deleted_at IS NULL LIMIT 1")) {
             preparedStatement.setString(1, kind);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            id = resultSet.getLong("id");
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    id = resultSet.getLong("id");
+                }
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -33,11 +32,12 @@ public class SpreeShippingMethodsDao extends AbstractDao<Long, SpreeShippingMeth
 
     public int getCount() {
         int resultCount = 0;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            resultCount = resultSet.getInt("total");
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"));
+             final var resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                resultCount = resultSet.getInt("total");
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }

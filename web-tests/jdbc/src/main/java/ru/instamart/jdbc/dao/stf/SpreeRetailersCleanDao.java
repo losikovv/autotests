@@ -6,10 +6,7 @@ import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 import ru.instamart.jdbc.util.Transactional;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import static org.testng.Assert.fail;
 
@@ -30,11 +27,11 @@ public class SpreeRetailersCleanDao extends AbstractDao<Long, StoresEntity> {
     private final String DELETE_FROM_RETAILERS_SQL = "DELETE FROM spree_retailers WHERE name = '%s'";
 
     public void deleteRetailerWithStores(String retailerName) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             Statement statement = connect.createStatement();
-             Transactional transactional = new Transactional(connect, false);
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var statement = connect.createStatement();
+             final var transactional = new Transactional(connect, false);
+             final var resultSet = statement.executeQuery(String.format(SELECT_FROM_STORES_SQL, retailerName))
         ) {
-            ResultSet resultSet = statement.executeQuery(String.format(SELECT_FROM_STORES_SQL, retailerName));
             while (resultSet.next()) {
                 statement.addBatch(DELETE_FROM_STORE_LOCATIONS_SQL + resultSet.getInt("id"));
                 statement.addBatch(DELETE_FROM_STORE_SCHEDULES_SQL + resultSet.getInt("id"));

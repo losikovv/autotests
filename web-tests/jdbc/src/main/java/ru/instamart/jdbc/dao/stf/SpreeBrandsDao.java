@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -19,20 +18,21 @@ public class SpreeBrandsDao extends AbstractDao<Long, SpreeBrandsEntity> {
     private final String DELETE_SQL = "DELETE FROM spree_brands";
 
     public SpreeBrandsEntity getBrandByName(String brandName) {
-        SpreeBrandsEntity brand = new SpreeBrandsEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+        final var brand = new SpreeBrandsEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE name = ?")) {
             preparedStatement.setString(1, brandName);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                brand.setId(resultSet.getLong("id"));
-                brand.setName(resultSet.getString("name"));
-                brand.setCreatedAt(resultSet.getString("created_at"));
-                brand.setUpdatedAt(resultSet.getString("updated_at"));
-                brand.setPermalink(resultSet.getString("permalink"));
-                brand.setKeywords(resultSet.getString("keywords"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    brand.setId(resultSet.getLong("id"));
+                    brand.setName(resultSet.getString("name"));
+                    brand.setCreatedAt(resultSet.getString("created_at"));
+                    brand.setUpdatedAt(resultSet.getString("updated_at"));
+                    brand.setPermalink(resultSet.getString("permalink"));
+                    brand.setKeywords(resultSet.getString("keywords"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -40,20 +40,21 @@ public class SpreeBrandsDao extends AbstractDao<Long, SpreeBrandsEntity> {
     }
 
     public SpreeBrandsEntity getBrandById(Long id) {
-        SpreeBrandsEntity brand = new SpreeBrandsEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+        final var brand = new SpreeBrandsEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE id = ?")) {
             preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                brand.setId(resultSet.getLong("id"));
-                brand.setName(resultSet.getString("name"));
-                brand.setCreatedAt(resultSet.getString("created_at"));
-                brand.setUpdatedAt(resultSet.getString("updated_at"));
-                brand.setPermalink(resultSet.getString("permalink"));
-                brand.setKeywords(resultSet.getString("keywords"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    brand.setId(resultSet.getLong("id"));
+                    brand.setName(resultSet.getString("name"));
+                    brand.setCreatedAt(resultSet.getString("created_at"));
+                    brand.setUpdatedAt(resultSet.getString("updated_at"));
+                    brand.setPermalink(resultSet.getString("permalink"));
+                    brand.setKeywords(resultSet.getString("keywords"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -63,7 +64,7 @@ public class SpreeBrandsDao extends AbstractDao<Long, SpreeBrandsEntity> {
     @Override
     public boolean delete(Long id) {
         int result = 0;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = ?")) {
             preparedStatement.setLong(1, id);
             result = preparedStatement.executeUpdate();

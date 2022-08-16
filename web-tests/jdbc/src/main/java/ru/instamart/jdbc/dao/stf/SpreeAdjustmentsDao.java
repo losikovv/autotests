@@ -5,9 +5,6 @@ import ru.instamart.jdbc.entity.SpreeAdjustmentsEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -21,19 +18,20 @@ public class SpreeAdjustmentsDao extends AbstractDao<Long, SpreeAdjustmentsEntit
     @Override
     public Optional<SpreeAdjustmentsEntity> findById(Long id) {
         SpreeAdjustmentsEntity adjustment = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                adjustment = new SpreeAdjustmentsEntity();
-                adjustment.setId(resultSet.getLong("id"));
-                adjustment.setSourceType(resultSet.getString("source_type"));
-                adjustment.setAdjustableType(resultSet.getString("adjustable_type"));
-                adjustment.setOriginatorType(resultSet.getString("originator_type"));
-                adjustment.setAmount(resultSet.getDouble("amount"));
-                adjustment.setLabel(resultSet.getString("label"));
-                adjustment.setState(resultSet.getString("state"));
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    adjustment = new SpreeAdjustmentsEntity();
+                    adjustment.setId(resultSet.getLong("id"));
+                    adjustment.setSourceType(resultSet.getString("source_type"));
+                    adjustment.setAdjustableType(resultSet.getString("adjustable_type"));
+                    adjustment.setOriginatorType(resultSet.getString("originator_type"));
+                    adjustment.setAmount(resultSet.getDouble("amount"));
+                    adjustment.setLabel(resultSet.getString("label"));
+                    adjustment.setState(resultSet.getString("state"));
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());

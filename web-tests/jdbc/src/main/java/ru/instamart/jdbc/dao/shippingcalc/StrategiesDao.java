@@ -5,7 +5,10 @@ import ru.instamart.jdbc.entity.shippingcalc.StrategiesEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,23 +21,24 @@ public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
     private final String DELETE_SQL = "DELETE FROM strategies ";
 
     public StrategiesEntity getStrategy(Integer id) {
-        StrategiesEntity strategy = new StrategiesEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ? ")) {
+        final var strategy = new StrategiesEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ? ")) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                strategy.setId(resultSet.getInt("id"));
-                strategy.setName(resultSet.getString("name"));
-                strategy.setShipping(resultSet.getString("shipping"));
-                strategy.setGlobal(resultSet.getBoolean("global"));
-                strategy.setPriority(resultSet.getInt("priority"));
-                strategy.setDescription(resultSet.getString("description"));
-                strategy.setCreatedAt(resultSet.getString("created_at"));
-                strategy.setUpdatedAt(resultSet.getString("updated_at"));
-                strategy.setDeletedAt(resultSet.getString("deleted_at"));
-                strategy.setCreatorId(resultSet.getString("creator_id"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    strategy.setId(resultSet.getInt("id"));
+                    strategy.setName(resultSet.getString("name"));
+                    strategy.setShipping(resultSet.getString("shipping"));
+                    strategy.setGlobal(resultSet.getBoolean("global"));
+                    strategy.setPriority(resultSet.getInt("priority"));
+                    strategy.setDescription(resultSet.getString("description"));
+                    strategy.setCreatedAt(resultSet.getString("created_at"));
+                    strategy.setUpdatedAt(resultSet.getString("updated_at"));
+                    strategy.setDeletedAt(resultSet.getString("deleted_at"));
+                    strategy.setCreatorId(resultSet.getString("creator_id"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
         }
@@ -42,8 +46,8 @@ public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
     }
 
     public Integer addStrategy(String name, String shipping, Boolean global, Integer priority, String description, String creatorId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
-             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (name, shipping, global, priority, description, creator_id) " +
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(INSERT_SQL + " (name, shipping, global, priority, description, creator_id) " +
                      " VALUES (?, ?::delivery_type, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, shipping);
@@ -52,9 +56,10 @@ public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
             preparedStatement.setString(5, description);
             preparedStatement.setString(6, creatorId);
             preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                return resultSet.getInt(1);
+            try (final var resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
@@ -64,7 +69,7 @@ public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
 
     @Override
     public boolean delete(Integer id) {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = ? ")) {
             preparedStatement.setInt(1, id);
             return preparedStatement.executeUpdate() > 0;

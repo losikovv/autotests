@@ -27,13 +27,14 @@ public class UserIdDao extends AbstractDao<Long, SpreeUsersEntity> {
     public String findUserId(String phone) {
         var sql = SQL_SELECT_USER_ID + "WHERE phone_tokens.value= ? LIMIT 10";
 
-        try (var connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             var preparedStatement = connect.prepareStatement(sql)) {
-
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setObject(1, "7" + phone);
-            var resultQuery = preparedStatement.executeQuery();
-            resultQuery.next();
-            return resultQuery.getString("id");
+            try (final var resultQuery = preparedStatement.executeQuery();) {
+                if (resultQuery.next()) {
+                    return resultQuery.getString("id");
+                }
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }

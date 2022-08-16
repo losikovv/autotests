@@ -18,7 +18,7 @@ public class StoresTenantsDao extends AbstractDao<Long, StoresTenantsEntity> {
     private final String INSERT_SQL = "INSERT INTO stores_tenants";
 
     public void addStoreTenant(Integer storeId, String tenant) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (tenant_id, store_id) VALUES(?, ?)")) {
             preparedStatement.setString(1, tenant);
             preparedStatement.setInt(2, storeId);
@@ -29,7 +29,7 @@ public class StoresTenantsDao extends AbstractDao<Long, StoresTenantsEntity> {
     }
 
     public void deleteStoreTenantByStoreId(Integer storeId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);
             preparedStatement.executeUpdate();

@@ -24,7 +24,7 @@ public final class CompanyPaymentAccountsDao extends AbstractDao<Long, OffersEnt
     private static final String UPDATE_SQL = "UPDATE company_payment_accounts SET balance = ? WHERE company_id = ?";
 
     public void createCompanyAccount(Integer companyId, Integer balance) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL)) {
             preparedStatement.setInt(1, companyId);
             preparedStatement.setInt(2, balance);
@@ -38,7 +38,7 @@ public final class CompanyPaymentAccountsDao extends AbstractDao<Long, OffersEnt
     }
 
     public void updateBalance(Integer companyId, Integer balance) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL)) {
             preparedStatement.setInt(1, balance);
             preparedStatement.setInt(2, companyId);
