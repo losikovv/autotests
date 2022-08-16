@@ -3,6 +3,7 @@ package ru.instamart.reforged.core.component.inner;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 
 @Slf4j
@@ -14,7 +15,7 @@ public final class InnerElement extends InnerComponent {
 
     @Override
     protected WebElement getComponent() {
-        return Kraken.waitAction().shouldBeVisible(this, getWebElement());
+        return Kraken.waitAction().shouldExist(this, getWebElement());
     }
 
     public String getText() {

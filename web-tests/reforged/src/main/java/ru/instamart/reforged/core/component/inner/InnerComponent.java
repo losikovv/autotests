@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.AbstractComponent;
 import ru.instamart.reforged.core.config.WaitProperties;
 
@@ -14,8 +15,6 @@ public abstract class InnerComponent extends AbstractComponent {
 
     @Getter
     private final WebElement webElement;
-    @Getter
-    private final By by;
     @Getter
     private final long timeout;
     @Getter
@@ -30,9 +29,12 @@ public abstract class InnerComponent extends AbstractComponent {
     public InnerComponent(final WebElement webElement, final By by, final long timeout, final String description, final String errorMsg) {
         super(by, timeout, description, errorMsg);
         this.webElement = webElement;
-        this.by = by;
         this.timeout = timeout;
         this.description = isNull(description) ? this.getClass().getSimpleName() : description;
         this.errorMsg = isNull(errorMsg) ? "Элемент " + by + " не найден" : errorMsg;
+    }
+
+    public String getAttribute(final String attributeName) {
+        return Kraken.waitAction().shouldExist(this, getWebElement()).getAttribute(attributeName);
     }
 }

@@ -105,6 +105,10 @@ public class TableComponent extends AbstractComponent {
         return getComponent().findElements(dataLine);
     }
 
+    public int getRowsCount() {
+        return getTableDataLines().size();
+    }
+
     protected WebElement getLine(final int lineIndex) {
         final var dataLines = getTableDataLines();
         if (nonNull(dataLines) && dataLines.size() > lineIndex) {

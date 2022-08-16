@@ -6,6 +6,7 @@ import ru.instamart.reforged.admin.page.companies.company.CompanyPage;
 import ru.instamart.reforged.admin.page.companies.new_companies.NewCompaniesPage;
 import ru.instamart.reforged.admin.page.login.LoginPage;
 import ru.instamart.reforged.admin.page.main.MainPage;
+import ru.instamart.reforged.admin.page.orders.OrdersPage;
 import ru.instamart.reforged.admin.page.pages.Pages;
 import ru.instamart.reforged.admin.page.pages.new_page.NewPage;
 import ru.instamart.reforged.admin.page.retailers.RetailersPage;
@@ -115,6 +116,10 @@ public final class AdminRout extends Router {
 
     public static ShipmentsPage shipments() {
         return (ShipmentsPage) getPage(ShipmentsPage.class);
+    }
+
+    public static OrdersPage orders() {
+        return (OrdersPage) getPage(OrdersPage.class);
     }
 
     public static ShipmentPage shipmentPage() {

@@ -28,6 +28,9 @@
             <class name="ru.instamart.test.reforged.admin.AdministrationStoreGroupsTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationUsersSectionTests"/>
             <class name="ru.instamart.test.reforged.admin.BasicAdministrationTests"/>
+
+            <class name="ru.instamart.test.reforged.admin.orders.AdministrationBasicOrdersTests"/>
+            <class name="ru.instamart.test.reforged.admin.orders.AdministrationMultiselectFiltersOrdersTests"/>
         </classes>
     </test>
     <test verbose="1" name="All In UI-API suite" parallel="classes" thread-count="5">
