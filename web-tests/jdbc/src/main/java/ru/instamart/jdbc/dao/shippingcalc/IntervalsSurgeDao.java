@@ -22,7 +22,7 @@ public class IntervalsSurgeDao implements Dao<Integer, IntervalsSurgeEntity> {
 
     public List<IntervalsSurgeEntity> getIntervals() {
         List<IntervalsSurgeEntity> intervalsResult = new ArrayList<>();
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*"))) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -40,7 +40,7 @@ public class IntervalsSurgeDao implements Dao<Integer, IntervalsSurgeEntity> {
     }
 
     public boolean setIntervals(List<IntervalsSurgeEntity> intervalsList) {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (left_boundary, right_boundary, price_addition, percent_addition) " +
                      " VALUES (?, ?, ?, ?) ")) {
             int result = 0;
@@ -62,7 +62,7 @@ public class IntervalsSurgeDao implements Dao<Integer, IntervalsSurgeEntity> {
     }
 
     public void clearIntervals() {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement("TRUNCATE TABLE intervals_surge")) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
