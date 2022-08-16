@@ -18,7 +18,7 @@ public class ShiftsDao extends AbstractDao<Long, ShiftsEntity> {
     private static final String SQL_UPDATE_READY_TO_START = "UPDATE shifts SET state='ready_to_start' WHERE id=?";
 
     public boolean updateState(int id) {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIFT);
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIFT).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(SQL_UPDATE_READY_TO_START)) {
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0;

@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -15,11 +14,12 @@ import static org.testng.Assert.fail;
 public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
 
     public static final SpreeOrdersDao INSTANCE = new SpreeOrdersDao();
+
     private final String SELECT_SQL = "SELECT %s FROM spree_orders";
     private final String UPDATE_SQL = "UPDATE spree_orders";
 
     public void updateShippingKind(String orderNumber, String shippingKind) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " SET shipping_method_kind = ? WHERE number = ?")) {
             preparedStatement.setString(1, shippingKind);
             preparedStatement.setString(2, orderNumber);
@@ -30,25 +30,26 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
     }
 
     public SpreeOrdersEntity getOrderByNumber(String orderNumber) {
-        SpreeOrdersEntity order = new SpreeOrdersEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+        final var order = new SpreeOrdersEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE number = ?")) {
             preparedStatement.setString(1, orderNumber);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                order.setId(resultSet.getLong("id"));
-                order.setState(resultSet.getString("state"));
-                order.setUserId(resultSet.getLong("user_id"));
-                order.setShipAddressId(resultSet.getLong("ship_address_id"));
-                order.setShipmentState(resultSet.getString("shipment_state"));
-                order.setPaymentState(resultSet.getString("payment_state"));
-                order.setEmail(resultSet.getString("email"));
-                order.setUuid(resultSet.getString("uuid"));
-                order.setReplacementPolicyId(resultSet.getInt("replacement_policy_id"));
-                order.setShippingMethodKind(resultSet.getString("shipping_method_kind"));
-                order.setPaymentToolId(resultSet.getLong("payment_tool_id"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    order.setId(resultSet.getLong("id"));
+                    order.setState(resultSet.getString("state"));
+                    order.setUserId(resultSet.getLong("user_id"));
+                    order.setShipAddressId(resultSet.getLong("ship_address_id"));
+                    order.setShipmentState(resultSet.getString("shipment_state"));
+                    order.setPaymentState(resultSet.getString("payment_state"));
+                    order.setEmail(resultSet.getString("email"));
+                    order.setUuid(resultSet.getString("uuid"));
+                    order.setReplacementPolicyId(resultSet.getInt("replacement_policy_id"));
+                    order.setShippingMethodKind(resultSet.getString("shipping_method_kind"));
+                    order.setPaymentToolId(resultSet.getLong("payment_tool_id"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -56,25 +57,26 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
     }
 
     public SpreeOrdersEntity getActiveOrderByComment(String comment) {
-        SpreeOrdersEntity order = new SpreeOrdersEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+        final var order = new SpreeOrdersEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE special_instructions = ? AND state = 'complete' ORDER BY id DESC LIMIT 1")) {
             preparedStatement.setString(1, comment);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                order.setId(resultSet.getLong("id"));
-                order.setState(resultSet.getString("state"));
-                order.setNumber(resultSet.getString("number"));
-                order.setUserId(resultSet.getLong("user_id"));
-                order.setShipAddressId(resultSet.getLong("ship_address_id"));
-                order.setShipmentState(resultSet.getString("shipment_state"));
-                order.setPaymentState(resultSet.getString("payment_state"));
-                order.setEmail(resultSet.getString("email"));
-                order.setReplacementPolicyId(resultSet.getInt("replacement_policy_id"));
-                order.setShippingMethodKind(resultSet.getString("shipping_method_kind"));
-                order.setPaymentToolId(resultSet.getLong("payment_tool_id"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    order.setId(resultSet.getLong("id"));
+                    order.setState(resultSet.getString("state"));
+                    order.setNumber(resultSet.getString("number"));
+                    order.setUserId(resultSet.getLong("user_id"));
+                    order.setShipAddressId(resultSet.getLong("ship_address_id"));
+                    order.setShipmentState(resultSet.getString("shipment_state"));
+                    order.setPaymentState(resultSet.getString("payment_state"));
+                    order.setEmail(resultSet.getString("email"));
+                    order.setReplacementPolicyId(resultSet.getInt("replacement_policy_id"));
+                    order.setShippingMethodKind(resultSet.getString("shipping_method_kind"));
+                    order.setPaymentToolId(resultSet.getLong("payment_tool_id"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -82,27 +84,28 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
     }
 
     public SpreeOrdersEntity getOrderByShipment(String shipmentNumber) {
-        SpreeOrdersEntity order = new SpreeOrdersEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+        final var order = new SpreeOrdersEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " so JOIN spree_shipments ss ON ss.order_id = so.id" +
                      " WHERE ss.number = ?")) {
             preparedStatement.setString(1, shipmentNumber);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                order.setId(resultSet.getLong("id"));
-                order.setNumber(resultSet.getString("number"));
-                order.setState(resultSet.getString("state"));
-                order.setUserId(resultSet.getLong("user_id"));
-                order.setShipAddressId(resultSet.getLong("ship_address_id"));
-                order.setShipmentState(resultSet.getString("shipment_state"));
-                order.setPaymentState(resultSet.getString("payment_state"));
-                order.setEmail(resultSet.getString("email"));
-                order.setEmail(resultSet.getString("email"));
-                order.setReplacementPolicyId(resultSet.getInt("replacement_policy_id"));
-                order.setShippingMethodKind(resultSet.getString("shipping_method_kind"));
-                order.setPaymentToolId(resultSet.getLong("payment_tool_id"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    order.setId(resultSet.getLong("id"));
+                    order.setNumber(resultSet.getString("number"));
+                    order.setState(resultSet.getString("state"));
+                    order.setUserId(resultSet.getLong("user_id"));
+                    order.setShipAddressId(resultSet.getLong("ship_address_id"));
+                    order.setShipmentState(resultSet.getString("shipment_state"));
+                    order.setPaymentState(resultSet.getString("payment_state"));
+                    order.setEmail(resultSet.getString("email"));
+                    order.setEmail(resultSet.getString("email"));
+                    order.setReplacementPolicyId(resultSet.getInt("replacement_policy_id"));
+                    order.setShippingMethodKind(resultSet.getString("shipping_method_kind"));
+                    order.setPaymentToolId(resultSet.getLong("payment_tool_id"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -110,7 +113,7 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
     }
 
     public void updateShipmentStateToShip(String orderNumber, String shippedAt) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " so JOIN spree_shipments ss ON so.id = ss.order_id " +
                      "SET so.state = 'shipped', ss.state = 'shipped', ss.shipped_at = ? WHERE so.number = ?")) {
             preparedStatement.setString(1, shippedAt);
@@ -122,7 +125,7 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
     }
 
     public void updateShipmentState(String orderNumber, String state) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " so JOIN spree_shipments ss ON so.id = ss.order_id " +
                      "SET so.state = ?, so.shipment_state = ?, ss.state = ? WHERE so.number = ?")) {
             preparedStatement.setString(1, state);
@@ -136,26 +139,27 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
     }
 
     public SpreeOrdersEntity getOrderOfAnotherUser(long userId) {
-        SpreeOrdersEntity order = new SpreeOrdersEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+        final var order = new SpreeOrdersEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE user_id != ? ORDER BY id DESC LIMIT 1")) {
             preparedStatement.setLong(1, userId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                order.setId(resultSet.getLong("id"));
-                order.setNumber(resultSet.getString("number"));
-                order.setState(resultSet.getString("state"));
-                order.setUserId(resultSet.getLong("user_id"));
-                order.setShipAddressId(resultSet.getLong("ship_address_id"));
-                order.setShipmentState(resultSet.getString("shipment_state"));
-                order.setPaymentState(resultSet.getString("payment_state"));
-                order.setEmail(resultSet.getString("email"));
-                order.setEmail(resultSet.getString("email"));
-                order.setReplacementPolicyId(resultSet.getInt("replacement_policy_id"));
-                order.setShippingMethodKind(resultSet.getString("shipping_method_kind"));
-                order.setPaymentToolId(resultSet.getLong("payment_tool_id"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    order.setId(resultSet.getLong("id"));
+                    order.setNumber(resultSet.getString("number"));
+                    order.setState(resultSet.getString("state"));
+                    order.setUserId(resultSet.getLong("user_id"));
+                    order.setShipAddressId(resultSet.getLong("ship_address_id"));
+                    order.setShipmentState(resultSet.getString("shipment_state"));
+                    order.setPaymentState(resultSet.getString("payment_state"));
+                    order.setEmail(resultSet.getString("email"));
+                    order.setEmail(resultSet.getString("email"));
+                    order.setReplacementPolicyId(resultSet.getInt("replacement_policy_id"));
+                    order.setShippingMethodKind(resultSet.getString("shipping_method_kind"));
+                    order.setPaymentToolId(resultSet.getLong("payment_tool_id"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }

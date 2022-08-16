@@ -5,9 +5,6 @@ import ru.instamart.jdbc.entity.stf.ApiClientsEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -19,14 +16,16 @@ public class ApiClientsDao extends AbstractDao<Long, ApiClientsEntity> {
 
     public String getClientTokenByName(String clientName) {
        String token = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "act.value") +
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "act.value") +
                      " ac JOIN api_client_tokens act ON ac.id = act.api_client_id WHERE ac.client_id = ?")) {
             preparedStatement.setString(1, clientName);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
-                token = resultSet.getString("value");
-            } else return null;
+
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    token = resultSet.getString("value");
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -35,13 +34,15 @@ public class ApiClientsDao extends AbstractDao<Long, ApiClientsEntity> {
 
     public Long getClientIdByName(String clientName) {
         Long id = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE client_id = ?")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE client_id = ?")) {
             preparedStatement.setString(1, clientName);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
-                id = resultSet.getLong("id");
-            } else return null;
+
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    id = resultSet.getLong("id");
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }

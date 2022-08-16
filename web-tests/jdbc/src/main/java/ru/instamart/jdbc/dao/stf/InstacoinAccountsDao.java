@@ -16,7 +16,7 @@ public class InstacoinAccountsDao extends AbstractDao<Long, InstacoinAccountsEnt
     public static final InstacoinAccountsDao INSTANCE = new InstacoinAccountsDao();
 
     public void updatePromotionCode(Long promotionCodeId, Long userId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement("UPDATE instacoin_accounts SET promotion_code_id = ? WHERE user_id = ?")) {
             preparedStatement.setObject(1, promotionCodeId);
             preparedStatement.setLong(2, userId);

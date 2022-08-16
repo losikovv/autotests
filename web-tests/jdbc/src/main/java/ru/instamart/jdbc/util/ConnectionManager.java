@@ -7,7 +7,6 @@ import ru.instamart.k8s.K8sPortForward;
 import ru.instamart.kraken.util.Socket;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.Map;
@@ -18,8 +17,8 @@ public final class ConnectionManager {
 
     private static final Map<String, DataSource> DB_POOL = new ConcurrentHashMap<>();
 
-    public static synchronized Connection getConnection(final Db db) throws SQLException {
-        return DB_POOL.computeIfAbsent(db.name(), source -> createDataSource(db)).getConnection();
+    public static synchronized DataSource getDataSource(final Db db) throws SQLException {
+        return DB_POOL.computeIfAbsent(db.name(), source -> createDataSource(db));
     }
 
     private static DataSource createDataSource(final Db db) {
@@ -42,6 +41,7 @@ public final class ConnectionManager {
 
         hikariConfig.setConnectionTimeout(Duration.ofSeconds(20).toMillis());
         hikariConfig.setMaxLifetime(Duration.ofMinutes(10).toMillis());
+        hikariConfig.setLeakDetectionThreshold(Duration.ofMinutes(2).toMillis());
 
         if (db.getType() == DbType.MYSQL) {
             // {@link https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration}

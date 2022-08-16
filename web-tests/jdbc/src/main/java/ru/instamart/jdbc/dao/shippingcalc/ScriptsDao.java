@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -21,21 +20,22 @@ public class ScriptsDao implements Dao<Integer, ScriptsEntity> {
 
     public ScriptsEntity getScriptByName(String name) {
         ScriptsEntity script = new ScriptsEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE name = ? ")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE name = ? ")) {
             preparedStatement.setString(1, name);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                script.setId(resultSet.getInt("id"));
-                script.setName(resultSet.getString("name"));
-                script.setCode(resultSet.getString("code"));
-                script.setCreatedAt(resultSet.getString("created_at"));
-                script.setUpdatedAt(resultSet.getString("updated_at"));
-                script.setDeletedAt(resultSet.getString("deleted_at"));
-                script.setState(resultSet.getString("state"));
-                script.setRequiredParams(resultSet.getString("required_params"));
-                script.setCreatorId(resultSet.getString("creator_id"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    script.setId(resultSet.getInt("id"));
+                    script.setName(resultSet.getString("name"));
+                    script.setCode(resultSet.getString("code"));
+                    script.setCreatedAt(resultSet.getString("created_at"));
+                    script.setUpdatedAt(resultSet.getString("updated_at"));
+                    script.setDeletedAt(resultSet.getString("deleted_at"));
+                    script.setState(resultSet.getString("state"));
+                    script.setRequiredParams(resultSet.getString("required_params"));
+                    script.setCreatorId(resultSet.getString("creator_id"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
         }
@@ -44,21 +44,22 @@ public class ScriptsDao implements Dao<Integer, ScriptsEntity> {
 
     public ScriptsEntity getScriptById(Integer id) {
         ScriptsEntity script = new ScriptsEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ? ")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ? ")) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                script.setId(resultSet.getInt("id"));
-                script.setName(resultSet.getString("name"));
-                script.setCode(resultSet.getString("code"));
-                script.setCreatedAt(resultSet.getString("created_at"));
-                script.setUpdatedAt(resultSet.getString("updated_at"));
-                script.setDeletedAt(resultSet.getString("deleted_at"));
-                script.setState(resultSet.getString("state"));
-                script.setRequiredParams(resultSet.getString("required_params"));
-                script.setCreatorId(resultSet.getString("creator_id"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    script.setId(resultSet.getInt("id"));
+                    script.setName(resultSet.getString("name"));
+                    script.setCode(resultSet.getString("code"));
+                    script.setCreatedAt(resultSet.getString("created_at"));
+                    script.setUpdatedAt(resultSet.getString("updated_at"));
+                    script.setDeletedAt(resultSet.getString("deleted_at"));
+                    script.setState(resultSet.getString("state"));
+                    script.setRequiredParams(resultSet.getString("required_params"));
+                    script.setCreatorId(resultSet.getString("creator_id"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
         }
@@ -67,7 +68,7 @@ public class ScriptsDao implements Dao<Integer, ScriptsEntity> {
 
     @Override
     public boolean delete(Integer id) {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = ? ")) {
             preparedStatement.setInt(1, id);
             return preparedStatement.executeUpdate() > 0;

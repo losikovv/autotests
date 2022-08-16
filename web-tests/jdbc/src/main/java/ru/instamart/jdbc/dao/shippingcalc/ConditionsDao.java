@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,22 +19,24 @@ public class ConditionsDao implements Dao<Integer, ConditionsEntity> {
     private final String INSERT_SQL = "INSERT INTO conditions ";
 
     public List<ConditionsEntity> getConditions(ArrayList<Integer> rulesIds) {
-        List<ConditionsEntity> conditionsResult = new ArrayList<>();
-        StringBuilder builder = new StringBuilder();
-        String params = builder.append("?,".repeat(rulesIds.size())).deleteCharAt(builder.length() - 1).toString();
-        String selectSql = "SELECT * FROM conditions WHERE rule_id IN (" + params + ") ORDER BY rule_id";
+        final var conditionsResult = new ArrayList<ConditionsEntity>();
+        final var builder = new StringBuilder();
+        final var params = builder.append("?,".repeat(rulesIds.size())).deleteCharAt(builder.length() - 1).toString();
+        final var selectSql = "SELECT * FROM conditions WHERE rule_id IN (" + params + ") ORDER BY rule_id";
 
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
-             PreparedStatement preparedStatement = connect.prepareStatement(selectSql)) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(selectSql)) {
             int index = 1;
             for (Object ruleId : rulesIds) preparedStatement.setObject(index++, ruleId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                var conditionsEntity = new ConditionsEntity();
-                conditionsEntity.setRuleId(resultSet.getInt("rule_id"));
-                conditionsEntity.setParams(resultSet.getString("params"));
-                conditionsEntity.setConditionType(resultSet.getString("condition_type"));
-                conditionsResult.add(conditionsEntity);
+            
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    var conditionsEntity = new ConditionsEntity();
+                    conditionsEntity.setRuleId(resultSet.getInt("rule_id"));
+                    conditionsEntity.setParams(resultSet.getString("params"));
+                    conditionsEntity.setConditionType(resultSet.getString("condition_type"));
+                    conditionsResult.add(conditionsEntity);
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
@@ -44,7 +45,7 @@ public class ConditionsDao implements Dao<Integer, ConditionsEntity> {
     }
 
     public boolean addCondition(Integer ruleId, String params, String conditionType) {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHIPPING_CALC);
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (rule_id, params, condition_type) " +
                      " VALUES (?, ?::jsonb, ?::condition_type_enum) ")) {
             preparedStatement.setInt(1, ruleId);

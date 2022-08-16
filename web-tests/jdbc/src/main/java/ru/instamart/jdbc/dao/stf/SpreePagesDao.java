@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -19,28 +18,29 @@ public class SpreePagesDao extends AbstractDao<Long, SpreePagesEntity> {
     private final String DELETE_SQL = "DELETE FROM spree_pages";
 
     public SpreePagesEntity getPageBySlug(String pageSlug) {
-        SpreePagesEntity page = new SpreePagesEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_SQL +
+        final var page = new SpreePagesEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(SELECT_SQL +
                      " WHERE slug = ?")) {
             preparedStatement.setString(1, pageSlug);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                page.setId(resultSet.getLong("id"));
-                page.setTitle(resultSet.getString("title"));
-                page.setBody(resultSet.getString("body"));
-                page.setMetaTitle(resultSet.getString("meta_title"));
-                page.setMetaDescription(resultSet.getString("meta_description"));
-                page.setMetaKeywords(resultSet.getString("meta_keywords"));
-                page.setForeignLink(resultSet.getString("foreign_link"));
-                page.setLayout(resultSet.getString("layout"));
-                page.setPosition(resultSet.getInt("position"));
-                page.setVisible(resultSet.getInt("visible"));
-                page.setShowInFooter(resultSet.getInt("show_in_footer"));
-                page.setShowInHeader(resultSet.getInt("show_in_header"));
-                page.setShowInSidebar(resultSet.getInt("show_in_sidebar"));
-                page.setRenderLayoutAsPartial(resultSet.getInt("render_layout_as_partial"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    page.setId(resultSet.getLong("id"));
+                    page.setTitle(resultSet.getString("title"));
+                    page.setBody(resultSet.getString("body"));
+                    page.setMetaTitle(resultSet.getString("meta_title"));
+                    page.setMetaDescription(resultSet.getString("meta_description"));
+                    page.setMetaKeywords(resultSet.getString("meta_keywords"));
+                    page.setForeignLink(resultSet.getString("foreign_link"));
+                    page.setLayout(resultSet.getString("layout"));
+                    page.setPosition(resultSet.getInt("position"));
+                    page.setVisible(resultSet.getInt("visible"));
+                    page.setShowInFooter(resultSet.getInt("show_in_footer"));
+                    page.setShowInHeader(resultSet.getInt("show_in_header"));
+                    page.setShowInSidebar(resultSet.getInt("show_in_sidebar"));
+                    page.setRenderLayoutAsPartial(resultSet.getInt("render_layout_as_partial"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -48,7 +48,7 @@ public class SpreePagesDao extends AbstractDao<Long, SpreePagesEntity> {
     }
 
     public void deletePageBySlug(String slug) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE slug LIKE ?")) {
             preparedStatement.setString(1, slug + "%");
             preparedStatement.executeUpdate();

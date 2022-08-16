@@ -5,9 +5,6 @@ import ru.instamart.jdbc.entity.stf.SpreeStatesEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -19,16 +16,17 @@ public class SpreeStatesDao extends AbstractDao<Long, SpreeStatesEntity> {
     private final String SELECT_SQL = "SELECT %s FROM spree_states";
 
     public SpreeStatesEntity getStateByAbbr(String stateAbbr) {
-        SpreeStatesEntity state = new SpreeStatesEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+        final var state = new SpreeStatesEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE abbr = ?")) {
             preparedStatement.setString(1, stateAbbr);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                state.setId(resultSet.getLong("id"));
-                state.setName(resultSet.getString("name"));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    state.setId(resultSet.getLong("id"));
+                    state.setName(resultSet.getString("name"));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -39,15 +37,16 @@ public class SpreeStatesDao extends AbstractDao<Long, SpreeStatesEntity> {
     public Optional<SpreeStatesEntity> findById(Long id) {
         SpreeStatesEntity spreeStatesEntity = null;
         var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setObject(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                spreeStatesEntity = new SpreeStatesEntity();
-                spreeStatesEntity.setId(resultSet.getLong("id"));
-                spreeStatesEntity.setName(resultSet.getString("name"));
-                spreeStatesEntity.setAbbr(resultSet.getString("abbr"));
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    spreeStatesEntity = new SpreeStatesEntity();
+                    spreeStatesEntity.setId(resultSet.getLong("id"));
+                    spreeStatesEntity.setName(resultSet.getString("name"));
+                    spreeStatesEntity.setAbbr(resultSet.getString("abbr"));
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
@@ -57,11 +56,12 @@ public class SpreeStatesDao extends AbstractDao<Long, SpreeStatesEntity> {
 
     public int getCount() {
         int resultCount = 0;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            resultCount = resultSet.getInt("total");
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"));
+             final var resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                resultCount = resultSet.getInt("total");
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }

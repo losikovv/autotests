@@ -7,7 +7,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -22,16 +21,17 @@ public class ShippingPolicyRulesDao extends AbstractDao<Long, ShippingPolicyRule
     @Override
     public Optional<ShippingPolicyRulesEntity> findById(Long id) {
         ShippingPolicyRulesEntity shippingPolicyRulesEntity = null;
-        var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
+        final var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setObject(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                shippingPolicyRulesEntity = new ShippingPolicyRulesEntity();
-                shippingPolicyRulesEntity.setId(resultSet.getLong("id"));
-                shippingPolicyRulesEntity.setShippingPolicyId(resultSet.getLong("shipping_policy_id"));
-                shippingPolicyRulesEntity.setType(resultSet.getString("type"));
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    shippingPolicyRulesEntity = new ShippingPolicyRulesEntity();
+                    shippingPolicyRulesEntity.setId(resultSet.getLong("id"));
+                    shippingPolicyRulesEntity.setShippingPolicyId(resultSet.getLong("shipping_policy_id"));
+                    shippingPolicyRulesEntity.setType(resultSet.getString("type"));
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
@@ -40,7 +40,7 @@ public class ShippingPolicyRulesDao extends AbstractDao<Long, ShippingPolicyRule
     }
 
     public void deleteRulesByShippingPolicyId(Long shippingPolicyId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE shipping_policy_id = ?")) {
             preparedStatement.setLong(1, shippingPolicyId);
             preparedStatement.executeUpdate();

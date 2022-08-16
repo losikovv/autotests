@@ -17,7 +17,7 @@ public class OperationalZonesShopperDao extends AbstractDao<Long, OperationalZon
     //Локально может падать, тк подключение использует RO юзера
 
     public void deleteZoneByName(String zoneName) {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHP);
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHP).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + "WHERE name = ?")) {
             preparedStatement.setString(1, zoneName);
             preparedStatement.executeUpdate();
@@ -27,7 +27,7 @@ public class OperationalZonesShopperDao extends AbstractDao<Long, OperationalZon
     }
 
     public void deleteZoneByNameLike(String zoneName) {
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_SHP);
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHP).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE name LIKE ?")) {
             preparedStatement.setString(1, zoneName + "%");
             preparedStatement.executeUpdate();

@@ -8,7 +8,6 @@ import ru.instamart.jdbc.util.Db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -21,7 +20,7 @@ public class PhoneTokensDao extends AbstractDao<Long, PhoneTokensEntity> {
     private final String SELECT_SQL = "SELECT %s FROM phone_tokens";
 
     public void deleteQAPhones() {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE value LIKE '7990%'")) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -30,15 +29,17 @@ public class PhoneTokensDao extends AbstractDao<Long, PhoneTokensEntity> {
     }
 
     public PhoneTokensEntity getByPhoneValue(String phone) {
-        PhoneTokensEntity phoneTokensEntity = new PhoneTokensEntity();
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, '*') + " WHERE value LIKE ?")) {
+        final var phoneTokensEntity = new PhoneTokensEntity();
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, '*') + " WHERE value LIKE ?")) {
             preparedStatement.setString(1, '%' + phone);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            phoneTokensEntity.setUserId(resultSet.getLong("user_id"));
-            phoneTokensEntity.setConfirmed(resultSet.getInt("confirmed"));
-            phoneTokensEntity.setConfirmationCode(resultSet.getInt("confirmation_code"));
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    phoneTokensEntity.setUserId(resultSet.getLong("user_id"));
+                    phoneTokensEntity.setConfirmed(resultSet.getInt("confirmed"));
+                    phoneTokensEntity.setConfirmationCode(resultSet.getInt("confirmation_code"));
+                }
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -46,7 +47,7 @@ public class PhoneTokensDao extends AbstractDao<Long, PhoneTokensEntity> {
     }
 
     public void deletePhoneTokenByUserId(String userId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE user_id = ?")) {
             preparedStatement.setString(1, userId);
             preparedStatement.executeUpdate();

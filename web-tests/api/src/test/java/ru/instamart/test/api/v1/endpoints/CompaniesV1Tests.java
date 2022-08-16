@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+import static java.util.Objects.nonNull;
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -371,7 +372,9 @@ public class CompaniesV1Tests extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void postconditions() {
-        final Response response = UserCompanyEmployeesV1Request.DELETE(company.getId().toString());
-        checkStatusCode200(response);
+        if (nonNull(company)) {
+            final var response = UserCompanyEmployeesV1Request.DELETE(company.getId().toString());
+            checkStatusCode200(response);
+        }
     }
 }

@@ -5,9 +5,6 @@ import ru.instamart.jdbc.entity.stf.SpreePaymentsEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -19,19 +16,20 @@ public class SpreePaymentsDao extends AbstractDao<Long, SpreePaymentsEntity> {
 
     public SpreePaymentsEntity getPaymentByOrderId(Long orderId) {
         SpreePaymentsEntity spreePaymentsEntity = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE order_id = ? ORDER BY id DESC LIMIT 1")) {
             preparedStatement.setLong(1, orderId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
-                spreePaymentsEntity = new SpreePaymentsEntity();
-                spreePaymentsEntity.setId((resultSet.getLong("id")));
-                spreePaymentsEntity.setAmount((resultSet.getDouble("amount")));
-                spreePaymentsEntity.setPaymentMethodId((resultSet.getInt("payment_method_id")));
-                spreePaymentsEntity.setState((resultSet.getString("state")));
-                spreePaymentsEntity.setIdentifier((resultSet.getString("identifier")));
-            } else return null;
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()){
+                    spreePaymentsEntity = new SpreePaymentsEntity();
+                    spreePaymentsEntity.setId((resultSet.getLong("id")));
+                    spreePaymentsEntity.setAmount((resultSet.getDouble("amount")));
+                    spreePaymentsEntity.setPaymentMethodId((resultSet.getInt("payment_method_id")));
+                    spreePaymentsEntity.setState((resultSet.getString("state")));
+                    spreePaymentsEntity.setIdentifier((resultSet.getString("identifier")));
+                } else return null;
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
@@ -40,12 +38,14 @@ public class SpreePaymentsDao extends AbstractDao<Long, SpreePaymentsEntity> {
 
     public int getCountByOrderId(Long orderId) {
         int resultCount = 0;
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE order_id = ?")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE order_id = ?")) {
             preparedStatement.setLong(1, orderId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            resultCount = resultSet.getInt("total");
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    resultCount = resultSet.getInt("total");
+                }
+            }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }

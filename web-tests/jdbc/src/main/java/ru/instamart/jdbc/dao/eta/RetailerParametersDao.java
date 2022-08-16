@@ -5,9 +5,6 @@ import ru.instamart.jdbc.entity.eta.RetailerParametersEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -21,16 +18,17 @@ public class RetailerParametersDao extends AbstractDao<Long, RetailerParametersE
     @Override
     public Optional<RetailerParametersEntity> findById(Long id) {
         RetailerParametersEntity retailerParameters = null;
-        try (Connection connect = ConnectionManager.getConnection(Db.PG_ETA);
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_ETA).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                retailerParameters = new RetailerParametersEntity();
-                retailerParameters.setId(resultSet.getLong("id"));
-                retailerParameters.setCourierSpeed(resultSet.getInt("courier_speed"));
-                retailerParameters.setDeliveryTimeSigma(resultSet.getString("delivery_time_sigma"));
-                retailerParameters.setWindow(resultSet.getString("window"));
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    retailerParameters = new RetailerParametersEntity();
+                    retailerParameters.setId(resultSet.getLong("id"));
+                    retailerParameters.setCourierSpeed(resultSet.getInt("courier_speed"));
+                    retailerParameters.setDeliveryTimeSigma(resultSet.getString("delivery_time_sigma"));
+                    retailerParameters.setWindow(resultSet.getString("window"));
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLEtaManager. Error: " + e.getMessage());

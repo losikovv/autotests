@@ -5,9 +5,6 @@ import ru.instamart.jdbc.entity.stf.ShippingPoliciesEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -21,16 +18,17 @@ public class ShippingPoliciesDao extends AbstractDao<Long, ShippingPoliciesEntit
     @Override
     public Optional<ShippingPoliciesEntity> findById(Long id) {
         ShippingPoliciesEntity shippingPoliciesEntity = null;
-        var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
-             PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
+        final var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setObject(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                shippingPoliciesEntity = new ShippingPoliciesEntity();
-                shippingPoliciesEntity.setId(resultSet.getLong("id"));
-                shippingPoliciesEntity.setRetailerId(resultSet.getLong("retailer_id"));
-                shippingPoliciesEntity.setTitle(resultSet.getString("title"));
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    shippingPoliciesEntity = new ShippingPoliciesEntity();
+                    shippingPoliciesEntity.setId(resultSet.getLong("id"));
+                    shippingPoliciesEntity.setRetailerId(resultSet.getLong("retailer_id"));
+                    shippingPoliciesEntity.setTitle(resultSet.getString("title"));
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());

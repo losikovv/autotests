@@ -16,7 +16,7 @@ public class ShipmentReviewWindowClosesDao extends AbstractDao<Long, ShipmentRev
     public static final ShipmentReviewWindowClosesDao INSTANCE = new ShipmentReviewWindowClosesDao();
 
     public void updateNumberOfCloses(Integer number, Integer shipmentId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement("UPDATE shipment_review_window_closes SET number = ? WHERE shipment_id = ?")) {
             preparedStatement.setInt(1, number);
             preparedStatement.setInt(2, shipmentId);

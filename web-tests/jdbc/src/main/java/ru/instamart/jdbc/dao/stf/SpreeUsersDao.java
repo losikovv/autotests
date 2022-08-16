@@ -25,7 +25,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     @Override
     public Optional<SpreeUsersEntity> findById(Long id) {
         SpreeUsersEntity user = null;
-        try (final var connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              final var preparedStatement = connect.prepareStatement( String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setObject(1, id);
             try (final var resultSet = preparedStatement.executeQuery()) {
@@ -47,7 +47,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
 
     public SpreeUsersEntity getUserByEmail(String email) {
         final var user = new SpreeUsersEntity();
-        try (final var connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE email = ?")) {
             preparedStatement.setString(1, email);
             try (final var resultSet = preparedStatement.executeQuery()) {
@@ -67,7 +67,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     }
 
     public void deleteUserByEmail(String email) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE email = ?")) {
             preparedStatement.setString(1, email);
             preparedStatement.executeUpdate();
@@ -77,12 +77,13 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     }
 
     public String getUUIDByLogin(String login) {
-        try (final var connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "uuid") + " WHERE login = ?")) {
             preparedStatement.setString(1, login);
             try (final var resultSet = preparedStatement.executeQuery()) {
-                resultSet.next();
-                return resultSet.getString("uuid");
+                if (resultSet.next()) {
+                    return resultSet.getString("uuid");
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
@@ -91,7 +92,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     }
 
     public void deleteQAUsers() {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + ", phone_tokens USING spree_users, phone_tokens" +
                      " WHERE spree_users.id = phone_tokens.user_id AND spree_users.email LIKE 'qasession+%' AND spree_users.locked_at IS NOT NULL")) {
             preparedStatement.executeUpdate();
@@ -101,12 +102,13 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     }
 
     public String getEmailByPhone(String phone) {
-        try (final var connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "email") + " su JOIN phone_tokens pt ON su.id = pt.user_id WHERE pt.value = ?")) {
             preparedStatement.setString(1, phone);
             try (final var resultSet = preparedStatement.executeQuery()) {
-                resultSet.next();
-                return resultSet.getString("email");
+                if (resultSet.next()) {
+                    return resultSet.getString("email");
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
@@ -115,7 +117,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     }
 
     public void addRoleToUser(Integer userId, Integer roleId) {
-        try (Connection connect = ConnectionManager.getConnection(Db.MYSQL_STF);
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL)) {
             preparedStatement.setInt(1, roleId);
             preparedStatement.setInt(2, userId);
