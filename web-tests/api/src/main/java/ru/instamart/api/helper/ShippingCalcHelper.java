@@ -253,7 +253,7 @@ public class ShippingCalcHelper {
     @Step("Добавляем привязку магазина к стратегии")
     public static void addBinding(Integer strategyId, String storeId, String tenantId, String deliveryType) {
         String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
-        Boolean binding = StrategyBindingsDao.INSTANCE.addStrategyBinding(strategyId, storeId, tenantId, shipping);
+        boolean binding = StrategyBindingsDao.INSTANCE.addStrategyBinding(strategyId, storeId, tenantId, shipping);
         Allure.step("Проверяем что связка добавилась", () -> assertTrue(binding, "Связка не добавилась"));
     }
 
@@ -292,13 +292,13 @@ public class ShippingCalcHelper {
     public static void checkScript(Integer scriptId, String scriptName, String state) {
         ScriptsEntity script = ScriptsDao.INSTANCE.getScriptById(scriptId);
 
+        assertNotNull(script, "Данные из БД вернулись пустые");
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(scriptId, script.getId(), softAssert);
         compareTwoObjects(script.getName(), scriptName, softAssert);
         softAssert.assertNotNull(script.getCode(), "Code вернулся null");
         softAssert.assertNotNull(script.getRequiredParams(), "requiredParams вернулся null");
         compareTwoObjects(script.getState(), state, softAssert);
-        assertNotNull(script, "Данные из БД вернулись пустые");
         softAssert.assertAll();
     }
 
@@ -308,6 +308,40 @@ public class ShippingCalcHelper {
         ScriptsEntity script = ScriptsDao.INSTANCE.getScriptById(scriptId);
 
         assertNotNull(script, "Данные из БД вернулись пустые");
-        assertFalse(script.getUpdatedAt().equals(script.getCreatedAt()), "Поле updated_at не обновилось");
+        assertNotEquals(script.getCreatedAt(), script.getUpdatedAt(), "Поле updated_at не обновилось");
+    }
+
+    @Step("Получаем запрос для получения условий доставки магазина")
+    public static GetDeliveryConditionsRequest getDeliveryConditionsRequest(String storeId, Float storeLat, Float storeLon, String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Float customerLat, Float customerLon, String tenant, Integer deliveryTypeValue, String platformName, String platformVersion) {
+        return GetDeliveryConditionsRequest.newBuilder()
+                .addStores(Store.newBuilder()
+                        .setId(storeId)
+                        .setLat(storeLat)
+                        .setLon(storeLon)
+                        .build())
+                .setCustomer(Customer.newBuilder()
+                        .setId(customerId)
+                        .setAnonymousId(anonymousId)
+                        .setOrdersCount(ordersCount)
+                        .setRegisteredAt(registeredAt)
+                        .setLat(customerLat)
+                        .setLon(customerLon)
+                        .build())
+                .setTenant(tenant)
+                .setDeliveryTypeValue(deliveryTypeValue)
+                .setPlatformName(platformName)
+                .setPlatformVersion(platformVersion)
+                .build();
+    }
+
+    @Step("Проверяем условия доставки")
+    public static void checkDeliveryConditions(GetDeliveryConditionsResponse response, String storeId, int minCartAmount, int ladderStepCount, int priceComponentsCount) {
+        assertTrue(response.getDeliveryConditionsCount() > 0, "Пустые условия доставки");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(response.getDeliveryConditions(0).getStoreId(), storeId, "Не ожидаемый uuid магазина");
+        softAssert.assertEquals(response.getDeliveryConditions(0).getMinCartAmount(), minCartAmount, "Не ожидаемая минимальная корзина");
+        softAssert.assertEquals(response.getDeliveryConditions(0).getLadderCount(), ladderStepCount, "Не ожидаемое кол-во ступеней в лесенке");
+        softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponentsCount(), priceComponentsCount, "Не ожидаемое кол-во компонентов цены");
+        softAssert.assertAll();
     }
 }

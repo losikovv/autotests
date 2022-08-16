@@ -6,7 +6,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.api.common.RestBase;
+import ru.instamart.api.common.ShippingCalcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.shippingcalc.RulesDao;
 import ru.instamart.jdbc.dao.shippingcalc.ScriptsDao;
@@ -27,7 +27,7 @@ import static ru.instamart.api.helper.ShippingCalcHelper.*;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 @Epic("On Demand")
 @Feature("ShippingCalc")
-public class StrategyTest extends RestBase {
+public class StrategyTest extends ShippingCalcBase {
 
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
     private Integer strategyId;

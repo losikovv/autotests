@@ -7,7 +7,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.common.RestBase;
+import ru.instamart.api.common.ShippingCalcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.shippingcalc.ScriptsDao;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -20,7 +20,7 @@ import static ru.instamart.api.helper.ShippingCalcHelper.*;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 @Epic("On Demand")
 @Feature("ShippingCalc")
-public class ScriptTest extends RestBase {
+public class ScriptTest extends ShippingCalcBase {
 
     private Integer scriptId;
     private Integer secondScriptId;
