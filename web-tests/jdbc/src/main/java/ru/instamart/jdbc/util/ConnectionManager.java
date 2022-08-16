@@ -40,7 +40,7 @@ public final class ConnectionManager {
         hikariConfig.setMaximumPoolSize(db.getPoolSize());
 
         hikariConfig.setConnectionTimeout(Duration.ofSeconds(20).toMillis());
-        hikariConfig.setMaxLifetime(Duration.ofMinutes(10).toMillis());
+        hikariConfig.setMaxLifetime(Duration.ofMinutes(20).toMillis());
         hikariConfig.setLeakDetectionThreshold(Duration.ofMinutes(2).toMillis());
 
         if (db.getType() == DbType.MYSQL) {
