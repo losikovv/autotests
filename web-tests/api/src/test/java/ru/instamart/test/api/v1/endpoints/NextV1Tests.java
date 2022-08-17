@@ -44,7 +44,8 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2319)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(enabled = false, //todo понять в какой момент идет запрос. и жива ли ручка
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение данных для серверного рендеринга / страницы")
     public void getPageServer() {
         final Response response = NextV1Request.Server.GET("metro?sid=" + EnvironmentProperties.DEFAULT_SID);

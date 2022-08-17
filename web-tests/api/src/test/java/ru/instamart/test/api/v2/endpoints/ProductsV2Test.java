@@ -218,7 +218,7 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отфильтрованные по бренду продукты",
             groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"})
     public void getProductsFilteredByBrand() {
-        final String brandName = "valio";
+        final String brandName = "metro";
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)
                 .query("сыр")
@@ -231,7 +231,7 @@ public final class ProductsV2Test extends RestBase {
         final List<ProductV2> products = productsV2Response.getProducts();
         Allure.step("Проверяем, что пришли отфильтрованные по бренду ( " + brandName + ") продукты", () -> {
             products.forEach(product -> {
-                assertTrue(product.getName().toLowerCase().contains(brandName), "Пришел неверный бренд для продукта \"" + product.getName() + "\" c id=" + product.getId());
+                assertTrue(product.getName().toLowerCase().contains(brandName), "Пришел неверный бренд для продукта \"" + product.getName() + "\" c id=" + product.getId() + ". Ожидалось: " + brandName);
             });
         });
     }
