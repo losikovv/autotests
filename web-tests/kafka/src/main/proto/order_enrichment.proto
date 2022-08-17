@@ -2,70 +2,109 @@ syntax = "proto3";
 
 package order_enrichment;
 
-import "enums.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "gitlab.sbermarket.tech/paas/content/operations/order-service/pkg/server/events/order_enrichment";
+option go_package = "gitlab.sbmt.io/paas/content/operations/order-service/pkg/server/events/order_enrichment";
 
 // EventStatusRequest message for Kafka's topic 'yc.operations-order-service.fct.order-enrichment'.
 message EventOrderEnrichment {
-	string shipment_uuid = 1;
-	string order_uuid = 2;
-	string place_uuid = 3;
-	enums.ShipmentStatus shipment_status = 4;
-	string shipment_type = 5;
-	uint64 weight = 6;
-	enums.Location client_location = 7;
-	enums.Location place_location = 8;
-	uint64 assembly_time_min = 9;
-	repeated string assembly = 10;
-	repeated string delivery = 11;
-	optional DispatchMeta dispatch_meta = 12;
-	optional Settings settings = 13;
-	uint64 number_of_positions_in_order = 14;
+	enum	ShipmentStatus {
+		NEW = 0;
+		POSTPONED = 1;
+		AUTOMATIC_ROUTING = 2;
+		MANUAL_ROUTING = 3;
+		OFFERING = 4;
+		OFFERED = 5;
+		DECLINED = 6;
+		CANCELED = 7;
+		SHIPPED = 8;
+		REDISPATCH = 9;
+	}
+
+	string                    shipment_uuid                         = 1;
+	string                    order_uuid                            = 2;
+	string                    place_uuid                            = 3;
+	ShipmentStatus            shipment_status                       = 4;
+	string                    shipment_type                         = 5;
+	uint64                    weight                                = 6;
+	Location                  client_location                       = 7;
+	Location                  place_location                        = 8;
+	uint64                    assembly_time_min                     = 9;
+	repeated string           assembly                              = 10;
+	repeated string           delivery                              = 11;
+	optional DispatchMeta     dispatch_meta                         = 12;
+	optional Settings         settings                              = 13;
+	uint64                    number_of_positions_in_order          = 14;
+	// номер заказа H24485347826
+	string                    order_number                          = 15;
+	// общая стоимость всех позиций в заказе в рублях
+	float                     items_total_amount                    = 16;
+	// признак того, что заказ новый
+	bool                      is_new                                = 17;
+	repeated Job              jobs                                  = 18;
+	google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 19;
+	google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at   = 20;
+	int64 					          delivery_area_id 						          = 21;
+	repeated JobType	        jobs_to_dispatch						          = 22;
+
+}
+
+enum JobType {
+	Assembly = 0;
+	Delivery = 1;
+}
+
+message Job {
+	string  id   = 1;
+	JobType type = 2;
+	google.protobuf.Timestamp EstimatedJobStart = 3;
+	google.protobuf.Timestamp EstimatedJobEnd = 4;
+	google.protobuf.Timestamp FactJobStart = 5;
+	google.protobuf.Timestamp FactJobEnd = 6;
 }
 
 message Settings {
-	uint64 max_order_assign_retry_count = 1;
-	uint64 avg_parking_min_vehicle = 2;
-	uint64 max_current_order_assign_queue = 3;
-	fixed64 order_weight_threshold_to_assign_to_vehicle_gramms = 4;
-	uint64 average_speed_for_straight_distance_to_client_min = 5;
-	uint64 additional_factor_for_straight_distance_to_client_min = 6;
-	uint64 order_transfer_time_from_assembly_to_delivery_min = 7;
-	uint64 avg_to_place_min_external = 8;
-	uint64 avg_to_place_min = 9;
-	bool place_location_center = 10;
-	uint64 search_radius_transport_pedestrian = 11;
-	uint64 search_radius_transport_auto = 12;
-	uint64 search_radius_transport_bike = 13;
-	uint64 last_position_expire = 14;
-	bool taxi_delivery_only = 15;
-	uint64 order_transfer_time_from_delivery_to_client_min = 16;
-	uint64 order_receive_time_from_assembly_to_delivery_min = 17;
-	uint64 offer_server_timeout_sec = 18;
-	uint64 search_radius_manual_routing = 19;
-	bool external_assembliers_presented = 20;
-	uint64 gap_taxi_punish_min = 21;
-	bool taxi_available = 22;
+	uint64  max_order_assign_retry_count                          = 1;
+	uint64  avg_parking_min_vehicle                               = 2;
+	uint64  max_current_order_assign_queue                        = 3;
+	fixed64 order_weight_threshold_to_assign_to_vehicle_gramms    = 4;
+	uint64  average_speed_for_straight_distance_to_client_min     = 5;
+	uint64  additional_factor_for_straight_distance_to_client_min = 6;
+	uint64  order_transfer_time_from_assembly_to_delivery_min     = 7;
+	uint64  avg_to_place_min_external                             = 8;
+	uint64  avg_to_place_min                                      = 9;
+	bool    place_location_center                                 = 10;
+	//	uint64  search_radius_transport_pedestrian                    = 11;
+	//	uint64  search_radius_transport_auto                          = 12;
+	//	uint64  search_radius_transport_bike                          = 13;
+	uint64  last_position_expire                                  = 14;
+	bool    taxi_delivery_only                                    = 15;
+	uint64  order_transfer_time_from_delivery_to_client_min       = 16;
+	uint64  order_receive_time_from_assembly_to_delivery_min      = 17;
+	uint64  offer_server_timeout_sec                              = 18;
+	//	uint64  search_radius_manual_routing                          = 19;
+	bool    external_assembliers_presented                        = 20;
+	uint64  gap_taxi_punish_min                                   = 21;
+	bool    taxi_available                                        = 22;
+	uint64 max_waiting_time_for_courier_min 											= 23;
 }
 
 message DispatchMeta {
-	uint64 dispatch_count = 1;
-	google.protobuf.Timestamp dispatch_start = 2;
-	repeated string dispatch_ids = 3;
-	string dispatch_id = 4;
-	optional Tasks decline_task = 5;
-	optional string decline_performer_uuid = 6;
+	uint64                    dispatch_count         = 1;
+	google.protobuf.Timestamp dispatch_start         = 2;
+	repeated string           dispatch_ids           = 3;
+	string                    dispatch_id            = 4;
+	optional Tasks            decline_task           = 5;
+	optional string           decline_performer_uuid = 6;
 }
 
 enum Tasks {
-	DELIVERY = 0;
-	ASSEMBLY = 1;
+	DELIVERY              = 0;
+	ASSEMBLY              = 1;
 	ASSEMBLY_AND_DELIVERY = 2;
 }
 
 message Location {
-	double latitude = 1;
+	double latitude  = 1;
 	double longitude = 2;
 }

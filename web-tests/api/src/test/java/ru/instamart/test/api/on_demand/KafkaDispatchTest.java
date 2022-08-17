@@ -30,6 +30,7 @@ import java.util.UUID;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.kafka.configs.KafkaConfigs.configFctOrderStf;
+import static ru.instamart.kafka.enums.StatusOrder.AUTOMATIC_ROUTING;
 import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
 
 @Epic("Dispatch")
@@ -99,10 +100,10 @@ public class KafkaDispatchTest extends RestBase {
         //Step 2
         kafka.waitDataInKafkaTopicFtcOrder(configFctOrderStf(), orderUuid);
 
-        kafka.waitDataInKafkaTopicStatusOrderRequest(shipmentUuid, StatusOrder.AUTOMATIC_ROUTING);
+        kafka.waitDataInKafkaTopicStatusOrderRequest(shipmentUuid, AUTOMATIC_ROUTING);
 
         //Step 3
-        var orderEnrichmentList = kafka.waitDataInKafkaTopicConsumeOrderEnrichment(shipmentUuid, StatusOrder.AUTOMATIC_ROUTING);
+        var orderEnrichmentList = kafka.waitDataInKafkaTopicConsumeOrderEnrichment(shipmentUuid, AUTOMATIC_ROUTING);
 
         //Step 4
         var orderEnrichment = orderEnrichmentList.get(0);
@@ -123,9 +124,6 @@ public class KafkaDispatchTest extends RestBase {
         softAssert.assertNotNull(orderEnrichment.getSettings().getAvgToPlaceMin(), "AvgToPlaceMin is null");
         softAssert.assertNotNull(orderEnrichment.getSettings().getOfferServerTimeoutSec(), "OfferServerTimeoutSec is null");
         softAssert.assertNotNull(orderEnrichment.getSettings().getPlaceLocationCenter(), "PlaceLocationCenter is null");
-        softAssert.assertNotNull(orderEnrichment.getSettings().getSearchRadiusTransportPedestrian(), "SearchRadiusTransportPedestrian is null");
-        softAssert.assertNotNull(orderEnrichment.getSettings().getSearchRadiusTransportAuto(), "SearchRadiusTransportAuto is null");
-        softAssert.assertNotNull(orderEnrichment.getSettings().getSearchRadiusTransportBike(), "SearchRadiusTransportBike is null");
         softAssert.assertNotNull(orderEnrichment.getSettings().getLastPositionExpire(), "LastPositionExpire is null");
         softAssert.assertAll();
 

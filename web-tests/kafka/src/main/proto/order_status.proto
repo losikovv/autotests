@@ -2,31 +2,64 @@ syntax = "proto3";
 
 package order_status;
 
-import "enums.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "gitlab.sbermarket.tech/paas/content/operations/order-service/pkg/server/events/order_status";
+option go_package = "gitlab.sbmt.io/paas/content/operations/order-service/pkg/server/events/order_status";
 
 // EventStatusRequest message for Kafka's topic 'yc.operations-order-service.fct.status-order'.
 message EventStatusRequest {
-	string shipment_uuid = 1;
-	enums.ShipmentStatus status = 2;
-	google.protobuf.Timestamp change_time = 3;
-	optional string dispatch_id = 4;
-	optional DispatchMeta dispatch_meta = 5;
+	enum ShipmentStatus {
+		NEW = 0;
+		POSTPONED = 1;
+		AUTOMATIC_ROUTING = 2;
+		MANUAL_ROUTING = 3;
+		OFFERING = 4;
+		OFFERED = 5;
+		DECLINED = 6;
+		CANCELED = 7;
+		SHIPPED = 8;
+		REDISPATCH = 9;
+	}
+
+	string                    shipment_uuid = 1;
+	ShipmentStatus            status        = 2;
+	google.protobuf.Timestamp change_time   = 3;
+	optional string           dispatch_id   = 4;
+	optional DispatchMeta     dispatch_meta = 5;
+	optional string           user_uuid     = 6;
+	optional Tasks            task          = 7;
+	optional Performer        performer     = 8;
+	repeated Job              jobs          = 9;
+}
+
+message Job {
+	string  id   = 1;
+	JobType type = 2;
 }
 
 message DispatchMeta {
-	uint64 dispatch_count = 1;
-	google.protobuf.Timestamp dispatch_start = 2;
-	repeated string dispatch_ids = 3;
-	string dispatch_id = 4;
-	optional Tasks decline_task = 5;
-	optional string decline_performer_uuid = 6;
+	uint64                    dispatch_count         = 1;
+	google.protobuf.Timestamp dispatch_start         = 2;
+	repeated string           dispatch_ids           = 3;
+	string                    dispatch_id            = 4;
+	optional Tasks            decline_task           = 5;
+	optional string           decline_performer_uuid = 6;
 }
 
 enum Tasks {
-	DELIVERY = 0;
-	ASSEMBLY = 1;
+	DELIVERY              = 0;
+	ASSEMBLY              = 1;
 	ASSEMBLY_AND_DELIVERY = 2;
+}
+
+message Performer {
+	string uuid  = 1;
+	string name  = 2;
+	string login = 3;
+	string phone = 4;
+}
+
+enum JobType {
+	Assembly = 0;
+	Delivery = 1;
 }
