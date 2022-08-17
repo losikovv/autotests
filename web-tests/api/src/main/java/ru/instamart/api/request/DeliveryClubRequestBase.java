@@ -19,6 +19,6 @@ public class DeliveryClubRequestBase {
 
     public static RequestSpecification givenWithSpec() {
         return given()
-                .spec(Specification.INSTANCE.getApiV2RequestSpec());
+                .spec(Specification.INSTANCE.getApiDCRequestSpec());
     }
 }

@@ -40,6 +40,7 @@ public enum Specification {
     @Getter private RequestSpecification prodAdminRequestSpec;
     @Getter private RequestSpecification shopperAdminRequestSpec;
     @Getter private RequestSpecification locatorRequestSpec;
+    @Getter private RequestSpecification apiDCRequestSpec;
     //Внешние сервисы
     @Getter private RequestSpecification webhookSteRequestSpec;
 
@@ -197,6 +198,17 @@ public enum Specification {
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
+
+        apiDCRequestSpec = new RequestSpecBuilder()
+                .setBaseUri(apiV2FullUrl)
+                .setBasePath("api/")
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .addFilter(new SwaggerCoverageV3RestAssured())
+                .addFilter(new CounterFilter())
+                .build();
+
+
         //Внешние сервисы
         webhookSteRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(CoreProperties.DEFAULT_WEBHOOK_SITE_URL)

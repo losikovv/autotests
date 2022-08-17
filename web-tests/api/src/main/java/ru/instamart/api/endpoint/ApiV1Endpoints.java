@@ -239,8 +239,8 @@ public final class ApiV1Endpoints {
 
         public static final class Page {
             public static final String SERVER = "next/page/server";
-            public static final String FOOTER = "next/page/footer";
-            public static final String BROWSER_HEAD = "next/page/browser_head";
+            public static final String FOOTER = "next/page_part/footer";
+            public static final String BROWSER_HEAD = "next/page_part/browser_head";
             public static final String FLASHES = "next/page/flashes";
         }
 
