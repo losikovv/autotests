@@ -8,8 +8,7 @@ public class AddPaymentCardModal implements AddPaymentCardCheck {
     @Step("Заполняем данные карты {0}")
     public void fillCardData(final PaymentCardData data) {
         fillCardNumber(data.getCardNumber());
-        fillExpMonth(data.getExpiryMonth());
-        fillExpYear(data.getExpiryYear());
+        fillExpMonth(data.getExpiryMonth() + data.getExpiryYear());
         fillCvv(data.getCvvNumber());
         fillHolderName(data.getCardholderName());
     }

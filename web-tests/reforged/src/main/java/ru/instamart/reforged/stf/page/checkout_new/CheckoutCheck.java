@@ -186,4 +186,19 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     default void checkConfirmPayActive() {
         Kraken.waitAction().shouldNotBeVisible(confirmPayDisabled);
     }
+
+    @Step("Проверяем, что появилось всплывающее сообщение")
+    default void checkNotificationVisible() {
+        Kraken.waitAction().shouldBeVisible(notificationBanner);
+    }
+
+    @Step("Проверяем, что заголовок всплывающего сообщения об ошибке '{expectedErrorTitle}'")
+    default void checkNotificationTitle(final String expectedErrorTitle) {
+        Assert.assertEquals(notificationBannerTitle.getText(), expectedErrorTitle, "Заголовок всплывающего сообщения отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что текст всплывающего сообщения об ошибке '{expectedErrorText}'")
+    default void checkNotificationText(final String expectedErrorText) {
+        Assert.assertEquals(notificationBannerText.getText(), expectedErrorText, "Текст всплывающего сообщения отличается от ожидаемого");
+    }
 }
