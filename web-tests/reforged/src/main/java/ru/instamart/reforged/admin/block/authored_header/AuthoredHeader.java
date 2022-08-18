@@ -9,6 +9,11 @@ public final class AuthoredHeader implements AuthoredHeaderCheck {
         adminName.hoverAndClick();
     }
 
+    @Step("Нажать на дропдаун")
+    public void clickToDropDown() {
+        logoutDropdown.click();
+    }
+
     @Step("Нажать на выход")
     public void clickToLogout() {
         logoutButton.hoverAndClick();

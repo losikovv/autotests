@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.service.qa.QaService;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.core.cdp.CdpCookie;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
@@ -187,14 +186,6 @@ public final class Header implements HeaderCheck {
     public String getShippingAddressFromHeader() {
         shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
         return enteredAddress.getText();
-    }
-
-    /* метод clearSessionLogout() нежелательный к использованию, потенциально флакует много тестов */
-    @Step("js логаут с очисткой сессии")
-    public void clearSessionLogout() {
-        JsAction.clearSession();
-        CdpCookie.deleteAllCookies();
-        Kraken.refresh();
     }
 
     @Step("Логаут с очисткой сессии")

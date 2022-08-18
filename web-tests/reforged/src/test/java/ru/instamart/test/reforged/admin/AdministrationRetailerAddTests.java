@@ -2,7 +2,6 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -184,7 +183,7 @@ public final class AdministrationRetailerAddTests {
         retailer().checkJuridicalAddress(retailerName + "JuridicalAddress");
         retailer().checkContractType("Агентский договор");
 
-        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
+        shipments().goToPageOld();
         shipments().checkCustomerName();
         shipments().fillRetailer(retailerName);
         shipments().clickOnFirstResultInDropDown();

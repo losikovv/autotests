@@ -50,14 +50,14 @@ public enum Specification {
         basicAuthScheme.setUserName(CoreProperties.BASIC_AUTH_USERNAME);
         basicAuthScheme.setPassword(CoreProperties.BASIC_AUTH_PASSWORD);
 
-        final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH;
-        final String adminFullUrl = EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD;
+        final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
+        final String adminFullUrl = EnvironmentProperties.Env.ADMIN_FULL_URL;
         final String apiV2FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
         final String apiV3FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
-        final String prodFullUrl =  EnvironmentProperties.Env.PROD_FULL_SITE_URL;
+        final String prodFullUrl =  EnvironmentProperties.Env.FULL_SITE_URL;
 
         final String prodAdminUrl =  EnvironmentProperties.Env.ADMIN_FULL_URL;
-        final String shopperFullBaseUrl = EnvironmentProperties.Env.FULL_SHOPPER_GW_URL;
+        final String shopperFullBaseUrl = EnvironmentProperties.SHOPPER_GW_URL;
         final String shopperFullAdminUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
         final String shopperStage = (EnvironmentProperties.STAGE).isBlank() ? EnvironmentProperties.K8S_NAME_SHP_SPACE :
                 (EnvironmentProperties.K8S_NAME_SHP_SPACE).replace("kraken", EnvironmentProperties.STAGE);
@@ -65,19 +65,16 @@ public enum Specification {
         defaultParser = Parser.JSON;
 
         responseSpecDefault = new ResponseSpecBuilder()
-                //.expectResponseTime(lessThan(30000L))
                 .expectStatusCode(not(401))
                 .expectStatusCode(not(429))
                 .expectStatusCode(not(500))
                 .expectStatusCode(not(502))
                 .expectStatusCode(not(503))
-                //.expectContentType(ContentType.JSON)
                 .build();
 
         responseSpecification = responseSpecDefault;
 
         responseSpecDataProvider = new ResponseSpecBuilder()
-                //.expectResponseTime(lessThan(30000L))
                 .expectStatusCode(not(401))
                 .expectStatusCode(not(429))
                 .expectStatusCode(not(500))
@@ -105,6 +102,7 @@ public enum Specification {
 
         apiAdminRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(adminFullUrl)
+                .setBasePath("admin/")
                 .setAuth(EnvironmentProperties.Env.isProduction() ? new NoAuthScheme() : basicAuthScheme)
                 .setConfig(RestAssuredConfig.newConfig().redirect(RedirectConfig.redirectConfig().followRedirects(true)))
                 .addFilter(new AllureRestAssuredCustom())
@@ -142,9 +140,7 @@ public enum Specification {
         shopperRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(shopperFullBaseUrl)
                 .setAccept(ContentType.JSON)
-                .addHeader(
-                        "Client-Ver",
-                        "99.9.9")
+                .addHeader("Client-Ver", "99.9.9")
                 .addHeader("x-testing-otp","true")
                 .addHeader("x-testing-nosms","true")
                 .addHeader("x-testing-nolimiter","true")
@@ -157,9 +153,7 @@ public enum Specification {
                 .setBaseUri(shopperFullAdminUrl)
                 .setBasePath("")
                 .setAccept(ContentType.JSON)
-                .addHeader(
-                        "Client-Ver",
-                        "99.9.9")
+                .addHeader("Client-Ver", "99.9.9")
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new CounterFilter())
                 .build();
@@ -167,9 +161,7 @@ public enum Specification {
         locatorRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(shopperFullBaseUrl)
                 .setBasePath("locator/v1/")
-                .addHeader(
-                        "Client-Ver",
-                        "99.9.9")
+                .addHeader("Client-Ver", "99.9.9")
                 .addHeader("x-testing-otp","true")
                 .addHeader("x-testing-nosms","true")
                 .addHeader("x-testing-nolimiter","true")
@@ -207,7 +199,6 @@ public enum Specification {
                 .addFilter(new SwaggerCoverageV3RestAssured())
                 .addFilter(new CounterFilter())
                 .build();
-
 
         //Внешние сервисы
         webhookSteRequestSpec = new RequestSpecBuilder()

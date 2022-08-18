@@ -313,7 +313,7 @@ public final class ApiV2Helper {
         List<DepartmentV2> departments = response.as(DepartmentsV2Response.class).getDepartments().stream()
                 .filter(d -> !d.getName().equals("Алкоголь")).collect(Collectors.toList());
 
-        String storeUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + "?sid=" + sid;
+        String storeUrl = EnvironmentProperties.Env.FULL_SITE_URL + "?sid=" + sid;
 
         checkFieldIsNotEmpty(departments, "товары для магазина\n" + storeUrl);
 

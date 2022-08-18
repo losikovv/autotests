@@ -8,7 +8,6 @@ import ru.sbermarket.common.config.Env;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 
@@ -81,9 +80,9 @@ public final class EnvironmentProperties {
     @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "")
     private static String ADMIN_URL;
     @Config(configName = NAME, fieldName = "shopperGwUrl", defaultValue = "")
-    private static String SHOPPER_GW_URL;
+    public static String SHOPPER_GW_URL;
     @Config(configName = NAME, fieldName = "ssoAuthUrl", defaultValue = "")
-    private static String SSO_AUTH_URL;
+    public static String SSO_AUTH_URL;
     @Config(configName = NAME, fieldName = "pgSqlPoolSize", defaultValue = "10")
     public static int DEFAULT_PGSQL_POOL_SIZE;
     @Config(configName = NAME, fieldName = "adminPassword", defaultValue = "", crypted = true)
@@ -142,17 +141,10 @@ public final class EnvironmentProperties {
 
         public static String ENV_NAME = TENANT + "-" + SERVER;
 
-        public static String FULL_SITE_URL = "https://" + BASIC_URL + "/";
-        public static String FULL_SITE_URL_WITH_BASIC_AUTH = "https://" + BASIC_URL + "/";
-        public static String FULL_ADMIN_URL = "https://" + (isProduction() ? ADMIN_URL + "/":BASIC_URL + "/") + "admin/spa/";
-        public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = "https://" + (isProduction() ? ADMIN_URL + "/": BASIC_URL + "/") + "admin/spa/";
-        public static String FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD = "https://" + (isProduction() ? ADMIN_URL + "/": BASIC_URL + "/") + "admin/";
+        public static String FULL_SITE_URL = "https://" + (isProduction() ? "api." : "") + BASIC_URL + "/";
         public static String FULL_SHOPPER_URL = "https://" + SHOPPER_URL + "/";
-        public static String PROD_FULL_SITE_URL = "https://" + "api." + BASIC_URL + "/";
-        public static String ADMIN_FULL_URL = "https://" + Optional.ofNullable(ADMIN_URL).orElse(BASIC_URL) + "/";
+        public static String ADMIN_FULL_URL = "https://" + (isProduction() ? ADMIN_URL : BASIC_URL) + "/";
         public static String ONE_SESSION = System.getProperty("one_session");
-        public static String FULL_SHOPPER_GW_URL = "https://" + SHOPPER_GW_URL + "/";
-        public static String FULL_SSO_AUTH_URL = "https://" + SSO_AUTH_URL + "/";
 
         public static boolean isPreprod() {
             return Server.PREPROD.name().equalsIgnoreCase(EnvironmentProperties.SERVER);

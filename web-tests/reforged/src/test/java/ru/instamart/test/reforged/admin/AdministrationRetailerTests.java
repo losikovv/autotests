@@ -224,6 +224,7 @@ public final class AdministrationRetailerTests {
 
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
+        retailers().waitPageLoad();
 
         retailers().clickOnSortViaCreationDate();
         retailers().refresh();
@@ -237,7 +238,7 @@ public final class AdministrationRetailerTests {
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
 
-        retailers().openAdminPage("retailers?sortKey=created_at&sortOrder=ascend");
+        retailers().goToPage("retailers?sortKey=created_at&sortOrder=ascend");
         retailers().checkAddNewRetailerButtonVisible();
 
         retailers().checkSortViaCreationDateAscEnabled();

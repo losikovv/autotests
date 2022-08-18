@@ -269,7 +269,7 @@ public final class AdministrationGeneralSettingsTests {
         login().goToPage();
         login().auth(UserManager.getAdminSmsRole());
 
-        smsSettings().openAdminPageWithoutSpa(smsSettings().pageUrl());
+        smsSettings().goToPageOld();
         smsSettings().checkPageTitleVisible();
         smsSettings().checkSendSmsVisible();
         smsSettings().checkSendSmsStartVisible();

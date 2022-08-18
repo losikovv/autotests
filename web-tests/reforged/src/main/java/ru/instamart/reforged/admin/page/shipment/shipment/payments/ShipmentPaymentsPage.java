@@ -19,9 +19,4 @@ public final class ShipmentPaymentsPage implements AdminPage, ShipmentPaymentsCh
     public void goToPage() {
         throw new RuntimeException("Для перехода на страницу платежей заказа необходимо использовать метод с параметрами");
     }
-
-    @Override
-    public void goToPage(final String orderNumber) {
-        openAdminPage(String.format(pageUrl(), orderNumber));
-    }
 }

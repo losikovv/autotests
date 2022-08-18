@@ -18,6 +18,6 @@ public interface SelgrosPage extends Page {
         if (BrowserProperties.ENABLE_PROXY) {
             CdpHeaders.addHeader(Map.of("sbm-forward-feature-version-stf", UiProperties.HEADER_SELGROS_FORWARD_TO));
         }
-        Kraken.open(UiProperties.SELGROS_URL + url);
+        Kraken.open(addBasicAuthToUrl(UiProperties.SELGROS_URL + url));
     }
 }

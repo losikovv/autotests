@@ -42,7 +42,7 @@ public abstract class ExecutionListener implements IExecutionListener {
                 Map.ofEntries(
                         Map.entry("Tenant", EnvironmentProperties.Env.ENV_NAME),
                         Map.entry("URL", EnvironmentProperties.Env.FULL_SITE_URL),
-                        Map.entry("Administration", EnvironmentProperties.Env.FULL_ADMIN_URL),
+                        Map.entry("Administration", EnvironmentProperties.Env.ADMIN_FULL_URL),
                         Map.entry("Shopper", EnvironmentProperties.Env.FULL_SHOPPER_URL)),
                 System.getProperty("user.dir") + "/build/allure-results/");
     }
@@ -51,7 +51,7 @@ public abstract class ExecutionListener implements IExecutionListener {
         log.debug("ENVIRONMENT: {} ({})", EnvironmentProperties.TENANT, EnvironmentProperties.Env.FULL_SITE_URL);
         log.debug("Tenant {}", EnvironmentProperties.Env.ENV_NAME);
         log.debug("URL {}", EnvironmentProperties.Env.FULL_SITE_URL);
-        log.debug("Administration {}", EnvironmentProperties.Env.FULL_ADMIN_URL);
+        log.debug("Administration {}", EnvironmentProperties.Env.ADMIN_FULL_URL);
         log.debug("Shopper {}", EnvironmentProperties.Env.FULL_SHOPPER_URL);
         log.debug("TEST RUN ID: {}", runId);
     }

@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.admin.AdminPage;
 
-import java.util.List;
 import java.util.Set;
 
 public final class ShipmentDeliveryWindowsPage implements AdminPage, ShipmentDeliveryWindowsCheck {
@@ -49,10 +48,5 @@ public final class ShipmentDeliveryWindowsPage implements AdminPage, ShipmentDel
     @Override
     public void goToPage() {
         throw new RuntimeException("Для перехода на страницу редактирования времени доставки заказа необходимо использовать метод с параметрами");
-    }
-
-    @Override
-    public void goToPage(final String orderNumber) {
-        openAdminPage(String.format(pageUrl(), orderNumber));
     }
 }

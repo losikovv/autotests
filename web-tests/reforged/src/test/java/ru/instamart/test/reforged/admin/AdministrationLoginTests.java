@@ -3,9 +3,9 @@ package ru.instamart.test.reforged.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.login;
 import static ru.instamart.reforged.admin.AdminRout.main;
@@ -86,12 +86,13 @@ public final class AdministrationLoginTests {
     @Story("Тест логаута из админки")
     @Test(description = "Тест логаута из админки", groups = {"regression", "smoke", "production"})
     public void successLogoutFromAdminPage() {
+        final var userData = UserManager.getDefaultAdmin();
         login().goToPage();
-        login().setUsername(UserManager.getDefaultAdmin().getEmail());
-        login().setPassword(UserManager.getDefaultAdmin().getPassword());
+        login().setUsername(userData.getEmail());
+        login().setPassword(userData.getPassword());
         login().submit();
 
-        main().interactAuthoredHeader().clickToProfileMenu();
+        main().interactAuthoredHeader().clickToDropDown();
         main().interactAuthoredHeader().clickToLogout();
 
         login().checkTitle();

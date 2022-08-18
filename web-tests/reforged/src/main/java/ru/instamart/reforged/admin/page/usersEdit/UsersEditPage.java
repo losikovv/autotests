@@ -1,13 +1,11 @@
 package ru.instamart.reforged.admin.page.usersEdit;
 
 import io.qameta.allure.Step;
-import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.reforged.admin.AdminPage;
 import ru.instamart.reforged.admin.block.authored_header.AuthoredHeader;
 import ru.instamart.reforged.admin.block.flash_alert.FlashAlert;
-import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.stf.page.StfPage;
 
-public final class UsersEditPage implements StfPage, UsersEditCheck {
+public final class UsersEditPage implements AdminPage, UsersEditCheck {
 
     public AuthoredHeader interactAuthoredHeader() {
         return authoredHeader;
@@ -86,13 +84,13 @@ public final class UsersEditPage implements StfPage, UsersEditCheck {
         saveB2BChanges.click();
     }
 
+    public void goToPage(final int id) {
+        goToPage("users/" + id + "/edit");
+    }
+
     @Override
     public void goToPage() {
         goToPage(1);
-    }
-
-    public void goToPage(final int id) {
-        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + "users/" + id + "/edit");
     }
 
     @Override

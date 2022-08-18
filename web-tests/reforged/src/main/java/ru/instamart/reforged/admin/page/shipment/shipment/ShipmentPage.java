@@ -24,9 +24,4 @@ public final class ShipmentPage implements AdminPage, ShipmentCheck {
     public void goToPage() {
         throw new RuntimeException("Для перехода на страницу редактирования заказа необходимо использовать метод с параметрами");
     }
-
-    @Override
-    public void goToPage(final String orderNumber) {
-        openAdminPage(String.format(pageUrl(), orderNumber));
-    }
 }

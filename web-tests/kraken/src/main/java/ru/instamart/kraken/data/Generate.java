@@ -2,9 +2,15 @@ package ru.instamart.kraken.data;
 
 import ru.instamart.kraken.listener.ExecutionListener;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 public final class Generate {
+
+    public static final char[] upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+    public static final char[] lowerChars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+    public static final char[] numbers = "1234567890".toCharArray();
+    public static final char[] specialChars = "@#$*&".toCharArray();
 
     public static String testRunId() {
         return literalString(9).toUpperCase();
@@ -114,6 +120,33 @@ public final class Generate {
             default:
                 return "";
         }
+    }
+
+    public static String generatePassword(int size, boolean useUpper, boolean useLower, boolean useNumbers, boolean useSpecial) {
+        if (size < 4) size = 4;
+        final var random = new SecureRandom();
+        final var password = new StringBuilder();
+        String charSet = "";
+
+        if (useUpper) charSet += upperChars;
+        if (useLower) charSet += lowerChars;
+        if (useNumbers) charSet += numbers;
+        if (useSpecial) charSet += specialChars;
+
+        for (int i = 0; i < size; i++) {
+            password.append(charSet.toCharArray()[random.nextInt(charSet.length() - 1)]);
+        }
+
+        if (useLower)
+            password.setCharAt(0, lowerChars[random.nextInt(lowerChars.length)]);
+        if (useUpper)
+            password.setCharAt(1, upperChars[random.nextInt(upperChars.length)]);
+        if (useNumbers)
+            password.setCharAt(2, numbers[random.nextInt(numbers.length)]);
+        if (useSpecial)
+            password.setCharAt(3, specialChars[random.nextInt(specialChars.length)]);
+
+        return String.valueOf(password);
     }
 
     /** Сгенерировать 10-значный ИНН для Юр. лиц или 12-значный ИНН для Физ. лиц и ИП*/
