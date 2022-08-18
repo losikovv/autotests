@@ -50,10 +50,10 @@ public enum Specification {
         basicAuthScheme.setUserName(CoreProperties.BASIC_AUTH_USERNAME);
         basicAuthScheme.setPassword(CoreProperties.BASIC_AUTH_PASSWORD);
 
-        final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
+        final String apiV1FullUrl = hackForProd();
         final String adminFullUrl = EnvironmentProperties.Env.ADMIN_FULL_URL;
         final String apiV2FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
-        final String apiV3FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
+        final String apiV3FullUrl = hackForProd();
         final String prodFullUrl =  EnvironmentProperties.Env.FULL_SITE_URL;
 
         final String prodAdminUrl =  EnvironmentProperties.Env.ADMIN_FULL_URL;
@@ -221,5 +221,11 @@ public enum Specification {
 
     static public void setResponseSpecDefault() {
         responseSpecification = responseSpecDefault;
+    }
+
+    private static String hackForProd() {
+        return EnvironmentProperties.Env.isProduction()
+                ? EnvironmentProperties.Env.FULL_SITE_URL.replaceAll("api.", "")
+                : EnvironmentProperties.Env.FULL_SITE_URL;
     }
 }
