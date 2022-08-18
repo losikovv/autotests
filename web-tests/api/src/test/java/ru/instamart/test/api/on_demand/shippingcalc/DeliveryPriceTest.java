@@ -287,14 +287,14 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         kafka.publish(configSurgeLevel(), surgeEvent.toByteArray());
 
         var request = getDeliveryPriceRequest(
-                1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, false,
+                1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, true,
                 1000, 1, 99900, storeId, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 31890, 100000, 3, 4, 0, 0);
+
         Allure.step("Проверяем наценку по surge", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(response.getShipments(0).getSurgeUsed(), "Surge не использовался при расчете цены");
@@ -302,6 +302,45 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 11990, "Не верная наценка");
             softAssert.assertAll();
         });
+        checkDeliveryPrice(response, localStrategyId, 31890, 100000, 3, 4, 0, 0);
+    }
+
+    @CaseId(421)
+    @Story("Get Delivery Price")
+    @Test(description = "Расчет цены без наценки surge для не on-demand заказа",
+            groups = "dispatch-shippingcalc-smoke")
+    public void getDeliveryPriceWithoutSurge() {
+        String storeId = UUID.randomUUID().toString();
+        addBinding(localStrategyId, storeId, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
+
+        Surgelevelevent.SurgeEvent surgeEvent = Surgelevelevent.SurgeEvent.newBuilder()
+                .setStoreId(storeId)
+                .setMethod(Surgelevelevent.SurgeEvent.Method.ACTUAL)
+                .setPastSurgeLevel(surgeLevel)
+                .setPresentSurgeLevel(surgeLevel)
+                .setFutureSurgeLevel(surgeLevel)
+                .setStartedAt(getTimestamp())
+                .setStepSurgeLevel(1)
+                .build();
+        kafka.publish(configSurgeLevel(), surgeEvent.toByteArray());
+
+        var request = getDeliveryPriceRequest(
+                1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, false,
+                1000, 1, 99900, storeId, "NEW", 1, 0,
+                55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
+                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+
+        Allure.step("Проверяем наценку по surge", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertFalse(response.getShipments(0).getSurgeUsed(), "Surge использовался при расчете цены");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), 0f, "Не верный surgelevel");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 0, "Не верная наценка");
+            softAssert.assertAll();
+        });
+        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0, 0);
     }
 
     @CaseId(320)
