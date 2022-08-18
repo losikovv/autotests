@@ -4,7 +4,9 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
@@ -38,7 +40,7 @@ public final class AdministrationPaymentsTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
+        shipments().goToPageOld();
         shipments().setShipmentOrOrderNumber(orderNumber);
         shipments().search();
         shipments().waitPageLoad();
@@ -76,7 +78,7 @@ public final class AdministrationPaymentsTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
+        shipments().goToPageOld();
         shipments().setShipmentOrOrderNumber(orderNumber);
         shipments().search();
         shipments().waitPageLoad();

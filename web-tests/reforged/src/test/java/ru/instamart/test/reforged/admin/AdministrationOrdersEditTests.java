@@ -4,14 +4,10 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.shopper.app.ShipmentSHP;
-import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
-import ru.instamart.jdbc.entity.stf.SpreeOrdersEntity;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -25,18 +21,11 @@ public final class AdministrationOrdersEditTests {
 
     private final ApiHelper helper = new ApiHelper();
     private ShipmentSHP.Data shipment;
-    private SpreeOrdersEntity order;
 
     @BeforeClass(alwaysRun = true, description = "Получаем оформленный заказ из подготовленных ранее")
     public void getOrder() {
         shipment = helper.getShipmentByComment("UI-TEST-SINGLE");
         Assert.assertNotNull(shipment, "Не удалось получить заказ");
-        order = SpreeOrdersDao.INSTANCE.getOrderByShipment(shipment.getAttributes().getNumber());
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void cancelOrder() {
-        SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.CANCELED.getValue());
     }
 
     @CaseId(133)
@@ -45,7 +34,7 @@ public final class AdministrationOrdersEditTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
+        shipments().goToPageOld();
         shipments().setShipmentOrOrderNumber(shipment.getAttributes().getNumber());
         shipments().search();
         shipments().waitPageLoad();
@@ -64,7 +53,7 @@ public final class AdministrationOrdersEditTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
+        shipments().goToPageOld();
         shipments().setShipmentOrOrderNumber(shipment.getAttributes().getNumber());
         shipments().search();
         shipments().waitPageLoad();
@@ -95,7 +84,7 @@ public final class AdministrationOrdersEditTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
+        shipments().goToPageOld();
         shipments().setShipmentOrOrderNumber(shipment.getAttributes().getNumber());
         shipments().search();
         shipments().waitPageLoad();

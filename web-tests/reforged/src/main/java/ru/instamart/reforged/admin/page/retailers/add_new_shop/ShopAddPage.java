@@ -1,16 +1,10 @@
 package ru.instamart.reforged.admin.page.retailers.add_new_shop;
 
 import io.qameta.allure.Step;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.admin.AdminPage;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.enums.ShopUrl;
 
 public class ShopAddPage implements AdminPage, ShopAddCheck {
-
-    public void goToPage(final String shop) {
-        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + "retailers/" + shop + "/stores/new");
-    }
 
     @Step("Вводим тестовый регион: {0} в инпут регионов")
     public void fillRegion(String cityName) {
@@ -18,9 +12,13 @@ public class ShopAddPage implements AdminPage, ShopAddCheck {
         regionsInput.fill(cityName);
     }
 
+    public void goToPage(final ShopUrl shop) {
+        goToPage("retailers/" + shop.getUrl() + "/stores/new");
+    }
+
     @Override
     public void goToPage() {
-        goToPage(ShopUrl.DEFAULT.getUrl());
+        goToPage(ShopUrl.DEFAULT);
     }
 
     @Override

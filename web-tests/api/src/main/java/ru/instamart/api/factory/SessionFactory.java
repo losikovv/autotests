@@ -158,7 +158,7 @@ public final class SessionFactory {
                     .filter(item ->
                             (item.getValue().getLogin().equals(userData.getEmail()) || item.getValue().getPhone().equals(userData.getPhone()))
                     )
-                    .collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue()));
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
             if (!collect.isEmpty()) {
                 log.debug("Используем существующую сессию для пользователя {}, тип сессии {}, поток {}", userData.getPhone(), type, sessionId.getThreadId());

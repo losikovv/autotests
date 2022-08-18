@@ -61,7 +61,7 @@ public class AdministrationStoreGroupsTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        storeGroups().openAdminPageWithoutSpa(storeGroups().pageUrl());
+        storeGroups().goToPageOld();
         storeGroups().checkAddNewGroupButtonVisible();
         storeGroups().clickAddNewGroup();
 
@@ -91,7 +91,7 @@ public class AdministrationStoreGroupsTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        storeGroups().openAdminPageWithoutSpa(storeGroups().pageUrl());
+        storeGroups().goToPageOld();
         storeGroups().checkAddNewGroupButtonVisible();
 
         storeGroups().editGroup(storeLabel.getTitle());
@@ -119,7 +119,7 @@ public class AdministrationStoreGroupsTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        storeGroups().openAdminPageWithoutSpa(storeGroups().pageUrl());
+        storeGroups().goToPageOld();
         storeGroups().checkAddNewGroupButtonVisible();
 
         storeGroups().removeGroup(storeLabel.getTitle());
@@ -143,7 +143,7 @@ public class AdministrationStoreGroupsTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        storeGroups().openAdminPageWithoutSpa(storeGroups().pageUrl());
+        storeGroups().goToPageOld();
         storeGroups().checkAddNewGroupButtonVisible();
 
         storeEdit().goToPage(ShopUrl.DEFAULT.getUrl(), UiProperties.DEFAULT_METRO_MOSCOW_UUID);

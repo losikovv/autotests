@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.component.AbstractComponent;
 import ru.instamart.reforged.core.config.WaitProperties;
 
@@ -16,7 +15,8 @@ import java.util.Objects;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static ru.instamart.reforged.core.Kraken.*;
+import static ru.instamart.reforged.core.Kraken.execute;
+import static ru.instamart.reforged.core.Kraken.getWebDriver;
 
 @Slf4j
 public final class JsAction {
@@ -145,26 +145,11 @@ public final class JsAction {
     }
 
     /**
-     * Очистка сессии
-     */
-    public static void clearSession() {
-        execute("$.ajax({\n" +
-                "     url : '"+ EnvironmentProperties.Env.FULL_SITE_URL + "api/user_sessions',\n" +
-                "     method : 'delete'\n" +
-                "});");
-        jsAction().jQueryReady();
-    }
-
-    /**
      * @return - Получение списка данных из localStorage
      */
     public String getLocalStorage() {
         final Object o = execute("return window.localStorage");
         return String.valueOf(o);
-    }
-
-    public void ajaxRequest(final String endpoint, final String method) {
-        execute(String.format("$.ajax({url : '%s', method : '%s'});", EnvironmentProperties.Env.FULL_SITE_URL + endpoint, method));
     }
 
     public void checkPendingRequests() {

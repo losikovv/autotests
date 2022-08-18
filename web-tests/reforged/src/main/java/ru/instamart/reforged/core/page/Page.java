@@ -3,7 +3,6 @@ package ru.instamart.reforged.core.page;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
 import ru.instamart.kraken.config.CoreProperties;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
@@ -14,16 +13,6 @@ public interface Page extends PageCheck {
     String BASIC_AUTH = CoreProperties.BASIC_AUTH_USERNAME + ":" + CoreProperties.BASIC_AUTH_PASSWORD + "@";
 
     String pageUrl();
-
-    @Step("Открыть страницу {0} в админке")
-    default void openAdminPage(final String page) {
-        Kraken.open(addBasicAuthToUrl(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + page));
-    }
-
-    @Step("Открыть страницу {0} в админке")
-    default void openAdminPageWithoutSpa(final String page) {
-        Kraken.open(addBasicAuthToUrl(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD + page));
-    }
 
     @Step("Обновить страницу")
     default void refresh() {

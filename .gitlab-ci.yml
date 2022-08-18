@@ -27,15 +27,18 @@ variables:
   GIT_DEPTH: 10
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   CI_RUN_ALL_JOBS: "true"
+  ADMIN_URL:
+    value: "https://stf-kraken.k-stage.sbermarket.tech/admin/"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Нужно указывать полный url"
   URL_STF_FRONT:
-    value: "https://user:password@next-default.k-stage.sbermarket.tech/"
-    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Нужно указывать полный url фронта, вместе с basic auth"
+    value: "https://next-default.k-stage.sbermarket.tech/"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Нужно указывать полный url фронта"
   STF_FORWARD:
     value: "s-sb-stfkraken-sbermarket"
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Связь фронта с бекендом"
   URL_B2B_FRONT:
-    value: "https://user:password@next-default-smbusiness.k-stage.sbermarket.tech/"
-    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Нужно указывать полный url фронта, вместе с basic auth"
+    value: "https://next-default-smbusiness.k-stage.sbermarket.tech/"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Нужно указывать полный url фронта"
   B2B_FORWARD:
     value: "s-sb-stfkraken-smbusiness"
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Связь фронта с бекендом"
@@ -208,7 +211,7 @@ tests:customRun:
     - echo $URL_B2B_FRONT
     - echo $B2B_FORWARD
     - echo $URL_SHP
-    - gradle --continue clean build ciRun copyAllAllureHistory -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_b2b_front=$URL_B2B_FRONT -Pb2b_forward=$B2B_FORWARD -Purl_shp=$URL_SHP
+    - gradle --continue clean build ciRun copyAllAllureHistory -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_b2b_front=$URL_B2B_FRONT -Pb2b_forward=$B2B_FORWARD -Purl_shp=$URL_SHP -Padmin_url=$ADMIN_URL
   after_script:
     - bash ./report.sh . custom-run
   tags:

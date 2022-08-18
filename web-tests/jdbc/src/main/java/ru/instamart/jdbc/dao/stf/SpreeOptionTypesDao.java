@@ -12,7 +12,7 @@ import static org.testng.Assert.fail;
 public class SpreeOptionTypesDao extends AbstractDao<Long, SpreeOptionTypesEntity> {
 
     public static final SpreeOptionTypesDao INSTANCE = new SpreeOptionTypesDao();
-    private static final String SELECT_SQL = "SELECT * FROM spree_option_types";
+    private static final String SELECT_SQL = "SELECT %s FROM spree_option_types";
 
     public SpreeOptionTypesEntity getByName(String typeName) {
         final var type = new SpreeOptionTypesEntity();

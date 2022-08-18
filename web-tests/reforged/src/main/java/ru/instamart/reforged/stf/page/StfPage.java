@@ -18,6 +18,6 @@ public interface StfPage extends Page {
         if (BrowserProperties.ENABLE_PROXY) {
             CdpHeaders.addHeader(Map.of("sbm-forward-feature-version-stf", UiProperties.HEADER_STF_FORWARD_TO));
         }
-        Kraken.open(UiProperties.STF_URL + url);
+        Kraken.open(addBasicAuthToUrl(UiProperties.STF_URL + url));
     }
 }

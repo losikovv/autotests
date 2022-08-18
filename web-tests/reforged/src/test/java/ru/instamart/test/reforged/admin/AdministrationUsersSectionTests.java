@@ -41,7 +41,7 @@ public final class AdministrationUsersSectionTests {
     @Test(description = "Тест предоставления и отзыва админских прав пользователю", groups = "regression")
     public void successGrantAndRevokeAdmin() {
         final UserData userData = UserManager.getQaUser();
-        final String password = Generate.literalString(8);
+        final String password = Generate.generatePassword(12, true, true, true, true);
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
