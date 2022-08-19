@@ -2,6 +2,7 @@ package ru.instamart.test.api.v1.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomUtils;
@@ -211,10 +212,11 @@ public class OffersV1Tests extends RestBase {
     }
 
     @CaseId(2227)
+    @Issue("FEP-3655")
     @Story("Офферы")
     @Test(description = "Получение оффера",
             groups = {"api-instamart-regress", "api-instamart-prod"},
-            dependsOnMethods = "getOffer", enabled = false)
+            dependsOnMethods = "getOffer") //, enabled = false)
     public void getOffersByPermalink() {
         final Response response = ProductsV1Request.GET(offerForRequest.getPermalink());
         checkStatusCode200(response);
