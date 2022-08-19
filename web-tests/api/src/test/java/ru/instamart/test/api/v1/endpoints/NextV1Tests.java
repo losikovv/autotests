@@ -43,10 +43,9 @@ public class NextV1Tests extends RestBase {
         checkStatusCode200(response);
     }
 
+    @Deprecated //Ручка выключена.
     @CaseId(2319)
-    @Test(enabled = false, //todo понять в какой момент идет запрос. и жива ли ручка
-            groups = {"api-instamart-regress", "api-instamart-prod"},
-            description = "Получение данных для серверного рендеринга / страницы")
+    @Test(description = "Получение данных для серверного рендеринга / страницы")
     public void getPageServer() {
         final Response response = NextV1Request.Server.GET("metro?sid=" + EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
