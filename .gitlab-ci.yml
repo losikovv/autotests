@@ -43,10 +43,13 @@ variables:
     value: "s-sb-stfkraken-smbusiness"
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Связь фронта с бекендом"
   URL_STF_BACKEND:
-    value: "stf-kraken.k-stage.sbermarket.tech" # this would be the default value
+    value: "stf-kraken.k-stage.sbermarket.tech"
     description: "ОБЯЗАТЕЛЬНО!!! Имя stf стейджа на котором запускаем тесты"
   URL_SHP:
     description: "Имя shp стейджа на котором запускаем тесты. Для номерных стейджей можно пропустить"
+  DEFAULT_SID:
+    value: 81
+    description: "Сид магазина на котором будут прогоняться тесты"
   CI_MODULE:
     description: "Например: ui  -Возможные варианты: ui/api/grpc/kafka/"
   CI_GROUP:
