@@ -34,7 +34,7 @@ public @interface Config {
     /**
      * @return - если переменная зашифрована, то при установке в true, декриптует на лету при разборе конфига
      */
-    boolean crypted() default false;
+    boolean encrypted() default false;
 
     /**
      * @return - аргументы, которые передаются при запуске прогона

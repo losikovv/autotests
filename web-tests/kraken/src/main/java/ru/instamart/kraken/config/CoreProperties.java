@@ -15,10 +15,10 @@ public final class CoreProperties {
     @Config(configName = NAME, fieldName = "defaultUiSms", defaultValue = "199011")
     public static String DEFAULT_UI_SMS;
 
-    @Config(configName = NAME, fieldName = "qaseApiToken", defaultValue = "", crypted = true)
+    @Config(configName = NAME, fieldName = "qaseApiToken", defaultValue = "", encrypted = true)
     public static String QASE_API_TOKEN;
 
-    @Config(configName = NAME, fieldName = "base64KubeConfig", defaultValue = "", crypted = true)
+    @Config(configName = NAME, fieldName = "base64KubeConfig", defaultValue = "", encrypted = true)
     public static String BASE64_KUBE_CONFIG;
 
     @Config(configName = NAME, fieldName = "grpcPort", defaultValue = "443")
@@ -35,8 +35,8 @@ public final class CoreProperties {
     @Config(configName = NAME, fieldName = "abServiceUrl", defaultValue = "https://paas-content-growth-ab-platform-back.k-stage.sbmt.io")
     public static String AB_SERVICE_URL;
 
-    @Config(configName = NAME, fieldName = "basicAuthUsername", defaultValue = "", crypted = true)
+    @Config(configName = NAME, fieldName = "basicAuthUsername", defaultValue = "", encrypted = true)
     public static String BASIC_AUTH_USERNAME;
-    @Config(configName = NAME, fieldName = "basicAuthPassword", defaultValue = "", crypted = true)
+    @Config(configName = NAME, fieldName = "basicAuthPassword", defaultValue = "", encrypted = true)
     public static String BASIC_AUTH_PASSWORD;
 }

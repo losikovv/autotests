@@ -8,15 +8,19 @@ import ru.instamart.kraken.common.Mapper;
 
 public final class JsonSchemaHelper {
 
-    private static final SchemaGeneratorConfig config = new SchemaGeneratorConfigBuilder(Mapper.INSTANCE.getObjectMapper(), SchemaVersion.DRAFT_2019_09, OptionPreset.PLAIN_JSON)
+    private static final SchemaGeneratorConfig config = new SchemaGeneratorConfigBuilder(
+            Mapper.INSTANCE.getObjectMapper(),
+            SchemaVersion.DRAFT_2019_09,
+            OptionPreset.PLAIN_JSON
+    )
             .with(new AddonModule())
             .with(Option.NONSTATIC_NONVOID_NONGETTER_METHODS)
             .with(new JacksonModule())
             .with(new JavaxValidationModule())
             .build();
-    private static final SchemaGenerator generator = new SchemaGenerator(config);
 
     public static String getJsonSchema(final Class<?> clazz) {
+        final var generator = new SchemaGenerator(config);
         return generator.generateSchema(clazz).toString();
     }
 

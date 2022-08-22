@@ -50,11 +50,11 @@ public final class ConfigEngine {
 
                     final var fieldName = annotation.fieldName();
                     final var type = field.getType().getSimpleName().toLowerCase();
-                    final var isCrypted = annotation.crypted();
+                    final var isEncrypted = annotation.encrypted();
                     final var args = System.getProperty(annotation.args(), "");
                     var defaultValue = annotation.defaultValue();
 
-                    if (isCrypted && (nonNull(defaultValue) && !defaultValue.isEmpty())) {
+                    if (isEncrypted && (nonNull(defaultValue) && !defaultValue.isEmpty())) {
                         defaultValue = Crypt.INSTANCE.decrypt(defaultValue);
                     }
 
@@ -90,7 +90,7 @@ public final class ConfigEngine {
                                 break;
                             case "string":
                                 final var value = PROPERTIES.getStringProperty(fieldName, defaultValue, args);
-                                field.set(null, (isCrypted && notEmpty(value)) ? Crypt.INSTANCE.decrypt(value) : value);
+                                field.set(null, (isEncrypted && notEmpty(value)) ? Crypt.INSTANCE.decrypt(value) : value);
                                 break;
                             default:
                                 log.debug("Unknown field type: " + field.getType().getSimpleName() + " field name: " + field.getName() + " config: " + configName + ".properties");
@@ -99,7 +99,7 @@ public final class ConfigEngine {
                     } catch (NumberFormatException e) {
                         log.error("Failed to Load " + filePath + " file. Field: " + field.getName() + " " + e.getMessage());
                     }
-                    log.debug(configName + ": set " + field.getName() + "{" + fieldName + "} = " + (isCrypted ? "**********" : field.get(null)));
+                    log.debug(configName + ": set " + field.getName() + "{" + fieldName + "} = " + (isEncrypted ? "**********" : field.get(null)));
                 }
             }
         } catch (Exception e) {

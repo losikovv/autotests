@@ -53,13 +53,13 @@ public final class EnvironmentProperties {
     public static String DB_PGSQL_URL;
     @Config(configName = NAME, fieldName = "dbPgPort", defaultValue = "")
     public static int DB_PG_PORT;
-    @Config(configName = NAME, fieldName = "dbUsername", defaultValue = "", crypted = true)
+    @Config(configName = NAME, fieldName = "dbUsername", defaultValue = "", encrypted = true)
     public static String DB_MYSQL_USERNAME;
-    @Config(configName = NAME, fieldName = "dbPassword", defaultValue = "", crypted = true)
+    @Config(configName = NAME, fieldName = "dbPassword", defaultValue = "", encrypted = true)
     public static String DB_MYSQL_PASSWORD;
-    @Config(configName = NAME, fieldName = "dbPgUsername", defaultValue = "", crypted = true)
+    @Config(configName = NAME, fieldName = "dbPgUsername", defaultValue = "", encrypted = true)
     public static String DB_PGSQL_USERNAME;
-    @Config(configName = NAME, fieldName = "dbPgPassword", defaultValue = "", crypted = true)
+    @Config(configName = NAME, fieldName = "dbPgPassword", defaultValue = "", encrypted = true)
     public static String DB_PGSQL_PASSWORD;
     @Config(configName = NAME, fieldName = "publicCryptoKey", defaultValue = "")
     public static String PUBLIC_CRYPTO_KEY;
@@ -85,9 +85,9 @@ public final class EnvironmentProperties {
     public static String SSO_AUTH_URL;
     @Config(configName = NAME, fieldName = "pgSqlPoolSize", defaultValue = "10")
     public static int DEFAULT_PGSQL_POOL_SIZE;
-    @Config(configName = NAME, fieldName = "adminPassword", defaultValue = "", crypted = true)
+    @Config(configName = NAME, fieldName = "adminPassword", defaultValue = "", encrypted = true)
     public static String ADMIN_PASSWORD;
-    @Config(configName = NAME, fieldName = "metroToken", defaultValue = "", crypted = true)
+    @Config(configName = NAME, fieldName = "metroToken", defaultValue = "", encrypted = true)
     public static String METRO_TOKEN;
 
     public static class Env {
