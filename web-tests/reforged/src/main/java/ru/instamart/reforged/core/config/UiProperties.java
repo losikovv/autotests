@@ -26,15 +26,6 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "headerSelgrosForwardTo", defaultValue = "s-sb-stfkraken-selgros")
     public static String HEADER_SELGROS_FORWARD_TO;
 
-    @Config(configName = NAME, fieldName = "sberIdUrl", defaultValue = "https://online.sberbank.ru/")
-    public static String SBER_ID_URL;
-    @Config(configName = NAME, fieldName = "jobLandingUrl", defaultValue = "https://job.sbermarket.ru/")
-    public static String JOB_LANDING_URL;
-    @Config(configName = NAME, fieldName = "rbsuatPaymentsUrl", defaultValue = "https://web.rbsuat.com/")
-    public static String RBSUAT_PAYMENTS_URL;
-    @Config(configName = NAME, fieldName = "demoCloudPaymentsUrl", defaultValue = "https://demo.cloudpayments.ru/")
-    public static String DEMO_CLOUD_PAYMENTS_URL;
-
     @Config(configName = NAME, fieldName = "defaultCookies", defaultValue = "")
     public static List<String> DEFAULT_COOKIES;
 
