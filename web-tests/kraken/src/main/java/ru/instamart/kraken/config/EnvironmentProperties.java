@@ -8,6 +8,7 @@ import ru.instamart.kraken.enums.Server;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 import static java.util.Objects.nonNull;
 
@@ -97,6 +98,9 @@ public final class EnvironmentProperties {
             var customBasicUrl = System.getProperty("url_stf");
             var customShopperUrl = System.getProperty("url_shp");
 
+            if(Objects.nonNull(System.getenv("DEFAULT_SID"))){
+                DEFAULT_SID = Integer.parseInt(System.getenv("DEFAULT_SID"));
+            }
             if (nonNull(customBasicUrl) && !customBasicUrl.isBlank()) {
                 customBasicUrl = getDomainName(customBasicUrl);
                 SERVER = customBasicUrl.contains("kraken")
