@@ -18,9 +18,9 @@ public final class JsonSchemaHelper {
             .with(new JacksonModule())
             .with(new JavaxValidationModule())
             .build();
+    private static final SchemaGenerator generator = new SchemaGenerator(config);
 
     public static String getJsonSchema(final Class<?> clazz) {
-        final var generator = new SchemaGenerator(config);
         return generator.generateSchema(clazz).toString();
     }
 

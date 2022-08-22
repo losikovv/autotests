@@ -10,7 +10,7 @@ ext.versions = [
         protobufProtoc: '3.17.3',
         javax: '1.3.2',
         kafkaProtobuf: '6.2.1',
-        victoolsSchemaGenerator: '4.20.0',
+        victoolsSchemaGenerator: '4.25.0',
         javaxValidation: '2.0.0.Final',
         imifouJsonSchema: '1.2.1',
         truthPproto: '1.1.3',
