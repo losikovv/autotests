@@ -20,7 +20,9 @@ public final class ExProperties extends Properties {
     }
 
     public int getIntProperty(final String name, final String defaultValue, final String systemProperty) {
-        return (isNull(systemProperty) || systemProperty.isEmpty()) ? getIntProperty(name, defaultValue) : Integer.parseInt(systemProperty);
+        return (isNull(systemProperty) || systemProperty.isEmpty()) ?
+                getIntProperty(name, defaultValue) :
+                Integer.parseInt(systemProperty);
     }
 
     public int getIntProperty(final String name, final String defaultValue) {
@@ -33,7 +35,9 @@ public final class ExProperties extends Properties {
     }
 
     public long getLongProperty(final String name, final String defaultValue, final String systemProperty) {
-        return (isNull(systemProperty) || systemProperty.isEmpty()) ? getLongProperty(name, defaultValue) : Long.parseLong(systemProperty);
+        return (isNull(systemProperty) || systemProperty.isEmpty()) ?
+                getLongProperty(name, defaultValue) :
+                Long.parseLong(systemProperty);
     }
 
     public long getLongProperty(final String name, final String defaultValue) {
@@ -46,7 +50,9 @@ public final class ExProperties extends Properties {
     }
 
     public byte getByteProperty(final String name, final String defaultValue, final String systemProperty) {
-        return (isNull(systemProperty) || systemProperty.isEmpty()) ? getByteProperty(name, defaultValue) : Byte.parseByte(systemProperty);
+        return (isNull(systemProperty) || systemProperty.isEmpty()) ?
+                getByteProperty(name, defaultValue) :
+                Byte.parseByte(systemProperty);
     }
 
     public byte getByteProperty(final String name, final String defaultValue) {
@@ -63,7 +69,9 @@ public final class ExProperties extends Properties {
     }
 
     public boolean getBooleanProperty(final String name, final String defaultValue, final String systemProperty) {
-        return (isNull(systemProperty) || systemProperty.isEmpty()) ? getBooleanProperty(name, defaultValue) : Boolean.parseBoolean(systemProperty);
+        return (isNull(systemProperty) || systemProperty.isEmpty()) ?
+                getBooleanProperty(name, defaultValue) :
+                Boolean.parseBoolean(systemProperty);
     }
 
     public boolean getBooleanProperty(final String name, final String defaultValue) {
@@ -76,7 +84,9 @@ public final class ExProperties extends Properties {
     }
 
     public float getFloatProperty(final String name, final String defaultValue, final String systemProperty) {
-        return (isNull(systemProperty) || systemProperty.isEmpty()) ? getFloatProperty(name, defaultValue) : Float.parseFloat(systemProperty);
+        return (isNull(systemProperty) || systemProperty.isEmpty()) ?
+                getFloatProperty(name, defaultValue) :
+                Float.parseFloat(systemProperty);
     }
 
     public float getFloatProperty(final String name, final String defaultValue) {
@@ -93,7 +103,9 @@ public final class ExProperties extends Properties {
     }
 
     public double getDoubleProperty(final String name, final String defaultValue, final String systemProperty) {
-        return (isNull(systemProperty) || systemProperty.isEmpty()) ? getDoubleProperty(name, defaultValue) : Double.parseDouble(systemProperty);
+        return (isNull(systemProperty) || systemProperty.isEmpty()) ?
+                getDoubleProperty(name, defaultValue) :
+                Double.parseDouble(systemProperty);
     }
 
     public double getDoubleProperty(final String name, final String defaultValue) {
@@ -107,7 +119,8 @@ public final class ExProperties extends Properties {
 
     public List<?> getListProperty(final String name, final String defaultValue, final String systemProperty) {
         return (isNull(systemProperty) || systemProperty.isEmpty()) ?
-                getListProperty(name, defaultValue) : Stream.of(systemProperty.split(",")).map(String::trim).collect(Collectors.toList());
+                getListProperty(name, defaultValue) :
+                Stream.of(systemProperty.split(",")).map(String::trim).collect(Collectors.toList());
     }
 
     public List<?> getListProperty(final String name, final String defaultValue) {
