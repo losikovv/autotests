@@ -12,6 +12,7 @@ public final class ConfigManager extends AbstractConfigManager {
     public void loadConfig() {
         ENGINE.loadConfig(BrowserProperties.class, BrowserProperties.NAME, CONFIG_DIR);
         ENGINE.loadConfig(WaitProperties.class, WaitProperties.NAME, CONFIG_DIR);
+        ENGINE.loadConfig(BasicProperties.class, BasicProperties.NAME, CONFIG_DIR);
         ENGINE.loadConfig(UiProperties.class, UiProperties.NAME, getEnvConfigDir());
     }
 

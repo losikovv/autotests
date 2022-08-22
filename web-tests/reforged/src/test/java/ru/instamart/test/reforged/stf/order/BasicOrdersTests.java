@@ -13,9 +13,10 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.core.config.BasicProperties.RBSUAT_PAYMENTS_URL;
 import static ru.instamart.reforged.core.config.UiProperties.*;
-import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Покупка товара")

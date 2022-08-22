@@ -9,11 +9,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.Promos;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.checkFlipper;
@@ -44,7 +44,7 @@ public final class CheckoutTests {
     public void testCheckoutCompleteWithOnlinePaymentAndDelivery() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3ds();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -112,7 +112,7 @@ public final class CheckoutTests {
     @Test(description = "Тест полного оформления заказа с оплатой картой курьеру (Доставка)", groups = "regression")
     public void testCheckoutCompleteWithPayToCourierAndDelivery() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -175,7 +175,7 @@ public final class CheckoutTests {
     @Test(description = "Выбор слота доставки", groups = "regression")
     public void testSelectDeliverySlot() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -278,7 +278,7 @@ public final class CheckoutTests {
     @Test(description = "Сброс способа оплаты 'Картой курьеру' при выборе 'Бесконтактная доставка'", groups = "regression")
     public void testPayByCardCourierDeliveryToDoor() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -317,7 +317,7 @@ public final class CheckoutTests {
     @Test(description = "Проверка предвыбора метода 'Оплатить онлайн' при выборе самовывоза", groups = "regression")
     public void testCheckPayOnlineSelectedByDefaultInPickup() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -344,7 +344,7 @@ public final class CheckoutTests {
     public void testAddNewPaymentCard() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3ds();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -380,7 +380,7 @@ public final class CheckoutTests {
     public void testPayButtonDisplayedWithSelectOnlinePaymentMethod() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3ds();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -414,7 +414,7 @@ public final class CheckoutTests {
     @Test(description = "Проверка появления кнопки 'Заказать' при способе оплаты 'Картой курьеру'", groups = "regression")
     public void testOrderConfirmButtonDisplayedWithSelectCardToCourierPaymentMethod() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -441,7 +441,7 @@ public final class CheckoutTests {
     @Test(description = "Применение несуществующего промокода", groups = "regression")
     public void testAddInvalidPromoCode() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -466,7 +466,7 @@ public final class CheckoutTests {
     @Test(description = "Применение существующего промокода", groups = "regression")
     public void testAddValidPromoCode() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();

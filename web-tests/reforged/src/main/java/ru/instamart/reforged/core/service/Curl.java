@@ -43,6 +43,12 @@ public final class Curl {
             return this;
         }
 
+        public Builder withBasicAuth(final String username, final String password) {
+            this.opt.add("-u");
+            this.opt.add(username + ":" + password);
+            return this;
+        }
+
         public Curl build() {
             this.opt.add(url);
             return new Curl(opt);

@@ -15,8 +15,15 @@ public final class CurlService {
     @Step("Проверка доступности страницы {0}")
     public static boolean pageAvailable(final Curl curl) {
         final int code = getResponseCode(curl);
-        log.debug("Curl '{}' вернула код '{}'", code, code);
+        log.debug("Curl '{}' вернул код '{}'", curl, code);
         return code == 200;
+    }
+
+    @Step("Проверка недоступности страницы {0}")
+    public static boolean pageUnavailable(final Curl curl) {
+        final int code = getResponseCode(curl);
+        log.debug("Curl '{}' вернул код '{}'", curl, code);
+        return code == 404;
     }
 
     @Step("Проверка доступности страницы {0}")

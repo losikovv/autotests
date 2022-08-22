@@ -4,6 +4,7 @@ import org.testng.annotations.DataProvider;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.helper.ApiV1Helper;
 import ru.instamart.api.model.v2.RetailerV2;
+import ru.instamart.reforged.core.config.BasicProperties;
 import ru.instamart.reforged.core.config.UiProperties;
 
 import java.util.List;
@@ -46,9 +47,9 @@ public final class StaticPage {
         return new Object[][] {
                 {"О компании", UiProperties.STF_URL + about().pageUrl()},
                 {"Контакты", UiProperties.STF_URL + contacts().pageUrl()},
-                {"Наши вакансии", UiProperties.JOB_LANDING_URL},
+                {"Наши вакансии", BasicProperties.JOB_LANDING_URL},
                 {"Документы", UiProperties.STF_URL + terms().pageUrl()},
-                {"Стать партнёром", UiProperties.JOB_LANDING_URL},
+                {"Стать партнёром", BasicProperties.JOB_LANDING_URL},
                 {"Как мы работаем", UiProperties.STF_URL + howWeWork().pageUrl()},
                 {"Доставка и оплата", UiProperties.STF_URL + delivery().pageUrl()},
                 {"Помощь", UiProperties.STF_URL + faq().pageUrl()},
