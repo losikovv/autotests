@@ -11,9 +11,9 @@ task allureCopyHistoryDir(type: Copy) {
 }
 
 task ciRun(type: Test) {
-    def ci_module = System.getenv('CI_MODULE')
+    def CI_MODULE = System.getenv('CI_MODULE')
 
-    switch (ci_module) {
+    switch (CI_MODULE) {
         case 'ui': dependsOn(':reforged:ciRunUi')
             break
         case 'api': dependsOn(':api:ciRunApi')

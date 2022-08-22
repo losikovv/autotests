@@ -6,7 +6,7 @@ import io.restassured.response.Response;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.model.v1.AdminStoreLabelsItemV1;
 import ru.instamart.api.request.ApiV1RequestBase;
-import ru.sbermarket.common.Mapper;
+import ru.instamart.kraken.common.Mapper;
 
 public class StoreLabelsAdminV1Request extends ApiV1RequestBase {
 

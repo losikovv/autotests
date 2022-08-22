@@ -9,8 +9,8 @@ import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.common.Mapper;
 
 import java.io.BufferedReader;
 import java.io.Closeable;

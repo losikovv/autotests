@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.ToString;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
-import ru.sbermarket.common.Mapper;
+import ru.instamart.kraken.common.Mapper;
 
 public class ProfileV2Request extends ApiV2RequestBase {
 

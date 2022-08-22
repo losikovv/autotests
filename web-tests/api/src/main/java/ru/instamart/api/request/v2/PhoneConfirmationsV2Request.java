@@ -12,8 +12,8 @@ import lombok.ToString;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
+import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.config.CoreProperties;
-import ru.sbermarket.common.Mapper;
 
 import java.util.Objects;
 import java.util.UUID;

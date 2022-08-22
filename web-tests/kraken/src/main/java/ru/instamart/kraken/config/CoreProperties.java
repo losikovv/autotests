@@ -1,6 +1,6 @@
 package ru.instamart.kraken.config;
 
-import ru.sbermarket.common.config.Config;
+import ru.instamart.kraken.common.config.Config;
 
 public final class CoreProperties {
 

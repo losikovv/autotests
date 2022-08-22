@@ -2,11 +2,11 @@ package ru.instamart.kraken.service.ab.request;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.service.ab.AbEndpoint;
 import ru.instamart.kraken.service.ab.AbRequestBase;
 import ru.instamart.kraken.service.ab.model.JwtObtain;
-import ru.sbermarket.common.Mapper;
 
 public final class ObtainJwtRequest extends AbRequestBase {
 

@@ -30,7 +30,7 @@ import java.util.Objects;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreSelgrosMiklouhoMaclay;
-import static ru.sbermarket.common.FileUtils.changeXlsFileSheetName;
+import static ru.instamart.kraken.util.FileUtils.changeXlsFileSheetName;
 
 @Epic("ApiV1")
 @Feature("Импорты")

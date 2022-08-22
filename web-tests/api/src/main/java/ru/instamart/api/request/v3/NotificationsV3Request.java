@@ -11,7 +11,7 @@ import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV3Endpoints;
 import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.request.ApiV3RequestBase;
-import ru.sbermarket.common.Mapper;
+import ru.instamart.kraken.common.Mapper;
 
 import java.util.List;
 import java.util.Objects;

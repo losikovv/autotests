@@ -9,7 +9,7 @@ import lombok.*;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ShiftsV1Endpoints;
 import ru.instamart.api.request.ShiftsRequestBase;
-import ru.sbermarket.common.Mapper;
+import ru.instamart.kraken.common.Mapper;
 
 import java.util.List;
 

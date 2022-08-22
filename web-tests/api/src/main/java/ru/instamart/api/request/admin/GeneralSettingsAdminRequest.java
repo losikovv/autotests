@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.instamart.api.endpoint.AdminEndpoints;
 import ru.instamart.api.request.AdminRequestBase;
-import ru.sbermarket.common.Mapper;
+import ru.instamart.kraken.common.Mapper;
 
 import java.util.HashMap;
 import java.util.Map;

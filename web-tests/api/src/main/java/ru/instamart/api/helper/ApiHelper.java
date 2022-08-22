@@ -38,7 +38,7 @@ import java.util.List;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreForRetailerTests;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
-import static ru.sbermarket.common.FileUtils.changeXlsFileSheetName;
+import static ru.instamart.kraken.util.FileUtils.changeXlsFileSheetName;
 
 @Slf4j
 public final class ApiHelper {

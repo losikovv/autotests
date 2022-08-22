@@ -10,8 +10,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ShopperAdminEndpoints;
 import ru.instamart.api.request.ShopperAdminRequestBase;
+import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.common.Mapper;
 
 import java.util.UUID;
 

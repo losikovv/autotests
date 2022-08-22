@@ -1,6 +1,6 @@
 package ru.instamart.kraken.config;
 
-import ru.sbermarket.common.config.AbstractConfigManager;
+import ru.instamart.kraken.common.config.AbstractConfigManager;
 
 public final class ConfigManager extends AbstractConfigManager {
 

@@ -13,7 +13,7 @@ import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.model.v1.LineItemV1;
 import ru.instamart.api.request.ApiV1RequestBase;
-import ru.sbermarket.common.Mapper;
+import ru.instamart.kraken.common.Mapper;
 
 public class LineItemsV1Request extends ApiV1RequestBase {
     @Step("{method} /" + ApiV1Endpoints.LINE_ITEMS)

@@ -2,10 +2,10 @@ package ru.instamart.kraken.service.ab.request;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.service.ab.AbEndpoint;
 import ru.instamart.kraken.service.ab.AbRequestBase;
 import ru.instamart.kraken.service.ab.model.ExcludedUser;
-import ru.sbermarket.common.Mapper;
 
 public final class ExcludeUserRequest extends AbRequestBase {
 

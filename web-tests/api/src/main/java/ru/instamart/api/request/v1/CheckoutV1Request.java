@@ -18,8 +18,8 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.MultiretailerOrderShipmentV1;
 import ru.instamart.api.model.v2.NextDeliveryV2;
 import ru.instamart.api.request.ApiV1RequestBase;
+import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.data.user.UserData;
-import ru.sbermarket.common.Mapper;
 
 import java.util.Objects;
 

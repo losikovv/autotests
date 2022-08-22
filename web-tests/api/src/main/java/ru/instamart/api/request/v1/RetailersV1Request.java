@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.RandomUtils;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
+import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.data.Generate;
-import ru.sbermarket.common.Mapper;
 
 import java.io.File;
 import java.util.List;
