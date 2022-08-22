@@ -26,14 +26,15 @@ task localRun(type: Test) {
 }
 
 task ciRunUi(type: Test) {
-    var String CI_GROUP = System.getenv('CI_GROUP')
-    if (CI_GROUP != null) {
-        useTestNG() {
-            suites "src/test/resources/suite/all.xml"
-            includeGroups CI_GROUP
-        }
-    } else {
+    def CI_GROUP = System.getenv('CI_GROUP')
+
+    if (CI_GROUP == null) {
         println('U miss CI_GROUP')
         return
+    }
+
+    useTestNG() {
+        suites "src/test/resources/suite/all.xml"
+        includeGroups CI_GROUP
     }
 }

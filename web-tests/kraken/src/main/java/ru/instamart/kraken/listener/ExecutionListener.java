@@ -2,6 +2,7 @@ package ru.instamart.kraken.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.testng.IExecutionListener;
+import ru.instamart.kraken.common.Crypt;
 import ru.instamart.kraken.config.ConfigManager;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
@@ -9,7 +10,6 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.helper.AllureHelper;
 import ru.instamart.kraken.service.BannerService;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.common.Crypt;
 
 import java.util.Map;
 

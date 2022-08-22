@@ -76,11 +76,13 @@ public final class CollectionUtil {
     }
 
     // Сортировка списка в прямом порядке регистронезависимо
+    @SuppressWarnings("unchecked")
     public static <K> List<K> sortListCaseInsensitive(Collection<K> list) {
         return list.stream().sorted((Comparator<? super K>) String.CASE_INSENSITIVE_ORDER).collect(Collectors.toList());
     }
 
     // Сортировка списка в обратном порядке регистронезависимо
+    @SuppressWarnings("unchecked")
     public static <K> List<K> reverseListOrderCaseInsensitive(Collection<K> list) {
         return list.stream().sorted((Comparator<? super K>) Collections.reverseOrder(String.CASE_INSENSITIVE_ORDER)).collect(Collectors.toList());
     }

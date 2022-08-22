@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.model.common.ProductsFilterParams;
 import ru.instamart.api.request.ApiV2RequestBase;
-import ru.sbermarket.common.Mapper;
+import ru.instamart.kraken.common.Mapper;
 
 public final class ProductsV2Request extends ApiV2RequestBase {
 

@@ -14,9 +14,9 @@ import ru.instamart.api.enums.v1.ExternalAssemblyKind;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.request.AdminRequestBase;
 import ru.instamart.jdbc.dao.stf.*;
+import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.util.DoubleUtil;
-import ru.sbermarket.common.Mapper;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

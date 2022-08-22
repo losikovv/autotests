@@ -3,10 +3,10 @@ package ru.instamart.kraken.service.qa.request;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.service.qa.QaEndpoint;
 import ru.instamart.kraken.service.qa.QaRequestBase;
 import ru.instamart.kraken.service.qa.model.QaSession;
-import ru.sbermarket.common.Mapper;
 
 public final class QaSessionRequest extends QaRequestBase {
 

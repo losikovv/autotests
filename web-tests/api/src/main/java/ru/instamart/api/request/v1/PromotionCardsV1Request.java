@@ -14,7 +14,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
-import ru.sbermarket.common.Mapper;
+import ru.instamart.kraken.common.Mapper;
 
 import java.io.File;
 import java.util.List;

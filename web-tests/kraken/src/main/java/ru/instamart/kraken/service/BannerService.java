@@ -1,7 +1,7 @@
 package ru.instamart.kraken.service;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.sbermarket.common.FileUtils;
+import ru.instamart.kraken.util.FileUtils;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

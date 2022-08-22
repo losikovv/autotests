@@ -1,7 +1,7 @@
 package ru.instamart.reforged.core.config;
 
+import ru.instamart.kraken.common.config.AbstractConfigManager;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.common.config.AbstractConfigManager;
 
 public final class ConfigManager extends AbstractConfigManager {
 

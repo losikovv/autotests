@@ -8,7 +8,7 @@ import io.restassured.response.Response;
 import lombok.*;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
-import ru.sbermarket.common.Mapper;
+import ru.instamart.kraken.common.Mapper;
 
 import java.util.List;
 

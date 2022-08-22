@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import ru.instamart.kafka.enums.Pods;
 import ru.instamart.kafka.enums.StatusOrder;
+import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.common.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,7 +9,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.common.Crypt;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;

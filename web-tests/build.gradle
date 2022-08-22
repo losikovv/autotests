@@ -21,7 +21,6 @@ project(":kraken") {
     apply plugin: "java-library"
 
     dependencies {
-        api lib.common
         api lib.qase
 
         api lib.testng
@@ -40,6 +39,8 @@ project(":kraken") {
         api lib.julToSlf4j
 
         api lib.commonsLang3
+        implementation lib.poiOoxml
+
         api lib.grpcProtobuf
         api lib.grpcStub
 

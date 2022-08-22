@@ -8,12 +8,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.request.ApiV2RequestBase;
-import ru.sbermarket.common.Mapper;
+import ru.instamart.kraken.common.Mapper;
 
 import java.util.HashMap;
 import java.util.Map;

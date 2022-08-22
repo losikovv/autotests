@@ -3,6 +3,7 @@ package ru.instamart.kraken.data.user;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
+import ru.instamart.kraken.common.Crypt;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.TestVariables;
@@ -10,7 +11,6 @@ import ru.instamart.kraken.retry.StepRetry;
 import ru.instamart.kraken.service.ab.AbService;
 import ru.instamart.kraken.service.qa.QaService;
 import ru.instamart.kraken.service.qa.response.QaSessionResponse;
-import ru.sbermarket.common.Crypt;
 
 import java.util.*;
 

@@ -1,8 +1,7 @@
 package ru.instamart.kafka.configs;
 
-import order.Order;
 import ru.instamart.kafka.KafkaConfig;
-import ru.sbermarket.common.Crypt;
+import ru.instamart.kraken.common.Crypt;
 
 public class KafkaConfigs {
 

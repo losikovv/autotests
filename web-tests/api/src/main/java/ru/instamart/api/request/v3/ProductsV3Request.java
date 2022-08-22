@@ -6,7 +6,7 @@ import ru.instamart.api.endpoint.ApiV3Endpoints;
 import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.model.common.ProductsFilterParams;
 import ru.instamart.api.request.ApiV3RequestBase;
-import ru.sbermarket.common.Mapper;
+import ru.instamart.kraken.common.Mapper;
 
 import static ru.instamart.api.helper.ApiV3Helper.getApiClientTokenWithProd;
 

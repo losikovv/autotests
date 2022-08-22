@@ -5,8 +5,8 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import lombok.extern.slf4j.Slf4j;
+import ru.instamart.kraken.common.Crypt;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.common.Crypt;
 
 import static io.restassured.RestAssured.given;
 

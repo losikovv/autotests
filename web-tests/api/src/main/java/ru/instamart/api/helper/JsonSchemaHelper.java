@@ -1,28 +1,24 @@
 package ru.instamart.api.helper;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.imifou.jsonschema.module.addon.AddonModule;
 import com.github.victools.jsonschema.generator.*;
 import com.github.victools.jsonschema.module.jackson.JacksonModule;
 import com.github.victools.jsonschema.module.javax.validation.JavaxValidationModule;
+import ru.instamart.kraken.common.Mapper;
 
-public class JsonSchemaHelper {
+public final class JsonSchemaHelper {
 
-    public static String getJsonSchema(Class<?> clazz) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        AddonModule module = new AddonModule();
-        SchemaGeneratorConfigBuilder configBuilder = new SchemaGeneratorConfigBuilder(objectMapper, SchemaVersion.DRAFT_2019_09, OptionPreset.PLAIN_JSON)
-                .with(module);
-        configBuilder
-                .with(new AddonModule())
-                .with(Option.NONSTATIC_NONVOID_NONGETTER_METHODS)
-                .with(new JacksonModule())
-                .with(new JavaxValidationModule());
-        SchemaGeneratorConfig config = configBuilder.build();
-        SchemaGenerator generator = new SchemaGenerator(config);
-        JsonNode jsonSchema = generator.generateSchema(clazz);
+    private static final SchemaGeneratorConfig config = new SchemaGeneratorConfigBuilder(Mapper.INSTANCE.getObjectMapper(), SchemaVersion.DRAFT_2019_09, OptionPreset.PLAIN_JSON)
+            .with(new AddonModule())
+            .with(Option.NONSTATIC_NONVOID_NONGETTER_METHODS)
+            .with(new JacksonModule())
+            .with(new JavaxValidationModule())
+            .build();
+    private static final SchemaGenerator generator = new SchemaGenerator(config);
 
-        return jsonSchema.toString();
+    public static String getJsonSchema(final Class<?> clazz) {
+        return generator.generateSchema(clazz).toString();
     }
+
+    private JsonSchemaHelper() {}
 }

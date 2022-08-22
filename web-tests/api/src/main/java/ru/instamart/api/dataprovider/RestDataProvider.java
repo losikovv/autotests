@@ -32,10 +32,10 @@ import ru.instamart.api.response.v2.*;
 import ru.instamart.jdbc.dao.stf.*;
 import ru.instamart.jdbc.dto.stf.PromotionCodesFilters;
 import ru.instamart.jdbc.entity.stf.PromotionCodesEntity;
+import ru.instamart.kraken.common.Crypt;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data_provider.DataList;
-import ru.sbermarket.common.Crypt;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

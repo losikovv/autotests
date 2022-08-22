@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.instamart.api.endpoint.ShopperAppEndpoints;
 import ru.instamart.api.request.ShopperAppRequestBase;
-import ru.sbermarket.common.Mapper;
 
 public class ShopperDriverSHPRequest extends ShopperAppRequestBase {
 
