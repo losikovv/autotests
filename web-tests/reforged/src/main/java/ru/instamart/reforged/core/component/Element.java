@@ -43,6 +43,20 @@ public final class Element extends AbstractComponent {
         return getComponent();
     }
 
+    public synchronized WebElement getElement(final Object... args) {
+        setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
+        return getComponent();
+    }
+
+    public boolean isDisplayed() {
+        return !isNull(Kraken.waitAction().shouldBeVisible(this));
+    }
+
+    public synchronized boolean isDisplayed(final Object... args) {
+        setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
+        return !isNull(Kraken.waitAction().shouldBeVisible(this));
+    }
+
     public synchronized void click(final Object... args) {
         setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         click();

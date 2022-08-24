@@ -726,6 +726,7 @@ public final class ApiHelper {
     @Step("Получаем заказы из шоппера с комментарием: {comment}")
     public ShipmentSHP.Data getShipmentByComment(String comment) {
         shopperApp.authorisation(UserManager.getDefaultShopper());
+        shopperApp.deleteCurrentAssembly();
         comment = EnvironmentProperties.Env.isProduction() ? comment + RandomUtils.nextInt(1, 50) : comment;
         return shopperApp.getShipmentByComment(comment);
     }

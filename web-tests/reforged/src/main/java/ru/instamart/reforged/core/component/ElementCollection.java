@@ -4,9 +4,9 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -116,6 +116,12 @@ public final class ElementCollection extends CollectionComponent {
     }
 
     public Set<String> getTextFromAllElements() {
+        log.debug("Get text from all elements of element collection {}'s with locator {}", getClass().getSimpleName(), getBy());
+        return getElements().stream().map(WebElement::getText).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
+    public synchronized Set<String> getTextFromAllElements(final Object... args) {
+        setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         log.debug("Get text from all elements of element collection {}'s with locator {}", getClass().getSimpleName(), getBy());
         return getElements().stream().map(WebElement::getText).collect(Collectors.toCollection(LinkedHashSet::new));
     }

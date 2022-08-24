@@ -185,6 +185,24 @@ public final class KrakenCondition {
         };
     }
 
+    public static ExpectedCondition<WebElement> presentsOfElementLocated(final WebElement webElement, final By locator) {
+        return new ExpectedCondition<>() {
+            @Override
+            public WebElement apply(WebDriver driver) {
+                try {
+                    return findElement(webElement, locator);
+                } catch (NoSuchElementException e) {
+                    return null;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "Presents of element located by " + locator;
+            }
+        };
+    }
+
     public static ExpectedCondition<Boolean> invisibilityOfElementLocated(final WebElement webElement, final By locator) {
         return new ExpectedCondition<Boolean>() {
             @Override

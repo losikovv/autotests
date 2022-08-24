@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.reforged.core.component.Component;
 import ru.instamart.reforged.core.component.ElementCollection;
+import ru.instamart.reforged.core.component.inner.InnerComponent;
 import ru.instamart.reforged.core.condition.KrakenCondition;
 import ru.instamart.reforged.core.config.WaitProperties;
 
@@ -46,6 +47,11 @@ public final class WaitAction {
 
     public WebElement shouldExist(final Component component) {
         return createWait(component).until(ExpectedConditions.presenceOfElementLocated(component.getBy()));
+    }
+
+    public WebElement shouldExist(final Component component, final WebElement webElement) {
+        return createWait(component)
+                .until(KrakenCondition.presentsOfElementLocated(webElement, component.getBy()));
     }
 
     public void shouldNotBeAnimated(final Component component) {

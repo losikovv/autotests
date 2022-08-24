@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 
 @Slf4j
@@ -16,6 +17,13 @@ public final class InnerInput extends InnerComponent {
     @Override
     protected WebElement getComponent() {
         return Kraken.waitAction().shouldBeClickable(this, getWebElement());
+    }
+
+    public void fill(final String data) {
+        final var component = getComponent();
+        component.clear();
+        log.debug("Fill {} with locator {} and data {}", getDescription(), getBy(), data);
+        component.sendKeys(data);
     }
 
     public void click() {

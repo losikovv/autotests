@@ -3,6 +3,7 @@ package ru.instamart.reforged.core.component.inner;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 
 @Slf4j
@@ -18,6 +19,12 @@ public final class InnerButton extends InnerComponent {
     }
 
     public void click() {
+        log.debug("Click {} with locator {}", getDescription(), getBy());
+        getComponent().click();
+    }
+
+    public synchronized void click(final Object... args) {
+        setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         log.debug("Click {} with locator {}", getDescription(), getBy());
         getComponent().click();
     }

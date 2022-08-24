@@ -11,6 +11,7 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 
+//Заказы -> Мульти заказ
 @Slf4j
 public final class ShipmentTable extends TableComponent {
 
