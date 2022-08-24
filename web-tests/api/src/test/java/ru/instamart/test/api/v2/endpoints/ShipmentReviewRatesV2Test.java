@@ -1,5 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
@@ -46,10 +47,12 @@ public class ShipmentReviewRatesV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShipmentReviewRatesV2Response.class);
 
-        var rates =  response.as(ShipmentReviewRatesV2Response.class).getShipmentReview().getRates();
+        var rates = response.as(ShipmentReviewRatesV2Response.class).getShipmentReview().getRates();
 
-        assertEquals(rates.get(0).getRate(), assemblyRate);
-        assertEquals(rates.get(1).getRate(), shippingRate);
+        Allure.step("Проверка оценки заказа", () -> {
+            assertEquals(rates.get(0).getRate(), assemblyRate);
+            assertEquals(rates.get(1).getRate(), shippingRate);
+        });
     }
 
     @CaseId(2790)

@@ -35,7 +35,9 @@ import ru.instamart.jdbc.entity.stf.PromotionCodesEntity;
 import ru.instamart.kraken.common.Crypt;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.data_provider.DataList;
+
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -51,6 +53,7 @@ import static ru.instamart.api.enums.v1.CombinedStateV1.SHIPMENT_READY;
 import static ru.instamart.api.enums.v1.FiltersFilesModeV1.*;
 import static ru.instamart.api.enums.v1.PaymentStatusV1.*;
 import static ru.instamart.api.enums.v2.RecsPlaceV2.*;
+import static ru.instamart.api.helper.K8sHelper.changeToShip;
 import static ru.instamart.kraken.helper.LegalEntityHelper.*;
 
 public class RestDataProvider extends RestBase {
@@ -184,7 +187,7 @@ public class RestDataProvider extends RestBase {
                 {422, Generate.literalCyrillicString(10)}, //todo bug - null error message
                 {422, ""},
                 {422, " "}, //todo bug - null error message
-               // {422, "москва"}//, //todo bug - null error message 500 error
+                // {422, "москва"}//, //todo bug - null error message 500 error
                 // {422, "тест-" + Generate.literalCyrillicString(251)} //todo bug 500
         };
     }
@@ -521,7 +524,6 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @Deprecated
     @DataProvider(name = "deliveryAvailabilityV2TestData", parallel = true)
     public static Object[][] deliveryAvailabilityV2TestData() {
         return new Object[][]{
@@ -838,9 +840,9 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "storesDataForPickupTransferMethodOnlyCourier")
     public static Object[][] getStoresForPickupTransferMethodCheckCourier() {
         return new Object[][]{
-                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, AnalyzeResultV2.OK},
-                {22, AnalyzeResultV2.OK},
-                {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, AnalyzeResultV2.OTHER_RETAILER_SHIPMENTS_DISAPPEARS},
+                {22, AnalyzeResultV2.OTHER_RETAILER_SHIPMENTS_DISAPPEARS},
+                {89, AnalyzeResultV2.OTHER_RETAILER_SHIPMENTS_DISAPPEARS},
         };
     }
 
@@ -868,10 +870,10 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "storesDataForPickupTransferMethod")
     public static Object[][] getStoresForPickupTransferMethodCheck() {
         return new Object[][]{
-                {22, AnalyzeResultV2.OK},
-                {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
-                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, AnalyzeResultV2.OK},
-                {82, AnalyzeResultV2.OK},
+                {22, AnalyzeResultV2.OTHER_RETAILER_SHIPMENTS_DISAPPEARS},
+                {89, AnalyzeResultV2.OTHER_RETAILER_SHIPMENTS_DISAPPEARS},
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, AnalyzeResultV2.OTHER_RETAILER_SHIPMENTS_DISAPPEARS},
+                {82, AnalyzeResultV2.OTHER_RETAILER_SHIPMENTS_DISAPPEARS},
         };
     }
 
@@ -879,7 +881,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getStoresForCourierAlcoholTransferMethodCheck() {
         return new Object[][]{
                 {2},
-                {22},
+                {12},
                 {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID}
         };
     }
@@ -1378,12 +1380,14 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "sendProductFeedbacks")
     public static Object[][] sendProductFeedbacks() {
-        String productSku = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0).getSku();
+        OrderV2 order = apiV2.order(UserManager.getDefaultApiUser(), EnvironmentProperties.DEFAULT_SID);
+        changeToShip(order.getShipments().get(0).getNumber());
+        String productSku = order.getShipments().get(0).getLineItems().get(0).getProduct().getSku();
         return new Object[][]{
                 {
                         ProductFeedbacksV2Request.Feedbacks.builder()
                                 .sku(productSku)
-                                .storeId(String.valueOf(EnvironmentProperties.DEFAULT_SID))
+                                .storeId(EnvironmentProperties.DEFAULT_SID)
                                 .score(4)
                                 .pros("свежий")
                                 .cons("Слишком зеленый")
@@ -1393,7 +1397,7 @@ public class RestDataProvider extends RestBase {
                 {
                         ProductFeedbacksV2Request.Feedbacks.builder()
                                 .sku(productSku)
-                                .storeId(String.valueOf(EnvironmentProperties.DEFAULT_SID))
+                                .storeId(EnvironmentProperties.DEFAULT_SID)
                                 .score(4)
 //                                .pros("свежий")
                                 .cons("Слишком зеленый")
@@ -1403,7 +1407,7 @@ public class RestDataProvider extends RestBase {
                 {
                         ProductFeedbacksV2Request.Feedbacks.builder()
                                 .sku(productSku)
-                                .storeId(String.valueOf(EnvironmentProperties.DEFAULT_SID))
+                                .storeId(EnvironmentProperties.DEFAULT_SID)
                                 .score(4)
                                 .pros("свежий")
 //                                .cons("Слишком зеленый")
@@ -1413,7 +1417,7 @@ public class RestDataProvider extends RestBase {
                 {
                         ProductFeedbacksV2Request.Feedbacks.builder()
                                 .sku(productSku)
-                                .storeId(String.valueOf(EnvironmentProperties.DEFAULT_SID))
+                                .storeId(EnvironmentProperties.DEFAULT_SID)
                                 .score(4)
                                 .pros("свежий")
                                 .cons("Слишком зеленый")
@@ -1424,7 +1428,7 @@ public class RestDataProvider extends RestBase {
     }
 
     @DataProvider(name = "getAllFeatureFlags", parallel = true)
-    public static Object[][] getAllFeatureFlags(){
+    public static Object[][] getAllFeatureFlags() {
         final Response response = FeatureFlagsV2Request.GET();
         checkStatusCode200(response);
         FeatureFlagsV2Response featureFlags = response.as(FeatureFlagsV2Response.class);

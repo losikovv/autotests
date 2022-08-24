@@ -1,11 +1,11 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -36,17 +36,15 @@ import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
 
 @Epic("ApiV2")
 @Feature("Отзывы о заказе")
-@Slf4j
 public class ReviewableShipmentV2Test extends RestBase {
     private String shipmentNumber;
-    private UserData userData;
     private OrderV2 order;
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
         var sid = EnvironmentProperties.DEFAULT_SID;
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
+        final UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.dropAndFillCart(userData, sid);
         order = apiV2.createOrder();
         if (order == null) throw new SkipException("Заказ не удалось оплатить");
@@ -64,19 +62,21 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ReviewableShipmentV2Response.class);
         ReviewableShipmentV2 revShipment = response.as(ReviewableShipmentV2Response.class).getReviewableShipment();
-        final SoftAssert softAssert = new SoftAssert();
-        final ShipmentV2 shipment = order.getShipments().get(0);
-        compareTwoObjects(revShipment.getNumber(), shipment.getNumber(), softAssert);
-        compareTwoObjects(revShipment.getCost(), shipment.getCost(), softAssert);
-        compareTwoObjects(revShipment.getItemTotal(), shipment.getItemTotal(), softAssert);
-        compareTwoObjects(revShipment.getItemDiscountTotal(), shipment.getItemDiscountTotal(), softAssert);
-        compareTwoObjects(revShipment.getTotal(), shipment.getTotal(), softAssert);
-        compareTwoObjects(revShipment.getAlerts(), shipment.getAlerts(), softAssert);
-        compareTwoObjects(revShipment.getTotalWeight(), shipment.getTotalWeight(), softAssert);
-        compareTwoObjects(revShipment.getItemCount(), shipment.getItemCount(), softAssert);
-        compareTwoObjects(revShipment.getPayment(), shipment.getPayment(), softAssert);
-        compareTwoObjects(revShipment.getStore(), shipment.getStore(), softAssert);
-        softAssert.assertAll();
+        Allure.step("Проверка данных доставки", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            final ShipmentV2 shipment = order.getShipments().get(0);
+            compareTwoObjects(revShipment.getNumber(), shipment.getNumber(), softAssert);
+            compareTwoObjects(revShipment.getCost(), shipment.getCost(), softAssert);
+            compareTwoObjects(revShipment.getItemTotal(), shipment.getItemTotal(), softAssert);
+            compareTwoObjects(revShipment.getItemDiscountTotal(), shipment.getItemDiscountTotal(), softAssert);
+            compareTwoObjects(revShipment.getTotal(), shipment.getTotal(), softAssert);
+            compareTwoObjects(revShipment.getAlerts(), shipment.getAlerts(), softAssert);
+            compareTwoObjects(revShipment.getTotalWeight(), shipment.getTotalWeight(), softAssert);
+            compareTwoObjects(revShipment.getItemCount(), shipment.getItemCount(), softAssert);
+            compareTwoObjects(revShipment.getPayment(), shipment.getPayment(), softAssert);
+            compareTwoObjects(revShipment.getStore(), shipment.getStore(), softAssert);
+            softAssert.assertAll();
+        });
     }
 
     @CaseIDs(value = {@CaseId(472), @CaseId(1186)})
@@ -93,11 +93,13 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
-        final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(shipmentReview.getRate(), rate, softAssert);
-        softAssert.assertNull(shipmentReview.getComment(), "Пришел комментарий");
-        compareTwoObjects(shipmentReview.getCallback(), null, softAssert);
-        softAssert.assertAll();
+        Allure.step("Проверка сообщения при создании комментария", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            compareTwoObjects(shipmentReview.getRate(), rate, softAssert);
+            softAssert.assertNull(shipmentReview.getComment(), "Пришел комментарий");
+            compareTwoObjects(shipmentReview.getCallback(), null, softAssert);
+            softAssert.assertAll();
+        });
     }
 
     @CaseIDs(value = {@CaseId(1182), @CaseId(1185)})
@@ -115,11 +117,13 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
-        final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(shipmentReview.getRate(), rate, softAssert);
-        softAssert.assertNull(shipmentReview.getComment(), "Пришел комментарий");
-        compareTwoObjects(shipmentReview.getCallback(), callback, softAssert);
-        softAssert.assertAll();
+        Allure.step("Проверка сообщения при создании комментария", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            compareTwoObjects(shipmentReview.getRate(), rate, softAssert);
+            softAssert.assertNull(shipmentReview.getComment(), "Пришел комментарий");
+            compareTwoObjects(shipmentReview.getCallback(), callback, softAssert);
+            softAssert.assertAll();
+        });
     }
 
     @CaseId(475)
@@ -135,10 +139,12 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
-        final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(shipmentReview.getRate(), 5, softAssert);
-        compareTwoObjects(shipmentReview.getComment(), "Тестовый комментарий", softAssert);
-        softAssert.assertAll();
+        Allure.step("Проверка сообщения при создании комментария", ()->{
+            final SoftAssert softAssert = new SoftAssert();
+            compareTwoObjects(shipmentReview.getRate(), 5, softAssert);
+            compareTwoObjects(shipmentReview.getComment(), "Тестовый комментарий", softAssert);
+            softAssert.assertAll();
+        });
     }
 
     @CaseId(476)
@@ -157,16 +163,18 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
-        final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(shipmentReview.getRate(), review.getRate(), softAssert);
-        compareTwoObjects(shipmentReview.getComment(), review.getComment(), softAssert);
-        compareTwoObjects(shipmentReview.getIssues().get(0).getId(), reviewIssues.get(1).getId(), softAssert);
-        compareTwoObjects(shipmentReview.getIssues().get(0).getDescription(), reviewIssues.get(1).getDescription(), softAssert);
-        compareTwoObjects(shipmentReview.getIssues().get(0).getCommentNeeded(), reviewIssues.get(1).getCommentNeeded(), softAssert);
-        compareTwoObjects(shipmentReview.getIssues().get(1).getId(), reviewIssues.get(2).getId(), softAssert);
-        compareTwoObjects(shipmentReview.getIssues().get(1).getDescription(), reviewIssues.get(2).getDescription(), softAssert);
-        compareTwoObjects(shipmentReview.getIssues().get(1).getCommentNeeded(), reviewIssues.get(2).getCommentNeeded(), softAssert);
-        softAssert.assertAll();
+        Allure.step("Проверка сообщения при создании комментария", ()->{
+            final SoftAssert softAssert = new SoftAssert();
+            compareTwoObjects(shipmentReview.getRate(), review.getRate(), softAssert);
+            compareTwoObjects(shipmentReview.getComment(), review.getComment(), softAssert);
+            compareTwoObjects(shipmentReview.getIssues().get(0).getId(), reviewIssues.get(1).getId(), softAssert);
+            compareTwoObjects(shipmentReview.getIssues().get(0).getDescription(), reviewIssues.get(1).getDescription(), softAssert);
+            compareTwoObjects(shipmentReview.getIssues().get(0).getCommentNeeded(), reviewIssues.get(1).getCommentNeeded(), softAssert);
+            compareTwoObjects(shipmentReview.getIssues().get(1).getId(), reviewIssues.get(2).getId(), softAssert);
+            compareTwoObjects(shipmentReview.getIssues().get(1).getDescription(), reviewIssues.get(2).getDescription(), softAssert);
+            compareTwoObjects(shipmentReview.getIssues().get(1).getCommentNeeded(), reviewIssues.get(2).getCommentNeeded(), softAssert);
+            softAssert.assertAll();
+        });
     }
 
     @CaseId(477)
@@ -178,10 +186,13 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
-        final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(shipmentReview.getRate(), 5, softAssert);
-        softAssert.assertTrue(shipmentReview.getImages().get(0).getOriginalUrl().contains("sample.jpg"), "Изображение не добавлено");
-        softAssert.assertAll();
+        Allure.step("Проверка комментария с изображением", ()->{
+            final SoftAssert softAssert = new SoftAssert();
+            compareTwoObjects(shipmentReview.getRate(), 5, softAssert);
+            softAssert.assertTrue(shipmentReview.getImages().get(0).getOriginalUrl().contains("sample.jpg"), "Изображение не добавлено");
+            softAssert.assertAll();
+        });
+
     }
 
     @CaseId(1187)
@@ -196,7 +207,15 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkStatusCode200(firstResponse);
         final Response secondResponse = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
         checkStatusCode422(secondResponse);
-        Assert.assertTrue(secondResponse.asString().contains("\"shipment_id\":\"Для данного заказа уже был добавлен отзыв\""));
+        Allure.step("Проверка сообщение о ошибке", ()->{
+            final SoftAssert softAssert = new SoftAssert();
+            ErrorResponse error = secondResponse.as(ErrorResponse.class);
+            softAssert.assertEquals(error.getErrors().getShipmentId(), "Для данного заказа уже был добавлен отзыв", "Невалидная ошибка");
+            softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "shipment_id", "Невалидный тип ошибки");
+            softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Для данного заказа уже был добавлен отзыв", "Невалидная ошибка");
+            softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Для данного заказа уже был добавлен отзыв", "Невалидная ошибка");
+            softAssert.assertAll();
+        });
     }
 
     @CaseId(1184)

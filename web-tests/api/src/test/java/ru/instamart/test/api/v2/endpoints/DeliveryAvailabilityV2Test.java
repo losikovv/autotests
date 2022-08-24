@@ -1,5 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
@@ -32,7 +33,8 @@ public class DeliveryAvailabilityV2Test extends RestBase {
         final Response response = DeliveryAvailabilityV2Request.GET(lat, lon);
         checkStatusCode200(response);
         final DeliveryAvailabilityV2Response deliveryAvailabilityV2Response = response.as(DeliveryAvailabilityV2Response.class);
-        assertFalse(deliveryAvailabilityV2Response.getDeliveryAvailability().isAvailable(), "Статус доставки вне зоны доставки available равен true");
+        Allure.step("Проверка статуса доставки",
+                () -> assertFalse(deliveryAvailabilityV2Response.getDeliveryAvailability().isAvailable(), "Статус доставки вне зоны доставки available равен true"));
     }
 
     @CaseId(1477)
@@ -42,7 +44,8 @@ public class DeliveryAvailabilityV2Test extends RestBase {
         final Response response = DeliveryAvailabilityV2Request.GET(address.getLat().toString(), address.getLon().toString());
         checkStatusCode200(response);
         final DeliveryAvailabilityV2Response deliveryAvailabilityV2Response = response.as(DeliveryAvailabilityV2Response.class);
-        assertTrue(deliveryAvailabilityV2Response.getDeliveryAvailability().isAvailable(), "Статус доставки в зоне доставки available равен false");
+        Allure.step("Проверка статуса доставки",
+                () -> assertTrue(deliveryAvailabilityV2Response.getDeliveryAvailability().isAvailable(), "Статус доставки в зоне доставки available равен false"));
     }
 
 

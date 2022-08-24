@@ -1,8 +1,8 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -16,6 +16,7 @@ import ru.instamart.api.response.v2.StoresV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
@@ -26,7 +27,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 public final class StoresV2Test extends RestBase {
 
     @Deprecated
-    @Test(groups = {}, description = "Получаем магазин")
+    @Test(description = "Получаем магазин")
     public void getStore() {
         final Response response = StoresV2Request.GET(1);
         checkStatusCode200(response);
@@ -34,7 +35,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @Deprecated
-    @Test(groups = {}, description = "Получаем промо-акции в магазине")
+    @Test(description = "Получаем промо-акции в магазине")
     public void getStorePromotionCards() {
         final Response response = StoresV2Request.PromotionCards.GET(1);
         checkStatusCode200(response);
@@ -43,8 +44,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @Deprecated
-    @Test(groups = {},
-            dataProviderClass = RestDataProvider.class,
+    @Test(dataProviderClass = RestDataProvider.class,
             dataProvider = "getStores",
             description = "Получаем список всех магазинов по указанным координатам")
     public void testStoresWithData(final StoresV2Request.Store store,
@@ -64,16 +64,16 @@ public final class StoresV2Test extends RestBase {
     }
 
     @Deprecated
-    @Test(groups = {}, description = "Статус быстрой доставки с валидным sid")
+    @Test(description = "Статус быстрой доставки с валидным sid")
     public void testGetFastDeliveryStatusWithValidSid() {
         final Response response = StoresV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
-        assertFalse(response.as(StoreV2Response.class).getStore().getExpressDelivery(),
-                "У магазина не должно быть быстрой доставки");
+        Allure.step("Проверка поля express_delivery", () -> assertFalse(response.as(StoreV2Response.class).getStore().getExpressDelivery(),
+                "У магазина не должно быть быстрой доставки"));
     }
 
     @Deprecated
-    @Test(groups = {}, description = "Статус быстрой доставки с невалидным sid")
+    @Test(description = "Статус быстрой доставки с невалидным sid")
     public void testGetFastDeliveryStatusWithInvalidSid() {
         final Response response = StoresV2Request.GET(6666);
         checkStatusCode404(response);
@@ -86,7 +86,7 @@ public final class StoresV2Test extends RestBase {
         final Response response = StoresV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, StoreV2Response.class);
-        compareTwoObjects(response.as(StoreV2Response.class).getStore().getId(), EnvironmentProperties.DEFAULT_SID);
+        Allure.step("Проверка id у store", () -> compareTwoObjects(response.as(StoreV2Response.class).getStore().getId(), EnvironmentProperties.DEFAULT_SID));
     }
 
     @CaseId(188)
@@ -114,11 +114,13 @@ public final class StoresV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, StoresV2Response.class);
         StoresV2Response storesV2Response = response.as(StoresV2Response.class);
-        final SoftAssert sa = new SoftAssert();
-        sa.assertTrue(storesV2Response.getStoreLabels().isEmpty(), "Stores Labels not empty");
-        sa.assertEquals(storesV2Response.getStores().get(0).getName(), "METRO, Нижний Новгород Нартова", "Наименование отличается");
-        sa.assertEquals(storesV2Response.getStores().get(0).getRetailer().getId(), Integer.valueOf(1), "Ретейлер не соответствует");
-        sa.assertAll();
+        Allure.step("Проверка store", ()->{
+            final SoftAssert sa = new SoftAssert();
+            sa.assertTrue(storesV2Response.getStoreLabels().isEmpty(), "Stores Labels not empty");
+            sa.assertEquals(storesV2Response.getStores().get(0).getName(), "METRO, Нижний Новгород Нартова", "Наименование отличается");
+            sa.assertEquals(storesV2Response.getStores().get(0).getRetailer().getId(), Integer.valueOf(1), "Ретейлер не соответствует");
+            sa.assertAll();
+        });
     }
 
     @CaseId(190)
@@ -179,7 +181,6 @@ public final class StoresV2Test extends RestBase {
                 .bbox("56.291423,43.967728~56.332495,44.058287")
                 .build();
         final Response response = StoresV2Request.ForMap.GET(params);
-
         checkStatusCode200(response);
     }
 }

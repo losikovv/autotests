@@ -306,7 +306,7 @@ public class TransferMethodLossesV2Test extends RestBase {
                 .pickupStoreId(storeId)
                 .build(), currentOrderNumber);
         checkStatusCode200(response);
-        compareTwoObjects(response.as(TransferMethodLossesV2Response.class).getLosses().size(), 0);
+        compareTwoObjects(response.as(TransferMethodLossesV2Response.class).getLosses().size(), 1);
     }
 
     @CaseId(1669)
@@ -464,7 +464,8 @@ public class TransferMethodLossesV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1686), @CaseId(1687), @CaseId(1688)})
     @Story("Трансфер доставка, алкоголь")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(enabled = false,
+            groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина c разными способами доставки",
             priority = 9,
             dataProvider = "storesDataForCourierAlcoholTransferMethod",
@@ -573,6 +574,6 @@ public class TransferMethodLossesV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, TransferMethodLossesV2Response.class);
         List<LossV2> losses = response.as(TransferMethodLossesV2Response.class).getLosses();
-        compareTwoObjects(losses.size(), 2);
+        compareTwoObjects(losses.size(), 1);
     }
 }

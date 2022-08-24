@@ -6,6 +6,7 @@ import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
@@ -24,6 +25,7 @@ import ru.instamart.jdbc.dao.stf.DeliveryWindowsDao;
 import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.jdbc.dao.stf.StoreConfigsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserData;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -44,15 +46,25 @@ public class ShipmentLineItemsV2Test extends RestBase {
     private OrderV2 order;
     private Double newPrice;
     private Integer deliveryWindowId;
+    private UserData user;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
+        user = SessionFactory.getSession(SessionType.API_V2).getUserData();
         products = apiV2.getProductsFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         deliveryWindowId = order.getShipments().get(0).getDeliveryWindow().getId();
         DeliveryWindowsDao.INSTANCE.updateDeliveryWindowSettings(deliveryWindowId, 999, 1, 999, 1);
     }
+
+    @BeforeMethod(alwaysRun = true)
+    public void before(){
+        if(SessionFactory.getSession(SessionType.API_V2).getToken().equals("invalid")){
+            SessionFactory.createSessionToken(SessionType.API_V2, user);
+        }
+    }
+
 
     @AfterClass(alwaysRun = true)
     public void restoreData() {
@@ -88,7 +100,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
     @Story("Добавление товара в заказ")
     @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление того же товара",
-            priority = 1)
+            dependsOnMethods = "mergeLineItem")
     public void mergeSameLineItem() {
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), order.getShipments().get(0).getLineItems().get(0).getProduct().getId(), 1);
         checkStatusCode200(response);
@@ -113,11 +125,11 @@ public class ShipmentLineItemsV2Test extends RestBase {
     @Story("Добавление товара в заказ")
     @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление другого товара с превышением веса",
-            priority = 2)
+            dependsOnMethods = "mergeSameLineItem")
     public void mergeLineItemWithExtraWeight() {
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(3).getId(), 1000000000);
         checkStatusCode422(response);
-        checkErrorField(response, "too_heavy", "Заказ тяжелый. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
+        checkErrorField(response, "invalid_shipment_state_collecting", "Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
     }
 
     @CaseIDs(value = {@CaseId(1008), @CaseId(1012), @CaseId(2045)})
@@ -126,7 +138,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
             description = "Добавление товара c невалидным productId",
             dataProvider = "invalidProductsId",
             dataProviderClass = RestDataProvider.class,
-            priority = 2)
+            dependsOnMethods = "mergeSameLineItem")
     public void mergeLineItemWithInvalidItem(Long productId, String field, String errorMessage) {
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), productId, 1);
         checkStatusCode422(response);
@@ -137,7 +149,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
     @Story("Добавление товара в заказ")
     @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление другого товара - время редактирования заказа истекло",
-            priority = 3)
+            dependsOnMethods = "mergeSameLineItem")
     public void mergeLineItemForExpiredEditingPeriod() {
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 48, 0);
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(4).getId(), 1);
@@ -149,7 +161,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
     @Story("Добавление товара в заказ")
     @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление другого товара - редактирование запрещено",
-            priority = 4)
+            dependsOnMethods = "mergeSameLineItem")
     public void mergeLineItemEditingForbidden() {
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 1, 1);
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(4).getId(), 1);
@@ -162,21 +174,21 @@ public class ShipmentLineItemsV2Test extends RestBase {
     @Story("Добавление товара в заказ")
     @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление другого товара с превышение количества товаров",
-            priority = 5)
+            dependsOnMethods = "mergeSameLineItem")
     public void mergeLineItemWithExtraItems() {
         deliveryWindowId = order.getShipments().get(0).getDeliveryWindow().getId();
         DeliveryWindowsDao.INSTANCE.updateDeliveryWindowSettings(deliveryWindowId, 1, 1, 1, 1);
         ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(6).getId(), 1);
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(6).getId(), 1);
         checkStatusCode422(response);
-        checkErrorField(response, "items_count_balance_reached", "В заказе много товаров. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
+        checkErrorField(response, "invalid_shipment_state_collecting", "Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
     }
 
     @CaseId(1005)
     @Story("Добавление товара в заказ")
     @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление другого товара - заказ собирается",
-            priority = 6)
+            dependsOnMethods = "mergeSameLineItem")
     public void mergeLineItemForCollectingOrder() {
         String shipmentNumber = order.getShipments().get(0).getNumber();
         SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.COLLECTING.getValue());
@@ -189,7 +201,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
     @Story("Добавление товара в заказ")
     @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Добавление другого товара - заказ отменен",
-            priority = 7)
+            dependsOnMethods = "mergeSameLineItem")
     public void mergeLineItemForCancelledOrder() {
         SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.CANCELED.getValue());
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(4).getId(), 1);

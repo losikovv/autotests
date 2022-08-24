@@ -4,10 +4,12 @@ import io.qameta.allure.Allure;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.hamcrest.Matchers;
 
 import java.util.Objects;
 
 import static org.hamcrest.Matchers.*;
+import static org.testng.Assert.assertNull;
 
 @Slf4j
 public class StatusCodeCheckpoints {
@@ -17,17 +19,14 @@ public class StatusCodeCheckpoints {
     }
 
     public static void checkStatusCode(final Response response, final int statusCode, final String contentType) {
-        response.then().statusCode(statusCode);
-        Allure.step("Проверка на " + statusCode + " статус код");
+        Allure.step("Проверка на " + statusCode + " статус код", () -> response.then().statusCode(statusCode));
 
         if (statusCode == 302) {
-            response.then().header("location", notNullValue());
-            Allure.step("Проверка хедера location");
+            Allure.step("Проверка хедера location", () -> response.then().header("location", notNullValue()));
         }
 
         if (Objects.nonNull(contentType)) {
-            response.then().contentType(contentType);
-            Allure.step("Проверка на " + contentType + " тип контента");
+            Allure.step("Проверка на " + contentType + " тип контента", () -> response.then().contentType(contentType));
         }
     }
 

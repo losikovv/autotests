@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
@@ -39,16 +40,23 @@ import static ru.instamart.api.helper.K8sHelper.changeToAssembled;
 public class ShipmentAssemblyItemsStatusV2Test extends RestBase {
 
     private ShipmentV2 shipment;
+    private UserData userData;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
-        UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
+        userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID, ProductPriceTypeV2.PER_ITEM);
         OrderV2 order = apiV2.createOrder();
         shipment = order.getShipments().get(0);
     }
 
+    @BeforeMethod(alwaysRun = true)
+    public void auth() {
+        if(SessionFactory.getSession(SessionType.API_V2).getToken().equals("invalid")){
+            SessionFactory.createSessionToken(SessionType.API_V2, userData);
+        }
+    }
 
     @CaseId(529)
     @Story("Детали по сборке подзаказа")

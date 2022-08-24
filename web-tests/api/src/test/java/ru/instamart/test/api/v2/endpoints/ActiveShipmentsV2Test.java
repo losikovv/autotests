@@ -48,7 +48,7 @@ public class ActiveShipmentsV2Test extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void cleanup() {
-        //apiV2.cancelCurrentOrder(); //todo починить 404
+        apiV2.cancelCurrentOrder();
     }
 
     @Skip(onServer = Server.STAGING) //todo не работает с 1 сидом на стейджах

@@ -1,5 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -39,7 +40,7 @@ public class LegalEntityV2Test extends RestBase {
     public void getINN400(String inn) {
         final Response response = LegalEntityV2Request.ByINN.GET(inn);
         checkStatusCode404(response);
-         checkError(response, "Информация о компании не существует");
+        checkError(response, "Информация о компании не существует");
     }
 
     @CaseId(482)
@@ -66,18 +67,20 @@ public class LegalEntityV2Test extends RestBase {
         final Response response = CompanyDocumentsV2Request.POST(company);
         checkStatusCode200(response);
         CompanyDocumentV2 companyDocument = response.as(CompanyDocumentV2Response.class).getCompanyDocument();
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(companyDocument.getName(), name, "Наименование не совпадает");
-        softAssert.assertEquals(companyDocument.getInn(), inn, "ИНН не совпадает");
-        softAssert.assertEquals(companyDocument.getKpp(), kpp, "КПП не совпадает");
-        softAssert.assertEquals(companyDocument.getBik(), bik, "БИК не совпадает");
-        softAssert.assertNull(companyDocument.getBank(), "Наименовние банка не пустое");
-        softAssert.assertEquals(companyDocument.getCorrespondentAccount(), corAcc, "Корсчет не совпадает");
-        softAssert.assertEquals(companyDocument.getOperatingAccount(), rs, "Расчетный счет не совпадает");
-        softAssert.assertNull(companyDocument.getAddress(), "Адрес не пустой");
-        softAssert.assertEquals(companyDocument.getPaymentTool().getName(), name + ", ИНН: " + inn, "Наименование платежа не совпадает");
-        softAssert.assertEquals(companyDocument.getPaymentTool().getType(), "sber_bank_invoice", "Тип платежа не совпадает");
-        softAssert.assertAll();
+        Allure.step("Проверка созданных реквизитов компании", ()->{
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(companyDocument.getName(), name, "Наименование не совпадает");
+            softAssert.assertEquals(companyDocument.getInn(), inn, "ИНН не совпадает");
+            softAssert.assertEquals(companyDocument.getKpp(), kpp, "КПП не совпадает");
+            softAssert.assertEquals(companyDocument.getBik(), bik, "БИК не совпадает");
+            softAssert.assertNull(companyDocument.getBank(), "Наименовние банка не пустое");
+            softAssert.assertEquals(companyDocument.getCorrespondentAccount(), corAcc, "Корсчет не совпадает");
+            softAssert.assertEquals(companyDocument.getOperatingAccount(), rs, "Расчетный счет не совпадает");
+            softAssert.assertNull(companyDocument.getAddress(), "Адрес не пустой");
+            softAssert.assertEquals(companyDocument.getPaymentTool().getName(), name + ", ИНН: " + inn, "Наименование платежа не совпадает");
+            softAssert.assertEquals(companyDocument.getPaymentTool().getType(), "sber_bank_invoice", "Тип платежа не совпадает");
+            softAssert.assertAll();
+        });
     }
 
     @CaseId(483)
@@ -134,18 +137,20 @@ public class LegalEntityV2Test extends RestBase {
         final Response response = CompanyDocumentsV2Request.POST(company);
         checkStatusCode200(response);
         CompanyDocumentV2 companyDocument = response.as(CompanyDocumentV2Response.class).getCompanyDocument();
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(companyDocument.getName(), name, "Наименование не совпадает");
-        softAssert.assertEquals(companyDocument.getInn(), inn, "ИНН не совпадает");
-        softAssert.assertEquals(companyDocument.getKpp(), kpp, "КПП не совпадает");
-        softAssert.assertEquals(companyDocument.getBik(), bik, "БИК не совпадает");
-        softAssert.assertEquals(companyDocument.getBank(), bank, "Наименовние банка не совпадает");
-        softAssert.assertEquals(companyDocument.getCorrespondentAccount(), corAcc, "Корсчет не совпадает");
-        softAssert.assertEquals(companyDocument.getOperatingAccount(), rs, "Расчетный счет не совпадает");
-        softAssert.assertEquals(companyDocument.getAddress(), address, "Адрес не совпадает");
-        softAssert.assertEquals(companyDocument.getPaymentTool().getName(), name + ", ИНН: " + inn, "Наименование платежа не совпадает");
-        softAssert.assertEquals(companyDocument.getPaymentTool().getType(), "sber_bank_invoice", "Тип платежа не совпадает");
-        softAssert.assertAll();
+        Allure.step("Проверка созданных реквизитов компании", ()->{
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(companyDocument.getName(), name, "Наименование не совпадает");
+            softAssert.assertEquals(companyDocument.getInn(), inn, "ИНН не совпадает");
+            softAssert.assertEquals(companyDocument.getKpp(), kpp, "КПП не совпадает");
+            softAssert.assertEquals(companyDocument.getBik(), bik, "БИК не совпадает");
+            softAssert.assertEquals(companyDocument.getBank(), bank, "Наименовние банка не совпадает");
+            softAssert.assertEquals(companyDocument.getCorrespondentAccount(), corAcc, "Корсчет не совпадает");
+            softAssert.assertEquals(companyDocument.getOperatingAccount(), rs, "Расчетный счет не совпадает");
+            softAssert.assertEquals(companyDocument.getAddress(), address, "Адрес не совпадает");
+            softAssert.assertEquals(companyDocument.getPaymentTool().getName(), name + ", ИНН: " + inn, "Наименование платежа не совпадает");
+            softAssert.assertEquals(companyDocument.getPaymentTool().getType(), "sber_bank_invoice", "Тип платежа не совпадает");
+            softAssert.assertAll();
+        });
     }
 
     @Skip //TODO разобраться с данными по компаниям

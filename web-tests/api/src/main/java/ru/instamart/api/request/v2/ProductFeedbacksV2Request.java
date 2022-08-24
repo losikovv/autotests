@@ -82,7 +82,7 @@ public final class ProductFeedbacksV2Request extends ApiV2RequestBase {
     public static final class Feedbacks{
             private String sku;
             @JsonProperty("store_id")
-            private String storeId;
+            private Integer storeId;
             private Integer score;
             private String pros;
             private String cons;

@@ -25,6 +25,7 @@ import ru.instamart.jdbc.dao.stf.UserIdDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.listener.Skip;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
@@ -62,8 +63,7 @@ public class OrdersV2Test extends RestBase {
     }
 
     @Deprecated
-    @Test(description = "Получаем заказ",
-            groups = {})
+    @Test(description = "Получаем заказ")
     public void getOrder() {
         response = OrdersV2Request.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
@@ -71,8 +71,7 @@ public class OrdersV2Test extends RestBase {
     }
 
     @Deprecated
-    @Test(description = "Получаем заказы для оценки",
-            groups = {})
+    @Test(description = "Получаем заказы для оценки")
     public void getUnratedOrders() {
         response = OrdersV2Request.Unrated.GET();
         checkStatusCode200(response);
@@ -80,15 +79,14 @@ public class OrdersV2Test extends RestBase {
     }
 
     @Deprecated
-    @Test(description = "Получаем товары в заказе",
-            groups = {})
+    @Test(description = "Получаем товары в заказе")
     public void getOrderLineItems() {
         response = OrdersV2Request.LineItems.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         assertNotNull(response.as(LineItemsV2Response.class).getLineItems(), "Не вернулись товары заказа");
     }
 
-    @CaseId(313) //TODO:добавить caseId 838 после выполнения задачи ATST-847
+    @CaseIDs({@CaseId(313), @CaseId(838)})
     @Story("Применение промокода")
     @Test(groups = {"api-instamart-smoke", "api-v2"},
             description = "Существующий id")
@@ -197,8 +195,7 @@ public class OrdersV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение списка позиций по заказу")
-    @Test(groups = {},
-            description = "Получение списка позиций по заказу. Существующий id")
+    @Test(description = "Получение списка позиций по заказу. Существующий id")
     public void getingListOfItemsForOrder() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = OrdersV2Request.LineItems.GET(apiV2.getCurrentOrderNumber());
@@ -215,8 +212,7 @@ public class OrdersV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение списка позиций по заказу")
-    @Test(groups = {},
-            description = "Несуществующий id")
+    @Test(description = "Несуществующий id")
     public void retrievingListOfItemsForOrderForNonExistentId() {
         response = OrdersV2Request.LineItems.GET("failedOrderNumber");
         checkStatusCode404(response);
@@ -225,8 +221,7 @@ public class OrdersV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение line_items для shipments")
-    @Test(groups = {},
-            description = "Получение line_items для shipments с существующим id")
+    @Test(description = "Получение line_items для shipments с существующим id")
     public void getShipmentLineItems200() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = ShipmentsV2Request.LineItems.GET(apiV2.getShipmentsNumber());
@@ -235,8 +230,7 @@ public class OrdersV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение line_items для shipments")
-    @Test(groups = {},
-            description = "Получение line_items для shipments для заказа с несуществующим id")
+    @Test(description = "Получение line_items для shipments для заказа с несуществующим id")
     public void getShipmentLineItems404() {
         response = ShipmentsV2Request.LineItems.GET("failedOrderNumber");
         checkStatusCode404(response);
@@ -245,8 +239,7 @@ public class OrdersV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение списка отмененных позиций по заказу")
-    @Test(groups = {},
-            description = "Получение списка отмененных позиций по заказу с существующим id")
+    @Test(description = "Получение списка отмененных позиций по заказу с существующим id")
     public void getLineItemCancellations200() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = OrdersV2Request.LineItemCancellations.GET(apiV2.getCurrentOrderNumber());
@@ -257,8 +250,7 @@ public class OrdersV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение списка отмененных позиций по заказу")
-    @Test(groups = {},
-            description = "Получение списка отмененных позиций по заказу с несуществующим id")
+    @Test(description = "Получение списка отмененных позиций по заказу с несуществующим id")
     public void getLineItemCancellations404() {
         response = OrdersV2Request.LineItemCancellations.GET("failedOrderNumber");
         checkStatusCode404(response);
@@ -267,8 +259,7 @@ public class OrdersV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение списка отмененных позиций по подзаказу")
-    @Test(groups = {},
-            description = "Получение списка отмененных позиций по подзаказу с несуществующим id")
+    @Test(description = "Получение списка отмененных позиций по подзаказу с несуществующим id")
     public void getShipmentLineItem404() {
         response = ShipmentsV2Request.LineItemCancellations.GET("failedOrderNumber");
         checkStatusCode404(response);
@@ -277,8 +268,7 @@ public class OrdersV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение списка замененных позиций по заказу")
-    @Test(groups = {},
-            description = "Получение списка замененных позиций по заказу с несуществующим id")
+    @Test(description = "Получение списка замененных позиций по заказу с несуществующим id")
     public void getOrdersLineItemReplacements404() {
         response = OrdersV2Request.LineItemReplacements.GET("failedOrderNumber");
         checkStatusCode404(response);
@@ -287,8 +277,7 @@ public class OrdersV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение списка замененных позиций по подзаказу")
-    @Test(groups = {},
-            description = "Получение списка замененных позиций по подзаказу c несуществующим id")
+    @Test(description = "Получение списка замененных позиций по подзаказу c несуществующим id")
     public void getShipmentLineItemReplacements404() {
         response = ShipmentsV2Request.LineItemReplacements.GET("failedOrderNumber");
         checkStatusCode404(response);
@@ -502,8 +491,7 @@ public class OrdersV2Test extends RestBase {
 
     @Deprecated
     @Story("Очистка заказа")
-    @Test(groups = {},
-            description = "Очистка заказа с существующим id")
+    @Test(description = "Очистка заказа с существующим id")
     public void clearOrder200() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String orderNumber = apiV2.getCurrentOrderNumber();
@@ -524,8 +512,7 @@ public class OrdersV2Test extends RestBase {
 
     @Deprecated
     @Story("Очистка заказа")
-    @Test(groups = {},
-            description = "Очистка заказа с несуществующим id")
+    @Test(description = "Очистка заказа с несуществующим id")
     public void clearOrder404() {
         response = OrdersV2Request.Shipments.DELETE("failedOrderNumber");
         checkStatusCode404(response);
@@ -668,8 +655,7 @@ public class OrdersV2Test extends RestBase {
     @Skip
     @CaseId(816)
     @Story("Применение бонуса")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
-            description = "Использование бонусов для оплаты. Заказ нельзя оплатить бонусами")
+    @Test(description = "Использование бонусов для оплаты. Заказ нельзя оплатить бонусами")
     public void checkOrderPayInstacoin() {
         SessionFactory.clearSession(SessionType.API_V2);
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);

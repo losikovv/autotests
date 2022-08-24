@@ -24,6 +24,7 @@ import java.util.List;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
+import static ru.instamart.kraken.config.EnvironmentProperties.Env.isProduction;
 
 @Epic("ApiV2")
 @Feature("Города")
@@ -56,7 +57,7 @@ public class CitiesV2Test extends RestBase {
     @CaseId(1408)
     @Story("Получение городов")
     @Test(description = "Получаем города, где есть самовывоз",
-            groups = {//"api-instamart-regress", "api-v2", todo починить и включить
+            groups = {"api-instamart-regress", "api-v2",
                     "api-instamart-prod"})
     public void getCitiesWithPickup() {
         final Response response = CitiesV2Request.GET(CitiesV2Request.CitiesParams.builder()
@@ -65,7 +66,7 @@ public class CitiesV2Test extends RestBase {
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, CitiesV2Response.class);
-        if (!EnvironmentProperties.Env.isProduction()) {
+        if (!isProduction()) {
             List<CityV2> citiesFromResponse = response.as(CitiesV2Response.class).getCities();
             compareTwoObjects(StoresDao.INSTANCE.getUniqueCitiesCountByShippingMethod(ShippingMethodV2.PICKUP.getMethod()), citiesFromResponse.size());
         }
@@ -74,7 +75,7 @@ public class CitiesV2Test extends RestBase {
     @CaseId(1409)
     @Story("Получение городов")
     @Test(description = "Получаем все города",
-            groups = {//"api-instamart-regress, "api-v2"", todo починить и включить
+            groups = {"api-instamart-regress", "api-v2",
                     "api-instamart-prod"},
             dependsOnMethods = "getCitiesWithPickup")
     public void getAllCities() {
@@ -83,7 +84,7 @@ public class CitiesV2Test extends RestBase {
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, CitiesV2Response.class);
-        if (!EnvironmentProperties.Env.isProduction()) {
+        if (!isProduction()) {
             List<CityV2> citiesFromResponse = response.as(CitiesV2Response.class).getCities();
             compareTwoObjects(CitiesDao.INSTANCE.getCount(), citiesFromResponse.size());
         }

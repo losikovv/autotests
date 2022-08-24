@@ -545,7 +545,7 @@ public final class ApiV2Helper {
         List<ShippingRateV2> shippingRates = getShippingRates(availableDays.get(0));
 
         List<ShippingRateV2> shippingRatesOnDemand = shippingRates.stream()
-                .filter(item -> item.getIsExpressDelivery() == true)
+                .filter(item -> item.getIsExpressDelivery())
                 .collect(Collectors.toList());
         assertFalse(shippingRatesOnDemand.isEmpty(),
                 "Нет слотов быстрой доставки в магазине admin/stores/" + currentSid.get());
@@ -1432,6 +1432,7 @@ public final class ApiV2Helper {
     /**
      * Отменить последний заказ (с которым взаимодействовали в этой сессии через REST API)
      */
+    @Step("Отменить последний заказ (с которым взаимодействовали в этой сессии через REST API)")
     public void cancelCurrentOrder() {
         if (currentOrderNumber.get() != null && orderCompleted.get() != null && orderCompleted.get())
             cancelOrder(currentOrderNumber.get());
@@ -1440,6 +1441,7 @@ public final class ApiV2Helper {
     /**
      * Отменить последнюю доставку (с которым взаимодействовали в этой сессии через REST API)
      */
+    @Step("Отменить последнюю доставку (с которым взаимодействовали в этой сессии через REST API)")
     public void canselCurrentShipment(){
         if (currentShipmentNumber.get() != null && orderCompleted.get() != null && orderCompleted.get())
             cancelShipment(currentShipmentNumber.get());
@@ -1460,6 +1462,7 @@ public final class ApiV2Helper {
         return response.as(PhonesV2Response.class);
     }
 
+    @Step("Получение первого изображения с рекомендаций")
     public String getSimpleAdsFirstImage(final SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters) {
 
         final Response response = SimpleAdsV2Request.POST(allRequiredParameters);
@@ -1484,6 +1487,7 @@ public final class ApiV2Helper {
         return reviewIssuesV2Response.getReviewIssues();
     }
 
+    @Step("Получение данных по профилю")
     public ProfileV2Response getProfile() {
         final Response response = ProfileV2Request.GET();
         checkStatusCode200(response);

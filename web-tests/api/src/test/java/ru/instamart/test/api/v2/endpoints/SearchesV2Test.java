@@ -1,15 +1,10 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.http.ContentType;
-import ru.instamart.api.response.v2.TopPhrasesV2Response;
-import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.enums.Server;
-import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -17,6 +12,12 @@ import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.model.v2.SuggestionV2;
 import ru.instamart.api.request.v2.SearchesV2Request;
 import ru.instamart.api.response.v2.SearchSuggestionsV2Response;
+import ru.instamart.api.response.v2.TopPhrasesV2Response;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
@@ -86,13 +87,14 @@ public class SearchesV2Test extends RestBase {
     public void getSearchSuggestionsWithEmptyQuery(String query) {
         final Response response = SearchesV2Request.Suggestions.GET(EnvironmentProperties.DEFAULT_SID, query);
         checkStatusCode200(response);
-        assertNull(response.as(SearchSuggestionsV2Response.class).getSuggestion().getProducts(), "Вернулись продукты в поисковых подсказках");
+        Allure.step("Проверка поисковых подсказок",
+                () -> assertNull(response.as(SearchSuggestionsV2Response.class).getSuggestion().getProducts(), "Вернулись продукты в поисковых подсказках"));
     }
 
     @CaseId(2472)
     @Story("Список популярных запросов")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
-        description = "Список популярных запросов без sid")
+            description = "Список популярных запросов без sid")
     public void topPhrasesTest() {
         final Response response = SearchesV2Request.Suggestions.TopPhrases.GET();
         checkStatusCode400(response);
@@ -117,6 +119,8 @@ public class SearchesV2Test extends RestBase {
         final Response response = SearchesV2Request.Suggestions.TopPhrases.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         TopPhrasesV2Response topPhrases = response.as(TopPhrasesV2Response.class);
-        assertTrue(topPhrases.getTopPhrases().size()>0, "TopPhrases вернулся пустым");
+        Allure.step("Проверяем что число популярных запросов больше 0", () ->
+                assertTrue(topPhrases.getTopPhrases().size() > 0, "TopPhrases вернулся пустым")
+        );
     }
 }

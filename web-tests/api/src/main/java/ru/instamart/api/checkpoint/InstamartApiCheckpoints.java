@@ -228,7 +228,7 @@ public class InstamartApiCheckpoints {
         softAssert.assertAll();
     }
 
-    @Step("Сравнение полученной инфомарции о доставке с эталонной")
+    @Step("Сравнение полученной информации о доставке с эталонной")
     public static void checkShipmentInfo(ActiveShipmentV2 shipmentFromResponse, OrderV2 order) {
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(shipmentFromResponse.getOrder().getNumber(), order.getNumber(), softAssert);

@@ -1,5 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
@@ -12,8 +13,10 @@ import ru.instamart.api.request.v2.ExternalAnalyticsV2Request;
 import ru.instamart.api.response.v2.ExternalAnalyticsV2Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.kraken.helper.UUIDHelper.isValidUUID;
 
 @Epic("ApiV2")
 @Feature("Идентификатор устройства для аналитики")
@@ -30,6 +33,10 @@ public class ExternalAnalyticsV2Test extends RestBase {
         final Response response = ExternalAnalyticsV2Request.POST();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ExternalAnalyticsV2Response.class);
+        Allure.step("Проверка UUID на валидность", ()->{
+            ExternalAnalyticsV2Response analyticsV2Response = response.as(ExternalAnalyticsV2Response.class);
+            assertTrue(isValidUUID(analyticsV2Response.getAnonymousDevice().getUuid()), "UUID пришел не валидным");
+        });
     }
 
     @CaseId(946)

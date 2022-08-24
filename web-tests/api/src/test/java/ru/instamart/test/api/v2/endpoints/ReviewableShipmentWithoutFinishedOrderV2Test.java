@@ -27,7 +27,6 @@ import static ru.instamart.kraken.data.user.UserManager.getDefaultApiUser;
 
 @Epic("ApiV2")
 @Feature("Отзывы о заказе")
-@Slf4j
 public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(466), @CaseId(1165)})
     @Story("Получение последнего подзаказа для отзыва")

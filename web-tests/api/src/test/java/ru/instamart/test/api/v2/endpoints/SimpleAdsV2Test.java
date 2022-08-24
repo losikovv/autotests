@@ -4,15 +4,9 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
-import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.enums.Server;
-import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -21,12 +15,18 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.AdsImagesV2Request;
 import ru.instamart.api.request.v2.SimpleAdsV2Request;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 import java.util.UUID;
 
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
@@ -127,12 +127,12 @@ public final class SimpleAdsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
-            description = "Упрощенный запрос нативной рекламы с отсуствующими параметрами")
+            description = "Упрощенный запрос нативной рекламы с отсутствующими параметрами")
     public void simpleAdsBlankParametersTest(RestDataProvider.SimpleAdsV2TestData testData) {
         Allure.step(testData.getDescription());
         final Response response = SimpleAdsV2Request.POST(testData.getSimpleAds());
         checkStatusCode400(response);
-        Assert.assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный");
+        Allure.step("Проверка сообщения об ошибке", () -> assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный"));
     }
 
     @Issue("INFRADEV-12226")
@@ -147,7 +147,7 @@ public final class SimpleAdsV2Test extends RestBase {
         Allure.step(testData.getDescription());
         final Response response = SimpleAdsV2Request.POST(testData.getSimpleAds());
         checkStatusCode(response, testData.getStatusCode());
-        Assert.assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный");
+        Allure.step("Проверка сообщения о ошибке", () -> assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный"));
     }
 
     @CaseId(285)

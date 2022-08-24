@@ -21,7 +21,6 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 
-@Slf4j
 @Epic("ApiV2")
 @Feature("Авторизация")
 public class PhoneConfirmationsV2Test extends RestBase {

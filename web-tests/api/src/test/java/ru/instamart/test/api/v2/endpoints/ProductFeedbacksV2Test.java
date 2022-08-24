@@ -1,5 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -48,14 +49,16 @@ public class ProductFeedbacksV2Test extends RestBase {
         final Response response = ProductFeedbacksV2Request.GET();
         checkStatusCode400(response);
         ErrorTypeResponse errorTypeResponse = response.as(ErrorTypeResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(errorTypeResponse.getType(), "validation-error", "type invalid");
-        softAssert.assertEquals(errorTypeResponse.getTitle(), "Ошибка проверки входящих параметров", "title invalid");
-        softAssert.assertEquals(errorTypeResponse.getDetail(), "Один или более переданных параметров не является допустимым", "detail invalid");
-        softAssert.assertEquals(errorTypeResponse.getStatus(), 400, "status invalid");
-        softAssert.assertEquals(errorTypeResponse.getInvalidParams().get(0).getName(), "store_id", "name invalid");
-        softAssert.assertEquals(errorTypeResponse.getInvalidParams().get(0).getReason(), "не может быть пустым", "reason invalid");
-        softAssert.assertAll();
+        Allure.step("Проверка списка отзывов", ()->{
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(errorTypeResponse.getType(), "validation-error", "type invalid");
+            softAssert.assertEquals(errorTypeResponse.getTitle(), "Ошибка проверки входящих параметров", "title invalid");
+            softAssert.assertEquals(errorTypeResponse.getDetail(), "Один или более переданных параметров не является допустимым", "detail invalid");
+            softAssert.assertEquals(errorTypeResponse.getStatus(), 400, "status invalid");
+            softAssert.assertEquals(errorTypeResponse.getInvalidParams().get(0).getName(), "store_id", "name invalid");
+            softAssert.assertEquals(errorTypeResponse.getInvalidParams().get(0).getReason(), "не может быть пустым", "reason invalid");
+            softAssert.assertAll();
+        });
     }
 
     @Skip(onServer = Server.STAGING)
@@ -70,21 +73,7 @@ public class ProductFeedbacksV2Test extends RestBase {
         );
         checkStatusCode200(response);
         FeedbacksV2Response feedbacksV2Response = response.as(FeedbacksV2Response.class);
-        final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(feedbacksV2Response.getFeedbacks().size(), 0, softAssert);
-
-    }
-
-    @Skip //TODO: возвращает 500
-    @CaseIDs({@CaseId(2298), @CaseId(2299)})
-    @Story("Создание отзыва на товар")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
-            dataProvider = "sendProductFeedbacks",
-            dataProviderClass = RestDataProvider.class,
-            description = "Создание отзыва на товар")
-    public void sendProductFeedbacks200(final ProductFeedbacksV2Request.Feedbacks feedbacks) {
-        final Response response = ProductFeedbacksV2Request.POST(feedbacks);
-        checkStatusCode200(response);
+        compareTwoObjects(feedbacksV2Response.getFeedbacks().size(), 0);
     }
 
     @Skip(onServer = Server.STAGING)

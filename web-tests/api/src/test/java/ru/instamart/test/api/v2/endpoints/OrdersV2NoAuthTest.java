@@ -12,8 +12,7 @@ import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Заказы (orders)")
