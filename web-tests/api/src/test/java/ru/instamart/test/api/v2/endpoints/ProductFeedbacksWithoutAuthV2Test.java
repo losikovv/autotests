@@ -75,7 +75,7 @@ public class ProductFeedbacksWithoutAuthV2Test extends RestBase {
         final Response response = ProductFeedbacksV2Request.POST(
                 ProductFeedbacksV2Request.Feedbacks.builder()
                         .sku(productSku)
-                        .storeId(String.valueOf(EnvironmentProperties.DEFAULT_SID))
+                        .storeId(EnvironmentProperties.DEFAULT_SID)
                         .score(4)
                         .pros("свежий")
                         .cons("Слишком зеленый")

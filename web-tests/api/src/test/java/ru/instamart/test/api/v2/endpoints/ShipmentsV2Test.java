@@ -1,9 +1,9 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -20,6 +20,7 @@ import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -235,7 +236,9 @@ public class ShipmentsV2Test extends RestBase {
         String formattedDate = localDate.format(formatter);
         final Response response = ShipmentsV2Request.ShippingRates.GET(apiV2.getShipmentsNumber(), formattedDate);
         checkStatusCode200(response);
+        var shippingRates = response.as(ShippingRatesV2Response.class);
         checkResponseJsonSchema(response, ShippingRatesV2Response.class);
+        Allure.step("Проверка доступных дней доставки", () -> assertTrue(shippingRates.getMeta().getAvailableDays().size() == 7, "Период доставки не равен неделе"));
     }
 
     @CaseId(368)
@@ -274,6 +277,10 @@ public class ShipmentsV2Test extends RestBase {
         final Response response = StoresV2Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID, params);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, NextDeliveriesV2Response.class);
+        final NextDeliveriesV2Response nextDeliveries = response.as(NextDeliveriesV2Response.class);
+        Allure.step("Проверка пришло ли окно доставки", () -> assertTrue(nextDeliveries.getNextDeliveries().size() > 0, "Окно доставки пришло пустым"));
+        final var nextDeliveryV2 = nextDeliveries.getNextDeliveries().get(0);
+        Allure.step("Проверяем тип доставки", () -> assertEquals(nextDeliveryV2.getKind(), "courier", "kind не равен \"courier\""));
     }
 
     @CaseId(371)
@@ -300,7 +307,7 @@ public class ShipmentsV2Test extends RestBase {
         String number = apiV2.getShipmentsNumber();
         final Response response = ShipmentsV2Request.State.GET(number);
         checkStatusCode200(response);
-        assertEquals(response.as(StateV2Response.class).getState(), StateV2.PENDING.getValue(), "Статус доставки не совпадает");
+        Allure.step("Проверка статуса", () -> assertEquals(response.as(StateV2Response.class).getState(), StateV2.PENDING.getValue(), "Статус доставки не совпадает"));
     }
 
     @CaseId(786)
@@ -333,11 +340,14 @@ public class ShipmentsV2Test extends RestBase {
         checkStatusCode200(response);
         OrderV2Response orderV2Response = response.as(OrderV2Response.class);
         OrderV2 orderFromResponse = orderV2Response.getOrder();
+        Allure.step("Проверка заказа", () -> assertTrue(orderV2Response.getOrder().getShipments().size() > 0, "Данные о доставке пустые"));
         ShipmentV2 clonedShipment = orderV2Response.getOrder().getShipments().get(0);
-        SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(orderFromResponse, order, softAssert);
-        compareTwoObjects(clonedShipment, shipment, softAssert);
-        softAssert.assertAll();
+        Allure.step("", () -> {
+            SoftAssert softAssert = new SoftAssert();
+            compareTwoObjects(orderFromResponse, order, softAssert);
+            compareTwoObjects(clonedShipment, shipment, softAssert);
+            softAssert.assertAll();
+        });
     }
 
     @CaseId(299)

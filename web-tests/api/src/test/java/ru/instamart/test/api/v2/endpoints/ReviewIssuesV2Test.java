@@ -37,7 +37,7 @@ public class ReviewIssuesV2Test extends RestBase {
 
     @CaseId(470)
     @Story("Получение списка возможных проблем для отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-instamart-regress", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-v2"},
             description = "Получение списка возможных проблем для отзыва о существующей доставке")
     public void getListIssuesForShipment() {
         final Response response = ShipmentsV2Request.ReviewIssues.GET(shipmentNumber);
@@ -85,17 +85,5 @@ public class ReviewIssuesV2Test extends RestBase {
         final Response response = OrdersV2Request.ReviewIssues.GET("failedOrderNumber");
         checkStatusCode404(response);
         checkError(response, "Заказ не существует");
-    }
-
-    @CaseId(1445)
-    @Story("Получение списка возможных проблем для отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
-            description = "Получение списка возможных проблем для отзыва о существующем заказе без авторизации",
-            priority = 1)
-    public void getListIssuesForOrderWuthoutAuth() {
-        SessionFactory.clearSession(SessionType.API_V2);
-        final Response response = OrdersV2Request.ReviewIssues.GET(orderNumber);
-        checkStatusCode401(response);
-        checkError(response, "Ключ доступа невалиден или отсутствует");
     }
 }

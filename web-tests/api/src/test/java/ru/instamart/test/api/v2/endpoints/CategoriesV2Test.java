@@ -22,7 +22,7 @@ public final class CategoriesV2Test extends RestBase {
 
     @CaseId(1459)
     @Story("Получение полной иерархии категорий")
-    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
             description = "Существующий id")
     public void testCategoriesWithId() {
         final Response response = CategoriesV2Request.GET(EnvironmentProperties.DEFAULT_SID);
@@ -32,7 +32,7 @@ public final class CategoriesV2Test extends RestBase {
 
     @CaseId(1460)
     @Story("Получение полной иерархии категорий")
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Не существующий id")
     public void testCategoriesWithInvalidId() {
         final Response response = CategoriesV2Request.GET(0);

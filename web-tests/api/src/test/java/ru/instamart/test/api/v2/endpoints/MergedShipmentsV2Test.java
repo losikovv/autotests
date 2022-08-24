@@ -55,6 +55,7 @@ public class MergedShipmentsV2Test extends RestBase {
         checkStatusCode200(response);
         OrderV2 newOrder = apiV2.createOrder();
         final Response responseForMerge = ShipmentsV2Request.Merge.POST(newOrder.getShipments().get(0).getNumber(), order.getShipments().get(0).getNumber());
+        responseForMerge.prettyPeek();
         checkStatusCode200(responseForMerge);
         checkResponseJsonSchema(responseForMerge, OrderV2Response.class);
     }

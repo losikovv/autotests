@@ -34,7 +34,8 @@ import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 public class CreditCardsV2Test extends RestBase {
 
     private Integer creditCardId;
-    private String publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAol3r+CqqmOgfLXbpTPrrQqP9yYEKDSLHVQgyWeUnoZdy06ZD8Yt0s5ENtoKOsfdvA1GYDhBwxq9v15AXiynAxkhu9UZ/b3RjMh9tJ/sNrVBGfnJvKRBhIedcNgMtvmMsuiQDUqIV+Ia6BP3S0w8l9WEkFelK+y7bZeXfaAEfCyMAcsW7C8CGKryXG8v5ZKBwqmAo5D5O43wGPjVoHL9G9EGIhQbdNcx2bmy7zFffMhI9hiaTWjhkwmPsqanLB9AzYiZ1431s3lYGu+ZCu66aI7MkmsDGeHV/Z/4HCIzA5KrSx/KZ2Yw27n6Hqj3AYfiYehETKNAEAKF7gNpEU+ad2QIDAQAB";
+    //todo можно получить из настроек приложения
+    private final String publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAol3r+CqqmOgfLXbpTPrrQqP9yYEKDSLHVQgyWeUnoZdy06ZD8Yt0s5ENtoKOsfdvA1GYDhBwxq9v15AXiynAxkhu9UZ/b3RjMh9tJ/sNrVBGfnJvKRBhIedcNgMtvmMsuiQDUqIV+Ia6BP3S0w8l9WEkFelK+y7bZeXfaAEfCyMAcsW7C8CGKryXG8v5ZKBwqmAo5D5O43wGPjVoHL9G9EGIhQbdNcx2bmy7zFffMhI9hiaTWjhkwmPsqanLB9AzYiZ1431s3lYGu+ZCu66aI7MkmsDGeHV/Z/4HCIzA5KrSx/KZ2Yw27n6Hqj3AYfiYehETKNAEAKF7gNpEU+ad2QIDAQAB";
 
     @BeforeMethod(alwaysRun = true)
     @Story("Создание сессии")

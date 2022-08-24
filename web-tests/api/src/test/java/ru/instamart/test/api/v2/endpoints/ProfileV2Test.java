@@ -1,5 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
@@ -30,12 +31,12 @@ import static ru.instamart.kraken.helper.UUIDHelper.isValidUUID;
 public class ProfileV2Test extends RestBase {
 
     @AfterClass(alwaysRun = true)
-    public void after(){
+    public void after() {
         SessionFactory.clearSession(SessionType.API_V2);
     }
 
     @BeforeClass(alwaysRun = true)
-    public void before(){
+    public void before() {
         SessionFactory.makeSession(SessionType.API_V2);
     }
 
@@ -48,18 +49,21 @@ public class ProfileV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProfileV2Response.class);
         UserV2 user = response.as(ProfileV2Response.class).getUser();
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(user.getCurrentPhone(), getHumanPhoneNumber(session.getUserData().getPhone()),
-                "Current phone не совпадает с введенным");
+        Allure.step("Проверка данных пользователя", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(user.getCurrentPhone(), getHumanPhoneNumber(session.getUserData().getPhone()),
+                    "Current phone не совпадает с введенным");
 
-        softAssert.assertTrue(isValidUUID(user.getId()), "id is not valid");
-        softAssert.assertFalse(user.getB2b(), "b2b is not FALSE");
+            softAssert.assertTrue(isValidUUID(user.getId()), "id is not valid");
+            softAssert.assertFalse(user.getB2b(), "b2b is not FALSE");
 
-        softAssert.assertTrue(user.getConfig().getSendEmails(), "send emails is not TRUE");
-        softAssert.assertTrue(user.getConfig().getSendSms(), "send sms is not TRUE");
-        softAssert.assertTrue(user.getConfig().getSendPush(), "send push is not TRUE");
+            softAssert.assertTrue(user.getConfig().getSendEmails(), "send emails is not TRUE");
+            softAssert.assertTrue(user.getConfig().getSendSms(), "send sms is not TRUE");
+            softAssert.assertTrue(user.getConfig().getSendPush(), "send push is not TRUE");
 
-        softAssert.assertAll();
+            softAssert.assertAll();
+        });
+
     }
 
     @CaseId(150)
@@ -78,12 +82,14 @@ public class ProfileV2Test extends RestBase {
         final Response response = ProfileV2Request.PUT(buildProfile);
         checkStatusCode200(response);
         ProfileV2Response profile = response.as(ProfileV2Response.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(profile.getUser().getFirstName(), newFirstName, "new first name not accepted");
-        softAssert.assertEquals(profile.getUser().getLastName(), newLastName, "new first name not accepted");
-        softAssert.assertEquals(profile.getUser().getEmail(), newEmail, "new first name not accepted");
-        softAssert.assertEquals(profile.getUser().getDisplayEmail(), newEmail, "new first name not accepted");
-        softAssert.assertAll();
+        Allure.step("Проверка данных пользователя", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(profile.getUser().getFirstName(), newFirstName, "new first name not accepted");
+            softAssert.assertEquals(profile.getUser().getLastName(), newLastName, "new first name not accepted");
+            softAssert.assertEquals(profile.getUser().getEmail(), newEmail, "new first name not accepted");
+            softAssert.assertEquals(profile.getUser().getDisplayEmail(), newEmail, "new first name not accepted");
+            softAssert.assertAll();
+        });
     }
 
     @CaseId(151)
@@ -101,12 +107,14 @@ public class ProfileV2Test extends RestBase {
                 .build();
         final Response response = ProfileV2Request.PUT(buildProfile);
         checkStatusCode422(response);
-        final SoftAssert softAssert = new SoftAssert();
-        ErrorResponse error = response.as(ErrorResponse.class);
-        softAssert.assertEquals(error.getErrors().getEmail(), "Неверный формат email", "Невалидная ошибка");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "email", "Невалидный тип ошибки");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Неверный формат email", "Невалидная ошибка");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Неверный формат email", "Невалидная ошибка");
-        softAssert.assertAll();
+        Allure.step("Проверка данных пользователя", ()-> {
+            final SoftAssert softAssert = new SoftAssert();
+            ErrorResponse error = response.as(ErrorResponse.class);
+            softAssert.assertEquals(error.getErrors().getEmail(), "Неверный формат email", "Невалидная ошибка");
+            softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "email", "Невалидный тип ошибки");
+            softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Неверный формат email", "Невалидная ошибка");
+            softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Неверный формат email", "Невалидная ошибка");
+            softAssert.assertAll();
+        });
     }
 }

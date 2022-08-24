@@ -558,7 +558,8 @@ public class TransferMethodV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1773), @CaseId(1774)})
     @Story("Трансфер самовывоз, алкоголь")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(enabled = false,
+            groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина c разными способами доставки",
             priority = 10,
             dataProvider = "storeForPickupAlcoholWithoutLosses",

@@ -1,5 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -22,19 +23,17 @@ import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
 public class ReviewableShipmentNewV2Test extends RestBase {
 
     private String shipmentNumber;
-    private UserData userData;
-    private OrderV2 order;
 
     @BeforeClass(alwaysRun = true)
     public void before() {
         var sid = EnvironmentProperties.DEFAULT_SID;
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
-        order = apiV2.order(userData, sid);
+        final UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
+        final OrderV2 order = apiV2.order(userData, sid);
         shipmentNumber = order.getShipments().get(0).getNumber();
         changeToShip(shipmentNumber);
         String pastZoneDbDate = getPastZoneDbDate(7L);
-        SpreeShipmentsDao.INSTANCE.updateShipmentsByNumber(pastZoneDbDate, shipmentNumber);
+        Allure.step("Обновление даты доставки в БД", ()->SpreeShipmentsDao.INSTANCE.updateShipmentsByNumber(pastZoneDbDate, shipmentNumber));
     }
 
     @CaseId(2337)

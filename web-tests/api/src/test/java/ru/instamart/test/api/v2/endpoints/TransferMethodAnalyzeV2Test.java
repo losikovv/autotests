@@ -79,7 +79,8 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1049), @CaseId(1051), @CaseId(1052)})
     @Story("Трансфер доставка-самовывоз")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(enabled = false,
+            groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступна только доставка",
             dataProvider = "storesDataForPickupTransferMethodOnlyCourier",
             dataProviderClass = RestDataProvider.class)
@@ -281,7 +282,8 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(1070), @CaseId(1074), @CaseId(1071), @CaseId(1073)})
     @Skip(onServer = Server.STAGING)
     @Story("Трансфер самовывоз-самовывоз")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(enabled = false,
+            groups = {"api-instamart-regress", "api-v2"},
             description = "Проверяем потери для магазина, где доступен только самовывоз",
             priority = 7,
             dataProvider = "storesDataForPickupTransferMethod",
@@ -359,7 +361,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
                 .lon(88.205530)
                 .build(), currentOrderNumber);
         checkStatusCode200(response);
-        compareTwoObjects(AnalyzeResultV2.ALCOHOL_DISAPPEARS.getValue(), response.as(TransferMethodAnalyzeV2Response.class).getResult());
+        compareTwoObjects(AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS.getValue(), response.as(TransferMethodAnalyzeV2Response.class).getResult());
     }
 
     @CaseIDs(value = {@CaseId(1077), @CaseId(1078), @CaseId(1079)})

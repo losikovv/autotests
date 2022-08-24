@@ -1,4 +1,4 @@
-package ru.instamart.test.api.v2.endpoints;
+package ru.instamart.test.api.v2.deprecated;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -20,6 +20,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.helper.K8sHelper.execRakeTaskAddBonus;
 
+@Deprecated
 @Epic("ApiV2")
 @Feature("Бонусный счет")
 public class InstacoinAccountV2Test extends RestBase {
@@ -30,9 +31,9 @@ public class InstacoinAccountV2Test extends RestBase {
     }
 
     @CaseId(555)
+    @Deprecated
     @Story("Бонусный счет пользователя")
-    @Test(description = "У пользователя нет бонусов",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"})
+    @Test(description = "У пользователя нет бонусов")
     public void getNonExistingInstacoinAccount() {
         final Response response = InstacoinAccountV2Request.GET();
         checkStatusCode200(response);
@@ -44,8 +45,7 @@ public class InstacoinAccountV2Test extends RestBase {
     @Deprecated
     @Skip
     @Story("Бонусный счет пользователя")
-    @Test(description = "У пользователя есть бонусы",
-            groups = {"api-instamart-regress", "api-v2"}) //инстакоины выпилены напрочь
+    @Test(description = "У пользователя есть бонусы") //инстакоины выпилены напрочь
     public void getInstacoinAccount() {
         UserData user = SessionFactory.getSession(SessionType.API_V2).getUserData();
         execRakeTaskAddBonus(user.getEmail(), "100", user.getId());

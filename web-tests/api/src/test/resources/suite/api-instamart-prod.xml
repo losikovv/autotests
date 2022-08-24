@@ -109,7 +109,6 @@
             <class name="ru.instamart.test.api.v2.endpoints.SberCardAuthorizationV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.OnboardingV2PagesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.UserReferralProgramV2Test"/>
-            <class name="ru.instamart.test.api.v2.endpoints.InstacoinAccountV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ShipmentLineItemsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.MergedShipmentsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.PaymentToolsV2Test"/>

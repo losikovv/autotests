@@ -1,5 +1,6 @@
 package ru.instamart.api.factory;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -59,6 +60,7 @@ public final class SessionFactory {
         makeSession(type, provider);
     }
 
+    @Step("Создании сессии типа {1} через {2}")
     public static void makeSession(final SessionType type, final SessionProvider provider) {
         final UserData userData = provider.equals(SessionProvider.QA) ? UserManager.getQaUser() : UserManager.getUser();
         switch (type) {

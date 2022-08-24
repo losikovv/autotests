@@ -1,13 +1,7 @@
 package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.*;
-import ru.instamart.kraken.enums.Server;
-import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
-
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -17,9 +11,14 @@ import ru.instamart.api.response.v2.SimpleRecsV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.UUID;
 
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
@@ -128,7 +127,7 @@ public final class SimpleRecsV2Test extends RestBase {
         SimpleRecsV2Request.SimpleRecsV2 simpleRecsV2 = testData.getSimpleRec();
         final Response response = SimpleRecsV2Request.Personal.POST(simpleRecsV2);
         checkStatusCode400(response);
-        Assert.assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный");
+        Allure.step("Проверка сообщения ошибки", () -> assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный"));
     }
 
     @Issue("INFRADEV-12226")
@@ -146,7 +145,7 @@ public final class SimpleRecsV2Test extends RestBase {
         SimpleRecsV2Request.SimpleRecsV2 simpleRecsV2 = testData.getSimpleRec();
         final Response response = SimpleRecsV2Request.Personal.POST(simpleRecsV2);
         checkStatusCode(response, testData.getStatusCode());
-        Assert.assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный");
+        Allure.step("Проверка сообщения ошибки", () -> assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный"));
 
     }
 

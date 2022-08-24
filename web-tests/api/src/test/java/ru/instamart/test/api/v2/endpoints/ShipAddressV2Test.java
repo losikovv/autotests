@@ -1,5 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -30,7 +31,7 @@ public final class ShipAddressV2Test extends RestBase {
     }
 
     @Deprecated
-    @Test(groups = {})
+    @Test
     @Story("Существующий id для авторизованных")
     public void testAddressWithAuthAndValidOrderId() {
         final Response response = OrdersV2Request.ShipAddress.GET(apiV2.getCurrentOrderNumber());
@@ -38,7 +39,7 @@ public final class ShipAddressV2Test extends RestBase {
     }
 
     @Deprecated
-    @Test(groups = {})
+    @Test
     @Story("Несуществующий id для авторизованных")
     public void testAddressWithAuthAndInvalidOrderId() {
         final Response response = OrdersV2Request.ShipAddress.GET("66666");
@@ -46,7 +47,7 @@ public final class ShipAddressV2Test extends RestBase {
     }
 
     @Deprecated
-    @Test(groups = {})
+    @Test
     @Story("Существующий id для не авторизованных")
     public void testAddressWithoutAuthAndValidOrderId() {
         final Response response = OrdersV2Request.ShipAddress.GET("invalid_token", apiV2.getCurrentOrderNumber());
@@ -54,7 +55,7 @@ public final class ShipAddressV2Test extends RestBase {
     }
 
     @Deprecated
-    @Test(groups = {})
+    @Test
     @Story("Несуществующий id для не авторизованных")
     public void testAddressWithoutAuthAndInvalidOrderId() {
         final Response response = OrdersV2Request.ShipAddress.GET("invalid_token", "66666");
@@ -63,8 +64,7 @@ public final class ShipAddressV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {},
-            description = "Существующий id для авторизованных")
+    @Test(description = "Существующий id для авторизованных")
     public void testGetChangeAddressWithValidIdAndAuth() {
         final Response response = OrdersV2Request.ShipAddressChange.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
@@ -74,7 +74,7 @@ public final class ShipAddressV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {}, description = "Несуществующий id для авторизованных")
+    @Test(description = "Несуществующий id для авторизованных")
     public void testGetChangeAddressWithInvalidIdAndValidAuth() {
         final Response response = OrdersV2Request.ShipAddressChange.GET("66666");
         checkStatusCode404(response);
@@ -82,7 +82,7 @@ public final class ShipAddressV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {}, description = "Существующий id для не авторизованных")
+    @Test(description = "Существующий id для не авторизованных")
     public void testGetChangeAddressWithValidIdAndInvalidAuth() {
         final Response response = OrdersV2Request.ShipAddressChange.GET("invalid_token", apiV2.getCurrentOrderNumber());
         checkStatusCode403(response);
@@ -90,7 +90,7 @@ public final class ShipAddressV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {}, description = "Несуществующий id для не авторизованных")
+    @Test(description = "Несуществующий id для не авторизованных")
     public void testGetChangeAddressWithInvalidIdAndInvalidAuth() {
         final Response response = OrdersV2Request.ShipAddressChange.GET("invalid_token", "6666666");
         checkStatusCode404(response);
@@ -109,10 +109,12 @@ public final class ShipAddressV2Test extends RestBase {
         checkStatusCode200(response);
         final ShipAddressChangeV2Response shipAddressChange = response.as(ShipAddressChangeV2Response.class);
         checkFieldIsNotEmpty(shipAddressChange, "ответ");
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(address.getCity(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getCity(), "city не рано задааному");
-        softAssert.assertEquals(address.getStreet(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getStreet(), "street не равно задачному ");
-        softAssert.assertAll();
+        Allure.step("Проверка адреса", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(address.getCity(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getCity(), "city не рано задааному");
+            softAssert.assertEquals(address.getStreet(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getStreet(), "street не равно задачному ");
+            softAssert.assertAll();
+        });
     }
 
     @CaseId(242)
@@ -130,7 +132,7 @@ public final class ShipAddressV2Test extends RestBase {
 
     @Deprecated
     @Story("Изменить адрес доставки для заказа")
-    @Test(groups = {}, description = "Существующий id для не авторизованных")
+    @Test(description = "Существующий id для не авторизованных")
     public void testChangeAddressWithValidIdAndInvalidAuth() {
         final AddressV2 address = AddressV2.builder()
                 .city("Москва")
@@ -142,7 +144,7 @@ public final class ShipAddressV2Test extends RestBase {
 
     @Deprecated
     @Story("Изменить адрес доставки для заказа")
-    @Test(groups = {}, description = "Несуществующий id для не авторизованных")
+    @Test(description = "Несуществующий id для не авторизованных")
     public void testChangeAddressWithInvalidIdAndInvalidAuth() {
         final AddressV2 address = AddressV2.builder()
                 .city("Москва")
@@ -154,7 +156,7 @@ public final class ShipAddressV2Test extends RestBase {
 
     @Deprecated
     @Story("Изменить адрес доставки для заказа")
-    @Test(groups = {}, description = "Указание существующего ship_address[address_id]")
+    @Test(description = "Указание существующего ship_address[address_id]")
     public void testChangeAddressWithExistShipAddressId() {
         final String orderNumber = apiV2.getCurrentOrderNumber();
         final AddressV2 address = AddressV2.builder()
@@ -166,16 +168,18 @@ public final class ShipAddressV2Test extends RestBase {
         checkStatusCode200(response);
 
         ShipAddressChangeV2Response shipAddressChange = response.as(ShipAddressChangeV2Response.class);
-        assertNotNull(shipAddressChange, "Ответ вернулся пустым");
+        Allure.step("Проверка измененного адреса", ()->assertNotNull(shipAddressChange, "Ответ вернулся пустым"));
 
         address.setId(shipAddressChange.getShipAddressChange().getOrder().getAddress().getId());
         address.setCity("Удмуртия");
         response = OrdersV2Request.ShipAddressChange.PUT(address, orderNumber);
         checkStatusCode200(response);
-        shipAddressChange = response.as(ShipAddressChangeV2Response.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertNotNull(shipAddressChange, "Ответ вернулся пустым");
-        softAssert.assertEquals(address.getCity(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getCity(), "city не равен заданному");
-        softAssert.assertAll();
+        var finalShipAddressChange = response.as(ShipAddressChangeV2Response.class);
+        Allure.step("", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertNotNull(finalShipAddressChange, "Ответ вернулся пустым");
+            softAssert.assertEquals(address.getCity(), finalShipAddressChange.getShipAddressChange().getOrder().getAddress().getCity(), "city не равен заданному");
+            softAssert.assertAll();
+        });
     }
 }

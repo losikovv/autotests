@@ -122,7 +122,6 @@ public class BaseApiCheckpoints {
 
     public static void checkResponseJsonSchema(Response response, Class<?> clazz) {
         String expectedSchema = getJsonSchema(clazz);
-        response.then().assertThat().body(matchesJsonSchema(expectedSchema));
-        Allure.step("Проверяем json-схему " + clazz.getSimpleName());
+        Allure.step("Проверяем json-схему " + clazz.getSimpleName(), () -> response.then().assertThat().body(matchesJsonSchema(expectedSchema)));
     }
 }
