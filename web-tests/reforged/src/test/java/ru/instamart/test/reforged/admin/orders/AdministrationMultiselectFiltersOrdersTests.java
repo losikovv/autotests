@@ -14,13 +14,12 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import static ru.instamart.reforged.admin.AdminRout.login;
 import static ru.instamart.reforged.admin.AdminRout.orders;
-import static ru.instamart.reforged.admin.enums.AdminOrders.PaymentMethods.*;
-import static ru.instamart.reforged.admin.enums.AdminOrders.PaymentStatuses.*;
-import static ru.instamart.reforged.admin.enums.AdminOrders.ShipmentStatus.*;
+import static ru.instamart.reforged.admin.enums.PaymentMethods.*;
+import static ru.instamart.reforged.admin.enums.PaymentStatuses.*;
+import static ru.instamart.reforged.admin.enums.ShipmentStatuses.*;
 
 @Epic("Админка STF")
 @Feature("Заказы")
@@ -42,7 +41,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        orders().goToPage(orders().pageUrl());
+        orders().goToPage();
         orders().checkShipmentListNotEmpty();
         orders().checkOrdersLoaded();
         orders().checkLoadingLabelNotVisible();
@@ -113,7 +112,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        orders().goToPage(orders().pageUrl());
+        orders().goToPage();
         orders().checkShipmentListNotEmpty();
         orders().checkOrdersLoaded();
         orders().checkLoadingLabelNotVisible();
@@ -169,7 +168,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        orders().goToPage(orders().pageUrl());
+        orders().goToPage();
         orders().checkShipmentListNotEmpty();
         orders().checkOrdersLoaded();
         orders().checkLoadingLabelNotVisible();
@@ -203,7 +202,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        orders().goToPage(orders().pageUrl());
+        orders().goToPage();
         orders().checkShipmentListNotEmpty();
         orders().checkOrdersLoaded();
         orders().checkLoadingLabelNotVisible();
@@ -237,7 +236,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        orders().goToPage(orders().pageUrl());
+        orders().goToPage();
         orders().checkShipmentListNotEmpty();
         orders().checkOrdersLoaded();
         orders().checkLoadingLabelNotVisible();
@@ -271,7 +270,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        orders().goToPage(orders().pageUrl());
+        orders().goToPage();
         orders().checkShipmentListNotEmpty();
         orders().checkOrdersLoaded();
         orders().checkLoadingLabelNotVisible();
@@ -303,7 +302,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        orders().goToPage(orders().pageUrl());
+        orders().goToPage();
         orders().checkShipmentListNotEmpty();
         orders().checkOrdersLoaded();
         orders().checkLoadingLabelNotVisible();
@@ -337,7 +336,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        orders().goToPage(orders().pageUrl());
+        orders().goToPage();
         orders().checkShipmentListNotEmpty();
         orders().checkOrdersLoaded();
         orders().checkLoadingLabelNotVisible();

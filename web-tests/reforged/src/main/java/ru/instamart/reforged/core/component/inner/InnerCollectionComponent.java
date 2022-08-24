@@ -37,7 +37,7 @@ public final class InnerCollectionComponent extends InnerComponent {
         return getComponents().stream().map(WebElement::getText).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    public Set<String> getTextFromAllElements(final Object... args) {
+    public synchronized Set<String> getTextFromAllElements(final Object... args) {
         setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         log.debug("Get text from all elements of element collection {}'s with locator {}", getClass().getSimpleName(), getBy());
         return getComponents().stream().map(WebElement::getText).collect(Collectors.toCollection(LinkedHashSet::new));

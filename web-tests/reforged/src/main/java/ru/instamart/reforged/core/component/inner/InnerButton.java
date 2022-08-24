@@ -23,7 +23,7 @@ public final class InnerButton extends InnerComponent {
         getComponent().click();
     }
 
-    public void click(final Object... args) {
+    public synchronized void click(final Object... args) {
         setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         log.debug("Click {} with locator {}", getDescription(), getBy());
         getComponent().click();

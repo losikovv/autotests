@@ -20,7 +20,7 @@ public final class AdministrationBasicOrdersTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        orders().goToPage(orders().pageUrl());
+        orders().goToPage();
         orders().checkLoadingLabelNotVisible();
         orders().checkAllFilterInputsIsEmpty();
         orders().checkShipmentStatusFiltersNotSelected();
@@ -117,7 +117,7 @@ public final class AdministrationBasicOrdersTests {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        orders().goToPage(orders().pageUrl());
+        orders().goToPage();
         orders().checkLoadingLabelNotVisible();
         orders().checkAllFilterInputsIsEmpty();
         orders().checkShipmentStatusFiltersNotSelected();
