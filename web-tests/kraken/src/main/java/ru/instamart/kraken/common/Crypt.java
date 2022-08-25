@@ -34,7 +34,7 @@ public enum Crypt {
 
     public void init() {
         try {
-            var key = System.getProperty("key", null);
+            var key = System.getenv("ATST_APP_SECRET_KEY");
             if (isNull(key)) {
                 //For local run
                 final Optional<File> keyFile = Arrays

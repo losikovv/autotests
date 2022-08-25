@@ -8,8 +8,7 @@ public final class CoreProperties {
 
     @Config(configName = NAME, fieldName = "defaultRetailer", defaultValue = "metro")
     public static String DEFAULT_RETAILER;
-    @Config(configName = NAME, fieldName = "defaultEnvironment", defaultValue = "sbermarket-preprod", args = "env")
-    public static String DEFAULT_ENVIRONMENT;
+
     @Config(configName = NAME, fieldName = "defaultSms", defaultValue = "111111")
     public static String DEFAULT_SMS;
     @Config(configName = NAME, fieldName = "defaultUiSms", defaultValue = "199011")

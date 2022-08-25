@@ -100,9 +100,8 @@ task apiV3Notifications(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/api-v3-notifications.xml'
         includeGroups 'api-instamart-smoke', 'api-instamart-regress'
-        systemProperty 'env', "sbermarket-staging_mannschaft"
     }
-
+    environment 'P_ENV', "sbermarket-staging_mannschaft"
     systemProperty 'qase.Project', 'INAPI'
     systemProperty 'qase.Title', 'API v3 Notifications'
 }
@@ -111,17 +110,16 @@ task apiRetailerE2E(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/api-retailers.xml'
         includeGroups 'api-retailer'
-        systemProperty 'env', "sbermarket-production"
-        systemProperty 'qase', "false"
     }
+    environment 'P_ENV', "sbermarket-production"
 }
 
 task apiInstamartProduction(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/api-instamart-prod.xml'
         includeGroups 'api-instamart-prod'
-        systemProperty 'env', "sbermarket-production"
     }
+    environment 'P_ENV', "sbermarket-production"
     systemProperty 'qase.Project', 'INAPI'
     systemProperty 'qase.Title', 'Instamart API Regress'
 }
@@ -130,8 +128,8 @@ task apiShopperProduction(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/api-shopper.xml'
         includeGroups 'api-shopper-prod'
-        systemProperty 'env', "sbermarket-production"
     }
+    environment 'P_ENV', "sbermarket-production"
     systemProperty 'qase.Project', 'SHAPI'
     systemProperty 'qase.Title', 'Shopper API Regress'
     systemProperty 'one_session', 'true'
@@ -168,8 +166,8 @@ task onDemandShifts(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/on_demand/shifts.xml'
         includeGroups 'api-shifts'
-        systemProperty 'env', "service-shifts"
     }
+    environment 'P_ENV', "service-shifts"
     systemProperty 'qase.Project', 'ODFS'
     systemProperty 'qase.Title', 'Shifts Autotests'
     systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
@@ -191,8 +189,8 @@ task onDemandWorkflow(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/on_demand/workflow.xml'
         includeGroups 'dispatch-workflow-smoke'
-        systemProperty 'env', "service-workflow"
     }
+    environment 'P_ENV', "service-workflow"
     systemProperty 'qase.Project', 'ODW'
     systemProperty 'qase.Title', 'Workflow Autotests'
     systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
@@ -221,8 +219,8 @@ task onDemandCandidates(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/on_demand/candidates.xml'
         includeGroups 'dispatch-candidates-smoke'
-        systemProperty 'env', "service-candidates"
     }
+    environment 'P_ENV', "service-candidates"
     systemProperty 'qase.Project', 'ODSC'
     systemProperty 'qase.Title', 'On Demand Candidates Smoke'
 }

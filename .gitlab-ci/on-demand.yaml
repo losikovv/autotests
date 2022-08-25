@@ -9,7 +9,7 @@ tests:on:demand:shifts:
       - $ON_DEMAND_SHIFTS == 'true'
   when: always
   script:
-    - gradle clean build onDemandShifts -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build onDemandShifts
   after_script:
     - bash ./report.sh api on-demand-shifts
 
@@ -24,7 +24,7 @@ tests:on:demand:dispatch:
       - $ON_DEMAND_DISPATCH == 'true'
   when: always
   script:
-    - gradle clean build onDemandDispatch -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build onDemandDispatch
   after_script:
     - bash ./report.sh api on-demand-dispatch
 
@@ -39,7 +39,7 @@ tests:on:demand:workflow:
       - $ON_DEMAND_WORKFLOW == 'true'
   when: always
   script:
-    - gradle clean build onDemandWorkflow -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build onDemandWorkflow
   after_script:
     - bash ./report.sh api on-demand-workflow
 
@@ -54,7 +54,7 @@ tests:on:demand:eta:
       - $ON_DEMAND_ETA == 'true'
   when: always
   script:
-    - gradle clean build onDemandETA -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build onDemandETA
   after_script:
     - bash ./report.sh api on-demand-eta
 
@@ -69,7 +69,7 @@ tests:on:demand:tm:
       - $ON_DEMAND_TM == 'true'
   when: always
   script:
-    - gradle clean build onDemandTM -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build onDemandTM
   after_script:
     - bash ./report.sh grpc on-demand-tm
 
@@ -83,7 +83,7 @@ tests:on:demand:shippingcalc:
   when: always
   script:
     - echo $URL_PAAS_SHIPPINGCALC
-    - gradle clean build onDemandShippingCalc -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_paas_shippingcalc=$URL_PAAS_SHIPPINGCALC
+    - gradle clean build onDemandShippingCalc -Purl_paas_shippingcalc=$URL_PAAS_SHIPPINGCALC
   after_script:
     - bash ./report.sh api on-demand-shippingcalc
 
@@ -96,6 +96,6 @@ tests:on:demand:candidates:
       - $ON_DEMAND_CANDIDATES == 'true'
   when: always
   script:
-    - gradle clean build onDemandCandidates -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build onDemandCandidates
   after_script:
     - bash ./report.sh api on-demand-candidates

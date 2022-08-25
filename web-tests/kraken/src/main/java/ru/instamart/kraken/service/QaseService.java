@@ -15,12 +15,9 @@ import ru.sbermarket.qase.annotation.CaseId;
 import ru.sbermarket.qase.enums.Automation;
 import ru.sbermarket.qase.enums.RunResultStatus;
 import ru.sbermarket.qase.exceptions.QaseException;
-import ru.sbermarket.qase.services.TestCaseService;
 import ru.sbermarket.qase.v1.attachments.Attachment;
 import ru.sbermarket.qase.v1.defects.Defect;
-import ru.sbermarket.qase.v1.suites.Suite;
 import ru.sbermarket.qase.v1.testcases.TestCase;
-import ru.sbermarket.qase.v1.testplans.TestPlan;
 import ru.sbermarket.qase.v1.testrunresults.TestRunResult;
 import ru.sbermarket.qase.v1.testruns.TestRun;
 
@@ -48,21 +45,14 @@ public final class QaseService {
     private static final LocalDateTime DAYS_TO_DIE = LocalDateTime.now().minusWeeks(3);
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    @Deprecated
-    private final int PLAN_ID = Integer.parseInt(System.getProperty("qase.plan.id", "0"));
-    @Deprecated
-    private final int SUITE_ID = Integer.parseInt(System.getProperty("qase.suite.id", "0"));
-    private final String PIPELINE_URL = System.getProperty("pip_url", "https://gitlab.sbermarket.tech/qa/automag/-/pipelines");
+    private final String PIPELINE_URL = System.getenv("CI_PIPELINE_URL");
     @Setter
     private String projectCode;
     @Getter
     private final QaseApi qaseApi;
-    @Deprecated
-    private final List<Integer> testCasesList;
-    private boolean qase = Boolean.parseBoolean(System.getProperty("qase", "false"));
+    private final String testRunName;
+    private final UserInfoService userInfoService;
     private boolean started = false;
-
-    private String testRunName;
     private Long runId;
 
     public QaseService() {
@@ -73,56 +63,14 @@ public final class QaseService {
         this.projectCode = projectCode;
         this.testRunName = testRunName;
         this.qaseApi = new QaseApi(CoreProperties.QASE_API_TOKEN);
-        this.testCasesList = new ArrayList<>();
-    }
-
-    /**
-     * Если PLAN_ID указан, то из тест плана получаем список тест-кейсов
-     * Если PLAN_ID не указан, но SUITE_ID указан, то из сьюта получаем automated кейсы
-     * Если SUITE_ID не указан, то из всего проекта получаем automated кейсы
-     */
-    @Deprecated
-    public void generateTestCasesList() {
-        if (!qase || projectCode == null) {
-            return;
-        }
-
-        final TestCaseService.Filter filter = qaseApi
-                .testCases()
-                .filter()
-                .automation(Automation.automated);
-
-        if (PLAN_ID != 0) {
-            final TestPlan testPlan = qaseApi
-                    .testPlans()
-                    .get(projectCode, PLAN_ID);
-
-            testRunName = testPlan.getTitle();
-            testPlan.getCases()
-                    .forEach(testCase -> testCasesList.add((int) testCase.getCaseId()));
-        } else if (SUITE_ID != 0) {
-            filter.suiteId(SUITE_ID);
-            testRunName = qaseApi.suites().get(projectCode, SUITE_ID).getTitle();
-            addTestCasesToList(filter);
-
-            final List<Suite> suites = qaseApi.suites()
-                    .getAll(projectCode)
-                    .getSuiteList();
-            addTestCasesFromChildSuite(filter, SUITE_ID, suites);
-        } else {
-            testRunName = qaseApi.projects().get(projectCode).getTitle();
-            addTestCasesToList(filter);
-        }
-        if (testCasesList.isEmpty()) {
-            qase = false;
-        }
+        this.userInfoService = new UserInfoService();
     }
 
     /**
      * Создаём тест-ран с полученными кейсами
      */
     public void createTestRun() {
-        if (!qase || projectCode == null || started) return;
+        if (projectCode == null || started) return;
         started = true;
 
         try {
@@ -130,7 +78,7 @@ public final class QaseService {
                     projectCode,
                     testRunName + " [" + EnvironmentProperties.Env.ENV_NAME + "] " + getDateFromMSK(),
                     null,
-                    DESCRIPTION_PREFIX + PIPELINE_URL);
+                    DESCRIPTION_PREFIX + PIPELINE_URL + " UserInfo: " + userInfoService.createUserInfo());
             log.debug("Create Test run={} for project={}", runId, projectCode);
         } catch (Exception e) {
             log.error("FATAL: Create Test run failed with error ", e);
@@ -148,7 +96,7 @@ public final class QaseService {
     synchronized public void sendResult(final ITestResult result,
                                         final RunResultStatus status,
                                         final List<String> attachmentHash) {
-        if (!qase || !started) return;
+        if (!started) return;
 
         final Duration timeSpent = Duration
                 .ofMillis(result.getEndMillis() - result.getStartMillis());
@@ -303,7 +251,7 @@ public final class QaseService {
     }
 
     public void completeTestRun() {
-        if (!qase || !started) return;
+        if (!started) return;
         log.debug("Complete test run={} for project={}", runId, projectCode);
         qaseApi.testRuns().completeTestRun(projectCode, runId);
     }
@@ -392,26 +340,6 @@ public final class QaseService {
         } catch (Exception e) {
             log.error("FATAL: something went wrong when try to actualize test cases", e);
         }
-    }
-
-    @Deprecated
-    private void addTestCasesFromChildSuite(final TestCaseService.Filter filter, final int parentId, final List<Suite> suites) {
-        suites.forEach(suite -> {
-            if (suite.getParentId() != null && suite.getParentId() == parentId) {
-                int suiteId = (int) suite.getId();
-                filter.suiteId(suiteId);
-                addTestCasesToList(filter);
-                addTestCasesFromChildSuite(filter, suiteId, suites);
-            }
-        });
-    }
-
-    @Deprecated
-    private void addTestCasesToList(final TestCaseService.Filter filter) {
-        qaseApi.testCases()
-                .getAll(projectCode, filter)
-                .getTestCaseList()
-                .forEach(testCase -> testCasesList.add((int) testCase.getId()));
     }
 
     /**
