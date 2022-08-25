@@ -3,8 +3,6 @@ package ru.instamart.test.reforged.admin.orders;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.shopper.app.ShipmentSHP;
@@ -29,11 +27,11 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     private final ApiHelper helper = new ApiHelper();
     private ShipmentSHP.Data shipment;
 
-    @BeforeClass(alwaysRun = true, description = "Получаем оформленный заказ из подготовленных ранее")
+    /*@BeforeClass(alwaysRun = true, description = "Получаем оформленный заказ из подготовленных ранее")
     public void getOrder() {
         shipment = helper.getShipmentByComment("UI-TEST-SINGLE");
         Assert.assertNotNull(shipment, "Не удалось получить заказ");
-    }
+    }*/
 
     @CaseId(1517)
     @Test(description = "Фильтр Номер заказа выдает список заказов по номеру заказа и по номеру шипмента", groups = "regression")
@@ -337,6 +335,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         login().auth(UserManager.getDefaultAdmin());
 
         orders().goToPage();
+        orders().waitPageLoad();
         orders().checkShipmentListNotEmpty();
         orders().checkOrdersLoaded();
         orders().checkLoadingLabelNotVisible();

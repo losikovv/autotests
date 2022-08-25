@@ -1,6 +1,5 @@
 package ru.instamart.reforged.core.component;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.component.check.ElementCheck;
 import ru.instamart.reforged.core.config.WaitProperties;
 
 import java.util.regex.Matcher;
@@ -26,7 +26,7 @@ public abstract class AbstractComponent implements Component {
     protected boolean isCacheDisable = true;
 
     @Getter
-    @Setter(AccessLevel.PROTECTED)
+    @Setter
     private By by;
     @Getter
     private final long timeout;
@@ -36,6 +36,8 @@ public abstract class AbstractComponent implements Component {
     private final String errorMsg;
     @Getter
     private final Actions actions;
+
+    private final ElementCheck elementCheck;
 
     public AbstractComponent(final By by, final String description) {
         this(by, WaitProperties.BASIC_TIMEOUT, description, null);
@@ -55,6 +57,7 @@ public abstract class AbstractComponent implements Component {
         this.description = isNull(description) ? this.getClass().getSimpleName() : description;
         this.errorMsg = isNull(errorMsg) ? "Элемент " + by + " не найден" : errorMsg;
         this.actions = new Actions(this);
+        this.elementCheck = new ElementCheck(this);
     }
 
     protected abstract WebElement getComponent();
@@ -87,6 +90,10 @@ public abstract class AbstractComponent implements Component {
         log.debug("Scroll to element {} '{}'", description, by);
         setBy(ByKraken.xpathExpression(((ByKraken)getBy()).getDefaultXpathExpression(), args));
         Kraken.jsAction().scrollToElement(getLocator());
+    }
+
+    public ElementCheck is() {
+        return elementCheck;
     }
 
     protected String getLocator() {

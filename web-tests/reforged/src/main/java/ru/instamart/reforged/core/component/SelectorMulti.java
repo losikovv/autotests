@@ -35,26 +35,8 @@ public final class SelectorMulti extends AbstractComponent {
     private final Element dropdownItemByNameExactly = new Element(ByKraken.xpathExpression("//div[contains(@class,'ant-select-item ')]/div[.='%s']"), "Элемент выпадающего списка по имени (точное совпадение)");
     private final Element scrollBarIndicator = new Element(ByKraken.xpathExpression("//div[@id='%s']/following-sibling::div//div[contains(@class,'rc-virtual-list-scrollbar-thumb')]"), "Индикатор полосы прокрутки выпадающего списка");
 
-    private final String controlsId;
-
     public SelectorMulti(final By by, final String description) {
         super(by, description);
-        controlsId = getControlsId();
-    }
-
-    public SelectorMulti(final By by, final long timeout, final String description) {
-        super(by, timeout, description);
-        controlsId = getControlsId();
-    }
-
-    public SelectorMulti(final By by, final String description, final String errorMsg) {
-        super(by, description, errorMsg);
-        controlsId = getControlsId();
-    }
-
-    public SelectorMulti(final By by, final long timeout, final String description, final String errorMsg) {
-        super(by, timeout, description, errorMsg);
-        controlsId = getControlsId();
     }
 
     private String getControlsId() {
@@ -75,11 +57,11 @@ public final class SelectorMulti extends AbstractComponent {
     }
 
     public void checkDropdownVisible() {
-        Kraken.waitAction().shouldBeVisible(dropdownList, controlsId);
+        Kraken.waitAction().shouldBeVisible(dropdownList, getControlsId());
     }
 
     public void checkDropdownNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(dropdownList, controlsId);
+        Kraken.waitAction().shouldNotBeVisible(dropdownList, getControlsId());
     }
 
     public void click() {
@@ -111,18 +93,22 @@ public final class SelectorMulti extends AbstractComponent {
 
     @Step("Получаем все значения из выпадающего списка селектора")
     public Set<String> getAllValuesFromDropdown() {
-        Set<String> dropdownValues = visibleDropdownItems.getTextFromAllElements(controlsId);
+        final var dropdownValues = visibleDropdownItems.getTextFromAllElements(getControlsId());
         var currentPosition = 0.0;
         var previousPosition = 0.0;
-        if (scrollBarIndicator.isDisplayed(controlsId))
-            do {
-                previousPosition = StringUtil.stringToDouble(scrollBarIndicator.getElement(controlsId).getCssValue("top"));
-                Kraken.action().clickAndHold(scrollBarIndicator.getElement(controlsId)).moveByOffset(0, 12).release().build().perform();
-                currentPosition = StringUtil.stringToDouble(scrollBarIndicator.getElement(controlsId).getCssValue("top"));
 
-                dropdownValues.addAll(visibleDropdownItems.getTextFromAllElements(controlsId));
-            } while (scrollBarIndicator.isDisplayed(controlsId) && currentPosition > previousPosition);
+        if (scrollBarIndicator.is().isDisplayed(getControlsId())) {
+            do {
+                previousPosition = StringUtil.stringToDouble(scrollBarIndicator.getElement(getControlsId()).getCssValue("top"));
+                Kraken.action().clickAndHold(scrollBarIndicator.getElement(getControlsId())).moveByOffset(0, 12).release().build().perform();
+                currentPosition = StringUtil.stringToDouble(scrollBarIndicator.getElement(getControlsId()).getCssValue("top"));
+
+                dropdownValues.addAll(visibleDropdownItems.getTextFromAllElements(getControlsId()));
+            } while (scrollBarIndicator.is().isDisplayed(getControlsId()) && currentPosition > previousPosition);
+        }
+
         dropdownValues.remove("");
+
         return dropdownValues;
     }
 

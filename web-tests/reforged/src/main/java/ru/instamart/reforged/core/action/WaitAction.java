@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.reforged.core.component.Component;
 import ru.instamart.reforged.core.component.ElementCollection;
-import ru.instamart.reforged.core.component.inner.InnerComponent;
 import ru.instamart.reforged.core.condition.KrakenCondition;
 import ru.instamart.reforged.core.config.WaitProperties;
 
