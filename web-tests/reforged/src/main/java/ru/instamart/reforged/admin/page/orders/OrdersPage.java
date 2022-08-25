@@ -23,7 +23,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
 
     @Step("Добавляем фильтр 'Статус заказа': '{statusText}'")
     public void addStatusFilterItem(final String statusText) {
-        shipmentStatusSelector.clickItemInDropdownByName(statusText);
+        shipmentStatusSelector.clickItemInDropdownByNameExactly(statusText);
     }
 
     @Step("Удаляем выбранный фильтр 'Статус заказа': {statusText}")
@@ -63,7 +63,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
 
     @Step("Добавляем фильтр 'Платформа': '{platformName}'")
     public void addPlatformFilterItem(final String platformName) {
-        platformSelector.clickItemInDropdownByName(platformName);
+        platformSelector.clickItemInDropdownByNameExactly(platformName);
     }
 
     @Step("Удаляем выбранный фильтр 'Платформа': {platformName}")
@@ -81,14 +81,14 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
         retailerSelector.click();
     }
 
-    @Step("Добавляем фильтр 'Ритейлер': '{platformName}'")
-    public void addRetailerFilterItem(final String platformName) {
-        retailerSelector.clickItemInDropdownByName(platformName);
+    @Step("Добавляем фильтр 'Ритейлер': '{retailerName}'")
+    public void addRetailerFilterItem(final String retailerName) {
+        retailerSelector.clickItemInDropdownByNameExactly(retailerName);
     }
 
-    @Step("Удаляем выбранный фильтр 'Ритейлер': {platformName}")
-    public void removeRetailerFilterItem(final String platformName) {
-        retailerSelector.removeSelectedItemFromInputByName(platformName);
+    @Step("Удаляем выбранный фильтр 'Ритейлер': {retailerName}")
+    public void removeRetailerFilterItem(final String retailerName) {
+        retailerSelector.removeSelectedItemFromInputByName(retailerName);
     }
 
     @Step("Очищаем фильтры 'Ритейлер'")
@@ -103,7 +103,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
 
     @Step("Добавляем фильтр 'Базовый магазин': '{basicStoreName}'")
     public void addBasicStoreFilterItem(final String basicStoreName) {
-        basicStoreSelector.clickItemInDropdownByName(basicStoreName);
+        basicStoreSelector.clickItemInDropdownByNameExactly(basicStoreName);
     }
 
     @Step("Удаляем выбранный фильтр 'Базовый магазин': {basicStoreName}")
@@ -143,7 +143,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
 
     @Step("Добавляем фильтр 'Способ оплаты': '{paymentMethod}'")
     public void addPaymentMethodFilterItem(final String paymentMethod) {
-        paymentMethodSelector.clickItemInDropdownByName(paymentMethod);
+        paymentMethodSelector.clickItemInDropdownByNameExactly(paymentMethod);
     }
 
     @Step("Удаляем выбранный фильтр 'Способ оплаты': {paymentMethod}")
@@ -163,7 +163,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
 
     @Step("Добавляем фильтр 'Статус оплаты': '{paymentStatus}'")
     public void addPaymentStatusFilterItem(final String paymentStatus) {
-        paymentStatusSelector.clickItemInDropdownByName(paymentStatus);
+        paymentStatusSelector.clickItemInDropdownByNameExactly(paymentStatus);
     }
 
     @Step("Удаляем выбранный фильтр 'Статус оплаты': {paymentStatus}")
