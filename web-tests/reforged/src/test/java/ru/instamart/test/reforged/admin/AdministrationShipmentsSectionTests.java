@@ -201,6 +201,7 @@ public final class AdministrationShipmentsSectionTests {
 
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
     // TODO поправить тест после того как починб тест заказа
+    @Skip
     @Story("Тест возобновления и отмены заказа через админку")
     @Test(enabled = false, description = "Тест возобновления и отмены заказа через админку", groups = "regression")
     public void successResumeAndCancelOrder() {

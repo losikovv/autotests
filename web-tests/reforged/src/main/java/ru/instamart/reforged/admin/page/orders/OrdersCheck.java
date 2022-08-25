@@ -91,12 +91,12 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     @Step("Проверяем, что фильтры 'Регион' не выбраны")
     default void checkRegionFiltersNotSelected() {
-        Kraken.waitAction().shouldNotBeVisible(selectedRegionFilters);
+        regionSelector.checkSelectedItemsInInputNotVisible();
     }
 
     @Step("Проверяем, что 'Быстрые фильтры' не выбраны")
     default void checkQuickFiltersNotSelected() {
-        Kraken.waitAction().shouldNotBeVisible(selectedQuickFilters);
+        quickFilters.checkSelectedItemsInInputNotVisible();
     }
 
     @Step("Проверяем, что отображается кнопка 'Сбросить'")
@@ -236,22 +236,22 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     @Step("Проверяем, что отображается список выпадающих элементов селектора 'Регион'")
     default void checkRegionDropdownItemsVisible() {
-        Kraken.waitAction().shouldBeVisible(regionDropdownList);
+        regionSelector.checkDropdownVisible();
     }
 
     @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Регион'")
     default void checkRegionDropdownItemsNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(regionDropdownList);
+        regionSelector.checkDropdownNotVisible();
     }
 
     @Step("Проверяем, что отображается список выпадающих элементов селектора 'Быстрые фильтры'")
     default void checkQuickFiltersDropdownItemsVisible() {
-        Kraken.waitAction().shouldBeVisible(quickFiltersDropdownList);
+        quickFilters.checkDropdownVisible();
     }
 
     @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Быстрые фильтры'")
     default void checkQuickFiltersDropdownItemsNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(quickFiltersDropdownList);
+        quickFilters.checkDropdownNotVisible();
     }
 
     @Step("Проверяем, что отображается список выпадающий элемент '{itemName}' селектора")

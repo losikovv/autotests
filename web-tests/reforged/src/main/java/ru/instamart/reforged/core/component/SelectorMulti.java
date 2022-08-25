@@ -96,17 +96,14 @@ public final class SelectorMulti extends AbstractComponent {
         final var dropdownValues = visibleDropdownItems.getTextFromAllElements(getControlsId());
         var currentPosition = 0.0;
         var previousPosition = 0.0;
-
-        if (scrollBarIndicator.is().displayed(getControlsId())) {
+        if (scrollBarIndicator.is().displayed())
             do {
                 previousPosition = StringUtil.stringToDouble(scrollBarIndicator.getElement(getControlsId()).getCssValue("top"));
                 Kraken.action().clickAndHold(scrollBarIndicator.getElement(getControlsId())).moveByOffset(0, 12).release().build().perform();
                 currentPosition = StringUtil.stringToDouble(scrollBarIndicator.getElement(getControlsId()).getCssValue("top"));
 
                 dropdownValues.addAll(visibleDropdownItems.getTextFromAllElements(getControlsId()));
-            } while (scrollBarIndicator.is().displayed(getControlsId()) && currentPosition > previousPosition);
-        }
-
+            } while (scrollBarIndicator.is().displayed() && currentPosition > previousPosition);
         dropdownValues.remove("");
 
         return dropdownValues;

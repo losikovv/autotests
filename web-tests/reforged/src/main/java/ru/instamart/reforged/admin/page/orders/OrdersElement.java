@@ -40,13 +40,10 @@ public interface OrdersElement {
     Input lastName = new Input(By.xpath("//input[@name='lastName']"), "Поле ввода 'Информация о клиенте -> Фамилия'");
     Input firstName = new Input(By.xpath("//input[@name='firstName']"), "Поле ввода 'Информация о клиенте -> Имя'");
     Input email = new Input(By.xpath("//input[@name='email']"), "Поле ввода 'Информация о клиенте -> e-mail'");
-    Input region = new Input(By.xpath("//div[contains(@class,'ant-form-item-label')][.='Регион']/following-sibling::div"), "Селектор поля фильтра 'Регион'");
-    ElementCollection regionDropdownList = new ElementCollection(By.xpath("//div[@id='rc_select_9_list']/following-sibling::div//div[contains(@class,'ant-select-item ')]"), "Выпадающий список селектора 'Регион'");
-    ElementCollection selectedRegionFilters = new ElementCollection(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Регион')]/following-sibling::div//div[@class='ant-select-selection-overflow-item']"), "Выбранные фильтры 'Регион'");
-    Input quickFilters = new Input(By.xpath("//div[contains(@class,'ant-form-item-label')][.='Быстрые фильтры']/following-sibling::div"), "Селектор поля фильтра 'Быстрые фильтры'");
-    ElementCollection quickFiltersDropdownList = new ElementCollection(By.xpath("//div[@id='rc_select_10_list']/following-sibling::div//div[contains(@class,'ant-select-item ')]"), "Выпадающий список селектора 'Быстрые фильтры'");
-    ElementCollection selectedQuickFilters = new ElementCollection(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Быстрые фильтры')]/following-sibling::div//div[@class='ant-select-selection-overflow-item']"), "Выбранные фильтры 'Быстрые фильтры'");
-
+    SelectorMulti regionSelector = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Регион')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Регион'");
+    SelectorMulti collectingStatus = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус сборки')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус сборки'");
+    SelectorMulti deliveryStatus = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус доставки')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус доставки'");
+    SelectorMulti quickFilters = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Быстрые фильтры')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Быстрые фильтры'");
     Button resetFilters = new Button(By.xpath("//button[@data-qa='reset_shipments_filter_button']"), "Кнопка 'Сбросить'");
     Button applyFilters = new Button(By.xpath("//button[@data-qa='apply_shipments_filter_button']"), "Кнопка 'Применить фильтры'");
 

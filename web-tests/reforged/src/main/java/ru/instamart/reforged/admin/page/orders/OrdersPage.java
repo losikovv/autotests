@@ -4,7 +4,15 @@ import io.qameta.allure.Step;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.admin.AdminPage;
 
+import java.util.List;
+import java.util.Set;
+
 public final class OrdersPage implements AdminPage, OrdersCheck {
+
+    @Step("Получаем произваольный номер заказа")
+    public String getAnyShipmentNumber(){
+        return tableComponent.getShipmentNumber(0);
+    }
 
     @Step("Кликаем в поле 'Номер заказа'")
     public void clickShipmentNumberInput() {
@@ -188,7 +196,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
 
     @Step("Кликаем в поле 'Регион'")
     public void clickRegionFilterSelector() {
-        region.click();
+        regionSelector.click();
     }
 
     @Step("Кликаем в поле 'Быстрые фильтры'")
