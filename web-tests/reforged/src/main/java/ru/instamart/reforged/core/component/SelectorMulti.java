@@ -32,6 +32,7 @@ public final class SelectorMulti extends AbstractComponent {
     private final Element dropdownList = new Element(ByKraken.xpathExpression("//div[contains(@class,'ant-select-dropdown')][.//div[@id='%s']]"), "Выпадающий список элементов селектора");
     private final ElementCollection visibleDropdownItems = new ElementCollection(ByKraken.xpathExpression("//div[@id='%s']/following-sibling::div//div[contains(@class,'ant-select-item ')]/div"), "Отображаемые (присутствующие в DOM) элементы выпадающего списка");
     private final Element dropdownItemByName = new Element(ByKraken.xpathExpression("//div[contains(@class,'ant-select-item ')]/div[contains(.,'%s')]"), "Элемент выпадающего списка по имени");
+    private final Element dropdownItemByNameExactly = new Element(ByKraken.xpathExpression("//div[contains(@class,'ant-select-item ')]/div[.='%s']"), "Элемент выпадающего списка по имени (точное совпадение)");
     private final Element scrollBarIndicator = new Element(ByKraken.xpathExpression("//div[@id='%s']/following-sibling::div//div[contains(@class,'rc-virtual-list-scrollbar-thumb')]"), "Индикатор полосы прокрутки выпадающего списка");
 
     private final String controlsId;
@@ -89,6 +90,13 @@ public final class SelectorMulti extends AbstractComponent {
         ThreadUtil.simplyAwait(1);
         input.fill(itemName);
         dropdownItemByName.click(itemName);
+    }
+
+    //Точное совпадение по имени
+    public void clickItemInDropdownByNameExactly(final String itemName) {
+        ThreadUtil.simplyAwait(1);
+        input.fill(itemName);
+        dropdownItemByNameExactly.click(itemName);
     }
 
     public void removeSelectedItemFromInputByName(final String itemName) {
