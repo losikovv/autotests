@@ -206,7 +206,6 @@ tests:customRun:
   resource_group: customRun:$CI_GROUP:$URL_STF_BACKEND
   stage: custom-run
   script:
-    - echo $P_ENV
     - echo $CI_PIPELINE_URL
     - echo $URL_STF_BACKEND
     - echo $URL_STF_FRONT
@@ -214,7 +213,7 @@ tests:customRun:
     - echo $URL_B2B_FRONT
     - echo $B2B_FORWARD
     - echo $URL_SHP
-    - gradle --continue clean build ciRun copyAllAllureHistory -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_b2b_front=$URL_B2B_FRONT -Pb2b_forward=$B2B_FORWARD -Purl_shp=$URL_SHP -Padmin_url=$ADMIN_URL
+    - gradle --continue clean build ciRun copyAllAllureHistory -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_b2b_front=$URL_B2B_FRONT -Pb2b_forward=$B2B_FORWARD -Purl_shp=$URL_SHP -Padmin_url=$ADMIN_URL
   after_script:
     - bash ./report.sh . custom-run
   tags:
@@ -231,8 +230,7 @@ tests:AutoMRCheck:
     - merge_requests
   stage: tests-api
   script:
-    - echo $P_ENV
-    - gradle --continue clean build :api:autoMr :reforged:autoMr allureCopyHistoryDir -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle --continue clean build :api:autoMr :reforged:autoMr allureCopyHistoryDir
   after_script:
     - bash ./report.sh . default
   tags:
@@ -253,8 +251,7 @@ tests:Debug:UI:
   extends: ".template_only_branches"
   stage: tests-api
   script:
-    - echo $P_ENV
-    - gradle clean build :reforged:debug -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build :reforged:debug
   after_script:
     - bash ./report.sh reforged debug
   tags:
@@ -271,8 +268,7 @@ tests:Debug:API:
   extends: ".template_only_branches"
   stage: tests-api
   script:
-    - echo $P_ENV
-    - gradle clean build :api:debug -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build :api:debug
   after_script:
     - bash ./report.sh api debug
   tags:
@@ -293,7 +289,7 @@ qase:actualize:
       - $ACTUALIZATION == 'true'
   stage: tests-api
   script:
-    - gradle clean build qaseActualize -Pkey=$ATST_APP_SECRET_KEY
+    - gradle clean build qaseActualize
   tags:
     - k8s-stage
   allow_failure: true
@@ -306,7 +302,7 @@ qase:cleanup:
       - $CLEANUP == 'true'
   stage: tests-api
   script:
-    - gradle clean build qaseCleanup -Pkey=$ATST_APP_SECRET_KEY
+    - gradle clean build qaseCleanup
   tags:
     - k8s-stage
   allow_failure: true
@@ -319,7 +315,7 @@ generate:data:
       - $GENERATE_DATA == 'true'
   stage: tests-api
   script:
-    - gradle clean build generateData -Pkey=$ATST_APP_SECRET_KEY
+    - gradle clean build generateData
   tags:
     - k8s-stage
   allow_failure: true
@@ -332,7 +328,7 @@ generate:dataUI:
       - $GENERATE_DATA_UI == 'true'
   stage: tests-api
   script:
-    - gradle clean build generateDataUI -Pkey=$ATST_APP_SECRET_KEY
+    - gradle clean build generateDataUI
   tags:
     - k8s-stage
   allow_failure: true

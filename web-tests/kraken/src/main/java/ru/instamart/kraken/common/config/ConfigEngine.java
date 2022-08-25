@@ -30,17 +30,16 @@ public final class ConfigEngine {
      * @param configName  - название конфигурационного файла
      */
     public void loadConfig(final Class<?> configClass, String configName, String configDir) {
-        var env = configClass.getAnnotation(Env.class);
+        final var env = configClass.getAnnotation(Env.class);
         if (nonNull(env)) {
-            var envProperty = System.getProperty("env", configName);
-            var path = envProperty.split("-");
+            var path = configName.split("-");
             if (path.length == 2) {
                 configDir += "/" + path[0];
                 configName = path[1];
             }
         }
-        var filePath = configDir + "/" + configName + ".properties";
-        try (var lnr = new LineNumberReader(new InputStreamReader(FileUtils.getConfig(filePath, configClass), StandardCharsets.UTF_8))) {
+        final var filePath = configDir + "/" + configName + ".properties";
+        try (final var lnr = new LineNumberReader(new InputStreamReader(FileUtils.getConfig(filePath, configClass), StandardCharsets.UTF_8))) {
             PROPERTIES.load(lnr);
 
             for (final var field : configClass.getDeclaredFields()) {

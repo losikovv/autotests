@@ -7,7 +7,7 @@ tests:UiSmoke:
     - ".template_run_all_jobs_at_a_time_on_master"
   when: manual
   script:
-    - gradle clean build sberUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_shp=$URL_SHP
+    - gradle clean build sberUiSmoke -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_shp=$URL_SHP
   after_script:
     - bash ./report.sh reforged ui-stf-smoke
 
@@ -20,7 +20,7 @@ tests:UiRegress:
     - "tests:ApiV2InstamartRegress"
     - "tests:ApiV3InstamartRegress"
   script:
-    - gradle clean build sberRegression -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_shp=$URL_SHP
+    - gradle clean build sberRegression -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_shp=$URL_SHP
   after_script:
     - bash ./report.sh reforged ui-stf-regress
 
@@ -34,7 +34,7 @@ tests:AdminUiSmoke:
   stage: tests-ui-admin
   when: manual
   script:
-    - gradle clean build adminUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_shp=$URL_SHP
+    - gradle clean build adminUiSmoke -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_shp=$URL_SHP
   after_script:
     - bash ./report.sh reforged ui-admin-smoke
 
@@ -48,7 +48,7 @@ tests:AdminUiRegress:
     - "tests:ApiV2InstamartRegress"
     - "tests:ApiV3InstamartRegress"
   script:
-    - gradle clean build adminUiRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_shp=$URL_SHP
+    - gradle clean build adminUiRegress -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_shp=$URL_SHP
   after_script:
     - bash ./report.sh reforged ui-admin-regress
 
@@ -59,7 +59,7 @@ tests:AdminUiRegress:
 #   needs:
 #     - "tests:prodApiInstamart"
 #   script:
-#     - gradle clean build uiSmokeProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+#     - gradle clean build uiSmokeProduction
 #   after_script:
 #    - bash ./report.sh reforged ui-smoke-production
 
@@ -68,6 +68,6 @@ tests:AdminUiRegress:
 #    - ".template_ui_tests"
 #    - ".template_prod"
 #  script:
-#    - gradle clean build uiAdminSmokeProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+#    - gradle clean build uiAdminSmokeProduction
 #  after_script:
 #   - bash ./report.sh reforged ui-admin-smoke-production

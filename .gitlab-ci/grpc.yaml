@@ -6,7 +6,7 @@ tests:product:hub:
   extends:
     - ".template_grpc_tests"
   script:
-    - gradle clean build grpcProductHub -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build grpcProductHub
   after_script:
     - bash ./report.sh grpc grpc-product-hub
 
@@ -17,7 +17,7 @@ tests:product:hub:schedule:
     - ".template_schedule"
   stage: tests-api-service
   script:
-    - gradle clean build grpcProductHub -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build grpcProductHub
   after_script:
     - bash ./report.sh grpc grpc-product-hub
 
@@ -29,6 +29,6 @@ tests:salut:token:
   extends:
     - ".template_grpc_tests"
   script:
-    - gradle clean build grpcSalutToken -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build grpcSalutToken
   after_script:
     - bash ./report.sh grpc grpc-salut-token

@@ -2,6 +2,8 @@ package ru.instamart.kraken.config;
 
 import ru.instamart.kraken.common.config.AbstractConfigManager;
 
+import static java.util.Objects.nonNull;
+
 public final class ConfigManager extends AbstractConfigManager {
 
     private static final String CONFIG_DIR = "config";
@@ -10,7 +12,12 @@ public final class ConfigManager extends AbstractConfigManager {
     @Override
     public void loadConfig() {
         ENGINE.loadConfig(CoreProperties.class, CoreProperties.NAME, CONFIG_DIR);
-        ENGINE.loadConfig(EnvironmentProperties.class, CoreProperties.DEFAULT_ENVIRONMENT, ENV_CONFIG_DIR);
+        ENGINE.loadConfig(EnvironmentProperties.class, getEnv(), ENV_CONFIG_DIR);
+    }
+
+    private String getEnv() {
+        final var env = System.getenv("P_ENV");
+        return nonNull(env) ? env : "sbermarket-preprod";
     }
 
     private ConfigManager() {}

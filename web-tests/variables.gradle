@@ -1,21 +1,9 @@
 tasks.withType(Test) {
-    if (project.hasProperty('key')) {
-        systemProperty 'key',"${key}"
-    }
     if (project.hasProperty('browser')) {
         systemProperty 'browser',"${browser}"
     }
     if (project.hasProperty('version')) {
         systemProperty 'version',"${version}"
-    }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
-    }
-    if (project.hasProperty('pip_url')) {
-        systemProperty 'pip_url', "${pip_url}"
     }
     if (project.hasProperty('url_stf')) {
         systemProperty 'url_stf',"${url_stf}"

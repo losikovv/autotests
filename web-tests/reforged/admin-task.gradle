@@ -21,8 +21,8 @@ task uiAdminSmokeProduction(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/admin-prod.xml'
         includeGroups 'production'
-        systemProperty 'env',"sbermarket-production"
     }
+    environment 'P_ENV',"sbermarket-production"
     systemProperty 'qase.Project', 'Prod'
     systemProperty 'qase.Title', 'Admin UI Production Smoke'
 }

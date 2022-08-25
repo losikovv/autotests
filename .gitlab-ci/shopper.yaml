@@ -1,8 +1,7 @@
 .template_shopper_regress:
   resource_group: apiShopper:$URL_STF_BACKEND
   script:
-    - echo $P_ENV
-    - gradle clean build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
+    - gradle clean build apiShopperRegress -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
   after_script:
     - if [ $URL_STF_BACKEND == "stf-kraken.k-stage.sbermarket.tech" ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
     - echo $ALLURE_POSTFIX
@@ -40,7 +39,7 @@ tests:prodApiShopper:
     - k8s-prod
   resource_group: apiShopperProd
   script:
-    - gradle clean build apiShopperProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build apiShopperProduction
   after_script:
     - bash ./mattermost-report.sh api api-shopper-production apiShopperProduction
 
@@ -50,6 +49,6 @@ tests:prodApiShopper:schedules:
     - ".template_prod"
   resource_group: apiShopperProd
   script:
-    - gradle clean build apiShopperProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build apiShopperProduction
   after_script:
     - bash ./mattermost-report.sh api api-shopper-production apiShopperProduction
