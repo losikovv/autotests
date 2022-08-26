@@ -5,13 +5,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import ru.instamart.kraken.util.StringUtil;
-import ru.instamart.reforged.core.component.TableComponent;
+import ru.instamart.reforged.core.component.Table;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Slf4j
-public final class PagesTable extends TableComponent {
+public final class PagesTable extends Table {
 
     private final By edit = By.xpath(".//button[@data-qa='pages_page_edit']");
     private final By remove = By.xpath(".//button[@data-qa='pages_page_delete']");

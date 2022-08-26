@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
-import ru.instamart.reforged.core.component.UploadComponent;
+import ru.instamart.reforged.core.component.Upload;
 
 public interface RetailerAddElements {
 
@@ -25,8 +25,8 @@ public interface RetailerAddElements {
     Input importKeyInput = new Input(By.xpath("//input[@data-qa='retailer_create_import_key']"), "Инпут 'Ключ в файле импорта' нового ретейлера на странице создания ретейлера");
     Element importKeyInputError = new Element(By.xpath("//div[@data-qa='retailer_create_import_key_error']"), "Ошибка ввода поля 'Ключ в файле импорта'");
 
-    UploadComponent logoUpload = new UploadComponent(By.xpath("//input[@id='retailerLogo']"), "Аплоадер для загрузки логотипа");
-    UploadComponent iconUploader = new UploadComponent(By.xpath("//input[@id='retailerIcon']"), "Аплоадер для загрузки иконки");
+    Upload logoUpload = new Upload(By.xpath("//input[@id='retailerLogo']"), "Аплоадер для загрузки логотипа");
+    Upload iconUploader = new Upload(By.xpath("//input[@id='retailerIcon']"), "Аплоадер для загрузки иконки");
 
     Button cancel = new Button(By.xpath("//button[@data-qa='retailer_cancel_create_btn']"), "Кнопка 'Отменить'");
     Button submit = new Button(By.xpath("//button[@data-qa='retailer_submit_create_btn']"), "Кнопка 'Сохранить'");

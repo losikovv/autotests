@@ -11,6 +11,6 @@ public interface OrderEvaluationModalElement {
     Input commentTextarea = new Input(By.xpath("//label[contains(.,'Ваш комментарий')]/preceding-sibling::textarea"), "Поле ввода 'Ваш комментарий'");
     Element addedFile = new Element(By.xpath("//label[contains(.,'Ваш комментарий')]/../../preceding-sibling::div"), "Превью добавленного файла в блоке 'Ваш комментарий");
     Link addPhoto = new Link(By.xpath("//label[contains(.,'Добавить фото')]"), "Кнопка 'Добавить фото'");
-    UploadComponent photoUpload = new UploadComponent(By.xpath("//label[contains(.,'Добавить фото')]//input"), "Инпут для загрузки файла");
+    Upload photoUpload = new Upload(By.xpath("//label[contains(.,'Добавить фото')]//input"), "Инпут для загрузки файла");
     Button sentFeedback = new Button(By.xpath("//button[@data-qa='review_modal_main_display_send_feedback_button']"), "Кнопка 'Отправить отзыв'");
 }

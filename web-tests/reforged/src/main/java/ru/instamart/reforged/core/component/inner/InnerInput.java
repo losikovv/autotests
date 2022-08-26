@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.util.StringUtil;
-import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 
 @Slf4j
@@ -39,7 +38,11 @@ public final class InnerInput extends InnerComponent {
     }
 
     public String getValue() {
-        log.debug("Get value");
-        return getComponent().getAttribute("value");
+        return getAttribute("value");
+    }
+
+    public String getAttribute(final String attributeName) {
+        log.debug("Get data by attribute {}", attributeName);
+        return getComponent().getAttribute(attributeName);
     }
 }

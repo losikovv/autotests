@@ -5,10 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.ByKraken;
-import ru.instamart.reforged.core.Kraken;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static java.util.Objects.isNull;
 
@@ -17,21 +15,21 @@ import static java.util.Objects.isNull;
  */
 @ToString(callSuper = true)
 @Slf4j
-public final class UploadComponent extends AbstractComponent {
+public final class Upload extends AbstractComponent {
 
-    public UploadComponent(final By by, final String description) {
+    public Upload(final By by, final String description) {
         super(by, description);
     }
 
-    public UploadComponent(final By by, final long timeout, final String description) {
+    public Upload(final By by, final long timeout, final String description) {
         super(by, timeout, description);
     }
 
-    public UploadComponent(final By by, final String description, final String errorMsg) {
+    public Upload(final By by, final String description, final String errorMsg) {
         super(by, description, errorMsg);
     }
 
-    public UploadComponent(final By by, final long timeout, final String description, final String errorMsg) {
+    public Upload(final By by, final long timeout, final String description, final String errorMsg) {
         super(by, timeout, description, errorMsg);
     }
 
@@ -39,7 +37,7 @@ public final class UploadComponent extends AbstractComponent {
     protected WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());
         if (isNull(component) || isCacheDisable) {
-            component = Kraken.waitAction().shouldExist(this);
+            component = shouldBe().elementExists();
         }
         return component;
     }

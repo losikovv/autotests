@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.AbstractComponent;
 import ru.instamart.reforged.core.config.WaitProperties;
 
@@ -32,9 +31,5 @@ public abstract class InnerComponent extends AbstractComponent {
         this.timeout = timeout;
         this.description = isNull(description) ? this.getClass().getSimpleName() : description;
         this.errorMsg = isNull(errorMsg) ? "Элемент " + by + " не найден" : errorMsg;
-    }
-
-    public String getAttribute(final String attributeName) {
-        return Kraken.waitAction().shouldExist(this, getWebElement()).getAttribute(attributeName);
     }
 }

@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import ru.instamart.reforged.core.component.TableComponent;
+import ru.instamart.reforged.core.component.Table;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +13,7 @@ import static java.util.Objects.nonNull;
 
 //Заказы -> Список заказов
 @Slf4j
-public final class OrdersTable extends TableComponent {
+public final class OrdersTable extends Table {
 
     private static final By retailerImage = By.xpath(".//img");
     private static final By retailerAddress = By.xpath(".//a[@data-qa='shipments_table_store_address']");

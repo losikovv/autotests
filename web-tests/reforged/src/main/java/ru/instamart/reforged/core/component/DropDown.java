@@ -4,7 +4,6 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import ru.instamart.reforged.core.Kraken;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public final class DropDown extends CollectionComponent {
     protected WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());
         if (isNull(component) || isCacheDisable) {
-            component = Kraken.waitAction().shouldBeClickable(this);
+            component = shouldBe().clickable();
         }
         return component;
     }
@@ -43,7 +42,7 @@ public final class DropDown extends CollectionComponent {
     protected List<WebElement> getComponents() {
         log.debug("Get {}'s with locator {}", getDescription(), getBy());
         if (isNull(components) || isCacheDisable) {
-            components = Kraken.waitAction().isElementsExist(this);
+            components = shouldBe().elementsExists();
         }
         return components;
     }
@@ -61,7 +60,7 @@ public final class DropDown extends CollectionComponent {
     }
 
     public void withText(final String text) {
-        for (final WebElement wb : getComponents()) {
+        for (final var wb : getComponents()) {
             if (wb.getText().equals(text)) {
                 wb.click();
                 log.debug("Select {} with locator {} and text {}", getDescription(), getBy(), text);
@@ -71,7 +70,7 @@ public final class DropDown extends CollectionComponent {
     }
 
     public void containsText(final String text) {
-        for (final WebElement wb : getComponents()) {
+        for (final var wb : getComponents()) {
             if (wb.getText().contains(text)) {
                 log.debug("Select {} with locator {} and contain text {}", getDescription(), getBy(), text);
                 wb.click();

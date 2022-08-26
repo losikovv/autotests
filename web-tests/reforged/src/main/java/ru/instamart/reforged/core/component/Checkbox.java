@@ -32,7 +32,7 @@ public final class Checkbox extends AbstractComponent {
     protected WebElement getComponent() {
         if (isNull(component) || isCacheDisable) {
             log.debug("Create {} with locator {}", getDescription(), getBy());
-            component = Kraken.waitAction().shouldBeClickable(this);
+            component = shouldBe().clickable();
         }
         return component;
     }

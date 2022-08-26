@@ -3,7 +3,6 @@ package ru.instamart.reforged.core.component;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import ru.instamart.reforged.core.Kraken;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +13,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Slf4j
-public class TableComponent extends AbstractComponent {
+public class Table extends AbstractComponent {
 
     private static final By table = By.xpath("//table");
 
@@ -24,7 +23,7 @@ public class TableComponent extends AbstractComponent {
     private final By dataLine = By.xpath("./tbody/child::tr[not(ancestor::tr)]");
     private final By dataCell = By.xpath("./child::td[not(ancestor::td)]");
 
-    public TableComponent() {
+    public Table() {
         super(table, "таблица");
     }
 
@@ -32,7 +31,7 @@ public class TableComponent extends AbstractComponent {
     protected WebElement getComponent() {
         log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
         if (isNull(component) || isCacheDisable) {
-            component = Kraken.waitAction().shouldBeVisible(this);
+            component = shouldBe().visible();
         }
         return component;
     }

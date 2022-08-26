@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.TableComponent;
+import ru.instamart.reforged.core.component.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import static java.util.Objects.nonNull;
 
 //Заказы -> Мульти заказ
 @Slf4j
-public final class ShipmentTable extends TableComponent {
+public final class ShipmentTable extends Table {
 
     private final By orderNumber = By.xpath("./span[2]/a");
     private final By shipmentNumber = By.xpath("./span/a");

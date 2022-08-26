@@ -38,14 +38,14 @@ public final class ElementCollection extends CollectionComponent {
     protected List<WebElement> getComponents() {
         log.debug("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
         if (isNull(components) || isCacheDisable) {
-            components = Kraken.waitAction().isElementsExist(this);
+            components = shouldBe().elementsExists();
         }
         return components;
     }
 
     public void clickOnFirst() {
         log.debug("Click first {} with locator {}", getDescription(), getBy());
-        final WebElement webElement = getComponents().stream().findFirst().orElseThrow();
+        final var webElement = getComponents().stream().findFirst().orElseThrow();
         webElement.click();
     }
 
@@ -57,20 +57,20 @@ public final class ElementCollection extends CollectionComponent {
 
     public void clickOnLast() {
         log.debug("Click last {} with locator {}", getDescription(), getBy());
-        final WebElement webElement = getComponents().stream().reduce((first, second) -> second).orElseThrow();
+        final var webElement = getComponents().stream().reduce((first, second) -> second).orElseThrow();
         webElement.click();
     }
 
     public void clickOnAll() {
-        for (final WebElement we : getComponents()) {
+        for (final var we : getComponents()) {
             log.debug("Click on element {} with", we);
             we.click();
         }
     }
 
     public void clickOnElementWithText(final String text) {
-        for (final WebElement we : getComponents()) {
-            final String elementText = we.getText();
+        for (final var we : getComponents()) {
+            final var elementText = we.getText();
             if (elementText.contains(text)) {
                 log.debug("Click on element {} with text {}", we, elementText);
                 we.click();
@@ -90,8 +90,8 @@ public final class ElementCollection extends CollectionComponent {
     }
 
     public void moveOnElementWithText(final String text) {
-        for (final WebElement we : getComponents()) {
-            final String elementText = we.getText();
+        for (final var we : getComponents()) {
+            final var elementText = we.getText();
             if (elementText.contains(text)) {
                 log.debug("Hover on element {} with text {}", we, elementText);
                 Kraken.action().moveToElement(we).perform();
@@ -101,8 +101,8 @@ public final class ElementCollection extends CollectionComponent {
     }
 
     public Boolean isElementWithTextPresent(final String text) {
-        for (final WebElement we : getComponents()) {
-            final String elementText = we.getText();
+        for (final var we : getComponents()) {
+            final var elementText = we.getText();
             if (elementText.contains(text)) {
                 log.debug("Element {} contains text {}", we, elementText);
                 return true;
