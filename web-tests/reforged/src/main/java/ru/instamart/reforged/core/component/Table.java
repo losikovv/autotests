@@ -13,7 +13,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Slf4j
-public class TableComponent extends AbstractComponent {
+public class Table extends AbstractComponent {
 
     private static final By table = By.xpath("//table");
 
@@ -23,7 +23,7 @@ public class TableComponent extends AbstractComponent {
     private final By dataLine = By.xpath("./tbody/child::tr[not(ancestor::tr)]");
     private final By dataCell = By.xpath("./child::td[not(ancestor::td)]");
 
-    public TableComponent() {
+    public Table() {
         super(table, "таблица");
     }
 

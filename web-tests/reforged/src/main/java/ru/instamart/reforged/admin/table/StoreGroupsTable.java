@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.TableComponent;
+import ru.instamart.reforged.core.component.Table;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Slf4j
-public final class StoreGroupsTable extends TableComponent {
+public final class StoreGroupsTable extends Table {
 
     private final By edit = By.xpath(".//button[@data-qa='storeLabelListEdit']");
     private final By remove = By.xpath(".//button[@data-qa='storeLabelListDelete']");

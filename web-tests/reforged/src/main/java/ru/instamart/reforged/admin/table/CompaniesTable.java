@@ -4,12 +4,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.TableComponent;
+import ru.instamart.reforged.core.component.Table;
 
 import static java.util.Objects.nonNull;
 
 @Slf4j
-public final class CompaniesTable extends TableComponent {
+public final class CompaniesTable extends Table {
 
     private final By companyName = By.xpath("./a");
 
