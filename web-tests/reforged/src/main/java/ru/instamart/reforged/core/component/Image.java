@@ -19,7 +19,7 @@ public final class Image extends AbstractComponent {
     protected WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());
         if (isNull(component) || isCacheDisable) {
-            component = Kraken.waitAction().shouldBeVisible(this);
+            component = shouldBe().visible();
         }
         return component;
     }

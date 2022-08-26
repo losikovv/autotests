@@ -5,10 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.ByKraken;
-import ru.instamart.reforged.core.Kraken;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static java.util.Objects.isNull;
 
@@ -39,7 +37,7 @@ public final class UploadComponent extends AbstractComponent {
     protected WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());
         if (isNull(component) || isCacheDisable) {
-            component = Kraken.waitAction().shouldExist(this);
+            component = shouldBe().elementExists();
         }
         return component;
     }

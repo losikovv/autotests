@@ -3,12 +3,15 @@ package ru.instamart.reforged.core.component;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.component.check.ElementCheck;
+import ru.instamart.reforged.core.component.condition.Is;
+import ru.instamart.reforged.core.component.condition.Should;
+import ru.instamart.reforged.core.component.condition.ShouldBe;
 import ru.instamart.reforged.core.config.WaitProperties;
 
 import java.util.regex.Matcher;
@@ -37,7 +40,15 @@ public abstract class AbstractComponent implements Component {
     @Getter
     private final Actions actions;
 
-    private final ElementCheck elementCheck;
+    @Accessors(fluent = true)
+    @Getter
+    private final Is is;
+    @Accessors(fluent = true)
+    @Getter
+    private final Should should;
+    @Accessors(fluent = true)
+    @Getter
+    private final ShouldBe shouldBe;
 
     public AbstractComponent(final By by, final String description) {
         this(by, WaitProperties.BASIC_TIMEOUT, description, null);
@@ -57,7 +68,9 @@ public abstract class AbstractComponent implements Component {
         this.description = isNull(description) ? this.getClass().getSimpleName() : description;
         this.errorMsg = isNull(errorMsg) ? "Элемент " + by + " не найден" : errorMsg;
         this.actions = new Actions(this);
-        this.elementCheck = new ElementCheck(this);
+        this.is = new Is(this);
+        this.should = new Should(this);
+        this.shouldBe = new ShouldBe(this);
     }
 
     protected abstract WebElement getComponent();
@@ -90,10 +103,6 @@ public abstract class AbstractComponent implements Component {
         log.debug("Scroll to element {} '{}'", description, by);
         setBy(ByKraken.xpathExpression(((ByKraken)getBy()).getDefaultXpathExpression(), args));
         Kraken.jsAction().scrollToElement(getLocator());
-    }
-
-    public ElementCheck is() {
-        return elementCheck;
     }
 
     protected String getLocator() {

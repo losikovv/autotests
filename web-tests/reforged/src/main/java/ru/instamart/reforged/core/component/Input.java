@@ -35,7 +35,7 @@ public final class Input extends AbstractComponent {
     protected WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());
         if (isNull(component) || isCacheDisable) {
-            component = Kraken.waitAction().shouldBeClickable(this);
+            component = shouldBe().clickable();
         }
         return component;
     }

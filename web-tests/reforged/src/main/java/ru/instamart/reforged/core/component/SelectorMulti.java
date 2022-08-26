@@ -47,7 +47,7 @@ public final class SelectorMulti extends AbstractComponent {
     protected WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());
         if (isNull(component) || isCacheDisable) {
-            component = Kraken.waitAction().shouldExist(this);
+            component = shouldBe().elementExists();
         }
         return component;
     }

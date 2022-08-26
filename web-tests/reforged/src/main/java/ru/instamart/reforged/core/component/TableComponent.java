@@ -3,7 +3,6 @@ package ru.instamart.reforged.core.component;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import ru.instamart.reforged.core.Kraken;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +31,7 @@ public class TableComponent extends AbstractComponent {
     protected WebElement getComponent() {
         log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
         if (isNull(component) || isCacheDisable) {
-            component = Kraken.waitAction().shouldBeVisible(this);
+            component = shouldBe().visible();
         }
         return component;
     }

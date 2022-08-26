@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.ByKraken;
-import ru.instamart.reforged.core.Kraken;
 
 import static java.util.Objects.isNull;
 
@@ -34,7 +33,7 @@ public final class Element extends AbstractComponent {
     protected WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());
         if (isNull(component) || isCacheDisable) {
-            component = Kraken.waitAction().shouldBeVisible(this);
+            component = shouldBe().visible();
         }
         return component;
     }
