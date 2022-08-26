@@ -1,5 +1,6 @@
 package ru.instamart.kraken.util;
 
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.atomic.DoubleAdder;
@@ -12,6 +13,7 @@ public final class ThreadUtil {
     private ThreadUtil() {}
 
     /** Просто задержка на указанное время */
+    @Step("Ожидание: {seconds} sec.")
     public static void simplyAwait(final double seconds) {
         log.debug("Задержка на {} сек.", seconds);
         try {

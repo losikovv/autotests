@@ -86,6 +86,7 @@ public class ShopperAppApiHelper {
     /**
      * Получаем shipment по shipment number
      */
+    @Step("Получаем объект shipment по shipmentNumber")
     private ShipmentSHP.Data getShipmentIteration(String shipmentNumber) {
         ThreadUtil.simplyAwait(10);
         log.debug("Получаем список доступных для сборки заказов");
@@ -103,6 +104,7 @@ public class ShopperAppApiHelper {
                 availableShipmentNumbers.add(number + " <<< Выбран");
             } else availableShipmentNumbers.add(number);
         }
+        Allure.addAttachment("Список доступных для сборки заказов", availableShipmentNumbers.toString());
         log.debug(availableShipmentNumbers.toString());
         return foundShipment;
     }
@@ -111,20 +113,24 @@ public class ShopperAppApiHelper {
         return getShipment(shipmentNumber, "");
     }
 
-    @Step("Получаем оформленный заказ")
-    public ShipmentSHP.Data getShipment(String shipmentNumber, String additionalInfoForError) {
+    @Step("Получаем оформленный заказ: {shipmentNumber}")
+    public ShipmentSHP.Data getShipment(final String shipmentNumber, final String additionalInfoForError) {
         ShipmentSHP.Data shipment;
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        String error = "Оформленного заказа нет в списке " + shipmentNumber;
         for (int i = 0; i < 48; i++) {
+            Allure.step("Поиск заказа. Попытка " + (i + 1));
+            if (i % 20 == 0) { //Костыль от протухания токена
+                refreshAuth();
+            }
             shipment = getShipmentIteration(shipmentNumber);
-            if (Objects.nonNull(shipment)){
+            if (Objects.nonNull(shipment)) {
                 stopWatch.stop();
                 Allure.step(" >>> Время поиска, мс: " + stopWatch.getTime() + " <<<");
                 return shipment;
             }
         }
+        String error = "Оформленного заказа нет в списке " + shipmentNumber;
         log.error(error);
         stopWatch.stop();
         fail(error + ". Время поиска, мс: " + stopWatch.getTime() + "\n" + additionalInfoForError);
@@ -192,8 +198,6 @@ public class ShopperAppApiHelper {
                 lon);
         checkStatusCode200or422(response);
     }
-
-
 
     /**
      * Простая сборка заказа с генерацией фискального номера чека
