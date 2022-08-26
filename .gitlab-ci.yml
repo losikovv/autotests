@@ -48,7 +48,6 @@ variables:
   URL_SHP:
     description: "Имя shp стейджа на котором запускаем тесты. Для номерных стейджей можно пропустить"
   DEFAULT_SID:
-    value: 81
     description: "Сид магазина на котором будут прогоняться тесты"
   CI_MODULE:
     description: "Например: ui  -Возможные варианты: ui/api/grpc/kafka/"

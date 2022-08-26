@@ -98,10 +98,12 @@ public final class EnvironmentProperties {
             var customBasicUrl = System.getProperty("url_stf");
             var customShopperUrl = System.getProperty("url_shp");
 
-            if(Objects.nonNull(System.getenv("DEFAULT_SID"))){
-                DEFAULT_SID = Integer.parseInt(System.getenv("DEFAULT_SID"));
-            }
             if (nonNull(customBasicUrl) && !customBasicUrl.isBlank()) {
+
+                if(Objects.nonNull(System.getenv("DEFAULT_SID"))){
+                    DEFAULT_SID = Integer.parseInt(System.getenv("DEFAULT_SID"));
+                }
+
                 customBasicUrl = getDomainName(customBasicUrl);
                 SERVER = customBasicUrl.contains("kraken")
                         ? Server.PREPROD.name().toLowerCase() : customBasicUrl.contains("k-stage")
