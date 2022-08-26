@@ -46,6 +46,7 @@ public final class BasicSelgrosTests {
         selgros().interactHeader().checkPartnershipLabelVisible();
         selgros().interactHeader().checkLoginIsVisible();
         selgros().interactHeader().checkNearestDeliveryLabelVisible();
+        selgros().assertAll();
     }
 
     @CaseId(2782)
@@ -79,6 +80,7 @@ public final class BasicSelgrosTests {
         selgros().interactFooter().checkDeliveryZoneVisible();
         selgros().interactFooter().checkDeliveryAndPaymentVisible();
         selgros().interactFooter().checkPaymentInfoVisible();
+        selgros().assertAll();
     }
 
     @DoNotOpenBrowser

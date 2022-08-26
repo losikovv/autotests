@@ -39,9 +39,8 @@ public interface FooterElement {
             "ссылка 'Помощь' в футере");
 
 
-    Link hotlinePhoneNumber = new Link(By.xpath("//footer//a[text()='" + TestVariables.CompanyParams.companyHotlinePhoneNumber + "']"),
-            "телефон-ссылка горячей линии в футере");
-    Element hotlineWorkHoursText = new Element(By.xpath("//footer//span[text()='" + TestVariables.CompanyParams.companyHotlineWorkhours + "']"),
+    Link hotlinePhoneNumber = new Link(By.xpath("//div[@class='footer__tel']"), "телефон-ссылка горячей линии в футере");
+    Element hotlineWorkHoursText = new Element(By.xpath("//div[@class='footer__tel']/following-sibling::div[@class='footer__text' and not (contains(text(), 'Пишите'))]"),
             "время работы горячей линии в футере");
 
     Button facebookButton = new Button(By.xpath("//footer//div[@class='footer__networks']//a[@href='" + TestVariables.CompanyParams.companyFacebookLink + "']"),

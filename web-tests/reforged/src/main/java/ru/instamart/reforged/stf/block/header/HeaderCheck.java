@@ -12,72 +12,77 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем что есть header")
     default void checkHeaderVisible() {
-        waitAction().shouldBeVisible(header);
+        krakenAssert.assertTrue(header.is().displayed(), "header не отображается");
     }
 
     @Step("Проверяем наличие кнопки выбора адреса")
     default void checkSelectAddressButtonVisible() {
-        waitAction().shouldBeVisible(selectAddress);
+        krakenAssert.assertTrue(selectAddress.is().displayed(), "кнопка выбора адреса не отображается");
     }
 
     @Step("Проверяем наличие времени работы службы поддержки")
     default void checkHotlineWorkHoursVisible() {
-        waitAction().shouldBeVisible(hotlineWorkHoursText);
+        krakenAssert.assertTrue(hotlineWorkHoursText.is().displayed(), "время работы службы поддержки не отображается");
+    }
+
+    @Step("Проверяем наличие телефона службы поддержки")
+    default void checkHotlinePhoneNumberVisible() {
+        krakenAssert.assertTrue(hotlinePhoneNumber.is().displayed(), "телефон службы поддержки не отображается");
     }
 
     @Step("Проверяем наличие ссылки 'Для бизнеса'")
     default void checkForB2bVisible() {
-        waitAction().shouldBeVisible(forB2B);
+        krakenAssert.assertTrue(forB2B.is().displayed(), "ссылка 'Для бизнеса' не отображается");
     }
 
     @Step("Проверяем наличие ссылки 'Для производителей'")
     default void checkForBrandsVisible() {
-        waitAction().shouldBeVisible(forBrands);
+        krakenAssert.assertTrue(forBrands.is().displayed(), "ссылка 'Для производителей' не отображается");
     }
 
     @Step("Проверяем наличие ссылки 'Как мы работаем'")
     default void checkHowWeWorkVisible() {
-        waitAction().shouldBeVisible(howWeWork);
+        krakenAssert.assertTrue(howWeWork.is().displayed(), "ссылка 'Как мы работаем' не отображается");
     }
 
     @Step("Проверяем наличие ссылки 'Контакты'")
     default void checkContactsVisible() {
-        waitAction().shouldBeVisible(contacts);
+        krakenAssert.assertTrue(contacts.is().displayed(), "ссылка 'Контакты' не отображается");
     }
 
     @Step("Проверяем наличие ссылки 'Помощь'")
     default void checkHelpVisible() {
-        waitAction().shouldBeVisible(help);
+        krakenAssert.assertTrue(help.is().displayed(), "ссылка 'Помощь' не отображается");
     }
 
     @Step("Проверяем наличие ссылки 'Доставка и оплата'")
     default void checkDeliveryAndPaymentVisible() {
-        waitAction().shouldBeVisible(deliveryAndPayment);
+        krakenAssert.assertTrue(deliveryAndPayment.is().displayed(), "ссылка 'Доставка и оплата' не отображается");
     }
 
     @Step("Проверяем наличие ссылки 'Меню категорий'")
     default void checkCategoryMenuVisible() {
-        waitAction().shouldBeVisible(categoryMenu);
+        krakenAssert.assertTrue(categoryMenu.is().displayed(), "ссылка 'Меню категорий' не отображается");
     }
 
     @Step("Проверяем наличие ссылки 'Выбор магазина'")
     default void checkStoreSelectorVisible() {
-        waitAction().shouldBeVisible(storeSelector);
+        krakenAssert.assertTrue(storeSelector.is().displayed(), "ссылка 'Выбор магазина' не отображается");
     }
 
     @Step("Проверяем наличие поиска")
     default void checkSearchInputVisible() {
-        waitAction().shouldBeVisible(searchInput);
+        krakenAssert.assertTrue(searchInput.is().displayed(), "поиск не отображается");
     }
 
     @Step("Проверяем наличие кнопки поиска")
     default void checkSearchButtonVisible() {
-        waitAction().shouldBeVisible(searchButton);
+        krakenAssert.assertTrue(searchButton.is().displayed(), "кнопка поиска не отображается");
     }
 
     @Step("Проверяем наличие контейнера поиска")
     default void checkSearchContainerVisible() {
-        waitAction().shouldBeVisible(searchContainer);
+        krakenAssert.assertTrue(searchContainer.is().displayed(), "контейнер поиска не отображается");
     }
 
     @Step("Проверяем, что нотификация после добавления товара в корзину скрыта")
@@ -92,12 +97,12 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем наличие кнопки 'Корзина'")
     default void checkCartVisible() {
-        waitAction().shouldBeVisible(cart);
+        krakenAssert.assertTrue(cart.is().displayed(), "кнопка 'Корзина' не отображается");
     }
 
     @Step("Проверяем наличие кнопки 'Избранное' для неавторизованных")
     default void checkFavoritesNoAuthVisible() {
-        waitAction().shouldBeVisible(favoriteWithOutAuth);
+        krakenAssert.assertTrue(favoriteWithOutAuth.is().displayed(), "кнопка 'App Store' не отображается");
     }
 
     @Step("Проверяем, что кнопка профиля не видна")
@@ -193,8 +198,9 @@ public interface HeaderCheck extends Check, HeaderElement {
         log.debug("✓ Успешно");
     }
 
+    @Step("Проверяем, что отображается кнопка логина")
     default void checkLoginIsVisible() {
-        waitAction().shouldBeVisible(login);
+        krakenAssert.assertTrue(login.is().displayed(), "кнопка логина не отображается");
     }
 
     @Step("Проверяем, что отображается введенный адрес")

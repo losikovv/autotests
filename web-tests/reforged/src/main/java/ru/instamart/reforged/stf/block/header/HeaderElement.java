@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.block.header;
 
 import org.openqa.selenium.By;
-import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
@@ -24,20 +23,21 @@ public interface HeaderElement {
     Link logo = new Link(By.xpath("//header//i"), "лого на сайте");
 
     Button delivery = new Button(By.xpath("//button[@data-qa='ship_selector_type_delivery']"), "кнопка доставки");
-    Button pickup = new Button(By.xpath("//button[@data-qa='ship_selector_type_pickup']"), "empty");
-    Button selectAddress = new Button(By.xpath("//button[@data-qa='select-button']"), "empty");
-    Button firstSelectAddress = new Button(By.xpath("//button[@data-qa='shipping_method_button']"), "empty");
-    Element hotlineWorkHoursText = new Element(By.xpath("//header//span[text()='" + TestVariables.CompanyParams.companyHotlineWorkhoursShort + "']"), "empty");
+    Button pickup = new Button(By.xpath("//button[@data-qa='ship_selector_type_pickup']"), "кнопка самовывоза");
+    Button selectAddress = new Button(By.xpath("//button[@data-qa='select-button']"), "кнопка выбора адреса");
+    Button firstSelectAddress = new Button(By.xpath("//button[@data-qa='shipping_method_button']"), "выбранный адрес");
+    Element hotlineWorkHoursText = new Element(By.xpath("//div[@data-qa='ship-address-selector']//span[contains(@class,'avaliablity')]"), "Часы работы службы поддержки");
+    Element hotlinePhoneNumber = new Element(By.xpath("//div[@data-qa='ship-address-selector']//span[contains(@class,'number')]"), "Номер телефона службы поддержки");
     Element enteredAddress = new Element(By.xpath("//span[@data-qa='current-ship-address']"), "Лэйбл отображающий введенный адрес в шапке");
     Element nextDelivery = new Element(By.xpath("//b[contains(.,'Ближайшая доставка')]/span[3]"), "Ближайшая доставка");
 
-    Link forB2B = new Link(By.xpath("//a[contains(@href, '/transfer/to_b2b')]"), "empty");
+    Link forB2B = new Link(By.xpath("//a[contains(@href, '/transfer/to_b2b')]"), "Заказ для Б2Б");
     Link buyForBusiness = new Link(By.xpath("//div[contains(@class,'header-navbar__b2b-showcase-button')]/*"), "Ссылка 'Покупайте для бизнеса'");
-    Link forBrands = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Для производителей')]"), "empty");
-    Link howWeWork = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Как мы работаем')]"), "empty");
-    Link contacts = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Контакты')]"), "empty");
-    Link help = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Помощь')]"), "empty");
-    Link deliveryAndPayment = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Доставка')]"), "empty");
+    Link forBrands = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Для производителей')]"), "Ссылка 'Для производителей'");
+    Link howWeWork = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Как мы работаем')]"), "Ссылка 'Как мы работаем'");
+    Link contacts = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Контакты')]"), "Ссылка 'Контакты'");
+    Link help = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Помощь')]"), "Ссылка 'Помощь'");
+    Link deliveryAndPayment = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Доставка')]"), "Ссылка 'Доставка'");
 
     Button categoryMenu = new Button(By.xpath("//button[@data-qa='catalog-button']"), "кнопка 'Каталог'");
     Button storeSelector = new Button(By.xpath("//a[@href='/']"), "Кнопка 'Все магазины'");
@@ -65,10 +65,10 @@ public interface HeaderElement {
 
     Button profile = new Button(By.xpath("//button[@data-qa='profile-button_button']"), "кнопка профиль пользователя в хэдере");
     Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"), "кнопка корзины");
-    Link favorite = new Link(By.xpath("//a[@data-qa='favorites-link']"), "empty");
+    Link favorite = new Link(By.xpath("//a[@data-qa='favorites-link']"), "Ссылка 'Любимые'");
     Link favoriteWithOutAuth = new Link(By.xpath("//button[@data-qa='favorites-link']"), "кнопка избранного для неавторизованных");
     Link orders = new Link(By.xpath("//a[@data-qa='shipments-link']"), "Кнопка 'Заказы'");
-    Button login = new Button(By.xpath("//button[@data-qa='login-button_button']"), "empty"); // кнопка в хедере, но без авторизации
+    Button login = new Button(By.xpath("//button[@data-qa='login-button_button']"), "Кнопка логина в хедере без авторизации"); //
 
     Element cartNotification = new Element(By.xpath("//div[@class='notification']"), "Алерт добавления товара в корзину");
 
