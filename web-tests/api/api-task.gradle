@@ -112,6 +112,7 @@ task apiRetailerE2E(type: Test) {
         includeGroups 'api-retailer'
     }
     environment 'P_ENV', "sbermarket-production"
+    environment 'DEFAULT_SID', '18'
 }
 
 task apiInstamartProduction(type: Test) {
@@ -120,6 +121,7 @@ task apiInstamartProduction(type: Test) {
         includeGroups 'api-instamart-prod'
     }
     environment 'P_ENV', "sbermarket-production"
+    environment 'DEFAULT_SID', '18'
     systemProperty 'qase.Project', 'INAPI'
     systemProperty 'qase.Title', 'Instamart API Regress'
 }
@@ -130,6 +132,7 @@ task apiShopperProduction(type: Test) {
         includeGroups 'api-shopper-prod'
     }
     environment 'P_ENV', "sbermarket-production"
+    environment 'DEFAULT_SID', '18'
     systemProperty 'qase.Project', 'SHAPI'
     systemProperty 'qase.Title', 'Shopper API Regress'
     systemProperty 'one_session', 'true'
