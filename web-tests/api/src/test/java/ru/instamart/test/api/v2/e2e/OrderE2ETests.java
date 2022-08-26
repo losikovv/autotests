@@ -24,7 +24,7 @@ public class OrderE2ETests extends RestBase {
     @AfterClass(alwaysRun = true,
                 description = "Отменяем заказ")
     public void cleanup() {
-        //apiV2.cancelCurrentOrder(); //todo починить 404
+        apiV2.cancelCurrentOrder();
     }
 
     @CaseId(101)

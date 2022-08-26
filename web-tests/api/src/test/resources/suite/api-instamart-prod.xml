@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="REST API Suite" parallel="tests" thread-count="30" data-provider-thread-count="10">
+<suite name="REST API Suite" parallel="tests" thread-count="50" data-provider-thread-count="10">
     <listeners>
         <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
         <listener class-name="ru.instamart.api.listener.ApiTestSuiteListener"/>
@@ -31,31 +31,36 @@
             <class name="ru.instamart.test.api.v1.endpoints.SearchSuggestionsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.PromotionsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.ExternalPartnersV1Tests"/>
-            <class name="ru.instamart.test.api.admin_api.AppConfigV1Test"/>
-            <class name="ru.instamart.test.api.admin_api.OperationalZonesV1Test"/>
-            <class name="ru.instamart.test.api.admin_api.DictionariesWithAuthV1Test"/>
-            <class name="ru.instamart.test.api.admin_api.DictionariesWithoutAuthV1Test"/>
             <class name="ru.instamart.test.api.v1.endpoints.LineItemsV1Test"/>
             <class name="ru.instamart.test.api.v1.endpoints.PhoneConfirmationsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.ShoppingContextV1Tests"/>
-            <class name="ru.instamart.test.api.admin_api.MainNavigationV1Test"/>
-            <class name="ru.instamart.test.api.admin_api.UserPermissionsV1Test"/>
             <class name="ru.instamart.test.api.v1.endpoints.ImportsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.UsersShipmentsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.UserOnDemandShipmentsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.CheckoutV1Tests"/>
-            <class name="ru.instamart.test.api.admin_api.LeftoversV1Test"/>
-            <class name="ru.instamart.test.api.admin_api.ShipmentsV1Test"/>
             <class name="ru.instamart.test.api.v1.endpoints.PromotionCardCategoriesV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.ShippingMethodsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.ShoppersEventsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.OrderCompensationsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.PromotionCardsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.PaymentsV1Tests"/>
-            <class name="ru.instamart.test.api.admin_api.ShipmentReturnsV1Test"/>
             <class name="ru.instamart.test.api.v1.endpoints.NextV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.TokensV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.UsersV1Tests"/>
+        </classes>
+    </test>
+    <!-- api-admin-tests -->
+    <test verbose="1" name="API Admin Tests" parallel="none" thread-count="2">
+        <classes>
+            <class name="ru.instamart.test.api.admin_api.AppConfigV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.OperationalZonesV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.DictionariesWithAuthV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.DictionariesWithoutAuthV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.MainNavigationV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.UserPermissionsV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.LeftoversV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.ShipmentsV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.ShipmentReturnsV1Test"/>
             <class name="ru.instamart.test.api.admin_api.CitiesV1Test"/>
             <class name="ru.instamart.test.api.admin_api.FaqGroupsV1Test"/>
             <class name="ru.instamart.test.api.admin_api.CurrenciesV1Test"/>
@@ -161,7 +166,7 @@
         </classes>
     </test>
     <!-- api-admin-tests  -->
-    <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="1">
+    <test verbose="1" name="Admin Tests" parallel="classes" thread-count="1">
         <classes>
             <class name="ru.instamart.test.api.admin.CitiesAdminTest"/>
             <class name="ru.instamart.test.api.admin.GeneralSettingsAdminTest"/>
@@ -176,13 +181,6 @@
             <class name="ru.instamart.test.api.admin.ZonesAdminTest"/>
             <class name="ru.instamart.test.api.admin_api.StatesV1Test"/>
             <class name="ru.instamart.test.api.admin.FaqGroupsAdminTest"/>
-        </classes>
-    </test>
-
-    <!-- api-kube-tests  -->
-    <test verbose="1" name="API KUBERNETES Tests" parallel="classes" thread-count="1">
-        <classes>
-            <class name="ru.instamart.test.api.KubernetesClientTest"/>
         </classes>
     </test>
 

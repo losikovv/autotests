@@ -216,7 +216,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Офферы")
     @Test(description = "Получение оффера",
             groups = {"api-instamart-regress", "api-instamart-prod"},
-            dependsOnMethods = "getOffer") //, enabled = false)
+            dependsOnMethods = "getOffer", enabled = false)
     public void getOffersByPermalink() {
         final Response response = ProductsV1Request.GET(offerForRequest.getPermalink());
         checkStatusCode200(response);
