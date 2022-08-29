@@ -199,8 +199,13 @@ public interface HeaderCheck extends Check, HeaderElement {
     }
 
     @Step("Проверяем, что отображается кнопка логина")
-    default void checkLoginIsVisible() {
+    default void checkLoginIsVisibleSoft() {
         krakenAssert.assertTrue(login.is().displayed(), "кнопка логина не отображается");
+    }
+
+    @Step("Проверяем, что отображается кнопка логина")
+    default void checkLoginIsVisible() {
+        login.shouldBe().visible();
     }
 
     @Step("Проверяем, что отображается введенный адрес")

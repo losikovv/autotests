@@ -43,7 +43,7 @@ public final class BasicSbermarketTests {
         shop().interactHeader().checkSearchButtonVisible();
         shop().interactHeader().checkCartVisible();
         shop().interactHeader().checkFavoritesNoAuthVisible();
-        shop().interactHeader().checkLoginIsVisible();
+        shop().interactHeader().checkLoginIsVisibleSoft();
         shop().assertAll();
     }
 
