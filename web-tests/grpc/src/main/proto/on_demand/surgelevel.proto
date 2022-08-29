@@ -1,0 +1,206 @@
+syntax = "proto3";
+package surgelevel;
+
+import "google/protobuf/struct.proto";
+
+service Service {
+    rpc SaveFormula(SaveFormulaRequest) returns (SaveFormulaResponse);
+    rpc ExecuteFormula(ExecuteFormulaRequest) returns (ExecuteFormulaResponse);
+    rpc FindFormula(FindFormulaRequest) returns (FindFormulaResponse);
+    
+    rpc SetConfig(SetConfigRequest) returns (SetConfigResponse);
+    rpc GetConfig(GetConfigRequest) returns (GetConfigResponse);
+    
+    rpc SaveRegion(SaveRegionRequest) returns (SaveRegionResponse);
+    rpc FindRegion(FindRegionRequest) returns (FindRegionResponse);
+    
+    rpc SaveRetailer(SaveRetailerRequest) returns (SaveRetailerResponse);
+    rpc FindRetailer(FindRetailerRequest) returns (FindRetailerResponse);
+    
+    rpc SaveStore(SaveStoreRequest) returns (SaveStoreResponse);
+    rpc FindStore(FindStoreRequest) returns (FindStoreResponse);
+}
+
+message SaveFormulaRequest {
+    Formula.Option formula = 1;
+}
+message SaveFormulaResponse {
+    Formula formula = 1;
+}
+
+message FindFormulaRequest {
+    Formula.Filter filter = 1;
+}
+message FindFormulaResponse {
+    repeated Formula formula = 1;
+}
+
+message ExecuteFormulaRequest {
+    Formula.Option formula = 1;
+    Argument.Option argument = 2;
+}
+message ExecuteFormulaResponse {
+    Formula formula = 1;
+    Argument argument = 2;
+    float surge_level = 3;
+}
+
+message SetConfigRequest {
+    Config.Option config = 1;
+}
+message SetConfigResponse {
+    Config config = 1;
+}
+
+message GetConfigRequest {
+}
+message GetConfigResponse {
+    Config config = 1;
+}
+
+message SaveRegionRequest {
+    repeated Region.Option region = 1;
+}
+message SaveRegionResponse {
+    repeated Region region = 1;
+}
+
+message FindRegionRequest {
+    Region.Filter filter = 1;
+}
+message FindRegionResponse {
+    repeated Region region = 1;
+}
+
+message SaveRetailerRequest {
+    repeated Retailer.Option retailer = 1;
+}
+message SaveRetailerResponse {
+    repeated Retailer retailer = 1;
+}
+
+message FindRetailerRequest {
+    Retailer.Filter filter = 1;
+}
+message FindRetailerResponse {
+    repeated Retailer retailer = 1;
+}
+
+message SaveStoreRequest {
+    repeated Store.Option store = 1;
+}
+message SaveStoreResponse {
+    repeated Store store = 1;
+}
+
+message FindStoreRequest {
+    Store.Filter filter = 1;
+    Limit limit = 2;
+}
+message FindStoreResponse {
+    repeated Store store = 1;
+}
+
+message Store {
+    message Option {
+        optional string id = 1;
+        optional Config.Option config = 2;
+        optional int64 retailer_id = 3;
+        optional int64 region_id = 4;
+        optional bool ondemand = 5; 
+        optional Location location = 6; 
+    }
+    message Filter {
+        repeated string id = 1;
+        optional Config.Filter config = 2;
+        repeated int64 retailer_id = 3;
+        repeated int64 region_id = 4;
+        optional bool ondemand = 5; 
+        optional Area area = 6;
+    }
+    string id = 1;
+    Config config = 2;
+    optional int64 retailer_id = 3;
+    optional int64 region_id = 4;
+    bool ondemand = 5; 
+    Location location = 6;
+}
+message Region {
+    message Option {
+        int64 id = 1;
+        optional Config.Option config = 2;
+    }
+    message Filter {
+        repeated int64 id = 1;
+        optional Config.Filter config = 2;
+    }
+    int64 id = 1;
+    optional Config config = 2;
+}
+message Retailer {
+    message Option {
+        int64 id = 1;
+        optional Config.Option config = 2;    
+    }
+    message Filter {
+        repeated int64 id = 1;
+        optional Config.Filter config = 2;
+    }
+    int64 id = 1;
+    optional Config config = 2;
+}
+message Config {
+    message Option {
+        optional float step_surge_level = 1;
+        optional bool disabled = 2;
+        optional Config.Formula formula = 3;
+    }
+    message Filter {
+        surgelevel.Formula.Filter formula = 1;    
+        optional bool disabled = 2;
+    }
+    message Formula {
+        string id = 1;
+        google.protobuf.Struct var = 2;
+    }
+    float step_surge_level = 1;
+    bool disabled = 2;
+    Formula formula = 3;
+}
+message Formula {
+    message Option {
+        optional string id = 1;
+        optional string name = 2;
+        optional string script = 3;   
+    }
+    message Filter {
+        repeated string id = 1;
+    }
+    string id = 1;
+    string name = 2;
+    string script = 3;
+}
+message Argument {
+    message Option {
+        Store.Option store = 1;
+        map<string, int32> shipments = 2;
+        map<string, int32> candidates = 3;
+        optional google.protobuf.Struct var = 4;
+    }
+    Store store = 1;
+    map<string, int32> shipments = 2;
+    map<string, int32> candidates = 3;
+    google.protobuf.Struct var = 4;
+}
+message Area {
+    Location location = 1;
+    int32 distance = 2;
+}
+message Location {
+    float lat  = 1;
+    float lon = 2;
+}
+message Limit {
+    int32 size = 1;
+    int32 skip = 2;
+}

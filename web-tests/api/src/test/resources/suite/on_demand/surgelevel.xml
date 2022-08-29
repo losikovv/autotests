@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SURGELEVEL SUITE" parallel="tests" thread-count="1">
+    <listeners>
+        <listener class-name="ru.instamart.api.listener.on_demand.SurgeLevelExecutionListener"/>
+        <listener class-name="ru.instamart.api.listener.ApiTestSuiteListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="SURGELEVEL" parallel="classes" thread-count="1">
+        <classes>
+            <class name="ru.instamart.test.api.on_demand.surgelevel.GrpcTest"/>
+        </classes>
+    </test>
+</suite>
