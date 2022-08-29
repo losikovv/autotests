@@ -15,5 +15,6 @@ public final class GrpcContentHosts {
     public static final String PAAS_CONTENT_OPERATIONS_TAG_MANAGER = "paas-content-operations-tag-manager.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_SHIPPINGCALC = System.getProperty("url_paas_shippingcalc", "paas-content-operations-shippingcalc") + ".k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_ORDER_SERVICE = "paas-content-operations-order-service.k-stage.sbmt.io";
+    public static final String PAAS_CONTENT_OPERATIONS_SURGELEVEL = System.getProperty("url_paas_surgelevel", "paas-content-operations-surgelevel") + ".k-stage.sbmt.io";
 
 }

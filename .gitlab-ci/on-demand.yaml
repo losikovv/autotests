@@ -99,3 +99,17 @@ tests:on:demand:candidates:
     - gradle clean build onDemandCandidates
   after_script:
     - bash ./report.sh api on-demand-candidates
+
+tests:on:demand:surgelevel:
+  resource_group: onDemandSurgeLevel
+  extends:
+    - ".template_api_tests"
+  only:
+    variables:
+      - $ON_DEMAND_SURGELEVEL == 'true'
+  when: always
+  script:
+    - echo $URL_PAAS_SURGELEVEL
+    - gradle clean build onDemandSurgeLevel -Purl_paas_surgelevel=$URL_PAAS_SURGELEVEL
+  after_script:
+    - bash ./report.sh api on-demand-surgelevel

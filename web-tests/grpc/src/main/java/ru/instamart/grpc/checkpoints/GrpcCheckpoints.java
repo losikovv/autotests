@@ -24,4 +24,9 @@ public class GrpcCheckpoints {
     public <T> void notNull(T field) {
         assertNotNull(field, "Поле равно null");
     }
+
+    @Step("Проверка, что значение больше 0")
+    public void value(float value) {
+        assertTrue(value > 0, "Вернулось значение меньшее или равное 0");
+    }
 }
