@@ -31,6 +31,7 @@ public final class BasicSbermarketTests {
         shop().interactHeader().checkHeaderVisible();
         shop().interactHeader().checkSelectAddressButtonVisible();
         shop().interactHeader().checkHotlineWorkHoursVisible();
+        shop().interactHeader().checkHotlinePhoneNumberVisible();
         shop().interactHeader().checkForB2bVisible();
         shop().interactHeader().checkForBrandsVisible();
         shop().interactHeader().checkHowWeWorkVisible();
@@ -42,7 +43,8 @@ public final class BasicSbermarketTests {
         shop().interactHeader().checkSearchButtonVisible();
         shop().interactHeader().checkCartVisible();
         shop().interactHeader().checkFavoritesNoAuthVisible();
-        shop().interactHeader().checkLoginIsVisible();
+        shop().interactHeader().checkLoginIsVisibleSoft();
+        shop().assertAll();
     }
 
     @CaseId(733)
@@ -134,6 +136,7 @@ public final class BasicSbermarketTests {
         shop().interactFooter().checkReturnsPolicyLinkVisible();
         shop().interactFooter().checkPersonalDataPolicyLinkVisible();
         shop().interactFooter().checkPublicOfferLinkVisible();
+        shop().assertAll();
     }
 
     @CaseId(3470)

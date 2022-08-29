@@ -1,7 +1,6 @@
 package ru.instamart.reforged.selgros.block.footer;
 
 import org.openqa.selenium.By;
-import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Link;
@@ -22,9 +21,9 @@ public interface FooterElement {
 
     Element hotlineText = new Element(By.xpath("//footer//p[@class='tenant-footer__cell-header']"),
             "текст-заголовок о работе службы поддержки в футере");
-    Element hotlineWorkHoursText = new Element(By.xpath("//footer//span[text()='" + TestVariables.CompanyParams.companyHotlineWorkhoursShort + "']"),
+    Element hotlineWorkHoursText = new Element(By.xpath("//div[@class='footer__tel']/following-sibling::div[@class='footer__text' and not (contains(text(), 'Пишите'))]"),
             "время работы горячей линии в футере");
-    Link hotlinePhoneNumber = new Link(By.xpath("//footer//a[text()='" + TestVariables.CompanyParams.companyHotlinePhoneNumber + "']"),
+    Link hotlinePhoneNumber = new Link(By.xpath("//div[@class='footer__tel']"),
             "номер телефона горячей линии в футере");
 
     Element disclaimer = new Element(By.xpath("//footer//div[@class='tenant-footer__disclaimer']"),

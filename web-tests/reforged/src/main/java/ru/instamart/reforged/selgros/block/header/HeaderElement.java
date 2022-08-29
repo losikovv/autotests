@@ -1,7 +1,6 @@
 package ru.instamart.reforged.selgros.block.header;
 
 import org.openqa.selenium.By;
-import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
@@ -14,8 +13,8 @@ public interface HeaderElement {
     Button pickup = new Button(By.xpath("//button[@data-qa='ship_selector_type_pickup']"), "Кнопка переключения способа заказа - 'Самовывоз'");
     Button selectAddressText = new Button(By.xpath("//button[@data-qa='shipping_method_button']"), "Кнопка выбора адреса с текстом 'Выберите адрес доставки'");
     Button selectAddress = new Button(By.xpath("//button[@data-qa='select-button']"), "Кнопка выбора адреса доставки");
-    Element hotlineWorkHoursText = new Element(By.xpath("//header//span[text()='" + TestVariables.CompanyParams.companyHotlineWorkhoursShort + "']"), "Текст со временем работы горячей линии");
-    Element hotlinePhoneNumber = new Element(By.xpath("//header//span[text()='" + TestVariables.CompanyParams.companyHotlinePhoneNumber + "']"), "Текст с номером телефона горячей линии");
+    Element hotlineWorkHoursText = new Element(By.xpath("//div[@data-qa='ship-address-selector']//span[contains(@class,'avaliablity')]"), "Текст со временем работы горячей линии");
+    Element hotlinePhoneNumber = new Element(By.xpath("//div[@data-qa='ship-address-selector']//span[contains(@class,'number')]"), "Текст с номером телефона горячей линии");
     Link logo = new Link(By.xpath("//header//a[@href='/']"), "Лого магазина с редиректом на главную");
 
     Link help = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Помощь')]"), "Кнопка открытия раздела помощи");

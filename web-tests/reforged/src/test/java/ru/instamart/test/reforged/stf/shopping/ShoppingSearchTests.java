@@ -30,6 +30,7 @@ public final class ShoppingSearchTests {
         shop().interactHeader().checkSearchContainerVisible();
         shop().interactHeader().checkSearchInputVisible();
         shop().interactHeader().checkSearchButtonVisible();
+        shop().assertAll();
     }
 
     @CaseId(2585)
