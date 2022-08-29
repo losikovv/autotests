@@ -213,6 +213,11 @@ public final class ApiV3Helper {
         }
     }
 
+    @Step("Добавляем пользователя Id = '{userId}' в Actors фича-флага '{featureKey}'")
+    public static void addFlipperActor(final String featureKey, final String userId) {
+        FlipperGatesDao.INSTANCE.addFlipperActor(featureKey, userId, getDbDeliveryDateFrom(0L));
+    }
+
     @Step("Выключаем фича-флаг: '{featureKey}'")
     public static void checkFlipperOff(String featureKey) {
         FlipperGatesDao.INSTANCE.deleteFlipper(featureKey);

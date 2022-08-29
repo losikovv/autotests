@@ -30,6 +30,8 @@ public final class EnvironmentProperties {
     public static int DEFAULT_SID;
     @Config(configName = NAME, fieldName = "defaultMetroMoscowSid", defaultValue = "1")
     public static int DEFAULT_METRO_MOSCOW_SID;
+    @Config(configName = NAME, fieldName = "defaultCheckoutSid", defaultValue = "14")
+    public static int DEFAULT_CHECKOUT_SID;
     @Config(configName = NAME, fieldName = "defaultOnDemandSid", defaultValue = "94")
     public static int DEFAULT_ON_DEMAND_SID;
     @Config(configName = NAME, fieldName = "defaultTid", defaultValue = "")

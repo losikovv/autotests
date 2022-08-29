@@ -1,0 +1,34 @@
+package ru.instamart.reforged.stf.page.user.shipments.edit;
+
+import org.openqa.selenium.By;
+import ru.instamart.reforged.core.ByKraken;
+import ru.instamart.reforged.core.component.Button;
+import ru.instamart.reforged.core.component.Element;
+import ru.instamart.reforged.core.component.ElementCollection;
+import ru.instamart.reforged.stf.frame.RepeatModal;
+import ru.instamart.reforged.stf.frame.shipment_cancel_modal.ShipmentCancelModal;
+
+public interface UserShipmentElement {
+
+    RepeatModal repeatModal = new RepeatModal();
+    ShipmentCancelModal shipmentCancelModal = new ShipmentCancelModal();
+    Element deliveryInterval = new Element(By.xpath("//div[contains(@class,'NewShipmentState_stateDate')]"), "Интервал доставки");
+    Element shipmentState = new Element(By.xpath("//div[contains(@class,'NewShipmentState_stateListItemActive')]/div"), "Статус заказа");
+
+    Element shipmentNumber = new Element(By.xpath("//div[@data-qa='user-shipment-summary']//span[contains(@class,'textSecondary')][.='Номер заказа']/following-sibling::span"), "Номер заказа");
+    Element shippingAddress = new Element(By.xpath("//span[@data-qa='user-shipment-address']"), "Адрес доставки");
+    Element orderDetailsTrigger = new Element(By.xpath("//div[@data-qa='user-shipment-summary-trigger']"), "Кнопка разворачивания деталей заказа");
+    Element userPhone = new Element(By.xpath("//span[@data-qa='user-shipment-phone']"), "Лейбл телефона пользователя");
+    Element userEmail = new Element(By.xpath("//span[@data-qa='user-shipment-email']"), "Лейбл емейла пользователя");
+    Element replacementPolicy = new Element(ByKraken.xpathExpression("//span[@data-qa='user-shipment-replacement-policy' and text()='%s']"), "Политика замен в заказе");
+
+    Element paymentMethod = new Element(By.xpath("//span[@data-qa='user-shipment-payment-method']"), "Метод оплаты в заказе");
+    Element productsCost = new Element(By.xpath("//span[@data-qa='user-shipment-products-cost']"), "Стоимость продуктов");
+    Element shipmentCost = new Element(By.xpath("//div[@data-qa='user-shipment-cost']"), "Стоимость доставки");
+    Element totalCost = new Element(By.xpath("//span[@data-qa='user-shipment-total']"), "Итого");
+    Button repeatOrder = new Button(By.xpath("//button[@data-qa='user-shipment-repeat']"), "кнопка 'Повторить заказ'");
+    Button cancelOrder = new Button(By.xpath("//button[@qakey='user-shipment-cancel']"), "кнопка 'Отменить заказ'");
+
+    ElementCollection productsInOrder = new ElementCollection(By.xpath("//div[@data-qa='user-shipment-assembly-items']"), "Коллекция элементов продуктов в заказе");
+    ElementCollection productInOrderNames = new ElementCollection(By.xpath("//div[@data-qa='user-shipment-assembly-items']//div[./picture]/following-sibling::div/div[1]"), "Названия продуктов в заказе");
+}

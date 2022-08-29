@@ -48,6 +48,19 @@ public final class FlipperGatesDao extends AbstractDao<Long, FlipperGatesEntity>
         }
     }
 
+    public void addFlipperActor(final String featureKey, final String userId, final String date) {
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(INSERT_SQL + " (feature_key, `key`, value, created_at, updated_at) VALUES(?, 'actors', ?, ?, ?)")) {
+            preparedStatement.setString(1, featureKey);
+            preparedStatement.setString(2, userId);
+            preparedStatement.setString(3, date);
+            preparedStatement.setString(4, date);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+    }
+
     public void deleteFlipper(final String featureKey) {
         try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              final var preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE feature_key = ?")) {

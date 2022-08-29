@@ -45,6 +45,16 @@ public class RestAddresses {
                     .build();
         }
 
+        public static AddressV2 checkoutAddress() {
+            return AddressV2.builder()
+                    .city("Москва")
+                    .street("Рябиновая улица")
+                    .building("59")
+                    .lat(55.686030)
+                    .lon(37.431647)
+                    .build();
+        }
+
         public static AddressV2 defaultProdAddress() {
             return AddressV2.builder()
                     .city("посёлок Нагорное")

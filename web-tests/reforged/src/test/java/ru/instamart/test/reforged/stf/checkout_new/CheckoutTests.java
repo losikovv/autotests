@@ -4,8 +4,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Issues;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -13,39 +11,36 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.Promos;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.config.UiProperties;
+import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.api.helper.ApiV3Helper.checkFlipper;
-import static ru.instamart.api.helper.ApiV3Helper.checkFlipperOff;
+import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
+import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Чекаут [NEW]")
 public final class CheckoutTests {
+    // Для включения нового чекаута необходимо, чтобы были включены ФФ checkout_web_new, checkout_web_force_all, tmp_b2c_9162_spree_shipment_changes
+    // Пользователь должен быть добавлен в А/Б-тесты:
+    // 2ae723fe-fdc0-4ab6-97ee-7692d2a19c90 группу new_checkout_web
+    // 7cb891fd-a69d-4aef-854e-09b0da121536 группу w_changing_details
+    // 7be2e177-5ce6-4769-b04e-c794633076e8 группу w_new_statuses
 
     private final ApiHelper helper = new ApiHelper();
 
-    @BeforeClass(alwaysRun = true)
-    public void checkAndSwitchFlagsOn() {
-        checkFlipper("checkout_web_new");
-        checkFlipper("checkout_web_force_all");
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void switchFlagsOff() {
-        checkFlipperOff("checkout_web_new");
-        checkFlipperOff("checkout_web_force_all");
-    }
-
     @Issues({@Issue("B2C-9732"), @Issue("B2C-9730")})
     @CaseId(3623)
-    @Test(description = "Тест полного оформления заказа с оплатой картой онлайн (Доставка)", groups = "regression")
+    @Test(description = "Тест полного оформления заказа с оплатой картой онлайн (Доставка)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithOnlinePaymentAndDelivery() {
         final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         var card = PaymentCards.testCardNo3ds();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -79,6 +74,7 @@ public final class CheckoutTests {
         checkoutNew().interactAddPaymentCardModal().checkModalVisible();
 
         checkoutNew().interactAddPaymentCardModal().fillCardData(card);
+        checkoutNew().interactAddPaymentCardModal().clickAdd();
         //B2C-9732
 
         checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
@@ -98,22 +94,26 @@ public final class CheckoutTests {
         checkoutNew().clickConfirmPay();
         //B2C-9730
 
-        userShipments().checkPageContains(userShipments().pageUrl());
-        userShipments().checkStatusShipmentReady();
-        userShipments().checkShipmentNumberVisible();
-        userShipments().checkShippingAddressVisible();
-        userShipments().checkPaymentMethodEquals(paymentMethod);
-        userShipments().checkProductsCostVisible();
-        userShipments().checkShipmentCostVisible();
-        userShipments().checkTotalCostVisible();
+        userShipment().checkPageContains(userShipments().pageUrl());
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
     }
 
     @CaseId(3624)
-    @Test(description = "Тест полного оформления заказа с оплатой картой курьеру (Доставка)", groups = "regression")
+    @Test(description = "Тест полного оформления заказа с оплатой картой курьеру (Доставка)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayToCourierAndDelivery() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -160,23 +160,26 @@ public final class CheckoutTests {
 
         checkoutNew().clickConfirmOrder();
 
-        userShipments().checkPageContains(userShipments().pageUrl());
-        userShipments().checkStatusShipmentReady();
-        userShipments().checkShipmentNumberVisible();
-        userShipments().checkShippingAddressVisible();
-        userShipments().checkPaymentMethodEquals("Картой при получении");
-        userShipments().checkProductsCostVisible();
-        userShipments().checkShipmentCostVisible();
-        userShipments().checkTotalCostVisible();
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals("Картой при получении");
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
     }
 
     @Issue("B2C-9738")
     @CaseId(3638)
-    @Test(description = "Выбор слота доставки", groups = "regression")
+    @Test(description = "Выбор слота доставки", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSelectDeliverySlot() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -275,11 +278,15 @@ public final class CheckoutTests {
 
     @Issue("B2C-9776")
     @CaseId(3616)
-    @Test(description = "Сброс способа оплаты 'Картой курьеру' при выборе 'Бесконтактная доставка'", groups = "regression")
+    @Test(description = "Сброс способа оплаты 'Картой курьеру' при выборе 'Бесконтактная доставка'", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testPayByCardCourierDeliveryToDoor() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -314,11 +321,15 @@ public final class CheckoutTests {
 
     @Issue("B2C-9777")
     @CaseId(3637)
-    @Test(description = "Проверка предвыбора метода 'Оплатить онлайн' при выборе самовывоза", groups = "regression")
+    @Test(description = "Проверка предвыбора метода 'Оплатить онлайн' при выборе самовывоза", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckPayOnlineSelectedByDefaultInPickup() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -340,12 +351,16 @@ public final class CheckoutTests {
 
     @Issues({@Issue("B2C-9732"), @Issue("B2C-9730")})
     @CaseId(3649)
-    @Test(description = "Проверка добавления новой карты оплаты", groups = "regression")
+    @Test(description = "Проверка добавления новой карты оплаты", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testAddNewPaymentCard() {
         final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         var card = PaymentCards.testCardNo3ds();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -376,12 +391,16 @@ public final class CheckoutTests {
 
     @Issue("B2C-9732")
     @CaseId(3642)
-    @Test(description = "Проверка появления кнопки 'Оплатить' при способе оплаты 'Картой онлайн'", groups = "regression")
+    @Test(description = "Проверка появления кнопки 'Оплатить' при способе оплаты 'Картой онлайн'", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testPayButtonDisplayedWithSelectOnlinePaymentMethod() {
         final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         var card = PaymentCards.testCardNo3ds();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -411,11 +430,15 @@ public final class CheckoutTests {
     }
 
     @CaseId(3643)
-    @Test(description = "Проверка появления кнопки 'Заказать' при способе оплаты 'Картой курьеру'", groups = "regression")
+    @Test(description = "Проверка появления кнопки 'Заказать' при способе оплаты 'Картой курьеру'", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testOrderConfirmButtonDisplayedWithSelectCardToCourierPaymentMethod() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -438,11 +461,15 @@ public final class CheckoutTests {
     }
 
     @CaseId(3645)
-    @Test(description = "Применение несуществующего промокода", groups = "regression")
+    @Test(description = "Применение несуществующего промокода", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testAddInvalidPromoCode() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -463,11 +490,15 @@ public final class CheckoutTests {
     }
 
     @CaseId(3646)
-    @Test(description = "Применение существующего промокода", groups = "regression")
+    @Test(description = "Применение существующего промокода", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testAddValidPromoCode() {
         final var userData = UserManager.getQaUser();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
