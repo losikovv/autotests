@@ -56,47 +56,47 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     @Step("Проверяем, что фильтры 'Статус заказа' не выбраны")
     default void checkShipmentStatusFiltersNotSelected() {
-        shipmentStatusSelector.checkSelectedItemsInInputNotVisible();
+        Assert.assertTrue(shipmentStatusSelector.getAllSelectedName().isEmpty(), "Список выбранных фильтров 'Статус заказа' не пуст");
     }
 
     @Step("Проверяем, что фильтры 'Платформа' не выбраны")
     default void checkPlatformFiltersNotSelected() {
-        platformSelector.checkSelectedItemsInInputNotVisible();
+        Assert.assertTrue(platformSelector.getAllSelectedName().isEmpty(), "Список выбранных фильтров 'Платформа' не пуст");
     }
 
     @Step("Проверяем, что фильтры 'Ритейлер' не выбраны")
     default void checkRetailerFiltersNotSelected() {
-        retailerSelector.checkSelectedItemsInInputNotVisible();
+        Assert.assertTrue(retailerSelector.getAllSelectedName().isEmpty(), "Список выбранных фильтров 'Ритейлер' не пуст");
     }
 
     @Step("Проверяем, что фильтры 'Базовый магазин' не выбраны")
     default void checkBasicStoreFiltersNotSelected() {
-        basicStoreSelector.checkSelectedItemsInInputNotVisible();
+        Assert.assertTrue(basicStoreSelector.getAllSelectedName().isEmpty(), "Список выбранных фильтров 'Базовый магазин' не пуст");
     }
 
     @Step("Проверяем, что фильтры 'Магазин' не выбраны")
     default void checkStoreFiltersNotSelected() {
-        storeSelector.checkSelectedItemsInInputNotVisible();
+        Assert.assertTrue(storeSelector.getAllSelectedName().isEmpty(), "Список выбранных фильтров 'Магазин' не пуст");
     }
 
     @Step("Проверяем, что фильтры 'Способ оплаты' не выбраны")
     default void checkPaymentMethodFiltersNotSelected() {
-        paymentMethodSelector.checkSelectedItemsInInputNotVisible();
+        Assert.assertTrue(paymentMethodSelector.getAllSelectedName().isEmpty(), "Список выбранных фильтров 'Способ оплаты' не пуст");
     }
 
     @Step("Проверяем, что фильтры 'Статус оплаты' не выбраны")
     default void checkPaymentStatusFiltersNotSelected() {
-        paymentStatusSelector.checkSelectedItemsInInputNotVisible();
+        Assert.assertTrue(paymentStatusSelector.getAllSelectedName().isEmpty(), "Список выбранных фильтров 'Статус оплаты' не пуст");
     }
 
     @Step("Проверяем, что фильтры 'Регион' не выбраны")
     default void checkRegionFiltersNotSelected() {
-        regionSelector.checkSelectedItemsInInputNotVisible();
+        Assert.assertTrue(regionSelector.getAllSelectedName().isEmpty(), "Список выбранных фильтров 'Регион' не пуст");
     }
 
     @Step("Проверяем, что 'Быстрые фильтры' не выбраны")
     default void checkQuickFiltersNotSelected() {
-        quickFilters.checkSelectedItemsInInputNotVisible();
+        Assert.assertTrue(quickFilters.getAllSelectedName().isEmpty(), "Список выбранных фильтров 'Быстрые фильтры' не пуст");
     }
 
     @Step("Проверяем, что отображается кнопка 'Сбросить'")
@@ -109,109 +109,39 @@ public interface OrdersCheck extends Check, OrdersElement {
         Kraken.waitAction().shouldBeVisible(applyFilters);
     }
 
-    @Step("Проверяем, что отображается список выпадающих элементов селектора 'Статус заказа'")
-    default void checkShipmentStatusDropdownItemsVisible() {
-        shipmentStatusSelector.checkDropdownVisible();
-    }
-
-    @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Статус заказа'")
-    default void checkShipmentStatusDropdownItemsNotVisible() {
-        shipmentStatusSelector.checkDropdownNotVisible();
-    }
-
     @Step("Проверяем, что список выбранных фильтров в селекторе 'Статус заказа' соответствует ожидаемому: '{expectedFiltersList}'")
     default void checkShipmentStatusSelectedFilterList(final List<String> expectedFiltersList) {
-        Assert.assertEquals(shipmentStatusSelector.getAllSelectedItemsInInput(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Статус заказа' не соответствует ожидаемому");
-    }
-
-    @Step("Проверяем, что отображается список выпадающих элементов селектора 'Платформа'")
-    default void checkPlatformDropdownItemsVisible() {
-        platformSelector.checkDropdownVisible();
-    }
-
-    @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Платформа'")
-    default void checkPlatformDropdownItemsNotVisible() {
-        platformSelector.checkDropdownNotVisible();
+        Assert.assertEquals(shipmentStatusSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Статус заказа' не соответствует ожидаемому");
     }
 
     @Step("Проверяем, что список выбранных фильтров в селекторе 'Платформа' соответствует ожидаемому: '{expectedFiltersList}'")
     default void checkPlatformSelectedFilterList(final List<String> expectedFiltersList) {
-        Assert.assertEquals(platformSelector.getAllSelectedItemsInInput(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Платформа' не соответствует ожидаемому");
-    }
-
-    @Step("Проверяем, что отображается список выпадающих элементов селектора 'Ритейлер'")
-    default void checkRetailerDropdownItemsVisible() {
-        retailerSelector.checkDropdownVisible();
-    }
-
-    @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Ритейлер'")
-    default void checkRetailerDropdownItemsNotVisible() {
-        retailerSelector.checkDropdownNotVisible();
+        Assert.assertEquals(platformSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Платформа' не соответствует ожидаемому");
     }
 
     @Step("Проверяем, что список выбранных фильтров в селекторе 'Ритейлер' соответствует ожидаемому: '{expectedFiltersList}'")
     default void checkRetailerSelectedFilterList(final List<String> expectedFiltersList) {
-        Assert.assertEquals(retailerSelector.getAllSelectedItemsInInput(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Ритейлер' не соответствует ожидаемому");
-    }
-
-    @Step("Проверяем, что отображается список выпадающих элементов селектора 'Базовый магазин'")
-    default void checkBasicStoreDropdownItemsVisible() {
-        basicStoreSelector.checkDropdownVisible();
-    }
-
-    @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Базовый магазин'")
-    default void checkBasicStoreDropdownItemsNotVisible() {
-        basicStoreSelector.checkDropdownNotVisible();
+        Assert.assertEquals(retailerSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Ритейлер' не соответствует ожидаемому");
     }
 
     @Step("Проверяем, что список выбранных фильтров в селекторе 'Базовый магазин' соответствует ожидаемому: '{expectedFiltersList}'")
     default void checkBasicStoreSelectedFilterList(final List<String> expectedFiltersList) {
-        Assert.assertEquals(basicStoreSelector.getAllSelectedItemsInInput(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Базовый магазин' не соответствует ожидаемому");
-    }
-
-    @Step("Проверяем, что отображается список выпадающих элементов селектора 'Магазин'")
-    default void checkStoreDropdownItemsVisible() {
-        storeSelector.checkDropdownVisible();
-    }
-
-    @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Магазин'")
-    default void checkStoreDropdownItemsNotVisible() {
-        storeSelector.checkDropdownNotVisible();
+        Assert.assertEquals(basicStoreSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Базовый магазин' не соответствует ожидаемому");
     }
 
     @Step("Проверяем, что список выбранных фильтров в селекторе 'Магазин' соответствует ожидаемому: '{expectedFiltersList}'")
     default void checkStoreSelectedFilterList(final List<String> expectedFiltersList) {
-        Assert.assertEquals(storeSelector.getAllSelectedItemsInInput(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Магазин' не соответствует ожидаемому");
-    }
-
-    @Step("Проверяем, что отображается список выпадающих элементов селектора 'Способ оплаты'")
-    default void checkPaymentMethodDropdownItemsVisible() {
-        paymentMethodSelector.checkDropdownVisible();
-    }
-
-    @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Способ оплаты'")
-    default void checkPaymentMethodDropdownItemsNotVisible() {
-        paymentMethodSelector.checkDropdownNotVisible();
+        Assert.assertEquals(storeSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Магазин' не соответствует ожидаемому");
     }
 
     @Step("Проверяем, что список выбранных фильтров в селекторе 'Способ оплаты' соответствует ожидаемому: '{expectedFiltersList}'")
     default void checkPaymentMethodSelectedFilterList(final List<String> expectedFiltersList) {
-        Assert.assertEquals(paymentMethodSelector.getAllSelectedItemsInInput(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Способ оплаты' не соответствует ожидаемому");
-    }
-
-    @Step("Проверяем, что отображается список выпадающих элементов селектора 'Статус оплаты'")
-    default void checkPaymentStatusDropdownItemsVisible() {
-        paymentStatusSelector.checkDropdownVisible();
-    }
-
-    @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Статус оплаты'")
-    default void checkPaymentStatusDropdownItemsNotVisible() {
-        paymentStatusSelector.checkDropdownNotVisible();
+        Assert.assertEquals(paymentMethodSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Способ оплаты' не соответствует ожидаемому");
     }
 
     @Step("Проверяем, что список выбранных фильтров в селекторе 'Статус оплаты' соответствует ожидаемому: '{expectedFiltersList}'")
     default void checkPaymentStatusSelectedFilterList(final List<String> expectedFiltersList) {
-        Assert.assertEquals(paymentStatusSelector.getAllSelectedItemsInInput(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Статус оплаты' не соответствует ожидаемому");
+        Assert.assertEquals(paymentStatusSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Статус оплаты' не соответствует ожидаемому");
     }
 
     @Step("Проверяем, что отображается список выпадающих элементов селектора 'Сборщик'")
@@ -232,26 +162,6 @@ public interface OrdersCheck extends Check, OrdersElement {
     @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Курьер'")
     default void checkCourierDropdownItemsNotVisible() {
         Kraken.waitAction().shouldNotBeVisible(courierDropdownList);
-    }
-
-    @Step("Проверяем, что отображается список выпадающих элементов селектора 'Регион'")
-    default void checkRegionDropdownItemsVisible() {
-        regionSelector.checkDropdownVisible();
-    }
-
-    @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Регион'")
-    default void checkRegionDropdownItemsNotVisible() {
-        regionSelector.checkDropdownNotVisible();
-    }
-
-    @Step("Проверяем, что отображается список выпадающих элементов селектора 'Быстрые фильтры'")
-    default void checkQuickFiltersDropdownItemsVisible() {
-        quickFilters.checkDropdownVisible();
-    }
-
-    @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Быстрые фильтры'")
-    default void checkQuickFiltersDropdownItemsNotVisible() {
-        quickFilters.checkDropdownNotVisible();
     }
 
     @Step("Проверяем, что отображается список выпадающий элемент '{itemName}' селектора")
@@ -289,16 +199,6 @@ public interface OrdersCheck extends Check, OrdersElement {
                     );
                 });
         krakenAssert.assertAll();
-    }
-
-    @Step("Проверяем, что список значений в выпадающем списке селектора 'Статус заказа' соответствует ожидаемому: {expectedSelectorValuesList}")
-    default void checkShipmentStatusSelectorListEquals(final List<String> expectedSelectorValuesList) {
-        Assert.assertEquals(shipmentStatusSelector.getAllValuesFromDropdown(), expectedSelectorValuesList, "Список значений селектора 'Статус заказа' не соответствует ожидаемому");
-    }
-
-    @Step("Проверяем, что список значений в выпадающем списке селектора 'Статус оплаты' соответствует ожидаемому: {expectedSelectorValuesList}")
-    default void checkPaymentStatusSelectorListEquals(final List<String> expectedSelectorValuesList) {
-        Assert.assertEquals(paymentStatusSelector.getAllValuesFromDropdown(), expectedSelectorValuesList, "Список значений селектора 'Статус оплаты' не соответствует ожидаемому");
     }
 
     @Step("Проверяем, что все отфильтрованные заказы имеют статус: {expectedValues}")

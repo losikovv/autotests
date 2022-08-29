@@ -11,7 +11,7 @@ public interface OrdersElement {
 
     Button regionsFilter = new Button(By.xpath("//button[@data-qa='open-regions-filter-button']"), "Кнопка 'Выберите регион для просмотра заказов на ручную маршрутизацию'");
     Input shipmentNumber = new Input(By.xpath("//input[@data-qa='shipment_number']"), "Поле ввода 'Номер заказа'");
-    SelectorMulti shipmentStatusSelector = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус заказа')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус заказа'");
+    MultiSelector shipmentStatusSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус заказа')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус заказа'");
     Input shipmentCreateDateStart = new Input(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Создание заказа')]/following-sibling::div//input[@placeholder='Начальная дата']"), "Поле ввода 'Создание заказа -> Начальная дата'");
     Input shipmentCreateDateEnd = new Input(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Создание заказа')]/following-sibling::div//input[@placeholder='Конечная дата']"), "Поле ввода 'Создание заказа -> Конечная дата'");
     Element shipmentCreateDateTimePicker = new Element(By.xpath("//div[@class='ant-picker-datetime-panel']"), "Виджет выбора даты и времени создания заказа");
@@ -22,12 +22,12 @@ public interface OrdersElement {
     Input totalWeightEnd = new Input(By.xpath("//input[@data-qa='shipment_total_weight_end']"), "Поле ввода 'Вес заказа -> До'");
     Input itemsCountStart = new Input(By.xpath("//input[@data-qa='shipment_item_count_start']"), "Поле ввода 'Кол-во позиций -> От'");
     Input itemsCountEnd = new Input(By.xpath("//input[@data-qa='shipment_item_count_end']"), "Поле ввода 'Кол-во позиций -> До'");
-    SelectorMulti platformSelector = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Платформа')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Платформа'");
-    SelectorMulti retailerSelector = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Ритейлер')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Ритейлер'");
-    SelectorMulti basicStoreSelector = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Базовый магазин')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Базовый магазин'");
-    SelectorMulti storeSelector = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Магазин')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Магазин'");
-    SelectorMulti paymentMethodSelector = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Способ оплаты')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Способ оплаты'");
-    SelectorMulti paymentStatusSelector = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус оплаты')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус оплаты'");
+    MultiSelector platformSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Платформа')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Платформа'");
+    MultiSelector retailerSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Ритейлер')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Ритейлер'");
+    MultiSelector basicStoreSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Базовый магазин')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Базовый магазин'");
+    MultiSelector storeSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Магазин')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Магазин'");
+    MultiSelector paymentMethodSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Способ оплаты')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Способ оплаты'");
+    MultiSelector paymentStatusSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус оплаты')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус оплаты'");
     Input promoCode = new Input(By.xpath("//input[@name='couponCode']"), "Поле ввода 'Промокод'");
     Input companyName = new Input(By.xpath("//input[@name='orderCompanyName']"), "Поле ввода 'Юридическое лицо'");
     Input companyINN = new Input(By.xpath("//input[@name='inn']"), "Поле ввода 'ИНН'");
@@ -40,10 +40,10 @@ public interface OrdersElement {
     Input lastName = new Input(By.xpath("//input[@name='lastName']"), "Поле ввода 'Информация о клиенте -> Фамилия'");
     Input firstName = new Input(By.xpath("//input[@name='firstName']"), "Поле ввода 'Информация о клиенте -> Имя'");
     Input email = new Input(By.xpath("//input[@name='email']"), "Поле ввода 'Информация о клиенте -> e-mail'");
-    SelectorMulti regionSelector = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Регион')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Регион'");
-    SelectorMulti collectingStatus = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус сборки')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус сборки'");
-    SelectorMulti deliveryStatus = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус доставки')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус доставки'");
-    SelectorMulti quickFilters = new SelectorMulti(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Быстрые фильтры')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Быстрые фильтры'");
+    MultiSelector regionSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Регион')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Регион'");
+    MultiSelector collectingStatus = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус сборки')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус сборки'");
+    MultiSelector deliveryStatus = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус доставки')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус доставки'");
+    MultiSelector quickFilters = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Быстрые фильтры')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Быстрые фильтры'");
     Button resetFilters = new Button(By.xpath("//button[@data-qa='reset_shipments_filter_button']"), "Кнопка 'Сбросить'");
     Button applyFilters = new Button(By.xpath("//button[@data-qa='apply_shipments_filter_button']"), "Кнопка 'Применить фильтры'");
 
