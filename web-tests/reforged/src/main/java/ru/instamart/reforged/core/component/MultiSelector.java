@@ -71,6 +71,25 @@ public final class MultiSelector extends AbstractComponent {
         component.findElement(unselectedItem).click();
     }
 
+    public void selectWithoutSearch(final String name) {
+        final var component = getComponent();
+        component.click();
+        final var controlsId = component.findElement(input).getAttribute("aria-controls");
+        final var scrollElement = component.findElement(ByKraken.xpathExpression(scroll.getDefaultXpathExpression(), controlsId));
+        var scrollDownCount = 0;
+        ThreadUtil.simplyAwait(1);
+        while (scrollDownCount < 15
+                && scrollElement.isDisplayed()
+                && component.findElements(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), controlsId, name)).isEmpty()) {
+            Kraken.action().clickAndHold(scrollElement).moveByOffset(0, 15).release().build().perform();
+            scrollDownCount++;
+        }
+        while (!component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), controlsId, name)).isDisplayed())
+            Kraken.action().clickAndHold(scrollElement).moveByOffset(0, 15).release().build().perform();
+        component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), controlsId, name)).click();
+        component.click();
+    }
+
     public void selectAll() {
         final var component = getComponent();
         component.findElement(input).click();

@@ -2,6 +2,7 @@ package ru.instamart.reforged.admin.page.orders;
 
 import io.qameta.allure.Step;
 import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.admin.AdminPage;
 
 public final class OrdersPage implements AdminPage, OrdersCheck {
@@ -146,6 +147,21 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
         paymentStatusSelector.removeAll();
     }
 
+    @Step("Добавляем фильтр 'Быстрые фильтры: '{quickFilterName}'")
+    public void addQuickFilterItem(final String quickFilterName) {
+        quickFilters.selectWithoutSearch(quickFilterName);
+    }
+
+    @Step("Удаляем выбранный фильтр 'Быстрые фильтры': {quickFilterName}")
+    public void removeQuickFilterItem(final String quickFilterName) {
+        quickFilters.removeItemByName(quickFilterName);
+    }
+
+    @Step("Очищаем фильтры 'Быстрые фильтры'")
+    public void clearQuickFilters() {
+        quickFilters.removeAll();
+    }
+
     @Step("Кликаем в поле 'Сборщик'")
     public void clickCollectorFilterSelector() {
         collector.click();
@@ -168,6 +184,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
 
     @Step("Нажимаем кнопку 'Применить фильтры'")
     public void applyFilters() {
+        quickFiltersTitle.getElement().click();
         applyFilters.click();
     }
 

@@ -9,5 +9,5 @@ public enum PaymentMethods {
     BY_CASH("Наличные"),
     BY_CARD_TO_COURIER("Картой курьеру"),
     AT_CHECKOUT("На кассе");
-    private String name;
+    private final String name;
 }

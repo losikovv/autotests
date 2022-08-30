@@ -144,6 +144,11 @@ public interface OrdersCheck extends Check, OrdersElement {
         Assert.assertEquals(paymentStatusSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Статус оплаты' не соответствует ожидаемому");
     }
 
+    @Step("Проверяем, что список выбранных фильтров в селекторе 'Быстрые фильтры' соответствует ожидаемому: '{expectedFiltersList}'")
+    default void checkQuickFiltersSelectedFilterList(final List<String> expectedFiltersList) {
+        Assert.assertEquals(quickFilters.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Быстрые фильтры' не соответствует ожидаемому");
+    }
+
     @Step("Проверяем, что отображается список выпадающих элементов селектора 'Сборщик'")
     default void checkCollectorDropdownItemsVisible() {
         Kraken.waitAction().shouldBeVisible(collectorDropdownList);
@@ -201,15 +206,38 @@ public interface OrdersCheck extends Check, OrdersElement {
         krakenAssert.assertAll();
     }
 
+    //До диспетчеризации заказ имеет один статус
     @Step("Проверяем, что все отфильтрованные заказы имеют статус: {expectedValues}")
-    default void checkAllShipmentInTableHasStatusIn(final List<String> expectedValues) {
-        var allShipmentStatusesInTable = tableComponent.getAllShipmentStatusesList();
-        for (int i = 0; i < allShipmentStatusesInTable.size(); i++) {
+    default void checkAllShipmentInTableHasSingleStatusIn(final List<String> expectedValues) {
+        tableComponent.getAllShipmentStatusesList().forEach(status -> {
             krakenAssert.assertTrue(
-                    expectedValues.contains(allShipmentStatusesInTable.get(i)),
-                    String.format("Статус заказа номер '%s' : '%s' не найден среди ожидаемых: '%s'", tableComponent.getShipmentNumber(i), allShipmentStatusesInTable.get(i), expectedValues)
+                    expectedValues.contains(status),
+                    String.format("Статус заказа '%s' не найден среди ожидаемых: '%s'", status, expectedValues)
             );
-        }
+        });
+        krakenAssert.assertAll();
+    }
+
+    //После диспетчеризации заказ имеет 2 статуса: Сборки и Доставки
+    @Step("Проверяем, что все отфильтрованные заказы имеют Статус сборки: {expectedValues}")
+    default void checkAllShipmentInTableHasCollectingStatusIn(final List<String> expectedValues) {
+        tableComponent.getAllCollectingShipmentStatusesList().forEach(status -> {
+            krakenAssert.assertTrue(
+                    expectedValues.contains(status),
+                    String.format("Статус сборки заказа '%s' не найден среди ожидаемых: '%s'", status, expectedValues)
+            );
+        });
+        krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что все отфильтрованные заказы имеют Статус доставки: {expectedValues}")
+    default void checkAllShipmentInTableHasShippingStatusIn(final List<String> expectedValues) {
+        tableComponent.getAllDeliveryShipmentStatusesList().forEach(status -> {
+            krakenAssert.assertTrue(
+                    expectedValues.contains(status),
+                    String.format("Статус доставки заказа '%s' не найден среди ожидаемых: '%s'", status, expectedValues)
+            );
+        });
         krakenAssert.assertAll();
     }
 
@@ -268,6 +296,42 @@ public interface OrdersCheck extends Check, OrdersElement {
             krakenAssert.assertTrue(
                     expectedValues.contains(allShipmentPaymentStatusesInTable.get(i)),
                     String.format("Статус оплаты в заказе номер '%s' : '%s' не найден среди ожидаемых: '%s'", tableComponent.getShipmentNumber(i), allShipmentPaymentStatusesInTable.get(i), expectedValues)
+            );
+        }
+        krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что для всех отфильтрованных заказов Заказчик один из: {expectedValues}")
+    default void checkAllShipmentInTableHasCustomerIn(final List<String> expectedValues) {
+        var allCustomerNamesInTable = tableComponent.getAllCustomerNames();
+        for (int i = 0; i < allCustomerNamesInTable.size(); i++) {
+            krakenAssert.assertTrue(
+                    expectedValues.contains(allCustomerNamesInTable.get(i)),
+                    String.format("Заказчик в заказе номер '%s' : '%s' не найден среди ожидаемых: '%s'", tableComponent.getShipmentNumber(i), allCustomerNamesInTable.get(i), expectedValues)
+            );
+        }
+        krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что для всех отфильтрованных заказов Сборщик один из: {expectedValues}")
+    default void checkAllShipmentInTableHasCollectorIn(final List<String> expectedValues) {
+        var allCollectorsInTable = tableComponent.getAllCollectorsList();
+        for (int i = 0; i < allCollectorsInTable.size(); i++) {
+            krakenAssert.assertTrue(
+                    expectedValues.contains(allCollectorsInTable.get(i)),
+                    String.format("Назначение - Сборщик в заказе номер '%s' : '%s' не найден среди ожидаемых: '%s'", tableComponent.getShipmentNumber(i), allCollectorsInTable.get(i), expectedValues)
+            );
+        }
+        krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что для всех отфильтрованных заказов Курьер один из: {expectedValues}")
+    default void checkAllShipmentInTableHasCourierIn(final List<String> expectedValues) {
+        var allCouriersInTable = tableComponent.getAllCouriersList();
+        for (int i = 0; i < allCouriersInTable.size(); i++) {
+            krakenAssert.assertTrue(
+                    expectedValues.contains(allCouriersInTable.get(i)),
+                    String.format("Назначение - Курьер в заказе номер '%s' : '%s' не найден среди ожидаемых: '%s'", tableComponent.getShipmentNumber(i), allCouriersInTable.get(i), expectedValues)
             );
         }
         krakenAssert.assertAll();

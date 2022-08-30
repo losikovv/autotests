@@ -29,6 +29,8 @@ public final class OrdersTable extends Table {
     private static final By deliveryTimeMoscow = By.xpath(".//div[@data-qa='shipments_table_delivery_time_moscow']");
     private static final By deliveryDate = By.xpath(".//div[@data-qa='shipments_table_delivery_date']");
     private static final By shipmentStatus = By.xpath(".//span[contains(@class,'ant-tag-default')]/span[2]");
+    private static final By shipmentStatusCollecting = By.xpath("(.//span[contains(@class,'ant-tag-default')])[1]/span[2]");
+    private static final By shipmentStatusDelivery = By.xpath("(.//span[contains(@class,'ant-tag-default')])[2]/span[2]");
 
     private static final By orderSum = By.xpath("./div/div/div[contains(.,'₽')]");
     private static final By paymentMethod = By.xpath("./div/div/div[contains(.,'₽')]/following-sibling::div");
@@ -40,8 +42,8 @@ public final class OrdersTable extends Table {
 
     private static final By collector = By.xpath("(./div/div/div[2])[1]");
     private static final By removeCollectorButton = By.xpath(".(//button)[1]");
-    private static final By deliveryMan = By.xpath("(./div/div/div[2])[2]");
-    private static final By removeDeliveryManButton = By.xpath(".(//button)[2]");
+    private static final By courier = By.xpath("(./div/div/div[2])[2]");
+    private static final By removeCourierButton = By.xpath(".(//button)[2]");
 
     private static final By buttonAddComment = By.xpath(".//button[@data-qa='shipments_table_add_comment']");
     private static final By commentInput = By.xpath(".//textarea[@data-qa='shipments_table_comment_input']");
@@ -131,8 +133,25 @@ public final class OrdersTable extends Table {
 
     public List<String> getAllShipmentStatusesList() {
         return getElementsFromColumn(Column.SHIPMENT.label).stream()
+                .filter(webElement -> webElement.findElements(shipmentStatus).size() == 1)
                 .map(webElement ->
                         webElement.findElement(shipmentStatus).getText())
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getAllCollectingShipmentStatusesList() {
+        return getElementsFromColumn(Column.SHIPMENT.label).stream()
+                .filter(webElement -> webElement.findElements(shipmentStatus).size() == 2)
+                .map(webElement ->
+                        webElement.findElement(shipmentStatusCollecting).getText())
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getAllDeliveryShipmentStatusesList() {
+        return getElementsFromColumn(Column.SHIPMENT.label).stream()
+                .filter(webElement -> webElement.findElements(shipmentStatus).size() == 2)
+                .map(webElement ->
+                        webElement.findElement(shipmentStatusDelivery).getText())
                 .collect(Collectors.toList());
     }
 
@@ -154,6 +173,27 @@ public final class OrdersTable extends Table {
         return getElementsFromColumn(Column.PAYMENT.label).stream()
                 .map(webElement ->
                         webElement.findElement(paymentStatus).getText())
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getAllCustomerNames() {
+        return getElementsFromColumn(Column.CLIENT.label).stream()
+                .map(webElement ->
+                        webElement.findElement(customerName).getText())
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getAllCollectorsList() {
+        return getElementsFromColumn(Column.EXECUTORS.label).stream()
+                .map(webElement ->
+                        webElement.findElement(collector).getText())
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getAllCouriersList() {
+        return getElementsFromColumn(Column.EXECUTORS.label).stream()
+                .map(webElement ->
+                        webElement.findElement(courier).getText())
                 .collect(Collectors.toList());
     }
 
