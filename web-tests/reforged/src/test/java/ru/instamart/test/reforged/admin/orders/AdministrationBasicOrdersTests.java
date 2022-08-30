@@ -7,7 +7,8 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.admin.AdminRout.*;
+import static ru.instamart.reforged.admin.AdminRout.login;
+import static ru.instamart.reforged.admin.AdminRout.orders;
 
 @Epic("Админка STF")
 @Feature("Заказы")
@@ -15,7 +16,8 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 public final class AdministrationBasicOrdersTests {
 
     @CaseId(1499)
-    @Test(description = "Корректное отображение страницы (/admin/orders). Админ со старыми ролями", groups = "regression")
+    @Test(description = "Корректное отображение страницы (/admin/orders). Админ со старыми ролями",
+            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
     public void basicOrdersPageTestOldRoles() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -34,85 +36,11 @@ public final class AdministrationBasicOrdersTests {
         orders().checkQuickFiltersNotSelected();
         orders().checkResetFiltersButtonVisible();
         orders().checkApplyFiltersButtonVisible();
-
-        orders().clickShipmentStatusFilterSelector();
-        orders().checkShipmentStatusDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkShipmentStatusDropdownItemsNotVisible();
-
-        orders().clickShipmentCreateDateStart();
-        orders().checkCreateDateTimePickerVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkCreateDateTimePickerNotVisible();
-
-        orders().clickShipmentCreateDateEnd();
-        orders().checkCreateDateTimePickerVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkCreateDateTimePickerNotVisible();
-
-        orders().clickShipmentDeliveryDateStart();
-        orders().checkDeliveryDateTimePickerVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkDeliveryDateTimePickerNotVisible();
-
-        orders().clickShipmentDeliveryDateEnd();
-        orders().checkDeliveryDateTimePickerVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkDeliveryDateTimePickerNotVisible();
-
-        orders().clickPlatformFilterSelector();
-        orders().checkPlatformDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkPlatformDropdownItemsNotVisible();
-
-        orders().clickRetailerFilterSelector();
-        orders().checkRetailerDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkRetailerDropdownItemsNotVisible();
-
-        orders().clickBasicStoreFilterSelector();
-        orders().checkBasicStoreDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkBasicStoreDropdownItemsNotVisible();
-
-        orders().clickStoreFilterSelector();
-        orders().checkStoreDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkStoreDropdownItemsNotVisible();
-
-        orders().clickPaymentMethodFilterSelector();
-        orders().checkPaymentMethodDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkPaymentMethodDropdownItemsNotVisible();
-
-        orders().clickPaymentStatusFilterSelector();
-        orders().checkPaymentStatusDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkPaymentStatusDropdownItemsNotVisible();
-
-        orders().clickCollectorFilterSelector();
-        orders().checkCollectorDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkCollectorDropdownItemsNotVisible();
-
-        orders().clickCourierFilterSelector();
-        orders().checkCourierDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkCourierDropdownItemsNotVisible();
-
-        orders().clickRegionFilterSelector();
-        orders().checkRegionDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkRegionDropdownItemsNotVisible();
-
-        orders().clickQuickFiltersSelector();
-        orders().checkQuickFiltersDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkQuickFiltersDropdownItemsNotVisible();
     }
 
     @CaseId(1499)
-    @Test(description = "Корректное отображение страницы (/admin/orders). Админ с новыми ролями", groups = "regression")
+    @Test(description = "Корректное отображение страницы (/admin/orders). Админ с новыми ролями",
+            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
     public void basicOrdersPageTestNewRoles() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -131,81 +59,5 @@ public final class AdministrationBasicOrdersTests {
         orders().checkQuickFiltersNotSelected();
         orders().checkResetFiltersButtonVisible();
         orders().checkApplyFiltersButtonVisible();
-
-
-        orders().clickShipmentStatusFilterSelector();
-        orders().checkShipmentStatusDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkShipmentStatusDropdownItemsNotVisible();
-
-        orders().clickShipmentCreateDateStart();
-        orders().checkCreateDateTimePickerVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkCreateDateTimePickerNotVisible();
-
-        orders().clickShipmentCreateDateEnd();
-        orders().checkCreateDateTimePickerVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkCreateDateTimePickerNotVisible();
-
-        orders().clickShipmentDeliveryDateStart();
-        orders().checkDeliveryDateTimePickerVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkDeliveryDateTimePickerNotVisible();
-
-        orders().clickShipmentDeliveryDateEnd();
-        orders().checkDeliveryDateTimePickerVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkDeliveryDateTimePickerNotVisible();
-
-        orders().clickPlatformFilterSelector();
-        orders().checkPlatformDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkPlatformDropdownItemsNotVisible();
-
-        orders().clickRetailerFilterSelector();
-        orders().checkRetailerDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkRetailerDropdownItemsNotVisible();
-
-        orders().clickBasicStoreFilterSelector();
-        orders().checkBasicStoreDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkBasicStoreDropdownItemsNotVisible();
-
-        orders().clickStoreFilterSelector();
-        orders().checkStoreDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkStoreDropdownItemsNotVisible();
-
-        orders().clickPaymentMethodFilterSelector();
-        orders().checkPaymentMethodDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkPaymentMethodDropdownItemsNotVisible();
-
-        orders().clickPaymentStatusFilterSelector();
-        orders().checkPaymentStatusDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkPaymentStatusDropdownItemsNotVisible();
-
-        orders().clickCollectorFilterSelector();
-        orders().checkCollectorDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkCollectorDropdownItemsNotVisible();
-
-        orders().clickCourierFilterSelector();
-        orders().checkCourierDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkCourierDropdownItemsNotVisible();
-
-        orders().clickRegionFilterSelector();
-        orders().checkRegionDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkRegionDropdownItemsNotVisible();
-
-        orders().clickQuickFiltersSelector();
-        orders().checkQuickFiltersDropdownItemsVisible();
-        orders().clickShipmentNumberInput();
-        orders().checkQuickFiltersDropdownItemsNotVisible();
     }
 }

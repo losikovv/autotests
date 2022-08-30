@@ -3,6 +3,7 @@ package ru.instamart.reforged.core.component;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 
@@ -15,7 +16,9 @@ import static java.util.Objects.isNull;
 public final class MultiSelector extends AbstractComponent {
 
     private final By input = By.xpath(".//input[@type='search']");
-    private final ByKraken itemInDropDown = (ByKraken) ByKraken.xpathExpression("//div[contains(@class,'ant-select-item ')]/div[.='%s']");
+    private final By itemsLoadingSpinner = By.xpath("//div[contains(@class,'ant-spin-spinning')]");
+    private final ByKraken itemInDropDown = (ByKraken) ByKraken.xpathExpression("//div[@id='%s']/following-sibling::div//div[contains(@class,'ant-select-item ')][.//*[.='%s']]");
+    private final ByKraken itemInDropDownContains = (ByKraken) ByKraken.xpathExpression("//div[@id='%s']/following-sibling::div//div[contains(@class,'ant-select-item ')][.//*[contains(.,'%s')]]");
     private final ByKraken unselectedItem = (ByKraken) ByKraken.xpathExpression("//div[@aria-selected='false']/div");
     private final By selected = By.xpath(".//div[@class='ant-select-selection-overflow-item']");
     private final ByKraken removeItem = (ByKraken) ByKraken.xpathExpression(".//span[contains(@class,'content')][.='%s']/following-sibling::span");
@@ -51,7 +54,15 @@ public final class MultiSelector extends AbstractComponent {
     public void fill(final String name) {
         final var component = getComponent();
         component.findElement(input).sendKeys(name);
-        component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), name)).click();
+        ThreadUtil.simplyAwait(1);
+        component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), component.findElement(input).getAttribute("aria-controls"), name)).click();
+    }
+
+    public void fillContains(final String name) {
+        final var component = getComponent();
+        component.findElement(input).sendKeys(name);
+        ThreadUtil.simplyAwait(1);
+        component.findElement(ByKraken.xpathExpression(itemInDropDownContains.getDefaultXpathExpression(), component.findElement(input).getAttribute("aria-controls"), name)).click();
     }
 
     public void selectUnselectedFirst() {
@@ -77,7 +88,7 @@ public final class MultiSelector extends AbstractComponent {
     }
 
     public List<String> getAllSelectedName() {
-       return getComponent().findElements(selected).stream().map(WebElement::getText).collect(Collectors.toList());
+        return getComponent().findElements(selected).stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
     public void removeItemByName(final String name) {
