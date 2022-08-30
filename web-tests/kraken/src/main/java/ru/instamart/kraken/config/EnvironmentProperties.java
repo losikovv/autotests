@@ -99,9 +99,13 @@ public final class EnvironmentProperties {
             var customShopperUrl = System.getProperty("url_shp");
 
             if (nonNull(customBasicUrl) && !customBasicUrl.isBlank()) {
-
-                if(Objects.nonNull(System.getenv("DEFAULT_SID"))){
-                    DEFAULT_SID = Integer.parseInt(System.getenv("DEFAULT_SID"));
+                String default_sid = System.getenv("DEFAULT_SID");
+                if(Objects.nonNull(default_sid) && !default_sid.isEmpty() && !default_sid.isBlank()){
+                    try {
+                        DEFAULT_SID = Integer.parseInt(default_sid);
+                    }catch (Exception e){
+                        log.error("Error parse default_sid");
+                    }
                 }
 
                 customBasicUrl = getDomainName(customBasicUrl);
