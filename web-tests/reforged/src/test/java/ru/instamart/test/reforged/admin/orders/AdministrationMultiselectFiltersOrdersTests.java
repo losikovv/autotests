@@ -131,7 +131,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(1523)
     @Test(description = "Фильтр Платформа -выпадающий список с множественным выбором",
-            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
+            groups = {"regression", "ondemand_orders_regression"})
     public void platformFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -163,7 +163,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(1524)
     @Test(description = "Фильтр Ритейлер - выпадающий список с множественным выбором",
-            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
+            groups = {"regression", "ondemand_orders_regression"})
     public void retailerFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -257,7 +257,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(1527)
     @Test(description = "Фильтр Способ оплаты - список с множественным выбором",
-            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
+            groups = {"regression", "ondemand_orders_regression"})
     public void paymentMethodsFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -289,7 +289,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2073)
     @Test(description = "Фильтр Статус оплаты - список с множественным выбором",
-            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
+            groups = {"regression", "ondemand_orders_regression"})
     public void paymentStatusFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
