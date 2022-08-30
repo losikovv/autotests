@@ -14,6 +14,9 @@ import java.util.List;
 @EqualsAndHashCode(callSuper=false)
 public class ProductV1 extends BaseObject {
 
+    @JsonSchema(required = true)
+    private Boolean active;
+
     @Null
     private Object brand;
 
@@ -25,8 +28,6 @@ public class ProductV1 extends BaseObject {
     @JsonSchema(required = true)
     private String description;
 
-    @Null
-    @JsonSchema(required = true)
     @JsonProperty("description_original")
     private String descriptionOriginal;
 
@@ -35,10 +36,14 @@ public class ProductV1 extends BaseObject {
     private String humanVolume;
 
     @JsonSchema(required = true)
-    private Long id;
+    private Integer id;
 
     @JsonSchema(required = true)
     private List<ImageV1> images;
+
+    @JsonSchema(required = true)
+    @JsonProperty("is_alcohol")
+    private Boolean isAlcohol;
 
     @JsonSchema(required = true)
     @JsonProperty("items_per_pack")
@@ -68,5 +73,5 @@ public class ProductV1 extends BaseObject {
     private List<Object> promoBadgeIds;
 
     @JsonSchema(required = true)
-    private String sku;
+    private Integer sku;
 }
