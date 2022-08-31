@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 import order.Order;
 import order_enrichment.OrderEnrichment;
 import order_status.OrderStatus;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import push.Push;
 import ru.instamart.kafka.KafkaConfig;
 import ru.instamart.kafka.consumer.KafkaConsumers;
@@ -55,10 +56,11 @@ public class KafkaHelper {
     }
 
     @Step("Отправка сообщения в топик {config.topic}")
-    public void publish(KafkaConfig config, byte[] msg) {
+    public RecordMetadata publish(KafkaConfig config, byte[] msg) {
         KafkaProducers producer = new KafkaProducers();
-        producer.publish(config, msg);
+        final RecordMetadata recordMetadata = producer.publish(config, msg);
         producer.shutdown();
+        return recordMetadata;
     }
 
     @Step("Отправка сообщения в топик {config.topic}")
