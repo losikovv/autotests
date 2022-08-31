@@ -61,6 +61,8 @@ public enum Specification {
         final String shopperFullAdminUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
         final String shopperStage = (EnvironmentProperties.STAGE).isBlank() ? EnvironmentProperties.K8S_NAME_SHP_SPACE :
                 (EnvironmentProperties.K8S_NAME_SHP_SPACE).replace("kraken", EnvironmentProperties.STAGE);
+        final String etaStage = "https://" + EnvironmentProperties.Env.ETA_NAMESPACE + ".k-stage.sbmt.io";
+
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
         defaultParser = Parser.JSON;
 
@@ -178,7 +180,7 @@ public enum Specification {
 
         etaRequestSpec = new RequestSpecBuilder()
                 .setConfig(config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)))
-                .setBaseUri("https://paas-content-operations-eta.k-stage.sbmt.io")
+                .setBaseUri(etaStage)
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
