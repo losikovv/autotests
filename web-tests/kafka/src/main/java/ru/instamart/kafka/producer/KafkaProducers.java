@@ -22,7 +22,7 @@ public class KafkaProducers {
 
     private Properties producerProperties(KafkaConfig config) {
         Properties props = new Properties();
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, config.clientId);
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "kraken");
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, CoreProperties.KAFKA_SERVER);
 
         //protobuf

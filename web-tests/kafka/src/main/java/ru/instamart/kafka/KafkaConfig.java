@@ -6,10 +6,7 @@ import lombok.NonNull;
 @Builder
 public class KafkaConfig {
     @NonNull
-    public String clientId;
-    @NonNull
     public String topic;
-    public String groupName;
     public String login;
     public String password;
 }
