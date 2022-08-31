@@ -22,7 +22,8 @@ public enum ShipmentStatuses {
     SHIPMENT_READY_TO_SHIP("Собран", "Заказ собран"),
     SHIPMENT_SHIPPING("В пути", "Заказ в пути"),
     SHIPMENT_CANCELED("Отменен", "Заказ отменен"),
-    SHIPMENT_SHIPPED("Доставлен", "Заказ доставлен");
+    SHIPMENT_SHIPPED("Доставлен", "Заказ доставлен"),
+    CLIENT_CANCELLED("Отменён", "Заказ отменен клиентом");
     private String name;
     private String description;
 }

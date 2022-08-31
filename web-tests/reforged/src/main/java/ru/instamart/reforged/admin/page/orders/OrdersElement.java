@@ -43,6 +43,7 @@ public interface OrdersElement {
     MultiSelector regionSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Регион')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Регион'");
     MultiSelector collectingStatus = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус сборки')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус сборки'");
     MultiSelector deliveryStatus = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус доставки')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус доставки'");
+    Element quickFiltersTitle = new Element(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Быстрые фильтры')]"), "Заголовок блока 'Быстрые фильтры'");
     MultiSelector quickFilters = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Быстрые фильтры')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Быстрые фильтры'");
     Button resetFilters = new Button(By.xpath("//button[@data-qa='reset_shipments_filter_button']"), "Кнопка 'Сбросить'");
     Button applyFilters = new Button(By.xpath("//button[@data-qa='apply_shipments_filter_button']"), "Кнопка 'Применить фильтры'");

@@ -11,5 +11,5 @@ public enum PaymentStatuses {
     BALANCE_DUE("Недоплата"),
     OVERPAID("Переплата"),
     FAILED("Ошибка");
-    private String name;
+    private final String name;
 }

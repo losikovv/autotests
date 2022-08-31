@@ -9,12 +9,14 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static ru.instamart.reforged.admin.AdminRout.login;
 import static ru.instamart.reforged.admin.AdminRout.orders;
 import static ru.instamart.reforged.admin.enums.PaymentMethods.*;
 import static ru.instamart.reforged.admin.enums.PaymentStatuses.*;
+import static ru.instamart.reforged.admin.enums.QuickFilters.*;
 import static ru.instamart.reforged.admin.enums.ShipmentStatuses.*;
 
 @Epic("Админка STF")
@@ -110,19 +112,19 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().addStatusFilterItem(SHIPMENT_PENDING.getName());
         orders().applyFilters();
         orders().checkLoadingLabelNotVisible();
-        orders().checkAllShipmentInTableHasStatusIn(List.of(SHIPMENT_PENDING.getName()));
+        orders().checkAllShipmentInTableHasSingleStatusIn(List.of(SHIPMENT_PENDING.getName()));
 
         orders().addStatusFilterItem(SHIPMENT_READY.getName());
         orders().addStatusFilterItem(DISPATCH_NEW.getName());
         orders().applyFilters();
         orders().checkLoadingLabelNotVisible();
-        orders().checkAllShipmentInTableHasStatusIn(Arrays.asList(SHIPMENT_PENDING.getName(), SHIPMENT_READY.getName(), DISPATCH_NEW.getName()));
+        orders().checkAllShipmentInTableHasSingleStatusIn(Arrays.asList(SHIPMENT_PENDING.getName(), SHIPMENT_READY.getName(), DISPATCH_NEW.getName()));
 
         orders().removeShipmentStatusFilterItem(SHIPMENT_READY.getName());
         orders().checkShipmentStatusSelectedFilterList(Arrays.asList(SHIPMENT_PENDING.getName(), DISPATCH_NEW.getName()));
         orders().applyFilters();
         orders().checkLoadingLabelNotVisible();
-        orders().checkAllShipmentInTableHasStatusIn(Arrays.asList(SHIPMENT_PENDING.getName(), DISPATCH_NEW.getName()));
+        orders().checkAllShipmentInTableHasSingleStatusIn(Arrays.asList(SHIPMENT_PENDING.getName(), DISPATCH_NEW.getName()));
 
         orders().clearShipmentStatusFilters();
         orders().applyFilters();
@@ -362,4 +364,171 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     }
 
     //TODO SA-1970 Фильтр 'Статус сборки', SA-1971 Фильтр 'Статус доставки' не реализованы. Сроков нет
+
+    @CaseId(2063)
+    @Test(description = "Быстрый фильтр: Без назначений",
+            groups = {"regression", "ondemand_orders_regression"})
+    public void quickFiltersNotAssignedTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addQuickFilterItem(NOT_ASSIGNED.getName());
+        orders().checkQuickFiltersSelectedFilterList(Collections.singletonList(NOT_ASSIGNED.getName()));
+
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().checkAllShipmentInTableHasCollectorIn(Collections.singletonList("Нет исполнителя"));
+        orders().checkAllShipmentInTableHasCourierIn(Collections.singletonList("Нет исполнителя"));
+    }
+
+    @CaseId(2064)
+    @Test(description = "Быстрый фильтр: Неоплаченные",
+            groups = {"regression", "ondemand_orders_regression"})
+    public void quickFiltersNotPaidTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addQuickFilterItem(UNPAID.getName());
+        orders().checkQuickFiltersSelectedFilterList(Collections.singletonList(UNPAID.getName()));
+
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().checkAllShipmentInTableHasPaymentStatusIn(Collections.singletonList(NOT_PAID.getName()));
+    }
+
+    @CaseId(2066)
+    @Test(description = "Быстрый фильтр: Завершенные",
+            groups = {"regression", "ondemand_orders_regression"})
+    public void quickFiltersCompletedTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addQuickFilterItem(COMPLETED.getName());
+        orders().checkQuickFiltersSelectedFilterList(Collections.singletonList(COMPLETED.getName()));
+
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().checkAllShipmentInTableHasSingleStatusIn(Arrays.asList(SHIPMENT_SHIPPED.getName(), SHIPMENT_CANCELED.getName(), CLIENT_CANCELLED.getName()));
+        orders().checkAllShipmentInTableHasCollectingStatusIn(Arrays.asList(SHIPMENT_READY_TO_SHIP.getName(), CLIENT_CANCELLED.getName()));
+        orders().checkAllShipmentInTableHasShippingStatusIn(Arrays.asList(SHIPMENT_SHIPPED.getName(), CLIENT_CANCELLED.getName()));
+    }
+
+    @CaseId(2067)
+    @Test(description = "Быстрый фильтр: Незавершенные",
+            groups = {"regression", "ondemand_orders_regression"})
+    public void quickFiltersNotCompletedTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addQuickFilterItem(NOT_COMPLETED.getName());
+        orders().checkQuickFiltersSelectedFilterList(Collections.singletonList(NOT_COMPLETED.getName()));
+        orders().checkShipmentStatusSelectedFilterList(Arrays.asList(
+                SHIPMENT_READY.getName(),
+                SHIPMENT_COLLECTING.getName(),
+                SHIPMENT_READY_TO_SHIP.getName(),
+                SHIPMENT_SHIPPING.getName()));
+
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().checkAllShipmentInTableHasSingleStatusIn(Collections.singletonList(SHIPMENT_READY.getName()));
+        orders().checkAllShipmentInTableHasCollectingStatusIn(Arrays.asList(SHIPMENT_COLLECTING.getName(), SHIPMENT_READY_TO_SHIP.getName()));
+        orders().checkAllShipmentInTableHasShippingStatusIn(Collections.singletonList(SHIPMENT_SHIPPING.getName()));
+    }
+
+    @CaseId(2068)
+    @Test(description = "Быстрый фильтр: B2B клиенты",
+            groups = {"regression", "ondemand_orders_regression"})
+    public void quickFiltersB2BTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addQuickFilterItem(B2B_CLIENTS.getName());
+        orders().checkQuickFiltersSelectedFilterList(Collections.singletonList(B2B_CLIENTS.getName()));
+
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        //TODO В заказе никак не обозначенo что он B2B. Признак B2B можно проверить только у пользовател, сделавшего заказ в профиле
+        //Для stf-6 основные B2B-клиенты от которых сыпятся заказы - Ivan Petrov, Pavel Nep.
+        orders().checkAllShipmentInTableHasCustomerIn(Arrays.asList("Ivan Petrov", "Pavel Nep"));
+    }
+
+    @CaseId(2070)
+    @Test(description = "Быстрые фильтры - множественный выбор",
+            groups = {"regression", "ondemand_orders_regression"})
+    public void quickFiltersComplexUsingTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addQuickFilterItem(UNPAID.getName());
+        orders().addQuickFilterItem(COMPLETED.getName());
+        orders().checkQuickFiltersSelectedFilterList(Arrays.asList(UNPAID.getName(), COMPLETED.getName()));
+
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().checkAllShipmentInTableHasSingleStatusIn(Arrays.asList(UNPAID.getName(), SHIPMENT_SHIPPED.getName(), SHIPMENT_CANCELED.getName(), CLIENT_CANCELLED.getName()));
+        orders().checkAllShipmentInTableHasShippingStatusIn(Arrays.asList(SHIPMENT_SHIPPED.getName(), CLIENT_CANCELLED.getName()));
+
+        orders().removeQuickFilterItem(UNPAID.getName());
+        orders().addQuickFilterItem(NOT_COMPLETED.getName());
+
+        orders().checkQuickFiltersSelectedFilterList(Collections.singletonList(NOT_COMPLETED.getName()));
+        orders().checkShipmentStatusFiltersNotSelected();
+
+        orders().addQuickFilterItem(UNPAID.getName());
+        orders().addQuickFilterItem(NOT_ASSIGNED.getName());
+        orders().addQuickFilterItem(LONG_DISPATCH.getName());
+        orders().addQuickFilterItem(QUICK_DELIVERY.getName());
+        orders().addQuickFilterItem(B2B_CLIENTS.getName());
+        orders().addQuickFilterItem(DELIVERY_TIME_CHANGED.getName());
+
+        orders().checkQuickFiltersSelectedFilterList(Arrays.asList(
+                NOT_COMPLETED.getName(),
+                UNPAID.getName(),
+                NOT_ASSIGNED.getName(),
+                LONG_DISPATCH.getName(),
+                QUICK_DELIVERY.getName(),
+                B2B_CLIENTS.getName(),
+                DELIVERY_TIME_CHANGED.getName()
+        ));
+
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkOrdersLoaded();
+    }
 }
