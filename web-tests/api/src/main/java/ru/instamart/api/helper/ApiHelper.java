@@ -728,7 +728,7 @@ public final class ApiHelper {
         return admin.createShoppers(shoppers);
     }
 
-    @Step("Создать нового партнера с данными: {0}")
+    @Step("Создать новый транспорт {1} для партнера {0}")
     public VehicleV1 addVehicle(final int shopperId, final Vehicles vehicles) {
         admin.authShopperAdmin();
         return admin.addVehicle(shopperId, vehicles);
