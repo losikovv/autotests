@@ -32,4 +32,7 @@ tasks.withType(Test) {
     if (project.hasProperty('admin_url')) {
         systemProperty 'admin_url',"${admin_url}"
     }
+    if (project.hasProperty('url_paas_eta')) {
+        systemProperty 'url_paas_eta',"${url_paas_eta}"
+    }
 }

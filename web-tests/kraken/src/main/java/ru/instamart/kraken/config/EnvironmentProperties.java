@@ -123,7 +123,6 @@ public final class EnvironmentProperties {
                     DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
                 }
 
-
                 if (BASIC_URL.contains("stf-")) {
                     K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("kraken", STAGE);
                     K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("kraken", STAGE);
@@ -155,6 +154,15 @@ public final class EnvironmentProperties {
         public static String FULL_SHOPPER_URL = "https://" + SHOPPER_URL + "/";
         public static String ADMIN_FULL_URL = "https://" + (isProduction() ? ADMIN_URL : BASIC_URL) + "/";
         public static String ONE_SESSION = System.getProperty("one_session");
+        public static String ETA_NAMESPACE = getEtaNamespace();
+
+        private static String getEtaNamespace() {
+            String etaNamespace = System.getProperty("url_paas_eta", "paas-content-operations-eta");
+            if (Objects.isNull(etaNamespace) || etaNamespace.isEmpty() || etaNamespace.isBlank()) {
+                etaNamespace = "paas-content-operations-eta";
+            }
+            return etaNamespace;
+        }
 
         public static boolean isPreprod() {
             return Server.PREPROD.name().equalsIgnoreCase(EnvironmentProperties.SERVER);

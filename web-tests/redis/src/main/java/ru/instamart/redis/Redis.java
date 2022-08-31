@@ -4,13 +4,14 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 @RequiredArgsConstructor
 @Getter
 @ToString
 public enum Redis {
     ETA(
-            "paas-content-operations-eta",
+            EnvironmentProperties.Env.ETA_NAMESPACE,
             "statefulset.kubernetes.io/pod-name=redis-persistent-0",
             6379,
             "localhost"

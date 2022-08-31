@@ -48,13 +48,12 @@ tests:on:demand:eta:
   extends:
     - ".template_api_tests"
   only:
-    refs:
-      - schedules
     variables:
       - $ON_DEMAND_ETA == 'true'
   when: always
   script:
-    - gradle clean build onDemandETA
+    - echo $URL_PAAS_ETA
+    - gradle clean build onDemandETA -Purl_paas_eta=$URL_PAAS_ETA
   after_script:
     - bash ./report.sh api on-demand-eta
 

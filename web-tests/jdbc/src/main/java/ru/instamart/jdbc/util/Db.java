@@ -37,7 +37,7 @@ public enum Db {
     ),
     PG_ETA(
             DbType.POSTGRESQL,
-            "paas-content-operations-eta",
+            EnvironmentProperties.Env.ETA_NAMESPACE,
             "statefulset.kubernetes.io/pod-name=postgresql-0",
             5432,
             "jdbc:postgresql://localhost:%s/app",
