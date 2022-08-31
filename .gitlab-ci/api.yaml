@@ -75,7 +75,7 @@ tests:prodApiInstamart:
   script:
     - gradle clean build apiInstamartProduction
   after_script:
-    - bash ./mattermost-report.sh api api-instamart-production-regress apiInstamartProduction
+    - bash ./mattermost-report.sh api api-instamart-production-regress apiInstamartProduction $MATTERMOST_KEY
 
 tests:prodApiInstamart:schedules:
   extends:
@@ -85,7 +85,7 @@ tests:prodApiInstamart:schedules:
   script:
     - gradle clean build apiInstamartProduction
   after_script:
-    - bash ./mattermost-report.sh api api-instamart-production-regress apiInstamartProduction
+    - bash ./mattermost-report.sh api api-instamart-production-regress apiInstamartProduction $MATTERMOST_KEY
 
     #tests:prodApiRetailer:
     #  extends:

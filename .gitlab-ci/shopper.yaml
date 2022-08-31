@@ -41,7 +41,7 @@ tests:prodApiShopper:
   script:
     - gradle clean build apiShopperProduction
   after_script:
-    - bash ./mattermost-report.sh api api-shopper-production apiShopperProduction
+    - bash ./mattermost-report.sh api api-shopper-production apiShopperProduction $MATTERMOST_KEY
 
 tests:prodApiShopper:schedules:
   extends:
@@ -51,4 +51,4 @@ tests:prodApiShopper:schedules:
   script:
     - gradle clean build apiShopperProduction
   after_script:
-    - bash ./mattermost-report.sh api api-shopper-production apiShopperProduction
+    - bash ./mattermost-report.sh api api-shopper-production apiShopperProduction $MATTERMOST_KEY
