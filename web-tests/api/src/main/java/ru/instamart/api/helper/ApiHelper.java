@@ -4,6 +4,8 @@ import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import ru.instamart.api.enums.v1.ImportStatusV1;
+import ru.instamart.api.model.shopper.admin.ShopperV1;
+import ru.instamart.api.model.shopper.admin.VehicleV1;
 import ru.instamart.api.model.shopper.app.ShipmentSHP;
 import ru.instamart.api.model.v1.*;
 import ru.instamart.api.model.v2.AddressV2;
@@ -24,10 +26,7 @@ import ru.instamart.jdbc.dao.shopper.RetailersShopperDao;
 import ru.instamart.jdbc.dao.stf.*;
 import ru.instamart.jdbc.entity.stf.StoresEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.PaymentCardData;
-import ru.instamart.kraken.data.StaticPageData;
-import ru.instamart.kraken.data.StoreLabelData;
-import ru.instamart.kraken.data.StoreZonesCoordinates;
+import ru.instamart.kraken.data.*;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -719,8 +718,20 @@ public final class ApiHelper {
 
     @Step("Добавляем группу магазинов: '{storeLabelData}'")
     public void createStoreLabel(final StoreLabelData storeLabelData) {
-        admin.authApi();
+        admin.auth();
         admin.createStoreLabel(storeLabelData);
+    }
+
+    @Step("Создать нового партнера с данными: {0}")
+    public ShopperV1 createShopper(final Shoppers shoppers) {
+        admin.authShopperAdmin();
+        return admin.createShoppers(shoppers);
+    }
+
+    @Step("Создать новый транспорт {1} для партнера {0}")
+    public VehicleV1 addVehicle(final int shopperId, final Vehicles vehicles) {
+        admin.authShopperAdmin();
+        return admin.addVehicle(shopperId, vehicles);
     }
 
     @Step("Получаем заказы из шоппера с комментарием: {comment}")

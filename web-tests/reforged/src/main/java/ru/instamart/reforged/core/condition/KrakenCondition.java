@@ -4,12 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.instamart.kraken.util.InfoUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Kraken;
 
 import javax.annotation.Nullable;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
@@ -28,14 +28,19 @@ public final class KrakenCondition {
             @Override
             public Boolean apply(@Nullable WebDriver driver) {
                 if (element.isDisplayed()) {
+                    element.click();
                     var value = element.getAttribute("value");
 
                     if (nonNull(value) && value.length() != 0) {
                         if (isPhone) {
                             value = StringUtil.getPhone(value);
                         }
-                        element.sendKeys(Keys.COMMAND + "a");
-                        element.sendKeys(Keys.CONTROL + "a");
+
+                        if (InfoUtil.isMac()) {
+                            element.sendKeys(Keys.COMMAND + "a");
+                        } else {
+                            element.sendKeys(Keys.CONTROL + "a");
+                        }
                         element.sendKeys(Keys.DELETE);
                     }
                     element.sendKeys(data);
@@ -203,6 +208,27 @@ public final class KrakenCondition {
         };
     }
 
+    public static ExpectedCondition<Boolean> visibilityOfElementLocated(final By locator) {
+        return new ExpectedCondition<>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                try {
+                    return (driver.findElement(locator).isDisplayed());
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
+                    // Returns false because the element is not present in DOM. The
+                    // try block checks if the element is present and visible.
+                    return false;
+                }
+
+            }
+
+            @Override
+            public String toString() {
+                return "element is visible: " + locator;
+            }
+        };
+    }
+
     public static ExpectedCondition<Boolean> invisibilityOfElementLocated(final WebElement webElement, final By locator) {
         return new ExpectedCondition<Boolean>() {
             @Override
@@ -243,6 +269,29 @@ public final class KrakenCondition {
             @Override
             public String toString() {
                 return "element not to be clickable: " + locator;
+            }
+        };
+    }
+
+    public static ExpectedCondition<Boolean> textToBePresentInAttributeLocated(final By locator,
+                                                                             final String attribute,
+                                                                             final String text) {
+
+        return new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                try {
+                    String elementText = driver.findElement(locator).getAttribute(attribute);
+                    return elementText.contains(text);
+                } catch (StaleElementReferenceException e) {
+                    return false;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return String.format("text ('%s') to be present in element found by %s",
+                        text, locator);
             }
         };
     }

@@ -2,8 +2,8 @@ package ru.instamart.kraken.util;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.config.CoreProperties;
-import ru.instamart.kraken.config.EnvironmentProperties;
 
+import java.util.Collection;
 import java.util.regex.Pattern;
 
 import static java.util.Objects.isNull;
@@ -171,5 +171,13 @@ public final class StringUtil {
         return dayText.indexOf(delimiter) < 6
                 ? dayText.substring(dayText.indexOf(delimiter) + 2).replaceAll("\\.", "")
                 : dayText.substring(0, dayText.indexOf(delimiter));
+    }
+
+    public static String arrayToString(final String[] array) {
+        return String.join("", array);
+    }
+
+    public static String arrayToString(final Collection<String> collection) {
+        return arrayToString(collection.toArray(String[]::new));
     }
 }

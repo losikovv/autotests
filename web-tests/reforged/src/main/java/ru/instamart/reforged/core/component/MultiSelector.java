@@ -16,14 +16,14 @@ import static java.util.Objects.isNull;
 public final class MultiSelector extends AbstractComponent {
 
     private final By input = By.xpath(".//input[@type='search']");
-    private final By itemsLoadingSpinner = By.xpath("//div[contains(@class,'ant-spin-spinning')]");
-    private final ByKraken itemInDropDown = (ByKraken) ByKraken.xpathExpression("//div[@id='%s']/following-sibling::div//div[contains(@class,'ant-select-item ')][.//*[.='%s']]");
-    private final ByKraken itemInDropDownContains = (ByKraken) ByKraken.xpathExpression("//div[@id='%s']/following-sibling::div//div[contains(@class,'ant-select-item ')][.//*[contains(.,'%s')]]");
-    private final ByKraken unselectedItem = (ByKraken) ByKraken.xpathExpression("//div[@aria-selected='false']/div");
     private final By selected = By.xpath(".//div[@class='ant-select-selection-overflow-item']");
     private final ByKraken removeItem = (ByKraken) ByKraken.xpathExpression(".//span[contains(@class,'content')][.='%s']/following-sibling::span");
     private final By clearSelector = By.xpath(".//span[@class='ant-select-clear']//span");
 
+    private final By itemsLoadingSpinner = By.xpath("//div[contains(@class,'ant-spin-spinning')]");
+    private final ByKraken itemInDropDownContains = (ByKraken) ByKraken.xpathExpression("//div[@id='%s']/following-sibling::div//div[contains(@class,'ant-select-item ')][.//*[contains(.,'%s')]]");
+    private final ByKraken itemInDropDown = (ByKraken) ByKraken.xpathExpression("//div[contains(@class,'ant-select-item ')]/div[.='%s']");
+    private final ByKraken unselectedItem = (ByKraken) ByKraken.xpathExpression("//div[@aria-selected='false']/div");
     private final ByKraken scroll = (ByKraken) ByKraken.xpathExpression("//div[@id='%s']/following-sibling::div//div[contains(@class,'rc-virtual-list-scrollbar-thumb')]");
 
     public MultiSelector(By by, String description) {
@@ -51,11 +51,11 @@ public final class MultiSelector extends AbstractComponent {
         return component;
     }
 
-    public void fill(final String name) {
+    public void fillAndSelect(final String name) {
         final var component = getComponent();
         component.findElement(input).sendKeys(name);
         ThreadUtil.simplyAwait(1);
-        component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), component.findElement(input).getAttribute("aria-controls"), name)).click();
+        component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), name)).click();
     }
 
     public void fillContains(final String name) {
@@ -65,9 +65,30 @@ public final class MultiSelector extends AbstractComponent {
         component.findElement(ByKraken.xpathExpression(itemInDropDownContains.getDefaultXpathExpression(), component.findElement(input).getAttribute("aria-controls"), name)).click();
     }
 
+    public void select(final String... name) {
+        final var component = getComponent();
+        component.findElement(input).click();
+        ThreadUtil.simplyAwait(1);
+
+        for (final var s : name) {
+            component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), s)).click();
+        }
+    }
+
+    public void selectAutocompleteOff(final String... name) {
+        final var component = getComponent();
+        component.click();
+        ThreadUtil.simplyAwait(1);
+
+        for (final var s : name) {
+            component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), s)).click();
+        }
+    }
+
     public void selectUnselectedFirst() {
         final var component = getComponent();
         component.findElement(input).click();
+        ThreadUtil.simplyAwait(1);
         component.findElement(unselectedItem).click();
     }
 

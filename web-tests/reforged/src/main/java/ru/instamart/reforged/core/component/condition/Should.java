@@ -13,7 +13,15 @@ public final class Should {
         Kraken.waitAction().shouldBeVisible(component);
     }
 
+    public void visible(final String args) {
+        Kraken.waitAction().shouldBeVisible(component, args);
+    }
+
     public void invisible() {
         Kraken.waitAction().shouldNotBeVisible(component);
+    }
+
+    public void notClickable() {
+        Kraken.waitAction().shouldNotBeClickable(component);
     }
 }

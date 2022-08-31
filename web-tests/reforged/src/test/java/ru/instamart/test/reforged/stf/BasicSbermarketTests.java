@@ -44,7 +44,7 @@ public final class BasicSbermarketTests {
         shop().interactHeader().checkCartVisible();
         shop().interactHeader().checkFavoritesNoAuthVisible();
         shop().interactHeader().checkLoginIsVisibleSoft();
-        shop().assertAll();
+        shop().interactHeader().assertAll();
     }
 
     @CaseId(733)
@@ -136,7 +136,7 @@ public final class BasicSbermarketTests {
         shop().interactFooter().checkReturnsPolicyLinkVisible();
         shop().interactFooter().checkPersonalDataPolicyLinkVisible();
         shop().interactFooter().checkPublicOfferLinkVisible();
-        shop().assertAll();
+        shop().interactFooter().assertAll();
     }
 
     @CaseId(3470)

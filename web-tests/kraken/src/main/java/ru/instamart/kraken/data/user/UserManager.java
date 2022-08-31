@@ -100,7 +100,7 @@ public final class UserManager {
         return defaultAdminAllRoles;
     }
 
-    public static UserData getDefaultAdmin(){
+    public static UserData getDefaultAdmin() {
         return (EnvironmentProperties.Env.isProduction() ? getDefaultAdminProd() : getDefaultAdminStage());
     }
 
