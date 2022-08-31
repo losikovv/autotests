@@ -59,8 +59,21 @@ public final class WaitAction {
     }
 
     public boolean shouldNotBeVisible(final Component component) {
-        return createWait(component)
-                .until(ExpectedConditions.invisibilityOfElementLocated(component.getBy()));
+        try {
+            return createWait(component)
+                    .until(ExpectedConditions.invisibilityOfElementLocated(component.getBy()));
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isVisible(final Component component) {
+        try {
+            return createWait(component)
+                    .until(KrakenCondition.visibilityOfElementLocated(component.getBy()));
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     public boolean shouldNotBeVisible(final Component component, final WebElement webElement) {

@@ -208,6 +208,27 @@ public final class KrakenCondition {
         };
     }
 
+    public static ExpectedCondition<Boolean> visibilityOfElementLocated(final By locator) {
+        return new ExpectedCondition<>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                try {
+                    return (driver.findElement(locator).isDisplayed());
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
+                    // Returns false because the element is not present in DOM. The
+                    // try block checks if the element is present and visible.
+                    return false;
+                }
+
+            }
+
+            @Override
+            public String toString() {
+                return "element is visible: " + locator;
+            }
+        };
+    }
+
     public static ExpectedCondition<Boolean> invisibilityOfElementLocated(final WebElement webElement, final By locator) {
         return new ExpectedCondition<Boolean>() {
             @Override

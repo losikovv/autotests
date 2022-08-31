@@ -10,7 +10,7 @@ public class Is {
     private final AbstractComponent component;
 
     public boolean displayed() {
-        return !Kraken.waitAction().shouldNotBeVisible(component);
+        return Kraken.waitAction().isVisible(component);
     }
 
     public boolean displayed(final Object... args) {
