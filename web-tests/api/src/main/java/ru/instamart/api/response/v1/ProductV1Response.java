@@ -1,6 +1,7 @@
 
 package ru.instamart.api.response.v1;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,11 +16,14 @@ public class ProductV1Response extends BaseResponseObject {
 
     @JsonSchema(required = true)
     private ProductV1 product;
+    @JsonProperty("product_properties")
     @JsonSchema(required = true)
     private List<Object> productProperties;
     @JsonSchema(required = true)
+    @JsonProperty("product_taxons")
     private List<Object> productTaxons;
     @JsonSchema(required = true)
+    @JsonProperty("promo_badges")
     private List<Object> promoBadges;
 
 }

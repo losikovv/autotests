@@ -2,6 +2,7 @@ package ru.instamart.test.api.v1.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -45,8 +46,10 @@ public class ProductsV1Tests extends RestBase {
     }
 
     @CaseId(45)
+    @Issue("STF-9811")
     @Story("Получить данные о продукте")
-    @Test(description = "Получаем данные о продукте",
+    @Test(enabled = false,
+            description = "Получаем данные о продукте",
             groups = {"api-instamart-prod"})
     public void getProductInfoProd() {
         final Response response = StoresV1Request.Products.GET(EnvironmentProperties.DEFAULT_SID, "banany-a0c7489");
