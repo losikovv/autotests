@@ -1,0 +1,15 @@
+##############
+#build image##
+##############
+FROM dreg.sbmt.io/dhub/frankescobar/allure-docker-service:latest
+
+
+WORKDIR /app
+# Ниже вы можете устанавливать любые дополнительные программы и
+# конфигурации для разработки и отладки приложения
+#
+# RUN set -eux; \
+#     apt update; \
+#     apt install -y --no-install-recommends \
+#       gdb \
+#       tmux;

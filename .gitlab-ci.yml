@@ -7,6 +7,7 @@ include:
   - local: '/.gitlab-ci/kafka.yaml'
   - local: '/.gitlab-ci/on-demand.yaml'
   - local: '/.gitlab-ci/ui-submodules.yaml'
+  - local: '/.gitlab-ci/allure.yaml'
 
 image: ${JDK11_GRADLE_IMAGE}
 
@@ -60,6 +61,8 @@ before_script:
   - cd web-tests
 
 stages:
+  - allure build
+  - allure deploy
   - build
   - tests-api-shopper
   - tests-api
