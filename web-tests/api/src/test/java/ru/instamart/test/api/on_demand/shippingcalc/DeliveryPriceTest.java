@@ -10,17 +10,18 @@ import ru.instamart.api.common.ShippingCalcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.kraken.enums.AppVersion;
 import ru.instamart.kraken.enums.Tenant;
+import ru.instamart.redis.Redis;
+import ru.instamart.redis.RedisManager;
+import ru.instamart.redis.RedisService;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import shippingcalc.*;
-import surgelevelevent.Surgelevelevent;
 
 import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
-import static ru.instamart.kafka.configs.KafkaConfigs.configSurgeLevel;
-import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
+import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDate;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 @Epic("On Demand")
@@ -42,6 +43,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
     private final String COMPLEX_SCRIPT_NAME = "Цена с учётом сложности, с подсказками и объяснением";
     private final String FIXED_SCRIPT_PARAMS = "{\"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
     private final String COMPLEX_SCRIPT_PARAMS = "{\"baseMass\": \"30000\", \"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"basePositions\": \"30\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}";
+    private final String REDIS_VALUE = "{\"StoreID\":\"%s\",\"Method\":1,\"PastSurgeLever\":%d,\"PresentSurgeLevel\":%d,\"FutureSurgeLevel\":%d,\"StartedAt\":\"%s\",\"StepSurgeLevel\":1}";
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -274,22 +276,12 @@ public class DeliveryPriceTest extends ShippingCalcBase {
     public void getDeliveryPriceWithSurge() {
         String storeId = UUID.randomUUID().toString();
         addBinding(localStrategyId, storeId, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
-
-        Surgelevelevent.SurgeEvent surgeEvent = Surgelevelevent.SurgeEvent.newBuilder()
-                .setStoreId(storeId)
-                .setMethod(Surgelevelevent.SurgeEvent.Method.ACTUAL)
-                .setPastSurgeLevel(surgeLevel)
-                .setPresentSurgeLevel(surgeLevel)
-                .setFutureSurgeLevel(surgeLevel)
-                .setStartedAt(getTimestamp())
-                .setStepSurgeLevel(1)
-                .build();
-        kafka.publish(configSurgeLevel(), surgeEvent.toByteArray());
+        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC),"store:" + storeId, String.format(REDIS_VALUE, storeId, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
 
         var request = getDeliveryPriceRequest(
                 1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, true,
                 1000, 1, 99900, storeId, "NEW", 1, 0,
-                55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
+                55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
@@ -312,20 +304,38 @@ public class DeliveryPriceTest extends ShippingCalcBase {
     public void getDeliveryPriceWithoutSurge() {
         String storeId = UUID.randomUUID().toString();
         addBinding(localStrategyId, storeId, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
-
-        Surgelevelevent.SurgeEvent surgeEvent = Surgelevelevent.SurgeEvent.newBuilder()
-                .setStoreId(storeId)
-                .setMethod(Surgelevelevent.SurgeEvent.Method.ACTUAL)
-                .setPastSurgeLevel(surgeLevel)
-                .setPresentSurgeLevel(surgeLevel)
-                .setFutureSurgeLevel(surgeLevel)
-                .setStartedAt(getTimestamp())
-                .setStepSurgeLevel(1)
-                .build();
-        kafka.publish(configSurgeLevel(), surgeEvent.toByteArray());
+        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC),"store:" + storeId, String.format(REDIS_VALUE, storeId, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
 
         var request = getDeliveryPriceRequest(
                 1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, false,
+                1000, 1, 99900, storeId, "NEW", 1, 0,
+                55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
+                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+
+        Allure.step("Проверяем отсутствие наценки по surge", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertFalse(response.getShipments(0).getSurgeUsed(), "Surge использовался при расчете цены");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), 0f, "Не верный surgelevel");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 0, "Не верная наценка");
+            softAssert.assertAll();
+        });
+        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0, 0);
+    }
+
+    @CaseId(422)
+    @Story("Get Delivery Price")
+    @Test(description = "Расчет цены без наценки surge для новых клиентов",
+            groups = "dispatch-shippingcalc-smoke")
+    public void getDeliveryPriceWithoutSurgeNewCustomers() {
+        String storeId = UUID.randomUUID().toString();
+        addBinding(localStrategyId, storeId, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
+        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC),"store:" + storeId, String.format(REDIS_VALUE, storeId, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
+
+        var request = getDeliveryPriceRequest(
+                1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, true,
                 1000, 1, 99900, storeId, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
@@ -333,7 +343,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
 
         var response = clientShippingCalc.getDeliveryPrice(request);
 
-        Allure.step("Проверяем наценку по surge", () -> {
+        Allure.step("Проверяем отсутствие наценки по surge", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertFalse(response.getShipments(0).getSurgeUsed(), "Surge использовался при расчете цены");
             softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), 0f, "Не верный surgelevel");

@@ -10,17 +10,19 @@ import ru.instamart.api.common.ShippingCalcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.kraken.enums.AppVersion;
 import ru.instamart.kraken.enums.Tenant;
+import ru.instamart.redis.Redis;
+import ru.instamart.redis.RedisManager;
+import ru.instamart.redis.RedisService;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import shippingcalc.*;
-import surgelevelevent.Surgelevelevent;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
-import static ru.instamart.kafka.configs.KafkaConfigs.configSurgeLevel;
-import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
+import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDate;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 @Epic("On Demand")
@@ -34,6 +36,7 @@ public class MinCartTest extends ShippingCalcBase {
     private final String ANONYMOUS_ID = UUID.randomUUID().toString();
     private final String FIXED_SCRIPT_NAME = "Фиксированная цена, с подсказками и объяснением";
     private final String FIXED_SCRIPT_PARAMS = "{\"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
+    private final String REDIS_VALUE = "{\"StoreID\":\"%s\",\"Method\":1,\"PastSurgeLever\":%d,\"PresentSurgeLevel\":%d,\"FutureSurgeLevel\":%d,\"StartedAt\":\"%s\",\"StepSurgeLevel\":1}";
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -70,11 +73,9 @@ public class MinCartTest extends ShippingCalcBase {
     }
 
     @CaseId(412)
-    @Issue("HG-844")
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для нескольких магазинов",
-            groups = "dispatch-shippingcalc-smoke",
-            enabled = false)
+            groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryConditionsMultipleStores() {
         String secondStore = UUID.randomUUID().toString();
         addBinding(strategyId, secondStore, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
@@ -108,14 +109,17 @@ public class MinCartTest extends ShippingCalcBase {
 
         Allure.step("Проверяем условия доставки для нескольких магазинов", () -> {
             assertTrue(response.getDeliveryConditionsCount() > 0, "Пустые условия доставки");
+
+            List<String> storeUuids = List.of(STORE_ID, secondStore);
+
             final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(response.getDeliveryConditions(0).getStoreId(), STORE_ID, "Не ожидаемый uuid магазина");
+            softAssert.assertTrue(storeUuids.contains(response.getDeliveryConditions(0).getStoreId()), "Не ожидаемый uuid магазина");
             softAssert.assertEquals(response.getDeliveryConditions(0).getMinCartAmount(), 100000, "Не ожидаемая минимальная корзина");
             softAssert.assertEquals(response.getDeliveryConditions(0).getLadderCount(), 2, "Не ожидаемое кол-во ступеней в лесенке");
             softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponentsCount(), 3, "Не ожидаемое кол-во компонентов цены");
             softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
             softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(1).getStoreId(), secondStore, "Не ожидаемый uuid магазина");
+            softAssert.assertTrue(storeUuids.contains(response.getDeliveryConditions(1).getStoreId()), "Не ожидаемый uuid магазина");
             softAssert.assertEquals(response.getDeliveryConditions(1).getMinCartAmount(), 100000, "Не ожидаемая минимальная корзина");
             softAssert.assertEquals(response.getDeliveryConditions(1).getLadderCount(), 2, "Не ожидаемое кол-во ступеней в лесенке");
             softAssert.assertEquals(response.getDeliveryConditions(1).getLadder(0).getPriceComponentsCount(), 3, "Не ожидаемое кол-во компонентов цены");
@@ -132,20 +136,10 @@ public class MinCartTest extends ShippingCalcBase {
     public void getDeliveryConditionsWithSurge() {
         String storeWithSurge = UUID.randomUUID().toString();
         addBinding(strategyId, storeWithSurge, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
-
-        Surgelevelevent.SurgeEvent surgeEvent = Surgelevelevent.SurgeEvent.newBuilder()
-                .setStoreId(storeWithSurge)
-                .setMethod(Surgelevelevent.SurgeEvent.Method.ACTUAL)
-                .setPastSurgeLevel(surgeLevel)
-                .setPresentSurgeLevel(surgeLevel)
-                .setFutureSurgeLevel(surgeLevel)
-                .setStartedAt(getTimestamp())
-                .setStepSurgeLevel(1)
-                .build();
-        kafka.publish(configSurgeLevel(), surgeEvent.toByteArray());
+        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC),"store:" + storeWithSurge, String.format(REDIS_VALUE, storeWithSurge, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
 
         var request = getDeliveryConditionsRequest(storeWithSurge, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
-                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE,
+                99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE,
                 AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryConditions(request);
@@ -164,6 +158,37 @@ public class MinCartTest extends ShippingCalcBase {
             softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getTtl() > 0, "Не ожидаемый уровень ttl сюрджа");
             softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 31890, "Не ожидаемая цена в лесенке");
             softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 20890, "Не ожидаемая цена в лесенке");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(424)
+    @Story("Get Delivery Conditions")
+    @Test(description = "Получение условий доставки для магазина без повышенного спроса для новых клиентов",
+            groups = "dispatch-shippingcalc-smoke")
+    public void getDeliveryConditionsWithoutSurgeNewCustomers() {
+        String storeWithSurge = UUID.randomUUID().toString();
+        addBinding(strategyId, storeWithSurge, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
+        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC),"store:" + storeWithSurge, String.format(REDIS_VALUE, storeWithSurge, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
+
+        var request = getDeliveryConditionsRequest(storeWithSurge, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE,
+                AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryConditions(request);
+
+        checkDeliveryConditions(response, storeWithSurge, 100000, 2, 3);
+        Allure.step("Проверяем базовую цену в лесенке", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertAll();
+        });
+        Allure.step("Проверяем отсутствие повышенного спроса", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertFalse(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж включен");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 19900, "Не ожидаемая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 9900, "Не ожидаемая цена в лесенке");
             softAssert.assertAll();
         });
     }

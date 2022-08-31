@@ -15,6 +15,12 @@ public enum Redis {
             "statefulset.kubernetes.io/pod-name=redis-persistent-0",
             6379,
             "localhost"
+    ),
+    SHIPPINGCALC(
+            "paas-content-operations-shippingcalc",
+            "statefulset.kubernetes.io/pod-name=redis-persistent-0",
+            6379,
+            "localhost"
     );
 
     private final String namespace;
