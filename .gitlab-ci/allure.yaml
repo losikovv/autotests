@@ -1,0 +1,113 @@
+Allure::image::build:
+  stage: allure build
+  only:
+    refs:
+      - merge_requests
+      - master
+    changes:
+      - .gitlab-ci/allure.yaml
+      - docker/*
+      - .helm/*
+  when: manual
+  extends:
+    - ".build_image:docker"
+
+Allure::image::build::ui:
+  stage: allure build
+  only:
+    refs:
+      - merge_requests
+      - master
+    changes:
+      - .gitlab-ci/allure.yaml
+      - docker/*
+      - .helm/*
+  when: manual
+  extends:
+    - ".build_image:docker:ui"
+
+diff::allure::deploy:
+  stage: allure deploy
+  only:
+    refs:
+      - merge_requests
+      - master
+    changes:
+      - .gitlab-ci/allure.yaml
+      - docker/*
+      - .helm/*
+  script:
+    - echo -e "test"
+  when: manual
+
+Allure::deploy:
+  stage: allure deploy
+  only:
+    refs:
+      - merge_requests
+      - master
+    changes:
+      - .gitlab-ci/allure.yaml
+      - docker/*
+      - .helm/*
+  script:
+    - echo -e "test"
+  when: manual
+
+
+.build_image:docker:
+  needs: []
+  image:
+    name: "dreg.sbmt.io/instamart/base/dind:20.10.17-dind"
+  variables:
+    HARBOR_URL: "dreg.sbmt.io"
+    HARBOR_PROJECT: "dhub/frankescobar/"
+    HARBOR_APP: "allure-docker-service"
+    DOCKER_BUILD_IMAGE: "${HARBOR_URL}/${HARBOR_PROJECT}/${HARBOR_APP}"
+    DOCKER_BUILD_TAGS: "${CI_PIPELINE_IID}"
+    DOCKER_BUILD_TYPE: "testing"
+    DOCKER_BUILD_CACHE_ENABLED: "true"
+    DOCKER_PUSH_ENABLED: "true"
+    DOCKER_MANIFEST_PATH: ${CI_PROJECT_DIR}/docker/Dockerfile
+  tags:
+    - stage-static
+  before_script:
+    - echo -e "\e[0Ksection_start:`date +%s`:docker_login_step[collapsed=true]\r\e[0K\e[36;1mLogging in to the Docker registry\e[0m"
+    - >
+      echo -n "${BUILD_CONF_HARBOR_PWD}" |
+      docker login
+      --username "${BUILD_CONF_HARBOR_USER}"
+      --password-stdin
+      "${HARBOR_URL}"
+    - echo -e "\e[0Ksection_end:`date +%s`:docker_login_step\r\e[0K"
+  script:
+    - build_docker_images.sh
+
+.build_image:docker:ui:
+  needs: []
+  image:
+    name: "dreg.sbmt.io/instamart/base/dind:20.10.17-dind"
+  variables:
+    HARBOR_URL: "dreg.sbmt.io"
+    HARBOR_PROJECT: "dhub/frankescobar/"
+    HARBOR_APP: "allure-docker-service-ui"
+    DOCKER_BUILD_IMAGE: "${HARBOR_URL}/${HARBOR_PROJECT}/${HARBOR_APP}"
+    DOCKER_BUILD_TAGS: "${CI_PIPELINE_IID}"
+    DOCKER_BUILD_TYPE: "testing"
+    DOCKER_BUILD_CACHE_ENABLED: "true"
+    DOCKER_PUSH_ENABLED: "true"
+    DOCKER_MANIFEST_PATH: ${CI_PROJECT_DIR}/docker/Dockerfile.ui
+  tags:
+    - stage-static
+  before_script:
+    - echo -e "\e[0Ksection_start:`date +%s`:docker_login_step[collapsed=true]\r\e[0K\e[36;1mLogging in to the Docker registry\e[0m"
+    - >
+      echo -n "${BUILD_CONF_HARBOR_PWD}" |
+      docker login
+      --username "${BUILD_CONF_HARBOR_USER}"
+      --password-stdin
+      "${HARBOR_URL}"
+    - echo -e "\e[0Ksection_end:`date +%s`:docker_login_step\r\e[0K"
+  script:
+    - build_docker_images.sh
+
