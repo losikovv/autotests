@@ -18,6 +18,7 @@ public final class ShopperAdminEndpoints {
     public static final String SHOPPERS = "v1/shoppers";
     public static final String STORES = "v1/stores";
     public static final String TARIFFS = "v1/tariffs";
+    public static final String VEHICLES = "v1/vehicles";
 
     public static final class OperationalZones{
         public static final String DISPATCH_SETTINGS = "/v1/operational_zones/{zoneId}/dispatch_settings";

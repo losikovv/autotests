@@ -7,10 +7,13 @@ import java.util.*;
 
 public final class Generate {
 
-    public static final char[] upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-    public static final char[] lowerChars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-    public static final char[] numbers = "1234567890".toCharArray();
-    public static final char[] specialChars = "@#$*&".toCharArray();
+    private static final char[] upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+    private static final char[] lowerChars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+    private static final char[] numbers = "1234567890".toCharArray();
+    private static final char[] specialChars = "@#$*&".toCharArray();
+    private static final String[] lettersForNumber = {"С", "М", "Т", "В", "А", "Р", "О", "Н", "Е", "У", "Х", "К"};
+
+    private static final SecureRandom secureRandom = new SecureRandom();
 
     public static String testRunId() {
         return literalString(9).toUpperCase();
@@ -78,6 +81,25 @@ public final class Generate {
     public static String phoneNumber(){
         String phone = "972";
         return phone + digitalString(7);
+    }
+
+    /**
+     * @return - телефонный номер начинающийся с +7972
+     */
+    public static String phone() {
+        return "+7972" + digitalString(7);
+    }
+
+    public static String generateGosNumber(final int region) {
+        Arrays.sort(lettersForNumber);
+
+        return String.format("%s%03d%s%s%d",
+                lettersForNumber[rnd(0, lettersForNumber.length - 1)],
+                rnd(0, 999),
+                lettersForNumber[rnd(0, lettersForNumber.length - 1)],
+                lettersForNumber[rnd(0, lettersForNumber.length - 1)],
+                region
+        );
     }
 
     /** Сгенерировать тестовый email */
@@ -161,6 +183,11 @@ public final class Generate {
         }
     }
 
+    public static <T extends Enum<?>> T randomEnum(Class<T> clazz){
+        int x = secureRandom.nextInt(clazz.getEnumConstants().length);
+        return clazz.getEnumConstants()[x];
+    }
+
     private static String inn10(){
         StringBuilder builder = new StringBuilder();
         List<Integer> weights = Arrays.asList(2, 4, 10, 3, 5, 9, 4, 6, 8); // веса для контрольной суммы
@@ -218,5 +245,9 @@ public final class Generate {
             inn = inn10();
         }
         return inn;
+    }
+
+    private static int rnd(final int min, final int max) {
+        return secureRandom.nextInt(max + 1 - min) + min;
     }
 }

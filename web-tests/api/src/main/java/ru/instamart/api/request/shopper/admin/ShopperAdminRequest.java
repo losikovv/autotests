@@ -2,6 +2,8 @@ package ru.instamart.api.request.shopper.admin;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -12,6 +14,7 @@ import ru.instamart.api.endpoint.ShopperAdminEndpoints;
 import ru.instamart.api.request.ShopperAdminRequestBase;
 import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.CarType;
 
 import java.util.UUID;
 
@@ -82,6 +85,14 @@ public class   ShopperAdminRequest extends ShopperAdminRequestBase {
                     .body(requestParams)
                     .patch(ShopperAdminEndpoints.Shoppers.BY_ID, shopperId);
         }
+
+        @Step("{method} /" + ShopperAdminEndpoints.SHOPPERS)
+        public static Response POST(final ShoppersParameter shoppers) {
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(Mapper.INSTANCE.objectToMap(shoppers))
+                    .post(ShopperAdminEndpoints.SHOPPERS);
+        }
     }
 
     public static class Stores {
@@ -121,6 +132,18 @@ public class   ShopperAdminRequest extends ShopperAdminRequestBase {
         }
 
     }
+
+    public static class Vehicles {
+
+        @Step("{method} /" + ShopperAdminEndpoints.VEHICLES)
+        public static Response POST(final VehiclesParameter vehicles) {
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(Mapper.INSTANCE.objectToMap(vehicles))
+                    .post(ShopperAdminEndpoints.VEHICLES);
+        }
+    }
+
     public static class OrderServiceSettings{
         @Step("{method} /" + ShopperAdminEndpoints.OrderServiceSettings.ORDER_SERVICE_SETTINGS)
         public static Response GET(final String storeUuid){
@@ -568,5 +591,68 @@ public class   ShopperAdminRequest extends ShopperAdminRequestBase {
         private boolean taxiAvailable;
         @JsonProperty("max_waiting_time_for_courier_min")
         private Integer maxWaitingTimeForCourierMin;
+    }
+
+    @JsonTypeName("shopper")
+    @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT ,use = JsonTypeInfo.Id.NAME)
+    @Builder
+    @Data
+    @EqualsAndHashCode
+    public static class ShoppersParameter {
+        //contract_date: null or in format 2022-08-04
+        @JsonProperty("contract_date")
+        private String contractDate;
+        //contract_number: null
+        @JsonProperty("contract_number")
+        private Integer contractNumber;
+        //employment_type: null
+        @JsonProperty("employment_type")
+        private EmploymentType employmentType;
+        //inn: null
+        private String inn;
+        //login: "sdgsdgs"
+        private String login;
+        //name: "asdasd"
+        private String name;
+        //partnership_id: null
+        //EmploymentType=agent/outsource
+        @JsonProperty("partnership_id")
+        private Integer partnershipId;
+        //phone: "+79236569227"
+        private String phone;
+        //roles: [1]
+        //0: 1
+        private Integer[] roles;
+        //status: "enabled"
+        private String status;
+        //store_uuid: "386793e2-b453-43d5-878e-da70b213f8b3"
+        @JsonProperty("store_uuid")
+        private String storeUuid;
+        private String password;
+
+        public enum EmploymentType {
+            ip,
+            self_employed,
+            agent,
+            outsource,
+            external_employee;
+        }
+    }
+
+    @Builder
+    @Data
+    @EqualsAndHashCode
+    public static class VehiclesParameter {
+        //kind: "truck"
+        private CarType kind;
+        //model: "asda"
+        private String model;
+        //number: "В222ВВ22"
+        private String number;
+        //shopper_id: 2
+        @JsonProperty("shopper_id")
+        private Integer shopperId;
+        //volume: 12
+        private Integer volume;
     }
 }

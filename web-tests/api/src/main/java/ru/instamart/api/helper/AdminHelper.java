@@ -6,11 +6,14 @@ import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.shopper.admin.ShopperV1;
+import ru.instamart.api.model.shopper.admin.VehicleV1;
 import ru.instamart.api.model.v1.*;
 import ru.instamart.api.model.v1.b2b.CompanyV1;
 import ru.instamart.api.model.v1.b2b.ManagerV1;
 import ru.instamart.api.model.v1.b2b.UserV1;
 import ru.instamart.api.request.admin.*;
+import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.request.v1.*;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.MarketingPricers;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.NominalPricers;
@@ -19,14 +22,19 @@ import ru.instamart.api.request.v1.admin.StoreLabelsAdminV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
 import ru.instamart.api.request.v1.b2b.CompanyEmployeesV1Request;
 import ru.instamart.api.request.v1.b2b.CompanyManagersV1Request;
+import ru.instamart.api.response.shopper.admin.ShopperAdminSHPResponse;
+import ru.instamart.api.response.shopper.admin.StoresSHPResponse;
 import ru.instamart.api.response.v1.*;
 import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
 import ru.instamart.api.response.v1.admin.StoreLabelsAdminV1Response;
+import ru.instamart.api.response.v1.admin.VehicleV1Response;
 import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
 import ru.instamart.api.response.v1.imports.OffersFilesV1Response;
 import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.Shoppers;
 import ru.instamart.kraken.data.StoreLabelData;
+import ru.instamart.kraken.data.Vehicles;
 import ru.instamart.kraken.data.user.UserManager;
 
 import java.util.List;
@@ -198,6 +206,10 @@ public class AdminHelper {
         SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, user);
     }
 
+    public void authShopperAdmin() {
+        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
+    }
+
     @Step("Авторизация администратором со включенными новыми ролями для API")
     //временное решение, пока полностью не переделают админку
     public void authApiWithAdminNewRoles() {
@@ -319,5 +331,45 @@ public class AdminHelper {
     public void deleteStoreLabel(Integer storeLabelID) {
         final Response response = StoreLabelsAdminV1Request.DELETE(storeLabelID);
         checkStatusCode204or404(response);
+    }
+
+    public ShopperV1 createShoppers(final Shoppers shoppers) {
+        final var storesRequest = ShopperAdminRequest.Stores.GET();
+        checkStatusCode200(storesRequest);
+        final var stores = storesRequest.as(StoresSHPResponse.class);
+        final var store = stores.getStores()
+                .stream()
+                .filter(s -> s.getName().equalsIgnoreCase(shoppers.getCurrentShop()))
+                .findFirst();
+        final var request = ShopperAdminRequest.ShoppersParameter
+                .builder()
+                .name(shoppers.getName())
+                .login(shoppers.getLogin())
+                .phone(shoppers.getPhone())
+                .status("enabled")
+                .roles(shoppers.getRolesId())
+                .password(shoppers.getPassword())
+                .storeUuid(store.map(ru.instamart.api.model.shopper.admin.StoreV1::getUuid).orElse(null))
+                .inn(shoppers.getInn())
+                .build();
+
+        final var response = ShopperAdminRequest.Shoppers.POST(request);
+        checkStatusCode200(response);
+        return response.as(ShopperAdminSHPResponse.class).getShopper();
+    }
+
+    public VehicleV1 addVehicle(final int shopperId, final Vehicles vehicles) {
+        final var vehiclesParameter = ShopperAdminRequest.VehiclesParameter
+                .builder()
+                .shopperId(shopperId)
+                .kind(vehicles.getKind())
+                .model(vehicles.getModel())
+                .number(vehicles.getNumber())
+                .volume(Integer.valueOf(vehicles.getVolume()))
+                .build();
+        final var response = ShopperAdminRequest.Vehicles.POST(vehiclesParameter);
+        checkStatusCode200(response);
+
+        return response.as(VehicleV1Response.class).getVehicle();
     }
 }

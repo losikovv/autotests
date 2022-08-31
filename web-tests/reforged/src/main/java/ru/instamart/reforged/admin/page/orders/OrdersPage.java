@@ -2,7 +2,6 @@ package ru.instamart.reforged.admin.page.orders;
 
 import io.qameta.allure.Step;
 import ru.instamart.kraken.util.StringUtil;
-import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.admin.AdminPage;
 
 public final class OrdersPage implements AdminPage, OrdersCheck {
@@ -24,7 +23,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
 
     @Step("Добавляем фильтр 'Статус заказа': '{statusText}'")
     public void addStatusFilterItem(final String statusText) {
-        shipmentStatusSelector.fill(statusText);
+        shipmentStatusSelector.fillAndSelect(statusText);
     }
 
     @Step("Удаляем выбранный фильтр 'Статус заказа': {statusText}")
@@ -59,7 +58,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
 
     @Step("Добавляем фильтр 'Платформа': '{platformName}'")
     public void addPlatformFilterItem(final String platformName) {
-        platformSelector.fill(platformName);
+        platformSelector.fillAndSelect(platformName);
     }
 
     @Step("Удаляем выбранный фильтр 'Платформа': {platformName}")
@@ -74,7 +73,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
 
     @Step("Добавляем фильтр 'Ритейлер': '{retailerName}'")
     public void addRetailerFilterItem(final String retailerName) {
-        retailerSelector.fill(retailerName);
+        retailerSelector.fillAndSelect(retailerName);
     }
 
     @Step("Удаляем выбранный фильтр 'Ритейлер': {retailerName}")
@@ -119,7 +118,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
 
     @Step("Добавляем фильтр 'Способ оплаты': '{paymentMethod}'")
     public void addPaymentMethodFilterItem(final String paymentMethod) {
-        paymentMethodSelector.fill(paymentMethod);
+        paymentMethodSelector.fillAndSelect(paymentMethod);
     }
 
     @Step("Удаляем выбранный фильтр 'Способ оплаты': {paymentMethod}")
@@ -134,7 +133,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
 
     @Step("Добавляем фильтр 'Статус оплаты': '{paymentStatus}'")
     public void addPaymentStatusFilterItem(final String paymentStatus) {
-        paymentStatusSelector.fill(paymentStatus);
+        paymentStatusSelector.fillAndSelect(paymentStatus);
     }
 
     @Step("Удаляем выбранный фильтр 'Статус оплаты': {paymentStatus}")

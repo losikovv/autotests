@@ -69,8 +69,12 @@ public final class WaitAction {
     }
 
     public boolean shouldNotBeVisible(final Component component, final Object... args) {
-        return createWait(component)
-                .until(ExpectedConditions.invisibilityOfElementLocated(component.getBy(args)));
+        try {
+            return createWait(component)
+                    .until(ExpectedConditions.invisibilityOfElementLocated(component.getBy(args)));
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     public List<WebElement> isElementsExist(final Component component) {
@@ -121,6 +125,24 @@ public final class WaitAction {
     public void urlContains(final String url) {
         createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница: "+ getWebDriver().getCurrentUrl() +" не содержит ожидаемого url: " + url)
                 .until(ExpectedConditions.urlContains(url));
+    }
+
+    public boolean containText(final Component component, final String text, final Object... args) {
+        try {
+            return createWait(component)
+                    .until(ExpectedConditions.textToBePresentInElementLocated(component.getBy(args), text));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean containTextFromAttribute(final Component component, final String attribute, final String text, final Object... args) {
+        try {
+            return createWait(component)
+                    .until(KrakenCondition.textToBePresentInAttributeLocated(component.getBy(args), attribute, text));
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public void frameShouldBeVisible(final int frame) {
