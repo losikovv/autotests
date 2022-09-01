@@ -1,18 +1,19 @@
 package ru.instamart.kafka.producer;
 
-import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import ru.instamart.kafka.KafkaConfig;
 import ru.instamart.kraken.config.CoreProperties;
 
+import java.util.Objects;
 import java.util.Properties;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.ExecutionException;
 
 @Slf4j
 public class KafkaProducers {
@@ -22,7 +23,7 @@ public class KafkaProducers {
 
     private Properties producerProperties(KafkaConfig config) {
         Properties props = new Properties();
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, config.clientId);
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "kraken");
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, CoreProperties.KAFKA_SERVER);
 
         //protobuf
@@ -42,23 +43,29 @@ public class KafkaProducers {
         Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
     }
 
-    public void publish(final KafkaConfig config, byte[] msg) {
+    public RecordMetadata publish(final KafkaConfig config, byte[] msg) {
         createProducer(config);
         ProducerRecord<String, byte[]> record = new ProducerRecord(config.topic, msg);
 
         long start = System.currentTimeMillis();
 
-        kafkaProducer.send(record, (metadata, exception) -> {
-            long elapsedTime = System.currentTimeMillis() - start;
-            if (metadata != null) {
-                log.debug(String.format("sent record(key=%s value=%s) meta(partition=%d, offset=%d) time=%d",
-                        record.key(), record.value(), metadata.partition(),
-                        metadata.offset(), elapsedTime));
-            }
-            if (exception != null) {
-                log.error("Failed sending message to kafka", exception);
-            }
-        });
+        try {
+            RecordMetadata toKafka = kafkaProducer.send(record, (metadata, exception) -> {
+                long elapsedTime = System.currentTimeMillis() - start;
+                if (Objects.nonNull(metadata)) {
+                    log.debug(String.format("sent record(key=%s value=%s) meta(partition=%d, offset=%d) time=%d",
+                            record.key(), record.value(), metadata.partition(),
+                            metadata.offset(), elapsedTime));
+                }
+                if (exception != null) {
+                    log.error("Failed sending message to kafka", exception);
+                }
+            }).get();
+            return toKafka;
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void shutdown() {

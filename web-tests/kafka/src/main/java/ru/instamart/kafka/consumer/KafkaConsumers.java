@@ -44,9 +44,9 @@ public class KafkaConsumers {
     private Properties consumerProperties(KafkaConfig config) {
         String saslConfig = String.format(saslConfigs, config.login, config.password);
         Properties props = new Properties();
-        props.put(ConsumerConfig.CLIENT_ID_CONFIG, config.clientId);
+        props.put(ConsumerConfig.CLIENT_ID_CONFIG, "kraken");
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, CoreProperties.KAFKA_SERVER);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, config.groupName);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "kraken");
         props.put("session.timeout.ms", "30000");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 //        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
