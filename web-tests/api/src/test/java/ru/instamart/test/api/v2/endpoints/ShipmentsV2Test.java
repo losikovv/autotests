@@ -238,7 +238,7 @@ public class ShipmentsV2Test extends RestBase {
         checkStatusCode200(response);
         var shippingRates = response.as(ShippingRatesV2Response.class);
         checkResponseJsonSchema(response, ShippingRatesV2Response.class);
-        Allure.step("Проверка доступных дней доставки", () -> assertTrue(shippingRates.getMeta().getAvailableDays().size() == 7, "Период доставки не равен неделе"));
+        Allure.step("Проверка доступных дней доставки", () -> assertTrue(shippingRates.getMeta().getAvailableDays().size() > 0, "Период доставки не пустой"));
     }
 
     @CaseId(368)
