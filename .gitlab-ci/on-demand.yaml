@@ -55,7 +55,7 @@ tests:on:demand:eta:
     - echo $URL_PAAS_ETA
     - gradle clean build onDemandETA -Purl_paas_eta=$URL_PAAS_ETA
   after_script:
-    - bash ./report.sh api on-demand-eta
+    - bash ./mattermost-all-report.sh api on-demand-eta onDemandETA $MATTERMOST_HIGHGARDEN_KEY
 
 tests:on:demand:tm:
   resource_group: onDemandTM
@@ -70,7 +70,7 @@ tests:on:demand:tm:
   script:
     - gradle clean build onDemandTM
   after_script:
-    - bash ./report.sh grpc on-demand-tm
+    - bash ./mattermost-all-report.sh grpc on-demand-tm onDemandTM $MATTERMOST_HIGHGARDEN_KEY
 
 tests:on:demand:shippingcalc:
   resource_group: onDemandShippingCalc
@@ -84,7 +84,7 @@ tests:on:demand:shippingcalc:
     - echo $URL_PAAS_SHIPPINGCALC
     - gradle clean build onDemandShippingCalc -Purl_paas_shippingcalc=$URL_PAAS_SHIPPINGCALC
   after_script:
-    - bash ./report.sh api on-demand-shippingcalc
+    - bash ./mattermost-all-report.sh api on-demand-shippingcalc onDemandShippingCalc $MATTERMOST_HIGHGARDEN_KEY
 
 tests:on:demand:candidates:
   resource_group: onDemandCandidates
@@ -111,4 +111,4 @@ tests:on:demand:surgelevel:
     - echo $URL_PAAS_SURGELEVEL
     - gradle clean build onDemandSurgeLevel -Purl_paas_surgelevel=$URL_PAAS_SURGELEVEL
   after_script:
-    - bash ./report.sh api on-demand-surgelevel
+    - bash ./mattermost-all-report.sh api on-demand-surgelevel onDemandSurgeLevel $MATTERMOST_HIGHGARDEN_KEY

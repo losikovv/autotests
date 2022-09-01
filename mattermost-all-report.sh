@@ -72,13 +72,15 @@ duration=$(sed 's:.*<div class="infoBox" id="duration"><div class="counter">\([^
 successRate=$(sed 's:.*<div class="percent">\([^<]*\)<.*:\1:' <<<"$text")
 
 if [ "$failures" != "0" ]; then
-  #Text message
-  TEXT_MSG="*Результаты:* \n*Рабочее окружение: :* $3 \n*Продолжительность:* $duration \n *Всего сценариев:* $total \n *Всего успешных тестов:* $(($total-$failures-$ignored)) \n *Всего упавших тестов: :* $failures \n *Всего пропущенных тестов:* $ignored \n *% прошедших тестов:* $successRate \n *CI JOB URL* $CI_JOB_URL \n *CI_PIPELINE_URL* $CI_PIPELINE_URL \n *Отчет доступен по ссылке:* $allureReport \n"
-
-  #set -o xtrace
-  echo "------------------SEND-RESULTS------------------"
-  sendResultsResponse=$(curl -ik -X POST $MATTERMOST_SERVER"/hooks/"$4 -H 'Content-Type: application/json' -d "{\"text\": \"$TEXT_MSG\"}")
-  echo "$sendResultsResponse"
+  TOTAL_MESSAGE=":x:"
 else
-  echo "no failed tests"
+  TOTAL_MESSAGE=":white_check_mark:"
 fi
+
+#Text message
+TEXT_MSG="*Результаты:* \n*Рабочее окружение: :* $3 \n*Продолжительность:* $duration \n *Всего сценариев:* $total \n *Всего успешных тестов:* $(($total-$failures-$ignored)) \n *Всего упавших тестов: :* $failures \n *Всего пропущенных тестов:* $ignored \n *% прошедших тестов:* $successRate $TOTAL_MESSAGE \n *CI JOB URL* $CI_JOB_URL \n *CI_PIPELINE_URL* $CI_PIPELINE_URL \n *Отчет доступен по ссылке:* $allureReport \n"
+
+#set -o xtrace
+echo "------------------SEND-RESULTS------------------"
+sendResultsResponse=$(curl -ik -X POST $MATTERMOST_SERVER"/hooks/"$4 -H 'Content-Type: application/json' -d "{\"text\": \"$TEXT_MSG\"}")
+echo "$sendResultsResponse"
