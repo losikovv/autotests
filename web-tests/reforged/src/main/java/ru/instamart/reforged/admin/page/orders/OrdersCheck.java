@@ -169,11 +169,6 @@ public interface OrdersCheck extends Check, OrdersElement {
         Kraken.waitAction().shouldNotBeVisible(courierDropdownList);
     }
 
-    @Step("Проверяем, что отображается список выпадающий элемент '{itemName}' селектора")
-    default void checkSelectorItemVisible(final String itemName) {
-        Kraken.waitAction().shouldBeVisible(selectOptionByName, itemName);
-    }
-
     @Step("Проверяем, что отображается виджет выбора даты и времени создания заказа")
     default void checkCreateDateTimePickerVisible() {
         Kraken.waitAction().shouldBeVisible(shipmentCreateDateTimePicker);
@@ -335,5 +330,15 @@ public interface OrdersCheck extends Check, OrdersElement {
             );
         }
         krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что отображается выпадающее меню доставки")
+    default void checkShipmentDropdownMenuVisible() {
+        Kraken.waitAction().shouldBeVisible(shipmentDropdownMenu);
+    }
+
+    @Step("Проверяем, что отображается модальное окно ручного назначения заказа")
+    default void checkManualAssignmentModalVisible() {
+        Kraken.waitAction().shouldBeVisible(manualAssignmentModal);
     }
 }

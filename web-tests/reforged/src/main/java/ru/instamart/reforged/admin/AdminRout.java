@@ -29,6 +29,7 @@ import ru.instamart.reforged.admin.page.settings.store_groups.StoreGroupsPage;
 import ru.instamart.reforged.admin.page.settings.store_groups.new_group.EditStoreGroupPage;
 import ru.instamart.reforged.admin.page.shipment.ShipmentsPage;
 import ru.instamart.reforged.admin.page.shipment.shipment.ShipmentPage;
+import ru.instamart.reforged.admin.page.shipment.shipment.customer.ShipmentCustomerPage;
 import ru.instamart.reforged.admin.page.shipment.shipment.delivery_windows.ShipmentDeliveryWindowsPage;
 import ru.instamart.reforged.admin.page.shipment.shipment.payments.ShipmentPaymentsPage;
 import ru.instamart.reforged.admin.page.shipment.shipment.payments.new_payment.payments.ShipmentNewPaymentPage;
@@ -139,6 +140,10 @@ public final class AdminRout extends Router {
 
     public static ShipmentNewPaymentPage shipmentNewPayment() {
         return (ShipmentNewPaymentPage) getPage(ShipmentNewPaymentPage.class);
+    }
+
+    public static ShipmentCustomerPage shipmentPageCustomer() {
+        return (ShipmentCustomerPage) getPage(ShipmentCustomerPage.class);
     }
 
     public static UsersPage users() {

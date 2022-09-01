@@ -3,8 +3,9 @@ package ru.instamart.reforged.admin.page.orders;
 import io.qameta.allure.Step;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.admin.AdminPage;
+import ru.instamart.reforged.core.page.Window;
 
-public final class OrdersPage implements AdminPage, OrdersCheck {
+public final class OrdersPage implements AdminPage, OrdersCheck, Window {
 
     @Step("Получаем произвольный номер заказа")
     public String getAnyShipmentNumber() {
@@ -185,6 +186,56 @@ public final class OrdersPage implements AdminPage, OrdersCheck {
     public void applyFilters() {
         quickFiltersTitle.getElement().click();
         applyFilters.click();
+    }
+
+    @Step("Получаем название ритейлера '{shipmentPosition}'-го заказа в таблице")
+    public String getRetailerName(final int shipmentPosition){
+        return tableComponent.getRetailerName(shipmentPosition - 1);
+    }
+
+    @Step("Получаем название магазина '{shipmentPosition}'-го заказа в таблице")
+    public String getStoreName(final int shipmentPosition){
+        return tableComponent.getStoreName(shipmentPosition - 1);
+    }
+
+    @Step("Кликаем на название магазина '{shipmentPosition}'-го заказа в таблице")
+    public void clickStoreLinkInShipment(final int shipmentPosition) {
+        tableComponent.clickRetailerStoreAddress(shipmentPosition - 1);
+    }
+
+    @Step("Получаем номер заказа '{shipmentPosition}'-го заказа в таблице")
+    public String getOrderNumber(final int shipmentPosition){
+        return tableComponent.getOrderNumber(shipmentPosition - 1);
+    }
+
+    @Step("Кликаем на номер заказа '{shipmentPosition}'-го заказа в таблице")
+    public void clickOrderNumberInShipment(final int shipmentPosition) {
+        tableComponent.clickOrderNumber(shipmentPosition - 1);
+    }
+
+    @Step("Кликаем на номер доставки '{shipmentPosition}'-го заказа в таблице")
+    public void clickShipmentNumberInShipment(final int shipmentPosition) {
+        tableComponent.clickShipmentNumber(shipmentPosition - 1);
+    }
+
+    @Step("Выбираем '{shipmentDropdownMenuItem}' в выпадающем меню доставки")
+    public void clickShipmentDropdownMenu(final String shipmentDropdownMenuItem){
+        dropdownMenuItemByName.click(shipmentDropdownMenuItem);
+    }
+
+    @Step("Кликаем на статус оплаты '{shipmentPosition}'-го заказа в таблице")
+    public void clickPaymentStatusInShipment(final int shipmentPosition) {
+        tableComponent.clickPaymentStatus(shipmentPosition - 1);
+    }
+
+    @Step("Кликаем на время доставки '{shipmentPosition}'-го заказа в таблице")
+    public void clickDeliveryTimeInShipment(final int shipmentPosition) {
+        tableComponent.clickDeliveryTime(shipmentPosition - 1);
+    }
+
+    @Step("Кликаем на имя заказчика '{shipmentPosition}'-го заказа в таблице")
+    public void clickCustomerName(final int shipmentPosition) {
+        tableComponent.clickClientName(shipmentPosition - 1);
     }
 
     @Override

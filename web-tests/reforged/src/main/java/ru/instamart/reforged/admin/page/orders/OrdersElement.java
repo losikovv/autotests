@@ -56,12 +56,11 @@ public interface OrdersElement {
     Element shipmentDropdownMenu = new Element(By.xpath("//ul[contains(@class,'ant-dropdown-menu')]"), "Выпадающее меню доставки");
     Element dropdownMenuItemByName = new Element(ByKraken.xpathExpression("//ul[contains(@class,'ant-dropdown-menu')]/li[.//span[contains(.,'%s')]]"), "Пункт выпадающего меню доставки по названию");
 
+    Element manualAssignmentModal = new Element(By.xpath("//div[@class='ant-modal-header'][.='Передать заказ']"), "Модальное окно ручного назначения заказа");
+
     //Модалка подтверждения удаления назначения сборщика/доставщика
     Element removeAssignmentModal = new Element(By.xpath("//div[@class='ant-modal-content']"), "Модальное окно подтверждения удаления назначения");
     Input selectReason = new Input(By.xpath("//div[@class='ant-modal-content']//input"), "Поле ввода причины");
-
-    //Для любого списка
-    Element selectOptionByName = new Element(ByKraken.xpathExpression("//div[contains(@class,'ant-select-item ')][contains(.,'%s')]"), "Пункт выпадающего списка селектора по имени");
 
     Element shipment = new Element(By.xpath("//tr[contains(@class,'ant-table-row')]"), "Первый элемент таблицы");
 }

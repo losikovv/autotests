@@ -47,13 +47,21 @@ public final class OrdersTable extends Table {
 
     private static final By buttonAddComment = By.xpath(".//button[@data-qa='shipments_table_add_comment']");
     private static final By commentInput = By.xpath(".//textarea[@data-qa='shipments_table_comment_input']");
-    private static final By buttonSaveComment = By.xpath(".//button[@data-qa='shipments_table_save_comment']");
+    private static final By buttonConfirmComment = By.xpath(".//button[@data-qa='shipments_table_save_comment']");
     private static final By buttonCancelComment = By.xpath(".//button[@data-qa='shipments_table_cancel_comment']");
 
-    public String getRetailerStoreAddress(final int line) {
+    public String getRetailerName(final int line) {
         final var cellElement = getCellElement(Column.RETAILER.label, line);
         if (nonNull(cellElement)) {
-            return cellElement.findElement(retailerAddress).getText();
+            return cellElement.findElement(retailerAddress).getText().replaceAll(",+.*", "");
+        }
+        return "empty";
+    }
+
+    public String getStoreName(final int line) {
+        final var cellElement = getCellElement(Column.RETAILER.label, line);
+        if (nonNull(cellElement)) {
+            return cellElement.findElement(retailerAddress).getText().replaceAll(", .+, ", ", ");
         }
         return "empty";
     }
@@ -61,14 +69,14 @@ public final class OrdersTable extends Table {
     public List<String> getAllRetailersList() {
         return getElementsFromColumn(Column.RETAILER.label).stream()
                 .map(webElement ->
-                        webElement.findElement(retailerAddress).getText().replaceAll(",+.*",""))
+                        webElement.findElement(retailerAddress).getText().replaceAll(",+.*", ""))
                 .collect(Collectors.toList());
     }
 
     public List<String> getAllBasicStoresList() {
         return getElementsFromColumn(Column.RETAILER.label).stream()
                 .map(webElement ->
-                        webElement.findElement(retailerAddress).getText().replaceAll(", .+, ",", "))
+                        webElement.findElement(retailerAddress).getText().replaceAll(", .+, ", ", "))
                 .collect(Collectors.toList());
     }
 
@@ -87,18 +95,18 @@ public final class OrdersTable extends Table {
         return "empty";
     }
 
+    public void clickOrderNumber(final int line) {
+        final var cellElement = getCellElement(Column.ORDER.label, line);
+        if (nonNull(cellElement)) {
+            cellElement.findElement(orderLink).click();
+        }
+    }
+
     public List<String> getAllOrderNumbersList() {
         return getElementsFromColumn(Column.ORDER.label).stream()
                 .map(webElement ->
                         webElement.findElement(orderLink).getText())
                 .collect(Collectors.toList());
-    }
-
-    public void goToOrderEdit(final int line) {
-        final var cellElement = getCellElement(Column.ORDER.label, line);
-        if (nonNull(cellElement)) {
-            cellElement.findElement(orderLink).click();
-        }
     }
 
     public String getPlatformName(final int line) {
@@ -124,11 +132,25 @@ public final class OrdersTable extends Table {
         return "empty";
     }
 
+    public void clickShipmentNumber(final int line) {
+        final var cellElement = getCellElement(Column.SHIPMENT.label, line);
+        if (nonNull(cellElement)) {
+            cellElement.findElement(shipmentNumber).click();
+        }
+    }
+
     public List<String> getAllShipmentNumbersList() {
         return getElementsFromColumn(Column.SHIPMENT.label).stream()
                 .map(webElement ->
                         webElement.findElement(shipmentNumber).getText())
                 .collect(Collectors.toList());
+    }
+
+    public void clickDeliveryTime(final int line) {
+        final var cellElement = getCellElement(Column.SHIPMENT.label, line);
+        if (nonNull(cellElement)) {
+            cellElement.findElement(deliveryTimeLocal).click();
+        }
     }
 
     public List<String> getAllShipmentStatusesList() {
@@ -137,6 +159,20 @@ public final class OrdersTable extends Table {
                 .map(webElement ->
                         webElement.findElement(shipmentStatus).getText())
                 .collect(Collectors.toList());
+    }
+
+    public void clickPaymentStatus(final int line) {
+        final var cellElement = getCellElement(Column.PAYMENT.label, line);
+        if (nonNull(cellElement)) {
+            cellElement.findElement(paymentStatus).click();
+        }
+    }
+
+    public void clickClientName(final int line) {
+        final var cellElement = getCellElement(Column.CLIENT.label, line);
+        if (nonNull(cellElement)) {
+            cellElement.findElement(customerName).click();
+        }
     }
 
     public List<String> getAllCollectingShipmentStatusesList() {
@@ -153,13 +189,6 @@ public final class OrdersTable extends Table {
                 .map(webElement ->
                         webElement.findElement(shipmentStatusDelivery).getText())
                 .collect(Collectors.toList());
-    }
-
-    public void openShipmentDropdownMenu(final int line) {
-        final var cellElement = getCellElement(Column.SHIPMENT.label, line);
-        if (nonNull(cellElement)) {
-            cellElement.findElement(shipmentNumber).click();
-        }
     }
 
     public List<String> getAllPaymentMethodsList() {
