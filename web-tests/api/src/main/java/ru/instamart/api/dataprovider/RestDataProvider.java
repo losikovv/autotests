@@ -280,10 +280,10 @@ public class RestDataProvider extends RestBase {
             checkStatusCode200(response);
             List<StoreV2> retailerStores = response.as(StoresV2Response.class).getStores();
 
-            return new Object[][]{
-                    {retailerStores.get(0)},
-                    {retailerStores.get(1)}
-            };
+            return retailerStores.stream()
+                    .map(list -> new Object[]{list})
+                    .limit(2)
+                    .toArray(Object[][]::new);
         } else {
             List<StoreV2> storeList = apiV2.getAvailableRetailers()
                     .stream().parallel()
