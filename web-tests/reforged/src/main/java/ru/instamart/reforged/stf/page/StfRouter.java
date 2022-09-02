@@ -17,6 +17,7 @@ import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.reforged.stf.page.user.favorites.UserFavoritesPage;
 import ru.instamart.reforged.stf.page.user.profile.UserProfilePage;
 import ru.instamart.reforged.stf.page.user.shipments.UserShipmentsPage;
+import ru.instamart.reforged.stf.page.user.shipments.edit.UserShipmentPage;
 
 public final class StfRouter extends Router {
 
@@ -34,6 +35,10 @@ public final class StfRouter extends Router {
 
     public static UserShipmentsPage userShipments() {
         return (UserShipmentsPage) getPage(UserShipmentsPage.class);
+    }
+
+    public static UserShipmentPage userShipment() {
+        return (UserShipmentPage) getPage(UserShipmentPage.class);
     }
 
     public static ShopPage shop() {

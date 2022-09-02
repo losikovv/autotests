@@ -74,6 +74,7 @@ public interface CheckoutElement {
     Button confirmOrder = new Button(By.xpath("//button[@data-qa='checkout_page_sidebar_order_button'][.='Заказать']"), "Кнопка 'Заказать'");
     Button confirmOrderDisabled = new Button(By.xpath("//button[@data-qa='checkout_page_sidebar_order_button'][.='Заказать'][@disabled]"), "Кнопка 'Заказать'");
 
+    Element alcoholBanner = new Element(By.xpath("//div[contains(@class,'DeliverySlotsAlcoholBanner_root')]"), "Баннел про алкоголь на вкладке 'Самовывоз'");
     Element notificationBanner = new Element(By.xpath("//div[contains(@class,'NotificationBubble_banner')]"), "Всплывающее сообщение об ошибке");
     Element notificationBannerTitle = new Element(By.xpath("//div[contains(@class,'NotificationBubble_banner')]//h3"), "Заголовок всплывающего сообщения об ошибке");
     Element notificationBannerText = new Element(By.xpath("//div[contains(@class,'NotificationBubble_banner')]//p"), "Текст всплывающего сообщения об ошибке");

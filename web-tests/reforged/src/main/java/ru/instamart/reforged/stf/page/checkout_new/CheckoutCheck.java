@@ -201,4 +201,14 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     default void checkNotificationText(final String expectedErrorText) {
         Assert.assertEquals(notificationBannerText.getText(), expectedErrorText, "Текст всплывающего сообщения отличается от ожидаемого");
     }
+
+    @Step("Проверяем, что отображается баннер о правилах продажи алкоголя")
+    default void checkAlcoholBannerVisible() {
+        Kraken.waitAction().shouldBeVisible(alcoholBanner);
+    }
+
+    @Step("Проверяем, что вкладка 'Доставка' недоступна")
+    default void checkDeliveryTabNotVisible() {
+        Kraken.waitAction().shouldNotBeVisible(deliveryTab);
+    }
 }
