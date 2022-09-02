@@ -17,6 +17,7 @@ public interface CheckoutElement {
 
     Button deliveryTab = new Button(By.xpath("//button[@data-qa='checkout_page_ship_address_by_courier_tab']"), "Кнопка (вкладка) 'Доставка'");
     Button pickupTab = new Button(By.xpath("//button[@data-qa='checkout_page_ship_address_tab_pickup_tab']"), "Кнопка (вкладка) 'Самовывоз'");
+    Element pickupStoreAddress = new Element(By.xpath("//h3[@data-qa='checkout_page_ship_address_pickup_title']"), "Адрес магазина самовывоза");
     Element pickupTabInfo = new Element(By.xpath("//div[@data-qa='checkout_page_ship_address_pickup']"), "Информация о выборе магазина на вкладке 'Самовывоз'");
 
     Element addressTitle = new Element(By.xpath("//h3[@data-qa='checkout_page_ship_address_by_courier_title']"), "Адрес");

@@ -2,10 +2,12 @@ package ru.instamart.reforged.stf.frame.disclaimer;
 
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
+import ru.instamart.reforged.core.component.Checkbox;
 import ru.instamart.reforged.core.component.Element;
 
 public interface DisclaimerElement {
 
+    Checkbox confirm = new Checkbox(By.xpath("//input[@data-qa='disclaimer_modal_checkbox']"), "Чекбокс согласия 18+");
     Button approve = new Button(By.xpath("//button[@data-qa='disclaimer_modal_ok_button']"), "Кнопка принятия на модальном окне дисклеймера");
     Element disclaimerModal = new Element(By.xpath("//button[@data-qa='disclaimer_modal_ok_button']/parent::div/parent::div"), "Модальное окно дисклеймера 18+");
 }

@@ -759,4 +759,9 @@ public final class ApiHelper {
     public String getActiveOrderNumberWithComment(final String comment) {
         return SpreeOrdersDao.INSTANCE.getActiveOrderByComment(comment).getNumber();
     }
+
+    @Step("Получаем адрес магазина sid = {sid}")
+    public AddressV2 getAddressBySid(final int sid){
+        return apiV2.getAddressBySid(sid);
+    }
 }

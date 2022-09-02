@@ -9,4 +9,11 @@ public class Disclaimer implements DisclaimerCheck, Close {
     public void clickOffTheModalToCloseDisclaimer() {
         disclaimerModal.getActions().clickWithOffset(500, 0);
     }
+
+    @Step("Принимаем условия продажи алкоголя")
+    public void agreeAndConfirm(){
+        confirm.check();
+        approve.click();
+    }
+
 }
