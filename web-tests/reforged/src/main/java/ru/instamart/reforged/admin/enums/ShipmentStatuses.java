@@ -1,9 +1,9 @@
 package ru.instamart.reforged.admin.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 public enum ShipmentStatuses {
     SHIPMENT_PENDING("Оформляется", "Заказ оформляется"),
@@ -24,6 +24,7 @@ public enum ShipmentStatuses {
     SHIPMENT_CANCELED("Отменен", "Заказ отменен"),
     SHIPMENT_SHIPPED("Доставлен", "Заказ доставлен"),
     CLIENT_CANCELLED("Отменён", "Заказ отменен клиентом");
-    private String name;
-    private String description;
+
+    private final String name;
+    private final String description;
 }

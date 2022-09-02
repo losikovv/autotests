@@ -13,6 +13,10 @@ public class Is {
         return Kraken.waitAction().isVisible(component);
     }
 
+    public boolean invisible() {
+        return Kraken.waitAction().isInvisible(component);
+    }
+
     public boolean displayed(final Object... args) {
         return !Kraken.waitAction().shouldNotBeVisible(component, args);
     }

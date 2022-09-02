@@ -7,6 +7,7 @@ import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
 import java.util.List;
+import java.util.Set;
 
 public interface OrdersCheck extends Check, OrdersElement {
 
@@ -203,7 +204,7 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     //До диспетчеризации заказ имеет один статус
     @Step("Проверяем, что все отфильтрованные заказы имеют статус: {expectedValues}")
-    default void checkAllShipmentInTableHasSingleStatusIn(final List<String> expectedValues) {
+    default void checkAllShipmentInTableHasSingleStatusIn(final Set<String> expectedValues) {
         tableComponent.getAllShipmentStatusesList().forEach(status -> {
             krakenAssert.assertTrue(
                     expectedValues.contains(status),
@@ -215,7 +216,7 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     //После диспетчеризации заказ имеет 2 статуса: Сборки и Доставки
     @Step("Проверяем, что все отфильтрованные заказы имеют Статус сборки: {expectedValues}")
-    default void checkAllShipmentInTableHasCollectingStatusIn(final List<String> expectedValues) {
+    default void checkAllShipmentInTableHasCollectingStatusIn(final Set<String> expectedValues) {
         tableComponent.getAllCollectingShipmentStatusesList().forEach(status -> {
             krakenAssert.assertTrue(
                     expectedValues.contains(status),
@@ -226,7 +227,7 @@ public interface OrdersCheck extends Check, OrdersElement {
     }
 
     @Step("Проверяем, что все отфильтрованные заказы имеют Статус доставки: {expectedValues}")
-    default void checkAllShipmentInTableHasShippingStatusIn(final List<String> expectedValues) {
+    default void checkAllShipmentInTableHasShippingStatusIn(final Set<String> expectedValues) {
         tableComponent.getAllDeliveryShipmentStatusesList().forEach(status -> {
             krakenAssert.assertTrue(
                     expectedValues.contains(status),
@@ -237,7 +238,7 @@ public interface OrdersCheck extends Check, OrdersElement {
     }
 
     @Step("Проверяем, что все отфильтрованные заказы имеют платфому: {expectedValues}")
-    default void checkAllShipmentInTableHasPlatformIn(final List<String> expectedValues) {
+    default void checkAllShipmentInTableHasPlatformIn(final Set<String> expectedValues) {
         var allShipmentPlatformsInTable = tableComponent.getAllPlatformsList();
         for (int i = 0; i < allShipmentPlatformsInTable.size(); i++) {
             krakenAssert.assertTrue(
@@ -249,7 +250,7 @@ public interface OrdersCheck extends Check, OrdersElement {
     }
 
     @Step("Проверяем, что все отфильтрованные заказы сделаны у ритейлеров: {expectedValues}")
-    default void checkAllShipmentInTableHasRetailerIn(final List<String> expectedValues) {
+    default void checkAllShipmentInTableHasRetailerIn(final Set<String> expectedValues) {
         var allShipmentRetailersInTable = tableComponent.getAllRetailersList();
         for (int i = 0; i < allShipmentRetailersInTable.size(); i++) {
             krakenAssert.assertTrue(
@@ -261,7 +262,7 @@ public interface OrdersCheck extends Check, OrdersElement {
     }
 
     @Step("Проверяем, что для всех отфильтрованных заказов базовый магазин один из: {expectedValues}")
-    default void checkAllShipmentInTableHasBasicStoreIn(final List<String> expectedValues) {
+    default void checkAllShipmentInTableHasBasicStoreIn(final Set<String> expectedValues) {
         var allShipmentBasicStoresInTable = tableComponent.getAllBasicStoresList();
         for (int i = 0; i < allShipmentBasicStoresInTable.size(); i++) {
             krakenAssert.assertTrue(
@@ -273,7 +274,7 @@ public interface OrdersCheck extends Check, OrdersElement {
     }
 
     @Step("Проверяем, что для всех отфильтрованных заказов Способ оплаты один из: {expectedValues}")
-    default void checkAllShipmentInTableHasPaymentMethodIn(final List<String> expectedValues) {
+    default void checkAllShipmentInTableHasPaymentMethodIn(final Set<String> expectedValues) {
         var allShipmentPaymentMethodsInTable = tableComponent.getAllPaymentMethodsList();
         for (int i = 0; i < allShipmentPaymentMethodsInTable.size(); i++) {
             krakenAssert.assertTrue(
@@ -285,7 +286,7 @@ public interface OrdersCheck extends Check, OrdersElement {
     }
 
     @Step("Проверяем, что для всех отфильтрованных заказов Статус оплаты один из: {expectedValues}")
-    default void checkAllShipmentInTableHasPaymentStatusIn(final List<String> expectedValues) {
+    default void checkAllShipmentInTableHasPaymentStatusIn(final Set<String> expectedValues) {
         var allShipmentPaymentStatusesInTable = tableComponent.getAllPaymentStatusesList();
         for (int i = 0; i < allShipmentPaymentStatusesInTable.size(); i++) {
             krakenAssert.assertTrue(
@@ -297,7 +298,7 @@ public interface OrdersCheck extends Check, OrdersElement {
     }
 
     @Step("Проверяем, что для всех отфильтрованных заказов Заказчик один из: {expectedValues}")
-    default void checkAllShipmentInTableHasCustomerIn(final List<String> expectedValues) {
+    default void checkAllShipmentInTableHasCustomerIn(final Set<String> expectedValues) {
         var allCustomerNamesInTable = tableComponent.getAllCustomerNames();
         for (int i = 0; i < allCustomerNamesInTable.size(); i++) {
             krakenAssert.assertTrue(
@@ -309,7 +310,7 @@ public interface OrdersCheck extends Check, OrdersElement {
     }
 
     @Step("Проверяем, что для всех отфильтрованных заказов Сборщик один из: {expectedValues}")
-    default void checkAllShipmentInTableHasCollectorIn(final List<String> expectedValues) {
+    default void checkAllShipmentInTableHasCollectorIn(final Set<String> expectedValues) {
         var allCollectorsInTable = tableComponent.getAllCollectorsList();
         for (int i = 0; i < allCollectorsInTable.size(); i++) {
             krakenAssert.assertTrue(
@@ -321,7 +322,7 @@ public interface OrdersCheck extends Check, OrdersElement {
     }
 
     @Step("Проверяем, что для всех отфильтрованных заказов Курьер один из: {expectedValues}")
-    default void checkAllShipmentInTableHasCourierIn(final List<String> expectedValues) {
+    default void checkAllShipmentInTableHasCourierIn(final Set<String> expectedValues) {
         var allCouriersInTable = tableComponent.getAllCouriersList();
         for (int i = 0; i < allCouriersInTable.size(); i++) {
             krakenAssert.assertTrue(

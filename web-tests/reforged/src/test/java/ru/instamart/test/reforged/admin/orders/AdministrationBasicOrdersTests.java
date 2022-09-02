@@ -17,7 +17,7 @@ public final class AdministrationBasicOrdersTests {
 
     @CaseId(1499)
     @Test(description = "Корректное отображение страницы (/admin/orders). Админ со старыми ролями",
-            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void basicOrdersPageTestOldRoles() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -40,10 +40,10 @@ public final class AdministrationBasicOrdersTests {
 
     @CaseId(1499)
     @Test(description = "Корректное отображение страницы (/admin/orders). Админ с новыми ролями",
-            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void basicOrdersPageTestNewRoles() {
         login().goToPage();
-        login().auth(UserManager.getDefaultAdminAllRoles());
+        login().auth(UserManager.getDefaultAdmin());
 
         orders().goToPage();
         orders().checkLoadingLabelNotVisible();

@@ -23,7 +23,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
     }
 
     @Step("Добавляем фильтр 'Статус заказа': '{statusText}'")
-    public void addStatusFilterItem(final String statusText) {
+    public void addStatusFilterItem(final String... statusText) {
         shipmentStatusSelector.fillAndSelect(statusText);
     }
 
@@ -58,7 +58,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
     }
 
     @Step("Добавляем фильтр 'Платформа': '{platformName}'")
-    public void addPlatformFilterItem(final String platformName) {
+    public void addPlatformFilterItem(final String... platformName) {
         platformSelector.fillAndSelect(platformName);
     }
 
@@ -73,7 +73,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
     }
 
     @Step("Добавляем фильтр 'Ритейлер': '{retailerName}'")
-    public void addRetailerFilterItem(final String retailerName) {
+    public void addRetailerFilterItem(final String... retailerName) {
         retailerSelector.fillAndSelect(retailerName);
     }
 
@@ -88,7 +88,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
     }
 
     @Step("Добавляем фильтр 'Базовый магазин': '{basicStoreName}'")
-    public void addBasicStoreFilterItem(final String basicStoreName) {
+    public void addBasicStoreFilterItem(final String... basicStoreName) {
         basicStoreSelector.fillContains(basicStoreName);
     }
 
@@ -103,7 +103,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
     }
 
     @Step("Добавляем фильтр 'Магазин': '{storeName}'")
-    public void addStoreFilterItem(final String storeName) {
+    public void addStoreFilterItem(final String... storeName) {
         storeSelector.fillContains(storeName);
     }
 
@@ -118,7 +118,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
     }
 
     @Step("Добавляем фильтр 'Способ оплаты': '{paymentMethod}'")
-    public void addPaymentMethodFilterItem(final String paymentMethod) {
+    public void addPaymentMethodFilterItem(final String... paymentMethod) {
         paymentMethodSelector.fillAndSelect(paymentMethod);
     }
 
@@ -133,7 +133,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
     }
 
     @Step("Добавляем фильтр 'Статус оплаты': '{paymentStatus}'")
-    public void addPaymentStatusFilterItem(final String paymentStatus) {
+    public void addPaymentStatusFilterItem(final String... paymentStatus) {
         paymentStatusSelector.fillAndSelect(paymentStatus);
     }
 

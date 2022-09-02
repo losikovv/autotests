@@ -17,7 +17,7 @@ public final class AdministrationShipmentInTableTests {
 
     @CaseId(1502)
     @Test(description = "Ссылка в название магазина, столбец ритейлер, переводит на страницу магазина",
-            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void storeNameLinkLeadsToStorePageTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -38,7 +38,7 @@ public final class AdministrationShipmentInTableTests {
 
     @CaseId(1510)
     @Test(description = "Ссылка в номере заказа переводит на страницу Карточка заказа",
-            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void orderNumberLinkLeadsToOrderEditPageTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -57,7 +57,7 @@ public final class AdministrationShipmentInTableTests {
 
     @CaseId(1512)
     @Test(description = "Клик по номеру шипмента разворачивает доп. меню",
-            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void shipmentDropdownMenuTestShipmentInfo() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -79,7 +79,7 @@ public final class AdministrationShipmentInTableTests {
 
     @CaseId(1512)
     @Test(description = "Клик по номеру шипмента разворачивает доп. меню",
-            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void shipmentDropdownMenuTestAssignment() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -101,7 +101,7 @@ public final class AdministrationShipmentInTableTests {
 
     @CaseId(1513)
     @Test(description = "Ссылка в статусе оплаты, столбец оплата, переводит на страницу платежей заказа /admin/orders/nomber/payments",
-            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void shipmentPaymentStatusLeadsPaymentsTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -121,7 +121,7 @@ public final class AdministrationShipmentInTableTests {
 
     @CaseId(1514)
     @Test(description = "Ссылка во времени заказа переводит на страницу Магазин и время доставки /admin/orders/nomber/delivery_windows?shipment=nomber",
-            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void shipmentDeliveryTimeLeadsShipmentPageDeliveryTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -140,7 +140,7 @@ public final class AdministrationShipmentInTableTests {
 
     @CaseId(1515)
     @Test(description = "Ссылка в ФИ клиента, столбец Заказчик, переводит на страницу Реквизиты клиента /admin/orders/nomber/customer",
-            groups = {"regression", "ondemand_orders_regression", "ondemand_orders_smoke"})
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void shipmentClientNameLeadsClientEditPageTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

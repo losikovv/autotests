@@ -1,49 +1,62 @@
 package ru.instamart.test.reforged.admin;
 
-import io.qameta.allure.*;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
+import io.qameta.allure.Story;
 import org.testng.annotations.AfterClass;
-import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.admin.AdminRout.*;
+import static ru.instamart.reforged.admin.AdminRout.login;
+import static ru.instamart.reforged.admin.AdminRout.regions;
 
 @Epic("Админка STF")
 @Feature("Управление регионами ретейлера")
 public final class AdministrationRetailerRegionsTests {
 
     @CaseId(469)
+    @Issue("GARM-1125")
     @Story("Тест добавления нового региона для магазинов в админке")
-    @Test(description = "Тест добавления нового региона для магазинов в админке", groups = {"regression", "smoke"})
+    @Test(description = "Создать новый регион",
+            groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void successCreateNewRetailerRegion() {
-
-        final String regionName = "тест-" + Generate.literalCyrillicString(6);
+        final var regionName = "тест-" + Generate.literalCyrillicString(6);
 
         login().goToPage();
-        login().auth(UserManager.getDefaultAdminAllRoles());
+        login().auth(UserManager.getDefaultAdmin());
 
         regions().goToPage();
-        regions().checkAddNewRegionButtonVisible();
         regions().clickToAddNewRegion();
 
         regions().interactRegionsAddModal().checkAddNewRegionModalVisible();
         regions().interactRegionsAddModal().fillNewTestRegionName(regionName);
         regions().interactRegionsAddModal().clickToCreateNewRegion();
 
-        regions().checkAddNewRegionButtonVisible();
+        regions().interactAlert().checkSuccessFlashVisible();
         regions().checkRegionInTableVisible(regionName);
+    }
 
-        shopAdd().goToPage();
-        shopAdd().checkGlobalLoaderNotVisible();
-        shopAdd().fillRegion(regionName);
-        shopAdd().checkRegionInSearchDropdownVisible(regionName);
+    @CaseId(470)
+    @Test(description = "Настройки региона",
+            groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void regionSetting() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        regions().goToPage();
+        regions().checkRegionSettingsButtonsEqualsRegions();
+        regions().clickToRegionSetting(0);
+        regions().interactRegionsAddModal().checkAddNewRegionModalVisible();
     }
 
     @CaseId(472)
     @Story("Валидация страницы регионов")
-    @Test(description = "Валидация страницы регионов", groups = "regression")
+    @Test(description = "Валидация страницы регионов",
+            groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void storeRegionsPageValidation() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

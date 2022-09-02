@@ -76,6 +76,15 @@ public final class WaitAction {
         }
     }
 
+    public boolean isInvisible(final Component component) {
+        try {
+            return createWait(component)
+                    .until(ExpectedConditions.invisibilityOfElementLocated(component.getBy()));
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
     public boolean shouldNotBeVisible(final Component component, final WebElement webElement) {
         return createWait(component)
                 .until(KrakenCondition.invisibilityOfElementLocated(webElement, component.getBy()));
@@ -144,7 +153,7 @@ public final class WaitAction {
         try {
             return createWait(component)
                     .until(ExpectedConditions.textToBePresentInElementLocated(component.getBy(args), text));
-        } catch (Exception e) {
+        } catch (TimeoutException e) {
             return false;
         }
     }
@@ -153,7 +162,7 @@ public final class WaitAction {
         try {
             return createWait(component)
                     .until(KrakenCondition.textToBePresentInAttributeLocated(component.getBy(args), attribute, text));
-        } catch (Exception e) {
+        } catch (TimeoutException e) {
             return false;
         }
     }
@@ -169,7 +178,7 @@ public final class WaitAction {
     }
 
     public void elementCollectionSizeShouldBeEqual(ElementCollection collection, final int size) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Кол-во элементов в коллекции: " + collection.elementCount() + " не совпадает с ожидаемым: " + size)
+        createWait(collection.getTimeout(), "Кол-во элементов в коллекции: " + collection.elementCount() + " не совпадает с ожидаемым: " + size)
                 .until((ExpectedCondition<Boolean>) wb -> collection.elementCount() == size);
     }
 
@@ -183,7 +192,7 @@ public final class WaitAction {
                 .until(KrakenCondition.cookiesExist(data));
     }
 
-    private FluentWait<WebDriver> createWait(final int wait, final String errorMsg) {
+    private FluentWait<WebDriver> createWait(final long wait, final String errorMsg) {
         return new FluentWait<>(getWebDriver())
                 .withTimeout(Duration.ofSeconds(wait))
                 .withMessage(errorMsg)

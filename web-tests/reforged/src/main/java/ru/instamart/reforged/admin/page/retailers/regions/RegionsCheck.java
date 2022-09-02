@@ -4,30 +4,23 @@ import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertEquals;
-import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface RegionsCheck extends Check, RegionsElements {
 
-    @Step("Проверяем, что отображается алерт успешного создания региона")
-    default void checkSuccessCreateRegionAlertVisible() {
-        waitAction().shouldBeVisible(successCreateRegionAlert);
-    }
-
     @Step("Проверяем, что тестовый регион: {0} добавился в таблицу")
     default void checkRegionInTableVisible(final String cityName) {
-        waitAction().shouldBeVisible(city, cityName);
+        city.should().visible(cityName);
     }
 
-    @Step("Проверяем, что тестовый регион: {0} добавился в таблицу")
+    @Step("Проверяем, что тестовый регион: {0} не добавился в таблицу")
     default void checkRegionInTableNotVisible(final String cityName) {
-        waitAction().shouldNotBeVisible(city, cityName);
+        city.should().invisible(cityName);
     }
 
     @Step("Проверяем, что количество кнопок настройки регионов совпадает с кол-вом регионов")
     default void checkRegionSettingsButtonsEqualsRegions() {
         assertEquals(regionSettingsButtons.elementCount(), regionsNameColumn.elementCount(),
                 "Количество кнопок настроек регионов не совпадает с количеством регионов");
-
     }
 
     @Step("Проверяем, что количество кнопок настройки диспетчеризации совпадает с кол-вом регионов")
@@ -44,21 +37,21 @@ public interface RegionsCheck extends Check, RegionsElements {
 
     @Step("Проверяем, что заголовок 'Список регионов' отображается")
     default void checkPageTitleVisible() {
-        waitAction().shouldBeVisible(pageTitle);
+        pageTitle.should().visible();
     }
 
     @Step("Проверяем, что инпут поиска регионов отображается")
     default void checkRegionSearchInputVisible() {
-        waitAction().shouldBeVisible(regionSearch);
+        regionSearch.should().visible();
     }
 
     @Step("Проверяем, что кнопка добавления нового региона отображается")
     default void checkAddNewRegionButtonVisible() {
-        waitAction().shouldBeVisible(addNewRegionButton);
+        addNewRegionButton.should().visible();
     }
 
     @Step("Проверяем, что таблица регионов отображается")
     default void checkRegionsTableVisible() {
-        waitAction().shouldBeVisible(regionsTable);
+        regionsTable.should().visible();
     }
 }

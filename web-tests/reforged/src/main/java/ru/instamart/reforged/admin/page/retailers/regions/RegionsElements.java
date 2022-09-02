@@ -1,7 +1,9 @@
 package ru.instamart.reforged.admin.page.retailers.regions;
 
 import org.openqa.selenium.By;
+import ru.instamart.reforged.admin.block.flash_alert.FlashAlert;
 import ru.instamart.reforged.admin.page.retailers.regions.add_new.RegionsAdd;
+import ru.instamart.reforged.admin.table.RegionsTable;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
@@ -10,14 +12,15 @@ import ru.instamart.reforged.core.component.Input;
 
 public interface RegionsElements {
 
+    FlashAlert alert = new FlashAlert();
     RegionsAdd regionsAdd = new RegionsAdd();
+    RegionsTable regionsTable = new RegionsTable();
 
     Button addNewRegionButton = new Button(By.xpath("//button[@class='ant-btn ant-btn-primary']"), "Кнопка добавления нового региона");
-    Element successCreateRegionAlert = new Element(By.xpath("//div[@class='flash success fadeOut']"), "Алерт успешного добавления нового региона");
+
     ElementCollection regionsNameColumn = new ElementCollection(By.xpath("//td[2]/p"), "Список всех регионов в таблице");
     ElementCollection tableRowsNumbers = new ElementCollection(By.xpath("//td[1]/p"), "Номера регионов в таблице");
     Element pageTitle = new Element(By.xpath("//h4[@class='ant-typography']"), "Заголовок страницы с таблицей регионов 'Список регионов'");
-    Element regionsTable = new Element(By.xpath("//div[@class='ant-table-wrapper']"), "Таблица с доступными регионами");
     Element removeRegion = new Element(ByKraken.xpathExpression("//a[text()='%s']/ancestor::tr/descendant::a[@data-action='remove']"), "удаление региона");
     Element city = new Element(ByKraken.xpathExpression("//p[text()='%s']"), "тестовый город в списке городов");
 
