@@ -100,6 +100,11 @@ public class Table extends AbstractComponent {
         return 0;
     }
 
+    protected int getIndexByColumnDataName(final String label, final String cellData) {
+        final var columnData = getDataFromColumn(label);
+        return getIndexOf(cellData, columnData);
+    }
+
     protected List<WebElement> getTableDataLines() {
         return getComponent().findElements(dataLine);
     }

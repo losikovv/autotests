@@ -34,7 +34,7 @@ public final class JsAction {
      */
     public void jQueryReady() {
         createWait().until((ExpectedCondition<Boolean>) wb ->
-                JsAction.apply(wb, "return ReactRailsUJS.jQuery.active==0"));
+                JsAction.apply("return ReactRailsUJS.jQuery.active==0"));
     }
 
     /**
@@ -55,7 +55,7 @@ public final class JsAction {
      */
     public void waitImgLoad(final String xpath) {
         createWait().until((ExpectedCondition<Boolean>) wb ->
-            JsAction.apply(wb, "return document.evaluate(\""+ xpath +"\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete;"));
+            JsAction.apply("return document.evaluate(\""+ xpath +"\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete;"));
     }
 
     public void scrollToTheTop() {
@@ -63,15 +63,27 @@ public final class JsAction {
     }
 
     /**
-     * Скролл до элемента
+     * Скролл до элемента на странице
      * @param locator - локатор достается из компонента через регулярку {@link AbstractComponent}
      */
     public void scrollToElement(final String locator) {
         execute("document.evaluate(\"" + locator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView(true);");
     }
 
+    public void scrollToElement(final WebElement element) {
+        execute("arguments[0].scrollIntoView(true);", element);
+    }
+
     public void scrollToTheBottom() {
         execute("scrollTo(0,document.body.scrollHeight)");
+    }
+
+    /**
+     * Позволяет проскролить к элементу который находится внутри dropdown/selector и тп вложений
+     * @param element
+     */
+    public void scrollIntoView(final WebElement element) {
+        execute("arguments[0].scrollIntoView({block: \"center\", inline: \"nearest\"});", element);
     }
 
     public void clearField(final String locator) {
@@ -203,7 +215,7 @@ public final class JsAction {
                 .pollingEvery(Duration.ofMillis(WaitProperties.POLLING_INTERVAL));
     }
 
-    private static Boolean apply(final WebDriver wb, final String jsCode) {
+    private static Boolean apply(final String jsCode) {
         final Object reactState = execute(jsCode);
         if (isNull(reactState)) {
             return false;

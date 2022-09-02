@@ -21,6 +21,10 @@ public final class Should {
         Kraken.waitAction().shouldNotBeVisible(component);
     }
 
+    public void invisible(final String args) {
+        Kraken.waitAction().shouldNotBeVisible(component, args);
+    }
+
     public void notClickable() {
         Kraken.waitAction().shouldNotBeClickable(component);
     }

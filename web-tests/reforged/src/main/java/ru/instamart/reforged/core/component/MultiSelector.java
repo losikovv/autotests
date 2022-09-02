@@ -2,6 +2,8 @@ package ru.instamart.reforged.core.component;
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.core.ByKraken;
@@ -22,7 +24,7 @@ public final class MultiSelector extends AbstractComponent {
 
     private final By itemsLoadingSpinner = By.xpath("//div[contains(@class,'ant-spin-spinning')]");
     private final ByKraken itemInDropDownContains = (ByKraken) ByKraken.xpathExpression("//div[@id='%s']/following-sibling::div//div[contains(@class,'ant-select-item ')][.//*[contains(.,'%s')]]");
-    private final ByKraken itemInDropDown = (ByKraken) ByKraken.xpathExpression("//div[contains(@class,'ant-select-item ')]/div[.='%s']");
+    private final ByKraken itemInDropDown = (ByKraken) ByKraken.xpathExpression("//div[@id='%s']/following-sibling::div//div[contains(@class,'ant-select-item ')][.//*[.='%s']]");
     private final ByKraken unselectedItem = (ByKraken) ByKraken.xpathExpression("//div[@aria-selected='false']/div");
     private final ByKraken scroll = (ByKraken) ByKraken.xpathExpression("//div[@id='%s']/following-sibling::div//div[contains(@class,'rc-virtual-list-scrollbar-thumb')]");
 
@@ -51,37 +53,47 @@ public final class MultiSelector extends AbstractComponent {
         return component;
     }
 
-    public void fillAndSelect(final String name) {
+    public void fillAndSelect(final String... names) {
         final var component = getComponent();
-        component.findElement(input).sendKeys(name);
-        ThreadUtil.simplyAwait(1);
-        component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), name)).click();
-    }
 
-    public void fillContains(final String name) {
-        final var component = getComponent();
-        component.findElement(input).sendKeys(name);
-        ThreadUtil.simplyAwait(1);
-        component.findElement(ByKraken.xpathExpression(itemInDropDownContains.getDefaultXpathExpression(), component.findElement(input).getAttribute("aria-controls"), name)).click();
-    }
-
-    public void select(final String... name) {
-        final var component = getComponent();
-        component.findElement(input).click();
-        ThreadUtil.simplyAwait(1);
-
-        for (final var s : name) {
-            component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), s)).click();
+        for (final var name : names) {
+            component.findElement(input).sendKeys(name);
+            ThreadUtil.simplyAwait(1);
+            final var controlsId = component.findElement(input).getAttribute("aria-controls");
+            component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), controlsId, name)).click();
         }
     }
 
-    public void selectAutocompleteOff(final String... name) {
+    public void fillContains(final String... names) {
+        final var component = getComponent();
+
+        for (final var name : names) {
+            component.findElement(input).sendKeys(name);
+            ThreadUtil.simplyAwait(1);
+            final var controlsId = component.findElement(input).getAttribute("aria-controls");
+            component.findElement(ByKraken.xpathExpression(itemInDropDownContains.getDefaultXpathExpression(), controlsId, name)).click();
+        }
+    }
+
+    public void select(final String... names) {
+        final var component = getComponent();
+        component.findElement(input).click();
+        ThreadUtil.simplyAwait(1);
+        final var controlsId = component.findElement(input).getAttribute("aria-controls");
+
+        for (final var name : names) {
+            component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), controlsId, name)).click();
+        }
+    }
+
+    public void selectAutocompleteOff(final String... names) {
         final var component = getComponent();
         component.click();
         ThreadUtil.simplyAwait(1);
+        final var controlsId = component.findElement(input).getAttribute("aria-controls");
 
-        for (final var s : name) {
-            component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), s)).click();
+        for (final var name : names) {
+            component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), controlsId, name)).click();
         }
     }
 
@@ -98,17 +110,23 @@ public final class MultiSelector extends AbstractComponent {
         final var controlsId = component.findElement(input).getAttribute("aria-controls");
         final var scrollElement = component.findElement(ByKraken.xpathExpression(scroll.getDefaultXpathExpression(), controlsId));
         var scrollDownCount = 0;
-        ThreadUtil.simplyAwait(1);
-        while (scrollDownCount < 15
-                && scrollElement.isDisplayed()
-                && component.findElements(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), controlsId, name)).isEmpty()) {
-            Kraken.action().clickAndHold(scrollElement).moveByOffset(0, 15).release().build().perform();
+        while (scrollDownCount < 15) {
+            try {
+                final var element = component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), controlsId, name));
+                if (element.isDisplayed() && element.isEnabled()) {
+                    element.click();
+                } else {
+                    Kraken.jsAction().scrollIntoView(element);
+                    Kraken.jsAction().click(element);
+                }
+                Kraken.action().sendKeys(Keys.ESCAPE).build().perform();
+                return;
+            } catch (NoSuchElementException e) {
+                if (scrollElement.isDisplayed())
+                    Kraken.action().clickAndHold(scrollElement).moveByOffset(0, 15).release().build().perform();
+            }
             scrollDownCount++;
         }
-        while (!component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), controlsId, name)).isDisplayed())
-            Kraken.action().clickAndHold(scrollElement).moveByOffset(0, 15).release().build().perform();
-        component.findElement(ByKraken.xpathExpression(itemInDropDown.getDefaultXpathExpression(), controlsId, name)).click();
-        component.click();
     }
 
     public void selectAll() {

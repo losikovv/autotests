@@ -23,7 +23,8 @@ public final class AdminShoppersTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(2042)
-    @Test(description = "Создание партнера", groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke"})
+    @Test(description = "Создание партнера",
+            groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void shoppersCreateTest() {
         final var shopper = ShoppersData.shoppers();
 
@@ -63,7 +64,8 @@ public final class AdminShoppersTests {
     }
 
     @CaseId(2043)
-    @Test(description = "Редактирование партнера", groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke"})
+    @Test(description = "Редактирование партнера",
+            groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void shoppersEditTest() {
         final var shopperData = ShoppersData.shoppers();
         final var courier = ShoppersData.courier();
@@ -114,7 +116,7 @@ public final class AdminShoppersTests {
 
     @CaseId(2045)
     @Test(description = "Редактирование транспорта в карточке партнера",
-            groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke"},
+            groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"},
             dataProviderClass = CarTypeProvider.class,
             dataProvider = "carType"
     )
@@ -140,7 +142,8 @@ public final class AdminShoppersTests {
         shoppersEdit().interactAlert().checkSuccessFlashVisible();
     }
 
-    @Test(description = "Добавление транспортного средства в избранное", groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke"})
+    @Test(description = "Добавление транспортного средства в избранное",
+            groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void addVehicleToFavorite() {
         final var shopperData = ShoppersData.courier();
         final var shopper = helper.createShopper(shopperData);
@@ -167,7 +170,8 @@ public final class AdminShoppersTests {
         shoppersEdit().interactAlert().checkSuccessFlashVisible();
     }
 
-    @Test(description = "Удаление транспортного средства", groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke"})
+    @Test(description = "Удаление транспортного средства",
+            groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void deleteVehicle() {
         final var shopperData = ShoppersData.courier();
         final var shopper = helper.createShopper(shopperData);
