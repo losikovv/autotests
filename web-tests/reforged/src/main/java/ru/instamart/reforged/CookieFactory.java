@@ -14,7 +14,6 @@ public final class CookieFactory {
     private static final Date date = new GregorianCalendar(3000, Calendar.DECEMBER, 31).getTime();
     private static final String ANONYMOUS_ID = UserManager.getGuestQaWithoutAb();
     private static final String FIXED_ANONYMOUS_ID = "49f6c82a-b00d-42f5-ba0a-3c2a1875194c";
-
     private static final String FIXED_ANONYMOUS_ID_CHECKOUT = "ace4b8b6-21d7-4f41-9d7f-3f79eb75ee28";
     private static final String COOKIE_DOMAIN = EnvironmentProperties.Env.isProduction() ? "sbermarket.ru" : ".sbermarket.tech";
 

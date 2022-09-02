@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.page.shop;
 
 import io.qameta.allure.Step;
-import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.CollectionUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.enums.ShopUrl;
@@ -14,6 +13,7 @@ import ru.instamart.reforged.stf.drawer.category_menu.CategoryMenu;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.address.AddressLarge;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
+import ru.instamart.reforged.stf.frame.disclaimer.Disclaimer;
 import ru.instamart.reforged.stf.frame.order_evaluation_modal.OrderEvaluationModal;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 import ru.instamart.reforged.stf.frame.store_modal.StoreModal;
@@ -69,6 +69,10 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     public OrderEvaluationModal interactOrderEvaluation() {
         return orderEvaluationModal;
+    }
+
+    public Disclaimer interactDisclaimer() {
+        return disclaimer;
     }
 
     @Step("Открыть окно ввода адреса доставки")

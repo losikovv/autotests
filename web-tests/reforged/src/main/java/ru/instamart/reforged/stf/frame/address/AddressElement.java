@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.frame.address;
 
 import org.openqa.selenium.By;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.*;
 
 public interface AddressElement {
@@ -26,6 +27,7 @@ public interface AddressElement {
     Selector selectCity = new Selector(By.xpath("//select[@data-qa='city-selector-control']"), "empty");
     Element storeList = new Element(By.xpath("//div[@data-qa='expandable-store-list']"), "список магазинов для самовывоза");
     Element storeItem = new Element(By.xpath("//div[@data-qa='store-item']"), "empty");
+    Element storeByAddress = new Element(ByKraken.xpathExpression("//span[@data-qa='store-item-address'][contains(.,'%s')]"), "Магазин самовывоза по адресу");
     Element availableStoreCounter = new Element(By.xpath("//div[@data-qa='expandable-store-list-counter']"), "empty");
     Button selectStoreButton = new Button(By.xpath("//a[@data-qa='store-card']"), "Первый магазин в списке");
     Element otherRetailers = new Element(By.xpath("//div[@data-qa='address-edit']//span[contains(text(), 'Выбрать другой магазин')]"), "empty");

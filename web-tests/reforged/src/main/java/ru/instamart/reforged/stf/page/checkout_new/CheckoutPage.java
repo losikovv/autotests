@@ -26,6 +26,11 @@ public class CheckoutPage implements StfPage, CheckoutCheck {
         pickupTab.click();
     }
 
+    @Step("Переходим на вкладку 'Доставка'")
+    public void switchToDelivery() {
+        deliveryTab.click();
+    }
+
     @Step("Получаем полный адрес доставки из заголовка блока")
     public String getAddressFromTitle() {
         return addressTitle.getText();

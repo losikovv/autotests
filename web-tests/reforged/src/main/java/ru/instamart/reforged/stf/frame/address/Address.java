@@ -40,6 +40,11 @@ public final class Address implements AddressCheck {
         ThreadUtil.simplyAwait(2);
     }
 
+    @Step("Выбираем магазин самовывоза с адресом: '{storeAddress}'")
+    public void clickStoreWithAddress(final String storeAddress){
+        storeByAddress.click(storeAddress);
+    }
+
     @Step("Нажать кнопку найти адрес")
     public void clickToSearchAddress() {
         searchButton.click();

@@ -26,6 +26,16 @@ public interface CheckoutCheck extends Check, CheckoutElement {
         Kraken.waitAction().shouldBeVisible(pickupTabInfo);
     }
 
+    @Step("Проверяем, что указан адрес доставки: '{expectedAddress}'")
+    default void checkDeliveryAddress(final String expectedAddress) {
+        Assert.assertEquals(addressTitle.getText(), expectedAddress, "Адрес доставки отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что указан адрес магазина самовывоза: '{expectedStoreAddress}'")
+    default void checkPickupStoreAddress(final String expectedStoreAddress) {
+        Assert.assertEquals(pickupStoreAddress.getText(), expectedStoreAddress, "Адрес магазина самовывоза отличается от ожидаемого");
+    }
+
     @Step("Проверяем, что в поле 'Кв, офис' значение: {expectedApartmentValue}")
     default void checkApartmentValue(final String expectedApartmentValue) {
         Assert.assertEquals(apartment.getValue(), expectedApartmentValue, "Значение в поле 'Кв. офис' отличается от ожидаемого");

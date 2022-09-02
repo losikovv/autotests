@@ -47,8 +47,9 @@ public class RestAddresses {
 
         public static AddressV2 checkoutAddress() {
             return AddressV2.builder()
+                    .fullAddress("ул. Луговая, д. 193")
                     .city("Москва")
-                    .street("Рябиновая улица")
+                    .street("Рябиновая")
                     .building("59")
                     .lat(55.686030)
                     .lon(37.431647)

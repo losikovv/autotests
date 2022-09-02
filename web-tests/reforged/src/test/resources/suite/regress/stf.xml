@@ -55,6 +55,7 @@
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPaymentStepTests"/>
 
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutTests"/>
+            <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutSwitchTabsTests"/>
         </classes>
     </test>
 </suite>
