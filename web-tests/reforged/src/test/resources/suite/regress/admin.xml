@@ -31,6 +31,7 @@
 
             <class name="ru.instamart.test.reforged.admin.orders.AdministrationBasicOrdersTests"/>
             <class name="ru.instamart.test.reforged.admin.orders.AdministrationMultiselectFiltersOrdersTests"/>
+            <class name="ru.instamart.test.reforged.admin.orders.AdministrationShipmentInTableTests"/>
         </classes>
     </test>
 </suite>
