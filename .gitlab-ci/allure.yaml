@@ -30,7 +30,7 @@ Allure::deploy:
 
 .default_rules:
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH) && $CI_PIPELINE_SOURCE != "schedule"'
       changes:
         - .gitlab-ci/allure.yaml
         - docker/*
