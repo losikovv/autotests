@@ -29,11 +29,12 @@ import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDate;
 public class DeliveryPriceTest extends ShippingCalcBase {
 
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
-    private Integer localStrategyId;
-    private Integer conditionStrategyId;
-    private Integer firstGlobalStrategyId;
-    private Integer secondGlobalStrategyId;
+    private int localStrategyId;
+    private int conditionStrategyId;
+    private int firstGlobalStrategyId;
+    private int secondGlobalStrategyId;
     private final String STORE_ID = UUID.randomUUID().toString();
+    private final String SURGE_STORE_ID = UUID.randomUUID().toString();
     private final String PRODUCT_ID = UUID.randomUUID().toString();
     private final String SHIPMENT_ID = UUID.randomUUID().toString();
     private final String CUSTOMER_ID = UUID.randomUUID().toString();
@@ -57,6 +58,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         addCondition(addRule(localStrategyId, "", "100000", 0, "min_cart"), "{\"Max\": 300000, \"Min\": 0}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
         addCondition(addRule(localStrategyId, "", "50000", 1, "min_cart"), "{\"Max\": 1000000000000000, \"Min\": 300100}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
         addBinding(localStrategyId, STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
+        addBinding(localStrategyId, SURGE_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
 
         conditionStrategyId = addStrategy(false, 0, DeliveryType.COURIER_DELIVERY.toString());
         addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "0"), 0, "delivery_price"), "{\"Count\": 1}", ConditionType.FIRST_N_ORDERS.name().toLowerCase());
@@ -69,9 +71,11 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "29900"), 5, "delivery_price"), "{}", ConditionType.ALWAYS.name().toLowerCase());
         addCondition(addRule(conditionStrategyId, "", "100000", 0, "min_cart"), "{}", ConditionType.ALWAYS.name().toLowerCase());
         addBinding(conditionStrategyId, STORE_ID, Tenant.INSTAMART.getId(), DeliveryType.COURIER_DELIVERY.toString());
+
+        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 1000);
     }
 
-    @CaseIDs(value = {@CaseId(355), @CaseId(356), @CaseId(289), @CaseId(321), @CaseId(322), @CaseId(328), @CaseId(330), @CaseId(383)})
+    @CaseIDs(value = {@CaseId(355), @CaseId(356), @CaseId(289), @CaseId(321), @CaseId(322), @CaseId(328), @CaseId(330), @CaseId(383), @CaseId(427)})
     @Story("Get Delivery Price")
     @Test(description = "Получение цены по локальной стратегии",
             groups = "dispatch-shippingcalc-smoke")
@@ -258,7 +262,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             softAssert.assertTrue(offerResponse.getIsOrderPossible(), "Заказ не возможен");
             softAssert.assertTrue(offerResponse.getShipments(0).getWeHadOffer(), "Получили цену не из оффера");
             softAssert.assertEquals(offerResponse.getTotalShippingPrice(), 19900, "Не ожидаемая цена доставки");
-            softAssert.assertEquals((Integer) offerResponse.getShipments(0).getStrategyId(), localStrategyId, "Посчитали по неверной стратегии");
+            softAssert.assertEquals(offerResponse.getShipments(0).getStrategyId(), localStrategyId, "Посчитали по неверной стратегии");
             softAssert.assertEquals(offerResponse.getShipments(0).getMinimalCartPrice(), 100000, "Отдали неверную цену мин. корзины");
             softAssert.assertEquals(offerResponse.getShipments(0).getLadderCount(), 3, "В лесенке не ожидаемое кол-во ступеней");
             softAssert.assertEquals(offerResponse.getShipments(0).getHintsCount(), 4, "Не ожидаемое кол-во подсказок");
@@ -274,13 +278,9 @@ public class DeliveryPriceTest extends ShippingCalcBase {
     @Test(description = "Расчет цены с наценкой surge",
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryPriceWithSurge() {
-        String storeId = UUID.randomUUID().toString();
-        addBinding(localStrategyId, storeId, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
-        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC),"store:" + storeId, String.format(REDIS_VALUE, storeId, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
-
         var request = getDeliveryPriceRequest(
                 1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, true,
-                1000, 1, 99900, storeId, "NEW", 1, 0,
+                1000, 1, 99900, SURGE_STORE_ID, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -302,13 +302,9 @@ public class DeliveryPriceTest extends ShippingCalcBase {
     @Test(description = "Расчет цены без наценки surge для не on-demand заказа",
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryPriceWithoutSurge() {
-        String storeId = UUID.randomUUID().toString();
-        addBinding(localStrategyId, storeId, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
-        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC),"store:" + storeId, String.format(REDIS_VALUE, storeId, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
-
         var request = getDeliveryPriceRequest(
                 1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, false,
-                1000, 1, 99900, storeId, "NEW", 1, 0,
+                1000, 1, 99900, SURGE_STORE_ID, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -330,13 +326,9 @@ public class DeliveryPriceTest extends ShippingCalcBase {
     @Test(description = "Расчет цены без наценки surge для новых клиентов",
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryPriceWithoutSurgeNewCustomers() {
-        String storeId = UUID.randomUUID().toString();
-        addBinding(localStrategyId, storeId, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
-        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC),"store:" + storeId, String.format(REDIS_VALUE, storeId, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
-
         var request = getDeliveryPriceRequest(
                 1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, true,
-                1000, 1, 99900, storeId, "NEW", 1, 0,
+                1000, 1, 99900, SURGE_STORE_ID, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -351,6 +343,35 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             softAssert.assertAll();
         });
         checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0, 0);
+    }
+
+    @CaseId(422)
+    @Story("Get Delivery Price")
+    @Test(description = "Кэширование surgelevel на уровне шимпента",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = {"getDeliveryPriceWithSurge", "getDeliveryPriceWithoutSurge", "getDeliveryPriceWithoutSurgeNewCustomers"})
+    public void getDeliveryPriceWithShipmentSurge() {
+        Allure.step("Меняем уровень surge у магазина", () -> {
+            RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC),"store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, 0, 0, 0, getZonedUTCDate()), 100);
+        });
+
+        var request = getDeliveryPriceRequest(
+                1, PRODUCT_ID, 199900, 0, 1000, SHIPMENT_ID, true,
+                1000, 1, 199900, SURGE_STORE_ID, "NEW", 1, 0,
+                55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
+                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+
+        Allure.step("Проверяем получение изначального уровня surge и наценки по нему", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getShipments(0).getSurgeUsed(), "Surge не использовался при расчете цены");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), (float) surgeLevel, "Не верный surgelevel");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 10990, "Не верная наценка");
+            softAssert.assertAll();
+        });
+        checkDeliveryPrice(response, localStrategyId, 20890, 100000, 3, 4, 0, 0);
     }
 
     @CaseId(320)
@@ -398,7 +419,19 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 1, 4, 0, 0);
+
+        Allure.step("Проверяем расчитанную цену доставки по самому дорогому правилу", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getIsOrderPossible(), "Заказ не возможен");
+            softAssert.assertFalse(response.getShipments(0).getWeHadOffer(), "Получили цену из оффера");
+            softAssert.assertEquals(response.getTotalShippingPrice(), 19900, "Не ожидаемая общая цена доставки");
+            softAssert.assertEquals(response.getShipments(0).getStrategyId(), localStrategyId, "Посчитали по неверной стратегии");
+            softAssert.assertEquals(response.getShipments(0).getMinimalCartPrice(), 100000, "Отдали неверную цену мин. корзины");
+            softAssert.assertEquals(response.getShipments(0).getLadderCount(), 1, "В лесенке не ожидаемое кол-во ступеней");
+            softAssert.assertEquals(response.getShipments(0).getHintsCount(), 4, "Не ожидаемое кол-во подсказок");
+            softAssert.assertEquals(response.getShipments(0).getPriceExplanation().getPassedConditionsCount(), 0, "Не ожидаемое кол-во прошедших условий");
+            softAssert.assertAll();
+        });
     }
 
     @CaseIDs(value = {@CaseId(360), @CaseId(331)})

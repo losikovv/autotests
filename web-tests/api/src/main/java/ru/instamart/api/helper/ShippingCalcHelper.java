@@ -218,6 +218,7 @@ public class ShippingCalcHelper {
         softAssert.assertEquals(response.getShipments(shipmentIndex).getStrategyId(), strategyId, "Посчитали по неверной стратегии");
         softAssert.assertEquals(response.getShipments(shipmentIndex).getMinimalCartPrice(), minCartPrice, "Отдали неверную цену мин. корзины");
         softAssert.assertEquals(response.getShipments(shipmentIndex).getLadderCount(), stepAmount, "В лесенке не ожидаемое кол-во ступеней");
+        softAssert.assertTrue(response.getShipments(shipmentIndex).getLadder(0).getPriceComponentsCount() > 0, "В лесенке нет ценовых компонентов");
         softAssert.assertEquals(response.getShipments(shipmentIndex).getHintsCount(), hintAmount, "Не ожидаемое кол-во подсказок");
         softAssert.assertEquals(response.getShipments(shipmentIndex).getPriceExplanation().getPassedConditionsCount(), passedConditionAmount, "Не ожидаемое кол-во прошедших условий");
         softAssert.assertAll();
