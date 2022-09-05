@@ -2,6 +2,7 @@ package ru.instamart.reforged.stf.page.checkout_new;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
@@ -160,6 +161,16 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     @Step("Проверяем, что отображается информация о примененном промокоде")
     default void checkPromoAppliedLabelVisible() {
         Kraken.waitAction().shouldBeVisible(promoAppliedLabel);
+    }
+
+    @Step("Проверяем, что стоимость доставки и сборки - бесплатная")
+    default void checkDeliveryIsFree() {
+        Assert.assertEquals(deliveryPrice.getText(), "бесплатно", "Доставка не бесплатная");
+    }
+
+    @Step("Проверяем, что стоимость доставки и сборки не бесплатная")
+    default void checkDeliveryIsNotFree() {
+        Assert.assertTrue(StringUtil.stringToDouble(deliveryPrice.getText()) > 0, "Доставка бесплатная");
     }
 
     @Step("Проверяем, что отображается сумма скидки по промокоду")

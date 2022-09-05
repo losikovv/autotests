@@ -69,6 +69,8 @@ public interface CheckoutElement {
     Element promoCodeError = new Element(By.xpath("//div[@data-qa='checkout_page_sidebar_promocode_wrapper']//label[contains(@class,'FormGroup_description')]"), "Ошибка в поле ввода промокода");
 
     Element promoAppliedLabel = new Element(By.xpath("//span[@data-qa='checkout_page_sidebar_order_summary_promo_label']"), "Промокод");
+    Element deliveryPrice = new Element(By.xpath("//div[@data-qa='checkout_page_sidebar_order_summary']//span[contains(@class,'price') and not(contains(@data-qa,'total_price'))]"), "Лейбл стоимости доставки");
+    Element orderAmount = new Element(By.xpath("//span[@data-qa='checkout_page_sidebar_order_summary_total_price']"), "Лейбл стоимости заказа");
     Element promoAppliedDiscount = new Element(By.xpath("//span[@data-qa='checkout_page_sidebar_order_summary_promo_price']"), "Скидка по промокоду");
     Button confirmPay = new Button(By.xpath("//button[@data-qa='checkout_page_sidebar_order_button'][.='Оплатить']"), "Кнопка 'Оплатить'");
     Button confirmPayDisabled = new Button(By.xpath("//button[@data-qa='checkout_page_sidebar_order_button'][.='Оплатить'][@disabled]"), "Кнопка 'Оплатить'");

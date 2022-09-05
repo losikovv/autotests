@@ -1,6 +1,8 @@
 package ru.instamart.reforged.stf.page.checkout_new;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.stf.page.StfPage;
 import ru.instamart.reforged.stf.page.checkout_new.add_payment_card_modal.AddPaymentCardModal;
@@ -117,6 +119,21 @@ public class CheckoutPage implements StfPage, CheckoutCheck {
     @Step("Получаем стоимость доставки выбранного слота")
     public String getActiveSlotCost() {
         return activeDeliverySlotCost.getText();
+    }
+
+    @Step("Получаем сумму заказа")
+    public String getOrderAmount() {
+        return orderAmount.getText();
+    }
+
+    @Step("Убеждаемся что сумма заказа уменьшилась после применения промокода")
+    public void checkAmountDecreaseAfterApplyPromo(String text) {
+        Assert.assertTrue(StringUtil.stringToDouble(orderAmount.getText()) < StringUtil.stringToDouble(text), "Сумма заказа не стала меньше после применения промокода");
+    }
+
+    @Step("Убеждаемся что сумма заказа не изменилась")
+    public void checkAmountNotChanged(String text) {
+        Assert.assertEquals(StringUtil.stringToDouble(orderAmount.getText()), StringUtil.stringToDouble(text), "Сумма заказа изменилась");
     }
 
     @Step("Открываем модальное окно выбора слотов доставки из заголовка блока слотов")
