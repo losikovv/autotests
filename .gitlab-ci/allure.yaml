@@ -18,6 +18,7 @@ diff::allure::deploy:
   rules: !reference [.default_rules, rules]
   script:
     - echo -e "test"
+  when: on_success
 
 Allure::deploy:
   needs:
@@ -27,6 +28,7 @@ Allure::deploy:
   rules: !reference [.default_rules, rules]
   script:
     - echo -e "test"
+  when: on_success
 
 .default_rules:
   rules:
@@ -36,6 +38,8 @@ Allure::deploy:
         - docker/*
         - .helm/*
       when: manual
+    - if: '$CI_PIPELINE_SOURCE != "schedule" && $CI_PIPELINE_SOURCE != "web" && $CI_PIPELINE_SOURCE != "trigger"'
+      when: never
     - when: never
 
 .build_image:docker:
