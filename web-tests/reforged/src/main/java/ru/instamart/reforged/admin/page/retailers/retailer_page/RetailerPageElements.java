@@ -7,11 +7,14 @@ import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
+import ru.instamart.reforged.core.component.Image;
 
 public interface RetailerPageElements {
 
     SettingsSidebar settingsSidebar = new SettingsSidebar();
     AppearanceSidebar appearanceSidebar = new AppearanceSidebar();
+
+    Image logo = new Image(By.xpath("//img"), "логотип ритейлреа");
 
     Element retailerName = new Element(By.xpath("//span[contains(.,'Ритейлер')]/following-sibling::span"), "Свойства ритейлера - Наименование");
     Element retailerUrl = new Element(By.xpath("//span[contains(.,'Название ритейлера в url')]/following-sibling::span"), "Свойства ритейлера - Название ритейлера в url");

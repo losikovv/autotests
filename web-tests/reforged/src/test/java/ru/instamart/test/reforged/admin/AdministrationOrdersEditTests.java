@@ -66,7 +66,7 @@ public final class AdministrationOrdersEditTests {
         shipmentPageDelivery().checkSavedDeliveryIntervalVisible();
         shipmentPageDelivery().checkSavedDeliveryIntervalTextContains(shipment.getAttributes().getDeliveryInterval());
 
-        final String newDeliveryInterval = StringUtil.getTimeFromDeliveryText(shipmentPageDelivery().getFirstAvailableDeliveryInterval());
+        final var newDeliveryInterval = StringUtil.getTimeFromDeliveryText(shipmentPageDelivery().getFirstAvailableDeliveryInterval());
         shipmentPageDelivery().selectFirstAvailableDeliveryInterval();
 
         shipmentPageDelivery().clickDeliveryChangeInputReason();

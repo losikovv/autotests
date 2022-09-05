@@ -25,10 +25,10 @@ public final class AdministrationUsersSectionTests {
     @Story("Тест поиска пользователя в админке")
     @Test(description = "Работоспособность поиска в списке юзеров", groups = {"regression", "production"})
     public void successSearchUser() {
-        final String email = UserManager.getDefaultAdmin().getEmail();
+        final var email = UserManager.getDefaultAdmin().getEmail();
 
         login().goToPage();
-        login().auth(UserManager.getDefaultAdminAllRoles());
+        login().auth(UserManager.getDefaultAdmin());
 
         users().goToPage();
         users().fillSearchByEmailOrPhone(email);

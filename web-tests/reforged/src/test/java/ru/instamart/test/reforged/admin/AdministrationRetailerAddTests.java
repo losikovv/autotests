@@ -128,17 +128,19 @@ public final class AdministrationRetailerAddTests {
         retailerAdd().checkNameInputVisible();
 
         retailerAdd().fillImportKey(Generate.literalString(10));
+        retailerAdd().sendTabKey();
         retailerAdd().checkImportKeyInputErrorVisible();
-        retailerAdd().checkImportKeyInputErrorText("Только число");
+        retailerAdd().checkImportKeyInputErrorText("Обязательное поле");
         retailerAdd().clearImportKey();
 
         retailerAdd().fillImportKey(Generate.symbolString(10));
+        retailerAdd().sendTabKey();
         retailerAdd().checkImportKeyInputErrorVisible();
         retailerAdd().clearImportKey();
 
         retailerAdd().fillImportKey(Generate.literalCyrillicString(10));
+        retailerAdd().sendTabKey();
         retailerAdd().checkImportKeyInputErrorVisible();
-        retailerAdd().checkImportKeyInputText("");
         retailerAdd().clearImportKey();
 
         retailerAdd().fillImportKey(importKey);

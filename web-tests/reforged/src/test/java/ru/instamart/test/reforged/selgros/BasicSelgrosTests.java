@@ -80,7 +80,7 @@ public final class BasicSelgrosTests {
         selgros().interactFooter().checkDeliveryZoneVisible();
         selgros().interactFooter().checkDeliveryAndPaymentVisible();
         selgros().interactFooter().checkPaymentInfoVisible();
-        selgros().assertAll();
+        selgros().interactFooter().assertAll();
     }
 
     @DoNotOpenBrowser

@@ -20,7 +20,12 @@
             <class name="ru.instamart.test.reforged.admin.AdministrationRetailerTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationRetailerActivateTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationShipmentsSectionTests"/>
+            <!--
+            Настройка способов доставки больше не работает.
+            Если вам необходимо поменять цену доставки, попросите помощи в канале ~dev-team-highgarden.
+            Новая админка скоро будет доступна по ссылке - https://admin.sbmt.io/admin/spa/pricing_strategies
             <class name="ru.instamart.test.reforged.admin.AdministrationShippingSettingsTests"/>
+            -->
             <class name="ru.instamart.test.reforged.admin.AdministrationUsersSectionTests"/>
             <class name="ru.instamart.test.reforged.admin.BasicAdministrationTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationRetailerEditTests"/>

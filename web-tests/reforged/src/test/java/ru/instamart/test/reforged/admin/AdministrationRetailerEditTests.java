@@ -37,7 +37,8 @@ public final class AdministrationRetailerEditTests {
         retailers().checkAddNewRetailerButtonVisible();
         retailers().clickOnRetailer(retailerName);
 
-        retailer().checkAddNewStoreButtonVisible();
+        retailer().waitPageLoad();
+        retailer().checkLogoNotAnimated();
         retailer().clickOnSettings();
         retailer().interactiveSettings().checkSidebarVisible();
         retailer().interactiveSettings().checkDrawerTitle("Редактирование настроек ритейлера");
@@ -55,7 +56,8 @@ public final class AdministrationRetailerEditTests {
         retailers().checkAddNewRetailerButtonVisible();
         retailers().clickOnRetailer(retailerName);
 
-        retailer().checkAddNewStoreButtonVisible();
+        retailer().waitPageLoad();
+        retailer().checkLogoNotAnimated();
         retailer().clickOnAppearance();
         retailer().interactiveAppearance().checkSidebarVisible();
         retailer().interactiveAppearance().checkDrawerTitle("Редактирование внешнего вида ритейлера");
