@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
 import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDate;
 
@@ -32,6 +33,7 @@ public class MinCartTest extends ShippingCalcBase {
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
     private Integer strategyId;
     private final String STORE_ID = UUID.randomUUID().toString();
+    private final String SECOND_STORE_ID = UUID.randomUUID().toString();
     private final String CUSTOMER_ID = UUID.randomUUID().toString();
     private final String ANONYMOUS_ID = UUID.randomUUID().toString();
     private final String FIXED_SCRIPT_NAME = "Фиксированная цена, с подсказками и объяснением";
@@ -51,6 +53,7 @@ public class MinCartTest extends ShippingCalcBase {
         addCondition(addRule(strategyId, "", "150000", 1, "min_cart"), "{\"platforms\": [{\"name\": \"SbermarketIOS\", \"version\": \"6.29.0\"}]}", ConditionType.PLATFORMS.name().toLowerCase());
         addCondition(addRule(strategyId, "", "100000", 2, "min_cart"), "{}", ConditionType.ALWAYS.name().toLowerCase());
         addBinding(strategyId, STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
+        addBinding(strategyId, SECOND_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
     }
 
     @CaseIDs(value = {@CaseId(411), @CaseId(415)})
@@ -77,9 +80,6 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Получение условий доставки для нескольких магазинов",
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryConditionsMultipleStores() {
-        String secondStore = UUID.randomUUID().toString();
-        addBinding(strategyId, secondStore, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
-
         var request = GetDeliveryConditionsRequest.newBuilder()
                 .addStores(Store.newBuilder()
                         .setId(STORE_ID)
@@ -87,7 +87,7 @@ public class MinCartTest extends ShippingCalcBase {
                         .setLon(55.55f)
                         .build())
                 .addStores(Store.newBuilder()
-                        .setId(secondStore)
+                        .setId(SECOND_STORE_ID)
                         .setLat(55.55f)
                         .setLon(55.55f)
                         .build())
@@ -110,7 +110,7 @@ public class MinCartTest extends ShippingCalcBase {
         Allure.step("Проверяем условия доставки для нескольких магазинов", () -> {
             assertTrue(response.getDeliveryConditionsCount() > 0, "Пустые условия доставки");
 
-            List<String> storeUuids = List.of(STORE_ID, secondStore);
+            List<String> storeUuids = List.of(STORE_ID, SECOND_STORE_ID);
 
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(storeUuids.contains(response.getDeliveryConditions(0).getStoreId()), "Не ожидаемый uuid магазина");
@@ -136,7 +136,7 @@ public class MinCartTest extends ShippingCalcBase {
     public void getDeliveryConditionsWithSurge() {
         String storeWithSurge = UUID.randomUUID().toString();
         addBinding(strategyId, storeWithSurge, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
-        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC),"store:" + storeWithSurge, String.format(REDIS_VALUE, storeWithSurge, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
+        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + storeWithSurge, String.format(REDIS_VALUE, storeWithSurge, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
 
         var request = getDeliveryConditionsRequest(storeWithSurge, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
                 99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE,
@@ -169,7 +169,7 @@ public class MinCartTest extends ShippingCalcBase {
     public void getDeliveryConditionsWithoutSurgeNewCustomers() {
         String storeWithSurge = UUID.randomUUID().toString();
         addBinding(strategyId, storeWithSurge, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
-        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC),"store:" + storeWithSurge, String.format(REDIS_VALUE, storeWithSurge, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
+        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + storeWithSurge, String.format(REDIS_VALUE, storeWithSurge, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
 
         var request = getDeliveryConditionsRequest(storeWithSurge, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE,
@@ -214,6 +214,26 @@ public class MinCartTest extends ShippingCalcBase {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(firstResponse.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 4900, "Не ожидаемая базовая цена в лесенке");
             softAssert.assertEquals(secondResponse.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 14900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(416)
+    @Story("Get Delivery Conditions")
+    @Test(description = "Получение условий доставки для магазина у которого не нашли связку",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryConditionsNotFound() {
+        String storeId = UUID.randomUUID().toString();
+        var request = getDeliveryConditionsRequest(storeId, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+                0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE, AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryConditions(request);
+
+        Allure.step("Проверяем пустой ответ", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(response.getDeliveryConditions(0).getStoreId(), storeId, "Не ожидаемый uuid магазина");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().toString(), "", "Не пустой surge в ответе");
+            softAssert.assertFalse(response.getDeliveryConditions(0).getLadderCount() > 0, "Не пустой ladder в ответе");
             softAssert.assertAll();
         });
     }
@@ -299,6 +319,181 @@ public class MinCartTest extends ShippingCalcBase {
                 .build();
 
         clientShippingCalc.getDeliveryConditions(request);
+    }
+
+    @CaseId(428)
+    @Story("Get Delivery Conditions")
+    @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryConditionsNoCustomerId() {
+        var request = GetDeliveryConditionsRequest.newBuilder()
+                .addStores(Store.newBuilder()
+                        .setId(STORE_ID)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .build())
+                .setCustomer(Customer.newBuilder()
+                        .setAnonymousId(ANONYMOUS_ID)
+                        .setOrdersCount(0)
+                        .setRegisteredAt(1655822708)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .build())
+                .setTenant(Tenant.SBERMARKET.getId())
+                .setDeliveryTypeValue(DeliveryType.COURIER_DELIVERY_VALUE)
+                .setPlatformName(AppVersion.WEB.getName())
+                .setPlatformVersion(AppVersion.WEB.getVersion())
+                .build();
+
+        var response = clientShippingCalc.getDeliveryConditions(request);
+        checkDeliveryConditions(response, STORE_ID, 100000, 2, 3);
+        Allure.step("Проверяем базовую цену в лесенке", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(391)
+    @Story("Get Min Cart Amounts")
+    @Test(description = "Получение минимальной корзины с валидными данными",
+            groups = "dispatch-shippingcalc-smoke")
+    public void getMinCartAmounts() {
+        var request = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE);
+
+        var response = clientShippingCalc.getMinCartAmounts(request);
+        checkMinCartAmounts(response, STORE_ID, 100000);
+    }
+
+    @CaseId(392)
+    @Story("Get Min Cart Amounts")
+    @Test(description = "Получение минимальной корзины по нескольким магазинам",
+            groups = "dispatch-shippingcalc-smoke")
+    public void getMinCartAmountsMultipleStores() {
+        var request = GetMinCartAmountsRequest.newBuilder()
+                .addStores(Store.newBuilder()
+                        .setId(STORE_ID)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .build())
+                .addStores(Store.newBuilder()
+                        .setId(SECOND_STORE_ID)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .build())
+                .setCustomer(Customer.newBuilder()
+                        .setId(CUSTOMER_ID)
+                        .setAnonymousId(ANONYMOUS_ID)
+                        .setOrdersCount(1)
+                        .setRegisteredAt(1655822708)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .build())
+                .setTenant(Tenant.SBERMARKET.getId())
+                .setDeliveryTypeValue(DeliveryType.COURIER_DELIVERY_VALUE)
+                .build();
+
+        var response = clientShippingCalc.getMinCartAmounts(request);
+
+        Allure.step("Проверяем условия доставки для нескольких магазинов", () -> {
+            assertTrue(response.getMinCartAmountsCount() > 0, "Пустые мин. корзины");
+
+            List<String> storeUuids = List.of(STORE_ID, SECOND_STORE_ID);
+
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(storeUuids.contains(response.getMinCartAmounts(0).getStoreId()), "Не ожидаемый uuid магазина");
+            softAssert.assertEquals(response.getMinCartAmounts(0).getAmount(), 100000, "Не ожидаемая минимальная корзина");
+            softAssert.assertTrue(storeUuids.contains(response.getMinCartAmounts(1).getStoreId()), "Не ожидаемый uuid магазина");
+            softAssert.assertEquals(response.getMinCartAmounts(1).getAmount(), 100000, "Не ожидаемая минимальная корзина");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(413)
+    @Story("Get Min Cart Amounts")
+    @Test(description = "Проверка прохождений условий в правилах мин корзины",
+            groups = "dispatch-shippingcalc-smoke")
+    public void getMinCartAmountsDifferentRules() {
+        var firstRequest = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+                0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE);
+        var secondRequest = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE);
+
+        var firstResponse = clientShippingCalc.getMinCartAmounts(firstRequest);
+        var secondResponse = clientShippingCalc.getMinCartAmounts(secondRequest);
+
+        checkMinCartAmounts(firstResponse, STORE_ID, 50000);
+        checkMinCartAmounts(secondResponse, STORE_ID, 100000);
+    }
+
+    @CaseId(393)
+    @Story("Get Min Cart Amounts")
+    @Test(description = "Получение пустого списка для магазина у которого не нашли связку",
+            groups = "dispatch-shippingcalc-regress")
+    public void getMinCartAmountsNotFound() {
+        var request = getMinCartAmountsRequest(UUID.randomUUID().toString(), 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+                0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE);
+
+        var response = clientShippingCalc.getMinCartAmounts(request);
+
+        Allure.step("Проверяем пустой ответ", () -> {
+            compareTwoObjects(response.toString(), "");
+        });
+    }
+
+    @CaseId(398)
+    @Story("Get Min Cart Amounts")
+    @Test(description = "Получение ошибки при невалидном delivery_type",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot get min cart amount: .*")
+    public void getMinCartAmountsNoDeliveryType() {
+        var request = GetMinCartAmountsRequest.newBuilder()
+                .addStores(Store.newBuilder()
+                        .setId(STORE_ID)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .build())
+                .setCustomer(Customer.newBuilder()
+                        .setId(CUSTOMER_ID)
+                        .setAnonymousId(ANONYMOUS_ID)
+                        .setOrdersCount(1)
+                        .setRegisteredAt(1655822708)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .build())
+                .setTenant(Tenant.SBERMARKET.getId())
+                .build();
+
+        clientShippingCalc.getMinCartAmounts(request);
+    }
+
+    @CaseId(395)
+    @Story("Get Min Cart Amounts")
+    @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID",
+            groups = "dispatch-shippingcalc-regress")
+    public void getMinCartAmountsNoCustomerId() {
+        var request = GetMinCartAmountsRequest.newBuilder()
+                .addStores(Store.newBuilder()
+                        .setId(STORE_ID)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .build())
+                .setCustomer(Customer.newBuilder()
+                        .setAnonymousId(ANONYMOUS_ID)
+                        .setOrdersCount(0)
+                        .setRegisteredAt(1655822708)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .build())
+                .setTenant(Tenant.SBERMARKET.getId())
+                .setDeliveryTypeValue(DeliveryType.COURIER_DELIVERY_VALUE)
+                .build();
+
+        var response = clientShippingCalc.getMinCartAmounts(request);
+        checkMinCartAmounts(response, STORE_ID, 100000);
     }
 
     @AfterClass(alwaysRun = true)

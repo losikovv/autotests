@@ -334,7 +334,7 @@ public class ShippingCalcHelper {
                 .build();
     }
 
-    @Step("Проверяем условия доставки")
+    @Step("Проверяем условия доставки магазина")
     public static void checkDeliveryConditions(GetDeliveryConditionsResponse response, String storeId, int minCartAmount, int ladderStepCount, int priceComponentsCount) {
         assertTrue(response.getDeliveryConditionsCount() > 0, "Пустые условия доставки");
         final SoftAssert softAssert = new SoftAssert();
@@ -342,6 +342,36 @@ public class ShippingCalcHelper {
         softAssert.assertEquals(response.getDeliveryConditions(0).getMinCartAmount(), minCartAmount, "Не ожидаемая минимальная корзина");
         softAssert.assertEquals(response.getDeliveryConditions(0).getLadderCount(), ladderStepCount, "Не ожидаемое кол-во ступеней в лесенке");
         softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponentsCount(), priceComponentsCount, "Не ожидаемое кол-во компонентов цены");
+        softAssert.assertAll();
+    }
+
+    @Step("Получаем запрос для получения мин. корзины магазина")
+    public static GetMinCartAmountsRequest getMinCartAmountsRequest(String storeId, Float storeLat, Float storeLon, String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Float customerLat, Float customerLon, String tenant, Integer deliveryTypeValue) {
+        return GetMinCartAmountsRequest.newBuilder()
+                .addStores(Store.newBuilder()
+                        .setId(storeId)
+                        .setLat(storeLat)
+                        .setLon(storeLon)
+                        .build())
+                .setCustomer(Customer.newBuilder()
+                        .setId(customerId)
+                        .setAnonymousId(anonymousId)
+                        .setOrdersCount(ordersCount)
+                        .setRegisteredAt(registeredAt)
+                        .setLat(customerLat)
+                        .setLon(customerLon)
+                        .build())
+                .setTenant(tenant)
+                .setDeliveryTypeValue(deliveryTypeValue)
+                .build();
+    }
+
+    @Step("Проверяем мин. корзину магазина")
+    public static void checkMinCartAmounts(GetMinCartAmountsResponse response, String storeId, int minCartAmount) {
+        assertTrue(response.getMinCartAmountsCount() > 0, "Пустая мин. корзина");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(response.getMinCartAmounts(0).getStoreId(), storeId, "Не ожидаемый uuid магазина");
+        softAssert.assertEquals(response.getMinCartAmounts(0).getAmount(), minCartAmount, "Не ожидаемая минимальная корзина");
         softAssert.assertAll();
     }
 }
