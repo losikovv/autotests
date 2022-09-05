@@ -60,6 +60,7 @@ before_script:
   - cd web-tests
 
 stages:
+  - mr
   - allure build
   - allure deploy
   - build
@@ -230,7 +231,7 @@ tests:customRun:
 tests:AutoMRCheck:
   only:
     - merge_requests
-  stage: tests-api
+  stage: mr
   script:
     - gradle --continue clean build :api:autoMr :reforged:autoMr allureCopyHistoryDir
   after_script:

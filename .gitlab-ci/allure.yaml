@@ -1,59 +1,35 @@
 Allure::image::build:
   stage: allure build
-  only:
-    refs:
-      - merge_requests
-      - master
-    changes:
-      - .gitlab-ci/allure.yaml
-      - docker/*
-      - .helm/*
-  when: manual
+  rules: !reference [.default_rules, rules]
   extends:
     - ".build_image:docker"
 
 Allure::image::build::ui:
   stage: allure build
-  only:
-    refs:
-      - merge_requests
-      - master
-    changes:
-      - .gitlab-ci/allure.yaml
-      - docker/*
-      - .helm/*
-  when: manual
+  rules: !reference [.default_rules, rules]
   extends:
     - ".build_image:docker:ui"
 
 diff::allure::deploy:
   stage: allure deploy
-  only:
-    refs:
-      - merge_requests
-      - master
-    changes:
-      - .gitlab-ci/allure.yaml
-      - docker/*
-      - .helm/*
+  rules: !reference [.default_rules, rules]
   script:
     - echo -e "test"
-  when: manual
 
 Allure::deploy:
   stage: allure deploy
-  only:
-    refs:
-      - merge_requests
-      - master
-    changes:
-      - .gitlab-ci/allure.yaml
-      - docker/*
-      - .helm/*
+  rules: !reference [.default_rules, rules]
   script:
     - echo -e "test"
-  when: manual
 
+.default_rules:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      changes:
+        - .gitlab-ci/allure.yaml
+        - docker/*
+        - .helm/*
+      when: manual
 
 .build_image:docker:
   needs: []
