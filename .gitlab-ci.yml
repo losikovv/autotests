@@ -61,8 +61,6 @@ before_script:
 
 stages:
   - mr
-  - allure build
-  - allure deploy
   - build
   - tests-api-shopper
   - tests-api
@@ -73,6 +71,8 @@ stages:
   - tests-ui
   - tests-ui-tenant
   - custom-run
+  - allure build
+  - allure deploy
 
 .template_only_branches:
   only:

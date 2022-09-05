@@ -11,12 +11,18 @@ Allure::image::build::ui:
     - ".build_image:docker:ui"
 
 diff::allure::deploy:
+  needs:
+    - "Allure::image::build"
+    - "Allure::image::build::ui"
   stage: allure deploy
   rules: !reference [.default_rules, rules]
   script:
     - echo -e "test"
 
 Allure::deploy:
+  needs:
+    - "Allure::image::build"
+    - "Allure::image::build::ui"
   stage: allure deploy
   rules: !reference [.default_rules, rules]
   script:
