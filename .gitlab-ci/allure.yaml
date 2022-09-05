@@ -29,7 +29,7 @@ Allure::deploy:
         - .gitlab-ci/allure.yaml
         - docker/*
         - .helm/*
-      when: manual
+    - when: never
 
 .build_image:docker:
   needs: []
