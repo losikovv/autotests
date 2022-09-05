@@ -28,4 +28,8 @@ public final class Should {
     public void notClickable() {
         Kraken.waitAction().shouldNotBeClickable(component);
     }
+
+    public void notAnimated() {
+        Kraken.waitAction().shouldNotBeAnimated(component);
+    }
 }

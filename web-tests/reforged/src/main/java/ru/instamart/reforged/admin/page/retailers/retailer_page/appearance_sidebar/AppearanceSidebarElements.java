@@ -6,8 +6,8 @@ import ru.instamart.reforged.core.component.Element;
 
 public interface AppearanceSidebarElements {
 
-    Element drawer = new Element(By.xpath("//div[@data-qa='retailer_edit_appearance_drawer']"), "Сайдбар 'Редактирование внешнего вида ритейлера'");
-    Element drawerTitle = new Element(By.xpath("//div[@data-qa='retailer_edit_appearance_drawer']//div[@class='ant-drawer-title']"), "Заголовок сайдбара");
+    Element drawer = new Element(By.xpath("//div[@class='ant-drawer-content-wrapper']"), "Сайдбар 'Редактирование внешнего вида ритейлера'");
+    Element drawerTitle = new Element(By.xpath("//div[@class='ant-drawer-title']"), "Заголовок сайдбара");
     Button uploadLogo = new Button(By.xpath("//button[@data-qa='retailer_edit_upload_logo']"), "Кнопка 'Загрузить файл'");
 
     Button cancel = new Button(By.xpath("//button[@data-qa='retailer_edit_close_drawer_btn']"), "Кнопка 'Отменить'");

@@ -72,8 +72,8 @@ public final class AdministrationPaymentsTests {
     }
 
     @CaseId(497)
-    @Story("Тест создания платежа через SberPay")
-    @Test(description = "Добавление нового платежа SberPay", groups = "regression")
+    @Story("Отображение дебетового сальдо, если баланс больше нуля")
+    @Test(description = "Отображение дебетового сальдо, если баланс больше нуля", groups = "regression")
     public void checkDebitBalanceVisibleTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());

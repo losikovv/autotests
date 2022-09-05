@@ -45,6 +45,7 @@ public final class B2BAuthModal implements B2BClose, B2BAuthModalCheck {
 
     @Step("Авторизуемся по коду СМС")
     public void authViaPhone(final UserData userData) {
+        checkModalIsVisible();
         fillPhone(userData.getPhone());
         clickSendSms();
         fillSMS(userData.getSmsCode());

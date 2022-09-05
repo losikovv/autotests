@@ -1,6 +1,7 @@
 package ru.instamart.reforged.admin.page.retailers.add_new_retailer;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.Keys;
 import ru.instamart.reforged.admin.AdminPage;
 
 public class RetailerAddPage implements AdminPage, RetailerAddCheck {
@@ -63,6 +64,11 @@ public class RetailerAddPage implements AdminPage, RetailerAddCheck {
     @Step("Вводим в поле 'Ключ в файле импорта': {text}")
     public void fillImportKey(final String text) {
         importKeyInput.fill(text);
+    }
+
+    @Step("Нажать TAB")
+    public void sendTabKey() {
+        importKeyInput.getActions().sendKeys(Keys.TAB);
     }
 
     @Step("Очищаем поле 'Ключ в файле импорта'")

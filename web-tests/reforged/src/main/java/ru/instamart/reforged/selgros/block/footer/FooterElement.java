@@ -21,9 +21,9 @@ public interface FooterElement {
 
     Element hotlineText = new Element(By.xpath("//footer//p[@class='tenant-footer__cell-header']"),
             "текст-заголовок о работе службы поддержки в футере");
-    Element hotlineWorkHoursText = new Element(By.xpath("//div[@class='footer__tel']/following-sibling::div[@class='footer__text' and not (contains(text(), 'Пишите'))]"),
+    Element hotlineWorkHoursText = new Element(By.xpath("//footer//p/span[@class='tenant-footer__time']/span[contains(text(), 'Круглосуточно')]"),
             "время работы горячей линии в футере");
-    Link hotlinePhoneNumber = new Link(By.xpath("//div[@class='footer__tel']"),
+    Link hotlinePhoneNumber = new Link(By.xpath("//footer//p/a[@class='tenant-footer__phone']"),
             "номер телефона горячей линии в футере");
 
     Element disclaimer = new Element(By.xpath("//footer//div[@class='tenant-footer__disclaimer']"),

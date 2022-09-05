@@ -1,7 +1,9 @@
 package ru.instamart.reforged.admin.block.edit_city;
 
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.*;
+import ru.instamart.reforged.core.component.Button;
+import ru.instamart.reforged.core.component.Element;
+import ru.instamart.reforged.core.component.Input;
 
 public interface EditCityElement {
 
@@ -29,5 +31,5 @@ public interface EditCityElement {
     Button createButton = new Button(By.xpath("//span[text()='Сохранить']/parent::button"), "Кнопка подтверждения редактирования города");
     Button cancelButton = new Button(By.xpath("//span[text()='Отменить']/parent::button"), "Кнопка отмены редактирования города");
 
-    Button cityLockedButton = new Button(By.xpath("//button[@class='ant-btn ant-btn-dangerous']"), "Кнопка 'заблокировать для редактирования'");
+    Button cityLockedButton = new Button(By.xpath("//button[contains(@class,'ant-btn-dangerous')]/span[text()='Заблокировать для редактирования']"), "Кнопка 'заблокировать для редактирования'");
 }

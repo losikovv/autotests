@@ -32,6 +32,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 import static ru.sbermarket.qase.utils.IntegrationUtils.getStacktrace;
@@ -70,7 +71,8 @@ public final class QaseService {
      * Создаём тест-ран с полученными кейсами
      */
     public void createTestRun() {
-        if (projectCode == null || started) return;
+        if (isNull(projectCode) || started) return;
+        if (projectCode.equalsIgnoreCase("debug")) return;
         started = true;
 
         try {

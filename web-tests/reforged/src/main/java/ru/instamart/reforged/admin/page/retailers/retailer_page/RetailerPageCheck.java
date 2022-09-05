@@ -8,6 +8,11 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface RetailerPageCheck extends Check, RetailerPageElements {
 
+    @Step("Лого завершило анимацию")
+    default void checkLogoNotAnimated() {
+        logo.should().notAnimated();
+    }
+
     @Step("Проверяем, что кнопка 'Добавить магазин' отображается")
     default void checkAddNewStoreButtonVisible() {
         waitAction().shouldBeVisible(addNewStoreButton);
