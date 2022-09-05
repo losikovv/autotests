@@ -30,6 +30,7 @@ Allure::deploy:
         - docker/*
         - .helm/*
       when: manual
+    - when: never
 
 .build_image:docker:
   needs: []
