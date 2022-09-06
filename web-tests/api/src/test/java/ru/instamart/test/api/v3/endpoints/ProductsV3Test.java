@@ -232,6 +232,7 @@ public class ProductsV3Test extends RestBase {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_TID)
                 .sort(ProductSortTypeV2.UNIT_PRICE_ASC.getKey())
+                .query("хлеб")
                 .build(), EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV3Response.class);
@@ -248,6 +249,7 @@ public class ProductsV3Test extends RestBase {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_TID)
                 .page(11)
+                .query("хлеб")
                 .build(), EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV3Response.class);
