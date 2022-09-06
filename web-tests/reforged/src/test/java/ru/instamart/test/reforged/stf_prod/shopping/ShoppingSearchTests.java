@@ -1,0 +1,169 @@
+package ru.instamart.test.reforged.stf_prod.shopping;
+
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import org.testng.annotations.Test;
+import ru.instamart.api.common.RestAddresses;
+import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.data.Addresses;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
+
+import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.stf.page.StfRouter.search;
+import static ru.instamart.reforged.stf.page.StfRouter.shop;
+
+@Epic("STF UI")
+@Feature("Поиск товаров")
+public final class ShoppingSearchTests {
+
+    private final ApiHelper apiHelper = new ApiHelper();
+
+    @CaseId(2587)
+    @Story("Позитивные сценарии")
+    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {STF_PROD_S})
+    public void successSearchItemUsingCategorySuggests() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().fillSearch("сыры");
+        shop().interactHeader().checkSuggesterVisible();
+        shop().interactHeader().clickShowAllSearchResults();
+        search().checkPageIsAvailable();
+        search().checkSearchTitle("сыры");
+    }
+
+    @CaseId(2588)
+    @Story("Позитивные сценарии")
+    @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {STF_PROD_S})
+    public void successSearchItemUsingSuggests() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().fillSearch("шоколад");
+        shop().interactHeader().checkSearchSuggestsVisible();
+        shop().interactHeader().clickOnFirstSuggesterSearchResult();
+        search().interactProductCard().checkProductCardVisible();
+    }
+
+    @CaseId(2989)
+    @Story("Позитивные сценарии")
+    @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = {STF_PROD_S})
+    public void changeAmountOnButtonSearchResult() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().fillSearch("шоколад");
+        shop().interactHeader().checkSearchSuggestsVisible();
+        final String textOnButtonAllCategory = shop().interactHeader().getTextOnButtonSearchSuggester();
+        shop().interactHeader().clickOnLastSuggesterCategory();
+        final String textOnButtonSmthCategory = shop().interactHeader().getTextOnButtonSearchSuggester();
+        shop().interactHeader().checkTextSearchButton(textOnButtonAllCategory, textOnButtonSmthCategory);
+    }
+
+    // В этом тесте выполняется по два раза swipeScrollTabHeadersRight/swipeScrollTabHeadersLeft
+    //    // Потому что при одиночном скроле категория "Все сразу" не скрывается
+    @CaseId(2991)
+    @Story("Позитивные сценарии")
+    @Test(description = "Работоспособность стрелочки пролистывающей категории", groups = {STF_PROD_S})
+    public void swipeCategoryItemInSuggester() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().fillSearch("шоколад");
+        shop().interactHeader().checkSearchSuggestsVisible();
+        shop().interactHeader().swipeScrollTabHeadersRight();
+        shop().interactHeader().swipeScrollTabHeadersRight();
+        shop().interactHeader().checkCategoryAllInvisible();
+        shop().interactHeader().swipeScrollTabHeadersLeft();
+        shop().interactHeader().swipeScrollTabHeadersLeft();
+        shop().interactHeader().checkCategoryAllVisible();
+    }
+
+    @CaseId(3105)
+    @Story("Позитивные сценарии")
+    @Test(description = "Удаление поискового запроса по крестику в поиске", groups = {STF_PROD_S})
+    public void clearSearchBar() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().fillSearch("шоколад");
+        shop().interactHeader().checkSearchSuggestsVisible();
+        shop().interactHeader().clearSearchInput();
+        shop().interactHeader().checkSearchBarEmpty();
+    }
+
+    @CaseId(1581)
+    @Test(description = "Добавление товара в корзину из поиска товаров", groups = {STF_PROD_S})
+    public void successAddItemToCartFromSearchResults() {
+        shop().goToPage();
+        shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactAddressLarge().checkYmapsReady();
+
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddressProdRest());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddress().clickOnSave();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().goToPage();
+        shop().interactHeader().fillSearch("сыры");
+        shop().interactHeader().clickSearchButton();
+        search().checkSearchImgLoaded();
+        search().interactHeader().checkEnteredAddressIsVisible();
+        search().clickAddToCartFirstSearchResult();
+        search().interactHeader().clickToCart();
+        search().interactCart().checkCartOpen();
+        search().interactCart().checkCartNotEmpty();
+    }
+
+    @CaseId(2589)
+    @Test(description = "Работоспособность сортировки товаров", groups = {STF_PROD_S})
+    public void successApplySort() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().fillSearch("печенье");
+        shop().interactHeader().clickSearchButton();
+
+        search().checkSearchImgLoaded();
+        search().selectSort("Сначала дешевые");
+
+        search().refresh();
+        search().checkSearchImgLoaded();
+        search().checkSortEnabled("Сначала дешевые");
+        search().checkPriceAscSortCorrect();
+    }
+}
