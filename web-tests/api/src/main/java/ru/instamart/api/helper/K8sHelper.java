@@ -1,5 +1,6 @@
 package ru.instamart.api.helper;
 
+import io.kubernetes.client.openapi.models.V1Pod;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import ru.instamart.k8s.rails_response.GetRetailerResponse;
@@ -246,5 +247,11 @@ public class K8sHelper {
     public static void addWebhookUrl(final String clientId, final String url) {
         List<String> strings = execRailsCommandWithPod(ADD_WEBHOOK_URL.get(clientId, url));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Получаем переменные окружения paas-сервиса")
+    public static List<String> getPaasServiceEnvProp(final String namespace, final String additionalCommands) {
+        V1Pod pod = getPod(namespace, "app.kubernetes.io/component=swissknife");
+        return execBashCommandWithPod("cat /proc/1/environ | tr '\\0' '\\n'" + additionalCommands, pod, "app");
     }
 }

@@ -101,7 +101,18 @@ public final class K8sConsumer {
         final var pod = getPod(namespace, label);
 
         try {
-            execBashCommandWithPod(pod, commands, result::add, true).close();
+            execBashCommandWithPod(pod, commands, "puma", result::add, true).close();
+        } catch (IOException e) {
+            log.error("Error: {}", e.getMessage());
+        }
+        return result;
+    }
+
+    public static List<String> execBashCommandWithPod(final String commands, V1Pod pod, String container) {
+        final List<String> result = new CopyOnWriteArrayList<>();
+
+        try {
+            execBashCommandWithPod(pod, commands, container, result::add, true).close();
         } catch (IOException e) {
             log.error("Error: {}", e.getMessage());
         }
@@ -183,25 +194,25 @@ public final class K8sConsumer {
     private static Closeable execRailsCommandWithPod(final V1Pod pod, final String commands, final Consumer<String> outputFun, final boolean waiting) {
         final var commandExec = new String[]{"/bin/bash", "-c", "/vault/vault-env", "bundle", "exec", "rails", "runner", "\"puts " + commands + "\""};
         log.debug("Exec command: {}", String.join("\n", commandExec));
-        return execCommandWithPod(pod, commandExec, outputFun, waiting);
+        return execCommandWithPod(pod, commandExec, "puma", outputFun, waiting);
     }
 
-    private static Closeable execBashCommandWithPod(final V1Pod pod, final String commands, final Consumer<String> outputFun, final boolean waiting) {
+    private static Closeable execBashCommandWithPod(final V1Pod pod, final String commands, final String container, final Consumer<String> outputFun, final boolean waiting) {
         final var commandExec = new String[]{"/bin/bash", "-c", commands};
-        return execCommandWithPod(pod, commandExec, outputFun, waiting);
+        return execCommandWithPod(pod, commandExec, container, outputFun, waiting);
     }
 
     /**
      * Выполнение команды в контейнере
      */
-    private static Closeable execCommandWithPod(final V1Pod pod, final String[] commands, final Consumer<String> outputFun, final boolean waiting) {
+    private static Closeable execCommandWithPod(final V1Pod pod, final String[] commands, final String container, final Consumer<String> outputFun, final boolean waiting) {
         try {
             final var closed = new AtomicBoolean(false);
             final var cdl = new CountDownLatch(1);
 
             final boolean tty = nonNull(console());
             final var apiClient = K8sConfig.getInstance().getApiClient();
-            final var proc = new Exec(apiClient).exec(pod, commands, "puma", true, tty);
+            final var proc = new Exec(apiClient).exec(pod, commands, container, true, tty);
 
             executorService.execute(() -> {
                 try {

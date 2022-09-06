@@ -16,6 +16,7 @@ import ru.instamart.kafka.KafkaConfig;
 import ru.instamart.kafka.enums.StatusOrder;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.util.ThreadUtil;
+import surgelevelevent.Surgelevelevent;
 import workflow.AssignmentChangedOuterClass;
 import workflow.ExternalDeliveryOuterClass;
 import workflow.SegmentChangedOuterClass;
@@ -427,6 +428,45 @@ public class KafkaConsumers {
 
                         if (Objects.nonNull(parseNotification) && Objects.nonNull(value) && value.getStringValue().equals(String.valueOf(workflowId))) {
                             result.add(parseNotification);
+                        }
+                    }
+                } catch (InvalidProtocolBufferException e) {
+                    log.debug("Fail parsing kafka message. offset: {}, error: {}", record.offset(), e.getMessage());
+                }
+            }
+            if (records.count() == 0) {
+                ThreadUtil.simplyAwait(1);
+                noRecordsCount++;
+                if (noRecordsCount > giveUp) {
+                    log.debug("No records noRecordsCount: {}, giveUp: {}", noRecordsCount, giveUp);
+                    break;
+                } else continue;
+            }
+            consumer.commitAsync();
+            break;
+        }
+        log.debug("Kafka get data");
+        consumer.close();
+        Allure.addAttachment("Filter logs", result.toString());
+        Allure.addAttachment("All logs", allLogs.toString());
+        return result;
+    }
+
+    public List<Surgelevelevent.SurgeEvent> consumeSurgeLevel(String storeId) {
+        List<String> allLogs = new ArrayList<>();
+        int noRecordsCount = 0;
+        List<Surgelevelevent.SurgeEvent> result = new ArrayList<>();
+        while (true) {
+            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
+            for (ConsumerRecord<String, byte[]> record : records) {
+                try {
+                    if (record.value() != null) {
+                        var parseSurgelevel = Surgelevelevent.SurgeEvent.parseFrom(record.value());
+                        log.debug("record: {}", parseSurgelevel.toString());
+                        allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseSurgelevel);
+
+                        if (Objects.nonNull(parseSurgelevel) && parseSurgelevel.getStoreId().equals(storeId)) {
+                            result.add(parseSurgelevel);
                         }
                     }
                 } catch (InvalidProtocolBufferException e) {

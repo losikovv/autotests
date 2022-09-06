@@ -11,6 +11,7 @@ import ru.instamart.kafka.KafkaConfig;
 import ru.instamart.kafka.consumer.KafkaConsumers;
 import ru.instamart.kafka.enums.StatusOrder;
 import ru.instamart.kafka.producer.KafkaProducers;
+import surgelevelevent.Surgelevelevent;
 import workflow.AssignmentChangedOuterClass;
 import workflow.ExternalDeliveryOuterClass;
 import workflow.SegmentChangedOuterClass;
@@ -19,6 +20,7 @@ import workflow.WorkflowChangedOuterClass;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.kafka.configs.KafkaConfigs.*;
 
@@ -126,5 +128,13 @@ public class KafkaHelper {
         List<Push.EventPushNotification> longNotificationHashMap = kafkaConsumers.consumeNotifications(workflowId);
         assertTrue(longNotificationHashMap.size() > 0, "Logs is empty");
         return longNotificationHashMap;
+    }
+
+    @Step("Получаем данные кафки о surgelevel по магазину: {storeId}")
+    public List<Surgelevelevent.SurgeEvent> waitDataInKafkaTopicSurgeLevel(String storeId) {
+        var kafkaConsumers = new KafkaConsumers(configSurgeLevel(), 1L);
+        List<Surgelevelevent.SurgeEvent> longSurgeLevelsHashMap = kafkaConsumers.consumeSurgeLevel(storeId);
+        assertTrue(longSurgeLevelsHashMap.size() > 0, "Logs is empty");
+        return longSurgeLevelsHashMap;
     }
 }
