@@ -10,6 +10,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.*;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -313,7 +314,8 @@ public final class BasicOrdersTests {
 
     @CaseId(2625)
     @Story("Заказ")
-    @Test(enabled = false, description = "Успешное оформление мультизаказа", groups = "regression")
+    @Skip
+    @Test(description = "Успешное оформление мультизаказа", groups = "regression")
     public void successMultiOrder() {
         //пока выключено, для некста отключен мультизаказ на данный момент
         userData = UserManager.getQaUser();

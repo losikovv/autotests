@@ -3,6 +3,7 @@ package ru.instamart.reforged.core.page;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
 import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
@@ -75,6 +76,9 @@ public interface Page extends PageCheck {
     }
 
     default String addBasicAuthToUrl(final String url) {
+        if (EnvironmentProperties.Env.isProduction()) {
+            return url;
+        }
         return url.replace("://", "://" + BASIC_AUTH);
     }
 }

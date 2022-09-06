@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -35,8 +36,9 @@ public final class UserAuthorisationBusinessTests {
     @Issue("DEVB2B-1977")
     @CaseId(231)
     @Story("Авторизация")
+    @Skip
     @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(enabled = false, description = "Вход по СберБизнес ID (B2B)", groups = {"smoke", "regression"})
+    @Test(description = "Вход по СберБизнес ID (B2B)", groups = {"smoke", "regression"})
     public void successRegWithSberBusinessID() {
         business().goToPage();
         business().interactHeader().clickToLogin();
