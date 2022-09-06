@@ -1,9 +1,12 @@
 package ru.instamart.kraken.util;
 
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.config.CoreProperties;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.Objects.isNull;
@@ -179,5 +182,18 @@ public final class StringUtil {
 
     public static String arrayToString(final Collection<String> collection) {
         return arrayToString(collection.toArray(String[]::new));
+    }
+
+    @Step("Сравнить строки через regex")
+    public static String matchWithRegex(final String regex, final String str, final int matcherGroup) {
+        String result = "";
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(str);
+
+        if (matcher.find()) {
+            result = matcher.group(matcherGroup);
+        }
+
+        return result;
     }
 }

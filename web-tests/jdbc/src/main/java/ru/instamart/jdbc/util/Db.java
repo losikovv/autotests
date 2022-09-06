@@ -85,6 +85,16 @@ public enum Db {
             Crypt.INSTANCE.decrypt("DQdUNB8CjrqEUiIrAaZlCg=="),
             EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE
     ),
+    PG_SURGE_LEVEL(
+            DbType.POSTGRESQL,
+            EnvironmentProperties.Env.SURGE_LEVEL_NAMESPACE,
+            "statefulset.kubernetes.io/pod-name=postgresql-0",
+            5432,
+            "jdbc:postgresql://localhost:%s/app",
+            Crypt.INSTANCE.decrypt("O4On6ImtTAIvvUDOsqOHDw=="),
+            Crypt.INSTANCE.decrypt("DQdUNB8CjrqEUiIrAaZlCg=="),
+            EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE
+    ),
     PG_SHP(
             DbType.POSTGRESQL,
             EnvironmentProperties.K8S_NAME_SHP_SPACE,
