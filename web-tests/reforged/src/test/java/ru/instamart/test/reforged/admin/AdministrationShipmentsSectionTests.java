@@ -203,7 +203,7 @@ public final class AdministrationShipmentsSectionTests {
     // TODO поправить тест после того как починб тест заказа
     @Skip
     @Story("Тест возобновления и отмены заказа через админку")
-    @Test(enabled = false, description = "Тест возобновления и отмены заказа через админку", groups = "regression")
+    @Test(description = "Тест возобновления и отмены заказа через админку", groups = "regression")
     public void successResumeAndCancelOrder() {
         final ApiHelper helper = new ApiHelper();
         final UserData userData = UserManager.getQaUser();

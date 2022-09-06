@@ -7,6 +7,7 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
@@ -92,8 +93,9 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1269)
+    @Skip
     //В избранном нет фильтров
-    @Test(enabled = false, description = "Проверка работоспособности фильтров Любимых товаров", groups = "regression")
+    @Test(description = "Проверка работоспособности фильтров Любимых товаров", groups = "regression")
     public void successApplyFilters() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());

@@ -75,6 +75,6 @@ public interface Page extends PageCheck {
     }
 
     default String addBasicAuthToUrl(final String url) {
-        return url.replace("://", "://" + BASIC_AUTH);
+        return url.contains("sbermarket.ru") ? url : url.replace("://", "://" + BASIC_AUTH);
     }
 }

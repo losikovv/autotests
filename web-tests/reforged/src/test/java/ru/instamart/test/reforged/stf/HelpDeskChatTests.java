@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -45,7 +46,8 @@ public final class HelpDeskChatTests {
 
     @CaseId(1761)
     @Issue("CC-762")
-    @Test(enabled = false, description = "Тест работы с виджетом HelpDesk на странице 404", groups = "regression")
+    @Skip
+    @Test(description = "Тест работы с виджетом HelpDesk на странице 404", groups = "regression")
     public void successOperateHelpDeskWidgetOnPage404() {
         notfound().goToPage();
         notfound().interactHelpDesk().openChat();

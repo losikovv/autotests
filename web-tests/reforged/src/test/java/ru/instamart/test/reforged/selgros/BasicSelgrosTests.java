@@ -7,6 +7,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.config.UiProperties;
@@ -85,10 +86,10 @@ public final class BasicSelgrosTests {
 
     @DoNotOpenBrowser
     @Issue("FEP-3229")
+    @Skip
     @CaseId(2783)
     @Story("Витрины ретейлеров")
-    @Test(enabled = false,
-            dataProviderClass = StaticPage.class,
+    @Test(dataProviderClass = StaticPage.class,
             dataProvider = "selgrosUnavailableRetailersSpree",
             description = "Тест недоступности витрин ретейлеров Selgros",
             groups = "regression")

@@ -131,7 +131,8 @@ public final class AdministrationShippingSettingsTests {
 
     //TODO: Сейчас это создает кучу данных в базе, удалять пока что не представляется возможным.
     @CaseId(511)
-    @Test(enabled = false, description = "Создать новый способ доставки", groups = "regression")
+    @Skip
+    @Test(description = "Создать новый способ доставки", groups = "regression")
     public void testCreateNewDelivery() {
         shippingMethod().goToPage();
         shippingMethod().addNewDelivery();
@@ -152,7 +153,8 @@ public final class AdministrationShippingSettingsTests {
 
     //Нельзя добавить только маркетинговое правило
     @CaseId(512)
-    @Test(enabled = false, description = "Добавить правило маркетинговой стоимости доставки", groups = "regression")
+    @Skip
+    @Test(description = "Добавить правило маркетинговой стоимости доставки", groups = "regression")
     public void testAddMarketingRule() {
         shippingMethod().goToPage();
         shippingMethod().clickToEditShipmentMethod("Autotest");
@@ -169,7 +171,8 @@ public final class AdministrationShippingSettingsTests {
 
     //Нельзя добавить только номинальное правило
     @CaseId(513)
-    @Test(enabled = false, description = "Добавить правило номинальной стоимости доставки", groups = "regression")
+    @Skip
+    @Test(description = "Добавить правило номинальной стоимости доставки", groups = "regression")
     public void testAddNominalRule() {
         shippingMethod().goToPage();
         shippingMethod().clickToEditShipmentMethod("Autotest");

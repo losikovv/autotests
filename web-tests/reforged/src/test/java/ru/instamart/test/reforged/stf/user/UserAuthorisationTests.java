@@ -10,6 +10,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.config.BasicProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -85,7 +86,8 @@ public final class UserAuthorisationTests {
     //Короче FB опять заблокировал наш ip
     @CaseId(1459)
     @Story("Авторизация через Facebook")
-    @Test(enabled = false, description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
+    @Skip
+    @Test(description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
     public void successRegWithFacebook() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -105,7 +107,7 @@ public final class UserAuthorisationTests {
 
     @CaseId(2735)
     @Story("Авторизация через VK")
-    @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"production", "smoke", "regression"})
+    @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"production", "smoke", "regression", "production-auth"})
     public void successRegWithVkontakte() {
         UserData vkUser = UserManager.getNewVkUser();
 
@@ -127,7 +129,7 @@ public final class UserAuthorisationTests {
 
     @CaseId(1460)
     @Story("Авторизация через Mail.ru")
-    @Test(description = "Тест успешной авторизация через MailRu", groups = {"production", "smoke", "regression"})
+    @Test(description = "Тест успешной авторизация через MailRu", groups = {"production", "smoke", "regression", "production-auth"})
     public void successRegWithMailRu() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -152,7 +154,8 @@ public final class UserAuthorisationTests {
     //Нет учетки для SberID
     @CaseId(1461)
     @Story("Авторизация через SberID")
-    @Test(enabled = false, description = "Тест успешной авторизация через Sber ID", groups = {"smoke", "regression"})
+    @Skip
+    @Test(description = "Тест успешной авторизация через Sber ID", groups = {"smoke", "regression"})
     public void successRegWithSberID() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
