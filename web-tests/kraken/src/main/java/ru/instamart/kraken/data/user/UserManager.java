@@ -552,7 +552,7 @@ public final class UserManager {
      * @return - {@link UserData}
      */
     public static UserData getQaUser() {
-        final UserData userData = createUser(TestVariables.CompanyParams.companyName);
+        final UserData userData = createUser(Generate.generatePassword(12, true, true, true, true));
         USER_DATA_LIST.add(userData);
 
         return userData;
@@ -579,7 +579,7 @@ public final class UserManager {
      * @return - {@link UserData}
      */
     public static UserData getQaUserWithoutAb() {
-        final UserData userData = createUserWithoutAb(TestVariables.CompanyParams.companyName);
+        final UserData userData = createUserWithoutAb(Generate.generatePassword(12, true, true, true, true));
         USER_DATA_LIST.add(userData);
 
         return userData;
@@ -600,6 +600,12 @@ public final class UserManager {
      * Создание пользователя с использованием тестовой ручки
      *
      * @param password - обязательный параметр для создания через ручку
+     * Пароль должен содержать:
+     * min 12 chars
+     * [a-z]{1,}
+     * [A-Z]{1,}
+     * [0-9]{1,}
+     * !"#$%&'()*+,-./:;<=>?@[]^_`{}|~\{1,}
      * @return - возвращает собранную {@link UserData} из параметров ответа
      */
     @Step("Создание тестового пользователя")
@@ -636,6 +642,12 @@ public final class UserManager {
      * Создание пользователя с использованием {@link UserManager#createUser(String)}
      *
      * @param password - обязательный параметр для создания через ручку
+     * Пароль должен содержать:
+     * min 12 chars
+     * [a-z]{1,}
+     * [A-Z]{1,}
+     * [0-9]{1,}
+     * !"#$%&'()*+,-./:;<=>?@[]^_`{}|~\{1,}
      * @return - возвращает собранную {@link UserData} из параметров ответа
      */
     public static UserData createUserWithoutAb(final String password) {
