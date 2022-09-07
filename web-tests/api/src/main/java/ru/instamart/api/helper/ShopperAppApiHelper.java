@@ -380,7 +380,7 @@ public class ShopperAppApiHelper {
 
     @Step("Поиск товаров в магазине")
     private List<OfferSHP.Data> getOffers() {
-        String query = "сыр";
+        String query = "хлеб";
         log.debug("Поиск товаров в магазине по запросу " + query);
         Response response = StoresSHPRequest.Offers.GET(
                 EnvironmentProperties.DEFAULT_SHOPPER_SID, query);
