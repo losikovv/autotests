@@ -10,9 +10,10 @@
             <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
         </method-selector>
     </method-selectors>
-    <test verbose="1" name="SURGELEVEL" parallel="classes" thread-count="1">
+    <test verbose="1" name="SURGELEVEL" parallel="classes" thread-count="2">
         <classes>
             <class name="ru.instamart.test.api.on_demand.surgelevel.GrpcTest"/>
+            <class name="ru.instamart.test.api.on_demand.surgelevel.KafkaTest"/>
         </classes>
     </test>
 </suite>

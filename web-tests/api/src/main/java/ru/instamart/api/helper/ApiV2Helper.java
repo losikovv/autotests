@@ -236,7 +236,7 @@ public final class ApiV2Helper {
     }
 
     public List<ProductV2> getProducts(int sid) {
-        return getProducts(sid, "a");
+        return getProducts(sid, "хлеб");
     }
 
     @Step("Поиск продуктов {query} в {sid} магазине")

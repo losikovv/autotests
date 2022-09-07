@@ -97,7 +97,7 @@ public class KafkaConfigs {
 
     public static KafkaConfig configSurgeLevel() {
         return KafkaConfig.builder()
-                .topic("yc.surge.fct.result.0")
+                .topic("yc.surge.fct.result.0") // нужно будет передавать HASH_COMMIT_OR_BRANCH, если захотим пускать по фича-стейджам
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lNLTflx90VI0n6hzBgecvll6tdcTqGMheErKEU2y3QOl"))
                 .password(Crypt.INSTANCE.decrypt("2lS1gYSsa7AkjKFObDuh0Q=="))
                 .build();
