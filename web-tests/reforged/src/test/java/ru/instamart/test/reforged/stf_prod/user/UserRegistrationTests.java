@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
+import ru.instamart.reforged.core.report.Metrics;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
@@ -16,6 +17,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Регистрация пользователя")
 public final class UserRegistrationTests {
 
+    @Metrics
     @CaseId(1541)
     @Story("Регистрация на лендинге")
     @Test(description = "Регистрация нового пользователя на лендинге", groups = {STF_PROD_S})
@@ -26,6 +28,7 @@ public final class UserRegistrationTests {
         home().checkLogoutButtonDisplayed();
     }
 
+    @Metrics
     @CaseId(1543)
     @Story("Регистрация на странице ретейлера")
     @Test(description = "Регистрация нового пользователя на витрине магазина", groups = {STF_PROD_S})
@@ -36,6 +39,7 @@ public final class UserRegistrationTests {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
+    @Metrics
     @CaseId(1545)
     @Test(description = "Тест успешной регистрации без проставленной галки Получать выгодные предложения", groups = {STF_PROD_S})
     public void successRegWithoutMailingCheckbox() {
@@ -46,6 +50,7 @@ public final class UserRegistrationTests {
         home().checkLogoutButtonDisplayed();
     }
 
+    @Metrics
     @CaseId(2622)
     @Story("Регистрация из корзины")
     @Test(description = "Регистрация при попытке перехода из корзины в чекаут", groups = {STF_PROD_S})

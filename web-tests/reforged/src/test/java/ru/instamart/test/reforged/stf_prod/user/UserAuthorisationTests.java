@@ -5,8 +5,6 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.enums.Server;
-import ru.instamart.kraken.listener.Run;
 import ru.instamart.reforged.core.config.BasicProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -25,9 +23,11 @@ public final class UserAuthorisationTests {
         final var vkUser = UserManager.getNewVkUser();
 
         shop().goToPage();
+        shop().checkRequestsWasLoad();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaVk();
+
         shop().interactAuthModal().interactAuthVkWindow().switchToNextWindow();
         shop().interactAuthModal().interactAuthVkWindow().setEmail(vkUser.getEmail());
         shop().interactAuthModal().interactAuthVkWindow().setPassword(vkUser.getPassword());
@@ -35,7 +35,7 @@ public final class UserAuthorisationTests {
         shop().interactAuthModal().interactAuthVkWindow().switchToFirstWindow();
         shop().interactAuthModal().checkModalIsNotVisible();
 
-        //TODO на production появляется окно подтверждения номера телефона, на кракене - нет, тест падает.
+        shop().checkRequestsWasLoad();
         shop().interactAuthModal().checkModalConfirmPhoneIsVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }
@@ -45,9 +45,11 @@ public final class UserAuthorisationTests {
     @Test(description = "Тест успешной авторизация через MailRu", groups = {STF_PROD_S})
     public void successRegWithMailRu() {
         shop().goToPage();
+        shop().checkRequestsWasLoad();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaMail();
+
         shop().interactAuthModal().interactAuthMailWindow().switchToNextWindow();
         shop().interactAuthModal().interactAuthMailWindow()
                 .fillName(UserManager.getDefaultMailRuUser().getEmail());
@@ -59,28 +61,8 @@ public final class UserAuthorisationTests {
         shop().interactAuthModal().interactAuthMailWindow().switchToFirstWindow();
         shop().interactAuthModal().checkModalIsNotVisible();
 
-        //TODO на production появляется окно подтверждения номера телефона, на кракене - нет, тест падает.
+        shop().checkRequestsWasLoad();
         shop().interactAuthModal().checkModalConfirmPhoneIsVisible();
-        shop().interactHeader().checkProfileButtonVisible();
-    }
-
-    //Нет учетки для SberID
-    @CaseId(1461)
-    @Story("Авторизация через SberID")
-    @Test(enabled = false, description = "Тест успешной авторизация через Sber ID", groups = {STF_PROD_S})
-    public void successRegWithSberID() {
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaSberId();
-
-        sberId().checkPhoneInputVisible();
-        sberId().fillPhoneNumber(UserManager.getDefaultSberIdUser().getEmail());
-        sberId().clickToSubmitLogin();
-        sberId().clickToReceivedSms();
-        //TODO: необходимо автоматизировать получение смс, либо получить номер с заготовленной смс
-        sberId().enterCode("111111");
-        sberId().clickToSubmitSmsCode();
-        shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -96,31 +78,5 @@ public final class UserAuthorisationTests {
 
         sberId().checkPhoneInputVisible();
         sberId().checkPageContains(BasicProperties.SBER_ID_URL);
-    }
-
-    //    @CaseId(1459)
-    @Run(onServer = Server.PREPROD)
-    @Story("Авторизация через СберБизнесID")
-    @Test(description = "Тест успешной авторизация через СберБизнесID", groups = {STF_PROD_S})
-    public void successRegWithSberBusinessID() {
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-
-        shop().interactAuthModal().checkModalIsVisible();
-        shop().interactAuthModal().checkForBusiness();
-        shop().interactAuthModal().authViaSberBusinessId();
-
-        shop().interactAuthModal().interactAuthSberBusinessIdPage()
-                .setLogin(UserManager.getDefaultSberBusinessIdUser().getEmail());
-        shop().interactAuthModal().interactAuthSberBusinessIdPage()
-                .setPassword(UserManager.getDefaultSberBusinessIdUser().getPassword());
-        shop().interactAuthModal().interactAuthSberBusinessIdPage().clickToNext();
-        shop().interactAuthModal().interactAuthSberBusinessIdPage()
-                .enterCode(UserManager.getDefaultSberBusinessIdUser().getSmsCode());
-
-        //TODO По информации от Артёма Кофтаенко, сейчас проблемы с авторизацией по SberBusinessID на тестах, разбираются
-        shop().waitPageLoad();
-        shop().interactAuthModal().checkModalIsNotVisible();
-        shop().interactHeader().checkProfileButtonVisible();
     }
 }
