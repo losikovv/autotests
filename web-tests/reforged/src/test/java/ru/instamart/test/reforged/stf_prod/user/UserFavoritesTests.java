@@ -9,7 +9,6 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
-import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -46,7 +45,7 @@ public final class UserFavoritesTests {
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().addToFavorite();
         shop().interactProductCard().clickOnClose();
 
@@ -68,7 +67,6 @@ public final class UserFavoritesTests {
 
         userFavorites().goToPage();
         userFavorites().removeFirstFavoriteItem();
-        userFavorites().refresh();
 
         userFavorites().checkCountChange(userFavorites().getFavoritesCount(), 1);
     }
@@ -87,7 +85,6 @@ public final class UserFavoritesTests {
 
         userFavorites().goToPage();
         userFavorites().removeFirstFavoriteItem();
-        userFavorites().refresh();
         userFavorites().checkEmptyFavorites();
     }
 
@@ -96,7 +93,7 @@ public final class UserFavoritesTests {
     public void successShowMoreLoad() {
         final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
-        apiHelper.addFavorites(userData, DEFAULT_SID, 35);
+        apiHelper.addFavorites(userData, DEFAULT_SID, 12);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -107,7 +104,8 @@ public final class UserFavoritesTests {
         userFavorites().checkNotEmptyFavorites();
 
         final int initCount = userFavorites().getFavoritesCount();
-        userFavorites().scrollToLastFavoriteItem();
+        userFavorites().scrollDown();
+        userFavorites().checkRequestsWasLoad();
         userFavorites().checkCountLess(initCount, userFavorites().getFavoritesCount());
     }
 
@@ -116,7 +114,7 @@ public final class UserFavoritesTests {
             groups = {STF_PROD_S})
     public void successAuthAfterAddFavoriteOnItemCard() {
         shop().goToPage();
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().addToFavorite();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
@@ -136,7 +134,7 @@ public final class UserFavoritesTests {
         home().interactAuthModal().authViaPhone(userData);
         home().checkDeliveryStoresContainerVisible();
 
-        home().clickOnStoreWithSid(DEFAULT_METRO_MOSCOW_SID);
+        home().clickOnStoreWithSid(DEFAULT_SID);
 
         userFavorites().goToPage();
         userFavorites().interactHeader().checkEnteredAddressIsVisible();

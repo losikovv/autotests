@@ -43,6 +43,10 @@ public interface ShopElement {
     Element deleteFirstItemFromFavorite = new Element(By.xpath("//div[contains(@class, 'favorite-button--active')]"), "empty");
     Button plusItemToCart = new Button(ByKraken.xpathExpression("//div[@data-qa='catalog_page_taxons_list_taxon_item_%s_product_item_%s']//button[@title='Добавить в корзину']"),
             "Кнопка добавить в корзину у элемента");
+    ElementCollection productsCart = new ElementCollection(ByKraken.xpathExpression("//section[@data-qa='catalog_page_taxons_list_taxon_item_1']//li"),
+            "Карточки продукта");
+    ElementCollection plusItemsToCart = new ElementCollection(ByKraken.xpathExpression("//section[@data-qa='catalog_page_taxons_list_taxon_item_1']//li//button[@title='Добавить в корзину']"),
+            "Кнопка добавить в корзину у элемента");
     Button minusItemFromCart = new Button(ByKraken.xpathExpression("//div[@data-qa='catalog_page_taxons_list_taxon_item_%s_product_item_%s']//button[contains(@title, 'Убрать из корзины')]"),
             "Кнопка убрать из корзины у элемента");
     Element productTitle = new Element(ByKraken.xpathExpression("//div[@data-qa='catalog_page_taxons_list_taxon_item_%s_product_item_%s']//h3"), "Имя первого товара в каталоге на стейдже");

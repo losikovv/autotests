@@ -18,6 +18,7 @@ public final class Page404Tests {
     public void successGoToHomepage() {
         notfound().goToPage();
         notfound().clickToGoToMainPage();
+        home().checkPageContains(home().pageUrl());
         home().checkPageOpened();
     }
 }

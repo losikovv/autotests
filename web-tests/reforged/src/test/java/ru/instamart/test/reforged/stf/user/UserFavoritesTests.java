@@ -91,28 +91,6 @@ public final class UserFavoritesTests {
         userFavorites().checkEmptyFavorites();
     }
 
-    @CaseId(1269)
-    //В избранном нет фильтров
-    @Test(enabled = false, description = "Проверка работоспособности фильтров Любимых товаров", groups = "regression")
-    public void successApplyFilters() {
-        final UserData userData = UserManager.getQaUser();
-        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        apiHelper.addFavorites(userData, DEFAULT_METRO_MOSCOW_SID, 10);
-
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
-        userFavorites().goToPage();
-        userFavorites().checkNotEmptyFavorites();
-        userFavorites().checkAllGoodsActive();
-        userFavorites().filterInStock();
-        userFavorites().checkInStockActive();
-        userFavorites().filterOutOfStock();
-        userFavorites().checkOutOfStockActive();
-    }
-
     @CaseId(1270)
     @Test(description = "Проверка работоспособности подгрузки товаров по мере прокрутки списка в Любимых товарах", groups = "regression")
     public void successShowMoreLoad() {

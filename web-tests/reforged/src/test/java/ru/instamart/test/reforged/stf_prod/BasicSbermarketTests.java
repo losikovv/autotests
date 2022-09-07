@@ -4,7 +4,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
-import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.config.BasicProperties;
 import ru.instamart.reforged.core.config.UiProperties;
@@ -124,11 +123,7 @@ public final class BasicSbermarketTests {
         shop().interactFooter().checkHotlinePhoneNumberVisible();
         shop().interactFooter().checkHotlineWorkHoursTextVisible();
 
-        shop().interactFooter().checkFacebookButtonVisible();
         shop().interactFooter().checkVkontakteButtonVisible();
-        shop().interactFooter().checkInstagramButtonVisible();
-        shop().interactFooter().checkTwitterButtonVisible();
-
         shop().interactFooter().checkGooglePlayButtonVisible();
         shop().interactFooter().checkAppstoreButtonVisible();
         shop().interactFooter().checkHuaweiButtonVisible();
@@ -163,42 +158,6 @@ public final class BasicSbermarketTests {
         home().interactFooter().clickToFooterElementWithText("Обработка персональных данных");
         home().switchToNextWindow();
         privacyPolicy().checkPageUrl(UiProperties.STF_URL + privacyPolicy().pageUrl());
-    }
-
-    @DoNotOpenBrowser
-    @CaseId(1437)
-    @Story("Витрины ретейлеров")
-    @Test(dataProviderClass = StaticPage.class,
-            dataProvider = "filteredAvailableRetailersSpree",
-            description = "Тест доступности витрин ритейлеров Сбермаркета ",
-            groups = {STF_PROD_S})
-    public void successCheckSbermarketAvailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl = UiProperties.STF_URL + retailer.getSlug();
-        final var curl = new Curl.Builder(fullUrl).build();
-        assertTrue(CurlService.pageAvailable(curl), "Страница " + fullUrl + " недоступна");
-    }
-
-    @DoNotOpenBrowser
-    @CaseId(1437)
-    @Story("Витрины ретейлеров")
-    @Test(dataProviderClass = StaticPage.class,
-            dataProvider = "filteredUnavailableRetailersSpree",
-            description = "Тест недоступности витрин ритейлеров Сбермаркета ",
-            groups = {STF_PROD_S})
-    public void successCheckSbermarketUnavailableRetailers(final RetailerV2 retailer) {
-        final var fullUrl = UiProperties.STF_URL + retailer.getSlug();
-        final var curl = new Curl.Builder(fullUrl).build();
-        assertTrue(CurlService.pageUnavailable(curl), "Страница " + fullUrl + " доступна");
-    }
-
-    @DoNotOpenBrowser
-    @CaseId(1433)
-    @Story("Партнерские лендинги")
-    @Test(description = "Тест доступности партнерских лендингов", groups = {STF_PROD_S})
-    public void successCheckPartnerLandingsAreAvailable() {
-        final var fullUrl = UiProperties.STF_URL + aeroflot().pageUrl();
-        final var curl = new Curl.Builder(fullUrl).build();
-        assertTrue(CurlService.pageAvailable(curl), "Страница " + fullUrl + " недоступна");
     }
 
     @DoNotOpenBrowser

@@ -89,6 +89,11 @@ public final class ShopPage implements StfPage, ShopCheck {
         plusItemToCart.click(line, element);
     }
 
+    @Step("Нажать на плюс у товара - строка №{line}, элемент по порядку №{element}")
+    public void plusItemsToCart(String line) {
+        plusItemsToCart.clickOnFirst(line);
+    }
+
     /**
      * @param line    - номер линии по порядку, начиная с 0, в которой находится искомый товар,
      * @param element - номер самого элемента по порядку, начиная с 0
@@ -114,14 +119,14 @@ public final class ShopPage implements StfPage, ShopCheck {
         deleteFirstItemFromFavorite.hoverAndClick();
     }
 
-    @Step("Открыть карточку первого товара на проде")
-    public void openFirstProductCardProd() {
-        firstProductCardProd.click();
-    }
-
     @Step("Открыть карточку первого товара на стейдже")
     public void openFirstProductCard() {
         firstProductCard.getActions().moveToElementAndClick();
+    }
+
+    @Step("Открыть карточку первого товара на стейдже")
+    public void openFirstProductCardProd() {
+        productsCart.clickOnFirst();
     }
 
     @Step("Получаем цену товара")
