@@ -364,7 +364,16 @@ public class ShopperAppApiHelper {
                     ReplacementSHP.Data replacement = replaceItem(items.get(i).getId(), offers.get(0).getAttributes().getUuid());
                     approveItem(replacement.getAttributes().getToItemId().toString());
 
-                    AssemblyItemSHP.Data assemblyItem = additionalItemForReplacement(replacement.getId(), offers.get(1));
+                    List<String> itemsSkus = items.stream().map(item -> item.getAttributes().getProductSku()).collect(Collectors.toList());
+                    OfferSHP.Data additionalOffer = null;
+                    for (OfferSHP.Data offer : offers) {
+                        if (!offers.get(0).equals(offer) && !itemsSkus.contains(offer.getAttributes().getProductSku())) {
+                            additionalOffer = offer;
+                        }
+                    }
+                    if (additionalOffer == null) break;
+
+                    AssemblyItemSHP.Data assemblyItem = additionalItemForReplacement(replacement.getId(), additionalOffer);
                     approveItem(assemblyItem.getId());
                     break;
                 default:
