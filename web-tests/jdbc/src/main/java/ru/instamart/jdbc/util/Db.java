@@ -87,7 +87,7 @@ public enum Db {
     ),
     PG_SURGE_LEVEL(
             DbType.POSTGRESQL,
-            EnvironmentProperties.Env.SURGE_LEVEL_NAMESPACE,
+            EnvironmentProperties.Env.SURGELEVEL_NAMESPACE,
             "statefulset.kubernetes.io/pod-name=postgresql-0",
             5432,
             "jdbc:postgresql://localhost:%s/app",

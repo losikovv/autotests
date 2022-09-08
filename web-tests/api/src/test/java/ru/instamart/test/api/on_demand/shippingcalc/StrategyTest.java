@@ -561,7 +561,7 @@ public class StrategyTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = "createStrategy")
     public void updateStrategy() {
-        var request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, strategyId, "autotest-update", "autotest-update", "autotest-update", true, DeliveryType.B2B_VALUE);
+        var request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, strategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.B2B_VALUE);
         clientShippingCalc.updateStrategy(request);
         checkUpdatedStrategy(strategyId, "autotest-update", 4, 4, 2, DeliveryType.SELF_DELIVERY.toString());
     }
@@ -602,7 +602,7 @@ public class StrategyTest extends ShippingCalcBase {
                 .setStrategyId(strategyIdWithDifferentScriptsInRules)
                 .setCreatorId("autotest-update")
                 .setName("autotest-update")
-                .setGlobal(true)
+                .setGlobal(false)
                 .setPriority(100)
                 .setDescription("autotest-update")
                 .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
@@ -689,7 +689,7 @@ public class StrategyTest extends ShippingCalcBase {
                 .setStrategyId(strategyIdWithMultipleRulesAndConditions)
                 .setCreatorId("autotest-update")
                 .setName("autotest-update")
-                .setGlobal(true)
+                .setGlobal(false)
                 .setPriority(100)
                 .setDescription("autotest-update")
                 .setDeliveryTypeValue(DeliveryType.SELF_DELIVERY_VALUE)
@@ -1601,7 +1601,7 @@ public class StrategyTest extends ShippingCalcBase {
     @Test(description = "Получение ошибки при удалении стратегии с биндами",
             groups = "dispatch-shippingcalc-smoke",
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "UNKNOWN: usecase: delete strategy [0-9]+ is imposible, bindings must be empty",
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot delete strategy: usecase: delete strategy [0-9]+ is imposible, bindings must be empty",
             dependsOnMethods = "rebindStrategy")
     public void deleteStrategyWithBind() {
         var request = getDeleteStrategyRequest(strategyIdWithMultipleRulesAndConditions);
@@ -1613,7 +1613,7 @@ public class StrategyTest extends ShippingCalcBase {
     @Test(description = "Получение ошибки при удалении несуществующей стратегии",
             groups = "dispatch-shippingcalc-regress",
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "UNKNOWN: usecase: delele strategy 1234567890: entity not found")
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: usecase: delele strategy 1234567890: entity not found")
     public void deleteStrategyNonExistent() {
         var request = getDeleteStrategyRequest(1234567890);
         clientShippingCalc.deleteStrategy(request);
