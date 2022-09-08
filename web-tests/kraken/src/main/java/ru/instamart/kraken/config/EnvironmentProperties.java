@@ -157,7 +157,7 @@ public final class EnvironmentProperties {
         public static String ADMIN_FULL_URL = "https://" + (isProduction() ? ADMIN_URL : BASIC_URL) + "/";
         public static String ONE_SESSION = System.getProperty("one_session");
         public static String ETA_NAMESPACE = getEtaNamespace();
-        public static String SURGE_LEVEL_NAMESPACE = getSurgeLevelNamespace();
+        public static String SURGELEVEL_NAMESPACE = getSurgelevelNamespace();
 
         private static String getEtaNamespace() {
             String etaNamespace = System.getProperty("url_paas_eta", "paas-content-operations-eta");
@@ -167,7 +167,7 @@ public final class EnvironmentProperties {
             return etaNamespace;
         }
 
-        private static String getSurgeLevelNamespace() {
+        private static String getSurgelevelNamespace() {
             String surgeLevelNamespace = System.getProperty("url_paas_surgelevel", "paas-content-operations-surgelevel");
             if (Objects.isNull(surgeLevelNamespace) || surgeLevelNamespace.isEmpty() || surgeLevelNamespace.isBlank()) {
                 surgeLevelNamespace = "paas-content-operations-surgelevel";

@@ -51,10 +51,10 @@ public class KafkaTest extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preConditions() {
         configCreated = ConfigDao.INSTANCE.addConfig(CONFIG_ID);
-        storeCreated = StoreDao.INSTANCE.addStore(STORE_ID, CONFIG_ID, true, 55.55f, 55.55f);
+        storeCreated = StoreDao.INSTANCE.addStore(STORE_ID, CONFIG_ID, true, 33.00f, 33.00f);
         ConfigInheritanceDao.INSTANCE.addConfigInheritance(CONFIG_ID, DEFAULT_CONFIG_ID, 1);
 
-        List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.SURGE_LEVEL_NAMESPACE, " | grep -e SURGEEVENT_PRODUCE_UNCHANGED -e SURGEEVENT_OUTDATE ");
+        List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.SURGELEVEL_NAMESPACE, " | grep -e SURGEEVENT_PRODUCE_UNCHANGED -e SURGEEVENT_OUTDATE ");
         String envPropsStr = String.join("\n", serviceEnvProperties);
         String surgeEventProduceUnchangedStr = matchWithRegex("^SURGEEVENT_PRODUCE_UNCHANGED=(.\\w+)$", envPropsStr, 1);
         String surgeEventOutdateStr = matchWithRegex("^SURGEEVENT_OUTDATE=(.\\d+)s$", envPropsStr, 1);
