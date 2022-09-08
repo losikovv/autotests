@@ -4,12 +4,14 @@ import io.qameta.allure.Step;
 import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
+import ru.instamart.reforged.core.page.Window;
 import ru.instamart.reforged.stf.page.StfPage;
 import ru.instamart.reforged.stf.page.checkout_new.add_payment_card_modal.AddPaymentCardModal;
+import ru.instamart.reforged.stf.page.checkout_new.b2b_order_modal.B2BOrderModal;
 import ru.instamart.reforged.stf.page.checkout_new.delivery_slots_modal.DeliverySlotsModal;
 import ru.instamart.reforged.stf.page.checkout_new.payment_methods_modal.PaymentMethodsModal;
 
-public class CheckoutPage implements StfPage, CheckoutCheck {
+public class CheckoutPage implements StfPage, CheckoutCheck, Window {
 
     public PaymentMethodsModal interactPaymentMethodsModal() {
         return paymentMethodsModal;
@@ -21,6 +23,10 @@ public class CheckoutPage implements StfPage, CheckoutCheck {
 
     public DeliverySlotsModal interactDeliverySlotsModal() {
         return deliverySlotsModal;
+    }
+
+    public B2BOrderModal interactB2BOrderModal() {
+        return b2bOrderModal;
     }
 
     @Step("Переходим на вкладку 'Самовывоз'")
