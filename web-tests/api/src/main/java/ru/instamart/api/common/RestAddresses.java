@@ -56,6 +56,17 @@ public class RestAddresses {
                     .build();
         }
 
+        public static AddressV2 checkoutWithoutBusinessAddress() {
+            return AddressV2.builder()
+                    .fullAddress("д. Картмазово, д. 7")
+                    .city("Москва")
+                    .street("Картмазово")
+                    .building("7")
+                    .lat(55.619828)
+                    .lon(37.38764)
+                    .build();
+        }
+
         public static AddressV2 defaultProdAddress() {
             return AddressV2.builder()
                     .city("посёлок Нагорное")

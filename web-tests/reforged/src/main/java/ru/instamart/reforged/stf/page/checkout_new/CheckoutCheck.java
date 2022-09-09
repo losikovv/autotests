@@ -42,6 +42,21 @@ public interface CheckoutCheck extends Check, CheckoutElement {
         Assert.assertEquals(apartment.getValue(), expectedApartmentValue, "Значение в поле 'Кв. офис' отличается от ожидаемого");
     }
 
+    @Step("Проверяем, что в поле 'Подъезд' значение: {expectedEntranceValue}")
+    default void checkEntranceValue(final String expectedEntranceValue) {
+        Assert.assertEquals(entrance.getValue(), expectedEntranceValue, "Значение в поле 'Подъезд' отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что в поле 'Этаж' значение: {expectedFloorValue}")
+    default void checkFloorValue(final String expectedFloorValue) {
+        Assert.assertEquals(floor.getValue(), expectedFloorValue, "Значение в поле 'Этаж' отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что в поле 'Домофон' значение: {expectedDoorPhoneValue}")
+    default void checkDoorPhoneValue(final String expectedDoorPhoneValue) {
+        Assert.assertEquals(doorPhone.getValue(), expectedDoorPhoneValue, "Значение в поле 'Домофон' отличается от ожидаемого");
+    }
+
     @Step("Проверяем, что заголовок блока слотов доставки содержит текст: '{expectedText}'")
     default void checkDeliveryTitleContains(final String expectedText) {
         Assert.assertEquals(openDeliverySlotsModalInTitle.getText().toLowerCase(), expectedText.toLowerCase(),
@@ -231,5 +246,20 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     @Step("Проверяем, что вкладка 'Доставка' недоступна")
     default void checkDeliveryTabNotVisible() {
         Kraken.waitAction().shouldNotBeVisible(deliveryTab);
+    }
+
+    @Step("Проверяем, что отображается алерт невведенного номера квартиры/офиса")
+    default void checkApartmentNumberAlertVisible() {
+        apartmentAlert.should().visible();
+    }
+
+    @Step("Проверяем, что отображается алерт недоступности оплаты картой курьеру при бесконтактной доставке")
+    default void checkCardToCourierBubbleVisible() {
+        cardToCourierBubble.should().visible();
+    }
+
+    @Step("Проверяем, что кнопка перехода на Б2Б витрину не отображается")
+    default void checkB2BTransitionButtonNotVisible() {
+        b2bLink.should().invisible();
     }
 }
