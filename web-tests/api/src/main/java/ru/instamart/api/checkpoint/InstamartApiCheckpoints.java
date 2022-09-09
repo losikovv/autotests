@@ -198,19 +198,19 @@ public class InstamartApiCheckpoints {
     }
 
     @Step("Сравниваем магазин с сохраненным в БД")
-    public static void checkStoreInDb(StoresAdminRequest.Store store, StoresEntity storeFromDb, StoreConfigsEntity storeConfigs) {
+    public static void checkStoreInDb(StoresAdminRequest.Stores store, StoresEntity storeFromDb, StoreConfigsEntity storeConfigs) {
         Allure.step("", () -> {
             final SoftAssert softAssert = new SoftAssert();
-            compareTwoObjects(store.getRetailerId(), storeFromDb.getRetailerId(), softAssert);
-            compareTwoObjects(store.getOperationalZoneId(), storeFromDb.getOperationalZoneId(), softAssert);
-            compareTwoObjects(store.getTimeZone(), storeFromDb.getTimeZone(), softAssert);
-            compareTwoObjects(store.getShipmentBaseKilos() * 1000, storeConfigs.getShipmentBaseWeight(), softAssert);
-            compareTwoObjects(store.getShipmentBaseItemsCount(), storeConfigs.getShipmentBaseItemsCount(), softAssert);
-            compareTwoObjects(store.getMinFirstOrderAmount(), storeConfigs.getMinFirstOrderAmount(), softAssert);
-            compareTwoObjects(store.getMinOrderAmount(), storeConfigs.getMinOrderAmount(), softAssert);
-            compareTwoObjects(store.getMinOrderAmountPickup(), storeConfigs.getMinOrderAmountPickup(), softAssert);
-            compareTwoObjects(store.getMinFirstOrderAmountPickup(), storeConfigs.getMinFirstOrderAmountPickup(), softAssert);
-            compareTwoObjects(store.getDisallowOrderEditingHours(), storeConfigs.getDisallowOrderEditingHours(), softAssert);
+            compareTwoObjects(store.getStore().getRetailerId(), storeFromDb.getRetailerId(), softAssert);
+            compareTwoObjects(store.getStore().getOperationalZoneId(), storeFromDb.getOperationalZoneId(), softAssert);
+            compareTwoObjects(store.getStore().getTimeZone(), storeFromDb.getTimeZone(), softAssert);
+            compareTwoObjects(store.getStore().getConfig().getShipmentBaseKilos() * 1000.0, storeConfigs.getShipmentBaseWeight(), softAssert);
+            compareTwoObjects(store.getStore().getConfig().getShipmentBaseItemsCount(), storeConfigs.getShipmentBaseItemsCount(), softAssert);
+            compareTwoObjects(store.getStore().getConfig().getMinFirstOrderAmount(), storeConfigs.getMinFirstOrderAmount(), softAssert);
+            compareTwoObjects(store.getStore().getConfig().getMinOrderAmount(), storeConfigs.getMinOrderAmount(), softAssert);
+            compareTwoObjects(store.getStore().getConfig().getMinOrderAmountPickup(), storeConfigs.getMinOrderAmountPickup(), softAssert);
+            compareTwoObjects(store.getStore().getConfig().getMinFirstOrderAmountPickup(), storeConfigs.getMinFirstOrderAmountPickup(), softAssert);
+            compareTwoObjects(store.getStore().getConfig().getDisallowOrderEditingHours(), storeConfigs.getDisallowOrderEditingHours(), softAssert);
             softAssert.assertAll();
         });
 

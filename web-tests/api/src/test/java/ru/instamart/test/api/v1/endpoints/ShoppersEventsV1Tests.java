@@ -24,6 +24,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.Objects;
 import java.util.UUID;
 
+import static org.testng.Assert.assertNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
@@ -109,7 +110,7 @@ public class ShoppersEventsV1Tests extends RestBase {
             lineItemFromDb = SpreeLineItemsDao.INSTANCE.getLineItemByOfferIdAndShipmentId(offer.getId(), shipment.getId());
             if (Objects.nonNull(lineItemFromDb))
                 break;
-            ThreadUtil.simplyAwait(1);
+            ThreadUtil.simplyAwait(5);
             count++;
         }
 
@@ -169,11 +170,11 @@ public class ShoppersEventsV1Tests extends RestBase {
             cancelledLineItemFromDb = SpreeLineItemsDao.INSTANCE.findById(lineItemFromDb.getId()).get();
             if (Objects.isNull(cancelledLineItemFromDb.getAssemblyIssue()))
                 break;
-            ThreadUtil.simplyAwait(1);
+            ThreadUtil.simplyAwait(5);
             count++;
         }
 
-        Assert.assertNull(cancelledLineItemFromDb.getAssemblyIssue(), "Товар не восстановился");
+        assertNull(cancelledLineItemFromDb.getAssemblyIssue(), "Товар не восстановился");
     }
 
     @Skip(onServer = Server.STAGING)

@@ -76,6 +76,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2322)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Получение данных для рельсовых flash из браузера")
     public void getFlashes() {

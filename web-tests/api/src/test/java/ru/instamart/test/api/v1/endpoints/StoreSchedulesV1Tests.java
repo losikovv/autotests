@@ -66,12 +66,12 @@ public class StoreSchedulesV1Tests extends RestBase {
     @Test(description = "Получение шаблонов слотов. Шаблоны отсутствуют (не загружены)",
             groups = {"api-instamart-regress"})
     public void getStoreSchedulesEmpty() {
-        final StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName, "Москва");
+        final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
         admin.auth();
         admin.createStore(store);
 
         final Response response = StoreSchedulesV1Request.Schedules.GET(
-                StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon()).getId());
+                StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon()).getId());
 
         checkStatusCode200(response);
         checkResponseJsonSchema(response, StoreSchedulesV1Response.class);
@@ -96,12 +96,12 @@ public class StoreSchedulesV1Tests extends RestBase {
     @Test(description = "Добавление шаблонов слотов",
             groups = {"api-instamart-regress"})
     public void postStoreSchedules() {
-        final StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName, "Москва");
+        final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
         admin.auth();
         admin.createStore(store);
 
         final Response response = StoreSchedulesV1Request.Schedules.POST(
-                StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon()).getId());
+                StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon()).getId());
 
         checkStatusCode200(response);
         checkResponseJsonSchema(response, StoreSchedulesV1Response.class);
@@ -114,10 +114,10 @@ public class StoreSchedulesV1Tests extends RestBase {
     @Test(description = "Редактирование/Удаление шаблонов слотов",
             groups = {"api-instamart-regress"})
     public void putStoreSchedules() {
-        final StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName, "Москва");
+        final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
         admin.auth();
         admin.createStore(store);
-        final var sid = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon()).getId();
+        final var sid = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon()).getId();
         final Response postResponse = StoreSchedulesV1Request.Schedules.POST(sid);
         checkStatusCode200(postResponse);
 

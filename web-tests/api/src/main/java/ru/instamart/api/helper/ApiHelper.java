@@ -610,11 +610,11 @@ public final class ApiHelper {
     }
 
     @Step("Создаем магазин для ретейлера {retailerName} в городе {city}")
-    public StoresAdminRequest.Store createStoreInAdmin(String retailerName, String city) {
+    public StoresAdminRequest.Stores createStoreInAdmin(String retailerName, String city) {
         admin.auth();
-        StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName, city);
-        admin.createStore(store);
-        return store;
+        StoresAdminRequest.Stores stores = getStoreForRetailerTests(retailerName, city);
+        admin.createStore(stores);
+        return stores;
     }
 
     @Step("Настройка города для привязки магазинов")
@@ -625,7 +625,7 @@ public final class ApiHelper {
     }
 
     @Step("Настройка магазина для включения в админке")
-    public void setupStoreForActivation(StoresAdminRequest.Store store) {
+    public void setupStoreForActivation(StoresAdminRequest.Stores store) {
         importOffersInStore(store);
         importStoreZones(store);
         createScheduleMockup(store);
@@ -633,8 +633,8 @@ public final class ApiHelper {
     }
 
     @Step("Удаляем магазин из админки")
-    public void deleteStoreInAdmin(StoresAdminRequest.Store store) {
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+    public void deleteStoreInAdmin(StoresAdminRequest.Stores store) {
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
         Integer storeId = storeFromDb.getId();
 
         StoresDao.INSTANCE.delete(storeId);
@@ -652,12 +652,12 @@ public final class ApiHelper {
     }
 
     @Step("Импорт оффера для магазина")
-    public void importOffersInStore(StoresAdminRequest.Store store) {
+    public void importOffersInStore(StoresAdminRequest.Stores store) {
         admin.auth();
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
         Integer storeId = storeFromDb.getId();
         StoresTenantsDao.INSTANCE.addStoreTenant(storeId, "sbermarket");
-        String importKey = SpreeRetailersDao.INSTANCE.findById(storeFromDb.getRetailerId()).get().getKey() + "-" + store.getImportKeyPostFix();
+        String importKey = SpreeRetailersDao.INSTANCE.findById(storeFromDb.getRetailerId()).get().getKey() + "-" + store.getStore().getConfig().getImportKeyPostfix();
 
         byte[] fileBytes = changeXlsFileSheetName("src/test/resources/data/offers.xlsx", importKey, 0);
         admin.importOffers(fileBytes);
@@ -675,30 +675,30 @@ public final class ApiHelper {
     }
 
     @Step("Импорт зон магазина")
-    public void importStoreZones(StoresAdminRequest.Store store) {
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+    public void importStoreZones(StoresAdminRequest.Stores store) {
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
         admin.auth();
         admin.importStoreZoneFile(storeFromDb.getId(), "src/test/resources/data/zone.kml");
         admin.importStoreZone(storeFromDb.getId(), StoreZonesCoordinates.testMoscowZoneCoordinates());
     }
 
     @Step("Создание шаблона расписания магазина")
-    public void createScheduleMockup(StoresAdminRequest.Store store) {
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+    public void createScheduleMockup(StoresAdminRequest.Stores store) {
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
         admin.auth();
         admin.createStoreSchedule(storeFromDb.getUuid());
     }
 
     @Step("Создание зон доставки")
-    public void createDeliveryZones(StoresAdminRequest.Store store) {
+    public void createDeliveryZones(StoresAdminRequest.Stores store) {
         Long deliveryWindowId = createAndGetAvailableDeliveryWindows(store).get(0).getId();
         admin.auth();
         admin.updateDeliveryWindowWithDefaultValues(deliveryWindowId);
     }
 
     @Step("Получение списка окон доставки")
-    public List<DeliveryWindowV1> createAndGetAvailableDeliveryWindows(StoresAdminRequest.Store store) {
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+    public List<DeliveryWindowV1> createAndGetAvailableDeliveryWindows(StoresAdminRequest.Stores store) {
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
         admin.auth();
         admin.createDeliveryWindow(storeFromDb.getId());
 

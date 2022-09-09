@@ -1,5 +1,8 @@
 package ru.instamart.kraken.helper;
 
+import java.math.BigInteger;
+import java.util.Random;
+
 public class LegalEntityHelper {
 
     /**
@@ -98,5 +101,28 @@ public class LegalEntityHelper {
                 + "810" //код валюты (810 для рубля)
                 + "675" // контрольная цифра
                 + String.format("%09o", (long) (Math.random() * 99_999_999L + 1));
+    }
+
+    public static String generateOGRN() {
+        int sign = (getRandom()); //Признак отнесения государственного регистрационного номера
+        int year = (int) (10 + Math.random() * 10); //Год регистрации
+        int region = (int) (10 + Math.random() * 75); // Регион регистрации
+        int inspection = (int) (10 + Math.random() * 89); //Код налоговой инспекции
+        int number = (int) (11111 + Math.random() * 77777); //Номер записи регистрации
+        StringBuilder ogrn = new StringBuilder();
+        for (var i : new int[]{sign, year, region, inspection, number}) {
+            String s = String.valueOf(i);
+            ogrn.append(s);
+        }
+        //контрольное число: младший разряд остатка от деления предыдущего 12-значного числа на 11,
+        // если остаток от деления равен 10, то контрольное число равно 0 (нулю).
+        BigInteger countControlNumber = (BigInteger.valueOf(Long.parseLong(ogrn.toString()))).mod(BigInteger.valueOf(11));
+        int controlNumber = countControlNumber.intValue();
+        controlNumber = (controlNumber == 10) ? 0 : controlNumber;
+        return ogrn + String.valueOf(controlNumber);
+    }
+    static int getRandom() {
+        int[] sign = {1, 5};
+        return sign[new Random().nextInt(sign.length)];
     }
 }

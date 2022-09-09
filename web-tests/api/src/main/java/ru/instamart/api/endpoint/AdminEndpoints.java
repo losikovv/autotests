@@ -47,9 +47,6 @@ public final class AdminEndpoints {
 
     public static final String SHIPPING_METHODS = "shipping_methods";
 
-    public static final String STORE = "stores/{storeId}";
-    public static final String STORES = "stores";
-
     public static final String TAXONOMIES = "taxonomies";
     public static final String TAXONOMY = "taxonomies/{taxonomyId}";
 

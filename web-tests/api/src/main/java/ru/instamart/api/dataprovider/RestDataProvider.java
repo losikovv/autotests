@@ -102,7 +102,7 @@ public class RestDataProvider extends RestBase {
 
     @Data
     public static class StoresAdminTestData {
-        private StoresAdminRequest.Store store;
+        private StoresAdminRequest.Stores store;
         private String description;
         private Integer statusCode;
     }
