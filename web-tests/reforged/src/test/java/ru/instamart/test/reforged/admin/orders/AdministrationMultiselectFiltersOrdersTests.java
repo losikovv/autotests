@@ -21,8 +21,8 @@ import static ru.instamart.reforged.admin.enums.ShipmentStatuses.*;
 @Story("Страница 'Список заказов' admin/spa/orders. Фильтры с множественным выбором")
 public final class AdministrationMultiselectFiltersOrdersTests {
 
-    @CaseId(1517)
-    @Test(description = "Фильтр Номер заказа выдает список заказов по номеру заказа и по номеру шипмента",
+    @CaseId(2116)
+    @Test(description = "Поиск заказа по фильтру Номер заказа",
             groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void orderNumberByShipmentNumberFilterTest() {
         login().goToPage();
@@ -34,8 +34,6 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkLoadingLabelNotVisible();
         var shipmentNumber = orders().getAnyShipmentNumber();
 
-        //TODO На кракене есть 1 заказ без 'H' в номере, шаг кейса с поиском по 'H' не проходит проверка по кол-ву. Сравнить с другими стейджами
-        //var allOrdersCount = orders().getShipmentsCountFromTableHeader();
         orders().fillShipmentNumber(shipmentNumber);
         orders().applyFilters();
         orders().checkLoadingLabelNotVisible();
@@ -58,9 +56,6 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().applyFilters();
         orders().checkLoadingLabelNotVisible();
         orders().checkAllShipmentNumbersContains(shipmentNumber.substring(0, 1));
-        //TODO На кракене есть 1 заказ без 'H' в номере, шаг кейса с поиском по 'H' не проходит проверка по кол-ву. Сравнить с другими стейджами
-        //orders().checkShipmentsCountInTableHeader(allOrdersCount);
-        //orders().checkItemsCountInTable(allOrdersCount);
 
         orders().resetFilters();
         orders().checkLoadingLabelNotVisible();
@@ -91,6 +86,202 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
         orders().resetFilters();
         orders().checkLoadingLabelNotVisible();
+    }
+
+    @CaseId(2117)
+    @Test(description = "Поиск заказа по дате создания заказа, фильтр Создание заказа",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void orderFilterByCreateDate() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+
+    }
+
+    @CaseId(2118)
+    @Test(description = "Поиск заказа по дате доставки, фильтр Доставка заказа",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void orderFilterByDeliveryDate() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+
+    }
+
+    @CaseId(2119)
+    @Test(description = "Поиск заказов по весу, фильтр Вес заказа",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void orderFilterByWeight() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkShipmentListNotEmpty();
+
+        orders().addOrderWeightFrom("пппп");
+        orders().addOrderWeightTo("ffff");
+        orders().applyFilters();
+        orders().checkAlertErrorWeightFromVisible();
+        orders().checkAlertErrorWeightToVisible();
+
+        orders().addOrderWeightFrom("1,5");
+        orders().addOrderWeightTo("2,6");
+        orders().applyFilters();
+        orders().checkAlertErrorWeightFromVisible();
+        orders().checkAlertErrorWeightToVisible();
+
+        orders().addOrderWeightFrom(" ");
+        orders().addOrderWeightTo(" ");
+        orders().applyFilters();
+        orders().checkAlertErrorWeightFromVisible();
+        orders().checkAlertErrorWeightToVisible();
+
+        orders().addOrderWeightFrom("2");
+        orders().addOrderWeightTo("4");
+
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().checkAllShipmentInTableBetweenWeight(2.0, 4.0);
+
+        orders().addOrderWeightFrom("1.2");
+        orders().addOrderWeightTo("10.5");
+
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().checkAllShipmentInTableBetweenWeight(1.2, 10.5);
+    }
+
+    @CaseId(2120)
+    @Test(description = "Поиск заказов по фильтру Платформа",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void platformFilterTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addPlatformFilterItem("MetroWeb");
+        orders().checkPlatformSelectedFilterList(List.of("MetroWeb"));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasPlatformIn(Set.of("MetroWeb"));
+
+        orders().addPlatformFilterItem("SbermarketAndroid");
+        orders().checkPlatformSelectedFilterList(List.of("MetroWeb", "SbermarketAndroid"));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasPlatformIn(Set.of("SbermarketAndroid", "MetroWeb"));
+
+        orders().removePlatformFilterItem("MetroWeb");
+        orders().checkPlatformSelectedFilterList(List.of("SbermarketAndroid"));
+
+        orders().clearPlatformFilters();
+        orders().checkPlatformFiltersNotSelected();
+    }
+
+    @CaseId(2121)
+    @Test(description = "Фильтрация заказов по ритейлеру",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void retailerFilterTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addRetailerFilterItem("Лен");
+        orders().checkRetailerSelectedFilterList(List.of("Лента"));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasRetailerIn(Set.of("Лента"));
+
+        orders().addRetailerFilterItem("METRO");
+        orders().checkRetailerSelectedFilterList(List.of("Лента", "METRO"));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasRetailerIn(Set.of("Лента", "METRO"));
+
+        orders().removeRetailerFilterItem("Лента");
+        orders().checkRetailerSelectedFilterList(List.of("METRO"));
+
+        orders().clearRetailerFilters();
+        orders().checkRetailerFiltersNotSelected();
+    }
+
+    @CaseId(2143)
+    @Test(description = "Фильтрация заказов по базовому магазину",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void basicStoreFilterTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addBasicStoreFilterItem("Ашан, Севастопольский просп.", "METRO, Дмитровское ш");
+        //TODO В списке базовых магазинов мало-мало записей, возможно, узкое место при прогоне на стейджах
+        orders().checkBasicStoreSelectedFilterList(List.of("Ашан, Севастопольский просп.", "METRO, Дмитровское ш"));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasBasicStoreIn(Set.of("Ашан, Севастопольский просп.", "METRO, Дмитровское ш"));
+
+        orders().removeBasicStoreFilterItem("METRO, Дмитровское ш");
+        orders().checkBasicStoreSelectedFilterList(List.of("Ашан, Севастопольский просп."));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().checkAllShipmentInTableHasBasicStoreIn(Set.of("Ашан, Севастопольский просп."));
+        orders().clearBasicStoreFilters();
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+    }
+
+    @CaseId(2122)
+    @Test(description = "Фильтрация заказов по магазину",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void storeFilterTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addStoreFilterItem("Севастопольский просп", "Щелковская", "Дмитровское");
+        orders().checkStoreSelectedFilterList(List.of("Ашан, Москва, Севастопольский просп., 11Е", "METRO, Москва, Щелковская, 6", "METRO, Москва, Дмитровское ш, 165Б"));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasBasicStoreIn(Set.of("Ашан, Севастопольский просп.", "METRO, Москва, Щелковская", "METRO, Дмитровское ш"));
+
+        orders().removeStoreFilterItem("METRO, Москва, Щелковская, 6");
+        orders().checkStoreSelectedFilterList(List.of("Ашан, Москва, Севастопольский просп., 11Е", "METRO, Москва, Дмитровское ш, 165Б"));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().clearStoreFilters();
+        orders().checkStoreFiltersNotSelected();
     }
 
     @CaseId(2071)
@@ -129,125 +320,6 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().clearShipmentStatusFilters();
         orders().applyFilters();
         orders().waitPageLoad();
-        orders().checkLoadingLabelNotVisible();
-    }
-
-    @CaseId(1523)
-    @Test(description = "Фильтр Платформа -выпадающий список с множественным выбором",
-            groups = {"ondemand_orders_regression", "admin_ondemand_regression"})
-    public void platformFilterTest() {
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-        orders().goToPage();
-        orders().checkShipmentListNotEmpty();
-        orders().checkOrdersLoaded();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().addPlatformFilterItem("SbermarketAndroid", "InstamartApp", "MetroWeb");
-        orders().checkPlatformSelectedFilterList(List.of("SbermarketAndroid", "InstamartApp", "MetroWeb"));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().checkAllShipmentInTableHasPlatformIn(Set.of("SbermarketAndroid", "InstamartApp", "MetroWeb"));
-        orders().removePlatformFilterItem("SbermarketAndroid");
-
-        orders().checkPlatformSelectedFilterList(List.of("InstamartApp", "MetroWeb"));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().checkAllShipmentInTableHasPlatformIn(Set.of("InstamartApp", "MetroWeb"));
-        orders().clearPlatformFilters();
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-    }
-
-    @CaseId(1524)
-    @Test(description = "Фильтр Ритейлер - выпадающий список с множественным выбором",
-            groups = {"ondemand_orders_regression", "admin_ondemand_regression"})
-    public void retailerFilterTest() {
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-        orders().goToPage();
-        orders().checkShipmentListNotEmpty();
-        orders().checkOrdersLoaded();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().addRetailerFilterItem("METRO", "Ашан", "Лента");
-        orders().checkRetailerSelectedFilterList(List.of("METRO", "Ашан", "Лента"));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().checkAllShipmentInTableHasRetailerIn(Set.of("METRO", "Ашан", "Лента"));
-        orders().removeRetailerFilterItem("Лента");
-
-        orders().checkRetailerSelectedFilterList(List.of("METRO", "Ашан"));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().checkAllShipmentInTableHasRetailerIn(Set.of("METRO", "Ашан"));
-        orders().clearRetailerFilters();
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-    }
-
-    @CaseId(2044)
-    @Test(description = "Фильтр Базовый магазин - выпадающий список с множественным выбором",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
-    public void basicStoreFilterTest() {
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-        orders().goToPage();
-        orders().checkShipmentListNotEmpty();
-        orders().checkOrdersLoaded();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().addBasicStoreFilterItem("Ашан, Севастопольский просп.", "METRO, Дмитровское ш");
-        //TODO В списке базовых магазинов мало-мало записей, возможно, узкое место при прогоне на стейджах
-        orders().checkBasicStoreSelectedFilterList(List.of("Ашан, Севастопольский просп.", "METRO, Дмитровское ш"));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().checkAllShipmentInTableHasBasicStoreIn(Set.of("Ашан, Севастопольский просп.", "METRO, Дмитровское ш"));
-        orders().removeBasicStoreFilterItem("METRO, Дмитровское ш");
-
-        orders().checkBasicStoreSelectedFilterList(List.of("Ашан, Севастопольский просп."));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().checkAllShipmentInTableHasBasicStoreIn(Set.of("Ашан, Севастопольский просп."));
-        orders().clearBasicStoreFilters();
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-    }
-
-    @CaseId(1526)
-    @Test(description = "Фильтр Магазин -выпадающий список с множественным выбором",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
-    public void storeFilterTest() {
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-        orders().goToPage();
-        orders().checkShipmentListNotEmpty();
-        orders().checkOrdersLoaded();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().addStoreFilterItem("Севастопольский просп", "Щелковская", "Дмитровское");
-        orders().checkStoreSelectedFilterList(List.of("Ашан, Москва, Севастопольский просп., 11Е", "METRO, Москва, Щелковская, 6", "METRO, Москва, Дмитровское ш, 165Б"));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().removeStoreFilterItem("METRO, Москва, Щелковская, 6");
-
-        orders().checkStoreSelectedFilterList(List.of("Ашан, Москва, Севастопольский просп., 11Е", "METRO, Москва, Дмитровское ш, 165Б"));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().clearStoreFilters();
-        orders().applyFilters();
         orders().checkLoadingLabelNotVisible();
     }
 

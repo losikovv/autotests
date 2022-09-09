@@ -18,8 +18,12 @@ public interface OrdersElement {
     Input shipmentDeliveryDateStart = new Input(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Доставка заказа')]/following-sibling::div//input[@placeholder='Начальная дата']"), "Поле ввода 'Создание заказа -> Начальная дата'");
     Input shipmentDeliveryDateEnd = new Input(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Доставка заказа')]/following-sibling::div//input[@placeholder='Конечная дата']"), "Поле ввода 'Создание заказа -> Конечная дата'");
     Element shipmentDeliveryDateTimePicker = new Element(By.xpath("(//div[@class='ant-picker-datetime-panel'])[2]"), "Виджет выбора даты и времени доставки заказа");
+
     Input totalWeightStart = new Input(By.xpath("//input[@data-qa='shipment_total_weight_start']"), "Поле ввода 'Вес заказа -> От'");
     Input totalWeightEnd = new Input(By.xpath("//input[@data-qa='shipment_total_weight_end']"), "Поле ввода 'Вес заказа -> До'");
+    Element weightFromAlertError = new Element(By.xpath("//input[@data-qa='shipment_total_weight_start']/parent::div/parent::div/following-sibling::div/div/div/span[text()='Не число']"), "Ошибка валидации для 'Вес заказа -> От'");
+    Element weightToAlertError = new Element(By.xpath("//input[@data-qa='shipment_total_weight_end']/parent::div/parent::div/following-sibling::div/div/div/span[text()='Не число']"), "Ошибка валидации для 'Вес заказа -> До'");
+
     Input itemsCountStart = new Input(By.xpath("//input[@data-qa='shipment_item_count_start']"), "Поле ввода 'Кол-во позиций -> От'");
     Input itemsCountEnd = new Input(By.xpath("//input[@data-qa='shipment_item_count_end']"), "Поле ввода 'Кол-во позиций -> До'");
     MultiSelector platformSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Платформа')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Платформа'");

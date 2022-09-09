@@ -16,8 +16,7 @@ import static ru.instamart.reforged.admin.AdminRout.orders;
 public final class AdministrationBasicOrdersTests {
 
     @CaseId(1499)
-    @Test(description = "Корректное отображение страницы (/admin/orders). Админ со старыми ролями",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    @Test(description = "Корректное отображение страницы (/admin/orders). Админ со старыми ролями", groups = {"admin_ondemand_regression"})
     public void basicOrdersPageTestOldRoles() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -39,8 +38,7 @@ public final class AdministrationBasicOrdersTests {
     }
 
     @CaseId(1499)
-    @Test(description = "Корректное отображение страницы (/admin/orders). Админ с новыми ролями",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    @Test(description = "Корректное отображение страницы (/admin/orders). Админ с новыми ролями", groups = {"admin_ondemand_regression"})
     public void basicOrdersPageTestNewRoles() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

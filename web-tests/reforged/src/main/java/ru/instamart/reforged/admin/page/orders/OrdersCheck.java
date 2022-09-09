@@ -115,6 +115,16 @@ public interface OrdersCheck extends Check, OrdersElement {
         Assert.assertEquals(shipmentStatusSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Статус заказа' не соответствует ожидаемому");
     }
 
+    @Step("Проверяем, что ошибка 'Не число' отображается для 'Вес заказа -> От'")
+    default void checkAlertErrorWeightFromVisible() {
+        weightFromAlertError.should().visible();
+    }
+
+    @Step("Проверяем, что ошибка 'Не число' отображается для 'Вес заказа -> До'")
+    default void checkAlertErrorWeightToVisible() {
+        weightToAlertError.should().visible();
+    }
+
     @Step("Проверяем, что список выбранных фильтров в селекторе 'Платформа' соответствует ожидаемому: '{expectedFiltersList}'")
     default void checkPlatformSelectedFilterList(final List<String> expectedFiltersList) {
         Assert.assertEquals(platformSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Платформа' не соответствует ожидаемому");
@@ -232,6 +242,17 @@ public interface OrdersCheck extends Check, OrdersElement {
             krakenAssert.assertTrue(
                     expectedValues.contains(status),
                     String.format("Статус доставки заказа '%s' не найден среди ожидаемых: '%s'", status, expectedValues)
+            );
+        });
+        krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что все отфильтрованные заказы имеют Вес в промежутке от: {from} и до: {to}")
+    default void checkAllShipmentInTableBetweenWeight(final double from, final double to) {
+        tableComponent.getAllWeight().forEach(weight -> {
+            krakenAssert.assertTrue(
+                    StringUtil.rangeBetween(from, to, StringUtil.stringToDouble(weight)),
+                    String.format("Вес '%s' не в промежутке от: '%s' и до: '%s'", weight, from, to)
             );
         });
         krakenAssert.assertAll();

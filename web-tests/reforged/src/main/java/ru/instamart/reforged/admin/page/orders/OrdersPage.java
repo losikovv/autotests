@@ -57,6 +57,16 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
         shipmentDeliveryDateEnd.click();
     }
 
+    @Step("Указываем 'Вес заказа' от {}")
+    public void addOrderWeightFrom(final String from) {
+        totalWeightStart.fillField(from);
+    }
+
+    @Step("Указываем 'Вес заказа' до {}")
+    public void addOrderWeightTo(final String to) {
+        totalWeightEnd.fillField(to);
+    }
+
     @Step("Добавляем фильтр 'Платформа': '{platformName}'")
     public void addPlatformFilterItem(final String... platformName) {
         platformSelector.fillAndSelect(platformName);
@@ -74,7 +84,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
 
     @Step("Добавляем фильтр 'Ритейлер': '{retailerName}'")
     public void addRetailerFilterItem(final String... retailerName) {
-        retailerSelector.fillAndSelect(retailerName);
+        retailerSelector.fillContains(retailerName);
     }
 
     @Step("Удаляем выбранный фильтр 'Ритейлер': {retailerName}")

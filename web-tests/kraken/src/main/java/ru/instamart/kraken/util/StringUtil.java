@@ -2,10 +2,10 @@ package ru.instamart.kraken.util;
 
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.Range;
 import ru.instamart.kraken.config.CoreProperties;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -195,5 +195,10 @@ public final class StringUtil {
         }
 
         return result;
+    }
+
+    public static boolean rangeBetween(final double from, final double to, final double value) {
+        final Range<Double> validRange = Range.between(from, to);
+        return validRange.elementCompareTo(value) == 0;
     }
 }
