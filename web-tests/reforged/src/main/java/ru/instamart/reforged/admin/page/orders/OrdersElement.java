@@ -70,6 +70,4 @@ public interface OrdersElement {
     Input selectReason = new Input(By.xpath("//div[@class='ant-modal-content']//input"), "Поле ввода причины");
 
     Element shipment = new Element(By.xpath("//tr[contains(@class,'ant-table-row')]"), "Первый элемент таблицы");
-
-    Element promoCodeData = new Element(By.xpath("//tr[@class='show-promotion total']/td/span"), "Строка с промокодом на странице orders/№/edit");
 }

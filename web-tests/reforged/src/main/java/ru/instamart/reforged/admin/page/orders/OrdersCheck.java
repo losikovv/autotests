@@ -404,10 +404,4 @@ public interface OrdersCheck extends Check, OrdersElement {
     default void checkManualAssignmentModalVisible() {
         Kraken.waitAction().shouldBeVisible(manualAssignmentModal);
     }
-
-    @Step("Проверяем, что заказ оформлен с промокодом '{promoCode}'")
-    default void checkPromoCodeData(final String promoCode) {
-        final var code = promoCodeData.getText().trim();
-        Assert.assertEquals(promoCode, code, String.format("Промокод '%s' не соответствует ожидаемому '%s'", promoCode, code));
-    }
 }

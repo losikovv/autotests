@@ -13,8 +13,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.List;
 import java.util.Set;
 
-import static ru.instamart.reforged.admin.AdminRout.login;
-import static ru.instamart.reforged.admin.AdminRout.orders;
+import static ru.instamart.reforged.admin.AdminRout.*;
 import static ru.instamart.reforged.admin.enums.CollectingStatus.*;
 import static ru.instamart.reforged.admin.enums.PaymentMethods.*;
 import static ru.instamart.reforged.admin.enums.PaymentStatuses.*;
@@ -95,6 +94,8 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkLoadingLabelNotVisible();
     }
 
+    @Skip
+    //TODO: сделать датапикер
     @CaseId(2117)
     @Test(description = "Поиск заказа по дате создания заказа, фильтр Создание заказа",
             groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
@@ -110,6 +111,8 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     }
 
+    @Skip
+    //TODO: сделать датапикер
     @CaseId(2118)
     @Test(description = "Поиск заказа по дате доставки, фильтр Доставка заказа",
             groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
@@ -343,7 +346,9 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkLoadingLabelNotVisible();
         orders().clickOrderNumberInShipment(1);
         orders().switchToNextWindow();
-        orders().checkPromoCodeData(promoCode);
+
+        shipmentPage().waitPageLoad();
+        shipmentPage().checkPromoCodeData(promoCode);
     }
 
     @CaseId(2161)
@@ -525,9 +530,41 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkPaymentStatusFiltersNotSelected();
     }
 
+    @CaseId(2136)
+    @Test(description = "Фильтрация заказов с помощью быстрого фильтра",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void quickFiltersTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addQuickFilterItem(UNPAID.getName());
+        orders().checkQuickFiltersSelectedFilterList(List.of(UNPAID.getName()));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasPaymentStatusIn(Set.of(NOT_PAID.getName()));
+
+        orders().removeQuickFilterItem(UNPAID.getName());
+        orders().checkQuickFiltersNotSelected();
+
+        orders().addQuickFilterItem(UNPAID.getName());
+        orders().addQuickFilterItem(QUICK_DELIVERY.getName());
+        orders().checkQuickFiltersSelectedFilterList(List.of(UNPAID.getName(), QUICK_DELIVERY.getName()));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasPaymentStatusIn(Set.of(NOT_PAID.getName()));
+
+        orders().clearQuickFilters();
+        orders().checkQuickFiltersNotSelected();
+    }
+
     @CaseId(2071)
     @Test(description = "Фильтр Статус заказа - выпадающий список с множественным выбором",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {"ondemand_orders_regression", "admin_ondemand_regression"})
     public void orderStatusFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -685,7 +722,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     }
 
     @CaseId(2070)
-    @Test(description = "Быстрые фильтры - множественный выбор", groups = {"ondemand_orders_regression"})
+    @Test(description = "Быстрые фильтры - множественный выбор", groups = {"ondemand_orders_regression", "admin_ondemand_regression"})
     public void quickFiltersComplexUsingTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
