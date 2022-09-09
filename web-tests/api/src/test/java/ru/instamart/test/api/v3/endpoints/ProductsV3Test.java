@@ -242,21 +242,23 @@ public class ProductsV3Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(1378)
     @Story("Получить список доступных продуктов (Поиск)")
-    @Test(description = "Получаем список продуктов по категории с одиннадцатой страницы",
+    @Test(description = "Получаем список продуктов по категории с последней страницы",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductWithTidAndPage() {
+        String query = "хлеб";
+        int lastPage = apiV3.getProductsTotalPages(query);
+
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_TID)
-                .page(8)
-                .query("хлеб")
+                .page(lastPage)
+                .query(query)
                 .build(), EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV3Response.class);
         final ProductsV3Response productsV3Response = response.as(ProductsV3Response.class);
         final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(productsV3Response.getProducts().size(), productsV3Response.getMeta().getPerPage(), softAssert);
-        compareTwoObjects(8, productsV3Response.getMeta().getCurrentPage(), softAssert);
-        compareTwoObjects(7, productsV3Response.getMeta().getPreviousPage(), softAssert);
+        compareTwoObjects(lastPage, productsV3Response.getMeta().getCurrentPage(), softAssert);
+        compareTwoObjects(lastPage - 1, productsV3Response.getMeta().getPreviousPage(), softAssert);
         softAssert.assertAll();
     }
 
