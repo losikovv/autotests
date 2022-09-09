@@ -151,7 +151,7 @@ public final class BasicSbermarketTests {
         home().scrollDown();
 
         home().interactFooter().clickToFooterElementWithText(text);
-        home().checkPageUrl(url);
+        home().checkPageContains(url);
     }
 
     @CaseId(3504)
@@ -162,7 +162,7 @@ public final class BasicSbermarketTests {
         home().goToPage();
         home().interactFooter().clickToFooterElementWithText("Обработка персональных данных");
         home().switchToNextWindow();
-        privacyPolicy().checkPageUrl(UiProperties.STF_URL + privacyPolicy().pageUrl());
+        privacyPolicy().checkPageContains(privacyPolicy().pageUrl());
     }
 
     @DoNotOpenBrowser
