@@ -66,12 +66,12 @@ public class StoreZonesV1Tests extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получение пустого списка зон магазина (у магазина нет зон)")
     public void getStoreZonesPositiveEmptyZonesList() {
-        final StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName, "Москва");
+        final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
         admin.auth();
         admin.createStore(store);
 
         final Response response = StoreZonesV1Request.Zones.GET(
-                StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon()).getId());
+                StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon()).getId());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, StoreZonesV1Response.class);
         compareTwoObjects(response.as(StoreZonesV1Response.class).getZones().size(), 0);
@@ -94,12 +94,12 @@ public class StoreZonesV1Tests extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Добавление зон в магазин")
     public void postStoreZones() {
-        final StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName, "Москва");
+        final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
         admin.auth();
         admin.createStore(store);
 
         final Response response = StoreZonesV1Request.Zones.POST(
-                StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon()).getId(),
+                StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon()).getId(),
                 StoreZonesCoordinates.testMoscowZoneCoordinates());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, StoreZoneV1Response.class);
@@ -123,12 +123,12 @@ public class StoreZonesV1Tests extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Загрузка файла с зонами")
     public void importStoreZonesFile() {
-        final StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName, "Москва");
+        final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
         admin.auth();
         admin.createStore(store);
 
         final Response response = StoreZonesV1Request.ZoneFiles.POST(
-                StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon()).getId(),
+                StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon()).getId(),
                 "src/test/resources/data/zone.kml");
         checkStatusCode200(response);
     }
@@ -139,10 +139,10 @@ public class StoreZonesV1Tests extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Редактирование зон магазина")
     public void editStoreZones() {
-        final StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName, "Москва");
+        final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
         admin.auth();
         admin.createStore(store);
-        final int sid = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon()).getId();
+        final int sid = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon()).getId();
         final Response response = StoreZonesV1Request.Zones.POST(
                 sid,
                 StoreZonesCoordinates.testMoscowZoneCoordinates());
@@ -169,10 +169,10 @@ public class StoreZonesV1Tests extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Удаление зон магазина")
     public void deleteStoreZones() {
-        final StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName, "Москва");
+        final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
         admin.auth();
         admin.createStore(store);
-        final int sid = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon()).getId();
+        final int sid = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon()).getId();
         final Response response = StoreZonesV1Request.Zones.POST(
                 sid,
                 StoreZonesCoordinates.testMoscowZoneCoordinates());

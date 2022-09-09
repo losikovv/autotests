@@ -391,14 +391,13 @@ public class ImportsV1Tests extends RestBase {
             description = "Импорт нового оффера")
     public void importOffers() {
         admin.auth();
-        StoresAdminRequest.Store store = getStoreSelgrosMiklouhoMaclay();
-        store.setLat(55.763584);
-        store.setLon(37.625585);
-        admin.createStore(store);
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+        StoresAdminRequest.Stores stores = getStoreSelgrosMiklouhoMaclay();
+
+        admin.createStore(stores);
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(stores.getStore().getLocation().getLat(), stores.getStore().getLocation().getLon());
         storeId = storeFromDb.getId();
         StoresTenantsDao.INSTANCE.addStoreTenant(storeId, "sbermarket");
-        importKey = SpreeRetailersDao.INSTANCE.findById(storeFromDb.getRetailerId()).get().getKey() + "-" + store.getImportKeyPostFix();
+        importKey = SpreeRetailersDao.INSTANCE.findById(storeFromDb.getRetailerId()).get().getKey() + "-" + stores.getStore().getConfig().getImportKeyPostfix();
 
         fileBytes = changeXlsFileSheetName("src/test/resources/data/offers.xlsx", importKey, 0);
 

@@ -46,10 +46,11 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1368)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
-            groups = {"api-instamart-regress"}) //, "api-instamart-prod"}) //todo возвращает ошибку
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsWithValidSid() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_TID)
+                .query("хлеб")
                 .build(), EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV3Response.class);
@@ -58,7 +59,6 @@ public class ProductsV3Test extends RestBase {
         product = products.get(0);
     }
 
-    @Skip //todo ожидаем фикса
     @CaseId(2709)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "В категории больше 3 дефолтных фильтров",
@@ -232,7 +232,6 @@ public class ProductsV3Test extends RestBase {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_TID)
                 .sort(ProductSortTypeV2.UNIT_PRICE_ASC.getKey())
-                .query("хлеб")
                 .build(), EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV3Response.class);
@@ -248,7 +247,7 @@ public class ProductsV3Test extends RestBase {
     public void getProductWithTidAndPage() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_TID)
-                .page(11)
+                .page(8)
                 .query("хлеб")
                 .build(), EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
@@ -256,8 +255,8 @@ public class ProductsV3Test extends RestBase {
         final ProductsV3Response productsV3Response = response.as(ProductsV3Response.class);
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(productsV3Response.getProducts().size(), productsV3Response.getMeta().getPerPage(), softAssert);
-        compareTwoObjects(11, productsV3Response.getMeta().getCurrentPage(), softAssert);
-        compareTwoObjects(10, productsV3Response.getMeta().getPreviousPage(), softAssert);
+        compareTwoObjects(8, productsV3Response.getMeta().getCurrentPage(), softAssert);
+        compareTwoObjects(7, productsV3Response.getMeta().getPreviousPage(), softAssert);
         softAssert.assertAll();
     }
 
