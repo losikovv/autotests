@@ -8,7 +8,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.Kraken;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -24,6 +24,7 @@ public final class HomePageTests {
 
     private final ApiHelper apiHelper = new ApiHelper();
 
+    @Skip
     @CaseId(3358)
     @Test(description = "Отображение слотов доставки магазина для адреса в пересечении зон доставки", groups = "regression")
     public void crossZonesStoreSingleZoneAddress() {
@@ -83,6 +84,7 @@ public final class HomePageTests {
         shop().interactHeader().checkNextDeliveryEquals(nearestDeliveryInterval);
     }
 
+    @Skip
     @CaseId(3360)
     @Test(description = "Отображение страницы для авторизованного пользователя", groups = "regression")
     public void homePageForAuthorizedUser() {
@@ -117,6 +119,7 @@ public final class HomePageTests {
         home().checkDeliveryBlockTitle(home().getRetailersBlockTitle(), expectedDeliveryBlockTitle);
     }
 
+    @Skip
     @CaseId(3362)
     @Test(description = "Отображение магазинов после ввода адреса доставки", groups = "regression")
     public void showShopsAfterFillAddress() {
@@ -134,6 +137,7 @@ public final class HomePageTests {
         home().checkDeliveryBlockTitle(home().getStoresBlockTitle(), expectedDeliveryBlockTitle);
     }
 
+    @Skip
     @CaseId(3363)
     @Test(description = "Отображение магазинов после ввода адреса вне города доставки", groups = "regression")
     public void outOfDeliveryLocation() {
@@ -150,6 +154,7 @@ public final class HomePageTests {
         home().checkDeliveryBlockTitle(home().getRetailersBlockTitle(), String.format("Нашли %d магазинов в", home().getRetailersCountInBlock()));
     }
 
+    @Skip
     @CaseId(3364)
     @Test(description = "Определение города по IP и координатам", groups = "regression")
     public void retailerNotInCity() {
@@ -168,6 +173,7 @@ public final class HomePageTests {
         home().checkStoreCardDisplayed(DEFAULT_AUCHAN_SID);
     }
 
+    @Skip
     @CaseId(3365)
     @Test(description = "Переход по ссылке с кодом лейбла при незаполненном адресе", groups = "regression")
     public void openGroupsAddressNotSet() {
@@ -193,6 +199,7 @@ public final class HomePageTests {
         home().checkStoreCardDisplayed(DEFAULT_METRO_MOSCOW_SID);
     }
 
+    @Skip
     @CaseId(3366)
     @Test(description = "Переход по ссылке с кодом лейбла при заполненном адресе", groups = "regression")
     public void openGroupsAddressSet() {
