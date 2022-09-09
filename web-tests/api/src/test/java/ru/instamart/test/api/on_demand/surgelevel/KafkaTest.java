@@ -1,9 +1,6 @@
 package ru.instamart.test.api.on_demand.surgelevel;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import order_enrichment.OrderEnrichment;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
@@ -106,6 +103,7 @@ public class KafkaTest extends RestBase {
 
     @CaseId(40)
     @Story("Расчет surgelevel")
+    @Issue("HG-934")
     @Test(description = "Расчет surgelevel при получении события EventOrder с ранее полученным ON_DEMAND заказом в активном статусе",
             groups = "ondemand-surgelevel-regress")
     public void surgeProduceEventOrderRepeatActive() {
@@ -167,8 +165,10 @@ public class KafkaTest extends RestBase {
 
     @CaseId(16)
     @Story("Расчет surgelevel")
+    @Issue("HG-934")
     @Test(description = "Отсутствие расчета surgelevel при получении события EventOrder с новым не ON_DEMAND заказом",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel-smoke",
+            enabled = false)
     public void surgeProduceEventOrderNotOnDemand() {
         OrderEnrichment.EventOrderEnrichment eventOrder = getEventOrderEnrichment(DELIVERY_AREA_ID, UUID.randomUUID().toString(), STORE_ID, OrderEnrichment.EventOrderEnrichment.ShipmentStatus.NEW, "PLANNED", UUID.randomUUID().toString());
         kafka.publish(configCmdOrderEnrichment(), eventOrder.toByteArray());
