@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf_prod.shopping;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -19,11 +20,17 @@ import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 public final class ShoppingYouBoughtBeforeTests {
 
     private final ApiHelper helper = new ApiHelper();
+    private UserData shoppingCartUser;
+
+    @AfterMethod(alwaysRun = true, description = "Отмена ордера")
+    public void afterTest() {
+        helper.cancelAllActiveOrders(shoppingCartUser);
+    }
 
     @CaseId(2943)
     @Test(description = "Товар отображается в блоке 'Вы покупали ранее', если отправлен на сборку", groups = {STF_PROD_S})
     public void testYouBoughtBeforeDisplayed() {
-        final UserData shoppingCartUser = UserManager.getQaUser();
+        shoppingCartUser = UserManager.getQaUser();
         helper.makeOrder(shoppingCartUser, DEFAULT_SID, 3);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultProdAddress());
 
@@ -44,7 +51,7 @@ public final class ShoppingYouBoughtBeforeTests {
     @CaseId(2947)
     @Test(description = "Блок 'Вы покупали ранее' не отображается, если у пользователя отменен заказ и этот заказ единственный", groups = {STF_PROD_S})
     public void testYouBoughtBeforeNotDisplayedIfOrderCancelled() {
-        final UserData shoppingCartUser = UserManager.getQaUser();
+        shoppingCartUser = UserManager.getQaUser();
         helper.makeOrder(shoppingCartUser, DEFAULT_SID, 3);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultProdAddress());
 

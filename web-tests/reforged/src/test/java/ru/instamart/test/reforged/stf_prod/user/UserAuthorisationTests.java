@@ -74,6 +74,7 @@ public final class UserAuthorisationTests {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
+        shop().interactAuthModal().checkSberIdIsVisible();
         shop().interactAuthModal().authViaSberId();
 
         sberId().checkPhoneInputVisible();

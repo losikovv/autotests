@@ -195,6 +195,12 @@ public final class Header implements HeaderCheck {
         Kraken.refresh();
     }
 
+    @Step("Логаут с очисткой сессии")
+    public void clearSessionLogoutProd() {
+        CdpCookie.deleteAllCookies();
+        Kraken.refresh();
+    }
+
     @Step("Вернуть текущий адрес")
     public String returnCurrentAddress() {
         return enteredAddress.getText();

@@ -28,7 +28,7 @@ public interface HeaderElement {
     Button firstSelectAddress = new Button(By.xpath("//button[@data-qa='shipping_method_button']"), "выбранный адрес");
     Element hotlineWorkHoursText = new Element(By.xpath("//div[@data-qa='ship-address-selector']//span[contains(@class,'avaliablity')]"), "Часы работы службы поддержки");
     Element hotlinePhoneNumber = new Element(By.xpath("//div[@data-qa='ship-address-selector']//span[contains(@class,'number')]"), "Номер телефона службы поддержки");
-    Element enteredAddress = new Element(By.xpath("//span[@data-qa='current-ship-address']"), "Лэйбл отображающий введенный адрес в шапке");
+    Element enteredAddress = new Element(By.xpath("//span[@data-qa='current-ship-address']"), 15, "Лэйбл отображающий введенный адрес в шапке");
     Element nextDelivery = new Element(By.xpath("//b[contains(.,'Ближайшая доставка')]/span[3]"), "Ближайшая доставка");
 
     Link forB2B = new Link(By.xpath("//a[contains(@href, '/transfer/to_b2b')]"), "Заказ для Б2Б");
@@ -63,12 +63,12 @@ public interface HeaderElement {
     ElementCollection taxonCategoriesCollectionImagesAlco = new ElementCollection(By.cssSelector("svg.header-search-list-category__icon-content"), "Картинки 18+ списка категорий в подсказке поиска");
     ElementCollection searchSuggestsCollectionImagesAlco = new ElementCollection(By.xpath("//div[@data-qa='suggester_header_tab_panel_0']//img[contains(@src,'adult-warning')]"), "Картинки 18+ в подсказках поиска");
 
-    Button profile = new Button(By.xpath("//button[@data-qa='profile-button_button']"), "кнопка профиль пользователя в хэдере");
+    Button profile = new Button(By.xpath("//button[@data-qa='profile-button_button']"), 15, "кнопка профиль пользователя в хэдере");
     Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"), "кнопка корзины");
     Link favorite = new Link(By.xpath("//a[@data-qa='favorites-link']"), "Ссылка 'Любимые'");
     Link favoriteWithOutAuth = new Link(By.xpath("//button[@data-qa='favorites-link']"), "кнопка избранного для неавторизованных");
     Link orders = new Link(By.xpath("//a[@data-qa='shipments-link']"), "Кнопка 'Заказы'");
-    Button login = new Button(By.xpath("//button[@data-qa='login-button_button']"), "Кнопка логина в хедере без авторизации"); //
+    Button login = new Button(By.xpath("//button[@data-qa='login-button_button']"), 15, "Кнопка логина в хедере без авторизации"); //
 
     Element cartNotification = new Element(By.xpath("//div[@class='notification']"), "Алерт добавления товара в корзину");
 

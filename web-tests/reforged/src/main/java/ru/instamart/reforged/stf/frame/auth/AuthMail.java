@@ -17,7 +17,7 @@ public final class AuthMail implements Window {
 
     @Step("Ввести email на странице авторизации через mail.ru")
     public void fillName(final String text) {
-        name.fillField(text);
+        name.fill(text);
     }
 
     @Step("Нажать Ввести пароль на странице авторизации через mail.ru")

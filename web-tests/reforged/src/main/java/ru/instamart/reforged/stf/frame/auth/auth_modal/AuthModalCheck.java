@@ -45,7 +45,8 @@ public interface AuthModalCheck extends Check, AuthModalElement {
 
     @Step("Проверяем, что кнопка через SberID показана")
     default void checkSberIdIsVisible() {
-        waitAction().shouldBeVisible(sberId);
+        sberId.should().visible();
+        sberId.should().clickable();
     }
 
     @Step("Проверяем, что кнопка входа через ВК показана")

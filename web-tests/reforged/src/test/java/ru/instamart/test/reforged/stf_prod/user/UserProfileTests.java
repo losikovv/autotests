@@ -9,7 +9,6 @@ import ru.instamart.kraken.util.StringUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
-import static ru.instamart.reforged.admin.AdminRout.pages;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -46,7 +45,7 @@ public final class UserProfileTests {
 
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
-        pages().checkPageIsAvailable();
+        userEdit().checkPageIsAvailable();
     }
 
     @CaseId(1527)
@@ -60,7 +59,7 @@ public final class UserProfileTests {
 
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToTerms();
-        pages().checkPageIsAvailable();
+        terms().checkPageIsAvailable();
     }
 
     @CaseId(1528)
@@ -74,7 +73,7 @@ public final class UserProfileTests {
 
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToDelivery();
-        pages().checkPageIsAvailable();
+        delivery().checkPageIsAvailable();
     }
 
     @CaseId(1530)
@@ -88,7 +87,7 @@ public final class UserProfileTests {
 
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToFaq();
-        pages().checkPageIsAvailable();
+        faq().checkPageIsAvailable();
     }
 
     @CaseId(1531)
@@ -102,9 +101,9 @@ public final class UserProfileTests {
 
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
-        pages().checkPageIsAvailable();
+        userEdit().checkPageIsAvailable();
         userEdit().openOrders();
-        pages().checkPageIsAvailable();
+        userShipments().checkPageIsAvailable();
     }
 
     @CaseId(1532)
@@ -118,7 +117,7 @@ public final class UserProfileTests {
 
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
-        pages().checkPageIsAvailable();
+        userEdit().checkPageIsAvailable();
         userShipments().goToPage();
         userShipments().checkTextOnThePage();
         userShipments().checkAllOrdersButton();
@@ -186,7 +185,7 @@ public final class UserProfileTests {
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
 
-        final var newUser = UserManager.getUser();
+        final var newUser = UserManager.getQaUser();
         userEdit().goToPage();
         userEdit().clickToChangePhone();
         userEdit().interactAuthModal().authViaPhone(newUser);

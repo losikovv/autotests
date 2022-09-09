@@ -28,8 +28,9 @@ public final class UserLogoutTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().interactHeader().clearSessionLogout(userData);
+        shop().interactHeader().clearSessionLogoutProd();
         shop().interactHeader().checkLoginIsVisible();
+
         home().goToPage();
         home().checkLoginButtonIsVisible();
     }
