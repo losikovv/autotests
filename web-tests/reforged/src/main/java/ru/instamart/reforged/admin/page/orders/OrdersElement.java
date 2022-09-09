@@ -26,6 +26,9 @@ public interface OrdersElement {
 
     Input itemsCountStart = new Input(By.xpath("//input[@data-qa='shipment_item_count_start']"), "Поле ввода 'Кол-во позиций -> От'");
     Input itemsCountEnd = new Input(By.xpath("//input[@data-qa='shipment_item_count_end']"), "Поле ввода 'Кол-во позиций -> До'");
+    Element itemsFromAlertError = new Element(By.xpath("//input[@data-qa='shipment_item_count_start']/parent::div/parent::div/following-sibling::div/div/div/span[text()='Не число']"), "Ошибка валидации для 'Вес заказа -> От'");
+    Element itemsToAlertError = new Element(By.xpath("//input[@data-qa='shipment_item_count_end']/parent::div/parent::div/following-sibling::div/div/div/span[text()='Не число']"), "Ошибка валидации для 'Вес заказа -> До'");
+
     MultiSelector platformSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Платформа')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Платформа'");
     MultiSelector retailerSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Ритейлер')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Ритейлер'");
     MultiSelector basicStoreSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Базовый магазин')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Базовый магазин'");
@@ -45,8 +48,8 @@ public interface OrdersElement {
     Input firstName = new Input(By.xpath("//input[@name='firstName']"), "Поле ввода 'Информация о клиенте -> Имя'");
     Input email = new Input(By.xpath("//input[@name='email']"), "Поле ввода 'Информация о клиенте -> e-mail'");
     MultiSelector regionSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Регион')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Регион'");
-    MultiSelector collectingStatus = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус сборки')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус сборки'");
-    MultiSelector deliveryStatus = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус доставки')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус доставки'");
+    MultiSelector collectingStatusSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус сборки')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус сборки'");
+    MultiSelector deliveryStatusSelector = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Статус доставки')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Статус доставки'");
     Element quickFiltersTitle = new Element(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Быстрые фильтры')]"), "Заголовок блока 'Быстрые фильтры'");
     MultiSelector quickFilters = new MultiSelector(By.xpath("//div[contains(@class,'ant-form-item-label')][contains(.,'Быстрые фильтры')]/following-sibling::div//div[contains(@class,'ant-select ')]"), "Селектор 'Быстрые фильтры'");
     Button resetFilters = new Button(By.xpath("//button[@data-qa='reset_shipments_filter_button']"), "Кнопка 'Сбросить'");
@@ -67,4 +70,6 @@ public interface OrdersElement {
     Input selectReason = new Input(By.xpath("//div[@class='ant-modal-content']//input"), "Поле ввода причины");
 
     Element shipment = new Element(By.xpath("//tr[contains(@class,'ant-table-row')]"), "Первый элемент таблицы");
+
+    Element promoCodeData = new Element(By.xpath("//tr[@class='show-promotion total']/td/span"), "Строка с промокодом на странице orders/№/edit");
 }

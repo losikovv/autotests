@@ -2,8 +2,12 @@ package ru.instamart.test.reforged.admin.orders;
 
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
+import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
@@ -11,6 +15,7 @@ import java.util.Set;
 
 import static ru.instamart.reforged.admin.AdminRout.login;
 import static ru.instamart.reforged.admin.AdminRout.orders;
+import static ru.instamart.reforged.admin.enums.CollectingStatus.*;
 import static ru.instamart.reforged.admin.enums.PaymentMethods.*;
 import static ru.instamart.reforged.admin.enums.PaymentStatuses.*;
 import static ru.instamart.reforged.admin.enums.QuickFilters.*;
@@ -20,6 +25,8 @@ import static ru.instamart.reforged.admin.enums.ShipmentStatuses.*;
 @Feature("Заказы")
 @Story("Страница 'Список заказов' admin/spa/orders. Фильтры с множественным выбором")
 public final class AdministrationMultiselectFiltersOrdersTests {
+
+    private final ApiHelper helper = new ApiHelper();
 
     @CaseId(2116)
     @Test(description = "Поиск заказа по фильтру Номер заказа",
@@ -284,6 +291,240 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkStoreFiltersNotSelected();
     }
 
+    @CaseId(2123)
+    @Test(description = "Фильтрация заказов по Способу оплаты",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void paymentMethodsFilterTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addPaymentMethodFilterItem(BY_CASH.getName(), BY_CARD_TO_COURIER.getName(), AT_CHECKOUT.getName());
+        orders().checkPaymentMethodSelectedFilterList(List.of(BY_CASH.getName(), BY_CARD_TO_COURIER.getName(), AT_CHECKOUT.getName()));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasPaymentMethodIn(Set.of(BY_CASH.getName(), BY_CARD_TO_COURIER.getName(), AT_CHECKOUT.getName()));
+
+        orders().removePaymentMethodFilterItem(BY_CASH.getName());
+        orders().checkPaymentMethodSelectedFilterList(List.of(BY_CARD_TO_COURIER.getName(), AT_CHECKOUT.getName()));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasPaymentMethodIn(Set.of(BY_CARD_TO_COURIER.getName(), AT_CHECKOUT.getName()));
+
+        orders().clearPaymentMethodFilters();
+        orders().checkPaymentMethodFiltersNotSelected();
+    }
+
+    @Skip(onServer = Server.PRODUCTION)
+    //Заказы отображаются не сразу в админке
+    @Flaky
+    @CaseId(2124)
+    @Test(description = "Фильтрация заказов по промокоду",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void promoCodeFiltersTest() {
+        final var userData = UserManager.getQaUser();
+        final var order = helper.makeAndCancelOrder(userData, UiProperties.DEFAULT_SID, 3, true);
+        final var promoCode = order.getPromotionCodes().get(0).getCode();
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addPromoCodeFilter(promoCode);
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().clickOrderNumberInShipment(1);
+        orders().switchToNextWindow();
+        orders().checkPromoCodeData(promoCode);
+    }
+
+    @CaseId(2161)
+    // Все из-за того, что планировали все увести на диспач
+    // и потом выпилить этот фильтр и перей/ти на статусы джобов
+    @Flaky
+    @Test(description = "Фильтрация заказа по статусу сборки",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void collectingStatusFilterTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addStoreFilterItem("Екатеринбург Металлургов");
+
+        orders().addCollectingStatusFilter(AUTOMATIC_DISPATCHING.getName(), MANUAL_DISPATCHING.getName(), OFFER_SENT.getName());
+        orders().checkCollectingStatusSelectedFilterList(List.of(AUTOMATIC_DISPATCHING.getName(), MANUAL_DISPATCHING.getName(), OFFER_SENT.getName()));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasCollectingStatusIn(Set.of(AUTOMATIC_DISPATCHING.getName(), MANUAL_DISPATCHING.getName(), OFFER_SENT.getName(), CANCELLED.getName()));
+
+        orders().removeCollectingStatusFilterItem(AUTOMATIC_DISPATCHING.getName());
+        orders().checkCollectingStatusSelectedFilterList(List.of(MANUAL_DISPATCHING.getName(), OFFER_SENT.getName()));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasCollectingStatusIn(Set.of(MANUAL_DISPATCHING.getName(), OFFER_SENT.getName(), CANCELLED.getName()));
+
+        orders().clearCollectingStatusFilters();
+        orders().checkCollectingStatusNotSelected();
+    }
+
+    @CaseId(2137)
+    // Все из-за того, что планировали все увести на диспач
+    // и потом выпилить этот фильтр и перей/ти на статусы джобов
+    @Flaky
+    @Test(description = "Фильтрация заказа по статусу доставки",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void deliveryStatusFilterTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addStoreFilterItem("Екатеринбург Металлургов");
+
+        orders().addDeliveryStatusFilter(AUTOMATIC_DISPATCHING.getName(), MANUAL_DISPATCHING.getName(), OFFER_SENT.getName());
+        orders().checkDeliveryStatusSelectedFilterList(List.of(AUTOMATIC_DISPATCHING.getName(), MANUAL_DISPATCHING.getName(), OFFER_SENT.getName()));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasShippingStatusIn(Set.of(AUTOMATIC_DISPATCHING.getName(), MANUAL_DISPATCHING.getName(), OFFER_SENT.getName(), CANCELLED.getName()));
+
+        orders().removeDeliveryStatusFilterItem(AUTOMATIC_DISPATCHING.getName());
+        orders().checkDeliveryStatusSelectedFilterList(List.of(MANUAL_DISPATCHING.getName(), OFFER_SENT.getName()));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasShippingStatusIn(Set.of(MANUAL_DISPATCHING.getName(), OFFER_SENT.getName(), CANCELLED.getName()));
+
+        orders().clearDeliveryStatusFilters();
+        orders().checkDeliveryStatusNotSelected();
+    }
+
+    @CaseId(2159)
+    @Test(description = "Фильтрация заказов по кол-ву позиций в заказе",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void orderFilterByItems() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkShipmentListNotEmpty();
+
+        orders().addOrderItemsFrom("пппп");
+        orders().addOrderItemsTo("ffff");
+        orders().applyFilters();
+        orders().checkAlertErrorItemsFromVisible();
+        orders().checkAlertErrorItemsToVisible();
+
+        orders().addOrderItemsFrom("1,5");
+        orders().addOrderItemsTo("2,6");
+        orders().applyFilters();
+        orders().checkAlertErrorItemsFromVisible();
+        orders().checkAlertErrorItemsToVisible();
+
+        orders().addOrderItemsFrom(" ");
+        orders().addOrderItemsTo(" ");
+        orders().applyFilters();
+        orders().checkAlertErrorItemsFromVisible();
+        orders().checkAlertErrorItemsToVisible();
+
+        orders().addOrderItemsFrom("2");
+        orders().addOrderItemsTo("4");
+
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().checkAllShipmentInTableBetweenItems(2.0, 4.0);
+
+        orders().addOrderItemsFrom("1.2");
+        orders().addOrderItemsTo("10.5");
+
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().checkAllShipmentInTableBetweenItems(1, 10);
+    }
+
+    @CaseId(2160)
+    @Test(description = "Фильтрация заказов по статусу оплаты",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void paymentStatusFilterTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkShipmentListNotEmpty();
+        orders().checkOrdersLoaded();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().addPaymentStatusFilterItem(NOT_PAID.getName().toLowerCase());
+        orders().checkPaymentStatusSelectedFilterList(List.of(NOT_PAID.getName().toLowerCase()));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasPaymentStatusIn(Set.of(NOT_PAID.getName()));
+
+        orders().addPaymentStatusFilterItem(BALANCE_DUE.getName().toLowerCase());
+        orders().checkPaymentStatusSelectedFilterList(List.of(NOT_PAID.getName().toLowerCase(), BALANCE_DUE.getName().toLowerCase()));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasPaymentStatusIn(Set.of(NOT_PAID.getName(), BALANCE_DUE.getName()));
+
+        orders().addPaymentStatusFilterItem(PAID.getName().toLowerCase(), OVERPAID.getName().toLowerCase(), FAILED.getName().toLowerCase());
+        orders().checkPaymentStatusSelectedFilterList(List.of(
+                NOT_PAID.getName().toLowerCase(),
+                BALANCE_DUE.getName().toLowerCase(),
+                PAID.getName().toLowerCase(),
+                OVERPAID.getName().toLowerCase(),
+                FAILED.getName().toLowerCase()));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasPaymentStatusIn(Set.of(
+                NOT_PAID.getName(),
+                BALANCE_DUE.getName(),
+                PAID.getName(),
+                OVERPAID.getName(),
+                FAILED.getName()));
+
+        orders().removePaymentStatusFilterItem(NOT_PAID.getName().toLowerCase());
+        orders().checkPaymentStatusSelectedFilterList(List.of(
+                BALANCE_DUE.getName().toLowerCase(),
+                PAID.getName().toLowerCase(),
+                OVERPAID.getName().toLowerCase(),
+                FAILED.getName().toLowerCase()));
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableHasPaymentStatusIn(Set.of(
+                BALANCE_DUE.getName(),
+                PAID.getName(),
+                OVERPAID.getName(),
+                FAILED.getName()));
+
+        orders().addPaymentStatusFilterItem(NOT_PAID.getName().toLowerCase());
+        orders().checkPaymentStatusSelectedFilterList(List.of(
+                BALANCE_DUE.getName().toLowerCase(),
+                PAID.getName().toLowerCase(),
+                OVERPAID.getName().toLowerCase(),
+                FAILED.getName().toLowerCase(),
+                NOT_PAID.getName().toLowerCase()));
+
+        orders().clearPaymentStatusFilters();
+        orders().checkPaymentStatusFiltersNotSelected();
+    }
+
     @CaseId(2071)
     @Test(description = "Фильтр Статус заказа - выпадающий список с множественным выбором",
             groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
@@ -320,108 +561,6 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().clearShipmentStatusFilters();
         orders().applyFilters();
         orders().waitPageLoad();
-        orders().checkLoadingLabelNotVisible();
-    }
-
-    @CaseId(1527)
-    @Test(description = "Фильтр Способ оплаты - список с множественным выбором",
-            groups = {"ondemand_orders_regression", "admin_ondemand_regression"})
-    public void paymentMethodsFilterTest() {
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-        orders().goToPage();
-        orders().checkShipmentListNotEmpty();
-        orders().checkOrdersLoaded();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().addPaymentMethodFilterItem(BY_CASH.getName(), BY_CARD_TO_COURIER.getName(), AT_CHECKOUT.getName());
-        orders().checkPaymentMethodSelectedFilterList(List.of(BY_CASH.getName(), BY_CARD_TO_COURIER.getName(), AT_CHECKOUT.getName()));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().checkAllShipmentInTableHasPaymentMethodIn(Set.of(BY_CASH.getName(), BY_CARD_TO_COURIER.getName(), AT_CHECKOUT.getName()));
-        orders().removePaymentMethodFilterItem(BY_CASH.getName());
-
-        orders().checkPaymentMethodSelectedFilterList(List.of(BY_CARD_TO_COURIER.getName(), AT_CHECKOUT.getName()));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().checkAllShipmentInTableHasPaymentMethodIn(Set.of(BY_CARD_TO_COURIER.getName(), AT_CHECKOUT.getName()));
-        orders().clearPaymentMethodFilters();
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-    }
-
-    @CaseId(2073)
-    @Test(description = "Фильтр Статус оплаты - список с множественным выбором",
-            groups = {"ondemand_orders_regression", "admin_ondemand_regression"})
-    public void paymentStatusFilterTest() {
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-        orders().goToPage();
-        orders().checkShipmentListNotEmpty();
-        orders().checkOrdersLoaded();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().addPaymentStatusFilterItem(NOT_PAID.getName().toLowerCase());
-        orders().checkPaymentStatusSelectedFilterList(List.of(NOT_PAID.getName().toLowerCase()));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().checkAllShipmentInTableHasPaymentStatusIn(Set.of(NOT_PAID.getName()));
-
-        orders().addPaymentStatusFilterItem(BALANCE_DUE.getName().toLowerCase());
-        orders().checkPaymentStatusSelectedFilterList(List.of(NOT_PAID.getName().toLowerCase(), BALANCE_DUE.getName().toLowerCase()));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().checkAllShipmentInTableHasPaymentStatusIn(Set.of(NOT_PAID.getName(), BALANCE_DUE.getName()));
-
-        orders().addPaymentStatusFilterItem(PAID.getName().toLowerCase(), OVERPAID.getName().toLowerCase(), FAILED.getName().toLowerCase());
-
-        orders().checkPaymentStatusSelectedFilterList(List.of(
-                NOT_PAID.getName().toLowerCase(),
-                BALANCE_DUE.getName().toLowerCase(),
-                PAID.getName().toLowerCase(),
-                OVERPAID.getName().toLowerCase(),
-                FAILED.getName().toLowerCase()));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().checkAllShipmentInTableHasPaymentStatusIn(Set.of(
-                NOT_PAID.getName(),
-                BALANCE_DUE.getName(),
-                PAID.getName(),
-                OVERPAID.getName(),
-                FAILED.getName()));
-        orders().removePaymentStatusFilterItem(NOT_PAID.getName().toLowerCase());
-
-        orders().checkPaymentStatusSelectedFilterList(List.of(
-                BALANCE_DUE.getName().toLowerCase(),
-                PAID.getName().toLowerCase(),
-                OVERPAID.getName().toLowerCase(),
-                FAILED.getName().toLowerCase()));
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().checkAllShipmentInTableHasPaymentStatusIn(Set.of(
-                BALANCE_DUE.getName(),
-                PAID.getName(),
-                OVERPAID.getName(),
-                FAILED.getName()));
-
-        orders().addPaymentStatusFilterItem(NOT_PAID.getName().toLowerCase());
-        orders().checkPaymentStatusSelectedFilterList(List.of(
-                BALANCE_DUE.getName().toLowerCase(),
-                PAID.getName().toLowerCase(),
-                OVERPAID.getName().toLowerCase(),
-                FAILED.getName().toLowerCase(),
-                NOT_PAID.getName().toLowerCase()));
-
-        orders().clearPaymentStatusFilters();
-        orders().applyFilters();
         orders().checkLoadingLabelNotVisible();
     }
 

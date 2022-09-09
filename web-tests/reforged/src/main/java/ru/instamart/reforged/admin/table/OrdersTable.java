@@ -110,6 +110,10 @@ public final class OrdersTable extends Table {
         return getAll(Column.ORDER, totalWeight);
     }
 
+    public List<String> getAllItems() {
+        return getAll(Column.ORDER, itemsCount);
+    }
+
     public String getPlatformName(final int line) {
         final var cellElement = getCellElement(Column.ORDER.label, line);
         if (nonNull(cellElement)) {

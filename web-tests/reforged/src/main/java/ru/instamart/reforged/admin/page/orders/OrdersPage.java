@@ -67,6 +67,16 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
         totalWeightEnd.fillField(to);
     }
 
+    @Step("Указываем 'Кол-во позиций' от {}")
+    public void addOrderItemsFrom(final String from) {
+        itemsCountStart.fillField(from);
+    }
+
+    @Step("Указываем 'Кол-во позиций' до {}")
+    public void addOrderItemsTo(final String to) {
+        itemsCountEnd.fillField(to);
+    }
+
     @Step("Добавляем фильтр 'Платформа': '{platformName}'")
     public void addPlatformFilterItem(final String... platformName) {
         platformSelector.fillAndSelect(platformName);
@@ -157,6 +167,11 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
         paymentStatusSelector.removeAll();
     }
 
+    @Step("Добавляем фильтр 'Промокод': '{code}'")
+    public void addPromoCodeFilter(final String code) {
+        promoCode.fillField(code);
+    }
+
     @Step("Добавляем фильтр 'Быстрые фильтры: '{quickFilterName}'")
     public void addQuickFilterItem(final String quickFilterName) {
         quickFilters.selectWithoutSearch(quickFilterName);
@@ -182,6 +197,36 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
         courier.click();
     }
 
+    @Step("Добавляем фильтр 'Статус сборки': '{collectingStatus}'")
+    public void addCollectingStatusFilter(final String... collectingStatus) {
+        collectingStatusSelector.fillAndSelect(collectingStatus);
+    }
+
+    @Step("Удаляем выбранный фильтр 'Статус сборки': {paymentMethod}")
+    public void removeCollectingStatusFilterItem(final String collectingStatus) {
+        collectingStatusSelector.removeItemByName(collectingStatus);
+    }
+
+    @Step("Очищаем фильтры 'Статус сборки'")
+    public void clearCollectingStatusFilters() {
+        collectingStatusSelector.removeAll();
+    }
+
+    @Step("Добавляем фильтр 'Статус доставки': '{deliveryStatus}'")
+    public void addDeliveryStatusFilter(final String... deliveryStatus) {
+        deliveryStatusSelector.fillAndSelect(deliveryStatus);
+    }
+
+    @Step("Удаляем выбранный фильтр 'Статус доставки': {deliveryStatus}")
+    public void removeDeliveryStatusFilterItem(final String deliveryStatus) {
+        deliveryStatusSelector.removeItemByName(deliveryStatus);
+    }
+
+    @Step("Очищаем фильтры 'Статус доставки'")
+    public void clearDeliveryStatusFilters() {
+        deliveryStatusSelector.removeAll();
+    }
+
     @Step("Получаем количество найденных заказов")
     public int getShipmentsCountFromTableHeader() {
         return StringUtil.extractNumberFromString(searchResultCount.getText());
@@ -199,12 +244,12 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
     }
 
     @Step("Получаем название ритейлера '{shipmentPosition}'-го заказа в таблице")
-    public String getRetailerName(final int shipmentPosition){
+    public String getRetailerName(final int shipmentPosition) {
         return tableComponent.getRetailerName(shipmentPosition - 1);
     }
 
     @Step("Получаем название магазина '{shipmentPosition}'-го заказа в таблице")
-    public String getStoreName(final int shipmentPosition){
+    public String getStoreName(final int shipmentPosition) {
         return tableComponent.getStoreName(shipmentPosition - 1);
     }
 
@@ -214,7 +259,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
     }
 
     @Step("Получаем номер заказа '{shipmentPosition}'-го заказа в таблице")
-    public String getOrderNumber(final int shipmentPosition){
+    public String getOrderNumber(final int shipmentPosition) {
         return tableComponent.getOrderNumber(shipmentPosition - 1);
     }
 
@@ -229,7 +274,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
     }
 
     @Step("Выбираем '{shipmentDropdownMenuItem}' в выпадающем меню доставки")
-    public void clickShipmentDropdownMenu(final String shipmentDropdownMenuItem){
+    public void clickShipmentDropdownMenu(final String shipmentDropdownMenuItem) {
         dropdownMenuItemByName.click(shipmentDropdownMenuItem);
     }
 
