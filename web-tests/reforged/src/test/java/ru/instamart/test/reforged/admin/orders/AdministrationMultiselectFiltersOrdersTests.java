@@ -7,6 +7,7 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
+import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -96,10 +97,13 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @Skip
     //TODO: сделать датапикер
+    //Заказ очень долго летит и начинает отображаться в админке через 20-40 сек
+    //Если выгребать текущие, то в таблице нет данных о дате создания
     @CaseId(2117)
     @Test(description = "Поиск заказа по дате создания заказа, фильтр Создание заказа",
             groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void orderFilterByCreateDate() {
+        final var order = helper.makeAndCancelOrder(UserManager.getQaUser(), UiProperties.DEFAULT_SID, 2);
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
@@ -108,15 +112,26 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkOrdersLoaded();
         orders().checkLoadingLabelNotVisible();
 
+        orders().fillShipmentNumber(order.getNumber());
+        orders().clickShipmentCreateDateStart();
+        orders().fillShipmentCreateDateStart(TimeUtil.getDateWithTimeMinusDays(1));
+        orders().clickShipmentCreateDateEnd();
+        orders().fillShipmentCreateDateEnd(TimeUtil.getDateWithTimePlusDays(1));
+        orders().applyFilters();
 
+        orders().checkLoadingLabelNotVisible();
+        orders().checkShipmentsCountInTableHeader(1);
+        orders().checkItemsCountInTable(1);
+        orders().checkAllShipmentNumbersContains(order.getNumber());
     }
 
-    @Skip
     //TODO: сделать датапикер
     @CaseId(2118)
     @Test(description = "Поиск заказа по дате доставки, фильтр Доставка заказа",
             groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void orderFilterByDeliveryDate() {
+        final var dateStart = TimeUtil.getDateWithTimeMinusDays(4);
+        final var dateEnd = TimeUtil.getDateWithTime();
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
@@ -125,7 +140,14 @@ public final class AdministrationMultiselectFiltersOrdersTests {
         orders().checkOrdersLoaded();
         orders().checkLoadingLabelNotVisible();
 
+        orders().clickShipmentDeliveryDateStart();
+        orders().fillShipmentDeliveryDateStart(dateStart);
+        orders().clickShipmentDeliveryDateEnd();
+        orders().fillShipmentDeliveryDateEnd(dateEnd);
+        orders().applyFilters();
 
+        orders().checkLoadingLabelNotVisible();
+        orders().checkAllShipmentInTableBetweenDate(TimeUtil.convertStringToDateWithTime(dateStart), TimeUtil.convertStringToDateWithTime(dateEnd));
     }
 
     @CaseId(2119)

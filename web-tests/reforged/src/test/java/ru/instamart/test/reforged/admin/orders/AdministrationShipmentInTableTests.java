@@ -66,6 +66,7 @@ public final class AdministrationShipmentInTableTests {
     }
 
     @Skip
+    //Скачивание 500 на стейджах
     @CaseId(2110)
     @Test(description = "Скачать накладную заказа",
             groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
@@ -76,8 +77,6 @@ public final class AdministrationShipmentInTableTests {
         orders().goToPage();
         orders().checkLoadingLabelNotVisible();
         orders().checkOrdersLoaded();
-
-        //Скачивание 500 на стейджах
     }
 
     @CaseId(2111)

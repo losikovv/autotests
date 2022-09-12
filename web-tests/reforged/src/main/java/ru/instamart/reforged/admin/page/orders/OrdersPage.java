@@ -1,6 +1,7 @@
 package ru.instamart.reforged.admin.page.orders;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.Keys;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.admin.AdminPage;
 import ru.instamart.reforged.core.page.Window;
@@ -42,9 +43,23 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
         shipmentCreateDateStart.click();
     }
 
+    @Step("Заполнить поле 'Создание заказа - Начальная дата' датой '{date}'")
+    //2022-09-12 06:35
+    public void fillShipmentCreateDateStart(final String date) {
+        shipmentCreateDateStart.fillField(date);
+        shipmentCreateDateStart.getActions().sendKeys(Keys.ENTER);
+    }
+
     @Step("Кликаем в поле 'Создание заказа - Конечная дата'")
     public void clickShipmentCreateDateEnd() {
         shipmentCreateDateEnd.click();
+    }
+
+    @Step("Заполнить поле 'Создание заказа - Конечная дата' датой '{date}'")
+    //2022-09-12 06:35
+    public void fillShipmentCreateDateEnd(final String date) {
+        shipmentCreateDateEnd.fillField(date);
+        shipmentCreateDateEnd.getActions().sendKeys(Keys.ENTER);
     }
 
     @Step("Кликаем в поле 'Доставка - Начальная дата'")
@@ -52,9 +67,23 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
         shipmentDeliveryDateStart.click();
     }
 
+    @Step("Заполнить поле 'Доставка - Начальная дата' датой '{date}'")
+    //2022-09-12 06:35
+    public void fillShipmentDeliveryDateStart(final String date) {
+        shipmentDeliveryDateStart.fillField(date);
+        shipmentDeliveryDateStart.getActions().sendKeys(Keys.ENTER);
+    }
+
     @Step("Кликаем в поле 'Доставка - Конечная дата'")
     public void clickShipmentDeliveryDateEnd() {
         shipmentDeliveryDateEnd.click();
+    }
+
+    @Step("Заполнить поле 'Доставка - Конечная дата' датой '{date}'")
+    //2022-09-12 06:35
+    public void fillShipmentDeliveryDateEnd(final String date) {
+        shipmentDeliveryDateEnd.fillField(date);
+        shipmentDeliveryDateEnd.getActions().sendKeys(Keys.ENTER);
     }
 
     @Step("Указываем 'Вес заказа' от {}")

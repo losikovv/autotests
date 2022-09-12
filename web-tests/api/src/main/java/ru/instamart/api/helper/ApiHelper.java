@@ -351,8 +351,8 @@ public final class ApiHelper {
         apiV2.setDefaultOrderAttributesOnDemand();
     }
 
-    public void makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
-        makeAndCancelOrder(user, sid, itemsNumber, apiV2.getAddressBySidMy(sid));
+    public OrderV2 makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
+        return makeAndCancelOrder(user, sid, itemsNumber, apiV2.getAddressBySidMy(sid));
     }
 
     public OrderV2 makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber, final boolean withPromoCode) {
@@ -378,9 +378,9 @@ public final class ApiHelper {
     }
 
     @Step("Оформляем и отменяем заказ с выбранным адресом {address} при помощи API")
-    public void makeAndCancelOrder(final UserData user, final int sid, final int itemsNumber, final AddressV2 address) {
+    public OrderV2 makeAndCancelOrder(final UserData user, final int sid, final int itemsNumber, final AddressV2 address) {
         final var order = makeOrder(user, sid, itemsNumber, address);
-        apiV2.cancelOrder(order.getNumber());
+        return apiV2.cancelOrder(order.getNumber());
     }
 
     public void makeAndCompleteOrder(final UserData user, final int sid, final int itemsNumber) {

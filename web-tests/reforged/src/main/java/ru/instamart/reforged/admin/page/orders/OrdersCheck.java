@@ -3,9 +3,11 @@ package ru.instamart.reforged.admin.page.orders;
 import io.qameta.allure.Step;
 import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -390,6 +392,21 @@ public interface OrdersCheck extends Check, OrdersElement {
             krakenAssert.assertTrue(
                     expectedValues.contains(allCouriersInTable.get(i)),
                     String.format("Назначение - Курьер в заказе номер '%s' : '%s' не найден среди ожидаемых: '%s'", tableComponent.getShipmentNumber(i), allCouriersInTable.get(i), expectedValues)
+            );
+        }
+        krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что для всех отфильтрованных заказов Дата доставки в промежутке между '{dateStart}' и '{dateEnd}'")
+    default void checkAllShipmentInTableBetweenDate(final ZonedDateTime dateStart, final ZonedDateTime dateEnd) {
+        var allCouriersInTable = tableComponent.getAllDeliveryDate();
+        for (int i = 0; i < allCouriersInTable.size(); i++) {
+            krakenAssert.assertTrue(
+                    TimeUtil.dateBetween(dateStart, dateEnd, TimeUtil.convertStringToDate(allCouriersInTable.get(i), TimeUtil.ZONE_ID)),
+                    String.format("Дата доставки заказе номер '%s' : не находится в промежутке между: '%s' и '%s'",
+                            tableComponent.getShipmentNumber(i),
+                            dateStart,
+                            dateEnd)
             );
         }
         krakenAssert.assertAll();

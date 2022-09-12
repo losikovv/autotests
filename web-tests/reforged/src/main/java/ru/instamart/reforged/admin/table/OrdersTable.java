@@ -216,6 +216,10 @@ public final class OrdersTable extends Table {
         return getAll(Column.EXECUTORS, courier);
     }
 
+    public List<String> getAllDeliveryDate() {
+        return getAll(Column.SHIPMENT, deliveryDate);
+    }
+
     private List<String> getAll(final Column column, final By by) {
         return getElementsFromColumn(column.label).stream()
                 .map(webElement ->
