@@ -3,10 +3,15 @@ package ru.instamart.reforged.admin.page.shipment.shipment.delivery_windows;
 import io.qameta.allure.Step;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.admin.AdminPage;
+import ru.instamart.reforged.admin.block.flash_alert.FlashAlert;
 
 import java.util.Set;
 
 public final class ShipmentDeliveryWindowsPage implements AdminPage, ShipmentDeliveryWindowsCheck {
+
+    public FlashAlert interactAlert() {
+        return alert;
+    }
 
     @Step("Получаем первый доступный интервал доставки")
     public String getFirstAvailableDeliveryInterval() {

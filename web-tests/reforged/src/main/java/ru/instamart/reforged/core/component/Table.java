@@ -15,8 +15,6 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public class Table extends AbstractComponent {
 
-    private static final By table = By.xpath("//table");
-
     private final By headerLine = By.xpath("./thead/tr");
     private final By headerCell = By.xpath("./th");
 
@@ -24,7 +22,11 @@ public class Table extends AbstractComponent {
     private final By dataCell = By.xpath("./child::td[not(ancestor::td)]");
 
     public Table() {
-        super(table, "таблица");
+        this(By.xpath("//table"));
+    }
+
+    public Table(final By by) {
+        super(by, "таблица");
     }
 
     @Override

@@ -3,9 +3,11 @@ package ru.instamart.reforged.admin.page.orders;
 import io.qameta.allure.Step;
 import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -115,6 +117,26 @@ public interface OrdersCheck extends Check, OrdersElement {
         Assert.assertEquals(shipmentStatusSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Статус заказа' не соответствует ожидаемому");
     }
 
+    @Step("Проверяем, что ошибка 'Не число' отображается для 'Вес заказа -> От'")
+    default void checkAlertErrorWeightFromVisible() {
+        weightFromAlertError.should().visible();
+    }
+
+    @Step("Проверяем, что ошибка 'Не число' отображается для 'Вес заказа -> До'")
+    default void checkAlertErrorWeightToVisible() {
+        weightToAlertError.should().visible();
+    }
+
+    @Step("Проверяем, что ошибка 'Не число' отображается для 'Кол-во позиций -> От'")
+    default void checkAlertErrorItemsFromVisible() {
+        itemsFromAlertError.should().visible();
+    }
+
+    @Step("Проверяем, что ошибка 'Не число' отображается для 'Кол-во позиций -> До'")
+    default void checkAlertErrorItemsToVisible() {
+        itemsToAlertError.should().visible();
+    }
+
     @Step("Проверяем, что список выбранных фильтров в селекторе 'Платформа' соответствует ожидаемому: '{expectedFiltersList}'")
     default void checkPlatformSelectedFilterList(final List<String> expectedFiltersList) {
         Assert.assertEquals(platformSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Платформа' не соответствует ожидаемому");
@@ -148,6 +170,26 @@ public interface OrdersCheck extends Check, OrdersElement {
     @Step("Проверяем, что список выбранных фильтров в селекторе 'Быстрые фильтры' соответствует ожидаемому: '{expectedFiltersList}'")
     default void checkQuickFiltersSelectedFilterList(final List<String> expectedFiltersList) {
         Assert.assertEquals(quickFilters.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Быстрые фильтры' не соответствует ожидаемому");
+    }
+
+    @Step("Проверяем, что список выбранных фильтров в селекторе 'Статус сборки' соответствует ожидаемому: '{expectedFiltersList}'")
+    default void checkCollectingStatusSelectedFilterList(final List<String> expectedFiltersList) {
+        Assert.assertEquals(collectingStatusSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Статус сборки' не соответствует ожидаемому");
+    }
+
+    @Step("Проверяем, что фильтры 'Статус сборки' не выбраны")
+    default void checkCollectingStatusNotSelected() {
+        Assert.assertTrue(collectingStatusSelector.getAllSelectedName().isEmpty(), "Список выбранных фильтров 'Статус сборки' не пуст");
+    }
+
+    @Step("Проверяем, что список выбранных фильтров в селекторе 'Статус доставки' соответствует ожидаемому: '{expectedFiltersList}'")
+    default void checkDeliveryStatusSelectedFilterList(final List<String> expectedFiltersList) {
+        Assert.assertEquals(deliveryStatusSelector.getAllSelectedName(), expectedFiltersList, "Список выбранных фильтров в селекторе 'Статус доставки' не соответствует ожидаемому");
+    }
+
+    @Step("Проверяем, что фильтры 'Статус доставки' не выбраны")
+    default void checkDeliveryStatusNotSelected() {
+        Assert.assertTrue(deliveryStatusSelector.getAllSelectedName().isEmpty(), "Список выбранных фильтров 'Статус доставки' не пуст");
     }
 
     @Step("Проверяем, что отображается список выпадающих элементов селектора 'Сборщик'")
@@ -232,6 +274,28 @@ public interface OrdersCheck extends Check, OrdersElement {
             krakenAssert.assertTrue(
                     expectedValues.contains(status),
                     String.format("Статус доставки заказа '%s' не найден среди ожидаемых: '%s'", status, expectedValues)
+            );
+        });
+        krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что все отфильтрованные заказы имеют Вес в промежутке от: {from} и до: {to}")
+    default void checkAllShipmentInTableBetweenWeight(final double from, final double to) {
+        tableComponent.getAllWeight().forEach(weight -> {
+            krakenAssert.assertTrue(
+                    StringUtil.rangeBetween(from, to, StringUtil.stringToDouble(weight)),
+                    String.format("Вес '%s' не в промежутке от: '%s' и до: '%s'", weight, from, to)
+            );
+        });
+        krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что все отфильтрованные заказы имеют Позиции в промежутке от: {from} и до: {to}")
+    default void checkAllShipmentInTableBetweenItems(final double from, final double to) {
+        tableComponent.getAllItems().forEach(items -> {
+            krakenAssert.assertTrue(
+                    StringUtil.rangeBetween(from, to, StringUtil.stringToDouble(items)),
+                    String.format("Позиции '%s' не в промежутке от: '%s' и до: '%s'", items, from, to)
             );
         });
         krakenAssert.assertAll();
@@ -328,6 +392,21 @@ public interface OrdersCheck extends Check, OrdersElement {
             krakenAssert.assertTrue(
                     expectedValues.contains(allCouriersInTable.get(i)),
                     String.format("Назначение - Курьер в заказе номер '%s' : '%s' не найден среди ожидаемых: '%s'", tableComponent.getShipmentNumber(i), allCouriersInTable.get(i), expectedValues)
+            );
+        }
+        krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что для всех отфильтрованных заказов Дата доставки в промежутке между '{dateStart}' и '{dateEnd}'")
+    default void checkAllShipmentInTableBetweenDate(final ZonedDateTime dateStart, final ZonedDateTime dateEnd) {
+        var allCouriersInTable = tableComponent.getAllDeliveryDate();
+        for (int i = 0; i < allCouriersInTable.size(); i++) {
+            krakenAssert.assertTrue(
+                    TimeUtil.dateBetween(dateStart, dateEnd, TimeUtil.convertStringToDate(allCouriersInTable.get(i), TimeUtil.ZONE_ID)),
+                    String.format("Дата доставки заказе номер '%s' : не находится в промежутке между: '%s' и '%s'",
+                            tableComponent.getShipmentNumber(i),
+                            dateStart,
+                            dateEnd)
             );
         }
         krakenAssert.assertAll();

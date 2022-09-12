@@ -3,6 +3,7 @@ package ru.instamart.api.helper;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
+import org.testng.Assert;
 import ru.instamart.api.enums.v1.ImportStatusV1;
 import ru.instamart.api.model.shopper.admin.ShopperV1;
 import ru.instamart.api.model.shopper.admin.VehicleV1;
@@ -35,6 +36,7 @@ import ru.instamart.kraken.util.TimeUtil;
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreForRetailerTests;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
 import static ru.instamart.kraken.util.FileUtils.changeXlsFileSheetName;
@@ -349,14 +351,36 @@ public final class ApiHelper {
         apiV2.setDefaultOrderAttributesOnDemand();
     }
 
-    public void makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
-        makeAndCancelOrder(user, sid, itemsNumber, apiV2.getAddressBySidMy(sid));
+    public OrderV2 makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
+        return makeAndCancelOrder(user, sid, itemsNumber, apiV2.getAddressBySidMy(sid));
+    }
+
+    public OrderV2 makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber, final boolean withPromoCode) {
+        apiV2.authByQA(user);
+
+        final var orderNumber = apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySidMy(sid));
+        apiV2.fillCart(apiV2.getProducts(sid), itemsNumber);
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethod(sid);
+        apiV2.getAvailableDeliveryWindow();
+
+        apiV2.setDefaultOrderAttributes();
+
+        apiV2.applyPromoCode(orderNumber, getPromotionCode());
+        final var order = apiV2.completeOrder();
+        Assert.assertNotNull(order, "Заказ не вернулся");
+        apiV2.cancelOrder(order.getNumber());
+        return order;
     }
 
     @Step("Оформляем и отменяем заказ с выбранным адресом {address} при помощи API")
-    public void makeAndCancelOrder(final UserData user, final int sid, final int itemsNumber, final AddressV2 address) {
+    public OrderV2 makeAndCancelOrder(final UserData user, final int sid, final int itemsNumber, final AddressV2 address) {
         final var order = makeOrder(user, sid, itemsNumber, address);
-        apiV2.cancelOrder(order.getNumber());
+        return apiV2.cancelOrder(order.getNumber());
     }
 
     public void makeAndCompleteOrder(final UserData user, final int sid, final int itemsNumber) {

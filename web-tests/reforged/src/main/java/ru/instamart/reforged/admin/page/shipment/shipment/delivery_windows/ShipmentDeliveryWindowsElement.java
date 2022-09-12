@@ -1,9 +1,13 @@
 package ru.instamart.reforged.admin.page.shipment.shipment.delivery_windows;
 
 import org.openqa.selenium.By;
+import ru.instamart.reforged.admin.block.flash_alert.FlashAlert;
 import ru.instamart.reforged.core.component.*;
 
 public interface ShipmentDeliveryWindowsElement {
+
+    FlashAlert alert = new FlashAlert();
+
     Element noticePopup = new Element(By.xpath("//div[@class='ant-message-notice-content']"), "Всплывающее уведомение о выполнении операции");
 
     Element savedShipmentInterval = new Element(By.xpath("//span[@class='ant-descriptions-item-label'][contains(.,'Сохраненный слот доставки')]/following-sibling::span"), "Сохраненный интервал доставки в шапке");

@@ -2,8 +2,9 @@ package ru.instamart.reforged.admin.page.shipment.shipment;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.admin.AdminPage;
+import ru.instamart.reforged.core.page.Window;
 
-public final class ShipmentPage implements AdminPage, ShipmentCheck {
+public final class ShipmentPage implements AdminPage, ShipmentCheck, Window {
 
     @Step("Нажимаем на кнопку 'Магазин и время доставки'")
     public void clickDeliveryWindowLink() {

@@ -33,7 +33,9 @@ public final class KrakenCondition {
 
                     if (nonNull(value) && value.length() != 0) {
                         if (isPhone) {
-                            value = StringUtil.getPhone(value);
+                            if (StringUtil.getPhone(value).equals(data)) {
+                                return true;
+                            }
                         }
 
                         if (InfoUtil.isMac()) {
@@ -44,7 +46,7 @@ public final class KrakenCondition {
                         element.sendKeys(Keys.DELETE);
                     }
                     element.sendKeys(data);
-                    return value.equals(data);
+                    return element.getAttribute("value").equals(data);
                 }
                 return false;
             }
