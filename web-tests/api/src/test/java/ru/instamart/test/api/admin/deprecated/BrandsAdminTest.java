@@ -1,4 +1,4 @@
-package ru.instamart.test.api.admin;
+package ru.instamart.test.api.admin.deprecated;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
@@ -15,6 +15,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.admin.BrandsAdminRequest;
 import ru.instamart.jdbc.dao.stf.SpreeBrandsDao;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Objects;
@@ -25,6 +26,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
 
 @Epic("Admin")
+@Deprecated //Задача выпиливания FEP-3591
 @Feature("Бренды")
 public final class BrandsAdminTest extends RestBase {
 
@@ -44,6 +46,7 @@ public final class BrandsAdminTest extends RestBase {
     }
 
     @CaseId(1945)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Получение всех брендов")
     public void getAllBrands() {
@@ -52,6 +55,7 @@ public final class BrandsAdminTest extends RestBase {
     }
 
     @CaseId(1946)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Создание бренда")
     public void createBrand() {
@@ -76,6 +80,7 @@ public final class BrandsAdminTest extends RestBase {
     }
 
     @CaseId(1947)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Редактирование бренда",
             dependsOnMethods = "createBrand")
@@ -99,6 +104,7 @@ public final class BrandsAdminTest extends RestBase {
     }
 
     @CaseId(1948)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Удаление бренда",
             dependsOnMethods = "patchBrand")

@@ -39,6 +39,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     public void preconditionsBeforeClass() {
         apiV3.checkFlipper("allow_export_to_external_services");
         admin.auth();
+        admin.authApi();
         admin.editStore(sidDeliveryBySbermarket, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
         admin.editStore(sidDeliveryByRetailer, StoresAdminRequest.getStoreVictoriaTest());
     }

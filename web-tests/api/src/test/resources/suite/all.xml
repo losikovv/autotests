@@ -82,20 +82,15 @@
     <!-- api-admin-tests -->
     <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="12">
         <classes>
-            <class name="ru.instamart.test.api.admin.BrandsAdminTest"/>
             <class name="ru.instamart.test.api.admin.CitiesAdminTest"/>
             <class name="ru.instamart.test.api.admin.FaqGroupsAdminTest"/>
             <class name="ru.instamart.test.api.admin.GeneralSettingsAdminTest"/>
-            <class name="ru.instamart.test.api.admin.ManufacturersAdminTest"/>
-            <class name="ru.instamart.test.api.admin.ManufacturingCountriesAdminTest"/>
-            <class name="ru.instamart.test.api.admin.OptionTypesAdminTest"/>
             <class name="ru.instamart.test.api.admin.PagesAdminTest"/>
             <class name="ru.instamart.test.api.admin.ProductsAdminTest"/>
             <class name="ru.instamart.test.api.admin.PromotionCodesAdminTest"/>
             <class name="ru.instamart.test.api.admin.PropertiesAdminTest"/>
             <class name="ru.instamart.test.api.admin.StoresAdminTest"/>
             <class name="ru.instamart.test.api.admin.TaxonomiesAdminTest"/>
-            <class name="ru.instamart.test.api.admin.ZonesAdminTest"/>
         </classes>
     </test>
 

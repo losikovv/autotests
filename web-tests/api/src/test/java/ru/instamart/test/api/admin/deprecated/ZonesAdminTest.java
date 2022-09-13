@@ -1,4 +1,4 @@
-package ru.instamart.test.api.admin;
+package ru.instamart.test.api.admin.deprecated;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -27,6 +27,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("Admin")
+@Deprecated //Задача выпиливания FEP-1557
 @Feature("Торговые зоны")
 public class ZonesAdminTest extends RestBase {
 
@@ -38,6 +39,7 @@ public class ZonesAdminTest extends RestBase {
     }
 
     @CaseId(1887)
+    @Skip
     @Test(groups = {"api-instamart-regress"}, description = "Получение списка торговых зон")
     public void getAllZones() {
         final Response response = ZonesAdminRequest.GET();
@@ -45,6 +47,7 @@ public class ZonesAdminTest extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(2060), @CaseId(2061)})
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Создание новой торговой зоны",
             dataProvider = "adminZones",
@@ -59,6 +62,7 @@ public class ZonesAdminTest extends RestBase {
     }
 
     @CaseId(2064)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Создание новой торговой зоны без имени")
     public void createZoneWithoutName() {
@@ -73,6 +77,7 @@ public class ZonesAdminTest extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(2062), @CaseId(2063)})
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Редактирование торговой зоны",
             dataProvider = "adminZones",
@@ -90,6 +95,7 @@ public class ZonesAdminTest extends RestBase {
     }
 
     @CaseId(2065)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Редактирование торговой зоны с пустым имени",
             dependsOnMethods = "createZone")

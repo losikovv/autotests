@@ -32,6 +32,7 @@ public class NotificationsNegativeV3Test extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         admin.auth();
+        admin.authApi();
         admin.editStore(sid, StoresAdminRequest.getStoreLentaElino());
 
         SessionFactory.makeSession(SessionType.API_V2);

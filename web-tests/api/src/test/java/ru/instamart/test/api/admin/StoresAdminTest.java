@@ -9,9 +9,12 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.jdbc.dao.stf.PaymentMethodStoresDao;
 import ru.instamart.jdbc.dao.stf.StoreConfigsDao;
@@ -28,8 +31,7 @@ import java.util.Objects;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStoreInDb;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreSelgrosMiklouhoMaclay;
 
 @Epic("Admin")
@@ -40,8 +42,14 @@ public class StoresAdminTest extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        admin.auth();
         admin.authApi();
+    }
+
+    @BeforeMethod(alwaysRun = true, description = "Повторная авторизация если токен протух или invalid")
+    public void auth() {
+        if (Objects.equals(SessionFactory.getSession(SessionType.ADMIN).getToken(), "invalid")) {
+            admin.authApi();
+        }
     }
 
     @CaseId(1189)
