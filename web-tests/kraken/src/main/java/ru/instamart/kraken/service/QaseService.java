@@ -314,7 +314,7 @@ public final class QaseService {
                 try {
                     final int caseId = (int) testCase.getId();
                     final var inList = cases.contains(caseId);
-                    //Если текущий кейс не автоматизирован и он был списке авто прогонов
+                    //Если текущий кейс не автоматизирован и он был в списке авто прогонов
                     if (testCase.getAutomation() != 2 && inList) {
                         log.debug("Указываем, что тест={} автоматизирован", testCase.getId());
                         qaseApi.testCases().update(projectCode, caseId, Automation.automated);
@@ -322,10 +322,11 @@ public final class QaseService {
                         addToAuto++;
                         //Если текущий кейс был автоматизирован, но его теперь не в списке авто прогонов
                     } else if (testCase.getAutomation() == 2 && !inList) {
-                        log.debug("Указываем, что тест={} не автоматизирован", testCase.getId());
-                        qaseApi.testCases().update(projectCode, caseId, Automation.is_not_automated);
-                        automatedNumber--;
-                        removeFromAuto++;
+//                       todo на время отключаем убирание статуса автоматизировано
+//                        log.debug("Указываем, что тест={} не автоматизирован", testCase.getId());
+//                        qaseApi.testCases().update(projectCode, caseId, Automation.is_not_automated);
+//                        automatedNumber--;
+//                        removeFromAuto++;
                         //Хреновина чисто для того, что бы более точно посчитать количество автоматизированных кейсов
                     } else if (testCase.getAutomation() == 2) {
                         automatedNumber++;
