@@ -1,4 +1,4 @@
-package ru.instamart.test.api.admin;
+package ru.instamart.test.api.admin.deprecated;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -13,12 +13,14 @@ import ru.instamart.api.request.admin.ManufacturingCountriesAdminRequest;
 import ru.instamart.jdbc.dao.stf.SpreeManufacturingCountriesDao;
 import ru.instamart.jdbc.entity.stf.SpreeManufacturingCountriesEntity;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("Admin")
+@Deprecated //Задача выпиливания FEP-3591
 @Feature("Страны производства")
 public class ManufacturingCountriesAdminTest extends RestBase {
 
@@ -31,6 +33,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
     }
 
     @CaseId(1886)
+    @Skip
     @Story("Список стран производства в настройках")
     @Test(groups = {"api-instamart-regress"}, description = "Получение списка всех стран производства")
     public void getAllManufacturingCountries() {
@@ -39,6 +42,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
     }
 
     @CaseId(1879)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Создание новой страны производства только с обязательными параметрами")
     public void createManufacturingCountryWithRequiredParams() {
@@ -53,6 +57,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
     }
 
     @CaseId(1880)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Создание новой страны производства со всеми параметрами")
     public void createManufacturingCountryWithAllParams() {
@@ -68,6 +73,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
     }
 
     @CaseId(1881)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Создание страны производства без обязательных параметров")
     public void createManufacturingCountryWithoutRequiredParams() {
@@ -77,6 +83,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
     }
 
     @CaseId(1882)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Редактирование страны производства со всеми параметрами",
             dependsOnMethods = "createManufacturingCountryWithAllParams")
@@ -93,6 +100,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
     }
 
     @CaseId(1883)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Редактирование страны производства со всеми параметрами",
             dependsOnMethods = "editManufacturingCountryWithAllParams")
@@ -108,6 +116,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
     }
 
     @CaseId(1885)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Удаление страны производства",
             dependsOnMethods = "editManufacturingCountryWithRequiredParams")

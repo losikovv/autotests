@@ -1,4 +1,4 @@
-package ru.instamart.test.api.admin;
+package ru.instamart.test.api.admin.deprecated;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
@@ -11,6 +11,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.admin.OptionTypesAdminRequest;
 import ru.instamart.jdbc.dao.stf.SpreeOptionTypesDao;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.*;
@@ -18,6 +19,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
 
 @Epic("Admin")
+@Deprecated //Задача выпиливания FEP-3591
 @Feature("Товарные опции")
 public class OptionTypesAdminTest extends RestBase {
     private String optionTypeId;
@@ -28,6 +30,7 @@ public class OptionTypesAdminTest extends RestBase {
     }
 
     @CaseId(1936)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Получение всех товарных опций")
     public void getAllOptionTypes() {
@@ -36,6 +39,7 @@ public class OptionTypesAdminTest extends RestBase {
     }
 
     @CaseId(1937)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Создание товарной опции")
     public void createOptionType() {
@@ -60,6 +64,7 @@ public class OptionTypesAdminTest extends RestBase {
     }
 
     @CaseId(1938)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Изменение товарной опции",
             dependsOnMethods = "createOptionType")
@@ -80,6 +85,7 @@ public class OptionTypesAdminTest extends RestBase {
     }
 
     @CaseId(1939)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Создание значения для товарной опции",
             dependsOnMethods = "createOptionType")
@@ -107,6 +113,7 @@ public class OptionTypesAdminTest extends RestBase {
     }
 
     @CaseId(1940)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Удаление товарной опции",
             dependsOnMethods = {"updateOptionType", "createOptionValue"})

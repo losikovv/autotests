@@ -59,7 +59,7 @@ public class ExternalPartnersV1Tests extends RestBase {
         UserData user = UserManager.getQaUser();
         apiV1.authByPhone(user);
         addSberPrime(user.getEmail());
-        ThreadUtil.simplyAwait(2);
+        ThreadUtil.simplyAwait(5);
         final Response response = ExternalPartnersV1Request.Services.GET();
         checkStatusCode200(response);
         checkExternalPartnersServices(response, true, "Бесплатная доставка");
