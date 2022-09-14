@@ -61,7 +61,7 @@ public class ProductsV3Test extends RestBase {
 
     @CaseId(2709)
     @Story("Получить список доступных продуктов (Поиск)")
-    @Test(description = "В категории больше 3 дефолтных фильтров",
+    @Test(description = "В категории больше или равно 3 дефолтных фильтров",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsWithManyFilters() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
@@ -71,8 +71,8 @@ public class ProductsV3Test extends RestBase {
         checkResponseJsonSchema(response, ProductsV3Response.class);
         final ProductsV3Response productsV3Response = response.as(ProductsV3Response.class);
         List<FacetV2> facets = productsV3Response.getFacets();
-        Allure.step("Проверяем, что категорий больше трех", () -> {
-            assertTrue(facets.size() > 3, "Пришло три дефолтных фильтра или меньше");
+        Allure.step("Проверяем, что категорий больше или равно трем", () -> {
+            assertTrue(facets.size() >= 3, "Пришло меньше трёх дефолтных фильтра");
         });
     }
 
