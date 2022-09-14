@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,21 @@ public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
         return strategy;
     }
 
+    public List<Integer> getGlobalStrategies() {
+        final var result = new ArrayList<Integer>();
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE global = true ")) {
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add(resultSet.getInt("id"));
+                }
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+        return result;
+    }
+
     public Integer addStrategy(String name, String shipping, Boolean global, Integer priority, String description, String creatorId) {
         try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
              final var preparedStatement = connect.prepareStatement(INSERT_SQL + " (name, shipping, global, priority, description, creator_id) " +
@@ -65,6 +81,25 @@ public class StrategiesDao implements Dao<Integer, StrategiesEntity> {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
         }
         return 0;
+    }
+
+    public boolean updateStrategiesGlobalFlag(List<Integer> list, Boolean global) {
+        final var builder = new StringBuilder();
+        final var params = builder.append("?,".repeat(list.size())).deleteCharAt(builder.length() - 1).toString();
+        final var selectSql = " UPDATE strategies SET global = ? WHERE id IN (" + params + ") ";
+
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             PreparedStatement preparedStatement = connect.prepareStatement(selectSql)) {
+            preparedStatement.setBoolean(1, global);
+            int index = 2;
+            for (Object id : list) {
+                preparedStatement.setObject(index++, id);
+            }
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+        return false;
     }
 
     @Override

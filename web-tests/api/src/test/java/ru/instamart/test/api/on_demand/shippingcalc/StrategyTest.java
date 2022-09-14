@@ -21,6 +21,7 @@ import shippingcalc.*;
 import java.util.List;
 import java.util.UUID;
 
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
 
@@ -30,16 +31,17 @@ import static ru.instamart.api.helper.ShippingCalcHelper.*;
 public class StrategyTest extends ShippingCalcBase {
 
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
-    private Integer strategyId;
+    private Integer localStrategyId;
+    private Integer globalStrategyId;
     private Integer strategyIdWithDifferentScriptsInRules;
     private Integer strategyIdWithMultipleRulesAndConditions;
     private final String FIRST_STORE_ID = UUID.randomUUID().toString();
     private final String SECOND_STORE_ID = UUID.randomUUID().toString();
-    private final Integer FIRST_SCRIPT_ID = ScriptsDao.INSTANCE.getScriptByName("Фиксированная цена, с подсказками и объяснением").getId();
-    private final Integer SECOND_SCRIPT_ID = ScriptsDao.INSTANCE.getScriptByName("Цена с учётом сложности, с подсказками и объяснением").getId();
-    private final String SCRIPT_PARAMS = "{\"basicPrice\": \"10000\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
-    private final String FIRST_SCRIPT_PARAMS = "{\"basicPrice\": \"0\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
-    private final String SECOND_SCRIPT_PARAMS = "{\"baseMass\": \"30000\", \"basicPrice\": \"29900\", \"bagIncrease\": \"0\", \"basePositions\": \"100\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}";
+    private final Integer FIRST_SCRIPT_ID = ScriptsDao.INSTANCE.getScriptByName(FIXED_SCRIPT_NAME).getId();
+    private final Integer SECOND_SCRIPT_ID = ScriptsDao.INSTANCE.getScriptByName(COMPLEX_SCRIPT_NAME).getId();
+    private final String SCRIPT_PARAMS = String.format(FIXED_SCRIPT_PARAMS, 10000);
+    private final String FIRST_SCRIPT_PARAMS = String.format(FIXED_SCRIPT_PARAMS, 0);
+    private final String SECOND_SCRIPT_PARAMS = String.format(COMPLEX_SCRIPT_PARAMS, 29900);
     private final String FIRST_PARAMS = "{\"Count\": 1}";
     private final String THIRD_PARAMS = "{\"Test\": \"shippingcalc_test\", \"Group\": \"control\"}";
 
@@ -55,14 +57,15 @@ public class StrategyTest extends ShippingCalcBase {
     public void createStrategy() {
         var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
         var response = clientShippingCalc.createStrategy(request);
-        strategyId = response.getStrategyId();
-        checkStrategy(strategyId, "autotest", 2, 2, 0, DeliveryType.SELF_DELIVERY.toString());
+        localStrategyId = response.getStrategyId();
+        checkStrategy(localStrategyId, "autotest", 2, 2, 0, DeliveryType.SELF_DELIVERY.toString());
     }
 
-    @CaseIDs(value = {@CaseId(63), @CaseId(61)})
+    @CaseIDs(value = {@CaseId(63), @CaseId(61), @CaseId(445)})
     @Story("Create Strategy")
     @Test(description = "Создание стратегии с несколькими правилами на разные скрипты",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "createStrategyGlobal")
     public void createStrategyWithDifferentScriptsInRules() {
         var request = CreateStrategyRequest.newBuilder()
                 .addRules(NewRuleObject.newBuilder()
@@ -96,12 +99,12 @@ public class StrategyTest extends ShippingCalcBase {
                 .setGlobal(false)
                 .setPriority(0)
                 .setDescription("autotest")
-                .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
+                .setDeliveryTypeValue(DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         var response = clientShippingCalc.createStrategy(request);
         strategyIdWithDifferentScriptsInRules = response.getStrategyId();
-        checkStrategy(strategyIdWithDifferentScriptsInRules, "autotest", 3, 3, 1, DeliveryType.B2B.toString());
+        checkStrategy(strategyIdWithDifferentScriptsInRules, "autotest", 3, 3, 1, DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseIDs(value = {@CaseId(191), @CaseId(62), @CaseId(71), @CaseId(337), @CaseId(340)})
@@ -190,6 +193,29 @@ public class StrategyTest extends ShippingCalcBase {
         checkStrategy(strategyIdWithMultipleRulesAndConditions, "autotest", 6, 10, 2, DeliveryType.SELF_DELIVERY.toString());
     }
 
+    @CaseId(446)
+    @Story("Create Strategy")
+    @Test(description = "Создание глобальной стратегии",
+            groups = "dispatch-shippingcalc-smoke")
+    public void createStrategyGlobal() {
+        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 0, "{}", 0, "autotest", "autotest", "autotest", true, DeliveryType.SELF_DELIVERY_VALUE);
+        var response = clientShippingCalc.createStrategy(request);
+        globalStrategyId = response.getStrategyId();
+        checkGlobalStrategy(globalStrategyId, "autotest", 2, 2, DeliveryType.SELF_DELIVERY.toString());
+    }
+
+    @CaseId(434)
+    @Story("Create Strategy")
+    @Test(description = "Получение ошибки, при создании глобальной стратегии для типа доставки, который уже имеет глобальную стратегию",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "createStrategyGlobal",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "ALREADY_EXISTS: global strategy for current shipping method already exists, entity already exists")
+    public void createStrategyGlobalAlreadyExists() {
+        var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 0, "{}", 0, "autotest", "autotest", "autotest", true, DeliveryType.SELF_DELIVERY_VALUE);
+        clientShippingCalc.createStrategy(request);
+    }
+
     @CaseId(378)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки валидации параметров скрипта при создании стратегии",
@@ -198,6 +224,111 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INTERNAL: cannot create strategy: no required for script parameters")
     public void createStrategyNonValidScriptParams() {
         var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
+        clientShippingCalc.createStrategy(request);
+    }
+
+    @CaseId(430)
+    @Story("Create Strategy")
+    @Test(description = "Получение ошибки, при создании локальной стратегии, если у правил мин. корзины нет условия Always",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: strategy must contain at least one min cart rule with only always condition")
+    public void createStrategyNoAlwaysMinCart() {
+        var request = CreateStrategyRequest.newBuilder()
+                .addRules(NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(FIRST_SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(MinCartRuleObject.newBuilder()
+                        .setMinCartValue(0)
+                        .setPriority(0)
+                        .addConditions(NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .setCreatorId("autotest")
+                .setName("autotest")
+                .setGlobal(false)
+                .setPriority(0)
+                .setDescription("autotest")
+                .setDeliveryTypeValue(DeliveryType.SELF_DELIVERY_VALUE)
+                .build();
+        clientShippingCalc.createStrategy(request);
+    }
+
+    @CaseId(432)
+    @Story("Create Strategy")
+    @Test(description = "Получение ошибки, при создании глобальной стратегии, если отсутствует условие Always для правил мин. корзины",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: strategy must contain at least one min cart rule with only always condition")
+    public void createStrategyGlobalNoAlwaysMinCart() {
+        var request = CreateStrategyRequest.newBuilder()
+                .addRules(NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(FIRST_SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(MinCartRuleObject.newBuilder()
+                        .setMinCartValue(0)
+                        .setPriority(0)
+                        .addConditions(NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .setCreatorId("autotest")
+                .setName("autotest")
+                .setGlobal(true)
+                .setPriority(0)
+                .setDescription("autotest")
+                .setDeliveryTypeValue(DeliveryType.SELF_DELIVERY_VALUE)
+                .build();
+        clientShippingCalc.createStrategy(request);
+    }
+
+    @CaseId(435)
+    @Story("Create Strategy")
+    @Test(description = "Получение ошибки, при создании глобальной стратегии, если отсутствует условие Always для правил цены",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot create strategy: invalid rules list for global strategy, global strategy must contain at least one rule with only always condition")
+    public void createStrategyGlobalNoAlwaysPriceRule() {
+        var request = CreateStrategyRequest.newBuilder()
+                .addRules(NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(FIRST_SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(MinCartRuleObject.newBuilder()
+                        .setMinCartValue(0)
+                        .setPriority(0)
+                        .addConditions(NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .setCreatorId("autotest")
+                .setName("autotest")
+                .setGlobal(true)
+                .setPriority(0)
+                .setDescription("autotest")
+                .setDeliveryTypeValue(DeliveryType.SELF_DELIVERY_VALUE)
+                .build();
         clientShippingCalc.createStrategy(request);
     }
 
@@ -418,7 +549,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: no required for script parameters",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyNonValidScriptParams() {
-        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "{}", 0, 2, "{}", 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -561,9 +692,9 @@ public class StrategyTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = "createStrategy")
     public void updateStrategy() {
-        var request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, strategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.B2B_VALUE);
+        var request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.B2B_VALUE);
         clientShippingCalc.updateStrategy(request);
-        checkUpdatedStrategy(strategyId, "autotest-update", 4, 4, 2, DeliveryType.SELF_DELIVERY.toString());
+        checkUpdatedStrategy(localStrategyId, "autotest-update", 4, 4, 2, DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseIDs(value = {@CaseId(94), @CaseId(92), @CaseId(334)})
@@ -593,9 +724,9 @@ public class StrategyTest extends ShippingCalcBase {
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
                         .setMinCartValue(10000)
-                        .setPriority(2)
+                        .setPriority(1)
                         .addConditions(NewConditionObject.newBuilder()
-                                .setConditionTypeValue(2)
+                                .setConditionTypeValue(0)
                                 .setParams("{}")
                                 .build())
                         .build())
@@ -605,11 +736,11 @@ public class StrategyTest extends ShippingCalcBase {
                 .setGlobal(false)
                 .setPriority(100)
                 .setDescription("autotest-update")
-                .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
+                .setDeliveryTypeValue(DeliveryType.SELF_DELIVERY_VALUE)
                 .build();
 
         clientShippingCalc.updateStrategy(request);
-        checkUpdatedStrategy(strategyIdWithDifferentScriptsInRules, "autotest-update", 6, 6, 3, DeliveryType.B2B.toString());
+        checkUpdatedStrategy(strategyIdWithDifferentScriptsInRules, "autotest-update", 6, 6, 3, DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseIDs(value = {@CaseId(206), @CaseId(93), @CaseId(102), @CaseId(344), @CaseId(347)})
@@ -699,6 +830,128 @@ public class StrategyTest extends ShippingCalcBase {
         checkUpdatedStrategy(strategyIdWithMultipleRulesAndConditions, "autotest-update", 12, 20, 11, DeliveryType.SELF_DELIVERY.toString());
     }
 
+    @CaseId(442)
+    @Story("Update Strategy")
+    @Test(description = "Нельзя изменить поле global, при обновлении стратегии",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "createStrategyGlobal")
+    public void updateStrategyGlobal() {
+        var request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 0, "{}", 10000, globalStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        clientShippingCalc.updateStrategy(request);
+        checkUpdatedGlobalStrategy(globalStrategyId, "autotest-update", 4, 4, DeliveryType.SELF_DELIVERY.toString());
+    }
+
+    @CaseId(431)
+    @Story("Update Strategy")
+    @Test(description = "Получение ошибки, при обновлении локальной стратегии, если отсутствует правило мин. корзины с условием Always",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: strategy must contain at least one min cart rule with only always condition",
+            dependsOnMethods = "updateStrategy")
+    public void updateStrategyWithNoAlwaysMinCart() {
+        var request = UpdateStrategyRequest.newBuilder()
+                .addRules(NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(FIRST_SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(MinCartRuleObject.newBuilder()
+                        .setMinCartValue(0)
+                        .setPriority(0)
+                        .addConditions(NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .setStrategyId(localStrategyId)
+                .setCreatorId("autotest-update")
+                .setName("autotest-update")
+                .setGlobal(false)
+                .setPriority(0)
+                .setDescription("autotest-update")
+                .setDeliveryTypeValue(DeliveryType.SELF_DELIVERY_VALUE)
+                .build();
+        clientShippingCalc.updateStrategy(request);
+    }
+
+    @CaseId(433)
+    @Story("Update Strategy")
+    @Test(description = "Получение ошибки, при обновлении глобальной стратегии, если отсутствует правило мин. корзины с условием Always",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: strategy must contain at least one min cart rule with only always condition",
+            dependsOnMethods = "createStrategyGlobal")
+    public void updateStrategyGlobalWithNoAlwaysMinCart() {
+        var request = UpdateStrategyRequest.newBuilder()
+                .addRules(NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(FIRST_SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(MinCartRuleObject.newBuilder()
+                        .setMinCartValue(0)
+                        .setPriority(0)
+                        .addConditions(NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .setStrategyId(globalStrategyId)
+                .setCreatorId("autotest-update")
+                .setName("autotest-update")
+                .setGlobal(true)
+                .setPriority(0)
+                .setDescription("autotest-update")
+                .setDeliveryTypeValue(DeliveryType.SELF_DELIVERY_VALUE)
+                .build();
+        clientShippingCalc.updateStrategy(request);
+    }
+
+    @CaseId(436)
+    @Story("Update Strategy")
+    @Test(description = "Получение ошибки, при обновлении глобальной стратегии, если отсутствует правило цены с условием Always",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: invalid rules list for global strategy, global strategy must contain at least one rule with only always condition",
+            dependsOnMethods = "createStrategyGlobal")
+    public void updateStrategyGlobalWithNoAlwaysPriceRule() {
+        var request = UpdateStrategyRequest.newBuilder()
+                .addRules(NewRuleObject.newBuilder()
+                        .setScriptId(FIRST_SCRIPT_ID)
+                        .setScriptParamValues(FIRST_SCRIPT_PARAMS)
+                        .setPriority(0)
+                        .addConditions(NewConditionObject.newBuilder()
+                                .setConditionTypeValue(2)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .addMinCartRules(MinCartRuleObject.newBuilder()
+                        .setMinCartValue(0)
+                        .setPriority(0)
+                        .addConditions(NewConditionObject.newBuilder()
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
+                                .build())
+                        .build())
+                .setStrategyId(globalStrategyId)
+                .setCreatorId("autotest-update")
+                .setName("autotest-update")
+                .setGlobal(true)
+                .setPriority(0)
+                .setDescription("autotest-update")
+                .setDeliveryTypeValue(DeliveryType.SELF_DELIVERY_VALUE)
+                .build();
+        clientShippingCalc.updateStrategy(request);
+    }
+
     @CaseId(192)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии имени стратегии",
@@ -707,7 +960,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: strategy name cannot be empty",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoName() {
-        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "autotest-update", "", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, localStrategyId, "autotest-update", "", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -730,7 +983,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: creator id cannot be empty",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoCreatorId() {
-        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, localStrategyId, "", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -751,7 +1004,7 @@ public class StrategyTest extends ShippingCalcBase {
                                 .setParams("{}")
                                 .build())
                         .build())
-                .setStrategyId(strategyId)
+                .setStrategyId(localStrategyId)
                 .setCreatorId("autotest-update")
                 .setName("autotest-update")
                 .setGlobal(false)
@@ -771,7 +1024,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: scriptId 1234567890: entity not found",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNonExistentScriptId() {
-        var request = getUpdateStrategyRequest(1234567890, SCRIPT_PARAMS, 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUpdateStrategyRequest(1234567890, SCRIPT_PARAMS, 0, 2, "{}", 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -800,7 +1053,7 @@ public class StrategyTest extends ShippingCalcBase {
                                 .setParams("{}")
                                 .build())
                         .build())
-                .setStrategyId(strategyId)
+                .setStrategyId(localStrategyId)
                 .setCreatorId("autotest-update")
                 .setName("autotest-update")
                 .setGlobal(false)
@@ -820,7 +1073,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid params",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoScriptParams() {
-        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "", 0, 2, "{}", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, "", 0, 2, "{}", 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -846,7 +1099,7 @@ public class StrategyTest extends ShippingCalcBase {
                                 .setParams("{}")
                                 .build())
                         .build())
-                .setStrategyId(strategyId)
+                .setStrategyId(localStrategyId)
                 .setCreatorId("autotest-update")
                 .setName("autotest-update")
                 .setGlobal(false)
@@ -866,7 +1119,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid condition 0, invalid params",
             dependsOnMethods = "updateStrategy")
     public void updateStrategyWithNoConditionParams() {
-        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "", 0, strategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUpdateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "", 0, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.updateStrategy(request);
     }
 
@@ -888,7 +1141,7 @@ public class StrategyTest extends ShippingCalcBase {
                                 .setParams("{}")
                                 .build())
                         .build())
-                .setStrategyId(strategyId)
+                .setStrategyId(localStrategyId)
                 .setCreatorId("autotest-update")
                 .setName("autotest-update")
                 .setGlobal(false)
@@ -935,7 +1188,7 @@ public class StrategyTest extends ShippingCalcBase {
                                 .setParams("{}")
                                 .build())
                         .build())
-                .setStrategyId(strategyId)
+                .setStrategyId(localStrategyId)
                 .setCreatorId("autotest-update")
                 .setName("autotest-update")
                 .setGlobal(false)
@@ -981,7 +1234,7 @@ public class StrategyTest extends ShippingCalcBase {
                                 .setParams("{}")
                                 .build())
                         .build())
-                .setStrategyId(strategyId)
+                .setStrategyId(localStrategyId)
                 .setCreatorId("autotest-update")
                 .setName("autotest-update")
                 .setGlobal(false)
@@ -1027,7 +1280,7 @@ public class StrategyTest extends ShippingCalcBase {
                                 .setParams("{}")
                                 .build())
                         .build())
-                .setStrategyId(strategyId)
+                .setStrategyId(localStrategyId)
                 .setCreatorId("autotest-update")
                 .setName("autotest-update")
                 .setGlobal(false)
@@ -1061,7 +1314,7 @@ public class StrategyTest extends ShippingCalcBase {
                         .setMinCartValue(0)
                         .setPriority(0)
                         .build())
-                .setStrategyId(strategyId)
+                .setStrategyId(localStrategyId)
                 .setCreatorId("autotest-update")
                 .setName("autotest-update")
                 .setGlobal(false)
@@ -1079,9 +1332,9 @@ public class StrategyTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = "createStrategy")
     public void bindStrategy() {
-        var request = getBindStrategyRequest(strategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY_VALUE, false);
+        var request = getBindStrategyRequest(localStrategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY_VALUE, false);
         clientShippingCalc.bindStrategy(request);
-        checkBind(strategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY.toString());
+        checkBind(localStrategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(141)
@@ -1095,18 +1348,18 @@ public class StrategyTest extends ShippingCalcBase {
                 .addBinds(StrategyBinding.newBuilder()
                         .setStoreId(FIRST_STORE_ID)
                         .setTenantId(Tenant.SBERMARKET.getId())
-                        .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
+                        .setDeliveryTypeValue(DeliveryType.SELF_DELIVERY_VALUE)
                         .build())
                 .addBinds(StrategyBinding.newBuilder()
                         .setStoreId(SECOND_STORE_ID)
                         .setTenantId(Tenant.OKEY.getId())
-                        .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
+                        .setDeliveryTypeValue(DeliveryType.SELF_DELIVERY_VALUE)
                         .build())
                 .build();
 
         clientShippingCalc.bindStrategy(request);
-        checkBind(strategyIdWithDifferentScriptsInRules, FIRST_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.B2B.toString());
-        checkBind(strategyIdWithDifferentScriptsInRules, SECOND_STORE_ID, Tenant.OKEY.getId(), DeliveryType.B2B.toString());
+        checkBind(strategyIdWithDifferentScriptsInRules, FIRST_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.SELF_DELIVERY.toString());
+        checkBind(strategyIdWithDifferentScriptsInRules, SECOND_STORE_ID, Tenant.OKEY.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(139)
@@ -1115,12 +1368,12 @@ public class StrategyTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = {"createStrategy", "createStrategyWithMultipleRulesAndConditions"})
     public void rebindStrategy() {
-        addBinding(strategyId, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY.toString());
+        addBinding(localStrategyId, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY.toString());
         var request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY_VALUE, false);
         clientShippingCalc.bindStrategy(request);
 
         checkBind(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY.toString());
-        checkUnbind(strategyId, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY.toString());
+        checkUnbind(localStrategyId, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(366)
@@ -1160,7 +1413,7 @@ public class StrategyTest extends ShippingCalcBase {
             dependsOnMethods = "createStrategy")
     public void bindStrategyWithNoBinds() {
         var request = BindStrategyRequest.newBuilder()
-                .setStrategyId(strategyId)
+                .setStrategyId(localStrategyId)
                 .build();
 
         clientShippingCalc.bindStrategy(request);
@@ -1174,19 +1427,19 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot attach bind 0 without store id",
             dependsOnMethods = "createStrategy")
     public void bindStrategyWithNoStoreId() {
-        var request = getBindStrategyRequest(strategyId, "", "test", DeliveryType.SELF_DELIVERY_VALUE, false);
+        var request = getBindStrategyRequest(localStrategyId, "", "test", DeliveryType.SELF_DELIVERY_VALUE, false);
         clientShippingCalc.bindStrategy(request);
     }
 
     @CaseId(146)
     @Story("Bind Strategy")
-    @Test(description = "Получении ошибки при привязке без магазина",
+    @Test(description = "Получении ошибки при привязке без тенанта",
             groups = "dispatch-shippingcalc-regress",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot attach bind 0 without tenant id",
             dependsOnMethods = "createStrategy")
     public void bindStrategyWithNoTenantId() {
-        var request = getBindStrategyRequest(strategyId, FIRST_STORE_ID, "", DeliveryType.SELF_DELIVERY_VALUE, false);
+        var request = getBindStrategyRequest(localStrategyId, FIRST_STORE_ID, "", DeliveryType.SELF_DELIVERY_VALUE, false);
         clientShippingCalc.bindStrategy(request);
     }
 
@@ -1197,16 +1450,16 @@ public class StrategyTest extends ShippingCalcBase {
             dependsOnMethods = "createStrategy")
     public void bindStrategyWithNoDeliveryType() {
         var request = BindStrategyRequest.newBuilder()
-                .setStrategyId(strategyId)
+                .setStrategyId(localStrategyId)
                 .addBinds(StrategyBinding.newBuilder()
                         .setStoreId(SECOND_STORE_ID)
-                        .setTenantId(Tenant.OKEY.getId())
+                        .setTenantId(Tenant.AUCHAN.getId())
                         .build())
                 .setReplaceAll(false)
                 .build();
 
         clientShippingCalc.bindStrategy(request);
-        checkBind(strategyId, SECOND_STORE_ID, Tenant.OKEY.getId(), DeliveryType.SELF_DELIVERY.toString());
+        checkBind(localStrategyId, SECOND_STORE_ID, Tenant.AUCHAN.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(376)
@@ -1227,9 +1480,9 @@ public class StrategyTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = {"getStrategy", "getStrategiesWithAllFilter", "getStrategiesWithStoreFilter", "getStrategiesForStore"})
     public void unbindStrategy() {
-        var request = getUnbindStrategyRequest(strategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUnbindStrategyRequest(localStrategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.unbindStrategy(request);
-        checkUnbind(strategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY.toString());
+        checkUnbind(localStrategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(158)
@@ -1243,18 +1496,18 @@ public class StrategyTest extends ShippingCalcBase {
                 .addBinds(StrategyBinding.newBuilder()
                         .setStoreId(FIRST_STORE_ID)
                         .setTenantId(Tenant.SBERMARKET.getId())
-                        .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
+                        .setDeliveryTypeValue(DeliveryType.SELF_DELIVERY_VALUE)
                         .build())
                 .addBinds(StrategyBinding.newBuilder()
                         .setStoreId(SECOND_STORE_ID)
                         .setTenantId(Tenant.OKEY.getId())
-                        .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
+                        .setDeliveryTypeValue(DeliveryType.SELF_DELIVERY_VALUE)
                         .build())
                 .build();
 
         clientShippingCalc.unbindStrategy(request);
-        checkUnbind(strategyIdWithDifferentScriptsInRules, FIRST_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.B2B.toString());
-        checkUnbind(strategyIdWithDifferentScriptsInRules, SECOND_STORE_ID, Tenant.OKEY.getId(), DeliveryType.B2B.toString());
+        checkUnbind(strategyIdWithDifferentScriptsInRules, FIRST_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.SELF_DELIVERY.toString());
+        checkUnbind(strategyIdWithDifferentScriptsInRules, SECOND_STORE_ID, Tenant.OKEY.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(159)
@@ -1277,7 +1530,7 @@ public class StrategyTest extends ShippingCalcBase {
             dependsOnMethods = "bindStrategy")
     public void unbindStrategyWithNoBinds() {
         var request = UnbindStrategyRequest.newBuilder()
-                .setStrategyId(strategyId)
+                .setStrategyId(localStrategyId)
                 .build();
 
         clientShippingCalc.unbindStrategy(request);
@@ -1291,7 +1544,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot use bind 0 without store id",
             dependsOnMethods = "bindStrategy")
     public void unbindStrategyWithNoStoreId() {
-        var request = getUnbindStrategyRequest(strategyId, "", "test", DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUnbindStrategyRequest(localStrategyId, "", "test", DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.unbindStrategy(request);
     }
 
@@ -1303,7 +1556,7 @@ public class StrategyTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot use bind 0 without tenant id",
             dependsOnMethods = "bindStrategy")
     public void unbindStrategyWithNoTenantId() {
-        var request = getUnbindStrategyRequest(strategyId, FIRST_STORE_ID, "", DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUnbindStrategyRequest(localStrategyId, FIRST_STORE_ID, "", DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.unbindStrategy(request);
     }
 
@@ -1314,15 +1567,15 @@ public class StrategyTest extends ShippingCalcBase {
             dependsOnMethods = "bindStrategyWithNoDeliveryType")
     public void unbindStrategyWithNoDeliveryType() {
         var request = UnbindStrategyRequest.newBuilder()
-                .setStrategyId(strategyId)
+                .setStrategyId(localStrategyId)
                 .addBinds(StrategyBinding.newBuilder()
                         .setStoreId(SECOND_STORE_ID)
-                        .setTenantId(Tenant.OKEY.getId())
+                        .setTenantId(Tenant.METRO.getId())
                         .build())
                 .build();
 
         clientShippingCalc.unbindStrategy(request);
-        checkUnbind(strategyId, SECOND_STORE_ID, Tenant.OKEY.getId(), DeliveryType.SELF_DELIVERY.toString());
+        checkUnbind(localStrategyId, SECOND_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(118)
@@ -1332,14 +1585,14 @@ public class StrategyTest extends ShippingCalcBase {
             dependsOnMethods = "bindStrategy")
     public void getStrategy() {
         var request = GetStrategyRequest.newBuilder()
-                .setStrategyId(strategyId)
+                .setStrategyId(localStrategyId)
                 .build();
         var response = clientShippingCalc.getStrategy(request);
 
         Allure.step("Проверка стратегии в ответе", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertNotNull(response.getStrategy(), "В ответе пустая стратегия");
-            compareTwoObjects(response.getStrategy().getStrategyId(), strategyId, softAssert);
+            compareTwoObjects(response.getStrategy().getStrategyId(), localStrategyId, softAssert);
             softAssert.assertTrue(response.getStrategy().getBindsCount() > 0, "В ответе пустой список привязок");
             softAssert.assertTrue(response.getRulesCount() > 0, "В ответе пустой список правил");
             softAssert.assertTrue(response.getRules(0).getConditionsCount() > 0, "В ответе пустой список условий для правил");
@@ -1550,11 +1803,11 @@ public class StrategyTest extends ShippingCalcBase {
 
         Allure.step("Проверка стратегий в ответе", () -> {
             final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertTrue(response.getStrategyCount() > 1, "В ответе не ожидамое кол-во стратегий");
+            assertTrue(response.getStrategyCount() > 1, "В ответе не ожидамое кол-во стратегий");
             softAssert.assertTrue(response.getStrategy(0).getBinding().getStoreId().equals(FIRST_STORE_ID) && response.getStrategy(1).getBinding().getStoreId().equals(FIRST_STORE_ID), "В ответе не нашли ожидаемых привязок");
             softAssert.assertNotEquals(response.getStrategy(0).getStrategyId(), response.getStrategy(1).getStrategyId(), "В ответе не нашли ожидаемые id стратегий");
             softAssert.assertNotEquals(response.getStrategy(0).getBinding().getTenantId(), response.getStrategy(1).getBinding().getTenantId(), "В ответе не нашли ожидаемых тенантов");
-            softAssert.assertNotEquals(response.getStrategy(0).getBinding().getDeliveryType(), response.getStrategy(1).getBinding().getDeliveryType(), "В ответе не нашли ожидаемых типов доставки");
+            softAssert.assertEquals(response.getStrategy(0).getBinding().getDeliveryType(), DeliveryType.SELF_DELIVERY, "В ответе не нашли ожидаемых типов доставки");
             softAssert.assertAll();
         });
     }
@@ -1608,6 +1861,18 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.deleteStrategy(request);
     }
 
+    @CaseId(437)
+    @Story("Delete Strategy")
+    @Test(description = "Получение ошибки, при удалении глобальной стратегии",
+            groups = "dispatch-shippingcalc-smoke",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "PERMISSION_DENIED: unable to delete global strategy",
+            dependsOnMethods = "updateStrategyGlobal")
+    public void deleteStrategyGlobal() {
+        var request = getDeleteStrategyRequest(globalStrategyId);
+        clientShippingCalc.deleteStrategy(request);
+    }
+
     @CaseId(372)
     @Story("Delete Strategy")
     @Test(description = "Получение ошибки при удалении несуществующей стратегии",
@@ -1621,7 +1886,8 @@ public class StrategyTest extends ShippingCalcBase {
 
     @AfterClass(alwaysRun = true)
     public void postConditions() {
-        deleteCreatedStrategy(strategyId);
+        deleteCreatedStrategy(localStrategyId);
+        deleteCreatedStrategy(globalStrategyId);
         deleteCreatedStrategy(strategyIdWithDifferentScriptsInRules);
         deleteCreatedStrategy(strategyIdWithMultipleRulesAndConditions);
     }
