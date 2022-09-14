@@ -1,9 +1,6 @@
 package ru.instamart.test.api.v3.endpoints;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -223,7 +220,8 @@ public class ProductsV3Test extends RestBase {
         });
     }
 
-    @Skip(onServer = Server.STAGING)
+    @Skip
+    @Issue("STF-9817")
     @CaseId(1377)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные по выгодному весу",
@@ -239,7 +237,8 @@ public class ProductsV3Test extends RestBase {
         checkSort(ProductSortTypeV2.UNIT_PRICE_ASC, productsV3Response.getSort());
     }
 
-    @Skip(onServer = Server.STAGING)
+    @Skip
+    @Issue("STF-9817")
     @CaseId(1378)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по категории с последней страницы",
