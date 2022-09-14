@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -267,6 +268,22 @@ public class   ShopperAdminRequest extends ShopperAdminRequestBase {
                             .contentType(ContentType.JSON)
                             .body(parameters)
                             .put(ShopperAdminEndpoints.OperationalZones.WORKFLOW_SETTINGS, EnvironmentProperties.DEFAULT_ID_ZONE);
+                }
+            }
+
+            public static class EstimatorSettings {
+                @Step("{method} /" + ShopperAdminEndpoints.OperationalZones.ESTIMATOR_SETTINGS)
+                public static Response GET(Integer zoneId) {
+                    return givenWithAuth()
+                            .get(ShopperAdminEndpoints.OperationalZones.ESTIMATOR_SETTINGS, zoneId);
+                }
+
+                @Step("{method} /" + ShopperAdminEndpoints.OperationalZones.ESTIMATOR_SETTINGS)
+                public static Response PUT(PutRegionEstimatorSettings parameters) {
+                    return givenWithAuth()
+                            .contentType(ContentType.JSON)
+                            .body(parameters)
+                            .put(ShopperAdminEndpoints.OperationalZones.ESTIMATOR_SETTINGS, EnvironmentProperties.DEFAULT_ID_ZONE);
                 }
             }
         }
@@ -654,5 +671,35 @@ public class   ShopperAdminRequest extends ShopperAdminRequestBase {
         private Integer shopperId;
         //volume: 12
         private Integer volume;
+    }
+
+    @Builder
+    @Data
+    @EqualsAndHashCode
+    public static class PutRegionEstimatorSettings {
+        @JsonProperty("estimator_settings")
+        private SettingsResRegion settingsResRegion;
+    }
+
+    @Builder
+    @Data
+    @EqualsAndHashCode
+    public static class SettingsResRegion {
+        @JsonProperty("settings")
+        private EstimatorRegionParameters estimatorRegionParameters;
+    }
+
+    @Builder
+    @Data
+    @EqualsAndHashCode
+    public static class EstimatorRegionParameters {
+        @JsonProperty("operational_zone_id")
+        private Integer operationalZoneId;
+        @JsonProperty("correction_factor")
+        private Number correctionFactor;
+        @JsonProperty("increasing_factor")
+        private Integer increasingFactor;
+        @JsonProperty("minimum_segment_length")
+        private Integer minimumSegmentLength;
     }
 }
