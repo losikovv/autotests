@@ -113,7 +113,6 @@ public final class BasicSbermarketTests {
         shop().interactFooter().checkContactsLinkVisible();
         shop().interactFooter().checkVacanciesLinkVisible();
         shop().interactFooter().checkDocumentsLinkVisible();
-        shop().interactFooter().checkPartnersLinkVisible();
 
         shop().interactFooter().checkCustomerHelpTitleVisible();
         shop().interactFooter().checkHowWeWorkVisible();
@@ -124,10 +123,7 @@ public final class BasicSbermarketTests {
         shop().interactFooter().checkHotlinePhoneNumberVisible();
         shop().interactFooter().checkHotlineWorkHoursTextVisible();
 
-        shop().interactFooter().checkFacebookButtonVisible();
         shop().interactFooter().checkVkontakteButtonVisible();
-        shop().interactFooter().checkInstagramButtonVisible();
-        shop().interactFooter().checkTwitterButtonVisible();
 
         shop().interactFooter().checkGooglePlayButtonVisible();
         shop().interactFooter().checkAppstoreButtonVisible();

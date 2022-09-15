@@ -40,10 +40,6 @@ public interface FooterCheck extends Check, FooterElement {
         krakenAssert.assertTrue(documentsLink.is().displayed(), "ссылка 'Документы' не отображается");
     }
 
-    @Step("Проверяем что отображается ссылка 'Партнеры'")
-    default void checkPartnersLinkVisible() {
-        krakenAssert.assertTrue(partnersLink.is().displayed(), "ссылка 'Партнеры' не отображается");
-    }
 
     @Step("Проверяем что отображается заголовок 'Помощь покупателю'")
     default void checkCustomerHelpTitleVisible() {
@@ -80,24 +76,9 @@ public interface FooterCheck extends Check, FooterElement {
         krakenAssert.assertTrue(hotlineWorkHoursText.is().displayed(), "часы работы поддержки не отображаются");
     }
 
-    @Step("Проверяем что отображается кнопка 'Facebook'")
-    default void checkFacebookButtonVisible() {
-        krakenAssert.assertTrue(facebookButton.is().displayed(), "кнопка 'Facebook' не отображается");
-    }
-
     @Step("Проверяем что отображается кнопка 'Vkontakte'")
     default void checkVkontakteButtonVisible() {
         krakenAssert.assertTrue(vkontakteButton.is().displayed(), "кнопка 'Vkontakte' не отображается");
-    }
-
-    @Step("Проверяем что отображается кнопка 'Instagram'")
-    default void checkInstagramButtonVisible() {
-        krakenAssert.assertTrue(instagramButton.is().displayed(), "кнопка 'Instagram' не отображается");
-    }
-
-    @Step("Проверяем что отображается кнопка 'Twitter'")
-    default void checkTwitterButtonVisible() {
-        krakenAssert.assertTrue(twitterButton.is().displayed(), "кнопка 'Twitter' не отображается");
     }
 
     @Step("Проверяем что отображается кнопка 'Google Play'")
