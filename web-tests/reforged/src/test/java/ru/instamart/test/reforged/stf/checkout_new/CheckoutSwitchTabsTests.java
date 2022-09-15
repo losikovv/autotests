@@ -36,6 +36,11 @@ public final class CheckoutSwitchTabsTests {
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
+        final var fullAddress = RestAddresses.Moscow.checkoutAddress().getCity() + ", " +
+                RestAddresses.Moscow.checkoutAddress().getStreet() + ", " +
+                RestAddresses.Moscow.checkoutAddress().getBuilding();
+
+
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
@@ -53,7 +58,7 @@ public final class CheckoutSwitchTabsTests {
 
         checkoutNew().switchToPickup();
 
-        checkoutNew().checkPickupStoreAddress(RestAddresses.Moscow.checkoutAddress().getFullAddress());
+        checkoutNew().checkPickupStoreAddress(fullAddress);
 
         checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
         checkoutNew().clickEditContacts();
@@ -73,6 +78,11 @@ public final class CheckoutSwitchTabsTests {
         addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
 
+        final var fullAddress = RestAddresses.Moscow.checkoutAddress().getCity() + ", " +
+                RestAddresses.Moscow.checkoutAddress().getStreet() + ", " +
+                RestAddresses.Moscow.checkoutAddress().getBuilding();
+
+
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
@@ -80,7 +90,7 @@ public final class CheckoutSwitchTabsTests {
 
         shop().interactHeader().clickToPickup();
         shop().interactHeader().interactAddress().checkAddressModalVisible();
-        shop().interactHeader().interactAddress().clickStoreWithAddress(RestAddresses.Moscow.checkoutAddress().getFullAddress());
+        shop().interactHeader().interactAddress().clickStoreWithAddress(fullAddress);
         shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -96,7 +106,7 @@ public final class CheckoutSwitchTabsTests {
 
         checkoutNew().switchToDelivery();
 
-        checkoutNew().checkDeliveryAddress(RestAddresses.Moscow.checkoutAddress().getCity() + ", " + RestAddresses.Moscow.checkoutAddress().getStreet() + ", " + RestAddresses.Moscow.checkoutAddress().getBuilding());
+        checkoutNew().checkDeliveryAddress(fullAddress);
 
         checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
         checkoutNew().clickEditContacts();
