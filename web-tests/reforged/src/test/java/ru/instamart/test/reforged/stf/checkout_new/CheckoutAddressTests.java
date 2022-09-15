@@ -173,6 +173,7 @@ public final class CheckoutAddressTests {
         checkoutNew().fillFloor(floor);
         checkoutNew().fillDoorPhone(doorPhone);
 
+        checkoutNew().checkSpinnerVisible();
         checkoutNew().checkSpinnerNotVisible();
 
         var addressFromTitle = checkoutNew().getAddressFromTitle();

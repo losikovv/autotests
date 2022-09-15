@@ -38,7 +38,7 @@ public final class SeoCatalogPage implements StfPage, SeoCatalogCheck {
 
     @Step("Нажимаем кнопку 'Добавить в корзину' первого товара")
     public void addFirstProductOnDepartmentToCart() {
-        firstProductAddToCart.click();
+        addToCartButtons.clickOnFirst();
     }
 
     @Step("Нажимаем кнопку 'Убрать из корзины' первого товара")

@@ -7,11 +7,10 @@ import io.qameta.allure.Issues;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.PaymentCards;
-import ru.instamart.kraken.data.Promos;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
@@ -458,5 +457,949 @@ public final class CheckoutTests {
 
         checkoutNew().checkConfirmOrderVisible();
         checkoutNew().checkConfirmOrderActive();
+    }
+
+    @CaseId(3839)
+    @Test(description = "Тест полного оформления заказа с оплатой 'Новой картой онлайн' (Доставка)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testCheckoutCompleteWithNewCard() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        var card = PaymentCards.testCardNo3ds();
+        var cardNew = PaymentCards.testCardNo3dsWithSpasibo();
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        var apartmentValue = "1";
+        checkoutNew().fillApartment(apartmentValue);
+        checkoutNew().fillEntrance("");
+        checkoutNew().checkApartmentValue(apartmentValue);
+
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkDeliverySlotDateVisible();
+        checkoutNew().checkDeliverySlotDeliveryTimeVisible();
+        checkoutNew().checkDeliverySlotPriceVisible();
+
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
+
+        var paymentMethod = "Картой онлайн";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactAddPaymentCardModal().checkModalVisible();
+
+        checkoutNew().interactAddPaymentCardModal().fillCardData(card);
+        checkoutNew().interactAddPaymentCardModal().clickAdd();
+        //B2C-9732
+
+        checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
+        checkoutNew().checkSelectedPaymentMethodContains(card.getCardNumber().substring(card.getCardNumber().length() - 4));
+
+        var paymentMethodNew = "Новой картой онлайн";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethodNew);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactAddPaymentCardModal().checkModalVisible();
+
+        checkoutNew().interactAddPaymentCardModal().fillCardData(cardNew);
+        checkoutNew().interactAddPaymentCardModal().clickAdd();
+        //B2C-9732
+
+        checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
+        checkoutNew().checkSelectedPaymentMethodContains(cardNew.getCardNumber().substring(cardNew.getCardNumber().length() - 4));
+
+        checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
+
+        checkoutNew().clickEditContacts();
+        checkoutNew().checkContactsPhone(userData.getPhone());
+        checkoutNew().checkContactsEmail(userData.getEmail());
+
+        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+
+        checkoutNew().clickConfirmPay();
+        //B2C-9730
+
+        userShipment().checkPageContains(userShipments().pageUrl());
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
+    }
+
+    @Issue("B2C-10410")
+    @CaseId(3838)
+    @Test(description = "Тест полного оформления заказа с оплатой бонусами от СберСпасибо (Доставка)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testCheckoutCompleteWithSberSpasibo() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        var card = PaymentCards.testCardNo3dsWithSpasibo();
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        var apartmentValue = "1";
+        checkoutNew().fillApartment(apartmentValue);
+        checkoutNew().fillEntrance("");
+        checkoutNew().checkApartmentValue(apartmentValue);
+
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkDeliverySlotDateVisible();
+        checkoutNew().checkDeliverySlotDeliveryTimeVisible();
+        checkoutNew().checkDeliverySlotPriceVisible();
+
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
+
+        var paymentMethod = "Бонусы от СберСпасибо";
+        var bonusesAmount = "1";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+
+        checkoutNew().interactSberSpasiboModal().checkModalVisible();
+        checkoutNew().interactSberSpasiboModal().fillCardData(card);
+        //B2C-10410
+        checkoutNew().interactSberSpasiboModal().fillBonusesAmount(bonusesAmount);
+        checkoutNew().interactSberSpasiboModal().clickWithdraw();
+
+        checkoutNew().interactSberSpasiboModal().checkBonusesFieldDisplayed();
+
+        checkoutNew().interactSberSpasiboModal().fillBonusesAmount(bonusesAmount);
+        checkoutNew().interactSberSpasiboModal().clickWithdraw();
+
+        checkoutNew().interactSberSpasiboModal().checkModalNotVisible();
+        checkoutNew().checkSberSpasiboWidgetContainsCardNumber(card.getCardNumber().substring(card.getCardNumber().length() - 4));
+        checkoutNew().checkSberSpasiboWidgetContainsBonusesAmount(bonusesAmount);
+        checkoutNew().checkSidebarContainsBonusesAmount(bonusesAmount);
+
+        checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
+
+        checkoutNew().clickEditContacts();
+        checkoutNew().checkContactsPhone(userData.getPhone());
+        checkoutNew().checkContactsEmail(userData.getEmail());
+
+        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+
+        checkoutNew().clickConfirmPay();
+
+        userShipment().checkPageContains(userShipments().pageUrl());
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
+    }
+
+    @CaseId(3840)
+    @Test(description = "Тест полного оформления заказа с оплатой наличными (Доставка)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testCheckoutCompleteWithCash() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        var apartmentValue = "1";
+        checkoutNew().fillApartment(apartmentValue);
+        checkoutNew().fillEntrance("");
+        checkoutNew().checkApartmentValue(apartmentValue);
+
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkDeliverySlotDateVisible();
+        checkoutNew().checkDeliverySlotDeliveryTimeVisible();
+        checkoutNew().checkDeliverySlotPriceVisible();
+
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
+
+        var paymentMethod = "Наличными";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
+
+        checkoutNew().checkSelectedPaymentMethodContains(paymentMethod);
+
+        checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
+
+        checkoutNew().clickEditContacts();
+        checkoutNew().checkContactsPhone(userData.getPhone());
+        checkoutNew().checkContactsEmail(userData.getEmail());
+
+        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+
+        checkoutNew().clickConfirmOrder();
+
+        userShipment().checkPageContains(userShipments().pageUrl());
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
+    }
+
+    @CaseId(3647)
+    @Test(description = "Тест полного оформления заказа с оплатой Картой онлайн (Cамовывоз | Только продукты)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testCheckoutCompleteWithOnlinePaymentAndPickup() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        var card = PaymentCards.testCardNo3ds();
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().switchToPickup();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkDeliverySlotDateVisible();
+        checkoutNew().checkDeliverySlotDeliveryTimeVisible();
+        checkoutNew().checkDeliverySlotPriceVisible();
+
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
+
+        var paymentMethod = "Картой онлайн";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactAddPaymentCardModal().checkModalVisible();
+
+        checkoutNew().interactAddPaymentCardModal().fillCardData(card);
+        checkoutNew().interactAddPaymentCardModal().clickAdd();
+        //B2C-9732
+
+        checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
+        checkoutNew().checkSelectedPaymentMethodContains(card.getCardNumber().substring(card.getCardNumber().length() - 4));
+
+        checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
+
+        checkoutNew().clickEditContacts();
+        checkoutNew().checkContactsPhone(userData.getPhone());
+        checkoutNew().checkContactsEmail(userData.getEmail());
+
+        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+
+        checkoutNew().clickConfirmPay();
+        //B2C-9730
+
+        userShipment().checkPageContains(userShipments().pageUrl());
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
+    }
+
+    @CaseId(3648)
+    @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Только продукты)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testCheckoutCompleteWithPayOnCashDeskAndPickup() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().switchToPickup();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkDeliverySlotDateVisible();
+        checkoutNew().checkDeliverySlotDeliveryTimeVisible();
+        checkoutNew().checkDeliverySlotPriceVisible();
+
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
+
+        var paymentMethod = "Картой на кассе";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
+
+        checkoutNew().checkSelectedPaymentMethodContains(paymentMethod);
+
+        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+
+        checkoutNew().clickConfirmOrder();
+
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
+    }
+
+    @CaseId(3841)
+    @Test(description = "Тест полного оформления заказа с оплатой 'Новой картой онлайн' (Самовывоз | Только продукты)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testCheckoutCompleteWithNewCardAndPickup() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        var card = PaymentCards.testCardNo3ds();
+        var cardNew = PaymentCards.testCardNo3dsWithSpasibo();
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().switchToPickup();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkDeliverySlotDateVisible();
+        checkoutNew().checkDeliverySlotDeliveryTimeVisible();
+        checkoutNew().checkDeliverySlotPriceVisible();
+
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
+
+        var paymentMethod = "Картой онлайн";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactAddPaymentCardModal().checkModalVisible();
+
+        checkoutNew().interactAddPaymentCardModal().fillCardData(card);
+        checkoutNew().interactAddPaymentCardModal().clickAdd();
+        //B2C-9732
+
+        checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
+        checkoutNew().checkSelectedPaymentMethodContains(card.getCardNumber().substring(card.getCardNumber().length() - 4));
+
+        var paymentMethodNew = "Новой картой онлайн";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethodNew);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactAddPaymentCardModal().checkModalVisible();
+
+        checkoutNew().interactAddPaymentCardModal().fillCardData(cardNew);
+        checkoutNew().interactAddPaymentCardModal().clickAdd();
+        //B2C-9732
+
+        checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
+        checkoutNew().checkSelectedPaymentMethodContains(cardNew.getCardNumber().substring(cardNew.getCardNumber().length() - 4));
+
+        checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
+
+        checkoutNew().clickEditContacts();
+        checkoutNew().checkContactsPhone(userData.getPhone());
+        checkoutNew().checkContactsEmail(userData.getEmail());
+
+        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+
+        checkoutNew().clickConfirmPay();
+        //B2C-9730
+
+        userShipment().checkPageContains(userShipments().pageUrl());
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
+    }
+
+    @Issue("B2C-10410")
+    @CaseId(3842)
+    @Test(description = "Тест полного оформления заказа с оплатой бонусами от СберСпасибо (Самовывоз | Только продукты)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testCheckoutCompleteWithSberSpasiboAndPickup() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        var card = PaymentCards.testCardNo3dsWithSpasibo();
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().switchToPickup();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkDeliverySlotDateVisible();
+        checkoutNew().checkDeliverySlotDeliveryTimeVisible();
+        checkoutNew().checkDeliverySlotPriceVisible();
+
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
+
+        var paymentMethod = "Бонусы от СберСпасибо";
+        var bonusesAmount = "1";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+
+        checkoutNew().interactSberSpasiboModal().checkModalVisible();
+        checkoutNew().interactSberSpasiboModal().fillCardData(card);
+        //B2C-10410
+        checkoutNew().interactSberSpasiboModal().fillBonusesAmount(bonusesAmount);
+        checkoutNew().interactSberSpasiboModal().clickWithdraw();
+
+        checkoutNew().interactSberSpasiboModal().checkBonusesFieldDisplayed();
+
+        checkoutNew().interactSberSpasiboModal().fillBonusesAmount(bonusesAmount);
+        checkoutNew().interactSberSpasiboModal().clickWithdraw();
+
+        checkoutNew().interactSberSpasiboModal().checkModalNotVisible();
+        checkoutNew().checkSberSpasiboWidgetContainsCardNumber(card.getCardNumber().substring(card.getCardNumber().length() - 4));
+        checkoutNew().checkSberSpasiboWidgetContainsBonusesAmount(bonusesAmount);
+        checkoutNew().checkSidebarContainsBonusesAmount(bonusesAmount);
+
+        checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
+
+        checkoutNew().clickEditContacts();
+        checkoutNew().checkContactsPhone(userData.getPhone());
+        checkoutNew().checkContactsEmail(userData.getEmail());
+
+        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+
+        checkoutNew().clickConfirmPay();
+
+        userShipment().checkPageContains(userShipments().pageUrl());
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
+    }
+
+    @CaseId(3622)
+    @Test(description = "Тест полного оформления заказа с оплатой Наличными (Самовывоз | Только продукты)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testCheckoutCompleteWithCashAndPickup() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().switchToPickup();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkDeliverySlotDateVisible();
+        checkoutNew().checkDeliverySlotDeliveryTimeVisible();
+        checkoutNew().checkDeliverySlotPriceVisible();
+
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
+
+        var paymentMethod = "Наличными";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
+
+        checkoutNew().checkSelectedPaymentMethodContains(paymentMethod);
+
+        checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
+
+        checkoutNew().clickEditContacts();
+        checkoutNew().checkContactsPhone(userData.getPhone());
+        checkoutNew().checkContactsEmail(userData.getEmail());
+
+        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+
+        checkoutNew().clickConfirmOrder();
+
+        userShipment().checkPageContains(userShipments().pageUrl());
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
+    }
+
+    @CaseId(3625)
+    @Test(description = "Тест полного оформления заказа с оплатой Картой онлайн (Самовывоз | Алкоголь и продукты)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testCheckoutCompleteWithOnlinePaymentIncludeAlcoAndPickup() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        var card = PaymentCards.testCardNo3ds();
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToPickup();
+        shop().interactHeader().interactAddress().checkAddressModalVisible();
+        shop().interactHeader().interactAddress().clickStoreWithAddress(fullAddress);
+        shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/alcohol/vino/krasnoie-vino?sid=14&source=category");
+
+        shop().interactDisclaimer().checkDisclaimerModalVisible();
+        shop().interactDisclaimer().agreeAndConfirm();
+        shop().interactDisclaimer().checkDisclaimerModalNotVisible();
+
+        seo().interactHeader().checkPickupSelected();
+        seo().addFirstProductOnDepartmentToCart();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().increaseFirstItemCountToMin();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().switchToPickup();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkDeliverySlotDateVisible();
+        checkoutNew().checkDeliverySlotDeliveryTimeVisible();
+        checkoutNew().checkDeliverySlotPriceVisible();
+
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
+
+        var paymentMethod = "Картой онлайн";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactAddPaymentCardModal().checkModalVisible();
+
+        checkoutNew().interactAddPaymentCardModal().fillCardData(card);
+        checkoutNew().interactAddPaymentCardModal().clickAdd();
+        //B2C-9732
+
+        checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
+        checkoutNew().checkSelectedPaymentMethodContains(card.getCardNumber().substring(card.getCardNumber().length() - 4));
+
+        checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
+
+        checkoutNew().clickEditContacts();
+        checkoutNew().checkContactsPhone(userData.getPhone());
+        checkoutNew().checkContactsEmail(userData.getEmail());
+
+        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+
+        checkoutNew().clickConfirmPay();
+        //B2C-9730
+
+        userShipment().checkPageContains(userShipments().pageUrl());
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
+    }
+
+    @CaseId(3843)
+    @Test(description = "Тест полного оформления заказа с оплатой Наличными (Самовывоз | Алкоголь и продукты)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testCheckoutCompleteWithCashIncludeAlcoAndPickup() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToPickup();
+        shop().interactHeader().interactAddress().checkAddressModalVisible();
+        shop().interactHeader().interactAddress().clickStoreWithAddress(fullAddress);
+        shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/alcohol/vino/krasnoie-vino?sid=14&source=category");
+
+        shop().interactDisclaimer().checkDisclaimerModalVisible();
+        shop().interactDisclaimer().agreeAndConfirm();
+        shop().interactDisclaimer().checkDisclaimerModalNotVisible();
+
+        seo().interactHeader().checkPickupSelected();
+        seo().addFirstProductOnDepartmentToCart();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().switchToPickup();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkDeliverySlotDateVisible();
+        checkoutNew().checkDeliverySlotDeliveryTimeVisible();
+        checkoutNew().checkDeliverySlotPriceVisible();
+
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
+
+        var paymentMethod = "Наличными";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
+
+        checkoutNew().checkSelectedPaymentMethodContains(paymentMethod);
+
+        checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
+
+        checkoutNew().clickEditContacts();
+        checkoutNew().checkContactsPhone(userData.getPhone());
+        checkoutNew().checkContactsEmail(userData.getEmail());
+
+        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+
+        checkoutNew().clickConfirmOrder();
+
+        userShipment().checkPageContains(userShipments().pageUrl());
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
+    }
+
+    @CaseId(3844)
+    @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Алкоголь и продукты)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testCheckoutCompleteWithPayOnCashDeskIncludeAlcoAndPickup() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToPickup();
+        shop().interactHeader().interactAddress().checkAddressModalVisible();
+        shop().interactHeader().interactAddress().clickStoreWithAddress(fullAddress);
+        shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/alcohol/vino/krasnoie-vino?sid=14&source=category");
+
+        shop().interactDisclaimer().checkDisclaimerModalVisible();
+        shop().interactDisclaimer().agreeAndConfirm();
+        shop().interactDisclaimer().checkDisclaimerModalNotVisible();
+
+        seo().interactHeader().checkPickupSelected();
+        seo().addFirstProductOnDepartmentToCart();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().switchToPickup();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkDeliverySlotDateVisible();
+        checkoutNew().checkDeliverySlotDeliveryTimeVisible();
+        checkoutNew().checkDeliverySlotPriceVisible();
+
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
+
+        var paymentMethod = "Картой на кассе";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
+
+        checkoutNew().checkSelectedPaymentMethodContains(paymentMethod);
+
+        checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
+
+        checkoutNew().clickEditContacts();
+        checkoutNew().checkContactsPhone(userData.getPhone());
+        checkoutNew().checkContactsEmail(userData.getEmail());
+
+        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+
+        checkoutNew().clickConfirmOrder();
+
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
+    }
+
+    @CaseId(3845)
+    @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Только алкоголь)", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testCheckoutCompleteWithPayOnCashDeskOnlyAlcoAndPickup() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToPickup();
+        shop().interactHeader().interactAddress().checkAddressModalVisible();
+        shop().interactHeader().interactAddress().clickStoreWithAddress(fullAddress);
+        shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/alcohol/vino/krasnoie-vino?sid=14&source=category");
+
+        shop().interactDisclaimer().checkDisclaimerModalVisible();
+        shop().interactDisclaimer().agreeAndConfirm();
+        shop().interactDisclaimer().checkDisclaimerModalNotVisible();
+
+        seo().interactHeader().checkPickupSelected();
+        seo().addFirstProductOnDepartmentToCart();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().increaseFirstItemCountToMin();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkDeliverySlotDateVisible();
+        checkoutNew().checkDeliverySlotDeliveryTimeVisible();
+        checkoutNew().checkDeliverySlotPriceVisible();
+
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
+
+        var paymentMethod = "Картой на кассе";
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
+
+        checkoutNew().checkSelectedPaymentMethodContains(paymentMethod);
+
+        checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
+
+        checkoutNew().clickEditContacts();
+        checkoutNew().checkContactsPhone(userData.getPhone());
+        checkoutNew().checkContactsEmail(userData.getEmail());
+
+        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+
+        checkoutNew().clickConfirmOrder();
+
+        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkPaymentMethodEquals("Картой на кассе");
+        userShipment().checkProductsCostVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
     }
 }
