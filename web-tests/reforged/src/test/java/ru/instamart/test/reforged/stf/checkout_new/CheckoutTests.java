@@ -1080,9 +1080,7 @@ public final class CheckoutTests {
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
-        final var fullAddress = RestAddresses.Moscow.checkoutAddress().getCity() + ", " +
-                RestAddresses.Moscow.checkoutAddress().getStreet() + ", " +
-                RestAddresses.Moscow.checkoutAddress().getBuilding();
+        final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -1173,9 +1171,7 @@ public final class CheckoutTests {
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
-        final var fullAddress = RestAddresses.Moscow.checkoutAddress().getCity() + ", " +
-                RestAddresses.Moscow.checkoutAddress().getStreet() + ", " +
-                RestAddresses.Moscow.checkoutAddress().getBuilding();
+        final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -1258,9 +1254,7 @@ public final class CheckoutTests {
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
-        final var fullAddress = RestAddresses.Moscow.checkoutAddress().getCity() + ", " +
-                RestAddresses.Moscow.checkoutAddress().getStreet() + ", " +
-                RestAddresses.Moscow.checkoutAddress().getBuilding();
+        final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -1341,9 +1335,7 @@ public final class CheckoutTests {
         addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
-        final var fullAddress = RestAddresses.Moscow.checkoutAddress().getCity() + ", " +
-                                RestAddresses.Moscow.checkoutAddress().getStreet() + ", " +
-                                RestAddresses.Moscow.checkoutAddress().getBuilding();
+        final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
