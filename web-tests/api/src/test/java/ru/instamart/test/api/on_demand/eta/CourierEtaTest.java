@@ -25,6 +25,8 @@ import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import java.util.UUID;
+
 import static eta.Eta.CourierEtaEstimateSource.APP_FALLBACK;
 import static eta.Eta.CourierEtaEstimateSource.RE_FALLBACK;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -43,15 +45,15 @@ public class CourierEtaTest extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientEta = PredEtaGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_ETA));
-        address = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_ON_DEMAND_SID);
-        SessionFactory.makeSession(SessionType.API_V2);
-        userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
-        apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_ON_DEMAND_SID);
-        order = apiV2.createOrder();
-        storeUuid = StoresDao.INSTANCE.findById(EnvironmentProperties.DEFAULT_ON_DEMAND_SID).get().getUuid();
-        shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
-        admin.auth();
-        shopperApp.authorisation(UserManager.getKrakenUniversal());
+//        address = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_ON_DEMAND_SID);
+//        SessionFactory.makeSession(SessionType.API_V2);
+//        userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
+//        apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_ON_DEMAND_SID);
+//        order = apiV2.createOrder();
+//        storeUuid = StoresDao.INSTANCE.findById(EnvironmentProperties.DEFAULT_ON_DEMAND_SID).get().getUuid();
+//        shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
+//        admin.auth();
+//        shopperApp.authorisation(UserManager.getKrakenUniversal());
     }
 
     @Skip
@@ -72,7 +74,6 @@ public class CourierEtaTest extends RestBase {
                         .build())
                 .build();
 
-
         var response = clientEta.getCourierEta(request);
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(response.getEta() > 0, "ETA меньше или равно нулю");
@@ -88,17 +89,16 @@ public class CourierEtaTest extends RestBase {
             expectedExceptionsMessageRegExp = "NOT_FOUND: cannot get courier location: courier location not found")
     public void getCourierEtaForCourierWithoutCoordinates() {
         var request = Eta.CourierEtaRequest.newBuilder()
-                .setCourierUuid(UserManager.getKrakenUniversal2().getUuid())
-                .setStoreUuid(storeUuid)
-                .setShipmentUuid(shipmentUuid)
+                .setCourierUuid(UUID.randomUUID().toString())
+                .setStoreUuid(UUID.randomUUID().toString())
+                .setShipmentUuid(UUID.randomUUID().toString())
                 .setClientPoint(Eta.CourierEtaRequest.ClientPoint.newBuilder()
                         .setLat(56.7575624f)
                         .setLon(36.6569041f)
                         .build())
                 .build();
 
-
-        var response = clientEta.getCourierEta(request);
+        clientEta.getCourierEta(request);
     }
 
     @Skip
@@ -118,7 +118,6 @@ public class CourierEtaTest extends RestBase {
                         .setLon(StartPointsTenants.ETA.getLon().floatValue())
                         .build())
                 .build();
-
 
         var response = clientEta.getCourierEta(request);
         final SoftAssert softAssert = new SoftAssert();
