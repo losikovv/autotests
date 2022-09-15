@@ -7,6 +7,7 @@ import ru.instamart.reforged.stf.page.checkout_new.add_payment_card_modal.AddPay
 import ru.instamart.reforged.stf.page.checkout_new.b2b_order_modal.B2BOrderModal;
 import ru.instamart.reforged.stf.page.checkout_new.delivery_slots_modal.DeliverySlotsModal;
 import ru.instamart.reforged.stf.page.checkout_new.payment_methods_modal.PaymentMethodsModal;
+import ru.instamart.reforged.stf.page.checkout_new.sber_spasibo_card_modal.SberSpasiboCardModal;
 
 public interface CheckoutElement {
 
@@ -14,6 +15,7 @@ public interface CheckoutElement {
     AddPaymentCardModal addPaymentCardModal = new AddPaymentCardModal();
     DeliverySlotsModal deliverySlotsModal = new DeliverySlotsModal();
     B2BOrderModal b2bOrderModal = new B2BOrderModal();
+    SberSpasiboCardModal sberSpasiboCardModal = new SberSpasiboCardModal();
 
     Element loadingSpinner = new Element(By.xpath("//div[contains(@class,'Spinner')]"), "Спиннер загрузки страницы");
 
@@ -85,4 +87,6 @@ public interface CheckoutElement {
     Element notificationBannerTitle = new Element(By.xpath("//div[contains(@class,'NotificationBubble_banner')]//h3"), "Заголовок всплывающего сообщения об ошибке");
     Element notificationBannerText = new Element(By.xpath("//div[contains(@class,'NotificationBubble_banner')]//p"), "Текст всплывающего сообщения об ошибке");
     Element cardToCourierBubble = new Element(By.xpath("//div[contains(@class,'CardToCourierBubble_root')]"), "Алерт недоступности оплаты картой курьеру при бесконтактной доставке");
+    Element sberSpasiboWidget = new Element(By.xpath("//div[contains(@class,'SberSpasiboPaymentToolWidget')]/p"), "Виджет сберспасибо");
+    Element sidebarSberSpasiboAmount = new Element(ByKraken.xpathExpression("//div[contains(@class,'SberSpasiboPaymentToolWidget')]/p"), "Надпись с колвом бонусов в сайдбаре");
 }

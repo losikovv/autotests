@@ -114,6 +114,9 @@ public final class CheckoutSwitchTabsTests {
         addFlipperActor("checkout_web_new", userData.getId());
         addFlipperActor("checkout_web_force_all", userData.getId());
         addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        final var fullAddress = RestAddresses.Moscow.checkoutAddress().getCity() + ", " +
+                RestAddresses.Moscow.checkoutAddress().getStreet() + ", " +
+                RestAddresses.Moscow.checkoutAddress().getBuilding();
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -122,16 +125,17 @@ public final class CheckoutSwitchTabsTests {
 
         shop().interactHeader().clickToPickup();
         shop().interactHeader().interactAddress().checkAddressModalVisible();
-        shop().interactHeader().interactAddress().clickStoreWithAddress(RestAddresses.Moscow.checkoutAddress().getFullAddress());
+        shop().interactHeader().interactAddress().clickStoreWithAddress(fullAddress);
         shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/alcohol/viski-burbon?sid=14&source=category");
+        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/alcohol/vino/krasnoie-vino?sid=14&source=category");
 
         shop().interactDisclaimer().checkDisclaimerModalVisible();
         shop().interactDisclaimer().agreeAndConfirm();
         shop().interactDisclaimer().checkDisclaimerModalNotVisible();
 
+        seo().interactHeader().checkPickupSelected();
         seo().addFirstProductOnDepartmentToCart();
 
         shop().interactHeader().clickToCart();
@@ -141,7 +145,7 @@ public final class CheckoutSwitchTabsTests {
 
         checkoutNew().checkSpinnerNotVisible();
 
-        checkoutNew().checkPickupStoreAddress(RestAddresses.Moscow.checkoutAddress().getFullAddress());
+        checkoutNew().checkPickupStoreAddress(fullAddress);
         checkoutNew().checkAlcoholBannerVisible();
         checkoutNew().checkDeliveryTabNotVisible();
     }

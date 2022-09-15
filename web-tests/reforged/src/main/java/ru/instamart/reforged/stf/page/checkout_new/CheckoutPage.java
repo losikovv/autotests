@@ -10,6 +10,7 @@ import ru.instamart.reforged.stf.page.checkout_new.add_payment_card_modal.AddPay
 import ru.instamart.reforged.stf.page.checkout_new.b2b_order_modal.B2BOrderModal;
 import ru.instamart.reforged.stf.page.checkout_new.delivery_slots_modal.DeliverySlotsModal;
 import ru.instamart.reforged.stf.page.checkout_new.payment_methods_modal.PaymentMethodsModal;
+import ru.instamart.reforged.stf.page.checkout_new.sber_spasibo_card_modal.SberSpasiboCardModal;
 
 public class CheckoutPage implements StfPage, CheckoutCheck, Window {
 
@@ -27,6 +28,10 @@ public class CheckoutPage implements StfPage, CheckoutCheck, Window {
 
     public B2BOrderModal interactB2BOrderModal() {
         return b2bOrderModal;
+    }
+
+    public SberSpasiboCardModal interactSberSpasiboModal() {
+        return sberSpasiboCardModal;
     }
 
     @Step("Переходим на вкладку 'Самовывоз'")
