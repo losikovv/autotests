@@ -55,7 +55,7 @@ public final class TimeUtil {
     }
 
     public static String getDateWithTimeMinusDays(final long days) {
-        return ymdhm.format(ZonedDateTime.now(ZONE_ID).minusDays(days));
+        return ymdhm.format(ZonedDateTime.now(ZONE_ID).minusDays(days).toLocalDate().atStartOfDay());
     }
 
     public static String getDateWithTimePlusDays(final long days) {
@@ -210,6 +210,9 @@ public final class TimeUtil {
     }
 
     public static boolean dateBetween(final ZonedDateTime dateStart, final ZonedDateTime dateEnd, final ZonedDateTime date) {
-        return date.isAfter(dateStart) && date.isBefore(dateEnd);
+        final var start = dateStart.toEpochSecond();
+        final var end = dateEnd.toEpochSecond();
+        final var cur = date.toEpochSecond();
+        return cur >= start && cur <= end;
     }
 }
