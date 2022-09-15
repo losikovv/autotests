@@ -30,6 +30,17 @@ public class ConfigDao extends AbstractDao<String, ConfigEntity> {
         return false;
     }
 
+    public boolean deleteByStore(String storeId) {
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SURGE_LEVEL).getConnection();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = (SELECT config_id FROM store WHERE id = ?::uuid) ")) {
+            preparedStatement.setString(1, storeId);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLSurgelevelManager. Error: " + e.getMessage());
+        }
+        return false;
+    }
+
     @Override
     public boolean delete(String configId) {
         try (Connection connect = ConnectionManager.getDataSource(Db.PG_SURGE_LEVEL).getConnection();
