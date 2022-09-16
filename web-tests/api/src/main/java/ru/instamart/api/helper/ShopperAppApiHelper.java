@@ -489,7 +489,7 @@ public class ShopperAppApiHelper {
         log.debug("Дополнительный товар для замены");
 
         Response response = ReplacementsSHPRequest.AdditionalItems.POST(replacementId, offer.getId(),
-                offer.getAttributes().getPricerType().equals(PricerSHP.PER_WEIGHT.getType()) ? 2000 : 2);
+                offer.getAttributes().getPricerType().equals(PricerSHP.PER_WEIGHT.getType()) ? 1000 : 1);
         checkStatusCode200(response);
         assertEquals(response.as(AssemblyItemSHPResponse.class).getData().getAttributes().getState(),
                 "need_review");
