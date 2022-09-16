@@ -103,13 +103,13 @@ public interface UpdateStrategyRequestOrBuilder extends
 
   /**
    * <pre>
-   * Признак глобальной стратегии
+   * DEPRECATED: Признак глобальной стратегии
    * </pre>
    *
-   * <code>bool global = 5;</code>
+   * <code>bool global = 5 [deprecated = true];</code>
    * @return The global.
    */
-  boolean getGlobal();
+  @java.lang.Deprecated boolean getGlobal();
 
   /**
    * <pre>

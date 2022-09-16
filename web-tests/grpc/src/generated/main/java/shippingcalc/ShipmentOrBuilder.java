@@ -186,4 +186,14 @@ public interface ShipmentOrBuilder extends
    * @return The lon.
    */
   float getLon();
+
+  /**
+   * <pre>
+   * Идентификатор ритейлера
+   * </pre>
+   *
+   * <code>uint64 retailer_id = 13;</code>
+   * @return The retailerId.
+   */
+  long getRetailerId();
 }

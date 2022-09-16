@@ -72,6 +72,11 @@ private static final long serialVersionUID = 0L;
             percentAddition_ = input.readUInt64();
             break;
           }
+          case 40: {
+
+            minCartAddition_ = input.readUInt64();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -108,7 +113,7 @@ private static final long serialVersionUID = 0L;
   private float leftBoundary_;
   /**
    * <pre>
-   * Левая граница интервала, входит в диапазон
+   * Левая граница интервала, не входит в диапазон
    * </pre>
    *
    * <code>float left_boundary = 1;</code>
@@ -123,7 +128,7 @@ private static final long serialVersionUID = 0L;
   private float rightBoundary_;
   /**
    * <pre>
-   * Правая граница интервала, не входит в диапазон
+   * Правая граница интервала, входит в диапазон
    * </pre>
    *
    * <code>float right_boundary = 2;</code>
@@ -164,6 +169,21 @@ private static final long serialVersionUID = 0L;
     return percentAddition_;
   }
 
+  public static final int MIN_CART_ADDITION_FIELD_NUMBER = 5;
+  private long minCartAddition_;
+  /**
+   * <pre>
+   * Дополнительная наценка, напрямую добавленная к мин корзине
+   * </pre>
+   *
+   * <code>uint64 min_cart_addition = 5;</code>
+   * @return The minCartAddition.
+   */
+  @java.lang.Override
+  public long getMinCartAddition() {
+    return minCartAddition_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -190,6 +210,9 @@ private static final long serialVersionUID = 0L;
     if (percentAddition_ != 0L) {
       output.writeUInt64(4, percentAddition_);
     }
+    if (minCartAddition_ != 0L) {
+      output.writeUInt64(5, minCartAddition_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -214,6 +237,10 @@ private static final long serialVersionUID = 0L;
     if (percentAddition_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(4, percentAddition_);
+    }
+    if (minCartAddition_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(5, minCartAddition_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -240,6 +267,8 @@ private static final long serialVersionUID = 0L;
         != other.getPriceAddition()) return false;
     if (getPercentAddition()
         != other.getPercentAddition()) return false;
+    if (getMinCartAddition()
+        != other.getMinCartAddition()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -263,6 +292,9 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + PERCENT_ADDITION_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getPercentAddition());
+    hash = (37 * hash) + MIN_CART_ADDITION_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getMinCartAddition());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -408,6 +440,8 @@ private static final long serialVersionUID = 0L;
 
       percentAddition_ = 0L;
 
+      minCartAddition_ = 0L;
+
       return this;
     }
 
@@ -438,6 +472,7 @@ private static final long serialVersionUID = 0L;
       result.rightBoundary_ = rightBoundary_;
       result.priceAddition_ = priceAddition_;
       result.percentAddition_ = percentAddition_;
+      result.minCartAddition_ = minCartAddition_;
       onBuilt();
       return result;
     }
@@ -498,6 +533,9 @@ private static final long serialVersionUID = 0L;
       if (other.getPercentAddition() != 0L) {
         setPercentAddition(other.getPercentAddition());
       }
+      if (other.getMinCartAddition() != 0L) {
+        setMinCartAddition(other.getMinCartAddition());
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
@@ -530,7 +568,7 @@ private static final long serialVersionUID = 0L;
     private float leftBoundary_ ;
     /**
      * <pre>
-     * Левая граница интервала, входит в диапазон
+     * Левая граница интервала, не входит в диапазон
      * </pre>
      *
      * <code>float left_boundary = 1;</code>
@@ -542,7 +580,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Левая граница интервала, входит в диапазон
+     * Левая граница интервала, не входит в диапазон
      * </pre>
      *
      * <code>float left_boundary = 1;</code>
@@ -557,7 +595,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Левая граница интервала, входит в диапазон
+     * Левая граница интервала, не входит в диапазон
      * </pre>
      *
      * <code>float left_boundary = 1;</code>
@@ -573,7 +611,7 @@ private static final long serialVersionUID = 0L;
     private float rightBoundary_ ;
     /**
      * <pre>
-     * Правая граница интервала, не входит в диапазон
+     * Правая граница интервала, входит в диапазон
      * </pre>
      *
      * <code>float right_boundary = 2;</code>
@@ -585,7 +623,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Правая граница интервала, не входит в диапазон
+     * Правая граница интервала, входит в диапазон
      * </pre>
      *
      * <code>float right_boundary = 2;</code>
@@ -600,7 +638,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Правая граница интервала, не входит в диапазон
+     * Правая граница интервала, входит в диапазон
      * </pre>
      *
      * <code>float right_boundary = 2;</code>
@@ -695,6 +733,49 @@ private static final long serialVersionUID = 0L;
     public Builder clearPercentAddition() {
       
       percentAddition_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long minCartAddition_ ;
+    /**
+     * <pre>
+     * Дополнительная наценка, напрямую добавленная к мин корзине
+     * </pre>
+     *
+     * <code>uint64 min_cart_addition = 5;</code>
+     * @return The minCartAddition.
+     */
+    @java.lang.Override
+    public long getMinCartAddition() {
+      return minCartAddition_;
+    }
+    /**
+     * <pre>
+     * Дополнительная наценка, напрямую добавленная к мин корзине
+     * </pre>
+     *
+     * <code>uint64 min_cart_addition = 5;</code>
+     * @param value The minCartAddition to set.
+     * @return This builder for chaining.
+     */
+    public Builder setMinCartAddition(long value) {
+      
+      minCartAddition_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Дополнительная наценка, напрямую добавленная к мин корзине
+     * </pre>
+     *
+     * <code>uint64 min_cart_addition = 5;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearMinCartAddition() {
+      
+      minCartAddition_ = 0L;
       onChanged();
       return this;
     }

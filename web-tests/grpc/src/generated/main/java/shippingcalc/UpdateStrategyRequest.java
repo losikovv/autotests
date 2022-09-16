@@ -321,14 +321,14 @@ private static final long serialVersionUID = 0L;
   private boolean global_;
   /**
    * <pre>
-   * Признак глобальной стратегии
+   * DEPRECATED: Признак глобальной стратегии
    * </pre>
    *
-   * <code>bool global = 5;</code>
+   * <code>bool global = 5 [deprecated = true];</code>
    * @return The global.
    */
   @java.lang.Override
-  public boolean getGlobal() {
+  @java.lang.Deprecated public boolean getGlobal() {
     return global_;
   }
 
@@ -1546,26 +1546,26 @@ private static final long serialVersionUID = 0L;
     private boolean global_ ;
     /**
      * <pre>
-     * Признак глобальной стратегии
+     * DEPRECATED: Признак глобальной стратегии
      * </pre>
      *
-     * <code>bool global = 5;</code>
+     * <code>bool global = 5 [deprecated = true];</code>
      * @return The global.
      */
     @java.lang.Override
-    public boolean getGlobal() {
+    @java.lang.Deprecated public boolean getGlobal() {
       return global_;
     }
     /**
      * <pre>
-     * Признак глобальной стратегии
+     * DEPRECATED: Признак глобальной стратегии
      * </pre>
      *
-     * <code>bool global = 5;</code>
+     * <code>bool global = 5 [deprecated = true];</code>
      * @param value The global to set.
      * @return This builder for chaining.
      */
-    public Builder setGlobal(boolean value) {
+    @java.lang.Deprecated public Builder setGlobal(boolean value) {
       
       global_ = value;
       onChanged();
@@ -1573,13 +1573,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Признак глобальной стратегии
+     * DEPRECATED: Признак глобальной стратегии
      * </pre>
      *
-     * <code>bool global = 5;</code>
+     * <code>bool global = 5 [deprecated = true];</code>
      * @return This builder for chaining.
      */
-    public Builder clearGlobal() {
+    @java.lang.Deprecated public Builder clearGlobal() {
       
       global_ = false;
       onChanged();

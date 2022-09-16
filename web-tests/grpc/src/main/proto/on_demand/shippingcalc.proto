@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 package shippingcalc;
-
 option go_package = "gitlab.sbmt.io/paas/content/operations/shippingcalc/pkg/server/grpc/shippingcalc";
 option java_multiple_files = true;
 
@@ -92,8 +91,8 @@ message UpdateStrategyRequest {
 	string creator_id = 3;
 	// Наименование стратегии
 	string name = 4;
-	// Признак глобальной стратегии
-	bool global = 5;
+	// DEPRECATED: Признак глобальной стратегии
+	bool global = 5 [deprecated = true];
 	// Приоритет (актуально только для глобальной стратегии)
 	uint32 priority = 6;
 	// Произвольное описание стратегии
@@ -504,6 +503,8 @@ message Shipment {
 	// координаты магазина
 	float lat = 11;
 	float lon = 12;
+	// Идентификатор ритейлера
+	uint64 retailer_id = 13;
 }
 
 message ProductRequest {
@@ -577,9 +578,12 @@ message PricedShipment {
 	repeated PriceHint hints = 13;
 	// Объяснение того почему цена именно такая
 	PriceExplanation price_explanation = 14;
-
-	// Минимальная цена корзины
+	// Минимальная цена корзины (уже с учетом сурджа)
 	uint64 minimal_cart_price = 15;
+	// Наценка из-за сурджа для мин корзины в копейках, которая будет прибавлена к изначальной мин корзине
+	uint64 surge_min_cart_addition = 16;
+	// Идентификатор правила, по которому рассчитана мин корзина
+	uint32 min_cart_rule_id = 17;
 }
 
 message PriceHint {
@@ -632,14 +636,16 @@ message LadderStep {
 
 // Один интервал для surge
 message SurgeInterval {
-	// Левая граница интервала, входит в диапазон
+	// Левая граница интервала, не входит в диапазон
 	float left_boundary = 1;
-	// Правая граница интервала, не входит в диапазон
+	// Правая граница интервала, входит в диапазон
 	float right_boundary = 2;
 	// Дополнительная наценка, напрямую добавленная к цене доставки
 	uint64 price_addition = 3;
 	// Дополнительная наценка, добавленный процент от цены доставки
 	uint64 percent_addition = 4;
+	// Дополнительная наценка, напрямую добавленная к мин корзине
+	uint64 min_cart_addition = 5;
 }
 
 message SetIntervalsSurgeRequest {
@@ -708,6 +714,12 @@ message Store {
 	// Координаты магазина
 	float lat = 2;
 	float lon = 3;
+	// Это onDemand ? true - да, false - нет
+	bool is_ondemand = 7;
+	// Регион
+	uint64 region_id = 8;
+	// Идентификатор ритейлера
+	uint64 retailer_id = 9;
 }
 
 // Минимальная стоимость корзины для магазина

@@ -254,11 +254,31 @@ public interface PricedShipmentOrBuilder extends
 
   /**
    * <pre>
-   * Минимальная цена корзины
+   * Минимальная цена корзины (уже с учетом сурджа)
    * </pre>
    *
    * <code>uint64 minimal_cart_price = 15;</code>
    * @return The minimalCartPrice.
    */
   long getMinimalCartPrice();
+
+  /**
+   * <pre>
+   * Наценка из-за сурджа для мин корзины в копейках, которая будет прибавлена к изначальной мин корзине
+   * </pre>
+   *
+   * <code>uint64 surge_min_cart_addition = 16;</code>
+   * @return The surgeMinCartAddition.
+   */
+  long getSurgeMinCartAddition();
+
+  /**
+   * <pre>
+   * Идентификатор правила, по которому рассчитана мин корзина
+   * </pre>
+   *
+   * <code>uint32 min_cart_rule_id = 17;</code>
+   * @return The minCartRuleId.
+   */
+  int getMinCartRuleId();
 }

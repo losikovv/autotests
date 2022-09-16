@@ -15,7 +15,7 @@ public final class GrpcContentHosts {
     public static final String PAAS_CONTENT_OPERATIONS_ETA = EnvironmentProperties.Env.ETA_NAMESPACE + ".gw-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_CANDIDATES = "paas-content-operations-candidates.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_TAG_MANAGER = "paas-content-operations-tag-manager.gw-stage.sbmt.io";
-    public static final String PAAS_CONTENT_OPERATIONS_SHIPPINGCALC = System.getProperty("url_paas_shippingcalc", "paas-content-operations-shippingcalc") + ".k-stage.sbmt.io";
+    public static final String PAAS_CONTENT_OPERATIONS_SHIPPINGCALC = System.getProperty("url_paas_shippingcalc", "paas-content-operations-shippingcalc") + ".gw-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_ORDER_SERVICE = "paas-content-operations-order-service.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_SURGELEVEL = EnvironmentProperties.Env.SURGELEVEL_NAMESPACE + ".gw-stage.sbmt.io";
 

@@ -146,6 +146,16 @@ private static final long serialVersionUID = 0L;
             minimalCartPrice_ = input.readUInt64();
             break;
           }
+          case 128: {
+
+            surgeMinCartAddition_ = input.readUInt64();
+            break;
+          }
+          case 136: {
+
+            minCartRuleId_ = input.readUInt32();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -573,7 +583,7 @@ private static final long serialVersionUID = 0L;
   private long minimalCartPrice_;
   /**
    * <pre>
-   * Минимальная цена корзины
+   * Минимальная цена корзины (уже с учетом сурджа)
    * </pre>
    *
    * <code>uint64 minimal_cart_price = 15;</code>
@@ -582,6 +592,36 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public long getMinimalCartPrice() {
     return minimalCartPrice_;
+  }
+
+  public static final int SURGE_MIN_CART_ADDITION_FIELD_NUMBER = 16;
+  private long surgeMinCartAddition_;
+  /**
+   * <pre>
+   * Наценка из-за сурджа для мин корзины в копейках, которая будет прибавлена к изначальной мин корзине
+   * </pre>
+   *
+   * <code>uint64 surge_min_cart_addition = 16;</code>
+   * @return The surgeMinCartAddition.
+   */
+  @java.lang.Override
+  public long getSurgeMinCartAddition() {
+    return surgeMinCartAddition_;
+  }
+
+  public static final int MIN_CART_RULE_ID_FIELD_NUMBER = 17;
+  private int minCartRuleId_;
+  /**
+   * <pre>
+   * Идентификатор правила, по которому рассчитана мин корзина
+   * </pre>
+   *
+   * <code>uint32 min_cart_rule_id = 17;</code>
+   * @return The minCartRuleId.
+   */
+  @java.lang.Override
+  public int getMinCartRuleId() {
+    return minCartRuleId_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -642,6 +682,12 @@ private static final long serialVersionUID = 0L;
     }
     if (minimalCartPrice_ != 0L) {
       output.writeUInt64(15, minimalCartPrice_);
+    }
+    if (surgeMinCartAddition_ != 0L) {
+      output.writeUInt64(16, surgeMinCartAddition_);
+    }
+    if (minCartRuleId_ != 0) {
+      output.writeUInt32(17, minCartRuleId_);
     }
     unknownFields.writeTo(output);
   }
@@ -710,6 +756,14 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(15, minimalCartPrice_);
     }
+    if (surgeMinCartAddition_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(16, surgeMinCartAddition_);
+    }
+    if (minCartRuleId_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt32Size(17, minCartRuleId_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -759,6 +813,10 @@ private static final long serialVersionUID = 0L;
     }
     if (getMinimalCartPrice()
         != other.getMinimalCartPrice()) return false;
+    if (getSurgeMinCartAddition()
+        != other.getSurgeMinCartAddition()) return false;
+    if (getMinCartRuleId()
+        != other.getMinCartRuleId()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -814,6 +872,11 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + MINIMAL_CART_PRICE_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getMinimalCartPrice());
+    hash = (37 * hash) + SURGE_MIN_CART_ADDITION_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getSurgeMinCartAddition());
+    hash = (37 * hash) + MIN_CART_RULE_ID_FIELD_NUMBER;
+    hash = (53 * hash) + getMinCartRuleId();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -991,6 +1054,10 @@ private static final long serialVersionUID = 0L;
       }
       minimalCartPrice_ = 0L;
 
+      surgeMinCartAddition_ = 0L;
+
+      minCartRuleId_ = 0;
+
       return this;
     }
 
@@ -1053,6 +1120,8 @@ private static final long serialVersionUID = 0L;
         result.priceExplanation_ = priceExplanationBuilder_.build();
       }
       result.minimalCartPrice_ = minimalCartPrice_;
+      result.surgeMinCartAddition_ = surgeMinCartAddition_;
+      result.minCartRuleId_ = minCartRuleId_;
       onBuilt();
       return result;
     }
@@ -1193,6 +1262,12 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getMinimalCartPrice() != 0L) {
         setMinimalCartPrice(other.getMinimalCartPrice());
+      }
+      if (other.getSurgeMinCartAddition() != 0L) {
+        setSurgeMinCartAddition(other.getSurgeMinCartAddition());
+      }
+      if (other.getMinCartRuleId() != 0) {
+        setMinCartRuleId(other.getMinCartRuleId());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -2585,7 +2660,7 @@ private static final long serialVersionUID = 0L;
     private long minimalCartPrice_ ;
     /**
      * <pre>
-     * Минимальная цена корзины
+     * Минимальная цена корзины (уже с учетом сурджа)
      * </pre>
      *
      * <code>uint64 minimal_cart_price = 15;</code>
@@ -2597,7 +2672,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Минимальная цена корзины
+     * Минимальная цена корзины (уже с учетом сурджа)
      * </pre>
      *
      * <code>uint64 minimal_cart_price = 15;</code>
@@ -2612,7 +2687,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Минимальная цена корзины
+     * Минимальная цена корзины (уже с учетом сурджа)
      * </pre>
      *
      * <code>uint64 minimal_cart_price = 15;</code>
@@ -2621,6 +2696,92 @@ private static final long serialVersionUID = 0L;
     public Builder clearMinimalCartPrice() {
       
       minimalCartPrice_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long surgeMinCartAddition_ ;
+    /**
+     * <pre>
+     * Наценка из-за сурджа для мин корзины в копейках, которая будет прибавлена к изначальной мин корзине
+     * </pre>
+     *
+     * <code>uint64 surge_min_cart_addition = 16;</code>
+     * @return The surgeMinCartAddition.
+     */
+    @java.lang.Override
+    public long getSurgeMinCartAddition() {
+      return surgeMinCartAddition_;
+    }
+    /**
+     * <pre>
+     * Наценка из-за сурджа для мин корзины в копейках, которая будет прибавлена к изначальной мин корзине
+     * </pre>
+     *
+     * <code>uint64 surge_min_cart_addition = 16;</code>
+     * @param value The surgeMinCartAddition to set.
+     * @return This builder for chaining.
+     */
+    public Builder setSurgeMinCartAddition(long value) {
+      
+      surgeMinCartAddition_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Наценка из-за сурджа для мин корзины в копейках, которая будет прибавлена к изначальной мин корзине
+     * </pre>
+     *
+     * <code>uint64 surge_min_cart_addition = 16;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearSurgeMinCartAddition() {
+      
+      surgeMinCartAddition_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private int minCartRuleId_ ;
+    /**
+     * <pre>
+     * Идентификатор правила, по которому рассчитана мин корзина
+     * </pre>
+     *
+     * <code>uint32 min_cart_rule_id = 17;</code>
+     * @return The minCartRuleId.
+     */
+    @java.lang.Override
+    public int getMinCartRuleId() {
+      return minCartRuleId_;
+    }
+    /**
+     * <pre>
+     * Идентификатор правила, по которому рассчитана мин корзина
+     * </pre>
+     *
+     * <code>uint32 min_cart_rule_id = 17;</code>
+     * @param value The minCartRuleId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setMinCartRuleId(int value) {
+      
+      minCartRuleId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Идентификатор правила, по которому рассчитана мин корзина
+     * </pre>
+     *
+     * <code>uint32 min_cart_rule_id = 17;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearMinCartRuleId() {
+      
+      minCartRuleId_ = 0;
       onChanged();
       return this;
     }
