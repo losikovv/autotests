@@ -42,4 +42,34 @@ public interface StoreOrBuilder extends
    * @return The lon.
    */
   float getLon();
+
+  /**
+   * <pre>
+   * Это onDemand ? true - да, false - нет
+   * </pre>
+   *
+   * <code>bool is_ondemand = 7;</code>
+   * @return The isOndemand.
+   */
+  boolean getIsOndemand();
+
+  /**
+   * <pre>
+   * Регион
+   * </pre>
+   *
+   * <code>uint64 region_id = 8;</code>
+   * @return The regionId.
+   */
+  long getRegionId();
+
+  /**
+   * <pre>
+   * Идентификатор ритейлера
+   * </pre>
+   *
+   * <code>uint64 retailer_id = 9;</code>
+   * @return The retailerId.
+   */
+  long getRetailerId();
 }

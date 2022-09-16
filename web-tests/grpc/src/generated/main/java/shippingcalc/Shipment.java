@@ -120,6 +120,11 @@ private static final long serialVersionUID = 0L;
             lon_ = input.readFloat();
             break;
           }
+          case 104: {
+
+            retailerId_ = input.readUInt64();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -469,6 +474,21 @@ private static final long serialVersionUID = 0L;
     return lon_;
   }
 
+  public static final int RETAILER_ID_FIELD_NUMBER = 13;
+  private long retailerId_;
+  /**
+   * <pre>
+   * Идентификатор ритейлера
+   * </pre>
+   *
+   * <code>uint64 retailer_id = 13;</code>
+   * @return The retailerId.
+   */
+  @java.lang.Override
+  public long getRetailerId() {
+    return retailerId_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -518,6 +538,9 @@ private static final long serialVersionUID = 0L;
     }
     if (lon_ != 0F) {
       output.writeFloat(12, lon_);
+    }
+    if (retailerId_ != 0L) {
+      output.writeUInt64(13, retailerId_);
     }
     unknownFields.writeTo(output);
   }
@@ -573,6 +596,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeFloatSize(12, lon_);
     }
+    if (retailerId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(13, retailerId_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -614,6 +641,8 @@ private static final long serialVersionUID = 0L;
     if (java.lang.Float.floatToIntBits(getLon())
         != java.lang.Float.floatToIntBits(
             other.getLon())) return false;
+    if (getRetailerId()
+        != other.getRetailerId()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -658,6 +687,9 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + LON_FIELD_NUMBER;
     hash = (53 * hash) + java.lang.Float.floatToIntBits(
         getLon());
+    hash = (37 * hash) + RETAILER_ID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getRetailerId());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -820,6 +852,8 @@ private static final long serialVersionUID = 0L;
 
       lon_ = 0F;
 
+      retailerId_ = 0L;
+
       return this;
     }
 
@@ -867,6 +901,7 @@ private static final long serialVersionUID = 0L;
       result.surgeDeliveryWindowAddition_ = surgeDeliveryWindowAddition_;
       result.lat_ = lat_;
       result.lon_ = lon_;
+      result.retailerId_ = retailerId_;
       onBuilt();
       return result;
     }
@@ -976,6 +1011,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getLon() != 0F) {
         setLon(other.getLon());
+      }
+      if (other.getRetailerId() != 0L) {
+        setRetailerId(other.getRetailerId());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1935,6 +1973,49 @@ private static final long serialVersionUID = 0L;
     public Builder clearLon() {
       
       lon_ = 0F;
+      onChanged();
+      return this;
+    }
+
+    private long retailerId_ ;
+    /**
+     * <pre>
+     * Идентификатор ритейлера
+     * </pre>
+     *
+     * <code>uint64 retailer_id = 13;</code>
+     * @return The retailerId.
+     */
+    @java.lang.Override
+    public long getRetailerId() {
+      return retailerId_;
+    }
+    /**
+     * <pre>
+     * Идентификатор ритейлера
+     * </pre>
+     *
+     * <code>uint64 retailer_id = 13;</code>
+     * @param value The retailerId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setRetailerId(long value) {
+      
+      retailerId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Идентификатор ритейлера
+     * </pre>
+     *
+     * <code>uint64 retailer_id = 13;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearRetailerId() {
+      
+      retailerId_ = 0L;
       onChanged();
       return this;
     }

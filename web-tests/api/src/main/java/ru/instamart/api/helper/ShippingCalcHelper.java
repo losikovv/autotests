@@ -344,12 +344,13 @@ public class ShippingCalcHelper {
     }
 
     @Step("Получаем запрос для получения условий доставки магазина")
-    public static GetDeliveryConditionsRequest getDeliveryConditionsRequest(String storeId, Float storeLat, Float storeLon, String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Float customerLat, Float customerLon, String tenant, Integer deliveryTypeValue, String platformName, String platformVersion) {
+    public static GetDeliveryConditionsRequest getDeliveryConditionsRequest(String storeId, Float storeLat, Float storeLon, String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Float customerLat, Float customerLon, String tenant, Integer deliveryTypeValue, String platformName, String platformVersion, Boolean onDemand) {
         return GetDeliveryConditionsRequest.newBuilder()
                 .addStores(Store.newBuilder()
                         .setId(storeId)
                         .setLat(storeLat)
                         .setLon(storeLon)
+                        .setIsOndemand(onDemand)
                         .build())
                 .setCustomer(Customer.newBuilder()
                         .setId(customerId)
