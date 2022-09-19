@@ -404,7 +404,7 @@ public class ShippingCalcHelper {
         assertTrue(response.getMinCartAmountsCount() > 0, "Пустая мин. корзина");
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(response.getMinCartAmounts(0).getStoreId(), storeId, "Не ожидаемый uuid магазина");
-        softAssert.assertEquals(response.getMinCartAmounts(0).getAmount(), minCartAmount, "Не ожидаемая минимальная корзина");
+        softAssert.assertEquals(response.getMinCartAmounts(0).getAmountCourierDelivery(), minCartAmount, "Не ожидаемая минимальная корзина");
         softAssert.assertAll();
     }
 }

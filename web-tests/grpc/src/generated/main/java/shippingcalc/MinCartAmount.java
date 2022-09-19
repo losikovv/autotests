@@ -60,6 +60,16 @@ private static final long serialVersionUID = 0L;
             amount_ = input.readUInt64();
             break;
           }
+          case 24: {
+
+            amountCourierDelivery_ = input.readUInt64();
+            break;
+          }
+          case 32: {
+
+            amountSelfDelivery_ = input.readUInt64();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -133,12 +143,34 @@ private static final long serialVersionUID = 0L;
   public static final int AMOUNT_FIELD_NUMBER = 2;
   private long amount_;
   /**
-   * <code>uint64 amount = 2;</code>
+   * <code>uint64 amount = 2 [deprecated = true];</code>
    * @return The amount.
    */
   @java.lang.Override
-  public long getAmount() {
+  @java.lang.Deprecated public long getAmount() {
     return amount_;
+  }
+
+  public static final int AMOUNT_COURIER_DELIVERY_FIELD_NUMBER = 3;
+  private long amountCourierDelivery_;
+  /**
+   * <code>uint64 amount_courier_delivery = 3;</code>
+   * @return The amountCourierDelivery.
+   */
+  @java.lang.Override
+  public long getAmountCourierDelivery() {
+    return amountCourierDelivery_;
+  }
+
+  public static final int AMOUNT_SELF_DELIVERY_FIELD_NUMBER = 4;
+  private long amountSelfDelivery_;
+  /**
+   * <code>uint64 amount_self_delivery = 4;</code>
+   * @return The amountSelfDelivery.
+   */
+  @java.lang.Override
+  public long getAmountSelfDelivery() {
+    return amountSelfDelivery_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -161,6 +193,12 @@ private static final long serialVersionUID = 0L;
     if (amount_ != 0L) {
       output.writeUInt64(2, amount_);
     }
+    if (amountCourierDelivery_ != 0L) {
+      output.writeUInt64(3, amountCourierDelivery_);
+    }
+    if (amountSelfDelivery_ != 0L) {
+      output.writeUInt64(4, amountSelfDelivery_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -176,6 +214,14 @@ private static final long serialVersionUID = 0L;
     if (amount_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(2, amount_);
+    }
+    if (amountCourierDelivery_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(3, amountCourierDelivery_);
+    }
+    if (amountSelfDelivery_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(4, amountSelfDelivery_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -196,6 +242,10 @@ private static final long serialVersionUID = 0L;
         .equals(other.getStoreId())) return false;
     if (getAmount()
         != other.getAmount()) return false;
+    if (getAmountCourierDelivery()
+        != other.getAmountCourierDelivery()) return false;
+    if (getAmountSelfDelivery()
+        != other.getAmountSelfDelivery()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -212,6 +262,12 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getAmount());
+    hash = (37 * hash) + AMOUNT_COURIER_DELIVERY_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getAmountCourierDelivery());
+    hash = (37 * hash) + AMOUNT_SELF_DELIVERY_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getAmountSelfDelivery());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -349,6 +405,10 @@ private static final long serialVersionUID = 0L;
 
       amount_ = 0L;
 
+      amountCourierDelivery_ = 0L;
+
+      amountSelfDelivery_ = 0L;
+
       return this;
     }
 
@@ -377,6 +437,8 @@ private static final long serialVersionUID = 0L;
       shippingcalc.MinCartAmount result = new shippingcalc.MinCartAmount(this);
       result.storeId_ = storeId_;
       result.amount_ = amount_;
+      result.amountCourierDelivery_ = amountCourierDelivery_;
+      result.amountSelfDelivery_ = amountSelfDelivery_;
       onBuilt();
       return result;
     }
@@ -431,6 +493,12 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getAmount() != 0L) {
         setAmount(other.getAmount());
+      }
+      if (other.getAmountCourierDelivery() != 0L) {
+        setAmountCourierDelivery(other.getAmountCourierDelivery());
+      }
+      if (other.getAmountSelfDelivery() != 0L) {
+        setAmountSelfDelivery(other.getAmountSelfDelivery());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -539,31 +607,93 @@ private static final long serialVersionUID = 0L;
 
     private long amount_ ;
     /**
-     * <code>uint64 amount = 2;</code>
+     * <code>uint64 amount = 2 [deprecated = true];</code>
      * @return The amount.
      */
     @java.lang.Override
-    public long getAmount() {
+    @java.lang.Deprecated public long getAmount() {
       return amount_;
     }
     /**
-     * <code>uint64 amount = 2;</code>
+     * <code>uint64 amount = 2 [deprecated = true];</code>
      * @param value The amount to set.
      * @return This builder for chaining.
      */
-    public Builder setAmount(long value) {
+    @java.lang.Deprecated public Builder setAmount(long value) {
       
       amount_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint64 amount = 2;</code>
+     * <code>uint64 amount = 2 [deprecated = true];</code>
      * @return This builder for chaining.
      */
-    public Builder clearAmount() {
+    @java.lang.Deprecated public Builder clearAmount() {
       
       amount_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long amountCourierDelivery_ ;
+    /**
+     * <code>uint64 amount_courier_delivery = 3;</code>
+     * @return The amountCourierDelivery.
+     */
+    @java.lang.Override
+    public long getAmountCourierDelivery() {
+      return amountCourierDelivery_;
+    }
+    /**
+     * <code>uint64 amount_courier_delivery = 3;</code>
+     * @param value The amountCourierDelivery to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAmountCourierDelivery(long value) {
+      
+      amountCourierDelivery_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 amount_courier_delivery = 3;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearAmountCourierDelivery() {
+      
+      amountCourierDelivery_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long amountSelfDelivery_ ;
+    /**
+     * <code>uint64 amount_self_delivery = 4;</code>
+     * @return The amountSelfDelivery.
+     */
+    @java.lang.Override
+    public long getAmountSelfDelivery() {
+      return amountSelfDelivery_;
+    }
+    /**
+     * <code>uint64 amount_self_delivery = 4;</code>
+     * @param value The amountSelfDelivery to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAmountSelfDelivery(long value) {
+      
+      amountSelfDelivery_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 amount_self_delivery = 4;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearAmountSelfDelivery() {
+      
+      amountSelfDelivery_ = 0L;
       onChanged();
       return this;
     }
