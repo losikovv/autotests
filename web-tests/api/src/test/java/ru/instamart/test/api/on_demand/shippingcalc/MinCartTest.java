@@ -483,9 +483,9 @@ public class MinCartTest extends ShippingCalcBase {
 
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(storeUuids.contains(response.getMinCartAmounts(0).getStoreId()), "Не ожидаемый uuid магазина");
-            softAssert.assertEquals(response.getMinCartAmounts(0).getAmount(), 100000, "Не ожидаемая минимальная корзина");
+            softAssert.assertEquals(response.getMinCartAmounts(0).getAmountCourierDelivery(), 100000, "Не ожидаемая минимальная корзина");
             softAssert.assertTrue(storeUuids.contains(response.getMinCartAmounts(1).getStoreId()), "Не ожидаемый uuid магазина");
-            softAssert.assertEquals(response.getMinCartAmounts(1).getAmount(), 100000, "Не ожидаемая минимальная корзина");
+            softAssert.assertEquals(response.getMinCartAmounts(1).getAmountCourierDelivery(), 100000, "Не ожидаемая минимальная корзина");
             softAssert.assertAll();
         });
     }
@@ -530,7 +530,7 @@ public class MinCartTest extends ShippingCalcBase {
 
         var response = clientShippingCalc.getMinCartAmounts(request);
 
-        Allure.step("Проверяем пустой ответ", () -> compareTwoObjects(response.toString(), ""));
+        Allure.step("Проверяем пустое значение", () -> compareTwoObjects(response.getMinCartAmounts(0).getAmountSelfDelivery(), 0L));
     }
 
     @CaseId(398)
@@ -538,7 +538,7 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Получение ошибки при невалидном delivery_type",
             groups = "dispatch-shippingcalc-regress",
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INTERNAL: cannot get min cart amount: .*")
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: Invalid delivery type")
     public void getMinCartAmountsNoDeliveryType() {
         var request = GetMinCartAmountsRequest.newBuilder()
                 .addStores(Store.newBuilder()
