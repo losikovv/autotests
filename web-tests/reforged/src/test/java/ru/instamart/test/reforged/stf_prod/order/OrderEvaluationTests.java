@@ -16,7 +16,8 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 @Epic("STF UI")
 @Feature("Оценка заказа")
 public final class OrderEvaluationTests {
-
+    //тесты скипнуты, тк для прохождения по полному циклу заказа нужно проводить его через шоппер,
+    //что повесит остальные тесты шоппера
     private final ApiHelper helper = new ApiHelper();
 
     @Skip

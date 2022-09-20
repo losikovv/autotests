@@ -63,8 +63,8 @@ public final class OrdersPaymentsTests {
 
         userShipments().checkPageContains(userShipments().pageUrl());
 
-        userShipments().checkStatusShipmentReady();
-        userShipments().checkPaymentMethodEquals("Картой при получении");
+        userShipments().checkStatusAcceptedProd();
+        userShipments().checkPaymentMethodEquals("Картой курьеру");
     }
 
     @CaseId(1626)
@@ -91,6 +91,9 @@ public final class OrdersPaymentsTests {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
+        checkout().setSlot().checkSlotsSpinnerIsNotVisible();
+        checkout().setSlot().setNextDay();
+        checkout().setSlot().checkSlotsSpinnerIsNotVisible();
         checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByBusinessAccount();
@@ -98,13 +101,18 @@ public final class OrdersPaymentsTests {
         checkout().editCompany().fillName(company.getJuridicalName());
         checkout().editCompany().fillAddress(company.getJuridicalAddress());
         checkout().editCompany().fillKpp(company.getKpp());
+
+        checkout().editCompany().fillConsigneeName(company.getJuridicalName());
+        checkout().editCompany().fillConsigneeAddress(company.getJuridicalAddress());
+        checkout().editCompany().fillConsigneeKpp(company.getKpp());
+
         checkout().editCompany().saveCompanyInfo();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipments().checkPageContains(userShipments().pageUrl());
 
-        userShipments().checkStatusShipmentReady();
+        userShipments().checkStatusAcceptedProd();
         userShipments().checkPaymentMethodEquals("По счёту для бизнеса");
     }
 }

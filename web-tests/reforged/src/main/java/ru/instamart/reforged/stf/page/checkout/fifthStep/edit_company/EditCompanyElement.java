@@ -13,6 +13,10 @@ public interface EditCompanyElement {
     Input address = new Input(By.xpath("//input[@name='requisites.address']"), "поле для ввода адреса компании");
     Input kpp = new Input(By.xpath("//input[@name='requisites.kpp']"), "поле для ввода кпп компании");
 
+    Input consigneeName = new Input(By.xpath("//input[@name='requisites.companyConsigneeName']"), "поле для ввода имени компании-грузополучателя");
+    Input consigneeAddress = new Input(By.xpath("//input[@name='requisites.companyConsigneeAddress']"), "поле для ввода адреса компании-грузополучателя");
+    Input consigneeKpp = new Input(By.xpath("//input[@name='requisites.companyConsigneeKpp']"), "поле для ввода кпп компании-грузополучателя");
+
     Button save = new Button(By.xpath("//div[contains(@class, 'checkout-panel--active')]//div[@class='button-block']//button"), "Нажать кнопку 'сохранить'");
 
 }

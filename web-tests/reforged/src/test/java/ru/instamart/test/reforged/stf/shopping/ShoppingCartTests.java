@@ -5,7 +5,6 @@ import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -13,7 +12,6 @@ import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
 import static ru.instamart.reforged.core.config.UiProperties.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -279,7 +277,7 @@ public final class ShoppingCartTests {
         shop().interactProductCard().checkProductCardVisible();
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().decreaseItemCount();
-        shop().interactProductCard().checkBuyButton();
+        shop().interactProductCard().checkBuyButtonVisible();
     }
 
     @CaseId(2618)

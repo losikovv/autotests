@@ -124,13 +124,13 @@ public final class ShoppingSearchTests {
     @Test(description = "Добавление товара в корзину из поиска товаров", groups = {STF_PROD_S})
     public void successAddItemToCartFromSearchResults() {
         shop().goToPage();
-        shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactAddressLarge().checkYmapsReady();
-
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddressProdRest());
-        shop().interactAddress().selectFirstAddress();
+        shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReadyProd();
+        shop().interactAddress().fillAddressProd(Addresses.Moscow.testAddress());
+        shop().interactAddress().selectFirstAddressProd();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
+        shop().interactAddress().clickOnSaveProd();
+        shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage();

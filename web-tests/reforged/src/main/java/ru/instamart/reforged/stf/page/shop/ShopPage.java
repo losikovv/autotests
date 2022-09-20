@@ -89,9 +89,9 @@ public final class ShopPage implements StfPage, ShopCheck {
         plusItemToCart.click(line, element);
     }
 
-    @Step("Нажать на плюс у товара - строка №{line}, элемент по порядку №{element}")
-    public void plusItemsToCart(String line) {
-        plusItemsToCart.clickOnFirst(line);
+    @Step("Нажать на плюс у товара на проде")
+    public void plusFirstItemToCartProd() {
+        addToCartButtonsProd.clickOnFirst();
     }
 
     /**
@@ -102,6 +102,11 @@ public final class ShopPage implements StfPage, ShopCheck {
     public String getProductTitle(String line, String element) {
         //Если текст длиннее 59 символов, то он обрезается и появляется title
         return productTitle.getTitleOrText(line, element);
+    }
+
+    @Step("Вернуть значение имени первого товара на проде")
+    public String getFirstProductTitleProd() {
+        return productsCartTitlesFromFirstCategory.getElementText(0);
     }
 
     @Step("Нажать на минус у товара - строка №{line}, элемент по порядку №{element}")
@@ -124,7 +129,7 @@ public final class ShopPage implements StfPage, ShopCheck {
         firstProductCard.getActions().moveToElementAndClick();
     }
 
-    @Step("Открыть карточку первого товара на стейдже")
+    @Step("Открыть карточку первого товара на проде")
     public void openFirstProductCardProd() {
         productsCart.clickOnFirst();
     }

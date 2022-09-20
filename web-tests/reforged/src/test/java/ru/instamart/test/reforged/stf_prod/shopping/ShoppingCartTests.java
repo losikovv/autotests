@@ -8,6 +8,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -27,11 +28,11 @@ public final class ShoppingCartTests {
     public void successValidateDefaultCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddressProdRest());
-        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkYmapsReadyProd();
+        shop().interactAddress().fillAddressProd(Addresses.Moscow.testAddress());
+        shop().interactAddress().selectFirstAddressProd();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
+        shop().interactAddress().clickOnSaveProd();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -50,16 +51,16 @@ public final class ShoppingCartTests {
     public void successAddItemToCartUnauthorized() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddressProdRest());
-        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkYmapsReadyProd();
+        shop().interactAddress().fillAddressProd(Addresses.Moscow.testAddress());
+        shop().interactAddress().selectFirstAddressProd();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
+        shop().interactAddress().clickOnSaveProd();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusItemToCart("1", "0");
-        shop().goToPage();
+        shop().plusFirstItemToCartProd();
+        shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
     }
@@ -68,7 +69,7 @@ public final class ShoppingCartTests {
     @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {STF_PROD_S})
     public void successAddItemToCartFromItemCard() {
         final UserData shoppingCartUser = UserManager.getQaUser();
-        helper.dropCart(shoppingCartUser);
+        helper.dropCartByQa(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultProdAddress());
 
         shop().goToPage();
@@ -77,8 +78,8 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().checkFirstProductCardIsVisible();
-        shop().openFirstProductCard();
+        shop().checkSnippet();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().clickOnClose();
 
@@ -91,18 +92,17 @@ public final class ShoppingCartTests {
     public void successChangeItemQuantityInCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddressProdRest());
-        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkYmapsReadyProd();
+        shop().interactAddress().fillAddressProd(Addresses.Moscow.testAddress());
+        shop().interactAddress().selectFirstAddressProd();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
+        shop().interactAddress().clickOnSaveProd();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusItemToCart("1", "0");
+        shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
-        shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
 
@@ -119,19 +119,16 @@ public final class ShoppingCartTests {
     public void successChangeItemQuantityInCartViaItemCard() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddressProdRest());
-        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkYmapsReadyProd();
+        shop().interactAddress().fillAddressProd(Addresses.Moscow.testAddress());
+        shop().interactAddress().selectFirstAddressProd();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
+        shop().interactAddress().clickOnSaveProd();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage();
-        shop().refreshWithoutBasicAuth();
-
-        shop().checkFirstProductCardIsVisible();
-        shop().openFirstProductCard();
+        shop().checkSnippet();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().clickOnBuy();
         shop().goToPage();
         shop().interactProductCard().checkProductCardIsNotVisible();
@@ -139,10 +136,10 @@ public final class ShoppingCartTests {
         shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
 
         shop().goToPage();
-        shop().refresh();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().checkFirstProductCardIsVisible();
-        shop().openFirstProductCard();
+        shop().checkSnippet();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
@@ -151,10 +148,10 @@ public final class ShoppingCartTests {
         shop().interactCart().getFirstItem().compareItemQuantityInCart(2);
 
         shop().goToPage();
-        shop().refreshWithoutBasicAuth();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().checkFirstProductCardIsVisible();
-        shop().openFirstProductCard();
+        shop().checkSnippet();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
@@ -169,7 +166,7 @@ public final class ShoppingCartTests {
     @Test(description = "Тест на удаление товаров из корзины", groups = {STF_PROD_S})
     public void successRemoveItemsFromCart() {
         final UserData shoppingCartUser = UserManager.getQaUser();
-        helper.dropCart(shoppingCartUser);
+        helper.dropCartByQa(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultProdAddress());
 
         shop().goToPage();
@@ -178,8 +175,9 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().plusItemToCart("1", "0");
-        shop().goToPage();
+        shop().checkSnippet();
+        shop().plusFirstItemToCartProd();
+        shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
 
@@ -198,13 +196,15 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCard();
+        shop().checkSnippet();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().checkProductCardVisible();
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().decreaseItemCount();
-        shop().interactProductCard().checkBuyButton();
+        shop().interactProductCard().checkBuyButtonVisible();
     }
 
+    @Skip //неактуальная категория
     @CaseId(2618)
     @Test(description = "Добавление/удаление товара из раздела 'Скидки'", groups = {STF_PROD_S})
     public void testAddProductFromSale() {
@@ -239,7 +239,8 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCard();
+        shop().checkSnippet();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().increaseItemCount();
@@ -251,7 +252,7 @@ public final class ShoppingCartTests {
         shop().assertAll();
         shop().interactCart().closeCart();
 
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().decreaseItemCount();
@@ -273,8 +274,8 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().plusItemToCart("1", "0");
-        final var shopProductName = shop().getProductTitle("1", "0");
+        shop().plusFirstItemToCartProd();
+        final var shopProductName = shop().getFirstProductTitleProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
@@ -320,15 +321,17 @@ public final class ShoppingCartTests {
         helper.dropAndFillCart(userData, 1);
 
         shop().goToPage();
-        shop().openAddressFrame();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddressProdRest());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().clickOnSave();
+        shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReadyProd();
+        shop().interactAddress().fillAddressProd(Addresses.Moscow.testAddress());
+        shop().interactAddress().selectFirstAddressProd();
+        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddress().clickOnSaveProd();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        final var shopProductName = shop().getProductTitle("0", "1");
-        shop().plusItemToCart("0", "1");
+        final var shopProductName = shop().getFirstProductTitleProd();
+        shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();
@@ -339,14 +342,14 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         final var currentAddress = shop().interactHeader().returnCurrentAddress();
-        shop().interactHeader().checkIsSetAddressEqualToInput(Addresses.Moscow.defaultAddressProdRest(), currentAddress);
+        shop().interactHeader().checkIsSetAddressEqualToInput(Addresses.Moscow.testAddress(), currentAddress);
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         shop().interactCart().getFirstItem().deleteItem();
         shop().interactCart().checkDeleteAnimationOver();
 
-        final var cartProductName = shop().interactCart().getFirstItem().getName();
+        final var cartProductName = shop().interactCart().getLastItem().getName();
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
     }
 
@@ -375,44 +378,48 @@ public final class ShoppingCartTests {
     @Test(description = "Отображение нескольких магазинов в корзине, разбивка товаров по магазинам", groups = {STF_PROD_S})
     public void testMultiplyOrderGroupingProductsByRetailers() {
         var userData = UserManager.getQaUser();
-        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultProdAddress(), DEFAULT_METRO_MOSCOW_SID, 2, DEFAULT_AUCHAN_SID, 3);
+        helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID_PROD, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
+        shop().checkSnippet();
+        shop().plusFirstItemToCartProd();
+        shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
+        shop().interactCart().checkRetailersCountShouldBe(2);
 
         var itemsCountInRetailer = shop().interactCart().getRetailerByOrder(1).getItemsCountInList();
         shop().interactCart().checkItemsCount(itemsCountInRetailer, 2);
 
         itemsCountInRetailer = shop().interactCart().getRetailerByOrder(2).getItemsCountInList();
-        shop().interactCart().checkItemsCount(itemsCountInRetailer, 3);
+        shop().interactCart().checkItemsCount(itemsCountInRetailer, 1);
     }
 
     @CaseId(2613)
     @Test(description = "Удаление магазина из корзины, при удалении всех его товаров в корзине", groups = {STF_PROD_S})
     public void testAutoRemoveRetailerAfterRemoveAllProducts() {
         var userData = UserManager.getQaUser();
-        helper.dropAndFillCartMultiple(userData,
-                RestAddresses.Moscow.defaultProdAddress(),
-                DEFAULT_METRO_MOSCOW_SID,
-                2,
-                DEFAULT_AUCHAN_SID,
-                3);
+        helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID_PROD, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
+        shop().checkSnippet();
+        shop().plusFirstItemToCartProd();
+        shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         shop().interactCart().checkRetailersCountShouldBe(2);
 
         shop().interactCart().getFirstRetailer().removeAllItemsFromRetailer();
-        shop().interactCart().checkRetailerNotVisible("METRO");
+        shop().interactCart().checkRetailerNotVisible("AUCHAN");
     }
 }

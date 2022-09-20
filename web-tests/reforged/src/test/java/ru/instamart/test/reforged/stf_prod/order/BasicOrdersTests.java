@@ -11,6 +11,7 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
@@ -152,19 +153,19 @@ public final class BasicOrdersTests {
         userShipments().clickToCancelFromOrder();
 
         userShipments().interactShipmentCancelModal().shipmentCancelModalVisible();
-        userShipments().interactShipmentCancelModal().clickToAccept();
+        userShipments().interactShipmentCancelModal().clickToAcceptProd();
         userShipments().interactShipmentCancelModal().shipmentCancelModalNotVisible();
 
-        userShipments().checkStatusWasCanceled();
+        userShipments().checkStatusWasCanceledProd();
     }
 
     @CaseId(2624)
     @Story("Заказ")
-    @Test(description = "Добавление товаров в активный заказ", groups = "regression")
+    @Test(description = "Добавление товаров в активный заказ", groups = {STF_PROD_S})
     public void successAddItemsInActiveOrder() {
         userData = UserManager.getQaUser();
 
-        helper.makeOrderOnTomorrow(userData, DEFAULT_SID, 1);
+        helper.makeOrderOnTomorrowByQa(userData, DEFAULT_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
 
         shop().goToPage();
@@ -172,8 +173,8 @@ public final class BasicOrdersTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        final var itemName = shop().getProductTitle("1", "1");
-        shop().plusItemToCart("1", "1");
+        final var itemName = shop().getFirstProductTitleProd();
+        shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();
@@ -184,12 +185,13 @@ public final class BasicOrdersTests {
         userShipments().checkProductListContains(itemName);
     }
 
+    @Skip
     @CaseId(2626)
     @Story("Заказ")
     @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = {STF_PROD_S})
     public void successCancelMultiOrderViaCancelOneOrder() {
         userData = UserManager.getQaUser();
-        helper.makeMultipleOrder(userData, RestAddresses.Moscow.defaultProdAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID);
+        //helper.makeMultipleOrder(userData, RestAddresses.Moscow.defaultProdAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID_PROD); //метод не адаптирован к проду, есть только один тестовый магазин
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
@@ -200,8 +202,8 @@ public final class BasicOrdersTests {
         userShipments().clickToFirstShipment();
         userShipments().clickToCancelFromOrder();
         userShipments().interactShipmentCancelModal().shipmentCancelModalVisible();
-        userShipments().interactShipmentCancelModal().clickToAccept();
-        userShipments().checkStatusWasCanceled();
+        userShipments().interactShipmentCancelModal().clickToAcceptProd();
+        userShipments().checkStatusWasCanceledProd();
 
         userShipments().goToPage();
         userShipments().checkAllOrderStatusWasCanceled();

@@ -21,7 +21,9 @@ public interface UserShipmentsElement {
 
     Element orderDetailsTrigger = new Element(By.xpath("//div[@data-qa='user-shipment-summary-trigger']"), "Кнопка разворачивания деталей заказа");
     Element shipmentStatusCancel = new Element(By.xpath("//div[@data-qa='user-shipment-status']//div[text()='Ваш заказ отменен']"), "статус заказа 'Ваш заказ отменен'");
+    Element shipmentStatusCancelProd = new Element(By.xpath("//div[contains(@class,'NewShipmentState_stateCancel')]"), "статус заказа 'Ваш заказ отменен' на проде");
     Element shipmentStatusShipmentReady = new Element(By.xpath("//div[@data-qa='user-shipment-status' and @id='shipment-ready']"), "статус заказа 'Готово к отправке'");
+    Element shipmentStatusAcceptedProd = new Element(By.xpath("//div[contains(@class,'NewShipmentState_stateListItemActive')]"), "статус заказа 'Принят'");
     Element userShipmentPromocode = new Element(By.xpath("//div[@data-qa='user-shipment-promocode']"), "промокод на странице статуса заказа");
     Element shipmentNumber = new Element(By.xpath("//div[@data-qa='user-shipment-number']"), "Номер заказа");
     Element shippingAddress = new Element(By.xpath("//span[@data-qa='user-shipment-address']"), "Адрес доставки");
@@ -49,4 +51,5 @@ public interface UserShipmentsElement {
     Element userEmail = new Element(By.xpath("//span[@data-qa='user-shipment-email']"), "Лейбл емейла пользователя");
 
     Element deliveryInterval = new Element(By.xpath("//div[@data-qa='user-shipment-interval']"), "Интервал доставки");
+    Element deliveryIntervalProd = new Element(By.xpath("//div[contains(@class,'NewShipmentState_stateDate')]"), "Интервал доставки");
 }

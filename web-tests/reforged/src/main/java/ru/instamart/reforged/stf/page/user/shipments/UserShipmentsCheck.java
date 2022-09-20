@@ -18,6 +18,11 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
         waitAction().shouldBeVisible(shipmentStatusCancel);
     }
 
+    @Step("Проверка отмены статуса на проде")
+    default void checkStatusWasCanceledProd() {
+        shipmentStatusCancelProd.should().visible();
+    }
+
     @Step("Проверка статусов 'Отменено' для всех заказов")
     default void checkAllOrderStatusWasCanceled() {
         Assert.assertEquals(shipments.elementCount(), orderCancelStatuses.elementCount());
@@ -26,6 +31,11 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
     @Step("Проверка статуса заказа 'Ожидает отправки'")
     default void checkStatusShipmentReady() {
         waitAction().shouldBeVisible(shipmentStatusShipmentReady);
+    }
+
+    @Step("Проверка статуса заказа 'Принят' на проде")
+    default void checkStatusAcceptedProd() {
+        shipmentStatusAcceptedProd.should().visible();
     }
 
     @Step("Проверка введенного промокода на странице статуса заказа")
@@ -126,6 +136,13 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
     default void checkDeliveryIntervalCorrect(final String expectedInterval) {
         Assert.assertEquals(
                 StringUtil.cutExtraZerosFromDate(deliveryInterval.getText()).replaceAll("\n", " "),
+                expectedInterval,
+                "Дата и время доставки не соответствует ожидаемым");
+    }
+    @Step("Проверка соответствия даты и времени доставки ожидаемым {expectedDate}")
+    default void checkDeliveryIntervalCorrectProd(final String expectedInterval) {
+        Assert.assertEquals(
+                StringUtil.cutExtraZerosFromDate(deliveryIntervalProd.getText()).replaceAll("\n", " "),
                 expectedInterval,
                 "Дата и время доставки не соответствует ожидаемым");
     }

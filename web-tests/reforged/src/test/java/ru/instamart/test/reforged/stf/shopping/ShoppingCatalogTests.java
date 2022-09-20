@@ -259,7 +259,7 @@ public final class ShoppingCatalogTests {
         shop().interactProductCard().checkProductImageDisplayed();
         shop().interactProductCard().checkNameDisplayed();
         shop().interactProductCard().checkPackageSizeDisplayed();
-        shop().interactProductCard().checkBuyButton();
+        shop().interactProductCard().checkBuyButtonVisible();
         shop().interactProductCard().checkFavoriteButtonDisplayed();
         shop().interactProductCard().checkDescriptionDisplayed();
         shop().interactProductCard().checkGeneralInfoDisplayed();

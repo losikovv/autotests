@@ -69,6 +69,11 @@ public final class Cart implements CartCheck {
         return new Item(firstItem.getElement());
     }
 
+    @Step("Получаем последний товар в корзине")
+    public Item getLastItem() {
+        return new Item(items.getElements().get(items.elementCount() - 1));
+    }
+
     @Step("Кликаем 'Сделать' заказ")
     public void submitOrder() {
         submitOrder.click();

@@ -8,6 +8,7 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
@@ -26,7 +27,7 @@ public final class ShoppingYouBoughtBeforeTests {
     public void afterTest() {
         helper.cancelAllActiveOrders(shoppingCartUser);
     }
-
+    @Skip //пока неактуальный функционал B2C-10412
     @CaseId(2943)
     @Test(description = "Товар отображается в блоке 'Вы покупали ранее', если отправлен на сборку", groups = {STF_PROD_S})
     public void testYouBoughtBeforeDisplayed() {
@@ -48,6 +49,7 @@ public final class ShoppingYouBoughtBeforeTests {
         userShipments().checkProductListsEquals(firstCategoryProductNames);
     }
 
+    @Skip //пока неактуальный функционал B2C-10412
     @CaseId(2947)
     @Test(description = "Блок 'Вы покупали ранее' не отображается, если у пользователя отменен заказ и этот заказ единственный", groups = {STF_PROD_S})
     public void testYouBoughtBeforeNotDisplayedIfOrderCancelled() {

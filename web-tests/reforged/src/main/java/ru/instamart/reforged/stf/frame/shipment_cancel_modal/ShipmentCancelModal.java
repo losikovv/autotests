@@ -11,6 +11,12 @@ public final class ShipmentCancelModal implements Close, ShipmentCancelModalChec
         checkRequestsWasLoad();
     }
 
+    @Step("Подтвердить действие на проде")
+    public void clickToAcceptProd() {
+        acceptProd.click();
+        checkRequestsWasLoad();
+    }
+
     @Step("Отклонить действие")
     public void clickToDecline() {
         decline.click();

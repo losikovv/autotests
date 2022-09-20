@@ -62,6 +62,7 @@ public final class CheckoutDeliverySlotsTests {
         checkout().setSlot().setLastActiveSlot();
 
         shop().goToPage();
+        shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().submitOrder();
 
@@ -79,7 +80,6 @@ public final class CheckoutDeliverySlotsTests {
         checkout().setSlot().setNextDay();
         checkout().setSlot().setFirstActiveSlot();
 
-        var deliveryDate = checkout().setSlot().getDeliveryDate();
         var deliveryTime = checkout().setSlot().getDeliveryTime();
 
         checkout().setPayment().clickToByCardToCourier();
@@ -87,6 +87,6 @@ public final class CheckoutDeliverySlotsTests {
 
         userShipments().checkPageContains(userShipments().pageUrl());
 
-        userShipments().checkDeliveryIntervalCorrect(deliveryDate + " " + deliveryTime);
+        userShipments().checkDeliveryIntervalCorrectProd("Завтра, " + deliveryTime);
     }
 }

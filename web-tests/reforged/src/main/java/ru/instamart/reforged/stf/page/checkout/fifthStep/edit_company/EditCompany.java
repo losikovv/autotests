@@ -19,6 +19,21 @@ public class EditCompany implements EditCompanyElement {
         kpp.fill(data);
     }
 
+    @Step("Ввести юрлицо грузополучателя '{0}'")
+    public void fillConsigneeName(final String data) {
+        consigneeName.fill(data);
+    }
+
+    @Step("Ввести адрес грузополучателя '{0}'")
+    public void fillConsigneeAddress(final String data) {
+        consigneeAddress.fill(data);
+    }
+
+    @Step("Ввести кпп грузополучателя '{0}'")
+    public void fillConsigneeKpp(final String data) {
+        consigneeKpp.fill(data);
+    }
+
     @Step("Нажать 'сохранить'")
     public void saveCompanyInfo() {
         save.click();

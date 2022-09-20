@@ -88,6 +88,17 @@ public final class ApiHelper {
      * @param user должен иметь phone и encryptedPhone
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
+    @Step("Очищаем корзину с помощью API")
+    public void dropCartByQa(final UserData user) {
+        apiV2.authByQA(user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
     @Step("Наполняем корзину с помощью API")
     public void dropAndFillCart(final UserData user, final Integer sid) {
         apiV2.authByQA(user);
@@ -313,6 +324,28 @@ public final class ApiHelper {
     @Step("Оформляем заказ с помощью API на завтра")
     public void makeOrderOnTomorrow(final UserData user, final Integer sid, final Integer itemsNumber) {
         apiV2.authByPhone(user);
+
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.fillCart(apiV2.getProducts(sid), itemsNumber);
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethod();
+        apiV2.getAvailableDeliveryWindowOnTomorrow();
+
+        apiV2.setDefaultOrderAttributes();
+        apiV2.completeOrder();
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    @Step("Оформляем заказ с помощью API на завтра")
+    public void makeOrderOnTomorrowByQa(final UserData user, final Integer sid, final Integer itemsNumber) {
+        apiV2.authByQA(user);
 
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
