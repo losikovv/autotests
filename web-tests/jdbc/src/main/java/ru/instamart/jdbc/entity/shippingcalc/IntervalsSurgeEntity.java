@@ -8,4 +8,5 @@ public class IntervalsSurgeEntity {
     private int rightBoundary;
     private int priceAddition;
     private int percentAddition;
+    private int minCartAddition;
 }

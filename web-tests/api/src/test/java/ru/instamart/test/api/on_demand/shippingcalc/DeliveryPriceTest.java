@@ -284,7 +284,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 11990, "Не верная наценка");
             softAssert.assertAll();
         });
-        checkDeliveryPrice(response, localStrategyId, 31890, 100000, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 31890, 110000, 3, 4, 0, 0);
     }
 
     @CaseId(421)
@@ -341,9 +341,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = "getDeliveryPriceWithSurge")
     public void getDeliveryPriceWithStoreCustomerSurge() {
-        Allure.step("Меняем уровень surge у магазина", () -> {
-            RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, 0, 0, 0, getZonedUTCDate()), 100);
-        });
+        Allure.step("Меняем уровень surge у магазина", () -> RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, 0, 0, 0, getZonedUTCDate()), 100));
 
         var request = getDeliveryPriceRequest(
                 1, PRODUCT_ID, 199900, 0, 1000, UUID.randomUUID().toString(), true,
@@ -361,7 +359,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 10990, "Не верная наценка");
             softAssert.assertAll();
         });
-        checkDeliveryPrice(response, localStrategyId, 20890, 100000, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 20890, 110000, 3, 4, 0, 0);
     }
 
     @CaseId(320)

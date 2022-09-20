@@ -42,18 +42,21 @@ public class ShippingCalcBase {
                     setRightBoundary(1);
                     setPriceAddition(0);
                     setPercentAddition(0);
+                    setMinCartAddition(0);
                 }},
                 new IntervalsSurgeEntity() {{
                     setLeftBoundary(1);
                     setRightBoundary(surgeLevel);
                     setPriceAddition(10000);
                     setPercentAddition(10);
+                    setMinCartAddition(10000);
                 }},
                 new IntervalsSurgeEntity() {{
                     setLeftBoundary(surgeLevel);
                     setRightBoundary(10);
                     setPriceAddition(20000);
                     setPercentAddition(20);
+                    setMinCartAddition(20000);
                 }});
 
         IntervalsSurgeDao.INSTANCE.setIntervals(newIntervalsList);
