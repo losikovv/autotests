@@ -60,6 +60,8 @@
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutSwitchTabsTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutAddressTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutPromocodesTests"/>
+            <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutPaymentMethodsTests"/>
+            <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutSlotsTests"/>
 
             <!--landings-->
             <class name="ru.instamart.test.reforged.stf.landings.DriversHiringLandingTests"/>

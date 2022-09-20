@@ -1,0 +1,135 @@
+package ru.instamart.test.reforged.stf.checkout_new;
+
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
+import org.testng.annotations.Test;
+import ru.instamart.api.common.RestAddresses;
+import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.CookieProvider;
+import ru.sbermarket.qase.annotation.CaseId;
+
+import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
+import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
+import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
+import static ru.instamart.reforged.stf.page.StfRouter.shop;
+
+@Epic("STF UI")
+@Feature("Чекаут [NEW]")
+public final class CheckoutSlotsTests {
+    // Для включения нового чекаута необходимо, чтобы были включены ФФ checkout_web_new, checkout_web_force_all, tmp_b2c_9162_spree_shipment_changes
+    // Пользователь должен быть добавлен в А/Б-тесты:
+    // 2ae723fe-fdc0-4ab6-97ee-7692d2a19c90 группу new_checkout_web
+    // 7cb891fd-a69d-4aef-854e-09b0da121536 группу w_changing_details
+    // 7be2e177-5ce6-4769-b04e-c794633076e8 группу w_new_statuses
+
+    private final ApiHelper helper = new ApiHelper();
+
+    @Issue("B2C-9738")
+    @CaseId(3638)
+    @Test(description = "Выбор слота доставки", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testSelectDeliverySlot() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkActiveDeliverySlotsNotVisible();
+
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
+        checkoutNew().checkSelectedDeliverySlotsCount(1);
+
+        var slotDate = checkoutNew().getActiveSlotDate();
+        var slotTime = checkoutNew().getActiveSlotTime();
+        var slotCost = checkoutNew().getActiveSlotCost();
+
+        checkoutNew().openDeliverySlotsModalFromOthers();
+        checkoutNew().interactDeliverySlotsModal().checkAvailableDeliveryDaysVisible();
+        checkoutNew().interactDeliverySlotsModal().checkAvailableDeliveryDaysCount(7);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedDeliveryDaysCount(1);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedDayPosition(1);
+
+        checkoutNew().interactDeliverySlotsModal().checkSelectedDayNameContainsText(slotDate);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotTimeContainsText(slotTime);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotCostContainsText(slotCost);
+
+        checkoutNew().interactDeliverySlotsModal().clickOnDay(2);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedDayPosition(2);
+
+        slotDate = checkoutNew().interactDeliverySlotsModal().getDayName(2);
+
+        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotNotVisible();
+
+        checkoutNew().interactDeliverySlotsModal().clickOnSlot(1);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotPosition(1);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotsCount(1);
+
+        slotTime = checkoutNew().interactDeliverySlotsModal().getSelectedDeliveryTime();
+        slotCost = checkoutNew().interactDeliverySlotsModal().getSelectedDeliveryCost();
+
+        checkoutNew().interactDeliverySlotsModal().clickApply();
+        checkoutNew().interactDeliverySlotsModal().checkModalNotVisible();
+
+        checkoutNew().checkDeliveryTitleContains(slotDate);
+        checkoutNew().checkSelectedDeliverySlotsCount(1);
+        checkoutNew().scrollSlotsToStart();
+
+        checkoutNew().checkSlotActive(1);
+        checkoutNew().checkSelectedDeliverySlotsCount(1);
+
+        checkoutNew().checkSelectedSlotDayNameContainsText(slotDate);
+        checkoutNew().checkSelectedSlotTimeContainsText(slotTime);
+        checkoutNew().checkSelectedSlotCostContainsText(slotCost);
+
+        checkoutNew().openDeliverySlotsModalFromTitle();
+
+        checkoutNew().interactDeliverySlotsModal().checkAvailableDeliveryDaysVisible();
+        checkoutNew().interactDeliverySlotsModal().checkAvailableDeliveryDaysCount(7);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedDeliveryDaysCount(1);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedDayPosition(2);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotsCount(1);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotPosition(1);
+
+        checkoutNew().interactDeliverySlotsModal().checkSelectedDayNameContainsText(slotDate);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotTimeContainsText(slotTime);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotCostContainsText(slotCost);
+
+        checkoutNew().interactDeliverySlotsModal().clickOnDay(3);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedDayPosition(3);
+
+        slotDate = checkoutNew().interactDeliverySlotsModal().getDayName(3);
+
+        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotNotVisible();
+
+        checkoutNew().interactDeliverySlotsModal().clickOnSlot(1);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotPosition(1);
+        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotsCount(1);
+
+        slotTime = checkoutNew().interactDeliverySlotsModal().getSelectedDeliveryTime();
+        slotCost = checkoutNew().interactDeliverySlotsModal().getSelectedDeliveryCost();
+
+        checkoutNew().interactDeliverySlotsModal().clickApply();
+        checkoutNew().interactDeliverySlotsModal().checkModalNotVisible();
+
+        checkoutNew().checkSelectedSlotDayNameContainsText(slotDate);
+        checkoutNew().checkSelectedSlotTimeContainsText(slotTime);
+        checkoutNew().checkSelectedSlotCostContainsText(slotCost);
+    }
+}

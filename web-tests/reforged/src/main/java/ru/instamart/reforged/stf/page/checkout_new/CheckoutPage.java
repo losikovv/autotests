@@ -163,6 +163,11 @@ public class CheckoutPage implements StfPage, CheckoutCheck, Window {
         selectPaymentMethod.click();
     }
 
+    @Step("Нажимаем на кнопку 'Выбрать компанию'")
+    public void clickSelectCompany() {
+        selectCompany.click();
+    }
+
     @Step("Нажимаем 'Изменить' (контакты)")
     public void clickEditContacts() {
         contactsEdit.click();

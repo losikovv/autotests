@@ -65,7 +65,7 @@ public final class CheckoutSwitchTabsTests {
         checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
     }
 
-    @CaseId(3610)
+    @CaseId(3597)
     @Test(description = "Замена метода 'Самовывоз' на метод 'Доставка'", groups = {"regression", "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSwitchPickupToDeliveryInCheckout() {
@@ -113,7 +113,7 @@ public final class CheckoutSwitchTabsTests {
     @CaseId(3610)
     @Test(description = "Попытка переключения с самовывоза на доставку при заказе имеющем алкоголь", groups = {"regression", "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
-    public void testDeliveryAlcohol() {
+    public void testSwitchPickupToDeliveryInCheckoutWithAlcohol() {
         final var userData = UserManager.getQaUser();
         addFlipperActor("checkout_web_new", userData.getId());
         addFlipperActor("checkout_web_force_all", userData.getId());

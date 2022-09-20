@@ -57,6 +57,7 @@ public interface CheckoutElement {
 
     Button selectPaymentMethod = new Button(By.xpath("//div[contains(@class,'PayMethodCard_row')]//button"), "Кнопка 'Выбрать/Изменить' (способ оплаты)");
     Element currentPaymentMethod = new Element(By.xpath("//div[contains(@class,'PaymentMethod_label')]"), "Текущий метод оплаты");
+    Button selectCompany = new Button(By.xpath("//button[.='Выбрать компанию']"), "Кнопка 'Выбрать компанию'");
 
     Element contactsSummary = new Element(By.xpath(
             "//div[contains(@class,'CheckoutEditableCard_header')][.//h3[.='Контакты']]//div[contains(@class,'CheckoutEditableCard_details')]"),
