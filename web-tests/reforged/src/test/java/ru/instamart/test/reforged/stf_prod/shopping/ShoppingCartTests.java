@@ -378,9 +378,7 @@ public final class ShoppingCartTests {
     @Test(description = "Удаление магазина из корзины, при удалении всех его товаров в корзине", groups = {STF_PROD_S})
     public void testAutoRemoveRetailerAfterRemoveAllProducts() {
         var userData = UserManager.getQaUser();
-        helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
-        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID, 2);
-        helper.fillCartByQA(userData, DEFAULT_METRO_MOSCOW_SID, 2);
+        helper.dropAndFillCartMultipleByQA(userData, RestAddresses.Moscow.defaultProdAddress(), 179, 18);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

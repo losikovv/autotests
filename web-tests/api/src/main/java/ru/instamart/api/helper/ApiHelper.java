@@ -139,6 +139,16 @@ public final class ApiHelper {
     }
 
     @Step("Наполняем корзину с помощью API")
+    public void dropAndFillCartMultipleByQA(final UserData user, AddressV2 address, final Integer firstShopSid, final Integer secondShopSid) {
+        apiV2.authByQA(user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.setAddressAttributes(user, address);
+        apiV2.fillCart(apiV2.getProducts(firstShopSid));
+        apiV2.fillCart(apiV2.getProducts(secondShopSid));
+    }
+
+    @Step("Наполняем корзину с помощью API")
     public void dropAndFillCartMultiple(final UserData user, AddressV2 address, final Integer firstShopSid, final Integer firstShopItemCount, final Integer secondShopSid, final Integer secondShopItemCount) {
         apiV2.authByPhone(user);
         apiV2.getCurrentOrderNumber();
