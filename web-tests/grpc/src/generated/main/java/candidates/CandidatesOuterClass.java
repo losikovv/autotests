@@ -5966,6 +5966,26 @@ public final class CandidatesOuterClass {
      */
     com.google.protobuf.ByteString
         getSourceIdBytes();
+
+    /**
+     * <pre>
+     * UUID заказа (используется для расчета кол-во отказов по заказу)
+     * </pre>
+     *
+     * <code>string shipment_uuid = 4;</code>
+     * @return The shipmentUuid.
+     */
+    java.lang.String getShipmentUuid();
+    /**
+     * <pre>
+     * UUID заказа (используется для расчета кол-во отказов по заказу)
+     * </pre>
+     *
+     * <code>string shipment_uuid = 4;</code>
+     * @return The bytes for shipmentUuid.
+     */
+    com.google.protobuf.ByteString
+        getShipmentUuidBytes();
   }
   /**
    * Protobuf type {@code candidates.SelectCandidatesRequest}
@@ -5983,6 +6003,7 @@ public final class CandidatesOuterClass {
       filter_ = java.util.Collections.emptyList();
       sourceType_ = 0;
       sourceId_ = "";
+      shipmentUuid_ = "";
     }
 
     @java.lang.Override
@@ -6035,6 +6056,12 @@ public final class CandidatesOuterClass {
               java.lang.String s = input.readStringRequireUtf8();
 
               sourceId_ = s;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              shipmentUuid_ = s;
               break;
             }
             default: {
@@ -6322,6 +6349,52 @@ public final class CandidatesOuterClass {
       }
     }
 
+    public static final int SHIPMENT_UUID_FIELD_NUMBER = 4;
+    private volatile java.lang.Object shipmentUuid_;
+    /**
+     * <pre>
+     * UUID заказа (используется для расчета кол-во отказов по заказу)
+     * </pre>
+     *
+     * <code>string shipment_uuid = 4;</code>
+     * @return The shipmentUuid.
+     */
+    @java.lang.Override
+    public java.lang.String getShipmentUuid() {
+      java.lang.Object ref = shipmentUuid_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        shipmentUuid_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * UUID заказа (используется для расчета кол-во отказов по заказу)
+     * </pre>
+     *
+     * <code>string shipment_uuid = 4;</code>
+     * @return The bytes for shipmentUuid.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getShipmentUuidBytes() {
+      java.lang.Object ref = shipmentUuid_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        shipmentUuid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -6345,6 +6418,9 @@ public final class CandidatesOuterClass {
       if (!getSourceIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, sourceId_);
       }
+      if (!getShipmentUuidBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, shipmentUuid_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -6364,6 +6440,9 @@ public final class CandidatesOuterClass {
       }
       if (!getSourceIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, sourceId_);
+      }
+      if (!getShipmentUuidBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, shipmentUuid_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6385,6 +6464,8 @@ public final class CandidatesOuterClass {
       if (sourceType_ != other.sourceType_) return false;
       if (!getSourceId()
           .equals(other.getSourceId())) return false;
+      if (!getShipmentUuid()
+          .equals(other.getShipmentUuid())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -6404,6 +6485,8 @@ public final class CandidatesOuterClass {
       hash = (53 * hash) + sourceType_;
       hash = (37 * hash) + SOURCE_ID_FIELD_NUMBER;
       hash = (53 * hash) + getSourceId().hashCode();
+      hash = (37 * hash) + SHIPMENT_UUID_FIELD_NUMBER;
+      hash = (53 * hash) + getShipmentUuid().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -6548,6 +6631,8 @@ public final class CandidatesOuterClass {
 
         sourceId_ = "";
 
+        shipmentUuid_ = "";
+
         return this;
       }
 
@@ -6586,6 +6671,7 @@ public final class CandidatesOuterClass {
         }
         result.sourceType_ = sourceType_;
         result.sourceId_ = sourceId_;
+        result.shipmentUuid_ = shipmentUuid_;
         onBuilt();
         return result;
       }
@@ -6665,6 +6751,10 @@ public final class CandidatesOuterClass {
         }
         if (!other.getSourceId().isEmpty()) {
           sourceId_ = other.sourceId_;
+          onChanged();
+        }
+        if (!other.getShipmentUuid().isEmpty()) {
+          shipmentUuid_ = other.shipmentUuid_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -7178,6 +7268,102 @@ public final class CandidatesOuterClass {
         onChanged();
         return this;
       }
+
+      private java.lang.Object shipmentUuid_ = "";
+      /**
+       * <pre>
+       * UUID заказа (используется для расчета кол-во отказов по заказу)
+       * </pre>
+       *
+       * <code>string shipment_uuid = 4;</code>
+       * @return The shipmentUuid.
+       */
+      public java.lang.String getShipmentUuid() {
+        java.lang.Object ref = shipmentUuid_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          shipmentUuid_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * UUID заказа (используется для расчета кол-во отказов по заказу)
+       * </pre>
+       *
+       * <code>string shipment_uuid = 4;</code>
+       * @return The bytes for shipmentUuid.
+       */
+      public com.google.protobuf.ByteString
+          getShipmentUuidBytes() {
+        java.lang.Object ref = shipmentUuid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          shipmentUuid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * UUID заказа (используется для расчета кол-во отказов по заказу)
+       * </pre>
+       *
+       * <code>string shipment_uuid = 4;</code>
+       * @param value The shipmentUuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setShipmentUuid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        shipmentUuid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * UUID заказа (используется для расчета кол-во отказов по заказу)
+       * </pre>
+       *
+       * <code>string shipment_uuid = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearShipmentUuid() {
+        
+        shipmentUuid_ = getDefaultInstance().getShipmentUuid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * UUID заказа (используется для расчета кол-во отказов по заказу)
+       * </pre>
+       *
+       * <code>string shipment_uuid = 4;</code>
+       * @param value The bytes for shipmentUuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setShipmentUuidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        shipmentUuid_ = value;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -7465,6 +7651,16 @@ public final class CandidatesOuterClass {
      * @return The maxQueueSize.
      */
     int getMaxQueueSize();
+
+    /**
+     * <pre>
+     * включать партнеров с непринятым оффером
+     * </pre>
+     *
+     * <code>bool with_blocked = 9;</code>
+     * @return The withBlocked.
+     */
+    boolean getWithBlocked();
   }
   /**
    * Protobuf type {@code candidates.SelectCandidatesFilter}
@@ -7608,6 +7804,11 @@ public final class CandidatesOuterClass {
             case 64: {
 
               maxQueueSize_ = input.readInt32();
+              break;
+            }
+            case 72: {
+
+              withBlocked_ = input.readBool();
               break;
             }
             default: {
@@ -8010,6 +8211,21 @@ public final class CandidatesOuterClass {
       return maxQueueSize_;
     }
 
+    public static final int WITH_BLOCKED_FIELD_NUMBER = 9;
+    private boolean withBlocked_;
+    /**
+     * <pre>
+     * включать партнеров с непринятым оффером
+     * </pre>
+     *
+     * <code>bool with_blocked = 9;</code>
+     * @return The withBlocked.
+     */
+    @java.lang.Override
+    public boolean getWithBlocked() {
+      return withBlocked_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -8056,6 +8272,9 @@ public final class CandidatesOuterClass {
       }
       if (maxQueueSize_ != 0) {
         output.writeInt32(8, maxQueueSize_);
+      }
+      if (withBlocked_ != false) {
+        output.writeBool(9, withBlocked_);
       }
       unknownFields.writeTo(output);
     }
@@ -8121,6 +8340,10 @@ public final class CandidatesOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(8, maxQueueSize_);
       }
+      if (withBlocked_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(9, withBlocked_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -8154,6 +8377,8 @@ public final class CandidatesOuterClass {
           .equals(other.getUuidsList())) return false;
       if (getMaxQueueSize()
           != other.getMaxQueueSize()) return false;
+      if (getWithBlocked()
+          != other.getWithBlocked()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -8192,6 +8417,9 @@ public final class CandidatesOuterClass {
       }
       hash = (37 * hash) + MAX_QUEUE_SIZE_FIELD_NUMBER;
       hash = (53 * hash) + getMaxQueueSize();
+      hash = (37 * hash) + WITH_BLOCKED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getWithBlocked());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -8345,6 +8573,8 @@ public final class CandidatesOuterClass {
         bitField0_ = (bitField0_ & ~0x00000008);
         maxQueueSize_ = 0;
 
+        withBlocked_ = false;
+
         return this;
       }
 
@@ -8400,6 +8630,7 @@ public final class CandidatesOuterClass {
         }
         result.uuids_ = uuids_;
         result.maxQueueSize_ = maxQueueSize_;
+        result.withBlocked_ = withBlocked_;
         onBuilt();
         return result;
       }
@@ -8500,6 +8731,9 @@ public final class CandidatesOuterClass {
         }
         if (other.getMaxQueueSize() != 0) {
           setMaxQueueSize(other.getMaxQueueSize());
+        }
+        if (other.getWithBlocked() != false) {
+          setWithBlocked(other.getWithBlocked());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -9499,6 +9733,49 @@ public final class CandidatesOuterClass {
         onChanged();
         return this;
       }
+
+      private boolean withBlocked_ ;
+      /**
+       * <pre>
+       * включать партнеров с непринятым оффером
+       * </pre>
+       *
+       * <code>bool with_blocked = 9;</code>
+       * @return The withBlocked.
+       */
+      @java.lang.Override
+      public boolean getWithBlocked() {
+        return withBlocked_;
+      }
+      /**
+       * <pre>
+       * включать партнеров с непринятым оффером
+       * </pre>
+       *
+       * <code>bool with_blocked = 9;</code>
+       * @param value The withBlocked to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWithBlocked(boolean value) {
+        
+        withBlocked_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * включать партнеров с непринятым оффером
+       * </pre>
+       *
+       * <code>bool with_blocked = 9;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearWithBlocked() {
+        
+        withBlocked_ = false;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -10479,6 +10756,7 @@ public final class CandidatesOuterClass {
      * <pre>
      * статус смены, возможные значения:
      * 	* in_progress - активная смена
+     *  * ready_on_pause - готовность взять паузу
      *  * on_pause - взята пауза
      * </pre>
      *
@@ -10490,6 +10768,7 @@ public final class CandidatesOuterClass {
      * <pre>
      * статус смены, возможные значения:
      * 	* in_progress - активная смена
+     *  * ready_on_pause - готовность взять паузу
      *  * on_pause - взята пауза
      * </pre>
      *
@@ -10567,6 +10846,16 @@ public final class CandidatesOuterClass {
      */
     com.google.protobuf.ByteString
         getStoreUuidBytes();
+
+    /**
+     * <pre>
+     * AR кандидата на дату начала этой смены
+     * </pre>
+     *
+     * <code>float candidate_acceptance_rate = 9;</code>
+     * @return The candidateAcceptanceRate.
+     */
+    float getCandidateAcceptanceRate();
   }
   /**
    * Protobuf type {@code candidates.CandidateShift}
@@ -10673,6 +10962,11 @@ public final class CandidatesOuterClass {
               java.lang.String s = input.readStringRequireUtf8();
 
               storeUuid_ = s;
+              break;
+            }
+            case 77: {
+
+              candidateAcceptanceRate_ = input.readFloat();
               break;
             }
             default: {
@@ -10906,6 +11200,7 @@ public final class CandidatesOuterClass {
      * <pre>
      * статус смены, возможные значения:
      * 	* in_progress - активная смена
+     *  * ready_on_pause - готовность взять паузу
      *  * on_pause - взята пауза
      * </pre>
      *
@@ -10929,6 +11224,7 @@ public final class CandidatesOuterClass {
      * <pre>
      * статус смены, возможные значения:
      * 	* in_progress - активная смена
+     *  * ready_on_pause - готовность взять паузу
      *  * on_pause - взята пауза
      * </pre>
      *
@@ -11068,6 +11364,21 @@ public final class CandidatesOuterClass {
       }
     }
 
+    public static final int CANDIDATE_ACCEPTANCE_RATE_FIELD_NUMBER = 9;
+    private float candidateAcceptanceRate_;
+    /**
+     * <pre>
+     * AR кандидата на дату начала этой смены
+     * </pre>
+     *
+     * <code>float candidate_acceptance_rate = 9;</code>
+     * @return The candidateAcceptanceRate.
+     */
+    @java.lang.Override
+    public float getCandidateAcceptanceRate() {
+      return candidateAcceptanceRate_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -11105,6 +11416,9 @@ public final class CandidatesOuterClass {
       }
       if (!getStoreUuidBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 8, storeUuid_);
+      }
+      if (candidateAcceptanceRate_ != 0F) {
+        output.writeFloat(9, candidateAcceptanceRate_);
       }
       unknownFields.writeTo(output);
     }
@@ -11145,6 +11459,10 @@ public final class CandidatesOuterClass {
       if (!getStoreUuidBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, storeUuid_);
       }
+      if (candidateAcceptanceRate_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(9, candidateAcceptanceRate_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -11181,6 +11499,9 @@ public final class CandidatesOuterClass {
           != other.getFixedOnDeliveryAreaOrStore()) return false;
       if (!getStoreUuid()
           .equals(other.getStoreUuid())) return false;
+      if (java.lang.Float.floatToIntBits(getCandidateAcceptanceRate())
+          != java.lang.Float.floatToIntBits(
+              other.getCandidateAcceptanceRate())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -11214,6 +11535,9 @@ public final class CandidatesOuterClass {
           getFixedOnDeliveryAreaOrStore());
       hash = (37 * hash) + STORE_UUID_FIELD_NUMBER;
       hash = (53 * hash) + getStoreUuid().hashCode();
+      hash = (37 * hash) + CANDIDATE_ACCEPTANCE_RATE_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getCandidateAcceptanceRate());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11371,6 +11695,8 @@ public final class CandidatesOuterClass {
 
         storeUuid_ = "";
 
+        candidateAcceptanceRate_ = 0F;
+
         return this;
       }
 
@@ -11413,6 +11739,7 @@ public final class CandidatesOuterClass {
         result.deliveryAreaId_ = deliveryAreaId_;
         result.fixedOnDeliveryAreaOrStore_ = fixedOnDeliveryAreaOrStore_;
         result.storeUuid_ = storeUuid_;
+        result.candidateAcceptanceRate_ = candidateAcceptanceRate_;
         onBuilt();
         return result;
       }
@@ -11486,6 +11813,9 @@ public final class CandidatesOuterClass {
         if (!other.getStoreUuid().isEmpty()) {
           storeUuid_ = other.storeUuid_;
           onChanged();
+        }
+        if (other.getCandidateAcceptanceRate() != 0F) {
+          setCandidateAcceptanceRate(other.getCandidateAcceptanceRate());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -11831,6 +12161,7 @@ public final class CandidatesOuterClass {
        * <pre>
        * статус смены, возможные значения:
        * 	* in_progress - активная смена
+       *  * ready_on_pause - готовность взять паузу
        *  * on_pause - взята пауза
        * </pre>
        *
@@ -11853,6 +12184,7 @@ public final class CandidatesOuterClass {
        * <pre>
        * статус смены, возможные значения:
        * 	* in_progress - активная смена
+       *  * ready_on_pause - готовность взять паузу
        *  * on_pause - взята пауза
        * </pre>
        *
@@ -11876,6 +12208,7 @@ public final class CandidatesOuterClass {
        * <pre>
        * статус смены, возможные значения:
        * 	* in_progress - активная смена
+       *  * ready_on_pause - готовность взять паузу
        *  * on_pause - взята пауза
        * </pre>
        *
@@ -11897,6 +12230,7 @@ public final class CandidatesOuterClass {
        * <pre>
        * статус смены, возможные значения:
        * 	* in_progress - активная смена
+       *  * ready_on_pause - готовность взять паузу
        *  * on_pause - взята пауза
        * </pre>
        *
@@ -11913,6 +12247,7 @@ public final class CandidatesOuterClass {
        * <pre>
        * статус смены, возможные значения:
        * 	* in_progress - активная смена
+       *  * ready_on_pause - готовность взять паузу
        *  * on_pause - взята пауза
        * </pre>
        *
@@ -12230,6 +12565,49 @@ public final class CandidatesOuterClass {
         onChanged();
         return this;
       }
+
+      private float candidateAcceptanceRate_ ;
+      /**
+       * <pre>
+       * AR кандидата на дату начала этой смены
+       * </pre>
+       *
+       * <code>float candidate_acceptance_rate = 9;</code>
+       * @return The candidateAcceptanceRate.
+       */
+      @java.lang.Override
+      public float getCandidateAcceptanceRate() {
+        return candidateAcceptanceRate_;
+      }
+      /**
+       * <pre>
+       * AR кандидата на дату начала этой смены
+       * </pre>
+       *
+       * <code>float candidate_acceptance_rate = 9;</code>
+       * @param value The candidateAcceptanceRate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCandidateAcceptanceRate(float value) {
+        
+        candidateAcceptanceRate_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * AR кандидата на дату начала этой смены
+       * </pre>
+       *
+       * <code>float candidate_acceptance_rate = 9;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCandidateAcceptanceRate() {
+        
+        candidateAcceptanceRate_ = 0F;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -12278,6 +12656,645 @@ public final class CandidatesOuterClass {
 
     @java.lang.Override
     public candidates.CandidatesOuterClass.CandidateShift getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface AssignmentRejectionsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:candidates.AssignmentRejections)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string shipment_uuid = 1;</code>
+     * @return The shipmentUuid.
+     */
+    java.lang.String getShipmentUuid();
+    /**
+     * <code>string shipment_uuid = 1;</code>
+     * @return The bytes for shipmentUuid.
+     */
+    com.google.protobuf.ByteString
+        getShipmentUuidBytes();
+
+    /**
+     * <code>int64 rejections = 2;</code>
+     * @return The rejections.
+     */
+    long getRejections();
+  }
+  /**
+   * Protobuf type {@code candidates.AssignmentRejections}
+   */
+  public static final class AssignmentRejections extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:candidates.AssignmentRejections)
+      AssignmentRejectionsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use AssignmentRejections.newBuilder() to construct.
+    private AssignmentRejections(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AssignmentRejections() {
+      shipmentUuid_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AssignmentRejections();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private AssignmentRejections(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              shipmentUuid_ = s;
+              break;
+            }
+            case 16: {
+
+              rejections_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return candidates.CandidatesOuterClass.internal_static_candidates_AssignmentRejections_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return candidates.CandidatesOuterClass.internal_static_candidates_AssignmentRejections_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              candidates.CandidatesOuterClass.AssignmentRejections.class, candidates.CandidatesOuterClass.AssignmentRejections.Builder.class);
+    }
+
+    public static final int SHIPMENT_UUID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object shipmentUuid_;
+    /**
+     * <code>string shipment_uuid = 1;</code>
+     * @return The shipmentUuid.
+     */
+    @java.lang.Override
+    public java.lang.String getShipmentUuid() {
+      java.lang.Object ref = shipmentUuid_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        shipmentUuid_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string shipment_uuid = 1;</code>
+     * @return The bytes for shipmentUuid.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getShipmentUuidBytes() {
+      java.lang.Object ref = shipmentUuid_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        shipmentUuid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int REJECTIONS_FIELD_NUMBER = 2;
+    private long rejections_;
+    /**
+     * <code>int64 rejections = 2;</code>
+     * @return The rejections.
+     */
+    @java.lang.Override
+    public long getRejections() {
+      return rejections_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getShipmentUuidBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, shipmentUuid_);
+      }
+      if (rejections_ != 0L) {
+        output.writeInt64(2, rejections_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getShipmentUuidBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, shipmentUuid_);
+      }
+      if (rejections_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, rejections_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof candidates.CandidatesOuterClass.AssignmentRejections)) {
+        return super.equals(obj);
+      }
+      candidates.CandidatesOuterClass.AssignmentRejections other = (candidates.CandidatesOuterClass.AssignmentRejections) obj;
+
+      if (!getShipmentUuid()
+          .equals(other.getShipmentUuid())) return false;
+      if (getRejections()
+          != other.getRejections()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SHIPMENT_UUID_FIELD_NUMBER;
+      hash = (53 * hash) + getShipmentUuid().hashCode();
+      hash = (37 * hash) + REJECTIONS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getRejections());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static candidates.CandidatesOuterClass.AssignmentRejections parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.AssignmentRejections parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.AssignmentRejections parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.AssignmentRejections parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.AssignmentRejections parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.AssignmentRejections parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.AssignmentRejections parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.AssignmentRejections parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.AssignmentRejections parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.AssignmentRejections parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.AssignmentRejections parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.AssignmentRejections parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(candidates.CandidatesOuterClass.AssignmentRejections prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code candidates.AssignmentRejections}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:candidates.AssignmentRejections)
+        candidates.CandidatesOuterClass.AssignmentRejectionsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_AssignmentRejections_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_AssignmentRejections_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                candidates.CandidatesOuterClass.AssignmentRejections.class, candidates.CandidatesOuterClass.AssignmentRejections.Builder.class);
+      }
+
+      // Construct using candidates.CandidatesOuterClass.AssignmentRejections.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        shipmentUuid_ = "";
+
+        rejections_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_AssignmentRejections_descriptor;
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.AssignmentRejections getDefaultInstanceForType() {
+        return candidates.CandidatesOuterClass.AssignmentRejections.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.AssignmentRejections build() {
+        candidates.CandidatesOuterClass.AssignmentRejections result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.AssignmentRejections buildPartial() {
+        candidates.CandidatesOuterClass.AssignmentRejections result = new candidates.CandidatesOuterClass.AssignmentRejections(this);
+        result.shipmentUuid_ = shipmentUuid_;
+        result.rejections_ = rejections_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof candidates.CandidatesOuterClass.AssignmentRejections) {
+          return mergeFrom((candidates.CandidatesOuterClass.AssignmentRejections)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(candidates.CandidatesOuterClass.AssignmentRejections other) {
+        if (other == candidates.CandidatesOuterClass.AssignmentRejections.getDefaultInstance()) return this;
+        if (!other.getShipmentUuid().isEmpty()) {
+          shipmentUuid_ = other.shipmentUuid_;
+          onChanged();
+        }
+        if (other.getRejections() != 0L) {
+          setRejections(other.getRejections());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        candidates.CandidatesOuterClass.AssignmentRejections parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (candidates.CandidatesOuterClass.AssignmentRejections) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object shipmentUuid_ = "";
+      /**
+       * <code>string shipment_uuid = 1;</code>
+       * @return The shipmentUuid.
+       */
+      public java.lang.String getShipmentUuid() {
+        java.lang.Object ref = shipmentUuid_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          shipmentUuid_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string shipment_uuid = 1;</code>
+       * @return The bytes for shipmentUuid.
+       */
+      public com.google.protobuf.ByteString
+          getShipmentUuidBytes() {
+        java.lang.Object ref = shipmentUuid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          shipmentUuid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string shipment_uuid = 1;</code>
+       * @param value The shipmentUuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setShipmentUuid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        shipmentUuid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string shipment_uuid = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearShipmentUuid() {
+        
+        shipmentUuid_ = getDefaultInstance().getShipmentUuid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string shipment_uuid = 1;</code>
+       * @param value The bytes for shipmentUuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setShipmentUuidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        shipmentUuid_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long rejections_ ;
+      /**
+       * <code>int64 rejections = 2;</code>
+       * @return The rejections.
+       */
+      @java.lang.Override
+      public long getRejections() {
+        return rejections_;
+      }
+      /**
+       * <code>int64 rejections = 2;</code>
+       * @param value The rejections to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRejections(long value) {
+        
+        rejections_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 rejections = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRejections() {
+        
+        rejections_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:candidates.AssignmentRejections)
+    }
+
+    // @@protoc_insertion_point(class_scope:candidates.AssignmentRejections)
+    private static final candidates.CandidatesOuterClass.AssignmentRejections DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new candidates.CandidatesOuterClass.AssignmentRejections();
+    }
+
+    public static candidates.CandidatesOuterClass.AssignmentRejections getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AssignmentRejections>
+        PARSER = new com.google.protobuf.AbstractParser<AssignmentRejections>() {
+      @java.lang.Override
+      public AssignmentRejections parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new AssignmentRejections(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AssignmentRejections> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AssignmentRejections> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public candidates.CandidatesOuterClass.AssignmentRejections getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -12574,29 +13591,29 @@ public final class CandidatesOuterClass {
     candidates.CandidatesOuterClass.LocationOrBuilder getAvailableLocationOrBuilder();
 
     /**
-     * <code>repeated string active_shipments = 12;</code>
-     * @return A list containing the activeShipments.
+     * <code>repeated string active_shipment_uuids = 12;</code>
+     * @return A list containing the activeShipmentUuids.
      */
     java.util.List<java.lang.String>
-        getActiveShipmentsList();
+        getActiveShipmentUuidsList();
     /**
-     * <code>repeated string active_shipments = 12;</code>
-     * @return The count of activeShipments.
+     * <code>repeated string active_shipment_uuids = 12;</code>
+     * @return The count of activeShipmentUuids.
      */
-    int getActiveShipmentsCount();
+    int getActiveShipmentUuidsCount();
     /**
-     * <code>repeated string active_shipments = 12;</code>
+     * <code>repeated string active_shipment_uuids = 12;</code>
      * @param index The index of the element to return.
-     * @return The activeShipments at the given index.
+     * @return The activeShipmentUuids at the given index.
      */
-    java.lang.String getActiveShipments(int index);
+    java.lang.String getActiveShipmentUuids(int index);
     /**
-     * <code>repeated string active_shipments = 12;</code>
+     * <code>repeated string active_shipment_uuids = 12;</code>
      * @param index The index of the value to return.
-     * @return The bytes of the activeShipments at the given index.
+     * @return The bytes of the activeShipmentUuids at the given index.
      */
     com.google.protobuf.ByteString
-        getActiveShipmentsBytes(int index);
+        getActiveShipmentUuidsBytes(int index);
 
     /**
      * <code>.candidates.Candidate.EmploymentType employment_type = 13;</code>
@@ -12608,6 +13625,57 @@ public final class CandidatesOuterClass {
      * @return The employmentType.
      */
     candidates.CandidatesOuterClass.Candidate.EmploymentType getEmploymentType();
+
+    /**
+     * <pre>
+     * Кол-во отказов по заказу
+     * </pre>
+     *
+     * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+     * @return Whether the assignmentRejections field is set.
+     */
+    boolean hasAssignmentRejections();
+    /**
+     * <pre>
+     * Кол-во отказов по заказу
+     * </pre>
+     *
+     * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+     * @return The assignmentRejections.
+     */
+    candidates.CandidatesOuterClass.AssignmentRejections getAssignmentRejections();
+    /**
+     * <pre>
+     * Кол-во отказов по заказу
+     * </pre>
+     *
+     * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+     */
+    candidates.CandidatesOuterClass.AssignmentRejectionsOrBuilder getAssignmentRejectionsOrBuilder();
+
+    /**
+     * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+     */
+    java.util.List<candidates.CandidatesOuterClass.Candidate.ShipmentShort> 
+        getActiveShipmentsList();
+    /**
+     * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+     */
+    candidates.CandidatesOuterClass.Candidate.ShipmentShort getActiveShipments(int index);
+    /**
+     * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+     */
+    int getActiveShipmentsCount();
+    /**
+     * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+     */
+    java.util.List<? extends candidates.CandidatesOuterClass.Candidate.ShipmentShortOrBuilder> 
+        getActiveShipmentsOrBuilderList();
+    /**
+     * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+     */
+    candidates.CandidatesOuterClass.Candidate.ShipmentShortOrBuilder getActiveShipmentsOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code candidates.Candidate}
@@ -12628,8 +13696,9 @@ public final class CandidatesOuterClass {
       transport_ = 0;
       tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       workflows_ = java.util.Collections.emptyList();
-      activeShipments_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      activeShipmentUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       employmentType_ = 0;
+      activeShipments_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -12773,16 +13842,38 @@ public final class CandidatesOuterClass {
             case 98: {
               java.lang.String s = input.readStringRequireUtf8();
               if (!((mutable_bitField0_ & 0x00000004) != 0)) {
-                activeShipments_ = new com.google.protobuf.LazyStringArrayList();
+                activeShipmentUuids_ = new com.google.protobuf.LazyStringArrayList();
                 mutable_bitField0_ |= 0x00000004;
               }
-              activeShipments_.add(s);
+              activeShipmentUuids_.add(s);
               break;
             }
             case 104: {
               int rawValue = input.readEnum();
 
               employmentType_ = rawValue;
+              break;
+            }
+            case 114: {
+              candidates.CandidatesOuterClass.AssignmentRejections.Builder subBuilder = null;
+              if (assignmentRejections_ != null) {
+                subBuilder = assignmentRejections_.toBuilder();
+              }
+              assignmentRejections_ = input.readMessage(candidates.CandidatesOuterClass.AssignmentRejections.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(assignmentRejections_);
+                assignmentRejections_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 122: {
+              if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+                activeShipments_ = new java.util.ArrayList<candidates.CandidatesOuterClass.Candidate.ShipmentShort>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              activeShipments_.add(
+                  input.readMessage(candidates.CandidatesOuterClass.Candidate.ShipmentShort.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -12807,7 +13898,10 @@ public final class CandidatesOuterClass {
           workflows_ = java.util.Collections.unmodifiableList(workflows_);
         }
         if (((mutable_bitField0_ & 0x00000004) != 0)) {
-          activeShipments_ = activeShipments_.getUnmodifiableView();
+          activeShipmentUuids_ = activeShipmentUuids_.getUnmodifiableView();
+        }
+        if (((mutable_bitField0_ & 0x00000008) != 0)) {
+          activeShipments_ = java.util.Collections.unmodifiableList(activeShipments_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -12968,6 +14062,777 @@ public final class CandidatesOuterClass {
       }
 
       // @@protoc_insertion_point(enum_scope:candidates.Candidate.EmploymentType)
+    }
+
+    public interface ShipmentShortOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:candidates.Candidate.ShipmentShort)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>string uuid = 1;</code>
+       * @return The uuid.
+       */
+      java.lang.String getUuid();
+      /**
+       * <code>string uuid = 1;</code>
+       * @return The bytes for uuid.
+       */
+      com.google.protobuf.ByteString
+          getUuidBytes();
+
+      /**
+       * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+       * @return Whether the planEndedAt field is set.
+       */
+      boolean hasPlanEndedAt();
+      /**
+       * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+       * @return The planEndedAt.
+       */
+      com.google.protobuf.Timestamp getPlanEndedAt();
+      /**
+       * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+       */
+      com.google.protobuf.TimestampOrBuilder getPlanEndedAtOrBuilder();
+    }
+    /**
+     * Protobuf type {@code candidates.Candidate.ShipmentShort}
+     */
+    public static final class ShipmentShort extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:candidates.Candidate.ShipmentShort)
+        ShipmentShortOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use ShipmentShort.newBuilder() to construct.
+      private ShipmentShort(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private ShipmentShort() {
+        uuid_ = "";
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new ShipmentShort();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private ShipmentShort(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                uuid_ = s;
+                break;
+              }
+              case 98: {
+                com.google.protobuf.Timestamp.Builder subBuilder = null;
+                if (planEndedAt_ != null) {
+                  subBuilder = planEndedAt_.toBuilder();
+                }
+                planEndedAt_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(planEndedAt_);
+                  planEndedAt_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_Candidate_ShipmentShort_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_Candidate_ShipmentShort_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                candidates.CandidatesOuterClass.Candidate.ShipmentShort.class, candidates.CandidatesOuterClass.Candidate.ShipmentShort.Builder.class);
+      }
+
+      public static final int UUID_FIELD_NUMBER = 1;
+      private volatile java.lang.Object uuid_;
+      /**
+       * <code>string uuid = 1;</code>
+       * @return The uuid.
+       */
+      @java.lang.Override
+      public java.lang.String getUuid() {
+        java.lang.Object ref = uuid_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          uuid_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string uuid = 1;</code>
+       * @return The bytes for uuid.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getUuidBytes() {
+        java.lang.Object ref = uuid_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          uuid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int PLAN_ENDED_AT_FIELD_NUMBER = 12;
+      private com.google.protobuf.Timestamp planEndedAt_;
+      /**
+       * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+       * @return Whether the planEndedAt field is set.
+       */
+      @java.lang.Override
+      public boolean hasPlanEndedAt() {
+        return planEndedAt_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+       * @return The planEndedAt.
+       */
+      @java.lang.Override
+      public com.google.protobuf.Timestamp getPlanEndedAt() {
+        return planEndedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : planEndedAt_;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+       */
+      @java.lang.Override
+      public com.google.protobuf.TimestampOrBuilder getPlanEndedAtOrBuilder() {
+        return getPlanEndedAt();
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (!getUuidBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 1, uuid_);
+        }
+        if (planEndedAt_ != null) {
+          output.writeMessage(12, getPlanEndedAt());
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (!getUuidBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, uuid_);
+        }
+        if (planEndedAt_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(12, getPlanEndedAt());
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof candidates.CandidatesOuterClass.Candidate.ShipmentShort)) {
+          return super.equals(obj);
+        }
+        candidates.CandidatesOuterClass.Candidate.ShipmentShort other = (candidates.CandidatesOuterClass.Candidate.ShipmentShort) obj;
+
+        if (!getUuid()
+            .equals(other.getUuid())) return false;
+        if (hasPlanEndedAt() != other.hasPlanEndedAt()) return false;
+        if (hasPlanEndedAt()) {
+          if (!getPlanEndedAt()
+              .equals(other.getPlanEndedAt())) return false;
+        }
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + UUID_FIELD_NUMBER;
+        hash = (53 * hash) + getUuid().hashCode();
+        if (hasPlanEndedAt()) {
+          hash = (37 * hash) + PLAN_ENDED_AT_FIELD_NUMBER;
+          hash = (53 * hash) + getPlanEndedAt().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static candidates.CandidatesOuterClass.Candidate.ShipmentShort parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static candidates.CandidatesOuterClass.Candidate.ShipmentShort parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static candidates.CandidatesOuterClass.Candidate.ShipmentShort parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static candidates.CandidatesOuterClass.Candidate.ShipmentShort parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static candidates.CandidatesOuterClass.Candidate.ShipmentShort parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static candidates.CandidatesOuterClass.Candidate.ShipmentShort parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static candidates.CandidatesOuterClass.Candidate.ShipmentShort parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static candidates.CandidatesOuterClass.Candidate.ShipmentShort parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static candidates.CandidatesOuterClass.Candidate.ShipmentShort parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static candidates.CandidatesOuterClass.Candidate.ShipmentShort parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static candidates.CandidatesOuterClass.Candidate.ShipmentShort parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static candidates.CandidatesOuterClass.Candidate.ShipmentShort parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(candidates.CandidatesOuterClass.Candidate.ShipmentShort prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code candidates.Candidate.ShipmentShort}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:candidates.Candidate.ShipmentShort)
+          candidates.CandidatesOuterClass.Candidate.ShipmentShortOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return candidates.CandidatesOuterClass.internal_static_candidates_Candidate_ShipmentShort_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return candidates.CandidatesOuterClass.internal_static_candidates_Candidate_ShipmentShort_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  candidates.CandidatesOuterClass.Candidate.ShipmentShort.class, candidates.CandidatesOuterClass.Candidate.ShipmentShort.Builder.class);
+        }
+
+        // Construct using candidates.CandidatesOuterClass.Candidate.ShipmentShort.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          uuid_ = "";
+
+          if (planEndedAtBuilder_ == null) {
+            planEndedAt_ = null;
+          } else {
+            planEndedAt_ = null;
+            planEndedAtBuilder_ = null;
+          }
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return candidates.CandidatesOuterClass.internal_static_candidates_Candidate_ShipmentShort_descriptor;
+        }
+
+        @java.lang.Override
+        public candidates.CandidatesOuterClass.Candidate.ShipmentShort getDefaultInstanceForType() {
+          return candidates.CandidatesOuterClass.Candidate.ShipmentShort.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public candidates.CandidatesOuterClass.Candidate.ShipmentShort build() {
+          candidates.CandidatesOuterClass.Candidate.ShipmentShort result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public candidates.CandidatesOuterClass.Candidate.ShipmentShort buildPartial() {
+          candidates.CandidatesOuterClass.Candidate.ShipmentShort result = new candidates.CandidatesOuterClass.Candidate.ShipmentShort(this);
+          result.uuid_ = uuid_;
+          if (planEndedAtBuilder_ == null) {
+            result.planEndedAt_ = planEndedAt_;
+          } else {
+            result.planEndedAt_ = planEndedAtBuilder_.build();
+          }
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof candidates.CandidatesOuterClass.Candidate.ShipmentShort) {
+            return mergeFrom((candidates.CandidatesOuterClass.Candidate.ShipmentShort)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(candidates.CandidatesOuterClass.Candidate.ShipmentShort other) {
+          if (other == candidates.CandidatesOuterClass.Candidate.ShipmentShort.getDefaultInstance()) return this;
+          if (!other.getUuid().isEmpty()) {
+            uuid_ = other.uuid_;
+            onChanged();
+          }
+          if (other.hasPlanEndedAt()) {
+            mergePlanEndedAt(other.getPlanEndedAt());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          candidates.CandidatesOuterClass.Candidate.ShipmentShort parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (candidates.CandidatesOuterClass.Candidate.ShipmentShort) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private java.lang.Object uuid_ = "";
+        /**
+         * <code>string uuid = 1;</code>
+         * @return The uuid.
+         */
+        public java.lang.String getUuid() {
+          java.lang.Object ref = uuid_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            uuid_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string uuid = 1;</code>
+         * @return The bytes for uuid.
+         */
+        public com.google.protobuf.ByteString
+            getUuidBytes() {
+          java.lang.Object ref = uuid_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            uuid_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string uuid = 1;</code>
+         * @param value The uuid to set.
+         * @return This builder for chaining.
+         */
+        public Builder setUuid(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          uuid_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string uuid = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearUuid() {
+          
+          uuid_ = getDefaultInstance().getUuid();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string uuid = 1;</code>
+         * @param value The bytes for uuid to set.
+         * @return This builder for chaining.
+         */
+        public Builder setUuidBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          uuid_ = value;
+          onChanged();
+          return this;
+        }
+
+        private com.google.protobuf.Timestamp planEndedAt_;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> planEndedAtBuilder_;
+        /**
+         * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+         * @return Whether the planEndedAt field is set.
+         */
+        public boolean hasPlanEndedAt() {
+          return planEndedAtBuilder_ != null || planEndedAt_ != null;
+        }
+        /**
+         * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+         * @return The planEndedAt.
+         */
+        public com.google.protobuf.Timestamp getPlanEndedAt() {
+          if (planEndedAtBuilder_ == null) {
+            return planEndedAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : planEndedAt_;
+          } else {
+            return planEndedAtBuilder_.getMessage();
+          }
+        }
+        /**
+         * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+         */
+        public Builder setPlanEndedAt(com.google.protobuf.Timestamp value) {
+          if (planEndedAtBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            planEndedAt_ = value;
+            onChanged();
+          } else {
+            planEndedAtBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+         */
+        public Builder setPlanEndedAt(
+            com.google.protobuf.Timestamp.Builder builderForValue) {
+          if (planEndedAtBuilder_ == null) {
+            planEndedAt_ = builderForValue.build();
+            onChanged();
+          } else {
+            planEndedAtBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+         */
+        public Builder mergePlanEndedAt(com.google.protobuf.Timestamp value) {
+          if (planEndedAtBuilder_ == null) {
+            if (planEndedAt_ != null) {
+              planEndedAt_ =
+                com.google.protobuf.Timestamp.newBuilder(planEndedAt_).mergeFrom(value).buildPartial();
+            } else {
+              planEndedAt_ = value;
+            }
+            onChanged();
+          } else {
+            planEndedAtBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+         */
+        public Builder clearPlanEndedAt() {
+          if (planEndedAtBuilder_ == null) {
+            planEndedAt_ = null;
+            onChanged();
+          } else {
+            planEndedAt_ = null;
+            planEndedAtBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+         */
+        public com.google.protobuf.Timestamp.Builder getPlanEndedAtBuilder() {
+          
+          onChanged();
+          return getPlanEndedAtFieldBuilder().getBuilder();
+        }
+        /**
+         * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+         */
+        public com.google.protobuf.TimestampOrBuilder getPlanEndedAtOrBuilder() {
+          if (planEndedAtBuilder_ != null) {
+            return planEndedAtBuilder_.getMessageOrBuilder();
+          } else {
+            return planEndedAt_ == null ?
+                com.google.protobuf.Timestamp.getDefaultInstance() : planEndedAt_;
+          }
+        }
+        /**
+         * <code>.google.protobuf.Timestamp plan_ended_at = 12;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+            getPlanEndedAtFieldBuilder() {
+          if (planEndedAtBuilder_ == null) {
+            planEndedAtBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                    getPlanEndedAt(),
+                    getParentForChildren(),
+                    isClean());
+            planEndedAt_ = null;
+          }
+          return planEndedAtBuilder_;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:candidates.Candidate.ShipmentShort)
+      }
+
+      // @@protoc_insertion_point(class_scope:candidates.Candidate.ShipmentShort)
+      private static final candidates.CandidatesOuterClass.Candidate.ShipmentShort DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new candidates.CandidatesOuterClass.Candidate.ShipmentShort();
+      }
+
+      public static candidates.CandidatesOuterClass.Candidate.ShipmentShort getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<ShipmentShort>
+          PARSER = new com.google.protobuf.AbstractParser<ShipmentShort>() {
+        @java.lang.Override
+        public ShipmentShort parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new ShipmentShort(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<ShipmentShort> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<ShipmentShort> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.Candidate.ShipmentShort getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
     }
 
     public static final int UUID_FIELD_NUMBER = 1;
@@ -13405,39 +15270,39 @@ public final class CandidatesOuterClass {
       return getAvailableLocation();
     }
 
-    public static final int ACTIVE_SHIPMENTS_FIELD_NUMBER = 12;
-    private com.google.protobuf.LazyStringList activeShipments_;
+    public static final int ACTIVE_SHIPMENT_UUIDS_FIELD_NUMBER = 12;
+    private com.google.protobuf.LazyStringList activeShipmentUuids_;
     /**
-     * <code>repeated string active_shipments = 12;</code>
-     * @return A list containing the activeShipments.
+     * <code>repeated string active_shipment_uuids = 12;</code>
+     * @return A list containing the activeShipmentUuids.
      */
     public com.google.protobuf.ProtocolStringList
-        getActiveShipmentsList() {
-      return activeShipments_;
+        getActiveShipmentUuidsList() {
+      return activeShipmentUuids_;
     }
     /**
-     * <code>repeated string active_shipments = 12;</code>
-     * @return The count of activeShipments.
+     * <code>repeated string active_shipment_uuids = 12;</code>
+     * @return The count of activeShipmentUuids.
      */
-    public int getActiveShipmentsCount() {
-      return activeShipments_.size();
+    public int getActiveShipmentUuidsCount() {
+      return activeShipmentUuids_.size();
     }
     /**
-     * <code>repeated string active_shipments = 12;</code>
+     * <code>repeated string active_shipment_uuids = 12;</code>
      * @param index The index of the element to return.
-     * @return The activeShipments at the given index.
+     * @return The activeShipmentUuids at the given index.
      */
-    public java.lang.String getActiveShipments(int index) {
-      return activeShipments_.get(index);
+    public java.lang.String getActiveShipmentUuids(int index) {
+      return activeShipmentUuids_.get(index);
     }
     /**
-     * <code>repeated string active_shipments = 12;</code>
+     * <code>repeated string active_shipment_uuids = 12;</code>
      * @param index The index of the value to return.
-     * @return The bytes of the activeShipments at the given index.
+     * @return The bytes of the activeShipmentUuids at the given index.
      */
     public com.google.protobuf.ByteString
-        getActiveShipmentsBytes(int index) {
-      return activeShipments_.getByteString(index);
+        getActiveShipmentUuidsBytes(int index) {
+      return activeShipmentUuids_.getByteString(index);
     }
 
     public static final int EMPLOYMENT_TYPE_FIELD_NUMBER = 13;
@@ -13457,6 +15322,84 @@ public final class CandidatesOuterClass {
       @SuppressWarnings("deprecation")
       candidates.CandidatesOuterClass.Candidate.EmploymentType result = candidates.CandidatesOuterClass.Candidate.EmploymentType.valueOf(employmentType_);
       return result == null ? candidates.CandidatesOuterClass.Candidate.EmploymentType.UNRECOGNIZED : result;
+    }
+
+    public static final int ASSIGNMENT_REJECTIONS_FIELD_NUMBER = 14;
+    private candidates.CandidatesOuterClass.AssignmentRejections assignmentRejections_;
+    /**
+     * <pre>
+     * Кол-во отказов по заказу
+     * </pre>
+     *
+     * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+     * @return Whether the assignmentRejections field is set.
+     */
+    @java.lang.Override
+    public boolean hasAssignmentRejections() {
+      return assignmentRejections_ != null;
+    }
+    /**
+     * <pre>
+     * Кол-во отказов по заказу
+     * </pre>
+     *
+     * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+     * @return The assignmentRejections.
+     */
+    @java.lang.Override
+    public candidates.CandidatesOuterClass.AssignmentRejections getAssignmentRejections() {
+      return assignmentRejections_ == null ? candidates.CandidatesOuterClass.AssignmentRejections.getDefaultInstance() : assignmentRejections_;
+    }
+    /**
+     * <pre>
+     * Кол-во отказов по заказу
+     * </pre>
+     *
+     * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+     */
+    @java.lang.Override
+    public candidates.CandidatesOuterClass.AssignmentRejectionsOrBuilder getAssignmentRejectionsOrBuilder() {
+      return getAssignmentRejections();
+    }
+
+    public static final int ACTIVE_SHIPMENTS_FIELD_NUMBER = 15;
+    private java.util.List<candidates.CandidatesOuterClass.Candidate.ShipmentShort> activeShipments_;
+    /**
+     * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+     */
+    @java.lang.Override
+    public java.util.List<candidates.CandidatesOuterClass.Candidate.ShipmentShort> getActiveShipmentsList() {
+      return activeShipments_;
+    }
+    /**
+     * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends candidates.CandidatesOuterClass.Candidate.ShipmentShortOrBuilder> 
+        getActiveShipmentsOrBuilderList() {
+      return activeShipments_;
+    }
+    /**
+     * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+     */
+    @java.lang.Override
+    public int getActiveShipmentsCount() {
+      return activeShipments_.size();
+    }
+    /**
+     * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+     */
+    @java.lang.Override
+    public candidates.CandidatesOuterClass.Candidate.ShipmentShort getActiveShipments(int index) {
+      return activeShipments_.get(index);
+    }
+    /**
+     * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+     */
+    @java.lang.Override
+    public candidates.CandidatesOuterClass.Candidate.ShipmentShortOrBuilder getActiveShipmentsOrBuilder(
+        int index) {
+      return activeShipments_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -13506,11 +15449,17 @@ public final class CandidatesOuterClass {
       if (availableLocation_ != null) {
         output.writeMessage(11, getAvailableLocation());
       }
-      for (int i = 0; i < activeShipments_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, activeShipments_.getRaw(i));
+      for (int i = 0; i < activeShipmentUuids_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, activeShipmentUuids_.getRaw(i));
       }
       if (employmentType_ != candidates.CandidatesOuterClass.Candidate.EmploymentType.NOT_SET.getNumber()) {
         output.writeEnum(13, employmentType_);
+      }
+      if (assignmentRejections_ != null) {
+        output.writeMessage(14, getAssignmentRejections());
+      }
+      for (int i = 0; i < activeShipments_.size(); i++) {
+        output.writeMessage(15, activeShipments_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -13569,15 +15518,23 @@ public final class CandidatesOuterClass {
       }
       {
         int dataSize = 0;
-        for (int i = 0; i < activeShipments_.size(); i++) {
-          dataSize += computeStringSizeNoTag(activeShipments_.getRaw(i));
+        for (int i = 0; i < activeShipmentUuids_.size(); i++) {
+          dataSize += computeStringSizeNoTag(activeShipmentUuids_.getRaw(i));
         }
         size += dataSize;
-        size += 1 * getActiveShipmentsList().size();
+        size += 1 * getActiveShipmentUuidsList().size();
       }
       if (employmentType_ != candidates.CandidatesOuterClass.Candidate.EmploymentType.NOT_SET.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(13, employmentType_);
+      }
+      if (assignmentRejections_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(14, getAssignmentRejections());
+      }
+      for (int i = 0; i < activeShipments_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(15, activeShipments_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -13629,9 +15586,16 @@ public final class CandidatesOuterClass {
         if (!getAvailableLocation()
             .equals(other.getAvailableLocation())) return false;
       }
+      if (!getActiveShipmentUuidsList()
+          .equals(other.getActiveShipmentUuidsList())) return false;
+      if (employmentType_ != other.employmentType_) return false;
+      if (hasAssignmentRejections() != other.hasAssignmentRejections()) return false;
+      if (hasAssignmentRejections()) {
+        if (!getAssignmentRejections()
+            .equals(other.getAssignmentRejections())) return false;
+      }
       if (!getActiveShipmentsList()
           .equals(other.getActiveShipmentsList())) return false;
-      if (employmentType_ != other.employmentType_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -13679,12 +15643,20 @@ public final class CandidatesOuterClass {
         hash = (37 * hash) + AVAILABLE_LOCATION_FIELD_NUMBER;
         hash = (53 * hash) + getAvailableLocation().hashCode();
       }
+      if (getActiveShipmentUuidsCount() > 0) {
+        hash = (37 * hash) + ACTIVE_SHIPMENT_UUIDS_FIELD_NUMBER;
+        hash = (53 * hash) + getActiveShipmentUuidsList().hashCode();
+      }
+      hash = (37 * hash) + EMPLOYMENT_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + employmentType_;
+      if (hasAssignmentRejections()) {
+        hash = (37 * hash) + ASSIGNMENT_REJECTIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getAssignmentRejections().hashCode();
+      }
       if (getActiveShipmentsCount() > 0) {
         hash = (37 * hash) + ACTIVE_SHIPMENTS_FIELD_NUMBER;
         hash = (53 * hash) + getActiveShipmentsList().hashCode();
       }
-      hash = (37 * hash) + EMPLOYMENT_TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + employmentType_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -13814,6 +15786,7 @@ public final class CandidatesOuterClass {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
           getWorkflowsFieldBuilder();
+          getActiveShipmentsFieldBuilder();
         }
       }
       @java.lang.Override
@@ -13865,10 +15838,22 @@ public final class CandidatesOuterClass {
           availableLocation_ = null;
           availableLocationBuilder_ = null;
         }
-        activeShipments_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        activeShipmentUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000004);
         employmentType_ = 0;
 
+        if (assignmentRejectionsBuilder_ == null) {
+          assignmentRejections_ = null;
+        } else {
+          assignmentRejections_ = null;
+          assignmentRejectionsBuilder_ = null;
+        }
+        if (activeShipmentsBuilder_ == null) {
+          activeShipments_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+        } else {
+          activeShipmentsBuilder_.clear();
+        }
         return this;
       }
 
@@ -13940,11 +15925,25 @@ public final class CandidatesOuterClass {
           result.availableLocation_ = availableLocationBuilder_.build();
         }
         if (((bitField0_ & 0x00000004) != 0)) {
-          activeShipments_ = activeShipments_.getUnmodifiableView();
+          activeShipmentUuids_ = activeShipmentUuids_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000004);
         }
-        result.activeShipments_ = activeShipments_;
+        result.activeShipmentUuids_ = activeShipmentUuids_;
         result.employmentType_ = employmentType_;
+        if (assignmentRejectionsBuilder_ == null) {
+          result.assignmentRejections_ = assignmentRejections_;
+        } else {
+          result.assignmentRejections_ = assignmentRejectionsBuilder_.build();
+        }
+        if (activeShipmentsBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0)) {
+            activeShipments_ = java.util.Collections.unmodifiableList(activeShipments_);
+            bitField0_ = (bitField0_ & ~0x00000008);
+          }
+          result.activeShipments_ = activeShipments_;
+        } else {
+          result.activeShipments_ = activeShipmentsBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -14058,18 +16057,47 @@ public final class CandidatesOuterClass {
         if (other.hasAvailableLocation()) {
           mergeAvailableLocation(other.getAvailableLocation());
         }
-        if (!other.activeShipments_.isEmpty()) {
-          if (activeShipments_.isEmpty()) {
-            activeShipments_ = other.activeShipments_;
+        if (!other.activeShipmentUuids_.isEmpty()) {
+          if (activeShipmentUuids_.isEmpty()) {
+            activeShipmentUuids_ = other.activeShipmentUuids_;
             bitField0_ = (bitField0_ & ~0x00000004);
           } else {
-            ensureActiveShipmentsIsMutable();
-            activeShipments_.addAll(other.activeShipments_);
+            ensureActiveShipmentUuidsIsMutable();
+            activeShipmentUuids_.addAll(other.activeShipmentUuids_);
           }
           onChanged();
         }
         if (other.employmentType_ != 0) {
           setEmploymentTypeValue(other.getEmploymentTypeValue());
+        }
+        if (other.hasAssignmentRejections()) {
+          mergeAssignmentRejections(other.getAssignmentRejections());
+        }
+        if (activeShipmentsBuilder_ == null) {
+          if (!other.activeShipments_.isEmpty()) {
+            if (activeShipments_.isEmpty()) {
+              activeShipments_ = other.activeShipments_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+            } else {
+              ensureActiveShipmentsIsMutable();
+              activeShipments_.addAll(other.activeShipments_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.activeShipments_.isEmpty()) {
+            if (activeShipmentsBuilder_.isEmpty()) {
+              activeShipmentsBuilder_.dispose();
+              activeShipmentsBuilder_ = null;
+              activeShipments_ = other.activeShipments_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+              activeShipmentsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getActiveShipmentsFieldBuilder() : null;
+            } else {
+              activeShipmentsBuilder_.addAllMessages(other.activeShipments_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -15638,112 +17666,112 @@ public final class CandidatesOuterClass {
         return availableLocationBuilder_;
       }
 
-      private com.google.protobuf.LazyStringList activeShipments_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      private void ensureActiveShipmentsIsMutable() {
+      private com.google.protobuf.LazyStringList activeShipmentUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureActiveShipmentUuidsIsMutable() {
         if (!((bitField0_ & 0x00000004) != 0)) {
-          activeShipments_ = new com.google.protobuf.LazyStringArrayList(activeShipments_);
+          activeShipmentUuids_ = new com.google.protobuf.LazyStringArrayList(activeShipmentUuids_);
           bitField0_ |= 0x00000004;
          }
       }
       /**
-       * <code>repeated string active_shipments = 12;</code>
-       * @return A list containing the activeShipments.
+       * <code>repeated string active_shipment_uuids = 12;</code>
+       * @return A list containing the activeShipmentUuids.
        */
       public com.google.protobuf.ProtocolStringList
-          getActiveShipmentsList() {
-        return activeShipments_.getUnmodifiableView();
+          getActiveShipmentUuidsList() {
+        return activeShipmentUuids_.getUnmodifiableView();
       }
       /**
-       * <code>repeated string active_shipments = 12;</code>
-       * @return The count of activeShipments.
+       * <code>repeated string active_shipment_uuids = 12;</code>
+       * @return The count of activeShipmentUuids.
        */
-      public int getActiveShipmentsCount() {
-        return activeShipments_.size();
+      public int getActiveShipmentUuidsCount() {
+        return activeShipmentUuids_.size();
       }
       /**
-       * <code>repeated string active_shipments = 12;</code>
+       * <code>repeated string active_shipment_uuids = 12;</code>
        * @param index The index of the element to return.
-       * @return The activeShipments at the given index.
+       * @return The activeShipmentUuids at the given index.
        */
-      public java.lang.String getActiveShipments(int index) {
-        return activeShipments_.get(index);
+      public java.lang.String getActiveShipmentUuids(int index) {
+        return activeShipmentUuids_.get(index);
       }
       /**
-       * <code>repeated string active_shipments = 12;</code>
+       * <code>repeated string active_shipment_uuids = 12;</code>
        * @param index The index of the value to return.
-       * @return The bytes of the activeShipments at the given index.
+       * @return The bytes of the activeShipmentUuids at the given index.
        */
       public com.google.protobuf.ByteString
-          getActiveShipmentsBytes(int index) {
-        return activeShipments_.getByteString(index);
+          getActiveShipmentUuidsBytes(int index) {
+        return activeShipmentUuids_.getByteString(index);
       }
       /**
-       * <code>repeated string active_shipments = 12;</code>
+       * <code>repeated string active_shipment_uuids = 12;</code>
        * @param index The index to set the value at.
-       * @param value The activeShipments to set.
+       * @param value The activeShipmentUuids to set.
        * @return This builder for chaining.
        */
-      public Builder setActiveShipments(
+      public Builder setActiveShipmentUuids(
           int index, java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  ensureActiveShipmentsIsMutable();
-        activeShipments_.set(index, value);
+  ensureActiveShipmentUuidsIsMutable();
+        activeShipmentUuids_.set(index, value);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string active_shipments = 12;</code>
-       * @param value The activeShipments to add.
+       * <code>repeated string active_shipment_uuids = 12;</code>
+       * @param value The activeShipmentUuids to add.
        * @return This builder for chaining.
        */
-      public Builder addActiveShipments(
+      public Builder addActiveShipmentUuids(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  ensureActiveShipmentsIsMutable();
-        activeShipments_.add(value);
+  ensureActiveShipmentUuidsIsMutable();
+        activeShipmentUuids_.add(value);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string active_shipments = 12;</code>
-       * @param values The activeShipments to add.
+       * <code>repeated string active_shipment_uuids = 12;</code>
+       * @param values The activeShipmentUuids to add.
        * @return This builder for chaining.
        */
-      public Builder addAllActiveShipments(
+      public Builder addAllActiveShipmentUuids(
           java.lang.Iterable<java.lang.String> values) {
-        ensureActiveShipmentsIsMutable();
+        ensureActiveShipmentUuidsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, activeShipments_);
+            values, activeShipmentUuids_);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string active_shipments = 12;</code>
+       * <code>repeated string active_shipment_uuids = 12;</code>
        * @return This builder for chaining.
        */
-      public Builder clearActiveShipments() {
-        activeShipments_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      public Builder clearActiveShipmentUuids() {
+        activeShipmentUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000004);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string active_shipments = 12;</code>
-       * @param value The bytes of the activeShipments to add.
+       * <code>repeated string active_shipment_uuids = 12;</code>
+       * @param value The bytes of the activeShipmentUuids to add.
        * @return This builder for chaining.
        */
-      public Builder addActiveShipmentsBytes(
+      public Builder addActiveShipmentUuidsBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        ensureActiveShipmentsIsMutable();
-        activeShipments_.add(value);
+        ensureActiveShipmentUuidsIsMutable();
+        activeShipmentUuids_.add(value);
         onChanged();
         return this;
       }
@@ -15800,6 +17828,401 @@ public final class CandidatesOuterClass {
         employmentType_ = 0;
         onChanged();
         return this;
+      }
+
+      private candidates.CandidatesOuterClass.AssignmentRejections assignmentRejections_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          candidates.CandidatesOuterClass.AssignmentRejections, candidates.CandidatesOuterClass.AssignmentRejections.Builder, candidates.CandidatesOuterClass.AssignmentRejectionsOrBuilder> assignmentRejectionsBuilder_;
+      /**
+       * <pre>
+       * Кол-во отказов по заказу
+       * </pre>
+       *
+       * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+       * @return Whether the assignmentRejections field is set.
+       */
+      public boolean hasAssignmentRejections() {
+        return assignmentRejectionsBuilder_ != null || assignmentRejections_ != null;
+      }
+      /**
+       * <pre>
+       * Кол-во отказов по заказу
+       * </pre>
+       *
+       * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+       * @return The assignmentRejections.
+       */
+      public candidates.CandidatesOuterClass.AssignmentRejections getAssignmentRejections() {
+        if (assignmentRejectionsBuilder_ == null) {
+          return assignmentRejections_ == null ? candidates.CandidatesOuterClass.AssignmentRejections.getDefaultInstance() : assignmentRejections_;
+        } else {
+          return assignmentRejectionsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Кол-во отказов по заказу
+       * </pre>
+       *
+       * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+       */
+      public Builder setAssignmentRejections(candidates.CandidatesOuterClass.AssignmentRejections value) {
+        if (assignmentRejectionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          assignmentRejections_ = value;
+          onChanged();
+        } else {
+          assignmentRejectionsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Кол-во отказов по заказу
+       * </pre>
+       *
+       * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+       */
+      public Builder setAssignmentRejections(
+          candidates.CandidatesOuterClass.AssignmentRejections.Builder builderForValue) {
+        if (assignmentRejectionsBuilder_ == null) {
+          assignmentRejections_ = builderForValue.build();
+          onChanged();
+        } else {
+          assignmentRejectionsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Кол-во отказов по заказу
+       * </pre>
+       *
+       * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+       */
+      public Builder mergeAssignmentRejections(candidates.CandidatesOuterClass.AssignmentRejections value) {
+        if (assignmentRejectionsBuilder_ == null) {
+          if (assignmentRejections_ != null) {
+            assignmentRejections_ =
+              candidates.CandidatesOuterClass.AssignmentRejections.newBuilder(assignmentRejections_).mergeFrom(value).buildPartial();
+          } else {
+            assignmentRejections_ = value;
+          }
+          onChanged();
+        } else {
+          assignmentRejectionsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Кол-во отказов по заказу
+       * </pre>
+       *
+       * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+       */
+      public Builder clearAssignmentRejections() {
+        if (assignmentRejectionsBuilder_ == null) {
+          assignmentRejections_ = null;
+          onChanged();
+        } else {
+          assignmentRejections_ = null;
+          assignmentRejectionsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Кол-во отказов по заказу
+       * </pre>
+       *
+       * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+       */
+      public candidates.CandidatesOuterClass.AssignmentRejections.Builder getAssignmentRejectionsBuilder() {
+        
+        onChanged();
+        return getAssignmentRejectionsFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Кол-во отказов по заказу
+       * </pre>
+       *
+       * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+       */
+      public candidates.CandidatesOuterClass.AssignmentRejectionsOrBuilder getAssignmentRejectionsOrBuilder() {
+        if (assignmentRejectionsBuilder_ != null) {
+          return assignmentRejectionsBuilder_.getMessageOrBuilder();
+        } else {
+          return assignmentRejections_ == null ?
+              candidates.CandidatesOuterClass.AssignmentRejections.getDefaultInstance() : assignmentRejections_;
+        }
+      }
+      /**
+       * <pre>
+       * Кол-во отказов по заказу
+       * </pre>
+       *
+       * <code>.candidates.AssignmentRejections assignment_rejections = 14;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          candidates.CandidatesOuterClass.AssignmentRejections, candidates.CandidatesOuterClass.AssignmentRejections.Builder, candidates.CandidatesOuterClass.AssignmentRejectionsOrBuilder> 
+          getAssignmentRejectionsFieldBuilder() {
+        if (assignmentRejectionsBuilder_ == null) {
+          assignmentRejectionsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              candidates.CandidatesOuterClass.AssignmentRejections, candidates.CandidatesOuterClass.AssignmentRejections.Builder, candidates.CandidatesOuterClass.AssignmentRejectionsOrBuilder>(
+                  getAssignmentRejections(),
+                  getParentForChildren(),
+                  isClean());
+          assignmentRejections_ = null;
+        }
+        return assignmentRejectionsBuilder_;
+      }
+
+      private java.util.List<candidates.CandidatesOuterClass.Candidate.ShipmentShort> activeShipments_ =
+        java.util.Collections.emptyList();
+      private void ensureActiveShipmentsIsMutable() {
+        if (!((bitField0_ & 0x00000008) != 0)) {
+          activeShipments_ = new java.util.ArrayList<candidates.CandidatesOuterClass.Candidate.ShipmentShort>(activeShipments_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          candidates.CandidatesOuterClass.Candidate.ShipmentShort, candidates.CandidatesOuterClass.Candidate.ShipmentShort.Builder, candidates.CandidatesOuterClass.Candidate.ShipmentShortOrBuilder> activeShipmentsBuilder_;
+
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public java.util.List<candidates.CandidatesOuterClass.Candidate.ShipmentShort> getActiveShipmentsList() {
+        if (activeShipmentsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(activeShipments_);
+        } else {
+          return activeShipmentsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public int getActiveShipmentsCount() {
+        if (activeShipmentsBuilder_ == null) {
+          return activeShipments_.size();
+        } else {
+          return activeShipmentsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public candidates.CandidatesOuterClass.Candidate.ShipmentShort getActiveShipments(int index) {
+        if (activeShipmentsBuilder_ == null) {
+          return activeShipments_.get(index);
+        } else {
+          return activeShipmentsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public Builder setActiveShipments(
+          int index, candidates.CandidatesOuterClass.Candidate.ShipmentShort value) {
+        if (activeShipmentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureActiveShipmentsIsMutable();
+          activeShipments_.set(index, value);
+          onChanged();
+        } else {
+          activeShipmentsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public Builder setActiveShipments(
+          int index, candidates.CandidatesOuterClass.Candidate.ShipmentShort.Builder builderForValue) {
+        if (activeShipmentsBuilder_ == null) {
+          ensureActiveShipmentsIsMutable();
+          activeShipments_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          activeShipmentsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public Builder addActiveShipments(candidates.CandidatesOuterClass.Candidate.ShipmentShort value) {
+        if (activeShipmentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureActiveShipmentsIsMutable();
+          activeShipments_.add(value);
+          onChanged();
+        } else {
+          activeShipmentsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public Builder addActiveShipments(
+          int index, candidates.CandidatesOuterClass.Candidate.ShipmentShort value) {
+        if (activeShipmentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureActiveShipmentsIsMutable();
+          activeShipments_.add(index, value);
+          onChanged();
+        } else {
+          activeShipmentsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public Builder addActiveShipments(
+          candidates.CandidatesOuterClass.Candidate.ShipmentShort.Builder builderForValue) {
+        if (activeShipmentsBuilder_ == null) {
+          ensureActiveShipmentsIsMutable();
+          activeShipments_.add(builderForValue.build());
+          onChanged();
+        } else {
+          activeShipmentsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public Builder addActiveShipments(
+          int index, candidates.CandidatesOuterClass.Candidate.ShipmentShort.Builder builderForValue) {
+        if (activeShipmentsBuilder_ == null) {
+          ensureActiveShipmentsIsMutable();
+          activeShipments_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          activeShipmentsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public Builder addAllActiveShipments(
+          java.lang.Iterable<? extends candidates.CandidatesOuterClass.Candidate.ShipmentShort> values) {
+        if (activeShipmentsBuilder_ == null) {
+          ensureActiveShipmentsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, activeShipments_);
+          onChanged();
+        } else {
+          activeShipmentsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public Builder clearActiveShipments() {
+        if (activeShipmentsBuilder_ == null) {
+          activeShipments_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          onChanged();
+        } else {
+          activeShipmentsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public Builder removeActiveShipments(int index) {
+        if (activeShipmentsBuilder_ == null) {
+          ensureActiveShipmentsIsMutable();
+          activeShipments_.remove(index);
+          onChanged();
+        } else {
+          activeShipmentsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public candidates.CandidatesOuterClass.Candidate.ShipmentShort.Builder getActiveShipmentsBuilder(
+          int index) {
+        return getActiveShipmentsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public candidates.CandidatesOuterClass.Candidate.ShipmentShortOrBuilder getActiveShipmentsOrBuilder(
+          int index) {
+        if (activeShipmentsBuilder_ == null) {
+          return activeShipments_.get(index);  } else {
+          return activeShipmentsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public java.util.List<? extends candidates.CandidatesOuterClass.Candidate.ShipmentShortOrBuilder> 
+           getActiveShipmentsOrBuilderList() {
+        if (activeShipmentsBuilder_ != null) {
+          return activeShipmentsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(activeShipments_);
+        }
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public candidates.CandidatesOuterClass.Candidate.ShipmentShort.Builder addActiveShipmentsBuilder() {
+        return getActiveShipmentsFieldBuilder().addBuilder(
+            candidates.CandidatesOuterClass.Candidate.ShipmentShort.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public candidates.CandidatesOuterClass.Candidate.ShipmentShort.Builder addActiveShipmentsBuilder(
+          int index) {
+        return getActiveShipmentsFieldBuilder().addBuilder(
+            index, candidates.CandidatesOuterClass.Candidate.ShipmentShort.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .candidates.Candidate.ShipmentShort active_shipments = 15;</code>
+       */
+      public java.util.List<candidates.CandidatesOuterClass.Candidate.ShipmentShort.Builder> 
+           getActiveShipmentsBuilderList() {
+        return getActiveShipmentsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          candidates.CandidatesOuterClass.Candidate.ShipmentShort, candidates.CandidatesOuterClass.Candidate.ShipmentShort.Builder, candidates.CandidatesOuterClass.Candidate.ShipmentShortOrBuilder> 
+          getActiveShipmentsFieldBuilder() {
+        if (activeShipmentsBuilder_ == null) {
+          activeShipmentsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              candidates.CandidatesOuterClass.Candidate.ShipmentShort, candidates.CandidatesOuterClass.Candidate.ShipmentShort.Builder, candidates.CandidatesOuterClass.Candidate.ShipmentShortOrBuilder>(
+                  activeShipments_,
+                  ((bitField0_ & 0x00000008) != 0),
+                  getParentForChildren(),
+                  isClean());
+          activeShipments_ = null;
+        }
+        return activeShipmentsBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -33528,6 +35951,799 @@ public final class CandidatesOuterClass {
 
   }
 
+  public interface SearchResultV2OrBuilder extends
+      // @@protoc_insertion_point(interface_extends:candidates.SearchResultV2)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .candidates.Candidate candidate = 1;</code>
+     */
+    java.util.List<candidates.CandidatesOuterClass.Candidate> 
+        getCandidateList();
+    /**
+     * <code>repeated .candidates.Candidate candidate = 1;</code>
+     */
+    candidates.CandidatesOuterClass.Candidate getCandidate(int index);
+    /**
+     * <code>repeated .candidates.Candidate candidate = 1;</code>
+     */
+    int getCandidateCount();
+    /**
+     * <code>repeated .candidates.Candidate candidate = 1;</code>
+     */
+    java.util.List<? extends candidates.CandidatesOuterClass.CandidateOrBuilder> 
+        getCandidateOrBuilderList();
+    /**
+     * <code>repeated .candidates.Candidate candidate = 1;</code>
+     */
+    candidates.CandidatesOuterClass.CandidateOrBuilder getCandidateOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code candidates.SearchResultV2}
+   */
+  public static final class SearchResultV2 extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:candidates.SearchResultV2)
+      SearchResultV2OrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SearchResultV2.newBuilder() to construct.
+    private SearchResultV2(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SearchResultV2() {
+      candidate_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SearchResultV2();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SearchResultV2(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                candidate_ = new java.util.ArrayList<candidates.CandidatesOuterClass.Candidate>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              candidate_.add(
+                  input.readMessage(candidates.CandidatesOuterClass.Candidate.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          candidate_ = java.util.Collections.unmodifiableList(candidate_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return candidates.CandidatesOuterClass.internal_static_candidates_SearchResultV2_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return candidates.CandidatesOuterClass.internal_static_candidates_SearchResultV2_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              candidates.CandidatesOuterClass.SearchResultV2.class, candidates.CandidatesOuterClass.SearchResultV2.Builder.class);
+    }
+
+    public static final int CANDIDATE_FIELD_NUMBER = 1;
+    private java.util.List<candidates.CandidatesOuterClass.Candidate> candidate_;
+    /**
+     * <code>repeated .candidates.Candidate candidate = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<candidates.CandidatesOuterClass.Candidate> getCandidateList() {
+      return candidate_;
+    }
+    /**
+     * <code>repeated .candidates.Candidate candidate = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends candidates.CandidatesOuterClass.CandidateOrBuilder> 
+        getCandidateOrBuilderList() {
+      return candidate_;
+    }
+    /**
+     * <code>repeated .candidates.Candidate candidate = 1;</code>
+     */
+    @java.lang.Override
+    public int getCandidateCount() {
+      return candidate_.size();
+    }
+    /**
+     * <code>repeated .candidates.Candidate candidate = 1;</code>
+     */
+    @java.lang.Override
+    public candidates.CandidatesOuterClass.Candidate getCandidate(int index) {
+      return candidate_.get(index);
+    }
+    /**
+     * <code>repeated .candidates.Candidate candidate = 1;</code>
+     */
+    @java.lang.Override
+    public candidates.CandidatesOuterClass.CandidateOrBuilder getCandidateOrBuilder(
+        int index) {
+      return candidate_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < candidate_.size(); i++) {
+        output.writeMessage(1, candidate_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < candidate_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, candidate_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof candidates.CandidatesOuterClass.SearchResultV2)) {
+        return super.equals(obj);
+      }
+      candidates.CandidatesOuterClass.SearchResultV2 other = (candidates.CandidatesOuterClass.SearchResultV2) obj;
+
+      if (!getCandidateList()
+          .equals(other.getCandidateList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getCandidateCount() > 0) {
+        hash = (37 * hash) + CANDIDATE_FIELD_NUMBER;
+        hash = (53 * hash) + getCandidateList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static candidates.CandidatesOuterClass.SearchResultV2 parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.SearchResultV2 parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.SearchResultV2 parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.SearchResultV2 parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.SearchResultV2 parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.SearchResultV2 parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.SearchResultV2 parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.SearchResultV2 parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.SearchResultV2 parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.SearchResultV2 parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.SearchResultV2 parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.SearchResultV2 parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(candidates.CandidatesOuterClass.SearchResultV2 prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code candidates.SearchResultV2}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:candidates.SearchResultV2)
+        candidates.CandidatesOuterClass.SearchResultV2OrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_SearchResultV2_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_SearchResultV2_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                candidates.CandidatesOuterClass.SearchResultV2.class, candidates.CandidatesOuterClass.SearchResultV2.Builder.class);
+      }
+
+      // Construct using candidates.CandidatesOuterClass.SearchResultV2.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getCandidateFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (candidateBuilder_ == null) {
+          candidate_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          candidateBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_SearchResultV2_descriptor;
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.SearchResultV2 getDefaultInstanceForType() {
+        return candidates.CandidatesOuterClass.SearchResultV2.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.SearchResultV2 build() {
+        candidates.CandidatesOuterClass.SearchResultV2 result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.SearchResultV2 buildPartial() {
+        candidates.CandidatesOuterClass.SearchResultV2 result = new candidates.CandidatesOuterClass.SearchResultV2(this);
+        int from_bitField0_ = bitField0_;
+        if (candidateBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            candidate_ = java.util.Collections.unmodifiableList(candidate_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.candidate_ = candidate_;
+        } else {
+          result.candidate_ = candidateBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof candidates.CandidatesOuterClass.SearchResultV2) {
+          return mergeFrom((candidates.CandidatesOuterClass.SearchResultV2)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(candidates.CandidatesOuterClass.SearchResultV2 other) {
+        if (other == candidates.CandidatesOuterClass.SearchResultV2.getDefaultInstance()) return this;
+        if (candidateBuilder_ == null) {
+          if (!other.candidate_.isEmpty()) {
+            if (candidate_.isEmpty()) {
+              candidate_ = other.candidate_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureCandidateIsMutable();
+              candidate_.addAll(other.candidate_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.candidate_.isEmpty()) {
+            if (candidateBuilder_.isEmpty()) {
+              candidateBuilder_.dispose();
+              candidateBuilder_ = null;
+              candidate_ = other.candidate_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              candidateBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getCandidateFieldBuilder() : null;
+            } else {
+              candidateBuilder_.addAllMessages(other.candidate_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        candidates.CandidatesOuterClass.SearchResultV2 parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (candidates.CandidatesOuterClass.SearchResultV2) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<candidates.CandidatesOuterClass.Candidate> candidate_ =
+        java.util.Collections.emptyList();
+      private void ensureCandidateIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          candidate_ = new java.util.ArrayList<candidates.CandidatesOuterClass.Candidate>(candidate_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          candidates.CandidatesOuterClass.Candidate, candidates.CandidatesOuterClass.Candidate.Builder, candidates.CandidatesOuterClass.CandidateOrBuilder> candidateBuilder_;
+
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public java.util.List<candidates.CandidatesOuterClass.Candidate> getCandidateList() {
+        if (candidateBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(candidate_);
+        } else {
+          return candidateBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public int getCandidateCount() {
+        if (candidateBuilder_ == null) {
+          return candidate_.size();
+        } else {
+          return candidateBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public candidates.CandidatesOuterClass.Candidate getCandidate(int index) {
+        if (candidateBuilder_ == null) {
+          return candidate_.get(index);
+        } else {
+          return candidateBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public Builder setCandidate(
+          int index, candidates.CandidatesOuterClass.Candidate value) {
+        if (candidateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCandidateIsMutable();
+          candidate_.set(index, value);
+          onChanged();
+        } else {
+          candidateBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public Builder setCandidate(
+          int index, candidates.CandidatesOuterClass.Candidate.Builder builderForValue) {
+        if (candidateBuilder_ == null) {
+          ensureCandidateIsMutable();
+          candidate_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          candidateBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public Builder addCandidate(candidates.CandidatesOuterClass.Candidate value) {
+        if (candidateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCandidateIsMutable();
+          candidate_.add(value);
+          onChanged();
+        } else {
+          candidateBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public Builder addCandidate(
+          int index, candidates.CandidatesOuterClass.Candidate value) {
+        if (candidateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCandidateIsMutable();
+          candidate_.add(index, value);
+          onChanged();
+        } else {
+          candidateBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public Builder addCandidate(
+          candidates.CandidatesOuterClass.Candidate.Builder builderForValue) {
+        if (candidateBuilder_ == null) {
+          ensureCandidateIsMutable();
+          candidate_.add(builderForValue.build());
+          onChanged();
+        } else {
+          candidateBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public Builder addCandidate(
+          int index, candidates.CandidatesOuterClass.Candidate.Builder builderForValue) {
+        if (candidateBuilder_ == null) {
+          ensureCandidateIsMutable();
+          candidate_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          candidateBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public Builder addAllCandidate(
+          java.lang.Iterable<? extends candidates.CandidatesOuterClass.Candidate> values) {
+        if (candidateBuilder_ == null) {
+          ensureCandidateIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, candidate_);
+          onChanged();
+        } else {
+          candidateBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public Builder clearCandidate() {
+        if (candidateBuilder_ == null) {
+          candidate_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          candidateBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public Builder removeCandidate(int index) {
+        if (candidateBuilder_ == null) {
+          ensureCandidateIsMutable();
+          candidate_.remove(index);
+          onChanged();
+        } else {
+          candidateBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public candidates.CandidatesOuterClass.Candidate.Builder getCandidateBuilder(
+          int index) {
+        return getCandidateFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public candidates.CandidatesOuterClass.CandidateOrBuilder getCandidateOrBuilder(
+          int index) {
+        if (candidateBuilder_ == null) {
+          return candidate_.get(index);  } else {
+          return candidateBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public java.util.List<? extends candidates.CandidatesOuterClass.CandidateOrBuilder> 
+           getCandidateOrBuilderList() {
+        if (candidateBuilder_ != null) {
+          return candidateBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(candidate_);
+        }
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public candidates.CandidatesOuterClass.Candidate.Builder addCandidateBuilder() {
+        return getCandidateFieldBuilder().addBuilder(
+            candidates.CandidatesOuterClass.Candidate.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public candidates.CandidatesOuterClass.Candidate.Builder addCandidateBuilder(
+          int index) {
+        return getCandidateFieldBuilder().addBuilder(
+            index, candidates.CandidatesOuterClass.Candidate.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .candidates.Candidate candidate = 1;</code>
+       */
+      public java.util.List<candidates.CandidatesOuterClass.Candidate.Builder> 
+           getCandidateBuilderList() {
+        return getCandidateFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          candidates.CandidatesOuterClass.Candidate, candidates.CandidatesOuterClass.Candidate.Builder, candidates.CandidatesOuterClass.CandidateOrBuilder> 
+          getCandidateFieldBuilder() {
+        if (candidateBuilder_ == null) {
+          candidateBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              candidates.CandidatesOuterClass.Candidate, candidates.CandidatesOuterClass.Candidate.Builder, candidates.CandidatesOuterClass.CandidateOrBuilder>(
+                  candidate_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          candidate_ = null;
+        }
+        return candidateBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:candidates.SearchResultV2)
+    }
+
+    // @@protoc_insertion_point(class_scope:candidates.SearchResultV2)
+    private static final candidates.CandidatesOuterClass.SearchResultV2 DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new candidates.CandidatesOuterClass.SearchResultV2();
+    }
+
+    public static candidates.CandidatesOuterClass.SearchResultV2 getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SearchResultV2>
+        PARSER = new com.google.protobuf.AbstractParser<SearchResultV2>() {
+      @java.lang.Override
+      public SearchResultV2 parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SearchResultV2(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SearchResultV2> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SearchResultV2> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public candidates.CandidatesOuterClass.SearchResultV2 getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface SelectInRectRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:candidates.SelectInRectRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -33685,6 +36901,18 @@ public final class CandidatesOuterClass {
      */
     com.google.protobuf.ByteString
         getScheduleTypesBytes(int index);
+
+    /**
+     * <code>uint32 operational_zone_id = 6;</code>
+     * @return The operationalZoneId.
+     */
+    int getOperationalZoneId();
+
+    /**
+     * <code>uint32 delivery_area_id = 7;</code>
+     * @return The deliveryAreaId.
+     */
+    int getDeliveryAreaId();
   }
   /**
    * Protobuf type {@code candidates.SelectInRectRequest}
@@ -33801,6 +37029,16 @@ public final class CandidatesOuterClass {
                 mutable_bitField0_ |= 0x00000004;
               }
               scheduleTypes_.add(s);
+              break;
+            }
+            case 48: {
+
+              operationalZoneId_ = input.readUInt32();
+              break;
+            }
+            case 56: {
+
+              deliveryAreaId_ = input.readUInt32();
               break;
             }
             default: {
@@ -34077,6 +37315,28 @@ public final class CandidatesOuterClass {
       return scheduleTypes_.getByteString(index);
     }
 
+    public static final int OPERATIONAL_ZONE_ID_FIELD_NUMBER = 6;
+    private int operationalZoneId_;
+    /**
+     * <code>uint32 operational_zone_id = 6;</code>
+     * @return The operationalZoneId.
+     */
+    @java.lang.Override
+    public int getOperationalZoneId() {
+      return operationalZoneId_;
+    }
+
+    public static final int DELIVERY_AREA_ID_FIELD_NUMBER = 7;
+    private int deliveryAreaId_;
+    /**
+     * <code>uint32 delivery_area_id = 7;</code>
+     * @return The deliveryAreaId.
+     */
+    @java.lang.Override
+    public int getDeliveryAreaId() {
+      return deliveryAreaId_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -34111,6 +37371,12 @@ public final class CandidatesOuterClass {
       }
       for (int i = 0; i < scheduleTypes_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, scheduleTypes_.getRaw(i));
+      }
+      if (operationalZoneId_ != 0) {
+        output.writeUInt32(6, operationalZoneId_);
+      }
+      if (deliveryAreaId_ != 0) {
+        output.writeUInt32(7, deliveryAreaId_);
       }
       unknownFields.writeTo(output);
     }
@@ -34157,6 +37423,14 @@ public final class CandidatesOuterClass {
         size += dataSize;
         size += 1 * getScheduleTypesList().size();
       }
+      if (operationalZoneId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(6, operationalZoneId_);
+      }
+      if (deliveryAreaId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(7, deliveryAreaId_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -34181,6 +37455,10 @@ public final class CandidatesOuterClass {
       if (!transports_.equals(other.transports_)) return false;
       if (!getScheduleTypesList()
           .equals(other.getScheduleTypesList())) return false;
+      if (getOperationalZoneId()
+          != other.getOperationalZoneId()) return false;
+      if (getDeliveryAreaId()
+          != other.getDeliveryAreaId()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -34208,6 +37486,10 @@ public final class CandidatesOuterClass {
         hash = (37 * hash) + SCHEDULE_TYPES_FIELD_NUMBER;
         hash = (53 * hash) + getScheduleTypesList().hashCode();
       }
+      hash = (37 * hash) + OPERATIONAL_ZONE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getOperationalZoneId();
+      hash = (37 * hash) + DELIVERY_AREA_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getDeliveryAreaId();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -34353,6 +37635,10 @@ public final class CandidatesOuterClass {
         bitField0_ = (bitField0_ & ~0x00000002);
         scheduleTypes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000004);
+        operationalZoneId_ = 0;
+
+        deliveryAreaId_ = 0;
+
         return this;
       }
 
@@ -34400,6 +37686,8 @@ public final class CandidatesOuterClass {
           bitField0_ = (bitField0_ & ~0x00000004);
         }
         result.scheduleTypes_ = scheduleTypes_;
+        result.operationalZoneId_ = operationalZoneId_;
+        result.deliveryAreaId_ = deliveryAreaId_;
         onBuilt();
         return result;
       }
@@ -34480,6 +37768,12 @@ public final class CandidatesOuterClass {
             scheduleTypes_.addAll(other.scheduleTypes_);
           }
           onChanged();
+        }
+        if (other.getOperationalZoneId() != 0) {
+          setOperationalZoneId(other.getOperationalZoneId());
+        }
+        if (other.getDeliveryAreaId() != 0) {
+          setDeliveryAreaId(other.getDeliveryAreaId());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -35148,6 +38442,68 @@ public final class CandidatesOuterClass {
   checkByteStringIsUtf8(value);
         ensureScheduleTypesIsMutable();
         scheduleTypes_.add(value);
+        onChanged();
+        return this;
+      }
+
+      private int operationalZoneId_ ;
+      /**
+       * <code>uint32 operational_zone_id = 6;</code>
+       * @return The operationalZoneId.
+       */
+      @java.lang.Override
+      public int getOperationalZoneId() {
+        return operationalZoneId_;
+      }
+      /**
+       * <code>uint32 operational_zone_id = 6;</code>
+       * @param value The operationalZoneId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOperationalZoneId(int value) {
+        
+        operationalZoneId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 operational_zone_id = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOperationalZoneId() {
+        
+        operationalZoneId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int deliveryAreaId_ ;
+      /**
+       * <code>uint32 delivery_area_id = 7;</code>
+       * @return The deliveryAreaId.
+       */
+      @java.lang.Override
+      public int getDeliveryAreaId() {
+        return deliveryAreaId_;
+      }
+      /**
+       * <code>uint32 delivery_area_id = 7;</code>
+       * @param value The deliveryAreaId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeliveryAreaId(int value) {
+        
+        deliveryAreaId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 delivery_area_id = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDeliveryAreaId() {
+        
+        deliveryAreaId_ = 0;
         onChanged();
         return this;
       }
@@ -36710,6 +40066,2217 @@ public final class CandidatesOuterClass {
 
   }
 
+  public interface GetLocationsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:candidates.GetLocationsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * uuid из stf
+     * </pre>
+     *
+     * <code>repeated string candidate_uuid = 1;</code>
+     * @return A list containing the candidateUuid.
+     */
+    java.util.List<java.lang.String>
+        getCandidateUuidList();
+    /**
+     * <pre>
+     * uuid из stf
+     * </pre>
+     *
+     * <code>repeated string candidate_uuid = 1;</code>
+     * @return The count of candidateUuid.
+     */
+    int getCandidateUuidCount();
+    /**
+     * <pre>
+     * uuid из stf
+     * </pre>
+     *
+     * <code>repeated string candidate_uuid = 1;</code>
+     * @param index The index of the element to return.
+     * @return The candidateUuid at the given index.
+     */
+    java.lang.String getCandidateUuid(int index);
+    /**
+     * <pre>
+     * uuid из stf
+     * </pre>
+     *
+     * <code>repeated string candidate_uuid = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the candidateUuid at the given index.
+     */
+    com.google.protobuf.ByteString
+        getCandidateUuidBytes(int index);
+  }
+  /**
+   * Protobuf type {@code candidates.GetLocationsRequest}
+   */
+  public static final class GetLocationsRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:candidates.GetLocationsRequest)
+      GetLocationsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetLocationsRequest.newBuilder() to construct.
+    private GetLocationsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetLocationsRequest() {
+      candidateUuid_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetLocationsRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetLocationsRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                candidateUuid_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              candidateUuid_.add(s);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          candidateUuid_ = candidateUuid_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return candidates.CandidatesOuterClass.internal_static_candidates_GetLocationsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return candidates.CandidatesOuterClass.internal_static_candidates_GetLocationsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              candidates.CandidatesOuterClass.GetLocationsRequest.class, candidates.CandidatesOuterClass.GetLocationsRequest.Builder.class);
+    }
+
+    public static final int CANDIDATE_UUID_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList candidateUuid_;
+    /**
+     * <pre>
+     * uuid из stf
+     * </pre>
+     *
+     * <code>repeated string candidate_uuid = 1;</code>
+     * @return A list containing the candidateUuid.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getCandidateUuidList() {
+      return candidateUuid_;
+    }
+    /**
+     * <pre>
+     * uuid из stf
+     * </pre>
+     *
+     * <code>repeated string candidate_uuid = 1;</code>
+     * @return The count of candidateUuid.
+     */
+    public int getCandidateUuidCount() {
+      return candidateUuid_.size();
+    }
+    /**
+     * <pre>
+     * uuid из stf
+     * </pre>
+     *
+     * <code>repeated string candidate_uuid = 1;</code>
+     * @param index The index of the element to return.
+     * @return The candidateUuid at the given index.
+     */
+    public java.lang.String getCandidateUuid(int index) {
+      return candidateUuid_.get(index);
+    }
+    /**
+     * <pre>
+     * uuid из stf
+     * </pre>
+     *
+     * <code>repeated string candidate_uuid = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the candidateUuid at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getCandidateUuidBytes(int index) {
+      return candidateUuid_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < candidateUuid_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, candidateUuid_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < candidateUuid_.size(); i++) {
+          dataSize += computeStringSizeNoTag(candidateUuid_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getCandidateUuidList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof candidates.CandidatesOuterClass.GetLocationsRequest)) {
+        return super.equals(obj);
+      }
+      candidates.CandidatesOuterClass.GetLocationsRequest other = (candidates.CandidatesOuterClass.GetLocationsRequest) obj;
+
+      if (!getCandidateUuidList()
+          .equals(other.getCandidateUuidList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getCandidateUuidCount() > 0) {
+        hash = (37 * hash) + CANDIDATE_UUID_FIELD_NUMBER;
+        hash = (53 * hash) + getCandidateUuidList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static candidates.CandidatesOuterClass.GetLocationsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(candidates.CandidatesOuterClass.GetLocationsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code candidates.GetLocationsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:candidates.GetLocationsRequest)
+        candidates.CandidatesOuterClass.GetLocationsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_GetLocationsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_GetLocationsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                candidates.CandidatesOuterClass.GetLocationsRequest.class, candidates.CandidatesOuterClass.GetLocationsRequest.Builder.class);
+      }
+
+      // Construct using candidates.CandidatesOuterClass.GetLocationsRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        candidateUuid_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_GetLocationsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.GetLocationsRequest getDefaultInstanceForType() {
+        return candidates.CandidatesOuterClass.GetLocationsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.GetLocationsRequest build() {
+        candidates.CandidatesOuterClass.GetLocationsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.GetLocationsRequest buildPartial() {
+        candidates.CandidatesOuterClass.GetLocationsRequest result = new candidates.CandidatesOuterClass.GetLocationsRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          candidateUuid_ = candidateUuid_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.candidateUuid_ = candidateUuid_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof candidates.CandidatesOuterClass.GetLocationsRequest) {
+          return mergeFrom((candidates.CandidatesOuterClass.GetLocationsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(candidates.CandidatesOuterClass.GetLocationsRequest other) {
+        if (other == candidates.CandidatesOuterClass.GetLocationsRequest.getDefaultInstance()) return this;
+        if (!other.candidateUuid_.isEmpty()) {
+          if (candidateUuid_.isEmpty()) {
+            candidateUuid_ = other.candidateUuid_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureCandidateUuidIsMutable();
+            candidateUuid_.addAll(other.candidateUuid_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        candidates.CandidatesOuterClass.GetLocationsRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (candidates.CandidatesOuterClass.GetLocationsRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList candidateUuid_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureCandidateUuidIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          candidateUuid_ = new com.google.protobuf.LazyStringArrayList(candidateUuid_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * uuid из stf
+       * </pre>
+       *
+       * <code>repeated string candidate_uuid = 1;</code>
+       * @return A list containing the candidateUuid.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getCandidateUuidList() {
+        return candidateUuid_.getUnmodifiableView();
+      }
+      /**
+       * <pre>
+       * uuid из stf
+       * </pre>
+       *
+       * <code>repeated string candidate_uuid = 1;</code>
+       * @return The count of candidateUuid.
+       */
+      public int getCandidateUuidCount() {
+        return candidateUuid_.size();
+      }
+      /**
+       * <pre>
+       * uuid из stf
+       * </pre>
+       *
+       * <code>repeated string candidate_uuid = 1;</code>
+       * @param index The index of the element to return.
+       * @return The candidateUuid at the given index.
+       */
+      public java.lang.String getCandidateUuid(int index) {
+        return candidateUuid_.get(index);
+      }
+      /**
+       * <pre>
+       * uuid из stf
+       * </pre>
+       *
+       * <code>repeated string candidate_uuid = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the candidateUuid at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getCandidateUuidBytes(int index) {
+        return candidateUuid_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * uuid из stf
+       * </pre>
+       *
+       * <code>repeated string candidate_uuid = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The candidateUuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCandidateUuid(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureCandidateUuidIsMutable();
+        candidateUuid_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * uuid из stf
+       * </pre>
+       *
+       * <code>repeated string candidate_uuid = 1;</code>
+       * @param value The candidateUuid to add.
+       * @return This builder for chaining.
+       */
+      public Builder addCandidateUuid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureCandidateUuidIsMutable();
+        candidateUuid_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * uuid из stf
+       * </pre>
+       *
+       * <code>repeated string candidate_uuid = 1;</code>
+       * @param values The candidateUuid to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllCandidateUuid(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureCandidateUuidIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, candidateUuid_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * uuid из stf
+       * </pre>
+       *
+       * <code>repeated string candidate_uuid = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCandidateUuid() {
+        candidateUuid_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * uuid из stf
+       * </pre>
+       *
+       * <code>repeated string candidate_uuid = 1;</code>
+       * @param value The bytes of the candidateUuid to add.
+       * @return This builder for chaining.
+       */
+      public Builder addCandidateUuidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureCandidateUuidIsMutable();
+        candidateUuid_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:candidates.GetLocationsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:candidates.GetLocationsRequest)
+    private static final candidates.CandidatesOuterClass.GetLocationsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new candidates.CandidatesOuterClass.GetLocationsRequest();
+    }
+
+    public static candidates.CandidatesOuterClass.GetLocationsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetLocationsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetLocationsRequest>() {
+      @java.lang.Override
+      public GetLocationsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetLocationsRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetLocationsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetLocationsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public candidates.CandidatesOuterClass.GetLocationsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetLocationsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:candidates.GetLocationsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+     */
+    java.util.List<candidates.CandidatesOuterClass.CandidateLocation> 
+        getCandidateList();
+    /**
+     * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+     */
+    candidates.CandidatesOuterClass.CandidateLocation getCandidate(int index);
+    /**
+     * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+     */
+    int getCandidateCount();
+    /**
+     * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+     */
+    java.util.List<? extends candidates.CandidatesOuterClass.CandidateLocationOrBuilder> 
+        getCandidateOrBuilderList();
+    /**
+     * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+     */
+    candidates.CandidatesOuterClass.CandidateLocationOrBuilder getCandidateOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code candidates.GetLocationsResponse}
+   */
+  public static final class GetLocationsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:candidates.GetLocationsResponse)
+      GetLocationsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetLocationsResponse.newBuilder() to construct.
+    private GetLocationsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetLocationsResponse() {
+      candidate_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetLocationsResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetLocationsResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                candidate_ = new java.util.ArrayList<candidates.CandidatesOuterClass.CandidateLocation>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              candidate_.add(
+                  input.readMessage(candidates.CandidatesOuterClass.CandidateLocation.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          candidate_ = java.util.Collections.unmodifiableList(candidate_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return candidates.CandidatesOuterClass.internal_static_candidates_GetLocationsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return candidates.CandidatesOuterClass.internal_static_candidates_GetLocationsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              candidates.CandidatesOuterClass.GetLocationsResponse.class, candidates.CandidatesOuterClass.GetLocationsResponse.Builder.class);
+    }
+
+    public static final int CANDIDATE_FIELD_NUMBER = 1;
+    private java.util.List<candidates.CandidatesOuterClass.CandidateLocation> candidate_;
+    /**
+     * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<candidates.CandidatesOuterClass.CandidateLocation> getCandidateList() {
+      return candidate_;
+    }
+    /**
+     * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends candidates.CandidatesOuterClass.CandidateLocationOrBuilder> 
+        getCandidateOrBuilderList() {
+      return candidate_;
+    }
+    /**
+     * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+     */
+    @java.lang.Override
+    public int getCandidateCount() {
+      return candidate_.size();
+    }
+    /**
+     * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+     */
+    @java.lang.Override
+    public candidates.CandidatesOuterClass.CandidateLocation getCandidate(int index) {
+      return candidate_.get(index);
+    }
+    /**
+     * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+     */
+    @java.lang.Override
+    public candidates.CandidatesOuterClass.CandidateLocationOrBuilder getCandidateOrBuilder(
+        int index) {
+      return candidate_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < candidate_.size(); i++) {
+        output.writeMessage(1, candidate_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < candidate_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, candidate_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof candidates.CandidatesOuterClass.GetLocationsResponse)) {
+        return super.equals(obj);
+      }
+      candidates.CandidatesOuterClass.GetLocationsResponse other = (candidates.CandidatesOuterClass.GetLocationsResponse) obj;
+
+      if (!getCandidateList()
+          .equals(other.getCandidateList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getCandidateCount() > 0) {
+        hash = (37 * hash) + CANDIDATE_FIELD_NUMBER;
+        hash = (53 * hash) + getCandidateList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static candidates.CandidatesOuterClass.GetLocationsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.GetLocationsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(candidates.CandidatesOuterClass.GetLocationsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code candidates.GetLocationsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:candidates.GetLocationsResponse)
+        candidates.CandidatesOuterClass.GetLocationsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_GetLocationsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_GetLocationsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                candidates.CandidatesOuterClass.GetLocationsResponse.class, candidates.CandidatesOuterClass.GetLocationsResponse.Builder.class);
+      }
+
+      // Construct using candidates.CandidatesOuterClass.GetLocationsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getCandidateFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (candidateBuilder_ == null) {
+          candidate_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          candidateBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_GetLocationsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.GetLocationsResponse getDefaultInstanceForType() {
+        return candidates.CandidatesOuterClass.GetLocationsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.GetLocationsResponse build() {
+        candidates.CandidatesOuterClass.GetLocationsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.GetLocationsResponse buildPartial() {
+        candidates.CandidatesOuterClass.GetLocationsResponse result = new candidates.CandidatesOuterClass.GetLocationsResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (candidateBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            candidate_ = java.util.Collections.unmodifiableList(candidate_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.candidate_ = candidate_;
+        } else {
+          result.candidate_ = candidateBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof candidates.CandidatesOuterClass.GetLocationsResponse) {
+          return mergeFrom((candidates.CandidatesOuterClass.GetLocationsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(candidates.CandidatesOuterClass.GetLocationsResponse other) {
+        if (other == candidates.CandidatesOuterClass.GetLocationsResponse.getDefaultInstance()) return this;
+        if (candidateBuilder_ == null) {
+          if (!other.candidate_.isEmpty()) {
+            if (candidate_.isEmpty()) {
+              candidate_ = other.candidate_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureCandidateIsMutable();
+              candidate_.addAll(other.candidate_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.candidate_.isEmpty()) {
+            if (candidateBuilder_.isEmpty()) {
+              candidateBuilder_.dispose();
+              candidateBuilder_ = null;
+              candidate_ = other.candidate_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              candidateBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getCandidateFieldBuilder() : null;
+            } else {
+              candidateBuilder_.addAllMessages(other.candidate_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        candidates.CandidatesOuterClass.GetLocationsResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (candidates.CandidatesOuterClass.GetLocationsResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<candidates.CandidatesOuterClass.CandidateLocation> candidate_ =
+        java.util.Collections.emptyList();
+      private void ensureCandidateIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          candidate_ = new java.util.ArrayList<candidates.CandidatesOuterClass.CandidateLocation>(candidate_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          candidates.CandidatesOuterClass.CandidateLocation, candidates.CandidatesOuterClass.CandidateLocation.Builder, candidates.CandidatesOuterClass.CandidateLocationOrBuilder> candidateBuilder_;
+
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public java.util.List<candidates.CandidatesOuterClass.CandidateLocation> getCandidateList() {
+        if (candidateBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(candidate_);
+        } else {
+          return candidateBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public int getCandidateCount() {
+        if (candidateBuilder_ == null) {
+          return candidate_.size();
+        } else {
+          return candidateBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public candidates.CandidatesOuterClass.CandidateLocation getCandidate(int index) {
+        if (candidateBuilder_ == null) {
+          return candidate_.get(index);
+        } else {
+          return candidateBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public Builder setCandidate(
+          int index, candidates.CandidatesOuterClass.CandidateLocation value) {
+        if (candidateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCandidateIsMutable();
+          candidate_.set(index, value);
+          onChanged();
+        } else {
+          candidateBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public Builder setCandidate(
+          int index, candidates.CandidatesOuterClass.CandidateLocation.Builder builderForValue) {
+        if (candidateBuilder_ == null) {
+          ensureCandidateIsMutable();
+          candidate_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          candidateBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public Builder addCandidate(candidates.CandidatesOuterClass.CandidateLocation value) {
+        if (candidateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCandidateIsMutable();
+          candidate_.add(value);
+          onChanged();
+        } else {
+          candidateBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public Builder addCandidate(
+          int index, candidates.CandidatesOuterClass.CandidateLocation value) {
+        if (candidateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCandidateIsMutable();
+          candidate_.add(index, value);
+          onChanged();
+        } else {
+          candidateBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public Builder addCandidate(
+          candidates.CandidatesOuterClass.CandidateLocation.Builder builderForValue) {
+        if (candidateBuilder_ == null) {
+          ensureCandidateIsMutable();
+          candidate_.add(builderForValue.build());
+          onChanged();
+        } else {
+          candidateBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public Builder addCandidate(
+          int index, candidates.CandidatesOuterClass.CandidateLocation.Builder builderForValue) {
+        if (candidateBuilder_ == null) {
+          ensureCandidateIsMutable();
+          candidate_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          candidateBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public Builder addAllCandidate(
+          java.lang.Iterable<? extends candidates.CandidatesOuterClass.CandidateLocation> values) {
+        if (candidateBuilder_ == null) {
+          ensureCandidateIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, candidate_);
+          onChanged();
+        } else {
+          candidateBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public Builder clearCandidate() {
+        if (candidateBuilder_ == null) {
+          candidate_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          candidateBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public Builder removeCandidate(int index) {
+        if (candidateBuilder_ == null) {
+          ensureCandidateIsMutable();
+          candidate_.remove(index);
+          onChanged();
+        } else {
+          candidateBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public candidates.CandidatesOuterClass.CandidateLocation.Builder getCandidateBuilder(
+          int index) {
+        return getCandidateFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public candidates.CandidatesOuterClass.CandidateLocationOrBuilder getCandidateOrBuilder(
+          int index) {
+        if (candidateBuilder_ == null) {
+          return candidate_.get(index);  } else {
+          return candidateBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public java.util.List<? extends candidates.CandidatesOuterClass.CandidateLocationOrBuilder> 
+           getCandidateOrBuilderList() {
+        if (candidateBuilder_ != null) {
+          return candidateBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(candidate_);
+        }
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public candidates.CandidatesOuterClass.CandidateLocation.Builder addCandidateBuilder() {
+        return getCandidateFieldBuilder().addBuilder(
+            candidates.CandidatesOuterClass.CandidateLocation.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public candidates.CandidatesOuterClass.CandidateLocation.Builder addCandidateBuilder(
+          int index) {
+        return getCandidateFieldBuilder().addBuilder(
+            index, candidates.CandidatesOuterClass.CandidateLocation.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .candidates.CandidateLocation candidate = 1;</code>
+       */
+      public java.util.List<candidates.CandidatesOuterClass.CandidateLocation.Builder> 
+           getCandidateBuilderList() {
+        return getCandidateFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          candidates.CandidatesOuterClass.CandidateLocation, candidates.CandidatesOuterClass.CandidateLocation.Builder, candidates.CandidatesOuterClass.CandidateLocationOrBuilder> 
+          getCandidateFieldBuilder() {
+        if (candidateBuilder_ == null) {
+          candidateBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              candidates.CandidatesOuterClass.CandidateLocation, candidates.CandidatesOuterClass.CandidateLocation.Builder, candidates.CandidatesOuterClass.CandidateLocationOrBuilder>(
+                  candidate_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          candidate_ = null;
+        }
+        return candidateBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:candidates.GetLocationsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:candidates.GetLocationsResponse)
+    private static final candidates.CandidatesOuterClass.GetLocationsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new candidates.CandidatesOuterClass.GetLocationsResponse();
+    }
+
+    public static candidates.CandidatesOuterClass.GetLocationsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetLocationsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetLocationsResponse>() {
+      @java.lang.Override
+      public GetLocationsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetLocationsResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetLocationsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetLocationsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public candidates.CandidatesOuterClass.GetLocationsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface CandidateLocationOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:candidates.CandidateLocation)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string uuid = 1;</code>
+     * @return The uuid.
+     */
+    java.lang.String getUuid();
+    /**
+     * <code>string uuid = 1;</code>
+     * @return The bytes for uuid.
+     */
+    com.google.protobuf.ByteString
+        getUuidBytes();
+
+    /**
+     * <code>double lon = 2;</code>
+     * @return The lon.
+     */
+    double getLon();
+
+    /**
+     * <code>double lat = 3;</code>
+     * @return The lat.
+     */
+    double getLat();
+  }
+  /**
+   * Protobuf type {@code candidates.CandidateLocation}
+   */
+  public static final class CandidateLocation extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:candidates.CandidateLocation)
+      CandidateLocationOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use CandidateLocation.newBuilder() to construct.
+    private CandidateLocation(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private CandidateLocation() {
+      uuid_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CandidateLocation();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CandidateLocation(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              uuid_ = s;
+              break;
+            }
+            case 17: {
+
+              lon_ = input.readDouble();
+              break;
+            }
+            case 25: {
+
+              lat_ = input.readDouble();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return candidates.CandidatesOuterClass.internal_static_candidates_CandidateLocation_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return candidates.CandidatesOuterClass.internal_static_candidates_CandidateLocation_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              candidates.CandidatesOuterClass.CandidateLocation.class, candidates.CandidatesOuterClass.CandidateLocation.Builder.class);
+    }
+
+    public static final int UUID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object uuid_;
+    /**
+     * <code>string uuid = 1;</code>
+     * @return The uuid.
+     */
+    @java.lang.Override
+    public java.lang.String getUuid() {
+      java.lang.Object ref = uuid_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        uuid_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string uuid = 1;</code>
+     * @return The bytes for uuid.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUuidBytes() {
+      java.lang.Object ref = uuid_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uuid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LON_FIELD_NUMBER = 2;
+    private double lon_;
+    /**
+     * <code>double lon = 2;</code>
+     * @return The lon.
+     */
+    @java.lang.Override
+    public double getLon() {
+      return lon_;
+    }
+
+    public static final int LAT_FIELD_NUMBER = 3;
+    private double lat_;
+    /**
+     * <code>double lat = 3;</code>
+     * @return The lat.
+     */
+    @java.lang.Override
+    public double getLat() {
+      return lat_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getUuidBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, uuid_);
+      }
+      if (lon_ != 0D) {
+        output.writeDouble(2, lon_);
+      }
+      if (lat_ != 0D) {
+        output.writeDouble(3, lat_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getUuidBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, uuid_);
+      }
+      if (lon_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(2, lon_);
+      }
+      if (lat_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(3, lat_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof candidates.CandidatesOuterClass.CandidateLocation)) {
+        return super.equals(obj);
+      }
+      candidates.CandidatesOuterClass.CandidateLocation other = (candidates.CandidatesOuterClass.CandidateLocation) obj;
+
+      if (!getUuid()
+          .equals(other.getUuid())) return false;
+      if (java.lang.Double.doubleToLongBits(getLon())
+          != java.lang.Double.doubleToLongBits(
+              other.getLon())) return false;
+      if (java.lang.Double.doubleToLongBits(getLat())
+          != java.lang.Double.doubleToLongBits(
+              other.getLat())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + UUID_FIELD_NUMBER;
+      hash = (53 * hash) + getUuid().hashCode();
+      hash = (37 * hash) + LON_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getLon()));
+      hash = (37 * hash) + LAT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getLat()));
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static candidates.CandidatesOuterClass.CandidateLocation parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.CandidateLocation parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.CandidateLocation parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.CandidateLocation parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.CandidateLocation parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.CandidatesOuterClass.CandidateLocation parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.CandidateLocation parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.CandidateLocation parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.CandidateLocation parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.CandidateLocation parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.CandidatesOuterClass.CandidateLocation parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.CandidatesOuterClass.CandidateLocation parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(candidates.CandidatesOuterClass.CandidateLocation prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code candidates.CandidateLocation}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:candidates.CandidateLocation)
+        candidates.CandidatesOuterClass.CandidateLocationOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_CandidateLocation_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_CandidateLocation_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                candidates.CandidatesOuterClass.CandidateLocation.class, candidates.CandidatesOuterClass.CandidateLocation.Builder.class);
+      }
+
+      // Construct using candidates.CandidatesOuterClass.CandidateLocation.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        uuid_ = "";
+
+        lon_ = 0D;
+
+        lat_ = 0D;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return candidates.CandidatesOuterClass.internal_static_candidates_CandidateLocation_descriptor;
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.CandidateLocation getDefaultInstanceForType() {
+        return candidates.CandidatesOuterClass.CandidateLocation.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.CandidateLocation build() {
+        candidates.CandidatesOuterClass.CandidateLocation result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public candidates.CandidatesOuterClass.CandidateLocation buildPartial() {
+        candidates.CandidatesOuterClass.CandidateLocation result = new candidates.CandidatesOuterClass.CandidateLocation(this);
+        result.uuid_ = uuid_;
+        result.lon_ = lon_;
+        result.lat_ = lat_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof candidates.CandidatesOuterClass.CandidateLocation) {
+          return mergeFrom((candidates.CandidatesOuterClass.CandidateLocation)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(candidates.CandidatesOuterClass.CandidateLocation other) {
+        if (other == candidates.CandidatesOuterClass.CandidateLocation.getDefaultInstance()) return this;
+        if (!other.getUuid().isEmpty()) {
+          uuid_ = other.uuid_;
+          onChanged();
+        }
+        if (other.getLon() != 0D) {
+          setLon(other.getLon());
+        }
+        if (other.getLat() != 0D) {
+          setLat(other.getLat());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        candidates.CandidatesOuterClass.CandidateLocation parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (candidates.CandidatesOuterClass.CandidateLocation) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object uuid_ = "";
+      /**
+       * <code>string uuid = 1;</code>
+       * @return The uuid.
+       */
+      public java.lang.String getUuid() {
+        java.lang.Object ref = uuid_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          uuid_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string uuid = 1;</code>
+       * @return The bytes for uuid.
+       */
+      public com.google.protobuf.ByteString
+          getUuidBytes() {
+        java.lang.Object ref = uuid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          uuid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string uuid = 1;</code>
+       * @param value The uuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUuid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        uuid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string uuid = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUuid() {
+        
+        uuid_ = getDefaultInstance().getUuid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string uuid = 1;</code>
+       * @param value The bytes for uuid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUuidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        uuid_ = value;
+        onChanged();
+        return this;
+      }
+
+      private double lon_ ;
+      /**
+       * <code>double lon = 2;</code>
+       * @return The lon.
+       */
+      @java.lang.Override
+      public double getLon() {
+        return lon_;
+      }
+      /**
+       * <code>double lon = 2;</code>
+       * @param value The lon to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLon(double value) {
+        
+        lon_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double lon = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLon() {
+        
+        lon_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double lat_ ;
+      /**
+       * <code>double lat = 3;</code>
+       * @return The lat.
+       */
+      @java.lang.Override
+      public double getLat() {
+        return lat_;
+      }
+      /**
+       * <code>double lat = 3;</code>
+       * @param value The lat to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLat(double value) {
+        
+        lat_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double lat = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLat() {
+        
+        lat_ = 0D;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:candidates.CandidateLocation)
+    }
+
+    // @@protoc_insertion_point(class_scope:candidates.CandidateLocation)
+    private static final candidates.CandidatesOuterClass.CandidateLocation DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new candidates.CandidatesOuterClass.CandidateLocation();
+    }
+
+    public static candidates.CandidatesOuterClass.CandidateLocation getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<CandidateLocation>
+        PARSER = new com.google.protobuf.AbstractParser<CandidateLocation>() {
+      @java.lang.Override
+      public CandidateLocation parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CandidateLocation(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CandidateLocation> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CandidateLocation> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public candidates.CandidatesOuterClass.CandidateLocation getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_candidates_ZoneSetting_descriptor;
   private static final 
@@ -36776,10 +42343,20 @@ public final class CandidatesOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_candidates_CandidateShift_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_candidates_AssignmentRejections_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_candidates_AssignmentRejections_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_candidates_Candidate_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_candidates_Candidate_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_candidates_Candidate_ShipmentShort_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_candidates_Candidate_ShipmentShort_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_candidates_InRectQueryStatistics_descriptor;
   private static final 
@@ -36856,6 +42433,11 @@ public final class CandidatesOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_candidates_SearchResult_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_candidates_SearchResultV2_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_candidates_SearchResultV2_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_candidates_SelectInRectRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -36870,6 +42452,21 @@ public final class CandidatesOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_candidates_GeoPoint_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_candidates_GetLocationsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_candidates_GetLocationsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_candidates_GetLocationsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_candidates_GetLocationsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_candidates_CandidateLocation_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_candidates_CandidateLocation_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -36905,146 +42502,164 @@ public final class CandidatesOuterClass {
       "OT_FOUND\020\001\022\023\n\017ALREADY_BLOCKED\020\002\022\025\n\021ALREA" +
       "DY_ACTIVATED\020\003\032\\\n\014ResultsEntry\022\013\n\003key\030\001 " +
       "\001(\t\022;\n\005value\030\002 \001(\0132,.candidates.SetCandi" +
-      "dateStateResponse.Result:\0028\001\"\332\001\n\027SelectC" +
+      "dateStateResponse.Result:\0028\001\"\361\001\n\027SelectC" +
       "andidatesRequest\0222\n\006filter\030\001 \003(\0132\".candi" +
       "dates.SelectCandidatesFilter\022C\n\013source_t" +
       "ype\030\002 \001(\0162..candidates.SelectCandidatesR" +
-      "equest.SourceType\022\021\n\tsource_id\030\003 \001(\t\"3\n\n" +
-      "SourceType\022\013\n\007UNKNOWN\020\000\022\014\n\010DISPATCH\020\001\022\n\n" +
-      "\006MANUAL\020\002\"\210\002\n\026SelectCandidatesFilter\0227\n\014" +
-      "target_point\030\001 \001(\0132!.candidates.Candidat" +
-      "eLastLocation\022\016\n\006radius\030\002 \001(\002\022(\n\005roles\030\003" +
-      " \003(\0162\031.candidates.CandidateRole\0222\n\ntrans" +
-      "ports\030\004 \003(\0162\036.candidates.CandidateTransp" +
-      "ort\022\014\n\004tags\030\005 \003(\t\022\022\n\nplace_uuid\030\006 \001(\t\022\r\n" +
-      "\005uuids\030\007 \003(\t\022\026\n\016max_queue_size\030\010 \001(\005\"a\n\025" +
-      "CandidateLastLocation\022\013\n\003lat\030\001 \001(\001\022\013\n\003lo" +
-      "n\030\002 \001(\001\022.\n\ncreated_at\030\003 \001(\0132\032.google.pro" +
-      "tobuf.Timestamp\"\276\002\n\016CandidateShift\022.\n\nst" +
-      "arted_at\030\001 \001(\0132\032.google.protobuf.Timesta" +
-      "mp\022,\n\010ended_at\030\002 \001(\0132\032.google.protobuf.T" +
-      "imestamp\022\r\n\005state\030\003 \001(\t\022\020\n\010shift_id\030\004 \001(" +
-      "\004\022-\n\004type\030\005 \001(\0162\037.candidates.CandidateSh" +
-      "ift.Type\022\030\n\020delivery_area_id\030\006 \001(\r\022\'\n\037fi" +
-      "xed_on_delivery_area_or_store\030\007 \001(\010\022\022\n\ns" +
-      "tore_uuid\030\010 \001(\t\"\'\n\004Type\022\n\n\006normal\020\000\022\t\n\005s" +
-      "urge\020\001\022\010\n\004free\020\002\"\200\005\n\tCandidate\022\014\n\004uuid\030\001" +
-      " \001(\t\022\021\n\tfull_name\030\002 \001(\t\022\'\n\004role\030\003 \001(\0162\031." +
-      "candidates.CandidateRole\0221\n\ttransport\030\004 " +
-      "\001(\0162\036.candidates.CandidateTransport\0228\n\rl" +
-      "ast_location\030\005 \001(\0132!.candidates.Candidat" +
-      "eLastLocation\022\014\n\004tags\030\006 \003(\t\022)\n\005shift\030\007 \001" +
-      "(\0132\032.candidates.CandidateShift\0220\n\nqueue_" +
-      "size\030\010 \001(\0132\034.google.protobuf.UInt64Value" +
-      "\0222\n\016available_time\030\t \001(\0132\032.google.protob" +
-      "uf.Timestamp\022\'\n\tworkflows\030\n \003(\0132\024.candid" +
-      "ates.Workflow\0220\n\022available_location\030\013 \001(" +
-      "\0132\024.candidates.Location\022\030\n\020active_shipme" +
-      "nts\030\014 \003(\t\022=\n\017employment_type\030\r \001(\0162$.can" +
-      "didates.Candidate.EmploymentType\"i\n\016Empl" +
-      "oymentType\022\013\n\007NOT_SET\020\000\022\006\n\002IP\020\001\022\021\n\rSELF_" +
-      "EMPLOYED\020\002\022\t\n\005AGENT\020\003\022\r\n\tOUTSOURCE\020\004\022\025\n\021" +
-      "EXTERNAL_EMPLOYEE\020\005\"R\n\025InRectQueryStatis" +
-      "tics\022\r\n\005total\030\001 \001(\003\022\014\n\004free\030\002 \001(\003\022\014\n\004bus" +
-      "y\030\003 \001(\003\022\016\n\006paused\030\004 \001(\003\"x\n\024SelectInRectR" +
-      "esponse\022)\n\ncandidates\030\001 \003(\0132\025.candidates" +
-      ".Candidate\0225\n\nstatistics\030\002 \001(\0132!.candida" +
-      "tes.InRectQueryStatistics\"O\n\030SelectCandi" +
-      "datesResponse\0223\n\007results\030\001 \003(\0132\".candida" +
-      "tes.SelectCandidatesResult\"B\n\026SelectCand" +
-      "idatesResult\022(\n\tcandidate\030\001 \003(\0132\025.candid" +
-      "ates.Candidate\"\307\002\n\010Workflow\022\n\n\002id\030\001 \001(\004\022" +
-      "\026\n\016performer_uuid\030\003 \001(\t\022+\n\006status\030\004 \001(\0162" +
-      "\033.candidates.Workflow.Status\022.\n\ncreated_" +
-      "at\030\005 \001(\0132\032.google.protobuf.Timestamp\022.\n\n" +
-      "updated_at\030\006 \001(\0132\032.google.protobuf.Times" +
-      "tamp\022\020\n\010shift_id\030\007 \001(\004\022+\n\013assignments\030\010 " +
-      "\003(\0132\026.candidates.Assignment\"K\n\006Status\022\007\n" +
-      "\003NEW\020\000\022\n\n\006QUEUED\020\001\022\017\n\013IN_PROGRESS\020\002\022\r\n\tC" +
-      "OMPLETED\020\003\022\014\n\010CANCELED\020\004\"\370\005\n\nAssignment\022" +
-      "\n\n\002id\030\001 \001(\004\022\033\n\023postponed_parent_id\030\002 \001(\004" +
-      "\022\014\n\004uuid\030\r \001(\t\022\035\n\025postponed_parent_uuid\030" +
-      "\014 \001(\t\022\023\n\013workflow_id\030\003 \001(\004\022\026\n\016performer_" +
-      "uuid\030\004 \001(\t\0227\n\021performer_vehicle\030\016 \001(\0162\034." +
-      "candidates.PerformerVehicle\022-\n\006status\030\005 " +
-      "\001(\0162\035.candidates.Assignment.Status\022/\n\rde" +
-      "livery_type\030\013 \001(\0162\030.candidates.DeliveryT" +
-      "ype\022+\n\013source_type\030\021 \001(\0162\026.candidates.So" +
-      "urceType\022\'\n\tshipments\030\006 \003(\0132\024.candidates" +
-      ".Shipment\022\024\n\014plan_payroll\030\007 \001(\002\022\031\n\021plan_" +
-      "payroll_base\030\017 \001(\002\022\032\n\022plan_payroll_bonus" +
-      "\030\020 \001(\002\022.\n\004meta\030\010 \003(\0132 .candidates.Assign" +
-      "ment.MetaEntry\022.\n\ncreated_at\030\t \001(\0132\032.goo" +
-      "gle.protobuf.Timestamp\022.\n\nupdated_at\030\n \001" +
-      "(\0132\032.google.protobuf.Timestamp\032+\n\tMetaEn" +
-      "try\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"n\n\006S" +
-      "tatus\022\007\n\003NEW\020\000\022\r\n\tPOSTPONED\020\001\022\013\n\007OFFERED" +
-      "\020\002\022\010\n\004SEEN\020\003\022\014\n\010ACCEPTED\020\004\022\014\n\010DECLINED\020\005" +
-      "\022\013\n\007TIMEOUT\020\006\022\014\n\010CANCELED\020\007\"$\n\010Location\022" +
-      "\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030\002 \001(\001\"\203\002\n\010Shipment\022\016" +
-      "\n\006number\030\001 \001(\t\022\014\n\004uuid\030\014 \001(\t\022\023\n\013items_co" +
-      "unt\030\002 \001(\r\022\032\n\022items_total_amount\030\003 \001(\002\022\031\n" +
-      "\021distance_to_store\030\004 \001(\004\022\031\n\021duration_to_" +
-      "store\030\005 \001(\004\022\021\n\tweight_kg\030\006 \001(\002\022\022\n\nstore_" +
-      "uuid\030\007 \001(\t\022\020\n\010is_heavy\030\010 \001(\010\022\016\n\006is_new\030\t" +
-      " \001(\010\022\022\n\nstore_name\030\n \001(\t\022\025\n\rstore_addres" +
-      "s\030\013 \001(\t\"`\n\016CandidateRoute\022\n\n\002id\030\001 \001(\t\022\r\n" +
-      "\005state\030\002 \001(\t\0223\n\010segments\030\003 \001(\0132!.candida" +
-      "tes.CandidateRouteSegment\"\357\002\n\025CandidateR" +
-      "outeSegment\022\n\n\002id\030\001 \001(\r\022\014\n\004type\030\002 \001(\t\0223\n" +
-      "\017plan_started_at\030\003 \001(\0132\032.google.protobuf" +
-      ".Timestamp\0221\n\rplan_ended_at\030\004 \001(\0132\032.goog" +
-      "le.protobuf.Timestamp\0223\n\017fact_started_at" +
-      "\030\005 \001(\0132\032.google.protobuf.Timestamp\0221\n\rfa" +
-      "ct_ended_at\030\006 \001(\0132\032.google.protobuf.Time" +
-      "stamp\0226\n\013start_point\030\007 \001(\0132!.candidates." +
-      "CandidateLastLocation\0224\n\tend_point\030\010 \001(\013" +
-      "2!.candidates.CandidateLastLocation\",\n\034S" +
-      "electCandidateByUUIDRequest\022\014\n\004uuid\030\001 \001(" +
-      "\t\"\036\n\rSearchRequest\022\r\n\005query\030\001 \001(\t\"G\n\033Sel" +
-      "ectCandidateByUUIDResult\022(\n\tcandidate\030\001 " +
-      "\001(\0132\025.candidates.Candidate\"8\n\014SearchResu" +
-      "lt\022(\n\tcandidate\030\001 \001(\0132\025.candidates.Candi" +
-      "date\"\253\001\n\023SelectInRectRequest\022\036\n\004rect\030\001 \001" +
-      "(\0132\020.candidates.Rect\022(\n\005roles\030\003 \003(\0162\031.ca" +
-      "ndidates.CandidateRole\0222\n\ntransports\030\004 \003" +
-      "(\0162\036.candidates.CandidateTransport\022\026\n\016sc" +
-      "hedule_types\030\005 \003(\t\"L\n\004Rect\022!\n\003min\030\001 \001(\0132" +
-      "\024.candidates.GeoPoint\022!\n\003max\030\002 \001(\0132\024.can" +
-      "didates.GeoPoint\"$\n\010GeoPoint\022\013\n\003lat\030\001 \001(" +
-      "\001\022\013\n\003lon\030\002 \001(\001*7\n\rCandidateRole\022\013\n\007SHOPP" +
-      "ER\020\000\022\n\n\006DRIVER\020\001\022\r\n\tUNIVERSAL\020\002*R\n\022Candi" +
-      "dateTransport\022\016\n\nPEDESTRIAN\020\000\022\007\n\003CAR\020\001\022\013" +
-      "\n\007BICYCLE\020\002\022\t\n\005TRUCK\020\003\022\013\n\007SCOOTER\020\004*)\n\016C" +
-      "andidateState\022\013\n\007BLOCKED\020\000\022\n\n\006ACTIVE\020\001*{" +
-      "\n\013SegmentType\022\n\n\006ARRIVE\020\000\022\014\n\010ASSEMBLY\020\001\022" +
-      "\024\n\020PASS_TO_DELIVERY\020\002\022\014\n\010DELIVERY\020\003\022\022\n\016P" +
-      "ASS_TO_CLIENT\020\005\022\032\n\026RECEIVING_FOR_DELIVER" +
-      "Y\020\006*N\n\020PerformerVehicle\022\026\n\022VEHICLE_PEDES" +
-      "TRIAN\020\000\022\020\n\014VEHICLE_AUTO\020\001\022\020\n\014VEHICLE_BIK" +
-      "E\020\002*&\n\nSourceType\022\n\n\006MANUAL\020\000\022\014\n\010DISPATC" +
-      "H\020\001*%\n\014DeliveryType\022\013\n\007DEFAULT\020\000\022\010\n\004TAXI" +
-      "\020\0012\325\005\n\nCandidates\022_\n\020SelectCandidates\022#." +
-      "candidates.SelectCandidatesRequest\032$.can" +
-      "didates.SelectCandidatesResponse\"\000\022c\n\022Se" +
-      "tCandidatesState\022$.candidates.SetCandida" +
-      "teStateRequest\032%.candidates.SetCandidate" +
-      "StateResponse\"\000\022S\n\014SelectInRect\022\037.candid" +
-      "ates.SelectInRectRequest\032 .candidates.Se" +
-      "lectInRectResponse\"\000\022l\n\025SelectCandidateB" +
-      "yUUID\022(.candidates.SelectCandidateByUUID" +
-      "Request\032\'.candidates.SelectCandidateByUU" +
-      "IDResult\"\000\022?\n\006Search\022\031.candidates.Search" +
-      "Request\032\030.candidates.SearchResult\"\000\022e\n\022H" +
-      "aveActiveWorkflow\022%.candidates.HaveActiv" +
-      "eWorkflowRequest\032&.candidates.HaveActive" +
-      "WorkflowResponse\"\000\022M\n\017GetZoneSettings\022\037." +
-      "candidates.ZoneSettingsRequest\032\027.candida" +
-      "tes.ZoneSetting\"\000\022G\n\022UpdateZoneSettings\022" +
-      "\027.candidates.ZoneSetting\032\026.google.protob" +
-      "uf.Empty\"\000BNZLgitlab.sbmt.io/paas/conten" +
-      "t/operations/candidates/pkg/server/grpc/" +
-      "candidatesb\006proto3"
+      "equest.SourceType\022\021\n\tsource_id\030\003 \001(\t\022\025\n\r" +
+      "shipment_uuid\030\004 \001(\t\"3\n\nSourceType\022\013\n\007UNK" +
+      "NOWN\020\000\022\014\n\010DISPATCH\020\001\022\n\n\006MANUAL\020\002\"\236\002\n\026Sel" +
+      "ectCandidatesFilter\0227\n\014target_point\030\001 \001(" +
+      "\0132!.candidates.CandidateLastLocation\022\016\n\006" +
+      "radius\030\002 \001(\002\022(\n\005roles\030\003 \003(\0162\031.candidates" +
+      ".CandidateRole\0222\n\ntransports\030\004 \003(\0162\036.can" +
+      "didates.CandidateTransport\022\014\n\004tags\030\005 \003(\t" +
+      "\022\022\n\nplace_uuid\030\006 \001(\t\022\r\n\005uuids\030\007 \003(\t\022\026\n\016m" +
+      "ax_queue_size\030\010 \001(\005\022\024\n\014with_blocked\030\t \001(" +
+      "\010\"a\n\025CandidateLastLocation\022\013\n\003lat\030\001 \001(\001\022" +
+      "\013\n\003lon\030\002 \001(\001\022.\n\ncreated_at\030\003 \001(\0132\032.googl" +
+      "e.protobuf.Timestamp\"\341\002\n\016CandidateShift\022" +
+      ".\n\nstarted_at\030\001 \001(\0132\032.google.protobuf.Ti" +
+      "mestamp\022,\n\010ended_at\030\002 \001(\0132\032.google.proto" +
+      "buf.Timestamp\022\r\n\005state\030\003 \001(\t\022\020\n\010shift_id" +
+      "\030\004 \001(\004\022-\n\004type\030\005 \001(\0162\037.candidates.Candid" +
+      "ateShift.Type\022\030\n\020delivery_area_id\030\006 \001(\r\022" +
+      "\'\n\037fixed_on_delivery_area_or_store\030\007 \001(\010" +
+      "\022\022\n\nstore_uuid\030\010 \001(\t\022!\n\031candidate_accept" +
+      "ance_rate\030\t \001(\002\"\'\n\004Type\022\n\n\006normal\020\000\022\t\n\005s" +
+      "urge\020\001\022\010\n\004free\020\002\"A\n\024AssignmentRejections" +
+      "\022\025\n\rshipment_uuid\030\001 \001(\t\022\022\n\nrejections\030\002 " +
+      "\001(\003\"\327\006\n\tCandidate\022\014\n\004uuid\030\001 \001(\t\022\021\n\tfull_" +
+      "name\030\002 \001(\t\022\'\n\004role\030\003 \001(\0162\031.candidates.Ca" +
+      "ndidateRole\0221\n\ttransport\030\004 \001(\0162\036.candida" +
+      "tes.CandidateTransport\0228\n\rlast_location\030" +
+      "\005 \001(\0132!.candidates.CandidateLastLocation" +
+      "\022\014\n\004tags\030\006 \003(\t\022)\n\005shift\030\007 \001(\0132\032.candidat" +
+      "es.CandidateShift\0220\n\nqueue_size\030\010 \001(\0132\034." +
+      "google.protobuf.UInt64Value\0222\n\016available" +
+      "_time\030\t \001(\0132\032.google.protobuf.Timestamp\022" +
+      "\'\n\tworkflows\030\n \003(\0132\024.candidates.Workflow" +
+      "\0220\n\022available_location\030\013 \001(\0132\024.candidate" +
+      "s.Location\022\035\n\025active_shipment_uuids\030\014 \003(" +
+      "\t\022=\n\017employment_type\030\r \001(\0162$.candidates." +
+      "Candidate.EmploymentType\022?\n\025assignment_r" +
+      "ejections\030\016 \001(\0132 .candidates.AssignmentR" +
+      "ejections\022=\n\020active_shipments\030\017 \003(\0132#.ca" +
+      "ndidates.Candidate.ShipmentShort\032P\n\rShip" +
+      "mentShort\022\014\n\004uuid\030\001 \001(\t\0221\n\rplan_ended_at" +
+      "\030\014 \001(\0132\032.google.protobuf.Timestamp\"i\n\016Em" +
+      "ploymentType\022\013\n\007NOT_SET\020\000\022\006\n\002IP\020\001\022\021\n\rSEL" +
+      "F_EMPLOYED\020\002\022\t\n\005AGENT\020\003\022\r\n\tOUTSOURCE\020\004\022\025" +
+      "\n\021EXTERNAL_EMPLOYEE\020\005\"R\n\025InRectQueryStat" +
+      "istics\022\r\n\005total\030\001 \001(\003\022\014\n\004free\030\002 \001(\003\022\014\n\004b" +
+      "usy\030\003 \001(\003\022\016\n\006paused\030\004 \001(\003\"x\n\024SelectInRec" +
+      "tResponse\022)\n\ncandidates\030\001 \003(\0132\025.candidat" +
+      "es.Candidate\0225\n\nstatistics\030\002 \001(\0132!.candi" +
+      "dates.InRectQueryStatistics\"O\n\030SelectCan" +
+      "didatesResponse\0223\n\007results\030\001 \003(\0132\".candi" +
+      "dates.SelectCandidatesResult\"B\n\026SelectCa" +
+      "ndidatesResult\022(\n\tcandidate\030\001 \003(\0132\025.cand" +
+      "idates.Candidate\"\307\002\n\010Workflow\022\n\n\002id\030\001 \001(" +
+      "\004\022\026\n\016performer_uuid\030\003 \001(\t\022+\n\006status\030\004 \001(" +
+      "\0162\033.candidates.Workflow.Status\022.\n\ncreate" +
+      "d_at\030\005 \001(\0132\032.google.protobuf.Timestamp\022." +
+      "\n\nupdated_at\030\006 \001(\0132\032.google.protobuf.Tim" +
+      "estamp\022\020\n\010shift_id\030\007 \001(\004\022+\n\013assignments\030" +
+      "\010 \003(\0132\026.candidates.Assignment\"K\n\006Status\022" +
+      "\007\n\003NEW\020\000\022\n\n\006QUEUED\020\001\022\017\n\013IN_PROGRESS\020\002\022\r\n" +
+      "\tCOMPLETED\020\003\022\014\n\010CANCELED\020\004\"\370\005\n\nAssignmen" +
+      "t\022\n\n\002id\030\001 \001(\004\022\033\n\023postponed_parent_id\030\002 \001" +
+      "(\004\022\014\n\004uuid\030\r \001(\t\022\035\n\025postponed_parent_uui" +
+      "d\030\014 \001(\t\022\023\n\013workflow_id\030\003 \001(\004\022\026\n\016performe" +
+      "r_uuid\030\004 \001(\t\0227\n\021performer_vehicle\030\016 \001(\0162" +
+      "\034.candidates.PerformerVehicle\022-\n\006status\030" +
+      "\005 \001(\0162\035.candidates.Assignment.Status\022/\n\r" +
+      "delivery_type\030\013 \001(\0162\030.candidates.Deliver" +
+      "yType\022+\n\013source_type\030\021 \001(\0162\026.candidates." +
+      "SourceType\022\'\n\tshipments\030\006 \003(\0132\024.candidat" +
+      "es.Shipment\022\024\n\014plan_payroll\030\007 \001(\002\022\031\n\021pla" +
+      "n_payroll_base\030\017 \001(\002\022\032\n\022plan_payroll_bon" +
+      "us\030\020 \001(\002\022.\n\004meta\030\010 \003(\0132 .candidates.Assi" +
+      "gnment.MetaEntry\022.\n\ncreated_at\030\t \001(\0132\032.g" +
+      "oogle.protobuf.Timestamp\022.\n\nupdated_at\030\n" +
+      " \001(\0132\032.google.protobuf.Timestamp\032+\n\tMeta" +
+      "Entry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"n\n" +
+      "\006Status\022\007\n\003NEW\020\000\022\r\n\tPOSTPONED\020\001\022\013\n\007OFFER" +
+      "ED\020\002\022\010\n\004SEEN\020\003\022\014\n\010ACCEPTED\020\004\022\014\n\010DECLINED" +
+      "\020\005\022\013\n\007TIMEOUT\020\006\022\014\n\010CANCELED\020\007\"$\n\010Locatio" +
+      "n\022\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030\002 \001(\001\"\203\002\n\010Shipment" +
+      "\022\016\n\006number\030\001 \001(\t\022\014\n\004uuid\030\014 \001(\t\022\023\n\013items_" +
+      "count\030\002 \001(\r\022\032\n\022items_total_amount\030\003 \001(\002\022" +
+      "\031\n\021distance_to_store\030\004 \001(\004\022\031\n\021duration_t" +
+      "o_store\030\005 \001(\004\022\021\n\tweight_kg\030\006 \001(\002\022\022\n\nstor" +
+      "e_uuid\030\007 \001(\t\022\020\n\010is_heavy\030\010 \001(\010\022\016\n\006is_new" +
+      "\030\t \001(\010\022\022\n\nstore_name\030\n \001(\t\022\025\n\rstore_addr" +
+      "ess\030\013 \001(\t\"`\n\016CandidateRoute\022\n\n\002id\030\001 \001(\t\022" +
+      "\r\n\005state\030\002 \001(\t\0223\n\010segments\030\003 \001(\0132!.candi" +
+      "dates.CandidateRouteSegment\"\357\002\n\025Candidat" +
+      "eRouteSegment\022\n\n\002id\030\001 \001(\r\022\014\n\004type\030\002 \001(\t\022" +
+      "3\n\017plan_started_at\030\003 \001(\0132\032.google.protob" +
+      "uf.Timestamp\0221\n\rplan_ended_at\030\004 \001(\0132\032.go" +
+      "ogle.protobuf.Timestamp\0223\n\017fact_started_" +
+      "at\030\005 \001(\0132\032.google.protobuf.Timestamp\0221\n\r" +
+      "fact_ended_at\030\006 \001(\0132\032.google.protobuf.Ti" +
+      "mestamp\0226\n\013start_point\030\007 \001(\0132!.candidate" +
+      "s.CandidateLastLocation\0224\n\tend_point\030\010 \001" +
+      "(\0132!.candidates.CandidateLastLocation\",\n" +
+      "\034SelectCandidateByUUIDRequest\022\014\n\004uuid\030\001 " +
+      "\001(\t\"\036\n\rSearchRequest\022\r\n\005query\030\001 \001(\t\"G\n\033S" +
+      "electCandidateByUUIDResult\022(\n\tcandidate\030" +
+      "\001 \001(\0132\025.candidates.Candidate\"8\n\014SearchRe" +
+      "sult\022(\n\tcandidate\030\001 \001(\0132\025.candidates.Can" +
+      "didate\":\n\016SearchResultV2\022(\n\tcandidate\030\001 " +
+      "\003(\0132\025.candidates.Candidate\"\342\001\n\023SelectInR" +
+      "ectRequest\022\036\n\004rect\030\001 \001(\0132\020.candidates.Re" +
+      "ct\022(\n\005roles\030\003 \003(\0162\031.candidates.Candidate" +
+      "Role\0222\n\ntransports\030\004 \003(\0162\036.candidates.Ca" +
+      "ndidateTransport\022\026\n\016schedule_types\030\005 \003(\t" +
+      "\022\033\n\023operational_zone_id\030\006 \001(\r\022\030\n\020deliver" +
+      "y_area_id\030\007 \001(\r\"L\n\004Rect\022!\n\003min\030\001 \001(\0132\024.c" +
+      "andidates.GeoPoint\022!\n\003max\030\002 \001(\0132\024.candid" +
+      "ates.GeoPoint\"$\n\010GeoPoint\022\013\n\003lat\030\001 \001(\001\022\013" +
+      "\n\003lon\030\002 \001(\001\"-\n\023GetLocationsRequest\022\026\n\016ca" +
+      "ndidate_uuid\030\001 \003(\t\"H\n\024GetLocationsRespon" +
+      "se\0220\n\tcandidate\030\001 \003(\0132\035.candidates.Candi" +
+      "dateLocation\";\n\021CandidateLocation\022\014\n\004uui" +
+      "d\030\001 \001(\t\022\013\n\003lon\030\002 \001(\001\022\013\n\003lat\030\003 \001(\001*7\n\rCan" +
+      "didateRole\022\013\n\007SHOPPER\020\000\022\n\n\006DRIVER\020\001\022\r\n\tU" +
+      "NIVERSAL\020\002*R\n\022CandidateTransport\022\016\n\nPEDE" +
+      "STRIAN\020\000\022\007\n\003CAR\020\001\022\013\n\007BICYCLE\020\002\022\t\n\005TRUCK\020" +
+      "\003\022\013\n\007SCOOTER\020\004*)\n\016CandidateState\022\013\n\007BLOC" +
+      "KED\020\000\022\n\n\006ACTIVE\020\001*{\n\013SegmentType\022\n\n\006ARRI" +
+      "VE\020\000\022\014\n\010ASSEMBLY\020\001\022\024\n\020PASS_TO_DELIVERY\020\002" +
+      "\022\014\n\010DELIVERY\020\003\022\022\n\016PASS_TO_CLIENT\020\005\022\032\n\026RE" +
+      "CEIVING_FOR_DELIVERY\020\006*N\n\020PerformerVehic" +
+      "le\022\026\n\022VEHICLE_PEDESTRIAN\020\000\022\020\n\014VEHICLE_AU" +
+      "TO\020\001\022\020\n\014VEHICLE_BIKE\020\002*&\n\nSourceType\022\n\n\006" +
+      "MANUAL\020\000\022\014\n\010DISPATCH\020\001*%\n\014DeliveryType\022\013" +
+      "\n\007DEFAULT\020\000\022\010\n\004TAXI\020\0012\357\006\n\nCandidates\022_\n\020" +
+      "SelectCandidates\022#.candidates.SelectCand" +
+      "idatesRequest\032$.candidates.SelectCandida" +
+      "tesResponse\"\000\022c\n\022SetCandidatesState\022$.ca" +
+      "ndidates.SetCandidateStateRequest\032%.cand" +
+      "idates.SetCandidateStateResponse\"\000\022S\n\014Se" +
+      "lectInRect\022\037.candidates.SelectInRectRequ" +
+      "est\032 .candidates.SelectInRectResponse\"\000\022" +
+      "l\n\025SelectCandidateByUUID\022(.candidates.Se" +
+      "lectCandidateByUUIDRequest\032\'.candidates." +
+      "SelectCandidateByUUIDResult\"\000\022?\n\006Search\022" +
+      "\031.candidates.SearchRequest\032\030.candidates." +
+      "SearchResult\"\000\022C\n\010SearchV2\022\031.candidates." +
+      "SearchRequest\032\032.candidates.SearchResultV" +
+      "2\"\000\022e\n\022HaveActiveWorkflow\022%.candidates.H" +
+      "aveActiveWorkflowRequest\032&.candidates.Ha" +
+      "veActiveWorkflowResponse\"\000\022M\n\017GetZoneSet" +
+      "tings\022\037.candidates.ZoneSettingsRequest\032\027" +
+      ".candidates.ZoneSetting\"\000\022G\n\022UpdateZoneS" +
+      "ettings\022\027.candidates.ZoneSetting\032\026.googl" +
+      "e.protobuf.Empty\"\000\022S\n\014GetLocations\022\037.can" +
+      "didates.GetLocationsRequest\032 .candidates" +
+      ".GetLocationsResponse\"\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -37112,13 +42727,13 @@ public final class CandidatesOuterClass {
     internal_static_candidates_SelectCandidatesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_SelectCandidatesRequest_descriptor,
-        new java.lang.String[] { "Filter", "SourceType", "SourceId", });
+        new java.lang.String[] { "Filter", "SourceType", "SourceId", "ShipmentUuid", });
     internal_static_candidates_SelectCandidatesFilter_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_candidates_SelectCandidatesFilter_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_SelectCandidatesFilter_descriptor,
-        new java.lang.String[] { "TargetPoint", "Radius", "Roles", "Transports", "Tags", "PlaceUuid", "Uuids", "MaxQueueSize", });
+        new java.lang.String[] { "TargetPoint", "Radius", "Roles", "Transports", "Tags", "PlaceUuid", "Uuids", "MaxQueueSize", "WithBlocked", });
     internal_static_candidates_CandidateLastLocation_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_candidates_CandidateLastLocation_fieldAccessorTable = new
@@ -37130,45 +42745,57 @@ public final class CandidatesOuterClass {
     internal_static_candidates_CandidateShift_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_CandidateShift_descriptor,
-        new java.lang.String[] { "StartedAt", "EndedAt", "State", "ShiftId", "Type", "DeliveryAreaId", "FixedOnDeliveryAreaOrStore", "StoreUuid", });
-    internal_static_candidates_Candidate_descriptor =
+        new java.lang.String[] { "StartedAt", "EndedAt", "State", "ShiftId", "Type", "DeliveryAreaId", "FixedOnDeliveryAreaOrStore", "StoreUuid", "CandidateAcceptanceRate", });
+    internal_static_candidates_AssignmentRejections_descriptor =
       getDescriptor().getMessageTypes().get(10);
+    internal_static_candidates_AssignmentRejections_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_candidates_AssignmentRejections_descriptor,
+        new java.lang.String[] { "ShipmentUuid", "Rejections", });
+    internal_static_candidates_Candidate_descriptor =
+      getDescriptor().getMessageTypes().get(11);
     internal_static_candidates_Candidate_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_Candidate_descriptor,
-        new java.lang.String[] { "Uuid", "FullName", "Role", "Transport", "LastLocation", "Tags", "Shift", "QueueSize", "AvailableTime", "Workflows", "AvailableLocation", "ActiveShipments", "EmploymentType", });
+        new java.lang.String[] { "Uuid", "FullName", "Role", "Transport", "LastLocation", "Tags", "Shift", "QueueSize", "AvailableTime", "Workflows", "AvailableLocation", "ActiveShipmentUuids", "EmploymentType", "AssignmentRejections", "ActiveShipments", });
+    internal_static_candidates_Candidate_ShipmentShort_descriptor =
+      internal_static_candidates_Candidate_descriptor.getNestedTypes().get(0);
+    internal_static_candidates_Candidate_ShipmentShort_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_candidates_Candidate_ShipmentShort_descriptor,
+        new java.lang.String[] { "Uuid", "PlanEndedAt", });
     internal_static_candidates_InRectQueryStatistics_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_candidates_InRectQueryStatistics_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_InRectQueryStatistics_descriptor,
         new java.lang.String[] { "Total", "Free", "Busy", "Paused", });
     internal_static_candidates_SelectInRectResponse_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_candidates_SelectInRectResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_SelectInRectResponse_descriptor,
         new java.lang.String[] { "Candidates", "Statistics", });
     internal_static_candidates_SelectCandidatesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_candidates_SelectCandidatesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_SelectCandidatesResponse_descriptor,
         new java.lang.String[] { "Results", });
     internal_static_candidates_SelectCandidatesResult_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_candidates_SelectCandidatesResult_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_SelectCandidatesResult_descriptor,
         new java.lang.String[] { "Candidate", });
     internal_static_candidates_Workflow_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_candidates_Workflow_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_Workflow_descriptor,
         new java.lang.String[] { "Id", "PerformerUuid", "Status", "CreatedAt", "UpdatedAt", "ShiftId", "Assignments", });
     internal_static_candidates_Assignment_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_candidates_Assignment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_Assignment_descriptor,
@@ -37180,71 +42807,95 @@ public final class CandidatesOuterClass {
         internal_static_candidates_Assignment_MetaEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_candidates_Location_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_candidates_Location_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_Location_descriptor,
         new java.lang.String[] { "Lat", "Lon", });
     internal_static_candidates_Shipment_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_candidates_Shipment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_Shipment_descriptor,
         new java.lang.String[] { "Number", "Uuid", "ItemsCount", "ItemsTotalAmount", "DistanceToStore", "DurationToStore", "WeightKg", "StoreUuid", "IsHeavy", "IsNew", "StoreName", "StoreAddress", });
     internal_static_candidates_CandidateRoute_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_candidates_CandidateRoute_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_CandidateRoute_descriptor,
         new java.lang.String[] { "Id", "State", "Segments", });
     internal_static_candidates_CandidateRouteSegment_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_candidates_CandidateRouteSegment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_CandidateRouteSegment_descriptor,
         new java.lang.String[] { "Id", "Type", "PlanStartedAt", "PlanEndedAt", "FactStartedAt", "FactEndedAt", "StartPoint", "EndPoint", });
     internal_static_candidates_SelectCandidateByUUIDRequest_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_candidates_SelectCandidateByUUIDRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_SelectCandidateByUUIDRequest_descriptor,
         new java.lang.String[] { "Uuid", });
     internal_static_candidates_SearchRequest_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_candidates_SearchRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_SearchRequest_descriptor,
         new java.lang.String[] { "Query", });
     internal_static_candidates_SelectCandidateByUUIDResult_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_candidates_SelectCandidateByUUIDResult_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_SelectCandidateByUUIDResult_descriptor,
         new java.lang.String[] { "Candidate", });
     internal_static_candidates_SearchResult_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_candidates_SearchResult_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_SearchResult_descriptor,
         new java.lang.String[] { "Candidate", });
+    internal_static_candidates_SearchResultV2_descriptor =
+      getDescriptor().getMessageTypes().get(26);
+    internal_static_candidates_SearchResultV2_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_candidates_SearchResultV2_descriptor,
+        new java.lang.String[] { "Candidate", });
     internal_static_candidates_SelectInRectRequest_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_candidates_SelectInRectRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_SelectInRectRequest_descriptor,
-        new java.lang.String[] { "Rect", "Roles", "Transports", "ScheduleTypes", });
+        new java.lang.String[] { "Rect", "Roles", "Transports", "ScheduleTypes", "OperationalZoneId", "DeliveryAreaId", });
     internal_static_candidates_Rect_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_candidates_Rect_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_Rect_descriptor,
         new java.lang.String[] { "Min", "Max", });
     internal_static_candidates_GeoPoint_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_candidates_GeoPoint_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_GeoPoint_descriptor,
         new java.lang.String[] { "Lat", "Lon", });
+    internal_static_candidates_GetLocationsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(30);
+    internal_static_candidates_GetLocationsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_candidates_GetLocationsRequest_descriptor,
+        new java.lang.String[] { "CandidateUuid", });
+    internal_static_candidates_GetLocationsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(31);
+    internal_static_candidates_GetLocationsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_candidates_GetLocationsResponse_descriptor,
+        new java.lang.String[] { "Candidate", });
+    internal_static_candidates_CandidateLocation_descriptor =
+      getDescriptor().getMessageTypes().get(32);
+    internal_static_candidates_CandidateLocation_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_candidates_CandidateLocation_descriptor,
+        new java.lang.String[] { "Uuid", "Lon", "Lat", });
     com.google.protobuf.TimestampProto.getDescriptor();
     com.google.protobuf.WrappersProto.getDescriptor();
     com.google.protobuf.EmptyProto.getDescriptor();

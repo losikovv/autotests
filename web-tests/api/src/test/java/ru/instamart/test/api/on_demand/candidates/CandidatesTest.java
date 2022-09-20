@@ -92,13 +92,6 @@ public class CandidatesTest extends RestBase {
         shiftsApi.stopAllActiveShifts();
     }
 
-    /*@AfterClass(alwaysRun = true)
-    public void after() {
-        List<ShiftResponse> shifts = shiftsApi.shifts();
-        shifts.stream()
-                .forEach(item -> shiftsApi.cancelShifts(item.getId()));
-    }*/
-
     @CaseId(24)
     @Test(description = "Кандидаты находятся в пределах радиуса вокруг координаты магазина",
             groups = "dispatch-candidates-smoke")
