@@ -22,7 +22,7 @@ public class PutOrdersStatusV3Test extends RestBase {
 
     @CaseId(675)
     @Story("Отмена заказа на доставку")
-    @Test(  groups = {"api-instamart-regress"},
+    @Test(  groups = {"api-instamart-regress", "api-v3"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Отмена заказа доставки Goods")
@@ -34,7 +34,7 @@ public class PutOrdersStatusV3Test extends RestBase {
 
     @CaseId(868)
     @Story("Отмена заказа на самовывоз")
-    @Test(  groups = {"api-instamart-regress"},
+    @Test(  groups = {"api-instamart-regress", "api-v3"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Отмена заказа самовывоза Metro_Marketplace")

@@ -24,7 +24,7 @@ public class CategoriesV3Test extends RestBase {
     private final Integer sid = EnvironmentProperties.DEFAULT_SID;
 
     @CaseId(2314)
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"},
             description = "Получение пользовательских категорий")
     public void getAggregatingCategories()  {
         Response response = AggregatingCategoriesV3Request.GET(sid);
@@ -33,7 +33,7 @@ public class CategoriesV3Test extends RestBase {
 
     @Skip //todo разобраться почему в метро обучение на проде возвращается пустой массов
     @CaseId(2315)
-    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod", "api-v3"},
             description = "Получение дерева категорий")
     public void getCategories()  {
         Response response = CategoriesV3Request.GET(sid);
@@ -44,7 +44,7 @@ public class CategoriesV3Test extends RestBase {
 
     @Skip //todo разобраться почему в метро обучение на проде возвращается пустой массов
     @CaseId(2316)
-    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod", "api-v3"},
             description = "Получение поддерева категорий по id категории",
             dependsOnMethods = "getCategories")
     public void getCategory()  {

@@ -59,7 +59,7 @@ public class PaymentToolsV3Test extends RestBase {
     @CaseId(2476)
     @Story("Способы оплаты")
     @Test(description = "Получение способов оплаты по своему заказу",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "api-v3"})
     public void getPaymentTools() {
         final Response response = CheckoutV3Request.PaymentTools.GET(order.getNumber());
         checkStatusCode200(response);
@@ -70,7 +70,7 @@ public class PaymentToolsV3Test extends RestBase {
     @CaseId(2477)
     @Story("Способы оплаты")
     @Test(description = "Получение способов оплаты по чужому заказу",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "api-v3"})
     public void getPaymentToolsForAnotherUserOrder() {
         final Response response = CheckoutV3Request.PaymentTools.GET(anotherUserOrderNumber);
         checkStatusCode403(response);
@@ -81,7 +81,7 @@ public class PaymentToolsV3Test extends RestBase {
     @CaseId(2479)
     @Story("Способы оплаты")
     @Test(description = "Получение способов оплаты по несуществующему заказу",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "api-v3"})
     public void getPaymentToolsForNonExistentOrder() {
         final Response response = CheckoutV3Request.PaymentTools.GET("failedOrderNumber");
         checkStatusCode404(response);
@@ -92,7 +92,7 @@ public class PaymentToolsV3Test extends RestBase {
     @CaseId(2481)
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по своему заказу",
-            groups = "api-instamart-regress",
+            groups = {"api-instamart-regress", "api-v3"},
             dependsOnMethods = "getPaymentTools")
     public void addPaymentTools() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
@@ -113,7 +113,7 @@ public class PaymentToolsV3Test extends RestBase {
     @CaseId(2482)
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по чужому заказу",
-            groups = "api-instamart-regress",
+            groups = {"api-instamart-regress", "api-v3"},
             dependsOnMethods = "getPaymentTools")
     public void addPaymentToolsWithAnotherUserOrder() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
@@ -133,7 +133,7 @@ public class PaymentToolsV3Test extends RestBase {
     @CaseId(2483)
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по несуществующему заказу",
-            groups = "api-instamart-regress",
+            groups = {"api-instamart-regress", "api-v3"},
             dependsOnMethods = "getPaymentTools")
     public void addPaymentToolsWithNonExistentOrder() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
@@ -153,7 +153,7 @@ public class PaymentToolsV3Test extends RestBase {
     @CaseId(2486)
     @Story("Способы оплаты")
     @Test(description = "Сохранение несуществующего способа оплаты",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "api-v3"})
     public void addPaymentToolsWithNonExistentPaymentTool() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
@@ -172,7 +172,7 @@ public class PaymentToolsV3Test extends RestBase {
     @CaseId(2529)
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты с шипментом не относящимся к заказу",
-            groups = "api-instamart-regress",
+            groups = {"api-instamart-regress", "api-v3"},
             dependsOnMethods = "getPaymentTools")
     public void addPaymentToolsWithAnotherOrderShipment() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
@@ -191,7 +191,7 @@ public class PaymentToolsV3Test extends RestBase {
     @CaseId(2530)
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты с несуществующим шипментом",
-            groups = "api-instamart-regress",
+            groups = {"api-instamart-regress", "api-v3"},
             dependsOnMethods = "getPaymentTools")
     public void addPaymentToolsWithNonExistentShipment() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
@@ -210,7 +210,7 @@ public class PaymentToolsV3Test extends RestBase {
     @CaseId(2484)
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по просроченному заказу",
-            groups = "api-instamart-regress",
+            groups = {"api-instamart-regress", "api-v3"},
             dependsOnMethods = {"addPaymentToolsWithNonExistentShipment", "getPaymentToolsForAnotherUserOrder", "getPaymentToolsForNonExistentOrder"})
     public void addPaymentToolsForCanceledOrder() {
         SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), OrderStatusV2.CANCELED.getStatus());
@@ -230,7 +230,7 @@ public class PaymentToolsV3Test extends RestBase {
     @CaseId(2485)
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты неавторизованным пользователем",
-            groups = "api-instamart-regress",
+            groups = {"api-instamart-regress", "api-v3"},
             dependsOnMethods = "addPaymentToolsForCanceledOrder")
     public void addPaymentToolsWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V1);
@@ -249,7 +249,7 @@ public class PaymentToolsV3Test extends RestBase {
     @CaseId(2478)
     @Story("Способы оплаты")
     @Test(description = "Получение способов оплаты неавторизованным пользователем",
-            groups = "api-instamart-regress",
+            groups = {"api-instamart-regress", "api-v3"},
             dependsOnMethods = "addPaymentToolsWithoutAuth")
     public void getPaymentToolsWithoutAuth() {
         final Response response = CheckoutV3Request.PaymentTools.GET(order.getNumber());

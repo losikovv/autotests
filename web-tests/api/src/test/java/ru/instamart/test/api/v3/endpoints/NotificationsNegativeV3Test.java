@@ -43,7 +43,7 @@ public class NotificationsNegativeV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(1448)
     @Test(description = "Ошибка 405 (Интеграция для учета)",
-            groups = "api-instamart-smoke",
+            groups = {"api-instamart-smoke", "api-v3"},
             dataProvider = "notificationTypes",
             dataProviderClass = ApiV3DataProvider.class)
     public void orderForAccounting405(NotificationTypeV3 type) {
@@ -58,7 +58,7 @@ public class NotificationsNegativeV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(1504)
     @Test(description = "Ошибка 405 (Шоппер)",
-            groups = "api-instamart-smoke",
+            groups = {"api-instamart-smoke", "api-v3"},
             dataProvider = "notificationTypes",
             dataProviderClass = ApiV3DataProvider.class)
     public void postNotifications405(NotificationTypeV3 type) {
@@ -72,7 +72,7 @@ public class NotificationsNegativeV3Test extends RestBase {
 
     @Story("Негативные тесты")
     @CaseId(1503)
-    @Test(description = "Передан неизвестный статус негатив.", groups = "api-instamart-regress")
+    @Test(description = "Передан неизвестный статус негатив.", groups = {"api-instamart-regress", "api-v3"})
     public void postNotificationsUnknown422() {
         Response response = NotificationsV3Request.POST(orderShopper.getShipments().get(0).getNumber(), "order.unknown");
 
