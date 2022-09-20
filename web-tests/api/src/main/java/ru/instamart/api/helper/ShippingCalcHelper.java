@@ -257,7 +257,8 @@ public class ShippingCalcHelper {
 
     @Step("Добавляем стратегию в БД")
     public static Integer addStrategy(Boolean global, Integer priority, String deliveryType) {
-        String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
+        int lastIndex = deliveryType.lastIndexOf("_");
+        String shipping = lastIndex == -1 ? deliveryType.toLowerCase() : deliveryType.substring(0, lastIndex).toLowerCase();
         Integer strategyId = StrategiesDao.INSTANCE.addStrategy("autotest-insert", shipping, global, priority, "autotest-insert", "autotest-insert");
         Allure.step("Проверяем что стратегия добавилась", () -> assertTrue(strategyId > 0, "Пустое id стратегии"));
         return strategyId;
@@ -379,12 +380,13 @@ public class ShippingCalcHelper {
     }
 
     @Step("Получаем запрос для получения мин. корзины магазина")
-    public static GetMinCartAmountsRequest getMinCartAmountsRequest(String storeId, Float storeLat, Float storeLon, String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Float customerLat, Float customerLon, String tenant, Integer deliveryTypeValue) {
+    public static GetMinCartAmountsRequest getMinCartAmountsRequest(String storeId, Float storeLat, Float storeLon, String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Float customerLat, Float customerLon, String tenant, Integer deliveryTypeValue, Boolean onDemand) {
         return GetMinCartAmountsRequest.newBuilder()
                 .addStores(Store.newBuilder()
                         .setId(storeId)
                         .setLat(storeLat)
                         .setLon(storeLon)
+                        .setIsOndemand(onDemand)
                         .build())
                 .setCustomer(Customer.newBuilder()
                         .setId(customerId)

@@ -30,6 +30,7 @@ public class IntervalsSurgeDao implements Dao<Integer, IntervalsSurgeEntity> {
                     intervalSurgeEntity.setRightBoundary(resultSet.getInt("right_boundary"));
                     intervalSurgeEntity.setPriceAddition(resultSet.getInt("price_addition"));
                     intervalSurgeEntity.setPercentAddition(resultSet.getInt("percent_addition"));
+                    intervalSurgeEntity.setMinCartAddition(resultSet.getInt("min_cart_addition"));
                     intervalsResult.add(intervalSurgeEntity);
                 }
             }
@@ -41,14 +42,15 @@ public class IntervalsSurgeDao implements Dao<Integer, IntervalsSurgeEntity> {
 
     public boolean setIntervals(List<IntervalsSurgeEntity> intervalsList) {
         try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
-             final var preparedStatement = connect.prepareStatement(INSERT_SQL + " (left_boundary, right_boundary, price_addition, percent_addition) " +
-                     " VALUES (?, ?, ?, ?) ")) {
+             final var preparedStatement = connect.prepareStatement(INSERT_SQL + " (left_boundary, right_boundary, price_addition, percent_addition, min_cart_addition) " +
+                     " VALUES (?, ?, ?, ?, ?) ")) {
             int result = 0;
             for (IntervalsSurgeEntity intervalsSurgeEntity : intervalsList) {
                 preparedStatement.setInt(1, intervalsSurgeEntity.getLeftBoundary());
                 preparedStatement.setInt(2, intervalsSurgeEntity.getRightBoundary());
                 preparedStatement.setInt(3, intervalsSurgeEntity.getPriceAddition());
                 preparedStatement.setInt(4, intervalsSurgeEntity.getPercentAddition());
+                preparedStatement.setInt(5, intervalsSurgeEntity.getMinCartAddition());
                 preparedStatement.executeUpdate();
                 result++;
             }
