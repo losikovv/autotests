@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package shifts;
 
-option go_package = "gitlab.sbmt.io/paas/content/operations/shifts/pkg/server/grpc/shifts";
+
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";

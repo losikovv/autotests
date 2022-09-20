@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package workflow;
 
-option go_package = "gitlab.sbmt.io/paas/content/operations/workflow/pkg/server/grpc/workflow";
+
 
 enum SegmentType {
   // Подлет
@@ -17,6 +17,19 @@ enum SegmentType {
   PASS_TO_CLIENT = 5;
   // Получение заказа для доставки
   RECEIVING_FOR_DELIVERY = 6;
+}
+
+enum SegmentStatus {
+  // Новый
+  NEW = 0;
+  // Активный (в работе)
+  IN_PROGRESS = 1;
+  // Завершенный
+  FINISHED = 2;
+  // Удаленный (soft delete)
+  DELETED = 3;
+  // Отмененный (устанавливается при отмене заказа из МЛ)
+  CANCELLED = 4;
 }
 
 // Транспорт исполнителя

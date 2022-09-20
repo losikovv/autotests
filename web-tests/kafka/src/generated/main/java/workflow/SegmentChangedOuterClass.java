@@ -4476,10 +4476,8 @@ public final class SegmentChangedOuterClass {
       "p\022.\n\nupdated_at\030\017 \001(\0132\032.google.protobuf." +
       "Timestamp\022+\n\010duration\030\020 \001(\0132\031.google.pro" +
       "tobuf.Duration\022\020\n\010distance\030\021 \001(\004\032+\n\tMeta" +
-      "Entry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001BRZ" +
-      "Pgitlab.sbermarket.tech/paas/content/ope" +
-      "rations/workflow/pkg/server/grpc/workflo" +
-      "wb\006proto3"
+      "Entry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001b\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

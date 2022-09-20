@@ -75,7 +75,7 @@ public class KafkaTest extends RestBase {
             groups = "ondemand-surgelevel-smoke")
     public void surgeProduceEventOrderActive() {
         OrderEnrichment.EventOrderEnrichment eventOrder = getEventOrderEnrichment(FIRST_DELIVERY_AREA_ID, ORDER_UUID, STORE_ID, OrderEnrichment.EventOrderEnrichment.ShipmentStatus.NEW, "ON_DEMAND", SHIPMENT_UUID);
-        kafka.publish(configCmdOrderEnrichment(), eventOrder.toByteArray());
+        kafka.publish(configCmdOrderEnrichment(), eventOrder);
 
         ThreadUtil.simplyAwait(surgeEventOutdate);
 
@@ -96,7 +96,7 @@ public class KafkaTest extends RestBase {
             dependsOnMethods = "surgeProduceEventOrderRepeatActive")
     public void surgeProduceEventOrderNoLongerActive() {
         OrderEnrichment.EventOrderEnrichment eventOrder = getEventOrderEnrichment(FIRST_DELIVERY_AREA_ID, ORDER_UUID, STORE_ID, OrderEnrichment.EventOrderEnrichment.ShipmentStatus.CANCELED, "ON_DEMAND", SHIPMENT_UUID);
-        kafka.publish(configCmdOrderEnrichment(), eventOrder.toByteArray());
+        kafka.publish(configCmdOrderEnrichment(), eventOrder);
 
         ThreadUtil.simplyAwait(surgeEventOutdate);
 
@@ -117,7 +117,7 @@ public class KafkaTest extends RestBase {
             dependsOnMethods = "surgeProduceEventOrderActive")
     public void surgeProduceEventOrderRepeatActive() {
         OrderEnrichment.EventOrderEnrichment eventOrder = getEventOrderEnrichment(FIRST_DELIVERY_AREA_ID, ORDER_UUID, STORE_ID, OrderEnrichment.EventOrderEnrichment.ShipmentStatus.AUTOMATIC_ROUTING, "ON_DEMAND", SHIPMENT_UUID);
-        kafka.publish(configCmdOrderEnrichment(), eventOrder.toByteArray());
+        kafka.publish(configCmdOrderEnrichment(), eventOrder);
 
         ThreadUtil.simplyAwait(surgeEventOutdate);
 
@@ -132,7 +132,7 @@ public class KafkaTest extends RestBase {
             groups = "ondemand-surgelevel-regress")
     public void surgeProduceEventOrderNotActive() {
         OrderEnrichment.EventOrderEnrichment eventOrder = getEventOrderEnrichment(FIRST_DELIVERY_AREA_ID, UUID.randomUUID().toString(), STORE_ID, OrderEnrichment.EventOrderEnrichment.ShipmentStatus.CANCELED, "ON_DEMAND", UUID.randomUUID().toString());
-        kafka.publish(configCmdOrderEnrichment(), eventOrder.toByteArray());
+        kafka.publish(configCmdOrderEnrichment(), eventOrder);
 
         ThreadUtil.simplyAwait(surgeEventOutdate);
 
@@ -147,7 +147,7 @@ public class KafkaTest extends RestBase {
             groups = "ondemand-surgelevel-smoke")
     public void surgeProduceEventOrderNotOnDemand() {
         OrderEnrichment.EventOrderEnrichment eventOrder = getEventOrderEnrichment(FIRST_DELIVERY_AREA_ID, UUID.randomUUID().toString(), STORE_ID, OrderEnrichment.EventOrderEnrichment.ShipmentStatus.NEW, "PLANNED", UUID.randomUUID().toString());
-        kafka.publish(configCmdOrderEnrichment(), eventOrder.toByteArray());
+        kafka.publish(configCmdOrderEnrichment(), eventOrder);
 
         ThreadUtil.simplyAwait(surgeEventOutdate);
 
@@ -163,7 +163,7 @@ public class KafkaTest extends RestBase {
     public void surgeProduceEventOrderMultipleStores() {
         String shipmentUUid = UUID.randomUUID().toString();
         OrderEnrichment.EventOrderEnrichment eventOrder = getEventOrderEnrichment(SECOND_DELIVERY_AREA_ID, UUID.randomUUID().toString(), FIRST_STORE_ID, OrderEnrichment.EventOrderEnrichment.ShipmentStatus.NEW, "ON_DEMAND", shipmentUUid);
-        kafka.publish(configCmdOrderEnrichment(), eventOrder.toByteArray());
+        kafka.publish(configCmdOrderEnrichment(), eventOrder);
 
         ThreadUtil.simplyAwait(surgeEventOutdate);
 
@@ -197,7 +197,7 @@ public class KafkaTest extends RestBase {
     public void surgeProduceEventOrderGreaterStoreRadius() {
         String shipmentUUid = UUID.randomUUID().toString();
         OrderEnrichment.EventOrderEnrichment eventOrder = getEventOrderEnrichment(SECOND_DELIVERY_AREA_ID, UUID.randomUUID().toString(), SECOND_STORE_ID, OrderEnrichment.EventOrderEnrichment.ShipmentStatus.NEW, "ON_DEMAND", shipmentUUid);
-        kafka.publish(configCmdOrderEnrichment(), eventOrder.toByteArray());
+        kafka.publish(configCmdOrderEnrichment(), eventOrder);
 
         ThreadUtil.simplyAwait(surgeEventOutdate);
 

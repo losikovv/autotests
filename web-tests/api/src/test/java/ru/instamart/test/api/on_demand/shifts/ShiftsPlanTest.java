@@ -83,7 +83,7 @@ public class ShiftsPlanTest extends RestBase {
         var shiftResponse = response.as(ErrorTypeResponse.class);
         Allure.step("Проверка статуса смены", () -> {
             assertEquals(shiftResponse.getStatus(), 422, "status не 422");
-            assertEquals(shiftResponse.getTitle(), "Has shift in progress", "Title ошибки не равен назначенному");
+            assertEquals(shiftResponse.getTitle(), "Попытка начать вторую смену", "Title ошибки не равен назначенному");
             assertEquals(shiftResponse.getType(), "shift-has-in-progress", "Type ошибки не равен назначенному");
         });
     }

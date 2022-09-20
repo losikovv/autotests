@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package workflow;
 
-option go_package = "gitlab.sbermarket.tech/paas/content/operations/workflow/pkg/server/grpc/workflow";
 
 import "workflow/workflow_enums.proto";
 import "google/protobuf/timestamp.proto";

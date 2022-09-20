@@ -207,6 +207,181 @@ public final class WorkflowEnums {
   }
 
   /**
+   * Protobuf enum {@code workflow.SegmentStatus}
+   */
+  public enum SegmentStatus
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <pre>
+     * Новый
+     * </pre>
+     *
+     * <code>NEW = 0;</code>
+     */
+    NEW(0),
+    /**
+     * <pre>
+     * Активный (в работе)
+     * </pre>
+     *
+     * <code>IN_PROGRESS = 1;</code>
+     */
+    IN_PROGRESS(1),
+    /**
+     * <pre>
+     * Завершенный
+     * </pre>
+     *
+     * <code>FINISHED = 2;</code>
+     */
+    FINISHED(2),
+    /**
+     * <pre>
+     * Удаленный (soft delete)
+     * </pre>
+     *
+     * <code>DELETED = 3;</code>
+     */
+    DELETED(3),
+    /**
+     * <pre>
+     * Отмененный (устанавливается при отмене заказа из МЛ)
+     * </pre>
+     *
+     * <code>CANCELLED = 4;</code>
+     */
+    CANCELLED(4),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <pre>
+     * Новый
+     * </pre>
+     *
+     * <code>NEW = 0;</code>
+     */
+    public static final int NEW_VALUE = 0;
+    /**
+     * <pre>
+     * Активный (в работе)
+     * </pre>
+     *
+     * <code>IN_PROGRESS = 1;</code>
+     */
+    public static final int IN_PROGRESS_VALUE = 1;
+    /**
+     * <pre>
+     * Завершенный
+     * </pre>
+     *
+     * <code>FINISHED = 2;</code>
+     */
+    public static final int FINISHED_VALUE = 2;
+    /**
+     * <pre>
+     * Удаленный (soft delete)
+     * </pre>
+     *
+     * <code>DELETED = 3;</code>
+     */
+    public static final int DELETED_VALUE = 3;
+    /**
+     * <pre>
+     * Отмененный (устанавливается при отмене заказа из МЛ)
+     * </pre>
+     *
+     * <code>CANCELLED = 4;</code>
+     */
+    public static final int CANCELLED_VALUE = 4;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static SegmentStatus valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static SegmentStatus forNumber(int value) {
+      switch (value) {
+        case 0: return NEW;
+        case 1: return IN_PROGRESS;
+        case 2: return FINISHED;
+        case 3: return DELETED;
+        case 4: return CANCELLED;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<SegmentStatus>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        SegmentStatus> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<SegmentStatus>() {
+            public SegmentStatus findValueByNumber(int number) {
+              return SegmentStatus.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return workflow.WorkflowEnums.getDescriptor().getEnumTypes().get(1);
+    }
+
+    private static final SegmentStatus[] VALUES = values();
+
+    public static SegmentStatus valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private SegmentStatus(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:workflow.SegmentStatus)
+  }
+
+  /**
    * <pre>
    * Транспорт исполнителя
    * </pre>
@@ -301,7 +476,7 @@ public final class WorkflowEnums {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return workflow.WorkflowEnums.getDescriptor().getEnumTypes().get(1);
+      return workflow.WorkflowEnums.getDescriptor().getEnumTypes().get(2);
     }
 
     private static final PerformerVehicle[] VALUES = values();
@@ -429,7 +604,7 @@ public final class WorkflowEnums {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return workflow.WorkflowEnums.getDescriptor().getEnumTypes().get(2);
+      return workflow.WorkflowEnums.getDescriptor().getEnumTypes().get(3);
     }
 
     private static final SourceType[] VALUES = values();
@@ -557,7 +732,7 @@ public final class WorkflowEnums {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return workflow.WorkflowEnums.getDescriptor().getEnumTypes().get(3);
+      return workflow.WorkflowEnums.getDescriptor().getEnumTypes().get(4);
     }
 
     private static final DeliveryType[] VALUES = values();
@@ -3026,12 +3201,12 @@ public final class WorkflowEnums {
       "s\030\013 \001(\t*{\n\013SegmentType\022\n\n\006ARRIVE\020\000\022\014\n\010AS" +
       "SEMBLY\020\001\022\024\n\020PASS_TO_DELIVERY\020\002\022\014\n\010DELIVE" +
       "RY\020\003\022\022\n\016PASS_TO_CLIENT\020\005\022\032\n\026RECEIVING_FO" +
-      "R_DELIVERY\020\006*6\n\020PerformerVehicle\022\016\n\nPEDE" +
-      "STRIAN\020\000\022\010\n\004AUTO\020\001\022\010\n\004BIKE\020\002*&\n\nSourceTy" +
-      "pe\022\n\n\006MANUAL\020\000\022\014\n\010DISPATCH\020\001*%\n\014Delivery" +
-      "Type\022\013\n\007DEFAULT\020\000\022\010\n\004TAXI\020\001BJZHgitlab.sb" +
-      "mt.io/paas/content/operations/workflow/p" +
-      "kg/server/grpc/workflowb\006proto3"
+      "R_DELIVERY\020\006*S\n\rSegmentStatus\022\007\n\003NEW\020\000\022\017" +
+      "\n\013IN_PROGRESS\020\001\022\014\n\010FINISHED\020\002\022\013\n\007DELETED" +
+      "\020\003\022\r\n\tCANCELLED\020\004*6\n\020PerformerVehicle\022\016\n" +
+      "\nPEDESTRIAN\020\000\022\010\n\004AUTO\020\001\022\010\n\004BIKE\020\002*&\n\nSou" +
+      "rceType\022\n\n\006MANUAL\020\000\022\014\n\010DISPATCH\020\001*%\n\014Del" +
+      "iveryType\022\013\n\007DEFAULT\020\000\022\010\n\004TAXI\020\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

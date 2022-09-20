@@ -18838,9 +18838,7 @@ public final class WorkflowOuterClass {
       "t\032 .workflow.PutRegionSettingsReply\"\000\022[\n" +
       "\021GetRegionSettings\022\".workflow.GetRegionS" +
       "ettingsRequest\032 .workflow.GetRegionSetti" +
-      "ngsReply\"\000BJZHgitlab.sbmt.io/paas/conten" +
-      "t/operations/workflow/pkg/server/grpc/wo" +
-      "rkflowb\006proto3"
+      "ngsReply\"\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

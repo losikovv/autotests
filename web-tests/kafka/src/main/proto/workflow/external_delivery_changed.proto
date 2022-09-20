@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package workflow;
 
-option go_package = "gitlab.sbermarket.tech/paas/content/operations/workflow/pkg/server/grpc/workflow";
+
 
 // Ответ на запрос внешней доставки
 message ExternalDeliveryChanged {
