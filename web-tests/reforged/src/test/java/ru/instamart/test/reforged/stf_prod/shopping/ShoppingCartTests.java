@@ -8,13 +8,11 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.core.config.UiProperties.*;
-import static ru.instamart.reforged.stf.page.StfRouter.seo;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
@@ -28,11 +26,11 @@ public final class ShoppingCartTests {
     public void successValidateDefaultCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReadyProd();
-        shop().interactAddress().fillAddressProd(Addresses.Moscow.testAddress());
-        shop().interactAddress().selectFirstAddressProd();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSaveProd();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -51,11 +49,11 @@ public final class ShoppingCartTests {
     public void successAddItemToCartUnauthorized() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReadyProd();
-        shop().interactAddress().fillAddressProd(Addresses.Moscow.testAddress());
-        shop().interactAddress().selectFirstAddressProd();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSaveProd();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -92,11 +90,11 @@ public final class ShoppingCartTests {
     public void successChangeItemQuantityInCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReadyProd();
-        shop().interactAddress().fillAddressProd(Addresses.Moscow.testAddress());
-        shop().interactAddress().selectFirstAddressProd();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSaveProd();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -119,11 +117,11 @@ public final class ShoppingCartTests {
     public void successChangeItemQuantityInCartViaItemCard() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReadyProd();
-        shop().interactAddress().fillAddressProd(Addresses.Moscow.testAddress());
-        shop().interactAddress().selectFirstAddressProd();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSaveProd();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -202,30 +200,6 @@ public final class ShoppingCartTests {
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().checkBuyButtonVisible();
-    }
-
-    @Skip //неактуальная категория
-    @CaseId(2618)
-    @Test(description = "Добавление/удаление товара из раздела 'Скидки'", groups = {STF_PROD_S})
-    public void testAddProductFromSale() {
-        var userData = UserManager.getQaUser();
-        helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
-
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToCategoryMenu();
-        shop().checkFirstProductCardIsVisible();
-        shop().interactCategoryMenu().clickToFirstLevelCategoryByName("Скидки");
-
-        seo().openFirstProductCardOnDepartment();
-        seo().interactProductCard().clickOnBuy();
-        seo().interactProductCard().decreaseItemCount();
-        seo().interactProductCard().clickOnClose();
-        seo().interactHeader().clickToCart();
-        seo().interactCart().checkCartEmpty();
     }
 
     @CaseIDs(value = {@CaseId(2620), @CaseId(2937), @CaseId(2938)})
@@ -322,11 +296,11 @@ public final class ShoppingCartTests {
 
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReadyProd();
-        shop().interactAddress().fillAddressProd(Addresses.Moscow.testAddress());
-        shop().interactAddress().selectFirstAddressProd();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSaveProd();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -379,7 +353,7 @@ public final class ShoppingCartTests {
     public void testMultiplyOrderGroupingProductsByRetailers() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
-        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID_PROD, 2);
+        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -405,7 +379,7 @@ public final class ShoppingCartTests {
     public void testAutoRemoveRetailerAfterRemoveAllProducts() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
-        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID_PROD, 2);
+        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

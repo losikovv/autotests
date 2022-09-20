@@ -42,9 +42,6 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "defaultAuchanSid", defaultValue = "72")
     public static int DEFAULT_AUCHAN_SID;
 
-    @Config(configName = NAME, fieldName = "defaultAuchanSidProd", defaultValue = "239")
-    public static int DEFAULT_AUCHAN_SID_PROD;
-
     @Config(configName = NAME, fieldName = "defaultPrereplacementSid", defaultValue = "6")
     public static int DEFAULT_PREREPLACEMENT_SID;
 }

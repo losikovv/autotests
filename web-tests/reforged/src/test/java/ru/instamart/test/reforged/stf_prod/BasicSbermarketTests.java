@@ -112,7 +112,6 @@ public final class BasicSbermarketTests {
         shop().interactFooter().checkContactsLinkVisible();
         shop().interactFooter().checkVacanciesLinkVisible();
         shop().interactFooter().checkDocumentsLinkVisible();
-        shop().interactFooter().checkPartnersLinkVisible();
 
         shop().interactFooter().checkCustomerHelpTitleVisible();
         shop().interactFooter().checkHowWeWorkVisible();

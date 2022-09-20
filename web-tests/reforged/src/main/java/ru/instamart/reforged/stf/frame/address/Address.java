@@ -28,11 +28,6 @@ public final class Address implements AddressCheck {
         address.fillField(text);
     }
 
-    @Step("Указать адрес доставки прод")
-    public void fillAddressProd(final String text) {
-        addressInputProd.fillField(text);
-    }
-
     @Step("Выбрать любой адрес из совпадений")
     public void select() {
         dropDownAddress.selectAny();
@@ -41,13 +36,6 @@ public final class Address implements AddressCheck {
     @Step("Выбрать первый адрес из совпадений")
     public void selectFirstAddress() {
         dropDownAddress.selectFirst();
-        //TODO: Ожидание смены геопозиции
-        ThreadUtil.simplyAwait(2);
-    }
-
-    @Step("Выбрать первый адрес из совпадений на проде")
-    public void selectFirstAddressProd() {
-        dropDownAddressProd.selectFirst();
         //TODO: Ожидание смены геопозиции
         ThreadUtil.simplyAwait(2);
     }
@@ -75,11 +63,6 @@ public final class Address implements AddressCheck {
     @Step("Нажать сохранить")
     public void clickOnSave() {
         save.click();
-    }
-
-    @Step("Нажать сохранить на проде")
-    public void clickOnSaveProd() {
-        saveButtonProd.click();
     }
 
     @Step("Нажать 'Найти магазины'")

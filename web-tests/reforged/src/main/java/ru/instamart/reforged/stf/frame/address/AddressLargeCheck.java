@@ -26,4 +26,9 @@ public interface AddressLargeCheck extends AddressLargeElement, Check {
     default void checkIsAddressOutOfZone() {
         waitAction().shouldBeVisible(outOfDeliveryMessage, "Не появилось сообщение о том, что адрес вне зоны доставки");
     }
+
+    @Step("Фрейм адреса доставки не отображается")
+    default void checkAddressModalIsNotVisible() {
+        addressModal.should().invisible();
+    }
 }

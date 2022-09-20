@@ -125,11 +125,11 @@ public final class ShoppingSearchTests {
     public void successAddItemToCartFromSearchResults() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReadyProd();
-        shop().interactAddress().fillAddressProd(Addresses.Moscow.testAddress());
-        shop().interactAddress().selectFirstAddressProd();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSaveProd();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
