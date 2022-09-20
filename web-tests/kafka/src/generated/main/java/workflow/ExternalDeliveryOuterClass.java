@@ -973,9 +973,7 @@ public final class ExternalDeliveryOuterClass {
       "flow\032\035workflow/workflow_enums.proto\"f\n\020E" +
       "xternalDelivery\022\014\n\004uuid\030\001 \001(\t\022\025\n\rshipmen" +
       "t_uuid\030\002 \001(\t\022-\n\rdelivery_type\030\003 \001(\0162\026.wo" +
-      "rkflow.DeliveryTypeBRZPgitlab.sbermarket" +
-      ".tech/paas/content/operations/workflow/p" +
-      "kg/server/grpc/workflowb\006proto3"
+      "rkflow.DeliveryTypeb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

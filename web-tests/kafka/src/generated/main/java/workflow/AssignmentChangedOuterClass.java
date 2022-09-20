@@ -4145,9 +4145,7 @@ public final class AssignmentChangedOuterClass {
       "ue\030\002 \001(\t:\0028\001\"n\n\006Status\022\007\n\003NEW\020\000\022\r\n\tPOSTP" +
       "ONED\020\001\022\013\n\007OFFERED\020\002\022\010\n\004SEEN\020\003\022\014\n\010ACCEPTE" +
       "D\020\004\022\014\n\010DECLINED\020\005\022\013\n\007TIMEOUT\020\006\022\014\n\010CANCEL" +
-      "ED\020\007BJZHgitlab.sbmt.io/paas/content/oper" +
-      "ations/workflow/pkg/server/grpc/workflow" +
-      "b\006proto3"
+      "ED\020\007b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

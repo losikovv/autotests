@@ -72,7 +72,7 @@ public class KafkaDispatchTest extends RestBase {
                 .setShipmentUuid(shipmentUuid)
                 .build();
         //Отправка данных в топик yc.operations-order-service.fct.order.0
-        kafka.publish(configFctOrderStf(), orderEvent.toByteArray());
+        kafka.publish(configFctOrderStf(), orderEvent);
     }
 
     @CaseIDs({

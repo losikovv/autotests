@@ -163,12 +163,13 @@ public class CreateShiftsTest extends RestBase {
                 )
                 .build();
         final Response response = ShiftsRequest.POST(postShift);
+        response.prettyPeek();
         checkStatusCode422(response);
         ErrorTypeResponse errorTypeResponse = response.as(ErrorTypeResponse.class);
         Allure.step("Поверка сообщения об ошибке", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(errorTypeResponse.getStatus(), 422, "Error status message not valid");
-            softAssert.assertEquals(errorTypeResponse.getTitle(), "Some shifts already planned for this time", "Error title message not valid");
+            softAssert.assertEquals(errorTypeResponse.getTitle(), "Найдены запланированные смены на это время", "Error title message not valid");
             softAssert.assertEquals(errorTypeResponse.getType(), "shift-intersection", "Error type message not valid");
             softAssert.assertAll();
         });
@@ -197,7 +198,7 @@ public class CreateShiftsTest extends RestBase {
         Allure.step("", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(errorTypeResponse.getStatus(), 422, "Error status message not valid");
-            softAssert.assertEquals(errorTypeResponse.getTitle(), "Some shifts already planned for this time", "Error title message not valid");
+            softAssert.assertEquals(errorTypeResponse.getTitle(), "Найдены запланированные смены на это время", "Error title message not valid");
             softAssert.assertEquals(errorTypeResponse.getType(), "shift-intersection", "Error type message not valid");
             softAssert.assertAll();
         });

@@ -58,9 +58,10 @@ public class KafkaHelper {
     }
 
     @Step("Отправка сообщения в топик {config.topic}")
-    public RecordMetadata publish(KafkaConfig config, byte[] msg) {
+    public RecordMetadata publish(KafkaConfig config, com.google.protobuf.GeneratedMessageV3 msg) {
         KafkaProducers producer = new KafkaProducers();
-        final RecordMetadata recordMetadata = producer.publish(config, msg);
+        Allure.addAttachment("proto message", msg.toString());
+        final RecordMetadata recordMetadata = producer.publish(config, msg.toByteArray());
         producer.shutdown();
         return recordMetadata;
     }

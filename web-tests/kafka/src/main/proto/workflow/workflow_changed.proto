@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package workflow;
 
-option go_package = "gitlab.sbmt.io/paas/content/operations/workflow/pkg/server/grpc/workflow";
-
 import "workflow/workflow_enums.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
@@ -46,6 +44,29 @@ message WorkflowChanged {
 		CANCEL_BY_PARENT = 9;
 	}
 
+	enum WorkflowEditingReason {
+		// Не определена
+		NOT_DEFINED = 0;
+		// МЛ стартовал
+		STARTED = 1;
+		// Переход на следующий сегмент
+		NEXT_SEGMENT_STARTED = 2;
+		// Изменение таймингов сегментов МЛ
+		CHANGE_SEGMENTS_TIMINGS = 3;
+		// Удаление одного из нескольких заказов в МЛ
+		ORDER_DELETED = 4;
+		// Отменен по причине CancellationReason
+		CANCELLED = 5;
+		// Партнер просмотрел назначение
+		ASSIGNMENT_SEEN = 6;
+		// Партнер принял назначение
+		ASSIGNMENT_ACCEPTED = 7;
+		// Изменилось состояние внешней доставки
+		EXTERNAL_DELIVERY_CHANGED = 8;
+		// МЛ завершился
+		FINISHED = 9;
+	}
+
 	// Внутренний идентификатор маршрутного листа
 	uint64 id = 1;
 	// Идентификатор исполнителя
@@ -73,6 +94,9 @@ message WorkflowChanged {
 		string uuid = 1;
 		bool is_delivery = 2;
 		bool is_assembly = 3;
+		float fact_weight_kg = 4;
+		uint32 fact_items_count = 5;
+		float entirety = 6;
 	}
 
 	repeated Shipment shipments = 13;
@@ -172,7 +196,10 @@ message WorkflowChanged {
 		google.protobuf.Duration duration = 16;
 		// Расстояние
 		uint64 distance = 17;
+		// Статус сегмента
+		SegmentStatus status = 18;
 	}
 
 	repeated Segment segments = 15;
+	WorkflowEditingReason editing_reason = 16;
 }

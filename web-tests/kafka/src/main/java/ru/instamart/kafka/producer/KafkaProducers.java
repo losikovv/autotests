@@ -15,10 +15,12 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
+import static org.testng.Assert.fail;
+
 @Slf4j
 public class KafkaProducers {
 
-    private static KafkaProducer<String, byte[]> kafkaProducer ;
+    private static KafkaProducer<String, byte[]> kafkaProducer;
     private static String saslConfigs = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";";
 
     private Properties producerProperties(KafkaConfig config) {
@@ -58,7 +60,8 @@ public class KafkaProducers {
                             metadata.offset(), elapsedTime));
                 }
                 if (exception != null) {
-                    log.error("Failed sending message to kafka", exception);
+                    log.error("Failed sending message to kafka: {}", exception);
+                    fail("Failed sending message to kafka: " + exception);
                 }
             }).get();
             return toKafka;

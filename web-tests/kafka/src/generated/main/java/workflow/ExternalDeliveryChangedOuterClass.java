@@ -1119,10 +1119,7 @@ public final class ExternalDeliveryChangedOuterClass {
       "\022\014\n\004uuid\030\001 \001(\t\022\025\n\rshipment_uuid\030\002 \001(\t\0228\n" +
       "\006status\030\003 \001(\0162(.workflow.ExternalDeliver" +
       "yChanged.Status\"4\n\006Status\022\014\n\010REJECTED\020\000\022" +
-      "\r\n\tCONFIRMED\020\001\022\r\n\tCOMPLETED\020\002BRZPgitlab." +
-      "sbermarket.tech/paas/content/operations/" +
-      "workflow/pkg/server/grpc/workflowb\006proto" +
-      "3"
+      "\r\n\tCONFIRMED\020\001\022\r\n\tCOMPLETED\020\002b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

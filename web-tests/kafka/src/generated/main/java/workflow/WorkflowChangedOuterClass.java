@@ -329,6 +329,17 @@ public final class WorkflowChangedOuterClass {
      */
     workflow.WorkflowChangedOuterClass.WorkflowChanged.SegmentOrBuilder getSegmentsOrBuilder(
         int index);
+
+    /**
+     * <code>.workflow.WorkflowChanged.WorkflowEditingReason editing_reason = 16;</code>
+     * @return The enum numeric value on the wire for editingReason.
+     */
+    int getEditingReasonValue();
+    /**
+     * <code>.workflow.WorkflowChanged.WorkflowEditingReason editing_reason = 16;</code>
+     * @return The editingReason.
+     */
+    workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason getEditingReason();
   }
   /**
    * Protobuf type {@code workflow.WorkflowChanged}
@@ -349,6 +360,7 @@ public final class WorkflowChangedOuterClass {
       shipments_ = java.util.Collections.emptyList();
       assignments_ = java.util.Collections.emptyList();
       segments_ = java.util.Collections.emptyList();
+      editingReason_ = 0;
     }
 
     @java.lang.Override
@@ -513,6 +525,12 @@ public final class WorkflowChangedOuterClass {
               }
               segments_.add(
                   input.readMessage(workflow.WorkflowChangedOuterClass.WorkflowChanged.Segment.parser(), extensionRegistry));
+              break;
+            }
+            case 128: {
+              int rawValue = input.readEnum();
+
+              editingReason_ = rawValue;
               break;
             }
             default: {
@@ -995,6 +1013,266 @@ public final class WorkflowChangedOuterClass {
       // @@protoc_insertion_point(enum_scope:workflow.WorkflowChanged.WorkflowCancellationReason)
     }
 
+    /**
+     * Protobuf enum {@code workflow.WorkflowChanged.WorkflowEditingReason}
+     */
+    public enum WorkflowEditingReason
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <pre>
+       * Не определена
+       * </pre>
+       *
+       * <code>NOT_DEFINED = 0;</code>
+       */
+      NOT_DEFINED(0),
+      /**
+       * <pre>
+       * МЛ стартовал
+       * </pre>
+       *
+       * <code>STARTED = 1;</code>
+       */
+      STARTED(1),
+      /**
+       * <pre>
+       * Переход на следующий сегмент
+       * </pre>
+       *
+       * <code>NEXT_SEGMENT_STARTED = 2;</code>
+       */
+      NEXT_SEGMENT_STARTED(2),
+      /**
+       * <pre>
+       * Изменение таймингов сегментов МЛ
+       * </pre>
+       *
+       * <code>CHANGE_SEGMENTS_TIMINGS = 3;</code>
+       */
+      CHANGE_SEGMENTS_TIMINGS(3),
+      /**
+       * <pre>
+       * Удаление одного из нескольких заказов в МЛ
+       * </pre>
+       *
+       * <code>ORDER_DELETED = 4;</code>
+       */
+      ORDER_DELETED(4),
+      /**
+       * <pre>
+       * Отменен по причине CancellationReason
+       * </pre>
+       *
+       * <code>CANCELLED = 5;</code>
+       */
+      CANCELLED(5),
+      /**
+       * <pre>
+       * Партнер просмотрел назначение
+       * </pre>
+       *
+       * <code>ASSIGNMENT_SEEN = 6;</code>
+       */
+      ASSIGNMENT_SEEN(6),
+      /**
+       * <pre>
+       * Партнер принял назначение
+       * </pre>
+       *
+       * <code>ASSIGNMENT_ACCEPTED = 7;</code>
+       */
+      ASSIGNMENT_ACCEPTED(7),
+      /**
+       * <pre>
+       * Изменилось состояние внешней доставки
+       * </pre>
+       *
+       * <code>EXTERNAL_DELIVERY_CHANGED = 8;</code>
+       */
+      EXTERNAL_DELIVERY_CHANGED(8),
+      /**
+       * <pre>
+       * МЛ завершился
+       * </pre>
+       *
+       * <code>FINISHED = 9;</code>
+       */
+      FINISHED(9),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <pre>
+       * Не определена
+       * </pre>
+       *
+       * <code>NOT_DEFINED = 0;</code>
+       */
+      public static final int NOT_DEFINED_VALUE = 0;
+      /**
+       * <pre>
+       * МЛ стартовал
+       * </pre>
+       *
+       * <code>STARTED = 1;</code>
+       */
+      public static final int STARTED_VALUE = 1;
+      /**
+       * <pre>
+       * Переход на следующий сегмент
+       * </pre>
+       *
+       * <code>NEXT_SEGMENT_STARTED = 2;</code>
+       */
+      public static final int NEXT_SEGMENT_STARTED_VALUE = 2;
+      /**
+       * <pre>
+       * Изменение таймингов сегментов МЛ
+       * </pre>
+       *
+       * <code>CHANGE_SEGMENTS_TIMINGS = 3;</code>
+       */
+      public static final int CHANGE_SEGMENTS_TIMINGS_VALUE = 3;
+      /**
+       * <pre>
+       * Удаление одного из нескольких заказов в МЛ
+       * </pre>
+       *
+       * <code>ORDER_DELETED = 4;</code>
+       */
+      public static final int ORDER_DELETED_VALUE = 4;
+      /**
+       * <pre>
+       * Отменен по причине CancellationReason
+       * </pre>
+       *
+       * <code>CANCELLED = 5;</code>
+       */
+      public static final int CANCELLED_VALUE = 5;
+      /**
+       * <pre>
+       * Партнер просмотрел назначение
+       * </pre>
+       *
+       * <code>ASSIGNMENT_SEEN = 6;</code>
+       */
+      public static final int ASSIGNMENT_SEEN_VALUE = 6;
+      /**
+       * <pre>
+       * Партнер принял назначение
+       * </pre>
+       *
+       * <code>ASSIGNMENT_ACCEPTED = 7;</code>
+       */
+      public static final int ASSIGNMENT_ACCEPTED_VALUE = 7;
+      /**
+       * <pre>
+       * Изменилось состояние внешней доставки
+       * </pre>
+       *
+       * <code>EXTERNAL_DELIVERY_CHANGED = 8;</code>
+       */
+      public static final int EXTERNAL_DELIVERY_CHANGED_VALUE = 8;
+      /**
+       * <pre>
+       * МЛ завершился
+       * </pre>
+       *
+       * <code>FINISHED = 9;</code>
+       */
+      public static final int FINISHED_VALUE = 9;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static WorkflowEditingReason valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static WorkflowEditingReason forNumber(int value) {
+        switch (value) {
+          case 0: return NOT_DEFINED;
+          case 1: return STARTED;
+          case 2: return NEXT_SEGMENT_STARTED;
+          case 3: return CHANGE_SEGMENTS_TIMINGS;
+          case 4: return ORDER_DELETED;
+          case 5: return CANCELLED;
+          case 6: return ASSIGNMENT_SEEN;
+          case 7: return ASSIGNMENT_ACCEPTED;
+          case 8: return EXTERNAL_DELIVERY_CHANGED;
+          case 9: return FINISHED;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<WorkflowEditingReason>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          WorkflowEditingReason> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<WorkflowEditingReason>() {
+              public WorkflowEditingReason findValueByNumber(int number) {
+                return WorkflowEditingReason.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return workflow.WorkflowChangedOuterClass.WorkflowChanged.getDescriptor().getEnumTypes().get(2);
+      }
+
+      private static final WorkflowEditingReason[] VALUES = values();
+
+      public static WorkflowEditingReason valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private WorkflowEditingReason(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:workflow.WorkflowChanged.WorkflowEditingReason)
+    }
+
     public interface ShipmentOrBuilder extends
         // @@protoc_insertion_point(interface_extends:workflow.WorkflowChanged.Shipment)
         com.google.protobuf.MessageOrBuilder {
@@ -1022,6 +1300,24 @@ public final class WorkflowChangedOuterClass {
        * @return The isAssembly.
        */
       boolean getIsAssembly();
+
+      /**
+       * <code>float fact_weight_kg = 4;</code>
+       * @return The factWeightKg.
+       */
+      float getFactWeightKg();
+
+      /**
+       * <code>uint32 fact_items_count = 5;</code>
+       * @return The factItemsCount.
+       */
+      int getFactItemsCount();
+
+      /**
+       * <code>float entirety = 6;</code>
+       * @return The entirety.
+       */
+      float getEntirety();
     }
     /**
      * Protobuf type {@code workflow.WorkflowChanged.Shipment}
@@ -1083,6 +1379,21 @@ public final class WorkflowChangedOuterClass {
               case 24: {
 
                 isAssembly_ = input.readBool();
+                break;
+              }
+              case 37: {
+
+                factWeightKg_ = input.readFloat();
+                break;
+              }
+              case 40: {
+
+                factItemsCount_ = input.readUInt32();
+                break;
+              }
+              case 53: {
+
+                entirety_ = input.readFloat();
                 break;
               }
               default: {
@@ -1177,6 +1488,39 @@ public final class WorkflowChangedOuterClass {
         return isAssembly_;
       }
 
+      public static final int FACT_WEIGHT_KG_FIELD_NUMBER = 4;
+      private float factWeightKg_;
+      /**
+       * <code>float fact_weight_kg = 4;</code>
+       * @return The factWeightKg.
+       */
+      @java.lang.Override
+      public float getFactWeightKg() {
+        return factWeightKg_;
+      }
+
+      public static final int FACT_ITEMS_COUNT_FIELD_NUMBER = 5;
+      private int factItemsCount_;
+      /**
+       * <code>uint32 fact_items_count = 5;</code>
+       * @return The factItemsCount.
+       */
+      @java.lang.Override
+      public int getFactItemsCount() {
+        return factItemsCount_;
+      }
+
+      public static final int ENTIRETY_FIELD_NUMBER = 6;
+      private float entirety_;
+      /**
+       * <code>float entirety = 6;</code>
+       * @return The entirety.
+       */
+      @java.lang.Override
+      public float getEntirety() {
+        return entirety_;
+      }
+
       private byte memoizedIsInitialized = -1;
       @java.lang.Override
       public final boolean isInitialized() {
@@ -1200,6 +1544,15 @@ public final class WorkflowChangedOuterClass {
         if (isAssembly_ != false) {
           output.writeBool(3, isAssembly_);
         }
+        if (factWeightKg_ != 0F) {
+          output.writeFloat(4, factWeightKg_);
+        }
+        if (factItemsCount_ != 0) {
+          output.writeUInt32(5, factItemsCount_);
+        }
+        if (entirety_ != 0F) {
+          output.writeFloat(6, entirety_);
+        }
         unknownFields.writeTo(output);
       }
 
@@ -1219,6 +1572,18 @@ public final class WorkflowChangedOuterClass {
         if (isAssembly_ != false) {
           size += com.google.protobuf.CodedOutputStream
             .computeBoolSize(3, isAssembly_);
+        }
+        if (factWeightKg_ != 0F) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeFloatSize(4, factWeightKg_);
+        }
+        if (factItemsCount_ != 0) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(5, factItemsCount_);
+        }
+        if (entirety_ != 0F) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeFloatSize(6, entirety_);
         }
         size += unknownFields.getSerializedSize();
         memoizedSize = size;
@@ -1241,6 +1606,14 @@ public final class WorkflowChangedOuterClass {
             != other.getIsDelivery()) return false;
         if (getIsAssembly()
             != other.getIsAssembly()) return false;
+        if (java.lang.Float.floatToIntBits(getFactWeightKg())
+            != java.lang.Float.floatToIntBits(
+                other.getFactWeightKg())) return false;
+        if (getFactItemsCount()
+            != other.getFactItemsCount()) return false;
+        if (java.lang.Float.floatToIntBits(getEntirety())
+            != java.lang.Float.floatToIntBits(
+                other.getEntirety())) return false;
         if (!unknownFields.equals(other.unknownFields)) return false;
         return true;
       }
@@ -1260,6 +1633,14 @@ public final class WorkflowChangedOuterClass {
         hash = (37 * hash) + IS_ASSEMBLY_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
             getIsAssembly());
+        hash = (37 * hash) + FACT_WEIGHT_KG_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getFactWeightKg());
+        hash = (37 * hash) + FACT_ITEMS_COUNT_FIELD_NUMBER;
+        hash = (53 * hash) + getFactItemsCount();
+        hash = (37 * hash) + ENTIRETY_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getEntirety());
         hash = (29 * hash) + unknownFields.hashCode();
         memoizedHashCode = hash;
         return hash;
@@ -1399,6 +1780,12 @@ public final class WorkflowChangedOuterClass {
 
           isAssembly_ = false;
 
+          factWeightKg_ = 0F;
+
+          factItemsCount_ = 0;
+
+          entirety_ = 0F;
+
           return this;
         }
 
@@ -1428,6 +1815,9 @@ public final class WorkflowChangedOuterClass {
           result.uuid_ = uuid_;
           result.isDelivery_ = isDelivery_;
           result.isAssembly_ = isAssembly_;
+          result.factWeightKg_ = factWeightKg_;
+          result.factItemsCount_ = factItemsCount_;
+          result.entirety_ = entirety_;
           onBuilt();
           return result;
         }
@@ -1485,6 +1875,15 @@ public final class WorkflowChangedOuterClass {
           }
           if (other.getIsAssembly() != false) {
             setIsAssembly(other.getIsAssembly());
+          }
+          if (other.getFactWeightKg() != 0F) {
+            setFactWeightKg(other.getFactWeightKg());
+          }
+          if (other.getFactItemsCount() != 0) {
+            setFactItemsCount(other.getFactItemsCount());
+          }
+          if (other.getEntirety() != 0F) {
+            setEntirety(other.getEntirety());
           }
           this.mergeUnknownFields(other.unknownFields);
           onChanged();
@@ -1649,6 +2048,99 @@ public final class WorkflowChangedOuterClass {
         public Builder clearIsAssembly() {
           
           isAssembly_ = false;
+          onChanged();
+          return this;
+        }
+
+        private float factWeightKg_ ;
+        /**
+         * <code>float fact_weight_kg = 4;</code>
+         * @return The factWeightKg.
+         */
+        @java.lang.Override
+        public float getFactWeightKg() {
+          return factWeightKg_;
+        }
+        /**
+         * <code>float fact_weight_kg = 4;</code>
+         * @param value The factWeightKg to set.
+         * @return This builder for chaining.
+         */
+        public Builder setFactWeightKg(float value) {
+          
+          factWeightKg_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>float fact_weight_kg = 4;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearFactWeightKg() {
+          
+          factWeightKg_ = 0F;
+          onChanged();
+          return this;
+        }
+
+        private int factItemsCount_ ;
+        /**
+         * <code>uint32 fact_items_count = 5;</code>
+         * @return The factItemsCount.
+         */
+        @java.lang.Override
+        public int getFactItemsCount() {
+          return factItemsCount_;
+        }
+        /**
+         * <code>uint32 fact_items_count = 5;</code>
+         * @param value The factItemsCount to set.
+         * @return This builder for chaining.
+         */
+        public Builder setFactItemsCount(int value) {
+          
+          factItemsCount_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>uint32 fact_items_count = 5;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearFactItemsCount() {
+          
+          factItemsCount_ = 0;
+          onChanged();
+          return this;
+        }
+
+        private float entirety_ ;
+        /**
+         * <code>float entirety = 6;</code>
+         * @return The entirety.
+         */
+        @java.lang.Override
+        public float getEntirety() {
+          return entirety_;
+        }
+        /**
+         * <code>float entirety = 6;</code>
+         * @param value The entirety to set.
+         * @return This builder for chaining.
+         */
+        public Builder setEntirety(float value) {
+          
+          entirety_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>float entirety = 6;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearEntirety() {
+          
+          entirety_ = 0F;
           onChanged();
           return this;
         }
@@ -6140,6 +6632,25 @@ public final class WorkflowChangedOuterClass {
        * @return The distance.
        */
       long getDistance();
+
+      /**
+       * <pre>
+       * Статус сегмента
+       * </pre>
+       *
+       * <code>.workflow.SegmentStatus status = 18;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      int getStatusValue();
+      /**
+       * <pre>
+       * Статус сегмента
+       * </pre>
+       *
+       * <code>.workflow.SegmentStatus status = 18;</code>
+       * @return The status.
+       */
+      workflow.WorkflowEnums.SegmentStatus getStatus();
     }
     /**
      * <pre>
@@ -6160,6 +6671,7 @@ public final class WorkflowChangedOuterClass {
       private Segment() {
         type_ = 0;
         shipments_ = java.util.Collections.emptyList();
+        status_ = 0;
       }
 
       @java.lang.Override
@@ -6364,6 +6876,12 @@ public final class WorkflowChangedOuterClass {
               case 136: {
 
                 distance_ = input.readUInt64();
+                break;
+              }
+              case 144: {
+                int rawValue = input.readEnum();
+
+                status_ = rawValue;
                 break;
               }
               default: {
@@ -7022,6 +7540,33 @@ public final class WorkflowChangedOuterClass {
         return distance_;
       }
 
+      public static final int STATUS_FIELD_NUMBER = 18;
+      private int status_;
+      /**
+       * <pre>
+       * Статус сегмента
+       * </pre>
+       *
+       * <code>.workflow.SegmentStatus status = 18;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <pre>
+       * Статус сегмента
+       * </pre>
+       *
+       * <code>.workflow.SegmentStatus status = 18;</code>
+       * @return The status.
+       */
+      @java.lang.Override public workflow.WorkflowEnums.SegmentStatus getStatus() {
+        @SuppressWarnings("deprecation")
+        workflow.WorkflowEnums.SegmentStatus result = workflow.WorkflowEnums.SegmentStatus.valueOf(status_);
+        return result == null ? workflow.WorkflowEnums.SegmentStatus.UNRECOGNIZED : result;
+      }
+
       private byte memoizedIsInitialized = -1;
       @java.lang.Override
       public final boolean isInitialized() {
@@ -7086,6 +7631,9 @@ public final class WorkflowChangedOuterClass {
         }
         if (distance_ != 0L) {
           output.writeUInt64(17, distance_);
+        }
+        if (status_ != workflow.WorkflowEnums.SegmentStatus.NEW.getNumber()) {
+          output.writeEnum(18, status_);
         }
         unknownFields.writeTo(output);
       }
@@ -7166,6 +7714,10 @@ public final class WorkflowChangedOuterClass {
           size += com.google.protobuf.CodedOutputStream
             .computeUInt64Size(17, distance_);
         }
+        if (status_ != workflow.WorkflowEnums.SegmentStatus.NEW.getNumber()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeEnumSize(18, status_);
+        }
         size += unknownFields.getSerializedSize();
         memoizedSize = size;
         return size;
@@ -7242,6 +7794,7 @@ public final class WorkflowChangedOuterClass {
         }
         if (getDistance()
             != other.getDistance()) return false;
+        if (status_ != other.status_) return false;
         if (!unknownFields.equals(other.unknownFields)) return false;
         return true;
       }
@@ -7311,6 +7864,8 @@ public final class WorkflowChangedOuterClass {
         hash = (37 * hash) + DISTANCE_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getDistance());
+        hash = (37 * hash) + STATUS_FIELD_NUMBER;
+        hash = (53 * hash) + status_;
         hash = (29 * hash) + unknownFields.hashCode();
         memoizedHashCode = hash;
         return hash;
@@ -7546,6 +8101,8 @@ public final class WorkflowChangedOuterClass {
           }
           distance_ = 0L;
 
+          status_ = 0;
+
           return this;
         }
 
@@ -7638,6 +8195,7 @@ public final class WorkflowChangedOuterClass {
             result.duration_ = durationBuilder_.build();
           }
           result.distance_ = distance_;
+          result.status_ = status_;
           onBuilt();
           return result;
         }
@@ -7755,6 +8313,9 @@ public final class WorkflowChangedOuterClass {
           }
           if (other.getDistance() != 0L) {
             setDistance(other.getDistance());
+          }
+          if (other.status_ != 0) {
+            setStatusValue(other.getStatusValue());
           }
           this.mergeUnknownFields(other.unknownFields);
           onChanged();
@@ -10006,6 +10567,80 @@ public final class WorkflowChangedOuterClass {
           onChanged();
           return this;
         }
+
+        private int status_ = 0;
+        /**
+         * <pre>
+         * Статус сегмента
+         * </pre>
+         *
+         * <code>.workflow.SegmentStatus status = 18;</code>
+         * @return The enum numeric value on the wire for status.
+         */
+        @java.lang.Override public int getStatusValue() {
+          return status_;
+        }
+        /**
+         * <pre>
+         * Статус сегмента
+         * </pre>
+         *
+         * <code>.workflow.SegmentStatus status = 18;</code>
+         * @param value The enum numeric value on the wire for status to set.
+         * @return This builder for chaining.
+         */
+        public Builder setStatusValue(int value) {
+          
+          status_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * Статус сегмента
+         * </pre>
+         *
+         * <code>.workflow.SegmentStatus status = 18;</code>
+         * @return The status.
+         */
+        @java.lang.Override
+        public workflow.WorkflowEnums.SegmentStatus getStatus() {
+          @SuppressWarnings("deprecation")
+          workflow.WorkflowEnums.SegmentStatus result = workflow.WorkflowEnums.SegmentStatus.valueOf(status_);
+          return result == null ? workflow.WorkflowEnums.SegmentStatus.UNRECOGNIZED : result;
+        }
+        /**
+         * <pre>
+         * Статус сегмента
+         * </pre>
+         *
+         * <code>.workflow.SegmentStatus status = 18;</code>
+         * @param value The status to set.
+         * @return This builder for chaining.
+         */
+        public Builder setStatus(workflow.WorkflowEnums.SegmentStatus value) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          
+          status_ = value.getNumber();
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * Статус сегмента
+         * </pre>
+         *
+         * <code>.workflow.SegmentStatus status = 18;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearStatus() {
+          
+          status_ = 0;
+          onChanged();
+          return this;
+        }
         @java.lang.Override
         public final Builder setUnknownFields(
             final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -10537,6 +11172,25 @@ public final class WorkflowChangedOuterClass {
       return segments_.get(index);
     }
 
+    public static final int EDITING_REASON_FIELD_NUMBER = 16;
+    private int editingReason_;
+    /**
+     * <code>.workflow.WorkflowChanged.WorkflowEditingReason editing_reason = 16;</code>
+     * @return The enum numeric value on the wire for editingReason.
+     */
+    @java.lang.Override public int getEditingReasonValue() {
+      return editingReason_;
+    }
+    /**
+     * <code>.workflow.WorkflowChanged.WorkflowEditingReason editing_reason = 16;</code>
+     * @return The editingReason.
+     */
+    @java.lang.Override public workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason getEditingReason() {
+      @SuppressWarnings("deprecation")
+      workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason result = workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason.valueOf(editingReason_);
+      return result == null ? workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -10592,6 +11246,9 @@ public final class WorkflowChangedOuterClass {
       }
       for (int i = 0; i < segments_.size(); i++) {
         output.writeMessage(15, segments_.get(i));
+      }
+      if (editingReason_ != workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason.NOT_DEFINED.getNumber()) {
+        output.writeEnum(16, editingReason_);
       }
       unknownFields.writeTo(output);
     }
@@ -10657,6 +11314,10 @@ public final class WorkflowChangedOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(15, segments_.get(i));
       }
+      if (editingReason_ != workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason.NOT_DEFINED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(16, editingReason_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -10716,6 +11377,7 @@ public final class WorkflowChangedOuterClass {
           .equals(other.getAssignmentsList())) return false;
       if (!getSegmentsList()
           .equals(other.getSegmentsList())) return false;
+      if (editingReason_ != other.editingReason_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -10775,6 +11437,8 @@ public final class WorkflowChangedOuterClass {
         hash = (37 * hash) + SEGMENTS_FIELD_NUMBER;
         hash = (53 * hash) + getSegmentsList().hashCode();
       }
+      hash = (37 * hash) + EDITING_REASON_FIELD_NUMBER;
+      hash = (53 * hash) + editingReason_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -10975,6 +11639,8 @@ public final class WorkflowChangedOuterClass {
         } else {
           segmentsBuilder_.clear();
         }
+        editingReason_ = 0;
+
         return this;
       }
 
@@ -11064,6 +11730,7 @@ public final class WorkflowChangedOuterClass {
         } else {
           result.segments_ = segmentsBuilder_.build();
         }
+        result.editingReason_ = editingReason_;
         onBuilt();
         return result;
       }
@@ -11223,6 +11890,9 @@ public final class WorkflowChangedOuterClass {
               segmentsBuilder_.addAllMessages(other.segments_);
             }
           }
+        }
+        if (other.editingReason_ != 0) {
+          setEditingReasonValue(other.getEditingReasonValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -13233,6 +13903,60 @@ public final class WorkflowChangedOuterClass {
         }
         return segmentsBuilder_;
       }
+
+      private int editingReason_ = 0;
+      /**
+       * <code>.workflow.WorkflowChanged.WorkflowEditingReason editing_reason = 16;</code>
+       * @return The enum numeric value on the wire for editingReason.
+       */
+      @java.lang.Override public int getEditingReasonValue() {
+        return editingReason_;
+      }
+      /**
+       * <code>.workflow.WorkflowChanged.WorkflowEditingReason editing_reason = 16;</code>
+       * @param value The enum numeric value on the wire for editingReason to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEditingReasonValue(int value) {
+        
+        editingReason_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.workflow.WorkflowChanged.WorkflowEditingReason editing_reason = 16;</code>
+       * @return The editingReason.
+       */
+      @java.lang.Override
+      public workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason getEditingReason() {
+        @SuppressWarnings("deprecation")
+        workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason result = workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason.valueOf(editingReason_);
+        return result == null ? workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.workflow.WorkflowChanged.WorkflowEditingReason editing_reason = 16;</code>
+       * @param value The editingReason to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEditingReason(workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        editingReason_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.workflow.WorkflowChanged.WorkflowEditingReason editing_reason = 16;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEditingReason() {
+        
+        editingReason_ = 0;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -13328,7 +14052,7 @@ public final class WorkflowChangedOuterClass {
       "\n\037workflow/workflow_changed.proto\022\010workf" +
       "low\032\035workflow/workflow_enums.proto\032\037goog" +
       "le/protobuf/timestamp.proto\032\036google/prot" +
-      "obuf/duration.proto\"\237\024\n\017WorkflowChanged\022" +
+      "obuf/duration.proto\"\302\027\n\017WorkflowChanged\022" +
       "\n\n\002id\030\001 \001(\004\022\026\n\016performer_uuid\030\003 \001(\t\0220\n\006s" +
       "tatus\030\004 \001(\0162 .workflow.WorkflowChanged.S" +
       "tatus\022\020\n\010shift_id\030\007 \001(\004\0223\n\017plan_started_" +
@@ -13344,58 +14068,66 @@ public final class WorkflowChangedOuterClass {
       "ments\030\r \003(\0132\".workflow.WorkflowChanged.S" +
       "hipment\0229\n\013assignments\030\016 \003(\0132$.workflow." +
       "WorkflowChanged.Assignment\0223\n\010segments\030\017" +
-      " \003(\0132!.workflow.WorkflowChanged.Segment\032" +
-      "B\n\010Shipment\022\014\n\004uuid\030\001 \001(\t\022\023\n\013is_delivery" +
-      "\030\002 \001(\010\022\023\n\013is_assembly\030\003 \001(\010\032\262\006\n\nAssignme" +
-      "nt\022\n\n\002id\030\001 \001(\004\022\033\n\023postponed_parent_id\030\002 " +
-      "\001(\004\022\014\n\004uuid\030\r \001(\t\022\035\n\025postponed_parent_uu" +
-      "id\030\014 \001(\t\022\020\n\010job_uuid\030\022 \001(\t\022\027\n\017parent_job" +
-      "_uuid\030\023 \001(\t\022\026\n\016performer_uuid\030\004 \001(\t\0225\n\021p" +
-      "erformer_vehicle\030\016 \001(\0162\032.workflow.Perfor" +
-      "merVehicle\022;\n\006status\030\005 \001(\0162+.workflow.Wo" +
-      "rkflowChanged.Assignment.Status\022-\n\rdeliv" +
-      "ery_type\030\013 \001(\0162\026.workflow.DeliveryType\022)" +
-      "\n\013source_type\030\021 \001(\0162\024.workflow.SourceTyp" +
-      "e\0225\n\tshipments\030\006 \003(\0132\".workflow.Workflow" +
-      "Changed.Shipment\022\024\n\014plan_payroll\030\007 \001(\002\022\031" +
-      "\n\021plan_payroll_base\030\017 \001(\002\022\032\n\022plan_payrol" +
-      "l_bonus\030\020 \001(\002\022<\n\004meta\030\010 \003(\0132..workflow.W" +
-      "orkflowChanged.Assignment.MetaEntry\022.\n\nc" +
-      "reated_at\030\t \001(\0132\032.google.protobuf.Timest" +
-      "amp\022.\n\nupdated_at\030\n \001(\0132\032.google.protobu" +
-      "f.Timestamp\032+\n\tMetaEntry\022\013\n\003key\030\001 \001(\t\022\r\n" +
-      "\005value\030\002 \001(\t:\0028\001\"n\n\006Status\022\007\n\003NEW\020\000\022\r\n\tP" +
-      "OSTPONED\020\001\022\013\n\007OFFERED\020\002\022\010\n\004SEEN\020\003\022\014\n\010ACC" +
-      "EPTED\020\004\022\014\n\010DECLINED\020\005\022\013\n\007TIMEOUT\020\006\022\014\n\010CA" +
-      "NCELED\020\007\032\335\005\n\007Segment\022\n\n\002id\030\001 \001(\004\022#\n\004type" +
-      "\030\002 \001(\0162\025.workflow.SegmentType\022\020\n\010positio" +
-      "n\030\003 \001(\r\0225\n\tshipments\030\005 \003(\0132\".workflow.Wo" +
-      "rkflowChanged.Shipment\022*\n\016location_start" +
-      "\030\006 \001(\0132\022.workflow.Location\0223\n\017plan_start" +
-      "ed_at\030\007 \001(\0132\032.google.protobuf.Timestamp\022" +
-      "(\n\014location_end\030\010 \001(\0132\022.workflow.Locatio" +
-      "n\0221\n\rplan_ended_at\030\t \001(\0132\032.google.protob" +
-      "uf.Timestamp\0223\n\017fact_started_at\030\n \001(\0132\032." +
-      "google.protobuf.Timestamp\0221\n\rfact_ended_" +
-      "at\030\013 \001(\0132\032.google.protobuf.Timestamp\022+\n\010" +
-      "time_lag\030\014 \001(\0132\031.google.protobuf.Duratio" +
-      "n\0229\n\004meta\030\r \003(\0132+.workflow.WorkflowChang" +
-      "ed.Segment.MetaEntry\022.\n\ncreated_at\030\016 \001(\013" +
-      "2\032.google.protobuf.Timestamp\022.\n\nupdated_" +
-      "at\030\017 \001(\0132\032.google.protobuf.Timestamp\022+\n\010" +
-      "duration\030\020 \001(\0132\031.google.protobuf.Duratio" +
-      "n\022\020\n\010distance\030\021 \001(\004\032+\n\tMetaEntry\022\013\n\003key\030" +
-      "\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"K\n\006Status\022\007\n\003NE" +
-      "W\020\000\022\n\n\006QUEUED\020\001\022\017\n\013IN_PROGRESS\020\002\022\r\n\tCOMP" +
-      "LETED\020\003\022\014\n\010CANCELED\020\004\"\345\001\n\032WorkflowCancel" +
-      "lationReason\022\020\n\014NOT_CANCELED\020\000\022\027\n\023ASSIGN" +
-      "MENT_DECLINED\020\001\022\027\n\023CANCEL_BY_PERFORMER\020\002" +
-      "\022\022\n\016ORDER_CANCELED\020\003\022\r\n\tMOVE_SLOT\020\004\022\020\n\014N" +
-      "OT_ASSIGNED\020\005\022\017\n\013NOT_STARTED\020\006\022\033\n\027PERFOR" +
-      "MER_NOT_AVAILABLE\020\007\022\n\n\006MANUAL\020\010\022\024\n\020CANCE" +
-      "L_BY_PARENT\020\tBJZHgitlab.sbmt.io/paas/con" +
-      "tent/operations/workflow/pkg/server/grpc" +
-      "/workflowb\006proto3"
+      " \003(\0132!.workflow.WorkflowChanged.Segment\022" +
+      "G\n\016editing_reason\030\020 \001(\0162/.workflow.Workf" +
+      "lowChanged.WorkflowEditingReason\032\206\001\n\010Shi" +
+      "pment\022\014\n\004uuid\030\001 \001(\t\022\023\n\013is_delivery\030\002 \001(\010" +
+      "\022\023\n\013is_assembly\030\003 \001(\010\022\026\n\016fact_weight_kg\030" +
+      "\004 \001(\002\022\030\n\020fact_items_count\030\005 \001(\r\022\020\n\010entir" +
+      "ety\030\006 \001(\002\032\262\006\n\nAssignment\022\n\n\002id\030\001 \001(\004\022\033\n\023" +
+      "postponed_parent_id\030\002 \001(\004\022\014\n\004uuid\030\r \001(\t\022" +
+      "\035\n\025postponed_parent_uuid\030\014 \001(\t\022\020\n\010job_uu" +
+      "id\030\022 \001(\t\022\027\n\017parent_job_uuid\030\023 \001(\t\022\026\n\016per" +
+      "former_uuid\030\004 \001(\t\0225\n\021performer_vehicle\030\016" +
+      " \001(\0162\032.workflow.PerformerVehicle\022;\n\006stat" +
+      "us\030\005 \001(\0162+.workflow.WorkflowChanged.Assi" +
+      "gnment.Status\022-\n\rdelivery_type\030\013 \001(\0162\026.w" +
+      "orkflow.DeliveryType\022)\n\013source_type\030\021 \001(" +
+      "\0162\024.workflow.SourceType\0225\n\tshipments\030\006 \003" +
+      "(\0132\".workflow.WorkflowChanged.Shipment\022\024" +
+      "\n\014plan_payroll\030\007 \001(\002\022\031\n\021plan_payroll_bas" +
+      "e\030\017 \001(\002\022\032\n\022plan_payroll_bonus\030\020 \001(\002\022<\n\004m" +
+      "eta\030\010 \003(\0132..workflow.WorkflowChanged.Ass" +
+      "ignment.MetaEntry\022.\n\ncreated_at\030\t \001(\0132\032." +
+      "google.protobuf.Timestamp\022.\n\nupdated_at\030" +
+      "\n \001(\0132\032.google.protobuf.Timestamp\032+\n\tMet" +
+      "aEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"n" +
+      "\n\006Status\022\007\n\003NEW\020\000\022\r\n\tPOSTPONED\020\001\022\013\n\007OFFE" +
+      "RED\020\002\022\010\n\004SEEN\020\003\022\014\n\010ACCEPTED\020\004\022\014\n\010DECLINE" +
+      "D\020\005\022\013\n\007TIMEOUT\020\006\022\014\n\010CANCELED\020\007\032\206\006\n\007Segme" +
+      "nt\022\n\n\002id\030\001 \001(\004\022#\n\004type\030\002 \001(\0162\025.workflow." +
+      "SegmentType\022\020\n\010position\030\003 \001(\r\0225\n\tshipmen" +
+      "ts\030\005 \003(\0132\".workflow.WorkflowChanged.Ship" +
+      "ment\022*\n\016location_start\030\006 \001(\0132\022.workflow." +
+      "Location\0223\n\017plan_started_at\030\007 \001(\0132\032.goog" +
+      "le.protobuf.Timestamp\022(\n\014location_end\030\010 " +
+      "\001(\0132\022.workflow.Location\0221\n\rplan_ended_at" +
+      "\030\t \001(\0132\032.google.protobuf.Timestamp\0223\n\017fa" +
+      "ct_started_at\030\n \001(\0132\032.google.protobuf.Ti" +
+      "mestamp\0221\n\rfact_ended_at\030\013 \001(\0132\032.google." +
+      "protobuf.Timestamp\022+\n\010time_lag\030\014 \001(\0132\031.g" +
+      "oogle.protobuf.Duration\0229\n\004meta\030\r \003(\0132+." +
+      "workflow.WorkflowChanged.Segment.MetaEnt" +
+      "ry\022.\n\ncreated_at\030\016 \001(\0132\032.google.protobuf" +
+      ".Timestamp\022.\n\nupdated_at\030\017 \001(\0132\032.google." +
+      "protobuf.Timestamp\022+\n\010duration\030\020 \001(\0132\031.g" +
+      "oogle.protobuf.Duration\022\020\n\010distance\030\021 \001(" +
+      "\004\022\'\n\006status\030\022 \001(\0162\027.workflow.SegmentStat" +
+      "us\032+\n\tMetaEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 " +
+      "\001(\t:\0028\001\"K\n\006Status\022\007\n\003NEW\020\000\022\n\n\006QUEUED\020\001\022\017" +
+      "\n\013IN_PROGRESS\020\002\022\r\n\tCOMPLETED\020\003\022\014\n\010CANCEL" +
+      "ED\020\004\"\345\001\n\032WorkflowCancellationReason\022\020\n\014N" +
+      "OT_CANCELED\020\000\022\027\n\023ASSIGNMENT_DECLINED\020\001\022\027" +
+      "\n\023CANCEL_BY_PERFORMER\020\002\022\022\n\016ORDER_CANCELE" +
+      "D\020\003\022\r\n\tMOVE_SLOT\020\004\022\020\n\014NOT_ASSIGNED\020\005\022\017\n\013" +
+      "NOT_STARTED\020\006\022\033\n\027PERFORMER_NOT_AVAILABLE" +
+      "\020\007\022\n\n\006MANUAL\020\010\022\024\n\020CANCEL_BY_PARENT\020\t\"\351\001\n" +
+      "\025WorkflowEditingReason\022\017\n\013NOT_DEFINED\020\000\022" +
+      "\013\n\007STARTED\020\001\022\030\n\024NEXT_SEGMENT_STARTED\020\002\022\033" +
+      "\n\027CHANGE_SEGMENTS_TIMINGS\020\003\022\021\n\rORDER_DEL" +
+      "ETED\020\004\022\r\n\tCANCELLED\020\005\022\023\n\017ASSIGNMENT_SEEN" +
+      "\020\006\022\027\n\023ASSIGNMENT_ACCEPTED\020\007\022\035\n\031EXTERNAL_" +
+      "DELIVERY_CHANGED\020\010\022\014\n\010FINISHED\020\tb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -13409,13 +14141,13 @@ public final class WorkflowChangedOuterClass {
     internal_static_workflow_WorkflowChanged_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_workflow_WorkflowChanged_descriptor,
-        new java.lang.String[] { "Id", "PerformerUuid", "Status", "ShiftId", "PlanStartedAt", "PlanEndedAt", "LocationStart", "LocationEnd", "CreatedAt", "UpdatedAt", "CancellationReason", "Shipments", "Assignments", "Segments", });
+        new java.lang.String[] { "Id", "PerformerUuid", "Status", "ShiftId", "PlanStartedAt", "PlanEndedAt", "LocationStart", "LocationEnd", "CreatedAt", "UpdatedAt", "CancellationReason", "Shipments", "Assignments", "Segments", "EditingReason", });
     internal_static_workflow_WorkflowChanged_Shipment_descriptor =
       internal_static_workflow_WorkflowChanged_descriptor.getNestedTypes().get(0);
     internal_static_workflow_WorkflowChanged_Shipment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_workflow_WorkflowChanged_Shipment_descriptor,
-        new java.lang.String[] { "Uuid", "IsDelivery", "IsAssembly", });
+        new java.lang.String[] { "Uuid", "IsDelivery", "IsAssembly", "FactWeightKg", "FactItemsCount", "Entirety", });
     internal_static_workflow_WorkflowChanged_Assignment_descriptor =
       internal_static_workflow_WorkflowChanged_descriptor.getNestedTypes().get(1);
     internal_static_workflow_WorkflowChanged_Assignment_fieldAccessorTable = new
@@ -13433,7 +14165,7 @@ public final class WorkflowChangedOuterClass {
     internal_static_workflow_WorkflowChanged_Segment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_workflow_WorkflowChanged_Segment_descriptor,
-        new java.lang.String[] { "Id", "Type", "Position", "Shipments", "LocationStart", "PlanStartedAt", "LocationEnd", "PlanEndedAt", "FactStartedAt", "FactEndedAt", "TimeLag", "Meta", "CreatedAt", "UpdatedAt", "Duration", "Distance", });
+        new java.lang.String[] { "Id", "Type", "Position", "Shipments", "LocationStart", "PlanStartedAt", "LocationEnd", "PlanEndedAt", "FactStartedAt", "FactEndedAt", "TimeLag", "Meta", "CreatedAt", "UpdatedAt", "Duration", "Distance", "Status", });
     internal_static_workflow_WorkflowChanged_Segment_MetaEntry_descriptor =
       internal_static_workflow_WorkflowChanged_Segment_descriptor.getNestedTypes().get(0);
     internal_static_workflow_WorkflowChanged_Segment_MetaEntry_fieldAccessorTable = new
