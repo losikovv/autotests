@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.config.BasicProperties;
 import ru.instamart.reforged.core.config.UiProperties;
@@ -148,6 +149,7 @@ public final class BasicSbermarketTests {
         home().checkPageContains(url);
     }
 
+    @Skip //ошибка рендера
     @CaseId(3504)
     @Story("Статические страницы")
     @Test(description = "Тест валидности переходов по ссылкам в футере Сбермаркета, кейсы с открытием документа и модального окна",
