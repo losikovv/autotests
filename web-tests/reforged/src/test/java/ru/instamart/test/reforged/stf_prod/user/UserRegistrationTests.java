@@ -45,6 +45,7 @@ public final class UserRegistrationTests {
     public void successRegWithoutMailingCheckbox() {
         home().goToPage();
         home().openLoginModal();
+        home().interactAuthModal().checkModalIsVisible();
         home().interactAuthModal().uncheckPromoMailing();
         home().interactAuthModal().authViaPhone(UserManager.getQaUser());
         home().checkLogoutButtonDisplayed();
