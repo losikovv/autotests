@@ -160,6 +160,11 @@ public interface CheckoutCheck extends Check, CheckoutElement {
                 String.format("Виджет СберСпасибо не содержит последних 4 символов номера карты: '%s'", cardLastDigits));
     }
 
+    @Step("Проверяем, что отображается кнопка 'Выбрать компанию'")
+    default void checkSelectCompanyButtonDisplayed() {
+        Kraken.waitAction().shouldBeVisible(selectCompany);
+    }
+
     @Step("Проверяем сводную информацию о контактах")
     default void checkContactsSummary(final String expectedPhone, final String expectedEmail) {
         Assert.assertEquals(contactsSummary.getText(), convertDigitsStringToPhoneNumber(expectedPhone) + " • " + expectedEmail, "Сводная информация о контактах отличается от ожидаемой");

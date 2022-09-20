@@ -10,6 +10,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -27,6 +28,44 @@ public final class CheckoutTests {
     // 7be2e177-5ce6-4769-b04e-c794633076e8 группу w_new_statuses
 
     private final ApiHelper helper = new ApiHelper();
+
+    @CaseId(3595)
+    @Test(description = "Выбранный способ 'Доставка'/'Самовывоз' сохраняется если открыть страницу в новой вкладке", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testPaymentMethodSaveIfOpenCheckoutInNewTab() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+
+        final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToPickup();
+        shop().interactHeader().interactAddress().checkAddressModalVisible();
+        shop().interactHeader().interactAddress().clickStoreWithAddress(fullAddress);
+        shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().increaseFirstItemCountToMin();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().openInNewTab(Kraken.currentUrl());
+
+        checkoutNew().switchToNextWindow();
+
+        checkoutNew().checkPickupTabOpened();
+        checkoutNew().checkPickupStoreAddress(fullAddress);
+    }
 
     @Issues({@Issue("B2C-9732"), @Issue("B2C-9730")})
     @CaseId(3623)
@@ -166,297 +205,6 @@ public final class CheckoutTests {
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
-    }
-
-    @Issue("B2C-9738")
-    @CaseId(3638)
-    @Test(description = "Выбор слота доставки", groups = {"regression", "checkout_web_new"})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
-    public void testSelectDeliverySlot() {
-        final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
-        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
-
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToCart();
-        shop().interactCart().checkCartOpen();
-        shop().interactCart().submitOrder();
-
-        checkoutNew().checkSpinnerNotVisible();
-
-        checkoutNew().checkDeliverySlotsVisible();
-        checkoutNew().checkActiveDeliverySlotsNotVisible();
-
-        checkoutNew().clickFirstSlot();
-        checkoutNew().checkSlotActive(1);
-        checkoutNew().checkSelectedDeliverySlotsCount(1);
-
-        var slotDate = checkoutNew().getActiveSlotDate();
-        var slotTime = checkoutNew().getActiveSlotTime();
-        var slotCost = checkoutNew().getActiveSlotCost();
-
-        checkoutNew().openDeliverySlotsModalFromOthers();
-        checkoutNew().interactDeliverySlotsModal().checkAvailableDeliveryDaysVisible();
-        checkoutNew().interactDeliverySlotsModal().checkAvailableDeliveryDaysCount(7);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedDeliveryDaysCount(1);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedDayPosition(1);
-
-        checkoutNew().interactDeliverySlotsModal().checkSelectedDayNameContainsText(slotDate);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotTimeContainsText(slotTime);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotCostContainsText(slotCost);
-
-        checkoutNew().interactDeliverySlotsModal().clickOnDay(2);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedDayPosition(2);
-
-        slotDate = checkoutNew().interactDeliverySlotsModal().getDayName(2);
-
-        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotNotVisible();
-
-        checkoutNew().interactDeliverySlotsModal().clickOnSlot(1);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotPosition(1);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotsCount(1);
-
-        slotTime = checkoutNew().interactDeliverySlotsModal().getSelectedDeliveryTime();
-        slotCost = checkoutNew().interactDeliverySlotsModal().getSelectedDeliveryCost();
-
-        checkoutNew().interactDeliverySlotsModal().clickApply();
-        checkoutNew().interactDeliverySlotsModal().checkModalNotVisible();
-
-        checkoutNew().checkDeliveryTitleContains(slotDate);
-        checkoutNew().checkSelectedDeliverySlotsCount(1);
-        checkoutNew().scrollSlotsToStart();
-
-        checkoutNew().checkSlotActive(1);
-        checkoutNew().checkSelectedDeliverySlotsCount(1);
-
-        checkoutNew().checkSelectedSlotDayNameContainsText(slotDate);
-        checkoutNew().checkSelectedSlotTimeContainsText(slotTime);
-        checkoutNew().checkSelectedSlotCostContainsText(slotCost);
-
-        checkoutNew().openDeliverySlotsModalFromTitle();
-
-        checkoutNew().interactDeliverySlotsModal().checkAvailableDeliveryDaysVisible();
-        checkoutNew().interactDeliverySlotsModal().checkAvailableDeliveryDaysCount(7);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedDeliveryDaysCount(1);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedDayPosition(2);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotsCount(1);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotPosition(1);
-
-        checkoutNew().interactDeliverySlotsModal().checkSelectedDayNameContainsText(slotDate);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotTimeContainsText(slotTime);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotCostContainsText(slotCost);
-
-        checkoutNew().interactDeliverySlotsModal().clickOnDay(3);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedDayPosition(3);
-
-        slotDate = checkoutNew().interactDeliverySlotsModal().getDayName(3);
-
-        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotNotVisible();
-
-        checkoutNew().interactDeliverySlotsModal().clickOnSlot(1);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotPosition(1);
-        checkoutNew().interactDeliverySlotsModal().checkSelectedSlotsCount(1);
-
-        slotTime = checkoutNew().interactDeliverySlotsModal().getSelectedDeliveryTime();
-        slotCost = checkoutNew().interactDeliverySlotsModal().getSelectedDeliveryCost();
-
-        checkoutNew().interactDeliverySlotsModal().clickApply();
-        checkoutNew().interactDeliverySlotsModal().checkModalNotVisible();
-
-        checkoutNew().checkSelectedSlotDayNameContainsText(slotDate);
-        checkoutNew().checkSelectedSlotTimeContainsText(slotTime);
-        checkoutNew().checkSelectedSlotCostContainsText(slotCost);
-    }
-
-    @Issue("B2C-9776")
-    @CaseId(3616)
-    @Test(description = "Сброс способа оплаты 'Картой курьеру' при выборе 'Бесконтактная доставка'", groups = {"regression", "checkout_web_new"})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
-    public void testPayByCardCourierDeliveryToDoor() {
-        final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
-        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
-
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToCart();
-        shop().interactCart().checkCartOpen();
-        shop().interactCart().submitOrder();
-
-        checkoutNew().checkSpinnerNotVisible();
-
-        checkoutNew().openPaymentMethodModal();
-        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod("Картой курьеру");
-        checkoutNew().interactPaymentMethodsModal().clickConfirm();
-        checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
-
-        checkoutNew().checkSelectedPaymentMethodContains("Картой курьеру");
-
-        checkoutNew().clickDeliveryToDoor();
-
-        checkoutNew().checkSpinnerVisible();
-        checkoutNew().checkSpinnerNotVisible();
-
-        checkoutNew().checkPaymentMethodEmpty();
-
-        checkoutNew().checkNotificationVisible();
-        checkoutNew().checkNotificationTitle("Оплата картой курьеру недоступна");
-        checkoutNew().checkNotificationText("Вы выбрали бесконтактную доставку, заказ нужно оплатить онлайн");
-    }
-
-    @Issue("B2C-9777")
-    @CaseId(3637)
-    @Test(description = "Проверка предвыбора метода 'Оплатить онлайн' при выборе самовывоза", groups = {"regression", "checkout_web_new"})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
-    public void testCheckPayOnlineSelectedByDefaultInPickup() {
-        final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
-        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
-
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToCart();
-        shop().interactCart().checkCartOpen();
-        shop().interactCart().submitOrder();
-
-        checkoutNew().checkSpinnerNotVisible();
-
-        checkoutNew().switchToPickup();
-
-        checkoutNew().checkPickupTabOpened();
-
-        checkoutNew().checkSelectedPaymentMethodContains("Оплатить онлайн");
-    }
-
-    @Issues({@Issue("B2C-9732"), @Issue("B2C-9730")})
-    @CaseId(3649)
-    @Test(description = "Проверка добавления новой карты оплаты", groups = {"regression", "checkout_web_new"})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
-    public void testAddNewPaymentCard() {
-        final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
-        var card = PaymentCards.testCardNo3ds();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
-
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToCart();
-        shop().interactCart().checkCartOpen();
-        shop().interactCart().submitOrder();
-
-        checkoutNew().checkSpinnerNotVisible();
-
-        checkoutNew().openPaymentMethodModal();
-        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod("Картой онлайн");
-        checkoutNew().interactPaymentMethodsModal().clickConfirm();
-        checkoutNew().interactAddPaymentCardModal().checkModalVisible();
-
-        checkoutNew().interactAddPaymentCardModal().fillCardData(card);
-        //B2C-9732
-
-        checkoutNew().interactAddPaymentCardModal().clickAdd();
-        checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
-
-        checkoutNew().checkSelectedPaymentMethodContains(card.getCardNumber().substring(card.getCardNumber().length() - 4));
-        //B2C-9730
-    }
-
-    @Issue("B2C-9732")
-    @CaseId(3642)
-    @Test(description = "Проверка появления кнопки 'Оплатить' при способе оплаты 'Картой онлайн'", groups = {"regression", "checkout_web_new"})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
-    public void testPayButtonDisplayedWithSelectOnlinePaymentMethod() {
-        final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
-        var card = PaymentCards.testCardNo3ds();
-        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
-
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToCart();
-        shop().interactCart().checkCartOpen();
-        shop().interactCart().submitOrder();
-
-        checkoutNew().checkSpinnerNotVisible();
-
-        checkoutNew().openPaymentMethodModal();
-        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod("Картой онлайн");
-        checkoutNew().interactPaymentMethodsModal().clickConfirm();
-        checkoutNew().interactAddPaymentCardModal().checkModalVisible();
-
-        checkoutNew().interactAddPaymentCardModal().fillCardData(card);
-        //B2C-9732
-
-        checkoutNew().interactAddPaymentCardModal().clickAdd();
-        checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
-
-        checkoutNew().checkConfirmPayVisible();
-        checkoutNew().checkConfirmPayActive();
-    }
-
-    @CaseId(3643)
-    @Test(description = "Проверка появления кнопки 'Заказать' при способе оплаты 'Картой курьеру'", groups = {"regression", "checkout_web_new"})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
-    public void testOrderConfirmButtonDisplayedWithSelectCardToCourierPaymentMethod() {
-        final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
-        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
-
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToCart();
-        shop().interactCart().checkCartOpen();
-        shop().interactCart().submitOrder();
-
-        checkoutNew().checkSpinnerNotVisible();
-
-        checkoutNew().openPaymentMethodModal();
-        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod("Картой курьеру");
-        checkoutNew().interactPaymentMethodsModal().clickConfirm();
-
-        checkoutNew().checkConfirmOrderVisible();
-        checkoutNew().checkConfirmOrderActive();
     }
 
     @CaseId(3839)

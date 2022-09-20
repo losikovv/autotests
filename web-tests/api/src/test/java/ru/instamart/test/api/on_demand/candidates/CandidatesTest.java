@@ -28,8 +28,7 @@ import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.helper.WorkflowHelper.acceptWorkflowAndStart;
 import static ru.instamart.api.helper.WorkflowHelper.getWorkflowUuid;
 import static ru.instamart.grpc.common.GrpcContentHosts.PAAS_CONTENT_OPERATIONS_CANDIDATES;
-import static ru.instamart.kraken.util.TimeUtil.getPastDateTime;
-import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
+import static ru.instamart.kraken.util.TimeUtil.*;
 
 @Epic("On Demand")
 @Feature("Candidates")
