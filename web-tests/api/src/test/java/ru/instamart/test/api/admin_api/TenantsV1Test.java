@@ -22,7 +22,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class TenantsV1Test extends RestBase {
 
     @CaseId(2515)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение списка тенантов")
     public void getTenants() {
         admin.authApi();

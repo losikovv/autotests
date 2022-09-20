@@ -53,7 +53,7 @@ public class ShipmentsV1Test extends RestBase {
     @Test(description = "Заказы с разными статусами",
             dataProvider = "shipmentStatuses",
             dataProviderClass = RestDataProvider.class,
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getShipmentsWithDifferentStates(CombinedStateV1 state) {
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
                 .combinedState(state.getValue())
@@ -72,7 +72,7 @@ public class ShipmentsV1Test extends RestBase {
     @Test(description = "Заказы с разными типами платежей",
             dataProvider = "paymentTools",
             dataProviderClass = RestDataProvider.class,
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getShipmentsWithDifferentPaymentMethods(OrderPaymentMethodV1 paymentMethod) {
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
                 .paymentMethodId(paymentMethod.getId())
@@ -93,7 +93,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы с ограничением по весу",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getShipmentsWithWeightRestriction() {
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
                 .totalWeightSt(1.0)
@@ -112,7 +112,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы для определенной операционной зоны",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getShipmentsByOperationalZoneId() {
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
                 .operationalZoneId(OperationalZonesDao.INSTANCE.getIdByName("Москва"))
@@ -131,7 +131,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы с определенным количеством товаров",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getShipmentsWithCountRestriction() {
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
                 .itemCountSt(2)
@@ -152,7 +152,7 @@ public class ShipmentsV1Test extends RestBase {
     @Test(description = "Заказы с разными статусами оплаты",
             dataProvider = "paymentStatuses",
             dataProviderClass = RestDataProvider.class,
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getShipmentsWithDifferentPaymentStatuses(PaymentStatusV1 paymentStatus) {
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
                 .paymentState(paymentStatus.getValue())
@@ -169,7 +169,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по id магазина",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getShipmentsByStoreId() {
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
                 .storeId(EnvironmentProperties.DEFAULT_SID)
@@ -188,7 +188,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по id ритейлера",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getShipmentsByRetailerId() {
         Long retailerId = SpreeRetailersDao.INSTANCE.getIdBySlug("metro");
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
@@ -206,7 +206,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по номеру заказа",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "getShipmentsByOperationalZoneId")
     public void getShipmentsByOrder() {
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
@@ -222,7 +222,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по api-client id",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getShipmentsByApiClient() {
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
                 .apiClientId(ApiClientsDao.INSTANCE.getClientIdByName("aliexpress"))
@@ -237,7 +237,7 @@ public class ShipmentsV1Test extends RestBase {
     @CaseId(2107)
     @Story("Cписок заказов")
     @Test(description = "Заказы по имени шоппера",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getShipmentsByShopperName() {
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
                 .shopperLogin("krakenSchedule2")
@@ -254,7 +254,7 @@ public class ShipmentsV1Test extends RestBase {
     @CaseId(2108)
     @Story("Cписок заказов")
     @Test(description = "Заказы по имени водителя",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getShipmentsByDriverName() {
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
                 .driverLogin("krakenSchedule2")
@@ -271,7 +271,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по окнам доставки",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getShipmentsForDeliveryDates() {
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
                 .deliveryWindowStartsAtSt(getPastZoneDbDate(1L))
@@ -285,7 +285,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Cписок заказов")
     @Test(description = "Заказы по датам завершения",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getShipmentsForCompletedDates() {
         final Response response = ShipmentsAdminV1Request.GET(ShipmentsAdminV1Request.ShipmentsData.builder()
                 .completedAtSt(getPastZoneDbDate(1L))
@@ -299,7 +299,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @Test(description = "Редактирование комментария к заказу",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "getShipmentsByOperationalZoneId")
     public void editShipmentsComment() {
         String comment = "Autotest" + Generate.literalString(6);
@@ -313,7 +313,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip //TODO ATST-2003
     @Story("Заказы")
     @Test(description = "Возврат на диспетчеризацию",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "getShipmentsByOperationalZoneId")
     public void returnToDispatch() {
         final Response response = ShipmentsAdminV1Request.POST(shipment.getUuid(), "Autotest" + Generate.literalString(6));
@@ -324,7 +324,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @Test(description = "Редактирование комментария к несуществующему заказу",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void editNonExistentShipmentsComment() {
         final Response response = ShipmentsAdminV1Request.PUT("failedUuid", "Autotest" + Generate.literalString(6));
         checkStatusCode404(response);
@@ -335,7 +335,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip //TODO ATST-2003
     @Story("Заказы")
     @Test(description = "Возврат на диспетчеризацию несуществующего заказа",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void returnNonexistentShipmentToDispatch() {
         final Response response = ShipmentsAdminV1Request.POST("failedUuid", "Autotest" + Generate.literalString(6));
         checkStatusCode404(response);
@@ -346,7 +346,7 @@ public class ShipmentsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Заказы")
     @Test(description = "Получение документов для несуществующего заказа", //TODO:Добавить позитивные тесты, когда станут понятны предусловия
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getNonExistentShipmentDocument() {
         final Response response = DocumentsV1Request.GET("failedNumber", "consignment_note");
         checkStatusCode404(response);

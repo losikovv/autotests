@@ -41,7 +41,7 @@ public class ExternalPartnersV1Tests extends RestBase {
 
     @CaseId(1433)
     @Story("Получение списка подписок для пользователя")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Подписка SberPrime неактивна")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"}, description = "Подписка SberPrime неактивна")
     public void getInactiveSubscription() {
         admin.authApi();
         final Response response = ExternalPartnersV1Request.Services.GET();
@@ -52,7 +52,7 @@ public class ExternalPartnersV1Tests extends RestBase {
 
     @CaseId(1434)
     @Story("Получение списка подписок для пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Подписка SberPrime активна",
             dependsOnMethods = "getInactiveSubscription")
     public void getActiveSubscription() {
@@ -68,7 +68,7 @@ public class ExternalPartnersV1Tests extends RestBase {
 
     @CaseId(2509)
     @Story("Получение списка подписок для пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о подписке",
             dependsOnMethods = "getActiveSubscription")
     public void getSubscription() {
@@ -86,7 +86,7 @@ public class ExternalPartnersV1Tests extends RestBase {
     }
 
     @CaseId(1493)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Отправка запроса c store_id",
             dependsOnMethods = "getActiveSubscription")
     public void getSberPrimeBannersWithSubscription() {
@@ -104,7 +104,7 @@ public class ExternalPartnersV1Tests extends RestBase {
     }
 
     @CaseId(1494)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Отправка запроса c store_id",
             dependsOnMethods = "getSberPrimeBannersWithSubscription")
     public void getSberPrimeBannersWithoutSubscription() {

@@ -48,7 +48,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1903)
     @Story("Фильтры")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о файлах импорта фильтров")
     public void getFilterFiles() {
         final Response response = ImportsV1Request.FilterFiles.GET(10000);
@@ -62,7 +62,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1903)
     @Story("Фильтры")
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod", "api-v1"},
             description = "Получение информации о файлах импорта фильтров")
     public void getFilterFilesPROD() {
         final Response response = ImportsV1Request.FilterFiles.GET(100);
@@ -72,7 +72,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1904)
     @Story("Цены")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о файлах импорта цен")
     public void getPricesFiles() {
         final Response response = ImportsV1Request.PricesFiles.GET(10000);
@@ -86,7 +86,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1904)
     @Story("Цены")
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod", "api-v1"},
             description = "Получение информации о файлах импорта цен")
     public void getPricesFilesPROD() {
         final Response response = ImportsV1Request.PricesFiles.GET(100);
@@ -96,7 +96,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1905)
     @Story("Изображения продуктов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о файлах импорта изображений продуктов")
     public void getProductsImagesArchives() {
         final Response response = ImportsV1Request.ProductsImagesArchives.GET(10000);
@@ -110,7 +110,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1905)
     @Story("Изображения продуктов")
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod", "api-v1"},
             description = "Получение информации о файлах импорта изображений продуктов")
     public void getProductsImagesArchivesPROD() {
         final Response response = ImportsV1Request.ProductsImagesArchives.GET(100);
@@ -120,7 +120,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1906)
     @Story("Штрихкоды")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о файлах импорта штрихкодов")
     public void getEansFiles() {
         final Response response = ImportsV1Request.EansFiles.GET(10000);
@@ -134,7 +134,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1906)
     @Story("Штрихкоды")
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod", "api-v1"},
             description = "Получение информации о файлах импорта штрихкодов")
     public void getEansFilesPROD() {
         final Response response = ImportsV1Request.EansFiles.GET(100);
@@ -144,7 +144,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1907)
     @Story("Офферы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о файлах импорта офферов")
     public void getOffersFiles() {
         final Response response = ImportsV1Request.OffersFiles.GET(10000);
@@ -158,7 +158,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1907)
     @Story("Офферы")
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod", "api-v1"},
             description = "Получение информации о файлах импорта офферов")
     public void getOffersFilesPROD() {
         final Response response = ImportsV1Request.OffersFiles.GET(100);
@@ -168,7 +168,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1908)
     @Story("Продукты")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о файлах импорта продуктов")
     public void getProductsFiles() {
         final Response response = ImportsV1Request.ProductsFiles.GET(10000);
@@ -182,7 +182,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1908)
     @Story("Продукты")
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod", "api-v1"},
             description = "Получение информации о файлах импорта продуктов")
     public void getProductsFilesPROD() {
         final Response response = ImportsV1Request.ProductsFiles.GET(100);
@@ -192,7 +192,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1909)
     @Story("Стоки")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о файлах импорта стоков")
     public void getStocksFiles() {
         final Response response = ImportsV1Request.OffersStocksFiles.GET(10000);
@@ -206,7 +206,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1909)
     @Story("Стоки")
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod", "api-v1"},
             description = "Получение информации о файлах импорта стоков")
     public void getStocksFilesPROD() {
         final Response response = ImportsV1Request.OffersStocksFiles.GET(100);
@@ -216,7 +216,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1910)
     @Story("Мастер каталог")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о файлах импорта мастер каталога")
     public void getMasterCategoriesFiles() {
         final Response response = ImportsV1Request.MasterCategoriesFiles.GET(10000);
@@ -230,7 +230,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1910)
     @Story("Мастер каталог")
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod", "api-v1"},
             description = "Получение информации о файлах импорта мастер каталога")
     public void getMasterCategoriesFilesPROD() {
         final Response response = ImportsV1Request.MasterCategoriesFiles.GET(100);
@@ -240,7 +240,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1911)
     @Story("Мастер каталог")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о файлах импорта аттрибутов мастер каталога")
     public void getMasterCategoryAttributesFiles() {
         final Response response = ImportsV1Request.MasterCategoryAttributesFiles.GET(10000);
@@ -254,7 +254,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1911)
     @Story("Мастер каталог")
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod", "api-v1"},
             description = "Получение информации о файлах импорта аттрибутов мастер каталога")
     public void getMasterCategoryAttributesFilesPROD() {
         final Response response = ImportsV1Request.MasterCategoryAttributesFiles.GET(100);
@@ -264,7 +264,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1912)
     @Story("Бренды")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о файлах импорта брендов")
     public void getBrandsFiles() {
         final Response response = ImportsV1Request.BrandFiles.GET(10000);
@@ -278,7 +278,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1912)
     @Story("Бренды")
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod", "api-v1"},
             description = "Получение информации о файлах импорта брендов")
     public void getBrandsFilesPROD() {
         final Response response = ImportsV1Request.BrandFiles.GET(100);
@@ -288,7 +288,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1913)
     @Story("Категории")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о файлах импорта категорий")
     public void getTaxonsFiles() {
         final Response response = ImportsV1Request.TaxonsFiles.GET(10000);
@@ -302,7 +302,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1913)
     @Story("Категории")
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod", "api-v1"},
             description = "Получение информации о файлах импорта категорий")
     public void getTaxonsFilesPROD() {
         final Response response = ImportsV1Request.TaxonsFiles.GET(100);
@@ -312,7 +312,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1914)
     @Story("Иконки категорий")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о файлах импорта иконок категорий")
     public void getTaxonsImagesFiles() {
         final Response response = ImportsV1Request.TaxonsImagesFiles.GET(10000);
@@ -326,7 +326,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1914)
     @Story("Иконки категорий")
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod", "api-v1"},
             description = "Получение информации о файлах импорта иконок категорий")
     public void getTaxonsImagesFilesPROD() {
         final Response response = ImportsV1Request.TaxonsImagesFiles.GET(100);
@@ -336,7 +336,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1915)
     @Story("Мета страниц")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о файлах импорта мета страницы")
     public void getPageMetasFiles() {
         final Response response = ImportsV1Request.PageMetasFiles.GET(10000);
@@ -350,7 +350,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1915)
     @Story("Мета страниц")
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod", "api-v1"},
             description = "Получение информации о файлах импорта мета страницы")
     public void getPageMetasFilesPROD() {
         final Response response = ImportsV1Request.PageMetasFiles.GET(100);
@@ -360,7 +360,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1928)
     @Story("Продукты")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Импорт нового продукта")
     public void importProducts() {
         final Response response = ImportsV1Request.ProductsFiles.POST("src/test/resources/data/products.xlsx");
@@ -387,7 +387,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1929)
     @Story("Офферы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Импорт нового оффера")
     public void importOffers() {
         admin.auth();
@@ -426,7 +426,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1930)
     @Story("Офферы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Импорт стоков оффера",
             dependsOnMethods = "importOffers")
     public void importOffersStocks() {
@@ -458,7 +458,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseIDs(value = {@CaseId(1931), @CaseId(1932), @CaseId(1933)})
     @Story("Фильтры")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Импорт фильтров",
             dataProvider = "filtersImportModes",
             dataProviderClass = RestDataProvider.class)
@@ -491,7 +491,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1949)
     @Story("Цены")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Импорт цен",
             dependsOnMethods = "importOffers")
     public void importPrices() {
@@ -523,7 +523,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1950)
     @Story("Штрихкоды")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Импорт штрихкодов",
             dependsOnMethods = "importOffers")
     public void importEans() {
@@ -554,7 +554,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1951)
     @Story("Бренды")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Импорт брендов")
     public void importBrands() {
         final Response response = ImportsV1Request.BrandFiles.POST("src/test/resources/data/brands_import.xlsx");
@@ -581,7 +581,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1952)
     @Story("Изображения продуктов")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Импорт изображений продуктов")
     public void importProductsImages() {
         final Response response = ImportsV1Request.ProductsImagesArchives.POST("src/test/resources/data/product_image.zip");
@@ -605,7 +605,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1953)
     @Story("Иконки категорий")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Импорт иконок категорий")
     public void importTaxonsImages() {
         final Response response = ImportsV1Request.TaxonsImagesFiles.POST("src/test/resources/data/taxon_icons.zip");
@@ -636,7 +636,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1954)
     @Story("Категории")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Импорт категорий с неверным файлом")
     public void importTaxons() {
         final Response response = ImportsV1Request.TaxonsFiles.POST("src/test/resources/data/brands_import.xlsx");
@@ -659,7 +659,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1955)
     @Story("Мастер каталог")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Импорт мастер каталога с неверным файлом")
     public void importMasterCategories() {
         final Response response = ImportsV1Request.MasterCategoriesFiles.POST("src/test/resources/data/brands_import.xlsx");
@@ -682,7 +682,7 @@ public class ImportsV1Tests extends RestBase {
 
     @CaseId(1956)
     @Story("Мастер каталог")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Импорт аттрибутов мастер каталога с неверным файлом")
     public void importMasterCategoryAttributes() {
         final Response response = ImportsV1Request.MasterCategoryAttributesFiles.POST("src/test/resources/data/brands_import.xlsx");

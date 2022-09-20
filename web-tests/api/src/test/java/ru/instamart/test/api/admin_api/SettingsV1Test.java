@@ -37,7 +37,7 @@ public class SettingsV1Test extends RestBase {
     @CaseId(2535)
     @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о настройках компании")
     public void getCompanySettings() {
         final Response response = SettingsV1Request.CompanySettings.GET();
@@ -50,7 +50,7 @@ public class SettingsV1Test extends RestBase {
     @CaseId(2536)
     @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование информации о настройках компании",
             dependsOnMethods = "getCompanySettings")
     public void editCompanySettings() {
@@ -65,7 +65,7 @@ public class SettingsV1Test extends RestBase {
 
     @CaseId(2537)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о фича-флагах")
     public void getFeatureSettings() {
         final Response response = SettingsV1Request.FeatureSettings.GET();
@@ -77,7 +77,7 @@ public class SettingsV1Test extends RestBase {
     @CaseId(2538)
     @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование информации о фича-флагах",
             dependsOnMethods = "getFeatureSettings")
     public void editFeatureSettings() {
@@ -91,7 +91,7 @@ public class SettingsV1Test extends RestBase {
 
     @CaseId(2539)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации об общих настройках")
     public void getGeneralSettings() {
         final Response response = SettingsV1Request.GeneralSettings.GET();
@@ -103,7 +103,7 @@ public class SettingsV1Test extends RestBase {
     @CaseId(2540)
     @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование информации об общих настройках",
             dependsOnMethods = "getGeneralSettings")
     public void editGeneralSettings() {
@@ -117,7 +117,7 @@ public class SettingsV1Test extends RestBase {
 
     @CaseId(2541)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о логистической плотности")
     public void getLogisticDensities() {
         final Response response = SettingsV1Request.LogisticDensities.GET();
@@ -128,7 +128,7 @@ public class SettingsV1Test extends RestBase {
     @CaseId(2542)
     @Skip(onServer = Server.STAGING)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование информации о логистической плотности")
     public void editLogisticDensities() {
         int density = RandomUtils.nextInt(1, 100);
@@ -142,7 +142,7 @@ public class SettingsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2543)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о настройках смс")
     public void getSmsSettings() {
         final Response response = SettingsV1Request.SmsSettings.GET();
@@ -154,7 +154,7 @@ public class SettingsV1Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2544)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование информации о настройках смс",
             dependsOnMethods = "getSmsSettings")
     public void editSmsSettings() {

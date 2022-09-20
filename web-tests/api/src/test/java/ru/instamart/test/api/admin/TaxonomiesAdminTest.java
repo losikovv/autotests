@@ -33,7 +33,7 @@ public class TaxonomiesAdminTest extends RestBase {
     }
 
     @CaseId(1887)
-    @Test(groups = {"api-instamart-regress"}, description = "Получение списка категорий")
+    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Получение списка категорий")
     public void getAllTaxonomies() {
         final Response response = TaxonomiesAdminRequest.GET();
         checkStatusCode(response, 200, ContentType.HTML);
@@ -41,7 +41,7 @@ public class TaxonomiesAdminTest extends RestBase {
 
     @CaseId(1888)
     @Issue("INFRADEV-16984")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание новой категорий")
     public void createTaxonomy() {
         String name = "Autotest-" + Generate.literalString(6);
@@ -52,7 +52,7 @@ public class TaxonomiesAdminTest extends RestBase {
     }
 
     @CaseId(1889)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание новой категорий с пустым названием")
     public void createTaxonomyWithEmptyName() {
         final Response response = TaxonomiesAdminRequest.POST("");
@@ -62,7 +62,7 @@ public class TaxonomiesAdminTest extends RestBase {
     }
 
     @CaseId(1890)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование категории",
             dependsOnMethods = "createTaxonomy")
     public void editTaxonomy() {
@@ -74,7 +74,7 @@ public class TaxonomiesAdminTest extends RestBase {
     }
 
     @CaseId(1891)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование категории с пустым названием",
             dependsOnMethods = "editTaxonomy")
     public void editTaxonomyWithEmptyName() {
@@ -85,7 +85,7 @@ public class TaxonomiesAdminTest extends RestBase {
     }
 
     @CaseId(1892)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление категории",
             dependsOnMethods = "editTaxonomyWithEmptyName")
     public void deleteTaxonomy() {

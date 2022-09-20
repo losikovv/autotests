@@ -61,7 +61,7 @@ public class CheckoutV1Tests extends RestBase {
     @Story("Checkout")
     @CaseId(2034)
     @Test(description = "Добавление информации о политике замен",
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
             dataProvider = "replacementPolicies",
             dataProviderClass = RestDataProvider.class,
             dependsOnMethods = "addNonExistentReplacementPolicies")
@@ -76,7 +76,7 @@ public class CheckoutV1Tests extends RestBase {
     @Story("Checkout")
     @CaseId(2035)
     @Test(description = "Добавление информации о несуществующей политике замен",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"})
     public void addNonExistentReplacementPolicies() {
         final Response response = CheckoutV1Request.PUT(0L);
         checkStatusCode200(response);
@@ -87,7 +87,7 @@ public class CheckoutV1Tests extends RestBase {
     @Story("Checkout")
     @CaseId(2036)
     @Test(description = "Добавление несуществующего окна доставки",
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
             dependsOnMethods = {"addReplacementPolicies", "addNonExistentReplacementPolicies"})
     public void addNonExistentDeliveryWindow() {
         MultiretailerOrderShipmentV1 shipment = order.getShipments().get(0);
@@ -105,7 +105,7 @@ public class CheckoutV1Tests extends RestBase {
     @Story("Checkout")
     @CaseId(2037)
     @Test(description = "Добавление окна доставки",
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
             dependsOnMethods = "addNonExistentDeliveryWindow")
     public void addDeliveryWindow() {
         MultiretailerOrderShipmentV1 shipment = order.getShipments().get(0);
@@ -126,7 +126,7 @@ public class CheckoutV1Tests extends RestBase {
     @Story("Checkout")
     @CaseId(2038)
     @Test(description = "Завершение заказа для физического лица c некорректным способом оплаты",
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
             dependsOnMethods = "addDeliveryWindow")
     public void completeOrderForPersonWithWrongParams() {
         UserData user = SessionFactory.getSession(SessionType.API_V1).getUserData();
@@ -140,7 +140,7 @@ public class CheckoutV1Tests extends RestBase {
     @Story("Checkout")
     @CaseId(2039)
     @Test(description = "Завершение заказа для физического лица",
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
             dependsOnMethods = "completeOrderForPersonWithWrongParams")
     public void completeOrderForPerson() {
         UserData user = SessionFactory.getSession(SessionType.API_V1).getUserData();
@@ -165,7 +165,7 @@ public class CheckoutV1Tests extends RestBase {
     @Story("Checkout")
     @CaseId(2040)
     @Test(description = "Завершение заказа для бизнеса",
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
             dependsOnMethods = "completeOrderForPerson")
     public void completeOrderForBusiness() {
         UserData user = SessionFactory.getSession(SessionType.API_V1).getUserData();

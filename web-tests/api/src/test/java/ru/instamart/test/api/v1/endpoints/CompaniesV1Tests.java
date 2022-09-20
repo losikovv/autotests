@@ -55,7 +55,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(629)
     @Test(description = "Поиск компании по ИНН",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getCompaniesByINN() {
         final Response response = CompaniesV1Request.GET(company.getInn());
         checkStatusCode200(response);
@@ -65,7 +65,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(630)
     @Test(description = "Переход на страницу компании",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getCompaniesByID() {
         final Response response = CompaniesV1Request.GET(company.getId());
         checkStatusCode200(response);
@@ -75,7 +75,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(631)
     @Test(description = "Смена наименования компании",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void putCompanyName() {
         CompanyV1 companyName = new CompanyV1().setName(JuridicalData.juridical().getJuridicalName());
 
@@ -87,7 +87,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(632)
     @Test(description = "Добавление комментария менеджера",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void putManagerComment() {
         CompanyV1 companyComment = new CompanyV1().setManagerComment("Test");
 
@@ -99,7 +99,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(633)
     @Test(description = "Смена ссылки на компанию в CRM",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void putLinkToCrm() {
         CompanyV1 companyLink = new CompanyV1().setLinkToCrm("https://test2.ru");
 
@@ -111,7 +111,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(634)
     @Test(description = "Добавление постоплаты в качества способа оплаты",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void putPostpay() {
         CompanyV1 companyPostpay = new CompanyV1().setPostpay(true);
 
@@ -123,7 +123,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(635)
     @Test(description = "Добавление предоплаты в качества способа оплаты",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void putPrepay() {
         CompanyV1 companyPrepay = new CompanyV1().setPrepay(true);
 
@@ -135,7 +135,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(636)
     @Test(description = "Добавление оплаты по депозиту в качества способа оплаты",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void putDeposit() {
         CompanyV1 companyDeposit = new CompanyV1().setDeposit(true);
 
@@ -148,7 +148,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(650)
     @Test(description = "Добавление менеджера в компанию",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void postCompanyManager() {
         UserV1 managerAsUser = new UserV1();
         managerAsUser.setId(101779);
@@ -164,7 +164,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(651)
     @Test(description = "Удаление менеджера из компании",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
     dependsOnMethods = "postCompanyManager")
     public void deleteCompanyManager() {
         final Response response = CompanyManagersV1Request.DELETE(manager.getId());
@@ -176,7 +176,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(652)
     @Test(description = "Добавление договора купли-продажи",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void postSalesContract() {
         String number = company.getId().toString() + Generate.digitalString(2); // создаём уникальный номер
         salesContract.setNumber(Integer.valueOf(number));
@@ -191,7 +191,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(653)
     @Test(description = "Ошибка при добавлении договора при активном договоре",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
     dependsOnMethods = "postSalesContract")
     public void postSalesContractWhenHasActiveContract() {
         final Response response = CompanySalesContractV1Request.POST(company.getId(), salesContract.getNumber(), salesContract.getSigningDate());
@@ -203,7 +203,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(654)
     @Test(description = "Изменение даты подписания договора",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "postSalesContract")
     public void putSalesContractDate() {
         if (new SimpleDateFormat("MM-dd").format(Instant.now().toEpochMilli()).equals("01-01")){ //если сегодня первое января, то вчерашняя дата будет в прошлом году и нумерация обнулится. Это сломает логику следующих тестов
@@ -227,7 +227,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(655)
     @Test(description = "Архивация договора купли-продажи",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = {"postSalesContractWhenHasActiveContract", "putSalesContractDate"})
     public void postArchiveSalesContract() {
         final Response response = CompanySalesContractV1Request.POST(salesContract.getId());
@@ -238,7 +238,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(656)
     @Test(description = "Ошибка при добавлении договора с уже использованным в  текущем году номером",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "postArchiveSalesContract")
     public void postSalesContractNumberExisting() {
         final Response response = CompanySalesContractV1Request.POST(company.getId(), salesContract.getNumber());
@@ -250,7 +250,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(2122)
     @Test(description = "Обновление счета компании - нет контрагентов",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
     dependsOnMethods = "postArchiveSalesContract")
     public void refreshPaymentAccountWithoutPartners() {
         final Response response = CompaniesV1Request.POST(company.getId());
@@ -261,7 +261,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(2123)
     @Test(description = "Обновление счета компании - баланс больше нуля",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void refreshPaymentAccountWithBalance() {
         final Response response = CompaniesV1Request.POST(apiV1.getCompanyWithBalanceByInn("8733270179").getId());
         checkStatusCode200(response);
@@ -272,7 +272,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(2124)
     @Test(description = "Обновление счета компании - баланс меньше нуля",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void refreshPaymentAccountWithoutBalance() {
         final Response response = CompaniesV1Request.POST(apiV1.getCompanyWithBalanceByInn("4727666224").getId());
         checkStatusCode200(response);
@@ -283,7 +283,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(2202)
     @Test(description = "Добавление работника в компанию",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void addCompanyEmployee() {
         UserData user = UserManager.getQaUser();
         UserV1 userV1 = new UserV1();
@@ -305,7 +305,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(2203)
     @Test(description = "Добавление работника в несуществующую компанию",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void addEmployeeToNonExistentCompany() {
         final Response response = CompanyEmployeesV1Request.POST(0, new UserV1());
         checkStatusCode404(response);
@@ -315,7 +315,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(2204)
     @Test(description = "Добавление несуществующего работника в компанию",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void addNonexistentCompanyEmployee() {
         UserV1 userV1 = new UserV1();
         userV1.setId(0);
@@ -327,7 +327,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseIDs(value = {@CaseId(2205), @CaseId(2206)})
     @Test(description = "Подтверждение работника",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dataProvider = "booleanData",
             dataProviderClass = RestDataProvider.class,
             dependsOnMethods = "addCompanyEmployee")
@@ -342,7 +342,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(2207)
     @Test(description = "Подтверждение несуществующего работника",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void editNonExistentCompanyEmployee() {
         final Response response = CompanyEmployeesV1Request.PUT(0, true);
         checkStatusCode404(response);
@@ -352,7 +352,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(2208)
     @Test(description = "Удаление работника",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "editCompanyEmployee")
     public void deleteCompanyEmployee() {
         final Response response = CompanyEmployeesV1Request.DELETE(employeeId);
@@ -363,7 +363,7 @@ public class CompaniesV1Tests extends RestBase {
     @Story("Admin Web")
     @CaseId(2209)
     @Test(description = "Удаление несуществующего работника",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void deleteNonExistentCompanyEmployee() {
         final Response response = CompanyEmployeesV1Request.DELETE(0);
         checkStatusCode404(response);

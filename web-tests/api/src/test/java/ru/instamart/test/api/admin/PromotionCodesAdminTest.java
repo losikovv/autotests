@@ -21,7 +21,7 @@ public class PromotionCodesAdminTest extends RestBase {
     }
 
     @Test(description = "Открытие страницы поиска промокодов",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getPromotionCodes() {
         final Response response = PromotionCodesAdminRequest.GET();
         checkStatusCode(response, 200, ContentType.HTML);

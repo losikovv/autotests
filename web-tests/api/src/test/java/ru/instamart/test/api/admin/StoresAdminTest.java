@@ -54,7 +54,7 @@ public class StoresAdminTest extends RestBase {
 
     @CaseId(1189)
     @Story("Магазины ритейлеров")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание нового магазина")
     public void createStore() {
         StoresAdminRequest.Stores store = getStoreSelgrosMiklouhoMaclay();
@@ -68,7 +68,7 @@ public class StoresAdminTest extends RestBase {
 
     @CaseId(1190)
     @Story("Магазины ритейлеров")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование нового магазина",
             dependsOnMethods = "createStore")
     public void editStore() {
@@ -85,7 +85,7 @@ public class StoresAdminTest extends RestBase {
     @CaseIDs(value = {@CaseId(1210), @CaseId(1211), @CaseId(1212), @CaseId(1213), @CaseId(1214), @CaseId(1215), @CaseId(1216)})
     @Story("Магазины ритейлеров")
     @JsonDataProvider(path = "data/json_admin/admin_negative_stores_data.json", type = RestDataProvider.StoresAdminTestDataRoot.class)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание нового магазина с отсутствующим обязательным параметром",
             dataProvider = "jsonWithoutParallel",
             dataProviderClass = JsonProvider.class)

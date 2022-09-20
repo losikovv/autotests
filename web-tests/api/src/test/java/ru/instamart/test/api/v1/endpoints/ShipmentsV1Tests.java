@@ -55,7 +55,7 @@ public class ShipmentsV1Tests extends RestBase {
 
     @CaseId(1390)
     @Story("Окна доставки")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
             description = "Получение окна доставки для подзаказа для указанного дня с существующим id")
     public void getShippingRates() {
         final Response response = ShipmentsV1Request.ShippingRates.GET(lineItem.getShipmentNumber(), getFutureDateWithoutTime(1L));
@@ -65,7 +65,7 @@ public class ShipmentsV1Tests extends RestBase {
 
     @CaseId(1391)
     @Story("Окна доставки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение окна доставки для несуществующего подзаказа для указанного дня")
     public void getShippingRatesForNonExistentShipment() {
         final Response response = ShipmentsV1Request.ShippingRates.GET("failedShippingNumber", getDateFromMSK());
@@ -75,7 +75,7 @@ public class ShipmentsV1Tests extends RestBase {
 
     @CaseIDs(value = {@CaseId(1392), @CaseId(1393), @CaseId(1394), @CaseId(1395), @CaseId(1396), @CaseId(1397), @CaseId(1400), @CaseId(1398), @CaseId(1399)})
     @Story("Окна доставки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             dataProvider = "dateFormats",
             dataProviderClass = RestDataProvider.class,
             description = "Получение окна доставки для подзаказа для указанного дня с неверным форматом даты")
@@ -89,7 +89,7 @@ public class ShipmentsV1Tests extends RestBase {
 
     @CaseId(1402)
     @Story("Окна доставки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение ближайших окон доставки для несуществующего магазина")
     public void getNextDeliveriesForNonexistentStore() {
         final Response response = StoresV1Request.NextDeliveries.GET(0, new StoresV1Request.NextDeliveriesParams());
@@ -99,7 +99,7 @@ public class ShipmentsV1Tests extends RestBase {
 
     @CaseIDs(value = {@CaseId(1403), @CaseId(1404), @CaseId(1405)})
     @Story("Окна доставки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение ближайших окон доставки с корректными данными",
             dataProvider = "nextDeliveriesParams",
             dataProviderClass = RestDataProvider.class)
@@ -112,7 +112,7 @@ public class ShipmentsV1Tests extends RestBase {
     @Story("Заказы")
     @CaseId(43)
     @Test(description = "Получение информации о мультиритейлерном заказе",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
     public void getMultireteilerOrder() {
         final Response response = MultiretailerOrderV1Request.GET();
         checkStatusCode200(response);
@@ -123,7 +123,7 @@ public class ShipmentsV1Tests extends RestBase {
     @Story("Заказы")
     @CaseId(2133)
     @Test(description = "Изменение подзаказа",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "getMultireteilerOrder")
     public void changeOrder() {
         OrdersV1Request.Shipment shipment = OrdersV1Request.Shipment.builder()
@@ -140,7 +140,7 @@ public class ShipmentsV1Tests extends RestBase {
 
     @CaseId(1557)
     @Story("Мерж заказов")
-    @Test(groups = {"api-instamart-regression", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение статуса мержа",
             dependsOnMethods = "getMultireteilerOrder")
     public void getMergeStatus() {
@@ -153,7 +153,7 @@ public class ShipmentsV1Tests extends RestBase {
 
     @CaseId(2775)
     @Story("Мерж заказов")
-    @Test(groups = {"api-instamart-regression", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение статуса мержа для несуществующего заказа")
     public void getMergeStatusForNonexistentOrder() {
         final Response response = OrdersV1Request.MergeStatus.GET("failedOrderNumber");
@@ -163,7 +163,7 @@ public class ShipmentsV1Tests extends RestBase {
 
     @CaseId(1559)
     @Story("Удаление подзаказа")
-    @Test(groups = {"api-instamart-regression", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Удаление существующего подзаказа",
             dependsOnMethods = {"getMultireteilerOrder", "getMergeStatus"})
     public void deleteShipment() {
@@ -175,7 +175,7 @@ public class ShipmentsV1Tests extends RestBase {
 
     @CaseId(1560)
     @Story("Удаление подзаказа")
-    @Test(groups = {"api-instamart-regression", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Удаление несуществующего подзаказа без токена заказа",
             dependsOnMethods = "getMultireteilerOrder")
     public void deleteNonexistentShipment() {

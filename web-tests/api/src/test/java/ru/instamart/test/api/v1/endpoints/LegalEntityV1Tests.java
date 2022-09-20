@@ -24,7 +24,7 @@ public class LegalEntityV1Tests extends RestBase {
     @Story("Web")
     @CaseId(625)
     @Test(description = "Загрузка реквизитов компании из Контур-Фокус",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
     public void getWithoutLegalEntity() {
         admin.authApi();
 

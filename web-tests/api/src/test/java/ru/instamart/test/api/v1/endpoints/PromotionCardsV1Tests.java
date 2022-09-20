@@ -47,7 +47,7 @@ public class PromotionCardsV1Tests extends RestBase {
     }
 
     @CaseId(2263)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение списка In App баннеров")
     public void getPromotionCards() {
         final Response response = PromotionCardsV1Request.GET();
@@ -59,7 +59,7 @@ public class PromotionCardsV1Tests extends RestBase {
     }
 
     @CaseId(2264)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание In App баннера",
             dependsOnMethods = "getPromotionCards")
     public void createPromotionCard() {
@@ -89,7 +89,7 @@ public class PromotionCardsV1Tests extends RestBase {
     @JsonDataProvider(path = "data/json_v1/api_v1_negative_promotion_card_data.json", type = RestDataProvider.PromotionCardsV1TestDataRoot.class)
     @CaseIDs(value = {@CaseId(2265), @CaseId(2266), @CaseId(2267), @CaseId(2268)})
     @Test(description = "Создание In App баннера с невалидными параметрами",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dataProvider = "jsonWithoutParallel",
             dataProviderClass = JsonProvider.class)
     public void createPromotionCardWithInvalidParams(RestDataProvider.PromotionCardsV1TestData testData) {
@@ -99,7 +99,7 @@ public class PromotionCardsV1Tests extends RestBase {
     }
 
     @CaseId(2269)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Изменение In App баннера",
             dependsOnMethods = "createPromotionCard")
     public void editPromotionCard() {
@@ -115,7 +115,7 @@ public class PromotionCardsV1Tests extends RestBase {
     }
 
     @CaseId(2270)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Изменение несуществующего In App баннера",
             dependsOnMethods = "createPromotionCard")
     public void editNonExistentPromotionCard() {
@@ -125,7 +125,7 @@ public class PromotionCardsV1Tests extends RestBase {
     }
 
     @CaseId(2271)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение In App баннера",
             dependsOnMethods = "editPromotionCard")
     public void getPromotionCard() {
@@ -137,7 +137,7 @@ public class PromotionCardsV1Tests extends RestBase {
     }
 
     @CaseId(2272)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение несуществующего In App баннера")
     public void getNonExistentPromotionCard() {
         final Response response = PromotionCardsV1Request.GET(0L);
@@ -146,7 +146,7 @@ public class PromotionCardsV1Tests extends RestBase {
     }
 
     @CaseId(2273)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Изменение позиции In App баннера",
             dependsOnMethods = "getPromotionCard")
     public void changePromotionCardPosition() {
@@ -157,7 +157,7 @@ public class PromotionCardsV1Tests extends RestBase {
     }
 
     @CaseId(2274)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Изменение позиции несуществующего In App баннера")
     public void changeNonExistentPromotionCardPosition() {
         final Response response = PromotionCardsV1Request.PUT(0L, 22);
@@ -167,7 +167,7 @@ public class PromotionCardsV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING) //todo починить 401
     @CaseId(2275)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление In App баннера",
             dependsOnMethods = "changePromotionCardPosition")
     public void deletePromotionCard() {
@@ -178,7 +178,7 @@ public class PromotionCardsV1Tests extends RestBase {
     }
 
     @CaseId(2276)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление несуществующего In App баннера",
             dependsOnMethods = "changePromotionCardPosition")
     public void deleteNonExistentPromotionCard() {

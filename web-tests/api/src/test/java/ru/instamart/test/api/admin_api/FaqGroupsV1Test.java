@@ -44,7 +44,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2193)
-    @Test(groups = {"api-instamart-regress"}, description = "Получение списка групп FAQ")
+    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Получение списка групп FAQ")
     public void getAllFaqGroups() {
         final Response response = FaqGroupsV1Request.GET();
         checkStatusCode200(response);
@@ -54,7 +54,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2194)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание группы FAQ")
     public void createFaqGroup() {
         String name = "Autotest-" + Generate.literalString(6);
@@ -67,7 +67,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2195)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание группы FAQ с пустым названием")
     public void createFaqGroupWithEmptyName() {
         final Response response = FaqGroupsV1Request.POST("");
@@ -77,7 +77,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2196)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование группы FAQ",
             dependsOnMethods = "createFaqGroup")
     public void editFaqGroup() {
@@ -89,7 +89,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2197)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование группы FAQ с пустым названием",
             dependsOnMethods = "editFaqGroup")
     public void editFaqGroupWithEmptyName() {
@@ -100,7 +100,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2506)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование несуществующей группы FAQ")
     public void editNonExistentFaqGroup() {
         final Response response = FaqGroupsV1Request.PUT("fgdfgd", 0L);
@@ -109,7 +109,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2508)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Изменение позиции группы FAQ",
             dependsOnMethods = "editFaqGroupWithEmptyName")
     public void changeFaqGroupPosition() {
@@ -118,7 +118,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2504)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение группы FAQ",
             dependsOnMethods = "changeFaqGroupPosition")
     public void getFaqGroup() {
@@ -133,7 +133,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2506)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение несуществующей группы FAQ")
     public void getNonExistentFaqGroup() {
         final Response response = FaqGroupsV1Request.GET(0L);
@@ -142,7 +142,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2517)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание FAQ",
             dependsOnMethods = "getFaqGroup")
     public void createFaq() {
@@ -156,7 +156,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2518)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование FAQ",
             dependsOnMethods = "createFaq")
     public void editFaq() {
@@ -169,7 +169,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2519)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование несуществующего FAQ",
             dependsOnMethods = "createFaqGroup")
     public void editNonExistentFaq() {
@@ -180,7 +180,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2521)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Изменение позиции FAQ",
             dependsOnMethods = "editFaq")
     public void updateFaqPosition() {
@@ -189,7 +189,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2520)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение FAQ",
             dependsOnMethods = "updateFaqPosition")
     public void getFaq() {
@@ -201,7 +201,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2522)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение несуществующего FAQ",
             dependsOnMethods = "createFaqGroup")
     public void getNonExistentFaq() {
@@ -211,7 +211,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2523)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение всех FAQ",
             dependsOnMethods = "updateFaqPosition")
     public void getAllFaqs() {
@@ -224,7 +224,7 @@ public class FaqGroupsV1Test extends RestBase {
 
     @CaseId(2524)
     @Skip(onServer = Server.STAGING)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление FAQ",
             dependsOnMethods = {"getAllFaqs", "getFaq"})
     public void deleteFaq() {
@@ -234,7 +234,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2525)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление несуществующего FAQ",
             dependsOnMethods = "createFaqGroup")
     public void deleteNonExistentFaq() {
@@ -245,7 +245,7 @@ public class FaqGroupsV1Test extends RestBase {
 
     @CaseId(2198)
     @Skip(onServer = Server.STAGING)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление группы FAQ",
             dependsOnMethods = "deleteFaq")
     public void deleteFaqGroup() {
@@ -255,7 +255,7 @@ public class FaqGroupsV1Test extends RestBase {
     }
 
     @CaseId(2507)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление несуществующей группы FAQ")
     public void deleteNonExistentFaqGroup() {
         final Response response = FaqGroupsV1Request.DELETE(0L);

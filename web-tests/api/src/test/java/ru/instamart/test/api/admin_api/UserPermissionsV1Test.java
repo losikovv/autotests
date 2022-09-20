@@ -21,7 +21,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public class UserPermissionsV1Test extends RestBase {
 
     @CaseId(1832)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение информации о страницах в админке")
     public void getUserPermissions() {
         admin.authApi();
@@ -31,7 +31,7 @@ public class UserPermissionsV1Test extends RestBase {
     }
 
     @CaseId(1833)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение информации о страницах в админке")
     public void getUserPermissionsWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V1);

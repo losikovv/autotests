@@ -28,7 +28,7 @@ public class PropertiesAdminTest extends RestBase {
     }
 
     @CaseId(1941)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение всех свойств")
     public void getAllProperties() {
         final Response response = PropertiesAdminRequest.GET();
@@ -36,7 +36,7 @@ public class PropertiesAdminTest extends RestBase {
     }
 
     @CaseId(1942)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание свойства")
     public void createProperty() {
         String postfix = Generate.literalString(6);
@@ -50,7 +50,7 @@ public class PropertiesAdminTest extends RestBase {
     }
 
     @CaseId(1943)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование свойства",
             dependsOnMethods = "createProperty")
     public void patchProperty() {
@@ -66,7 +66,7 @@ public class PropertiesAdminTest extends RestBase {
     }
 
     @CaseId(1944)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление свойства",
             dependsOnMethods = "patchProperty")
     public void deleteProperty() {

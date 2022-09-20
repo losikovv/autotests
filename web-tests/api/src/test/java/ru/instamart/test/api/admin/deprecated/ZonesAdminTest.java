@@ -40,7 +40,7 @@ public class ZonesAdminTest extends RestBase {
 
     @CaseId(1887)
     @Skip
-    @Test(groups = {"api-instamart-regress"}, description = "Получение списка торговых зон")
+    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Получение списка торговых зон")
     public void getAllZones() {
         final Response response = ZonesAdminRequest.GET();
         checkStatusCode(response, 200, ContentType.HTML);
@@ -48,7 +48,7 @@ public class ZonesAdminTest extends RestBase {
 
     @CaseIDs(value = {@CaseId(2060), @CaseId(2061)})
     @Skip
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание новой торговой зоны",
             dataProvider = "adminZones",
             dataProviderClass = RestDataProvider.class)
@@ -63,7 +63,7 @@ public class ZonesAdminTest extends RestBase {
 
     @CaseId(2064)
     @Skip
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание новой торговой зоны без имени")
     public void createZoneWithoutName() {
         ZonesAdminRequest.Zone zone = ZonesAdminRequest.Zone.builder()
@@ -78,7 +78,7 @@ public class ZonesAdminTest extends RestBase {
 
     @CaseIDs(value = {@CaseId(2062), @CaseId(2063)})
     @Skip
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование торговой зоны",
             dataProvider = "adminZones",
             dataProviderClass = RestDataProvider.class,
@@ -96,7 +96,7 @@ public class ZonesAdminTest extends RestBase {
 
     @CaseId(2065)
     @Skip
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование торговой зоны с пустым имени",
             dependsOnMethods = "createZone")
     public void editZoneWithoutName() {
@@ -114,7 +114,7 @@ public class ZonesAdminTest extends RestBase {
 
     @CaseId(2066)
     @Skip(onServer = Server.STAGING)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление торговой зоны",
             dependsOnMethods = {"editZone", "editZoneWithoutName"})
     public void deleteZone() {

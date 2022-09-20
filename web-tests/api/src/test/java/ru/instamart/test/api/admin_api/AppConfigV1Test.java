@@ -19,7 +19,7 @@ public class AppConfigV1Test extends RestBase {
 
     @CaseId(1435)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение информации о конфигурации системы")
     public void getAppConfig() {
         final Response response = AppConfigV1Request.GET();

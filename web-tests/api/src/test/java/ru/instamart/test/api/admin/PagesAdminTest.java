@@ -37,7 +37,7 @@ public class PagesAdminTest extends RestBase {
 
     @CaseId(1144)
     @Story("Статические страницы")
-    @Test(groups = {"api-instamart-regress"}, description = "Получение всех страниц")
+    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Получение всех страниц")
     public void getAllPage() {
         final Response response = PagesAdminRequest.GET();
         checkStatusCode(response, 200, ContentType.HTML);
@@ -45,7 +45,7 @@ public class PagesAdminTest extends RestBase {
 
     @CaseIDs(value = {@CaseId(1135), @CaseId(1140)})
     @Story("Статические страницы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание новой статической страницы с обязательными параметрами",
             dataProvider = "pageData",
             dataProviderClass = RestDataProvider.class)
@@ -59,7 +59,7 @@ public class PagesAdminTest extends RestBase {
 
     @CaseId(1141)
     @Story("Статические страницы")
-    @Test(groups = {"api-instamart-regress"}, description = "Создание новой статической страницы без обязательных параметров")
+    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Создание новой статической страницы без обязательных параметров")
     public void createPageWithoutRequiresParams() {
         final Response response = PagesAdminRequest.POST(new PagesAdminRequest.Page());
         checkStatusCode400(response);
@@ -67,7 +67,7 @@ public class PagesAdminTest extends RestBase {
 
     @CaseIDs(value = {@CaseId(1136), @CaseId(1142)})
     @Story("Статические страницы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование статической страницы с обязательными параметрами",
             dependsOnMethods = "createPage",
             dataProvider = "updatedPageData",
@@ -83,7 +83,7 @@ public class PagesAdminTest extends RestBase {
 
     @CaseId(1143)
     @Story("Статические страницы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование статической страницы без обязательных параметров",
             dependsOnMethods = "createPage")
     public void editPageWithoutRequiredParams() {
@@ -93,7 +93,7 @@ public class PagesAdminTest extends RestBase {
 
     @CaseId(1137)
     @Story("Статические страницы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление страницы",
             dependsOnMethods = {"editPage", "editPageWithoutRequiredParams"})
     public void deletePage() {

@@ -41,7 +41,7 @@ public class CitiesAdminTest extends RestBase {
 
     @CaseId(1133)
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress"}, description = "Получение списка всех городов")
+    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Получение списка всех городов")
     public void getAllCities() {
         final Response response = CitiesAdminRequest.GET();
         checkStatusCode(response, 200, ContentType.HTML);

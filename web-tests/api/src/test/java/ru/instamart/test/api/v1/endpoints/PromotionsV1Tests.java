@@ -34,7 +34,7 @@ public class PromotionsV1Tests extends RestBase {
 
     @CaseId(1430)
     @Story("Бесплатная доставка")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение информации о бесплатной доставке")
     public void getFreeDeliveryPromotionsInfo() {
         final Response response = PromotionsV1Request.FreeDelivery.GET();
@@ -44,7 +44,7 @@ public class PromotionsV1Tests extends RestBase {
 
     @CaseId(2245)
     @Story("Компенсации")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
             description = "Получение информации о промо-акциях")
     public void getPromotions() {
         final Response response = PromotionsV1Request.Promotions.GET();
@@ -55,7 +55,7 @@ public class PromotionsV1Tests extends RestBase {
 
     @CaseId(2245)
     @Story("Компенсации")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о промо-акции по id",
             dependsOnMethods = "getPromotions")
     public void getPromotion() {

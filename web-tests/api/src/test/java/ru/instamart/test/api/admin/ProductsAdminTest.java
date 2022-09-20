@@ -33,7 +33,7 @@ public class ProductsAdminTest extends RestBase {
 
     @CaseId(2948)
     @Story("Данные о мерах")
-    @Test(groups = {"api-instamart-regress"}, description = "Получение данных о мерах в админке")
+    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Получение данных о мерах в админке")
     public void getAllProductsReferences() {
         final Response response = ProductsAdminRequest.Preferences.GET();
         checkStatusCode(response, 200);
@@ -42,7 +42,7 @@ public class ProductsAdminTest extends RestBase {
     @CaseId(2949)
     @Story("Получить данные о продукте")
     @Test(description = "Получение данных о продукте",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getProductInfo() {
         SpreeProductsEntity spreeProductsEntity = SpreeProductsDao.INSTANCE.getProduct();
         final Response response = ProductsAdminRequest.GET(spreeProductsEntity.getPermalink());
@@ -62,7 +62,7 @@ public class ProductsAdminTest extends RestBase {
     @CaseId(2950)
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о невалидном продукте",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getUnavailableProductInfo() {
         final Response response = ProductsAdminRequest.GET("asdfgh1");
         checkStatusCode(response, 404);
@@ -71,7 +71,7 @@ public class ProductsAdminTest extends RestBase {
     @CaseId(2951)
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продуктах",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getProducts() {
         final Response response = ProductsAdminRequest.GET("Киви", "1,2,3", "1,2,3", "1,2,3", "1,2,3", "", "1", "1", "15");
         checkStatusCode(response, 200);

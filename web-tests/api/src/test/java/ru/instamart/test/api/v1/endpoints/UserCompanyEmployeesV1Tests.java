@@ -36,7 +36,7 @@ public class UserCompanyEmployeesV1Tests extends RestBase {
     @Story("Web")
     @CaseId(1263)
     @Test(description = "Выход пользователя из компании",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void deleteUserFromCompany() {
         final Response response = UserCompanyEmployeesV1Request.DELETE(company.getId().toString());
         checkStatusCode200(response);

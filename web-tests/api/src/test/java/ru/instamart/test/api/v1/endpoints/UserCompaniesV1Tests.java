@@ -41,7 +41,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Story("Web")
     @CaseId(616)
     @Test(description = "Список компаний пользователя",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getUserCompanies() {
         final Response response = UserCompaniesV1Request.GET();
         checkStatusCode200(response);
@@ -52,7 +52,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Story("Web")
     @CaseId(617)
     @Test(description = "Компания пользователя",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getCompanyByID(){
         final Response response = UserCompaniesV1Request.GET(company.getId().toString());
         checkStatusCode200(response);
@@ -62,7 +62,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Story("Web")
     @CaseId(618)
     @Test(description = "Персональный менеджер компании",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getCompanyWithoutManager(){
         final Response response = UserCompaniesV1Request.Manager.GET(company.getId().toString());
         checkStatusCode200(response);
@@ -72,7 +72,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Story("Web")
     @CaseId(619)
     @Test(description = "Список сотрудников компании",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getCompanyEmployees() {
         final Response response = UserCompaniesV1Request.Employees.GET(company.getId().toString());
         checkStatusCode200(response);
@@ -82,7 +82,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Story("Web")
     @CaseId(620)
     @Test(description = "Баланс  компании",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getPaymentAccount() {
         final Response response = UserCompaniesV1Request.PaymentAccount.GET(company.getId().toString());
         checkStatusCode200(response);
@@ -92,7 +92,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Story("Web")
     @CaseId(621)
     @Test(description = "Обновление баланса компании",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void postRefreshPaymentAccountError() {
         final Response response = UserCompaniesV1Request.PaymentAccount.POST(company.getId().toString());
         checkStatusCode422(response);
@@ -103,7 +103,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Story("Web")
     @CaseId(622)
     @Test(description = "Ошибка при повторной регистрации компании",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void postCompanyRegistrationError(){
         final Response response = UserCompaniesV1Request.POST(companyData);
         checkStatusCode422(response);
@@ -114,7 +114,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Story("Web")
     @CaseId(623)
     @Test(description = "Статус регистрации компании (зарегистрирована)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getCompanyPresence() {
         final Response response = CompanyPresenceV1Request.GET(company.getInn());
         checkStatusCode200(response);

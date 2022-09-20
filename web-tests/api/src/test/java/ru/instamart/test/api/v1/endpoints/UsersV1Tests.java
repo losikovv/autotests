@@ -29,7 +29,7 @@ public class UsersV1Tests extends RestBase {
     }
 
     @CaseId(2369)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
             description = "Получение данных пользователя по емейлу")
     public void getUsers() {
         UserData user = SessionFactory.getSession(SessionType.API_V1).getUserData();
@@ -40,7 +40,7 @@ public class UsersV1Tests extends RestBase {
     }
 
     @CaseId(2370)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение данных пользователя с пустым емейлом")
     public void getUsersWithEmptyEmail() {
         final Response response = UsersV1Request.GET("");
@@ -49,7 +49,7 @@ public class UsersV1Tests extends RestBase {
     }
 
     @CaseId(2371)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение данных пользователя с несуществующим емейлом")
     public void getUsersWithNonExistentEmail() {
         final Response response = UsersV1Request.GET(String.format("random%s@test.com", RandomUtils.nextInt(1, 1000)));
