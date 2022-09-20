@@ -106,6 +106,7 @@ public final class UserFavoritesTests {
         final int initCount = userFavorites().getFavoritesCount();
         userFavorites().scrollDown();
         userFavorites().checkRequestsWasLoad();
+        userFavorites().checkSpinnerNotVisible();
         userFavorites().checkCountLess(initCount, userFavorites().getFavoritesCount());
     }
 

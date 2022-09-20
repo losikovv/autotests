@@ -145,7 +145,7 @@ public final class BasicSbermarketTests {
         home().scrollDown();
 
         home().interactFooter().clickToFooterElementWithText(text);
-        home().checkPageUrl(url);
+        home().checkPageContains(url);
     }
 
     @CaseId(3504)

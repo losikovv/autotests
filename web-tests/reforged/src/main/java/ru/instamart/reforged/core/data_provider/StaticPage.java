@@ -47,9 +47,8 @@ public final class StaticPage {
         return new Object[][] {
                 {"О компании", about().pageUrl()},
                 {"Контакты", contacts().pageUrl()},
-                {"Наши вакансии", BasicProperties.JOB_LANDING_URL},
                 {"Документы", terms().pageUrl()},
-                {"Стать партнёром", BasicProperties.JOB_LANDING_URL},
+                {"Стать курьером", BasicProperties.JOB_LANDING_URL},
                 {"Как мы работаем", howWeWork().pageUrl()},
                 {"Доставка и оплата", delivery().pageUrl()},
                 {"Помощь", faq().pageUrl()},
