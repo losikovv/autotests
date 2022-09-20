@@ -22,7 +22,7 @@ public interface UserProfileElement {
     Element userEmail = new Element(By.xpath("//div[@class='user-block__container']/div[3]/div[2]"), "поле с email пользователя");
 
     Button buttonChangePhone = new Button(By.xpath("//div[@class='user-block__container']/div[1]/div[3]/button"), "кнопка изменить номер телефона пользователя");
-    Button buttonChangeName = new Button(By.xpath("//div[@class='user-block__container']/div[2]/div[3]/button"), "кнопка изменить имя и фамилию пользователя");
+    Button buttonChangeName = new Button(By.xpath("//div[@class='user-block__container']/div[2]/div[3]/button"), 20, "кнопка изменить имя и фамилию пользователя");
     Button buttonChangeEmail = new Button(By.xpath("//div[@class='user-block__container']/div[3]/div[3]/button"), "кнопка изменить email пользователя");
 
     Element alert = new Element(By.xpath("//span[@class='alert__msg' and text()='Данные успешно сохранены']"), "алерт о том что данные сохранились");

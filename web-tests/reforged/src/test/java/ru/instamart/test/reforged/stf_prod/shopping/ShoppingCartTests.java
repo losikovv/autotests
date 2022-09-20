@@ -57,6 +57,9 @@ public final class ShoppingCartTests {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
+        shop().goToPage();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+        shop().checkSnippet();
         shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
@@ -98,6 +101,9 @@ public final class ShoppingCartTests {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
+        shop().goToPage();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+        shop().checkSnippet();
         shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
@@ -125,6 +131,8 @@ public final class ShoppingCartTests {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
+        shop().goToPage();
+        shop().interactHeader().checkEnteredAddressIsVisible();
         shop().checkSnippet();
         shop().openFirstProductCardProd();
         shop().interactProductCard().clickOnBuy();
@@ -292,17 +300,21 @@ public final class ShoppingCartTests {
     public void testAddressAndCartGetFromProfileAuth() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.learningCenter());
-        helper.dropAndFillCart(userData, 1);
+        helper.dropAndFillCart(userData, DEFAULT_METRO_MOSCOW_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddressLarge().checkYmapsReady();
-        shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
+        shop().interactAddressLarge().fillAddress(RestAddresses.Moscow.learningCenter().getFullAddress());
         shop().interactAddressLarge().selectFirstAddress();
         shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddressLarge().clickSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().goToPage();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+        shop().checkSnippet();
 
         final var shopProductName = shop().getFirstProductTitleProd();
         shop().plusFirstItemToCartProd();
@@ -316,7 +328,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         final var currentAddress = shop().interactHeader().returnCurrentAddress();
-        shop().interactHeader().checkIsSetAddressEqualToInput(Addresses.Moscow.testAddress(), currentAddress);
+        shop().interactHeader().checkIsSetAddressEqualToInput(RestAddresses.Moscow.learningCenter().getFullAddress(), currentAddress);
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();

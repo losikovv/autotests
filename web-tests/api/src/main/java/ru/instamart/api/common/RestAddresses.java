@@ -26,6 +26,7 @@ public class RestAddresses {
 
         public static AddressV2 learningCenter() {
             return AddressV2.builder()
+                    .fullAddress("посёлок Нагорное, Центральная улица, 5А")
                     .city("город Мытищи")
                     .street("Центральная ул.")
                     .building("5А")
