@@ -191,7 +191,7 @@ public final class BasicOrdersTests {
     @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = {STF_PROD_S})
     public void successCancelMultiOrderViaCancelOneOrder() {
         userData = UserManager.getQaUser();
-        //helper.makeMultipleOrder(userData, RestAddresses.Moscow.defaultProdAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID_PROD); //метод не адаптирован к проду, есть только один тестовый магазин
+        helper.makeMultipleOrderByQa(userData, RestAddresses.Moscow.defaultProdAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID);
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);

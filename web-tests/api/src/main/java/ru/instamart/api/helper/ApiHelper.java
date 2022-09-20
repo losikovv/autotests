@@ -204,6 +204,17 @@ public final class ApiHelper {
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
     @Step("Наполняем корзину с помощью API")
+    public void fillCartByQA(final UserData user, final Integer sid, final Integer itemsNumber) {
+        apiV2.authByQA(user);
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.fillCart(apiV2.getProducts(sid), itemsNumber);
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    @Step("Наполняем корзину с помощью API")
     public void addItemsToCart(final UserData user, final Integer sid, final List<Long> productIDs) {
         apiV2.authByPhone(user);
         apiV2.getCurrentOrderNumber();
@@ -295,6 +306,37 @@ public final class ApiHelper {
     @Step("Оформляем мульти заказ с помощью API")
     public void makeMultipleOrder(final UserData user, AddressV2 address, final Integer sid, final Integer sid2) {
         apiV2.authByPhone(user);
+
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+
+        apiV2.setAddressAttributes(user, address);
+
+        apiV2.fillCart(apiV2.getProducts(sid));
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethod(sid);
+        apiV2.getAvailableDeliveryWindow();
+
+        apiV2.setDefaultOrderAttributes();
+
+        apiV2.fillCart(apiV2.getProducts(sid2));
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethod(sid2);
+        apiV2.getAvailableDeliveryWindow();
+
+        apiV2.setDefaultOrderAttributes();
+        apiV2.completeOrder();
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    @Step("Оформляем мульти заказ с помощью API")
+    public void makeMultipleOrderByQa(final UserData user, AddressV2 address, final Integer sid, final Integer sid2) {
+        apiV2.authByQA(user);
 
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();

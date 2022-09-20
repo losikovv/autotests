@@ -380,6 +380,7 @@ public final class ShoppingCartTests {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
         helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID, 2);
+        helper.fillCartByQA(userData, DEFAULT_METRO_MOSCOW_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -387,8 +388,6 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();
-        shop().plusFirstItemToCartProd();
-        shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         shop().interactCart().checkRetailersCountShouldBe(2);
