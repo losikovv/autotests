@@ -170,6 +170,37 @@ public final class CandidatesGrpc {
     return getSearchMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<candidates.CandidatesOuterClass.SearchRequest,
+      candidates.CandidatesOuterClass.SearchResultV2> getSearchV2Method;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SearchV2",
+      requestType = candidates.CandidatesOuterClass.SearchRequest.class,
+      responseType = candidates.CandidatesOuterClass.SearchResultV2.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<candidates.CandidatesOuterClass.SearchRequest,
+      candidates.CandidatesOuterClass.SearchResultV2> getSearchV2Method() {
+    io.grpc.MethodDescriptor<candidates.CandidatesOuterClass.SearchRequest, candidates.CandidatesOuterClass.SearchResultV2> getSearchV2Method;
+    if ((getSearchV2Method = CandidatesGrpc.getSearchV2Method) == null) {
+      synchronized (CandidatesGrpc.class) {
+        if ((getSearchV2Method = CandidatesGrpc.getSearchV2Method) == null) {
+          CandidatesGrpc.getSearchV2Method = getSearchV2Method =
+              io.grpc.MethodDescriptor.<candidates.CandidatesOuterClass.SearchRequest, candidates.CandidatesOuterClass.SearchResultV2>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SearchV2"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  candidates.CandidatesOuterClass.SearchRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  candidates.CandidatesOuterClass.SearchResultV2.getDefaultInstance()))
+              .setSchemaDescriptor(new CandidatesMethodDescriptorSupplier("SearchV2"))
+              .build();
+        }
+      }
+    }
+    return getSearchV2Method;
+  }
+
   private static volatile io.grpc.MethodDescriptor<candidates.CandidatesOuterClass.HaveActiveWorkflowRequest,
       candidates.CandidatesOuterClass.HaveActiveWorkflowResponse> getHaveActiveWorkflowMethod;
 
@@ -263,6 +294,37 @@ public final class CandidatesGrpc {
     return getUpdateZoneSettingsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<candidates.CandidatesOuterClass.GetLocationsRequest,
+      candidates.CandidatesOuterClass.GetLocationsResponse> getGetLocationsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetLocations",
+      requestType = candidates.CandidatesOuterClass.GetLocationsRequest.class,
+      responseType = candidates.CandidatesOuterClass.GetLocationsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<candidates.CandidatesOuterClass.GetLocationsRequest,
+      candidates.CandidatesOuterClass.GetLocationsResponse> getGetLocationsMethod() {
+    io.grpc.MethodDescriptor<candidates.CandidatesOuterClass.GetLocationsRequest, candidates.CandidatesOuterClass.GetLocationsResponse> getGetLocationsMethod;
+    if ((getGetLocationsMethod = CandidatesGrpc.getGetLocationsMethod) == null) {
+      synchronized (CandidatesGrpc.class) {
+        if ((getGetLocationsMethod = CandidatesGrpc.getGetLocationsMethod) == null) {
+          CandidatesGrpc.getGetLocationsMethod = getGetLocationsMethod =
+              io.grpc.MethodDescriptor.<candidates.CandidatesOuterClass.GetLocationsRequest, candidates.CandidatesOuterClass.GetLocationsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetLocations"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  candidates.CandidatesOuterClass.GetLocationsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  candidates.CandidatesOuterClass.GetLocationsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CandidatesMethodDescriptorSupplier("GetLocations"))
+              .build();
+        }
+      }
+    }
+    return getGetLocationsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -348,6 +410,13 @@ public final class CandidatesGrpc {
 
     /**
      */
+    public void searchV2(candidates.CandidatesOuterClass.SearchRequest request,
+        io.grpc.stub.StreamObserver<candidates.CandidatesOuterClass.SearchResultV2> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSearchV2Method(), responseObserver);
+    }
+
+    /**
+     */
     public void haveActiveWorkflow(candidates.CandidatesOuterClass.HaveActiveWorkflowRequest request,
         io.grpc.stub.StreamObserver<candidates.CandidatesOuterClass.HaveActiveWorkflowResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getHaveActiveWorkflowMethod(), responseObserver);
@@ -365,6 +434,13 @@ public final class CandidatesGrpc {
     public void updateZoneSettings(candidates.CandidatesOuterClass.ZoneSetting request,
         io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateZoneSettingsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getLocations(candidates.CandidatesOuterClass.GetLocationsRequest request,
+        io.grpc.stub.StreamObserver<candidates.CandidatesOuterClass.GetLocationsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetLocationsMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -405,6 +481,13 @@ public final class CandidatesGrpc {
                 candidates.CandidatesOuterClass.SearchResult>(
                   this, METHODID_SEARCH)))
           .addMethod(
+            getSearchV2Method(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                candidates.CandidatesOuterClass.SearchRequest,
+                candidates.CandidatesOuterClass.SearchResultV2>(
+                  this, METHODID_SEARCH_V2)))
+          .addMethod(
             getHaveActiveWorkflowMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
@@ -425,6 +508,13 @@ public final class CandidatesGrpc {
                 candidates.CandidatesOuterClass.ZoneSetting,
                 com.google.protobuf.Empty>(
                   this, METHODID_UPDATE_ZONE_SETTINGS)))
+          .addMethod(
+            getGetLocationsMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                candidates.CandidatesOuterClass.GetLocationsRequest,
+                candidates.CandidatesOuterClass.GetLocationsResponse>(
+                  this, METHODID_GET_LOCATIONS)))
           .build();
     }
   }
@@ -485,6 +575,14 @@ public final class CandidatesGrpc {
 
     /**
      */
+    public void searchV2(candidates.CandidatesOuterClass.SearchRequest request,
+        io.grpc.stub.StreamObserver<candidates.CandidatesOuterClass.SearchResultV2> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSearchV2Method(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void haveActiveWorkflow(candidates.CandidatesOuterClass.HaveActiveWorkflowRequest request,
         io.grpc.stub.StreamObserver<candidates.CandidatesOuterClass.HaveActiveWorkflowResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -505,6 +603,14 @@ public final class CandidatesGrpc {
         io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getUpdateZoneSettingsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getLocations(candidates.CandidatesOuterClass.GetLocationsRequest request,
+        io.grpc.stub.StreamObserver<candidates.CandidatesOuterClass.GetLocationsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetLocationsMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -559,6 +665,13 @@ public final class CandidatesGrpc {
 
     /**
      */
+    public candidates.CandidatesOuterClass.SearchResultV2 searchV2(candidates.CandidatesOuterClass.SearchRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSearchV2Method(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public candidates.CandidatesOuterClass.HaveActiveWorkflowResponse haveActiveWorkflow(candidates.CandidatesOuterClass.HaveActiveWorkflowRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getHaveActiveWorkflowMethod(), getCallOptions(), request);
@@ -576,6 +689,13 @@ public final class CandidatesGrpc {
     public com.google.protobuf.Empty updateZoneSettings(candidates.CandidatesOuterClass.ZoneSetting request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getUpdateZoneSettingsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public candidates.CandidatesOuterClass.GetLocationsResponse getLocations(candidates.CandidatesOuterClass.GetLocationsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetLocationsMethod(), getCallOptions(), request);
     }
   }
 
@@ -635,6 +755,14 @@ public final class CandidatesGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<candidates.CandidatesOuterClass.SearchResultV2> searchV2(
+        candidates.CandidatesOuterClass.SearchRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSearchV2Method(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<candidates.CandidatesOuterClass.HaveActiveWorkflowResponse> haveActiveWorkflow(
         candidates.CandidatesOuterClass.HaveActiveWorkflowRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -656,6 +784,14 @@ public final class CandidatesGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getUpdateZoneSettingsMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<candidates.CandidatesOuterClass.GetLocationsResponse> getLocations(
+        candidates.CandidatesOuterClass.GetLocationsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetLocationsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_SELECT_CANDIDATES = 0;
@@ -663,9 +799,11 @@ public final class CandidatesGrpc {
   private static final int METHODID_SELECT_IN_RECT = 2;
   private static final int METHODID_SELECT_CANDIDATE_BY_UUID = 3;
   private static final int METHODID_SEARCH = 4;
-  private static final int METHODID_HAVE_ACTIVE_WORKFLOW = 5;
-  private static final int METHODID_GET_ZONE_SETTINGS = 6;
-  private static final int METHODID_UPDATE_ZONE_SETTINGS = 7;
+  private static final int METHODID_SEARCH_V2 = 5;
+  private static final int METHODID_HAVE_ACTIVE_WORKFLOW = 6;
+  private static final int METHODID_GET_ZONE_SETTINGS = 7;
+  private static final int METHODID_UPDATE_ZONE_SETTINGS = 8;
+  private static final int METHODID_GET_LOCATIONS = 9;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -704,6 +842,10 @@ public final class CandidatesGrpc {
           serviceImpl.search((candidates.CandidatesOuterClass.SearchRequest) request,
               (io.grpc.stub.StreamObserver<candidates.CandidatesOuterClass.SearchResult>) responseObserver);
           break;
+        case METHODID_SEARCH_V2:
+          serviceImpl.searchV2((candidates.CandidatesOuterClass.SearchRequest) request,
+              (io.grpc.stub.StreamObserver<candidates.CandidatesOuterClass.SearchResultV2>) responseObserver);
+          break;
         case METHODID_HAVE_ACTIVE_WORKFLOW:
           serviceImpl.haveActiveWorkflow((candidates.CandidatesOuterClass.HaveActiveWorkflowRequest) request,
               (io.grpc.stub.StreamObserver<candidates.CandidatesOuterClass.HaveActiveWorkflowResponse>) responseObserver);
@@ -715,6 +857,10 @@ public final class CandidatesGrpc {
         case METHODID_UPDATE_ZONE_SETTINGS:
           serviceImpl.updateZoneSettings((candidates.CandidatesOuterClass.ZoneSetting) request,
               (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
+          break;
+        case METHODID_GET_LOCATIONS:
+          serviceImpl.getLocations((candidates.CandidatesOuterClass.GetLocationsRequest) request,
+              (io.grpc.stub.StreamObserver<candidates.CandidatesOuterClass.GetLocationsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -782,9 +928,11 @@ public final class CandidatesGrpc {
               .addMethod(getSelectInRectMethod())
               .addMethod(getSelectCandidateByUUIDMethod())
               .addMethod(getSearchMethod())
+              .addMethod(getSearchV2Method())
               .addMethod(getHaveActiveWorkflowMethod())
               .addMethod(getGetZoneSettingsMethod())
               .addMethod(getUpdateZoneSettingsMethod())
+              .addMethod(getGetLocationsMethod())
               .build();
         }
       }

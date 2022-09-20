@@ -28,8 +28,7 @@ import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.helper.WorkflowHelper.acceptWorkflowAndStart;
 import static ru.instamart.api.helper.WorkflowHelper.getWorkflowUuid;
 import static ru.instamart.grpc.common.GrpcContentHosts.PAAS_CONTENT_OPERATIONS_CANDIDATES;
-import static ru.instamart.kraken.util.TimeUtil.getPastDateTime;
-import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
+import static ru.instamart.kraken.util.TimeUtil.*;
 
 @Epic("On Demand")
 @Feature("Candidates")
@@ -92,13 +91,6 @@ public class CandidatesTest extends RestBase {
         shiftsApi.cancelAllActiveShifts();
         shiftsApi.stopAllActiveShifts();
     }
-
-    /*@AfterClass(alwaysRun = true)
-    public void after() {
-        List<ShiftResponse> shifts = shiftsApi.shifts();
-        shifts.stream()
-                .forEach(item -> shiftsApi.cancelShifts(item.getId()));
-    }*/
 
     @CaseId(24)
     @Test(description = "Кандидаты находятся в пределах радиуса вокруг координаты магазина",

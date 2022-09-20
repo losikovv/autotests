@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/empty.proto";
 
-option go_package = "gitlab.sbmt.io/paas/content/operations/candidates/pkg/server/grpc/candidates";
+
 
 service Candidates {
 	rpc SelectCandidates(SelectCandidatesRequest) returns (SelectCandidatesResponse) {}
@@ -14,9 +14,11 @@ service Candidates {
 	rpc SelectInRect(SelectInRectRequest) returns (SelectInRectResponse) {}
 	rpc SelectCandidateByUUID(SelectCandidateByUUIDRequest) returns (SelectCandidateByUUIDResult) {}
 	rpc Search(SearchRequest) returns (SearchResult) {}
+	rpc SearchV2(SearchRequest) returns (SearchResultV2) {}
 	rpc HaveActiveWorkflow(HaveActiveWorkflowRequest) returns (HaveActiveWorkflowResponse) {}
 	rpc GetZoneSettings(ZoneSettingsRequest) returns (ZoneSetting) {}
 	rpc UpdateZoneSettings(ZoneSetting) returns (google.protobuf.Empty) {}
+	rpc GetLocations(GetLocationsRequest) returns (GetLocationsResponse) {}
 }
 
 message ZoneSetting {
@@ -90,7 +92,7 @@ message SetCandidateStateResponse {
 message SelectCandidatesRequest {
 	// массив фильтров для выборки кандидатов
 	repeated SelectCandidatesFilter filter = 1;
-	
+
 	enum SourceType {
 		UNKNOWN = 0;
 		DISPATCH = 1;
@@ -100,7 +102,8 @@ message SelectCandidatesRequest {
 	SourceType source_type = 2;
 	// ID запроса (необязательное поле)
 	string source_id = 3;
-	
+	// UUID заказа (используется для расчета кол-во отказов по заказу)
+	string shipment_uuid = 4;
 }
 
 message SelectCandidatesFilter {
@@ -119,6 +122,8 @@ message SelectCandidatesFilter {
 	repeated string uuids = 7;
 	// максимальный размер очереди заказов для отбора кандидата
 	int32 max_queue_size = 8;
+	// включать партнеров с непринятым оффером
+	bool with_blocked = 9;
 }
 
 message CandidateLastLocation {
@@ -142,6 +147,7 @@ message CandidateShift {
 	google.protobuf.Timestamp ended_at = 2;
 	// статус смены, возможные значения:
 	// 	* in_progress - активная смена
+	//  * ready_on_pause - готовность взять паузу
 	//  * on_pause - взята пауза
 	string state = 3;
 	// Идентификатор смены
@@ -154,6 +160,13 @@ message CandidateShift {
 	bool fixed_on_delivery_area_or_store = 7;
 	// uuid магазина
 	string store_uuid = 8;
+	// AR кандидата на дату начала этой смены
+	float candidate_acceptance_rate = 9;
+}
+
+message AssignmentRejections {
+	string shipment_uuid = 1;
+	int64 rejections = 2;
 }
 
 message Candidate {
@@ -178,8 +191,8 @@ message Candidate {
 	// массив маршрутных листов кандидата
 	repeated Workflow workflows = 10;
 	Location available_location = 11;
-	repeated string active_shipments = 12;
-	
+	repeated string active_shipment_uuids = 12;
+
 	enum EmploymentType {
 		NOT_SET = 0;
 		IP = 1;
@@ -189,6 +202,14 @@ message Candidate {
 		EXTERNAL_EMPLOYEE = 5;
 	}
 	EmploymentType employment_type = 13;
+	// Кол-во отказов по заказу
+	AssignmentRejections assignment_rejections = 14;
+
+	message ShipmentShort {
+		string uuid = 1;
+		google.protobuf.Timestamp plan_ended_at = 12;
+	}
+	repeated ShipmentShort active_shipments = 15;
 }
 
 message InRectQueryStatistics {
@@ -419,6 +440,10 @@ message SearchResult {
 	Candidate candidate = 1;
 }
 
+message SearchResultV2 {
+	repeated Candidate candidate = 1;
+}
+
 message SelectInRectRequest {
 	Rect rect = 1;
 	// массив ролей. если пустой, то все роли считаются подходящими
@@ -427,6 +452,8 @@ message SelectInRectRequest {
 	repeated CandidateTransport transports = 4;
 	// массив типов диспечеризации. не может быть пустым
 	repeated string schedule_types = 5;
+	uint32 operational_zone_id = 6;
+	uint32 delivery_area_id = 7;
 }
 
 message Rect {
@@ -439,4 +466,18 @@ message Rect {
 message GeoPoint {
 	double lat = 1;
 	double lon = 2;
+}
+
+message GetLocationsRequest {
+	repeated string candidate_uuid = 1; // uuid из stf
+}
+
+message GetLocationsResponse {
+	repeated CandidateLocation candidate = 1;
+}
+
+message CandidateLocation {
+	string uuid = 1;
+	double lon = 2;
+	double lat = 3;
 }
