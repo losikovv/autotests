@@ -209,7 +209,8 @@ tests:customRun:
   resource_group: customRun:$CI_GROUP:$URL_STF_BACKEND
   stage: custom-run
   script:
-    - echo $CI_PIPELINE_URL
+    - echo $CI_MODULE
+    - echo $CI_GROUP
     - echo $URL_STF_BACKEND
     - echo $URL_STF_FRONT
     - echo $STF_FORWARD

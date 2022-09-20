@@ -12,7 +12,28 @@
     </method-selectors>
     <test verbose="1" name="Stf UI tests production" parallel="classes" thread-count="5">
         <classes>
+            <class name="ru.instamart.test.reforged.stf_prod.checkout.CheckoutDeliverySlotsTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.checkout.CheckoutPromocodeTests"/>
 
+            <class name="ru.instamart.test.reforged.stf_prod.order.BasicOrdersTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.order.OrderEvaluationTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.order.OrderRepeatTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.order.OrdersPaymentsTests"/>
+
+            <class name="ru.instamart.test.reforged.stf_prod.shopping.ShoppingCartTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.shopping.ShoppingSearchTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.shopping.ShoppingTestsForExistingUser"/>
+
+            <class name="ru.instamart.test.reforged.stf_prod.user.UserAuthorisationTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.user.UserFavoritesTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.user.UserLogoutTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.user.UserProfileTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.user.UserRegistrationTests"/>
+
+            <class name="ru.instamart.test.reforged.stf_prod.BasicSbermarketTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.CookieTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.HelpDeskChatTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.Page404Tests"/>
         </classes>
     </test>
 </suite>
