@@ -10,12 +10,23 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.grpc.common.GrpcContentHosts;
+import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
+import ru.instamart.jdbc.dao.workflow.AssignmentsDao;
+import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
+import workflow.ServiceGrpc;
 
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.helper.WorkflowHelper.acceptWorkflowAndStart;
+import static ru.instamart.api.helper.WorkflowHelper.getWorkflowUuid;
 import static ru.instamart.grpc.common.GrpcContentHosts.PAAS_CONTENT_OPERATIONS_CANDIDATES;
 import static ru.instamart.kraken.util.TimeUtil.getPastDateTime;
 import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
@@ -29,26 +40,50 @@ public class CandidatesTest extends RestBase {
     private UserData user2;
     private UserData user3;
     private String timeStamp = getPastDateTime(900L);
-
+    private OrderV2 order;
+    private String shipmentUuid;
+    private ServiceGrpc.ServiceBlockingStub clientWorkflow;
     @BeforeClass(alwaysRun = true)
     public void auth() {
+       clientWorkflow = ServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW));
 
-       user = UserManager.getShp6Shopper1();
-       shopperApp.authorisation(user);
-       shiftsApi.startOfShift(StartPointsTenants.METRO_9);
-       shopperApp.sendCurrentLocator(55.915098,37.541685, null);
+        user = UserManager.getShp6Shopper1();
+        shopperApp.authorisation(user);
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
+        //
+        shiftsApi.startOfShift(StartPointsTenants.METRO_9);
+        shopperApp.sendCurrentLocator(55.915098,37.541685, null);
 
-       user2 = UserManager.getShp6Shopper2();
-       shopperApp.authorisation(user2);
-       shiftsApi.startOfShift(StartPointsTenants.METRO_9);
-       shopperApp.sendCurrentLocator(55.915098,37.541685, null);
+        user2 = UserManager.getShp6Shopper2();
+        shopperApp.authorisation(user2);
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
+        //
+        shiftsApi.startOfShift(StartPointsTenants.METRO_9);
+        shopperApp.sendCurrentLocator(55.915098,37.541685, null);
 
-       user3 = UserManager.getShp6Shopper3();
+        SessionFactory.makeSession(SessionType.API_V2);
+        UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
+        order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
+        shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
+        String firstWorkflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(5), clientWorkflow);
+        AssignmentsEntity firstAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(firstWorkflowUuid);
+        acceptWorkflowAndStart(firstAssignmentsEntity.getId().toString(), StartPointsTenants.METRO_9);
+
+
+        user3 = UserManager.getShp6Shopper3();
         shopperApp.authorisation(user3);
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
+        //
         shiftsApi.startOfShift(StartPointsTenants.METRO_3);
         shopperApp.sendCurrentLocator(55.857291,38.440348, null);
 
-       clientCandidates = CandidatesGrpc.newBlockingStub(grpc.createChannel(PAAS_CONTENT_OPERATIONS_CANDIDATES));
+        clientCandidates = CandidatesGrpc.newBlockingStub(grpc.createChannel(PAAS_CONTENT_OPERATIONS_CANDIDATES));
 
     }
 
@@ -224,6 +259,21 @@ public class CandidatesTest extends RestBase {
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
         assertTrue(selectCandidatesResponse.getResults(1).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
+    }
+    @CaseId(120)
+    @Test(description = "Отбор кандидатов по очереди", groups = "dispatch-candidates-smoke")
+    public void SelectionByQueueSize() {
+        var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
+                .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
+                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                                .setLat(55.915098)
+                                .setLon(37.541685)
+                                .build())
+                        .setMaxQueueSize(1)
+                )
+                .build();
+        var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+        assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
     }
 }
 

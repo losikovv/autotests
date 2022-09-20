@@ -230,15 +230,15 @@ public class AdminHelper {
     }
 
     @Step("Создаем магазин")
-    public void createStore(StoresAdminRequest.Store store) {
+    public void createStore(StoresAdminRequest.Stores store) {
         final Response storeResponse = StoresAdminRequest.POST(store);
-        checkStatusCode302(storeResponse);
+        checkStatusCode(storeResponse, 201);
     }
 
     @Step("Редактируем магазин")
-    public void editStore(Integer sid, StoresAdminRequest.Store store) {
+    public void editStore(Integer sid, StoresAdminRequest.Stores store) {
         final Response storeResponse = StoresAdminRequest.PATCH(store, sid);
-        checkStatusCode302(storeResponse);
+        checkStatusCode(storeResponse,201);
     }
 
     @Step("Получаем список импортов офферов")

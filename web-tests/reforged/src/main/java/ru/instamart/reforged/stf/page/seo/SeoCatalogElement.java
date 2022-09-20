@@ -19,7 +19,7 @@ public interface SeoCatalogElement {
     Element productGrid = new Element(By.xpath("//div[@data-qa='category_taxon_products_products_grid']"), "Продукты на странице каталога");
     Element firstProductCard = new Element(By.xpath("//div[@data-qa='category_taxon_products_products_grid']/div/div[1]"), "Карточка первого товара на странице каталога");
     Element firstProductCardOnDepartment = new Element(By.xpath("//div[@data-qa='category_department_taxons_list_taxon_item_0_product_item_0']"), "Карточка первого товара на странице каталога");
-    Button firstProductAddToCart = new Button(By.xpath("//div[@data-qa='category_department_taxons_list_taxon_item_0_product_item_0']//button[@title='Добавить в корзину']"), "Кнопка 'Добавить в корзину' первого товара в каталоге");
+    ElementCollection addToCartButtons = new ElementCollection(By.xpath("//div[contains(@class, 'ProductCard')]//button[@title='Добавить в корзину']"), "Кнопка 'Добавить в корзину' первого товара в каталоге");
     Button firstProductRemoveFromCart = new Button(By.xpath("//div[@data-qa='category_department_taxons_list_taxon_item_0_product_item_0']//button[@title='Убрать из корзины']"), "Кнопка 'Убрать из корзины' первого товара в каталоге");
     Element spinner = new Element(By.xpath("//div[contains(@class, 'Recommendations')]//div[contains(@class, 'Spinner')]"), "Спиннер блока рекомендаций");
     ElementCollection catalogSubCategories = new ElementCollection(By.xpath("//nav[@data-qa='category_header_taxons_nav']/a"), "Подкатегории в каталоге");

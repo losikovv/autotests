@@ -9,9 +9,12 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.jdbc.dao.stf.PaymentMethodStoresDao;
 import ru.instamart.jdbc.dao.stf.StoreConfigsDao;
@@ -20,6 +23,7 @@ import ru.instamart.jdbc.entity.stf.StoreConfigsEntity;
 import ru.instamart.jdbc.entity.stf.StoresEntity;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -27,8 +31,7 @@ import java.util.Objects;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStoreInDb;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreSelgrosMiklouhoMaclay;
 
 @Epic("Admin")
@@ -39,7 +42,14 @@ public class StoresAdminTest extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        admin.auth();
+        admin.authApi();
+    }
+
+    @BeforeMethod(alwaysRun = true, description = "Повторная авторизация если токен протух или invalid")
+    public void auth() {
+        if (Objects.equals(SessionFactory.getSession(SessionType.ADMIN).getToken(), "invalid")) {
+            admin.authApi();
+        }
     }
 
     @CaseId(1189)
@@ -47,9 +57,9 @@ public class StoresAdminTest extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Создание нового магазина")
     public void createStore() {
-        StoresAdminRequest.Store store = getStoreSelgrosMiklouhoMaclay();
+        StoresAdminRequest.Stores store = getStoreSelgrosMiklouhoMaclay();
         admin.createStore(store);
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
         checkFieldIsNotEmpty(storeFromDb, "магазин в БД");
         id = storeFromDb.getId();
         StoreConfigsEntity storeConfigs = StoreConfigsDao.INSTANCE.getConfigsByStoreId(id);
@@ -62,15 +72,16 @@ public class StoresAdminTest extends RestBase {
             description = "Редактирование нового магазина",
             dependsOnMethods = "createStore")
     public void editStore() {
-        StoresAdminRequest.Store store = getStoreSelgrosMiklouhoMaclay();
-        final Response response = StoresAdminRequest.PATCH(store, id);
+        StoresAdminRequest.Stores stores = getStoreSelgrosMiklouhoMaclay();
+        final Response response = StoresAdminRequest.PATCH(stores, id);
         checkStatusCode302(response);
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(stores.getStore().getLocation().getLat(), stores.getStore().getLocation().getLon());
         checkFieldIsNotEmpty(storeFromDb, "магазин в БД");
         StoreConfigsEntity storeConfigs = StoreConfigsDao.INSTANCE.getConfigsByStoreId(id);
-        checkStoreInDb(store, storeFromDb, storeConfigs);
+        checkStoreInDb(stores, storeFromDb, storeConfigs);
     }
 
+    @Skip
     @CaseIDs(value = {@CaseId(1210), @CaseId(1211), @CaseId(1212), @CaseId(1213), @CaseId(1214), @CaseId(1215), @CaseId(1216)})
     @Story("Магазины ритейлеров")
     @JsonDataProvider(path = "data/json_admin/admin_negative_stores_data.json", type = RestDataProvider.StoresAdminTestDataRoot.class)
@@ -82,7 +93,7 @@ public class StoresAdminTest extends RestBase {
         Allure.step(testData.getDescription());
         final Response response = StoresAdminRequest.POST(testData.getStore());
         checkStatusCode(response, testData.getStatusCode(), ContentType.HTML);
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(testData.getStore().getLat(), testData.getStore().getLon());
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(testData.getStore().getStore().getLocation().getLat(), testData.getStore().getStore().getLocation().getLon());
         Allure.step("Asserts",()->{
             Assert.assertNull(storeFromDb, "Проверка создания магазина в БД вернула не null");
         });

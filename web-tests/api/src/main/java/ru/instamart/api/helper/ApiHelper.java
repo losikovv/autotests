@@ -3,6 +3,7 @@ package ru.instamart.api.helper;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
+import org.testng.Assert;
 import ru.instamart.api.enums.v1.ImportStatusV1;
 import ru.instamart.api.model.shopper.admin.ShopperV1;
 import ru.instamart.api.model.shopper.admin.VehicleV1;
@@ -35,6 +36,7 @@ import ru.instamart.kraken.util.TimeUtil;
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreForRetailerTests;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
 import static ru.instamart.kraken.util.FileUtils.changeXlsFileSheetName;
@@ -382,14 +384,36 @@ public final class ApiHelper {
         apiV2.setDefaultOrderAttributesOnDemand();
     }
 
-    public void makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
-        makeAndCancelOrder(user, sid, itemsNumber, apiV2.getAddressBySidMy(sid));
+    public OrderV2 makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
+        return makeAndCancelOrder(user, sid, itemsNumber, apiV2.getAddressBySidMy(sid));
+    }
+
+    public OrderV2 makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber, final boolean withPromoCode) {
+        apiV2.authByQA(user);
+
+        final var orderNumber = apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySidMy(sid));
+        apiV2.fillCart(apiV2.getProducts(sid), itemsNumber);
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethod(sid);
+        apiV2.getAvailableDeliveryWindow();
+
+        apiV2.setDefaultOrderAttributes();
+
+        apiV2.applyPromoCode(orderNumber, getPromotionCode());
+        final var order = apiV2.completeOrder();
+        Assert.assertNotNull(order, "Заказ не вернулся");
+        apiV2.cancelOrder(order.getNumber());
+        return order;
     }
 
     @Step("Оформляем и отменяем заказ с выбранным адресом {address} при помощи API")
-    public void makeAndCancelOrder(final UserData user, final int sid, final int itemsNumber, final AddressV2 address) {
+    public OrderV2 makeAndCancelOrder(final UserData user, final int sid, final int itemsNumber, final AddressV2 address) {
         final var order = makeOrder(user, sid, itemsNumber, address);
-        apiV2.cancelOrder(order.getNumber());
+        return apiV2.cancelOrder(order.getNumber());
     }
 
     public void makeAndCompleteOrder(final UserData user, final int sid, final int itemsNumber) {
@@ -643,11 +667,11 @@ public final class ApiHelper {
     }
 
     @Step("Создаем магазин для ретейлера {retailerName} в городе {city}")
-    public StoresAdminRequest.Store createStoreInAdmin(String retailerName, String city) {
+    public StoresAdminRequest.Stores createStoreInAdmin(String retailerName, String city) {
         admin.auth();
-        StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName, city);
-        admin.createStore(store);
-        return store;
+        StoresAdminRequest.Stores stores = getStoreForRetailerTests(retailerName, city);
+        admin.createStore(stores);
+        return stores;
     }
 
     @Step("Настройка города для привязки магазинов")
@@ -658,7 +682,7 @@ public final class ApiHelper {
     }
 
     @Step("Настройка магазина для включения в админке")
-    public void setupStoreForActivation(StoresAdminRequest.Store store) {
+    public void setupStoreForActivation(StoresAdminRequest.Stores store) {
         importOffersInStore(store);
         importStoreZones(store);
         createScheduleMockup(store);
@@ -666,8 +690,8 @@ public final class ApiHelper {
     }
 
     @Step("Удаляем магазин из админки")
-    public void deleteStoreInAdmin(StoresAdminRequest.Store store) {
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+    public void deleteStoreInAdmin(StoresAdminRequest.Stores store) {
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
         Integer storeId = storeFromDb.getId();
 
         StoresDao.INSTANCE.delete(storeId);
@@ -685,12 +709,12 @@ public final class ApiHelper {
     }
 
     @Step("Импорт оффера для магазина")
-    public void importOffersInStore(StoresAdminRequest.Store store) {
+    public void importOffersInStore(StoresAdminRequest.Stores store) {
         admin.auth();
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
         Integer storeId = storeFromDb.getId();
         StoresTenantsDao.INSTANCE.addStoreTenant(storeId, "sbermarket");
-        String importKey = SpreeRetailersDao.INSTANCE.findById(storeFromDb.getRetailerId()).get().getKey() + "-" + store.getImportKeyPostFix();
+        String importKey = SpreeRetailersDao.INSTANCE.findById(storeFromDb.getRetailerId()).get().getKey() + "-" + store.getStore().getConfig().getImportKeyPostfix();
 
         byte[] fileBytes = changeXlsFileSheetName("src/test/resources/data/offers.xlsx", importKey, 0);
         admin.importOffers(fileBytes);
@@ -708,30 +732,30 @@ public final class ApiHelper {
     }
 
     @Step("Импорт зон магазина")
-    public void importStoreZones(StoresAdminRequest.Store store) {
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+    public void importStoreZones(StoresAdminRequest.Stores store) {
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
         admin.auth();
         admin.importStoreZoneFile(storeFromDb.getId(), "src/test/resources/data/zone.kml");
         admin.importStoreZone(storeFromDb.getId(), StoreZonesCoordinates.testMoscowZoneCoordinates());
     }
 
     @Step("Создание шаблона расписания магазина")
-    public void createScheduleMockup(StoresAdminRequest.Store store) {
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+    public void createScheduleMockup(StoresAdminRequest.Stores store) {
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
         admin.auth();
         admin.createStoreSchedule(storeFromDb.getUuid());
     }
 
     @Step("Создание зон доставки")
-    public void createDeliveryZones(StoresAdminRequest.Store store) {
+    public void createDeliveryZones(StoresAdminRequest.Stores store) {
         Long deliveryWindowId = createAndGetAvailableDeliveryWindows(store).get(0).getId();
         admin.auth();
         admin.updateDeliveryWindowWithDefaultValues(deliveryWindowId);
     }
 
     @Step("Получение списка окон доставки")
-    public List<DeliveryWindowV1> createAndGetAvailableDeliveryWindows(StoresAdminRequest.Store store) {
-        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+    public List<DeliveryWindowV1> createAndGetAvailableDeliveryWindows(StoresAdminRequest.Stores store) {
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
         admin.auth();
         admin.createDeliveryWindow(storeFromDb.getId());
 

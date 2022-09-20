@@ -33,10 +33,10 @@ public class ShippingCalcHelper {
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
                         .setMinCartValue(minCart)
-                        .setPriority(priority)
+                        .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
-                                .setConditionTypeValue(conditionType)
-                                .setParams(params)
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
                                 .build())
                         .build())
                 .setCreatorId(creatorId)
@@ -64,10 +64,10 @@ public class ShippingCalcHelper {
                         .build())
                 .addMinCartRules(MinCartRuleObject.newBuilder()
                         .setMinCartValue(minCart)
-                        .setPriority(priority)
+                        .setPriority(0)
                         .addConditions(NewConditionObject.newBuilder()
-                                .setConditionTypeValue(conditionType)
-                                .setParams(params)
+                                .setConditionTypeValue(0)
+                                .setParams("{}")
                                 .build())
                         .build())
                 .setStrategyId(strategyId)
@@ -180,9 +180,40 @@ public class ShippingCalcHelper {
         softAssert.assertAll();
     }
 
+    @Step("Проверяем стратегию")
+    public static void checkGlobalStrategy(Integer strategyId, String strategyName, Integer rulesAmount, Integer conditionsAmount, String deliveryType) {
+        StrategiesEntity strategy = StrategiesDao.INSTANCE.getStrategy(strategyId);
+        List<RulesEntity> rules = RulesDao.INSTANCE.getRules(strategyId);
+        ArrayList<Integer> rulesIds = new ArrayList();
+        for (RulesEntity rule : rules) rulesIds.add(rule.getId());
+        List<ConditionsEntity> conditions = ConditionsDao.INSTANCE.getConditions(rulesIds);
+        String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
+
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(strategyId, strategy.getId(), softAssert);
+        compareTwoObjects(shipping, strategy.getShipping(), softAssert);
+        compareTwoObjects(rules.size(), rulesAmount, softAssert);
+        compareTwoObjects(conditions.size(), conditionsAmount, softAssert);
+        compareTwoObjects(strategy.getName(), strategyName, softAssert);
+        softAssert.assertTrue(strategy.getGlobal(), "Не глобальная стратегия");
+        softAssert.assertAll();
+    }
+
     @Step("Проверяем обновленную стратегию")
     public static void checkUpdatedStrategy(Integer strategyId, String strategyName, Integer rulesAmount, Integer conditionsAmount, Integer conditionIndex, String shipping) {
         checkStrategy(strategyId, strategyName, rulesAmount, conditionsAmount, conditionIndex, shipping);
+        StrategiesEntity strategy = StrategiesDao.INSTANCE.getStrategy(strategyId);
+        List<RulesEntity> deletedRules = RulesDao.INSTANCE.getDeletedRules(strategyId);
+
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(strategy.getUpdatedAt().equals(strategy.getCreatedAt()), "Поле updated_at не обновилось");
+        compareTwoObjects(deletedRules.size(), rulesAmount / 2, softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем обновленную стратегию")
+    public static void checkUpdatedGlobalStrategy(Integer strategyId, String strategyName, Integer rulesAmount, Integer conditionsAmount, String shipping) {
+        checkGlobalStrategy(strategyId, strategyName, rulesAmount, conditionsAmount, shipping);
         StrategiesEntity strategy = StrategiesDao.INSTANCE.getStrategy(strategyId);
         List<RulesEntity> deletedRules = RulesDao.INSTANCE.getDeletedRules(strategyId);
 
@@ -313,12 +344,13 @@ public class ShippingCalcHelper {
     }
 
     @Step("Получаем запрос для получения условий доставки магазина")
-    public static GetDeliveryConditionsRequest getDeliveryConditionsRequest(String storeId, Float storeLat, Float storeLon, String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Float customerLat, Float customerLon, String tenant, Integer deliveryTypeValue, String platformName, String platformVersion) {
+    public static GetDeliveryConditionsRequest getDeliveryConditionsRequest(String storeId, Float storeLat, Float storeLon, String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Float customerLat, Float customerLon, String tenant, Integer deliveryTypeValue, String platformName, String platformVersion, Boolean onDemand) {
         return GetDeliveryConditionsRequest.newBuilder()
                 .addStores(Store.newBuilder()
                         .setId(storeId)
                         .setLat(storeLat)
                         .setLon(storeLon)
+                        .setIsOndemand(onDemand)
                         .build())
                 .setCustomer(Customer.newBuilder()
                         .setId(customerId)
@@ -372,7 +404,7 @@ public class ShippingCalcHelper {
         assertTrue(response.getMinCartAmountsCount() > 0, "Пустая мин. корзина");
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(response.getMinCartAmounts(0).getStoreId(), storeId, "Не ожидаемый uuid магазина");
-        softAssert.assertEquals(response.getMinCartAmounts(0).getAmount(), minCartAmount, "Не ожидаемая минимальная корзина");
+        softAssert.assertEquals(response.getMinCartAmounts(0).getAmountCourierDelivery(), minCartAmount, "Не ожидаемая минимальная корзина");
         softAssert.assertAll();
     }
 }

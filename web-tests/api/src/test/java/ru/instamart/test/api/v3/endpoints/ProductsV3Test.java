@@ -1,9 +1,6 @@
 package ru.instamart.test.api.v3.endpoints;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -46,10 +43,11 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1368)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
-            groups = {"api-instamart-regress"}) //, "api-instamart-prod"}) //todo возвращает ошибку
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsWithValidSid() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_TID)
+                .query("хлеб")
                 .build(), EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV3Response.class);
@@ -58,10 +56,9 @@ public class ProductsV3Test extends RestBase {
         product = products.get(0);
     }
 
-    @Skip //todo ожидаем фикса
     @CaseId(2709)
     @Story("Получить список доступных продуктов (Поиск)")
-    @Test(description = "В категории больше 3 дефолтных фильтров",
+    @Test(description = "В категории больше или равно 3 дефолтных фильтров",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsWithManyFilters() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
@@ -71,8 +68,8 @@ public class ProductsV3Test extends RestBase {
         checkResponseJsonSchema(response, ProductsV3Response.class);
         final ProductsV3Response productsV3Response = response.as(ProductsV3Response.class);
         List<FacetV2> facets = productsV3Response.getFacets();
-        Allure.step("Проверяем, что категорий больше трех", () -> {
-            assertTrue(facets.size() > 3, "Пришло три дефолтных фильтра или меньше");
+        Allure.step("Проверяем, что категорий больше или равно трем", () -> {
+            assertTrue(facets.size() >= 3, "Пришло меньше трёх дефолтных фильтра");
         });
     }
 
@@ -223,7 +220,8 @@ public class ProductsV3Test extends RestBase {
         });
     }
 
-    @Skip(onServer = Server.STAGING)
+    @Skip
+    @Issue("STF-9817")
     @CaseId(1377)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные по выгодному весу",
@@ -232,7 +230,6 @@ public class ProductsV3Test extends RestBase {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_TID)
                 .sort(ProductSortTypeV2.UNIT_PRICE_ASC.getKey())
-                .query("хлеб")
                 .build(), EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV3Response.class);
@@ -240,24 +237,27 @@ public class ProductsV3Test extends RestBase {
         checkSort(ProductSortTypeV2.UNIT_PRICE_ASC, productsV3Response.getSort());
     }
 
-    @Skip(onServer = Server.STAGING)
+    @Skip
+    @Issue("STF-9817")
     @CaseId(1378)
     @Story("Получить список доступных продуктов (Поиск)")
-    @Test(description = "Получаем список продуктов по категории с одиннадцатой страницы",
+    @Test(description = "Получаем список продуктов по категории с последней страницы",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductWithTidAndPage() {
+        String query = "хлеб";
+        int lastPage = apiV3.getProductsTotalPages(query);
+
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_TID)
-                .page(11)
-                .query("хлеб")
+                .page(lastPage)
+                .query(query)
                 .build(), EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV3Response.class);
         final ProductsV3Response productsV3Response = response.as(ProductsV3Response.class);
         final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(productsV3Response.getProducts().size(), productsV3Response.getMeta().getPerPage(), softAssert);
-        compareTwoObjects(11, productsV3Response.getMeta().getCurrentPage(), softAssert);
-        compareTwoObjects(10, productsV3Response.getMeta().getPreviousPage(), softAssert);
+        compareTwoObjects(lastPage, productsV3Response.getMeta().getCurrentPage(), softAssert);
+        compareTwoObjects(lastPage - 1, productsV3Response.getMeta().getPreviousPage(), softAssert);
         softAssert.assertAll();
     }
 

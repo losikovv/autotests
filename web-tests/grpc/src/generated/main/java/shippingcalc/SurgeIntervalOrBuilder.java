@@ -9,7 +9,7 @@ public interface SurgeIntervalOrBuilder extends
 
   /**
    * <pre>
-   * Левая граница интервала, входит в диапазон
+   * Левая граница интервала, не входит в диапазон
    * </pre>
    *
    * <code>float left_boundary = 1;</code>
@@ -19,7 +19,7 @@ public interface SurgeIntervalOrBuilder extends
 
   /**
    * <pre>
-   * Правая граница интервала, не входит в диапазон
+   * Правая граница интервала, входит в диапазон
    * </pre>
    *
    * <code>float right_boundary = 2;</code>
@@ -46,4 +46,14 @@ public interface SurgeIntervalOrBuilder extends
    * @return The percentAddition.
    */
   long getPercentAddition();
+
+  /**
+   * <pre>
+   * Дополнительная наценка, напрямую добавленная к мин корзине
+   * </pre>
+   *
+   * <code>uint64 min_cart_addition = 5;</code>
+   * @return The minCartAddition.
+   */
+  long getMinCartAddition();
 }

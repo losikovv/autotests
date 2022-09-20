@@ -31,7 +31,7 @@ public final class CoreProperties {
     @Config(configName = NAME, fieldName = "webhookSiteUrl", defaultValue = "https://webhook.site")
     public static String DEFAULT_WEBHOOK_SITE_URL;
 
-    @Config(configName = NAME, fieldName = "abServiceUrl", defaultValue = "https://paas-content-growth-ab-platform-back.k-stage.sbmt.io")
+    @Config(configName = NAME, fieldName = "abServiceUrl", defaultValue = "https://admin-gw.k-stage.sbermarket.tech")
     public static String AB_SERVICE_URL;
 
     @Config(configName = NAME, fieldName = "basicAuthUsername", defaultValue = "", encrypted = true)

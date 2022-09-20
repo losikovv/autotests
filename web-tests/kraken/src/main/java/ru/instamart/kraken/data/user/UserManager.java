@@ -487,8 +487,8 @@ public final class UserManager {
     public static UserData getDefaultAbUser() {
         if (isNull(abServiceUser)) {
             abServiceUser = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("xsgWkIGVrwj0lHZaP7QICWE5QMclQo2TQ54YaDTOeCk="))
-                    .password(Crypt.INSTANCE.decrypt("q0ZylSwt4ousASKzV9fcm4xG20UvV1IOGxOOplS0Cvw="))
+                    .email(Crypt.INSTANCE.decrypt("vVMDDdD3YH0tujxwCxqwGeihIHK0uc+vkFWNPhPMhe0="))
+                    .password(Crypt.INSTANCE.decrypt("QsqTDIa50Apbsn4hdQ8nSA=="))
                     .build();
         }
         return abServiceUser;

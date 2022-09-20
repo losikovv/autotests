@@ -65,6 +65,21 @@ private static final long serialVersionUID = 0L;
             lon_ = input.readFloat();
             break;
           }
+          case 56: {
+
+            isOndemand_ = input.readBool();
+            break;
+          }
+          case 64: {
+
+            regionId_ = input.readUInt64();
+            break;
+          }
+          case 72: {
+
+            retailerId_ = input.readUInt64();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -169,6 +184,51 @@ private static final long serialVersionUID = 0L;
     return lon_;
   }
 
+  public static final int IS_ONDEMAND_FIELD_NUMBER = 7;
+  private boolean isOndemand_;
+  /**
+   * <pre>
+   * Это onDemand ? true - да, false - нет
+   * </pre>
+   *
+   * <code>bool is_ondemand = 7;</code>
+   * @return The isOndemand.
+   */
+  @java.lang.Override
+  public boolean getIsOndemand() {
+    return isOndemand_;
+  }
+
+  public static final int REGION_ID_FIELD_NUMBER = 8;
+  private long regionId_;
+  /**
+   * <pre>
+   * Регион
+   * </pre>
+   *
+   * <code>uint64 region_id = 8;</code>
+   * @return The regionId.
+   */
+  @java.lang.Override
+  public long getRegionId() {
+    return regionId_;
+  }
+
+  public static final int RETAILER_ID_FIELD_NUMBER = 9;
+  private long retailerId_;
+  /**
+   * <pre>
+   * Идентификатор ритейлера
+   * </pre>
+   *
+   * <code>uint64 retailer_id = 9;</code>
+   * @return The retailerId.
+   */
+  @java.lang.Override
+  public long getRetailerId() {
+    return retailerId_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -192,6 +252,15 @@ private static final long serialVersionUID = 0L;
     if (lon_ != 0F) {
       output.writeFloat(3, lon_);
     }
+    if (isOndemand_ != false) {
+      output.writeBool(7, isOndemand_);
+    }
+    if (regionId_ != 0L) {
+      output.writeUInt64(8, regionId_);
+    }
+    if (retailerId_ != 0L) {
+      output.writeUInt64(9, retailerId_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -211,6 +280,18 @@ private static final long serialVersionUID = 0L;
     if (lon_ != 0F) {
       size += com.google.protobuf.CodedOutputStream
         .computeFloatSize(3, lon_);
+    }
+    if (isOndemand_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(7, isOndemand_);
+    }
+    if (regionId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(8, regionId_);
+    }
+    if (retailerId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(9, retailerId_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -235,6 +316,12 @@ private static final long serialVersionUID = 0L;
     if (java.lang.Float.floatToIntBits(getLon())
         != java.lang.Float.floatToIntBits(
             other.getLon())) return false;
+    if (getIsOndemand()
+        != other.getIsOndemand()) return false;
+    if (getRegionId()
+        != other.getRegionId()) return false;
+    if (getRetailerId()
+        != other.getRetailerId()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -254,6 +341,15 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + LON_FIELD_NUMBER;
     hash = (53 * hash) + java.lang.Float.floatToIntBits(
         getLon());
+    hash = (37 * hash) + IS_ONDEMAND_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getIsOndemand());
+    hash = (37 * hash) + REGION_ID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getRegionId());
+    hash = (37 * hash) + RETAILER_ID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getRetailerId());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -393,6 +489,12 @@ private static final long serialVersionUID = 0L;
 
       lon_ = 0F;
 
+      isOndemand_ = false;
+
+      regionId_ = 0L;
+
+      retailerId_ = 0L;
+
       return this;
     }
 
@@ -422,6 +524,9 @@ private static final long serialVersionUID = 0L;
       result.id_ = id_;
       result.lat_ = lat_;
       result.lon_ = lon_;
+      result.isOndemand_ = isOndemand_;
+      result.regionId_ = regionId_;
+      result.retailerId_ = retailerId_;
       onBuilt();
       return result;
     }
@@ -479,6 +584,15 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getLon() != 0F) {
         setLon(other.getLon());
+      }
+      if (other.getIsOndemand() != false) {
+        setIsOndemand(other.getIsOndemand());
+      }
+      if (other.getRegionId() != 0L) {
+        setRegionId(other.getRegionId());
+      }
+      if (other.getRetailerId() != 0L) {
+        setRetailerId(other.getRetailerId());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -675,6 +789,135 @@ private static final long serialVersionUID = 0L;
     public Builder clearLon() {
       
       lon_ = 0F;
+      onChanged();
+      return this;
+    }
+
+    private boolean isOndemand_ ;
+    /**
+     * <pre>
+     * Это onDemand ? true - да, false - нет
+     * </pre>
+     *
+     * <code>bool is_ondemand = 7;</code>
+     * @return The isOndemand.
+     */
+    @java.lang.Override
+    public boolean getIsOndemand() {
+      return isOndemand_;
+    }
+    /**
+     * <pre>
+     * Это onDemand ? true - да, false - нет
+     * </pre>
+     *
+     * <code>bool is_ondemand = 7;</code>
+     * @param value The isOndemand to set.
+     * @return This builder for chaining.
+     */
+    public Builder setIsOndemand(boolean value) {
+      
+      isOndemand_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Это onDemand ? true - да, false - нет
+     * </pre>
+     *
+     * <code>bool is_ondemand = 7;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearIsOndemand() {
+      
+      isOndemand_ = false;
+      onChanged();
+      return this;
+    }
+
+    private long regionId_ ;
+    /**
+     * <pre>
+     * Регион
+     * </pre>
+     *
+     * <code>uint64 region_id = 8;</code>
+     * @return The regionId.
+     */
+    @java.lang.Override
+    public long getRegionId() {
+      return regionId_;
+    }
+    /**
+     * <pre>
+     * Регион
+     * </pre>
+     *
+     * <code>uint64 region_id = 8;</code>
+     * @param value The regionId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setRegionId(long value) {
+      
+      regionId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Регион
+     * </pre>
+     *
+     * <code>uint64 region_id = 8;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearRegionId() {
+      
+      regionId_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long retailerId_ ;
+    /**
+     * <pre>
+     * Идентификатор ритейлера
+     * </pre>
+     *
+     * <code>uint64 retailer_id = 9;</code>
+     * @return The retailerId.
+     */
+    @java.lang.Override
+    public long getRetailerId() {
+      return retailerId_;
+    }
+    /**
+     * <pre>
+     * Идентификатор ритейлера
+     * </pre>
+     *
+     * <code>uint64 retailer_id = 9;</code>
+     * @param value The retailerId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setRetailerId(long value) {
+      
+      retailerId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Идентификатор ритейлера
+     * </pre>
+     *
+     * <code>uint64 retailer_id = 9;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearRetailerId() {
+      
+      retailerId_ = 0L;
       onChanged();
       return this;
     }

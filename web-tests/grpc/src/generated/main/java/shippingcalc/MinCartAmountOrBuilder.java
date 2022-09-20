@@ -20,8 +20,20 @@ public interface MinCartAmountOrBuilder extends
       getStoreIdBytes();
 
   /**
-   * <code>uint64 amount = 2;</code>
+   * <code>uint64 amount = 2 [deprecated = true];</code>
    * @return The amount.
    */
-  long getAmount();
+  @java.lang.Deprecated long getAmount();
+
+  /**
+   * <code>uint64 amount_courier_delivery = 3;</code>
+   * @return The amountCourierDelivery.
+   */
+  long getAmountCourierDelivery();
+
+  /**
+   * <code>uint64 amount_self_delivery = 4;</code>
+   * @return The amountSelfDelivery.
+   */
+  long getAmountSelfDelivery();
 }

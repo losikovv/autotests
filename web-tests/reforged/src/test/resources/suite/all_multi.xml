@@ -16,7 +16,10 @@
         <classes>
             <class name="ru.instamart.test.reforged.stf.checkout.BasicCheckoutTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutAddressStepTests"/>
+            <!--
+            Сейчас неактивны
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutBonusesTests"/>
+            -->
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPromocodeTests"/>
 
             <class name="ru.instamart.test.reforged.stf.landings.DriversHiringLandingTests"/>
@@ -63,7 +66,10 @@
         <classes>
             <class name="ru.instamart.test.reforged.stf.checkout.BasicCheckoutTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutAddressStepTests"/>
+            <!--
+            Сейчас неактивны
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutBonusesTests"/>
+            -->
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPromocodeTests"/>
 
             <class name="ru.instamart.test.reforged.stf.landings.DriversHiringLandingTests"/>

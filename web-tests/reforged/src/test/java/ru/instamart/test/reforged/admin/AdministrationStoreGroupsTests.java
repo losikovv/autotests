@@ -40,7 +40,7 @@ public class AdministrationStoreGroupsTests {
         cityName = Generate.literalString(6) + "_city";
         api.setupCity(cityName);
         final var store = api.createStoreInAdmin(retailer.getName(), cityName);
-        storeDB = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+        storeDB = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
         storeLabel = StoreLabels.newStoreLabel();
     }
 

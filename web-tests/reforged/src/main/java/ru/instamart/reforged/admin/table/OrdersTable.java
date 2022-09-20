@@ -88,11 +88,7 @@ public final class OrdersTable extends Table {
     }
 
     public String getOrderNumber(final int line) {
-        final var cellElement = getCellElement(Column.ORDER.label, line);
-        if (nonNull(cellElement)) {
-            return cellElement.findElement(orderLink).getText();
-        }
-        return "empty";
+        return get(Column.ORDER, line, orderLink);
     }
 
     public void clickOrderNumber(final int line) {
@@ -103,10 +99,19 @@ public final class OrdersTable extends Table {
     }
 
     public List<String> getAllOrderNumbersList() {
-        return getElementsFromColumn(Column.ORDER.label).stream()
-                .map(webElement ->
-                        webElement.findElement(orderLink).getText())
-                .collect(Collectors.toList());
+        return getAll(Column.ORDER, orderLink);
+    }
+
+    public String getWeight(final int line) {
+        return get(Column.ORDER, line, totalWeight);
+    }
+
+    public List<String> getAllWeight() {
+        return getAll(Column.ORDER, totalWeight);
+    }
+
+    public List<String> getAllItems() {
+        return getAll(Column.ORDER, itemsCount);
     }
 
     public String getPlatformName(final int line) {
@@ -192,38 +197,42 @@ public final class OrdersTable extends Table {
     }
 
     public List<String> getAllPaymentMethodsList() {
-        return getElementsFromColumn(Column.PAYMENT.label).stream()
-                .map(webElement ->
-                        webElement.findElement(paymentMethod).getText())
-                .collect(Collectors.toList());
+        return getAll(Column.PAYMENT, paymentMethod);
     }
 
     public List<String> getAllPaymentStatusesList() {
-        return getElementsFromColumn(Column.PAYMENT.label).stream()
-                .map(webElement ->
-                        webElement.findElement(paymentStatus).getText())
-                .collect(Collectors.toList());
+        return getAll(Column.PAYMENT, paymentStatus);
     }
 
     public List<String> getAllCustomerNames() {
-        return getElementsFromColumn(Column.CLIENT.label).stream()
-                .map(webElement ->
-                        webElement.findElement(customerName).getText())
-                .collect(Collectors.toList());
+        return getAll(Column.CLIENT, customerName);
     }
 
     public List<String> getAllCollectorsList() {
-        return getElementsFromColumn(Column.EXECUTORS.label).stream()
-                .map(webElement ->
-                        webElement.findElement(collector).getText())
-                .collect(Collectors.toList());
+        return getAll(Column.EXECUTORS, collector);
     }
 
     public List<String> getAllCouriersList() {
-        return getElementsFromColumn(Column.EXECUTORS.label).stream()
+        return getAll(Column.EXECUTORS, courier);
+    }
+
+    public List<String> getAllDeliveryDate() {
+        return getAll(Column.SHIPMENT, deliveryDate);
+    }
+
+    private List<String> getAll(final Column column, final By by) {
+        return getElementsFromColumn(column.label).stream()
                 .map(webElement ->
-                        webElement.findElement(courier).getText())
+                        webElement.findElement(by).getText())
                 .collect(Collectors.toList());
+    }
+
+    private String get(final Column column, final int line, final By by) {
+        final var cellElement = getCellElement(column.label, line);
+        if (nonNull(cellElement)) {
+            return cellElement.findElement(by).getText();
+        }
+        return "empty";
     }
 
     @RequiredArgsConstructor

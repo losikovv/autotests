@@ -31,29 +31,35 @@ import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDate;
 public class MinCartTest extends ShippingCalcBase {
 
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
-    private Integer strategyId;
+    private int localStrategyId;
+    protected int globalStrategyId;
     private final String STORE_ID = UUID.randomUUID().toString();
     private final String SECOND_STORE_ID = UUID.randomUUID().toString();
+    private final String SURGE_STORE_ID = UUID.randomUUID().toString();
     private final String CUSTOMER_ID = UUID.randomUUID().toString();
     private final String ANONYMOUS_ID = UUID.randomUUID().toString();
-    private final String FIXED_SCRIPT_NAME = "Фиксированная цена, с подсказками и объяснением";
-    private final String FIXED_SCRIPT_PARAMS = "{\"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
-    private final String REDIS_VALUE = "{\"StoreID\":\"%s\",\"Method\":1,\"PastSurgeLever\":%d,\"PresentSurgeLevel\":%d,\"FutureSurgeLevel\":%d,\"StartedAt\":\"%s\",\"StepSurgeLevel\":1}";
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientShippingCalc = ShippingcalcGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC));
 
-        strategyId = addStrategy(false, 0, DeliveryType.COURIER_DELIVERY.toString());
-        addCondition(addRule(strategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "4900"), 0, "delivery_price"), "{\"Count\": 1}", ConditionType.FIRST_N_ORDERS.name().toLowerCase());
-        addCondition(addRule(strategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "14900"), 1, "delivery_price"), "{\"platforms\": [{\"name\": \"SbermarketIOS\", \"version\": \"6.29.0\"}]}", ConditionType.PLATFORMS.name().toLowerCase());
-        addCondition(addRule(strategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "19900"), 2, "delivery_price"), "{\"Max\": 300000, \"Min\": 0}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
-        addCondition(addRule(strategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "9900"), 3, "delivery_price"), "{\"Max\": 1000000000000000, \"Min\": 300000}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
-        addCondition(addRule(strategyId, "", "50000", 0, "min_cart"), "{\"Count\": 1}", ConditionType.FIRST_N_ORDERS.name().toLowerCase());
-        addCondition(addRule(strategyId, "", "150000", 1, "min_cart"), "{\"platforms\": [{\"name\": \"SbermarketIOS\", \"version\": \"6.29.0\"}]}", ConditionType.PLATFORMS.name().toLowerCase());
-        addCondition(addRule(strategyId, "", "100000", 2, "min_cart"), "{}", ConditionType.ALWAYS.name().toLowerCase());
-        addBinding(strategyId, STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
-        addBinding(strategyId, SECOND_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
+        localStrategyId = addStrategy(false, 0, DeliveryType.B2B.toString());
+        addCondition(addRule(localStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "4900"), 0, "delivery_price"), "{\"Count\": 1}", ConditionType.FIRST_N_ORDERS.name().toLowerCase());
+        addCondition(addRule(localStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "14900"), 1, "delivery_price"), "{\"platforms\": [{\"name\": \"SbermarketIOS\", \"version\": \"6.29.0\"}]}", ConditionType.PLATFORMS.name().toLowerCase());
+        addCondition(addRule(localStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "19900"), 2, "delivery_price"), "{\"Max\": 300000, \"Min\": 0}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
+        addCondition(addRule(localStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "9900"), 3, "delivery_price"), "{\"Max\": 1000000000000000, \"Min\": 300000}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
+        addCondition(addRule(localStrategyId, "", "50000", 0, "min_cart"), "{\"Count\": 1}", ConditionType.FIRST_N_ORDERS.name().toLowerCase());
+        addCondition(addRule(localStrategyId, "", "150000", 1, "min_cart"), "{\"platforms\": [{\"name\": \"SbermarketIOS\", \"version\": \"6.29.0\"}]}", ConditionType.PLATFORMS.name().toLowerCase());
+        addCondition(addRule(localStrategyId, "", "100000", 2, "min_cart"), "{}", ConditionType.ALWAYS.name().toLowerCase());
+        addBinding(localStrategyId, STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.B2B.toString());
+        addBinding(localStrategyId, SECOND_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.B2B.toString());
+        addBinding(localStrategyId, SURGE_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.B2B.toString());
+
+        globalStrategyId = addStrategy(true, 0, DeliveryType.B2B.toString());
+        addCondition(addRule(globalStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "10001"), 0, "delivery_price"), "{}", "always");
+        addCondition(addRule(globalStrategyId, "", "100001", 0, "min_cart"), "{}", "always");
+
+        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 1000);
     }
 
     @CaseIDs(value = {@CaseId(411), @CaseId(415)})
@@ -62,8 +68,8 @@ public class MinCartTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryConditions() {
         var request = getDeliveryConditionsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
-                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE,
-                AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
+                AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), false);
 
         var response = clientShippingCalc.getDeliveryConditions(request);
         checkDeliveryConditions(response, STORE_ID, 100000, 2, 3);
@@ -100,7 +106,7 @@ public class MinCartTest extends ShippingCalcBase {
                         .setLon(55.55f)
                         .build())
                 .setTenant(Tenant.SBERMARKET.getId())
-                .setDeliveryTypeValue(DeliveryType.COURIER_DELIVERY_VALUE)
+                .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
                 .setPlatformName(AppVersion.WEB.getName())
                 .setPlatformVersion(AppVersion.WEB.getVersion())
                 .build();
@@ -129,22 +135,37 @@ public class MinCartTest extends ShippingCalcBase {
         });
     }
 
+    @CaseId(411)
+    @Story("Get Delivery Conditions")
+    @Test(description = "Получение условий доставки по глобальной стратегии",
+            groups = "dispatch-shippingcalc-smoke")
+    public void getDeliveryConditionsGlobalStrategy() {
+        String storeId = UUID.randomUUID().toString();
+        var request = getDeliveryConditionsRequest(storeId, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
+                AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), false);
+
+        var response = clientShippingCalc.getDeliveryConditions(request);
+        checkDeliveryConditions(response, storeId, 100001, 1, 3);
+        Allure.step("Проверяем базовую цену в лесенке", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 10001, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertAll();
+        });
+    }
+
     @CaseId(414)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина с повышенным спросом",
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryConditionsWithSurge() {
-        String storeWithSurge = UUID.randomUUID().toString();
-        addBinding(strategyId, storeWithSurge, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
-        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + storeWithSurge, String.format(REDIS_VALUE, storeWithSurge, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
-
-        var request = getDeliveryConditionsRequest(storeWithSurge, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
-                99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE,
-                AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+        var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+                99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
+                AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), true);
 
         var response = clientShippingCalc.getDeliveryConditions(request);
 
-        checkDeliveryConditions(response, storeWithSurge, 100000, 2, 3);
+        checkDeliveryConditions(response, SURGE_STORE_ID, 100000, 2, 3);
         Allure.step("Проверяем базовую цену в лесенке", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
@@ -162,22 +183,46 @@ public class MinCartTest extends ShippingCalcBase {
         });
     }
 
+    @CaseId(449)
+    @Story("Get Delivery Conditions")
+    @Test(description = "Получение условий доставки для магазина без повышенного спроса для не on-demand магазина",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryConditionsWithNoSurge() {
+        var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+                99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
+                AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), false);
+
+        var response = clientShippingCalc.getDeliveryConditions(request);
+
+        checkDeliveryConditions(response, SURGE_STORE_ID, 100000, 2, 3);
+        Allure.step("Проверяем базовую цену в лесенке", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertAll();
+        });
+        Allure.step("Проверяем отсутствие повышенного спроса", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertFalse(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж включен");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), 0f, "Не ожидаемый уровень сюрджа");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 19900, "Не ожидаемая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 9900, "Не ожидаемая цена в лесенке");
+            softAssert.assertAll();
+        });
+    }
+
     @CaseId(424)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина без повышенного спроса для новых клиентов",
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryConditionsWithoutSurgeNewCustomers() {
-        String storeWithSurge = UUID.randomUUID().toString();
-        addBinding(strategyId, storeWithSurge, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
-        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + storeWithSurge, String.format(REDIS_VALUE, storeWithSurge, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 100);
-
-        var request = getDeliveryConditionsRequest(storeWithSurge, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
-                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE,
-                AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+        var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
+                AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), true);
 
         var response = clientShippingCalc.getDeliveryConditions(request);
 
-        checkDeliveryConditions(response, storeWithSurge, 100000, 2, 3);
+        checkDeliveryConditions(response, SURGE_STORE_ID, 100000, 2, 3);
         Allure.step("Проверяем базовую цену в лесенке", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
@@ -193,17 +238,51 @@ public class MinCartTest extends ShippingCalcBase {
         });
     }
 
+    @CaseId(440)
+    @Story("Get Delivery Conditions")
+    @Test(description = "Кэширование surgelevel на уровне customer+store",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "getDeliveryConditionsWithSurge")
+    public void getDeliveryConditionsWithStoreCustomerSurge() {
+        Allure.step("Меняем уровень surge у магазина", () -> {
+            RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, 0, 0, 0, getZonedUTCDate()), 100);
+        });
+
+        var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+                99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
+                AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), true);
+
+        var response = clientShippingCalc.getDeliveryConditions(request);
+
+        checkDeliveryConditions(response, SURGE_STORE_ID, 100000, 2, 3);
+        Allure.step("Проверяем базовую цену в лесенке", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertAll();
+        });
+        Allure.step("Проверяем наличие повышенного спроса", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж выключен");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), (float) surgeLevel, "Не ожидаемый уровень сюрджа");
+            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getTtl() > 0, "Не ожидаемый уровень ttl сюрджа");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 31890, "Не ожидаемая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 20890, "Не ожидаемая цена в лесенке");
+            softAssert.assertAll();
+        });
+    }
+
     @CaseId(420)
     @Story("Get Delivery Conditions")
     @Test(description = "Проверка прохождений условий в правилах мин корзины",
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryConditionsDifferentRules() {
         var firstRequest = getDeliveryConditionsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
-                0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE,
-                AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+                0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
+                AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), false);
         var secondRequest = getDeliveryConditionsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
-                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE,
-                AppVersion.IOS.getName(), AppVersion.IOS.getVersion());
+                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
+                AppVersion.IOS.getName(), AppVersion.IOS.getVersion(), false);
 
         var firstResponse = clientShippingCalc.getDeliveryConditions(firstRequest);
         var secondResponse = clientShippingCalc.getDeliveryConditions(secondRequest);
@@ -225,7 +304,7 @@ public class MinCartTest extends ShippingCalcBase {
     public void getDeliveryConditionsNotFound() {
         String storeId = UUID.randomUUID().toString();
         var request = getDeliveryConditionsRequest(storeId, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
-                0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE, AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+                0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_SELF_DELIVERY_VALUE, AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), false);
 
         var response = clientShippingCalc.getDeliveryConditions(request);
 
@@ -255,7 +334,7 @@ public class MinCartTest extends ShippingCalcBase {
                         .setLon(55.55f)
                         .build())
                 .setTenant(Tenant.SBERMARKET.getId())
-                .setDeliveryTypeValue(DeliveryType.COURIER_DELIVERY_VALUE)
+                .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
                 .setPlatformName(AppVersion.WEB.getName())
                 .setPlatformVersion(AppVersion.WEB.getVersion())
                 .build();
@@ -284,7 +363,7 @@ public class MinCartTest extends ShippingCalcBase {
                         .setLat(55.55f)
                         .setLon(55.55f)
                         .build())
-                .setDeliveryTypeValue(DeliveryType.COURIER_DELIVERY_VALUE)
+                .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
                 .setPlatformName(AppVersion.WEB.getName())
                 .setPlatformVersion(AppVersion.WEB.getVersion())
                 .build();
@@ -340,7 +419,7 @@ public class MinCartTest extends ShippingCalcBase {
                         .setLon(55.55f)
                         .build())
                 .setTenant(Tenant.SBERMARKET.getId())
-                .setDeliveryTypeValue(DeliveryType.COURIER_DELIVERY_VALUE)
+                .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
                 .setPlatformName(AppVersion.WEB.getName())
                 .setPlatformVersion(AppVersion.WEB.getVersion())
                 .build();
@@ -361,7 +440,7 @@ public class MinCartTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke")
     public void getMinCartAmounts() {
         var request = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
-                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE);
+                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE);
 
         var response = clientShippingCalc.getMinCartAmounts(request);
         checkMinCartAmounts(response, STORE_ID, 100000);
@@ -392,7 +471,7 @@ public class MinCartTest extends ShippingCalcBase {
                         .setLon(55.55f)
                         .build())
                 .setTenant(Tenant.SBERMARKET.getId())
-                .setDeliveryTypeValue(DeliveryType.COURIER_DELIVERY_VALUE)
+                .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
                 .build();
 
         var response = clientShippingCalc.getMinCartAmounts(request);
@@ -404,11 +483,24 @@ public class MinCartTest extends ShippingCalcBase {
 
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(storeUuids.contains(response.getMinCartAmounts(0).getStoreId()), "Не ожидаемый uuid магазина");
-            softAssert.assertEquals(response.getMinCartAmounts(0).getAmount(), 100000, "Не ожидаемая минимальная корзина");
+            softAssert.assertEquals(response.getMinCartAmounts(0).getAmountCourierDelivery(), 100000, "Не ожидаемая минимальная корзина");
             softAssert.assertTrue(storeUuids.contains(response.getMinCartAmounts(1).getStoreId()), "Не ожидаемый uuid магазина");
-            softAssert.assertEquals(response.getMinCartAmounts(1).getAmount(), 100000, "Не ожидаемая минимальная корзина");
+            softAssert.assertEquals(response.getMinCartAmounts(1).getAmountCourierDelivery(), 100000, "Не ожидаемая минимальная корзина");
             softAssert.assertAll();
         });
+    }
+
+    @CaseId(438)
+    @Story("Get Min Cart Amounts")
+    @Test(description = "Получение минимальной корзины по глобальной стратегии",
+            groups = "dispatch-shippingcalc-smoke")
+    public void getMinCartAmountsGlobalStrategy() {
+        String storeId = UUID.randomUUID().toString();
+        var request = getMinCartAmountsRequest(storeId, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE);
+
+        var response = clientShippingCalc.getMinCartAmounts(request);
+        checkMinCartAmounts(response, storeId, 100001);
     }
 
     @CaseId(413)
@@ -417,9 +509,9 @@ public class MinCartTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke")
     public void getMinCartAmountsDifferentRules() {
         var firstRequest = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
-                0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE);
+                0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE);
         var secondRequest = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
-                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE);
+                1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE);
 
         var firstResponse = clientShippingCalc.getMinCartAmounts(firstRequest);
         var secondResponse = clientShippingCalc.getMinCartAmounts(secondRequest);
@@ -434,13 +526,11 @@ public class MinCartTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-regress")
     public void getMinCartAmountsNotFound() {
         var request = getMinCartAmountsRequest(UUID.randomUUID().toString(), 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
-                0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY_VALUE);
+                0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_SELF_DELIVERY_VALUE);
 
         var response = clientShippingCalc.getMinCartAmounts(request);
 
-        Allure.step("Проверяем пустой ответ", () -> {
-            compareTwoObjects(response.toString(), "");
-        });
+        Allure.step("Проверяем пустое значение", () -> compareTwoObjects(response.getMinCartAmounts(0).getAmountSelfDelivery(), 0L));
     }
 
     @CaseId(398)
@@ -448,7 +538,7 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Получение ошибки при невалидном delivery_type",
             groups = "dispatch-shippingcalc-regress",
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INTERNAL: cannot get min cart amount: .*")
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: Invalid delivery type")
     public void getMinCartAmountsNoDeliveryType() {
         var request = GetMinCartAmountsRequest.newBuilder()
                 .addStores(Store.newBuilder()
@@ -489,7 +579,7 @@ public class MinCartTest extends ShippingCalcBase {
                         .setLon(55.55f)
                         .build())
                 .setTenant(Tenant.SBERMARKET.getId())
-                .setDeliveryTypeValue(DeliveryType.COURIER_DELIVERY_VALUE)
+                .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
                 .build();
 
         var response = clientShippingCalc.getMinCartAmounts(request);
@@ -498,6 +588,7 @@ public class MinCartTest extends ShippingCalcBase {
 
     @AfterClass(alwaysRun = true)
     public void postConditions() {
-        deleteCreatedStrategy(strategyId);
+        deleteCreatedStrategy(localStrategyId);
+        deleteCreatedStrategy(globalStrategyId);
     }
 }

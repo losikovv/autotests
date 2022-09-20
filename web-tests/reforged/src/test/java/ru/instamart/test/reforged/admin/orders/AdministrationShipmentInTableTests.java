@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -15,8 +16,8 @@ import static ru.instamart.reforged.admin.enums.ShipmentStatuses.SHIPMENT_READY;
 @Story("Страница 'Список заказов' admin/spa/orders. Карточка заказа в таблице ")
 public final class AdministrationShipmentInTableTests {
 
-    @CaseId(1502)
-    @Test(description = "Ссылка в название магазина, столбец ритейлер, переводит на страницу магазина",
+    @CaseId(2101)
+    @Test(description = "Переход в карточку магазина со страницы Список заказов",
             groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void storeNameLinkLeadsToStorePageTest() {
         login().goToPage();
@@ -36,8 +37,8 @@ public final class AdministrationShipmentInTableTests {
         store().checkStoreNameContains(storeName);
     }
 
-    @CaseId(1510)
-    @Test(description = "Ссылка в номере заказа переводит на страницу Карточка заказа",
+    @CaseId(2109)
+    @Test(description = "Быстрый переход в карточку заказа со страницы Список заказов",
             groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void orderNumberLinkLeadsToOrderEditPageTest() {
         login().goToPage();
@@ -53,10 +54,33 @@ public final class AdministrationShipmentInTableTests {
 
         shipmentPage().waitPageLoad();
         shipmentPage().checkPageContains(orderNumber);
+
+        shipmentPage().closeAndSwitchToPrevWindow();
+
+        var orderNumberSecond = orders().getOrderNumber(2);
+        orders().clickOrderNumberInShipment(2);
+        orders().switchToNextWindow();
+
+        shipmentPage().waitPageLoad();
+        shipmentPage().checkPageContains(orderNumberSecond);
     }
 
-    @CaseId(1512)
-    @Test(description = "Клик по номеру шипмента разворачивает доп. меню",
+    @Skip
+    //Скачивание 500 на стейджах
+    @CaseId(2110)
+    @Test(description = "Скачать накладную заказа",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void downloadAnOrderWaybillTest() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkOrdersLoaded();
+    }
+
+    @CaseId(2111)
+    @Test(description = "Переход в карточку заказа через дополнительное меню на странице Список заказов",
             groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void shipmentDropdownMenuTestShipmentInfo() {
         login().goToPage();
@@ -77,30 +101,8 @@ public final class AdministrationShipmentInTableTests {
         shipmentPage().checkPageContains(orderNumber);
     }
 
-    @CaseId(1512)
-    @Test(description = "Клик по номеру шипмента разворачивает доп. меню",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
-    public void shipmentDropdownMenuTestAssignment() {
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-        orders().goToPage();
-        orders().checkLoadingLabelNotVisible();
-        orders().checkOrdersLoaded();
-        orders().addStatusFilterItem(SHIPMENT_READY.getName());
-        orders().applyFilters();
-        orders().checkLoadingLabelNotVisible();
-
-        orders().clickShipmentNumberInShipment(1);
-        orders().checkShipmentDropdownMenuVisible();
-
-        orders().clickShipmentDropdownMenu("Назначить исполнителя");
-
-        orders().checkManualAssignmentModalVisible();
-    }
-
-    @CaseId(1513)
-    @Test(description = "Ссылка в статусе оплаты, столбец оплата, переводит на страницу платежей заказа /admin/orders/nomber/payments",
+    @CaseId(2112)
+    @Test(description = "Переход в платежи заказа через дополнительное меню",
             groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void shipmentPaymentStatusLeadsPaymentsTest() {
         login().goToPage();
@@ -119,8 +121,33 @@ public final class AdministrationShipmentInTableTests {
         shipmentPagePayments().checkPageContains(orderNumber);
     }
 
-    @CaseId(1514)
-    @Test(description = "Ссылка во времени заказа переводит на страницу Магазин и время доставки /admin/orders/nomber/delivery_windows?shipment=nomber",
+    //TODO: Магазин = Диспатч 2.0, статус заказа = оформлен, статус сборки = собирается и назначен на исполнителя
+    //Нужно оформлять такой заказ по другому не найти
+    @Skip
+    @CaseId(2162)
+    @Test(description = "Переход на просмотр местоположения курьера на карте",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void shipmentDropdownMenuTestShowOnMap() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkOrdersLoaded();
+
+        orders().addStatusFilterItem(SHIPMENT_READY.getName());
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().clickShipmentNumberInShipment(1);
+        orders().checkShipmentDropdownMenuVisible();
+
+        orders().clickShipmentDropdownMenu("Показать на карте");
+
+    }
+
+    @CaseId(2113)
+    @Test(description = "Переход на страницу переноса слота заказа из таблица заказов",
             groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void shipmentDeliveryTimeLeadsShipmentPageDeliveryTest() {
         login().goToPage();
@@ -131,15 +158,19 @@ public final class AdministrationShipmentInTableTests {
         orders().checkOrdersLoaded();
 
         orders().clickDeliveryTimeInShipment(1);
-
         orders().switchToNextWindow();
-
         shipmentPageDelivery().waitPageLoad();
         shipmentPageDelivery().checkSavedDeliveryIntervalVisible();
+
+        shipmentPageDelivery().selectFirstAvailableDeliveryInterval();
+        shipmentPageDelivery().clickDeliveryChangeInputReason();
+        shipmentPageDelivery().selectFirstDeliveryChangeReason();
+        shipmentPageDelivery().clickUpdateDelivery();
+        shipmentPageDelivery().interactAlert().checkSuccessFlashVisible();
     }
 
-    @CaseId(1515)
-    @Test(description = "Ссылка в ФИ клиента, столбец Заказчик, переводит на страницу Реквизиты клиента /admin/orders/nomber/customer",
+    @CaseId(2114)
+    @Test(description = "Переход к реквизитам клиента со страницы Список заказов",
             groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
     public void shipmentClientNameLeadsClientEditPageTest() {
         login().goToPage();
@@ -151,10 +182,34 @@ public final class AdministrationShipmentInTableTests {
 
         var orderNumber = orders().getOrderNumber(1);
         orders().clickCustomerName(1);
-
         orders().switchToNextWindow();
-
         shipmentPageCustomer().waitPageLoad();
         shipmentPageCustomer().checkPageContains(orderNumber);
+    }
+
+    @Skip
+    //TODO: создать заказ в магазине с включенным Диспатч 2.0
+    //у заказов созданных без включенного диспатча будет выдавать ошибку
+    //вывести партнера на смену в магазин где собран заказ
+    @CaseId(2129)
+    @Test(description = "Удаление назначенного универсала",
+            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+    public void shipmentDropdownMenuTestAssignment() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        orders().goToPage();
+        orders().checkLoadingLabelNotVisible();
+        orders().checkOrdersLoaded();
+
+        orders().addStatusFilterItem(SHIPMENT_READY.getName());
+        orders().applyFilters();
+        orders().checkLoadingLabelNotVisible();
+
+        orders().clickShipmentNumberInShipment(1);
+        orders().checkShipmentDropdownMenuVisible();
+
+        orders().clickShipmentDropdownMenu("Назначить исполнителя");
+        orders().checkManualAssignmentModalVisible();
     }
 }

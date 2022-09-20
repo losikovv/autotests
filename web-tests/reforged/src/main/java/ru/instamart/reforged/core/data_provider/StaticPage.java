@@ -45,15 +45,15 @@ public final class StaticPage {
     @DataProvider(name = "footerLinkPage", parallel = true)
     public static Object[][] getFooterLinkPage() {
         return new Object[][] {
-                {"О компании", UiProperties.STF_URL + about().pageUrl()},
-                {"Контакты", UiProperties.STF_URL + contacts().pageUrl()},
+                {"О компании", about().pageUrl()},
+                {"Контакты", contacts().pageUrl()},
                 {"Наши вакансии", BasicProperties.JOB_LANDING_URL},
-                {"Документы", UiProperties.STF_URL + terms().pageUrl()},
+                {"Документы", terms().pageUrl()},
                 {"Стать партнёром", BasicProperties.JOB_LANDING_URL},
-                {"Как мы работаем", UiProperties.STF_URL + howWeWork().pageUrl()},
-                {"Доставка и оплата", UiProperties.STF_URL + delivery().pageUrl()},
-                {"Помощь", UiProperties.STF_URL + faq().pageUrl()},
-                {"Политика возврата", UiProperties.STF_URL + rules().pageUrl()},
+                {"Как мы работаем", howWeWork().pageUrl()},
+                {"Доставка и оплата", delivery().pageUrl()},
+                {"Помощь", faq().pageUrl()},
+                {"Политика возврата", rules().pageUrl()},
         };
     }
 

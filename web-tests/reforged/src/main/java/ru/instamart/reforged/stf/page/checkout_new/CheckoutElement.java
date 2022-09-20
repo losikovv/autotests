@@ -4,14 +4,18 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.page.checkout_new.add_payment_card_modal.AddPaymentCardModal;
+import ru.instamart.reforged.stf.page.checkout_new.b2b_order_modal.B2BOrderModal;
 import ru.instamart.reforged.stf.page.checkout_new.delivery_slots_modal.DeliverySlotsModal;
 import ru.instamart.reforged.stf.page.checkout_new.payment_methods_modal.PaymentMethodsModal;
+import ru.instamart.reforged.stf.page.checkout_new.sber_spasibo_card_modal.SberSpasiboCardModal;
 
 public interface CheckoutElement {
 
     PaymentMethodsModal paymentMethodsModal = new PaymentMethodsModal();
     AddPaymentCardModal addPaymentCardModal = new AddPaymentCardModal();
     DeliverySlotsModal deliverySlotsModal = new DeliverySlotsModal();
+    B2BOrderModal b2bOrderModal = new B2BOrderModal();
+    SberSpasiboCardModal sberSpasiboCardModal = new SberSpasiboCardModal();
 
     Element loadingSpinner = new Element(By.xpath("//div[contains(@class,'Spinner')]"), "Спиннер загрузки страницы");
 
@@ -22,12 +26,13 @@ public interface CheckoutElement {
 
     Element addressTitle = new Element(By.xpath("//h3[@data-qa='checkout_page_ship_address_by_courier_title']"), "Адрес");
     Input apartment = new Input(By.xpath("//input[@data-qa='checkout_page_ship_address_by_courier_apartment_input']"), "Поле ввода 'Кв, офис'");
+    Input apartmentAlert = new Input(By.xpath("//input[@data-qa='checkout_page_ship_address_by_courier_apartment_input' and contains(@class,'Input_invalid')]"), "Алерт в поле ввода 'Кв, офис'");
     Input entrance = new Input(By.xpath("//input[@data-qa='checkout_page_ship_address_by_courier_entrance_input']"), "Поле ввода 'Подъезд'");
     Input floor = new Input(By.xpath("//input[@data-qa='checkout_page_ship_address_by_courier_floor_input']"), "Поле ввода 'Этаж'");
     Input doorPhone = new Input(By.xpath("//input[@data-qa='checkout_page_ship_address_by_courier_door_phone_input']"), "Поле ввода 'Домофон'");
     Input comment = new Input(By.xpath("//textarea[@data-qa='checkout_page_ship_address_by_courier_comments_input']"), "Поле ввода 'Комментарий'");
     Checkbox deliveryToDoor = new Checkbox(By.xpath("//input[@data-qa='checkout_page_ship_address_by_courier_delivery_to_door_input']"), "Чекбокс 'Бесконтактная доставка'");
-    Button b2bLink = new Button(By.xpath("//a[@data-qa='checkout_page_ship_address_b2b_link']"), "Кнопка 'Заказываю для бизнеса'");
+    Button b2bLink = new Button(By.xpath("//button[@data-qa='checkout_page_ship_address_b2b_link']"), "Кнопка 'Заказываю для бизнеса'");
 
     Button openDeliverySlotsModalInTitle = new Button(By.xpath("//div[contains(@class,'DeliverySlots_header')]//button"), "Кнопка 'Доставка на ...' (открывает модалку выбора слота)");
     Element deliverySlot = new Element(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]]"), "Слот доставки");
@@ -81,4 +86,7 @@ public interface CheckoutElement {
     Element notificationBanner = new Element(By.xpath("//div[contains(@class,'NotificationBubble_banner')]"), "Всплывающее сообщение об ошибке");
     Element notificationBannerTitle = new Element(By.xpath("//div[contains(@class,'NotificationBubble_banner')]//h3"), "Заголовок всплывающего сообщения об ошибке");
     Element notificationBannerText = new Element(By.xpath("//div[contains(@class,'NotificationBubble_banner')]//p"), "Текст всплывающего сообщения об ошибке");
+    Element cardToCourierBubble = new Element(By.xpath("//div[contains(@class,'CardToCourierBubble_root')]"), "Алерт недоступности оплаты картой курьеру при бесконтактной доставке");
+    Element sberSpasiboWidget = new Element(By.xpath("//div[contains(@class,'SberSpasiboPaymentToolWidget')]/p"), "Виджет сберспасибо");
+    Element sidebarSberSpasiboAmount = new Element(ByKraken.xpathExpression("//div[contains(@class,'SberSpasiboPaymentToolWidget')]/p"), "Надпись с колвом бонусов в сайдбаре");
 }

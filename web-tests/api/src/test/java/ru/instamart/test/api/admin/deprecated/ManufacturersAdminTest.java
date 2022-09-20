@@ -1,4 +1,4 @@
-package ru.instamart.test.api.admin;
+package ru.instamart.test.api.admin.deprecated;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -13,6 +13,7 @@ import ru.instamart.api.request.v1.ManufacturersRequest;
 import ru.instamart.jdbc.dao.stf.ManufacturersDao;
 import ru.instamart.jdbc.entity.stf.ManufacturersEntity;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNotNull;
@@ -20,6 +21,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
 
 @Epic("Admin")
+@Deprecated //Задача выпиливания FEP-3591
 @Feature("Производители")
 public class ManufacturersAdminTest extends RestBase {
     private String name = "AutoTest_" + Generate.string(10);
@@ -31,6 +33,7 @@ public class ManufacturersAdminTest extends RestBase {
     }
 
     @CaseId(1824)
+    @Skip
     @Story("Производители")
     @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о производителях",
@@ -41,6 +44,7 @@ public class ManufacturersAdminTest extends RestBase {
     }
 
     @CaseId(1825)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Создание производителя")
     public void postManufacturers302() {
@@ -51,6 +55,7 @@ public class ManufacturersAdminTest extends RestBase {
     }
 
     @CaseId(1826)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Редактирование производителя", dependsOnMethods = "postManufacturers302")
     public void patchManufacturers302() {
@@ -66,6 +71,7 @@ public class ManufacturersAdminTest extends RestBase {
     }
 
     @CaseId(1827)
+    @Skip
     @Test(groups = {"api-instamart-regress"},
             description = "Удаление производителя", dependsOnMethods = "patchManufacturers302")
     public void delManufacturers302() {

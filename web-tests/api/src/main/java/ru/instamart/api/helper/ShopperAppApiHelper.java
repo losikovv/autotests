@@ -364,7 +364,16 @@ public class ShopperAppApiHelper {
                     ReplacementSHP.Data replacement = replaceItem(items.get(i).getId(), offers.get(0).getAttributes().getUuid());
                     approveItem(replacement.getAttributes().getToItemId().toString());
 
-                    AssemblyItemSHP.Data assemblyItem = additionalItemForReplacement(replacement.getId(), offers.get(1));
+                    List<String> itemsSkus = items.stream().map(item -> item.getAttributes().getProductSku()).collect(Collectors.toList());
+                    OfferSHP.Data additionalOffer = null;
+                    for (OfferSHP.Data offer : offers) {
+                        if (!offers.get(0).equals(offer) && !itemsSkus.contains(offer.getAttributes().getProductSku())) {
+                            additionalOffer = offer;
+                        }
+                    }
+                    if (additionalOffer == null) break;
+
+                    AssemblyItemSHP.Data assemblyItem = additionalItemForReplacement(replacement.getId(), additionalOffer);
                     approveItem(assemblyItem.getId());
                     break;
                 default:
@@ -380,7 +389,7 @@ public class ShopperAppApiHelper {
 
     @Step("Поиск товаров в магазине")
     private List<OfferSHP.Data> getOffers() {
-        String query = "сыр";
+        String query = "хлеб";
         log.debug("Поиск товаров в магазине по запросу " + query);
         Response response = StoresSHPRequest.Offers.GET(
                 EnvironmentProperties.DEFAULT_SHOPPER_SID, query);
@@ -480,7 +489,7 @@ public class ShopperAppApiHelper {
         log.debug("Дополнительный товар для замены");
 
         Response response = ReplacementsSHPRequest.AdditionalItems.POST(replacementId, offer.getId(),
-                offer.getAttributes().getPricerType().equals(PricerSHP.PER_WEIGHT.getType()) ? 2000 : 2);
+                offer.getAttributes().getPricerType().equals(PricerSHP.PER_WEIGHT.getType()) ? 1000 : 1);
         checkStatusCode200(response);
         assertEquals(response.as(AssemblyItemSHPResponse.class).getData().getAttributes().getState(),
                 "need_review");

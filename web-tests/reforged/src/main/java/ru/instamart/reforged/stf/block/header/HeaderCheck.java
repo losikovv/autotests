@@ -205,7 +205,12 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что отображается кнопка логина")
     default void checkLoginIsVisible() {
-        login.shouldBe().visible();
+        login.should().visible();
+    }
+
+    @Step("Проверяем, что выбран самовывоз")
+    default void checkPickupSelected() {
+        pickupSelected.should().visible();
     }
 
     @Step("Проверяем, что отображается введенный адрес")

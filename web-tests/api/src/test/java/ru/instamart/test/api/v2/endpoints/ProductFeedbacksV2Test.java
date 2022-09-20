@@ -5,11 +5,11 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ProductFeedbacksV2Request;
@@ -19,12 +19,10 @@ import ru.instamart.api.response.v2.FeedbacksV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
 
@@ -73,7 +71,8 @@ public class ProductFeedbacksV2Test extends RestBase {
         );
         checkStatusCode200(response);
         FeedbacksV2Response feedbacksV2Response = response.as(FeedbacksV2Response.class);
-        compareTwoObjects(feedbacksV2Response.getFeedbacks().size(), 0);
+        Allure.step("Проверка списка отзывов", ()-> Assert.assertTrue(feedbacksV2Response.getFeedbacks().isEmpty(),
+                "Вернулись отзывы"));
     }
 
     @Skip(onServer = Server.STAGING)

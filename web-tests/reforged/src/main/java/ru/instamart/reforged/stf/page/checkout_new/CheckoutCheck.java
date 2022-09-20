@@ -42,6 +42,21 @@ public interface CheckoutCheck extends Check, CheckoutElement {
         Assert.assertEquals(apartment.getValue(), expectedApartmentValue, "Значение в поле 'Кв. офис' отличается от ожидаемого");
     }
 
+    @Step("Проверяем, что в поле 'Подъезд' значение: {expectedEntranceValue}")
+    default void checkEntranceValue(final String expectedEntranceValue) {
+        Assert.assertEquals(entrance.getValue(), expectedEntranceValue, "Значение в поле 'Подъезд' отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что в поле 'Этаж' значение: {expectedFloorValue}")
+    default void checkFloorValue(final String expectedFloorValue) {
+        Assert.assertEquals(floor.getValue(), expectedFloorValue, "Значение в поле 'Этаж' отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что в поле 'Домофон' значение: {expectedDoorPhoneValue}")
+    default void checkDoorPhoneValue(final String expectedDoorPhoneValue) {
+        Assert.assertEquals(doorPhone.getValue(), expectedDoorPhoneValue, "Значение в поле 'Домофон' отличается от ожидаемого");
+    }
+
     @Step("Проверяем, что заголовок блока слотов доставки содержит текст: '{expectedText}'")
     default void checkDeliveryTitleContains(final String expectedText) {
         Assert.assertEquals(openDeliverySlotsModalInTitle.getText().toLowerCase(), expectedText.toLowerCase(),
@@ -125,6 +140,24 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     default void checkSelectedPaymentMethodContains(final String expectedPaymentMethodText) {
         Assert.assertTrue(currentPaymentMethod.getText().contains(expectedPaymentMethodText),
                 String.format("Текущий выбранный способ оплаты: '%s' не содержит '%s'", currentPaymentMethod.getText(), expectedPaymentMethodText));
+    }
+
+    @Step("Проверяем, что виджет оплаты со СберСпасибо содержит кол-во бонусов:{bonuses}")
+    default void checkSberSpasiboWidgetContainsBonusesAmount(final String bonuses) {
+        Assert.assertTrue(sberSpasiboWidget.getText().contains(" " + bonuses + " бонус"),
+                String.format("Виджет СберСпасибо не содержит суммы списываемых бонусов: '%s'", bonuses));
+    }
+
+    @Step("Проверяем, что сайдбар содержит кол-во бонусов:{bonuses}")
+    default void checkSidebarContainsBonusesAmount(final String bonuses) {
+        Assert.assertTrue(sidebarSberSpasiboAmount.getText().contains("Бонусы от СберСпасибо -" + bonuses + " ₽"),
+                String.format("Сайдбар не содержит суммы списываемых бонусов: '%s'", bonuses));
+    }
+
+    @Step("Проверяем, что виджет оплаты со СберСпасибо содержит  последние 4 символа карты: {cardLastDigits}")
+    default void checkSberSpasiboWidgetContainsCardNumber(final String cardLastDigits) {
+        Assert.assertTrue(sberSpasiboWidget.getText().contains(cardLastDigits),
+                String.format("Виджет СберСпасибо не содержит последних 4 символов номера карты: '%s'", cardLastDigits));
     }
 
     @Step("Проверяем сводную информацию о контактах")
@@ -231,5 +264,20 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     @Step("Проверяем, что вкладка 'Доставка' недоступна")
     default void checkDeliveryTabNotVisible() {
         Kraken.waitAction().shouldNotBeVisible(deliveryTab);
+    }
+
+    @Step("Проверяем, что отображается алерт невведенного номера квартиры/офиса")
+    default void checkApartmentNumberAlertVisible() {
+        apartmentAlert.should().visible();
+    }
+
+    @Step("Проверяем, что отображается алерт недоступности оплаты картой курьеру при бесконтактной доставке")
+    default void checkCardToCourierBubbleVisible() {
+        cardToCourierBubble.should().visible();
+    }
+
+    @Step("Проверяем, что кнопка перехода на Б2Б витрину не отображается")
+    default void checkB2BTransitionButtonNotVisible() {
+        b2bLink.should().invisible();
     }
 }

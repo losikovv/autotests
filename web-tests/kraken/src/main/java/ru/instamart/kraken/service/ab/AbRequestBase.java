@@ -19,7 +19,7 @@ public abstract class AbRequestBase {
 
     private static final RequestSpecification abService = new RequestSpecBuilder()
                 .setBaseUri(CoreProperties.AB_SERVICE_URL)
-                .setBasePath("/api/v1")
+                .setBasePath("/ab/v1")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssured())
                 .build();

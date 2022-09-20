@@ -19,7 +19,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Чекаут [NEW]")
-public class CheckoutPromocodesTests {
+public final class CheckoutPromocodesTests {
 
     private final ApiHelper helper = new ApiHelper();
 

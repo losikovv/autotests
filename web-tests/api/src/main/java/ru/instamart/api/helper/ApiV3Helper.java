@@ -6,17 +6,16 @@ import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import ru.instamart.api.enums.v3.ClientV3;
+import ru.instamart.api.model.common.ProductsFilterParams;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.model.v2.DeliveryWindowV2;
 import ru.instamart.api.model.v3.*;
-import ru.instamart.api.request.v3.CheckoutV3Request;
-import ru.instamart.api.request.v3.OrderOptionsV3Request;
-import ru.instamart.api.request.v3.OrderV3Request;
-import ru.instamart.api.request.v3.StoresV3Request;
+import ru.instamart.api.request.v3.*;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
 import ru.instamart.api.response.v2.ShippingRatesV2Response;
 import ru.instamart.api.response.v3.OrderOptionsV3Response;
 import ru.instamart.api.response.v3.PaymentToolsV3Response;
+import ru.instamart.api.response.v3.ProductsV3Response;
 import ru.instamart.jdbc.dao.stf.ApiClientsDao;
 import ru.instamart.jdbc.dao.stf.FlipperGatesDao;
 import ru.instamart.jdbc.entity.stf.FlipperGatesEntity;
@@ -261,5 +260,15 @@ public final class ApiV3Helper {
     @Step("Получаем токен api-клиента")
     public static String getApiClientTokenWithProd(ClientV3 client) {
         return EnvironmentProperties.Env.isProduction() ? EnvironmentProperties.METRO_TOKEN : getApiClientToken(client);
+    }
+
+    @Step("Получаем количество страниц  с продуктами")
+    public int getProductsTotalPages(String query) {
+        Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
+                .tid(EnvironmentProperties.DEFAULT_TID)
+                .query(query)
+                .build(), EnvironmentProperties.DEFAULT_SID);
+        checkStatusCode200(response);
+        return response.as(ProductsV3Response.class).getMeta().getTotalPages();
     }
 }

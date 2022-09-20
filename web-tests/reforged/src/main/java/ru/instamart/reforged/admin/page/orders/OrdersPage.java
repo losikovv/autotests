@@ -1,6 +1,7 @@
 package ru.instamart.reforged.admin.page.orders;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.Keys;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.admin.AdminPage;
 import ru.instamart.reforged.core.page.Window;
@@ -42,9 +43,23 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
         shipmentCreateDateStart.click();
     }
 
+    @Step("Заполнить поле 'Создание заказа - Начальная дата' датой '{date}'")
+    //2022-09-12 06:35
+    public void fillShipmentCreateDateStart(final String date) {
+        shipmentCreateDateStart.fillField(date);
+        shipmentCreateDateStart.getActions().sendKeys(Keys.ENTER);
+    }
+
     @Step("Кликаем в поле 'Создание заказа - Конечная дата'")
     public void clickShipmentCreateDateEnd() {
         shipmentCreateDateEnd.click();
+    }
+
+    @Step("Заполнить поле 'Создание заказа - Конечная дата' датой '{date}'")
+    //2022-09-12 06:35
+    public void fillShipmentCreateDateEnd(final String date) {
+        shipmentCreateDateEnd.fillField(date);
+        shipmentCreateDateEnd.getActions().sendKeys(Keys.ENTER);
     }
 
     @Step("Кликаем в поле 'Доставка - Начальная дата'")
@@ -52,9 +67,43 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
         shipmentDeliveryDateStart.click();
     }
 
+    @Step("Заполнить поле 'Доставка - Начальная дата' датой '{date}'")
+    //2022-09-12 06:35
+    public void fillShipmentDeliveryDateStart(final String date) {
+        shipmentDeliveryDateStart.fillField(date);
+        shipmentDeliveryDateStart.getActions().sendKeys(Keys.ENTER);
+    }
+
     @Step("Кликаем в поле 'Доставка - Конечная дата'")
     public void clickShipmentDeliveryDateEnd() {
         shipmentDeliveryDateEnd.click();
+    }
+
+    @Step("Заполнить поле 'Доставка - Конечная дата' датой '{date}'")
+    //2022-09-12 06:35
+    public void fillShipmentDeliveryDateEnd(final String date) {
+        shipmentDeliveryDateEnd.fillField(date);
+        shipmentDeliveryDateEnd.getActions().sendKeys(Keys.ENTER);
+    }
+
+    @Step("Указываем 'Вес заказа' от {}")
+    public void addOrderWeightFrom(final String from) {
+        totalWeightStart.fillField(from);
+    }
+
+    @Step("Указываем 'Вес заказа' до {}")
+    public void addOrderWeightTo(final String to) {
+        totalWeightEnd.fillField(to);
+    }
+
+    @Step("Указываем 'Кол-во позиций' от {}")
+    public void addOrderItemsFrom(final String from) {
+        itemsCountStart.fillField(from);
+    }
+
+    @Step("Указываем 'Кол-во позиций' до {}")
+    public void addOrderItemsTo(final String to) {
+        itemsCountEnd.fillField(to);
     }
 
     @Step("Добавляем фильтр 'Платформа': '{platformName}'")
@@ -74,7 +123,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
 
     @Step("Добавляем фильтр 'Ритейлер': '{retailerName}'")
     public void addRetailerFilterItem(final String... retailerName) {
-        retailerSelector.fillAndSelect(retailerName);
+        retailerSelector.fillContains(retailerName);
     }
 
     @Step("Удаляем выбранный фильтр 'Ритейлер': {retailerName}")
@@ -147,6 +196,11 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
         paymentStatusSelector.removeAll();
     }
 
+    @Step("Добавляем фильтр 'Промокод': '{code}'")
+    public void addPromoCodeFilter(final String code) {
+        promoCode.fillField(code);
+    }
+
     @Step("Добавляем фильтр 'Быстрые фильтры: '{quickFilterName}'")
     public void addQuickFilterItem(final String quickFilterName) {
         quickFilters.selectWithoutSearch(quickFilterName);
@@ -172,6 +226,36 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
         courier.click();
     }
 
+    @Step("Добавляем фильтр 'Статус сборки': '{collectingStatus}'")
+    public void addCollectingStatusFilter(final String... collectingStatus) {
+        collectingStatusSelector.fillAndSelect(collectingStatus);
+    }
+
+    @Step("Удаляем выбранный фильтр 'Статус сборки': {paymentMethod}")
+    public void removeCollectingStatusFilterItem(final String collectingStatus) {
+        collectingStatusSelector.removeItemByName(collectingStatus);
+    }
+
+    @Step("Очищаем фильтры 'Статус сборки'")
+    public void clearCollectingStatusFilters() {
+        collectingStatusSelector.removeAll();
+    }
+
+    @Step("Добавляем фильтр 'Статус доставки': '{deliveryStatus}'")
+    public void addDeliveryStatusFilter(final String... deliveryStatus) {
+        deliveryStatusSelector.fillAndSelect(deliveryStatus);
+    }
+
+    @Step("Удаляем выбранный фильтр 'Статус доставки': {deliveryStatus}")
+    public void removeDeliveryStatusFilterItem(final String deliveryStatus) {
+        deliveryStatusSelector.removeItemByName(deliveryStatus);
+    }
+
+    @Step("Очищаем фильтры 'Статус доставки'")
+    public void clearDeliveryStatusFilters() {
+        deliveryStatusSelector.removeAll();
+    }
+
     @Step("Получаем количество найденных заказов")
     public int getShipmentsCountFromTableHeader() {
         return StringUtil.extractNumberFromString(searchResultCount.getText());
@@ -189,12 +273,12 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
     }
 
     @Step("Получаем название ритейлера '{shipmentPosition}'-го заказа в таблице")
-    public String getRetailerName(final int shipmentPosition){
+    public String getRetailerName(final int shipmentPosition) {
         return tableComponent.getRetailerName(shipmentPosition - 1);
     }
 
     @Step("Получаем название магазина '{shipmentPosition}'-го заказа в таблице")
-    public String getStoreName(final int shipmentPosition){
+    public String getStoreName(final int shipmentPosition) {
         return tableComponent.getStoreName(shipmentPosition - 1);
     }
 
@@ -204,7 +288,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
     }
 
     @Step("Получаем номер заказа '{shipmentPosition}'-го заказа в таблице")
-    public String getOrderNumber(final int shipmentPosition){
+    public String getOrderNumber(final int shipmentPosition) {
         return tableComponent.getOrderNumber(shipmentPosition - 1);
     }
 
@@ -219,7 +303,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
     }
 
     @Step("Выбираем '{shipmentDropdownMenuItem}' в выпадающем меню доставки")
-    public void clickShipmentDropdownMenu(final String shipmentDropdownMenuItem){
+    public void clickShipmentDropdownMenu(final String shipmentDropdownMenuItem) {
         dropdownMenuItemByName.click(shipmentDropdownMenuItem);
     }
 

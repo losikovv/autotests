@@ -113,7 +113,6 @@ public final class BasicSbermarketTests {
         shop().interactFooter().checkContactsLinkVisible();
         shop().interactFooter().checkVacanciesLinkVisible();
         shop().interactFooter().checkDocumentsLinkVisible();
-        shop().interactFooter().checkPartnersLinkVisible();
 
         shop().interactFooter().checkCustomerHelpTitleVisible();
         shop().interactFooter().checkHowWeWorkVisible();
@@ -124,10 +123,7 @@ public final class BasicSbermarketTests {
         shop().interactFooter().checkHotlinePhoneNumberVisible();
         shop().interactFooter().checkHotlineWorkHoursTextVisible();
 
-        shop().interactFooter().checkFacebookButtonVisible();
         shop().interactFooter().checkVkontakteButtonVisible();
-        shop().interactFooter().checkInstagramButtonVisible();
-        shop().interactFooter().checkTwitterButtonVisible();
 
         shop().interactFooter().checkGooglePlayButtonVisible();
         shop().interactFooter().checkAppstoreButtonVisible();
@@ -151,7 +147,7 @@ public final class BasicSbermarketTests {
         home().scrollDown();
 
         home().interactFooter().clickToFooterElementWithText(text);
-        home().checkPageUrl(url);
+        home().checkPageContains(url);
     }
 
     @CaseId(3504)
@@ -162,7 +158,7 @@ public final class BasicSbermarketTests {
         home().goToPage();
         home().interactFooter().clickToFooterElementWithText("Обработка персональных данных");
         home().switchToNextWindow();
-        privacyPolicy().checkPageUrl(UiProperties.STF_URL + privacyPolicy().pageUrl());
+        privacyPolicy().checkPageContains(privacyPolicy().pageUrl());
     }
 
     @DoNotOpenBrowser
