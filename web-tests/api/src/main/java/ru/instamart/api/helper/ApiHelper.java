@@ -90,9 +90,20 @@ public final class ApiHelper {
      * @param user должен иметь phone и encryptedPhone
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
+    @Step("Очищаем корзину с помощью API")
+    public void dropCartByQa(final UserData user) {
+        apiV2.authByQA(user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
     @Step("Наполняем корзину с помощью API")
     public void dropAndFillCart(final UserData user, final Integer sid) {
-        apiV2.authByPhone(user);
+        apiV2.authByQA(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
@@ -120,6 +131,16 @@ public final class ApiHelper {
     @Step("Наполняем корзину с помощью API")
     public void dropAndFillCartMultiple(final UserData user, AddressV2 address, final Integer firstShopSid, final Integer secondShopSid) {
         apiV2.authByPhone(user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.setAddressAttributes(user, address);
+        apiV2.fillCart(apiV2.getProducts(firstShopSid));
+        apiV2.fillCart(apiV2.getProducts(secondShopSid));
+    }
+
+    @Step("Наполняем корзину с помощью API")
+    public void dropAndFillCartMultipleByQA(final UserData user, AddressV2 address, final Integer firstShopSid, final Integer secondShopSid) {
+        apiV2.authByQA(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, address);
@@ -186,6 +207,17 @@ public final class ApiHelper {
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, address);
         apiV2.fillCart(apiV2.getProductFromEachDepartmentOnMainPage(apiV2.getCurrentStore(address, retailerName).getId()));
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    @Step("Наполняем корзину с помощью API")
+    public void fillCartByQA(final UserData user, final Integer sid, final Integer itemsNumber) {
+        apiV2.authByQA(user);
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.fillCart(apiV2.getProducts(sid), itemsNumber);
     }
 
     /**
@@ -312,9 +344,62 @@ public final class ApiHelper {
      * @param user должен иметь phone и encryptedPhone
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
+    @Step("Оформляем мульти заказ с помощью API")
+    public void makeMultipleOrderByQa(final UserData user, AddressV2 address, final Integer sid, final Integer sid2) {
+        apiV2.authByQA(user);
+
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+
+        apiV2.setAddressAttributes(user, address);
+
+        apiV2.fillCart(apiV2.getProducts(sid));
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethod(sid);
+        apiV2.getAvailableDeliveryWindow();
+
+        apiV2.setDefaultOrderAttributes();
+
+        apiV2.fillCart(apiV2.getProducts(sid2));
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethod(sid2);
+        apiV2.getAvailableDeliveryWindow();
+
+        apiV2.setDefaultOrderAttributes();
+        apiV2.completeOrder();
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
     @Step("Оформляем заказ с помощью API на завтра")
     public void makeOrderOnTomorrow(final UserData user, final Integer sid, final Integer itemsNumber) {
         apiV2.authByPhone(user);
+
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.fillCart(apiV2.getProducts(sid), itemsNumber);
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethod();
+        apiV2.getAvailableDeliveryWindowOnTomorrow();
+
+        apiV2.setDefaultOrderAttributes();
+        apiV2.completeOrder();
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    @Step("Оформляем заказ с помощью API на завтра")
+    public void makeOrderOnTomorrowByQa(final UserData user, final Integer sid, final Integer itemsNumber) {
+        apiV2.authByQA(user);
 
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();

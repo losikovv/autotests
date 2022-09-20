@@ -23,7 +23,7 @@ public interface ShopCheck extends Check, ShopElement {
 
     @Step("Проверяем, что отображется сниппет каталога")
     default void checkSnippet() {
-        waitAction().shouldBeVisible(firstProductCardProd);
+        firstProductCardProd.should().visible();
     }
 
     @Step("Проверяем, что изображение товара отображается")

@@ -32,26 +32,6 @@ public final class UserFavoritesPage implements StfPage, UserFavoritesCheck {
         addToCart.clickOnFirst();
     }
 
-    @Step("Удалить все избранные товары")
-    public void removeAll() {
-        favoriteButton.clickOnAll();
-    }
-
-    @Step("Выбрать фильтр Все товары")
-    public void filterAllGoods() {
-        allGoods.click();
-    }
-
-    @Step("Выбрать фильтр В наличии")
-    public void filterInStock() {
-        inStock.click();
-    }
-
-    @Step("Выбрать фильтр Нет в наличии")
-    public void filterOutOfStock() {
-        outOfStock.click();
-    }
-
     @Step("Получить количество избранных товаров")
     public int getFavoritesCount() {
         return allFavorites.elementCount();

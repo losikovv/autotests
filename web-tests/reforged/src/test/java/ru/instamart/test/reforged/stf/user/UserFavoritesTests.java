@@ -7,7 +7,6 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
@@ -90,29 +89,6 @@ public final class UserFavoritesTests {
         userFavorites().removeFirstFavoriteItem();
         userFavorites().refresh();
         userFavorites().checkEmptyFavorites();
-    }
-
-    @CaseId(1269)
-    @Skip
-    //В избранном нет фильтров
-    @Test(description = "Проверка работоспособности фильтров Любимых товаров", groups = "regression")
-    public void successApplyFilters() {
-        final UserData userData = UserManager.getQaUser();
-        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        apiHelper.addFavorites(userData, DEFAULT_METRO_MOSCOW_SID, 10);
-
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
-        userFavorites().goToPage();
-        userFavorites().checkNotEmptyFavorites();
-        userFavorites().checkAllGoodsActive();
-        userFavorites().filterInStock();
-        userFavorites().checkInStockActive();
-        userFavorites().filterOutOfStock();
-        userFavorites().checkOutOfStockActive();
     }
 
     @CaseId(1270)
@@ -217,6 +193,6 @@ public final class UserFavoritesTests {
         userFavorites().goToPage();
         userFavorites().interactHeader().checkEnteredAddressIsVisible();
         userFavorites().openCartForFirstFavoriteItem();
-        userFavorites().interactProductCart().checkBuyButtonInActive();
+        userFavorites().interactProductCart().checkBuyButtonInactive();
     }
 }

@@ -4,6 +4,7 @@ import com.google.common.base.Joiner;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.devtools.v103.performance.model.Metric;
 import org.openqa.selenium.logging.LogType;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.KrakenParams;
@@ -12,6 +13,7 @@ import ru.instamart.reforged.core.cdp.CdpCookie;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.StringJoiner;
 
 import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
@@ -102,6 +104,26 @@ public final class CustomReport {
             }
             sb.append(delimiter);
         }
+
+        return sb.toString();
+    }
+
+    @Attachment(value = "Performance Metrics", type = "text/plain")
+    public static String addPerfMetrics(final List<Metric> metrics) {
+        final int maxLineLength = metrics.stream().map(Metric::getName).mapToInt(String::length).max().orElse(0);
+        final var sb = new StringBuilder();
+        final var delimiter = '+' + Joiner
+                .on('+')
+                .join(joinLine(maxLineLength),
+                        joinLine(20)) + "+\n";
+        sb.append(delimiter);
+        sb.append(String.format("|%-" + maxLineLength + "s|%-20s|%n", "Name", "Value"));
+        sb.append(delimiter);
+
+        metrics.forEach(metric -> {
+            sb.append(String.format("|%-" + maxLineLength + "s|%-20s|%n", metric.getName(), metric.getValue()));
+            sb.append(delimiter);
+        });
 
         return sb.toString();
     }

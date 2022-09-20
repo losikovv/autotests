@@ -18,6 +18,16 @@ public final class Addresses {
             return "Москва, просп. Мира, 211, стр. 1";
         }
 
+        /**
+         * @see <a href="https://wiki.sbmt.io/pages/viewpage.action?pageId=3027049649">Тестовые заказы на проде</a>
+         * По адресу, Мытищи, посёлок Нагорное, Центральная 5а, высвечиваются и 3 реальных магазина Selgross один из Metro и один из Ашан.
+         * Первый по списку Metro - тестовый и первый по списку Ашан тестовый. Остальные магазины тестовые (выделены в рамки)
+         * @return - адрес для тестирования на проде
+         */
+        public static String trainingAddressProd() {
+            return "Мытищи, посёлок Нагорное, Центральная 5а";
+        }
+
         public static String defaultAddressProdRest() {
             return "Москва, Обучение, 1";
         }

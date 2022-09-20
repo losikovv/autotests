@@ -126,6 +126,11 @@ public final class CheckoutPage implements StfPage, CheckoutCheck {
         return Integer.toString(StringUtil.extractNumberFromString(positionsCount.getText()));
     }
 
+    @Step("Получаем значение количества позиций в корзине")
+    public int getPositionsCountProd() {
+        return StringUtil.extractNumberFromString(positionsCount.getText());
+    }
+
     @Override
     @Step("Открыть старницу чекаута")
     public String pageUrl() {

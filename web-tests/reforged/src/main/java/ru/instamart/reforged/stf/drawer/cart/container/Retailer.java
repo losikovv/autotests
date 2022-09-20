@@ -26,6 +26,7 @@ public final class Retailer extends Container {
 
     private final InnerElement name = new InnerElement(getContainer(), By.xpath(".//div[@class='cart-retailer-details__name']"), "Название магазина");
     private final InnerElement itemsCountInHeader = new InnerElement(getContainer(), By.xpath("(.//div[@class='cart-retailer-details__well'])[1]"), "Количество позиций товара в шапке");
+    private final InnerElement itemsCountInHeaderProd = new InnerElement(getContainer(), By.xpath(".//div[contains(@class,'MultiSearchCartHeader_kebab')]/span[1]"), "Количество позиций товара в шапке");
     private final InnerElement totalWeight = new InnerElement(getContainer(), By.xpath(".//div[@class='cart-retailer-details__weight']"), "Общий вес заказа");
     private final InnerElement totalAmount = new InnerElement(getContainer(), By.xpath("(.//div[@class='cart-retailer-details__well'])[2]"), "Общая стоимость заказа");
     private final InnerElement nearestDeliveryInfo = new InnerElement(getContainer(), By.xpath("(.//div[@class='cart-retailer-details__well'])[2]"), "Информация о доставке");
@@ -95,6 +96,11 @@ public final class Retailer extends Container {
     @Step("Получаем количество продуктов, указанное в шапке магазина")
     public String getItemsCountInHeader() {
         return itemsCountInHeader.getText();
+    }
+
+    @Step("Получаем количество продуктов, указанное в шапке магазина")
+    public int getItemsCountInHeaderProd() {
+        return StringUtil.extractNumberFromString(itemsCountInHeaderProd.getText());
     }
 
     @Step("Получаем итоговый вес продуктов, указанный в шапке магазина ")

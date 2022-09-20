@@ -49,6 +49,13 @@ public final class ElementCollection extends CollectionComponent {
         webElement.click();
     }
 
+    public void clickOnFirst(final String args) {
+        setBy(ByKraken.xpathExpression(((ByKraken)getBy()).getDefaultXpathExpression(), args));
+        log.debug("Click first {} with locator {}", getDescription(), getBy());
+        final var webElement = getComponents().stream().findFirst().orElseThrow();
+        webElement.click();
+    }
+
     public void scrollToLast() {
         log.debug("Scroll to last {} with locator {}", getDescription(), getBy());
         final WebElement webElement = getComponents().stream().reduce((first, second) -> second).orElseThrow();

@@ -19,21 +19,6 @@ public interface UserFavoritesCheck extends Check, UseFavoritesElement {
         waitAction().shouldNotBeVisible(emptyFavorites);
     }
 
-    @Step("Проверяем что активен фильтр Все товары")
-    default void checkAllGoodsActive() {
-        assertEquals(activeElementFilter.getText(), allGoods.getText(), "Фильтр Все товары не активен");
-    }
-
-    @Step("Проверяем что активен фильтр В наличии")
-    default void checkInStockActive() {
-        assertEquals(activeElementFilter.getText(), inStock.getText(), "Фильтр В наличии не активен");
-    }
-
-    @Step("Проверяем что активен фильтр Нет в наличии")
-    default void checkOutOfStockActive() {
-        assertEquals(activeElementFilter.getText(), outOfStock.getText(), "Фильтр Нет в наличии не активен");
-    }
-
     @Step("Проверяем что подгрузились избранные товары")
     default void checkCountLess(final int initCount, final int finalCount) {
         assertTrue(initCount < finalCount, "Товары не подгрузились");

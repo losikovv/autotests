@@ -52,16 +52,18 @@ tests:AdminUiRegress:
   after_script:
     - bash ./report.sh reforged ui-admin-regress
 
-# tests:prodUiSmoke:
-#   extends:
-#     - ".template_ui_tests"
-#     - ".template_run_all_jobs_at_a_time_on_master"
-#   needs:
-#     - "tests:prodApiInstamart"
-#   script:
-#     - gradle clean build uiSmokeProduction
-#   after_script:
-#    - bash ./report.sh reforged ui-smoke-production
+tests:prodUiSmoke:
+  only:
+    refs:
+      - schedules
+    variables:
+      - $STF_PROD_SMOKE == 'true'
+  extends:
+    - ".template_ui_tests"
+  script:
+    - gradle clean build uiSmokeProduction
+  after_script:
+   - bash ./report.sh reforged ui-smoke-production
 
 #tests:prodUiSmokeAdmin:
 #  extends:

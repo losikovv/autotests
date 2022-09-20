@@ -1,0 +1,91 @@
+package ru.instamart.test.reforged.stf_prod.user;
+
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import org.testng.annotations.Test;
+import ru.instamart.kraken.data.Addresses;
+import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.config.UiProperties;
+import ru.instamart.reforged.core.report.Metrics;
+import ru.sbermarket.qase.annotation.CaseId;
+
+import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
+
+@Epic("STF UI")
+@Feature("Регистрация пользователя")
+public final class UserRegistrationTests {
+
+    @Metrics
+    @CaseId(1541)
+    @Story("Регистрация на лендинге")
+    @Test(description = "Регистрация нового пользователя на лендинге", groups = {STF_PROD_S})
+    public void successRegOnLanding() {
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        home().checkLogoutButtonDisplayed();
+    }
+
+    @Metrics
+    @CaseId(1543)
+    @Story("Регистрация на странице ретейлера")
+    @Test(description = "Регистрация нового пользователя на витрине магазина", groups = {STF_PROD_S})
+    public void successRegOnMainPage() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().interactHeader().checkProfileButtonVisible();
+    }
+
+    @Metrics
+    @CaseId(1545)
+    @Test(description = "Тест успешной регистрации без проставленной галки Получать выгодные предложения", groups = {STF_PROD_S})
+    public void successRegWithoutMailingCheckbox() {
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().uncheckPromoMailing();
+        home().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        home().checkLogoutButtonDisplayed();
+    }
+
+    @Metrics
+    @CaseId(2622)
+    @Story("Регистрация из корзины")
+    @Test(description = "Регистрация при попытке перехода из корзины в чекаут", groups = {STF_PROD_S})
+    public void successRegFromCartWithQuantityAndAmountCheck() {
+        home().goToPage();
+        home().clickToSetAddress();
+        home().interactAddressModal().checkYmapsReady();
+        home().interactAddressModal().fillAddress(Addresses.Moscow.trainingAddressProd());
+        home().interactAddressModal().selectFirstAddress();
+        home().interactAddressModal().checkMarkerOnMapInAdviceIsNotVisible();
+        home().interactAddressModal().clickFindStores();
+        home().interactAddressModal().checkAddressModalNotVisible();
+
+        home().clickOnStoreWithSid(UiProperties.DEFAULT_SID);
+
+        shop().waitPageLoad();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+        shop().plusFirstItemToCartProd();
+
+        shop().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().increaseFirstItemCountToMin();
+        final var orderAmount = shop().interactCart().getOrderAmount();
+        final var positionsCount = shop().interactCart().getFirstRetailer().getItemsCountInHeaderProd();
+
+        shop().interactCart().submitOrder();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        checkout().checkCheckoutButtonIsVisible();
+
+        final var orderAmountInCheckout = checkout().getOrderAmount();
+        final var positionsCountInCheckout = checkout().getPositionsCountProd();
+
+        checkout().compareOrderAmountAfterRegistration(orderAmount, orderAmountInCheckout);
+        checkout().comparePositionCountAfterRegistration(positionsCount, positionsCountInCheckout);
+
+        checkout().assertAll();
+    }
+}

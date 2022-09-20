@@ -29,6 +29,10 @@ public final class Should {
         Kraken.waitAction().shouldNotBeClickable(component);
     }
 
+    public void clickable() {
+        Kraken.waitAction().shouldBeClickable(component);
+    }
+
     public void notAnimated() {
         Kraken.waitAction().shouldNotBeAnimated(component);
     }

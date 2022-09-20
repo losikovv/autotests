@@ -35,12 +35,12 @@ public interface ProductCardCheck extends Check, ProductCardElement {
     }
 
     @Step("Кнопка 'Купить' отображается")
-    default void checkBuyButton() {
-        Kraken.waitAction().shouldBeVisible(buy);
+    default void checkBuyButtonVisible() {
+        buy.should().visible();
     }
 
     @Step("Кнопка 'Купить' отображается неактивной")
-    default void checkBuyButtonInActive() {
+    default void checkBuyButtonInactive() {
         Kraken.waitAction().shouldNotBeClickable(buy);
     }
 

@@ -134,4 +134,10 @@ public interface CheckoutCheck extends Check, CheckoutElement {
         krakenAssert.assertEquals(positionCountFromCart, positionCountFromCheckout,
                 "Количество позиций из корзины после регистрации не совпадает с ожидаемой");
     }
+
+    @Step("Сравниваем количество позиций до {positionCountFromCart} и после регистрации {positionCountFromCheckout}")
+    default void comparePositionCountAfterRegistration(final int positionCountFromCart, final int positionCountFromCheckout) {
+        krakenAssert.assertEquals(positionCountFromCart, positionCountFromCheckout,
+                "Количество позиций из корзины после регистрации не совпадает с ожидаемой");
+    }
 }
