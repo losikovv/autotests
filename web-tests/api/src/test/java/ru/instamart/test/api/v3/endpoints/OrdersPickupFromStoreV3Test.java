@@ -22,7 +22,7 @@ public class OrdersPickupFromStoreV3Test extends RestBase {
 
     @CaseId(861)
     @Story("Самовывоз")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v3"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на самовывоз Metro_Marketplace")
@@ -39,7 +39,7 @@ public class OrdersPickupFromStoreV3Test extends RestBase {
 
     @CaseId(1918)
     @Story("Самовывоз")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v3"},
             dataProvider = "Auchan",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на самовывоз Auchan")

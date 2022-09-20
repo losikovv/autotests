@@ -55,7 +55,7 @@ public class CheckoutPickupV3Test extends RestBase {
     @CaseIDs(value = {@CaseId(2026), @CaseId(2028)})
     @Story("Инициализация")
     @Test(description = "Запрос на инициализацию с заказом, созданным данным пользователем, самовывоз",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "api-v3"})
     public void initializeCheckoutWithPickup() {
         final Response response = CheckoutV3Request.Initialization.POST(order.getNumber(), Collections.singletonList(order.getShipments().get(0).getNumber()));
         checkStatusCode(response, 204);
@@ -64,7 +64,7 @@ public class CheckoutPickupV3Test extends RestBase {
     @CaseIDs(value = {@CaseId(2012), @CaseId(2014)})
     @Story("Валидация")
     @Test(description = "Запрос на валидацию с заказом, доступным для пользователя, самовывоз",
-            groups = "api-instamart-regress",
+            groups = {"api-instamart-regress", "api-v3"},
             dependsOnMethods = "initializeCheckoutWithPickup")
     public void validatePickupOrder() {
         final Response response = CheckoutV3Request.Validation.GET(order.getNumber());
@@ -74,7 +74,7 @@ public class CheckoutPickupV3Test extends RestBase {
     @CaseId(2047)
     @Story("Получение данных заказа")
     @Test(description = "Получение данных о заказе, содержащем алкоголь",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "api-v3"})
     public void getOrderWithAlcohol() {
         apiV1.authByPhone(user);
         apiV1.deleteShipment(order.getShipments().get(0).getNumber(), order.getToken());
@@ -94,7 +94,7 @@ public class CheckoutPickupV3Test extends RestBase {
     @CaseId(2516)
     @Story("Способы оплаты")
     @Test(description = "Сохранение способа оплаты по заказу c алкоголем",
-            groups = "api-instamart-regress",
+            groups = {"api-instamart-regress", "api-v3"},
             dependsOnMethods = "getOrderWithAlcohol")
     public void addPaymentToolsForOrderWithAlcohol() {
         PaymentToolV3 paymentTool = apiV3.getPaymentTools(order.getNumber()).get(0);
@@ -117,7 +117,7 @@ public class CheckoutPickupV3Test extends RestBase {
     @CaseId(2672)
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения с самовывоза на доставку для заказа с алкоголем",
-            groups = "api-instamart-regress",
+            groups = {"api-instamart-regress", "api-v3"},
             dependsOnMethods = "addPaymentToolsForOrderWithAlcohol")
     public void changeShippingMethodForOrderWithAlcohol() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()

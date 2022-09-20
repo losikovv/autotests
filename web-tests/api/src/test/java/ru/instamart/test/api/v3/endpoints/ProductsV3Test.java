@@ -43,7 +43,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1368)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"})
     public void getProductsWithValidSid() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_TID)
@@ -59,7 +59,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(2709)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "В категории больше или равно 3 дефолтных фильтров",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"})
     public void getProductsWithManyFilters() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_FILTERS_TID)
@@ -76,7 +76,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1369)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Несуществующий sid",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"})
     public void getProductsWithInvalidSid() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_TID)
@@ -89,7 +89,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1370)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"})
     public void getProductsWithValidSidAndQuery() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .query("хлеб")
@@ -110,7 +110,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1371)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по популярности",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"})
     public void getProductsSortedByPopularity() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .query("хлеб")
@@ -126,7 +126,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1372)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по возрастанию цены",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"})
     public void getProductsSortedByPriceAsc() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .query("хлеб")
@@ -142,7 +142,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1373)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по убыванию цены",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"})
     public void getProductsSortedByPriceDesc() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .query("хлеб")
@@ -158,7 +158,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1374)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по наличию скидки продукты",
-            groups = {"api-instamart-regress"}) //, "api-instamart-prod"}) todo отключили по ошибке каталога https://mattermost.sbermarket.tech/sbermarket/pl/rkm4xshmy3gj9p3eygj15trpwh
+            groups = {"api-instamart-regress", "api-v3"}) //, "api-instamart-prod", "api-v3"}) todo отключили по ошибке каталога https://mattermost.sbermarket.tech/sbermarket/pl/rkm4xshmy3gj9p3eygj15trpwh
     public void getProductsFilteredByDiscount() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .query("сыр")
@@ -178,7 +178,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1375)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по бренду продукты",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"})
     public void getProductsFilteredByBrand() {
         final String brandName = "metro";
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
@@ -201,7 +201,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1376)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по стране изготовителя продукты",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"})
     public void getProductsFilteredByCountry() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .query("сыр")
@@ -225,7 +225,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1377)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные по выгодному весу",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"})
     public void getProductsSortedByWeightPrice() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_TID)
@@ -242,7 +242,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1378)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по категории с последней страницы",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"})
     public void getProductWithTidAndPage() {
         String query = "хлеб";
         int lastPage = apiV3.getProductsTotalPages(query);
@@ -265,7 +265,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1379)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по запросу со второй страницы",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"})
     public void getProductWithQueryAndPage() {
         final Response responseFirstPage = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .query("хлеб")
@@ -292,7 +292,7 @@ public class ProductsV3Test extends RestBase {
     @CaseId(1380)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по запросу с несуществующей страницы",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"})
     public void getProductsOnNonExistingPage() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .query("хлеб")

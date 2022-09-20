@@ -46,7 +46,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Позиции заказа")
     @CaseId(945)
     @Test(description = "Заказ собран без изменений (все типы упаковок)",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v3"},
             dataProvider = "ordersWithDifferentPricers",
             dataProviderClass = ApiV3DataProvider.class)
     public void noChanges(OrderV2 order) {
@@ -81,7 +81,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Позиции заказа")
     @CaseId(874)
     @Test(description = "Собрано меньше изначального количества",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v3"},
             dataProvider = "ordersWithDifferentPricers",
             dataProviderClass = ApiV3DataProvider.class)
     public void less(OrderV2 order) {
@@ -116,7 +116,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Позиции заказа")
     @CaseId(875)
     @Test(description = "Собрано больше изначального количества",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v3"},
             dataProvider = "ordersWithDifferentPricers",
             dataProviderClass = ApiV3DataProvider.class)
     public void more(OrderV2 order) {
@@ -151,7 +151,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Передача точного веса")
     @CaseId(949)
     @Test(description = "Вес передан ритейлером (весовые товары)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v3"})
     public void weightKilo() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_KILO);
@@ -197,7 +197,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Передача точного веса")
     @CaseId(1959)
     @Test(description = "Вес передан ритейлером (фасованные товары)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v3"})
     public void weightPackage() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_PACKAGE);
@@ -243,7 +243,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Передача точного веса")
     @CaseId(950)
     @Test(description = "Вес передан ритейлером (штучные товары)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v3"})
     public void weightItem() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_ITEM);
@@ -288,7 +288,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Передача точного веса")
     @CaseId(1960)
     @Test(description = "Вес передан ритейлером (упаковки)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v3"})
     public void weightPack() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_PACK);
@@ -333,7 +333,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Передача точного веса")
     @CaseId(2042)
     @Test(description = "Передан 0 вес ритейлером (штучные товары)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v3"})
     public void weightNullItem() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_ITEM);
@@ -377,7 +377,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Передача точного веса")
     @CaseId(2043)
     @Test(description = "Передан 0 вес ритейлером (упаковки)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v3"})
     public void weightNullPack() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_PACK);
@@ -421,7 +421,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Передача точного веса")
     @CaseId(976)
     @Test(description = "Передано 0 квантов при не 0 весе ритейлером (весовые)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v3"})
     public void weightNotNullKilo() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_KILO);
@@ -467,7 +467,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Передача точного веса")
     @CaseId(1959)
     @Test(description = "Передано 0 квантов при не 0 весе ритейлером (фасованные)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v3"})
     public void weightNotNullPackage() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_PACKAGE);
@@ -513,7 +513,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Передача точного веса")
     @CaseId(1092)
     @Test(description = "Собрано меньше 1 кванта (весовые товары)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v3"})
     public void weightLessKilo() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_KILO);
@@ -559,7 +559,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     @Story("Передача точного веса")
     @CaseId(1961)
     @Test(description = "Собрано меньше 1 кванта (фасованные товары)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v3"})
     public void weightLessPackage() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_PACKAGE);

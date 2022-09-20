@@ -24,7 +24,7 @@ public class DepartmentsV3Test extends RestBase {
 
     @Skip //todo разобраться почему в метро обучение на проде возвращается пустой массов
     @CaseId(2364)
-    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod", "api-v3"},
             description = "Получение списка департаментов")
     public void getDepartments()  {
         Response response = DepartmentsV3Request.GET(sid);
@@ -35,7 +35,7 @@ public class DepartmentsV3Test extends RestBase {
 
     @Skip //todo разобраться почему в метро обучение на проде возвращается пустой массов
     @CaseId(2365)
-    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod", "api-v3"},
             description = "Получение информации о категории",
             dependsOnMethods = "getDepartments")
     public void getDepartment()  {

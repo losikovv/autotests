@@ -15,7 +15,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class SetupInfoV3Test extends RestBase {
 
     @CaseId(670)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"},
             description = "Справка об интеграции")
     public void getSetupInfo() {
         Response response = SetupInfoV3Request.GET();
@@ -23,7 +23,7 @@ public class SetupInfoV3Test extends RestBase {
     }
 
     @CaseId(671)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"},
             description = "Доступный магазины")
     public void getSetupInfoStores() {
         Response response = SetupInfoV3Request.Stores.GET();
