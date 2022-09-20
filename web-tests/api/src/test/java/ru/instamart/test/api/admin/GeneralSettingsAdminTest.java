@@ -20,7 +20,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode3
 public class GeneralSettingsAdminTest extends RestBase {
 
     @CaseId(1829)
-    @Test(groups = {"api-instamart-regress"}, description = "Изменение основных настроек")
+    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Изменение основных настроек")
     public void updateGeneralSettings() {
         admin.auth();
         GeneralSettingsAdminRequest.Settings  settings = GeneralSettingsAdminRequest.Settings.builder()

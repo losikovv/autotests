@@ -35,7 +35,7 @@ public class ManufacturersAdminTest extends RestBase {
     @CaseId(1824)
     @Skip
     @Story("Производители")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о производителях",
             priority = 1)
     public void getManufacturers200() {
@@ -45,7 +45,7 @@ public class ManufacturersAdminTest extends RestBase {
 
     @CaseId(1825)
     @Skip
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание производителя")
     public void postManufacturers302() {
         final Response response = ManufacturersRequest.POST(name);
@@ -56,7 +56,7 @@ public class ManufacturersAdminTest extends RestBase {
 
     @CaseId(1826)
     @Skip
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование производителя", dependsOnMethods = "postManufacturers302")
     public void patchManufacturers302() {
         name = "AutoTest_" + Generate.string(10);
@@ -72,7 +72,7 @@ public class ManufacturersAdminTest extends RestBase {
 
     @CaseId(1827)
     @Skip
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление производителя", dependsOnMethods = "patchManufacturers302")
     public void delManufacturers302() {
         final Response response = ManufacturersRequest.POST("delete", manufacturers.getId().toString());

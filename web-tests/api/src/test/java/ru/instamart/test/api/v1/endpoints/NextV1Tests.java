@@ -27,7 +27,7 @@ import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
 public class NextV1Tests extends RestBase {
 
     @CaseId(2317)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
             description = "Получение фронтенд конфигурации")
     public void getAppConfig() {
         final Response response = NextV1Request.AppConfig.GET();
@@ -36,7 +36,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2318)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение динамического пути для next js роутинга")
     public void getDynamicRouteType() {
         final Response response = NextV1Request.DynamicRouteType.GET("metro?sid=" + EnvironmentProperties.DEFAULT_SID);
@@ -53,7 +53,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2320)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение данных для серверного рендеринга / футер")
     public void getPageFooter() {
         final Response response = NextV1Request.Footer.GET();
@@ -67,7 +67,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2321)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение данных для head из браузера")
     public void getPageBrowserHead() {
         final Response response = NextV1Request.BrowserHead.GET();
@@ -77,7 +77,7 @@ public class NextV1Tests extends RestBase {
 
     @CaseId(2322)
     @Skip
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение данных для рельсовых flash из браузера")
     public void getFlashes() {
         final Response response = NextV1Request.Flashes.GET();
@@ -86,7 +86,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2323)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение данных для страницы реферальной программы")
     public void getReferralProgram() {
         final Response response = NextV1Request.ReferralProgram.GET(getPromotionCode());
@@ -95,7 +95,7 @@ public class NextV1Tests extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @CaseId(2324)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение промо-карточек ретейлера")
     public void getRetailerPromoCards() {
         final Response response = NextV1Request.RetailerPromoCards.GET(1L);
@@ -107,7 +107,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2325)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение промо-карточек несуществующего ретейлера")
     public void getNonExistentRetailerPromoCards() {
         final Response response = NextV1Request.RetailerPromoCards.GET(0L);
@@ -116,7 +116,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2326)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение Welcome-баннеров ретейлера")
     public void getWelcomeBanners() {
         final Response response = NextV1Request.RetailerWelcomeBanners.GET(1L, "metro");
@@ -125,7 +125,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2327)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение Welcome-баннеров несуществующего ретейлера")
     public void getWelcomeBannersOfNonExistentRetailer() {
         final Response response = NextV1Request.RetailerWelcomeBanners.GET(0L, "metro");
@@ -134,7 +134,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2328)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение продукта с категориями и настройками для несуществующего permalink")
     public void getProductByNonExistentPermalink() {
         final Response response = NextV1Request.Permalink.GET("permalink");
@@ -142,7 +142,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2329)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение параметров редиректа для несуществующего permalink")
     public void getRedirectParamsByNonExistentPermalink() {
         final Response response = NextV1Request.RedirectParams.GET("permalink");
@@ -150,7 +150,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2330)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение сессии")
     public void getSession() {
         final Response response = NextV1Request.Session.GET("metro?sid=" + EnvironmentProperties.DEFAULT_SID);
@@ -159,7 +159,7 @@ public class NextV1Tests extends RestBase {
     }
 
     @CaseId(2331)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение списка активных трекеров")
     public void getTrackers() {
         final Response response = NextV1Request.Trackers.GET();

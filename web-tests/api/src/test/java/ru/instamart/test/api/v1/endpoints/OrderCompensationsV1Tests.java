@@ -55,7 +55,7 @@ public class OrderCompensationsV1Tests extends RestBase {
 
     @CaseId(2246)
     @Story("Компенсации")
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke", "api-v1"},
             description = "Получение информации о промо-компенсациях")
     public void getCompensationPromotions() {
         final Response response = PromotionsV1Request.CompensationPromotions.GET();
@@ -66,7 +66,7 @@ public class OrderCompensationsV1Tests extends RestBase {
 
     @CaseId(2247)
     @Story("Компенсация по заказу")
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke", "api-v1"},
             description = "Получение информации о доступной компенсациях для заказа")
     public void getCompensationsInfo() {
         final Response response = OrdersV1Request.Compensations.GET(order.getNumber());
@@ -79,7 +79,7 @@ public class OrderCompensationsV1Tests extends RestBase {
 
     @CaseId(2247)
     @Story("Компенсация по заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о доступной компенсациях для несуществующего заказа")
     public void getCompensationsInfoForNonExistentOrder() {
         final Response response = OrdersV1Request.Compensations.GET("failedOrderNumber");
@@ -89,7 +89,7 @@ public class OrderCompensationsV1Tests extends RestBase {
 
     @CaseId(2248)
     @Story("Компенсация по заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание компенсации",
             dependsOnMethods = {"getCompensationPromotions", "getCompensationsInfo"})
     public void createCompensation() {
@@ -113,7 +113,7 @@ public class OrderCompensationsV1Tests extends RestBase {
 
     @CaseId(2255)
     @Story("Компенсация по заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание компенсации с несуществующим промо",
             dependsOnMethods = {"getCompensationPromotions", "getCompensationsInfo"})
     public void createCompensationWithNonExistentPromotionId() {
@@ -133,7 +133,7 @@ public class OrderCompensationsV1Tests extends RestBase {
 
     @CaseId(2249)
     @Story("Компенсация по заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Подтверждение уже подтвержденной компенсации",
             dependsOnMethods = "createCompensation")
     public void approvePreviouslyApprovedCompensation() {
@@ -144,7 +144,7 @@ public class OrderCompensationsV1Tests extends RestBase {
 
     @CaseId(2250)
     @Story("Компенсация по заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Подтверждение компенсации",
             dependsOnMethods = "approvePreviouslyApprovedCompensation")
     public void approveCompensation() {
@@ -161,7 +161,7 @@ public class OrderCompensationsV1Tests extends RestBase {
 
     @CaseId(2256)
     @Story("Компенсация по заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Подтверждение несуществующей компенсации",
             dependsOnMethods = "approveCompensation")
     public void approveNonExistentCompensation() {
@@ -172,7 +172,7 @@ public class OrderCompensationsV1Tests extends RestBase {
 
     @CaseId(2251)
     @Story("Компенсация по заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о созданной компенсации по заказу",
             dependsOnMethods = "approveCompensation")
     public void getCompensation() {
@@ -185,7 +185,7 @@ public class OrderCompensationsV1Tests extends RestBase {
 
     @CaseId(2257)
     @Story("Компенсация по заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о несуществующей компенсации по заказу")
     public void getNonExistentCompensation() {
         final Response response = OrdersV1Request.Compensations.GET(order.getNumber(), 0L);

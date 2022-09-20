@@ -46,7 +46,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2545)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о надбавках к заказу")
     public void getAdjustments() {
         final Response response = AdjustmentsV1Request.GET(order.getNumber());
@@ -63,7 +63,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2546)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о надбавках к несуществующему заказу")
     public void getNonExistentAdjustments() {
         final Response response = AdjustmentsV1Request.GET("failedOrderNumber");
@@ -73,7 +73,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2547)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование информации о надбавке к заказу по id",
             dependsOnMethods = "getAdjustments")
     public void editAdjustment() {
@@ -83,7 +83,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2548)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование информации о несуществующей надбавке к заказу по id")
     public void editNonExistentAdjustment() {
         final Response response = AdjustmentsV1Request.PUT(order.getNumber(), 0L, 200, "Промоакция (ForAutoTest)2");
@@ -93,7 +93,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2549)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о надбавке к заказу по id",
             dependsOnMethods = "getAdjustments")
     public void getAdjustment() {
@@ -111,7 +111,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2550)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение информации о несуществующей надбавке к заказу по id")
     public void getNonExistentAdjustment() {
         final Response response = AdjustmentsV1Request.GET(order.getNumber(), 0L);
@@ -121,7 +121,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2551)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Закрытие надбавок",
             dependsOnMethods = "getAdjustment")
     public void closeAdjustments() {
@@ -132,7 +132,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2552)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Закрытие надбавок несуществующего заказа")
     public void closeNonExistentAdjustments() {
         final Response response = AdjustmentsV1Request.Close.POST("failedOrderNumber");
@@ -142,7 +142,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2553)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Открытие надбавок",
             dependsOnMethods = "closeAdjustments")
     public void openAdjustments() {
@@ -153,7 +153,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2554)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Открытие надбавок несуществующего заказа")
     public void openNonExistentAdjustments() {
         final Response response = AdjustmentsV1Request.Open.POST("failedOrderNumber");
@@ -163,7 +163,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2555)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Изменение статуса надбавки",
             dependsOnMethods = "openAdjustments")
     public void switchAdjustment() {
@@ -174,7 +174,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2556)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Изменение статуса несуществующей надбавки")
     public void switchNonExistentAdjustment() {
         final Response response = AdjustmentsV1Request.POST(order.getNumber(), 0L);
@@ -184,7 +184,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2557)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление надбавки",
             dependsOnMethods = "switchAdjustment")
     public void deleteAdjustment() {
@@ -195,7 +195,7 @@ public class AdjustmentsV1Test extends RestBase {
 
     @CaseId(2558)
     @Story("Надбавки к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление несуществующей надбавки")
     public void deleteNonExistentAdjustment() {
         final Response response = AdjustmentsV1Request.DELETE(order.getNumber(), 0L);

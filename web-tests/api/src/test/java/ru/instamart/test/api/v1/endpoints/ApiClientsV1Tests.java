@@ -36,7 +36,7 @@ public class ApiClientsV1Tests extends RestBase {
     }
 
     @CaseId(2697)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение API клиентов")
     public void getApiClients() {
         final Response response = ApiClientsV1Request.GET();
@@ -45,7 +45,7 @@ public class ApiClientsV1Tests extends RestBase {
     }
 
     @CaseId(2698)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение API клиентов со второй страницы")
     public void getApiClientsFromSecondPage() {
         final Response response = ApiClientsV1Request.GET(null, 2);
@@ -54,7 +54,7 @@ public class ApiClientsV1Tests extends RestBase {
     }
 
     @CaseId(2699)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание API клиента")
     public void createApiClient() {
         ApiClientsV1Request.ApiClientRequest apiClient = ApiClientsV1Request.ApiClientRequest.builder()
@@ -78,7 +78,7 @@ public class ApiClientsV1Tests extends RestBase {
     }
 
     @CaseId(2700)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание API клиента без client_id")
     public void createApiClientWithoutClientId() {
         ApiClientsV1Request.ApiClientRequest apiClient = ApiClientsV1Request.ApiClientRequest.builder()
@@ -98,7 +98,7 @@ public class ApiClientsV1Tests extends RestBase {
     }
 
     @CaseId(2701)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование API клиента",
             dependsOnMethods = "createApiClient")
     public void editApiClient() {
@@ -122,7 +122,7 @@ public class ApiClientsV1Tests extends RestBase {
     }
 
     @CaseId(2702)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование несуществующего API клиента")
     public void editNonExistentApiClient() {
         ApiClientsV1Request.ApiClientRequest apiClient = ApiClientsV1Request.ApiClientRequest.builder()
@@ -136,7 +136,7 @@ public class ApiClientsV1Tests extends RestBase {
     }
 
     @CaseId(2705)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение API клиента",
             dependsOnMethods = "editApiClient")
     public void getApiClient() {
@@ -148,7 +148,7 @@ public class ApiClientsV1Tests extends RestBase {
     }
 
     @CaseId(2703)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение несуществующего API клиента")
     public void getNonExistentApiClient() {
         final Response response = ApiClientsV1Request.GET(99999L);
@@ -157,7 +157,7 @@ public class ApiClientsV1Tests extends RestBase {
     }
 
     @CaseId(2704)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение API клиентов по запросу",
             dependsOnMethods = "editApiClient")
     public void getSpecificApiClients() {
@@ -169,7 +169,7 @@ public class ApiClientsV1Tests extends RestBase {
     }
 
     @CaseId(2706)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление API клиента",
             dependsOnMethods = "getSpecificApiClients")
     public void deleteApiClient() {
@@ -181,7 +181,7 @@ public class ApiClientsV1Tests extends RestBase {
     }
 
     @CaseId(2707)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление несуществующего API клиента",
             dependsOnMethods = "getSpecificApiClients")
     public void deleteNonExistentApiClient() {

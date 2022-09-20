@@ -30,7 +30,7 @@ public class PhoneConfirmationsV1Tests extends RestBase {
     @CaseId(1512)
     @Story("Авторизация по номеру телефона")
     @Test(description = "Отправляем запрос на получение смс с кодом",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-v1"})
     public void postPhoneConfirmations() {
         final Response response = PhoneConfirmationsV1Request.POST(PhoneCrypt.INSTANCE.encryptPhone(phoneNumber));
         checkStatusCode200(response);
@@ -41,7 +41,7 @@ public class PhoneConfirmationsV1Tests extends RestBase {
     @CaseIDs(value = {@CaseId(1516), @CaseId(1518)})
     @Story("Авторизация по номеру телефона")
     @Test(description = "Получение токена авторизации по номеру телефона и коду из смс",
-            groups = {"api-instamart-smoke"},
+            groups = {"api-instamart-smoke", "api-v1"},
             dependsOnMethods = "postPhoneConfirmations")
     public void putPhoneConfirmations() {
         final Response response = PhoneConfirmationsV1Request.PUT(phoneNumber, Integer.valueOf(CoreProperties.DEFAULT_UI_SMS));
@@ -51,7 +51,7 @@ public class PhoneConfirmationsV1Tests extends RestBase {
 
     @CaseId(1514)
     @Story("Инициация отправки кода подтверждения")
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke", "api-v1"},
             description = "Инициировать отправку кода подтверждения. Пользователь существует с указанным phone")
     public void postPhoneConfirmationsWithExistentPhone() {
         final Response response = PhoneConfirmationsV1Request.POST(UserManager.getQaUser().getEncryptedPhone());
@@ -62,7 +62,7 @@ public class PhoneConfirmationsV1Tests extends RestBase {
 
     @CaseId(1513)
     @Story("Инициация отправки кода подтверждения")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Инициировать отправку кода подтверждения  с невалидным значением для phone")
     public void postPhoneConfirmationsWithInvalidPhone() {
         final Response response = PhoneConfirmationsV1Request.POST(PhoneCrypt.INSTANCE.encryptPhone("invalidPhoneNumber"));
@@ -71,7 +71,7 @@ public class PhoneConfirmationsV1Tests extends RestBase {
 
     @CaseId(1517)
     @Story("Подтверждение телефона кодом")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Подтверждение телефона кодом с невалидным номером")
     public void confirmPhonesWithInvalidNumber() {
         final Response response = PhoneConfirmationsV1Request.PUT("invalidPhoneNumber", 111);
@@ -80,7 +80,7 @@ public class PhoneConfirmationsV1Tests extends RestBase {
 
     @CaseId(1519)
     @Story("Подтверждение телефона кодом")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Подтверждение телефона кодом с валидным номером без запроса")
     public void confirmPhonesWithValidPhone() {
         final Response response = PhoneConfirmationsV1Request.PUT(Generate.phoneNumber(), Integer.valueOf(CoreProperties.DEFAULT_UI_SMS));

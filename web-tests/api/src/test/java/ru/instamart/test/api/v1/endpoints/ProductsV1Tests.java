@@ -26,7 +26,7 @@ public class ProductsV1Tests extends RestBase {
     @CaseId(45)
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте",
-            groups = {"api-instamart-regress", "api-instamart-smoke"})
+            groups = {"api-instamart-regress", "api-instamart-smoke", "api-v1"})
     public void getProductInfo() {
         SpreeProductsEntity spreeProductsEntity = SpreeProductsDao.INSTANCE.getProduct();
         final Response response = StoresV1Request.Products.GET(EnvironmentProperties.DEFAULT_SID, spreeProductsEntity.getPermalink());
@@ -45,7 +45,7 @@ public class ProductsV1Tests extends RestBase {
     @Story("Получить данные о продукте")
     @Test(enabled = false,
             description = "Получаем данные о продукте",
-            groups = {"api-instamart-prod"})
+            groups = {"api-instamart-prod", "api-v1"})
     public void getProductInfoProd() {
         final Response response = StoresV1Request.Products.GET(EnvironmentProperties.DEFAULT_SID, "banany-a0c7489");
         checkStatusCode200(response);
@@ -55,7 +55,7 @@ public class ProductsV1Tests extends RestBase {
     @CaseId(1381)
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте c несуществующим permalink",
-            groups = {"api-instamart-regress", "api-instamart-smoke", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-smoke", "api-instamart-prod", "api-v1"})
     public void getProductInfoWithInvalidPermalink() {
         final Response response = StoresV1Request.Products.GET(EnvironmentProperties.DEFAULT_SID, "fgdgdfgdfgdfg");
         checkStatusCode200(response);

@@ -38,7 +38,7 @@ public class StatesV1Test extends RestBase {
     }
 
     @CaseId(2067)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение списка регионов")
     public void getAllStates() {
         final Response response = StatesAdminV1Request.GET(1L);
@@ -49,7 +49,7 @@ public class StatesV1Test extends RestBase {
     }
 
     @CaseId(2068)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание нового региона")
     public void createState() {
         String name = "Autotest-" + Generate.literalString(6);
@@ -63,7 +63,7 @@ public class StatesV1Test extends RestBase {
     }
 
     @CaseId(2069)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание нового региона с пустым названием")
     public void createStateWithEmptyName() {
         String name = "Autotest-" + Generate.literalString(6);
@@ -74,7 +74,7 @@ public class StatesV1Test extends RestBase {
     }
 
     @CaseId(2070)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование региона",
             dependsOnMethods = "createState")
     public void editState() {
@@ -91,7 +91,7 @@ public class StatesV1Test extends RestBase {
     }
 
     @CaseId(2071)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование региона с пустым именем",
             dependsOnMethods = "createState")
     public void editStateWithoutName() {
@@ -102,7 +102,7 @@ public class StatesV1Test extends RestBase {
     }
 
     @CaseId(2694)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование несуществующего региона")
     public void editNonExistentState() {
         final Response response = StatesAdminV1Request.PATCH(1L, 0L, "", "Autotest-" + Generate.literalString(6));
@@ -111,7 +111,7 @@ public class StatesV1Test extends RestBase {
     }
 
     @CaseId(2693)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение региона",
             dependsOnMethods = {"editStateWithoutName", "editState"})
     public void getState() {
@@ -122,7 +122,7 @@ public class StatesV1Test extends RestBase {
     }
 
     @CaseId(2695)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение несуществующего региона")
     public void getNonExistentState() {
         final Response response = StatesAdminV1Request.GET(1L, 0L);
@@ -132,7 +132,7 @@ public class StatesV1Test extends RestBase {
 
     @Skip //todo починить 403 (похоже не хватает какой-то роли админу)
     @CaseId(2072)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление региона",
             dependsOnMethods = "getState")
     public void deleteState() {
@@ -142,7 +142,7 @@ public class StatesV1Test extends RestBase {
     }
 
     @CaseId(2696)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление несуществующего региона")
     public void deleteNonExistentState() {
         final Response response = StatesAdminV1Request.DELETE(1L, 0L);

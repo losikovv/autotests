@@ -49,7 +49,7 @@ public final class OrderSidebarV1Test extends RestBase {
     @CaseId(2850)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Получение информации для сайдбара заказа",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getOrderDeliveryWindows() {
         admin.authApi();
 
@@ -66,7 +66,7 @@ public final class OrderSidebarV1Test extends RestBase {
     @CaseId(2851)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения информации для сайдбара заказа неавторизованным пользователем",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getOrderDeliveryWindowsUnauthenticated() {
         SessionFactory.clearSession(SessionType.API_V1);
 
@@ -77,7 +77,7 @@ public final class OrderSidebarV1Test extends RestBase {
     @CaseId(2852)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения информации для сайдбара заказа пользователем без прав администратора",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getOrderDeliveryWindowsUnauthorized() {
         apiV1.authByPhone(UserManager.getQaUser());
 
@@ -88,7 +88,7 @@ public final class OrderSidebarV1Test extends RestBase {
     @CaseId(2853)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения информации для сайдбара несуществующего заказа",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getOrderDeliveryWindowsNotFound() {
         admin.authApi();
 

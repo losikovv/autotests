@@ -32,7 +32,7 @@ public class FaqGroupsAdminTest extends RestBase {
     }
 
     @CaseId(2193)
-    @Test(groups = {"api-instamart-regress"}, description = "Получение списка групп FAQ")
+    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Получение списка групп FAQ")
     public void getAllFaqGroups() {
         final Response response = FaqGroupsAdminRequest.GET();
         checkStatusCode(response, 200, ContentType.HTML);

@@ -50,7 +50,7 @@ public class StoreSchedulesV1Tests extends RestBase {
     @Story("Шаблоны слотов")
     @CaseId(2803)
     @Test(description = "Получение шаблонов слотов. Шаблоны присутствуют",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getStoreSchedules() {
         final Response response = StoreSchedulesV1Request.Schedules.GET(EnvironmentProperties.DEFAULT_SID);
 
@@ -64,7 +64,7 @@ public class StoreSchedulesV1Tests extends RestBase {
     @Story("Шаблоны слотов")
     @CaseId(2804)
     @Test(description = "Получение шаблонов слотов. Шаблоны отсутствуют (не загружены)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getStoreSchedulesEmpty() {
         final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
         admin.auth();
@@ -82,7 +82,7 @@ public class StoreSchedulesV1Tests extends RestBase {
     @Story("Шаблоны слотов")
     @CaseId(2805)
     @Test(description = "Получение шаблонов слотов. Магазин не существует",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getStoreSchedulesIncorrectSid() {
         final Response response = StoreSchedulesV1Request.Schedules.GET(Generate.integer(6));
 
@@ -94,7 +94,7 @@ public class StoreSchedulesV1Tests extends RestBase {
     @Story("Шаблоны слотов")
     @CaseId(2806)
     @Test(description = "Добавление шаблонов слотов",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void postStoreSchedules() {
         final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
         admin.auth();
@@ -112,7 +112,7 @@ public class StoreSchedulesV1Tests extends RestBase {
     @Story("Шаблоны слотов")
     @CaseId(2807)
     @Test(description = "Редактирование/Удаление шаблонов слотов",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void putStoreSchedules() {
         final StoresAdminRequest.Stores store = getStoreForRetailerTests(retailerName, "Москва");
         admin.auth();

@@ -31,7 +31,7 @@ public class PromotionDetailsV1Test extends RestBase {
     }
 
     @Test(description = "Получение деталей промокода",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getPromotionDetails() {
         List<PromotionCodesEntity> promoCodes = PromotionCodesDao.INSTANCE.findAll(PromotionCodesFilters.builder()
                 .value("auto%")

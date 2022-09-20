@@ -66,7 +66,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(122)
     @Test(description = "Контрактный тест списка ритейлеров для shopper-бэкенда",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
     public void getRetailers() {
         final Response response = RetailersV1Request.GET(new RetailersV1Request.RetailerParams());
         checkStatusCode200(response);
@@ -80,7 +80,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(123)
     @Test(description = "Контрактный тест ритейлера для shopper-бэкенда",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "retailersSpree-parallel")
     public void getRetailer(RetailerV2 retailer) {
@@ -92,7 +92,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(124)
     @Test(description = "Контрактный тест списка штрихкодов у ритейлера для shopper-бэкенда",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "retailersSpree-parallel")
     public void getRetailerEans(RetailerV2 retailer) {
@@ -104,7 +104,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1273)
     @Test(description = "Получение списка ритейлеров по региону",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-v1"})
     public void getRetailersByOperationalZones() {
         Long operationalZoneId = OperationalZonesDao.INSTANCE.getIdByName("Москва");
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
@@ -120,7 +120,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseIDs(value = {@CaseId(1277), @CaseId(1284), @CaseId(1288), @CaseId(1296)})
     @Test(description = "Получение списка ритейлеров с несуществующими параметрами",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             dataProvider = "incorrectRetailerParams",
             dataProviderClass = RestDataProvider.class)
     public void getRetailersByNonExistingOperationalZones(RetailersV1Request.RetailerParams retailerParams) {
@@ -134,7 +134,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseIDs(value = {@CaseId(1278), @CaseId(1279), @CaseId(1280), @CaseId(1281), @CaseId(1282), @CaseId(1283)})
     @Test(description = "Получение списка ритейлеров по имени",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             dataProvider = "retailerNameData",
             dataProviderClass = RestDataProvider.class)
     public void getRetailersByName(String retailerName) {
@@ -150,7 +150,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1285)
     @Test(description = "Получение списка ритейлеров по имени (пробел)",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getRetailersBySpaceInName() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
                 .nameCont(" ")
@@ -164,7 +164,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1286)
     @Test(description = "Получение ритейлера по id",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getRetailersById() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
                 .retailerId(SpreeRetailersDao.INSTANCE.getIdBySlug("auchan"))
@@ -179,7 +179,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1287)
     @Test(description = "Получение ритейлеров по нескольким id",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getRetailersByIds() {
         final Response response = RetailersV1Request.GET(Stream.of(SpreeRetailersDao.INSTANCE.getIdBySlug("auchan"),
                 SpreeRetailersDao.INSTANCE.getIdBySlug("metro")).collect(Collectors.toList()));
@@ -198,7 +198,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1289)
     @Test(description = "Получение доступных ритейлеров",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
     public void getActiveRetailers() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
                 .active(true)
@@ -216,7 +216,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1290)
     @Test(description = "Получение недоступных ритейлеров",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
     public void getInactiveRetailers() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
                 .active(false)
@@ -233,7 +233,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1291)
     @Test(description = "Получение ритейлеров, отсортированных по имени в возрастающем порядке",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             dependsOnMethods = "getRetailers")
     public void getRetailersSortedByNameAsc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
@@ -253,7 +253,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1292)
     @Test(description = "Получение ритейлеров, отсортированных по имени в убывающем порядке",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             dependsOnMethods = "getRetailers")
     public void getRetailersSortedByNameDesc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
@@ -273,7 +273,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1293)
     @Test(description = "Получение ритейлеров, отсортированных по дате создания в возрастающем порядке",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             dependsOnMethods = "getRetailers")
     public void getRetailersSortedByCreatedAtAsc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
@@ -289,7 +289,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1294)
     @Test(description = "Получение ритейлеров, отсортированных по дате создания в убывающем порядке",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             dependsOnMethods = "getRetailers")
     public void getRetailersSortedByCreatedAtDesc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
@@ -305,7 +305,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1295)
     @Test(description = "Получение ритейлеров с пагинацией",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
     public void getRetailersWithPagination() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
                 .page(2)
@@ -324,7 +324,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1297)
     @Test(description = "Получение ритейлеров с несколькими параметрами сортировки и фильтрации",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
     public void getRetailersWithAFewParams() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
                 .page(1)
@@ -348,7 +348,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1306)
     @Test(description = "Изменение позиций ритейлеров",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "getRetailers")
     public void changeRetailerPositions() {
         final Response response = RetailerPositionV1Request.PUT(retailers.get(1).getId(), retailers.get(0).getId());
@@ -366,7 +366,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1307)
     @Test(description = "Изменение позиций ритейлеров с несуществующими id ритейеров",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void changeRetailerPositionsForNonExistingRetailer() {
         final Response response = RetailerPositionV1Request.PUT(0, 111111);
         checkStatusCode422(response);
@@ -378,7 +378,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1310)
     @Test(description = "Создание ритейлера",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "getRetailersWithPagination")
     public void createRetailer() {
         RetailersV1Request.Retailer retailer = RetailersV1Request.getRetailer();
@@ -406,7 +406,7 @@ public class RetailersV1Tests extends RestBase {
     @CaseIDs(value = {@CaseId(1311), @CaseId(1312), @CaseId(1313), @CaseId(1314), @CaseId(1315), @CaseId(1316),
             @CaseId(1317), @CaseId(1318), @CaseId(1319), @CaseId(1320), @CaseId(1321), @CaseId(1322), @CaseId(1323)})
     @Test(description = "Создание ритейлера с невалидными параметрами",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dataProvider = "jsonWithoutParallel",
             dataProviderClass = JsonProvider.class)
     public void createRetailerWithInvalidParams(RestDataProvider.RetailerV1TestData testData) {
@@ -419,7 +419,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1325)
     @Test(description = "Редактирование ритейлера",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "createRetailer")
     public void editRetailer() {
         RetailersV1Request.Retailer retailer = RetailersV1Request.Retailer.builder()
@@ -449,7 +449,7 @@ public class RetailersV1Tests extends RestBase {
     @JsonDataProvider(path = "data/json_v1/api_v1_negative_edit_retailer_data.json", type = RestDataProvider.RetailerV1TestDataRoot.class)
     @CaseIDs(value = {@CaseId(1326), @CaseId(1327)})
     @Test(description = "Редактирование ритейлера с невалидными параметрами",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dataProvider = "jsonWithoutParallel",
             dataProviderClass = JsonProvider.class,
             dependsOnMethods = "createRetailer")
@@ -463,7 +463,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - ETA")
     @CaseId(1330)
     @Test(description = "Редактирование ETA для ритейлера",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "createRetailer")
     public void editEta() {
         final Response response = ProxyV1Request.PUT(retailerFromResponse.getId());
@@ -474,7 +474,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - ETA")
     @CaseId(1331)
     @Test(description = "Получение ETA для ритейлера",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "editEta")
     public void getEta() {
         final Response response = ProxyV1Request.GET(retailerFromResponse.getId());
@@ -492,7 +492,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1347)
     @Test(description = "Создание правил доступности слотов доставки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "createRetailer")
     public void createShippingPolicies() {
         ShippingPoliciesV1Request.ShippingPolicies shippingPolicies = getShippingPolicies(retailerFromResponse.getId());
@@ -507,7 +507,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1348)
     @Test(description = "Получение правила доступности слотов доставки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "createShippingPolicies")
     public void getShippingPolicy() {
         final Response response = ShippingPoliciesV1Request.GET(shippingPolicy.getId());
@@ -521,7 +521,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1349)
     @Test(description = "Получение правил доступности слотов доставки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "createShippingPolicies")
     public void getAllShippingPolicies() {
         final Response response = RetailersV1Request.ShippingPolicies.GET(retailerFromResponse.getSlug());
@@ -535,7 +535,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1350)
     @Test(description = "Получение несуществующего правила доступности слотов доставки",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
     public void getNonExistingShippingPolicy() {
         final Response response = ShippingPoliciesV1Request.GET(0L);
         checkStatusCode404(response);
@@ -546,7 +546,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1351)
     @Test(description = "Получение правил доступности слотов доставки для несуществующего ритейлера",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "createShippingPolicies")
     public void getAllShippingPoliciesForNonExistingRetailer() {
         final Response response = RetailersV1Request.ShippingPolicies.GET("fgdhgshsfghsgh");
@@ -558,7 +558,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseIDs(value = {@CaseId(2345), @CaseId(2349), @CaseId(2350), @CaseId(2351), @CaseId(2352)})
     @Test(description = "Создание правила доступности слотов доставки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dataProvider = "shippingPolicyRulesData",
             dataProviderClass = RestDataProvider.class,
             dependsOnMethods = {"createShippingPolicies", "getShippingPolicy", "getAllShippingPolicies"})
@@ -572,7 +572,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(2356)
     @Test(description = "Создание правила доступности слотов доставки для несуществующего правила",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = {"createShippingPolicies", "getShippingPolicy", "getAllShippingPolicies"})
     public void createShippingPolicyRuleForNonExistentPolicy() {
         ShippingPoliciesV1Request.ShippingPolicyRules shippingPolicyRules = ShippingPoliciesV1Request.ShippingPolicyRules.builder()
@@ -590,7 +590,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1352)
     @Test(description = "Удаление правила доступности слотов доставки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = {"createShippingPolicyRule", "createShippingPolicyRuleForNonExistentPolicy"})
     public void deleteShippingPolicyRule() {
         Long shippingPolicyRuleId = shippingPolicy.getRules().get(0).getId();
@@ -606,7 +606,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1353)
     @Test(description = "Удаление несуществующего правила доступности слотов доставки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = {"createShippingPolicyRule", "createShippingPolicyRuleForNonExistentPolicy"})
     public void deleteNonExistingShippingPolicyRule() {
         final Response response = ShippingPoliciesV1Request.ShippingPoliciesRules.DELETE(shippingPolicy.getId(), 0L);
@@ -617,7 +617,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1354)
     @Test(description = "Редактирование правил доступности слотов доставки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = {"createShippingPolicies", "getShippingPolicy", "getAllShippingPolicies", "deleteShippingPolicyRule"})
     public void editShippingPolicies() {
         ShippingPolicyRulesDao.INSTANCE.deleteRulesByShippingPolicyId(shippingPolicy.getId());
@@ -632,7 +632,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1355)
     @Test(description = "Редактирование несуществующих правил доступности слотов доставки",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void editNonExistingShippingPolicies() {
         ShippingPoliciesV1Request.ShippingPolicies shippingPolicies = getShippingPolicies(0);
         final Response response = ShippingPoliciesV1Request.PUT(shippingPolicies, 0L);
@@ -644,7 +644,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1356)
     @Test(description = "Удаление правил доступности слотов доставки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "editShippingPolicies")
     public void deleteShippingPolicies() {
         final Response response = ShippingPoliciesV1Request.DELETE(shippingPolicy.getId());
@@ -658,7 +658,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Слоты доставки")
     @CaseId(1357)
     @Test(description = "Удаление правил доступности несуществующих слотов доставки",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void deleteNonExistingShippingPolicies() {
         final Response response = ShippingPoliciesV1Request.DELETE(0L);
         checkStatusCode404(response);
@@ -668,7 +668,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Соглашения")
     @CaseId(2339)
     @Test(description = "Получение списка соглашений ритейлеров",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
     public void getRetailerAgreements() {
         final Response response = RetailersV1Request.RetailerAgreements.GET();
         checkStatusCode200(response);
@@ -678,7 +678,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры - Соглашения")
     @CaseId(2340)
     @Test(description = "Получение списка типов контрактов ритейлеров",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
     public void getRetailerContractTypes() {
         final Response response = RetailersV1Request.RetailerContractTypes.GET();
         checkStatusCode200(response);

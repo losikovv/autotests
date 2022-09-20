@@ -37,7 +37,7 @@ public class UsersV1Test extends RestBase {
 
 
     @Test(description = "Получение пользователя по емейлу",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dataProvider = "userEmails",
             dataProviderClass = RestDataProvider.class)
     public void getUser(String email) {
@@ -51,7 +51,7 @@ public class UsersV1Test extends RestBase {
     }
 
     @Test(description = "Получение пользователя по номеру телефона",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getUserByPhone() {
         final Response response = UsersV1Request.GET("79000000001");
         checkStatusCode200(response);
@@ -64,7 +64,7 @@ public class UsersV1Test extends RestBase {
     }
 
     @Test(description = "Создание пользователя",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void createUser() {
         UsersV1Request.UserRequest user = UsersV1Request.UserRequest.builder()
                 .user(UsersV1Request.User.builder()
@@ -91,7 +91,7 @@ public class UsersV1Test extends RestBase {
 
 
     @Test(description = "Удаление пользователя",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "createUser")
     public void deleteUser() {
         final Response response = UsersV1Request.DELETE(userId);

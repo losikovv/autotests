@@ -31,7 +31,7 @@ public class MobileConfigsV1Test extends RestBase {
 
     @CaseId(2544)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование информации о настройках смс")
     public void editMobileConfigs() {
         mobileExtendId = RandomUtils.nextInt(1, 100);
@@ -44,7 +44,7 @@ public class MobileConfigsV1Test extends RestBase {
 
     @CaseId(2544)
     @Story("Конфигурация системы")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование информации о настройках смс",
             dependsOnMethods = "editMobileConfigs")
     public void getMobileConfigs() {

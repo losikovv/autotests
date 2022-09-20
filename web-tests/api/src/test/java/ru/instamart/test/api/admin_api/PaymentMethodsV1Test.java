@@ -28,7 +28,7 @@ public class PaymentMethodsV1Test extends RestBase {
     @CaseId(2809)
     @Story("Способы оплаты")
     @Test(description = "Получение способов оплаты",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getPaymentMethodsPositive() {
         List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getPaymentMethodsIds();
         admin.authApi();
@@ -41,7 +41,7 @@ public class PaymentMethodsV1Test extends RestBase {
     @CaseId(2810)
     @Story("Способы оплаты")
     @Test(description = "Попытка получения способов оплаты без авторизации",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getPaymentMethodsNegative401() {
         SessionFactory.clearSession(SessionType.API_V1);
         final Response response = PaymentMethodsRequest.GET();
@@ -52,7 +52,7 @@ public class PaymentMethodsV1Test extends RestBase {
     @CaseId(2811)
     @Story("Способы оплаты")
     @Test(description = "Попытка получения способов оплаты пользователем без админских прав",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getPaymentMethodsNegative403() {
         apiV1.authByPhone(UserManager.getQaUser());
         final Response response = PaymentMethodsRequest.GET();
@@ -63,7 +63,7 @@ public class PaymentMethodsV1Test extends RestBase {
     @CaseId(2823)
     @Story("Способы оплаты")
     @Test(description = "Изменение порядка отображения способов оплаты",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void updatePaymentMethodsPositions() {
         admin.authApi();
         Map<String, Integer> paymentMethodIdsAndPosition = new HashMap<>();
@@ -76,7 +76,7 @@ public class PaymentMethodsV1Test extends RestBase {
     @CaseId(2824)
     @Story("Способы оплаты")
     @Test(description = "Попытка изменение порядка отображения способов оплаты неавторизованным",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void updatePaymentMethodsPositionsNegative401() {
         SessionFactory.clearSession(SessionType.API_V1);
         Map<String, Integer> paymentMethodIdsAndPosition = new HashMap<>();
@@ -88,7 +88,7 @@ public class PaymentMethodsV1Test extends RestBase {
     @CaseId(2825)
     @Story("Способы оплаты")
     @Test(description = "Попытка изменения порядка отображения способов оплаты пользователем без админских прав",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void updatePaymentMethodsPositionsNegative403() {
         apiV1.authByPhone(UserManager.getQaUser());
         Map<String, Integer> paymentMethodIdsAndPosition = new HashMap<>();
@@ -100,7 +100,7 @@ public class PaymentMethodsV1Test extends RestBase {
     @CaseId(2526)
     @Story("Способы оплаты")
     @Test(description = "Попытка изменения порядка отображения способов оплаты некорректным запросом",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void updatePaymentMethodsPositionsNegative422() {
         admin.authApi();
         final Response response = PaymentMethodsRequest.POST();

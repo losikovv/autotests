@@ -43,7 +43,7 @@ public class LeftoversV1Test extends RestBase {
 
     @Skip // TODO: Сейчас 500-ая
     @CaseId(2310)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             //undefined method `shipments' for nil:NilClass , уточнить у Манаса, что еще требуется
             description = "Отображение таблицы товаров на стр. возвратов (sberpayments)")
     public void getLeftovers() {

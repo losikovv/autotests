@@ -45,7 +45,7 @@ public class UserOnDemandShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseId(1303)
     @Test(description = "Получение информации о заказе пользователя с быстрой доставкой в статусе ready - заказ задерживается",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-v1"})
     public void getReadyUserShipmentWithDelay()  {
         LocalDateTime date = LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(30));
         ShipmentDelaysDao.INSTANCE.updateNotificationDate(getDbDate(date), (long) order.getShipments().get(0).getId());
@@ -57,7 +57,7 @@ public class UserOnDemandShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseId(1336)
     @Test(description = "Получение информации о заказе пользователя с быстрой доставкой в статусе collecting - заказ задерживается",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "getReadyUserShipmentWithDelay")
     public void getCollectingUserShipmentWithDelay()  {
         SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.COLLECTING.getValue());
@@ -69,7 +69,7 @@ public class UserOnDemandShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseId(1337)
     @Test(description = "Получение информации о заказе пользователя с быстрой доставкой в статусе shipping - заказ задерживается",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "getCollectingUserShipmentWithDelay")
     public void getShippingUserShipmentWithDelay()  {
         SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.SHIPPING.getValue());

@@ -45,7 +45,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Story("Маркетинговые сэмплы")
     @CaseId(978)
     @Test(description = "Получение списка всех маркетинговых сэмплов",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getMarketingSamples() {
         final Response response = MarketingSamplesV1Request.GET();
         checkStatusCode200(response);
@@ -57,7 +57,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Story("Маркетинговые сэмплы")
     @CaseId(977)
     @Test(description = "Создание нового маркетингового сэмпла",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void createMarketingSample() {
         SessionFactory.makeSession(SessionType.API_V2);
         profile = apiV2.getProfile();
@@ -73,7 +73,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Story("Маркетинговые сэмплы")
     @CaseId(983)
     @Test(description = "Получение маркетингового сэмпла",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "createMarketingSample")
     public void getMarketingSample() {
         final Response response = MarketingSamplesV1Request.GET(sampleId);
@@ -86,7 +86,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Story("Маркетинговые сэмплы")
     @CaseId(979)
     @Test(description = "Изменение маркетингового сэмпла",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = {"createMarketingSample", "getMarketingSample"})
     public void editMarketingSample() {
         SessionFactory.makeSession(SessionType.API_V2);
@@ -105,7 +105,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Story("Маркетинговые сэмплы")
     @CaseId(980)
     @Test(description = "Удаление маркетингового сэмпла",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = {"createMarketingSample", "getMarketingSample", "editMarketingSample"})
     public void deleteMarketingSample() {
         final Response response = MarketingSamplesV1Request.DELETE(sampleId);
@@ -117,7 +117,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Story("Маркетинговые сэмплы")
     @CaseId(981)
     @Test(description = "Изменение несуществующего маркетингового сэмпла",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void editNonExistingMarketingSample() {
         final Response response = MarketingSamplesV1Request.PUT(0L, profile.getUser().getId());
         checkStatusCode404(response);
@@ -128,7 +128,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Story("Маркетинговые сэмплы")
     @CaseId(982)
     @Test(description = "Удаление несуществующего маркетингового сэмпла",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void deleteNonExistingMarketingSample() {
         final Response response = MarketingSamplesV1Request.DELETE(0L);
         checkStatusCode404(response);
@@ -137,7 +137,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Story("Маркетинговые сэмплы")
     @CaseId(984)
     @Test(description = "Получение несуществующего маркетингового сэмпла",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void getNonExistingMarketingSample() {
         final Response response = MarketingSamplesV1Request.GET(0L);
         checkStatusCode404(response);

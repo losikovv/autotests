@@ -17,7 +17,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class CurrenciesV1Test extends RestBase {
 
     @CaseId(2475)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение информации о валютах")
     public void getCurrencies() {
         admin.authApi();

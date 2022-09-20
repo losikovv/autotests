@@ -27,7 +27,7 @@ public class HdeV1Test extends RestBase {
     }
 
     @CaseId(2510)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение тикетов хелпдеска без параметров")
     public void getHdeTickets() {
         final Response response = HdeV1Request.GET();
@@ -36,7 +36,7 @@ public class HdeV1Test extends RestBase {
     }
 
     @CaseId(2513)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение тикетов хелпдеска по email")
     public void getHdeTicketsByEmail() {
         final Response response = HdeV1Request.GET(SessionFactory.getSession(SessionType.API_V1).getLogin(), "2");

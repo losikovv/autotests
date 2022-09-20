@@ -3,7 +3,6 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -51,7 +50,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2149)
     @Test(description = "Healthcheck магазина",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void checkStores(){
         final Response response = EventsV1Request.StoreHealthCheck.POST(new String[]{StoresDao.INSTANCE.findById(EnvironmentProperties.DEFAULT_SID).get().getUuid()});
         checkStatusCode(response, 202);
@@ -60,7 +59,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2150)
     @Test(description = "Обновление способа оплаты",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-v1"})
     public void updateOrderPaymentTool(){
         Long paymentToolId = apiV1.getPaymentTools().get(0).getId();
         final Response response = EventsV1Request.OrderPaymentTool.POST(order.getNumber(), paymentToolId);
@@ -81,7 +80,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2153)
     @Test(description = "Добавление нового товара",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "updateOrderPaymentTool")
     public void addNewLineItem(){
         OffersEntity offer = OffersDao.INSTANCE.getOfferByStoreId(EnvironmentProperties.DEFAULT_SID);
@@ -127,7 +126,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2154)
     @Test(description = "Отмена товара",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "addNewLineItem")
     public void cancelLineItem(){
         EventsV1Request.EventData lineItemData = EventsV1Request.EventData.builder()
@@ -152,7 +151,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2155)
     @Test(description = "Восстановление товара",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "cancelLineItem")
     public void restoreLineItem(){
         EventsV1Request.EventData lineItemData = EventsV1Request.EventData.builder()
@@ -180,7 +179,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2156)
     @Test(description = "Изменение товара",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "restoreLineItem")
     public void updateLineItem(){
         EventsV1Request.EventData lineItemData = EventsV1Request.EventData.builder()
@@ -218,7 +217,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2157)
     @Test(description = "Возврат товара",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "updateLineItem")
     public void returnLineItem(){
         EventsV1Request.EventData lineItemData = EventsV1Request.EventData.builder()
@@ -243,7 +242,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2158)
     @Test(description = "Начало сборки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "returnLineItem")
     public void createAssembly(){
         final Response response = EventsV1Request.Assembly.Created.POST(getAssemblyData(shipment.getUuid()));
@@ -257,7 +256,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2159)
     @Test(description = "Изменение сборки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "createAssembly")
     public void updateAssembly(){
         EventsV1Request.EventData eventData = getAssemblyData(shipment.getUuid());
@@ -286,7 +285,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2160)
     @Test(description = "Разбор сборки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "updateAssembly")
     public void destroyAssembly(){
         final Response response = EventsV1Request.Assembly.Destroyed.POST(getAssemblyData(shipment.getUuid()));
@@ -299,7 +298,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2161)
     @Test(description = "Подтверждение сборки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "destroyAssembly")
     public void approveAssembly(){
         final Response startResponse = EventsV1Request.Assembly.Created.POST(getAssemblyData(shipment.getUuid()));
@@ -314,7 +313,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2162)
     @Test(description = "Оплата сборки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "destroyAssembly")
     public void purchaseAssembly(){
         final Response response = EventsV1Request.Assembly.Purchased.POST(getAssemblyData(shipment.getUuid()));
@@ -327,7 +326,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2163)
     @Test(description = "Начало доставки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "purchaseAssembly")
     public void startShippingAssembly(){
         final Response response = EventsV1Request.Assembly.ShippingStarted.POST(getAssemblyData(shipment.getUuid()));
@@ -340,7 +339,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2164)
     @Test(description = "Приостановка доставки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "startShippingAssembly")
     public void stopShippingAssembly(){
         final Response response = EventsV1Request.Assembly.ShippingStopped.POST(getAssemblyData(shipment.getUuid()));
@@ -353,7 +352,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2165)
     @Test(description = "Окончание доставки",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "stopShippingAssembly")
     public void shipAssembly(){
         EventsV1Request.EventData eventData = getAssemblyData(shipment.getUuid());
@@ -368,7 +367,7 @@ public class ShoppersEventsV1Tests extends RestBase {
     @Skip(onServer = Server.STAGING)
     @CaseId(2150)
     @Test(description = "Создание чека",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-v1"},
             dependsOnMethods = "shipAssembly")
     public void createReceipt(){
         final Response response = EventsV1Request.ReceiptCreated.POST(shipment.getUuid());

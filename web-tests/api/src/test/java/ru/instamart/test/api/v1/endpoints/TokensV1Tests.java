@@ -21,7 +21,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public class TokensV1Tests extends RestBase {
 
     @CaseId(2367)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение токенов пользователя")
     public void getTokens() {
         admin.authApi();
@@ -31,7 +31,7 @@ public class TokensV1Tests extends RestBase {
     }
 
     @CaseId(2368)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
             description = "Получение токенов неавторизованного пользователя")
     public void getTokensWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V1);

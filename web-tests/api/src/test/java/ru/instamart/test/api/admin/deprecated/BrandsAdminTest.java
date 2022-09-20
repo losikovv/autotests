@@ -47,7 +47,7 @@ public final class BrandsAdminTest extends RestBase {
 
     @CaseId(1945)
     @Skip
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Получение всех брендов")
     public void getAllBrands() {
         final Response response = BrandsAdminRequest.GET();
@@ -56,7 +56,7 @@ public final class BrandsAdminTest extends RestBase {
 
     @CaseId(1946)
     @Skip
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Создание бренда")
     public void createBrand() {
         String postfix = Generate.literalString(6);
@@ -81,7 +81,7 @@ public final class BrandsAdminTest extends RestBase {
 
     @CaseId(1947)
     @Skip
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Редактирование бренда",
             dependsOnMethods = "createBrand")
     public void patchBrand() {
@@ -105,7 +105,7 @@ public final class BrandsAdminTest extends RestBase {
 
     @CaseId(1948)
     @Skip
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-v1"},
             description = "Удаление бренда",
             dependsOnMethods = "patchBrand")
     public void deleteBrand() {
