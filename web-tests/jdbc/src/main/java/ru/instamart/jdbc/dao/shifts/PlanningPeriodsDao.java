@@ -64,7 +64,7 @@ public class PlanningPeriodsDao extends AbstractDao<Long, PlanningPeriodsEntity>
             }
             try (final var resultSet = preparedStatement.executeQuery()) {
                 final var result = new ArrayList<PlanningPeriodEntity>();
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     var planningPeriodEntity = new PlanningPeriodEntity();
                     planningPeriodEntity.setId(resultSet.getInt("id"));
                     planningPeriodEntity.setCreatedAt(resultSet.getString("created_at"));
@@ -84,7 +84,7 @@ public class PlanningPeriodsDao extends AbstractDao<Long, PlanningPeriodsEntity>
                     planningPeriodEntity.setPublishedTimes(resultSet.getString("published_times"));
                     planningPeriodEntity.setPublishedTime(resultSet.getString("published_time"));
                     planningPeriodEntity.setPeoplesCountPredicted(resultSet.getInt("peoples_count_predicted"));
-                    planningPeriodEntity.setMaxPeoplesCount(resultSet.getBoolean("max_peoples_count"));
+                    planningPeriodEntity.setMaxPeoplesCount(resultSet.getInt("max_peoples_count"));
                     result.add(planningPeriodEntity);
                 }
                 return result;
