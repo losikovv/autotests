@@ -64,7 +64,7 @@ public class CandidatesTest extends RestBase {
         shiftsApi.startOfShift(StartPointsTenants.METRO_9);
         shopperApp.sendCurrentLocator(55.915098,37.541685, null);
 
-        SessionFactory.makeSession(SessionType.API_V2);
+       SessionFactory.makeSession(SessionType.API_V2);
         UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
@@ -262,6 +262,29 @@ public class CandidatesTest extends RestBase {
                                 .setLon(37.541685)
                                 .build())
                         .setMaxQueueSize(1)
+                )
+                .build();
+        var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+        assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
+    }
+    @CaseId(86)
+    @Test(description = "Отбор кандидатов по всем параметрам в фильтре", groups = "dispatch-candidates-smoke")
+    public void SelectionByAllFilters() {
+        var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
+                .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
+                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                                .setLat(55.915098)
+                                .setLon(37.541685)
+                                .setCreatedAt(getTimestampFromString(timeStamp))
+                                .build())
+                        .setRadius(200.00F)
+                        .setMaxQueueSize(1)
+                        .addRoles(CandidatesOuterClass.CandidateRole.UNIVERSAL)
+                        .addRoles(CandidatesOuterClass.CandidateRole.SHOPPER)
+                        .addTransports(CandidatesOuterClass.CandidateTransport.BICYCLE)
+                        .addTransports(CandidatesOuterClass.CandidateTransport.PEDESTRIAN)
+                        .addTransports(CandidatesOuterClass.CandidateTransport.CAR)
+                        .setPlaceUuid("599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a")
                 )
                 .build();
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
