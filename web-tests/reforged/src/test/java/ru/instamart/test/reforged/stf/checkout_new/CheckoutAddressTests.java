@@ -11,6 +11,9 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
+import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
+import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REPLACE;
+import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.business.page.BusinessRouter.business;
 
@@ -51,14 +54,12 @@ public final class CheckoutAddressTests {
 
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod("Картой курьеру");
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_TO_COURIER.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
-
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REPLACE.getName());
 
         checkoutNew().clickConfirmOrder();
         checkoutNew().checkApartmentNumberAlertVisible();
@@ -66,7 +67,7 @@ public final class CheckoutAddressTests {
         checkoutNew().fillApartment("123");
         checkoutNew().clickConfirmOrder();
 
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
     }
 
     @CaseId(3780)
@@ -129,7 +130,7 @@ public final class CheckoutAddressTests {
 
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod("Картой курьеру");
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_TO_COURIER.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
 

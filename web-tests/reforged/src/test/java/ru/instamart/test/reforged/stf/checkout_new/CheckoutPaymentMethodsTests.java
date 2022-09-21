@@ -15,6 +15,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.business.page.BusinessRouter.business;
+import static ru.instamart.reforged.stf.enums.PaymentMethods.*;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -54,11 +55,11 @@ public final class CheckoutPaymentMethodsTests {
 
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod("Картой курьеру");
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_TO_COURIER.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
 
-        checkoutNew().checkSelectedPaymentMethodContains("Картой курьеру");
+        checkoutNew().checkSelectedPaymentMethodContains(BY_CARD_TO_COURIER.getName());
 
         checkoutNew().clickDeliveryToDoor();
 
@@ -128,7 +129,7 @@ public final class CheckoutPaymentMethodsTests {
 
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod("Картой онлайн");
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_ONLINE.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactAddPaymentCardModal().checkModalVisible();
 
@@ -168,7 +169,7 @@ public final class CheckoutPaymentMethodsTests {
 
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod("Картой онлайн");
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_ONLINE.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactAddPaymentCardModal().checkModalVisible();
 
@@ -206,7 +207,7 @@ public final class CheckoutPaymentMethodsTests {
 
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod("Картой курьеру");
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_TO_COURIER.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
 
         checkoutNew().checkConfirmOrderVisible();
@@ -237,7 +238,7 @@ public final class CheckoutPaymentMethodsTests {
 
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod("По счёту для бизнеса");
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_BUSINESS_ACCOUNT.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
 
         checkoutNew().checkSelectCompanyButtonDisplayed();
@@ -278,7 +279,7 @@ public final class CheckoutPaymentMethodsTests {
 
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod("По счёту для бизнеса");
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_BUSINESS_ACCOUNT.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
 
         checkoutNew().checkSelectCompanyButtonDisplayed();

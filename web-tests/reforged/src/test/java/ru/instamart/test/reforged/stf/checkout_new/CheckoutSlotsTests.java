@@ -12,6 +12,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
+import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
+import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -131,5 +133,44 @@ public final class CheckoutSlotsTests {
         checkoutNew().checkSelectedSlotDayNameContainsText(slotDate);
         checkoutNew().checkSelectedSlotTimeContainsText(slotTime);
         checkoutNew().checkSelectedSlotCostContainsText(slotCost);
+    }
+
+    @CaseId(3634)
+    @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testSelectSlotRequired() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().fillApartment("1");
+
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_TO_COURIER.getName());
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
+
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+
+        checkoutNew().clickConfirmOrder();
+
+        checkoutNew().checkDeliverySlotInvalidBorderVisible();
+        checkoutNew().checkConfirmOrderVisible();
     }
 }

@@ -37,6 +37,7 @@ public interface CheckoutElement {
     Button openDeliverySlotsModalInTitle = new Button(By.xpath("//div[contains(@class,'DeliverySlots_header')]//button"), "Кнопка 'Доставка на ...' (открывает модалку выбора слота)");
     Element deliverySlot = new Element(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]]"), "Слот доставки");
 
+    Element deliverySlotBlockInvalidMark = new Element(By.xpath("//div[contains(@class, 'DeliverySlots_root')][contains(@class, 'invalid')]"), "Ошибка в блоке 'Слоты' (красная рамка)");
     ElementCollection deliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]]"), "Доступные слоты доставки");
     ElementCollection activeDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][./div[contains(@class,'active')]]"), "Выбранные слоты доставки");
 

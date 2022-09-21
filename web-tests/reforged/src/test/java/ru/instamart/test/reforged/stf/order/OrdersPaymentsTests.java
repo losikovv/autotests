@@ -17,6 +17,8 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_ONLINE;
+import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_UPON_RECEIPT;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -70,7 +72,7 @@ public final class OrdersPaymentsTests {
 
         userShipments().checkPageContains(userShipments().pageUrl());
         userShipments().checkStatusShipmentReady();
-        userShipments().checkPaymentMethodEquals("Картой онлайн");
+        userShipments().checkPaymentMethodEquals(BY_CARD_ONLINE.getName());
     }
 
     @CaseId(1625)
@@ -100,7 +102,7 @@ public final class OrdersPaymentsTests {
         userShipments().checkPageContains(userShipments().pageUrl());
 
         userShipments().checkStatusShipmentReady();
-        userShipments().checkPaymentMethodEquals("Картой при получении");
+        userShipments().checkPaymentMethodEquals(BY_CARD_UPON_RECEIPT.getName());
     }
 
     @CaseId(1626)
