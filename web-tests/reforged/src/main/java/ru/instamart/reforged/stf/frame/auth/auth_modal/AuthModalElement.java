@@ -5,8 +5,8 @@ import ru.instamart.reforged.core.component.*;
 
 public interface AuthModalElement {
 
-    Element modalLogin = new Element(By.xpath("//form[@data-qa='tel_login_form'][contains(.,'Добро пожаловать')]"), "модальное окно логина/регистрации");
-    Element modalConfirmPhone = new Element(By.xpath("//form[@data-qa='tel_login_form'][contains(.,'Подтвердите свой номер')]"), "Модальное окно подтверждения номера телефона");
+    Element modalLogin = new Element(By.xpath("//form[@data-qa='tel_login_form'][contains(.,'Добро пожаловать')]"), 20, "модальное окно логина/регистрации");
+    Element modalConfirmPhone = new Element(By.xpath("//form[@data-qa='tel_login_form'][contains(.,'Подтвердите свой номер')]"), 20, "Модальное окно подтверждения номера телефона");
 
     Input phoneField = new Input(By.xpath("//input[@data-qa='tel_login_form_input']"), "поле ввода телефона");
     Button sendSms = new Button(By.xpath("//button[@data-qa='tel_login_form_button']"), "поле ввода sms");
