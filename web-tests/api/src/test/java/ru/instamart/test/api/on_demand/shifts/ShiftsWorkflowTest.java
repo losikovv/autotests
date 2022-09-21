@@ -74,7 +74,7 @@ public class ShiftsWorkflowTest extends RestBase {
         Allure.step("Проверка ошибки при начале смены", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(errorTypeResponse.getStatus(), 422, "Error status message not valid");
-            softAssert.assertEquals(errorTypeResponse.getTitle(), "Shift not ready to start", "Error title message not valid");
+            softAssert.assertEquals(errorTypeResponse.getTitle(), "Попытка начать не подготовленную смену", "Error title message not valid");
             softAssert.assertEquals(errorTypeResponse.getType(), "shift-no-ready-to-start", "Error type message not valid");
             softAssert.assertAll();
         });
