@@ -16,6 +16,9 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
+import static ru.instamart.reforged.stf.enums.PaymentMethods.*;
+import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
+import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -104,10 +107,9 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Картой онлайн";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_ONLINE.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactAddPaymentCardModal().checkModalVisible();
 
@@ -124,19 +126,18 @@ public final class CheckoutTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
         //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkPaymentMethodEquals(BY_CARD_ONLINE.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
@@ -176,14 +177,13 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Картой курьеру";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_TO_COURIER.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
 
-        checkoutNew().checkSelectedPaymentMethodContains(paymentMethod);
+        checkoutNew().checkSelectedPaymentMethodContains(BY_CARD_TO_COURIER.getName());
 
         checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
 
@@ -191,17 +191,16 @@ public final class CheckoutTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals("Картой при получении");
+        userShipment().checkPaymentMethodEquals(BY_CARD_UPON_RECEIPT.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
@@ -244,10 +243,9 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Картой онлайн";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_ONLINE.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactAddPaymentCardModal().checkModalVisible();
 
@@ -258,10 +256,9 @@ public final class CheckoutTests {
         checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
         checkoutNew().checkSelectedPaymentMethodContains(card.getCardNumber().substring(card.getCardNumber().length() - 4));
 
-        var paymentMethodNew = "Новой картой онлайн";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethodNew);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_NEW_CARD_ONLINE.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactAddPaymentCardModal().checkModalVisible();
 
@@ -278,19 +275,18 @@ public final class CheckoutTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
         //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkPaymentMethodEquals(BY_CARD_ONLINE.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
@@ -333,11 +329,10 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Бонусы от СберСпасибо";
         var bonusesAmount = "1";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(SBERSPASIBO_BONUSES.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
 
         checkoutNew().interactSberSpasiboModal().checkModalVisible();
@@ -362,18 +357,17 @@ public final class CheckoutTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkPaymentMethodEquals(SBERSPASIBO_BONUSES.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
@@ -415,14 +409,13 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Наличными";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CASH.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
 
-        checkoutNew().checkSelectedPaymentMethodContains(paymentMethod);
+        checkoutNew().checkSelectedPaymentMethodContains(BY_CASH.getName());
 
         checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
 
@@ -430,18 +423,17 @@ public final class CheckoutTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkPaymentMethodEquals(BY_CASH.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
@@ -482,10 +474,9 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Картой онлайн";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_ONLINE.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactAddPaymentCardModal().checkModalVisible();
 
@@ -502,19 +493,18 @@ public final class CheckoutTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
         //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkPaymentMethodEquals(BY_CARD_ONLINE.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
@@ -554,26 +544,24 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Картой на кассе";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_AT_CHECKOUT.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
 
-        checkoutNew().checkSelectedPaymentMethodContains(paymentMethod);
+        checkoutNew().checkSelectedPaymentMethodContains(BY_CARD_AT_CHECKOUT.getName());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkPaymentMethodEquals(BY_CARD_AT_CHECKOUT.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
@@ -615,10 +603,9 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Картой онлайн";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_ONLINE.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactAddPaymentCardModal().checkModalVisible();
 
@@ -629,10 +616,9 @@ public final class CheckoutTests {
         checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
         checkoutNew().checkSelectedPaymentMethodContains(card.getCardNumber().substring(card.getCardNumber().length() - 4));
 
-        var paymentMethodNew = "Новой картой онлайн";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethodNew);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_NEW_CARD_ONLINE.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactAddPaymentCardModal().checkModalVisible();
 
@@ -649,19 +635,18 @@ public final class CheckoutTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
         //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkPaymentMethodEquals(BY_CARD_ONLINE.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
@@ -703,11 +688,10 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Бонусы от СберСпасибо";
         var bonusesAmount = "1";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(SBERSPASIBO_BONUSES.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
 
         checkoutNew().interactSberSpasiboModal().checkModalVisible();
@@ -732,18 +716,17 @@ public final class CheckoutTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkPaymentMethodEquals(SBERSPASIBO_BONUSES.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
@@ -784,14 +767,13 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Наличными";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CASH.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
 
-        checkoutNew().checkSelectedPaymentMethodContains(paymentMethod);
+        checkoutNew().checkSelectedPaymentMethodContains(BY_CASH.getName());
 
         checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
 
@@ -799,18 +781,17 @@ public final class CheckoutTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkPaymentMethodEquals(BY_CASH.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
@@ -869,10 +850,9 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Картой онлайн";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_ONLINE.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactAddPaymentCardModal().checkModalVisible();
 
@@ -889,19 +869,18 @@ public final class CheckoutTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
         //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkPaymentMethodEquals(BY_CARD_ONLINE.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
@@ -959,14 +938,13 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Наличными";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CASH.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
 
-        checkoutNew().checkSelectedPaymentMethodContains(paymentMethod);
+        checkoutNew().checkSelectedPaymentMethodContains(BY_CASH.getName());
 
         checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
 
@@ -974,18 +952,17 @@ public final class CheckoutTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkPaymentMethodEquals(BY_CASH.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
@@ -1042,14 +1019,13 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Картой на кассе";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_AT_CHECKOUT.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
 
-        checkoutNew().checkSelectedPaymentMethodContains(paymentMethod);
+        checkoutNew().checkSelectedPaymentMethodContains(BY_CARD_AT_CHECKOUT.getName());
 
         checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
 
@@ -1057,17 +1033,16 @@ public final class CheckoutTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(paymentMethod);
+        userShipment().checkPaymentMethodEquals(BY_CARD_AT_CHECKOUT.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
@@ -1120,14 +1095,13 @@ public final class CheckoutTests {
         checkoutNew().clickFirstSlot();
         checkoutNew().checkSlotActive(1);
 
-        var paymentMethod = "Картой на кассе";
         checkoutNew().openPaymentMethodModal();
         checkoutNew().interactPaymentMethodsModal().checkModalVisible();
-        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(paymentMethod);
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_AT_CHECKOUT.getName());
         checkoutNew().interactPaymentMethodsModal().clickConfirm();
         checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
 
-        checkoutNew().checkSelectedPaymentMethodContains(paymentMethod);
+        checkoutNew().checkSelectedPaymentMethodContains(BY_CARD_AT_CHECKOUT.getName());
 
         checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
 
@@ -1135,17 +1109,16 @@ public final class CheckoutTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 
-        userShipment().checkActiveShipmentState("Принят");
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals("Картой на кассе");
+        userShipment().checkPaymentMethodEquals(BY_CARD_AT_CHECKOUT.getName());
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();

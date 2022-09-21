@@ -12,6 +12,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
+import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -49,9 +50,8 @@ public final class CheckoutSwitchTabsTests {
 
         checkoutNew().checkSpinnerNotVisible();
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
 
         checkoutNew().switchToPickup();
 
@@ -62,7 +62,7 @@ public final class CheckoutSwitchTabsTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
     }
 
     @CaseId(3597)
@@ -94,9 +94,8 @@ public final class CheckoutSwitchTabsTests {
 
         checkoutNew().checkSpinnerNotVisible();
 
-        var replacementPolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         checkoutNew().clickReplacementPolicy();
-        checkoutNew().selectReplacementPolicyByName(replacementPolicy);
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
 
         checkoutNew().switchToDelivery();
 
@@ -107,7 +106,7 @@ public final class CheckoutSwitchTabsTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        checkoutNew().checkSelectedReplacementPolicyContains(replacementPolicy);
+        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
     }
 
     @CaseId(3610)

@@ -15,6 +15,7 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -64,7 +65,7 @@ public final class OrdersPaymentsTests {
         userShipments().checkPageContains(userShipments().pageUrl());
 
         userShipments().checkStatusAcceptedProd();
-        userShipments().checkPaymentMethodEquals("Картой курьеру");
+        userShipments().checkPaymentMethodEquals(BY_CARD_TO_COURIER.getName());
     }
 
     @CaseId(1626)
