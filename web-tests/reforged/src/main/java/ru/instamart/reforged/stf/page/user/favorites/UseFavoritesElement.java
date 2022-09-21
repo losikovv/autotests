@@ -17,4 +17,6 @@ public interface UseFavoritesElement {
     ElementCollection allFavorites = new ElementCollection(By.xpath("//div[contains(@class,'FavoriteProducts')]/div//a"), "список всех избранных");
     ElementCollection addToCart = new ElementCollection(By.xpath("//div[contains(@class,'FavoriteProducts')]/div//button[@title='Добавить в корзину']"),
             "список всех кнопок добавления в корзину");
+    Element spinner = new Element(By.xpath("//div[contains(@class,'Spinner')]"), "Спиннер");
+
 }

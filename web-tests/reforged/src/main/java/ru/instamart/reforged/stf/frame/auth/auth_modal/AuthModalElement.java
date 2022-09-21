@@ -24,7 +24,7 @@ public interface AuthModalElement {
 
     Button back = new Button(By.xpath("//button[@title='Назад']"), "кнопка перехода назад");
     Button changePhone = new Button(By.xpath("//button[@data-qa='editable_info_change_button']"), "кнопка смены телефонного номера");
-    Input smsInput = new Input(By.xpath("//input[@data-qa='sms_confirm_input']"), "кнопка отправки SMS кода");
+    Input smsInput = new Input(By.xpath("//input[@data-qa='sms_confirm_input']"), 20, "кнопка отправки SMS кода");
     Button resendSms = new Button(By.xpath("//button[@data-qa='sms_resend_button']"), "кнопка переотправки SMS кода");
 
     Element phoneError = new Element(By.xpath("//div[@data-qa='tel_login_form_error']"), "сообщение об ошибке");

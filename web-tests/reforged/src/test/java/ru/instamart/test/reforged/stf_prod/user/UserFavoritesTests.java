@@ -93,7 +93,7 @@ public final class UserFavoritesTests {
     public void successShowMoreLoad() {
         final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
-        apiHelper.addFavorites(userData, DEFAULT_SID, 12);
+        apiHelper.addFavorites(userData, DEFAULT_SID, 24);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -106,6 +106,7 @@ public final class UserFavoritesTests {
         final int initCount = userFavorites().getFavoritesCount();
         userFavorites().scrollDown();
         userFavorites().checkRequestsWasLoad();
+        userFavorites().checkSpinnerNotVisible();
         userFavorites().checkCountLess(initCount, userFavorites().getFavoritesCount());
     }
 
