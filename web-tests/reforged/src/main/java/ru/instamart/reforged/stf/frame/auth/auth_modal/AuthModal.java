@@ -40,6 +40,7 @@ public final class AuthModal implements Close, AuthModalCheck {
 
     @Step("Заполнить поле с телефоном {phone}")
     public void fillPhone(final String phone) {
+        phoneField.hoverAndClick();
         phoneField.fillField(phone, true);
     }
 
@@ -60,7 +61,7 @@ public final class AuthModal implements Close, AuthModalCheck {
 
     @Step("Убрать отметку получения рассылки")
     public void uncheckPromoMailing() {
-        promo.uncheck();
+        promo.hoverAndClick();
     }
 
     @Step("Заполнить поле с sms {sms}")
