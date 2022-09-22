@@ -121,6 +121,18 @@ tests:ris:exporter:
   after_script:
     - bash ./report.sh api api-ris-exporter
 
+tests:authorization:schedule:
+  resource_group: testAuthorizationService
+  only:
+    variables:
+      - $API_AUTHORIZATION_SERVER_ALONE == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  extends:
+    - ".template_api_tests"
+  script:
+    - gradle clean build apiAuthorizationService
+  after_script:
+    - bash ./report.sh api api-authorization-service
+
 tests:ris:exporter:schedule:
   extends:
     - ".template_api_tests"

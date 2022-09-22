@@ -26,6 +26,9 @@ public final class UserData {
     private String encryptedPhone;
     private String anonymousId;
     private String qaSessionId;
+    private String keycloakClientId;
+    private String keycloakClientSecret;
+    private String keycloakRealm;
 
     public static UserDataBuilder builder() {
         return new UserDataBuilder();
@@ -60,6 +63,9 @@ public final class UserData {
         private String token;
         private String anonymousId;
         private String qaSessionId;
+        private String keycloakClientId;
+        private String keycloakClientSecret;
+        private String keycloakRealm;
 
 
         UserDataBuilder() {
@@ -120,8 +126,23 @@ public final class UserData {
             return this;
         }
 
+        public UserDataBuilder keycloakClientId(final String keycloakClientId) {
+            this.keycloakClientId = keycloakClientId;
+            return this;
+        }
+
+        public UserDataBuilder keycloakClientSecret(final String keycloakClientSecret) {
+            this.keycloakClientSecret = keycloakClientSecret;
+            return this;
+        }
+
+        public UserDataBuilder keycloakRealm(final String keycloakRealm) {
+            this.keycloakRealm = keycloakRealm;
+            return this;
+        }
+
         public UserData build() {
-            return new UserData(id, uuid, role, email, phone, (isNull(smsCode) ? getSmsCode() : smsCode), password, name, token, generateEncryptedPhone(), anonymousId, qaSessionId);
+            return new UserData(id, uuid, role, email, phone, (isNull(smsCode) ? getSmsCode() : smsCode), password, name, token, generateEncryptedPhone(), anonymousId, qaSessionId, keycloakClientId, keycloakClientSecret, keycloakRealm);
         }
 
         /**

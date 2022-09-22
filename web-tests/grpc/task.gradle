@@ -38,3 +38,12 @@ task ciRunGrpc(type: Test) {
         includeGroups CI_GROUP
     }
 }
+
+task grpcAuthorizationService(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/authorization-service.xml'
+        includeGroups 'grpc-authorization-service'
+    }
+    systemProperty 'qase.Project', 'CS'
+    systemProperty 'qase.Title', 'Authorization Service Autotests'
+}

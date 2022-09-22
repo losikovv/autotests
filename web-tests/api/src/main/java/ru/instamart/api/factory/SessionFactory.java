@@ -12,6 +12,7 @@ import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.model.shopper.app.SessionSHP;
 import ru.instamart.api.model.v1.ShoppersBackendV1;
 import ru.instamart.api.request.delivery_club.AuthenticationDCRequest;
+import ru.instamart.api.request.keycloak.TokenKeycloakRequest;
 import ru.instamart.api.request.ris_exporter.AuthenticationRisRequest;
 import ru.instamart.api.request.shopper.app.AuthSHPRequest;
 import ru.instamart.api.request.shopper.app.OtpCodeSHPRequest;
@@ -20,6 +21,7 @@ import ru.instamart.api.request.v1.TokensV1Request;
 import ru.instamart.api.request.v1.UserSessionsV1Request;
 import ru.instamart.api.request.v2.AuthProvidersV2Request;
 import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
+import ru.instamart.api.response.keycloak.TokenKeycloakResponse;
 import ru.instamart.api.response.delivery_club.TokenDCResponse;
 import ru.instamart.api.response.ris_exporter.TokenRisResponse;
 import ru.instamart.api.response.shopper.app.OtpCodeSHPResponse;
@@ -68,6 +70,7 @@ public final class SessionFactory {
             case SHOPPER_APP:
             case SHOPPER_ADMIN:
             case DELIVERY_CLUB:
+            case AUTHORIZATION_SERVICE:
             case RIS_EXPORTER:
                 log.warn("Not implemented yet!");
                 break;
@@ -190,6 +193,8 @@ public final class SessionFactory {
                 return createAdminSession(userData);
             case RIS_EXPORTER:
                 return createRisSession(userData);
+            case AUTHORIZATION_SERVICE:
+                return crateAuthorizationServiceKeycloakSession(userData);
             default:
                 log.error("Session type not selected");
                 return new SessionInfo();
@@ -314,6 +319,13 @@ public final class SessionFactory {
         checkStatusCode200(response);
         log.debug("Авторизуемся с токеном: {}", userData.getToken());
         return new SessionInfo(userData, response.as(TokenRisResponse.class).getToken());
+    }
+
+    private static SessionInfo crateAuthorizationServiceKeycloakSession(final UserData userData) {
+        final Response response = TokenKeycloakRequest.POST(userData.getKeycloakRealm(), userData.getKeycloakClientId(), userData.getKeycloakClientSecret());
+        checkStatusCode200(response);
+        log.debug("Авторизуемся под client_id: {}", userData.getKeycloakClientId());
+        return new SessionInfo(userData, response.as(TokenKeycloakResponse.class).getAccessToken());
     }
 
     private static SessionInfo createQaSession(final UserData userData) {

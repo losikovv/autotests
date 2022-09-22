@@ -54,6 +54,7 @@ public final class UserManager {
     private static UserData getStf6ApiUser;
     private static UserData defaultDcUser;
     private static UserData defaultRisUser;
+    private static UserData authorizationServiceKeycloakClient;
     private static UserData defaultUserWithoutPermission;
     private static UserData forB2BUser;
     private static UserData addressUser;
@@ -445,6 +446,18 @@ public final class UserManager {
                     .build();
         }
         return defaultRisUser;
+    }
+
+    public static UserData getAuthorizationServiceKeycloakClient() {
+        if (isNull(authorizationServiceKeycloakClient)) {
+            authorizationServiceKeycloakClient = UserData.builder()
+                    .email("")
+                    .keycloakClientId(Crypt.INSTANCE.decrypt("oCnBqVqBPlQFkU3ovQsWVQ=="))
+                    .keycloakClientSecret(Crypt.INSTANCE.decrypt("UZLZ5UGq+eGaTsBpdWzpjX4Bf9l8a8y6+EQutkL/mfc="))
+                    .keycloakRealm(Crypt.INSTANCE.decrypt("sUVcpl4RRZZKdHB+Jl7HF/8yISEau8F3CqIaLoZi4fc="))
+                    .build();
+        }
+        return authorizationServiceKeycloakClient;
     }
 
     public static UserData userWithoutAdminPermission() {

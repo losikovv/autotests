@@ -7,5 +7,6 @@ public enum SessionProvider {
     PHONE,
     SBER_ID,
     QA,
-    EMAIL
+    EMAIL,
+    KEYCLOAK
 }
