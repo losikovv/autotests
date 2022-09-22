@@ -40,6 +40,8 @@ public enum Specification {
     @Getter private RequestSpecification prodAdminRequestSpec;
     @Getter private RequestSpecification shopperAdminRequestSpec;
     @Getter private RequestSpecification locatorRequestSpec;
+    @Getter private RequestSpecification authorizationServiceRequestSpec;
+    @Getter private RequestSpecification keycloakRequestSpec;
     @Getter private RequestSpecification apiDCRequestSpec;
     //Внешние сервисы
     @Getter private RequestSpecification webhookSteRequestSpec;
@@ -189,6 +191,20 @@ public enum Specification {
         risExporterRequestSpec = new RequestSpecBuilder()
                 .setBaseUri("https://api-deliveryclub.sbermarket.ru")
                 .setBasePath("v1/")
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
+        authorizationServiceRequestSpec = new RequestSpecBuilder()
+                .setBaseUri("http://base-app.paas-content-core-services-authorization")
+                .setBasePath("api/")
+                .setPort(8080)
+                .setAccept(ContentType.ANY)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
+        keycloakRequestSpec = new RequestSpecBuilder()
+                .setBaseUri("https://keycloak-stage.gw-stage.sbmt.io")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();

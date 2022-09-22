@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
+<suite name="AUTHORIZATION SERVICE GRPC SUITE" verbose="1">
+    <listeners>
+        <listener class-name="ru.instamart.grpc.listener.AuthorizationServiceExecutionListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="Authorization Service">
+        <classes>
+            <class name="ru.instamart.test.authorization_service.AuthorizationTest"/>
+        </classes>
+    </test>
+</suite>

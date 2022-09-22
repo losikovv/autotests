@@ -18,5 +18,5 @@ public final class GrpcContentHosts {
     public static final String PAAS_CONTENT_OPERATIONS_SHIPPINGCALC = System.getProperty("url_paas_shippingcalc", "paas-content-operations-shippingcalc") + ".gw-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_ORDER_SERVICE = "paas-content-operations-order-service.k-stage.sbmt.io";
     public static final String PAAS_CONTENT_OPERATIONS_SURGELEVEL = EnvironmentProperties.Env.SURGELEVEL_NAMESPACE + ".gw-stage.sbmt.io";
-
+    public static final String PAAS_CONTENT_CORE_SERVICES_AUTHORIZATION = "base-app.paas-content-core-services-authorization";
 }

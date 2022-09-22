@@ -165,6 +165,15 @@ task apiRisExporter(type: Test) {
     systemProperty 'qase.Title', 'Ris-Exporter API Regress'
 }
 
+task apiAuthorizationService(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/api-authorization-service.xml'
+        includeGroups 'api-authorization-service'
+    }
+    systemProperty 'qase.Project', 'CS'
+    systemProperty 'qase.Title', 'Authorization Service API Regress'
+}
+
 task onDemandShifts(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/on_demand/shifts.xml'
