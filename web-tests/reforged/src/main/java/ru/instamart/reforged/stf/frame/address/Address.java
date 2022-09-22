@@ -77,7 +77,7 @@ public final class Address implements AddressCheck {
 
     @Step("Выбрать первый доступный магазин")
     public void selectFirstStore() {
-        selectStoreButton.click();
+        storeItemButtons.clickOnFirst();
     }
 
     @Step("Изменить выбранный магазин самовывоза")

@@ -30,6 +30,7 @@ public interface AddressElement {
     Selector selectCity = new Selector(By.xpath("//select[@data-qa='city-selector-control']"), "empty");
     Element storeList = new Element(By.xpath("//div[@data-qa='expandable-store-list']"), "список магазинов для самовывоза");
     Element storeItem = new Element(By.xpath("//div[@data-qa='store-item']"), "empty");
+    ElementCollection storeItemButtons = new ElementCollection(By.xpath("//button[@data-qa='store-item-btn']"), "Кнопки 'Выбрать' магазин");
     Element storeByAddress = new Element(ByKraken.xpathExpression("//span[@data-qa='store-item-address'][contains(.,'%s')]"), "Магазин самовывоза по адресу");
     Element availableStoreCounter = new Element(By.xpath("//div[@data-qa='expandable-store-list-counter']"), "empty");
     Button selectStoreButton = new Button(By.xpath("//a[@data-qa='store-card']"), "Первый магазин в списке");

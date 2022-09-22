@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.core.page.Window;
 import ru.instamart.reforged.stf.block.footer.Footer;
+import ru.instamart.reforged.stf.block.header_multisearch.MultisearchHeader;
 import ru.instamart.reforged.stf.drawer.cookie.CookieDrawer;
 import ru.instamart.reforged.stf.frame.address.AddressLarge;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
@@ -20,6 +21,10 @@ public final class HomePage implements StfPage, Window, HomeCheck {
 
     public AddressLarge interactAddressModal() {
         return addressModal;
+    }
+
+    public MultisearchHeader interactMultisearchHeader() {
+        return header;
     }
 
     public Footer interactFooter() {

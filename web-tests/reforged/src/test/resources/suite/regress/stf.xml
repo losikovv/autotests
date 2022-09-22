@@ -17,6 +17,7 @@
             <class name="ru.instamart.test.reforged.stf.SeoCatalogTests"/>
             <class name="ru.instamart.test.reforged.stf.HelpDeskChatTests"/>
             <class name="ru.instamart.test.reforged.stf.HomePageTests"/>
+            <class name="ru.instamart.test.reforged.stf.MultiretailerSearchTests"/>
 
             <class name="ru.instamart.test.reforged.stf.user.UserAuthorisationTests"/>
             <class name="ru.instamart.test.reforged.stf.user.UserFavoritesTests"/>

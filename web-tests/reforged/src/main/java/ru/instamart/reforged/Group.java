@@ -4,5 +4,9 @@ public final class Group {
 
     public static final String STF_PROD_S = "stf_prod_smoke";
 
-    private Group() {}
+    public static final String REGRESSION = "regression";
+    public static final String MULTIRETAILER_SEARCH = "multiretailer_search";
+
+    private Group() {
+    }
 }
