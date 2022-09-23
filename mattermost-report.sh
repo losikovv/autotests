@@ -22,25 +22,13 @@ if [ -z "$FILES_TO_SEND" ]; then
 fi
 
 # Строим url с файлами
-FILES=''
-INDEX=0
-for FILE in $FILES_TO_SEND; do
-  FILES+="-F files[]=@$FILE "
-  INDEX=$((INDEX+1))
-     if [ $((INDEX % 1000)) -eq 0 ]; then
-        # Отправляем через curl запрос на заливку отчета
-        #set -o xtrace
-        echo "------------------SEND-RESULTS------------------"
-        sendResultsResponse=$(curl  -u $WEB_LOGIN:$WEB_PASSWORD -X POST $ALLURE_SERVER"/allure-docker-service/send-results?project_id=$PROJECT_ID" -H 'Content-Type: multipart/form-data' $FILES -ik)
-        echo "$sendResultsResponse"
-        FILES=''
-      fi
-done
+zip -rj -qq /tmp/results.zip $ALLURE_RESULTS_DIRECTORY/*
+FILES=" -F files[]=@/tmp/results.zip"
 
 # Отправляем через curl запрос на заливку отчета
 #set -o xtrace
 echo "------------------SEND-RESULTS------------------"
-sendResultsResponse=$(curl  -u $WEB_LOGIN:$WEB_PASSWORD -X POST $ALLURE_SERVER"/allure-docker-service/send-results?project_id=$PROJECT_ID" -H 'Content-Type: multipart/form-data' $FILES -ik)
+sendResultsResponse=$(curl -u $WEB_LOGIN:$WEB_PASSWORD -X POST $ALLURE_SERVER"/allure-docker-service/send-results?project_id=$PROJECT_ID" -H 'Content-Type: multipart/form-data' $FILES -ik)
 echo "$sendResultsResponse"
 # Если нужно сгенерировать отчет, нужно отправить запрос на эндпоинт GET /generate-report и выставить >> CHECK_RESULTS_EVERY_SECONDS: NONE в контейнере с отчетами
 #curl -X GET 'http://localhost:5050/allure-docker-service/generate-report?project_id=default&execution_name=test_exec&execution_from=http://local.com&execution_type=bobobob'
@@ -82,3 +70,4 @@ if [ "$failures" != "0" ]; then
 else
   echo "no failed tests"
 fi
+rm -rf /tmp/results.zip

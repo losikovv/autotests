@@ -22,20 +22,8 @@ if [ -z "$FILES_TO_SEND" ]; then
 fi
 
 # Строим url с файлами
-FILES=''
-INDEX=0
-for FILE in $FILES_TO_SEND; do
-  FILES+="-F files[]=@$FILE "
-  INDEX=$((INDEX+1))
-     if [ $((INDEX % 1000)) -eq 0 ]; then
-        # Отправляем через curl запрос на заливку отчета
-        #set -o xtrace
-        echo "------------------SEND-RESULTS------------------"
-        sendResultsResponse=$(curl  -u $WEB_LOGIN:$WEB_PASSWORD -X POST $ALLURE_SERVER"/allure-docker-service/send-results?project_id=$PROJECT_ID" -H 'Content-Type: multipart/form-data' $FILES -ik)
-        echo "$sendResultsResponse"
-        FILES=''
-      fi
-done
+zip -rj -qq /tmp/results.zip $ALLURE_RESULTS_DIRECTORY/*
+FILES=" -F files[]=@/tmp/results.zip"
 
 # Отправляем через curl запрос на заливку отчета
 #set -o xtrace
@@ -84,3 +72,4 @@ TEXT_MSG="*Результаты:* \n*Рабочее окружение: :* $3 \n
 echo "------------------SEND-RESULTS------------------"
 sendResultsResponse=$(curl -ik -X POST $MATTERMOST_SERVER"/hooks/"$4 -H 'Content-Type: application/json' -d "{\"text\": \"$TEXT_MSG\"}")
 echo "$sendResultsResponse"
+rm -rf /tmp/results.zip
