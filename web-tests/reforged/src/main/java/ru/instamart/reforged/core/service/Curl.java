@@ -2,6 +2,8 @@ package ru.instamart.reforged.core.service;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,7 @@ public final class Curl {
     @Getter
     private final List<String> opt;
 
+    @ToString
     public static final class Builder {
 
         private final List<String> opt;
@@ -53,5 +56,10 @@ public final class Curl {
             this.opt.add(url);
             return new Curl(opt);
         }
+    }
+
+    @Override
+    public String toString() {
+        return StringUtils.join(opt, " ");
     }
 }

@@ -84,11 +84,12 @@ public final class UserRegistrationTests {
     @Story("Регистрация на странице ретейлера")
     @Test(description = "Тест успешной регистрации без проставленной галки Получать выгодные предложения", groups = "regression")
     public void successRegWithoutMailingCheckbox() {
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().uncheckPromoMailing();
-        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
-        shop().interactHeader().checkProfileButtonVisible();
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().checkModalIsVisible();
+        home().interactAuthModal().uncheckPromoMailing();
+        home().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        home().checkLogoutButtonDisplayed();
     }
 
     @CaseId(2622)

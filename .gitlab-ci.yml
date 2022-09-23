@@ -7,7 +7,6 @@ include:
   - local: '/.gitlab-ci/kafka.yaml'
   - local: '/.gitlab-ci/on-demand.yaml'
   - local: '/.gitlab-ci/ui-submodules.yaml'
-  - local: '/.gitlab-ci/allure.yaml'
 
 image: ${JDK11_GRADLE_IMAGE}
 
@@ -71,8 +70,6 @@ stages:
   - tests-ui
   - tests-ui-tenant
   - custom-run
-  - allure build
-  - allure deploy
 
 .template_only_branches:
   only:
