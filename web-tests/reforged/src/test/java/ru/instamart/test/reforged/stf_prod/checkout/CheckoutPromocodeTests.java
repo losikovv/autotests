@@ -44,8 +44,10 @@ public final class CheckoutPromocodeTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().submitOrder();
 
-        checkout().goToPage();
+        checkout().checkCheckoutButtonIsVisible();
         checkout().clickToAddPromoCode();
         checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
         checkout().interactEditPromoCodeModal().applyPromoCode();
@@ -62,8 +64,10 @@ public final class CheckoutPromocodeTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().submitOrder();
 
-        checkout().goToPage();
+        checkout().checkCheckoutButtonIsVisible();
         checkout().clickToAddPromoCode();
         checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
         checkout().interactEditPromoCodeModal().applyPromoCode();
