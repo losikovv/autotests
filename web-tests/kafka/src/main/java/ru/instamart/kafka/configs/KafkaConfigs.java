@@ -4,8 +4,6 @@ import ru.instamart.kafka.KafkaConfig;
 import ru.instamart.kraken.common.Crypt;
 
 public class KafkaConfigs {
-//    private static String workflowUser = Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6");
-//    private static String workflowPass = Crypt.INSTANCE.decrypt("CUDa0FhLhOzDHMPBKSY+Sw==");
     private static String workflowUser = Crypt.INSTANCE.decrypt("W8t2xfaWNDbOiygPZb58sw==");
     private static String workflowPass = Crypt.INSTANCE.decrypt("qDEePBkZyGVm909bb9boEA==");
 
