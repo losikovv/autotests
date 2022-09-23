@@ -42,8 +42,10 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().submitOrder();
 
-        checkout().goToPage();
+        checkout().checkCheckoutButtonIsVisible();
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
@@ -79,8 +81,10 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().submitOrder();
 
-        checkout().goToPage();
+        checkout().checkCheckoutButtonIsVisible();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
@@ -112,8 +116,10 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().submitOrder();
 
-        checkout().goToPage();
+        checkout().checkCheckoutButtonIsVisible();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));

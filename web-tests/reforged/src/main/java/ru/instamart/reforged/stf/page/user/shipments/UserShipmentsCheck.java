@@ -139,11 +139,11 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
                 expectedInterval,
                 "Дата и время доставки не соответствует ожидаемым");
     }
-    @Step("Проверка соответствия даты и времени доставки ожидаемым {expectedDate}")
-    default void checkDeliveryIntervalCorrectProd(final String expectedInterval) {
-        Assert.assertEquals(
-                StringUtil.cutExtraZerosFromDate(deliveryIntervalProd.getText()).replaceAll("\n", " "),
-                expectedInterval,
+    @Step("Проверка соответствия даты и времени доставки ожидаемым {expectedDate} {expectedTime}")
+    default void checkDeliveryIntervalCorrectProd(final String expectedDate, String expectedTime) {
+        Assert.assertTrue(
+                StringUtil.cutExtraZerosFromDate(deliveryIntervalProd.getText()).replaceAll("\n", " ").equals(expectedDate + ", " + expectedTime)
+                     || (StringUtil.cutExtraZerosFromDate(deliveryIntervalProd.getText()).replaceAll("\n", " ").equals("Завтра, " + expectedTime)),
                 "Дата и время доставки не соответствует ожидаемым");
     }
 }

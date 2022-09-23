@@ -81,12 +81,13 @@ public final class CheckoutDeliverySlotsTests {
         checkout().setSlot().setFirstActiveSlot();
 
         var deliveryTime = checkout().setSlot().getDeliveryTime();
+        var deliveryDate = checkout().setSlot().getDeliveryDate();
 
         checkout().setPayment().clickToByCardToCourier();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipments().checkPageContains(userShipments().pageUrl());
 
-        userShipments().checkDeliveryIntervalCorrectProd("Завтра, " + deliveryTime);
+        userShipments().checkDeliveryIntervalCorrectProd(deliveryDate, deliveryTime);
     }
 }

@@ -28,8 +28,10 @@ public final class HelpDeskChatTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().submitOrder();
 
-        checkout().goToPage();
+        checkout().checkCheckoutButtonIsVisible();
         checkout().interactHelpDesk().checkHelpDeskWidgetNotVisible();
     }
 

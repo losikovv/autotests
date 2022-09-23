@@ -46,8 +46,10 @@ public final class OrdersPaymentsTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().submitOrder();
 
-        checkout().goToPage();
+        checkout().checkCheckoutButtonIsVisible();
         checkout().setDeliveryOptions().clickToForSelf();
         checkout().setDeliveryOptions().fillComments("test");
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
@@ -76,8 +78,10 @@ public final class OrdersPaymentsTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().submitOrder();
 
-        checkout().goToPage();
+        checkout().checkCheckoutButtonIsVisible();
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
