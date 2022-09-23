@@ -37,6 +37,7 @@ public class AuthorizationTest extends GrpcBase {
                 .setSbmAuthIdentity("1")
                 .addSbmAuthRoles("BizdevDept")
                 .setSbmAuthType("core-services")
+                .setPolicyVersion("test")
                 .build();
 
         var response = client.authorizedPermissions(request);
@@ -51,11 +52,12 @@ public class AuthorizationTest extends GrpcBase {
             groups = {"grpc-authorization-service"})
     public void authorizationWrongPermissonsGRPC() {
         var request = AuthorizationOuterClass.AuthorizedPermissionsRequest.newBuilder()
-                .addPermissions("example-service/core-services/retailers:write")
-                .addPermissions("example-service/core-services/retailers:read")
+                .addPermissions("example-service/core-services/retailers:wrong")
+                .addPermissions("example-service/core-services/wrong:read")
                 .setSbmAuthIdentity("1")
                 .addSbmAuthRoles("BizdevDept")
                 .setSbmAuthType("core-services")
+                .setPolicyVersion("test")
                 .build();
 
         var response = client.authorizedPermissions(request);

@@ -196,9 +196,8 @@ public enum Specification {
                 .build();
 
         authorizationServiceRequestSpec = new RequestSpecBuilder()
-                .setBaseUri("http://base-app.paas-content-core-services-authorization")
+                .setBaseUri("https://paas-content-core-services-authorization.gw-stage.sbmt.io")
                 .setBasePath("api/")
-                .setPort(8080)
                 .setAccept(ContentType.ANY)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();

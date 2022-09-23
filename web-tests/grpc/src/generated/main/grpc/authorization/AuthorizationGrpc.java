@@ -46,6 +46,37 @@ public final class AuthorizationGrpc {
     return getAuthorizedPermissionsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<authorization.AuthorizationOuterClass.DataFiltersRequest,
+      authorization.AuthorizationOuterClass.DataFiltersResponse> getDataFiltersMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DataFilters",
+      requestType = authorization.AuthorizationOuterClass.DataFiltersRequest.class,
+      responseType = authorization.AuthorizationOuterClass.DataFiltersResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<authorization.AuthorizationOuterClass.DataFiltersRequest,
+      authorization.AuthorizationOuterClass.DataFiltersResponse> getDataFiltersMethod() {
+    io.grpc.MethodDescriptor<authorization.AuthorizationOuterClass.DataFiltersRequest, authorization.AuthorizationOuterClass.DataFiltersResponse> getDataFiltersMethod;
+    if ((getDataFiltersMethod = AuthorizationGrpc.getDataFiltersMethod) == null) {
+      synchronized (AuthorizationGrpc.class) {
+        if ((getDataFiltersMethod = AuthorizationGrpc.getDataFiltersMethod) == null) {
+          AuthorizationGrpc.getDataFiltersMethod = getDataFiltersMethod =
+              io.grpc.MethodDescriptor.<authorization.AuthorizationOuterClass.DataFiltersRequest, authorization.AuthorizationOuterClass.DataFiltersResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DataFilters"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  authorization.AuthorizationOuterClass.DataFiltersRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  authorization.AuthorizationOuterClass.DataFiltersResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new AuthorizationMethodDescriptorSupplier("DataFilters"))
+              .build();
+        }
+      }
+    }
+    return getDataFiltersMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -101,6 +132,13 @@ public final class AuthorizationGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAuthorizedPermissionsMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void dataFilters(authorization.AuthorizationOuterClass.DataFiltersRequest request,
+        io.grpc.stub.StreamObserver<authorization.AuthorizationOuterClass.DataFiltersResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDataFiltersMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -110,6 +148,13 @@ public final class AuthorizationGrpc {
                 authorization.AuthorizationOuterClass.AuthorizedPermissionsRequest,
                 authorization.AuthorizationOuterClass.AuthorizedPermissionsResponse>(
                   this, METHODID_AUTHORIZED_PERMISSIONS)))
+          .addMethod(
+            getDataFiltersMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                authorization.AuthorizationOuterClass.DataFiltersRequest,
+                authorization.AuthorizationOuterClass.DataFiltersResponse>(
+                  this, METHODID_DATA_FILTERS)))
           .build();
     }
   }
@@ -135,6 +180,14 @@ public final class AuthorizationGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getAuthorizedPermissionsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void dataFilters(authorization.AuthorizationOuterClass.DataFiltersRequest request,
+        io.grpc.stub.StreamObserver<authorization.AuthorizationOuterClass.DataFiltersResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDataFiltersMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -156,6 +209,13 @@ public final class AuthorizationGrpc {
     public authorization.AuthorizationOuterClass.AuthorizedPermissionsResponse authorizedPermissions(authorization.AuthorizationOuterClass.AuthorizedPermissionsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getAuthorizedPermissionsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public authorization.AuthorizationOuterClass.DataFiltersResponse dataFilters(authorization.AuthorizationOuterClass.DataFiltersRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDataFiltersMethod(), getCallOptions(), request);
     }
   }
 
@@ -180,9 +240,18 @@ public final class AuthorizationGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getAuthorizedPermissionsMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<authorization.AuthorizationOuterClass.DataFiltersResponse> dataFilters(
+        authorization.AuthorizationOuterClass.DataFiltersRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDataFiltersMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_AUTHORIZED_PERMISSIONS = 0;
+  private static final int METHODID_DATA_FILTERS = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -204,6 +273,10 @@ public final class AuthorizationGrpc {
         case METHODID_AUTHORIZED_PERMISSIONS:
           serviceImpl.authorizedPermissions((authorization.AuthorizationOuterClass.AuthorizedPermissionsRequest) request,
               (io.grpc.stub.StreamObserver<authorization.AuthorizationOuterClass.AuthorizedPermissionsResponse>) responseObserver);
+          break;
+        case METHODID_DATA_FILTERS:
+          serviceImpl.dataFilters((authorization.AuthorizationOuterClass.DataFiltersRequest) request,
+              (io.grpc.stub.StreamObserver<authorization.AuthorizationOuterClass.DataFiltersResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -267,6 +340,7 @@ public final class AuthorizationGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new AuthorizationFileDescriptorSupplier())
               .addMethod(getAuthorizedPermissionsMethod())
+              .addMethod(getDataFiltersMethod())
               .build();
         }
       }
