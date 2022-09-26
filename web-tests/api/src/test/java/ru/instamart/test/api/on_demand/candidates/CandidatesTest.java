@@ -24,6 +24,9 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 import workflow.ServiceGrpc;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.helper.WorkflowHelper.acceptWorkflowAndStart;
 import static ru.instamart.api.helper.WorkflowHelper.getWorkflowUuid;
@@ -38,31 +41,33 @@ public class CandidatesTest extends RestBase {
     private UserData user;
     private UserData user2;
     private UserData user3;
+    private UserData user4;
     private String timeStamp = getPastDateTime(900L);
     private OrderV2 order;
     private String shipmentUuid;
     private ServiceGrpc.ServiceBlockingStub clientWorkflow;
+
     @BeforeClass(alwaysRun = true)
     public void auth() {
-       clientWorkflow = ServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW));
+        clientWorkflow = ServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW));
 
         user = UserManager.getShp6Shopper1();
         shopperApp.authorisation(user);
         //Удаляем все смены
         shiftsApi.cancelAllActiveShifts();
         shiftsApi.stopAllActiveShifts();
-        //
+
         shiftsApi.startOfShift(StartPointsTenants.METRO_9);
-        shopperApp.sendCurrentLocator(55.915098,37.541685, null);
+        shopperApp.sendCurrentLocator(55.915098, 37.541685, null);
 
         user2 = UserManager.getShp6Shopper2();
         shopperApp.authorisation(user2);
         //Удаляем все смены
         shiftsApi.cancelAllActiveShifts();
         shiftsApi.stopAllActiveShifts();
-        //
+
         shiftsApi.startOfShift(StartPointsTenants.METRO_9);
-        shopperApp.sendCurrentLocator(55.915098,37.541685, null);
+        shopperApp.sendCurrentLocator(55.915098, 37.541685, null);
 
        SessionFactory.makeSession(SessionType.API_V2);
         UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
@@ -78,11 +83,21 @@ public class CandidatesTest extends RestBase {
         //Удаляем все смены
         shiftsApi.cancelAllActiveShifts();
         shiftsApi.stopAllActiveShifts();
-        //
+
         shiftsApi.startOfShift(StartPointsTenants.METRO_3);
-        shopperApp.sendCurrentLocator(55.857291,38.440348, null);
+        shopperApp.sendCurrentLocator(55.857291, 38.440348, null);
+
+        user4 = UserManager.getShp6Shopper4();
+        shopperApp.authorisation(user4);
+        shopperApp.createShopperShift(
+                1,
+                String.valueOf(LocalDateTime.now()),
+                String.valueOf(LocalDateTime.now().plus(1, ChronoUnit.DAYS)),
+                55.91661, 37.54007);
+
 
         clientCandidates = CandidatesGrpc.newBlockingStub(grpc.createChannel(PAAS_CONTENT_OPERATIONS_CANDIDATES));
+
 
     }
 
@@ -123,7 +138,7 @@ public class CandidatesTest extends RestBase {
                 )
                 .build();
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
-        assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount()  <= 0, "UUID кандидата вернулся");
+        assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() <= 0, "UUID кандидата вернулся");
     }
 
     @CaseId(24)
@@ -144,6 +159,7 @@ public class CandidatesTest extends RestBase {
                 .build();
         clientCandidates.selectCandidates(requestBody);
     }
+
     @CaseId(45)
     @Test(description = "Отбор кандидатов по дате/времени последней фиксации геопозиции",
             groups = "dispatch-candidates-smoke")
@@ -160,7 +176,7 @@ public class CandidatesTest extends RestBase {
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
 
-        }
+    }
 
 
     @CaseId(30)
@@ -212,6 +228,7 @@ public class CandidatesTest extends RestBase {
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() <= 0, "UUID кандидата вернулся");
 
     }
+
     @CaseId(29)
     @Test(description = "Отсутствие необходимой роли у кандидата", groups = "dispatch-candidates-smoke")
     public void withoutRoleCandidate() {
@@ -227,6 +244,7 @@ public class CandidatesTest extends RestBase {
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() <= 0, "UUID кандидата вернулся");
     }
+
     @CaseId(38)
     @Test(description = "Отбор кандидатов по нескольким фильтрам", groups = "dispatch-candidates-smoke")
     public void SelectionByManyFilters() {
@@ -252,6 +270,7 @@ public class CandidatesTest extends RestBase {
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
         assertTrue(selectCandidatesResponse.getResults(1).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
     }
+
     @CaseId(120)
     @Test(description = "Отбор кандидатов по очереди", groups = "dispatch-candidates-smoke")
     public void SelectionByQueueSize() {
@@ -267,6 +286,7 @@ public class CandidatesTest extends RestBase {
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
     }
+
     @CaseId(86)
     @Test(description = "Отбор кандидатов по всем параметрам в фильтре", groups = "dispatch-candidates-smoke")
     public void SelectionByAllFilters() {
@@ -289,6 +309,19 @@ public class CandidatesTest extends RestBase {
                 .build();
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
+    }
+     @CaseId(32)
+    @Test(description = "Отбор сборщиков в активной смене", groups = "dispatch-candidates-smoke")
+
+    public void SelectionShoppers() {
+        var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
+                .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
+                                .setPlaceUuid("599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a")
+                )
+                .build();
+         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
+         assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
+
     }
 }
 
