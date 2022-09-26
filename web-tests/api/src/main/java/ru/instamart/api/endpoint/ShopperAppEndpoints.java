@@ -124,4 +124,5 @@ public final class ShopperAppEndpoints {
             public static final String CONFIG = "scango/assemblies/{assemblyId}/config";
         }
     }
+
 }

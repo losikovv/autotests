@@ -1,14 +1,20 @@
 package ru.instamart.test.api.shopper.admin.endpoints;
 
 import estimator.Estimator;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.apache.commons.lang3.RandomUtils;
+import org.json.simple.JSONObject;
 import org.testng.Assert;
 import ru.instamart.api.checkpoint.BaseApiCheckpoints;
 import ru.instamart.api.checkpoint.StatusCodeCheckpoints;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest.PutEstimatorSettings;
+import ru.instamart.api.request.v1.ShoppersV1Request;
+import ru.instamart.api.request.v1.StoresV1Request;
+import ru.instamart.jdbc.dao.orders_service.PlaceSettingsDao;
+import ru.instamart.jdbc.entity.order_service.PlaceSettingsEntity;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
@@ -29,6 +35,7 @@ import java.time.temporal.ChronoUnit;
 import static org.testng.Assert.*;
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.request.shopper.admin.ShopperAdminRequest.SettingsRes.builder;
@@ -357,6 +364,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         String storeUuid = "6bc4dc40-37a0-45fe-ac7f-d4185c29da63";
         final Response response = ShopperAdminRequest.OrderServiceSettings.GET(storeUuid);
         RouteOrderServiceSettings parameters = response.as(RouteOrderServiceSettings.class);
+
         checkStatusCode200(response);
         checkResponseJsonSchema(response,RouteOrderServiceSettings.class);
         assertEquals(parameters.getStoreOrderServiceSetting().getStoreUuid(), storeUuid, "Вернулся неверный UUID");
@@ -421,4 +429,58 @@ public class ShopperAdminWithAuthTest extends RestBase {
         BaseApiCheckpoints.compareTwoObjects(routeEstimator.getStoreUuid(),
                 parameters.getSettingsRes().getEstimatorParameters().getStoreUuid());
     }
+
+
+    @Story("Routing settings")
+    @Test(description = "Установка маршрутизатизации на диспатч",
+            groups = {"api-shopper-regress"})
+    public void patchRoutingSettingsDispatch() {
+
+        int storeId = 16;
+        String schedule_type = "dispatch";
+
+        final Response response = ShopperAdminRequest.RoutingSettings.PATCH(storeId,schedule_type);
+        RouteRoutingSettings parameters = response.as(RouteRoutingSettings.class);
+
+        String place_uuid = parameters.getStore().getUuid();
+
+        PlaceSettingsEntity placeSettingsEntity = PlaceSettingsDao.INSTANCE.getScheduleType(place_uuid);
+
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response,RouteRoutingSettings.class);
+        Allure.step("",()->{
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(parameters.getStore().getId(), storeId, "Вернулся неверный ID магазина");
+            softAssert.assertEquals(parameters.getStore().getScheduleType(), schedule_type, "Вернулись не верные настройки маршрутизации");
+            compareTwoObjects(parameters.getStore().getScheduleType(), placeSettingsEntity.getScheduleType(), softAssert);
+            softAssert.assertAll();
+        });
+    }
+
+    @Story("Routing settings")
+    @Test(description = "Установка маршрутизатизации на револьверную",
+            groups = {"api-shopper-regress"})
+    public void patchRoutingSettingsList() {
+        int storeId = 16;
+        String schedule_type = "list";
+
+        final Response response = ShopperAdminRequest.RoutingSettings.PATCH(storeId,schedule_type);
+        RouteRoutingSettings parameters = response.as(RouteRoutingSettings.class);
+
+        String place_uuid = parameters.getStore().getUuid();
+
+        PlaceSettingsEntity placeSettingsEntity = PlaceSettingsDao.INSTANCE.getScheduleType(place_uuid);
+
+        checkStatusCode200(response);
+
+        checkResponseJsonSchema(response,RouteRoutingSettings.class);
+        Allure.step("",()-> {
+            final SoftAssert softAssert = new SoftAssert();
+            assertEquals(parameters.getStore().getId(), storeId, "Вернулся неверный ID магазина");
+            assertEquals(parameters.getStore().getScheduleType(), schedule_type, "Вернулись не верные настройки маршрутизации");
+            compareTwoObjects(parameters.getStore().getScheduleType(), placeSettingsEntity.getScheduleType());
+            softAssert.assertAll();
+        });
+    }
+
 }
