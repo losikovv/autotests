@@ -49,5 +49,13 @@ public final class ShopperAdminEndpoints {
     public static final class OrderServiceSettings{
         public static final String ORDER_SERVICE_SETTINGS = "v1/stores/{retailerUUID}/order_service_settings";
     }
+
+    public static final class RoutingSettings{
+
+        public static final String ROUTING_SETTINGS = "v1/stores/{ID}";
+
+    }
+
 }
+
 
