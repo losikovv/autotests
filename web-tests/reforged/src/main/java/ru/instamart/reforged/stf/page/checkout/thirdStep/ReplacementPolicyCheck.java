@@ -16,4 +16,10 @@ public interface ReplacementPolicyCheck extends Check, ReplacementPolicyElement 
     default void checkReplacementSpinnerVisible() {
         waitAction().shouldBeVisible(spinner);
     }
+
+    @Step("Проверяем что кнопка 'продолжить' в разделе замен видна")
+    default void checkSubmitVisible() {
+        submit.should().notAnimated();
+        submit.should().visible();
+    }
 }

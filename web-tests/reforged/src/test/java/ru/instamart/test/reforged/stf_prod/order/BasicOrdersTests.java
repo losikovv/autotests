@@ -60,7 +60,9 @@ public final class BasicOrdersTests {
         checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
+        checkout().setReplacementPolicy().checkSubmitVisible();
         checkout().setReplacementPolicy().clickToSubmit();
+        checkout().setReplacementPolicy().checkReplacementSpinnerNotVisible();
 
         checkout().setSlot().setLastActiveSlot();
 
