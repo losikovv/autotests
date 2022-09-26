@@ -59,7 +59,7 @@ public class ProductFeedbacksV2Test extends RestBase {
         });
     }
 
-    @Skip(onServer = Server.STAGING)
+    @Skip
     @CaseId(2307)
     @Story("Получение списка отзывов")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
