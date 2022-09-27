@@ -37,7 +37,7 @@ public interface ShopElement {
     Disclaimer disclaimer = new Disclaimer();
 
     Button openAddress = new Button(By.xpath("//button[@data-qa='select-button']"), "empty");
-    Element firstProductCardProd = new Element(By.xpath("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[@aria-label='1 из 10']"), "Карточка первого товара в каталоге на проде");
+    Element firstProductCardProd = new Element(By.xpath("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[1]"), "Карточка первого товара в каталоге на проде");
     Element firstProductCard = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']"), "Карточка первого товара в каталоге на стейдже");
     Element addFirstItemToFavorite = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']/button"), "Кнопка 'Добавить в избранное' у первого товара");
     Element deleteFirstItemFromFavorite = new Element(By.xpath("//div[contains(@class, 'favorite-button--active')]"), "empty");
