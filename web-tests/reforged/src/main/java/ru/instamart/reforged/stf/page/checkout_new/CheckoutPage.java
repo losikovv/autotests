@@ -107,9 +107,27 @@ public class CheckoutPage implements StfPage, CheckoutCheck, Window {
         }
     }
 
+    @Step("Прокручиваем список слотов к концу списка")
+    public void scrollSlotsToEnd() {
+        for (int i = 0; i < 3; i++) {
+            clickNext();
+            ThreadUtil.simplyAwait(1);
+        }
+    }
+
     @Step("Выбираем ближайший доступный слот доставки")
     public void clickFirstSlot() {
         allDeliverySlots.clickOnFirst();
+    }
+
+    @Step("Выбираем OnDemand слот доставки")
+    public void clickOnDemandSlot() {
+        onDemandDeliverySlots.clickOnFirst();
+    }
+
+    @Step("Выбираем последний доступный слот доставки")
+    public void clickLastSlot() {
+        deliverySlots.clickOnLast();
     }
 
     @Step("Выбираем второй доступный слот доставки")
