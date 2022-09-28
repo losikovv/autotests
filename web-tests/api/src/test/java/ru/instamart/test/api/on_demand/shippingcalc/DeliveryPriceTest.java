@@ -54,7 +54,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         addBinding(localStrategyId, STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
         addBinding(localStrategyId, SURGE_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
 
-        conditionStrategyId = addStrategy(false, 0, DeliveryType.COURIER_DELIVERY.toString());
+        conditionStrategyId = addStrategy(false, 0, DeliveryType.SELF_DELIVERY.toString());
         addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "0"), 0, "delivery_price"), "{\"Count\": 1}", ConditionType.FIRST_N_ORDERS.name().toLowerCase());
         addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "9900"), 1, "delivery_price"), "{\"Max\": 2000, \"Min\": 0}", ConditionType.ORDER_DISTANCE_RANGE.name().toLowerCase());
         addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "14900"), 2, "delivery_price"), "{\"platforms\": [{\"name\": \"SbermarketIOS\", \"version\": \"6.28.0\"}]}", ConditionType.PLATFORMS.name().toLowerCase());
@@ -64,7 +64,8 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         addCondition(multipleConditionRuleId, "{\"Max\": 1000000000000000, \"Min\": 300000}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
         addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "29900"), 5, "delivery_price"), "{}", ConditionType.ALWAYS.name().toLowerCase());
         addCondition(addRule(conditionStrategyId, "", "100000", 0, "min_cart"), "{}", ConditionType.ALWAYS.name().toLowerCase());
-        addBinding(conditionStrategyId, STORE_ID, Tenant.INSTAMART.getId(), DeliveryType.COURIER_DELIVERY.toString());
+        addBinding(conditionStrategyId, STORE_ID, Tenant.INSTAMART.getId(), DeliveryType.SELF_DELIVERY.toString());
+        addBinding(conditionStrategyId, SURGE_STORE_ID, Tenant.INSTAMART.getId(), DeliveryType.SELF_DELIVERY.toString());
 
         globalStrategyId = addStrategy(true, 0, DeliveryType.COURIER_DELIVERY.toString());
         addCondition(addRule(globalStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "10001"), 0, "delivery_price"), "{}", "always");
@@ -362,6 +363,30 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 20890, 110000, 3, 4, 0, 0);
     }
 
+    @CaseId(456)
+    @Story("Get Delivery Price")
+    @Test(description = "Расчет цены без наценки surge для самовывоза",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryPriceWithNoSurgeSelfDelivery() {
+        var request = getDeliveryPriceRequest(
+                1, PRODUCT_ID, 99900, 0, 1000, SHIPMENT_ID, true,
+                1000, 1, 99900, SURGE_STORE_ID, "NEW", 1, 0,
+                55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
+                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.SELF_DELIVERY_VALUE,
+                Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+
+        Allure.step("Проверяем отсутствие наценки по surge", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertFalse(response.getShipments(0).getSurgeUsed(), "Surge использовался при расчете цены");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), 0f, "Не верный surgelevel");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 0, "Не верная наценка");
+            softAssert.assertAll();
+        });
+        checkDeliveryPrice(response, conditionStrategyId, 19900, 100000, 1, 0, 1, 0);
+    }
+
     @CaseId(320)
     @Story("Get Delivery Price")
     @Test(description = "Расчет цены с наценкой слота surge_delivery_window_addition",
@@ -585,7 +610,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 1, PRODUCT_ID, 100000, 0, 40000, SHIPMENT_ID, false,
                 40000, 1, 100000, STORE_ID, "NEW", 1, 0,
                 55.9311, 38.242613, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.9251, 38.242613,
-                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.SELF_DELIVERY_VALUE,
                 Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
@@ -601,7 +626,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 1, PRODUCT_ID, 100000, 0, 40000, SHIPMENT_ID, false,
                 40000, 1, 100000, STORE_ID, "NEW", 1, 0,
                 55.9311, 38.242613, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 50.9211, 30.232613,
-                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.SELF_DELIVERY_VALUE,
                 Tenant.INSTAMART.getId(), AppVersion.IOS.getName(), AppVersion.IOS.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
@@ -617,7 +642,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 1, PRODUCT_ID, 100000, 0, 40000, SHIPMENT_ID, false,
                 40000, 1, 100000, STORE_ID, "NEW", 1, 0,
                 55.9311, 38.242613, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 50.9211, 30.232613,
-                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.SELF_DELIVERY_VALUE,
                 Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
@@ -633,7 +658,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 1, PRODUCT_ID, 300000, 0, 40000, SHIPMENT_ID, false,
                 40000, 1, 300000, STORE_ID, "NEW", 1, 0,
                 55.9311, 38.242613, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655635906, 50.9211, 30.232613,
-                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.SELF_DELIVERY_VALUE,
                 Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);

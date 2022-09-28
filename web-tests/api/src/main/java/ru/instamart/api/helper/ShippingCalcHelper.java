@@ -2,7 +2,6 @@ package ru.instamart.api.helper;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import org.apache.commons.lang3.StringUtils;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.jdbc.dao.shippingcalc.*;
 import ru.instamart.jdbc.entity.shippingcalc.*;
@@ -14,6 +13,7 @@ import java.util.Objects;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.kraken.util.StringUtil.substringToLastIndexOfStr;
 
 public class ShippingCalcHelper {
 
@@ -168,7 +168,7 @@ public class ShippingCalcHelper {
         ArrayList<Integer> rulesIds = new ArrayList();
         for (RulesEntity rule : rules) rulesIds.add(rule.getId());
         List<ConditionsEntity> conditions = ConditionsDao.INSTANCE.getConditions(rulesIds);
-        String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
+        String shipping = substringToLastIndexOfStr(deliveryType, "_");
 
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(strategyId, strategy.getId(), softAssert);
@@ -187,7 +187,7 @@ public class ShippingCalcHelper {
         ArrayList<Integer> rulesIds = new ArrayList();
         for (RulesEntity rule : rules) rulesIds.add(rule.getId());
         List<ConditionsEntity> conditions = ConditionsDao.INSTANCE.getConditions(rulesIds);
-        String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
+        String shipping = substringToLastIndexOfStr(deliveryType, "_");
 
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(strategyId, strategy.getId(), softAssert);
@@ -225,7 +225,7 @@ public class ShippingCalcHelper {
 
     @Step("Проверяем связку стратегии к магазину")
     public static void checkBind(Integer strategyId, String storeId, String tenantId, String deliveryType) {
-        String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
+        String shipping = substringToLastIndexOfStr(deliveryType, "_");
         StrategyBindingsEntity bind = StrategyBindingsDao.INSTANCE.getStrategyBinding(strategyId, storeId, tenantId, shipping);
 
         assertNotNull(bind, "Не нашли такую связку");
@@ -234,9 +234,8 @@ public class ShippingCalcHelper {
 
     @Step("Проверяем отвязку стратегии от магазина")
     public static void checkUnbind(Integer strategyId, String storeId, String tenantId, String deliveryType) {
-        String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
+        String shipping = substringToLastIndexOfStr(deliveryType, "_");
         StrategyBindingsEntity bind = StrategyBindingsDao.INSTANCE.getStrategyBinding(strategyId, storeId, tenantId, shipping);
-
         assertNull(bind, "Связка не удалилась");
     }
 
@@ -257,8 +256,7 @@ public class ShippingCalcHelper {
 
     @Step("Добавляем стратегию в БД")
     public static Integer addStrategy(Boolean global, Integer priority, String deliveryType) {
-        int lastIndex = deliveryType.lastIndexOf("_");
-        String shipping = lastIndex == -1 ? deliveryType.toLowerCase() : deliveryType.substring(0, lastIndex).toLowerCase();
+        String shipping = substringToLastIndexOfStr(deliveryType, "_");
         Integer strategyId = StrategiesDao.INSTANCE.addStrategy("autotest-insert", shipping, global, priority, "autotest-insert", "autotest-insert");
         Allure.step("Проверяем что стратегия добавилась", () -> assertTrue(strategyId > 0, "Пустое id стратегии"));
         return strategyId;
@@ -285,7 +283,7 @@ public class ShippingCalcHelper {
 
     @Step("Добавляем привязку магазина к стратегии")
     public static void addBinding(Integer strategyId, String storeId, String tenantId, String deliveryType) {
-        String shipping = StringUtils.substringBefore(deliveryType, "_").toLowerCase();
+        String shipping = substringToLastIndexOfStr(deliveryType, "_");
         boolean binding = StrategyBindingsDao.INSTANCE.addStrategyBinding(strategyId, storeId, tenantId, shipping);
         Allure.step("Проверяем что связка добавилась", () -> assertTrue(binding, "Связка не добавилась"));
     }

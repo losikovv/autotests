@@ -14,6 +14,7 @@ import ru.instamart.jdbc.dao.shippingcalc.StrategiesDao;
 import ru.instamart.jdbc.entity.shippingcalc.RulesEntity;
 import ru.instamart.jdbc.entity.shippingcalc.StrategiesEntity;
 import ru.instamart.kraken.enums.Tenant;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import shippingcalc.*;
@@ -1353,17 +1354,17 @@ public class StrategyTest extends ShippingCalcBase {
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к магазину, у которого уже есть связка",
             groups = "dispatch-shippingcalc-smoke",
-            dependsOnMethods = {"createStrategy", "createStrategyWithMultipleRulesAndConditions"})
+            dependsOnMethods = {"bindStrategy", "createStrategyWithMultipleRulesAndConditions"})
     public void rebindStrategy() {
-        addBinding(localStrategyId, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY.toString());
-        var request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY_VALUE, false);
+        var request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY_VALUE, false);
         clientShippingCalc.bindStrategy(request);
 
-        checkBind(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY.toString());
-        checkUnbind(localStrategyId, SECOND_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY.toString());
+        checkBind(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY.toString());
+        checkUnbind(localStrategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(366)
+    @Skip // deprecated
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к магазину с флагом replace_all",
             groups = "dispatch-shippingcalc-smoke",
@@ -1437,16 +1438,16 @@ public class StrategyTest extends ShippingCalcBase {
             dependsOnMethods = "createStrategy")
     public void bindStrategyWithNoDeliveryType() {
         var request = BindStrategyRequest.newBuilder()
-                .setStrategyId(localStrategyId)
+                .setStrategyId(strategyIdWithMultipleRulesAndConditions)
                 .addBinds(StrategyBinding.newBuilder()
-                        .setStoreId(SECOND_STORE_ID)
+                        .setStoreId(FIRST_STORE_ID)
                         .setTenantId(Tenant.AUCHAN.getId())
                         .build())
                 .setReplaceAll(false)
                 .build();
 
         clientShippingCalc.bindStrategy(request);
-        checkBind(localStrategyId, SECOND_STORE_ID, Tenant.AUCHAN.getId(), DeliveryType.SELF_DELIVERY.toString());
+        checkBind(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.AUCHAN.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(376)
@@ -1454,29 +1455,42 @@ public class StrategyTest extends ShippingCalcBase {
     @Test(description = "Получение ошибки при привязке к удаленной стратегии",
             groups = "dispatch-shippingcalc-regress",
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INTERNAL: cannot bind strategy: entity not found",
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot bind strategy: repository.binding.bind: entity not found",
             dependsOnMethods = "deleteStrategy")
     public void bindStrategyDeleted() {
-        var request = getBindStrategyRequest(strategyIdWithDifferentScriptsInRules, FIRST_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY_VALUE, false);
+        var request = getBindStrategyRequest(localStrategyId, FIRST_STORE_ID, Tenant.SELGROS.getId(), DeliveryType.SELF_DELIVERY_VALUE, false);
         clientShippingCalc.bindStrategy(request);
+    }
+
+    @CaseId(455)
+    @Story("Unbind Strategy")
+    @Skip // deprecated
+    @Test(description = "Получение ошибки доступа при попытке отвязать стратегию",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "PERMISSION_DENIED: unbinding strategy is forbidden, you can only replace strategy in binding",
+            dependsOnMethods = "bindStrategy")
+    public void unbindStrategyPermissionDenied() {
+        var request = getUnbindStrategyRequest(localStrategyId, FIRST_STORE_ID, "test", DeliveryType.SELF_DELIVERY_VALUE);
+        clientShippingCalc.unbindStrategy(request);
     }
 
     @CaseId(155)
     @Story("Unbind Strategy")
     @Test(description = "Отвязка стратегии от магазина с валидными данными",
             groups = "dispatch-shippingcalc-smoke",
-            dependsOnMethods = {"getStrategy", "getStrategiesWithAllFilter", "getStrategiesWithStoreFilter", "getStrategiesForStore"})
+            dependsOnMethods = {"rebindStrategy", "getStrategy", "getStrategiesWithAllFilter", "getStrategiesForStore", "getStrategiesWithStoreFilter"})
     public void unbindStrategy() {
-        var request = getUnbindStrategyRequest(localStrategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY_VALUE);
+        var request = getUnbindStrategyRequest(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY_VALUE);
         clientShippingCalc.unbindStrategy(request);
-        checkUnbind(localStrategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY.toString());
+        checkUnbind(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(158)
     @Story("Unbind Strategy")
     @Test(description = "Отвязка стратегии от нескольких магазинов в массиве binds",
             groups = "dispatch-shippingcalc-smoke",
-            dependsOnMethods = {"getStrategy", "bindStrategyMultipleStores"})
+            dependsOnMethods = {"getStrategy", "bindStrategyMultipleStores", "getStrategiesForStoreWithoutTenantAndDeliveryType"})
     public void unbindStrategyMultipleStores() {
         var request = UnbindStrategyRequest.newBuilder()
                 .setStrategyId(strategyIdWithDifferentScriptsInRules)
@@ -1551,18 +1565,18 @@ public class StrategyTest extends ShippingCalcBase {
     @Story("Unbind Strategy")
     @Test(description = "Отвязка стратегии от магазина без типа доставки",
             groups = "dispatch-shippingcalc-regress",
-            dependsOnMethods = "bindStrategyWithNoDeliveryType")
+            dependsOnMethods = {"bindStrategyWithNoDeliveryType", "deleteStrategyWithBind"})
     public void unbindStrategyWithNoDeliveryType() {
         var request = UnbindStrategyRequest.newBuilder()
-                .setStrategyId(localStrategyId)
+                .setStrategyId(strategyIdWithMultipleRulesAndConditions)
                 .addBinds(StrategyBinding.newBuilder()
-                        .setStoreId(SECOND_STORE_ID)
-                        .setTenantId(Tenant.METRO.getId())
+                        .setStoreId(FIRST_STORE_ID)
+                        .setTenantId(Tenant.AUCHAN.getId())
                         .build())
                 .build();
 
         clientShippingCalc.unbindStrategy(request);
-        checkUnbind(localStrategyId, SECOND_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY.toString());
+        checkUnbind(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.AUCHAN.getId(), DeliveryType.SELF_DELIVERY.toString());
     }
 
     @CaseId(118)
@@ -1612,7 +1626,7 @@ public class StrategyTest extends ShippingCalcBase {
             dependsOnMethods = "deleteStrategy")
     public void getStrategyDeleted() {
         var request = GetStrategyRequest.newBuilder()
-                .setStrategyId(strategyIdWithDifferentScriptsInRules)
+                .setStrategyId(localStrategyId)
                 .build();
 
         clientShippingCalc.getStrategy(request);
@@ -1792,8 +1806,6 @@ public class StrategyTest extends ShippingCalcBase {
             final SoftAssert softAssert = new SoftAssert();
             assertTrue(response.getStrategyCount() > 1, "В ответе не ожидамое кол-во стратегий");
             softAssert.assertTrue(response.getStrategy(0).getBinding().getStoreId().equals(FIRST_STORE_ID) && response.getStrategy(1).getBinding().getStoreId().equals(FIRST_STORE_ID), "В ответе не нашли ожидаемых привязок");
-            softAssert.assertNotEquals(response.getStrategy(0).getStrategyId(), response.getStrategy(1).getStrategyId(), "В ответе не нашли ожидаемые id стратегий");
-            softAssert.assertNotEquals(response.getStrategy(0).getBinding().getTenantId(), response.getStrategy(1).getBinding().getTenantId(), "В ответе не нашли ожидаемых тенантов");
             softAssert.assertEquals(response.getStrategy(0).getBinding().getDeliveryType(), DeliveryType.SELF_DELIVERY, "В ответе не нашли ожидаемых типов доставки");
             softAssert.assertAll();
         });
@@ -1819,14 +1831,14 @@ public class StrategyTest extends ShippingCalcBase {
     @Story("Delete Strategy")
     @Test(description = "Удаление стратегии без биндов",
             groups = "dispatch-shippingcalc-smoke",
-            dependsOnMethods = "unbindStrategyMultipleStores")
+            dependsOnMethods = "rebindStrategy")
     public void deleteStrategy() {
-        var request = getDeleteStrategyRequest(strategyIdWithDifferentScriptsInRules);
+        var request = getDeleteStrategyRequest(localStrategyId);
         var response = clientShippingCalc.deleteStrategy(request);
 
-        StrategiesEntity strategy = StrategiesDao.INSTANCE.getStrategy(strategyIdWithDifferentScriptsInRules);
-        List<RulesEntity> rules = RulesDao.INSTANCE.getRules(strategyIdWithDifferentScriptsInRules);
-        List<RulesEntity> deletedRules = RulesDao.INSTANCE.getDeletedRules(strategyIdWithDifferentScriptsInRules);
+        StrategiesEntity strategy = StrategiesDao.INSTANCE.getStrategy(localStrategyId);
+        List<RulesEntity> rules = RulesDao.INSTANCE.getRules(localStrategyId);
+        List<RulesEntity> deletedRules = RulesDao.INSTANCE.getDeletedRules(localStrategyId);
         Allure.step("Проверка удаления стратегии", () -> {
             final SoftAssert softAssert = new SoftAssert();
             compareTwoObjects(response.toString(), "", softAssert);
