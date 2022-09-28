@@ -129,9 +129,11 @@ stages:
       - web-tests/api/build/reports/tests/
       - web-tests/api/swagger-coverage-output
       - web-tests/api/build/report.html
+      - .env
     expire_in: 1 week
     reports:
       junit: web-tests/api/build/test-results/*/TEST-*.xml
+      dotenv: .env
   allow_failure: false
 
 .template_api_ui_tests:
@@ -146,9 +148,11 @@ stages:
       - web-tests/api/build/reports/tests/
       - web-tests/api/swagger-coverage-output
       - web-tests/api/build/report.html
+      - .env
     expire_in: 1 week
     reports:
       junit: web-tests/api/build/test-results/*/TEST-*.xml
+      dotenv: .env
   allow_failure: false
 
 .template_grpc_tests:
@@ -161,7 +165,11 @@ stages:
       - web-tests/grpc/build/allure-results/
       - web-tests/grpc/logs/
       - web-tests/grpc/build/reports/tests/
+      - .env
     expire_in: 1 week
+    reports:
+      junit: web-tests/api/build/test-results/*/TEST-*.xml
+      dotenv: .env
   allow_failure: false
 
 .template_dispatch_tests:
@@ -174,7 +182,11 @@ stages:
       - web-tests/kafka/build/allure-results/
       - web-tests/kafka/logs/
       - web-tests/kafka/build/reports/tests/
+      - .env
     expire_in: 1 week
+    reports:
+      junit: web-tests/api/build/test-results/*/TEST-*.xml
+      dotenv: .env
   allow_failure: false
 
 .template_ui_tests:
@@ -188,7 +200,11 @@ stages:
       - web-tests/reforged/build/allure-results/
       - web-tests/reforged/logs/
       - web-tests/reforged/build/reports/tests/
+      - .env
     expire_in: 1 week
+    reports:
+      junit: web-tests/api/build/test-results/*/TEST-*.xml
+      dotenv: .env
   allow_failure: false
 
 java_gradle:build:
