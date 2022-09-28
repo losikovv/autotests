@@ -178,7 +178,7 @@
             <class name="ru.instamart.test.api.admin.FaqGroupsAdminTest"/>
         </classes>
     </test>
-
+    <!-- ris-exporter-tests  -->
     <test verbose="1" name="API DC Tests" parallel="classes" thread-count="1">
         <classes>
             <class name="ru.instamart.test.api.ris_exporter.AuthenticationRisTest"/>

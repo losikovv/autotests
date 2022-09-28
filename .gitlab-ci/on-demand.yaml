@@ -12,6 +12,7 @@ tests:on:demand:shifts:
     - gradle clean build onDemandShifts
   after_script:
     - bash ./report.sh api on-demand-shifts
+    - bash ./mattermost.sh api onDemandShifts $MATTERMOST_ONDEMAND_KEY false
 
 tests:on:demand:dispatch:
   resource_group: onDemandDispatch
@@ -27,6 +28,7 @@ tests:on:demand:dispatch:
     - gradle clean build onDemandDispatch
   after_script:
     - bash ./report.sh api on-demand-dispatch
+    - bash ./mattermost.sh api onDemandDispatch $MATTERMOST_ONDEMAND_KEY false
 
 tests:on:demand:workflow:
   resource_group: onDemandWorkflow
@@ -42,6 +44,7 @@ tests:on:demand:workflow:
     - gradle clean build onDemandWorkflow
   after_script:
     - bash ./report.sh api on-demand-workflow
+    - bash ./mattermost.sh api onDemandWorkflow $MATTERMOST_ONDEMAND_KEY false
 
 tests:on:demand:eta:
   resource_group: onDemandETA
@@ -55,7 +58,9 @@ tests:on:demand:eta:
     - echo $URL_PAAS_ETA
     - gradle clean build onDemandETA -Purl_paas_eta=$URL_PAAS_ETA
   after_script:
-    - bash ./mattermost-all-report.sh api on-demand-eta onDemandETA $MATTERMOST_HIGHGARDEN_KEY
+    - bash ./report.sh api on-demand-eta
+    - bash ./mattermost.sh api onDemandETA $MATTERMOST_HIGHGARDEN_KEY true
+    - bash ./mattermost.sh api onDemandETA $MATTERMOST_ONDEMAND_KEY false
 
 tests:on:demand:tm:
   resource_group: onDemandTM
@@ -70,7 +75,8 @@ tests:on:demand:tm:
   script:
     - gradle clean build onDemandTM
   after_script:
-    - bash ./mattermost-all-report.sh grpc on-demand-tm onDemandTM $MATTERMOST_HIGHGARDEN_KEY
+    - bash ./report.sh grpc on-demand-tm
+    - bash ./mattermost.sh grpc onDemandTM $MATTERMOST_HIGHGARDEN_KEY true
 
 tests:on:demand:shippingcalc:
   resource_group: onDemandShippingCalc
@@ -84,7 +90,8 @@ tests:on:demand:shippingcalc:
     - echo $URL_PAAS_SHIPPINGCALC
     - gradle clean build onDemandShippingCalc -Purl_paas_shippingcalc=$URL_PAAS_SHIPPINGCALC
   after_script:
-    - bash ./mattermost-all-report.sh api on-demand-shippingcalc onDemandShippingCalc $MATTERMOST_HIGHGARDEN_KEY
+    - bash ./report.sh api on-demand-shippingcalc
+    - bash ./mattermost.sh api onDemandShippingCalc $MATTERMOST_HIGHGARDEN_KEY true
 
 tests:on:demand:candidates:
   resource_group: onDemandCandidates
@@ -98,6 +105,7 @@ tests:on:demand:candidates:
     - gradle clean build onDemandCandidates
   after_script:
     - bash ./report.sh api on-demand-candidates
+    - bash ./mattermost.sh api onDemandCandidates $MATTERMOST_ONDEMAND_KEY false
 
 tests:on:demand:surgelevel:
   resource_group: onDemandSurgeLevel
@@ -111,4 +119,6 @@ tests:on:demand:surgelevel:
     - echo $URL_PAAS_SURGELEVEL
     - gradle clean build onDemandSurgeLevel -Purl_paas_surgelevel=$URL_PAAS_SURGELEVEL
   after_script:
-    - bash ./mattermost-all-report.sh api on-demand-surgelevel onDemandSurgeLevel $MATTERMOST_HIGHGARDEN_KEY
+    - bash ./report.sh api on-demand-surgelevel
+    - bash ./mattermost.sh api onDemandSurgeLevel $MATTERMOST_HIGHGARDEN_KEY true
+    - bash ./mattermost.sh api onDemandSurgeLevel $MATTERMOST_ONDEMAND_KEY false
