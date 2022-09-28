@@ -599,6 +599,9 @@ public final class UserManager {
     }
 
     public static String getGuestQaWithoutAb() {
+        if (EnvironmentProperties.Env.isProduction()) {
+            return UUID.randomUUID().toString();
+        }
         var excludedUser = AbService.INSTANCE.excludeUser(null);
         if (nonNull(excludedUser) && (nonNull(excludedUser.getAnonymousID()) && !excludedUser.getAnonymousID().isEmpty())) {
             var anonymousId = excludedUser.getAnonymousID();
