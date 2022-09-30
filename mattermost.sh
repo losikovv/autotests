@@ -24,14 +24,14 @@ duration=$(sed 's:.*<div class="infoBox" id="duration"><div class="counter">\([^
 successRate=$(sed 's:.*<div class="percent">\([^<]*\)<.*:\1:' <<<"$text")
 
 if [ "$failures" != "0" ]; then
-  TOTAL_MESSAGE=":x:"
+  EMOJI_MESSAGE=":x:"
 else
-  TOTAL_MESSAGE=":white_check_mark:"
+  EMOJI_MESSAGE=":white_check_mark:"
 fi
 
 if [[ "$failures" != "0" || $4 == "true" ]]; then
   #Text message
-  TEXT_MSG="*Результаты:* \n*Рабочее окружение: :* $2 \n*Продолжительность:* $duration \n *Всего сценариев:* $total \n *Всего успешных тестов:* $(($total-$failures-$ignored)) \n *Всего упавших тестов: :* $failures \n *Всего пропущенных тестов:* $ignored \n *% прошедших тестов:* $successRate $TOTAL_MESSAGE \n *CI JOB URL* $CI_JOB_URL \n *CI_PIPELINE_URL* $CI_PIPELINE_URL \n *Отчет доступен по ссылке:* ${ALLURE_REPORT_URL} \n"
+  TEXT_MSG="*Результаты:* \n*Рабочее окружение: :* $2 \n*Продолжительность:* $duration \n *Всего сценариев:* $total \n *Всего успешных тестов:* $(($total-$failures-$ignored)) \n *Всего упавших тестов: :* $failures \n *Всего пропущенных тестов:* $ignored \n *% прошедших тестов:* $successRate $EMOJI_MESSAGE \n *CI JOB URL* $CI_JOB_URL \n *CI_PIPELINE_URL* $CI_PIPELINE_URL \n *Отчет доступен по ссылке:* ${ALLURE_REPORT_URL} \n"
 
   set -o xtrace
   echo "------------------SEND-RESULTS------------------"
