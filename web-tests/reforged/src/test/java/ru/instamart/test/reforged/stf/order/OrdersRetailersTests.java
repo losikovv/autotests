@@ -9,13 +9,12 @@ import ru.instamart.kraken.data.AddressDetailsData;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.data_provider.StoreProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -33,7 +32,7 @@ public final class OrdersRetailersTests {
 
     @CaseIDs(value = {@CaseId(1627), @CaseId(1628), @CaseId(1629), @CaseId(1630), @CaseId(1631)})
     @Test(  description = "Тестовые заказы в ритейлерах Москвы",
-            groups = "regression",
+            groups = REGRESSION_STF,
             dataProviderClass = StoreProvider.class,
             dataProvider = "storeData" )
     public void successOrderInDifferentRetailers(int storeId, ShopUrl shopUrl) {

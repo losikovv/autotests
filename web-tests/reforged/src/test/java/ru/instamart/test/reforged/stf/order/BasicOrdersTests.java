@@ -14,6 +14,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.BasicProperties.RBSUAT_PAYMENTS_URL;
 import static ru.instamart.reforged.core.config.UiProperties.*;
 import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
@@ -32,7 +33,7 @@ public final class BasicOrdersTests {
     }
 
     @CaseId(1674)
-    @Test(description = "Тест заказа с добавлением нового юр. лица", groups = {"smoke", "regression", "all-order"})
+    @Test(description = "Тест заказа с добавлением нового юр. лица", groups = {"smoke", REGRESSION_STF, "all-order"})
     public void successCompleteCheckoutWithNewJuridical() {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, DEFAULT_SID);
@@ -70,7 +71,7 @@ public final class BasicOrdersTests {
     }
 
     @CaseIDs(value = {@CaseId(1672), @CaseId(2627)})
-    @Test(description = "Тест заказа с новой картой оплаты c 3ds", groups = {"regression", "smoke"})
+    @Test(description = "Тест заказа с новой картой оплаты c 3ds", groups = {REGRESSION_STF, "smoke"})
     public void successCompleteCheckoutWithNewPaymentCard() {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, DEFAULT_SID);
@@ -114,7 +115,7 @@ public final class BasicOrdersTests {
     }
 
     @CaseIDs(value = {@CaseId(2066), @CaseId(3043), @CaseId(2641)})
-    @Test(description = "Тест заказа с новой картой оплаты без 3ds", groups = "regression")
+    @Test(description = "Тест заказа с новой картой оплаты без 3ds", groups = REGRESSION_STF)
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, DEFAULT_METRO_MOSCOW_SID);
@@ -153,7 +154,7 @@ public final class BasicOrdersTests {
     }
 
     @CaseId(1681)
-    @Test(description = "Тест заказа с любимыми товарами", groups = "regression")
+    @Test(description = "Тест заказа с любимыми товарами", groups = REGRESSION_STF)
     public void successOrderWithFavProducts() {
         userData = UserManager.getQaUser();
         helper.addFavorites(userData, DEFAULT_SID, 1);
@@ -187,7 +188,7 @@ public final class BasicOrdersTests {
     }
 
     @CaseId(1673)
-    @Test(description = "Тест успешного заказа с оплатой картой курьеру", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешного заказа с оплатой картой курьеру", groups = {"smoke", REGRESSION_STF})
     public void successOrderWithCardCourier() {
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, DEFAULT_SID);
@@ -220,7 +221,7 @@ public final class BasicOrdersTests {
 
     @CaseId(2558)
     @Story("Данные профиля пользователя")
-    @Test(description = "Автоматическая подстановка данных в аккаунт после прохождения чекаута", groups = "regression")
+    @Test(description = "Автоматическая подстановка данных в аккаунт после прохождения чекаута", groups = REGRESSION_STF)
     public void updateUserDataAfterCheckout() {
         final AddressDetailsData data = TestVariables.testAddressData();
         //Тут используется не qa ручка, потому что в ней уже задано имя для пользователя
@@ -263,7 +264,7 @@ public final class BasicOrdersTests {
 
     @CaseId(2623)
     @Story("Отмена заказа")
-    @Test(description = "Отмена заказа", groups = "regression")
+    @Test(description = "Отмена заказа", groups = REGRESSION_STF)
     public void successOrderCancel() {
         userData = UserManager.getQaUser();
         helper.makeOrder(userData, DEFAULT_METRO_MOSCOW_SID, 1);
@@ -288,7 +289,7 @@ public final class BasicOrdersTests {
 
     @CaseId(2624)
     @Story("Заказ")
-    @Test(description = "Добавление товаров в активный заказ", groups = "regression")
+    @Test(description = "Добавление товаров в активный заказ", groups = REGRESSION_STF)
     public void successAddItemsInActiveOrder() {
         userData = UserManager.getQaUser();
 
@@ -300,8 +301,8 @@ public final class BasicOrdersTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        final var itemName = shop().getProductTitle("1", "1");
-        shop().plusItemToCart("1", "1");
+        final var itemName = shop().getProductTitleByPositionProd(1);
+        shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();
@@ -315,7 +316,7 @@ public final class BasicOrdersTests {
     @CaseId(2625)
     @Story("Заказ")
     @Skip
-    @Test(description = "Успешное оформление мультизаказа", groups = "regression")
+    @Test(description = "Успешное оформление мультизаказа", groups = REGRESSION_STF)
     public void successMultiOrder() {
         //пока выключено, для некста отключен мультизаказ на данный момент
         userData = UserManager.getQaUser();
@@ -373,7 +374,7 @@ public final class BasicOrdersTests {
 
     @CaseId(2626)
     @Story("Заказ")
-    @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = "regression")
+    @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = REGRESSION_STF)
     public void successCancelMultiOrderViaCancelOneOrder() {
         userData = UserManager.getQaUser();
         helper.makeMultipleOrder(userData, RestAddresses.Moscow.defaultAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID);
@@ -396,7 +397,7 @@ public final class BasicOrdersTests {
 
     @CaseId(2628)
     @Story("Заказ")
-    @Test(description = "Тест полного оформления заказа с оплатой картой онлайн (добавлена карта c 3ds)", groups = "regression")
+    @Test(description = "Тест полного оформления заказа с оплатой картой онлайн (добавлена карта c 3ds)", groups = REGRESSION_STF)
     public void successCompleteCheckoutWithNewPaymentCard3DSAlreadyIn() {
         //TODO: после починки addCreditCard() нужно добавить сюда добавление карты через апи
         userData = UserManager.getQaUser();

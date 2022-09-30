@@ -14,6 +14,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.config.BasicProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
 import static ru.instamart.reforged.sber_id_auth.SberIdPageRouter.sberId;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -25,7 +26,7 @@ public final class UserAuthorisationTests {
     private final ApiHelper apiHelper = new ApiHelper();
 
     @CaseId(1455)
-    @Test(description = "Тест успешной авторизации на витрине", groups = {"production", "regression", "smoke"})
+    @Test(description = "Тест успешной авторизации на витрине", groups = {"production", REGRESSION_STF, "smoke"})
     public void successAuthOnMainPage() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -34,22 +35,23 @@ public final class UserAuthorisationTests {
     }
 
     @CaseId(2543)
-    @Test(description = "Авторизация по номеру телефона", groups = {"production", "regression", "smoke"})
+    @Test(description = "Авторизация по номеру телефона", groups = {"production", REGRESSION_STF, "smoke"})
     public void successAuthOnMainPageUserWithOrder() {
         final var user = UserManager.getQaUser();
-        apiHelper.dropAndFillCart(user, DEFAULT_METRO_MOSCOW_SID, 1);
+        apiHelper.dropAndFillCartByOneProduct(user, DEFAULT_METRO_MOSCOW_SID, 1);
 
         home().goToPage();
         home().openLoginModal();
         home().interactAuthModal().authViaPhone(user);
 
-        home().checkUserCredentialsDisplayed();
+        home().interactMultisearchHeader().checkUserActionsButtonVisible();
+        home().interactMultisearchHeader().checkEnteredAddress(Addresses.Moscow.defaultAddressRest());
         home().checkDeliveryStoresContainerVisible();
-        home().checkIsSetAddressEqualToInput(Addresses.Moscow.getDefaultAddressRest(), home().getEnteredAddress());
     }
 
+    @Skip // Сейчас для незарегистрированного пользователя отображается "большая" модалка выбора адреса в ней нет кнопки авторизации
     @CaseId(1456)
-    @Test(description = "Тест авторизации из адресной модалки феникса", groups = "regression")
+    @Test(description = "Тест авторизации из адресной модалки феникса", groups = REGRESSION_STF)
     public void successAuthFromAddressModal() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -60,19 +62,19 @@ public final class UserAuthorisationTests {
     }
 
     @CaseId(2621)
-    @Test(description = "Тест успешной авторизации из корзины", groups = "regression")
+    @Test(description = "Тест успешной авторизации из корзины", groups = REGRESSION_STF)
     public void successAuthFromCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusItemToCart("1", "0");
+        shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();
@@ -87,7 +89,7 @@ public final class UserAuthorisationTests {
     @CaseId(1459)
     @Story("Авторизация через Facebook")
     @Skip
-    @Test(description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешной авторизация через Facebook", groups = {"smoke", REGRESSION_STF})
     public void successRegWithFacebook() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -107,7 +109,7 @@ public final class UserAuthorisationTests {
 
     @CaseId(2735)
     @Story("Авторизация через VK")
-    @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"production", "smoke", "regression", "production-auth"})
+    @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"production", "smoke", REGRESSION_STF, "production-auth"})
     public void successRegWithVkontakte() {
         UserData vkUser = UserManager.getNewVkUser();
 
@@ -129,7 +131,7 @@ public final class UserAuthorisationTests {
 
     @CaseId(1460)
     @Story("Авторизация через Mail.ru")
-    @Test(description = "Тест успешной авторизация через MailRu", groups = {"production", "smoke", "regression", "production-auth"})
+    @Test(description = "Тест успешной авторизация через MailRu", groups = {"production", "smoke", REGRESSION_STF, "production-auth"})
     public void successRegWithMailRu() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -155,7 +157,7 @@ public final class UserAuthorisationTests {
     @CaseId(1461)
     @Story("Авторизация через SberID")
     @Skip
-    @Test(description = "Тест успешной авторизация через Sber ID", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешной авторизация через Sber ID", groups = {"smoke", REGRESSION_STF})
     public void successRegWithSberID() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -175,7 +177,7 @@ public final class UserAuthorisationTests {
     //@CaseId(1459)
     @CaseId(3522)
     @Story("Авторизация через SberID")
-    @Test(description = "Тест перехода на сайт Sber ID", groups = {"production", "smoke", "regression"})
+    @Test(description = "Тест перехода на сайт Sber ID", groups = {"production", "smoke", REGRESSION_STF})
     public void checkCorrectTransitionToSberIdSite() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -189,7 +191,7 @@ public final class UserAuthorisationTests {
     //    @CaseId(1459)
     @Run(onServer = Server.PREPROD)
     @Story("Авторизация через СберБизнесID")
-    @Test(description = "Тест успешной авторизация через СберБизнесID", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешной авторизация через СберБизнесID", groups = {"smoke", REGRESSION_STF})
     public void successRegWithSberBusinessID() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

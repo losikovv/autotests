@@ -9,6 +9,7 @@ import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.TransferCartModal;
 import ru.instamart.reforged.stf.frame.address.Address;
+import ru.instamart.reforged.stf.frame.address.AddressLarge;
 import ru.instamart.reforged.stf.frame.prereplacement_modal.PrereplacementModal;
 import ru.instamart.reforged.stf.frame.store_selector.StoreSelector;
 
@@ -22,6 +23,10 @@ public final class Header implements HeaderCheck {
 
     public Address interactAddress() {
         return addressDrawer;
+    }
+
+    public AddressLarge interactAddressLarge() {
+        return addressLarge;
     }
 
     public AccountMenu interactAccountMenu() {

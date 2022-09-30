@@ -42,7 +42,7 @@
             <class name="ru.instamart.test.reforged.admin.partners.AdminShoppersTests"/>
         </classes>
     </test>
-    <test verbose="1" name="All In UI-API suite" parallel="classes" thread-count="5">
+    <test verbose="1" name="All In UI-API suite" parallel="classes" thread-count="6">
         <classes>
             <!--checkout-->
             <class name="ru.instamart.test.reforged.stf.checkout.BasicCheckoutTests"/>

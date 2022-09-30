@@ -6,12 +6,14 @@ import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.TransferCartModal;
 import ru.instamart.reforged.stf.frame.address.Address;
+import ru.instamart.reforged.stf.frame.address.AddressLarge;
 import ru.instamart.reforged.stf.frame.prereplacement_modal.PrereplacementModal;
 import ru.instamart.reforged.stf.frame.store_selector.StoreSelector;
 
 public interface HeaderElement {
 
     Address addressDrawer = new Address();
+    AddressLarge addressLarge = new AddressLarge();
     Cart cartFrame = new Cart();
     AccountMenu accountMenu = new AccountMenu();
     StoreSelector storeSelectorDrawer = new StoreSelector();

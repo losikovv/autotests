@@ -181,7 +181,7 @@ public final class BasicOrdersTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        final var itemName = shop().getFirstProductTitleProd();
+        final var itemName = shop().getProductTitleByPositionProd(1);
         shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 

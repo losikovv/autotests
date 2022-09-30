@@ -3,13 +3,12 @@ package ru.instamart.test.reforged.stf.user;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.admin.AdminRout.pages;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -19,7 +18,7 @@ public final class UserProfileTests {
 
     @CaseId(1524)
     @Story("Выпадающее меню")
-    @Test(description = "Тест валидации меню профиля Sbermarket", groups = "regression")
+    @Test(description = "Тест валидации меню профиля Sbermarket", groups = REGRESSION_STF)
     public void successValidateSbermarketTenantProfileMenu() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -38,7 +37,7 @@ public final class UserProfileTests {
 
     @CaseId(1525)
     @Story("Выпадающее меню")
-    @Test(description = "Тест валидации кнопки 'Профиль' в меню профиля", groups = "regression")
+    @Test(description = "Тест валидации кнопки 'Профиль' в меню профиля", groups = REGRESSION_STF)
     public void successValidateUserProfileButton() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -52,7 +51,7 @@ public final class UserProfileTests {
 
     @CaseId(1527)
     @Story("Выпадающее меню")
-    @Test(description = "Тест валидации кнопки 'Условия использования' в меню профиля", groups = "regression")
+    @Test(description = "Тест валидации кнопки 'Условия использования' в меню профиля", groups = REGRESSION_STF)
     public void successValidateTermsButton() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -66,7 +65,7 @@ public final class UserProfileTests {
 
     @CaseId(1528)
     @Story("Выпадающее меню")
-    @Test(description = "Тест валидации кнопки 'Доставка' в меню профиля", groups = "regression")
+    @Test(description = "Тест валидации кнопки 'Доставка' в меню профиля", groups = REGRESSION_STF)
     public void successValidateDeliveryButton() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -80,7 +79,7 @@ public final class UserProfileTests {
 
     @CaseId(1530)
     @Story("Выпадающее меню")
-    @Test(description = "Тест валидации кнопки 'FAQ' в меню профиля", groups = "regression")
+    @Test(description = "Тест валидации кнопки 'FAQ' в меню профиля", groups = REGRESSION_STF)
     public void successValidateFaqButton() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -94,7 +93,7 @@ public final class UserProfileTests {
 
     @CaseId(1531)
     @Story("навигация в меню пользователя")
-    @Test(description = "Тест доступности страниц профиля пользователя", groups = "regression")
+    @Test(description = "Тест доступности страниц профиля пользователя", groups = REGRESSION_STF)
     public void successCheckProfilePagesAreAvailable() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -110,7 +109,7 @@ public final class UserProfileTests {
 
     @CaseId(1532)
     @Story("Заказы")
-    @Test(description = "Тест валидации дефолтных страниц истории заказов", groups = "regression")
+    @Test(description = "Тест валидации дефолтных страниц истории заказов", groups = REGRESSION_STF)
     public void successValidateDefaultOrderHistory() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -130,7 +129,7 @@ public final class UserProfileTests {
 
     @CaseId(2559)
     @Story("Данные профиля пользователя")
-    @Test(description = "Добавление имени и фамилии для новых пользователей", groups = "regression")
+    @Test(description = "Добавление имени и фамилии для новых пользователей", groups = REGRESSION_STF)
     public void addFullName() {
         final var userData = UserManager.getQaUser();
         shop().goToPage();
@@ -149,7 +148,7 @@ public final class UserProfileTests {
 
     @CaseId(2560)
     @Story("Данные профиля пользователя")
-    @Test(description = "Добавление E-mail для новых пользователей", groups = "regression")
+    @Test(description = "Добавление E-mail для новых пользователей", groups = REGRESSION_STF)
     public void addEmail() {
         final var userData = UserManager.getQaUser();
         shop().goToPage();
@@ -167,7 +166,7 @@ public final class UserProfileTests {
 
     @CaseId(2561)
     @Story("Данные профиля пользователя")
-    @Test(description = "Изменение имени и фамилии для существующих пользователей", groups = "regression")
+    @Test(description = "Изменение имени и фамилии для существующих пользователей", groups = REGRESSION_STF)
     public void changeFullName() {
         final var userData = UserManager.getQaUser();
         shop().goToPage();
@@ -198,7 +197,7 @@ public final class UserProfileTests {
 
     @CaseId(2562)
     @Story("Данные профиля пользователя")
-    @Test(description = "Изменение E-mail для существующих пользователей", groups = "regression")
+    @Test(description = "Изменение E-mail для существующих пользователей", groups = REGRESSION_STF)
     public void changeEmail() {
         final var userData = UserManager.getQaUser();
         shop().goToPage();
@@ -216,7 +215,7 @@ public final class UserProfileTests {
 
     @CaseId(2563)
     @Story("Данные профиля пользователя")
-    @Test(description = "Изменение телефона для существующих пользователей", groups = "regression")
+    @Test(description = "Изменение телефона для существующих пользователей", groups = REGRESSION_STF)
     public void changePhone() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -233,7 +232,7 @@ public final class UserProfileTests {
 
     @CaseId(2564)
     @Story("Данные профиля пользователя")
-    @Test(description = "Изменение E-mail на тот, который уже есть в системе", groups = "regression")
+    @Test(description = "Изменение E-mail на тот, который уже есть в системе", groups = REGRESSION_STF)
     public void changeToExistingEmail() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

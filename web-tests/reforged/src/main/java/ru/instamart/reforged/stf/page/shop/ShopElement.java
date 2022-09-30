@@ -39,8 +39,8 @@ public interface ShopElement {
     Button openAddress = new Button(By.xpath("//button[@data-qa='select-button']"), "empty");
     Element firstProductCardProd = new Element(By.xpath("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[1]"), "Карточка первого товара в каталоге на проде");
     Element firstProductCard = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']"), "Карточка первого товара в каталоге на стейдже");
-    Element addFirstItemToFavorite = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']/button"), "Кнопка 'Добавить в избранное' у первого товара");
-    Element deleteFirstItemFromFavorite = new Element(By.xpath("//div[contains(@class, 'favorite-button--active')]"), "empty");
+    ElementCollection addToFavoriteButtons = new ElementCollection(By.xpath("//button[@title='Добавить в избранное']"), "Кнопки 'Добавить в избранное' товаров");
+    ElementCollection removeFromFavorite = new ElementCollection(By.xpath("//button[contains(@class,'ProductCardFavoriteButton_styles_active')]"), "Кнопка 'Добавить в избранное' избранного товара");
     Button plusItemToCart = new Button(ByKraken.xpathExpression("//div[@data-qa='catalog_page_taxons_list_taxon_item_%s_product_item_%s']//button[@title='Добавить в корзину']"),
             "Кнопка добавить в корзину у элемента");
     ElementCollection productsCart = new ElementCollection(ByKraken.xpathExpression("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li"),
@@ -53,14 +53,14 @@ public interface ShopElement {
             "Кнопка убрать из корзины у элемента");
     Element productTitle = new Element(ByKraken.xpathExpression("//div[@data-qa='catalog_page_taxons_list_taxon_item_%s_product_item_%s']//h3"), "Имя первого товара в каталоге на стейдже");
 
-    Element imageInFirstItem = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')]//img"), "Изображение товара");
-    Element nameInFirstItem = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')]//h3"), "Название товара");
-    Element packageSizeInFirstItem = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')]//h3/following-sibling::div[1]"), "Размер упаковки товара");
-    ElementCollection pricesInItemWithoutDiscount = new ElementCollection(By.xpath("(//div[contains(@data-qa,'_product_item_')][not(.//li[.//span[contains(.,'Скидка')]])])[1]//h3/following-sibling::div[2]/div"), "Отображаемые цены (для первого товара без скидки)");
-    ElementCollection pricesInItemWithDiscount = new ElementCollection(By.xpath("(//div[contains(@data-qa,'_product_item_')][.//li[.//span[contains(.,'Скидка')]]])[1]//h3/following-sibling::div[2]/div[./span]"), "Отображаемые цены (для первого товара со скидкой)");
-    Element priceInFirstItemWithoutDiscount = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')][not(.//li[.//span[contains(.,'Скидка')]])]//div[./span[contains(.,'Цена за')]]"), "Цена товара (для первого товара без скидки)");
-    Element fullPriceInFirstItemWithDiscount = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')][.//li[.//span[contains(.,'Скидка')]]]//h3/following-sibling::div[2]/div[contains(.,'Цена без скидки')]"), "Цена товара без скидки (для первого товара со скидкой)");
-    Element discountPriceInFirstItemWithDiscount = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')][.//li[.//span[contains(.,'Скидка')]]]//h3/following-sibling::div[2]/div[contains(.,'Цена со скидкой')]"), "Цена товара со скидкой (для первого товара со скидкой)");
+    Element imageInFirstItem = new Element(By.xpath("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')]//img"), "Изображение товара");
+    Element nameInFirstItem = new Element(By.xpath("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')]//h3"), "Название товара");
+    Element packageSizeInFirstItem = new Element(By.xpath("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')]//h3/following-sibling::div[1]"), "Размер упаковки товара");
+    ElementCollection pricesInItemWithoutDiscount = new ElementCollection(By.xpath("(//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')][not(.//li[contains(@class,'ProductCardBadgeGroup')])])[1]//div[contains(@class,'ProductCardPrice_styles_root')]/div"), "Отображаемые цены (для первого товара без скидки)");
+    ElementCollection pricesInItemWithDiscount = new ElementCollection(By.xpath("(//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')][.//li[contains(@class,'ProductCardBadgeGroup')]])[1]//div[contains(@class,'ProductCardPrice_styles_root')]/div"), "Отображаемые цены (для первого товара со скидкой)");
+    Element priceInFirstItemWithoutDiscount = new Element(By.xpath("(//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')][not(.//li[contains(@class,'ProductCardBadgeGroup')])])[1]//div[./span[contains(.,'Цена за')]]"), "Цена товара (для первого товара без скидки)");
+    Element fullPriceInFirstItemWithDiscount = new Element(By.xpath("(//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')][.//li[contains(@class,'ProductCardBadgeGroup')]])[1]//div[./span[contains(.,'Цена без скидки')]]"), "Цена товара без скидки (для первого товара со скидкой)");
+    Element discountPriceInFirstItemWithDiscount = new Element(By.xpath("(//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')][.//li[contains(@class,'ProductCardBadgeGroup')]])[1]//div[./span[contains(.,'Цена со скидкой')]]"), "Цена товара со скидкой (для первого товара со скидкой)");
 
     Link firstProductsCategoryTitle = new Link(By.xpath("//a[@data-qa='catalog_page_taxons_list_taxon_item_0_title_link']"), "Заголовок первой категории товаров");
     ElementCollection firstCategoryProductNames = new ElementCollection(By.xpath("//div[contains(@data-qa,'catalog_page_taxons_list_taxon_item_0_product_item_')]//h3"), "Названия продуктов первой категории в списке");

@@ -8,10 +8,10 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -23,7 +23,7 @@ public class ShoppingTestsForExistingUser {
     @CaseId(1616)
     @Story("Тест недоступности чекаута по прямой ссылке авторизованному юзеру c выбранным адресом и пустой корзиной")
     @Test(description = "Тест недоступности чекаута по прямой ссылке авторизованному юзеру c выбранным адресом и пустой корзиной",
-            groups = "regression")
+            groups = REGRESSION_STF)
     public void noAccessToCheckoutForAuthorizedUserWithShipAddressAndEmptyCart() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -38,13 +38,13 @@ public class ShoppingTestsForExistingUser {
 
         checkout().goToPage();
         shop().interactHeader().checkMinAmountAlertVisible();
-        home().checkPageUrl(UiProperties.STF_URL);
+        home().checkPageUrl(home().addBasicAuthToUrl(UiProperties.STF_URL));
     }
 
     @CaseId(1617)
     @Story("Тест недоступности чекаута при сумме корзины меньше минимального заказа")
     @Test(description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
-            groups = "regression")
+            groups = REGRESSION_STF)
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -74,7 +74,7 @@ public class ShoppingTestsForExistingUser {
     @CaseId(2606)
     @Story("Тест набора корзины до суммы, достаточной для оформления заказа")
     @Test(description = "Тест набора корзины до суммы, достаточной для оформления заказа",
-            groups = "regression")
+            groups = REGRESSION_STF)
     public void successCollectItemsForMinOrder() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropAndFillCart(shoppingCartUser, 1);
@@ -96,7 +96,7 @@ public class ShoppingTestsForExistingUser {
 
     @CaseId(1619)
     @Story("Тест на подтягивание адреса и мердж корзины из профиля при авторизации")
-    @Test(description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации", groups = "regression")
+    @Test(description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации", groups = REGRESSION_STF)
     public void successMergeShipAddressAndCartAfterAuthorisation() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropAndFillCart(shoppingCartUser, 1);

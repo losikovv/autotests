@@ -6,6 +6,7 @@ import ru.instamart.reforged.core.Kraken;
 
 import java.util.Set;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
 
 public interface MultisearchHeaderCheck extends Check, MultisearchHeaderElement {
@@ -33,6 +34,11 @@ public interface MultisearchHeaderCheck extends Check, MultisearchHeaderElement 
     @Step("Проверяем, что отображается кнопка пользовательского меню")
     default void checkUserActionsButtonVisible() {
         Kraken.waitAction().shouldNotBeVisible(userActionsToggle);
+    }
+
+    @Step("Проверяем, что указан адрес: '{expectedAddress}'")
+    default void checkEnteredAddress(final String expectedAddress) {
+        assertEquals(expectedAddress, addressChange.getText(), "Указанный адрес отличается от ожидаемого");
     }
 
     @Step("Проверяем, что отображаются вкладки ритейлеров в саджесторе межритейлерного поиска")

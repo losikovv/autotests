@@ -11,11 +11,12 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
+import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.business.page.BusinessRouter.business;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REPLACE;
 import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
-import static ru.instamart.reforged.business.page.BusinessRouter.business;
 
 @Epic("STF UI")
 @Feature("Чекаут [NEW]")
@@ -24,7 +25,7 @@ public final class CheckoutAddressTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(3594)
-    @Test(description = "Проверка того, что поле 'Кв, офис' является обязательным к заполнению", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка того, что поле 'Кв, офис' является обязательным к заполнению", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckRequiredFields() {
         final var userData = UserManager.getQaUser();
@@ -71,7 +72,7 @@ public final class CheckoutAddressTests {
     }
 
     @CaseId(3780)
-    @Test(description = "Проверка отображения правильного адреса доставки, выбранного ранее", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка отображения правильного адреса доставки, выбранного ранее", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckRecentlyEnteredAddress() {
         final var userData = UserManager.getQaUser();
@@ -100,7 +101,7 @@ public final class CheckoutAddressTests {
     }
 
     @CaseId(3796)
-    @Test(description = "Проверка появления бабла 'Оплата картой курьеру недоступна'", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка появления бабла 'Оплата картой курьеру недоступна'", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckCourierByCardPaymentAlert() {
         final var userData = UserManager.getQaUser();
@@ -142,7 +143,7 @@ public final class CheckoutAddressTests {
     }
 
     @CaseId(3820)
-    @Test(description = "Проверка сохранения новоВведенного адреса при перезаходе на чекаут", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка сохранения новоВведенного адреса при перезаходе на чекаут", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckAddressAfterReenterOnCheckout() {
         final var userData = UserManager.getQaUser();
@@ -180,6 +181,7 @@ public final class CheckoutAddressTests {
         var addressFromTitle = checkoutNew().getAddressFromTitle();
 
         shop().goToPage();
+        shop().interactHeader().checkEnteredAddressIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         shop().interactCart().submitOrder();
@@ -193,7 +195,7 @@ public final class CheckoutAddressTests {
     }
 
     @CaseId(3821)
-    @Test(description = "Проверка перехода на см-бизнес через клик по 'Заказываю для бизнеса' в блоке адрес (Доставка)", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка перехода на см-бизнес через клик по 'Заказываю для бизнеса' в блоке адрес (Доставка)", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testTransitionOnB2BViaCheckoutFromDelivery() {
         final var userData = UserManager.getQaUser();
@@ -228,7 +230,7 @@ public final class CheckoutAddressTests {
     }
 
     @CaseId(3825)
-    @Test(description = "Проверка перехода на см-бизнес через клик по 'Заказываю для бизнеса' в блоке адрес (Самовывоз)", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка перехода на см-бизнес через клик по 'Заказываю для бизнеса' в блоке адрес (Самовывоз)", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testTransitionOnB2BViaCheckoutFromPickup() {
         final var userData = UserManager.getQaUser();
@@ -267,7 +269,7 @@ public final class CheckoutAddressTests {
     }
 
     @CaseId(3823)
-    @Test(description = "Проверка отсутствия кнопки 'Заказываю для бизнеса' при отключенной связке с b2b у магазина (Доставка)", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка отсутствия кнопки 'Заказываю для бизнеса' при отключенной связке с b2b у магазина (Доставка)", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNoB2BButtonIfStoreHaveNoB2BIntegrationFromDelivery() {
         final var userData = UserManager.getQaUser();
@@ -293,7 +295,7 @@ public final class CheckoutAddressTests {
     }
 
     @CaseId(3826)
-    @Test(description = "Проверка отсутствия кнопки 'Заказываю для бизнеса' при отключенной связке с b2b у магазина (Самовывоз)", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка отсутствия кнопки 'Заказываю для бизнеса' при отключенной связке с b2b у магазина (Самовывоз)", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNoB2BButtonIfStoreHaveNoB2BIntegrationFromPickup() {
         final var userData = UserManager.getQaUser();

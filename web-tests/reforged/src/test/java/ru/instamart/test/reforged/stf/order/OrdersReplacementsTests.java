@@ -9,13 +9,12 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.data_provider.ReplacePolicyProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -39,7 +38,7 @@ public final class OrdersReplacementsTests {
     @CaseIDs(value = {@CaseId(1634), @CaseId(1635), @CaseId(1636), @CaseId(1637)})
     @Story("Тест заказа с политикой Звонить / Заменять")
     @Test(description = "Тест заказа с политикой Звонить / Заменять",
-            groups = "regression",
+            groups = REGRESSION_STF,
             dataProviderClass = ReplacePolicyProvider.class,
             dataProvider = "replacementPolicy")
     public void successOrderWithReplacementPolicy(final String replacementPolicy) {

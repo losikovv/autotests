@@ -10,6 +10,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -21,7 +22,7 @@ public final class ShoppingYouBoughtBeforeTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(2943)
-    @Test(description = "Товар отображается в блоке 'Вы покупали ранее', если отправлен на сборку", groups = "regression")
+    @Test(description = "Товар отображается в блоке 'Вы покупали ранее', если отправлен на сборку", groups = REGRESSION_STF)
     public void testYouBoughtBeforeDisplayed() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.makeOrder(shoppingCartUser, DEFAULT_METRO_MOSCOW_SID, 3);
@@ -42,7 +43,7 @@ public final class ShoppingYouBoughtBeforeTests {
     }
 
     @CaseId(2944)
-    @Test(description = "Товары, купленные у ретейлера отображаются для любого магазина данного ретейлера", groups = "regression")
+    @Test(description = "Товары, купленные у ретейлера отображаются для любого магазина данного ретейлера", groups = REGRESSION_STF)
     public void testYouBoughtBeforeDisplayedForAnotherShopSameRetailer() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.makeOrder(shoppingCartUser, DEFAULT_METRO_MOSCOW_SID, 3);
@@ -67,7 +68,7 @@ public final class ShoppingYouBoughtBeforeTests {
     }
 
     @CaseId(2945)
-    @Test(description = "Товары не отображаются, если выбран другой ретейлер", groups = "regression")
+    @Test(description = "Товары не отображаются, если выбран другой ретейлер", groups = REGRESSION_STF)
     public void testYouBoughtBeforeNotDisplayedForAnotherRetailer() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.makeOrder(shoppingCartUser, DEFAULT_METRO_MOSCOW_SID, 3);
@@ -89,7 +90,7 @@ public final class ShoppingYouBoughtBeforeTests {
     }
 
     @CaseId(2946)
-    @Test(description = "Блок 'Вы покупали ранее' не отображается, если у пользователя ранее не было сформированных заказов", groups = "regression")
+    @Test(description = "Блок 'Вы покупали ранее' не отображается, если у пользователя ранее не было сформированных заказов", groups = REGRESSION_STF)
     public void testYouBoughtBeforeNotDisplayedIfNoPreviousOrders() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
@@ -104,7 +105,7 @@ public final class ShoppingYouBoughtBeforeTests {
     }
 
     @CaseId(2947)
-    @Test(description = "Блок 'Вы покупали ранее' не отображается, если у пользователя отменен заказ и этот заказ единственный", groups = "regression")
+    @Test(description = "Блок 'Вы покупали ранее' не отображается, если у пользователя отменен заказ и этот заказ единственный", groups = REGRESSION_STF)
     public void testYouBoughtBeforeNotDisplayedIfOrderCancelled() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.makeOrder(shoppingCartUser, DEFAULT_METRO_MOSCOW_SID, 3);
