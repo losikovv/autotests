@@ -148,7 +148,8 @@ public enum Specification {
                 .addHeader("x-testing-otp","true")
                 .addHeader("x-testing-nosms","true")
                 .addHeader("x-testing-nolimiter","true")
-                .addHeader("sbm-forward-feature-version-shp", shopperStage)
+                .addHeader("sbm-forward-feature-version-paas-content-shopper", shopperStage)
+                .addHeader("sbm-forward-api-gw-traffic","paas-content-shopper")
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new CounterFilter())
                 .build();
@@ -169,7 +170,8 @@ public enum Specification {
                 .addHeader("x-testing-otp","true")
                 .addHeader("x-testing-nosms","true")
                 .addHeader("x-testing-nolimiter","true")
-                .addHeader("sbm-forward-feature-version-shp", shopperStage)
+                .addHeader("sbm-forward-feature-version-paas-content-shopper", shopperStage)
+                .addHeader("sbm-forward-api-gw-traffic","paas-content-shopper")
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
 
