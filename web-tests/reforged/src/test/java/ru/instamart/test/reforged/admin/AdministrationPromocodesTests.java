@@ -1,5 +1,7 @@
 package ru.instamart.test.reforged.admin;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Generate;
@@ -7,14 +9,17 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.PHOENIX_SMOKE;
+import static ru.instamart.reforged.Group.REGRESSION;
 import static ru.instamart.reforged.admin.AdminRout.*;
-import static ru.instamart.reforged.admin.AdminRout.shipmentPage;
 
-public class AdministrationPromocodesTests {
+@Epic("Админка STF")
+@Feature("Работа с промокодами")
+public final class AdministrationPromocodesTests {
 
     @CaseId(1535)
     @Story("Выдача промо под ролью call_center_dept")
-    @Test(description = "Выдача промокода на бесплатную доставку", groups = {"regression", "phoenix-smoke"})
+    @Test(description = "Выдача промокода на бесплатную доставку", groups = {REGRESSION, PHOENIX_SMOKE})
     public void freeDeliveryPromoIssuing() {
         login().goToPage();
         login().auth(UserManager.getCallCenterDeptOperator());
@@ -48,7 +53,7 @@ public class AdministrationPromocodesTests {
 
     @CaseId(1530)
     @Story("Выдача промо под ролью call_center_dept")
-    @Test(description = "Выдача промокода на сумму <= 1000 руб.", groups = {"regression", "phoenix-smoke"})
+    @Test(description = "Выдача промокода на сумму <= 1000 руб.", groups = {REGRESSION, PHOENIX_SMOKE})
     public void below1000PromoIssuing() {
         login().goToPage();
         login().auth(UserManager.getCallCenterDeptOperator());
@@ -91,7 +96,7 @@ public class AdministrationPromocodesTests {
 
     @CaseIDs(value = {@CaseId(1531), @CaseId(1537)})
     @Story("Выдача промо под ролью call_center_dept")
-    @Test(description = "Отправка промокода на сумму > 1000 руб. на утверждение", groups = {"regression", "phoenix-smoke"})
+    @Test(description = "Отправка промокода на сумму > 1000 руб. на утверждение", groups = {REGRESSION, PHOENIX_SMOKE})
     public void above1000PromoIssuingOnApprove() {
         login().goToPage();
         login().auth(UserManager.getCallCenterDeptOperator());
@@ -134,7 +139,7 @@ public class AdministrationPromocodesTests {
 
     @CaseId(1572)
     @Story("Выдача промо под ролью call_center_dept_leader")
-    @Test(description = "Выдача промокода на сумму > 1000 руб.", groups = {"regression", "phoenix-smoke"})
+    @Test(description = "Выдача промокода на сумму > 1000 руб.", groups = {REGRESSION, PHOENIX_SMOKE})
     public void above1000PromoIssuing() {
         login().goToPage();
         login().auth(UserManager.getCallCenterDeptLeader());
@@ -177,7 +182,7 @@ public class AdministrationPromocodesTests {
 
     @CaseIDs(value = {@CaseId(1574), @CaseId(1635)})
     @Story("Выдача промо под ролью call_center_dept_leader")
-    @Test(description = "Отображение данных о выданном промокоде на странице деталей заказа", groups = {"regression", "phoenix-smoke"})
+    @Test(description = "Отображение данных о выданном промокоде на странице деталей заказа", groups = {REGRESSION, PHOENIX_SMOKE})
     public void checkCompensationPromoInfo() {
         login().goToPage();
         login().auth(UserManager.getCallCenterDeptLeader());
@@ -233,7 +238,7 @@ public class AdministrationPromocodesTests {
 
     @CaseId(1803)
     @Story("Выдача промо под ролью call_center_dept_leader")
-    @Test(description = "При клике на кнопку 'Отказать' появляется модальное окно отклонения заявки", groups = {"regression", "phoenix-smoke"})
+    @Test(description = "При клике на кнопку 'Отказать' появляется модальное окно отклонения заявки", groups = {REGRESSION, PHOENIX_SMOKE})
     public void checkCancelPromoModalDisplayed() {
         login().goToPage();
         login().auth(UserManager.getCallCenterDeptOperator());

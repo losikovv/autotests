@@ -10,7 +10,7 @@ public final class SendPromoPage implements AdminPage, SendPromoCheck {
         return confirmModal;
     }
 
-    @Step("Выбираем причину выдачи промокода")
+    @Step("Выбираем причину выдачи промокода '{0}'")
     public void setReason(final String reasonBy) {
         reasonInList.click(reasonBy);
     }
@@ -30,7 +30,7 @@ public final class SendPromoPage implements AdminPage, SendPromoCheck {
         compensation.click();
     }
 
-    @Step("Выбираем компенсацию")
+    @Step("Выбираем компенсацию '{0}'")
     public void setCompensation(final String compensationType) {
         compensationInList.click(compensationType);
     }
@@ -50,7 +50,7 @@ public final class SendPromoPage implements AdminPage, SendPromoCheck {
         compensationValue.click();
     }
 
-    @Step("Выбираем cумму компенсации")
+    @Step("Выбираем cумму компенсации '{0}'")
     public void setCompensationValue(final String compensationValue) {
         compensationValueInput.fill(compensationValue);
         compensationValueInList.click(compensationValue);
