@@ -2,7 +2,7 @@ package ru.instamart.reforged.admin.page.shoppers.edit;
 
 import org.openqa.selenium.By;
 import ru.instamart.reforged.admin.block.flash_alert.FlashAlert;
-import ru.instamart.reforged.admin.modal.CarTypeModal;
+import ru.instamart.reforged.admin.page.shoppers.edit.car_type_modal.CarTypeModal;
 import ru.instamart.reforged.admin.popover.Popover;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.*;

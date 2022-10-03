@@ -33,6 +33,7 @@
             <class name="ru.instamart.test.reforged.admin.AdministrationStoreGroupsTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationUsersSectionTests"/>
             <class name="ru.instamart.test.reforged.admin.BasicAdministrationTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationPromocodesTests"/>
 
             <class name="ru.instamart.test.reforged.admin.orders.AdministrationBasicOrdersTests"/>
             <class name="ru.instamart.test.reforged.admin.orders.AdministrationMultiselectFiltersOrdersTests"/>

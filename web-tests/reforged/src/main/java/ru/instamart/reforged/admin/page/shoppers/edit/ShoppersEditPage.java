@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import ru.instamart.kraken.data.enums.ShoppersRole;
 import ru.instamart.reforged.admin.AdminPage;
 import ru.instamart.reforged.admin.block.flash_alert.FlashAlert;
-import ru.instamart.reforged.admin.modal.CarTypeModal;
+import ru.instamart.reforged.admin.page.shoppers.edit.car_type_modal.CarTypeModal;
 import ru.instamart.reforged.admin.popover.Popover;
 
 import java.util.Set;
