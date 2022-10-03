@@ -291,4 +291,48 @@ public final class CheckoutPaymentMethodsTests {
         checkoutNew().switchToNextWindow();
         business().checkPageContains("smbusiness");
     }
+
+    @CaseId(3885)
+    @Test(description = "Проверка удаления карты оплаты", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testRemovePaymentCard() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+        var card = PaymentCards.testCardNo3ds();
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().checkSpinnerNotVisible();
+
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_ONLINE.getName());
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactAddPaymentCardModal().checkModalVisible();
+        checkoutNew().interactAddPaymentCardModal().fillCardData(card);
+        checkoutNew().interactAddPaymentCardModal().clickAdd();
+        checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
+
+        var cardLastDigits = card.getCardNumber().substring(card.getCardNumber().length() - 4);
+
+        checkoutNew().checkSelectedPaymentMethodContains(cardLastDigits);
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().removePaymentMethod(cardLastDigits);
+        checkoutNew().interactPaymentMethodsModal().checkPaymentMethodNotVisible(cardLastDigits);
+        checkoutNew().interactPaymentMethodsModal().closeModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
+
+        checkoutNew().checkPaymentMethodEmpty();
+    }
 }
