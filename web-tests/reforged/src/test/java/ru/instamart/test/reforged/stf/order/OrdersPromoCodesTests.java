@@ -11,13 +11,12 @@ import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.PromoData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.data_provider.PromoCodeProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -40,7 +39,7 @@ public final class OrdersPromoCodesTests {
     @Test(description = "Тест применения различных промокодов",
             dataProviderClass = PromoCodeProvider.class,
             dataProvider = "promo_code",
-            groups = "regression")
+            groups = REGRESSION_STF)
     public void successOrderWithPromoCode(final PromoData data) {
         var company = JuridicalData.juridical();
 
@@ -86,7 +85,7 @@ public final class OrdersPromoCodesTests {
 
     @CaseId(1641)
     @Story("Тест применения промокода")
-    @Test(description = "Тест применения промокода со фиксированной ограниченной скидкой", groups = "regression")
+    @Test(description = "Тест применения промокода со фиксированной ограниченной скидкой", groups = REGRESSION_STF)
     public void successOrderWithPromoCodeFixedDiscountWithBorders() {
         var company = JuridicalData.juridical();
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -138,7 +137,7 @@ public final class OrdersPromoCodesTests {
 
     @CaseId(1642)
     @Story("Тест применения промокода")
-    @Test(description = "Тест применения промокода на первый заказ старым пользователем", groups = "regression")
+    @Test(description = "Тест применения промокода на первый заказ старым пользователем", groups = REGRESSION_STF)
     public void failedOrderForOldUserWithFirstOrderPromo() {
         var company = JuridicalData.juridical();
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -184,7 +183,7 @@ public final class OrdersPromoCodesTests {
 
     @CaseId(2640)
     @Story("Тест применения промокода")
-    @Test(description = "Тест применения несуществующего промокода", groups = "regression")
+    @Test(description = "Тест применения несуществующего промокода", groups = REGRESSION_STF)
     public void failedOrderWithNonExistingPromo() {
         var company = JuridicalData.juridical();
         var promo = Generate.string(8);

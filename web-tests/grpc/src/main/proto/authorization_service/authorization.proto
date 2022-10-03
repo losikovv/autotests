@@ -1,13 +1,12 @@
 syntax = "proto3";
 
 package authorization;
-
 option go_package = "gitlab.sbmt.io/paas/content/core-services/authorization/pkg/server/grpc/authorization";
-
 import "google/protobuf/timestamp.proto";
 
 service Authorization {
 	rpc AuthorizedPermissions(AuthorizedPermissionsRequest) returns (AuthorizedPermissionsResponse);
+	rpc DataFilters(DataFiltersRequest) returns (DataFiltersResponse);
 }
 
 //
@@ -19,6 +18,13 @@ message	AuthorizedPermissionsRequest {
 	string sbm_auth_identity = 2;
 	repeated string sbm_auth_roles = 3;
 	repeated string permissions = 4;
+	optional string policy_version = 5;
+}
+
+message	DataFiltersRequest {
+	SbmAuth auth = 1;
+	string permission = 2;
+	optional string policy_version = 3;
 }
 
 //
@@ -27,4 +33,14 @@ message	AuthorizedPermissionsRequest {
 
 message AuthorizedPermissionsResponse {
 	repeated string permissions = 1;
+}
+
+message DataFiltersResponse {
+	string data = 1;
+}
+
+message SbmAuth {
+	string type = 1;
+	string identity = 2;
+	repeated string roles = 3;
 }

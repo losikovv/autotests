@@ -16,6 +16,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.Arrays;
 import java.util.List;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_PREREPLACEMENT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -42,7 +43,7 @@ public class OrdersPrereplacementsTests {
 
     @CaseId(3267)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
-    @Test(description = "Выбор предзамены - один товар", groups = {"regression"})
+    @Test(description = "Выбор предзамены - один товар", groups = {REGRESSION_STF})
     public void selectPrereplacementFromAlertPopup() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -72,7 +73,7 @@ public class OrdersPrereplacementsTests {
 
     @CaseId(3268)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
-    @Test(description = "Выбор предзамены из корзины", groups = {"regression"})
+    @Test(description = "Выбор предзамены из корзины", groups = {REGRESSION_STF})
     public void selectPrereplacementFromCart() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -111,7 +112,7 @@ public class OrdersPrereplacementsTests {
 
     @CaseId(3269)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
-    @Test(description = "Изменение выбранных предзамен", groups = {"regression"})
+    @Test(description = "Изменение выбранных предзамен", groups = {REGRESSION_STF})
     public void editPrereplacement() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -150,7 +151,7 @@ public class OrdersPrereplacementsTests {
 
     @CaseId(3270)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
-    @Test(description = "Удаление выбранных предзамен", groups = {"regression"})
+    @Test(description = "Удаление выбранных предзамен", groups = {REGRESSION_STF})
     public void removePrereplacement() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -180,7 +181,7 @@ public class OrdersPrereplacementsTests {
 
     @CaseId(3271)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
-    @Test(description = "При открытии модалки из попапа отображается весь список товаров с рекомендованными предзаменами", groups = {"regression"})
+    @Test(description = "При открытии модалки из попапа отображается весь список товаров с рекомендованными предзаменами", groups = {REGRESSION_STF})
     public void checkOnlyProductsWithRelacementViewInModal() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -207,7 +208,7 @@ public class OrdersPrereplacementsTests {
 
     @CaseId(3273)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
-    @Test(description = "Попап при добавлении товара с предзаменами в корзину", groups = {"regression"})
+    @Test(description = "Попап при добавлении товара с предзаменами в корзину", groups = {REGRESSION_STF})
     public void alertDisplayedWhenAddingProduct() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -227,7 +228,7 @@ public class OrdersPrereplacementsTests {
 
     @CaseId(3274)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
-    @Test(description = "Повторное отображение попапа при добавлении товара в корзину", groups = {"regression"})
+    @Test(description = "Повторное отображение попапа при добавлении товара в корзину", groups = {REGRESSION_STF})
     public void alertDisplayedWhenAddingAnotherProduct() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -257,7 +258,7 @@ public class OrdersPrereplacementsTests {
 
     @CaseId(3275)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
-    @Test(description = "Выбор предзамены - любой товар", groups = {"regression"})
+    @Test(description = "Выбор предзамены - любой товар", groups = {REGRESSION_STF})
     public void selectAnyWillPrereplacementFromAlertPopup() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -286,7 +287,7 @@ public class OrdersPrereplacementsTests {
 
     @CaseId(3276)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
-    @Test(description = "Отображение товаров с доступными предзаменами в корзине", groups = {"regression"})
+    @Test(description = "Отображение товаров с доступными предзаменами в корзине", groups = {REGRESSION_STF})
     public void cartPrereplacementCheck() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -303,7 +304,7 @@ public class OrdersPrereplacementsTests {
 
     @CaseId(3277)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
-    @Test(description = "Отображение товара с единственной предзаменой в модалке", groups = {"regression"})
+    @Test(description = "Отображение товара с единственной предзаменой в модалке", groups = {REGRESSION_STF})
     public void onlyOneReplacementCheck() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());
@@ -326,7 +327,7 @@ public class OrdersPrereplacementsTests {
 
     @CaseId(3278)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
-    @Test(description = "Отображение товара с несколькими предзаменами в модалке", groups = {"regression"})
+    @Test(description = "Отображение товара с несколькими предзаменами в модалке", groups = {REGRESSION_STF})
     public void severalReplacementCheck() {
         user = UserManager.getQaUser();
         apiHelper.setAddress(user, RestAddresses.Moscow.prereplacementAddress());

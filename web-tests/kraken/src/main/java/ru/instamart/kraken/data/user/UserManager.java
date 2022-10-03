@@ -60,6 +60,8 @@ public final class UserManager {
     private static UserData addressUser;
     private static UserData abServiceUser;
     private static UserData activeDirectoryUser;
+    private static UserData callCenterDeptUser;
+    private static UserData callCenterDeptLeaderUser;
 
     public static UserData getDefaultUser() {
         if (isNull(defaultUser)) {
@@ -507,6 +509,26 @@ public final class UserManager {
         return abServiceUser;
     }
 
+    public static UserData getCallCenterDeptOperator() {
+        if (isNull(callCenterDeptUser)) {
+            callCenterDeptUser = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("v89nlBKjmOLB6gqR759ezT/QhEsRFxzACVX/uIdUMRA="))
+                    .password(Crypt.INSTANCE.decrypt("3ZSHJWJ8HNYosYuYajNkpA=="))
+                    .build();
+        }
+        return callCenterDeptUser;
+    }
+
+    public static UserData getCallCenterDeptLeader() {
+        if (isNull(callCenterDeptLeaderUser)) {
+            callCenterDeptLeaderUser = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("PFcQSiyvGm/YPj4ztNn3wLpwwxMgsgeGK+yJuVnW5TBTb9Ax2ttdhAeIoHJ/Pls0"))
+                    .password(Crypt.INSTANCE.decrypt("3ZSHJWJ8HNYosYuYajNkpA=="))
+                    .build();
+        }
+        return callCenterDeptLeaderUser;
+    }
+
     public static UserData getNullUser() {
         return generateData("empty", 0);
     }
@@ -599,6 +621,9 @@ public final class UserManager {
     }
 
     public static String getGuestQaWithoutAb() {
+        if (EnvironmentProperties.Env.isProduction()) {
+            return UUID.randomUUID().toString();
+        }
         var excludedUser = AbService.INSTANCE.excludeUser(null);
         if (nonNull(excludedUser) && (nonNull(excludedUser.getAnonymousID()) && !excludedUser.getAnonymousID().isEmpty())) {
             var anonymousId = excludedUser.getAnonymousID();

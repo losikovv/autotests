@@ -13,11 +13,10 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.enums.Tenant;
 import ru.instamart.kraken.listener.Run;
-import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 //TODO не проверялся на next
@@ -41,7 +40,7 @@ public final class OrdersRetailerCardsTests {
 
     @Run(onTenant = Tenant.SBERMARKET, onServer = Server.PRODUCTION)
     @CaseId(1633)
-    @Test(description = "Тест заказа с картой Вкусвилл (только Sbermarket)", groups = "regression")
+    @Test(description = "Тест заказа с картой Вкусвилл (только Sbermarket)", groups = REGRESSION_STF)
     public void successOrderWithVkusvillRetailerCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

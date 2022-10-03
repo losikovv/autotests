@@ -62,7 +62,7 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
 
     @Step("Проверяем, что среди товаров в заказе есть искомое {0}")
     default void checkProductListContains(final String productNameExpected) {
-        Assert.assertTrue(productsInOrder.isElementWithTextPresent(productNameExpected),
+        Assert.assertTrue(productsInOrder.isElementWithTextPresent(productNameExpected.replaceAll("\\.{3}", "")),
                 String.format("Среди списка товаров в заказе не найдено '%s'", productNameExpected));
     }
 

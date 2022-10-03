@@ -455,6 +455,23 @@ public class   ShopperAdminRequest extends ShopperAdminRequestBase {
             }
         }
 
+    public static class RoutingSettings{
+
+        @Step("{method} /" + ShopperAdminEndpoints.RoutingSettings.ROUTING_SETTINGS)
+        public static Response PATCH(final int storeId,final String schedule_type) {
+            JSONObject requestParams = new JSONObject();
+            JSONObject store = new JSONObject();
+            requestParams.put("store",store);
+            store.put("id", storeId);
+            store.put("schedule_type", schedule_type);
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(requestParams)
+                    .patch(ShopperAdminEndpoints.RoutingSettings.ROUTING_SETTINGS, storeId);
+        }
+    }
+
+
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @Builder

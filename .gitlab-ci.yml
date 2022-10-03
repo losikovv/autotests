@@ -8,7 +8,7 @@ include:
   - local: '/.gitlab-ci/on-demand.yaml'
   - local: '/.gitlab-ci/ui-submodules.yaml'
 
-image: ${JDK11_GRADLE_IMAGE}
+image: ${JAVA_IMAGE}
 
 cache:
   key: ${CI_PROJECT_ID}
@@ -16,13 +16,20 @@ cache:
     - web-tests/.gradle
 
 variables:
-  JDK_GRADLE: 'gradle:7-jdk11'
-  JDK11_GRADLE_VERSION: 'latest'
-  JDK11_GRADLE_IMAGE: "${CI_REGISTRY}/qa/automag/java:${JDK11_GRADLE_VERSION}"
+  HARBOR_URL: "dreg.sbmt.io"
+  HARBOR_PROJECT: "library/automag"
+  HARBOR_APP: "kraken"
+  DOCKER_BUILD_IMAGE: "${HARBOR_URL}/${HARBOR_PROJECT}/${HARBOR_APP}"
+  DOCKER_BUILD_TAGS: "1.1"
+  DOCKER_BUILD_TYPE: "testing"
+  DOCKER_BUILD_CACHE_ENABLED: "true"
+  DOCKER_PUSH_ENABLED: "true"
+  DOCKER_MANIFEST_PATH: ${CI_PROJECT_DIR}/docker/Dockerfile
   RUNNER_IMAGE_REPO: "dreg.sbmt.io/library"
   RUNNER_IMAGE_NAME: "ci-tools"
   RUNNER_IMAGE_TAG: "v1.4.5"
   RUNNER_IMAGE_URL: "${RUNNER_IMAGE_REPO}/${RUNNER_IMAGE_NAME}:${RUNNER_IMAGE_TAG}"
+  JAVA_IMAGE: ${HARBOR_URL}/${HARBOR_PROJECT}/${HARBOR_APP}:${DOCKER_BUILD_TAGS}
   GIT_SUBMODULE_STRATEGY: none
   GIT_DEPTH: 10
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
@@ -122,9 +129,11 @@ stages:
       - web-tests/api/build/reports/tests/
       - web-tests/api/swagger-coverage-output
       - web-tests/api/build/report.html
+      - .env
     expire_in: 1 week
     reports:
       junit: web-tests/api/build/test-results/*/TEST-*.xml
+      dotenv: .env
   allow_failure: false
 
 .template_api_ui_tests:
@@ -139,9 +148,11 @@ stages:
       - web-tests/api/build/reports/tests/
       - web-tests/api/swagger-coverage-output
       - web-tests/api/build/report.html
+      - .env
     expire_in: 1 week
     reports:
       junit: web-tests/api/build/test-results/*/TEST-*.xml
+      dotenv: .env
   allow_failure: false
 
 .template_grpc_tests:
@@ -154,7 +165,11 @@ stages:
       - web-tests/grpc/build/allure-results/
       - web-tests/grpc/logs/
       - web-tests/grpc/build/reports/tests/
+      - .env
     expire_in: 1 week
+    reports:
+      junit: web-tests/api/build/test-results/*/TEST-*.xml
+      dotenv: .env
   allow_failure: false
 
 .template_dispatch_tests:
@@ -167,7 +182,11 @@ stages:
       - web-tests/kafka/build/allure-results/
       - web-tests/kafka/logs/
       - web-tests/kafka/build/reports/tests/
+      - .env
     expire_in: 1 week
+    reports:
+      junit: web-tests/api/build/test-results/*/TEST-*.xml
+      dotenv: .env
   allow_failure: false
 
 .template_ui_tests:
@@ -181,21 +200,32 @@ stages:
       - web-tests/reforged/build/allure-results/
       - web-tests/reforged/logs/
       - web-tests/reforged/build/reports/tests/
+      - .env
     expire_in: 1 week
+    reports:
+      junit: web-tests/api/build/test-results/*/TEST-*.xml
+      dotenv: .env
   allow_failure: false
 
 java_gradle:build:
   extends: ".template_only_branches"
   stage: build
-  image: ${RUNNER_IMAGE_URL}
+  image:
+    name: "dreg.sbmt.io/instamart/base/dind:20.10.17-dind"
   tags:
     - stage-static
   before_script:
-    - docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
+    - cd ../
+    - echo -e "\e[0Ksection_start:`date +%s`:docker_login_step[collapsed=true]\r\e[0K\e[36;1mLogging in to the Docker registry\e[0m"
+    - >
+      echo -n "${BUILD_CONF_HARBOR_PWD}" |
+      docker login
+      --username "${BUILD_CONF_HARBOR_USER}"
+      --password-stdin
+      "${HARBOR_URL}"
+    - echo -e "\e[0Ksection_end:`date +%s`:docker_login_step\r\e[0K"
   script:
-    - docker pull ${JDK_GRADLE}
-    - docker tag ${JDK_GRADLE} ${JDK11_GRADLE_IMAGE}
-    - docker push ${JDK11_GRADLE_IMAGE}
+    - build_docker_images.sh
 
 tests:customRun:
   only:
@@ -250,11 +280,11 @@ tests:AutoMRCheck:
 
 tests:Debug:UI:
   extends: ".template_only_branches"
-  stage: tests-api
+  stage: tests-ui
   script:
     - gradle clean build :reforged:debug
   after_script:
-    - bash ./report.sh reforged debug
+   - bash ./report.sh reforged debug
   tags:
     - k8s-stage
   artifacts:

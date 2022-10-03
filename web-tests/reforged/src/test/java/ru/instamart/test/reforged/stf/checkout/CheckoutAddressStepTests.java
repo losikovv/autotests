@@ -8,11 +8,11 @@ import ru.instamart.kraken.data.AddressDetailsData;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -26,7 +26,7 @@ public final class CheckoutAddressStepTests {
     private final UserData userData = UserManager.getQaUser();
 
     @CaseIDs({@CaseId(1698), @CaseId(1699), @CaseId(1700), @CaseId(1701)})
-    @Test(description = "Тесты заполнения, изменения и очистки всех полей", groups = "regression")
+    @Test(description = "Тесты заполнения, изменения и очистки всех полей", groups = REGRESSION_STF)
     public void successFillAllFieldsAndProceedNext() {
         helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
 

@@ -64,6 +64,7 @@ tests:prodUiSmoke:
     - gradle clean build uiSmokeProduction
   after_script:
    - bash ./report.sh reforged ui-smoke-production
+   - bash ./mattermost.sh reforged uiSmokeProduction $MATTERMOST_KEY false
 
 #tests:prodUiSmokeAdmin:
 #  extends:

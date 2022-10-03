@@ -14,6 +14,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -24,7 +25,7 @@ public final class CheckoutPromocodesTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(3612)
-    @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Доставка", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Доставка", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testApplyFreeDeliveryPromo() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -68,7 +69,7 @@ public final class CheckoutPromocodesTests {
     }
 
     @CaseId(3612)
-    @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Самовывоз", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Самовывоз", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testApplyFreeDeliveryPromoOnPickup() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -116,7 +117,7 @@ public final class CheckoutPromocodesTests {
     }
 
     @CaseIDs(value = {@CaseId(3689), @CaseId(3646), @CaseId(3781)})
-    @Test(description = "Проверка отображения примененного промокода после рефреша", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка отображения примененного промокода после рефреша", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSuccessApplyPromo() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -162,7 +163,7 @@ public final class CheckoutPromocodesTests {
     }
 
     @CaseId(3645)
-    @Test(description = "Проверка применения несуществующего промокода", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка применения несуществующего промокода", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testApplyNonExistPromo() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);

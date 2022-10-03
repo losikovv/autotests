@@ -11,6 +11,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 
@@ -33,7 +34,7 @@ public final class OrderRepeatTests {
     }
 
     @CaseId(2614)
-    @Test(description = "Добавление в корзину товаров из истории заказов", groups = {"smoke", "regression"})
+    @Test(description = "Добавление в корзину товаров из истории заказов", groups = {"smoke", REGRESSION_STF})
     public void successRepeatLastOrderFromOrderHistory() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -52,7 +53,7 @@ public final class OrderRepeatTests {
     }
 
     @CaseId(1669)
-    @Test(description = "Повтор крайнего заказа со страницы заказа", groups = "regression")
+    @Test(description = "Повтор крайнего заказа со страницы заказа", groups = REGRESSION_STF)
     public void successRepeatOrderFromOrderDetails() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -72,7 +73,7 @@ public final class OrderRepeatTests {
     }
 
     @CaseId(1670)
-    @Test(description = "Отмена повтора заказа со страницы заказа", groups = "regression")
+    @Test(description = "Отмена повтора заказа со страницы заказа", groups = REGRESSION_STF)
     public void noRepeatOrderAfterCancel() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

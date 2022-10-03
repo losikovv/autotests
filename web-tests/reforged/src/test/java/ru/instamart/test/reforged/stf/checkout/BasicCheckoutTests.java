@@ -9,6 +9,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -19,7 +20,7 @@ public final class BasicCheckoutTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(2939)
-    @Test(description = "Тест доступности чекаута по прямой ссылке", groups = "regression")
+    @Test(description = "Тест доступности чекаута по прямой ссылке", groups = REGRESSION_STF)
     public void testCheckoutAccessForUserWithCart() {
         final var userData = UserManager.getQaUser();
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());

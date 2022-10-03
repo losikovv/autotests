@@ -13,6 +13,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -37,7 +38,7 @@ public final class CheckoutPromocodeTests {
 
     @CaseId(2638)
     @Story("Добавление промокода к заказу")
-    @Test(description = "Тест успешного применения промокода в чекауте", groups = {"production", "regression", "smoke"})
+    @Test(description = "Тест успешного применения промокода в чекауте", groups = {"production", REGRESSION_STF, "smoke"})
     public void successAddPromocode() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -55,7 +56,7 @@ public final class CheckoutPromocodeTests {
 
     @CaseId(2639)
     @Story("Удаление промокода из заказа")
-    @Test(description = "Тест удаления промокода в чекауте", groups = "regression")
+    @Test(description = "Тест удаления промокода в чекауте", groups = REGRESSION_STF)
     public void successDeletePromocode() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -74,7 +75,7 @@ public final class CheckoutPromocodeTests {
 
     @CaseId(1729)
     @Story("Добавление промокода к заказу")
-    @Test(description = "Тест недобавления промокода при нажатии кнопки Отмена", groups = "regression")
+    @Test(description = "Тест недобавления промокода при нажатии кнопки Отмена", groups = REGRESSION_STF)
     public void noPromocodeAddedOnCancel() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -91,7 +92,7 @@ public final class CheckoutPromocodeTests {
 
     @CaseId(1730)
     @Story("Добавление промокода к заказу")
-    @Test(description = "Тест не добавления промокода при закрытии модалки промокода", groups = "regression")
+    @Test(description = "Тест не добавления промокода при закрытии модалки промокода", groups = REGRESSION_STF)
     public void noPromocodeAddedOnModalClose() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

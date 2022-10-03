@@ -34,6 +34,7 @@
             <class name="ru.instamart.test.reforged.admin.AdministrationStoreGroupsTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationUsersSectionTests"/>
             <class name="ru.instamart.test.reforged.admin.BasicAdministrationTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationPromocodesTests"/>
 
             <class name="ru.instamart.test.reforged.admin.orders.AdministrationBasicOrdersTests"/>
             <class name="ru.instamart.test.reforged.admin.orders.AdministrationMultiselectFiltersOrdersTests"/>
@@ -42,7 +43,7 @@
             <class name="ru.instamart.test.reforged.admin.partners.AdminShoppersTests"/>
         </classes>
     </test>
-    <test verbose="1" name="All In UI-API suite" parallel="classes" thread-count="5">
+    <test verbose="1" name="All In UI-API suite" parallel="classes" thread-count="6">
         <classes>
             <!--checkout-->
             <class name="ru.instamart.test.reforged.stf.checkout.BasicCheckoutTests"/>
@@ -103,6 +104,7 @@
             <class name="ru.instamart.test.reforged.stf.HomePageTests"/>
             <class name="ru.instamart.test.reforged.stf.Page404Tests"/>
             <class name="ru.instamart.test.reforged.stf.SeoCatalogTests"/>
+            <class name="ru.instamart.test.reforged.stf.MultiretailerSearchTests"/>
         </classes>
     </test>
     <test verbose="1" name="Web business UI tests" parallel="methods" thread-count="5">

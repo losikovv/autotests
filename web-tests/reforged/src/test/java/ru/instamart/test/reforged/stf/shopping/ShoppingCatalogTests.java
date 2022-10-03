@@ -8,6 +8,7 @@ import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -15,18 +16,18 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 public final class ShoppingCatalogTests {
 
     @CaseId(1595)
-    @Test(description = "Тест работы cо шторкой каталога", groups = "regression")
+    @Test(description = "Тест работы cо шторкой каталога", groups = REGRESSION_STF)
     public void successValidateCatalogDrawer() {
         shop().goToPage();
         shop().checkFirstProductCardIsVisible();
 
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().interactHeader().clickToCategoryMenu();
@@ -36,18 +37,18 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(2583)
-    @Test(description = "Тест открытия категории 1 уровня из шторки каталога", groups = {"MRAutoCheck", "regression"})
+    @Test(description = "Тест открытия категории 1 уровня из шторки каталога", groups = {"MRAutoCheck", REGRESSION_STF})
     public void successGoToDepartmentFromCatalogDrawer() {
         shop().goToPage();
         shop().checkFirstProductCardIsVisible();
 
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage();
@@ -60,18 +61,18 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(2584)
-    @Test(description = "Тест открытия категории 2 уровня из шторки каталога", groups = "regression")
+    @Test(description = "Тест открытия категории 2 уровня из шторки каталога", groups = REGRESSION_STF)
     public void successGoToTaxonFromCatalogDrawer() {
         shop().goToPage();
         shop().checkFirstProductCardIsVisible();
 
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().goToPage();
 
@@ -85,39 +86,39 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(2582)
-    @Test(description = "Тест открывания/закрывания карточки продукта на главной", groups = "regression")
+    @Test(description = "Тест открывания/закрывания карточки продукта на главной", groups = REGRESSION_STF)
     public void successOperateItemCardOnRetailerPage() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage();
         shop().refreshWithoutBasicAuth();
 
         shop().checkFirstProductCardIsVisible();
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().checkProductCardVisible();
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
     }
 
     @CaseId(1599)
-    @Test(description = "Тест открывания/закрывания карточки продукта в department-категории", groups = "regression")
+    @Test(description = "Тест открывания/закрывания карточки продукта в department-категории", groups = REGRESSION_STF)
     public void successOperateItemCardOnDepartmentPage() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().goToPage();
 
@@ -138,16 +139,16 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(1600)
-    @Test(description = "Тест открывания/закрывания карточки продукта в taxon-категории", groups = "regression")
+    @Test(description = "Тест открывания/закрывания карточки продукта в taxon-категории", groups = REGRESSION_STF)
     public void successOperateItemCardOnTaxonPage() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().goToPage();
 
@@ -169,16 +170,16 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(1601)
-    @Test(description = "Тест открывания/закрывания карточки продукта в выдаче поиска", groups = "regression")
+    @Test(description = "Тест открывания/закрывания карточки продукта в выдаче поиска", groups = REGRESSION_STF)
     public void successOperateItemCardOnSearchPage() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage();
@@ -196,11 +197,11 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(3519)
-    @Test(description = "Проверка открытия модального окна карточки товара при переходе по прямой ссылке", groups = "regression")
+    @Test(description = "Проверка открытия модального окна карточки товара при переходе по прямой ссылке", groups = REGRESSION_STF)
     public void openProductCardByLink() {
         shop().goToPage();
         shop().checkFirstProductCardIsVisible();
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().checkProductCardVisible();
 
         String productLink = shop().interactProductCard().getProductPermalink();
@@ -215,11 +216,11 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(3520)
-    @Test(description = "Проверка корректного открытия карточки товара при обновлении страницы", groups = "regression")
+    @Test(description = "Проверка корректного открытия карточки товара при обновлении страницы", groups = REGRESSION_STF)
     public void openProductCardAfterRefresh() {
         shop().goToPage();
         shop().checkFirstProductCardIsVisible();
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().checkProductCardVisible();
 
         shop().refresh();
@@ -232,7 +233,7 @@ public final class ShoppingCatalogTests {
     @CaseId(2578)
     //TODO fixedUUID - костыль для обхода невыпиленного АБ-теста с новыми ЯндексКартами https://jira.sbmt.io/browse/DVR-4901
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE"})
-    @Test(description = "Переход в витрину магазина с главной страницы сайта", groups = "regression")
+    @Test(description = "Переход в витрину магазина с главной страницы сайта", groups = REGRESSION_STF)
     public void successShowcaseTransitionFromMainLanding() {
         home().goToPage();
         home().clickToSetAddress();
@@ -247,14 +248,14 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(2593)
-    @Test(description = "Корректное отображение информации о товаре (основные элементы)", groups = "regression")
+    @Test(description = "Корректное отображение информации о товаре (основные элементы)", groups = REGRESSION_STF)
     public void productSnippetAndCardInfo() {
         shop().goToPage();
         shop().checkItemNameDisplayed();
         shop().checkItemImageDisplayed();
         shop().checkItemPackageSizeDisplayed();
 
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().checkBreadscrumbsVisible();
         shop().interactProductCard().checkProductImageDisplayed();
         shop().interactProductCard().checkNameDisplayed();
@@ -266,7 +267,7 @@ public final class ShoppingCatalogTests {
     }
 
     //@CaseId(2593)
-    @Test(description = "Корректное отображение информации о товаре (элементы товара без скидки)", groups = "regression")
+    @Test(description = "Корректное отображение информации о товаре (элементы товара без скидки)", groups = REGRESSION_STF)
     public void productSnippetAndCardInfoItemWithoutDiscount() {
         shop().goToPage();
         shop().checkSnippet();
@@ -281,7 +282,7 @@ public final class ShoppingCatalogTests {
     }
 
     //@CaseId(2593)
-    @Test(description = "Корректное отображение информации о товаре (элементы товара со скидкой)", groups = "regression")
+    @Test(description = "Корректное отображение информации о товаре (элементы товара со скидкой)", groups = REGRESSION_STF)
     public void productSnippetAndCardInfoItemWithDiscount() {
         shop().goToPage();
         shop().checkSnippet();

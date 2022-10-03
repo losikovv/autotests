@@ -9,6 +9,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -20,14 +21,14 @@ public final class UserFavoritesTests {
 
     @CaseId(1263)
     @Test(description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
-            groups = {"production", "smoke", "regression"})
+            groups = {"production", "smoke", REGRESSION_STF})
     public void noAccessToFavoritesForUnauthorizedUser() {
         userFavorites().goToPage();
         userFavorites().checkForbiddenPageUrl(userFavorites().pageUrl());
     }
 
     @CaseId(1265)
-    @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {"production", "regression"})
+    @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {"production", REGRESSION_STF})
     public void noFavoriteItemsByDefault() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -39,14 +40,14 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1266)
-    @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {"production", "smoke", "regression"})
+    @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {"production", "smoke", REGRESSION_STF})
     public void successAddFavoriteOnItemCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().addToFavorite();
         shop().interactProductCard().clickOnClose();
 
@@ -55,7 +56,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1267)
-    @Test(description = "Удаление любимого товара из карточки товара и проверка списка", groups = "regression")
+    @Test(description = "Удаление любимого товара из карточки товара и проверка списка", groups = REGRESSION_STF)
     public void successDeleteFavoriteOnItemCard() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -74,7 +75,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1268)
-    @Test(description = "Удаление всех любимых товаров", groups = "regression")
+    @Test(description = "Удаление всех любимых товаров", groups = REGRESSION_STF)
     public void successCleanupFavorites() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -92,7 +93,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1270)
-    @Test(description = "Проверка работоспособности подгрузки товаров по мере прокрутки списка в Любимых товарах", groups = "regression")
+    @Test(description = "Проверка работоспособности подгрузки товаров по мере прокрутки списка в Любимых товарах", groups = REGRESSION_STF)
     public void successShowMoreLoad() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -112,7 +113,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1271)
-    @Test(description = "Регистрация, при попытке добавить товар из каталога в любимые товары неавторизованным", groups = "regression")
+    @Test(description = "Регистрация, при попытке добавить товар из каталога в любимые товары неавторизованным", groups = REGRESSION_STF)
     public void successRegAfterAddFavoriteOnCatalog() {
         shop().goToPage();
         shop().checkFirstProductCardIsVisible();
@@ -124,10 +125,10 @@ public final class UserFavoritesTests {
 
     @CaseId(1272)
     @Test(description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным",
-            groups = {"production", "smoke", "regression"})
+            groups = {"production", "smoke", REGRESSION_STF})
     public void successAuthAfterAddFavoriteOnItemCard() {
         shop().goToPage();
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().addToFavorite();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
@@ -136,7 +137,7 @@ public final class UserFavoritesTests {
 
     @CaseId(1492)
     @Test(description = "Тест добавления товаров в корзину из списка любимых товаров",
-            groups = {"production", "smoke", "regression"})
+            groups = {"production", "smoke", REGRESSION_STF})
     public void successAddFavoriteProductToCart() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.getDefaultAddress());
@@ -157,7 +158,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1494)
-    @Test(description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров", groups = "regression")
+    @Test(description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров", groups = REGRESSION_STF)
     public void successAddFavoriteProductsFromCardToCart() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -179,7 +180,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(2604)
-    @Test(description = "Открывается карточка товара, которого нет в наличии", groups = "regression")
+    @Test(description = "Открывается карточка товара, которого нет в наличии", groups = REGRESSION_STF)
     public void testOpenCartOutOfStockProduct() {
         final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());

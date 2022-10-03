@@ -13,6 +13,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.search;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -24,7 +25,7 @@ public final class ShoppingSearchTests {
 
     @CaseId(1609)
     @Story("Проверка наличия элементов")
-    @Test(description = "Тест валидации элементов поиска", groups = "regression")
+    @Test(description = "Тест валидации элементов поиска", groups = REGRESSION_STF)
     public void successValidateSearch() {
         shop().goToPage();
         shop().interactHeader().checkSearchContainerVisible();
@@ -35,7 +36,7 @@ public final class ShoppingSearchTests {
 
     @CaseId(2585)
     @Story("Негативные сценарии")
-    @Test(description = "Тест поиска по запросу, не возвращающему результатов", groups = "regression")
+    @Test(description = "Тест поиска по запросу, не возвращающему результатов", groups = REGRESSION_STF)
     public void successSearchForNonExistingItem() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -52,7 +53,7 @@ public final class ShoppingSearchTests {
 
     @CaseId(2586)
     @Story("Позитивные сценарии")
-    @Test(description = "Тест успешного поиска товаров", groups = "regression")
+    @Test(description = "Тест успешного поиска товаров", groups = REGRESSION_STF)
     public void successSearchItem() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -71,7 +72,7 @@ public final class ShoppingSearchTests {
     // AB поиска
     @CaseId(2587)
     @Story("Позитивные сценарии")
-    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"production", "smoke", "regression"})
+    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"production", "smoke", REGRESSION_STF})
     public void successSearchItemUsingCategorySuggests() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -90,7 +91,7 @@ public final class ShoppingSearchTests {
 
     @CaseId(2588)
     @Story("Позитивные сценарии")
-    @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {"regression"})
+    @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {REGRESSION_STF})
     public void successSearchItemUsingSuggests() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -108,7 +109,7 @@ public final class ShoppingSearchTests {
 
     @CaseId(2989)
     @Story("Позитивные сценарии")
-    @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = {"regression"})
+    @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = {REGRESSION_STF})
     public void changeAmountOnButtonSearchResult() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -130,7 +131,7 @@ public final class ShoppingSearchTests {
     //    // Потому что при одиночном скроле категория "Все сразу" не скрывается
     @CaseId(2991)
     @Story("Позитивные сценарии")
-    @Test(description = "Работоспособность стрелочки пролистывающей категории", groups = {"regression"})
+    @Test(description = "Работоспособность стрелочки пролистывающей категории", groups = {REGRESSION_STF})
     public void swipeCategoryItemInSuggester() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -152,7 +153,7 @@ public final class ShoppingSearchTests {
 
     @CaseId(3105)
     @Story("Позитивные сценарии")
-    @Test(description = "Удаление поискового запроса по крестику в поиске", groups = {"regression"})
+    @Test(description = "Удаление поискового запроса по крестику в поиске", groups = {REGRESSION_STF})
     public void clearSearchBar() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -170,7 +171,7 @@ public final class ShoppingSearchTests {
 
     @CaseId(1615)
     @Story("Негативные сценарии")
-    @Test(description = "Тест поиска по очень длинному запросу, не возвращающему результатов", groups = "regression")
+    @Test(description = "Тест поиска по очень длинному запросу, не возвращающему результатов", groups = REGRESSION_STF)
     public void successSearchItemWithLongQuery() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -186,16 +187,16 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(1581)
-    @Test(description = "Добавление товара в корзину из поиска товаров", groups = "regression")
+    @Test(description = "Добавление товара в корзину из поиска товаров", groups = REGRESSION_STF)
     public void successAddItemToCartFromSearchResults() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactAddressLarge().checkYmapsReady();
 
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage();
@@ -210,7 +211,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2589)
-    @Test(description = "Работоспособность сортировки товаров", groups = {"regression"})
+    @Test(description = "Работоспособность сортировки товаров", groups = {REGRESSION_STF})
     public void successApplySort() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -233,7 +234,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2590)
-    @Test(description = "Фильтрация товаров", groups = {"regression"})
+    @Test(description = "Фильтрация товаров", groups = {REGRESSION_STF})
     public void successApplyFilters() {
         shop().goToPage();
         shop().goToPage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
@@ -271,7 +272,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2591)
-    @Test(description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности", groups = {"regression"})
+    @Test(description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности", groups = {REGRESSION_STF})
     public void successApplyFiltersAndSortCheapAsc() {
         shop().goToPage();
         shop().goToPage("okey/search?keywords=кофе&sid=128");
@@ -297,7 +298,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2591)
-    @Test(description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд", groups = {"regression"})
+    @Test(description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд", groups = {REGRESSION_STF})
     public void successApplyFiltersAndSortExpensiveDesc() {
         shop().goToPage();
         shop().goToPage("okey/search?keywords=чай&sid=128");
@@ -328,7 +329,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2592)
-    @Test(description = "При применении фильтра для выданных товаров блокируются другие фильтры (неприменимые к ним)", groups = {"regression"})
+    @Test(description = "При применении фильтра для выданных товаров блокируются другие фильтры (неприменимые к ним)", groups = {REGRESSION_STF})
     public void successApplyOtherFilters() {
         shop().goToPage();
         shop().goToPage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
@@ -341,7 +342,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2737)
-    @Test(description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна", groups = {"regression"})
+    @Test(description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна", groups = {REGRESSION_STF})
     public void alcoholSearchModalClose() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -362,9 +363,7 @@ public final class ShoppingSearchTests {
 
         search().checkAlcoStubInProductsSearch();
 
-        //TODO В результатах поиска с алкоголем модалка предупреждения 18+ не выскакивает автоматом
-        // https://mattermost.sbermarket.tech/sbermarket/pl/meqt33xezt8idkkw7oyiqhuucr
-        //search().interactDisclaimerModal().clickOffTheModalToCloseDisclaimer();
+        search().interactDisclaimerModal().clickOffTheModalToCloseDisclaimer();
 
         search().clickOnFirstSearchResult();
         search().interactDisclaimerModal().clickOffTheModalToCloseDisclaimer();

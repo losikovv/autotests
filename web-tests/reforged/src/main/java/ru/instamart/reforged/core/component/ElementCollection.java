@@ -133,6 +133,12 @@ public final class ElementCollection extends CollectionComponent {
         return getElements().stream().map(WebElement::getText).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
+    public Set<String> getAttributeValues(final String attr) {
+        final var attributeValue = getComponent().getAttribute(attr);
+        log.debug("Get text '{}' for {} with locator {}", attributeValue, getDescription(), getBy());
+        return getElements().stream().map(we -> we.getAttribute(attr)).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
     public int elementCount() {
         return getComponents().size();
     }

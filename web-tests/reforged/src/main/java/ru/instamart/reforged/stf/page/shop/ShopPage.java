@@ -94,6 +94,11 @@ public final class ShopPage implements StfPage, ShopCheck {
         addToCartButtonsProd.clickOnFirst();
     }
 
+    @Step("Нажать на плюс у {itemPosition}-го товара")
+    public void plusItemToCartByPosition(final int itemPosition) {
+        addToCartButtonsProd.getElements().get(itemPosition - 1).click();
+    }
+
     /**
      * @param line    - номер линии по порядку, начиная с 0, в которой находится искомый товар,
      * @param element - номер самого элемента по порядку, начиная с 0
@@ -104,9 +109,9 @@ public final class ShopPage implements StfPage, ShopCheck {
         return productTitle.getTitleOrText(line, element);
     }
 
-    @Step("Вернуть значение имени первого товара на проде")
-    public String getFirstProductTitleProd() {
-        return productsCartTitlesFromFirstCategory.getElementText(0);
+    @Step("Вернуть значение имени {itemPosition}-го товара на проде")
+    public String getProductTitleByPositionProd(final int itemPosition) {
+        return productsCartTitlesFromFirstCategory.getElementText(itemPosition - 1);
     }
 
     @Step("Нажать на минус у товара - строка №{line}, элемент по порядку №{element}")
@@ -116,12 +121,12 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Step("Добавить первый товар в избранное")
     public void addFirstItemToFavorite() {
-        addFirstItemToFavorite.hoverAndClick();
+        addToFavoriteButtons.clickOnFirst();
     }
 
     @Step("Добавить первый товар в избранное")
     public void deleteFirstItemFromFavorite() {
-        deleteFirstItemFromFavorite.hoverAndClick();
+        removeFromFavorite.clickOnFirst();
     }
 
     @Step("Открыть карточку первого товара на стейдже")

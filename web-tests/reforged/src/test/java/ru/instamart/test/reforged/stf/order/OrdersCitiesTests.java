@@ -9,12 +9,11 @@ import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.data_provider.CityProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -33,7 +32,7 @@ public final class OrdersCitiesTests {
             @CaseId(1656), @CaseId(1657), @CaseId(1658), @CaseId(1659), @CaseId(1660), @CaseId(1661),
             @CaseId(1662), @CaseId(1663), @CaseId(1664), @CaseId(1665)})
     @Test(description = "Тест заказа в METRO в разных городах",
-            groups = {"regression"},
+            groups = {REGRESSION_STF},
             dataProviderClass = CityProvider.class,
             dataProvider = "city")
     public void successOrderFromCity(final AddressV2 address) {

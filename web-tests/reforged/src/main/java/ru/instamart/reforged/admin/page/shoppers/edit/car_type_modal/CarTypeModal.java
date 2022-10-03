@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.modal;
+package ru.instamart.reforged.admin.page.shoppers.edit.car_type_modal;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;

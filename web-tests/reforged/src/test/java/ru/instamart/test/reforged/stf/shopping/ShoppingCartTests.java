@@ -12,6 +12,7 @@ import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.UiProperties.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -22,16 +23,16 @@ public final class ShoppingCartTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1571)
-    @Test(description = "Тест валидации дефолтной корзины", groups = {"regression", "all-cart"})
+    @Test(description = "Тест валидации дефолтной корзины", groups = {REGRESSION_STF, "all-cart"})
     public void successValidateDefaultCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().interactHeader().clickToCart();
@@ -45,26 +46,26 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1572)
-    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {"regression", "all-cart"})
+    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {REGRESSION_STF, "all-cart"})
     public void successAddItemToCartUnauthorized() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusItemToCart("1", "0");
+        shop().plusFirstItemToCartProd();
         shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
     }
 
     @CaseId(1573)
-    @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {"regression", "all-cart"})
+    @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {REGRESSION_STF, "all-cart"})
     public void successAddItemToCartFromItemCard() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -79,8 +80,8 @@ public final class ShoppingCartTests {
         //TODO: Костыль из-за бейсик авторизации
         shop().refreshWithoutBasicAuth();
 
+        shop().openFirstProductCardProd();
         shop().checkFirstProductCardIsVisible();
-        shop().openFirstProductCard();
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().clickOnClose();
 
@@ -89,51 +90,57 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1574)
-    @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = {"regression", "all-cart"})
+    @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = {REGRESSION_STF, "all-cart"})
     public void successChangeItemQuantityInCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusItemToCart("1", "0");
+        shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
+        var orderAmount = shop().interactCart().getOrderAmount();
 
         shop().interactCart().getFirstItem().increaseCount();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(2);
+        shop().interactCart().getFirstItem().checkSpinnerIsVisible();
+        shop().interactCart().getFirstItem().checkSpinnerIsNotVisible();
+        shop().interactCart().checkAmountNotEquals(orderAmount, shop().interactCart().getOrderAmount());
 
         shop().interactCart().getFirstItem().decreaseCount();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
+        shop().interactCart().getFirstItem().checkSpinnerIsVisible();
+        shop().interactCart().getFirstItem().checkSpinnerIsNotVisible();
+        shop().interactCart().checkAmountEquals(orderAmount, shop().interactCart().getOrderAmount());
         shop().assertAll();
     }
 
     @CaseId(1575)
-    @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {"regression", "all-cart"})
+    @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {REGRESSION_STF, "all-cart"})
     public void successChangeItemQuantityInCartViaItemCard() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage();
-        shop().refreshWithoutBasicAuth();
 
         shop().checkFirstProductCardIsVisible();
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().clickOnBuy();
         shop().goToPage();
         shop().interactProductCard().checkProductCardIsNotVisible();
@@ -144,7 +151,7 @@ public final class ShoppingCartTests {
         shop().refresh();
 
         shop().checkFirstProductCardIsVisible();
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
@@ -156,7 +163,7 @@ public final class ShoppingCartTests {
         shop().refreshWithoutBasicAuth();
 
         shop().checkFirstProductCardIsVisible();
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
@@ -168,7 +175,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1576)
-    @Test(description = "Тест на удаление товаров из корзины", groups = {"regression", "all-cart"})
+    @Test(description = "Тест на удаление товаров из корзины", groups = {REGRESSION_STF, "all-cart"})
     public void successRemoveItemsFromCart() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -180,7 +187,7 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().plusItemToCart("1", "0");
+        shop().plusFirstItemToCartProd();
         shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -190,7 +197,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1577)
-    @Test(description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге", groups = {"regression", "all-cart"})
+    @Test(description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге", groups = {REGRESSION_STF, "all-cart"})
     public void successAddItemToCartFromCatalogSnippet() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -202,7 +209,7 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().plusItemToCart("1", "0");
+        shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();
@@ -215,7 +222,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1578)
-    @Test(description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = {"regression", "all-cart"})
+    @Test(description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = {REGRESSION_STF, "all-cart"})
     public void successChangeMinOrderSum() {
         final var shoppingCartUser = UserManager.getQaUser();
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
@@ -227,7 +234,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusItemToCart("1", "0");
+        shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage(ShopUrl.AUCHAN);
@@ -251,7 +258,7 @@ public final class ShoppingCartTests {
         shop().goToPage(ShopUrl.AUCHAN);
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusItemToCart("1", "0");
+        shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
@@ -260,10 +267,8 @@ public final class ShoppingCartTests {
         shop().interactCart().checkFirstMinAmountLessThanRepeated(firstOrderMinAmount, repeatedOrderMinAmount);
     }
 
-
-
     @CaseId(2616)
-    @Test(description = "Добавление/удаление товара из карточки товара", groups = {"regression", "all-cart"})
+    @Test(description = "Добавление/удаление товара из карточки товара", groups = {REGRESSION_STF, "all-cart"})
     public void testAddedAndRemoveProductFromProductCard() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -273,7 +278,7 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().checkProductCardVisible();
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().decreaseItemCount();
@@ -281,7 +286,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2618)
-    @Test(description = "Добавление/удаление товара из раздела 'Скидки'", groups = {"regression", "all-cart"})
+    @Test(description = "Добавление/удаление товара из раздела 'Скидки'", groups = {REGRESSION_STF, "all-cart"})
     public void testAddProductFromSale() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -292,7 +297,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCategoryMenu();
-        shop().checkFirstProductCardIsVisible();
+        shop().checkSnippet();
         shop().interactCategoryMenu().clickToFirstLevelCategoryByName("Скидки");
 
         seo().openFirstProductCardOnDepartment();
@@ -304,7 +309,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2619)
-    @Test(description = "Добавление товара после изменения адреса доставки", groups = {"regression", "all-cart"})
+    @Test(description = "Добавление товара после изменения адреса доставки", groups = {REGRESSION_STF, "all-cart"})
     public void testAddProductAfterChangeAddress() {
         var userData = UserManager.getQaUser();
         helper.dropAndFillCartByOneProduct(userData, DEFAULT_SID, 5);
@@ -315,7 +320,7 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().clickOnClose();
 
@@ -326,7 +331,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseIDs(value = {@CaseId(2620), @CaseId(2937), @CaseId(2938)})
-    @Test(description = "Многократное добавление и удаление одной позиции", groups = {"regression", "all-cart"})
+    @Test(description = "Многократное добавление и удаление одной позиции", groups = {REGRESSION_STF, "all-cart"})
     public void testMultipleAddAndRemoveProduct() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -336,7 +341,7 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().increaseItemCount();
@@ -348,7 +353,7 @@ public final class ShoppingCartTests {
         shop().assertAll();
         shop().interactCart().closeCart();
 
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().decreaseItemCount();
@@ -360,7 +365,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2605)
-    @Test(description = "Тест успешного добавления товара в пустую корзину", groups = {"regression", "all-cart"})
+    @Test(description = "Тест успешного добавления товара в пустую корзину", groups = {REGRESSION_STF, "all-cart"})
     public void testSuccessAddItemInEmptyCart() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -370,8 +375,8 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().plusItemToCart("1", "0");
-        final var shopProductName = shop().getProductTitle("1", "0");
+        shop().plusFirstItemToCartProd();
+        final var shopProductName = shop().getProductTitleByPositionProd(1);
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
@@ -381,7 +386,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2607)
-    @Test(description = "Изменение количества единиц товаров в корзине", groups = {"regression", "all-cart"})
+    @Test(description = "Изменение количества единиц товаров в корзине", groups = {REGRESSION_STF, "all-cart"})
     public void testAddProductsInCart() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -410,7 +415,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2609)
-    @Test(description = "Подтягивание адреса и мердж корзины из профиля при авторизации", groups = {"regression", "all-cart"})
+    @Test(description = "Подтягивание адреса и мердж корзины из профиля при авторизации", groups = {REGRESSION_STF, "all-cart"})
     public void testAddressAndCartGetFromProfileAuth() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.learningCenter());
@@ -418,14 +423,14 @@ public final class ShoppingCartTests {
 
         shop().goToPage();
         shop().openAddressFrame();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        final var shopProductName = shop().getProductTitle("0", "1");
-        shop().plusItemToCart("0", "1");
+        final var shopProductName = shop().getProductTitleByPositionProd(2);
+        shop().plusItemToCartByPosition(2);
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();
@@ -448,7 +453,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2610)
-    @Test(description = "Удаление позиции товара", groups = {"regression", "all-cart"})
+    @Test(description = "Удаление позиции товара", groups = {REGRESSION_STF, "all-cart"})
     public void testRemoveProduct() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -478,18 +483,17 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1572)
-    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {"regression", "all-cart"})
+    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {REGRESSION_STF, "all-cart"})
     public void testAddToCartNonAuthUser() {
         shop().goToPage();
         shop().openAddressFrame();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().clickOnSave();
-
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().clickSave();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusItemToCart("0", "0");
-        final var shopProductName = shop().getProductTitle("0", "0");
+        shop().plusFirstItemToCartProd();
+        final var shopProductName = shop().getProductTitleByPositionProd(1);
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
@@ -500,7 +504,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2611)
-    @Test(description = "Удаление всех товаров в корзине", groups = {"regression", "all-cart"})
+    @Test(description = "Удаление всех товаров в корзине", groups = {REGRESSION_STF, "all-cart"})
     public void testRemoveRetailerFromCart() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -521,7 +525,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2612)
-    @Test(description = "Отображение нескольких магазинов в корзине, разбивка товаров по магазинам", groups = {"regression", "all-cart"})
+    @Test(description = "Отображение нескольких магазинов в корзине, разбивка товаров по магазинам", groups = {REGRESSION_STF, "all-cart"})
     public void testMultiplyOrderGroupingProductsByRetailers() {
         var userData = UserManager.getQaUser();
         helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), DEFAULT_METRO_MOSCOW_SID, 2, DEFAULT_AUCHAN_SID, 3);
@@ -542,7 +546,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2613)
-    @Test(description = "Удаление магазина из корзины, при удалении всех его товаров в корзине", groups = {"regression", "all-cart"})
+    @Test(description = "Удаление магазина из корзины, при удалении всех его товаров в корзине", groups = {REGRESSION_STF, "all-cart"})
     public void testAutoRemoveRetailerAfterRemoveAllProducts() {
         var userData = UserManager.getQaUser();
         helper.dropAndFillCartMultiple(userData,
@@ -566,7 +570,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2617)
-    @Test(description = "Добавление/удаление товара из категории", groups = {"regression", "all-cart"})
+    @Test(description = "Добавление/удаление товара из категории", groups = {REGRESSION_STF, "all-cart"})
     public void testAddRemoveProductFromCategory() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -595,7 +599,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(3042)
-    @Test(description = "Добавление товара в корзину из seo-каталога", groups = {"regression", "all-cart"})
+    @Test(description = "Добавление товара в корзину из seo-каталога", groups = {REGRESSION_STF, "all-cart"})
     public void testAddProductFromSEOCategory() {
         seoIncognito().goToPage();
         seoIncognito().checkProductGridVisible();
@@ -608,7 +612,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2615)
-    @Test(description = "Добавление товара в корзину из блока рекомендаций на карточке товара", groups = {"regression", "all-cart"})
+    @Test(description = "Добавление товара в корзину из блока рекомендаций на карточке товара", groups = {REGRESSION_STF, "all-cart"})
     public void successAddToCardFromProductCardRecommendations() {
         var userData = UserManager.getQaUser();
         helper.setAddressBySid(userData, DEFAULT_SID);

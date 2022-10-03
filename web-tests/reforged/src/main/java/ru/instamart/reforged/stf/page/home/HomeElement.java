@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.block.footer.Footer;
+import ru.instamart.reforged.stf.block.header_multisearch.MultisearchHeader;
 import ru.instamart.reforged.stf.drawer.cookie.CookieDrawer;
 import ru.instamart.reforged.stf.frame.address.AddressLarge;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
@@ -13,6 +14,7 @@ public interface HomeElement {
 
     AuthModal authModal = new AuthModal();
     AddressLarge addressModal = new AddressLarge();
+    MultisearchHeader header = new MultisearchHeader();
     Footer footer = new Footer();
     CookieDrawer cookieAlert = new CookieDrawer();
     DeliveryZones deliveryZones = new DeliveryZones();

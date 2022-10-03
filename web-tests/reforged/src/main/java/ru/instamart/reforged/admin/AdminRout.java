@@ -34,6 +34,8 @@ import ru.instamart.reforged.admin.page.shipment.shipment.customer.ShipmentCusto
 import ru.instamart.reforged.admin.page.shipment.shipment.delivery_windows.ShipmentDeliveryWindowsPage;
 import ru.instamart.reforged.admin.page.shipment.shipment.payments.ShipmentPaymentsPage;
 import ru.instamart.reforged.admin.page.shipment.shipment.payments.new_payment.payments.ShipmentNewPaymentPage;
+import ru.instamart.reforged.admin.page.shipment.shipment.send_promo.SendPromoPage;
+import ru.instamart.reforged.admin.page.shipment.shipment.send_promo.approve_page.ApprovePromoPage;
 import ru.instamart.reforged.admin.page.shoppers.ShoppersPage;
 import ru.instamart.reforged.admin.page.shoppers.create.ShoppersCreatePage;
 import ru.instamart.reforged.admin.page.shoppers.edit.ShoppersEditPage;
@@ -129,6 +131,14 @@ public final class AdminRout extends Router {
 
     public static ShipmentPage shipmentPage() {
         return (ShipmentPage) getPage(ShipmentPage.class);
+    }
+
+    public static ApprovePromoPage approvePromoPage() {
+        return (ApprovePromoPage) getPage(ApprovePromoPage.class);
+    }
+
+    public static SendPromoPage sendPromoPage() {
+        return (SendPromoPage) getPage(SendPromoPage.class);
     }
 
     public static ShipmentDeliveryWindowsPage shipmentPageDelivery() {

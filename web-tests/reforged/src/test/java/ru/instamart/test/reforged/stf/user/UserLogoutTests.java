@@ -10,6 +10,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -19,7 +20,7 @@ public final class UserLogoutTests {
 
     @CaseId(1473)
     @Story("Позитивный кейс")
-    @Test(description = "Тест успешной быстрой деавторизации", groups = "regression")
+    @Test(description = "Тест успешной быстрой деавторизации", groups = REGRESSION_STF)
     public void successQuickLogout() {
         UserData userData = UserManager.getQaUser();
 
@@ -36,7 +37,7 @@ public final class UserLogoutTests {
 
     @CaseId(1474)
     @Story("Позитивный кейс")
-    @Test(description = "Тест успешной деавторизации", groups = {"production", "regression", "smoke"})
+    @Test(description = "Тест успешной деавторизации", groups = {"production", REGRESSION_STF, "smoke"})
     public void successManualLogout() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -49,7 +50,7 @@ public final class UserLogoutTests {
 
     @CaseId(2548)
     @Story("Позитивный кейс")
-    @Test(description = "Тест сброса адреса доставки и корзины после деавторизации", groups = "regression")
+    @Test(description = "Тест сброса адреса доставки и корзины после деавторизации", groups = REGRESSION_STF)
     public void noShipAddressAndEmptyCartAfterLogout() {
         final ApiHelper apiHelper = new ApiHelper();
         final UserData userData = UserManager.getQaUser();

@@ -1,6 +1,5 @@
 package ru.instamart.kraken.util;
 
-import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.Range;
 import ru.instamart.kraken.config.CoreProperties;
@@ -184,7 +183,6 @@ public final class StringUtil {
         return arrayToString(collection.toArray(String[]::new));
     }
 
-    @Step("Сравнить строки через regex")
     public static String matchWithRegex(final String regex, final String str, final int matcherGroup) {
         String result = "";
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
@@ -200,5 +198,10 @@ public final class StringUtil {
     public static boolean rangeBetween(final double from, final double to, final double value) {
         final Range<Double> validRange = Range.between(from, to);
         return validRange.elementCompareTo(value) == 0;
+    }
+
+    public static String substringToLastIndexOfStr(final String deliveryType, final String str) {
+        int lastIndex = deliveryType.lastIndexOf(str);
+        return lastIndex == -1 ? deliveryType.toLowerCase() : deliveryType.substring(0, lastIndex).toLowerCase();
     }
 }

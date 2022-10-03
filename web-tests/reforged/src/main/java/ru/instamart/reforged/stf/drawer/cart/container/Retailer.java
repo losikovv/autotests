@@ -25,12 +25,12 @@ import static org.testng.Assert.assertEquals;
 public final class Retailer extends Container {
 
     private final InnerElement name = new InnerElement(getContainer(), By.xpath(".//div[@class='cart-retailer-details__name']"), "Название магазина");
-    private final InnerElement itemsCountInHeader = new InnerElement(getContainer(), By.xpath("(.//div[@class='cart-retailer-details__well'])[1]"), "Количество позиций товара в шапке");
+    private final InnerElement itemsCountInHeader = new InnerElement(getContainer(), By.xpath("(.//div[contains(@class,'MultiSearchCartHeader_kebab')]/span)[1]"), "Количество позиций товара в шапке");
     private final InnerElement itemsCountInHeaderProd = new InnerElement(getContainer(), By.xpath(".//div[contains(@class,'MultiSearchCartHeader_kebab')]/span[1]"), "Количество позиций товара в шапке");
     private final InnerElement totalWeight = new InnerElement(getContainer(), By.xpath(".//div[@class='cart-retailer-details__weight']"), "Общий вес заказа");
     private final InnerElement totalAmount = new InnerElement(getContainer(), By.xpath("(.//div[@class='cart-retailer-details__well'])[2]"), "Общая стоимость заказа");
     private final InnerElement nearestDeliveryInfo = new InnerElement(getContainer(), By.xpath("(.//div[@class='cart-retailer-details__well'])[2]"), "Информация о доставке");
-    private final InnerElement minAmountAlert = new InnerElement(getContainer(), By.xpath("//div[@class='cart-retailer__alert-message-box']"), "Сообщение о минимальной сумме заказа");
+    private final InnerElement minAmountAlert = new InnerElement(getContainer(), By.xpath("//div[@class='cart-retailer__alert']"), "Сообщение о минимальной сумме заказа");
     private final InnerButton buttonRemoveShipments = new InnerButton(getContainer(), By.xpath(".//button[@data-qa='cart_remove_shipments_button']"), "Кнопку Удалить");
     private final InnerCollectionComponent itemInList = new InnerCollectionComponent(getContainer(), By.xpath(".//div[@data-qa='line-item']"), "Список товаров магазина");
     private final InnerElement mergeChecker = new InnerElement(getContainer(), By.xpath("//div[@class='cart-retailer__merge-checker']"), "Сообщение о возможности сделать дозаказ");

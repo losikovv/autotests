@@ -14,6 +14,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.business.page.BusinessRouter.business;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.*;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
@@ -32,7 +33,7 @@ public final class CheckoutPaymentMethodsTests {
 
     @Issue("B2C-9776")
     @CaseId(3616)
-    @Test(description = "Сброс способа оплаты 'Картой курьеру' при выборе 'Бесконтактная доставка'", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Сброс способа оплаты 'Картой курьеру' при выборе 'Бесконтактная доставка'", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testPayByCardCourierDeliveryToDoor() {
         final var userData = UserManager.getQaUser();
@@ -75,7 +76,7 @@ public final class CheckoutPaymentMethodsTests {
 
     @Issue("B2C-9777")
     @CaseId(3637)
-    @Test(description = "Проверка предвыбора метода 'Оплатить онлайн' при выборе самовывоза", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка предвыбора метода 'Оплатить онлайн' при выборе самовывоза", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckPayOnlineSelectedByDefaultInPickup() {
         final var userData = UserManager.getQaUser();
@@ -105,7 +106,7 @@ public final class CheckoutPaymentMethodsTests {
 
     @Issues({@Issue("B2C-9732"), @Issue("B2C-9730")})
     @CaseId(3649)
-    @Test(description = "Проверка добавления новой карты оплаты", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка добавления новой карты оплаты", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testAddNewPaymentCard() {
         final var userData = UserManager.getQaUser();
@@ -145,7 +146,7 @@ public final class CheckoutPaymentMethodsTests {
 
     @Issue("B2C-9732")
     @CaseId(3642)
-    @Test(description = "Проверка появления кнопки 'Оплатить' при способе оплаты 'Картой онлайн'", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка появления кнопки 'Оплатить' при способе оплаты 'Картой онлайн'", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testPayButtonDisplayedWithSelectOnlinePaymentMethod() {
         final var userData = UserManager.getQaUser();
@@ -184,7 +185,7 @@ public final class CheckoutPaymentMethodsTests {
     }
 
     @CaseId(3643)
-    @Test(description = "Проверка появления кнопки 'Заказать' при способе оплаты 'Картой курьеру'", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка появления кнопки 'Заказать' при способе оплаты 'Картой курьеру'", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testOrderConfirmButtonDisplayedWithSelectCardToCourierPaymentMethod() {
         final var userData = UserManager.getQaUser();
@@ -215,7 +216,7 @@ public final class CheckoutPaymentMethodsTests {
     }
 
     @CaseId(3822)
-    @Test(description = "Проверка редиректа на см-бизнес при способе оплаты 'По счету для бизнеса' (Доставка)", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка редиректа на см-бизнес при способе оплаты 'По счету для бизнеса' (Доставка)", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testTransitionOnB2BIfSelectBusinessPaymentMethodFromDelivery() {
         final var userData = UserManager.getQaUser();
@@ -253,7 +254,7 @@ public final class CheckoutPaymentMethodsTests {
     }
 
     @CaseId(3827)
-    @Test(description = "Проверка редиректа на см-бизнес при способе оплаты 'По счету для бизнеса' (Самовывоз)", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка редиректа на см-бизнес при способе оплаты 'По счету для бизнеса' (Самовывоз)", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testTransitionOnB2BIfSelectBusinessPaymentMethodFromPickup() {
         final var userData = UserManager.getQaUser();

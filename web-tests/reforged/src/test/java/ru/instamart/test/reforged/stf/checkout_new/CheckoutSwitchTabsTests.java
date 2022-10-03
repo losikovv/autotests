@@ -12,6 +12,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -27,7 +28,7 @@ public final class CheckoutSwitchTabsTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(3596)
-    @Test(description = "Замена метода 'Доставка' на метод 'Самовывоз'", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Замена метода 'Доставка' на метод 'Самовывоз'", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSwitchDeliveryToPickupInCheckout() {
         final var userData = UserManager.getQaUser();
@@ -66,14 +67,14 @@ public final class CheckoutSwitchTabsTests {
     }
 
     @CaseId(3597)
-    @Test(description = "Замена метода 'Самовывоз' на метод 'Доставка'", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Замена метода 'Самовывоз' на метод 'Доставка'", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSwitchPickupToDeliveryInCheckout() {
         final var userData = UserManager.getQaUser();
         addFlipperActor("checkout_web_new", userData.getId());
         addFlipperActor("checkout_web_force_all", userData.getId());
         addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
-        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.dropAndFillCart(userData, DEFAULT_CHECKOUT_SID);
 
         final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
 
@@ -83,9 +84,11 @@ public final class CheckoutSwitchTabsTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToPickup();
-        shop().interactHeader().interactAddress().checkAddressModalVisible();
-        shop().interactHeader().interactAddress().clickStoreWithAddress(fullAddress);
-        shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().clickShowAsList();
+        shop().interactAddressLarge().checkPickupStoresModalVisible();
+        shop().interactAddressLarge().selectStoreByAddress(fullAddress);
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().interactHeader().clickToCart();
@@ -110,7 +113,7 @@ public final class CheckoutSwitchTabsTests {
     }
 
     @CaseId(3610)
-    @Test(description = "Попытка переключения с самовывоза на доставку при заказе имеющем алкоголь", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Попытка переключения с самовывоза на доставку при заказе имеющем алкоголь", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSwitchPickupToDeliveryInCheckoutWithAlcohol() {
         final var userData = UserManager.getQaUser();
@@ -126,9 +129,12 @@ public final class CheckoutSwitchTabsTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToPickup();
-        shop().interactHeader().interactAddress().checkAddressModalVisible();
-        shop().interactHeader().interactAddress().clickStoreWithAddress(fullAddress);
-        shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().clickShowAsList();
+        shop().interactAddressLarge().checkPickupStoresModalVisible();
+        shop().interactAddressLarge().selectRetailerByName("METRO");
+        shop().interactAddressLarge().selectStoreByAddress(fullAddress);
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage(ShopUrl.METRO.getUrl() + "/c/alcohol/vino/krasnoie-vino?sid=14&source=category");

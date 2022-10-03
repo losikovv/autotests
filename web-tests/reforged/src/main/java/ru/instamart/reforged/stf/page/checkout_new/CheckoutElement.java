@@ -35,10 +35,12 @@ public interface CheckoutElement {
     Button b2bLink = new Button(By.xpath("//button[@data-qa='checkout_page_ship_address_b2b_link']"), "Кнопка 'Заказываю для бизнеса'");
 
     Button openDeliverySlotsModalInTitle = new Button(By.xpath("//div[contains(@class,'DeliverySlots_header')]//button"), "Кнопка 'Доставка на ...' (открывает модалку выбора слота)");
-    Element deliverySlot = new Element(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]]"), "Слот доставки");
-
     Element deliverySlotBlockInvalidMark = new Element(By.xpath("//div[contains(@class, 'DeliverySlots_root')][contains(@class, 'invalid')]"), "Ошибка в блоке 'Слоты' (красная рамка)");
-    ElementCollection deliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]]"), "Доступные слоты доставки");
+
+    ElementCollection allDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]]"), "Все доступные слоты доставки");
+    ElementCollection deliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][.//div[contains(@class,'ShippingRateCard_date')]][not(.//*[contains(@class,'ShippingRateCard_flashIcon')])]"), "Доступные слоты доставки (обычной)");
+    ElementCollection onDemandDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][not(.//div[contains(@class,'ShippingRateCard_date')])]"), "Доступные слоты On-Demand доставки");
+    ElementCollection quickDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][.//div[contains(@class,'ShippingRateCard_date')]][.//*[contains(@class,'ShippingRateCard_flashIcon')]]"), "Доступные слоты быстрой доставки");
     ElementCollection activeDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][./div[contains(@class,'active')]]"), "Выбранные слоты доставки");
 
     Element activeSlotByPosition = new Element(ByKraken.xpathExpression("//li[.//div[contains(@class,'ShippingRateCard')]][%s]/div[contains(@class,'active')]"), "Активный слот с учётом позиции в карусели");

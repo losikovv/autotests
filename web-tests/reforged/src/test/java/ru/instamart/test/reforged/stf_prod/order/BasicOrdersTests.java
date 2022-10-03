@@ -60,7 +60,9 @@ public final class BasicOrdersTests {
         checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
+        checkout().setReplacementPolicy().checkSubmitVisible();
         checkout().setReplacementPolicy().clickToSubmit();
+        checkout().setReplacementPolicy().checkReplacementSpinnerNotVisible();
 
         checkout().setSlot().setLastActiveSlot();
 
@@ -179,7 +181,7 @@ public final class BasicOrdersTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        final var itemName = shop().getFirstProductTitleProd();
+        final var itemName = shop().getProductTitleByPositionProd(1);
         shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
