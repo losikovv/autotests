@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.frame.address;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 
+import static org.testng.Assert.assertEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface AddressLargeCheck extends AddressLargeElement, Check {
@@ -27,8 +28,23 @@ public interface AddressLargeCheck extends AddressLargeElement, Check {
         waitAction().shouldBeVisible(outOfDeliveryMessage, "Не появилось сообщение о том, что адрес вне зоны доставки");
     }
 
+    @Step("Проверяем, что отображается список магазинов")
+    default void checkPickupStoresModalVisible() {
+        waitAction().shouldBeVisible(storesModal);
+    }
+
     @Step("Фрейм адреса доставки не отображается")
     default void checkAddressModalIsNotVisible() {
         addressModal.should().invisible();
+    }
+
+    @Step("Проверка что сохраненных адресов '{0}'")
+    default void checkCountOfStoredAddresses(final int count) {
+        assertEquals(foundedAddresses.elementCount(), count, "Недостаточное количество сохраненных адресов");
+    }
+
+    @Step("Проверка сохраненного адреса '{actual}' с ожидаемым '{expected}'")
+    default void checkStoredAddresses(final String actual, final String expected) {
+        assertEquals(actual, expected, "Адреса не совпадают");
     }
 }

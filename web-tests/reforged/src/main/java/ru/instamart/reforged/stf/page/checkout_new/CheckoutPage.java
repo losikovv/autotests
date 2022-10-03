@@ -109,12 +109,12 @@ public class CheckoutPage implements StfPage, CheckoutCheck, Window {
 
     @Step("Выбираем ближайший доступный слот доставки")
     public void clickFirstSlot() {
-        deliverySlots.clickOnFirst();
+        allDeliverySlots.clickOnFirst();
     }
 
     @Step("Выбираем второй доступный слот доставки")
     public void clickSecondSlot() {
-        deliverySlots.getElements().get(1).click();
+        allDeliverySlots.getElements().get(1).click();
     }
 
     @Step("Получаем дату выбранного слота")

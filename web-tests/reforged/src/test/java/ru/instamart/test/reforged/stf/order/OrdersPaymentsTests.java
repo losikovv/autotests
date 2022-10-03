@@ -17,6 +17,7 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_ONLINE;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_UPON_RECEIPT;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -43,7 +44,7 @@ public final class OrdersPaymentsTests {
 
     @CaseId(1624)
     @Story("Тест заказа с оплатой картой онлайн")
-    @Test(description = "Тест заказа с оплатой картой онлайн", groups = {"smoke", "regression"})
+    @Test(description = "Тест заказа с оплатой картой онлайн", groups = {"smoke", REGRESSION_STF})
     public void successOrderWithCardOnline() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -77,7 +78,7 @@ public final class OrdersPaymentsTests {
 
     @CaseId(1625)
     @Story("Тест заказа с оплатой картой курьеру")
-    @Test(description = "Тест заказа с оплатой картой курьеру", groups = {"production", "smoke", "regression"})
+    @Test(description = "Тест заказа с оплатой картой курьеру", groups = {"production", "smoke", REGRESSION_STF})
     public void successOrderWithCardCourier() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -107,7 +108,7 @@ public final class OrdersPaymentsTests {
 
     @CaseId(1626)
     @Story("Тест заказа с оплатой банковским переводом")
-    @Test(description = "Тест заказа с оплатой банковским переводом", groups = "regression")
+    @Test(description = "Тест заказа с оплатой банковским переводом", groups = REGRESSION_STF)
     public void successOrderWithBankTransfer() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -136,6 +137,9 @@ public final class OrdersPaymentsTests {
         checkout().editCompany().fillName(company.getJuridicalName());
         checkout().editCompany().fillAddress(company.getJuridicalAddress());
         checkout().editCompany().fillKpp(company.getKpp());
+        checkout().editCompany().fillConsigneeName(company.getJuridicalName());
+        checkout().editCompany().fillConsigneeAddress(company.getJuridicalAddress());
+        checkout().editCompany().fillConsigneeKpp(company.getKpp());
         checkout().editCompany().saveCompanyInfo();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
@@ -148,7 +152,7 @@ public final class OrdersPaymentsTests {
 
     @CaseIDs({@CaseId(3238), @CaseId(3235)})
     @Story("Ошибки валидации")
-    @Test(description = "Добавление новой карты после попытки ввода некорректного номера карты", groups = "regression")
+    @Test(description = "Добавление новой карты после попытки ввода некорректного номера карты", groups = REGRESSION_STF)
     public void testAddPaymentCardAfterCardNumberValidation() {
         final var data = TestVariables.testAddressData();
 
@@ -188,7 +192,7 @@ public final class OrdersPaymentsTests {
 
     @CaseIDs({@CaseId(3236), @CaseId(3239)})
     @Story("Ошибки валидации")
-    @Test(description = "Добавление новой карты. Некорректная дата окончания действия карты", groups = "regression")
+    @Test(description = "Добавление новой карты. Некорректная дата окончания действия карты", groups = REGRESSION_STF)
     public void testAddPaymentCardAfterCardExpireDataValidation() {
         final var data = TestVariables.testAddressData();
 
@@ -230,7 +234,7 @@ public final class OrdersPaymentsTests {
 
     @CaseIDs({@CaseId(3239), @CaseId(3237)})
     @Story("Ошибки валидации")
-    @Test(description = "Добавление новой карты после попытки ввода некорректного имя держателя", groups = "regression")
+    @Test(description = "Добавление новой карты после попытки ввода некорректного имя держателя", groups = REGRESSION_STF)
     public void testAddPaymentCardAfterCardHolderValidation() {
         final var data = TestVariables.testAddressData();
 

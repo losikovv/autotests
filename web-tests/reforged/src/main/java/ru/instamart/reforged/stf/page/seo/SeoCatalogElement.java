@@ -18,9 +18,9 @@ public interface SeoCatalogElement {
     Element catalogPageTitle = new Element(By.xpath("//h1[@data-qa='category_header_title']"), "Заголовок страницы каталога");
     Element productGrid = new Element(By.xpath("//div[@data-qa='category_taxon_products_products_grid']"), "Продукты на странице каталога");
     Element firstProductCard = new Element(By.xpath("//div[@data-qa='category_taxon_products_products_grid']/div/div[1]"), "Карточка первого товара на странице каталога");
-    Element firstProductCardOnDepartment = new Element(By.xpath("//div[@data-qa='category_department_taxons_list_taxon_item_0_product_item_0']"), "Карточка первого товара на странице каталога");
-    ElementCollection addToCartButtons = new ElementCollection(By.xpath("//div[contains(@class, 'ProductCard')]//button[@title='Добавить в корзину']"), "Кнопка 'Добавить в корзину' первого товара в каталоге");
-    Button firstProductRemoveFromCart = new Button(By.xpath("//div[@data-qa='category_department_taxons_list_taxon_item_0_product_item_0']//button[@title='Убрать из корзины']"), "Кнопка 'Убрать из корзины' первого товара в каталоге");
+    ElementCollection productCardLinks = new ElementCollection(By.xpath("//div[contains(@class, 'ProductCard')]/a"), "Сниппеты товаров");
+    ElementCollection addToCartButtons = new ElementCollection(By.xpath("//div[contains(@class, 'ProductCard')]//button[@title='Добавить в корзину']"), "Кнопки 'Добавить в корзину' сниппетов товаров");
+    ElementCollection removeFromCartButtons = new ElementCollection(By.xpath("//div[contains(@class, 'ProductCard')]//button[@title='Убрать из корзины']"), "Кнопки 'Убрать из корзины' сниппетов товаров");
     Element spinner = new Element(By.xpath("//div[contains(@class, 'Recommendations')]//div[contains(@class, 'Spinner')]"), "Спиннер блока рекомендаций");
     ElementCollection catalogSubCategories = new ElementCollection(By.xpath("//nav[@data-qa='category_header_taxons_nav']/a"), "Подкатегории в каталоге");
 

@@ -33,7 +33,7 @@ public final class SeoCatalogPage implements StfPage, SeoCatalogCheck {
 
     @Step("Открыть карточку товара")
     public void openFirstProductCardOnDepartment() {
-        firstProductCardOnDepartment.click();
+        productCardLinks.clickOnFirst();
     }
 
     @Step("Нажимаем кнопку 'Добавить в корзину' первого товара")
@@ -43,7 +43,7 @@ public final class SeoCatalogPage implements StfPage, SeoCatalogCheck {
 
     @Step("Нажимаем кнопку 'Убрать из корзины' первого товара")
     public void removeFirstProductOnDepartmentFromCart() {
-        firstProductRemoveFromCart.click();
+        removeFromCartButtons.clickOnFirst();
     }
 
     @Step("Выбрать подкатегорию {0} со страницы каталога")

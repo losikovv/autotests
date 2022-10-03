@@ -3,10 +3,9 @@ package ru.instamart.test.reforged.stf.landings;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
-import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 
 @Epic("STF UI")
@@ -14,7 +13,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.home;
 public final class SbermarketLandingTests {
 
     @CaseId(1687)
-    @Test(description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = "regression")
+    @Test(description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = REGRESSION_STF)
     public void successValidateSbermarketLanding() {
         home().goToPage();
         home().checkHeaderContainerIsVisible();
@@ -44,7 +43,7 @@ public final class SbermarketLandingTests {
     }
 
     @CaseId(2042)
-    @Test(description = "Кнопка СберБизнес ID при выбранном чекбоксе 'Хочу заказывать для бизнеса'", groups = "regression")
+    @Test(description = "Кнопка СберБизнес ID при выбранном чекбоксе 'Хочу заказывать для бизнеса'", groups = REGRESSION_STF)
     public void enabledSberBusinessIdButton() {
         home().goToPage();
         home().openLoginModal();

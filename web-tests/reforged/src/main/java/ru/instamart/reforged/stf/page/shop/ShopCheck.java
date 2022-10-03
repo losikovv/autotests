@@ -3,7 +3,6 @@ package ru.instamart.reforged.stf.page.shop;
 import io.qameta.allure.Step;
 import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
-import ru.instamart.reforged.core.config.UiProperties;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public interface ShopCheck extends Check, ShopElement {
 
     @Step("Проверяем, что отображается карточка товара")
     default void checkFirstProductCardIsVisible() {
-        waitAction().shouldBeVisible(firstProductCard);
+        waitAction().shouldBeVisible(productsCart);
     }
 
     @Step("Проверяем, что отображется сниппет каталога")
@@ -48,7 +47,7 @@ public interface ShopCheck extends Check, ShopElement {
 
     @Step("Проверяем, что для товара со скидкой отображаются две цены")
     default void checkItemWithDiscountPricesCount() {
-        waitAction().elementCollectionSizeShouldBeEqual(pricesInItemWithDiscount, 2);
+        waitAction().elementCollectionSizeShouldBeEqual(pricesInItemWithDiscount, 3);
     }
 
     @Step("Проверяем что заголовок первой категории товаров в магазине '{0}' соответствует '{1}'")

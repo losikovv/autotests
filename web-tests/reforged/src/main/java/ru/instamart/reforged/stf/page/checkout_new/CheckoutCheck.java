@@ -65,7 +65,7 @@ public interface CheckoutCheck extends Check, CheckoutElement {
 
     @Step("Проверяем, что отображаются слоты доставки")
     default void checkDeliverySlotsVisible() {
-        Kraken.waitAction().shouldBeVisible(deliverySlots);
+        Kraken.waitAction().shouldBeVisible(allDeliverySlots);
     }
 
     @Step("Проверяем, что отображается ошибка в блоке 'Столы доставки' (блок в красной рамке)")

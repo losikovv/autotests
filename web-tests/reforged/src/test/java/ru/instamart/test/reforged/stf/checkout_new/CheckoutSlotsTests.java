@@ -12,6 +12,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
@@ -30,7 +31,7 @@ public final class CheckoutSlotsTests {
 
     @Issue("B2C-9738")
     @CaseId(3638)
-    @Test(description = "Выбор слота доставки", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Выбор слота доставки", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSelectDeliverySlot() {
         final var userData = UserManager.getQaUser();
@@ -58,7 +59,7 @@ public final class CheckoutSlotsTests {
         checkoutNew().checkSlotActive(1);
         checkoutNew().checkSelectedDeliverySlotsCount(1);
 
-        var slotDate = checkoutNew().getActiveSlotDate();
+        var slotDate = "сегодня";
         var slotTime = checkoutNew().getActiveSlotTime();
         var slotCost = checkoutNew().getActiveSlotCost();
 
@@ -136,7 +137,7 @@ public final class CheckoutSlotsTests {
     }
 
     @CaseId(3634)
-    @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {REGRESSION_STF, "checkout_web_new"})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSelectSlotRequired() {
         final var userData = UserManager.getQaUser();

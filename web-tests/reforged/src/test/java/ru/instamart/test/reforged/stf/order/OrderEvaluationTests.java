@@ -8,6 +8,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -18,7 +19,7 @@ public final class OrderEvaluationTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(3220)
-    @Test(description = "Оценка заказа | положительная", groups = "regression")
+    @Test(description = "Оценка заказа | положительная", groups = REGRESSION_STF)
     public void orderPositiveEvaluation() {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
@@ -36,7 +37,7 @@ public final class OrderEvaluationTests {
     }
 
     @CaseId(3221)
-    @Test(description = "Оценка заказа | отрицательная", groups = "regression")
+    @Test(description = "Оценка заказа | отрицательная", groups = REGRESSION_STF)
     public void orderNegativeEvaluation() {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
@@ -54,7 +55,7 @@ public final class OrderEvaluationTests {
     }
 
     @CaseId(3223)
-    @Test(description = "Выбор тегов для оценки заказа", groups = "regression")
+    @Test(description = "Выбор тегов для оценки заказа", groups = REGRESSION_STF)
     public void orderNegativeEvaluationTags() {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
@@ -75,7 +76,7 @@ public final class OrderEvaluationTests {
     }
 
     @CaseId(3224)
-    @Test(description = "Оценка заказа с комментарием", groups = "regression")
+    @Test(description = "Оценка заказа с комментарием", groups = REGRESSION_STF)
     public void orderEvaluationComment() {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
@@ -95,7 +96,7 @@ public final class OrderEvaluationTests {
     }
 
     @CaseId(3225)
-    @Test(description = "Оценка заказа с фото", groups = "regression")
+    @Test(description = "Оценка заказа с фото", groups = REGRESSION_STF)
     public void orderEvaluationPhoto() {
         UserData userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);

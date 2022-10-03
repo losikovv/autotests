@@ -15,7 +15,12 @@ public final class AddressLarge implements Close, AddressLargeCheck {
 
     @Step("Выбрать первый адрес из совпадений")
     public void selectFirstAddress() {
-        foundedAddresses.selectFirst();
+        foundedAddresses.clickOnFirst();
+    }
+
+    @Step("Получаем {order}-й адрес из списка совпадений")
+    public String getFoundedAddressByPositions(final int positionInList) {
+        return foundedAddresses.getElementText(positionInList - 1);
     }
 
     @Step("Нажать 'Сохранить'")
@@ -23,8 +28,28 @@ public final class AddressLarge implements Close, AddressLargeCheck {
         save.click();
     }
 
+    @Step("Нажимаем 'x' (очистить адрес))")
+    public void clearInput() {
+        clearInput.click();
+    }
+
     @Step("Нажать 'Найти магазины'")
     public void clickFindStores() {
         findStores.click();
+    }
+
+    @Step("Нажимаем 'Показать списком'")
+    public void clickShowAsList() {
+        asList.click();
+    }
+
+    @Step("Выбираем ритейлера с именем: '{retailerName}'")
+    public void selectRetailerByName(final String retailerName) {
+        retailerByName.click(retailerName);
+    }
+
+    @Step("Выбираем магазин с адресом: '{address}'")
+    public void selectStoreByAddress(final String address) {
+        storeByAddress.click(address);
     }
 }

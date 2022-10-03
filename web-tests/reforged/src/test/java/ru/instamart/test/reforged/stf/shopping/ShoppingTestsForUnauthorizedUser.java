@@ -6,9 +6,9 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -19,16 +19,16 @@ public final class ShoppingTestsForUnauthorizedUser {
     @CaseId(1622)
     @Story("Тест недоступности чекаута при сумме корзины меньше минимального заказа")
     @Test(description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
-            groups = "regression")
+            groups = REGRESSION_STF)
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage();
@@ -47,7 +47,7 @@ public final class ShoppingTestsForUnauthorizedUser {
 
     @CaseId(1623)
     @Story("Тест набора корзины до суммы, достаточной для заказа")
-    @Test(description = "Тест набора корзины до суммы, достаточной для заказа", groups = "regression")
+    @Test(description = "Тест набора корзины до суммы, достаточной для заказа", groups = REGRESSION_STF)
     public void successCollectItemsForOrder() {
         home().goToPage();
         home().fillAddressInLanding(Addresses.Moscow.defaultAddress());
@@ -57,7 +57,7 @@ public final class ShoppingTestsForUnauthorizedUser {
 
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().checkFirstProductCardIsVisible();
-        shop().plusItemToCart("1", "0");
+        shop().plusFirstItemToCartProd();
 
         shop().goToPage();
         shop().interactHeader().clickToCart();
@@ -67,11 +67,11 @@ public final class ShoppingTestsForUnauthorizedUser {
 
         checkout().goToPage();
         shop().interactHeader().checkAuthOrRegAlertVisible();
-        home().checkLoginButtonIsVisible();
+        home().interactMultisearchHeader().checkUserActionsButtonVisible();
     }
 
     @CaseId(2608)
-    @Test(description = "Тест недоступности пустого чекаута по прямой ссылке", groups = "regression")
+    @Test(description = "Тест недоступности пустого чекаута по прямой ссылке", groups = REGRESSION_STF)
     public void testCheckoutNoAccessForUserWithoutCart() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -83,7 +83,7 @@ public final class ShoppingTestsForUnauthorizedUser {
     }
 
     @CaseId(2301)
-    @Test(description = "Тест недоступности чекаута неавторизованному пользователю", groups = "regression")
+    @Test(description = "Тест недоступности чекаута неавторизованному пользователю", groups = REGRESSION_STF)
     public void testCheckoutNoAccessForGuest() {
         home().goToPage();
         checkout().goToPage();

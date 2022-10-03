@@ -10,11 +10,10 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.CookieProvider;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -37,7 +36,7 @@ public final class CheckoutDeliverySlotsTests {
 
     @CaseId(2648)
     @Story("Корзина")
-    @Test(description = "Изменение ранее выбранного слота доставки", groups = "regression")
+    @Test(description = "Изменение ранее выбранного слота доставки", groups = REGRESSION_STF)
     public void successChangePreviousDeliverySlotAndOrder() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -93,7 +92,7 @@ public final class CheckoutDeliverySlotsTests {
 
     @CaseId(2649)
     @Story("Корзина")
-    @Test(description = "Невозможность завершения заказа при невыбранном слоте доставки", groups = "regression")
+    @Test(description = "Невозможность завершения заказа при невыбранном слоте доставки", groups = REGRESSION_STF)
     public void failedContinueWithUnselectedDeliverySlot() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

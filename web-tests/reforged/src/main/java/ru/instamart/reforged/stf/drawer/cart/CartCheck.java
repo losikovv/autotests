@@ -11,7 +11,8 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что название товара в корзине {0} соответствует ожидаемому {1}")
     default void compareProductNameInCart(final String productNameActual, final String productNameExpected) {
-        Assert.assertEquals(productNameActual, productNameExpected, "Название товара в корзине не соответствует ожидаемому");
+        Assert.assertTrue(productNameActual.contains(productNameExpected.replaceAll("\\.{3}", "")),
+                String.format("Название товара в корзине: '%s' не соответствует ожидаемому: '%s'", productNameActual, productNameExpected));
     }
 
     @Step("Проверяем, что минимальная сумма первого заказа {0} меньше повторного {1}")
@@ -68,6 +69,11 @@ public interface CartCheck extends Check, CartElement {
         waitAction().shouldBeVisible(backToCatalogButton);
     }
 
+    @Step("Проверяем, что первоначальная {0} цена товаров в корзине равна текущей {1}")
+    default void checkAmountEquals(final double startOrderAmount, final double actualOrderAmount) {
+        krakenAssert.assertEquals(startOrderAmount, actualOrderAmount, "Текущая цена товаров в корзине отличается от ожидаемой");
+    }
+
     @Step("Проверяем, что первоначальная {0} цена товаров в корзине отличается от текущей {1}")
     default void checkAmountNotEquals(final double startOrderAmount, final double actualOrderAmount) {
         krakenAssert.assertNotEquals(startOrderAmount, actualOrderAmount, "Текущая цена товаров в корзине не отличается от первоначальной");
@@ -89,7 +95,7 @@ public interface CartCheck extends Check, CartElement {
     }
 
     @Step("Проверяем, что рителер '{retailerName}' не отображается в корзине")
-    default void checkRetailerNotVisible(final String retailerName){
+    default void checkRetailerNotVisible(final String retailerName) {
         waitAction().shouldNotBeVisible(retailerByName, retailerName);
     }
 
