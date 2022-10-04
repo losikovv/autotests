@@ -56,13 +56,12 @@ public enum Specification {
         final String adminFullUrl = EnvironmentProperties.Env.ADMIN_FULL_URL;
         final String apiV2FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
         final String apiV3FullUrl = hackForProd();
-        final String prodFullUrl =  EnvironmentProperties.Env.FULL_SITE_URL;
+        final String prodFullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
 
-        final String prodAdminUrl =  EnvironmentProperties.Env.ADMIN_FULL_URL;
+        final String prodAdminUrl = EnvironmentProperties.Env.ADMIN_FULL_URL;
         final String shopperFullBaseUrl = EnvironmentProperties.SHOPPER_GW_URL;
         final String shopperFullAdminUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
-        final String shopperStage = (EnvironmentProperties.STAGE).isBlank() ? EnvironmentProperties.K8S_NAME_SHP_SPACE :
-                (EnvironmentProperties.K8S_NAME_SHP_SPACE).replace("kraken", EnvironmentProperties.STAGE);
+        final String shopperStage = (EnvironmentProperties.STAGE).isBlank() ? "kraken" : EnvironmentProperties.STAGE;
         final String etaStage = "https://" + EnvironmentProperties.Env.ETA_NAMESPACE + ".gw-stage.sbmt.io";
 
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
@@ -145,11 +144,11 @@ public enum Specification {
                 .setBaseUri(shopperFullBaseUrl)
                 .setAccept(ContentType.JSON)
                 .addHeader("Client-Ver", "99.9.9")
-                .addHeader("x-testing-otp","true")
-                .addHeader("x-testing-nosms","true")
-                .addHeader("x-testing-nolimiter","true")
+                .addHeader("x-testing-otp", "true")
+                .addHeader("x-testing-nosms", "true")
+                .addHeader("x-testing-nolimiter", "true")
                 .addHeader("sbm-forward-feature-version-paas-content-shopper", shopperStage)
-                .addHeader("sbm-forward-api-gw-traffic","paas-content-shopper")
+                .addHeader("sbm-forward-api-gw-traffic", "paas-content-shopper")
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new CounterFilter())
                 .build();
@@ -167,11 +166,11 @@ public enum Specification {
                 .setBaseUri(shopperFullBaseUrl)
                 .setBasePath("locator/v1/")
                 .addHeader("Client-Ver", "99.9.9")
-                .addHeader("x-testing-otp","true")
-                .addHeader("x-testing-nosms","true")
-                .addHeader("x-testing-nolimiter","true")
+                .addHeader("x-testing-otp", "true")
+                .addHeader("x-testing-nosms", "true")
+                .addHeader("x-testing-nolimiter", "true")
                 .addHeader("sbm-forward-feature-version-paas-content-shopper", shopperStage)
-                .addHeader("sbm-forward-api-gw-traffic","paas-content-shopper")
+                .addHeader("sbm-forward-api-gw-traffic", "paas-content-shopper")
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
 
