@@ -1853,7 +1853,7 @@ public class StrategyTest extends ShippingCalcBase {
     @Test(description = "Получение ошибки при удалении стратегии с биндами",
             groups = "dispatch-shippingcalc-smoke",
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INTERNAL: cannot delete strategy: usecase: delete strategy [0-9]+ is imposible, bindings must be empty",
+            expectedExceptionsMessageRegExp = "FAILED_PRECONDITION: removing strategy [0-9]+ is not posible, bindings must be empty",
             dependsOnMethods = "rebindStrategy")
     public void deleteStrategyWithBind() {
         var request = getDeleteStrategyRequest(strategyIdWithMultipleRulesAndConditions);
@@ -1877,7 +1877,7 @@ public class StrategyTest extends ShippingCalcBase {
     @Test(description = "Получение ошибки при удалении несуществующей стратегии",
             groups = "dispatch-shippingcalc-regress",
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: usecase: delele strategy 1234567890: entity not found")
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot delete strategy 1234567890: entity not found")
     public void deleteStrategyNonExistent() {
         var request = getDeleteStrategyRequest(1234567890);
         clientShippingCalc.deleteStrategy(request);
