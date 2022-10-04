@@ -13,4 +13,5 @@ public class StoreEntity {
     private Float lon;
     private String actualResultId;
     private String predictResultId;
+    private Integer deliveryArea;
 }
