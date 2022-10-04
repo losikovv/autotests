@@ -31,7 +31,7 @@ public class KafkaTest extends RestBase {
     private final String FIRST_STORE_ID = UUID.randomUUID().toString();
     private final String SECOND_STORE_ID = UUID.randomUUID().toString();
     private final String THIRD_STORE_ID = UUID.randomUUID().toString();
-    private final String DEFAULT_CONFIG_ID = "00000000-1000-0000-0000-000000000000";
+    private final String DEFAULT_CONFIG_ID = "20000000-2000-2000-2000-200000000000";
     private final String SHIPMENT_UUID = UUID.randomUUID().toString();
     private final String ORDER_UUID = UUID.randomUUID().toString();
     private final int FIRST_DELIVERY_AREA_ID = 333; //пока просто рандомная цифра
@@ -52,10 +52,10 @@ public class KafkaTest extends RestBase {
         //стор1 видит оба
         //стор2 видит только стор1 (примерно 1,3КМ от стор1)
         //стор3 видит только стор1 (примерно 2,9КМ  стор1)
-        addStore(STORE_ID, UUID.randomUUID().toString(), true, 20.0f, 20.0f, DEFAULT_CONFIG_ID, 1);
-        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), true, 27.034817f, 14.426422f, DEFAULT_CONFIG_ID, 1);
-        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), true, 27.046055f, 14.421101f, DEFAULT_CONFIG_ID, 1);
-        addStore(THIRD_STORE_ID, UUID.randomUUID().toString(), true, 27.008896f, 14.431057f, DEFAULT_CONFIG_ID, 1);
+        addStore(STORE_ID, UUID.randomUUID().toString(), true, 20.0f, 20.0f, DEFAULT_CONFIG_ID, 1, FIRST_DELIVERY_AREA_ID);
+        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), true, 27.034817f, 14.426422f, DEFAULT_CONFIG_ID, 1, SECOND_DELIVERY_AREA_ID);
+        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), true, 27.046055f, 14.421101f, DEFAULT_CONFIG_ID, 1, SECOND_DELIVERY_AREA_ID);
+        addStore(THIRD_STORE_ID, UUID.randomUUID().toString(), true, 27.008896f, 14.431057f, DEFAULT_CONFIG_ID, 1, SECOND_DELIVERY_AREA_ID);
 
         distFirstSecond = distance(27.034817f, 14.426422f, 27.046055f, 14.421101f, 'K') * 1000;
         distFirstThird = distance(27.034817f, 14.426422f, 27.008896f, 14.431057f, 'K') * 1000;
@@ -63,10 +63,17 @@ public class KafkaTest extends RestBase {
         List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.SURGELEVEL_NAMESPACE, " | grep -e SURGEEVENT_PRODUCE_UNCHANGED -e SURGEEVENT_OUTDATE ");
         String envPropsStr = String.join("\n", serviceEnvProperties);
         String surgeEventProduceUnchangedStr = matchWithRegex("^SURGEEVENT_PRODUCE_UNCHANGED=(.\\w+)$", envPropsStr, 1);
-        String surgeEventOutdateStr = matchWithRegex("^SURGEEVENT_OUTDATE=(.\\d+)s$", envPropsStr, 1);
+        String surgeEventOutdateStr = matchWithRegex("^SURGEEVENT_OUTDATE=(\\d+)s$", envPropsStr, 1);
 
         surgeEventProduceUnchanged = surgeEventProduceUnchangedStr.equals("true");
-        surgeEventOutdate = !surgeEventOutdateStr.isBlank() ? Integer.parseInt(surgeEventOutdateStr) : 10;
+        if (!surgeEventOutdateStr.isBlank()) {
+            surgeEventOutdate = Integer.parseInt(surgeEventOutdateStr);
+            if (surgeEventOutdate < 5) {
+                surgeEventOutdate += 5;
+            }
+        } else {
+            surgeEventOutdate = 10;
+        }
     }
 
     @CaseId(14)
