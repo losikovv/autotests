@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.admin.AdminGroup.OD_REGRESS;
+import static ru.instamart.reforged.Group.OD_REGRESS;
 import static ru.instamart.reforged.admin.AdminRout.login;
 import static ru.instamart.reforged.admin.AdminRout.orders;
 

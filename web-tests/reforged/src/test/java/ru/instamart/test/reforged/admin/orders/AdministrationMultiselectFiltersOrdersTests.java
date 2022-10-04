@@ -14,7 +14,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.List;
 import java.util.Set;
 
-import static ru.instamart.reforged.admin.AdminGroup.*;
+import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.admin.AdminRout.*;
 import static ru.instamart.reforged.admin.enums.CollectingStatus.*;
 import static ru.instamart.reforged.admin.enums.PaymentMethods.*;

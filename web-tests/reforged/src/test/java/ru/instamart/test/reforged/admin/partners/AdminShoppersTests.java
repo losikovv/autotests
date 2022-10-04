@@ -13,7 +13,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.data_provider.CarTypeProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.admin.AdminGroup.*;
+import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")

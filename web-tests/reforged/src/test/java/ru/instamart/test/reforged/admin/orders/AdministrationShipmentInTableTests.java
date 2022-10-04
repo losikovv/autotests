@@ -8,7 +8,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.admin.AdminGroup.*;
+import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.admin.AdminRout.*;
 import static ru.instamart.reforged.admin.enums.ShipmentStatuses.SHIPMENT_READY;
 
