@@ -38,9 +38,9 @@ public interface CheckoutElement {
     Element deliverySlotBlockInvalidMark = new Element(By.xpath("//div[contains(@class, 'DeliverySlots_root')][contains(@class, 'invalid')]"), "Ошибка в блоке 'Слоты' (красная рамка)");
 
     ElementCollection allDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]]"), "Все доступные слоты доставки");
-    ElementCollection deliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][.//div[contains(@class,'ShippingRateCard_date')]][not(.//*[contains(@class,'ShippingRateCard_flashIcon')])]"), "Доступные слоты доставки (обычной)");
+    ElementCollection deliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][.//div[contains(@class,'ShippingRateCard_date')]][not(.//*[contains(@class,'ShippingRateCard_flashIcon')])]"), "Доступные слоты без высокого спроса");
     ElementCollection onDemandDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][not(.//div[contains(@class,'ShippingRateCard_date')])]"), "Доступные слоты On-Demand доставки");
-    ElementCollection quickDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][.//div[contains(@class,'ShippingRateCard_date')]][.//*[contains(@class,'ShippingRateCard_flashIcon')]]"), "Доступные слоты быстрой доставки");
+    ElementCollection flashedDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][.//div[contains(@class,'ShippingRateCard_date')]][.//*[contains(@class,'ShippingRateCard_flashIcon')]]"), "Доступные слоты c высоким спросом");
     ElementCollection activeDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][./div[contains(@class,'active')]]"), "Выбранные слоты доставки");
 
     Element activeSlotByPosition = new Element(ByKraken.xpathExpression("//li[.//div[contains(@class,'ShippingRateCard')]][%s]/div[contains(@class,'active')]"), "Активный слот с учётом позиции в карусели");
