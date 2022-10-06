@@ -7,6 +7,7 @@ import io.qameta.allure.Issues;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.CookieProvider;
@@ -1117,5 +1118,36 @@ public final class CheckoutTests {
         userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
+    }
+
+    @CaseId(3884)
+    @Test(description = "Тест перехода на v3 чекаут с незалогиненного нового юзера", groups = {"regression", "checkout_web_new"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    public void testAuthAndForwardV3CheckoutFromCartNewUser() {
+        final var userData = UserManager.getQaUser();
+        addFlipperActor("checkout_web_new", userData.getId());
+        addFlipperActor("checkout_web_force_all", userData.getId());
+
+        shop().goToPage();
+        shop().interactHeader().clickToSelectAddress();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.checkoutAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().plusFirstItemToCartProd();
+        shop().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartNotEmpty();
+        shop().interactCart().increaseFirstItemCountToMin();
+        shop().interactCart().submitOrder();
+
+        shop().interactAuthModal().checkModalIsVisible();
+        shop().interactAuthModal().authViaPhone(userData);
+
+        checkoutNew().checkDeliverySlotsVisible();
     }
 }

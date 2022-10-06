@@ -17,6 +17,8 @@ public final class PaymentMethodsModal {
             "Доступные способы оплаты");
     private final Element paymentMethodByName = new Element(ByKraken.xpathExpression("//main[contains(@class,'Modal_content')]//div[contains(@class,'PaymentMethod_label')][contains(.,'%s')]"),
             "Способ оплаты по названию");
+    private final Button deletePaymentMethodByName = new Button(ByKraken.xpathExpression("//main[contains(@class,'Modal_content')]//div[contains(@class,'PaymentMethod_label')][contains(.,'%s')]/../../button[contains(@class,'PaymentMethodDeleteButton')]"),
+            "Кнопка 'Удалить' способа оплаты по названию");
     private final Button confirm = new Button(By.xpath("//main[contains(@class,'Modal_content')]//button[contains(.,'Выбрать')]"), "Кнопка подтверждения выбора способа оплаты");
 
     @Step("Проверяем, что модальное окно появилось")
@@ -29,6 +31,11 @@ public final class PaymentMethodsModal {
         Kraken.waitAction().shouldNotBeVisible(title);
     }
 
+    @Step("Проверяем, что способ оплаты '{paymentMethod}' не отображается")
+    public void checkPaymentMethodNotVisible(final String paymentMethod){
+        Kraken.waitAction().shouldNotBeVisible(paymentMethodByName, paymentMethod);
+    }
+
     @Step("Закрываем модальное окно выбора способа оплаты")
     public void closeModal() {
         closeButton.click();
@@ -37,6 +44,12 @@ public final class PaymentMethodsModal {
     @Step("Выбираем способ оплаты: '{paymentMethod}'")
     public void selectPaymentMethod(final String paymentMethod) {
         paymentMethodByName.click(paymentMethod);
+    }
+
+    @Step("Нажимаем 'Удалить' способ оплаты: '{paymentMethod}'")
+    public void removePaymentMethod(final String paymentMethod) {
+        paymentMethodByName.click(paymentMethod);
+        deletePaymentMethodByName.click(paymentMethod);
     }
 
     @Step("Нажимаем кнопку 'Выбрать'")
