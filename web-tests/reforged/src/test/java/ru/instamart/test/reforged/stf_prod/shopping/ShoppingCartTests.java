@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf_prod.shopping;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -22,6 +23,7 @@ public final class ShoppingCartTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1571)
+    @Issue("B2C-10717")
     @Test(description = "Тест валидации дефолтной корзины", groups = {STF_PROD_S})
     public void successValidateDefaultCart() {
         shop().goToPage();
