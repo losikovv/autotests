@@ -292,7 +292,7 @@ public class AllureTestNgListener implements ISuiteListener, ITestListener, IInv
                 CdpCookie.addCookies(fields);
             }
         } catch (Exception e) {
-            log.error("FATAL: Can't add cookie for method {}", method);
+            log.error("FATAL: Can't add cookie for method '{}' = {}", method, e);
         }
     }
 
