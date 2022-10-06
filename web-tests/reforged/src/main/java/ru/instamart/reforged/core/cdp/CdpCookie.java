@@ -1,13 +1,16 @@
 package ru.instamart.reforged.core.cdp;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.devtools.v103.network.Network;
+import org.openqa.selenium.devtools.v103.network.model.CookieParam;
 import org.openqa.selenium.devtools.v103.network.model.CookiePriority;
 import org.openqa.selenium.devtools.v103.network.model.CookieSourceScheme;
 import org.openqa.selenium.devtools.v103.network.model.TimeSinceEpoch;
 import ru.instamart.reforged.core.Kraken;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -58,6 +61,28 @@ public final class CdpCookie {
     }
 
     public static void addCookies(final Collection<Cookie> cookies) {
-        cookies.forEach(CdpCookie::addCookie);
+        final var cookiesParams = new ArrayList<CookieParam>();
+        cookies.forEach(c -> {
+            final var cookie = new CookieParam(
+                    c.getName(),
+                    c.getValue(),
+                    Optional.empty(),
+                    Optional.of(c.getDomain()),
+                    Optional.of(c.getPath()),
+                    Optional.of(false),
+                    Optional.of(false),
+                    Optional.empty(),
+                    isNull(c.getExpiry()) ? Optional.empty() : Optional.of(new TimeSinceEpoch(c.getExpiry().getTime()/1000)),
+                    Optional.of(CookiePriority.MEDIUM),
+                    Optional.of(false),
+                    Optional.of(CookieSourceScheme.SECURE),
+                    Optional.of(443),
+                    Optional.empty()
+            );
+            log.debug("Добавить куку {}", ToStringBuilder.reflectionToString(cookie));
+            cookiesParams.add(cookie);
+        });
+        if (!cookiesParams.isEmpty())
+            Kraken.getDevTools().send(Network.setCookies(cookiesParams));
     }
 }
