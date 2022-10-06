@@ -312,7 +312,6 @@ public final class ShoppingCartTests {
         shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddressLarge().clickSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage();
         shop().interactHeader().checkEnteredAddressIsVisible();
@@ -322,7 +321,6 @@ public final class ShoppingCartTests {
         shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
-        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactAuthModal().checkModalIsNotVisible();
@@ -334,8 +332,7 @@ public final class ShoppingCartTests {
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().getFirstItem().deleteItem();
-        shop().interactCart().checkDeleteAnimationOver();
+        shop().interactCart().checkCartNotEmpty();
 
         final var cartProductName = shop().interactCart().getLastItem().getName();
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);

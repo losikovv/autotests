@@ -39,7 +39,6 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         ));
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
 
-        options.setCapability("detach", true);
         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
 
