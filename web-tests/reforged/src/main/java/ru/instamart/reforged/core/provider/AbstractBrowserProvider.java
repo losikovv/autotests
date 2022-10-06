@@ -35,8 +35,9 @@ public abstract class AbstractBrowserProvider {
 
     protected void createRemoteDriver(final Capabilities capabilities) {
         try {
+            final var url = URI.create(BrowserProperties.REMOTE_URL).toURL();
             this.driver = RemoteWebDriver.builder()
-                    .address(URI.create(BrowserProperties.REMOTE_URL).toURL())
+                    .address(url)
                     .augmentUsing(new Augmenter())
                     .oneOf(capabilities)
                     .build();

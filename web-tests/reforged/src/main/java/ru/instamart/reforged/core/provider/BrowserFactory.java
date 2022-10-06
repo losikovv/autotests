@@ -1,11 +1,14 @@
 package ru.instamart.reforged.core.provider;
 
+import org.openqa.selenium.WebDriverException;
 import ru.instamart.reforged.core.enums.Browser;
 import ru.instamart.reforged.core.provider.chrome.ChromeLocalProvider;
 import ru.instamart.reforged.core.provider.chrome.ChromeProvider;
 import ru.instamart.reforged.core.provider.firefox.FirefoxLocalProvider;
 import ru.instamart.reforged.core.provider.firefox.FirefoxProvider;
 import ru.instamart.reforged.core.service.DriverSession;
+
+import static java.util.Objects.isNull;
 
 public final class BrowserFactory {
 
@@ -33,6 +36,10 @@ public final class BrowserFactory {
                 break;
         }
         provider.createDriver(version);
+
+        if (isNull(provider.getDriver()) || isNull(provider.getDevTools())) {
+            throw new WebDriverException(String.format("Driver=%s or devTools=%s is null", provider.getDriver(), provider.getDevTools()));
+        }
 
         return new DriverSession(provider.getDriver(), provider.getDevTools());
     }

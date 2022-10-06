@@ -193,7 +193,7 @@ public final class BasicSbermarketTests {
             description = "Тест доступности статических страниц",
             groups = {STF_PROD_S})
     public void successCheckStaticPagesAreAvailable(final String url) {
-        final var curl = new Curl.Builder(url).build();
+        final var curl = new Curl.Builder(url).withUserAgent("Autotest").build();
         assertTrue(CurlService.pageAvailable(curl), "Страница " + url + " недоступна");
     }
 }
