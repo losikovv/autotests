@@ -64,6 +64,7 @@
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutPromocodesTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutPaymentMethodsTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutSlotsTests"/>
+            <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutContactsAndReplacementPolicyTests"/>
 
             <class name="ru.instamart.test.reforged.stf.changing_order_details.ChangingDeliverySlotTests"/>
         </classes>

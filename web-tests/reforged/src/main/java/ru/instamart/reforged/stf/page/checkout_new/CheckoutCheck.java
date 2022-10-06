@@ -79,7 +79,7 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     }
 
     @Step("Проверяем, что отображается ошибка в блоке 'Столы доставки' (блок в красной рамке)")
-    default void checkDeliverySlotInvalidBorderVisible(){
+    default void checkDeliverySlotInvalidBorderVisible() {
         Kraken.waitAction().shouldBeVisible(deliverySlotBlockInvalidMark);
     }
 
@@ -195,10 +195,63 @@ public interface CheckoutCheck extends Check, CheckoutElement {
         Assert.assertEquals(contactsEmail.getValue(), expectedEmail, "Значение в поле 'Email' отличается от ожидаемого");
     }
 
-    @Step("Проверяем, что текущая выбранная политика замен содержит текст: '{expectedReplacementPolicy}'")
-    default void checkSelectedReplacementPolicyContains(final String expectedReplacementPolicy) {
+    @Step("Проверяем, что текущая выбранная политика замен (блок свернут): '{expectedReplacementPolicy}'")
+    default void checkSelectedReplacementPolicyInCollapsedBlock(final String expectedReplacementPolicy) {
+        Assert.assertTrue(replacementPolicySummary.getText().contains(expectedReplacementPolicy),
+                String.format("Текущая выбранная политика замен: '%s' не содержит '%s'", replacementPolicySummary.getText(), expectedReplacementPolicy));    }
+
+    @Step("Проверяем, что текущая выбранная политика замен: '{expectedReplacementPolicy}'")
+    default void checkSelectedReplacementPolicy(final String expectedReplacementPolicy) {
         Assert.assertTrue(replacementPolicy.getText().contains(expectedReplacementPolicy),
                 String.format("Текущая выбранная политика замен: '%s' не содержит '%s'", replacementPolicy.getText(), expectedReplacementPolicy));
+    }
+
+    @Step("Проверяем, что в 'Телефон' отображается ошибка")
+    default void checkPhoneInvalid() {
+        Kraken.waitAction().shouldBeVisible(contactsPhoneInvalid);
+    }
+
+    @Step("Проверяем, что отображается описание ошибки поля ввода 'Телефон'")
+    default void checkPhoneErrorDescriptionVisible() {
+        Kraken.waitAction().shouldBeVisible(contactsPhoneErrorDescription);
+    }
+
+    @Step("Проверяем, что описание ошибки поля ввода 'Телефон' содержит текст: '{expectedErrorText}'")
+    default void checkPhoneErrorDescriptionContains(final String expectedErrorText) {
+        Assert.assertTrue(contactsPhoneErrorDescription.getText().contains(expectedErrorText),
+                String.format("Текущее описание ошибки поля ввода 'Телефон': '%s' не содержит '%s'", contactsPhoneErrorDescription.getText(), expectedErrorText));
+    }
+
+    @Step("Проверяем, что в 'Email' отображается ошибка")
+    default void checkEmailInvalid() {
+        Kraken.waitAction().shouldBeVisible(contactsPhoneInvalid);
+    }
+
+    @Step("Проверяем, что отображается описание ошибки поля ввода 'Email'")
+    default void checkEmailErrorDescriptionVisible() {
+        Kraken.waitAction().shouldBeVisible(contactsEmailErrorDescription);
+    }
+
+    @Step("Проверяем, что описание ошибки поля ввода 'Email' содержит текст: '{expectedErrorText}'")
+    default void checkEmailErrorDescriptionContains(final String expectedErrorText) {
+        Assert.assertTrue(contactsEmailErrorDescription.getText().contains(expectedErrorText),
+                String.format("Текущее описание ошибки поля ввода 'Телефон': '%s' не содержит '%s'", contactsEmailErrorDescription.getText(), expectedErrorText));
+    }
+
+    @Step("Проверяем, что в поле политики замены товара отображается ошибка")
+    default void checkSelectedReplacementPolicyInvalid() {
+        Kraken.waitAction().shouldBeVisible(selectedReplacementPolicyInvalid);
+    }
+
+    @Step("Проверяем, что отображается описание ошибки выбора политики замены")
+    default void checkReplacementPolicyErrorDescriptionVisible() {
+        Kraken.waitAction().shouldBeVisible(replacementPolicyErrorDescription);
+    }
+
+    @Step("Проверяем, что описание ошибки выбора политики замен содержит текст: '{expectedReplacementPolicyErrorText}'")
+    default void checkReplacementPolicyErrorDescriptionContains(final String expectedReplacementPolicyErrorText) {
+        Assert.assertTrue(replacementPolicyErrorDescription.getText().contains(expectedReplacementPolicyErrorText),
+                String.format("Текущее описание ошибки выбора политики замен: '%s' не содержит '%s'", replacementPolicyErrorDescription.getText(), expectedReplacementPolicyErrorText));
     }
 
     @Step("Проверяем, что отображается кнопка 'Применить' промокод")
