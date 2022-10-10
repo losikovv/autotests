@@ -454,6 +454,7 @@ public class KafkaConsumers {
 
     public List<Surgelevelevent.SurgeEvent> consumeSurgeLevel(String storeId) {
         List<String> allLogs = new ArrayList<>();
+        final int giveUp = 200;
         int noRecordsCount = 0;
         List<Surgelevelevent.SurgeEvent> result = new ArrayList<>();
         while (true) {

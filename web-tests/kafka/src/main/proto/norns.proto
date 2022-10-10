@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package norns;
+option go_package = "gitlab.sbmt.io/paas/content/operations/surgelevel/pkg/clients/norns/events/add_location";
+
+import "google/protobuf/timestamp.proto";
+
+// EventAddLocation message for Kafka's topic
+// 'paas-content-operations-norns.save-location'.
+message EventAddLocation {
+  // Числовой ID пользователя (deprecated, больше не используется)
+  uint64 user_id = 1;
+  // Долгота
+  double lon = 2;
+  // Широта
+  double lat = 3;
+  // Время фиксации координат в секундах
+  google.protobuf.Timestamp time = 5;
+  // UUID пользователя
+  string user_uuid = 6;
+  // Признак использования приложения для подделки гео координат на устройстве
+  // партнера на момент сбора координаты
+  bool is_fake_gps_app_detected = 7;
+}

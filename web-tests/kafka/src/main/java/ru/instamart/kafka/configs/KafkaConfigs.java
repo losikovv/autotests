@@ -87,19 +87,27 @@ public class KafkaConfigs {
                 .build();
     }
 
-    public static KafkaConfig configCandidatesService() {
-        return KafkaConfig.builder()
-                .topic("yc.shifts.cmd.planning_periods.0")
-                .login(workflowUser)
-                .password(workflowPass)
-                .build();
-    }
-
     public static KafkaConfig configSurgeLevel() {
         return KafkaConfig.builder()
                 .topic("yc.surge.fct.result.0") // нужно будет передавать HASH_COMMIT_OR_BRANCH, если захотим пускать по фича-стейджам
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lNLTflx90VI0n6hzBgecvll6tdcTqGMheErKEU2y3QOl"))
-                .password(Crypt.INSTANCE.decrypt("2lS1gYSsa7AkjKFObDuh0Q=="))
+                .password(Crypt.INSTANCE.decrypt("2upy3AL136//Hs/NMMaWnw=="))
+                .build();
+    }
+
+    public static KafkaConfig configCandidateStatus() {
+        return KafkaConfig.builder()
+                .topic("yc.operations-candidates.fct.candidate-status.0")
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lNLTflx90VI0n6hzBgecvll6tdcTqGMheErKEU2y3QOl"))
+                .password(Crypt.INSTANCE.decrypt("2upy3AL136//Hs/NMMaWnw=="))
+                .build();
+    }
+
+    public static KafkaConfig configNorns() {
+        return KafkaConfig.builder()
+                .topic("paas-content-operations-norns.save-location")
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lNLTflx90VI0n6hzBgecvll6tdcTqGMheErKEU2y3QOl"))
+                .password(Crypt.INSTANCE.decrypt("2upy3AL136//Hs/NMMaWnw=="))
                 .build();
     }
 }
