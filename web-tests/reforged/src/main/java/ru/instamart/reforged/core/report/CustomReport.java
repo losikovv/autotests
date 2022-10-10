@@ -7,7 +7,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.devtools.v103.performance.model.Metric;
 import org.openqa.selenium.logging.LogType;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.KrakenParams;
+import ru.instamart.reforged.core.annotation.KrakenParams;
 import ru.instamart.reforged.core.cdp.CdpCookie;
 
 import java.io.File;

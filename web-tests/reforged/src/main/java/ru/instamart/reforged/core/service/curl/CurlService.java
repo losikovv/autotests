@@ -1,4 +1,4 @@
-package ru.instamart.reforged.core.service;
+package ru.instamart.reforged.core.service.curl;
 
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
@@ -23,20 +23,6 @@ public final class CurlService {
     public static boolean pageUnavailable(final Curl curl) {
         final int code = getResponseCode(curl);
         log.debug("Curl '{}' вернул код '{}'", curl, code);
-        return code == 404;
-    }
-
-    @Step("Проверка доступности страницы {0}")
-    public static boolean pageAvailable(final String url, final String header) {
-        final int code = getResponseCode(new Curl.Builder(url).withHeader(header).build());
-        log.debug("Страница '{}' вернула код '{}'", url, code);
-        return code == 200;
-    }
-
-    @Step("Проверка недоступности страницы {0}")
-    public static boolean pageUnavailable(final String url, final String header) {
-        final int code = getResponseCode(new Curl.Builder(url).withHeader(header).build());
-        log.debug("Страница '{}' вернула код '{}'", url, code);
         return code == 404;
     }
 

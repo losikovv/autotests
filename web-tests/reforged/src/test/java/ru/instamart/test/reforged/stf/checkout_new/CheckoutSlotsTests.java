@@ -3,15 +3,17 @@ package ru.instamart.test.reforged.stf.checkout_new;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
+import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
+import static ru.instamart.reforged.Group.CHECKOUT_WEB_NEW;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
@@ -19,9 +21,9 @@ import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
-@Feature("Чекаут [NEW]")
+@Feature("Чекаут V3")
 public final class CheckoutSlotsTests {
-    // Для включения нового чекаута необходимо, чтобы были включены ФФ checkout_web_new, checkout_web_force_all, tmp_b2c_9162_spree_shipment_changes
+    // Для включения нового чекаута необходимо, чтобы были включены ФФ checkout_web_new, checkout_web_force_all, tmp_b2c_9162_spree_shipment_changes (для постчекаута)
     // Пользователь должен быть добавлен в А/Б-тесты:
     // 2ae723fe-fdc0-4ab6-97ee-7692d2a19c90 группу new_checkout_web
     // 7cb891fd-a69d-4aef-854e-09b0da121536 группу w_changing_details
@@ -31,13 +33,13 @@ public final class CheckoutSlotsTests {
 
     @Issue("B2C-9738")
     @CaseId(3638)
-    @Test(description = "Выбор слота доставки", groups = {REGRESSION_STF, "checkout_web_new"})
+    @Story("Слоты")
+    @Test(description = "Выбор слота доставки", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSelectDeliverySlot() {
         final var userData = UserManager.getQaUser();
         addFlipperActor("checkout_web_new", userData.getId());
         addFlipperActor("checkout_web_force_all", userData.getId());
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
@@ -137,13 +139,13 @@ public final class CheckoutSlotsTests {
     }
 
     @CaseId(3634)
-    @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {REGRESSION_STF, "checkout_web_new"})
+    @Story("Слоты")
+    @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSelectSlotRequired() {
         final var userData = UserManager.getQaUser();
         addFlipperActor("checkout_web_new", userData.getId());
         addFlipperActor("checkout_web_force_all", userData.getId());
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 

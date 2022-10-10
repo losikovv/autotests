@@ -2,10 +2,9 @@ package ru.instamart.reforged.stf.page.user.shipments.edit;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
-
-import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface UserShipmentCheck extends Check, UserShipmentElement {
 
@@ -39,8 +38,65 @@ public interface UserShipmentCheck extends Check, UserShipmentElement {
         Kraken.waitAction().shouldBeVisible(shipmentCost);
     }
 
+    @Step("Проверяем, что отображается промокод")
+    default void checkPromoCodeVisible() {
+        Kraken.waitAction().shouldBeVisible(promoCode);
+    }
+
+    @Step("Проверяем, что стоимость сборки и доставки заказа: '{expectedValue}'")
+    default void checkShipmentCost(final String expectedValue) {
+        Assert.assertEquals(shipmentCost.getText(), expectedValue, "Стоимость сборки и доставки отличается от ожидаемой");
+    }
+
     @Step("Проверяем, что отображается сумма 'Итого'")
     default void checkTotalCostVisible() {
         Kraken.waitAction().shouldBeVisible(totalCost);
+    }
+
+    @Step("Проверяем, что отображается кнопка 'Изменить' (слот)")
+    default void checkChangeDeliverySlotButtonVisible() {
+        Kraken.waitAction().shouldBeVisible(changeDeliverySlot);
+    }
+
+    @Step("Проверяем, что появилось всплывающее сообщение")
+    default void checkAlertVisible() {
+        Kraken.waitAction().shouldBeVisible(alert);
+    }
+
+    @Step("Проверяем, что всплывающее сообщение не отображается")
+    default void checkAlertNotVisible() {
+        Kraken.waitAction().shouldNotBeVisible(alert);
+    }
+
+    @Step("Проверяем что текст бабл-сообщения соответствует ожидаемому")
+    default void checkAlertText(final String expectedText) {
+        Assert.assertEquals(alert.getText(), expectedText, "Текст всплывающего сообщения отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что текущий интервал доставки: '{expectedValue}'")
+    default void checkCurrentDeliveryInterval(final String expectedValue) {
+        Assert.assertEquals(deliveryInterval.getText(), expectedValue, "Текущий интервал доставки отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что стоимость заказа 'Итого': '{expectedValue}'")
+    default void checkOrderTotalCost(final String expectedValue) {
+        Assert.assertEquals(totalCost.getText(), expectedValue, "Стоимость заказа отличается от ожидаемой");
+    }
+
+    @Step("Проверяем, что стоимость заказа 'Итого': '{expectedValue}'")
+    default void checkOrderTotalCost(final double expectedValue) {
+        Assert.assertEquals(StringUtil.stringToDouble(totalCost.getText()), expectedValue, "Стоимость заказа отличается от ожидаемой");
+    }
+
+    @Step("Проверяем, что стоимость заказа 'Итого' увеличилась'")
+    default void checkOrderTotalCostIncreased(final double oldTotalCostValue) {
+        Assert.assertTrue(StringUtil.stringToDouble(totalCost.getText()) > oldTotalCostValue,
+                String.format("Текущая стоимость заказа: '%s' не больше первоначальной: '%s'", totalCost.getText(), oldTotalCostValue));
+    }
+
+    @Step("Проверяем, что стоимость заказа 'Итого' уменьшилась'")
+    default void checkOrderTotalCostDecreased(final double oldTotalCostValue) {
+        Assert.assertTrue(StringUtil.stringToDouble(totalCost.getText()) < oldTotalCostValue,
+                String.format("Текущая стоимость заказа: '%s' не меньше первоначальной: '%s'", totalCost.getText(), oldTotalCostValue));
     }
 }

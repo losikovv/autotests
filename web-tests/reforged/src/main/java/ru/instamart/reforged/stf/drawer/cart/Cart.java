@@ -3,7 +3,7 @@ package ru.instamart.reforged.stf.drawer.cart;
 import io.qameta.allure.Step;
 import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
-import ru.instamart.reforged.core.custom_exceptions.NoSuchElementInCollection;
+import ru.instamart.reforged.core.exceptions.NoSuchElementInCollection;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 import ru.instamart.reforged.stf.drawer.cart.container.Item;
 import ru.instamart.reforged.stf.drawer.cart.container.Retailer;

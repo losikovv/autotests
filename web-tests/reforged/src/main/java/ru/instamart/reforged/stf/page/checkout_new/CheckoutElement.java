@@ -38,9 +38,9 @@ public interface CheckoutElement {
     Element deliverySlotBlockInvalidMark = new Element(By.xpath("//div[contains(@class, 'DeliverySlots_root')][contains(@class, 'invalid')]"), "Ошибка в блоке 'Слоты' (красная рамка)");
 
     ElementCollection allDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]]"), "Все доступные слоты доставки");
-    ElementCollection deliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][.//div[contains(@class,'ShippingRateCard_date')]][not(.//*[contains(@class,'ShippingRateCard_flashIcon')])]"), "Доступные слоты доставки (обычной)");
+    ElementCollection deliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][.//div[contains(@class,'ShippingRateCard_date')]][not(.//*[contains(@class,'ShippingRateCard_flashIcon')])]"), "Доступные слоты без высокого спроса");
     ElementCollection onDemandDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][not(.//div[contains(@class,'ShippingRateCard_date')])]"), "Доступные слоты On-Demand доставки");
-    ElementCollection quickDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][.//div[contains(@class,'ShippingRateCard_date')]][.//*[contains(@class,'ShippingRateCard_flashIcon')]]"), "Доступные слоты быстрой доставки");
+    ElementCollection flashedDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][.//div[contains(@class,'ShippingRateCard_date')]][.//*[contains(@class,'ShippingRateCard_flashIcon')]]"), "Доступные слоты c высоким спросом");
     ElementCollection activeDeliverySlots = new ElementCollection(By.xpath("//li[.//div[contains(@class,'ShippingRateCard')]][./div[contains(@class,'active')]]"), "Выбранные слоты доставки");
 
     Element activeSlotByPosition = new Element(ByKraken.xpathExpression("//li[.//div[contains(@class,'ShippingRateCard')]][%s]/div[contains(@class,'active')]"), "Активный слот с учётом позиции в карусели");
@@ -64,13 +64,25 @@ public interface CheckoutElement {
 
     Element contactsSummary = new Element(By.xpath(
             "//div[contains(@class,'CheckoutEditableCard_header')][.//h3[.='Контакты']]//div[contains(@class,'CheckoutEditableCard_details')]"),
-            "");
+            "Информация в свернутом блоке 'Контакты'");
     Button contactsEdit = new Button(By.xpath("//div[contains(@class,'CheckoutEditableCard_header')][.//h3[.='Контакты']]//button"), "Кнопка 'Изменить' (Контакты)");
     Input contactsPhone = new Input(By.xpath("//input[@name='contacts.phone']"), "Поле ввода 'Телефон'");
+    Element contactsPhoneInvalid = new Element(By.xpath("//input[@name='contacts.phone'][contains(@class,'FormGroup_invalid')]"),"Алерт в поле ввода 'Телефон'");
+    Element contactsPhoneErrorDescription = new Element(By.xpath("//label[contains(@class,'FormGroup_description')][@for='FormGroup_contacts.phone']"), "Описание ошибки в поле ввода 'Телефон'");
     Input contactsEmail = new Input(By.xpath("//input[@name='contacts.email']"), "Поле ввода 'Email'");
+    Element contactsEmailInvalid = new Element(By.xpath("//input[@name='contacts.email'][contains(@class,'FormGroup_invalid')]"),"Алерт в поле ввода 'Email'");
+    Element contactsEmailErrorDescription = new Element(By.xpath("//label[contains(@class,'FormGroup_description')][@for='FormGroup_contacts.email']"), "Описание ошибки в поле ввода 'Email'");
+
+    Element replacementPolicySummary = new Element(By.xpath("//div[contains(@class,'CheckoutEditableCard_header')][.//h3[.='Замена товара']]//div[contains(@class,'CheckoutEditableCard_details')]"),
+            "Информация в свернутом блоке 'Замена товара'");
+    Button replacementEdit = new Button(By.xpath("//div[contains(@class,'CheckoutEditableCard_header')][.//h3[.='Замена товара']]//button"), "Кнопка 'Изменить' (Замена товара)");
+
     Element replacementPolicy = new Element(By.xpath("//div[@data-qa='dropdownSelect']"), "Выпадающий селектор политики замен");
     ElementCollection replacementPolicyList = new ElementCollection(By.xpath("//button[@data-qa='dropdownSelectOption']"), "Список вариантов политик замен в дропдауне");
     Element replacementPolicyByName = new Element(ByKraken.xpathExpression("//button[@data-qa='dropdownSelectOption'][contains(.,'%s')]"), "Пункт политики замен в выпадающем списке по названию");
+    Element selectedReplacementPolicyInvalid = new Element(By.xpath("//div[@data-qa='dropdownSelect'][contains(@class,'DropdownSelect_invalid')]"), "Алерт некорректной выбранной политики замен");
+
+    Element replacementPolicyErrorDescription = new Element(By.xpath("//div[contains(@class,'DropdownSelect_description')][contains(@class,'DropdownSelect_invalid')]"), "Описание ошибки выбранной политики замен");
 
     Input promoCode = new Input(By.xpath("//input[@data-qa='checkout_page_sidebar_promocode_input']"), "Поле ввода промокода");
     Button promoCodeApply = new Button(By.xpath("//button[@data-qa='checkout_page_sidebar_promocode_button'][.='Применить']"), "Кнопка 'Применить' промокод");

@@ -433,7 +433,6 @@ public final class ShoppingCartTests {
         shop().plusItemToCartByPosition(2);
         shop().interactHeader().checkCartNotificationIsVisible();
 
-        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactAuthModal().checkModalIsNotVisible();
@@ -445,10 +444,9 @@ public final class ShoppingCartTests {
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().getFirstItem().deleteItem();
-        shop().interactCart().checkDeleteAnimationOver();
+        shop().interactCart().checkCartNotEmpty();
 
-        final var cartProductName = shop().interactCart().getFirstItem().getName();
+        final var cartProductName = shop().interactCart().getLastItem().getName();
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
     }
 

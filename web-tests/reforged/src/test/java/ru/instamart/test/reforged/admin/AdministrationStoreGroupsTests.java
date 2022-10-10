@@ -15,7 +15,7 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.StoreLabelData;
 import ru.instamart.kraken.data.StoreLabels;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.DoNotOpenBrowser;
+import ru.instamart.reforged.core.annotation.DoNotOpenBrowser;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;

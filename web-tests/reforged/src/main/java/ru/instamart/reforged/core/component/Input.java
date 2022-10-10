@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import ru.instamart.kraken.util.InfoUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
@@ -109,7 +110,11 @@ public final class Input extends AbstractComponent {
 
     public void clearByKeysCombination() {
         log.debug("Clear input {} field", getDescription());
-        getComponent().sendKeys(Keys.CONTROL + "a");
+        if (InfoUtil.isMac()) {
+            getComponent().sendKeys(Keys.COMMAND + "a");
+        } else {
+            getComponent().sendKeys(Keys.CONTROL + "a");
+        }
         getComponent().sendKeys(Keys.DELETE);
     }
 

@@ -5,8 +5,8 @@ import org.testng.IInvokedMethod;
 import org.testng.ISuite;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
-import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.annotation.DoNotOpenBrowser;
 import ru.instamart.reforged.core.listener.allure.AllureTestNgListener;
 
 @Slf4j

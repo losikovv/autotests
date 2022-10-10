@@ -127,7 +127,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
     @Test(description = "Получение ошибки при расчете цены для магазина, для которого не смогли найти стратегию",
             groups = "dispatch-shippingcalc-smoke",
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INTERNAL: cannot get delivery price for some shipments, no correct price strategy")
+            expectedExceptionsMessageRegExp = "NOT_FOUND: cannot get delivery price for some shipments, no correct price strategy")
     public void getDeliveryPriceForStoreWithNoBinds() {
         var request = getDeliveryPriceRequest(
                 1, UUID.randomUUID().toString(), 99900, 0, 1000, UUID.randomUUID().toString(), false,

@@ -18,15 +18,16 @@ public class StoreDao extends AbstractDao<String, StoreEntity> {
     private final String INSERT_SQL = "INSERT INTO store ";
     private final String DELETE_SQL = "DELETE FROM store ";
 
-    public boolean addStore(String storeId, String configId, Boolean ondemand, Float lat, Float lon){
+    public boolean addStore(String storeId, String configId, Boolean ondemand, Float lat, Float lon, Integer deliveryArea){
         try (Connection connect = ConnectionManager.getDataSource(Db.PG_SURGE_LEVEL).getConnection();
-             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (id, config_id, ondemand, lat, lon) " +
-                     " VALUES (?::uuid, ?::uuid, ?, ?, ?) ")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (id, config_id, ondemand, lat, lon, deliveryarea) " +
+                     " VALUES (?::uuid, ?::uuid, ?, ?, ?, ?) ")) {
             preparedStatement.setString(1, storeId);
             preparedStatement.setString(2, configId);
             preparedStatement.setBoolean(3, ondemand);
             preparedStatement.setFloat(4, lat);
             preparedStatement.setFloat(5, lon);
+            preparedStatement.setInt(6, deliveryArea);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLSurgelevelManager. Error: " + e.getMessage());

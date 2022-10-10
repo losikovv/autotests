@@ -2,30 +2,33 @@ package ru.instamart.test.reforged.stf.checkout_new;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
+import static ru.instamart.reforged.Group.CHECKOUT_WEB_NEW;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
-@Feature("Чекаут [NEW]")
+@Feature("Чекаут V3")
 public final class CheckoutPromocodesTests {
 
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(3612)
-    @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Доставка", groups = {REGRESSION_STF, "checkout_web_new"})
+    @Story("Промокоды")
+    @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Доставка", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testApplyFreeDeliveryPromo() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -33,7 +36,6 @@ public final class CheckoutPromocodesTests {
         final var userData = UserManager.getQaUser();
         addFlipperActor("checkout_web_new", userData.getId());
         addFlipperActor("checkout_web_force_all", userData.getId());
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
 
         final String yesterday = getPastZoneDbDate(1L);
 
@@ -69,7 +71,8 @@ public final class CheckoutPromocodesTests {
     }
 
     @CaseId(3612)
-    @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Самовывоз", groups = {REGRESSION_STF, "checkout_web_new"})
+    @Story("Промокоды")
+    @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Самовывоз", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testApplyFreeDeliveryPromoOnPickup() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -77,7 +80,6 @@ public final class CheckoutPromocodesTests {
         final var userData = UserManager.getQaUser();
         addFlipperActor("checkout_web_new", userData.getId());
         addFlipperActor("checkout_web_force_all", userData.getId());
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
 
         final String yesterday = getPastZoneDbDate(1L);
 
@@ -117,7 +119,8 @@ public final class CheckoutPromocodesTests {
     }
 
     @CaseIDs(value = {@CaseId(3689), @CaseId(3646), @CaseId(3781)})
-    @Test(description = "Проверка отображения примененного промокода после рефреша", groups = {REGRESSION_STF, "checkout_web_new"})
+    @Story("Промокоды")
+    @Test(description = "Проверка отображения примененного промокода после рефреша", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSuccessApplyPromo() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -125,7 +128,6 @@ public final class CheckoutPromocodesTests {
         final var userData = UserManager.getQaUser();
         addFlipperActor("checkout_web_new", userData.getId());
         addFlipperActor("checkout_web_force_all", userData.getId());
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
 
         final String yesterday = getPastZoneDbDate(1L);
 
@@ -163,7 +165,8 @@ public final class CheckoutPromocodesTests {
     }
 
     @CaseId(3645)
-    @Test(description = "Проверка применения несуществующего промокода", groups = {REGRESSION_STF, "checkout_web_new"})
+    @Story("Промокоды")
+    @Test(description = "Проверка применения несуществующего промокода", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testApplyNonExistPromo() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -171,8 +174,6 @@ public final class CheckoutPromocodesTests {
         final var userData = UserManager.getQaUser();
         addFlipperActor("checkout_web_new", userData.getId());
         addFlipperActor("checkout_web_force_all", userData.getId());
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
-
         this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 

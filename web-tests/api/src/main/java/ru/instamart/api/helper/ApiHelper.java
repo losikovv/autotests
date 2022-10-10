@@ -175,6 +175,7 @@ public final class ApiHelper {
      * Добавить в корзину один продукт с № количеством
      * добавление происходит без учетов минимальной стомости и веса.
      * Просто кидается один первый товар с указанным количеством
+     *
      * @param user
      * @param sid
      * @param count
@@ -472,6 +473,17 @@ public final class ApiHelper {
         final var shipment = makeOrder(user, sid, itemsNumber);
         final var order = SpreeOrdersDao.INSTANCE.getOrderByShipment(shipment.getShipments().get(0).getNumber());
         SpreeOrdersDao.INSTANCE.updateShipmentStateToShip(order.getNumber(), TimeUtil.getDbDate());
+    }
+
+    @Step("Устанавливаем заказу: '{orderNumber}' статус 'shipmentState'")
+    public void updateShipmentStateByOrderNumber(final String orderNumber, final String shipmentState) {
+        SpreeOrdersDao.INSTANCE.updateShipmentState(orderNumber, shipmentState);
+    }
+
+    @Step("Устанавливаем заказу: '{shipmentNumber}' статус 'shipmentState'")
+    public void updateShipmentStateByShipmentNumber(final String shipmentNumber, final String shipmentState) {
+        var orderNumber = SpreeOrdersDao.INSTANCE.getOrderByShipment(shipmentNumber).getNumber();
+        SpreeOrdersDao.INSTANCE.updateShipmentState(orderNumber, shipmentState);
     }
 
     @Step("Отменяем заказ с помощью API")
@@ -870,7 +882,7 @@ public final class ApiHelper {
     }
 
     @Step("Получаем адрес магазина sid = {sid}")
-    public AddressV2 getAddressBySid(final int sid){
+    public AddressV2 getAddressBySid(final int sid) {
         return apiV2.getAddressBySid(sid);
     }
 }

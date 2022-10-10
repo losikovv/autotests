@@ -36,6 +36,8 @@ public final class Group {
     #########################
      */
     public static final String MULTIRETAILER_SEARCH = "multiretailer_search";
+    public static final String CHECKOUT_WEB_NEW = "checkout_web_new";
+    public static final String POST_ORDERING = "post_ordering";
 
     private Group() {
     }

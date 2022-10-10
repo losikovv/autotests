@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf_prod.shopping;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -22,6 +23,7 @@ public final class ShoppingCartTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1571)
+    @Issue("B2C-10717")
     @Test(description = "Тест валидации дефолтной корзины", groups = {STF_PROD_S})
     public void successValidateDefaultCart() {
         shop().goToPage();
@@ -310,7 +312,6 @@ public final class ShoppingCartTests {
         shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddressLarge().clickSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage();
         shop().interactHeader().checkEnteredAddressIsVisible();
@@ -320,7 +321,6 @@ public final class ShoppingCartTests {
         shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
-        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactAuthModal().checkModalIsNotVisible();
@@ -332,8 +332,7 @@ public final class ShoppingCartTests {
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().getFirstItem().deleteItem();
-        shop().interactCart().checkDeleteAnimationOver();
+        shop().interactCart().checkCartNotEmpty();
 
         final var cartProductName = shop().interactCart().getLastItem().getName();
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
