@@ -22,7 +22,6 @@
             <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerActivateTests"/>
             <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerAddTests"/>
             <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerEditTests"/>
-            <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerRegionsTests"/>
             <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationShipmentsSectionTests"/>
             <!--
@@ -35,12 +34,18 @@
             <class name="ru.instamart.test.reforged.admin.AdministrationUsersSectionTests"/>
             <class name="ru.instamart.test.reforged.admin.BasicAdministrationTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationPromocodesTests"/>
-
+        </classes>
+    </test>
+    <test verbose="1" name="Admin OnDemand module" parallel="classes" thread-count="5">
+        <classes>
             <class name="ru.instamart.test.reforged.admin.orders.AdministrationBasicOrdersTests"/>
-            <class name="ru.instamart.test.reforged.admin.orders.AdministrationMultiselectFiltersOrdersTests"/>
             <class name="ru.instamart.test.reforged.admin.orders.AdministrationShipmentInTableTests"/>
+            <class name="ru.instamart.test.reforged.admin.orders.AdministrationMultiselectFiltersOrdersTests"/>
 
+            <class name="ru.instamart.test.reforged.admin.partners.AdminPartnersMapTests"/>
             <class name="ru.instamart.test.reforged.admin.partners.AdminShoppersTests"/>
+
+            <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerRegionsTests"/>
         </classes>
     </test>
     <test verbose="1" name="All In UI-API suite" parallel="classes" thread-count="6">
