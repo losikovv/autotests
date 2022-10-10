@@ -4,7 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
-import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 

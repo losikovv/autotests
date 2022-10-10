@@ -1,12 +1,12 @@
 package ru.instamart.reforged.core.provider;
 
 import org.openqa.selenium.WebDriverException;
+import ru.instamart.reforged.core.driver.DriverSession;
 import ru.instamart.reforged.core.enums.Browser;
 import ru.instamart.reforged.core.provider.chrome.ChromeLocalProvider;
 import ru.instamart.reforged.core.provider.chrome.ChromeProvider;
 import ru.instamart.reforged.core.provider.firefox.FirefoxLocalProvider;
 import ru.instamart.reforged.core.provider.firefox.FirefoxProvider;
-import ru.instamart.reforged.core.service.DriverSession;
 
 import static java.util.Objects.isNull;
 

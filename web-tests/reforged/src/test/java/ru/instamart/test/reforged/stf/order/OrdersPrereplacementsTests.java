@@ -9,7 +9,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.jdbc.dao.stf.SpreeProductsDao;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 

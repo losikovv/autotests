@@ -1,11 +1,10 @@
-package ru.instamart.reforged.core.service;
+package ru.instamart.reforged.core.driver;
 
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
 import java.util.Map;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Slf4j

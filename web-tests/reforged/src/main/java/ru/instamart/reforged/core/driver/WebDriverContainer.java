@@ -1,4 +1,4 @@
-package ru.instamart.reforged.core.service;
+package ru.instamart.reforged.core.driver;
 
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Reporter;

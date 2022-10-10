@@ -1,4 +1,4 @@
-package ru.instamart.reforged.core.service;
+package ru.instamart.reforged.core.driver;
 
 import lombok.Data;
 import org.openqa.selenium.WebDriver;

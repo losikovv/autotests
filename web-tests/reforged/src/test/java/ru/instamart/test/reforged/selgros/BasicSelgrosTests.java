@@ -6,17 +6,20 @@ import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.reforged.core.CookieProvider;
-import ru.instamart.reforged.core.DoNotOpenBrowser;
+import ru.instamart.reforged.core.annotation.CookieProvider;
+import ru.instamart.reforged.core.annotation.DoNotOpenBrowser;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.data_provider.StaticPage;
-import ru.instamart.reforged.core.service.Curl;
-import ru.instamart.reforged.core.service.CurlService;
+import ru.instamart.reforged.core.service.curl.Curl;
+import ru.instamart.reforged.core.service.curl.CurlService;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.kraken.config.CoreProperties.BASIC_AUTH_PASSWORD;
+import static ru.instamart.kraken.config.CoreProperties.BASIC_AUTH_USERNAME;
+import static ru.instamart.reforged.core.config.UiProperties.HEADER_SELGROS_FORWARD_TO;
+import static ru.instamart.reforged.core.service.curl.Header.FORWARD_KEY;
 import static ru.instamart.reforged.selgros.page.SelgrosRouter.selgros;
 
 @Epic("SELGROS UI")
@@ -96,8 +99,8 @@ public final class BasicSelgrosTests {
     public void successCheckSelgrosUnavailableRetailers(final RetailerV2 retailer) {
         final String fullUrl = UiProperties.SELGROS_URL + retailer.getSlug();
         final var curl = new Curl.Builder(fullUrl)
-                .withHeader(UiProperties.HEADER_SELGROS_FORWARD_TO)
-                .withBasicAuth(CoreProperties.BASIC_AUTH_USERNAME, CoreProperties.BASIC_AUTH_PASSWORD)
+                .withHeader(FORWARD_KEY , HEADER_SELGROS_FORWARD_TO)
+                .withBasicAuth(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)
                 .build();
         assertTrue(CurlService.pageUnavailable(curl), "Страница " + fullUrl + " доступна");
     }
@@ -109,8 +112,8 @@ public final class BasicSelgrosTests {
     public void successCheckSelgrosAvailableRetailers() {
         final var fullUrl = UiProperties.SELGROS_URL + selgros().pageUrl();
         final var curl = new Curl.Builder(fullUrl)
-                .withHeader(UiProperties.HEADER_SELGROS_FORWARD_TO)
-                .withBasicAuth(CoreProperties.BASIC_AUTH_USERNAME, CoreProperties.BASIC_AUTH_PASSWORD)
+                .withHeader(FORWARD_KEY , HEADER_SELGROS_FORWARD_TO)
+                .withBasicAuth(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)
                 .build();
         assertTrue(CurlService.pageAvailable(curl), "Страница " + fullUrl + " доступна");
     }
@@ -125,8 +128,8 @@ public final class BasicSelgrosTests {
             groups = "regression")
     public void successCheckSelgrosStaticPagesAreAvailable(final String url) {
         final var curl = new Curl.Builder(url)
-                .withHeader(UiProperties.HEADER_SELGROS_FORWARD_TO)
-                .withBasicAuth(CoreProperties.BASIC_AUTH_USERNAME, CoreProperties.BASIC_AUTH_PASSWORD)
+                .withHeader(FORWARD_KEY , HEADER_SELGROS_FORWARD_TO)
+                .withBasicAuth(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)
                 .build();
         assertTrue(CurlService.pageAvailable(curl), "Страница " + url + " недоступна");
     }
