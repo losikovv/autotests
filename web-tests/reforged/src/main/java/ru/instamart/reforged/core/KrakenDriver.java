@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
-import ru.instamart.reforged.core.service.WebDriverContainer;
+import ru.instamart.reforged.core.driver.WebDriverContainer;
 
 @Slf4j
 class KrakenDriver {

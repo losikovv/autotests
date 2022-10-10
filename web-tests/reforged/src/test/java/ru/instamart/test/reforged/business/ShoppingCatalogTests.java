@@ -9,8 +9,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.CookieProvider;
+import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.business.page.BusinessRouter.shop;

@@ -1,4 +1,4 @@
-package ru.instamart.reforged.core.service;
+package ru.instamart.reforged.core.service.curl;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +34,9 @@ public final class Curl {
             this.opt.add("%{http_code}");
         }
 
-        public Builder withHeader(final String header) {
+        public Builder withHeader(final String key, final String value) {
             this.opt.add("-H");
-            this.opt.add("sbm-forward-feature-version-stf:" + header);
+            this.opt.add(key + ":" + value);
             return this;
         }
 

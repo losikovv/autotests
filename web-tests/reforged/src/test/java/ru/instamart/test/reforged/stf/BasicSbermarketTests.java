@@ -5,18 +5,21 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.reforged.core.DoNotOpenBrowser;
-import ru.instamart.reforged.core.config.BasicProperties;
-import ru.instamart.reforged.core.config.UiProperties;
+import ru.instamart.reforged.core.annotation.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
-import ru.instamart.reforged.core.service.Curl;
-import ru.instamart.reforged.core.service.CurlService;
+import ru.instamart.reforged.core.service.curl.Curl;
+import ru.instamart.reforged.core.service.curl.CurlService;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.kraken.config.CoreProperties.BASIC_AUTH_PASSWORD;
+import static ru.instamart.kraken.config.CoreProperties.BASIC_AUTH_USERNAME;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.core.config.BasicProperties.JOB_LANDING_URL;
+import static ru.instamart.reforged.core.config.UiProperties.HEADER_STF_FORWARD_TO;
+import static ru.instamart.reforged.core.config.UiProperties.STF_URL;
+import static ru.instamart.reforged.core.service.curl.Header.FORWARD_KEY;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -172,10 +175,10 @@ public final class BasicSbermarketTests {
             description = "Тест доступности витрин ритейлеров Сбермаркета ",
             groups = REGRESSION_STF)
     public void successCheckSbermarketAvailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl = UiProperties.STF_URL + retailer.getSlug();
+        final String fullUrl = STF_URL + retailer.getSlug();
         final var curl = new Curl.Builder(fullUrl)
-                .withHeader(UiProperties.HEADER_STF_FORWARD_TO)
-                .withBasicAuth(CoreProperties.BASIC_AUTH_USERNAME, CoreProperties.BASIC_AUTH_PASSWORD)
+                .withHeader(FORWARD_KEY, HEADER_STF_FORWARD_TO)
+                .withBasicAuth(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)
                 .build();
         assertTrue(CurlService.pageAvailable(curl), "Страница " + fullUrl + " недоступна");
     }
@@ -188,10 +191,10 @@ public final class BasicSbermarketTests {
             description = "Тест недоступности витрин ритейлеров Сбермаркета ",
             groups = REGRESSION_STF)
     public void successCheckSbermarketUnavailableRetailers(final RetailerV2 retailer) {
-        final var fullUrl = UiProperties.STF_URL + retailer.getSlug();
+        final var fullUrl = STF_URL + retailer.getSlug();
         final var curl = new Curl.Builder(fullUrl)
-                .withHeader(UiProperties.HEADER_STF_FORWARD_TO)
-                .withBasicAuth(CoreProperties.BASIC_AUTH_USERNAME, CoreProperties.BASIC_AUTH_PASSWORD)
+                .withHeader(FORWARD_KEY, HEADER_STF_FORWARD_TO)
+                .withBasicAuth(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)
                 .build();
         assertTrue(CurlService.pageUnavailable(curl), "Страница " + fullUrl + " доступна");
     }
@@ -201,10 +204,10 @@ public final class BasicSbermarketTests {
     @Story("Партнерские лендинги")
     @Test(description = "Тест доступности партнерских лендингов", groups = REGRESSION_STF)
     public void successCheckPartnerLandingsAreAvailable() {
-        final var fullUrl = UiProperties.STF_URL + aeroflot().pageUrl();
+        final var fullUrl = STF_URL + aeroflot().pageUrl();
         final var curl = new Curl.Builder(fullUrl)
-                .withHeader(UiProperties.HEADER_STF_FORWARD_TO)
-                .withBasicAuth(CoreProperties.BASIC_AUTH_USERNAME, CoreProperties.BASIC_AUTH_PASSWORD)
+                .withHeader(FORWARD_KEY, HEADER_STF_FORWARD_TO)
+                .withBasicAuth(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)
                 .build();
         assertTrue(CurlService.pageAvailable(curl), "Страница " + fullUrl + " недоступна");
     }
@@ -214,10 +217,10 @@ public final class BasicSbermarketTests {
     @Story("Сервисные страницы")
     @Test(description = "Тест доступности сервисных страниц", groups = REGRESSION_STF)
     public void successCheckServicePagesAreAvailable() {
-        final String fullUrl = UiProperties.STF_URL + driversHiring().pageUrl();
+        final String fullUrl = STF_URL + driversHiring().pageUrl();
         final var curl = new Curl.Builder(fullUrl)
-                .withHeader(UiProperties.HEADER_STF_FORWARD_TO)
-                .withBasicAuth(CoreProperties.BASIC_AUTH_USERNAME, CoreProperties.BASIC_AUTH_PASSWORD)
+                .withHeader(FORWARD_KEY, HEADER_STF_FORWARD_TO)
+                .withBasicAuth(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)
                 .build();
         assertTrue(CurlService.pageAvailable(curl), "Страница " + fullUrl + " недоступна");
     }
@@ -227,10 +230,8 @@ public final class BasicSbermarketTests {
     @Story("Сервисные страницы")
     @Test(description = "Тест доступности сервисных страниц", groups = REGRESSION_STF)
     public void successCheckJobLandingAreAvailable() {
-        final var curl = new Curl.Builder(BasicProperties.JOB_LANDING_URL)
-                .withUserAgent("Autotest")
-                .build();
-        assertTrue(CurlService.pageAvailable(curl), "Страница " + BasicProperties.JOB_LANDING_URL + " недоступна");
+        final var curl = new Curl.Builder(JOB_LANDING_URL).withUserAgent("Autotest").build();
+        assertTrue(CurlService.pageAvailable(curl), "Страница " + JOB_LANDING_URL + " недоступна");
     }
 
     @DoNotOpenBrowser
@@ -243,8 +244,8 @@ public final class BasicSbermarketTests {
             groups = REGRESSION_STF)
     public void successCheckStaticPagesAreAvailable(final String url) {
         final var curl = new Curl.Builder(url)
-                .withHeader(UiProperties.HEADER_STF_FORWARD_TO)
-                .withBasicAuth(CoreProperties.BASIC_AUTH_USERNAME, CoreProperties.BASIC_AUTH_PASSWORD)
+                .withHeader(FORWARD_KEY, HEADER_STF_FORWARD_TO)
+                .withBasicAuth(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)
                 .build();
         assertTrue(CurlService.pageAvailable(curl), "Страница " + url + " недоступна");
     }

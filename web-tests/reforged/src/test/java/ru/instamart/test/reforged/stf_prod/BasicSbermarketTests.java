@@ -5,16 +5,16 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.reforged.core.DoNotOpenBrowser;
-import ru.instamart.reforged.core.config.BasicProperties;
-import ru.instamart.reforged.core.config.UiProperties;
+import ru.instamart.reforged.core.annotation.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
-import ru.instamart.reforged.core.service.Curl;
-import ru.instamart.reforged.core.service.CurlService;
+import ru.instamart.reforged.core.service.curl.Curl;
+import ru.instamart.reforged.core.service.curl.CurlService;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.Group.STF_PROD_S;
+import static ru.instamart.reforged.core.config.BasicProperties.JOB_LANDING_URL;
+import static ru.instamart.reforged.core.config.UiProperties.STF_URL;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -160,7 +160,7 @@ public final class BasicSbermarketTests {
 
         home().interactFooter().clickToFooterElementWithText("Обработка персональных данных");
         home().switchToNextWindow();
-        privacyPolicy().checkPageUrl(UiProperties.STF_URL + privacyPolicy().pageUrl());
+        privacyPolicy().checkPageUrl(STF_URL + privacyPolicy().pageUrl());
     }
 
     @DoNotOpenBrowser
@@ -168,7 +168,7 @@ public final class BasicSbermarketTests {
     @Story("Сервисные страницы")
     @Test(description = "Тест доступности сервисных страниц", groups = {STF_PROD_S})
     public void successCheckServicePagesAreAvailable() {
-        final String fullUrl = UiProperties.STF_URL + driversHiring().pageUrl();
+        final String fullUrl = STF_URL + driversHiring().pageUrl();
         final var curl = new Curl.Builder(fullUrl).build();
         assertTrue(CurlService.pageAvailable(curl), "Страница " + fullUrl + " недоступна");
     }
@@ -178,10 +178,8 @@ public final class BasicSbermarketTests {
     @Story("Сервисные страницы")
     @Test(description = "Тест доступности сервисных страниц", groups = {STF_PROD_S})
     public void successCheckJobLandingAreAvailable() {
-        final var curl = new Curl.Builder(BasicProperties.JOB_LANDING_URL)
-                .withUserAgent("Autotest")
-                .build();
-        assertTrue(CurlService.pageAvailable(curl), "Страница " + BasicProperties.JOB_LANDING_URL + " недоступна");
+        final var curl = new Curl.Builder(JOB_LANDING_URL).withUserAgent("Autotest").build();
+        assertTrue(CurlService.pageAvailable(curl), "Страница " + JOB_LANDING_URL + " недоступна");
     }
 
     @DoNotOpenBrowser
