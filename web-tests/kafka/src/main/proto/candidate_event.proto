@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package events;
+
+import "google/protobuf/timestamp.proto";
+
+message CandidateChanges {
+	enum Role {
+		UNKNOWN = 0;
+		SHOPPER = 1;
+		DRIVER = 2;
+		UNIVERSAL = 3;
+		AUTO_UNIVERSAL = 4;
+	}
+	enum Status {
+		UNCHANGED = 0; // Статус не изменился
+		FREE = 1; // курьер свободен (доступен для заказов)
+		BUSY = 2; // курьер занят (взял в работу заказ)
+	}
+	// uuid кандидата
+	string uuid = 1;
+	// роль кандидата, с которой он зарегистрирован в смене
+	Role role = 2;
+	Status status = 3;
+	// время отправки события
+	google.protobuf.Timestamp time = 5;
+	// Данные смены
+	CandidateShift shift = 6;
+	string store_schedule_type = 7;
+	repeated Workflow queued_workflows = 8;
+}
+
+message CandidateShift {
+	// Идентификатор смены
+	uint64 shift_id = 1;
+	// ID территории доставки
+	uint32 delivery_area_id = 2;
+	// флаг привязки партнёра к территории доствки или к магазину если delivery_area_id == 0
+	bool fixed_on_delivery_area_or_store = 3;
+	// uuid магазина
+	string store_uuid = 4;
+}
+
+message Workflow {
+  uint64 id = 1;
+  WorkflowStatus status = 2;
+  uint64 shift_id = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+  google.protobuf.Timestamp plan_ended_at = 6;
+  Location coordinates_end = 7;
+}
+
+message Location {
+	// широта
+	double lat = 1;
+	// долгота
+	double lon = 2;
+}
+
+enum WorkflowStatus {
+	NEW = 0;
+	QUEUED = 1;
+	IN_PROGRESS = 2;
+	COMPLETED = 3;
+	CANCELED = 4;
+}
