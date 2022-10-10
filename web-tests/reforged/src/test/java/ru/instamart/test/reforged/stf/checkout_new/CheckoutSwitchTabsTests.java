@@ -65,7 +65,7 @@ public final class CheckoutSwitchTabsTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
     }
 
     @CaseId(3597)
@@ -111,7 +111,7 @@ public final class CheckoutSwitchTabsTests {
         checkoutNew().checkContactsPhone(userData.getPhone());
         checkoutNew().checkContactsEmail(userData.getEmail());
 
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
     }
 
     @CaseId(3610)

@@ -132,7 +132,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
         //B2C-9730
@@ -196,7 +196,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 
@@ -279,7 +279,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
         //B2C-9730
@@ -360,7 +360,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
 
@@ -424,7 +424,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 
@@ -493,7 +493,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
         //B2C-9730
@@ -551,7 +551,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 
@@ -633,7 +633,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
         //B2C-9730
@@ -713,7 +713,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
 
@@ -776,7 +776,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 
@@ -865,7 +865,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
         //B2C-9730
@@ -948,7 +948,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 
@@ -1030,7 +1030,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 
@@ -1107,7 +1107,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickReplacementPolicy();
         checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
-        checkoutNew().checkSelectedReplacementPolicyContains(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmOrder();
 

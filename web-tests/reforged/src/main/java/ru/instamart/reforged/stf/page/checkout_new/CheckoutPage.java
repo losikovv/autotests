@@ -49,6 +49,11 @@ public class CheckoutPage implements StfPage, CheckoutCheck, Window {
         return addressTitle.getText();
     }
 
+    @Step("Кликаем по заголовку блока адреса")
+    public void clickAddressTitle() {
+        addressTitle.click();
+    }
+
     @Step("Вводим в поле 'Кв, офис': '{apartmentValue}'")
     public void fillApartment(final String apartmentValue) {
         apartment.fill(apartmentValue);
@@ -191,14 +196,29 @@ public class CheckoutPage implements StfPage, CheckoutCheck, Window {
         contactsEdit.click();
     }
 
+    @Step("Очищаем поле 'Телефон'")
+    public void clearPhone() {
+        contactsPhone.clearByKeysCombination();
+    }
+
     @Step("Вводим в поле 'Телефон': '{phoneValue}'")
     public void fillPhone(final String phoneValue) {
         contactsPhone.fill(phoneValue);
     }
 
+    @Step("Очищаем поле 'Email'")
+    public void clearEmail() {
+        contactsEmail.clearByKeysCombination();
+    }
+
     @Step("Вводим в поле 'Email': '{emailValue}'")
     public void fillEmail(final String emailValue) {
         contactsEmail.fill(emailValue);
+    }
+
+    @Step("Нажимаем 'Изменить' (Замена товара)")
+    public void clickEditReplacementPolicy() {
+        replacementEdit.click();
     }
 
     @Step("Кликаем в селектор выбора политики замен товара")
