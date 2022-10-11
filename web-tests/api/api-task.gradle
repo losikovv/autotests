@@ -87,6 +87,16 @@ task apiInstamartSmoke(type: Test) {
     systemProperty 'qase.Title', 'Instamart API Smoke'
 }
 
+task apiV2BFF(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/all.xml'
+        includeGroups 'api-v2'
+    }
+    systemProperty 'qase.Project', 'INAPI'
+    systemProperty 'qase.Title', 'BFF API v2'
+    systemProperty 'url_stf', 'm.k-stage.sbermarket.tech'
+}
+
 task apiv3Smoke(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/api-v3.xml'

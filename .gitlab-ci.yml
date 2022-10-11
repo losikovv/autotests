@@ -60,6 +60,9 @@ variables:
     description: "Например: ui  -Возможные варианты: ui/api/grpc/kafka/"
   CI_GROUP:
     description: "Например: all-cart Возможные варианты: all-cart/all-order/api-instamart-smoke/api-instamart-regress"
+  BFF_FORWARD:
+    value: "m"
+    description: "Значение для хедера sbm-forward-feature-version-paas-content-front-platform-stf-mobile-aggregator"
 
 before_script:
   - export GRADLE_USER_HOME=$(pwd)/web-tests/.gradle
