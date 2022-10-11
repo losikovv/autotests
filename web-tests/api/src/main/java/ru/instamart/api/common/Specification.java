@@ -7,7 +7,6 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.config.RedirectConfig;
 import io.restassured.config.RestAssuredConfig;
-import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.specification.RequestSpecification;
@@ -115,7 +114,6 @@ public enum Specification {
                 .build();
 
         apiV2RequestSpec = new RequestSpecBuilder()
-                .log(LogDetail.ALL)
                 .setBaseUri(apiV2FullUrl)
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
