@@ -47,7 +47,7 @@ public class ProductsV3Test extends RestBase {
     public void getProductsWithValidSid() {
         final Response response = ProductsV3Request.GET(ProductsFilterParams.builder()
                 .tid(EnvironmentProperties.DEFAULT_TID)
-                .query("хлеб")
+                .query("авокадо")
                 .build(), EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV3Response.class);
