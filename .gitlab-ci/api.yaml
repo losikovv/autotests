@@ -157,3 +157,15 @@ tests:api:v3:notifications:
     - gradle clean build apiV3Notifications
   after_script:
     - bash ./report.sh api api-v3-notifications
+
+tests:api:v2:bff:
+  resource_group: testApiV2BFF
+  only:
+    variables:
+      - $API_V2_BFF == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  extends:
+    - ".template_api_tests"
+  script:
+    - gradle clean build apiV2BFF -Pbff_forward=$BFF_FORWARD
+  after_script:
+    - bash ./report.sh api api-v2-bff

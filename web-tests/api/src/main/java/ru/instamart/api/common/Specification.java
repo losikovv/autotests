@@ -62,6 +62,7 @@ public enum Specification {
         final String shopperFullBaseUrl = EnvironmentProperties.SHOPPER_GW_URL;
         final String shopperFullAdminUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
         final String shopperStage = (EnvironmentProperties.STAGE).isBlank() ? "kraken" : EnvironmentProperties.STAGE;
+        final String bffForward = (System.getProperty("bff_forward")) == null ? "m" : System.getProperty("bff_forward");
         final String etaStage = "https://" + EnvironmentProperties.Env.ETA_NAMESPACE + ".gw-stage.sbmt.io";
 
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
@@ -120,7 +121,11 @@ public enum Specification {
                 .addFilter(new CounterFilter())
                 .build();
         //todo убрать после того как на проде можно будет обойтись без "api/v2"
-        apiV2RequestSpec.basePath(EnvironmentProperties.BASIC_URL.contains("m.k-stage") ? "" : "api/v2/");
+        apiV2RequestSpec.basePath(EnvironmentProperties.STAGE.equals("m") ? "" : "api/v2/");
+
+        if (EnvironmentProperties.STAGE.equals("m")) {
+            apiV2RequestSpec.header("sbm-forward-feature-version-paas-content-front-platform-stf-mobile-aggregator", bffForward);
+        }
 
         prodRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(prodFullUrl)

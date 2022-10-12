@@ -23,6 +23,9 @@ tasks.withType(Test) {
     if (project.hasProperty('b2b_forward')) {
         systemProperty 'b2b_forward',"${b2b_forward}"
     }
+    if (project.hasProperty('bff_forward')) {
+        systemProperty 'bff_forward',"${bff_forward}"
+    }
     if (project.hasProperty('one_session')) {
         systemProperty 'one_session',"${one_session}"
     }
