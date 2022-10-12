@@ -13,6 +13,7 @@ import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
@@ -35,7 +36,7 @@ public final class AdministrationPaymentsTests {
 
     @CaseId(492)
     @Story("Тест создания платежа через SberPay")
-    @Test(description = "Добавление нового платежа SberPay", groups = "regression")
+    @Test(description = "Добавление нового платежа SberPay", groups = REGRESSION_ADMIN)
     public void successPaymentViaSberPay() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -73,7 +74,7 @@ public final class AdministrationPaymentsTests {
 
     @CaseId(497)
     @Story("Отображение дебетового сальдо, если баланс больше нуля")
-    @Test(description = "Отображение дебетового сальдо, если баланс больше нуля", groups = "regression")
+    @Test(description = "Отображение дебетового сальдо, если баланс больше нуля", groups = REGRESSION_ADMIN)
     public void checkDebitBalanceVisibleTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());

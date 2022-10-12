@@ -76,12 +76,17 @@ public final class UsersEditPage implements AdminPage, UsersEditCheck {
 
     @Step("Нажать на 'обновить пароль' на странице редактирования пользователя")
     public void clickToSaveUserPassword() {
-        savePassordChanges.click();
+        savePasswordChanges.click();
     }
 
     @Step("Нажать на 'обновить b2b' на странице редактирования пользователя")
     public void clickToSaveUserB2B() {
         saveB2BChanges.click();
+    }
+
+    @Step("Нажимаем на ссылку 'Реквизиты компаний'")
+    public void clickCompanyDocuments(){
+        companyDocuments.click();
     }
 
     public void goToPage(final int id) {

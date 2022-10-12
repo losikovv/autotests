@@ -4,6 +4,7 @@ import ru.instamart.reforged.admin.page.active_directory.login_page.ActiveDirect
 import ru.instamart.reforged.admin.page.companies.CompaniesPage;
 import ru.instamart.reforged.admin.page.companies.company.CompanyPage;
 import ru.instamart.reforged.admin.page.companies.new_companies.NewCompaniesPage;
+import ru.instamart.reforged.admin.page.user_companies.UserCompaniesPage;
 import ru.instamart.reforged.admin.page.login.LoginPage;
 import ru.instamart.reforged.admin.page.main.MainPage;
 import ru.instamart.reforged.admin.page.orders.OrdersPage;
@@ -38,6 +39,7 @@ import ru.instamart.reforged.admin.page.shipment.shipment.send_promo.approve_pag
 import ru.instamart.reforged.admin.page.shoppers.ShoppersPage;
 import ru.instamart.reforged.admin.page.shoppers.create.ShoppersCreatePage;
 import ru.instamart.reforged.admin.page.shoppers.edit.ShoppersEditPage;
+import ru.instamart.reforged.admin.page.user_companies.edit_documents.EditUserCompanyPage;
 import ru.instamart.reforged.admin.page.users.UsersPage;
 import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.reforged.core.page.Router;
@@ -158,6 +160,14 @@ public final class AdminRout extends Router {
 
     public static UsersPage users() {
         return (UsersPage) getPage(UsersPage.class);
+    }
+
+    public static UserCompaniesPage userCompanies() {
+        return (UserCompaniesPage) getPage(UserCompaniesPage.class);
+    }
+
+    public static EditUserCompanyPage editUserCompany() {
+        return (EditUserCompanyPage) getPage(EditUserCompanyPage.class);
     }
 
     public static MainPage main() {

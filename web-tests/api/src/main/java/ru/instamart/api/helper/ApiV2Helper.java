@@ -19,6 +19,7 @@ import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.PaymentCardData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.CollectionUtil;
@@ -1638,5 +1639,20 @@ public final class ApiV2Helper {
 
         final Response putResponse = PaymentsV2Request.PUT(transactionNumber, encrypt);
         checkStatusCode200(putResponse);
+    }
+
+    public void addCompanyDocuments(final Juridical companyData) {
+        CompanyDocumentsV2Request.CompanyDocument company = CompanyDocumentsV2Request.CompanyDocument.builder()
+                .name(companyData.getJuridicalName())
+                .inn(companyData.getInn())
+                .kpp(companyData.getKpp())
+                .bik(companyData.getBik())
+                .correspondent_account(companyData.getCorrespondentAccountNumber())
+                .operating_account(companyData.getAccountNumber())
+                .address(companyData.getJuridicalAddress())
+                .bank(companyData.getBankName())
+                .build();
+        final Response response = CompanyDocumentsV2Request.POST(company);
+        checkStatusCode200(response);
     }
 }

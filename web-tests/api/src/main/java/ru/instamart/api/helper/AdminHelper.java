@@ -238,7 +238,7 @@ public class AdminHelper {
     @Step("Редактируем магазин")
     public void editStore(Integer sid, StoresAdminRequest.Stores store) {
         final Response storeResponse = StoresAdminRequest.PATCH(store, sid);
-        checkStatusCode(storeResponse,201);
+        checkStatusCode(storeResponse, 201);
     }
 
     @Step("Получаем список импортов офферов")

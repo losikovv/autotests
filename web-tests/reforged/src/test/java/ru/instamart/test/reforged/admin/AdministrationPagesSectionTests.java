@@ -13,6 +13,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.stf.page.StfRouter;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -24,7 +25,7 @@ public final class AdministrationPagesSectionTests {
 
     @CaseId(507)
     @Story("Тест на проверку элементов на вкладке статических страниц")
-    @Test(description = "Тест на проверку элементов на вкладке статических страниц", groups = {"regression", "smoke"})
+    @Test(description = "Тест на проверку элементов на вкладке статических страниц", groups = {REGRESSION_ADMIN, "smoke"})
     public void validatePagesRootPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -36,7 +37,7 @@ public final class AdministrationPagesSectionTests {
 
     @CaseId(13)
     @Story("Тест создания и удаления статической страницы")
-    @Test(description = "Тест создания и удаления статической страницы", groups = "regression")
+    @Test(description = "Тест создания и удаления статической страницы", groups = REGRESSION_ADMIN)
     public void createDeletePage() {
         final StaticPageData staticPage = StaticPages.newStaticPage();
 
@@ -62,7 +63,7 @@ public final class AdministrationPagesSectionTests {
 
     @CaseId(14)
     @Story("Тест редактирования статической страницы")
-    @Test(description = "Тест редактирования статической страницы", groups = "regression")
+    @Test(description = "Тест редактирования статической страницы", groups = REGRESSION_ADMIN)
     public void createAndEditStaticPage() {
         final StaticPageData staticPage = StaticPages.newStaticPage();
         final StaticPageData staticPageEdited = StaticPages.editedStaticPage();

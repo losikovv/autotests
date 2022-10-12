@@ -13,6 +13,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
@@ -23,7 +24,7 @@ public final class AdministrationUsersSectionTests {
 
     @CaseId(19)
     @Story("Тест поиска пользователя в админке")
-    @Test(description = "Работоспособность поиска в списке юзеров", groups = {"regression", "production"})
+    @Test(description = "Работоспособность поиска в списке юзеров", groups = {REGRESSION_ADMIN, "production"})
     public void successSearchUser() {
         final var email = UserManager.getDefaultAdmin().getEmail();
 
@@ -38,7 +39,7 @@ public final class AdministrationUsersSectionTests {
 
     @CaseId(32)
     @Story("Тест предоставления и отзыва админских прав пользователю")
-    @Test(description = "Тест предоставления и отзыва админских прав пользователю", groups = "regression")
+    @Test(description = "Тест предоставления и отзыва админских прав пользователю", groups = REGRESSION_ADMIN)
     public void successGrantAndRevokeAdmin() {
         final UserData userData = UserManager.getQaUser();
         final String password = Generate.generatePassword(12, true, true, true, true);
@@ -98,7 +99,7 @@ public final class AdministrationUsersSectionTests {
 
     @CaseId(34)
     @Story("Тест проставления пользователю флага B2B")
-    @Test(description = "Тест проставления пользователю флага B2B", groups = "regression")
+    @Test(description = "Тест проставления пользователю флага B2B", groups = REGRESSION_ADMIN)
     //TODO в основном тесте есть еще проверка невозможности поиска заказа b2b. Лучше вынести в отдельный тест в shipments
     public void successGrantAndRevokeB2BStatus() {
         final UserData userData = UserManager.getQaUser();
@@ -127,7 +128,7 @@ public final class AdministrationUsersSectionTests {
     }
 
     @CaseId(508)
-    @Test(description = "Отвязка платежных карт", groups = "regression")
+    @Test(description = "Отвязка платежных карт", groups = REGRESSION_ADMIN)
     public void testBlockPaymentCards() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3dsWithSpasibo();
@@ -148,7 +149,7 @@ public final class AdministrationUsersSectionTests {
     }
 
     @CaseId(509)
-    @Test(description = "Отвязка номера телефона от аккаунта", groups = "regression")
+    @Test(description = "Отвязка номера телефона от аккаунта", groups = REGRESSION_ADMIN)
     public void testBlockPhone() {
         final var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
