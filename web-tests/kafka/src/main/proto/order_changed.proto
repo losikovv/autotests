@@ -1,0 +1,86 @@
+// Стейт машина https://instamart.atlassian.net/wiki/spaces/ED/pages/3014027202
+syntax = "proto3";
+
+package order;
+option go_package = "gitlab.sbmt.io/paas/content/operations/order-service/pkg/server/events/order_changed";
+import "google/protobuf/timestamp.proto";
+
+message EventOrderChanged {
+	// Идентификатор доставки
+	string shipment_uuid = 1;
+	// Идентификатор заказа
+	string order_uuid = 2;
+	// Номер заказа H24485347826
+	string number = 3;
+	// Время изменения
+	google.protobuf.Timestamp  change_time = 4;
+
+	enum OrderStatus {
+		NEW = 0;
+		POSTPONED = 1;
+		ROUTING = 2;
+		READY_TO_COLLECT = 3;
+		COLLECTING = 4;
+		READY_TO_SHIP = 5;
+		SHIPPING = 6;
+		SHIPPED = 7;
+		CANCELED = 8;
+	}
+
+	// Статус заказа
+	OrderStatus order_status = 5;
+
+	message Job {
+		// Идентификатор работ
+		string job_uuid = 1;
+
+		enum JobType {
+			// Сборка
+			ASSEMBLY = 0;
+			// Доставка
+			DELIVERY = 1;
+		}
+
+		enum JobStatus {
+			NEW = 0;
+			AUTOMATIC_ROUTING = 1;
+			MANUAL_ROUTING = 2;
+			OFFERING = 3;
+			QUEUED = 4;
+			DECLINED = 5;
+			CANCELED = 6;
+			IN_PROGRESS = 7;
+			COMPLETED = 8;
+			READY_TO_AUTOMATIC_ROUTING = 9;
+		}
+
+		// Тип работ
+		JobType type = 2;
+
+		// Статус работ
+		JobStatus job_status = 3;
+
+		optional google.protobuf.Timestamp plan_started_at = 4;
+		optional google.protobuf.Timestamp plan_ended_at = 5;
+		
+		optional google.protobuf.Timestamp fact_started_at = 6;
+		optional google.protobuf.Timestamp fact_ended_at = 7;
+
+	  optional string candidate_id = 8;
+
+	}
+
+	// Список работ
+	repeated Job jobs = 6;
+
+	// UUID магазина
+	string place_uuid = 7;
+
+	enum ShipmentType {
+		ON_DEMAND = 0;
+		PLANNED = 1;
+	}
+
+	// Тип заказа (плановый/ондеманд)
+	ShipmentType shipment_type = 8;
+}

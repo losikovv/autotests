@@ -110,4 +110,12 @@ public class KafkaConfigs {
                 .password(Crypt.INSTANCE.decrypt("2upy3AL136//Hs/NMMaWnw=="))
                 .build();
     }
+
+    public static KafkaConfig configOrderStatusChanged() {
+        return KafkaConfig.builder()
+                .topic("yc.operations-order-service.fct.order-status-changed.0")
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lNLTflx90VI0n6hzBgecvll6tdcTqGMheErKEU2y3QOl"))
+                .password(Crypt.INSTANCE.decrypt("2upy3AL136//Hs/NMMaWnw=="))
+                .build();
+    }
 }
