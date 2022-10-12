@@ -13,6 +13,8 @@ import ru.instamart.reforged.core.component.condition.Is;
 import ru.instamart.reforged.core.component.condition.Should;
 import ru.instamart.reforged.core.component.condition.ShouldBe;
 import ru.instamart.reforged.core.config.WaitProperties;
+import ru.instamart.reforged.core.service.ashot.AshotService;
+import ru.yandex.qatools.ashot.Screenshot;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,7 +75,7 @@ public abstract class AbstractComponent implements Component {
         this.shouldBe = new ShouldBe(this);
     }
 
-    protected abstract WebElement getComponent();
+    public abstract WebElement getComponent();
 
     /**
      * В обход дома делает наведение и клик по элементу через js
@@ -103,6 +105,10 @@ public abstract class AbstractComponent implements Component {
         log.debug("Scroll to element {} '{}'", description, by);
         setBy(ByKraken.xpathExpression(((ByKraken)getBy()).getDefaultXpathExpression(), args));
         Kraken.jsAction().scrollToElement(getLocator());
+    }
+
+    public Screenshot screenWebElement() {
+        return AshotService.screenWebElement(getComponent());
     }
 
     protected String getLocator() {

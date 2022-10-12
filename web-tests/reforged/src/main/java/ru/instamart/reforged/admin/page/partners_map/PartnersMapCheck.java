@@ -17,8 +17,18 @@ public interface PartnersMapCheck extends Check, PartnersMapElement {
         balloon.should().notAnimated();
     }
 
-    @Step("Имя в балуне соответсвует имени '{name}'")
+    @Step("Имя в балуне соответствует имени '{name}'")
     default void checkNameInBalloon(final String name) {
         partnerNameBalloon.is().containText(name);
+    }
+
+    @Step("Телефон в балуне соответствует имени '{name}'")
+    default void checkPhoneInBalloon(final String phone) {
+        partnerPhoneBalloon.is().containText(phone);
+    }
+
+    @Step("Сверка скриншотов карты")
+    default void checkMapScreen() {
+        map.should().screenDiff();
     }
 }

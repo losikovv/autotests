@@ -29,7 +29,7 @@ public final class Checkbox extends AbstractComponent {
     }
 
     @Override
-    protected WebElement getComponent() {
+    public WebElement getComponent() {
         if (isNull(component) || isCacheDisable) {
             log.debug("Create {} with locator {}", getDescription(), getBy());
             component = shouldBe().clickable();

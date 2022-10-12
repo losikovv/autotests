@@ -30,7 +30,7 @@ public class Table extends AbstractComponent {
     }
 
     @Override
-    protected WebElement getComponent() {
+    public WebElement getComponent() {
         log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
         if (isNull(component) || isCacheDisable) {
             component = shouldBe().visible();

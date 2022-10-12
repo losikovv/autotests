@@ -28,7 +28,7 @@ public abstract class CollectionComponent extends AbstractComponent {
     }
 
     @Override
-    protected WebElement getComponent() {
+    public WebElement getComponent() {
         return null;
     }
 

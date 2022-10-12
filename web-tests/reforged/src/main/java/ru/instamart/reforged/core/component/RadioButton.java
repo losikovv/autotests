@@ -28,7 +28,7 @@ public class RadioButton extends AbstractComponent {
     }
 
     @Override
-    protected WebElement getComponent() {
+    public WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());
         if (isNull(component) || isCacheDisable) {
             component = shouldBe().clickable();

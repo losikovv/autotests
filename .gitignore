@@ -27,3 +27,7 @@ gradle-app.setting
 # Ignore swagger coverage temporary files
 **/.coverage/swagger-coverage-commandline-*/
 **/.coverage/commandline.zip
+
+# Ignore screen
+**/diff.png
+**/actual.png

@@ -63,15 +63,19 @@ public final class AdminPartnersMapTests {
 
     @CaseId(2171)
     @Test(description = "Открытие карты другого города", groups = {OD_SHOPPERS_MAP_REGRESS, OD_SHOPPERS_MAP_SMOKE, OD_SMOKE, OD_REGRESS})
-    public void openingAMapOfAnotherCity() {
+    public void openingMapOfAnotherCity() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         partnersMap().goToPage();
+        partnersMap().checkRequestsWasLoad();
         partnersMap().checkMapLoaded();
 
         partnersMap().addFilterCity("Новосибирск");
+        partnersMap().checkRequestsWasLoad();
         partnersMap().checkMapLoaded();
+
+        partnersMap().checkMapScreen();
     }
 
     @CaseId(2172)
@@ -102,6 +106,11 @@ public final class AdminPartnersMapTests {
 
         partnersMap().goToPage();
         partnersMap().checkMapLoaded();
+
+        partnersMap().addFilter("+79154381326");
+        partnersMap().clickOnApply();
+        partnersMap().checkPartnerBalloon();
+        partnersMap().checkPhoneInBalloon("+79154381326");
     }
 
     @CaseId(2175)

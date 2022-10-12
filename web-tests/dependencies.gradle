@@ -27,6 +27,7 @@ ext.versions = [
 
         selenium: '4.3.0',
         webdrivermanager: '5.2.0',
+        ashot: '1.5.4',
 
         commonsLang3:'3.12.0',
         poiOoxml: '5.2.0',
@@ -76,6 +77,7 @@ ext.lib = [
 
         seleniumJava: "org.seleniumhq.selenium:selenium-java:$versions.selenium",
         webdrivermanager: "io.github.bonigarcia:webdrivermanager:$versions.webdrivermanager",
+        ashot: "ru.yandex.qatools.ashot:ashot:$versions.ashot",
 
         commonsLang3: "org.apache.commons:commons-lang3:$versions.commonsLang3",
         poiOoxml:"org.apache.poi:poi-ooxml:$versions.poiOoxml",

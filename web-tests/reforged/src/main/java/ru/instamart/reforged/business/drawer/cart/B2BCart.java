@@ -32,6 +32,6 @@ public final class B2BCart implements B2BCartCheck {
 
     @Step("Получаем первый товар в корзине")
     public Item getFirstItem() {
-        return new Item(firstItem.getElement());
+        return new Item(firstItem.getComponent());
     }
 }

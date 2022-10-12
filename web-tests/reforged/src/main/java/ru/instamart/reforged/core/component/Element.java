@@ -30,7 +30,7 @@ public final class Element extends AbstractComponent {
     }
 
     @Override
-    protected WebElement getComponent() {
+    public WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());
         if (isNull(component) || isCacheDisable) {
             component = shouldBe().visible();
@@ -38,11 +38,7 @@ public final class Element extends AbstractComponent {
         return component;
     }
 
-    public WebElement getElement() {
-        return getComponent();
-    }
-
-    public synchronized WebElement getElement(final Object... args) {
+    public synchronized WebElement getComponent(final Object... args) {
         setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         return getComponent();
     }
