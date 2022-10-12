@@ -75,7 +75,7 @@ public class KafkaConfigs {
         return KafkaConfig.builder()
                 .topic("yc.operations.cdc.store-changed.06")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lMkECi+EDMxY8zgsSNyrupA="))
-                .password(Crypt.INSTANCE.decrypt("zO0To08iedzPSbbKUVyjqg=="))
+                .password(Crypt.INSTANCE.decrypt("bjueBoIINCB7R5RXDn/hsw=="))
                 .build();
     }
 
@@ -83,7 +83,7 @@ public class KafkaConfigs {
         return KafkaConfig.builder()
                 .topic("yc.shifts.cmd.planning_periods.0")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lMkECi+EDMxY8zgsSNyrupA="))
-                .password(Crypt.INSTANCE.decrypt("zO0To08iedzPSbbKUVyjqg=="))
+                .password(Crypt.INSTANCE.decrypt("bjueBoIINCB7R5RXDn/hsw=="))
                 .build();
     }
 
