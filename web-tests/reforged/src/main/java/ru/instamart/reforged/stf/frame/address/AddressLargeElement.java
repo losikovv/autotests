@@ -20,7 +20,7 @@ public interface AddressLargeElement {
 
     Button save = new Button(By.xpath("//button[contains(.,'Сохранить')]"), "Кнопка 'Сохранить'");
     Button findStores = new Button(By.xpath("//button[contains(.,'Найти магазины')]"), "Кнопка 'Найти магазины'");
-
+    Button takeFromHere = new Button(By.xpath("//button[.='Заберу отсюда']"),"Кнопка выбора предложенного магазина самовывоза 'Заберу отсюда'");
     Button asList = new Button(By.xpath("//button[.='Показать списком']"), "Кнопка 'Показать списком'");
     Element storesModal = new Element(By.xpath("//h3[contains(@class,'PickupStoresModal_header')]"),"Список магазинов");
     Element retailerByName = new Element(ByKraken.xpathExpression("//span[contains(@class,'RetailerItem_name')][contains(.,'%s')]"), "Ритейлер самовывоза по названию");

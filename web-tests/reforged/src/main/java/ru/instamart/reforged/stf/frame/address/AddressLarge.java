@@ -38,6 +38,11 @@ public final class AddressLarge implements Close, AddressLargeCheck {
         findStores.click();
     }
 
+    @Step("Нажимаем 'Заберу отсюда'")
+    public void clickTakeFromHere() {
+        takeFromHere.click();
+    }
+
     @Step("Нажимаем 'Показать списком'")
     public void clickShowAsList() {
         asList.click();
