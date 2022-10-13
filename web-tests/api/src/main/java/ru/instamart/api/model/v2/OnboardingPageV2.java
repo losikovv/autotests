@@ -19,6 +19,7 @@ public class OnboardingPageV2 extends BaseObject {
     @JsonProperty(value = "label_color")
     private String labelColor;
 
+    @Null
     @JsonSchema(required = true)
     private String title;
 
@@ -37,4 +38,20 @@ public class OnboardingPageV2 extends BaseObject {
 
     @JsonProperty(value = "app_version")
     private String appVersion;
+
+    @JsonProperty(value = "button_text")
+    private String buttonText;
+
+    @Null
+    @JsonProperty(value = "button_url")
+    private String buttonUrl;
+
+    @JsonProperty(value = "is_black")
+    private Boolean isBlack;
+
+    @JsonProperty(value = "for_new_user_only")
+    private Boolean forNewUserOnly;
+
+    @JsonProperty(value = "view_count")
+    private Integer viewCount;
 }
