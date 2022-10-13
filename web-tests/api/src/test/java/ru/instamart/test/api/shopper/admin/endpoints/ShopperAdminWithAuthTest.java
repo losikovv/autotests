@@ -361,7 +361,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     @Test(description = "Получение настроек ретейлера",
             groups = {"api-shopper-regress"})
     public void getOrderServiceSettings() {
-        String storeUuid = "6bc4dc40-37a0-45fe-ac7f-d4185c29da63";
+        String storeUuid = "599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a";
         final Response response = ShopperAdminRequest.OrderServiceSettings.GET(storeUuid);
         RouteOrderServiceSettings parameters = response.as(RouteOrderServiceSettings.class);
 

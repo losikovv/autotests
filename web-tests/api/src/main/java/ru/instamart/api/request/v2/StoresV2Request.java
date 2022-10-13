@@ -78,7 +78,7 @@ public final class StoresV2Request extends ApiV2RequestBase {
         @Step("{method} /" + ApiV2EndPoints.Stores.NEXT_DELIVERIES)
         public static Response GET(final int sid, Map<String, String> params){
             return givenWithAuth()
-                    .params(params)
+                    .queryParams(params)
                     .get(ApiV2EndPoints.Stores.NEXT_DELIVERIES, sid);
         }
     }
