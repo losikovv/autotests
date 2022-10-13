@@ -341,4 +341,39 @@ public final class MultiretailerSearchTests {
         home().interactMultisearchHeader().checkSearchResultsContains(searchText);
         home().interactMultisearchHeader().checkIfProductsListChanged(firstRetailerProductNames);
     }
+
+    @CaseId(3857)
+    @Test(description = "Переключение слага ритейлера при переходе на товары из блоков 'С этим товаром смотрят' и 'Похожие'", groups = {STF_PROD_S})
+    public void testAddProductToCartFromFromRecommendationsViaAnotherProductCard() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+
+        home().goToPage();
+        home().checkPageIsAvailable();
+        home().checkLoginButtonIsVisible();
+
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+        home().interactAuthModal().checkModalIsNotVisible();
+        home().interactMultisearchHeader().checkUserActionsButtonVisible();
+
+        home().interactMultisearchHeader().checkMultisearchInputVisible();
+        home().interactMultisearchHeader().fillMultisearch(searchText);
+        home().interactMultisearchHeader().clickStartSearch();
+
+        multiSearch().waitPageLoad();
+        multiSearch().checkProductsCardsVisible();
+        multiSearch().clickProductSnippetByPosition(1);
+
+        multiSearch().interactProductCard().checkProductCardVisible();
+        var recommendationBlockName = "С этим товаром смотрят";
+        multiSearch().interactProductCard().interactRetailRocket().checkRecommendationsBlockVisible(recommendationBlockName);
+        var productNameInRecommendation = multiSearch().interactProductCard().interactRetailRocket().getFirstItemTitleInBlockByName(recommendationBlockName);
+        multiSearch().interactProductCard().interactRetailRocket().openProductCardFirstItemInBlockByName(recommendationBlockName);
+
+        multiSearch().interactProductCard().checkProductCardVisible();
+        multiSearch().interactProductCard().checkProductTitle(productNameInRecommendation);
+        multiSearch().interactProductCard().interactRetailRocket().checkRecommendationsBlockVisible(recommendationBlockName);
+        multiSearch().interactProductCard().checkBuyButtonVisible();
+    }
 }
