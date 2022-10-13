@@ -15,7 +15,6 @@ import ru.instamart.api.request.v2.CitiesV2Request;
 import ru.instamart.api.response.v2.CitiesV2Response;
 import ru.instamart.jdbc.dao.stf.CitiesDao;
 import ru.instamart.jdbc.dao.stf.StoresDao;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -33,7 +32,7 @@ public class CitiesV2Test extends RestBase {
     @CaseId(2141)
     @Story("Получение городов")
     @Test(description = "Получаем города без параметров с 1 символом в запросе",
-            groups = {"api-instamart-regress", "api-instamart-smoke", "api-instamart-prod", "api-v2"})
+            groups = {"api-instamart-regress", "api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
     public void getCities400() {
         final Response response = CitiesV2Request.GET(CitiesV2Request.CitiesParams.builder()
                 .keyword("м")
@@ -45,7 +44,7 @@ public class CitiesV2Test extends RestBase {
     @CaseId(1407)
     @Story("Получение городов")
     @Test(description = "Получаем города без параметров",
-            groups = {"api-instamart-regress", "api-instamart-smoke", "api-instamart-prod", "api-v2"})
+            groups = {"api-instamart-regress", "api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
     public void getCities() {
         final Response response = CitiesV2Request.GET(new CitiesV2Request.CitiesParams());
         checkStatusCode200(response);
@@ -57,8 +56,7 @@ public class CitiesV2Test extends RestBase {
     @CaseId(1408)
     @Story("Получение городов")
     @Test(description = "Получаем города, где есть самовывоз",
-            groups = {"api-instamart-regress", "api-v2",
-                    "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-v2", "api-instamart-prod", "api-bff"})
     public void getCitiesWithPickup() {
         final Response response = CitiesV2Request.GET(CitiesV2Request.CitiesParams.builder()
                 .withPickup(1)
@@ -75,8 +73,7 @@ public class CitiesV2Test extends RestBase {
     @CaseId(1409)
     @Story("Получение городов")
     @Test(description = "Получаем все города",
-            groups = {"api-instamart-regress", "api-v2",
-                    "api-instamart-prod"},
+            groups = {"api-instamart-regress", "api-v2", "api-instamart-prod", "api-bff"},
             dependsOnMethods = "getCitiesWithPickup")
     public void getAllCities() {
         final Response response = CitiesV2Request.GET(CitiesV2Request.CitiesParams.builder()
@@ -93,7 +90,7 @@ public class CitiesV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(1410), @CaseId(1411), @CaseId(1412), @CaseId(1413)})
     @Story("Получение городов")
     @Test(description = "Получаем города по имени",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
             dataProvider = "citiesNameData",
             dataProviderClass = RestDataProvider.class)
     public void getAllCitiesByName(String keyword) {
@@ -109,7 +106,7 @@ public class CitiesV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(1414), @CaseId(1416)})
     @Story("Получение городов")
     @Test(description = "Получаем все города с невалидными параметрами",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
             dataProvider = "citiesInvalidParams",
             dataProviderClass = RestDataProvider.class)
     public void getAllCitiesWithInvalidParams(CitiesV2Request.CitiesParams params) {
@@ -122,7 +119,7 @@ public class CitiesV2Test extends RestBase {
     @CaseId(1415)
     @Story("Получение городов")
     @Test(description = "Получаем все города с определенной страницы",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"})
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"})
     public void getAllCitiesForPage() {
         final Response response = CitiesV2Request.GET(CitiesV2Request.CitiesParams.builder()
                 .page(2)

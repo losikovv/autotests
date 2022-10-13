@@ -61,7 +61,7 @@ variables:
   CI_GROUP:
     description: "Например: all-cart Возможные варианты: all-cart/all-order/api-instamart-smoke/api-instamart-regress"
   BFF_FORWARD:
-    value: "m"
+    value: "default"
     description: "Значение для хедера sbm-forward-feature-version-paas-content-front-platform-stf-mobile-aggregator"
 
 before_script:

@@ -90,7 +90,7 @@ task apiInstamartSmoke(type: Test) {
 task apiV2BFF(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/all.xml'
-        includeGroups 'api-v2'
+        includeGroups 'api-bff'
     }
     systemProperty 'qase.Project', 'INAPI'
     systemProperty 'qase.Title', 'BFF API v2'

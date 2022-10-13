@@ -22,7 +22,7 @@ public class FeatureFlagsV2Test extends RestBase {
 
     @CaseId(792)
     @Test(description = "Получение списка всех фича-флагов",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"})
+            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
     public void getFeatureFlags200() {
         final Response response = FeatureFlagsV2Request.GET();
         checkStatusCode200(response);
@@ -40,7 +40,7 @@ public class FeatureFlagsV2Test extends RestBase {
     }
 
     @CaseId(792)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
             description = "Получение несуществующего фича-флага")
     public void getFeatureFlagsItem404() {
         final Response response = FeatureFlagsV2Request.FeatureFlags.GET("failedName");

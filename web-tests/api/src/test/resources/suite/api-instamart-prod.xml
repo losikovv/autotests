@@ -130,6 +130,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.ReviewIssuesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.UserCompanyV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.UserWithoutCompanyV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.DeeplinksV2Test"/>
         </classes>
     </test>
     <!-- api-v3-tests -->
