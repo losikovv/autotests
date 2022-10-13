@@ -27,26 +27,27 @@ public class DeliveryAvailabilityV2Test extends RestBase {
     @Parameters({"lat", "lon"})
     @Test(dataProvider = "deliveryAvailabilityV2TestData",
             dataProviderClass = RestDataProvider.class,
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
             description = "Негативный тест без указания lan или lon, или обеих")
     public void testWithoutLatAndLon(String lat, String lon) {
         final Response response = DeliveryAvailabilityV2Request.GET(lat, lon);
         checkStatusCode200(response);
         final DeliveryAvailabilityV2Response deliveryAvailabilityV2Response = response.as(DeliveryAvailabilityV2Response.class);
         Allure.step("Проверка статуса доставки",
-                () -> assertFalse(deliveryAvailabilityV2Response.getDeliveryAvailability().isAvailable(), "Статус доставки вне зоны доставки available равен true"));
+                () -> assertFalse(deliveryAvailabilityV2Response.getDeliveryAvailability().isAvailable(),
+                        "Статус доставки вне зоны доставки available равен true"));
     }
 
     @CaseId(1477)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"}, description = "Указаны координаты")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"},
+            description = "Указаны координаты")
     public void testWithLatAndLon() {
         AddressV2 address = apiV2.getAddressBySid(EnvironmentProperties.DEFAULT_SID);
         final Response response = DeliveryAvailabilityV2Request.GET(address.getLat().toString(), address.getLon().toString());
         checkStatusCode200(response);
         final DeliveryAvailabilityV2Response deliveryAvailabilityV2Response = response.as(DeliveryAvailabilityV2Response.class);
         Allure.step("Проверка статуса доставки",
-                () -> assertTrue(deliveryAvailabilityV2Response.getDeliveryAvailability().isAvailable(), "Статус доставки в зоне доставки available равен false"));
+                () -> assertTrue(deliveryAvailabilityV2Response.getDeliveryAvailability().isAvailable(),
+                        "Статус доставки в зоне доставки available равен false"));
     }
-
-
 }

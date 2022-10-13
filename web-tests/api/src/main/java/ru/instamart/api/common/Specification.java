@@ -62,7 +62,7 @@ public enum Specification {
         final String shopperFullBaseUrl = EnvironmentProperties.SHOPPER_GW_URL;
         final String shopperFullAdminUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
         final String shopperStage = (EnvironmentProperties.STAGE).isBlank() ? "kraken" : EnvironmentProperties.STAGE;
-        final String bffForward = (System.getProperty("bff_forward")) == null ? "m" : System.getProperty("bff_forward");
+        final String bffForward = (System.getProperty("bff_forward")) == null ? "default" : System.getProperty("bff_forward");
         final String etaStage = "https://" + EnvironmentProperties.Env.ETA_NAMESPACE + ".gw-stage.sbmt.io";
 
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
