@@ -86,10 +86,11 @@ public class WorkflowTest extends RestBase {
     @Test(description = "Создание маршрутных листов с одинаковым ARRIVE сегментом",
             groups = "dispatch-workflow-smoke")
     public void createWorkflowWithSameArriveSegment() {
-        var firstRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, "");
+//        var firstRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, "");
+        var firstRequest =  getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT);
         var firstResponse = clientWorkflow.createWorkflows(firstRequest);
         compareTwoObjects(firstResponse.getResultsMap().get(firstResponse.getResultsMap().keySet().toArray()[0].toString()).toString(), "");
-        var secondRequest = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT);
+        var secondRequest = getWorkflowsRequest(secondOrder, secondShipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT);
         var secondResponse = clientWorkflow.createWorkflows(secondRequest);
         compareTwoObjects(secondResponse.getResultsMap().get(secondResponse.getResultsMap().keySet().toArray()[0].toString()).toString(), "");
 
@@ -116,7 +117,7 @@ public class WorkflowTest extends RestBase {
                         .build())
                 .setShipment(OrderPricing.Shipment.newBuilder()
                         .setStoreInfo(OrderPricing.Store.newBuilder()
-                                .setStoreUuid("6bc4dc40-37a0-45fe-ac7f-d4185c29da63")
+                                .setStoreUuid("599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a")
                                 .setStoreLocation(OrderPricing.Location.newBuilder()
                                         .setLat(54.92525f)
                                         .setLon(73.481058f)
@@ -228,8 +229,8 @@ public class WorkflowTest extends RestBase {
                 .sorted(Comparator.comparing(SegmentsEntity::getType)).collect(Collectors.toList());
 
         final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(segments.get(0).getStoreName(), "METRO, Дорожная", softAssert);
-        compareTwoObjects(segments.get(0).getStoreAddress(), "Москва, Дорожная,  д. 1, корп. 1", softAssert);
+        compareTwoObjects(segments.get(0).getStoreName(), "METRO, Дмитровское ш", softAssert);
+        compareTwoObjects(segments.get(0).getStoreAddress(), "Москва, Дмитровское ш, 165Б", softAssert);
         compareTwoObjects(segments.get(1).getStoreName(), "METRO, Дмитровское ш", softAssert);
         compareTwoObjects(segments.get(1).getStoreAddress(), "Москва, Дмитровское ш, 165Б", softAssert);
         compareTwoObjects(segments.get(2).getStoreName(), "METRO, просп. Мира", softAssert);

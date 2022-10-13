@@ -16,6 +16,7 @@ import ru.instamart.jdbc.entity.candidates.CandidatesEntity;
 import ru.instamart.k8s.K8sPortForward;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 import workflow.ServiceGrpc;
 
@@ -53,6 +54,7 @@ public class WorkflowCandidatesTest extends RestBase {
             groups = "dispatch-workflow-smoke")
     public void checkUnavailableCandidate() {
         workflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(300000), clientWorkflow);
+        ThreadUtil.simplyAwait(5);
         CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Shopper3().getUuid());
         compareTwoObjects(candidate.getActive(), false);
     }

@@ -165,7 +165,7 @@ public final class UserManager {
                     log.debug("User shopper local login");
                     stf6Shopper2 = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("C4fgAi97cuuXHMKobHn9Yw=="))
-                            .phone(Crypt.INSTANCE.decrypt("cIo8g9LlgqN+TCDGKZ4PTw=="))
+                            .phone(Crypt.INSTANCE.decrypt("cIo8g9LlgqN+TCDGKZ4PTw=="))//68
                             .uuid("175954c2-c5df-4474-89dd-4a9ea5c081ad")
                             .build();
                     break;

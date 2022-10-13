@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package order_redispatch;
 option go_package = "gitlab.sbmt.io/paas/content/operations/order-service/pkg/server/grpc/order_redispatch";
-
 import "google/protobuf/timestamp.proto";
 
 
@@ -29,9 +28,9 @@ message RedispatchReply {
 }
 
 message RedispatchRequest {
-    string shipment_uuid = 1;
-    google.protobuf.Timestamp upper_dtm = 2;
-    google.protobuf.Timestamp lower_dtm = 3;
-    string place_uuid = 4;
-    google.protobuf.Timestamp time = 5;
+  string shipment_uuid = 1;
+  google.protobuf.Timestamp upper_dtm = 2;
+  google.protobuf.Timestamp lower_dtm = 3;
+  string place_uuid = 4;
+  google.protobuf.Timestamp time = 5;
 }

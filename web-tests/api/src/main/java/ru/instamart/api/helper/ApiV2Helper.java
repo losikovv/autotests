@@ -545,7 +545,7 @@ public final class ApiV2Helper {
         List<ShippingRateV2> shippingRates = getShippingRates(availableDays.get(0));
 
         List<ShippingRateV2> shippingRatesOnDemand = shippingRates.stream()
-                .filter(item -> item.getIsExpressDelivery())
+                .filter(item -> item.getDeliveryWindow().getKind().equals("on_demand"))
                 .collect(Collectors.toList());
         assertFalse(shippingRatesOnDemand.isEmpty(),
                 "Нет слотов быстрой доставки в магазине admin/stores/" + currentSid.get());
@@ -1264,6 +1264,10 @@ public final class ApiV2Helper {
         return setDefaultAttributesAndCompleteOrder("test", "Картой курьеру");
     }
 
+    public OrderV2 setDefaultAttributesAndCompleteOrderOnDemand() {
+        return setDefaultAttributesAndCompleteOrderOnDemand("test", "Картой курьеру");
+    }
+
     public OrderV2 setDefaultAttributesAndCompleteOrder(String paymentName) {
         return setDefaultAttributesAndCompleteOrder("test", paymentName);
     }
@@ -1280,6 +1284,17 @@ public final class ApiV2Helper {
         return completeOrder();
     }
 
+    /**
+     * Применяем атрибуты заказа (способ оплаты и слот) и завершаем его
+     */
+    public OrderV2 setDefaultAttributesAndCompleteOrderOnDemand(String comment, String paymentName) {
+        getAvailablePaymentTool(paymentName);
+        getAvailableShippingMethod();
+        getAvailableDeliveryWindowOnDemand();
+
+        setDefaultOrderAttributes(comment);
+        return completeOrder();
+    }
     /**
      * Поменять адрес у юзера
      */
@@ -1389,6 +1404,15 @@ public final class ApiV2Helper {
     public OrderV2 order(UserData user, int sid) {
         dropAndFillCart(user, sid);
         return setDefaultAttributesAndCompleteOrder();
+    }
+
+    /**
+     * Оформить тестовый заказ у юзера в определенном магазине
+     */
+    @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid}")
+    public OrderV2 orderOnDemand(UserData user, int sid) {
+        dropAndFillCart(user, sid);
+        return setDefaultAttributesAndCompleteOrderOnDemand();
     }
 
     /**
@@ -1548,8 +1572,10 @@ public final class ApiV2Helper {
         Map<String, String> params = new HashMap<>();
         params.put("cargo", "false");
         params.put("shipping_method", "by_courier");
-        params.put("lat", address.getLat().toString());
-        params.put("lon", address.getLon().toString());
+        if(Objects.nonNull(address)) {
+            params.put("lat", address.getLat().toString());
+            params.put("lon", address.getLon().toString());
+        }
 
         final Response response = StoresV2Request.NextDeliveries.GET(sid, params);
         checkStatusCode200(response);

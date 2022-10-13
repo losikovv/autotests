@@ -163,7 +163,6 @@ public class CreateShiftsTest extends RestBase {
                 )
                 .build();
         final Response response = ShiftsRequest.POST(postShift);
-        response.prettyPeek();
         checkStatusCode422(response);
         ErrorTypeResponse errorTypeResponse = response.as(ErrorTypeResponse.class);
         Allure.step("Поверка сообщения об ошибке", () -> {
