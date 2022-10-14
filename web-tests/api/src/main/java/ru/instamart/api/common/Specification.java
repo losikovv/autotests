@@ -127,6 +127,7 @@ public enum Specification {
 
         if (EnvironmentProperties.STAGE.equals("m")) {
             apiV2RequestSpec.header("sbm-forward-feature-version-paas-content-front-platform-stf-mobile-aggregator", bffForward);
+            apiV2RequestSpec.header("sbm-forward-feature-version-stf", "s-sb-stf0-sbermarket");
         }
 
         prodRequestSpec = new RequestSpecBuilder()
