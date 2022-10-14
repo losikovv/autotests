@@ -78,9 +78,7 @@ public final class CheckoutContactsStepTests {
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipments().checkPageContains(userShipments().pageUrl());
-        userShipments().clickToDetails();
         userShipments().checkUserPhoneCorrect(userData.getPhone());
-        userShipments().checkUserEmailCorrect(userData.getEmail());
         userShipments().assertAll();
     }
 }

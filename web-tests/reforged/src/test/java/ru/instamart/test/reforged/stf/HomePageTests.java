@@ -114,7 +114,8 @@ public final class HomePageTests {
         String expectedDeliveryBlockTitle = String.format("Нашли %d магазинов в", home().getRetailersCountInBlock());
         home().checkDeliveryBlockTitle(home().getRetailersBlockTitle(), expectedDeliveryBlockTitle);
 
-        home().clickShowAllCities();
+        //Кнопка 'Показать все' города отображается только если городов > 18, на стейджах её нет, так как городов в списке, как правило, меньше
+        //home().clickShowAllCities();
         home().selectCity("Санкт-Петербург");
         expectedDeliveryBlockTitle = String.format("Нашли %d магазин в", home().getRetailersCountInBlock());
         home().checkDeliveryBlockTitle(home().getRetailersBlockTitle(), expectedDeliveryBlockTitle);
