@@ -141,8 +141,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(BY_CARD_ONLINE.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -203,8 +201,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(BY_CARD_UPON_RECEIPT.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -288,8 +284,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(BY_CARD_ONLINE.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -368,8 +362,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(SBERSPASIBO_BONUSES.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -432,8 +424,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(BY_CASH.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -502,8 +492,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(BY_CARD_ONLINE.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -558,8 +546,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(BY_CARD_AT_CHECKOUT.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -642,8 +628,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(BY_CARD_ONLINE.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -721,8 +705,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(SBERSPASIBO_BONUSES.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -784,8 +766,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(BY_CASH.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -874,8 +854,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(BY_CARD_ONLINE.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -956,8 +934,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(BY_CASH.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -1037,8 +1013,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(BY_CARD_AT_CHECKOUT.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -1114,8 +1088,6 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkPaymentMethodEquals(BY_CARD_AT_CHECKOUT.getName());
-        userShipment().checkProductsCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }

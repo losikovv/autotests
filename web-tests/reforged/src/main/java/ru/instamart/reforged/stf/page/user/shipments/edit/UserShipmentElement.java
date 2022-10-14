@@ -19,8 +19,8 @@ public interface UserShipmentElement {
     Button changeDeliverySlot = new Button(By.xpath("//div[contains(@class,'ChangeDeliverySlotButton')]/button"), "Кнопка 'Изменить' (слот доставки)");
     Element shipmentState = new Element(By.xpath("//div[contains(@class,'NewShipmentState_stateListItemActive')]/div"), "Статус заказа");
 
-    Element shipmentNumber = new Element(By.xpath("//div[@data-qa='user-shipment-summary']//span[contains(@class,'textSecondary')][.='Номер заказа']/following-sibling::span"), "Номер заказа");
-    Element shippingAddress = new Element(By.xpath("//span[@data-qa='user-shipment-address']"), "Адрес доставки");
+    Element shipmentNumber = new Element(By.xpath("//div[@data-qa='user-shipment-summary']//span[contains(@class,'_shipmentNumber')]"), "Номер заказа");
+    Element shippingAddress = new Element(By.xpath("//span[contains(.,'Адрес ')]/../following-sibling::div"), "Адрес доставки/самовывоза");
     Element orderDetailsTrigger = new Element(By.xpath("//div[@data-qa='user-shipment-summary-trigger']"), "Кнопка разворачивания деталей заказа");
     Element userPhone = new Element(By.xpath("//span[@data-qa='user-shipment-phone']"), "Лейбл телефона пользователя");
     Element userEmail = new Element(By.xpath("//span[@data-qa='user-shipment-email']"), "Лейбл емейла пользователя");
