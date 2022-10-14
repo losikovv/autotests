@@ -22,7 +22,7 @@ import static ru.instamart.api.enums.v2.ReplacementPolicyV2.*;
 public class ReplacementPoliciesV2Test extends RestBase {
 
     @CaseId(811)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"},
             description = "Получить список способов замены")
     public void getListReplacementMethods() {
         final Response response = ReplacementPoliciesV2Request.GET();

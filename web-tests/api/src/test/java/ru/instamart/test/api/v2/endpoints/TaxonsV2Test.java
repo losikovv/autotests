@@ -29,7 +29,7 @@ public final class TaxonsV2Test extends RestBase {
     private int taxonId;
 
     @CaseId(249)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
             description = "Получаем таксоны (подкатегории)")
     public void getTaxons() {
         final Response response = TaxonsV2Request.GET(EnvironmentProperties.DEFAULT_SID);
@@ -41,7 +41,7 @@ public final class TaxonsV2Test extends RestBase {
     }
 
     @CaseId(249)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
             dependsOnMethods = "getTaxons",
             description = "Получаем таксон (подкатегорию)")
     public void getTaxon() {
