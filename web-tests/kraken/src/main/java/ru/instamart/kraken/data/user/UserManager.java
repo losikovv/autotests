@@ -44,6 +44,7 @@ public final class UserManager {
     private static UserData stf6Shopper2;
     private static UserData stf6Shopper3;
     private static UserData stf6Shopper4;
+    private static UserData stf6ShpUniversalUi;
     private static UserData defaultGmailUser;
     private static UserData defaultVkUser;
     private static UserData defaultFbUser;
@@ -261,6 +262,17 @@ public final class UserManager {
                     .build();
         }
         return krakenUniversal3;
+    }
+
+    public static UserData getShpUniversalUi() {
+        if (isNull(stf6ShpUniversalUi)) {
+            stf6ShpUniversalUi = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("a18VSkZ1DTV1VnZ0qKsQvA=="))
+                    .phone(Crypt.INSTANCE.decrypt("tz16+10cVh+Q2ZNgaiEqrg=="))
+                    .uuid("8a0d22e5-0a3b-43f9-8eed-11c399c7641c")
+                    .build();
+        }
+        return stf6ShpUniversalUi;
     }
 
     public static UserData getActiveDirectoryUser() {
