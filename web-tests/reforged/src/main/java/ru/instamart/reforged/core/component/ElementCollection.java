@@ -43,6 +43,13 @@ public final class ElementCollection extends CollectionComponent {
         return components;
     }
 
+    public String getFirstElementText(final String args) {
+        setBy(ByKraken.xpathExpression(((ByKraken)getBy()).getDefaultXpathExpression(), args));
+        log.debug("Get text first {} with locator {}", getDescription(), getBy());
+        final var webElement = getComponents().stream().findFirst().orElseThrow();
+        return webElement.getText();
+    }
+
     public void clickOnFirst() {
         log.debug("Click first {} with locator {}", getDescription(), getBy());
         final var webElement = getComponents().stream().findFirst().orElseThrow();

@@ -7,6 +7,11 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface RetailRocketCheck extends Check, RetailRocketElement {
 
+    @Step("Проверяем, что блок рекомендаций '{blockName}' отображается")
+    default void checkRecommendationsBlockVisible(final String blockName) {
+        waitAction().shouldBeVisible(recommendationCarouselByName, blockName);
+    }
+
     @Step("Наличие блока 'Популярные товары'")
     default void checkBlockPopular() {
         waitAction().shouldBeVisible(carouselPopular);
