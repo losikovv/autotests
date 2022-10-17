@@ -93,7 +93,7 @@ public final class UserFavoritesTests {
     public void successShowMoreLoad() {
         final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
-        apiHelper.addFavorites(userData, DEFAULT_SID, 24);
+        apiHelper.addFavorites(userData, DEFAULT_SID, 35);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
