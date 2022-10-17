@@ -215,6 +215,9 @@ public final class AdministrationPromocodesTests {
         sendPromoPage().openCompensationValueList();
         sendPromoPage().setCompensationValue("800");
 
+        var comment = "Промокод на скидку";
+        sendPromoPage().fillComment(comment);
+
         sendPromoPage().clickOnSendPromo();
 
         sendPromoPage().interactConfirmModal().checkModalVisible();
