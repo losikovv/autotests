@@ -69,6 +69,11 @@ public interface ProductCardCheck extends Check, ProductCardElement {
         Kraken.waitAction().shouldBeVisible(itemName);
     }
 
+    @Step("Проверяем, что название товара соответствует ожидаемому: {expectedProductTitle}")
+    default void checkProductTitle(final String expectedProductTitle) {
+        Assert.assertEquals(itemName.getText(), expectedProductTitle, "Название продукта не соответствует ожидаемому");
+    }
+
     @Step("Проверяем, что размер упаковки товара отображается")
     default void checkPackageSizeDisplayed() {
         Kraken.waitAction().shouldBeVisible(packageSize);

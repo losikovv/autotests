@@ -11,6 +11,7 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
@@ -41,7 +42,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(535)
     @Story("Страница ретейлеров")
-    @Test(description = "На страницу выводится весь список ретейлеров с информацией об их доступности и датах их создания", groups = "regression")
+    @Test(description = "На страницу выводится весь список ретейлеров с информацией об их доступности и датах их создания", groups = REGRESSION_ADMIN)
     public void successViewRetailerPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -56,7 +57,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(184)
     @Story("Страница ретейлеров")
-    @Test(description = "Корректное отображение страницы загрузки зон", groups = "regression")
+    @Test(description = "Корректное отображение страницы загрузки зон", groups = REGRESSION_ADMIN)
     public void successViewRetailerZones() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -89,7 +90,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(536)
     @Story("Страница ретейлеров")
-    @Test(description = "Cортировка городов по кол-ву магазинов в каждом и по алфавиту", groups = "regression")
+    @Test(description = "Cортировка городов по кол-ву магазинов в каждом и по алфавиту", groups = REGRESSION_ADMIN)
     public void storesQuantityAndAlphabetSortCities() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -105,7 +106,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(537)
     @Story("Страница ретейлеров")
-    @Test(description = "Cортировка городов по дате создания", groups = "regression")
+    @Test(description = "Cортировка городов по дате создания", groups = REGRESSION_ADMIN)
     public void storesCreateDateSortCities() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -120,7 +121,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(558)
     @Story("Страница ретейлеров")
-    @Test(description = "При клике на адрес магазина происходит переход на его страницу", groups = "regression")
+    @Test(description = "При клике на адрес магазина происходит переход на его страницу", groups = REGRESSION_ADMIN)
     public void successTransitOnStorePageViaClickOnAddress() {
         String address;
 
@@ -141,7 +142,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(532)
     @Story("Страница ретейлеров")
-    @Test(description = "Поиск ретейлера", groups = "regression")
+    @Test(description = "Поиск ретейлера", groups = REGRESSION_ADMIN)
     public void retailerSearch() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -165,7 +166,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(533)
     @Story("Страница ретейлеров")
-    @Test(description = "Сортировка по названию", groups = "regression")
+    @Test(description = "Сортировка по названию", groups = REGRESSION_ADMIN)
     public void retailerSortViaName() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -191,7 +192,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(557)
     @Story("Страница ретейлеров")
-    @Test(description = "Сортировка по дате создания", groups = "regression")
+    @Test(description = "Сортировка по дате создания", groups = REGRESSION_ADMIN)
     public void retailerSortViaDate() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -217,7 +218,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(534)
     @Story("Страница ретейлеров")
-    @Test(description = "Сохранение и воспроизведение фильтров и сортировок в URL", groups = "regression")
+    @Test(description = "Сохранение и воспроизведение фильтров и сортировок в URL", groups = REGRESSION_ADMIN)
     public void saveSortViaUrl() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -249,7 +250,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(538)
     @Story("Страница ретейлеров")
-    @Test(description = "Кнопка 'Добавить ритейлера' ведёт на страницу создания нового ритейлера", groups = "regression")
+    @Test(description = "Кнопка 'Добавить ритейлера' ведёт на страницу создания нового ритейлера", groups = REGRESSION_ADMIN)
     public void successTransitToRetailerCreatePage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -265,7 +266,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(539)
     @Story("Страница ретейлеров")
-    @Test(description = "Кнопка 'Добавить магазин' ведёт на страницу создания нового магазина ритейлера", groups = "regression")
+    @Test(description = "Кнопка 'Добавить магазин' ведёт на страницу создания нового магазина ритейлера", groups = REGRESSION_ADMIN)
     public void successTransitToRetailerStoreCreatePage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -281,7 +282,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(580)
     @Story("Страница ретейлеров")
-    @Test(description = "Фильтрация ритейлеров по доступности", groups = "regression")
+    @Test(description = "Фильтрация ритейлеров по доступности", groups = REGRESSION_ADMIN)
     public void retailerFilterViaAvailability() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -315,7 +316,7 @@ public final class AdministrationRetailerTests {
 
     @CaseId(581)
     @Story("Страница ретейлеров")
-    @Test(description = "Фильтрация ритейлеров и магазинов по региону", groups = "regression")
+    @Test(description = "Фильтрация ритейлеров и магазинов по региону", groups = REGRESSION_ADMIN)
     public void retailerFilterViaRegion() {
         String cityName = "Москва";
 

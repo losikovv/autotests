@@ -1,7 +1,8 @@
 package ru.instamart.test.api.on_demand.surgelevel;
 
 import io.qameta.allure.*;
-import order_enrichment.OrderEnrichment.EventOrderEnrichment;
+import order.OrderChanged.EventOrderChanged.OrderStatus;
+import order.OrderChanged.EventOrderChanged.ShipmentType;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -21,7 +22,7 @@ import java.util.UUID;
 
 import static events.CandidateChangesOuterClass.*;
 import static norns.Norns.*;
-import static order_enrichment.OrderEnrichment.EventOrderEnrichment.*;
+import static order.OrderChanged.*;
 import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
@@ -95,8 +96,8 @@ public class KafkaTest extends RestBase {
             groups = "ondemand-surgelevel-smoke",
             priority = -1)
     public void surgeProduceEventOrderActive() {
-        EventOrderEnrichment eventOrder = getEventOrderEnrichment(FIRST_DELIVERY_AREA_ID, ORDER_UUID, STORE_ID, ShipmentStatus.NEW, "ON_DEMAND", SHIPMENT_UUID);
-        kafka.publish(configCmdOrderEnrichment(), eventOrder);
+        EventOrderChanged eventOrder = getEventOrderStatus(ORDER_UUID, STORE_ID, OrderStatus.NEW, ShipmentType.ON_DEMAND, SHIPMENT_UUID);
+        kafka.publish(configOrderStatusChanged(), eventOrder);
 
         ThreadUtil.simplyAwait(surgeEventOutdate);
 
@@ -116,8 +117,8 @@ public class KafkaTest extends RestBase {
             groups = "ondemand-surgelevel-regress",
             dependsOnMethods = "surgeProduceEventOrderRepeatActive")
     public void surgeProduceEventOrderNoLongerActive() {
-        EventOrderEnrichment eventOrder = getEventOrderEnrichment(FIRST_DELIVERY_AREA_ID, ORDER_UUID, STORE_ID, ShipmentStatus.CANCELED, "ON_DEMAND", SHIPMENT_UUID);
-        kafka.publish(configCmdOrderEnrichment(), eventOrder);
+        EventOrderChanged eventOrder = getEventOrderStatus(ORDER_UUID, STORE_ID, OrderStatus.SHIPPING, ShipmentType.ON_DEMAND, SHIPMENT_UUID);
+        kafka.publish(configOrderStatusChanged(), eventOrder);
 
         ThreadUtil.simplyAwait(surgeEventOutdate);
 
@@ -126,7 +127,6 @@ public class KafkaTest extends RestBase {
 
         pastSurgeLevel = currentSurgeLevel;
         currentSurgeLevel--;
-        currentDemandAmount--;
 
         checkSurgeLevelProduce(surgeLevels, surgeEventsAmount, STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount);
     }
@@ -137,8 +137,8 @@ public class KafkaTest extends RestBase {
             groups = "ondemand-surgelevel-regress",
             dependsOnMethods = "surgeProduceEventOrderActive")
     public void surgeProduceEventOrderRepeatActive() {
-        EventOrderEnrichment eventOrder = getEventOrderEnrichment(FIRST_DELIVERY_AREA_ID, ORDER_UUID, STORE_ID, ShipmentStatus.AUTOMATIC_ROUTING, "ON_DEMAND", SHIPMENT_UUID);
-        kafka.publish(configCmdOrderEnrichment(), eventOrder);
+        EventOrderChanged eventOrder = getEventOrderStatus(ORDER_UUID, STORE_ID, OrderStatus.ROUTING, ShipmentType.ON_DEMAND, SHIPMENT_UUID);
+        kafka.publish(configOrderStatusChanged(), eventOrder);
 
         ThreadUtil.simplyAwait(5);
 
@@ -150,10 +150,12 @@ public class KafkaTest extends RestBase {
     @Test(description = "Отсутствие расчета surgelevel при получении события EventOrder с новым ON_DEMAND заказом в не активном статусе",
             groups = "ondemand-surgelevel-regress")
     public void surgeProduceEventOrderNotActive() {
-        EventOrderEnrichment eventOrder = getEventOrderEnrichment(FIRST_DELIVERY_AREA_ID, UUID.randomUUID().toString(), STORE_ID, ShipmentStatus.CANCELED, "ON_DEMAND", UUID.randomUUID().toString());
-        kafka.publish(configCmdOrderEnrichment(), eventOrder);
+        EventOrderChanged eventOrder = getEventOrderStatus(UUID.randomUUID().toString(), STORE_ID, OrderStatus.SHIPPING, ShipmentType.ON_DEMAND, UUID.randomUUID().toString());
+        kafka.publish(configOrderStatusChanged(), eventOrder);
 
         ThreadUtil.simplyAwait(5);
+
+        currentDemandAmount++;
 
         Allure.step("Проверка отсутствия изменения surgelevel и/или добавления demand/supply", () -> compareTwoObjects(currentSurgeLevel, ResultDao.INSTANCE.findResult(STORE_ID).getSurgeLevel().floatValue()));
     }
@@ -165,8 +167,8 @@ public class KafkaTest extends RestBase {
     public void surgeProduceEventOrderNotOnDemand() {
         String shipmentUuid = UUID.randomUUID().toString();
 
-        EventOrderEnrichment eventOrder = getEventOrderEnrichment(FIRST_DELIVERY_AREA_ID, UUID.randomUUID().toString(), STORE_ID, ShipmentStatus.NEW, "PLANNED", shipmentUuid);
-        kafka.publish(configCmdOrderEnrichment(), eventOrder);
+        EventOrderChanged eventOrder = getEventOrderStatus(UUID.randomUUID().toString(), STORE_ID, OrderStatus.NEW, ShipmentType.PLANNED, shipmentUuid);
+        kafka.publish(configOrderStatusChanged(), eventOrder);
 
         ThreadUtil.simplyAwait(5);
 
@@ -182,8 +184,8 @@ public class KafkaTest extends RestBase {
             groups = "ondemand-surgelevel-smoke")
     public void surgeProduceEventOrderMultipleStores() {
         String shipmentUUid = UUID.randomUUID().toString();
-        EventOrderEnrichment eventOrder = getEventOrderEnrichment(SECOND_DELIVERY_AREA_ID, UUID.randomUUID().toString(), FIRST_STORE_ID, ShipmentStatus.NEW, "ON_DEMAND", shipmentUUid);
-        kafka.publish(configCmdOrderEnrichment(), eventOrder);
+        EventOrderChanged eventOrder = getEventOrderStatus(UUID.randomUUID().toString(), FIRST_STORE_ID, OrderStatus.NEW, ShipmentType.ON_DEMAND, shipmentUUid);
+        kafka.publish(configOrderStatusChanged(), eventOrder);
 
         ThreadUtil.simplyAwait(surgeEventOutdate);
 
@@ -218,8 +220,8 @@ public class KafkaTest extends RestBase {
             dependsOnMethods = "surgeProduceEventOrderMultipleStores")
     public void surgeProduceEventOrderGreaterStoreRadius() {
         String shipmentUUid = UUID.randomUUID().toString();
-        EventOrderEnrichment eventOrder = getEventOrderEnrichment(SECOND_DELIVERY_AREA_ID, UUID.randomUUID().toString(), SECOND_STORE_ID, ShipmentStatus.NEW, "ON_DEMAND", shipmentUUid);
-        kafka.publish(configCmdOrderEnrichment(), eventOrder);
+        EventOrderChanged eventOrder = getEventOrderStatus(UUID.randomUUID().toString(), SECOND_STORE_ID, OrderStatus.NEW, ShipmentType.ON_DEMAND, shipmentUUid);
+        kafka.publish(configOrderStatusChanged(), eventOrder);
 
         ThreadUtil.simplyAwait(surgeEventOutdate);
 

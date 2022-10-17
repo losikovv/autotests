@@ -64,10 +64,8 @@ public final class OrdersReplacementsTests {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        userShipments().checkPageContains(userShipments().pageUrl());
+        userShipment().checkPageContains(userShipments().pageUrl());
 
         userShipments().checkStatusShipmentReady();
-        userShipments().clickToDetails();
-        userShipments().checkReplacementMethod(replacementPolicy);
     }
 }

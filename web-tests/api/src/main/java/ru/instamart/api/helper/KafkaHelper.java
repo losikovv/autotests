@@ -134,7 +134,7 @@ public class KafkaHelper {
     @Step("Получаем данные кафки о surgelevel по магазину: {storeId}")
     public List<Surgelevelevent.SurgeEvent> waitDataInKafkaTopicSurgeLevel(String storeId) {
         var kafkaConsumers = new KafkaConsumers(configSurgeLevel(), 10L);
-        List<Surgelevelevent.SurgeEvent> longSurgeLevelsHashMap = kafkaConsumers.consumeSurgeLevel(storeId);
+        final List<Surgelevelevent.SurgeEvent> longSurgeLevelsHashMap = kafkaConsumers.consumeSurgeLevel(storeId);
         assertTrue(longSurgeLevelsHashMap.size() > 0, "Logs is empty");
         return longSurgeLevelsHashMap;
     }

@@ -16,6 +16,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
@@ -65,7 +66,7 @@ public final class AdministrationShippingSettingsTests {
     }
 
     @CaseId(527)
-    @Test(description = "При клике на 'Калькулятор цены' отображается выпадающий список с типами", groups = "regression")
+    @Test(description = "При клике на 'Калькулятор цены' отображается выпадающий список с типами", groups = REGRESSION_ADMIN)
     public void testPriceCalculator() {
         helper.createMarketingRule(shippingMethod.getId());
 
@@ -77,7 +78,7 @@ public final class AdministrationShippingSettingsTests {
     }
 
     @CaseId(528)
-    @Test(description = "Выбор калькулятора 'Фиксированная цена'", groups = "regression")
+    @Test(description = "Выбор калькулятора 'Фиксированная цена'", groups = REGRESSION_ADMIN)
     public void testSelectFixPriceCalculator() {
         helper.createNominalRule(shippingMethod.getId());
 
@@ -92,13 +93,13 @@ public final class AdministrationShippingSettingsTests {
 
     @Skip
     @CaseId(529)
-    @Test(description = "Валидация полей калькулятора 'Фиксированная цена'", groups = "regression")
+    @Test(description = "Валидация полей калькулятора 'Фиксированная цена'", groups = REGRESSION_ADMIN)
     public void testValidateFixPriceCalculator() {
         //Одно и тоже с 528
     }
 
     @CaseId(530)
-    @Test(description = "Выбор калькулятора 'Цена с учётом сложности'", groups = "regression")
+    @Test(description = "Выбор калькулятора 'Цена с учётом сложности'", groups = REGRESSION_ADMIN)
     public void testSelectCalculatorPriceWithDifficulty() {
         final var marketingPricer = helper.createMarketingRule(shippingMethod.getId());
         helper.createPricerRules(marketingPricer.getId(), firstOrderRule);
@@ -124,7 +125,7 @@ public final class AdministrationShippingSettingsTests {
 
     @Skip
     @CaseId(530)
-    @Test(description = "Валидация полей калькулятора 'Цена с учётом сложности'", groups = "regression")
+    @Test(description = "Валидация полей калькулятора 'Цена с учётом сложности'", groups = REGRESSION_ADMIN)
     public void testValidatePriceWithDifficulty() {
         //Одно и тоже с 529
     }
@@ -132,7 +133,7 @@ public final class AdministrationShippingSettingsTests {
     //TODO: Сейчас это создает кучу данных в базе, удалять пока что не представляется возможным.
     @CaseId(511)
     @Skip
-    @Test(description = "Создать новый способ доставки", groups = "regression")
+    @Test(description = "Создать новый способ доставки", groups = REGRESSION_ADMIN)
     public void testCreateNewDelivery() {
         shippingMethod().goToPage();
         shippingMethod().addNewDelivery();
@@ -146,7 +147,7 @@ public final class AdministrationShippingSettingsTests {
 
     @Skip
     @CaseId(525)
-    @Test(description = "Редактировать способ доставки", groups = "regression")
+    @Test(description = "Редактировать способ доставки", groups = REGRESSION_ADMIN)
     public void testEditDeliveryMethod() {
         //Одно и тоже с 528, 530
     }
@@ -154,7 +155,7 @@ public final class AdministrationShippingSettingsTests {
     //Нельзя добавить только маркетинговое правило
     @CaseId(512)
     @Skip
-    @Test(description = "Добавить правило маркетинговой стоимости доставки", groups = "regression")
+    @Test(description = "Добавить правило маркетинговой стоимости доставки", groups = REGRESSION_ADMIN)
     public void testAddMarketingRule() {
         shippingMethod().goToPage();
         shippingMethod().clickToEditShipmentMethod("Autotest");
@@ -172,7 +173,7 @@ public final class AdministrationShippingSettingsTests {
     //Нельзя добавить только номинальное правило
     @CaseId(513)
     @Skip
-    @Test(description = "Добавить правило номинальной стоимости доставки", groups = "regression")
+    @Test(description = "Добавить правило номинальной стоимости доставки", groups = REGRESSION_ADMIN)
     public void testAddNominalRule() {
         shippingMethod().goToPage();
         shippingMethod().clickToEditShipmentMethod("Autotest");
@@ -188,7 +189,7 @@ public final class AdministrationShippingSettingsTests {
     }
 
     @CaseId(522)
-    @Test(description = "Удалить правило маркетинговой стоимости доставки", groups = "regression")
+    @Test(description = "Удалить правило маркетинговой стоимости доставки", groups = REGRESSION_ADMIN)
     public void testRemoveMarketingRule() {
         helper.createMarketingRule(shippingMethod.getId());
         shippingMethod().goToPage();
@@ -197,7 +198,7 @@ public final class AdministrationShippingSettingsTests {
     }
 
     @CaseId(523)
-    @Test(description = "Удалить правило номинальной стоимости доставки", groups = "regression")
+    @Test(description = "Удалить правило номинальной стоимости доставки", groups = REGRESSION_ADMIN)
     public void testRemoveNominalRule() {
         helper.createNominalRule(shippingMethod.getId());
         shippingMethod().goToPage();
@@ -206,7 +207,7 @@ public final class AdministrationShippingSettingsTests {
     }
 
     @CaseId(516)
-    @Test(description = "При клике на 'Тип правила' отображается выпадающий список с типами", groups = "regression")
+    @Test(description = "При клике на 'Тип правила' отображается выпадающий список с типами", groups = REGRESSION_ADMIN)
     public void testPriceRules() {
         helper.createMarketingRule(shippingMethod.getId());
 
@@ -221,7 +222,7 @@ public final class AdministrationShippingSettingsTests {
     }
 
     @CaseId(517)
-    @Test(description = "Выбор правила 'Интервал стоимости заказа' и установка интервала", groups = "regression")
+    @Test(description = "Выбор правила 'Интервал стоимости заказа' и установка интервала", groups = REGRESSION_ADMIN)
     public void testInterval() {
         final var marketingPricer = helper.createMarketingRule(shippingMethod.getId());
         helper.createPricerCalculator(marketingPricer.getId(), flatCalculator);
@@ -239,7 +240,7 @@ public final class AdministrationShippingSettingsTests {
     }
 
     @CaseId(520)
-    @Test(description = "Выбор правила 'Периодический заказ' и заполнение полей с днями и суммой", groups = "regression")
+    @Test(description = "Выбор правила 'Периодический заказ' и заполнение полей с днями и суммой", groups = REGRESSION_ADMIN)
     public void testPeriodic() {
         final var marketingPricer = helper.createMarketingRule(shippingMethod.getId());
         helper.createPricerCalculator(marketingPricer.getId(), flatCalculator);
@@ -257,7 +258,7 @@ public final class AdministrationShippingSettingsTests {
     }
 
     @CaseId(526)
-    @Test(description = "Валидация полей интервала стоимости заказа", groups = "regression")
+    @Test(description = "Валидация полей интервала стоимости заказа", groups = REGRESSION_ADMIN)
     public void testValidateInterval() {
         final var marketingPricer = helper.createMarketingRule(shippingMethod.getId());
         helper.createPricerCalculator(marketingPricer.getId(), flatCalculator);

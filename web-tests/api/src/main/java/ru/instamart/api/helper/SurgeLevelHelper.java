@@ -3,7 +3,9 @@ package ru.instamart.api.helper;
 import events.CandidateChangesOuterClass;
 import io.qameta.allure.Step;
 import norns.Norns;
+import order.OrderChanged;
 import order_enrichment.OrderEnrichment;
+import order_status.OrderStatus;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.jdbc.dao.surgelevel.ConfigDao;
 import ru.instamart.jdbc.dao.surgelevel.ConfigInheritanceDao;
@@ -18,13 +20,12 @@ import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
 public class SurgeLevelHelper {
 
-    @Step("Создаем событие отправки заказа EventOrderEnrichment в kafka для магазина {storeId}")
-    public static OrderEnrichment.EventOrderEnrichment getEventOrderEnrichment(int deliveryAreaId, String orderUuid, String storeId, OrderEnrichment.EventOrderEnrichment.ShipmentStatus shipmentStatus, String shipmentType, String shipmentUuid) {
-        return OrderEnrichment.EventOrderEnrichment.newBuilder()
-                .setDeliveryAreaId(deliveryAreaId)
+    @Step("Создаем событие отправки заказа в kafka для магазина {storeId}")
+    public static OrderChanged.EventOrderChanged getEventOrderStatus(String orderUuid, String storeId, OrderChanged.EventOrderChanged.OrderStatus orderStatus, OrderChanged.EventOrderChanged.ShipmentType shipmentType, String shipmentUuid) {
+        return OrderChanged.EventOrderChanged.newBuilder()
                 .setOrderUuid(orderUuid)
                 .setPlaceUuid(storeId)
-                .setShipmentStatus(shipmentStatus)
+                .setOrderStatus(orderStatus)
                 .setShipmentType(shipmentType)
                 .setShipmentUuid(shipmentUuid)
                 .build();

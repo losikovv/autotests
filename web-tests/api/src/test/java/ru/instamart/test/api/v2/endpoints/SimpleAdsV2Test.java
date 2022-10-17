@@ -151,7 +151,7 @@ public final class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(285)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"},
             description = "Запрос проверки существующего изображения")
     public void simpleAdsGetExistingImageTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -191,7 +191,7 @@ public final class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(286)
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
             description = "Запрос проверки не существующего изображения")
     public void simpleAdsGetNotExistingImageTest() {
         String imagePath = "imageNotFound";

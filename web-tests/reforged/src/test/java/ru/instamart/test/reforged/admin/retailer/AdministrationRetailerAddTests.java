@@ -10,6 +10,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
@@ -30,7 +31,7 @@ public final class AdministrationRetailerAddTests {
 
     @CaseIDs
             ({@CaseId(206), @CaseId(207), @CaseId(208)})
-    @Test(description = "Проверка обязательности заполнения полей", groups = "regression")
+    @Test(description = "Проверка обязательности заполнения полей", groups = REGRESSION_ADMIN)
     public void checkRequiredFields() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -53,7 +54,7 @@ public final class AdministrationRetailerAddTests {
     }
 
     @CaseId(206)
-    @Test(description = "Поле Название обязательное для заполнения при создании ритейлера", groups = "regression")
+    @Test(description = "Поле Название обязательное для заполнения при создании ритейлера", groups = REGRESSION_ADMIN)
     public void checkRetailerNameRequiredAfterClear() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -74,7 +75,7 @@ public final class AdministrationRetailerAddTests {
     }
 
     @CaseId(207)
-    @Test(description = "Поле URL обязательное для заполнения", groups = "regression")
+    @Test(description = "Поле URL обязательное для заполнения", groups = REGRESSION_ADMIN)
     public void checkURLRequiredAfterClear() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -95,7 +96,7 @@ public final class AdministrationRetailerAddTests {
     }
 
     @CaseId(208)
-    @Test(description = "Поле Ключ в файле импорта обязательное для заполнения", groups = "regression")
+    @Test(description = "Поле Ключ в файле импорта обязательное для заполнения", groups = REGRESSION_ADMIN)
     public void checkImportKeyRequiredAfterClear() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -116,7 +117,7 @@ public final class AdministrationRetailerAddTests {
     }
 
     @CaseId(209)
-    @Test(description = "Поле Ключ в файле импорта заполнять только числовым значением", groups = "regression")
+    @Test(description = "Поле Ключ в файле импорта заполнять только числовым значением", groups = REGRESSION_ADMIN)
     public void checkImportKeyDigitalOnly() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -149,7 +150,7 @@ public final class AdministrationRetailerAddTests {
 
     @CaseIDs({
             @CaseId(211), @CaseId(215), @CaseId(217)})
-    @Test(description = "Успешное создание ритейлера со всеми заполненными данными", groups = "regression")
+    @Test(description = "Успешное создание ритейлера со всеми заполненными данными", groups = REGRESSION_ADMIN)
     public void successAddNewRetailer() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

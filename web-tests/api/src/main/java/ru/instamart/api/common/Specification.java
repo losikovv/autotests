@@ -62,7 +62,7 @@ public enum Specification {
         final String shopperFullBaseUrl = EnvironmentProperties.SHOPPER_GW_URL;
         final String shopperFullAdminUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
         final String shopperStage = (EnvironmentProperties.STAGE).isBlank() ? "kraken" : EnvironmentProperties.STAGE;
-        final String bffForward = (System.getProperty("bff_forward")) == null ? "m" : System.getProperty("bff_forward");
+        final String bffForward = (System.getProperty("bff_forward")) == null ? "default" : System.getProperty("bff_forward");
         final String etaStage = "https://" + EnvironmentProperties.Env.ETA_NAMESPACE + ".gw-stage.sbmt.io";
 
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
@@ -116,6 +116,8 @@ public enum Specification {
         apiV2RequestSpec = new RequestSpecBuilder()
                 .setBaseUri(apiV2FullUrl)
                 .setAccept(ContentType.JSON)
+                .addHeader("api-version", "2.2")
+                .addHeader("client-ver", "99.99.99")
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new SwaggerCoverageV3RestAssured())
                 .addFilter(new CounterFilter())
@@ -125,11 +127,15 @@ public enum Specification {
 
         if (EnvironmentProperties.STAGE.equals("m")) {
             apiV2RequestSpec.header("sbm-forward-feature-version-paas-content-front-platform-stf-mobile-aggregator", bffForward);
+            apiV2RequestSpec.header("sbm-forward-feature-version-stf", "s-sb-stf0-sbermarket");
         }
 
         prodRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(prodFullUrl)
                 .setBasePath("v2/")
+                .addHeader("api-version", "2.2")
+                .addHeader("client-ver", "99.99.99")
+                .addHeader("user-agent", "Sbermarket/99.99.99 (sdk_gphone64_x86_64; Android 12)")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new CounterFilter())

@@ -17,7 +17,7 @@ public interface MultiSearchElement {
     ElementCollection retailerCardsList = new ElementCollection(By.xpath("//div[contains(@class,'StoresList_root')]//li"), "Карточки ритейлеров");
     Element retailerCardByName = new Element(ByKraken.xpathExpression("//div[contains(@class,'StoresList_root')]//li[.//img[@alt='%s']]"), "Карточка ритейлера по имени");
 
-    ElementCollection categoriesFilters = new ElementCollection(By.xpath("//button[contains(@class,'MultiSearchFacets_button')]"), "Кнопки фильтров по категориям");
+    ElementCollection categoriesFilters = new ElementCollection(By.xpath("//div[@data-qa='multiSearch_categories_filter_nav']/a"), "Кнопки фильтров по категориям");
 
     ElementCollection productsSnippets = new ElementCollection(By.xpath("//ul[contains(@class,'MultiSearchProductsGrid_grid')]/li"), "Сниппеты найденных продуктов");
     ElementCollection productsTitles = new ElementCollection(By.xpath("//ul[contains(@class,'MultiSearchProductsGrid_grid')]/li//h3"), "Названия продуктов");

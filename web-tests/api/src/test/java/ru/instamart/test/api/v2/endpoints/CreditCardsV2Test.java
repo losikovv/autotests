@@ -47,7 +47,7 @@ public class CreditCardsV2Test extends RestBase {
     @Issue("STF-6633")
     @CaseId(500)
     @Story("Добавить новую карту")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
             description = "Добавить новую карту с указанием обязательных параметров")
     public void addANewCardWithRequiredParameters() {
         String card = CreditCardsV2.CARD2.getNumber();
@@ -78,7 +78,7 @@ public class CreditCardsV2Test extends RestBase {
     @Issue("STF-6633")
     @CaseId(501)
     @Story("Добавить новую карту")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
             description = "Добавить новую карту с дополнительным полем title")
     public void addANewCardWithAnAdditionalTitleField() {
         String card = CreditCardsV2.CARD1.getNumber();
@@ -107,7 +107,7 @@ public class CreditCardsV2Test extends RestBase {
     @Issue("STF-6633")
     @CaseId(502)
     @Story("Добавить новую карту")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
             description = "Добавить новую карту с дополнительным полем title")
     public void addNewCard() {
         String card = CreditCardsV2.CARD1.getNumber();
@@ -129,7 +129,7 @@ public class CreditCardsV2Test extends RestBase {
 
     @CaseId(495)
     @Story("Получение списка всех банковских карт")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
             description = "У пользователя нет добавленных карт")
     public void testNoCreditCards() {
         final Response response = CreditCardsV2Request.GET();
@@ -142,7 +142,7 @@ public class CreditCardsV2Test extends RestBase {
     @Issue("STF-6633")
     @CaseId(496)
     @Story("Получение списка всех банковских карт")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
             description = "У пользователя одна добавленная карта",
             dependsOnMethods = "addANewCardWithRequiredParameters")
     public void testOneCreditCards() {
@@ -157,7 +157,7 @@ public class CreditCardsV2Test extends RestBase {
     @Issue("STF-6633")
     @CaseId(497)
     @Story("Получение списка всех банковских карт")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
             description = "У пользователя несколько добавленных карт",
             dependsOnMethods = "addNewCard")
     public void testSomeCreditCards() {
@@ -170,7 +170,7 @@ public class CreditCardsV2Test extends RestBase {
 
     @CaseId(506)
     @Story("Получение списка всех банковских карт")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
             description = "Удаление карты по не существующим ID"
     )
     public void failedTestDeleteCreditCards() {
@@ -183,7 +183,7 @@ public class CreditCardsV2Test extends RestBase {
     @Issue("STF-6633")
     @CaseId(505)
     @Story("Получение списка всех банковских карт")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
             description = "Удаление карты по существующему ID",
             dependsOnMethods = "addNewCard")
     public void testDeleteCreditCards() {

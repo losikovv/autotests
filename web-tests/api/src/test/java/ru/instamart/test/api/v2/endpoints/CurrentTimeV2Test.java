@@ -19,7 +19,7 @@ public class CurrentTimeV2Test extends RestBase {
 
     @CaseId(2468)
     @Story("Текущее серверное время")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
             description = "Получение текущего серверного времени")
     public void currentTimeTest() {
         final Response response = CurrentTimeV2Request.GET();

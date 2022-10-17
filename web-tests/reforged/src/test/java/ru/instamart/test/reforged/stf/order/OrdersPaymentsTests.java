@@ -18,8 +18,6 @@ import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
-import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_ONLINE;
-import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_UPON_RECEIPT;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -73,7 +71,6 @@ public final class OrdersPaymentsTests {
 
         userShipments().checkPageContains(userShipments().pageUrl());
         userShipments().checkStatusShipmentReady();
-        userShipments().checkPaymentMethodEquals(BY_CARD_ONLINE.getName());
     }
 
     @CaseId(1625)
@@ -103,7 +100,6 @@ public final class OrdersPaymentsTests {
         userShipments().checkPageContains(userShipments().pageUrl());
 
         userShipments().checkStatusShipmentReady();
-        userShipments().checkPaymentMethodEquals(BY_CARD_UPON_RECEIPT.getName());
     }
 
     @CaseId(1626)
@@ -147,7 +143,6 @@ public final class OrdersPaymentsTests {
         userShipments().checkPageContains(userShipments().pageUrl());
 
         userShipments().checkStatusShipmentReady();
-        userShipments().checkPaymentMethodEquals("По счёту для бизнеса");
     }
 
     @CaseIDs({@CaseId(3238), @CaseId(3235)})

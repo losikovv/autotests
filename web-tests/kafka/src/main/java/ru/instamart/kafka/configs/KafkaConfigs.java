@@ -75,7 +75,7 @@ public class KafkaConfigs {
         return KafkaConfig.builder()
                 .topic("yc.operations.cdc.store-changed.06")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lMkECi+EDMxY8zgsSNyrupA="))
-                .password(Crypt.INSTANCE.decrypt("zO0To08iedzPSbbKUVyjqg=="))
+                .password(Crypt.INSTANCE.decrypt("bjueBoIINCB7R5RXDn/hsw=="))
                 .build();
     }
 
@@ -83,7 +83,7 @@ public class KafkaConfigs {
         return KafkaConfig.builder()
                 .topic("yc.shifts.cmd.planning_periods.0")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lMkECi+EDMxY8zgsSNyrupA="))
-                .password(Crypt.INSTANCE.decrypt("zO0To08iedzPSbbKUVyjqg=="))
+                .password(Crypt.INSTANCE.decrypt("bjueBoIINCB7R5RXDn/hsw=="))
                 .build();
     }
 
@@ -106,6 +106,14 @@ public class KafkaConfigs {
     public static KafkaConfig configNorns() {
         return KafkaConfig.builder()
                 .topic("paas-content-operations-norns.save-location")
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lNLTflx90VI0n6hzBgecvll6tdcTqGMheErKEU2y3QOl"))
+                .password(Crypt.INSTANCE.decrypt("2upy3AL136//Hs/NMMaWnw=="))
+                .build();
+    }
+
+    public static KafkaConfig configOrderStatusChanged() {
+        return KafkaConfig.builder()
+                .topic("yc.operations-order-service.fct.order-status-changed.0")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lNLTflx90VI0n6hzBgecvll6tdcTqGMheErKEU2y3QOl"))
                 .password(Crypt.INSTANCE.decrypt("2upy3AL136//Hs/NMMaWnw=="))
                 .build();

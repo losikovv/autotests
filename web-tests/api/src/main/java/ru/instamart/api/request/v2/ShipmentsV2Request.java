@@ -109,6 +109,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
                 query.put("date", date);
             }
             return givenWithAuth()
+                    .header("screenname", "checkoutSlot")
                     .queryParams(Mapper.INSTANCE.objectToMap(query))
                     .get(ApiV2EndPoints.Shipments.SHIPPING_RATES, shipmentNumber);
         }
