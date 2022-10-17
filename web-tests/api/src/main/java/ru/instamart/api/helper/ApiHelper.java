@@ -529,7 +529,6 @@ public final class ApiHelper {
         admin.addManager(companyId, userData.getId());
     }
 
-
     @Step("Добавить сотрудника {userData} в компанию {inn}")
     public void addEmployeeForCompany(final String inn, UserData userData) {
         admin.authApi();
@@ -540,6 +539,12 @@ public final class ApiHelper {
     @Step("Добавить сотрудников в компанию {inn}")
     public void addEmployeesForCompany(final String inn, List<UserData> usersData) {
         usersData.forEach(userData -> addEmployeeForCompany(inn, userData));
+    }
+
+    @Step("Добавляем реквизиты для компании {companyData} пользователя {userData}")
+    public void addCompanyDocuments(final UserData userData, final Juridical companyData) {
+        apiV2.authByPhone(userData);
+        apiV2.addCompanyDocuments(companyData);
     }
 
     @Step("Добавляем новую статичную страницу {data} в админке")

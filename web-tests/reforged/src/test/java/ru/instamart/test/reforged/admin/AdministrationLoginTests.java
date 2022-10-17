@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.login;
 import static ru.instamart.reforged.admin.AdminRout.main;
 
@@ -16,7 +17,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(440)
     @Story("Тест неуспешной авторизации с пустыми полями")
-    @Test(description = "Тест неуспешной авторизации с пустыми полями", groups = {"regression", "production"})
+    @Test(description = "Тест неуспешной авторизации с пустыми полями", groups = {REGRESSION_ADMIN, "production"})
     public void noAuthWithEmptyFields() {
         login().goToPage();
         login().setUsername("");
@@ -28,7 +29,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(441)
     @Story("Тест неуспешной авторизации с некорректным логином")
-    @Test(description = "Тест неуспешной авторизации с некорректным логином", groups = {"regression", "production"})
+    @Test(description = "Тест неуспешной авторизации с некорректным логином", groups = {REGRESSION_ADMIN, "production"})
     public void noAuthWithIncorrectUsername() {
         login().goToPage();
         login().setUsername("wrongUsername");
@@ -39,7 +40,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(442)
     @Story("Тест неуспешной авторизации с несуществующим логином")
-    @Test(description = "Тест неуспешной авторизации с несуществующим логином", groups = {"regression", "production"})
+    @Test(description = "Тест неуспешной авторизации с несуществующим логином", groups = {REGRESSION_ADMIN, "production"})
     public void noAuthWithNonExistingUser() {
         login().goToPage();
         login().setUsername("nonexistinguser@instamart.ru");
@@ -50,7 +51,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(443)
     @Story("Тест неуспешной авторизации с коротким паролем")
-    @Test(description = "Тест неуспешной авторизации с коротким паролем", groups = {"regression", "production"})
+    @Test(description = "Тест неуспешной авторизации с коротким паролем", groups = {REGRESSION_ADMIN, "production"})
     public void noAuthWithShortPassword() {
         login().goToPage();
         login().setUsername(UserManager.getDefaultAdmin().getEmail());
@@ -61,7 +62,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(444)
     @Story("Тест неуспешной авторизации с неверным паролем")
-    @Test(description = "Тест неуспешной авторизации с неверным паролем", groups = {"regression", "production"})
+    @Test(description = "Тест неуспешной авторизации с неверным паролем", groups = {REGRESSION_ADMIN, "production"})
     public void noAuthWithWrongPassword() {
         login().goToPage();
         login().setUsername(UserManager.getDefaultAdmin().getEmail());
@@ -72,7 +73,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(415)
     @Story("Тест успешной авторизации")
-    @Test(description = "Тест успешной авторизации", groups = {"regression", "smoke", "production"})
+    @Test(description = "Тест успешной авторизации", groups = {REGRESSION_ADMIN, "smoke", "production"})
     public void successAuthOnAdminLoginPage() {
         login().goToPage();
         login().setUsername(UserManager.getDefaultAdmin().getEmail());
@@ -84,7 +85,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(2)
     @Story("Тест логаута из админки")
-    @Test(description = "Тест логаута из админки", groups = {"regression", "smoke", "production"})
+    @Test(description = "Тест логаута из админки", groups = {REGRESSION_ADMIN, "smoke", "production"})
     public void successLogoutFromAdminPage() {
         final var userData = UserManager.getDefaultAdmin();
         login().goToPage();
@@ -100,7 +101,7 @@ public final class AdministrationLoginTests {
 
     @CaseId(417)
     @Story("Тест недоступности админки пользователю без админ. прав")
-    @Test(description = "Тест недоступности админки пользователю без админ. прав", groups = {"regression", "smoke", "production"})
+    @Test(description = "Тест недоступности админки пользователю без админ. прав", groups = {REGRESSION_ADMIN, "smoke", "production"})
     public void loginWithoutAdminPermission() {
         login().goToPage();
         login().setUsername(UserManager.userWithoutAdminPermission().getEmail());

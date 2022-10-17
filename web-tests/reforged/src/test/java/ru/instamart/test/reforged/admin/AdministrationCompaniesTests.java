@@ -11,6 +11,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.TimeUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
@@ -19,86 +20,8 @@ public final class AdministrationCompaniesTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    //TODO переделать: по информации от Сергея Кулаковского, эти тесты относятся к /admin/users/${userId}/company_documents:
-    //Пользователи -> Пользователь -> РЕКВИЗИТЫ КОМПАНИЙ
-    @CaseId(23)
-    @Test(description = "Корректное отображение списка компаний пользователя", groups = "regression")
-    public void testUserCompanyList() {
-        var userData = UserManager.getQaUser();
-        var inn = Generate.generateINN(10);
-        var companyName = Generate.literalString(10);
-        helper.addCompanyForUser(inn, companyName, userData.getEmail());
-
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-        companies().goToPage();
-        companies().fillInn(inn);
-        companies().clickToSearch();
-
-        companies().checkCompaniesVisible();
-        companies().checkCompaniesCount(1);
-        companies().checkFirstCompanyName(companyName);
-        companies().checkFirstCompanyINN(inn);
-    }
-
-    //TODO переделать: по информации от Сергея Кулаковского, эти тесты относятся к /admin/users/${userId}/company_documents:
-    //Пользователи -> Пользователь -> РЕКВИЗИТЫ КОМПАНИЙ
-    @CaseId(24)
-    @Test(description = "Редактирование компании пользователя", groups = "regression")
-    public void testUserCompanyEdit() {
-        var userData = UserManager.getQaUser();
-        var inn = Generate.generateINN(10);
-        var companyName = Generate.literalString(10);
-        var newCompanyName = Generate.literalString(10);
-        helper.addCompanyForUser(inn, companyName, userData.getEmail());
-
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-        companies().goToPage();
-        companies().fillInn(inn);
-        companies().clickToSearch();
-
-        companies().checkCompaniesVisible();
-        companies().goToFirstCompanyEdit();
-        company().checkCompanyPageVisible();
-        company().changeCompanyName(newCompanyName);
-
-        companies().fillInn(inn);
-        companies().clickToSearch();
-        companies().checkCompaniesVisible();
-        companies().checkFirstCompanyName(newCompanyName);
-    }
-
-    //TODO переделать: по информации от Сергея Кулаковского, эти тесты относятся к /admin/users/${userId}/company_documents:
-    //Пользователи -> Пользователь -> РЕКВИЗИТЫ КОМПАНИЙ
-    @CaseId(25)
-    @Test(description = "Добавление новой компании пользователя", groups = "regression")
-    public void testAddUserCompany() {
-        var userData = UserManager.getQaUser();
-        var company = new Company(Generate.generateINN(10), Generate.literalString(10), userData.getEmail());
-
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-        companies().goToPage();
-        companies().clickToAddCompany();
-
-        addCompanies().fillCompany(company);
-        addCompanies().clickToSubmit();
-
-        companies().fillInn(company.getInn());
-        companies().clickToSearch();
-
-        companies().checkCompaniesVisible();
-        companies().checkCompaniesCount(1);
-        companies().checkFirstCompanyName(company.getCompanyName());
-        companies().checkFirstCompanyINN(company.getInn());
-    }
-
     @CaseId(477)
-    @Test(description = "Тест поиска компании по ИНН", groups = "regression")
+    @Test(description = "Тест поиска компании по ИНН", groups = REGRESSION_ADMIN)
     public void testSearchCompany() {
         var userData = UserManager.getQaUser();
         var company = new Company(Generate.generateINN(10), Generate.literalString(10), userData.getEmail());
@@ -118,7 +41,7 @@ public final class AdministrationCompaniesTests {
     }
 
     @CaseId(478)
-    @Test(description = "Тест создание компании через админку (ИП)", groups = "regression")
+    @Test(description = "Тест создание компании через админку (ИП)", groups = REGRESSION_ADMIN)
     public void testAddUserCompanyIP() {
         var userData = UserManager.getQaUser();
         var company = new Company(Generate.generateINN(12), Generate.literalString(10), userData.getEmail());
@@ -142,7 +65,7 @@ public final class AdministrationCompaniesTests {
     }
 
     @CaseId(479)
-    @Test(description = "Тест создание компании через админку (ЮЛ)", groups = "regression")
+    @Test(description = "Тест создание компании через админку (ЮЛ)", groups = REGRESSION_ADMIN)
     public void testAddUserCompanyOOO() {
         var userData = UserManager.getQaUser();
         var company = new Company(Generate.generateINN(10), Generate.literalString(10), userData.getEmail());
@@ -166,7 +89,7 @@ public final class AdministrationCompaniesTests {
     }
 
     @CaseId(480)
-    @Test(description = "Тест добавление менеджера к компании", groups = "regression")
+    @Test(description = "Тест добавление менеджера к компании", groups = REGRESSION_ADMIN)
     public void testAddCompanyManager() {
         var managerData = UserManager.getQaUser();
         helper.addManagerRoleToUser(managerData);
@@ -197,7 +120,7 @@ public final class AdministrationCompaniesTests {
     }
 
     @CaseId(481)
-    @Test(description = "Тест удаление менеджера компании", groups = "regression")
+    @Test(description = "Тест удаление менеджера компании", groups = REGRESSION_ADMIN)
     public void testDeleteCompanyManager() {
         var userData = UserManager.getQaUser();
         var managerData = UserManager.getQaUser();
@@ -229,7 +152,7 @@ public final class AdministrationCompaniesTests {
     }
 
     @CaseId(482)
-    @Test(description = "Тест добавление договора (с указанной датой)", groups = "regression")
+    @Test(description = "Тест добавление договора (с указанной датой)", groups = REGRESSION_ADMIN)
     public void testAddContractOneStep() {
         var userData = UserManager.getQaUser();
         var company = JuridicalData.juridical();
@@ -276,7 +199,7 @@ public final class AdministrationCompaniesTests {
     }
 
     @CaseId(482)
-    @Test(description = "Тест добавление и редактирование договора", groups = "regression")
+    @Test(description = "Тест добавление и редактирование договора", groups = REGRESSION_ADMIN)
     public void testAddContractTwoStep() {
         var userData = UserManager.getQaUser();
         var company = JuridicalData.juridical();
@@ -341,7 +264,7 @@ public final class AdministrationCompaniesTests {
 
 
     @CaseId(483)
-    @Test(description = "Тест обновление баланса (положительный баланс)", groups = "regression")
+    @Test(description = "Тест обновление баланса (положительный баланс)", groups = REGRESSION_ADMIN)
     public void testBalanceRefreshPositiveBalance() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -364,7 +287,7 @@ public final class AdministrationCompaniesTests {
     }
 
     @CaseId(483)
-    @Test(description = "Тест обновление баланса (отрицательный баланс)", groups = "regression")
+    @Test(description = "Тест обновление баланса (отрицательный баланс)", groups = REGRESSION_ADMIN)
     public void testBalanceRefreshNegativeBalance() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -387,7 +310,7 @@ public final class AdministrationCompaniesTests {
     }
 
     @CaseId(484)
-    @Test(description = "Тест обновление кода безопасности", groups = "regression")
+    @Test(description = "Тест обновление кода безопасности", groups = REGRESSION_ADMIN)
     public void testSecurityCodeRefresh() {
         var userData = UserManager.getQaUser();
         var company = JuridicalData.juridical();
@@ -417,7 +340,7 @@ public final class AdministrationCompaniesTests {
     }
 
     @CaseId(485)
-    @Test(description = "Тест работа кнопки 'Подтвердить компанию'", groups = "regression")
+    @Test(description = "Тест работа кнопки 'Подтвердить компанию'", groups = REGRESSION_ADMIN)
     public void testConfirmCompany() {
         var userData = UserManager.getQaUser();
         var company = new Company(Generate.generateINN(10), Generate.literalString(10), userData.getEmail());
@@ -466,7 +389,7 @@ public final class AdministrationCompaniesTests {
     }
 
     @CaseId(487)
-    @Test(description = "Тест удаление представителя компании", groups = "regression")
+    @Test(description = "Тест удаление представителя компании", groups = REGRESSION_ADMIN)
     public void testDeleteCompanyEmployee() {
         var userData = UserManager.getQaUser();
         var company = new Company(Generate.generateINN(10), Generate.literalString(10), userData.getEmail());
@@ -496,7 +419,7 @@ public final class AdministrationCompaniesTests {
     }
 
     @CaseId(488)
-    @Test(description = "Тест подтверждение юзера", groups = "regression")
+    @Test(description = "Тест подтверждение юзера", groups = REGRESSION_ADMIN)
     public void testConfirmCompanyEmployee() {
         var userData = UserManager.getQaUser();
         var company = new Company(Generate.generateINN(10), Generate.literalString(10), userData.getEmail());
@@ -536,7 +459,7 @@ public final class AdministrationCompaniesTests {
     }
 
     @CaseId(490)
-    @Test(description = "Тест удаление договора", groups = "regression")
+    @Test(description = "Тест удаление договора", groups = REGRESSION_ADMIN)
     public void testDeleteContract() {
         var userData = UserManager.getQaUser();
         var company = JuridicalData.juridical();
@@ -590,7 +513,7 @@ public final class AdministrationCompaniesTests {
     }
 
     @CaseId(491)
-    @Test(description = "Тест редактирование названия", groups = "regression")
+    @Test(description = "Тест редактирование названия", groups = REGRESSION_ADMIN)
     public void testCompanyEditName() {
         var userData = UserManager.getQaUser();
         var inn = Generate.generateINN(10);

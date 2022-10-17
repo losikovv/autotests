@@ -6,6 +6,7 @@ import ru.instamart.reforged.admin.block.flash_alert.FlashAlert;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
+import ru.instamart.reforged.core.component.Link;
 
 public interface UsersEditElement {
 
@@ -27,5 +28,6 @@ public interface UsersEditElement {
 
    Button saveRoleChanges = new Button(By.xpath("//button[@data-qa='users_form_update_role_ids_button']"), "Кнопка применения ролей пользовтеля");
    Button saveB2BChanges = new Button(By.xpath("//button[@data-qa='users_form_update_b2b_button']"), "Кнопка применения b2b-чекбокса пользовтеля");
-   Button savePassordChanges = new Button(By.xpath("//button[@data-qa='users_form_update_password_button']"), "Кнопка применения пароля пользовтеля");
+   Button savePasswordChanges = new Button(By.xpath("//button[@data-qa='users_form_update_password_button']"), "Кнопка применения пароля пользовтеля");
+   Link companyDocuments = new Link(By.xpath("//a[@data-qa='users_form_company_documents_goto']"), "Ссылка 'Реквизиты компаний'");
 }

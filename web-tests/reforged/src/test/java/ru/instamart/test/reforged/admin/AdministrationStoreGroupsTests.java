@@ -20,6 +20,7 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
@@ -56,7 +57,7 @@ public class AdministrationStoreGroupsTests {
     }
 
     @CaseId(569)
-    @Test(description = "Добавление группы", groups = "regression")
+    @Test(description = "Добавление группы", groups = REGRESSION_ADMIN)
     public void checkAddNewGroup() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -83,7 +84,7 @@ public class AdministrationStoreGroupsTests {
     }
 
     @CaseId(570)
-    @Test(description = "Изменение назначенной группы", groups = "regression")
+    @Test(description = "Изменение назначенной группы", groups = REGRESSION_ADMIN)
     public void checkEditGroup() {
         api.createStoreLabel(storeLabel);
         StoreLabelsDao.INSTANCE.addStoreLabelToStore(adminApi.getStoreLabelByName(storeLabel.getTitle()).getId(), storeDB.getId(), "sbermarket");
@@ -111,7 +112,7 @@ public class AdministrationStoreGroupsTests {
     }
 
     @CaseId(571)
-    @Test(description = "Удаление назначенной магазину группы", groups = "regression")
+    @Test(description = "Удаление назначенной магазину группы", groups = REGRESSION_ADMIN)
     public void checkDeleteGroup() {
         api.createStoreLabel(storeLabel);
         StoreLabelsDao.INSTANCE.addStoreLabelToStore(adminApi.getStoreLabelByName(storeLabel.getTitle()).getId(), storeDB.getId(), "sbermarket");
@@ -136,7 +137,7 @@ public class AdministrationStoreGroupsTests {
     }
 
     @CaseId(577)
-    @Test(description = "Назначение группы магазину", groups = "regression")
+    @Test(description = "Назначение группы магазину", groups = REGRESSION_ADMIN)
     public void checkAddGroupToStore() {
         api.createStoreLabel(storeLabel);
 
