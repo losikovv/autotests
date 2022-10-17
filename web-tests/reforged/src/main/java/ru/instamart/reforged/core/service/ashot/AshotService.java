@@ -6,17 +6,17 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.Reporter;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.component.Component;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
 import ru.yandex.qatools.ashot.comparison.ImageDiffer;
 import ru.yandex.qatools.ashot.comparison.PointsMarkupPolicy;
 import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider;
-import ru.yandex.qatools.ashot.shooting.ScalingDecorator;
-import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * При дальнейшем расширении необходимо часть констант вытащить в конфиги
@@ -33,13 +35,10 @@ import java.nio.file.Paths;
 @Slf4j
 public final class AshotService {
 
-    private static final AShot ashot = new AShot()
-            .shootingStrategy(new ScalingDecorator(ShootingStrategies.simple()))
-            .coordsProvider(new WebDriverCoordsProvider());
     private static final ImageDiffer imageDiffer = new ImageDiffer().withDiffMarkupPolicy(new PointsMarkupPolicy().withDiffColor(Color.RED));
-    private static final String expected_postfix = "expected";
-    private static final String actual_postfix = "actual";
-    private static final String diff_postfix = "diff";
+    private static final String expected_img = "expected.png";
+    private static final String actual_img = "actual.png";
+    private static final String diff_img = "diff.png";
     private static final int allowableDiffSize = 1;
     private static final String type = "png";
 
@@ -51,18 +50,18 @@ public final class AshotService {
         }
     }
 
-    public static Screenshot screenWebElement(final WebElement element) {
+    public static Screenshot screenWebElement(final WebElement element, final Component... components) {
         try {
-            Files.deleteIfExists(Paths.get(getAbsolutePath(), actual_postfix + ".png"));
-            Files.deleteIfExists(Paths.get(getAbsolutePath(), diff_postfix + ".png"));
+            Files.deleteIfExists(Paths.get(getAbsolutePath(), actual_img));
+            Files.deleteIfExists(Paths.get(getAbsolutePath(), diff_img));
         } catch (Exception e) {
             log.error("Can't clean up actual and diff screen for test={}", Reporter.getCurrentTestResult().getTestName());
         }
-        return screenWebElement(element, expected_postfix, false);
+        return screenWebElement(element, expected_img, false, components);
     }
 
-    public static void compareImage(final Screenshot expected, final WebElement element) {
-        final var actual = screenWebElement(element, actual_postfix, true);
+    public static void compareImage(final Screenshot expected, final WebElement element, final Component... components) {
+        final var actual = screenWebElement(element, actual_img, true, components);
         if (getDiffSize(expected, actual) > allowableDiffSize) {
             final var diff = saveDiffImage(expected, actual);
             Allure.label("testType", "screenshotDiff");
@@ -75,22 +74,39 @@ public final class AshotService {
 
     public static ImageDiff saveDiffImage(final Screenshot expected, final Screenshot actual) {
         final var diffImg = imageDiffer.makeDiff(expected, actual);
-        final var diffFile = Paths.get(getAbsolutePath(), diff_postfix + ".png");
+        final var diffFile = Paths.get(getAbsolutePath(), diff_img);
 
         writeImg(diffImg.getMarkedImage(), diffFile.toFile());
 
         return diffImg;
     }
 
-    private static Screenshot screenWebElement(final WebElement element, final String fileName, final boolean override) {
-        final var img = Paths.get(getAbsolutePath(), fileName + ".png");
+    private static Screenshot screenWebElement(final WebElement element, final String fileName, final boolean override, final Component... components) {
+        final var img = Paths.get(getAbsolutePath(), fileName);
         if (Files.exists(img) && !override) {
             return readImg(img.toFile());
         }
-        final var screen = ashot.takeScreenshot(Kraken.getWebDriver(), element);
-        writeImg(screen.getImage(), img.toFile());
+        final var ashot = new AShot()
+                .coordsProvider(new WebDriverCoordsProvider())
+                .ignoredElements(Arrays.stream(components).map(Component::getBy).collect(Collectors.toSet()));
+        final var screen = ashot.takeScreenshot(Kraken.getWebDriver());
+
+        writeImg(fillIgnoredArea(screen), img.toFile());
 
         return screen;
+    }
+
+    private static BufferedImage fillIgnoredArea(final Screenshot screenshot) {
+        final var img = screenshot.getImage();
+        if (screenshot.getIgnoredAreas().isEmpty()) {
+            return img;
+        }
+        final Graphics2D g2d = img.createGraphics();
+        g2d.setColor(Color.BLACK);
+        screenshot.getIgnoredAreas().forEach(c -> g2d.fill(new Rectangle2D.Double(c.getX(), c.getY(), c.getWidth(), c.getHeight())));
+        g2d.dispose();
+
+        return img;
     }
 
     private static int getDiffSize(Screenshot expected, Screenshot actual) {

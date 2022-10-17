@@ -22,4 +22,6 @@ public interface PartnersMapElement {
     Element balloon = new Element(By.xpath("//ymaps[contains(@class,'balloon__content')]"), "балун с партнером");
     Element partnerNameBalloon = new Element(By.xpath("//ymaps[contains(@class,'balloon__content')]//ymaps/div/div[2]"), "имя партнера в балуне");
     Element partnerPhoneBalloon = new Element(By.xpath("//ymaps[contains(@class,'balloon__content')]//ymaps/div/div[5]"), "телефон партнера в балуне");
+    Element activeOrdersBalloon = new Element(By.xpath("//ymaps[contains(@class,'balloon__content')]//ymaps/div/div[11]"), "активные заказы партнера в балуне");
+    Element activityUpdateBalloon = new Element(By.xpath("//ymaps[contains(@class,'balloon__content')]//ymaps/div/div[14]"), "обновление активности партнера в балуне");
 }

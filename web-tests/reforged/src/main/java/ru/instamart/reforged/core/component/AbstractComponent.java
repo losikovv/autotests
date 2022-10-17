@@ -107,8 +107,8 @@ public abstract class AbstractComponent implements Component {
         Kraken.jsAction().scrollToElement(getLocator());
     }
 
-    public Screenshot screenWebElement() {
-        return AshotService.screenWebElement(getComponent());
+    public Screenshot screenWebElement(final Component... components) {
+        return AshotService.screenWebElement(getComponent(), components);
     }
 
     protected String getLocator() {

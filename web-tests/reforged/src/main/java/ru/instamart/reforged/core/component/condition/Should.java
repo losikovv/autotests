@@ -3,6 +3,7 @@ package ru.instamart.reforged.core.component.condition;
 import lombok.RequiredArgsConstructor;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.AbstractComponent;
+import ru.instamart.reforged.core.component.Component;
 import ru.instamart.reforged.core.service.ashot.AshotService;
 
 @RequiredArgsConstructor
@@ -38,7 +39,7 @@ public final class Should {
         Kraken.waitAction().shouldNotBeAnimated(component);
     }
 
-    public void screenDiff() {
-        AshotService.compareImage(component.screenWebElement(), component.getComponent());
+    public void screenDiff(final Component... components) {
+        AshotService.compareImage(component.screenWebElement(components), component.getComponent(), components);
     }
 }

@@ -27,8 +27,18 @@ public interface PartnersMapCheck extends Check, PartnersMapElement {
         partnerPhoneBalloon.is().containText(phone);
     }
 
+    @Step("Номер заказа в балуне соответствует заданному '{number}'")
+    default void checkOrderNumberInBalloon(final String number) {
+        activeOrdersBalloon.is().containText(number);
+    }
+
     @Step("Сверка скриншотов карты")
     default void checkMapScreen() {
         map.should().screenDiff();
+    }
+
+    @Step("Сверка карты с балуном партнера")
+    default void checkMapWithBalloon() {
+        map.should().screenDiff(activeOrdersBalloon, activityUpdateBalloon);
     }
 }
