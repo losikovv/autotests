@@ -24,4 +24,5 @@ public interface SendPromoElement {
     Input compensationValueInput = new Input(By.xpath("//input[@id='promotionId']"), "Инпут суммы промо");
     Button sendPromoButton = new Button(ByKraken.xpathExpression("//div[@data-qa='order_compensation_create_page']//button[@type='submit']"), "Кнопка 'Отправить'");
     Input emailInput = new Input(By.xpath("//input[@data-qa='order_compensation_email']"), "Инпут емейла");
+    Input commentInput = new Input(By.xpath("//textarea[@data-qa='order_compensation_comment']"), "Инпут комментария");
 }

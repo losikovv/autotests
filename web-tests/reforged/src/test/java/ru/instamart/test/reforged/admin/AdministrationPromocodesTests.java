@@ -61,7 +61,7 @@ public final class AdministrationPromocodesTests {
         shipments().goToPageOld();
         shipments().waitPageLoad();
 
-        shipments().clickToShipmentNumber(0);
+        shipments().clickToShipmentNumber(1);
 
         shipmentPage().clickOnSendPromo();
 
@@ -104,7 +104,7 @@ public final class AdministrationPromocodesTests {
         shipments().goToPageOld();
         shipments().waitPageLoad();
 
-        shipments().clickToShipmentNumber(0);
+        shipments().clickToShipmentNumber(2);
 
         shipmentPage().clickOnSendPromo();
 
@@ -147,7 +147,7 @@ public final class AdministrationPromocodesTests {
         shipments().goToPageOld();
         shipments().waitPageLoad();
 
-        shipments().clickToShipmentNumber(0);
+        shipments().clickToShipmentNumber(3);
 
         shipmentPage().clickOnSendPromo();
 
@@ -190,7 +190,7 @@ public final class AdministrationPromocodesTests {
         shipments().goToPageOld();
         shipments().waitPageLoad();
 
-        shipments().clickToShipmentNumber(0);
+        shipments().clickToShipmentNumber(4);
 
         shipmentPage().clickOnSendPromo();
 
@@ -214,6 +214,9 @@ public final class AdministrationPromocodesTests {
 
         sendPromoPage().openCompensationValueList();
         sendPromoPage().setCompensationValue("800");
+
+        var comment = "Тестовое промо";
+        sendPromoPage().fillComment(comment);
 
         sendPromoPage().clickOnSendPromo();
 
@@ -246,7 +249,7 @@ public final class AdministrationPromocodesTests {
         shipments().goToPageOld();
         shipments().waitPageLoad();
 
-        shipments().clickToShipmentNumber(0);
+        shipments().clickToShipmentNumber(5);
 
         shipmentPage().clickOnSendPromo();
 

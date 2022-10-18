@@ -25,6 +25,11 @@ public final class SendPromoPage implements AdminPage, SendPromoCheck {
         emailInput.fillField(email);
     }
 
+    @Step("Вводим комментарий - {0}")
+    public void fillComment(final String comment) {
+        commentInput.fillField(comment);
+    }
+
     @Step("Открываем выпадающий список компенсаций")
     public void openCompensationsList() {
         compensation.click();
