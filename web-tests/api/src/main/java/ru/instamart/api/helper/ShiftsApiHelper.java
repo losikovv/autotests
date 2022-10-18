@@ -19,7 +19,6 @@ import ru.instamart.kraken.data.StartPointsTenants;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,12 +27,13 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.util.TimeUtil.getZonedUTCFutureDate;
 
 @Slf4j
-public class ShiftsApiHelper {
+public final class ShiftsApiHelper {
+
     private final ThreadLocal<Integer> currentRegion = new ThreadLocal<>();
     private final ThreadLocal<Integer> planningPeriodId = new ThreadLocal<>();
     private Integer defaultShiftZone = EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID;
 
-    @Step("Получаем информацию о сбрщике")
+    @Step("Получаем информацию о сборщике")
     public ShopperSHPResponse getShopperInfo() {
         final Response response = ShopperSHPRequest.GET();
         checkStatusCode200(response);
@@ -123,56 +123,40 @@ public class ShiftsApiHelper {
 
     @Step("Остановить все смены в in_progress")
     public void stopAllActiveShifts() {
-        List<ShiftResponse> shifts = shifts();
-        shifts.stream()
+        shifts().stream()
                 .filter(line -> line.getState().equals("in_progress") || line.getState().equals("on_pause"))
                 .forEach(item -> stopShifts(item.getId()));
     }
 
     @Step("Отменить все смены кроме in_progress")
     public void cancelAllActiveShifts() {
-        List<ShiftResponse> shifts = shifts();
-        shifts.stream()
+        shifts().stream()
                 .filter(line -> !line.getState().equals("in_progress") || !line.getState().equals("on_pause"))
                 .forEach(item -> cancelShifts(item.getId()));
     }
 
-    @Step("Создание ближайшей смены")
     public ShiftResponse createShift() {
-        getShopperInfo();
-        var shifts = shifts().stream().map(item -> item.getPlanningPeriods().get(0).getId()).collect(Collectors.toList());
-        var planningAreaList = getPlanningArea();
-        //условие для универсалов с единственной зоной планирования
-        if (Objects.nonNull(planningAreaList) && planningAreaList.size() == 1) {
-            defaultShiftZone = planningAreaList.get(0).getId();
-        }
-        var planningPeriodItem = getPlanningPeriod();
-        List<PlanningPeriodsSHPResponse> collect = planningPeriodItem.stream()
-                .filter(item -> !shifts.contains(item.getId()))
-                .collect(Collectors.toList());
-        var planningitem = collect.get(0);
-        planningPeriodId.set(planningitem.getId());
-        log.debug("Shifts accept: {}", planningPeriodId.get());
-        return postShift(planningitem);
+        return createShift(0);
     }
 
-    @Step("Создание ближайшей смены")
+    @Step("Создание ближайшей смены = '{plusId}'")
     public ShiftResponse createShift(final int plusId) {
         getShopperInfo();
-        var shifts = shifts().stream().map(item -> item.getPlanningPeriods().get(0).getId()).collect(Collectors.toList());
-        var planningAreaList = getPlanningArea();
+        final var shifts = shifts().stream().map(item -> item.getPlanningPeriods().get(0).getId()).collect(Collectors.toList());
+        final var planningAreaList = getPlanningArea();
         //условие для универсалов с единственной зоной планирования
-        if (Objects.nonNull(planningAreaList) && planningAreaList.size() == 1) {
+        if (planningAreaList.size() == 1) {
             defaultShiftZone = planningAreaList.get(0).getId();
         }
-        var planningPeriodItem = getPlanningPeriod();
-        List<PlanningPeriodsSHPResponse> collect = planningPeriodItem.stream()
+        final var planningPeriodItem = getPlanningPeriod();
+        final List<PlanningPeriodsSHPResponse> collect = planningPeriodItem.stream()
                 .filter(item -> !shifts.contains(item.getId()))
                 .collect(Collectors.toList());
-        var planningitem = collect.get(plusId);
-        planningPeriodId.set(planningitem.getId());
+        final var planningItem = collect.get(plusId);
+        planningPeriodId.set(planningItem.getId());
         log.debug("Shifts accept: {}", planningPeriodId.get());
-        return postShift(planningitem);
+
+        return postShift(planningItem);
     }
 
     @Step("Создание смены до начала которой более 1440 минут")
@@ -183,10 +167,10 @@ public class ShiftsApiHelper {
         List<PlanningPeriodsSHPResponse> collect = planningPeriodItem.stream()
                 .filter(item -> !shifts.contains(item.getId()))
                 .collect(Collectors.toList());
-        var planningitem = collect.get(0);
-        planningPeriodId.set(planningitem.getId());
+        var planningItem = collect.get(0);
+        planningPeriodId.set(planningItem.getId());
         log.debug("Shifts accept: {}", planningPeriodId.get());
-        return postShift(planningitem);
+        return postShift(planningItem);
     }
 
     @Step("Начало смены для сборщика универсала")
