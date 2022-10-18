@@ -10,6 +10,7 @@ import ru.instamart.reforged.admin.page.main.MainPage;
 import ru.instamart.reforged.admin.page.orders.OrdersPage;
 import ru.instamart.reforged.admin.page.pages.Pages;
 import ru.instamart.reforged.admin.page.pages.new_page.NewPage;
+import ru.instamart.reforged.admin.page.partners_map.PartnersMapPage;
 import ru.instamart.reforged.admin.page.retailers.RetailersPage;
 import ru.instamart.reforged.admin.page.retailers.add_new_retailer.RetailerAddPage;
 import ru.instamart.reforged.admin.page.retailers.add_new_shop.ShopAddPage;
@@ -228,6 +229,10 @@ public final class AdminRout extends Router {
 
     public static ShoppersEditPage shoppersEdit() {
         return (ShoppersEditPage) getPage(ShoppersEditPage.class);
+    }
+
+    public static PartnersMapPage partnersMap() {
+        return (PartnersMapPage) getPage(PartnersMapPage.class);
     }
 
     private AdminRout() {

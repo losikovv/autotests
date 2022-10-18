@@ -16,9 +16,10 @@
             <class name="ru.instamart.test.reforged.admin.orders.AdministrationShipmentInTableTests"/>
             <class name="ru.instamart.test.reforged.admin.orders.AdministrationMultiselectFiltersOrdersTests"/>
 
+            <class name="ru.instamart.test.reforged.admin.partners.AdminPartnersMapTests"/>
             <class name="ru.instamart.test.reforged.admin.partners.AdminShoppersTests"/>
 
-            <class name="ru.instamart.test.reforged.admin.AdministrationRetailerRegionsTests"/>
+            <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerRegionsTests"/>
         </classes>
     </test>
 </suite>

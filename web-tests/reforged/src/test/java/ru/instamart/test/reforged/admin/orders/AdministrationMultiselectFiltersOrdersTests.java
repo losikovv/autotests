@@ -14,6 +14,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.List;
 import java.util.Set;
 
+import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.admin.AdminRout.*;
 import static ru.instamart.reforged.admin.enums.CollectingStatus.*;
 import static ru.instamart.reforged.admin.enums.PaymentMethods.*;
@@ -21,6 +22,9 @@ import static ru.instamart.reforged.admin.enums.PaymentStatuses.*;
 import static ru.instamart.reforged.admin.enums.QuickFilters.*;
 import static ru.instamart.reforged.admin.enums.ShipmentStatuses.*;
 
+/**
+ * Сейчас нет пагинации и в ближайшее время не предвидится GARM-839
+ */
 @Epic("Админка STF")
 @Feature("Заказы")
 @Story("Страница 'Список заказов' admin/spa/orders. Фильтры с множественным выбором")
@@ -30,7 +34,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2116)
     @Test(description = "Поиск заказа по фильтру Номер заказа",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void orderNumberByShipmentNumberFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -101,7 +105,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     //Если выгребать текущие, то в таблице нет данных о дате создания
     @CaseId(2117)
     @Test(description = "Поиск заказа по дате создания заказа, фильтр Создание заказа",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void orderFilterByCreateDate() {
         final var order = helper.makeAndCancelOrder(UserManager.getQaUser(), UiProperties.DEFAULT_SID, 2);
         login().goToPage();
@@ -128,7 +132,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     //TODO: сделать датапикер
     @CaseId(2118)
     @Test(description = "Поиск заказа по дате доставки, фильтр Доставка заказа",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void orderFilterByDeliveryDate() {
         final var dateStart = TimeUtil.getDateWithTimeMinusDays(4);
         final var dateEnd = TimeUtil.getDateWithTime();
@@ -152,7 +156,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2119)
     @Test(description = "Поиск заказов по весу, фильтр Вес заказа",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void orderFilterByWeight() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -199,7 +203,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2120)
     @Test(description = "Поиск заказов по фильтру Платформа",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void platformFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -230,7 +234,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2121)
     @Test(description = "Фильтрация заказов по ритейлеру",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void retailerFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -261,7 +265,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2143)
     @Test(description = "Фильтрация заказов по базовому магазину",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void basicStoreFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -291,7 +295,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2122)
     @Test(description = "Фильтрация заказов по магазину",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void storeFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -318,7 +322,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2123)
     @Test(description = "Фильтрация заказов по Способу оплаты",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void paymentMethodsFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -349,7 +353,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     @Flaky
     @CaseId(2124)
     @Test(description = "Фильтрация заказов по промокоду",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void promoCodeFiltersTest() {
         final var userData = UserManager.getQaUser();
         final var order = helper.makeAndCancelOrder(userData, UiProperties.DEFAULT_SID, 3, true);
@@ -378,7 +382,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     // и потом выпилить этот фильтр и перей/ти на статусы джобов
     @Flaky
     @Test(description = "Фильтрация заказа по статусу сборки",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void collectingStatusFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -411,7 +415,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     // и потом выпилить этот фильтр и перей/ти на статусы джобов
     @Flaky
     @Test(description = "Фильтрация заказа по статусу доставки",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void deliveryStatusFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -441,7 +445,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2159)
     @Test(description = "Фильтрация заказов по кол-ву позиций в заказе",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void orderFilterByItems() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -488,7 +492,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2160)
     @Test(description = "Фильтрация заказов по статусу оплаты",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void paymentStatusFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -554,7 +558,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2136)
     @Test(description = "Фильтрация заказов с помощью быстрого фильтра",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void quickFiltersTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -586,7 +590,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2071)
     @Test(description = "Фильтр Статус заказа - выпадающий список с множественным выбором",
-            groups = {"ondemand_orders_regression", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_REGRESS})
     public void orderStatusFilterTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -627,7 +631,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     @CaseId(2063)
     @Issues(value = {@Issue("SA-1970"), @Issue("SA-1971")})
     @Test(description = "Быстрый фильтр: Без назначений",
-            groups = {"ondemand_orders_regression", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_REGRESS})
     public void quickFiltersNotAssignedTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -649,7 +653,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2064)
     @Test(description = "Быстрый фильтр: Неоплаченные",
-            groups = {"ondemand_orders_regression", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_REGRESS})
     public void quickFiltersNotPaidTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -670,7 +674,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2066)
     @Test(description = "Быстрый фильтр: Завершенные",
-            groups = {"ondemand_orders_regression", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_REGRESS})
     public void quickFiltersCompletedTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -693,7 +697,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2067)
     @Test(description = "Быстрый фильтр: Незавершенные",
-            groups = {"ondemand_orders_regression", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_REGRESS})
     public void quickFiltersNotCompletedTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -722,7 +726,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2068)
     @Test(description = "Быстрый фильтр: B2B клиенты",
-            groups = {"ondemand_orders_regression", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_REGRESS})
     public void quickFiltersB2BTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -744,7 +748,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     }
 
     @CaseId(2070)
-    @Test(description = "Быстрые фильтры - множественный выбор", groups = {"ondemand_orders_regression", "admin_ondemand_regression"})
+    @Test(description = "Быстрые фильтры - множественный выбор", groups = {OD_ORDERS_REGRESS, OD_REGRESS})
     public void quickFiltersComplexUsingTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

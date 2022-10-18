@@ -131,6 +131,7 @@ project(":reforged") {
 
         implementation lib.seleniumJava
         implementation lib.webdrivermanager
+        implementation lib.ashot
 
         annotationProcessor lib.lombok
         testImplementation lib.logback

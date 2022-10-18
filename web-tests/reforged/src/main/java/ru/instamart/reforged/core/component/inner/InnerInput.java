@@ -14,7 +14,7 @@ public final class InnerInput extends InnerComponent {
     }
 
     @Override
-    protected WebElement getComponent() {
+    public WebElement getComponent() {
         return Kraken.waitAction().shouldBeClickable(this, getWebElement());
     }
 

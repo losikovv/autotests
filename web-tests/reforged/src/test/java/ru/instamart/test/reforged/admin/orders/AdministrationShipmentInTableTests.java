@@ -8,9 +8,13 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.admin.AdminRout.*;
 import static ru.instamart.reforged.admin.enums.ShipmentStatuses.SHIPMENT_READY;
 
+/**
+ * Сейчас нет пагинации и в ближайшее время не предвидится GARM-839
+ */
 @Epic("Админка STF")
 @Feature("Заказы")
 @Story("Страница 'Список заказов' admin/spa/orders. Карточка заказа в таблице ")
@@ -18,7 +22,7 @@ public final class AdministrationShipmentInTableTests {
 
     @CaseId(2101)
     @Test(description = "Переход в карточку магазина со страницы Список заказов",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void storeNameLinkLeadsToStorePageTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -39,7 +43,7 @@ public final class AdministrationShipmentInTableTests {
 
     @CaseId(2109)
     @Test(description = "Быстрый переход в карточку заказа со страницы Список заказов",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void orderNumberLinkLeadsToOrderEditPageTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -69,7 +73,7 @@ public final class AdministrationShipmentInTableTests {
     //Скачивание 500 на стейджах
     @CaseId(2110)
     @Test(description = "Скачать накладную заказа",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void downloadAnOrderWaybillTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -81,7 +85,7 @@ public final class AdministrationShipmentInTableTests {
 
     @CaseId(2111)
     @Test(description = "Переход в карточку заказа через дополнительное меню на странице Список заказов",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shipmentDropdownMenuTestShipmentInfo() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -103,7 +107,7 @@ public final class AdministrationShipmentInTableTests {
 
     @CaseId(2112)
     @Test(description = "Переход в платежи заказа через дополнительное меню",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shipmentPaymentStatusLeadsPaymentsTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -126,7 +130,7 @@ public final class AdministrationShipmentInTableTests {
     @Skip
     @CaseId(2162)
     @Test(description = "Переход на просмотр местоположения курьера на карте",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shipmentDropdownMenuTestShowOnMap() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -148,7 +152,7 @@ public final class AdministrationShipmentInTableTests {
 
     @CaseId(2113)
     @Test(description = "Переход на страницу переноса слота заказа из таблица заказов",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shipmentDeliveryTimeLeadsShipmentPageDeliveryTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -171,7 +175,7 @@ public final class AdministrationShipmentInTableTests {
 
     @CaseId(2114)
     @Test(description = "Переход к реквизитам клиента со страницы Список заказов",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shipmentClientNameLeadsClientEditPageTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -193,7 +197,7 @@ public final class AdministrationShipmentInTableTests {
     //вывести партнера на смену в магазин где собран заказ
     @CaseId(2129)
     @Test(description = "Удаление назначенного универсала",
-            groups = {"ondemand_orders_regression", "ondemand_orders_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void shipmentDropdownMenuTestAssignment() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

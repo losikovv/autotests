@@ -268,7 +268,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
 
     @Step("Нажимаем кнопку 'Применить фильтры'")
     public void applyFilters() {
-        quickFiltersTitle.getElement().click();
+        quickFiltersTitle.getComponent().click();
         applyFilters.click();
     }
 

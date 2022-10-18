@@ -7,16 +7,20 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.OD_REGRESS;
 import static ru.instamart.reforged.admin.AdminRout.login;
 import static ru.instamart.reforged.admin.AdminRout.orders;
 
+/**
+ * Сейчас нет пагинации и в ближайшее время не предвидится GARM-839
+ */
 @Epic("Админка STF")
 @Feature("Заказы")
 @Story("Страница 'Список заказов' admin/spa/orders")
 public final class AdministrationBasicOrdersTests {
 
     @CaseId(1499)
-    @Test(description = "Корректное отображение страницы (/admin/orders). Админ со старыми ролями", groups = {"admin_ondemand_regression"})
+    @Test(description = "Корректное отображение страницы (/admin/orders). Админ со старыми ролями", groups = {OD_REGRESS})
     public void basicOrdersPageTestOldRoles() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -38,7 +42,7 @@ public final class AdministrationBasicOrdersTests {
     }
 
     @CaseId(1499)
-    @Test(description = "Корректное отображение страницы (/admin/orders). Админ с новыми ролями", groups = {"admin_ondemand_regression"})
+    @Test(description = "Корректное отображение страницы (/admin/orders). Админ с новыми ролями", groups = {OD_REGRESS})
     public void basicOrdersPageTestNewRoles() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

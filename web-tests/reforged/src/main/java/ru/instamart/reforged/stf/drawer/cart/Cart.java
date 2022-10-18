@@ -61,12 +61,12 @@ public final class Cart implements CartCheck {
 
     @Step("Получаем первый магазин в корзине")
     public Retailer getFirstRetailer() {
-        return new Retailer(firstRetailer.getElement());
+        return new Retailer(firstRetailer.getComponent());
     }
 
     @Step("Получаем первый товар в корзине")
     public Item getFirstItem() {
-        return new Item(firstItem.getElement());
+        return new Item(firstItem.getComponent());
     }
 
     @Step("Получаем последний товар в корзине")

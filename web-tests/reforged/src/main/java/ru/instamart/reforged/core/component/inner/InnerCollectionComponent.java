@@ -19,7 +19,7 @@ public final class InnerCollectionComponent extends InnerComponent {
     }
 
     @Override
-    protected WebElement getComponent() {
+    public WebElement getComponent() {
         return null;
     }
 

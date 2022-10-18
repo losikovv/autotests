@@ -1,4 +1,4 @@
-package ru.instamart.test.reforged.admin;
+package ru.instamart.test.reforged.admin.retailer;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;

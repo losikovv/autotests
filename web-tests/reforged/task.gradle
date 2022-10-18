@@ -36,6 +36,8 @@ task localRunAdminOnDemand(type: Test) {
     }
     systemProperty 'admin_url', 'https://stf-6.k-stage.sbermarket.tech/admin/'
     systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
+    systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
+    systemProperty 'service', 'paas-content-operations-shifts'
     systemProperty 'qase.Project', 'DEBUG'
     systemProperty 'qase.Title', 'Admin On Demand UI DEBUG'
 }

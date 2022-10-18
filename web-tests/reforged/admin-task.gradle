@@ -44,6 +44,8 @@ task adminOnDemandSmoke(type: Test) {
     }
     systemProperty 'admin_url', 'https://stf-6.k-stage.sbermarket.tech/admin/'
     systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
+    systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
+    systemProperty 'service', 'paas-content-operations-shifts'
     systemProperty 'qase.Project', 'SA'
     systemProperty 'qase.Title', 'On-Demand Admin Smoke'
 }
@@ -55,6 +57,8 @@ task adminOnDemandRegress(type: Test) {
     }
     systemProperty 'admin_url', 'https://stf-6.k-stage.sbermarket.tech/admin/'
     systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
+    systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
+    systemProperty 'service', 'paas-content-operations-shifts'
     systemProperty 'qase.Project', 'SA'
     systemProperty 'qase.Title', 'On-Demand Admin Regress'
 }
