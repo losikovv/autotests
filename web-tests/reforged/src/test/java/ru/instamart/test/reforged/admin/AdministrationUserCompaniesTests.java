@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.JuridicalData;
@@ -95,6 +96,7 @@ public final class AdministrationUserCompaniesTests {
         editUserCompany().checkBank(companyData.getBankName());
     }
 
+    @Issue("DEVB2B-2814")
     @CaseId(25)
     @Test(description = "Добавление новой компании пользователя", groups = REGRESSION_ADMIN)
     public void testAddUserCompany() {
@@ -132,6 +134,7 @@ public final class AdministrationUserCompaniesTests {
         editUserCompany().clickSubmit();
 
         userCompanies().waitPageLoad();
+        //DEVB2B-2814
         userCompanies().checkCompaniesCount(1);
         userCompanies().checkCompanyNameInRow(1, companyData.getJuridicalName());
 
