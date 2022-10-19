@@ -10822,6 +10822,47 @@ public final class WorkflowOuterClass {
      * @return The distance.
      */
     long getDistance();
+
+    /**
+     * <pre>
+     * uuid-ы джобов, к которым относится сегмент
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 12;</code>
+     * @return A list containing the jobUuids.
+     */
+    java.util.List<java.lang.String>
+        getJobUuidsList();
+    /**
+     * <pre>
+     * uuid-ы джобов, к которым относится сегмент
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 12;</code>
+     * @return The count of jobUuids.
+     */
+    int getJobUuidsCount();
+    /**
+     * <pre>
+     * uuid-ы джобов, к которым относится сегмент
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 12;</code>
+     * @param index The index of the element to return.
+     * @return The jobUuids at the given index.
+     */
+    java.lang.String getJobUuids(int index);
+    /**
+     * <pre>
+     * uuid-ы джобов, к которым относится сегмент
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 12;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the jobUuids at the given index.
+     */
+    com.google.protobuf.ByteString
+        getJobUuidsBytes(int index);
   }
   /**
    * <pre>
@@ -10842,6 +10883,7 @@ public final class WorkflowOuterClass {
     private Segment() {
       type_ = 0;
       shipments_ = java.util.Collections.emptyList();
+      jobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
     @java.lang.Override
@@ -10991,6 +11033,15 @@ public final class WorkflowOuterClass {
               distance_ = input.readUInt64();
               break;
             }
+            case 98: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                jobUuids_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              jobUuids_.add(s);
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -11008,6 +11059,9 @@ public final class WorkflowOuterClass {
       } finally {
         if (((mutable_bitField0_ & 0x00000001) != 0)) {
           shipments_ = java.util.Collections.unmodifiableList(shipments_);
+        }
+        if (((mutable_bitField0_ & 0x00000004) != 0)) {
+          jobUuids_ = jobUuids_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -11480,6 +11534,57 @@ public final class WorkflowOuterClass {
       return distance_;
     }
 
+    public static final int JOB_UUIDS_FIELD_NUMBER = 12;
+    private com.google.protobuf.LazyStringList jobUuids_;
+    /**
+     * <pre>
+     * uuid-ы джобов, к которым относится сегмент
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 12;</code>
+     * @return A list containing the jobUuids.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getJobUuidsList() {
+      return jobUuids_;
+    }
+    /**
+     * <pre>
+     * uuid-ы джобов, к которым относится сегмент
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 12;</code>
+     * @return The count of jobUuids.
+     */
+    public int getJobUuidsCount() {
+      return jobUuids_.size();
+    }
+    /**
+     * <pre>
+     * uuid-ы джобов, к которым относится сегмент
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 12;</code>
+     * @param index The index of the element to return.
+     * @return The jobUuids at the given index.
+     */
+    public java.lang.String getJobUuids(int index) {
+      return jobUuids_.get(index);
+    }
+    /**
+     * <pre>
+     * uuid-ы джобов, к которым относится сегмент
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 12;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the jobUuids at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getJobUuidsBytes(int index) {
+      return jobUuids_.getByteString(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -11529,6 +11634,9 @@ public final class WorkflowOuterClass {
       }
       if (distance_ != 0L) {
         output.writeUInt64(11, distance_);
+      }
+      for (int i = 0; i < jobUuids_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, jobUuids_.getRaw(i));
       }
       unknownFields.writeTo(output);
     }
@@ -11589,6 +11697,14 @@ public final class WorkflowOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(11, distance_);
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < jobUuids_.size(); i++) {
+          dataSize += computeStringSizeNoTag(jobUuids_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getJobUuidsList().size();
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -11643,6 +11759,8 @@ public final class WorkflowOuterClass {
       }
       if (getDistance()
           != other.getDistance()) return false;
+      if (!getJobUuidsList()
+          .equals(other.getJobUuidsList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -11693,6 +11811,10 @@ public final class WorkflowOuterClass {
       hash = (37 * hash) + DISTANCE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getDistance());
+      if (getJobUuidsCount() > 0) {
+        hash = (37 * hash) + JOB_UUIDS_FIELD_NUMBER;
+        hash = (53 * hash) + getJobUuidsList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11902,6 +12024,8 @@ public final class WorkflowOuterClass {
         }
         distance_ = 0L;
 
+        jobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -11973,6 +12097,11 @@ public final class WorkflowOuterClass {
           result.duration_ = durationBuilder_.build();
         }
         result.distance_ = distance_;
+        if (((bitField0_ & 0x00000004) != 0)) {
+          jobUuids_ = jobUuids_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        }
+        result.jobUuids_ = jobUuids_;
         onBuilt();
         return result;
       }
@@ -12075,6 +12204,16 @@ public final class WorkflowOuterClass {
         }
         if (other.getDistance() != 0L) {
           setDistance(other.getDistance());
+        }
+        if (!other.jobUuids_.isEmpty()) {
+          if (jobUuids_.isEmpty()) {
+            jobUuids_ = other.jobUuids_;
+            bitField0_ = (bitField0_ & ~0x00000004);
+          } else {
+            ensureJobUuidsIsMutable();
+            jobUuids_.addAll(other.jobUuids_);
+          }
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -13660,6 +13799,152 @@ public final class WorkflowOuterClass {
       public Builder clearDistance() {
         
         distance_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList jobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureJobUuidsIsMutable() {
+        if (!((bitField0_ & 0x00000004) != 0)) {
+          jobUuids_ = new com.google.protobuf.LazyStringArrayList(jobUuids_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+      /**
+       * <pre>
+       * uuid-ы джобов, к которым относится сегмент
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 12;</code>
+       * @return A list containing the jobUuids.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getJobUuidsList() {
+        return jobUuids_.getUnmodifiableView();
+      }
+      /**
+       * <pre>
+       * uuid-ы джобов, к которым относится сегмент
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 12;</code>
+       * @return The count of jobUuids.
+       */
+      public int getJobUuidsCount() {
+        return jobUuids_.size();
+      }
+      /**
+       * <pre>
+       * uuid-ы джобов, к которым относится сегмент
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 12;</code>
+       * @param index The index of the element to return.
+       * @return The jobUuids at the given index.
+       */
+      public java.lang.String getJobUuids(int index) {
+        return jobUuids_.get(index);
+      }
+      /**
+       * <pre>
+       * uuid-ы джобов, к которым относится сегмент
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 12;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the jobUuids at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getJobUuidsBytes(int index) {
+        return jobUuids_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * uuid-ы джобов, к которым относится сегмент
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 12;</code>
+       * @param index The index to set the value at.
+       * @param value The jobUuids to set.
+       * @return This builder for chaining.
+       */
+      public Builder setJobUuids(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureJobUuidsIsMutable();
+        jobUuids_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * uuid-ы джобов, к которым относится сегмент
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 12;</code>
+       * @param value The jobUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addJobUuids(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureJobUuidsIsMutable();
+        jobUuids_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * uuid-ы джобов, к которым относится сегмент
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 12;</code>
+       * @param values The jobUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllJobUuids(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureJobUuidsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, jobUuids_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * uuid-ы джобов, к которым относится сегмент
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 12;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearJobUuids() {
+        jobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * uuid-ы джобов, к которым относится сегмент
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 12;</code>
+       * @param value The bytes of the jobUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addJobUuidsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureJobUuidsIsMutable();
+        jobUuids_.add(value);
         onChanged();
         return this;
       }
@@ -18793,7 +19078,7 @@ public final class WorkflowOuterClass {
       "kflow.Assignment.MetaEntry\022\036\n\005shift\030\013 \001(" +
       "\0132\017.workflow.Shift\022\020\n\010job_uuid\030\014 \001(\t\022\027\n\017" +
       "parent_job_uuid\030\r \001(\t\032+\n\tMetaEntry\022\013\n\003ke" +
-      "y\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\351\003\n\007Segment\022#" +
+      "y\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\374\003\n\007Segment\022#" +
       "\n\004type\030\001 \001(\0162\025.workflow.SegmentType\022\020\n\010p" +
       "osition\030\002 \001(\r\022%\n\tshipments\030\003 \003(\0132\022.workf" +
       "low.Shipment\022*\n\016location_start\030\004 \001(\0132\022.w" +
@@ -18804,41 +19089,41 @@ public final class WorkflowOuterClass {
       "mp\022+\n\010time_lag\030\010 \001(\0132\031.google.protobuf.D" +
       "uration\022)\n\004meta\030\t \003(\0132\033.workflow.Segment" +
       ".MetaEntry\022+\n\010duration\030\n \001(\0132\031.google.pr" +
-      "otobuf.Duration\022\020\n\010distance\030\013 \001(\004\032+\n\tMet" +
-      "aEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"Z" +
-      "\n\010Workflow\022)\n\013assignments\030\002 \003(\0132\024.workfl" +
-      "ow.Assignment\022#\n\010segments\030\003 \003(\0132\021.workfl" +
-      "ow.Segment\"\367\001\n\016RegionSettings\022\033\n\023operati" +
-      "onal_zone_id\030\001 \001(\004\022*\n\"timeout_segment_pa" +
-      "ss_to_client_sec\030\002 \001(\004\022&\n\036segment_assemb" +
-      "ly_tardiness_sec\030\003 \001(\004\022+\n#increasing_lat" +
-      "e_assembly_percentage\030\004 \001(\002\022 \n\030time_to_a" +
-      "ccept_offer_sec\030\005 \001(\004\022%\n\035server_offer_st" +
-      "orage_time_sec\030\006 \001(\004\"M\n\030PutRegionSetting" +
-      "sRequest\0221\n\017region_settings\030\001 \001(\0132\030.work" +
-      "flow.RegionSettings\"T\n\026PutRegionSettings" +
-      "Reply\022\n\n\002ok\030\001 \001(\010\022\033\n\023operational_zone_id" +
-      "\030\002 \001(\004\022\021\n\terror_msg\030\003 \001(\t\"7\n\030GetRegionSe" +
-      "ttingsRequest\022\033\n\023operational_zone_id\030\001 \001" +
-      "(\004\"j\n\026GetRegionSettingsReply\022\n\n\002ok\030\001 \001(\010" +
-      "\0221\n\017region_settings\030\002 \001(\0132\030.workflow.Reg" +
-      "ionSettings\022\021\n\terror_msg\030\003 \001(\t2\351\004\n\007Servi" +
-      "ce\022V\n\017CreateWorkflows\022 .workflow.CreateW" +
-      "orkflowsRequest\032!.workflow.CreateWorkflo" +
-      "wsResponse\022Z\n\021CreateWorkflowsV2\022 .workfl" +
-      "ow.CreateWorkflowsRequest\032#.workflow.Cre" +
-      "ateWorkflowsV2Response\022q\n\"CancelActiveWo" +
-      "rkflowByShipmentUUID\0223.workflow.CancelAc" +
-      "tiveWorkflowByShipmentUuidRequest\032\026.goog" +
-      "le.protobuf.Empty\022}\n\034RejectWorkflowByShi" +
-      "pmentUUID\022-.workflow.RejectWorkflowByShi" +
-      "pmentUuidRequest\032..workflow.RejectWorkfl" +
-      "owByShipmentUuidResponse\022[\n\021PutRegionSet" +
-      "tings\022\".workflow.PutRegionSettingsReques" +
-      "t\032 .workflow.PutRegionSettingsReply\"\000\022[\n" +
-      "\021GetRegionSettings\022\".workflow.GetRegionS" +
-      "ettingsRequest\032 .workflow.GetRegionSetti" +
-      "ngsReply\"\000b\006proto3"
+      "otobuf.Duration\022\020\n\010distance\030\013 \001(\004\022\021\n\tjob" +
+      "_uuids\030\014 \003(\t\032+\n\tMetaEntry\022\013\n\003key\030\001 \001(\t\022\r" +
+      "\n\005value\030\002 \001(\t:\0028\001\"Z\n\010Workflow\022)\n\013assignm" +
+      "ents\030\002 \003(\0132\024.workflow.Assignment\022#\n\010segm" +
+      "ents\030\003 \003(\0132\021.workflow.Segment\"\367\001\n\016Region" +
+      "Settings\022\033\n\023operational_zone_id\030\001 \001(\004\022*\n" +
+      "\"timeout_segment_pass_to_client_sec\030\002 \001(" +
+      "\004\022&\n\036segment_assembly_tardiness_sec\030\003 \001(" +
+      "\004\022+\n#increasing_late_assembly_percentage" +
+      "\030\004 \001(\002\022 \n\030time_to_accept_offer_sec\030\005 \001(\004" +
+      "\022%\n\035server_offer_storage_time_sec\030\006 \001(\004\"" +
+      "M\n\030PutRegionSettingsRequest\0221\n\017region_se" +
+      "ttings\030\001 \001(\0132\030.workflow.RegionSettings\"T" +
+      "\n\026PutRegionSettingsReply\022\n\n\002ok\030\001 \001(\010\022\033\n\023" +
+      "operational_zone_id\030\002 \001(\004\022\021\n\terror_msg\030\003" +
+      " \001(\t\"7\n\030GetRegionSettingsRequest\022\033\n\023oper" +
+      "ational_zone_id\030\001 \001(\004\"j\n\026GetRegionSettin" +
+      "gsReply\022\n\n\002ok\030\001 \001(\010\0221\n\017region_settings\030\002" +
+      " \001(\0132\030.workflow.RegionSettings\022\021\n\terror_" +
+      "msg\030\003 \001(\t2\351\004\n\007Service\022V\n\017CreateWorkflows" +
+      "\022 .workflow.CreateWorkflowsRequest\032!.wor" +
+      "kflow.CreateWorkflowsResponse\022Z\n\021CreateW" +
+      "orkflowsV2\022 .workflow.CreateWorkflowsReq" +
+      "uest\032#.workflow.CreateWorkflowsV2Respons" +
+      "e\022q\n\"CancelActiveWorkflowByShipmentUUID\022" +
+      "3.workflow.CancelActiveWorkflowByShipmen" +
+      "tUuidRequest\032\026.google.protobuf.Empty\022}\n\034" +
+      "RejectWorkflowByShipmentUUID\022-.workflow." +
+      "RejectWorkflowByShipmentUuidRequest\032..wo" +
+      "rkflow.RejectWorkflowByShipmentUuidRespo" +
+      "nse\022[\n\021PutRegionSettings\022\".workflow.PutR" +
+      "egionSettingsRequest\032 .workflow.PutRegio" +
+      "nSettingsReply\"\000\022[\n\021GetRegionSettings\022\"." +
+      "workflow.GetRegionSettingsRequest\032 .work" +
+      "flow.GetRegionSettingsReply\"\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -18925,7 +19210,7 @@ public final class WorkflowOuterClass {
     internal_static_workflow_Segment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_workflow_Segment_descriptor,
-        new java.lang.String[] { "Type", "Position", "Shipments", "LocationStart", "PlanStartedAt", "LocationEnd", "PlanEndedAt", "TimeLag", "Meta", "Duration", "Distance", });
+        new java.lang.String[] { "Type", "Position", "Shipments", "LocationStart", "PlanStartedAt", "LocationEnd", "PlanEndedAt", "TimeLag", "Meta", "Duration", "Distance", "JobUuids", });
     internal_static_workflow_Segment_MetaEntry_descriptor =
       internal_static_workflow_Segment_descriptor.getNestedTypes().get(0);
     internal_static_workflow_Segment_MetaEntry_fieldAccessorTable = new

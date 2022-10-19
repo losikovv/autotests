@@ -93,7 +93,6 @@ public class KafkaDispatchTest extends RestBase {
                             String.valueOf(LocalDateTime.now()),
                             String.valueOf(LocalDateTime.now().plus(1, ChronoUnit.DAYS)),
                             55.700289, 37.727431);
-                    shopperApp.sendCurrentLocator(55.700289, 37.727431, 0D);
                 }
         );
 

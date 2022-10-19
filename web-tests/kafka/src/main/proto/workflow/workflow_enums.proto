@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package workflow;
 
-
-
 enum SegmentType {
   // Подлет
   ARRIVE = 0;
@@ -84,4 +82,6 @@ message Shipment {
   string store_name = 10;
   // Адрес магазина
   string store_address = 11;
+  // uuid-ы всех джобов заказа
+  repeated string job_uuids = 13;
 }

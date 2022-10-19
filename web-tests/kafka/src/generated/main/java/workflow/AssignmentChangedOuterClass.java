@@ -83,19 +83,19 @@ public final class AssignmentChangedOuterClass {
      * Идентификатор джобы назначения
      * </pre>
      *
-     * <code>string job_uuid = 18;</code>
+     * <code>string job_uuid = 18 [deprecated = true];</code>
      * @return The jobUuid.
      */
-    java.lang.String getJobUuid();
+    @java.lang.Deprecated java.lang.String getJobUuid();
     /**
      * <pre>
      * Идентификатор джобы назначения
      * </pre>
      *
-     * <code>string job_uuid = 18;</code>
+     * <code>string job_uuid = 18 [deprecated = true];</code>
      * @return The bytes for jobUuid.
      */
-    com.google.protobuf.ByteString
+    @java.lang.Deprecated com.google.protobuf.ByteString
         getJobUuidBytes();
 
     /**
@@ -103,19 +103,19 @@ public final class AssignmentChangedOuterClass {
      * Идентификатор родительской джобы назначения для отложенной доставки
      * </pre>
      *
-     * <code>string parent_job_uuid = 19;</code>
+     * <code>string parent_job_uuid = 19 [deprecated = true];</code>
      * @return The parentJobUuid.
      */
-    java.lang.String getParentJobUuid();
+    @java.lang.Deprecated java.lang.String getParentJobUuid();
     /**
      * <pre>
      * Идентификатор родительской джобы назначения для отложенной доставки
      * </pre>
      *
-     * <code>string parent_job_uuid = 19;</code>
+     * <code>string parent_job_uuid = 19 [deprecated = true];</code>
      * @return The bytes for parentJobUuid.
      */
-    com.google.protobuf.ByteString
+    @java.lang.Deprecated com.google.protobuf.ByteString
         getParentJobUuidBytes();
 
     /**
@@ -303,17 +303,17 @@ public final class AssignmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 8;</code>
+     * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
      */
-    int getMetaCount();
+    @java.lang.Deprecated int getMetaCount();
     /**
      * <pre>
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 8;</code>
+     * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
      */
-    boolean containsMeta(
+    @java.lang.Deprecated boolean containsMeta(
         java.lang.String key);
     /**
      * Use {@link #getMetaMap()} instead.
@@ -326,18 +326,18 @@ public final class AssignmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 8;</code>
+     * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
      */
-    java.util.Map<java.lang.String, java.lang.String>
+    @java.lang.Deprecated java.util.Map<java.lang.String, java.lang.String>
     getMetaMap();
     /**
      * <pre>
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 8;</code>
+     * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
      */
-
+    @java.lang.Deprecated 
     java.lang.String getMetaOrDefault(
         java.lang.String key,
         java.lang.String defaultValue);
@@ -346,9 +346,9 @@ public final class AssignmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 8;</code>
+     * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
      */
-
+    @java.lang.Deprecated 
     java.lang.String getMetaOrThrow(
         java.lang.String key);
 
@@ -996,11 +996,11 @@ public final class AssignmentChangedOuterClass {
      * Идентификатор джобы назначения
      * </pre>
      *
-     * <code>string job_uuid = 18;</code>
+     * <code>string job_uuid = 18 [deprecated = true];</code>
      * @return The jobUuid.
      */
     @java.lang.Override
-    public java.lang.String getJobUuid() {
+    @java.lang.Deprecated public java.lang.String getJobUuid() {
       java.lang.Object ref = jobUuid_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
@@ -1017,11 +1017,11 @@ public final class AssignmentChangedOuterClass {
      * Идентификатор джобы назначения
      * </pre>
      *
-     * <code>string job_uuid = 18;</code>
+     * <code>string job_uuid = 18 [deprecated = true];</code>
      * @return The bytes for jobUuid.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString
+    @java.lang.Deprecated public com.google.protobuf.ByteString
         getJobUuidBytes() {
       java.lang.Object ref = jobUuid_;
       if (ref instanceof java.lang.String) {
@@ -1042,11 +1042,11 @@ public final class AssignmentChangedOuterClass {
      * Идентификатор родительской джобы назначения для отложенной доставки
      * </pre>
      *
-     * <code>string parent_job_uuid = 19;</code>
+     * <code>string parent_job_uuid = 19 [deprecated = true];</code>
      * @return The parentJobUuid.
      */
     @java.lang.Override
-    public java.lang.String getParentJobUuid() {
+    @java.lang.Deprecated public java.lang.String getParentJobUuid() {
       java.lang.Object ref = parentJobUuid_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
@@ -1063,11 +1063,11 @@ public final class AssignmentChangedOuterClass {
      * Идентификатор родительской джобы назначения для отложенной доставки
      * </pre>
      *
-     * <code>string parent_job_uuid = 19;</code>
+     * <code>string parent_job_uuid = 19 [deprecated = true];</code>
      * @return The bytes for parentJobUuid.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString
+    @java.lang.Deprecated public com.google.protobuf.ByteString
         getParentJobUuidBytes() {
       java.lang.Object ref = parentJobUuid_;
       if (ref instanceof java.lang.String) {
@@ -1377,7 +1377,7 @@ public final class AssignmentChangedOuterClass {
       }
       return meta_;
     }
-
+    @java.lang.Deprecated 
     public int getMetaCount() {
       return internalGetMeta().getMap().size();
     }
@@ -1386,9 +1386,9 @@ public final class AssignmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 8;</code>
+     * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
      */
-
+    @java.lang.Deprecated 
     @java.lang.Override
     public boolean containsMeta(
         java.lang.String key) {
@@ -1408,10 +1408,10 @@ public final class AssignmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 8;</code>
+     * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
      */
     @java.lang.Override
-
+    @java.lang.Deprecated 
     public java.util.Map<java.lang.String, java.lang.String> getMetaMap() {
       return internalGetMeta().getMap();
     }
@@ -1420,10 +1420,10 @@ public final class AssignmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 8;</code>
+     * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
      */
     @java.lang.Override
-
+    @java.lang.Deprecated 
     public java.lang.String getMetaOrDefault(
         java.lang.String key,
         java.lang.String defaultValue) {
@@ -1437,10 +1437,10 @@ public final class AssignmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 8;</code>
+     * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
      */
     @java.lang.Override
-
+    @java.lang.Deprecated 
     public java.lang.String getMetaOrThrow(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -2523,10 +2523,10 @@ public final class AssignmentChangedOuterClass {
        * Идентификатор джобы назначения
        * </pre>
        *
-       * <code>string job_uuid = 18;</code>
+       * <code>string job_uuid = 18 [deprecated = true];</code>
        * @return The jobUuid.
        */
-      public java.lang.String getJobUuid() {
+      @java.lang.Deprecated public java.lang.String getJobUuid() {
         java.lang.Object ref = jobUuid_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
@@ -2543,10 +2543,10 @@ public final class AssignmentChangedOuterClass {
        * Идентификатор джобы назначения
        * </pre>
        *
-       * <code>string job_uuid = 18;</code>
+       * <code>string job_uuid = 18 [deprecated = true];</code>
        * @return The bytes for jobUuid.
        */
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getJobUuidBytes() {
         java.lang.Object ref = jobUuid_;
         if (ref instanceof String) {
@@ -2564,11 +2564,11 @@ public final class AssignmentChangedOuterClass {
        * Идентификатор джобы назначения
        * </pre>
        *
-       * <code>string job_uuid = 18;</code>
+       * <code>string job_uuid = 18 [deprecated = true];</code>
        * @param value The jobUuid to set.
        * @return This builder for chaining.
        */
-      public Builder setJobUuid(
+      @java.lang.Deprecated public Builder setJobUuid(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
@@ -2583,10 +2583,10 @@ public final class AssignmentChangedOuterClass {
        * Идентификатор джобы назначения
        * </pre>
        *
-       * <code>string job_uuid = 18;</code>
+       * <code>string job_uuid = 18 [deprecated = true];</code>
        * @return This builder for chaining.
        */
-      public Builder clearJobUuid() {
+      @java.lang.Deprecated public Builder clearJobUuid() {
         
         jobUuid_ = getDefaultInstance().getJobUuid();
         onChanged();
@@ -2597,11 +2597,11 @@ public final class AssignmentChangedOuterClass {
        * Идентификатор джобы назначения
        * </pre>
        *
-       * <code>string job_uuid = 18;</code>
+       * <code>string job_uuid = 18 [deprecated = true];</code>
        * @param value The bytes for jobUuid to set.
        * @return This builder for chaining.
        */
-      public Builder setJobUuidBytes(
+      @java.lang.Deprecated public Builder setJobUuidBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
@@ -2619,10 +2619,10 @@ public final class AssignmentChangedOuterClass {
        * Идентификатор родительской джобы назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 19;</code>
+       * <code>string parent_job_uuid = 19 [deprecated = true];</code>
        * @return The parentJobUuid.
        */
-      public java.lang.String getParentJobUuid() {
+      @java.lang.Deprecated public java.lang.String getParentJobUuid() {
         java.lang.Object ref = parentJobUuid_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
@@ -2639,10 +2639,10 @@ public final class AssignmentChangedOuterClass {
        * Идентификатор родительской джобы назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 19;</code>
+       * <code>string parent_job_uuid = 19 [deprecated = true];</code>
        * @return The bytes for parentJobUuid.
        */
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getParentJobUuidBytes() {
         java.lang.Object ref = parentJobUuid_;
         if (ref instanceof String) {
@@ -2660,11 +2660,11 @@ public final class AssignmentChangedOuterClass {
        * Идентификатор родительской джобы назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 19;</code>
+       * <code>string parent_job_uuid = 19 [deprecated = true];</code>
        * @param value The parentJobUuid to set.
        * @return This builder for chaining.
        */
-      public Builder setParentJobUuid(
+      @java.lang.Deprecated public Builder setParentJobUuid(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
@@ -2679,10 +2679,10 @@ public final class AssignmentChangedOuterClass {
        * Идентификатор родительской джобы назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 19;</code>
+       * <code>string parent_job_uuid = 19 [deprecated = true];</code>
        * @return This builder for chaining.
        */
-      public Builder clearParentJobUuid() {
+      @java.lang.Deprecated public Builder clearParentJobUuid() {
         
         parentJobUuid_ = getDefaultInstance().getParentJobUuid();
         onChanged();
@@ -2693,11 +2693,11 @@ public final class AssignmentChangedOuterClass {
        * Идентификатор родительской джобы назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 19;</code>
+       * <code>string parent_job_uuid = 19 [deprecated = true];</code>
        * @param value The bytes for parentJobUuid to set.
        * @return This builder for chaining.
        */
-      public Builder setParentJobUuidBytes(
+      @java.lang.Deprecated public Builder setParentJobUuidBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
@@ -3607,7 +3607,7 @@ public final class AssignmentChangedOuterClass {
         }
         return meta_;
       }
-
+      @java.lang.Deprecated 
       public int getMetaCount() {
         return internalGetMeta().getMap().size();
       }
@@ -3616,9 +3616,9 @@ public final class AssignmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
-
+      @java.lang.Deprecated 
       @java.lang.Override
       public boolean containsMeta(
           java.lang.String key) {
@@ -3638,10 +3638,10 @@ public final class AssignmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
       @java.lang.Override
-
+      @java.lang.Deprecated 
       public java.util.Map<java.lang.String, java.lang.String> getMetaMap() {
         return internalGetMeta().getMap();
       }
@@ -3650,10 +3650,10 @@ public final class AssignmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
       @java.lang.Override
-
+      @java.lang.Deprecated 
       public java.lang.String getMetaOrDefault(
           java.lang.String key,
           java.lang.String defaultValue) {
@@ -3667,10 +3667,10 @@ public final class AssignmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
       @java.lang.Override
-
+      @java.lang.Deprecated 
       public java.lang.String getMetaOrThrow(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -3681,7 +3681,7 @@ public final class AssignmentChangedOuterClass {
         }
         return map.get(key);
       }
-
+      @java.lang.Deprecated 
       public Builder clearMeta() {
         internalGetMutableMeta().getMutableMap()
             .clear();
@@ -3692,9 +3692,9 @@ public final class AssignmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
-
+      @java.lang.Deprecated 
       public Builder removeMeta(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -3715,9 +3715,9 @@ public final class AssignmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
-      public Builder putMeta(
+      @java.lang.Deprecated public Builder putMeta(
           java.lang.String key,
           java.lang.String value) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -3731,9 +3731,9 @@ public final class AssignmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
-
+      @java.lang.Deprecated 
       public Builder putAllMeta(
           java.util.Map<java.lang.String, java.lang.String> values) {
         internalGetMutableMeta().getMutableMap()
@@ -4124,28 +4124,28 @@ public final class AssignmentChangedOuterClass {
     java.lang.String[] descriptorData = {
       "\n!workflow/assignment_changed.proto\022\010wor" +
       "kflow\032\035workflow/workflow_enums.proto\032\037go" +
-      "ogle/protobuf/timestamp.proto\"\254\006\n\021Assign" +
+      "ogle/protobuf/timestamp.proto\"\270\006\n\021Assign" +
       "mentChanged\022\n\n\002id\030\001 \001(\004\022\033\n\023postponed_par" +
       "ent_id\030\002 \001(\004\022\014\n\004uuid\030\r \001(\t\022\035\n\025postponed_" +
-      "parent_uuid\030\014 \001(\t\022\020\n\010job_uuid\030\022 \001(\t\022\027\n\017p" +
-      "arent_job_uuid\030\023 \001(\t\022\023\n\013workflow_id\030\003 \001(" +
-      "\004\022\026\n\016performer_uuid\030\004 \001(\t\0225\n\021performer_v" +
-      "ehicle\030\016 \001(\0162\032.workflow.PerformerVehicle" +
-      "\0222\n\006status\030\005 \001(\0162\".workflow.AssignmentCh" +
-      "anged.Status\022-\n\rdelivery_type\030\013 \001(\0162\026.wo" +
-      "rkflow.DeliveryType\022)\n\013source_type\030\021 \001(\016" +
-      "2\024.workflow.SourceType\022%\n\tshipments\030\006 \003(" +
-      "\0132\022.workflow.Shipment\022\024\n\014plan_payroll\030\007 " +
-      "\001(\002\022\031\n\021plan_payroll_base\030\017 \001(\002\022\032\n\022plan_p" +
-      "ayroll_bonus\030\020 \001(\002\0223\n\004meta\030\010 \003(\0132%.workf" +
-      "low.AssignmentChanged.MetaEntry\022.\n\ncreat" +
-      "ed_at\030\t \001(\0132\032.google.protobuf.Timestamp\022" +
-      ".\n\nupdated_at\030\n \001(\0132\032.google.protobuf.Ti" +
-      "mestamp\032+\n\tMetaEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005val" +
-      "ue\030\002 \001(\t:\0028\001\"n\n\006Status\022\007\n\003NEW\020\000\022\r\n\tPOSTP" +
-      "ONED\020\001\022\013\n\007OFFERED\020\002\022\010\n\004SEEN\020\003\022\014\n\010ACCEPTE" +
-      "D\020\004\022\014\n\010DECLINED\020\005\022\013\n\007TIMEOUT\020\006\022\014\n\010CANCEL" +
-      "ED\020\007b\006proto3"
+      "parent_uuid\030\014 \001(\t\022\024\n\010job_uuid\030\022 \001(\tB\002\030\001\022" +
+      "\033\n\017parent_job_uuid\030\023 \001(\tB\002\030\001\022\023\n\013workflow" +
+      "_id\030\003 \001(\004\022\026\n\016performer_uuid\030\004 \001(\t\0225\n\021per" +
+      "former_vehicle\030\016 \001(\0162\032.workflow.Performe" +
+      "rVehicle\0222\n\006status\030\005 \001(\0162\".workflow.Assi" +
+      "gnmentChanged.Status\022-\n\rdelivery_type\030\013 " +
+      "\001(\0162\026.workflow.DeliveryType\022)\n\013source_ty" +
+      "pe\030\021 \001(\0162\024.workflow.SourceType\022%\n\tshipme" +
+      "nts\030\006 \003(\0132\022.workflow.Shipment\022\024\n\014plan_pa" +
+      "yroll\030\007 \001(\002\022\031\n\021plan_payroll_base\030\017 \001(\002\022\032" +
+      "\n\022plan_payroll_bonus\030\020 \001(\002\0227\n\004meta\030\010 \003(\013" +
+      "2%.workflow.AssignmentChanged.MetaEntryB" +
+      "\002\030\001\022.\n\ncreated_at\030\t \001(\0132\032.google.protobu" +
+      "f.Timestamp\022.\n\nupdated_at\030\n \001(\0132\032.google" +
+      ".protobuf.Timestamp\032+\n\tMetaEntry\022\013\n\003key\030" +
+      "\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"n\n\006Status\022\007\n\003NE" +
+      "W\020\000\022\r\n\tPOSTPONED\020\001\022\013\n\007OFFERED\020\002\022\010\n\004SEEN\020" +
+      "\003\022\014\n\010ACCEPTED\020\004\022\014\n\010DECLINED\020\005\022\013\n\007TIMEOUT" +
+      "\020\006\022\014\n\010CANCELED\020\007b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

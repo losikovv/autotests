@@ -10,14 +10,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
-import ru.instamart.jdbc.dao.stf.StoresDao;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -62,8 +57,6 @@ public class CourierEtaTest extends RestBase {
     @Test(description = "Отправка запроса с валидными данными",
             groups = "dispatch-eta-smoke")
     public void getCourierEta() {
-        shopperApp.sendCurrentLocator(StartPointsTenants.ETA.getLat(), StartPointsTenants.ETA.getLon(), 81.68728);
-
         var request = Eta.CourierEtaRequest.newBuilder()
                 .setCourierUuid(UserManager.getKrakenUniversal().getUuid())
                 .setStoreUuid(storeUuid)
@@ -107,8 +100,6 @@ public class CourierEtaTest extends RestBase {
     @Test(description = "Получение установленного минимального времени расчета",
             groups = "dispatch-eta-smoke")
     public void getMinCourierEta() {
-        shopperApp.sendCurrentLocator(StartPointsTenants.ETA.getLat(), StartPointsTenants.ETA.getLon(), 81.68728);
-
         var request = Eta.CourierEtaRequest.newBuilder()
                 .setCourierUuid(UserManager.getKrakenUniversal().getUuid())
                 .setStoreUuid(storeUuid)

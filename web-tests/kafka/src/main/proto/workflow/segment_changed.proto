@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package workflow;
 
-
 import "workflow/workflow_enums.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
@@ -33,7 +32,7 @@ message SegmentChanged {
   // Последующий лаг во времени
   google.protobuf.Duration time_lag = 12;
   // Мета-данные - поле для публикации дополнительной информации
-  map<string, string> meta = 13;
+  map<string, string> meta = 13 [deprecated = true];
   // Дата и время создания
   google.protobuf.Timestamp created_at = 14;
   // Дата и время обновления

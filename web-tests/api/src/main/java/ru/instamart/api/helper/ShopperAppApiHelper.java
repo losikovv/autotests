@@ -664,6 +664,7 @@ public class ShopperAppApiHelper {
                 AssemblyStateSHP.SHIPPED.getState());
     }
 
+    @Deprecated
     @Step("Отправляем координаты универсала")
     public void sendCurrentLocator(final Double latitude,
                                    final Double longitude,
