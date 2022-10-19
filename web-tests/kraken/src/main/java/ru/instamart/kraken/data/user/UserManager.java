@@ -220,7 +220,7 @@ public final class UserManager {
                     break;
                 default:
                     log.debug("User shopper default login");
-                    stf6Shopper3 = UserData.builder()
+                    stf6Shopper4 = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("e3m7+tl+IwsEdNcan+0NUg==")) //kraken8
                             .phone(Crypt.INSTANCE.decrypt("jcpJOeUznkrUmAno+qQh1A=="))
                             .uuid("2df5e03c-3c45-4e6e-8c07-5c642d5fb1cd")
