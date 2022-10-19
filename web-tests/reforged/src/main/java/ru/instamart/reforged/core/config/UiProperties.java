@@ -1,8 +1,11 @@
 package ru.instamart.reforged.core.config;
 
 import ru.instamart.kraken.common.config.Config;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.util.List;
+
+import static ru.instamart.kraken.config.EnvironmentProperties.CUSTOM_UI_RUN;
 
 public final class UiProperties {
 
@@ -15,11 +18,6 @@ public final class UiProperties {
     public static String STF_URL;
     @Config(configName = NAME, fieldName = "headerStfForwardTo", defaultValue = "s-sb-stfkraken-sbermarket", args = "stf_forward")
     public static String HEADER_STF_FORWARD_TO;
-
-    @Config(configName = NAME, fieldName = "b2bUrl", defaultValue = "", args = "url_b2b_front")
-    public static String B2B_URL;
-    @Config(configName = NAME, fieldName = "headerB2bForwardTo", defaultValue = "s-sb-stfkraken-smbusiness", args = "b2b_forward")
-    public static String HEADER_B2B_FORWARD_TO;
 
     @Config(configName = NAME, fieldName = "selgrosUrl", defaultValue = "")
     public static String SELGROS_URL;
@@ -44,4 +42,19 @@ public final class UiProperties {
 
     @Config(configName = NAME, fieldName = "defaultPrereplacementSid", defaultValue = "6")
     public static int DEFAULT_PREREPLACEMENT_SID;
+
+    public static class Env {
+
+        static {
+            if (CUSTOM_UI_RUN) {
+                STF_URL = System.getenv("URL_STF_FRONT");
+                HEADER_STF_FORWARD_TO = System.getenv("STF_FORWARD");
+                ADMIN_URL = EnvironmentProperties.BASIC_URL + "admin/";
+            }
+        }
+
+        public static String ADMIN_FRONT_URL = ADMIN_URL;
+        public static String FRONT_URL = STF_URL;
+        public static String STF_FORWARD_TO = HEADER_STF_FORWARD_TO;
+    }
 }

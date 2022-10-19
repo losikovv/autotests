@@ -9,9 +9,9 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
 import static ru.instamart.reforged.business.page.BusinessRouter.shop;
 
 @Epic("SMBUSINESS UI")
@@ -22,8 +22,7 @@ public final class ShoppingCatalogTests {
 
     @Issue("B2C-9789")
     @CaseId(302)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Добавление товара в корзину из плитки (+удаление)", groups = "regression")
+    @Test(description = "Добавление товара в корзину из плитки (+удаление)", groups = REGRESSION_BUSINESS)
     public void testAddedAndRemoveProductFromShop() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
@@ -55,8 +54,7 @@ public final class ShoppingCatalogTests {
 
     @Issue("B2C-9789")
     @CaseId(303)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Добавление товара в корзину из карточки товара (+удаление)", groups = "regression")
+    @Test(description = "Добавление товара в корзину из карточки товара (+удаление)", groups = REGRESSION_BUSINESS)
     public void testAddedAndRemoveProductFromProductCard() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
@@ -99,8 +97,7 @@ public final class ShoppingCatalogTests {
     }
 
     @CaseId(290)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Проверка обязательной авторизации при добавлении товара в корзину", groups = "regression")
+    @Test(description = "Проверка обязательной авторизации при добавлении товара в корзину", groups = REGRESSION_BUSINESS)
     public void testNeedAuthAddToFavourites() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();

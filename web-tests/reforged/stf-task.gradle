@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.Test
+
 task sberUiSmoke(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/stf.xml'
@@ -31,4 +33,18 @@ task sberRegressionMulti(type: Test) {
         suites 'src/test/resources/suite/all_multi.xml'
         includeGroups 'regression','smoke'
     }
+}
+
+task sbermarketUiCustom(type: Test) {
+    def CI_GROUP = System.getenv('CI_GROUP')
+
+    if (CI_GROUP == null) {
+        println('U miss CI_GROUP')
+        return
+    }
+    useTestNG() {
+        suites "src/test/resources/suite/regress/stf.xml"
+        includeGroups CI_GROUP
+    }
+    environment 'P_ENV', 'sbermarket-custom'
 }
