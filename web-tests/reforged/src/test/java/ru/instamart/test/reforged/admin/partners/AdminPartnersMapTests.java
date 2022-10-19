@@ -44,7 +44,6 @@ public final class AdminPartnersMapTests {
         shiftsApiHelper.stopAllActiveShifts();
 
         shiftsApiHelper.startOfShift(StartPointsTenants.METRO_9);
-        shopperApp.sendCurrentLocator(StartPointsTenants.METRO_9.getLat(), StartPointsTenants.METRO_9.getLon(), null);
     }
 
     @AfterClass(alwaysRun = true)
@@ -106,7 +105,6 @@ public final class AdminPartnersMapTests {
     @CaseId(2169)
     @Test(description = "Отображение исполнителей на карте", groups = {OD_SHOPPERS_MAP_REGRESS, OD_SHOPPERS_MAP_SMOKE, OD_SMOKE, OD_REGRESS})
     public void displayPerformersOnTheMap() {
-        shopperApp.sendCurrentLocator(StartPointsTenants.METRO_3.getLat(), StartPointsTenants.METRO_3.getLon(), null);
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 

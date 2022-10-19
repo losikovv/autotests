@@ -305,17 +305,17 @@ public final class SegmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 13;</code>
+     * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
      */
-    int getMetaCount();
+    @java.lang.Deprecated int getMetaCount();
     /**
      * <pre>
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 13;</code>
+     * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
      */
-    boolean containsMeta(
+    @java.lang.Deprecated boolean containsMeta(
         java.lang.String key);
     /**
      * Use {@link #getMetaMap()} instead.
@@ -328,18 +328,18 @@ public final class SegmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 13;</code>
+     * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
      */
-    java.util.Map<java.lang.String, java.lang.String>
+    @java.lang.Deprecated java.util.Map<java.lang.String, java.lang.String>
     getMetaMap();
     /**
      * <pre>
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 13;</code>
+     * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
      */
-
+    @java.lang.Deprecated 
     java.lang.String getMetaOrDefault(
         java.lang.String key,
         java.lang.String defaultValue);
@@ -348,9 +348,9 @@ public final class SegmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 13;</code>
+     * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
      */
-
+    @java.lang.Deprecated 
     java.lang.String getMetaOrThrow(
         java.lang.String key);
 
@@ -1138,7 +1138,7 @@ public final class SegmentChangedOuterClass {
       }
       return meta_;
     }
-
+    @java.lang.Deprecated 
     public int getMetaCount() {
       return internalGetMeta().getMap().size();
     }
@@ -1147,9 +1147,9 @@ public final class SegmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 13;</code>
+     * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
      */
-
+    @java.lang.Deprecated 
     @java.lang.Override
     public boolean containsMeta(
         java.lang.String key) {
@@ -1169,10 +1169,10 @@ public final class SegmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 13;</code>
+     * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
      */
     @java.lang.Override
-
+    @java.lang.Deprecated 
     public java.util.Map<java.lang.String, java.lang.String> getMetaMap() {
       return internalGetMeta().getMap();
     }
@@ -1181,10 +1181,10 @@ public final class SegmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 13;</code>
+     * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
      */
     @java.lang.Override
-
+    @java.lang.Deprecated 
     public java.lang.String getMetaOrDefault(
         java.lang.String key,
         java.lang.String defaultValue) {
@@ -1198,10 +1198,10 @@ public final class SegmentChangedOuterClass {
      * Мета-данные - поле для публикации дополнительной информации
      * </pre>
      *
-     * <code>map&lt;string, string&gt; meta = 13;</code>
+     * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
      */
     @java.lang.Override
-
+    @java.lang.Deprecated 
     public java.lang.String getMetaOrThrow(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -3742,7 +3742,7 @@ public final class SegmentChangedOuterClass {
         }
         return meta_;
       }
-
+      @java.lang.Deprecated 
       public int getMetaCount() {
         return internalGetMeta().getMap().size();
       }
@@ -3751,9 +3751,9 @@ public final class SegmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
-
+      @java.lang.Deprecated 
       @java.lang.Override
       public boolean containsMeta(
           java.lang.String key) {
@@ -3773,10 +3773,10 @@ public final class SegmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
       @java.lang.Override
-
+      @java.lang.Deprecated 
       public java.util.Map<java.lang.String, java.lang.String> getMetaMap() {
         return internalGetMeta().getMap();
       }
@@ -3785,10 +3785,10 @@ public final class SegmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
       @java.lang.Override
-
+      @java.lang.Deprecated 
       public java.lang.String getMetaOrDefault(
           java.lang.String key,
           java.lang.String defaultValue) {
@@ -3802,10 +3802,10 @@ public final class SegmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
       @java.lang.Override
-
+      @java.lang.Deprecated 
       public java.lang.String getMetaOrThrow(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -3816,7 +3816,7 @@ public final class SegmentChangedOuterClass {
         }
         return map.get(key);
       }
-
+      @java.lang.Deprecated 
       public Builder clearMeta() {
         internalGetMutableMeta().getMutableMap()
             .clear();
@@ -3827,9 +3827,9 @@ public final class SegmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
-
+      @java.lang.Deprecated 
       public Builder removeMeta(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -3850,9 +3850,9 @@ public final class SegmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
-      public Builder putMeta(
+      @java.lang.Deprecated public Builder putMeta(
           java.lang.String key,
           java.lang.String value) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -3866,9 +3866,9 @@ public final class SegmentChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
-
+      @java.lang.Deprecated 
       public Builder putAllMeta(
           java.util.Map<java.lang.String, java.lang.String> values) {
         internalGetMutableMeta().getMutableMap()
@@ -4458,7 +4458,7 @@ public final class SegmentChangedOuterClass {
       "\n\036workflow/segment_changed.proto\022\010workfl" +
       "ow\032\035workflow/workflow_enums.proto\032\037googl" +
       "e/protobuf/timestamp.proto\032\036google/proto" +
-      "buf/duration.proto\"\340\005\n\016SegmentChanged\022\n\n" +
+      "buf/duration.proto\"\344\005\n\016SegmentChanged\022\n\n" +
       "\002id\030\001 \001(\004\022#\n\004type\030\002 \001(\0162\025.workflow.Segme" +
       "ntType\022\020\n\010position\030\003 \001(\r\022\023\n\013workflow_id\030" +
       "\004 \001(\004\022%\n\tshipments\030\005 \003(\0132\022.workflow.Ship" +
@@ -4470,14 +4470,14 @@ public final class SegmentChangedOuterClass {
       "ct_started_at\030\n \001(\0132\032.google.protobuf.Ti" +
       "mestamp\0221\n\rfact_ended_at\030\013 \001(\0132\032.google." +
       "protobuf.Timestamp\022+\n\010time_lag\030\014 \001(\0132\031.g" +
-      "oogle.protobuf.Duration\0220\n\004meta\030\r \003(\0132\"." +
-      "workflow.SegmentChanged.MetaEntry\022.\n\ncre" +
-      "ated_at\030\016 \001(\0132\032.google.protobuf.Timestam" +
-      "p\022.\n\nupdated_at\030\017 \001(\0132\032.google.protobuf." +
-      "Timestamp\022+\n\010duration\030\020 \001(\0132\031.google.pro" +
-      "tobuf.Duration\022\020\n\010distance\030\021 \001(\004\032+\n\tMeta" +
-      "Entry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001b\006p" +
-      "roto3"
+      "oogle.protobuf.Duration\0224\n\004meta\030\r \003(\0132\"." +
+      "workflow.SegmentChanged.MetaEntryB\002\030\001\022.\n" +
+      "\ncreated_at\030\016 \001(\0132\032.google.protobuf.Time" +
+      "stamp\022.\n\nupdated_at\030\017 \001(\0132\032.google.proto" +
+      "buf.Timestamp\022+\n\010duration\030\020 \001(\0132\031.google" +
+      ".protobuf.Duration\022\020\n\010distance\030\021 \001(\004\032+\n\t" +
+      "MetaEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028" +
+      "\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

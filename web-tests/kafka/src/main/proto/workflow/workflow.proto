@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package workflow;
 
-
 import "workflow/workflow_enums.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
@@ -201,6 +200,8 @@ message Segment {
   google.protobuf.Duration duration = 10;
   // Расстояние
   uint64 distance = 11;
+  // uuid-ы джобов, к которым относится сегмент
+  repeated string job_uuids = 12;
 }
 
 // Маршрутный лист

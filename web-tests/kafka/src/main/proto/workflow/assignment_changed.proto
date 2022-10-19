@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package workflow;
 
-
 import "workflow/workflow_enums.proto";
 import "google/protobuf/timestamp.proto";
 
@@ -34,9 +33,9 @@ message AssignmentChanged {
   // Идентификатор родительского назначения для отложенной доставки
   string postponed_parent_uuid = 12;
   // Идентификатор джобы назначения
-  string job_uuid = 18;
+  string job_uuid = 18 [deprecated = true];
   // Идентификатор родительской джобы назначения для отложенной доставки
-  string parent_job_uuid = 19;
+  string parent_job_uuid = 19 [deprecated = true];
   // Внутренний идентификатор маршрутного листа
   uint64 workflow_id = 3;
   // Идентификатор исполнителя
@@ -58,7 +57,7 @@ message AssignmentChanged {
   // Планируемая стоимость (бонус)
   float plan_payroll_bonus = 16;
   // Мета-данные - поле для публикации дополнительной информации
-  map<string, string> meta = 8;
+  map<string, string> meta = 8 [deprecated = true];
   // Дата и время создания
   google.protobuf.Timestamp created_at = 9;
   // Дата и время обновления

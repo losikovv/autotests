@@ -31,7 +31,7 @@ message WorkflowChanged {
 		// Заказ отменен
 		ORDER_CANCELED = 3;
 		// Перенос слота доставки
-		MOVE_SLOT = 4;
+		MOVE_SLOT = 4 [deprecated = true];
 		// Не произошло назначения на исполнение
 		NOT_ASSIGNED = 5;
 		// Работы не начаты
@@ -39,9 +39,13 @@ message WorkflowChanged {
 		// Исполнитель недоступен
 		PERFORMER_NOT_AVAILABLE = 7;
 		// Отмена вручную
-		MANUAL = 8;
+		MANUAL = 8 [deprecated = true];
 		// Отменен из-за отмены родителя
 		CANCEL_BY_PARENT = 9;
+		// Маршрутный лист отменен по причине того что из него удалены все джобы
+		NO_JOBS_LEFT = 10;
+		// Отменён из-за сильного сдвига таймингов
+		TIMINGS_CHANGED = 11;
 	}
 
 	enum WorkflowEditingReason {
@@ -54,7 +58,7 @@ message WorkflowChanged {
 		// Изменение таймингов сегментов МЛ
 		CHANGE_SEGMENTS_TIMINGS = 3;
 		// Удаление одного из нескольких заказов в МЛ
-		ORDER_DELETED = 4;
+		ORDER_DELETED = 4 [deprecated = true];
 		// Отменен по причине CancellationReason
 		CANCELLED = 5;
 		// Партнер просмотрел назначение
@@ -65,6 +69,12 @@ message WorkflowChanged {
 		EXTERNAL_DELIVERY_CHANGED = 8;
 		// МЛ завершился
 		FINISHED = 9;
+		// Клиент или админ отменил заказ
+		ORDER_CANCEL = 10;
+		// Админ отменил джобу (сборка или доставка) из маршрутного листа
+		JOBS_REMOVED_BY_ADMIN = 11;
+		// Интервал заказа изменился
+		SLOT_MOVED = 12;
 	}
 
 	// Внутренний идентификатор маршрутного листа
@@ -131,9 +141,9 @@ message WorkflowChanged {
 		// (от диспатча)
 		string postponed_parent_uuid = 12;
 		// Идентификатор джобы назначения
-		string job_uuid = 18;
+		string job_uuid = 18 [deprecated = true];
 		// Идентификатор джобы родительского назначения для отложенной доставки
-		string parent_job_uuid = 19;
+		string parent_job_uuid = 19 [deprecated = true];
 		// Идентификатор исполнителя
 		string performer_uuid = 4;
 		// Тип транспорта
@@ -153,7 +163,7 @@ message WorkflowChanged {
 		// Планируемая стоимость (бонус)
 		float plan_payroll_bonus = 16;
 		// Мета-данные - поле для публикации дополнительной информации
-		map<string, string> meta = 8;
+		map<string, string> meta = 8 [deprecated = true];
 		// Дата и время создания
 		google.protobuf.Timestamp created_at = 9;
 		// Дата и время обновления
@@ -187,7 +197,7 @@ message WorkflowChanged {
 		// Последующий лаг во времени
 		google.protobuf.Duration time_lag = 12;
 		// Мета-данные - поле для публикации дополнительной информации
-		map<string, string> meta = 13;
+		map<string, string> meta = 13 [deprecated = true];
 		// Дата и время создания
 		google.protobuf.Timestamp created_at = 14;
 		// Дата и время обновления
@@ -198,8 +208,14 @@ message WorkflowChanged {
 		uint64 distance = 17;
 		// Статус сегмента
 		SegmentStatus status = 18;
+		// Перечень UUID джобов, которые связаны с сегментом
+		repeated string job_uuids = 19;
+
 	}
 
 	repeated Segment segments = 15;
 	WorkflowEditingReason editing_reason = 16;
+	// Массив удаленных из маршрутного листа джобов
+	repeated string removed_job_uuids = 17;
+
 }

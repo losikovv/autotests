@@ -340,6 +340,47 @@ public final class WorkflowChangedOuterClass {
      * @return The editingReason.
      */
     workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason getEditingReason();
+
+    /**
+     * <pre>
+     * Массив удаленных из маршрутного листа джобов
+     * </pre>
+     *
+     * <code>repeated string removed_job_uuids = 17;</code>
+     * @return A list containing the removedJobUuids.
+     */
+    java.util.List<java.lang.String>
+        getRemovedJobUuidsList();
+    /**
+     * <pre>
+     * Массив удаленных из маршрутного листа джобов
+     * </pre>
+     *
+     * <code>repeated string removed_job_uuids = 17;</code>
+     * @return The count of removedJobUuids.
+     */
+    int getRemovedJobUuidsCount();
+    /**
+     * <pre>
+     * Массив удаленных из маршрутного листа джобов
+     * </pre>
+     *
+     * <code>repeated string removed_job_uuids = 17;</code>
+     * @param index The index of the element to return.
+     * @return The removedJobUuids at the given index.
+     */
+    java.lang.String getRemovedJobUuids(int index);
+    /**
+     * <pre>
+     * Массив удаленных из маршрутного листа джобов
+     * </pre>
+     *
+     * <code>repeated string removed_job_uuids = 17;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the removedJobUuids at the given index.
+     */
+    com.google.protobuf.ByteString
+        getRemovedJobUuidsBytes(int index);
   }
   /**
    * Protobuf type {@code workflow.WorkflowChanged}
@@ -361,6 +402,7 @@ public final class WorkflowChangedOuterClass {
       assignments_ = java.util.Collections.emptyList();
       segments_ = java.util.Collections.emptyList();
       editingReason_ = 0;
+      removedJobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
     @java.lang.Override
@@ -533,6 +575,15 @@ public final class WorkflowChangedOuterClass {
               editingReason_ = rawValue;
               break;
             }
+            case 138: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+                removedJobUuids_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              removedJobUuids_.add(s);
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -556,6 +607,9 @@ public final class WorkflowChangedOuterClass {
         }
         if (((mutable_bitField0_ & 0x00000004) != 0)) {
           segments_ = java.util.Collections.unmodifiableList(segments_);
+        }
+        if (((mutable_bitField0_ & 0x00000008) != 0)) {
+          removedJobUuids_ = removedJobUuids_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -795,8 +849,9 @@ public final class WorkflowChangedOuterClass {
        * Перенос слота доставки
        * </pre>
        *
-       * <code>MOVE_SLOT = 4;</code>
+       * <code>MOVE_SLOT = 4 [deprecated = true];</code>
        */
+      @java.lang.Deprecated
       MOVE_SLOT(4),
       /**
        * <pre>
@@ -827,8 +882,9 @@ public final class WorkflowChangedOuterClass {
        * Отмена вручную
        * </pre>
        *
-       * <code>MANUAL = 8;</code>
+       * <code>MANUAL = 8 [deprecated = true];</code>
        */
+      @java.lang.Deprecated
       MANUAL(8),
       /**
        * <pre>
@@ -838,6 +894,22 @@ public final class WorkflowChangedOuterClass {
        * <code>CANCEL_BY_PARENT = 9;</code>
        */
       CANCEL_BY_PARENT(9),
+      /**
+       * <pre>
+       * Маршрутный лист отменен по причине того что из него удалены все джобы
+       * </pre>
+       *
+       * <code>NO_JOBS_LEFT = 10;</code>
+       */
+      NO_JOBS_LEFT(10),
+      /**
+       * <pre>
+       * Отменён из-за сильного сдвига таймингов
+       * </pre>
+       *
+       * <code>TIMINGS_CHANGED = 11;</code>
+       */
+      TIMINGS_CHANGED(11),
       UNRECOGNIZED(-1),
       ;
 
@@ -878,9 +950,9 @@ public final class WorkflowChangedOuterClass {
        * Перенос слота доставки
        * </pre>
        *
-       * <code>MOVE_SLOT = 4;</code>
+       * <code>MOVE_SLOT = 4 [deprecated = true];</code>
        */
-      public static final int MOVE_SLOT_VALUE = 4;
+      @java.lang.Deprecated public static final int MOVE_SLOT_VALUE = 4;
       /**
        * <pre>
        * Не произошло назначения на исполнение
@@ -910,9 +982,9 @@ public final class WorkflowChangedOuterClass {
        * Отмена вручную
        * </pre>
        *
-       * <code>MANUAL = 8;</code>
+       * <code>MANUAL = 8 [deprecated = true];</code>
        */
-      public static final int MANUAL_VALUE = 8;
+      @java.lang.Deprecated public static final int MANUAL_VALUE = 8;
       /**
        * <pre>
        * Отменен из-за отмены родителя
@@ -921,6 +993,22 @@ public final class WorkflowChangedOuterClass {
        * <code>CANCEL_BY_PARENT = 9;</code>
        */
       public static final int CANCEL_BY_PARENT_VALUE = 9;
+      /**
+       * <pre>
+       * Маршрутный лист отменен по причине того что из него удалены все джобы
+       * </pre>
+       *
+       * <code>NO_JOBS_LEFT = 10;</code>
+       */
+      public static final int NO_JOBS_LEFT_VALUE = 10;
+      /**
+       * <pre>
+       * Отменён из-за сильного сдвига таймингов
+       * </pre>
+       *
+       * <code>TIMINGS_CHANGED = 11;</code>
+       */
+      public static final int TIMINGS_CHANGED_VALUE = 11;
 
 
       public final int getNumber() {
@@ -957,6 +1045,8 @@ public final class WorkflowChangedOuterClass {
           case 7: return PERFORMER_NOT_AVAILABLE;
           case 8: return MANUAL;
           case 9: return CANCEL_BY_PARENT;
+          case 10: return NO_JOBS_LEFT;
+          case 11: return TIMINGS_CHANGED;
           default: return null;
         }
       }
@@ -1055,8 +1145,9 @@ public final class WorkflowChangedOuterClass {
        * Удаление одного из нескольких заказов в МЛ
        * </pre>
        *
-       * <code>ORDER_DELETED = 4;</code>
+       * <code>ORDER_DELETED = 4 [deprecated = true];</code>
        */
+      @java.lang.Deprecated
       ORDER_DELETED(4),
       /**
        * <pre>
@@ -1098,6 +1189,30 @@ public final class WorkflowChangedOuterClass {
        * <code>FINISHED = 9;</code>
        */
       FINISHED(9),
+      /**
+       * <pre>
+       * Клиент или админ отменил заказ
+       * </pre>
+       *
+       * <code>ORDER_CANCEL = 10;</code>
+       */
+      ORDER_CANCEL(10),
+      /**
+       * <pre>
+       * Админ отменил джобу (сборка или доставка) из маршрутного листа
+       * </pre>
+       *
+       * <code>JOBS_REMOVED_BY_ADMIN = 11;</code>
+       */
+      JOBS_REMOVED_BY_ADMIN(11),
+      /**
+       * <pre>
+       * Интервал заказа изменился
+       * </pre>
+       *
+       * <code>SLOT_MOVED = 12;</code>
+       */
+      SLOT_MOVED(12),
       UNRECOGNIZED(-1),
       ;
 
@@ -1138,9 +1253,9 @@ public final class WorkflowChangedOuterClass {
        * Удаление одного из нескольких заказов в МЛ
        * </pre>
        *
-       * <code>ORDER_DELETED = 4;</code>
+       * <code>ORDER_DELETED = 4 [deprecated = true];</code>
        */
-      public static final int ORDER_DELETED_VALUE = 4;
+      @java.lang.Deprecated public static final int ORDER_DELETED_VALUE = 4;
       /**
        * <pre>
        * Отменен по причине CancellationReason
@@ -1181,6 +1296,30 @@ public final class WorkflowChangedOuterClass {
        * <code>FINISHED = 9;</code>
        */
       public static final int FINISHED_VALUE = 9;
+      /**
+       * <pre>
+       * Клиент или админ отменил заказ
+       * </pre>
+       *
+       * <code>ORDER_CANCEL = 10;</code>
+       */
+      public static final int ORDER_CANCEL_VALUE = 10;
+      /**
+       * <pre>
+       * Админ отменил джобу (сборка или доставка) из маршрутного листа
+       * </pre>
+       *
+       * <code>JOBS_REMOVED_BY_ADMIN = 11;</code>
+       */
+      public static final int JOBS_REMOVED_BY_ADMIN_VALUE = 11;
+      /**
+       * <pre>
+       * Интервал заказа изменился
+       * </pre>
+       *
+       * <code>SLOT_MOVED = 12;</code>
+       */
+      public static final int SLOT_MOVED_VALUE = 12;
 
 
       public final int getNumber() {
@@ -1217,6 +1356,9 @@ public final class WorkflowChangedOuterClass {
           case 7: return ASSIGNMENT_ACCEPTED;
           case 8: return EXTERNAL_DELIVERY_CHANGED;
           case 9: return FINISHED;
+          case 10: return ORDER_CANCEL;
+          case 11: return JOBS_REMOVED_BY_ADMIN;
+          case 12: return SLOT_MOVED;
           default: return null;
         }
       }
@@ -2268,19 +2410,19 @@ public final class WorkflowChangedOuterClass {
        * Идентификатор джобы назначения
        * </pre>
        *
-       * <code>string job_uuid = 18;</code>
+       * <code>string job_uuid = 18 [deprecated = true];</code>
        * @return The jobUuid.
        */
-      java.lang.String getJobUuid();
+      @java.lang.Deprecated java.lang.String getJobUuid();
       /**
        * <pre>
        * Идентификатор джобы назначения
        * </pre>
        *
-       * <code>string job_uuid = 18;</code>
+       * <code>string job_uuid = 18 [deprecated = true];</code>
        * @return The bytes for jobUuid.
        */
-      com.google.protobuf.ByteString
+      @java.lang.Deprecated com.google.protobuf.ByteString
           getJobUuidBytes();
 
       /**
@@ -2288,19 +2430,19 @@ public final class WorkflowChangedOuterClass {
        * Идентификатор джобы родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 19;</code>
+       * <code>string parent_job_uuid = 19 [deprecated = true];</code>
        * @return The parentJobUuid.
        */
-      java.lang.String getParentJobUuid();
+      @java.lang.Deprecated java.lang.String getParentJobUuid();
       /**
        * <pre>
        * Идентификатор джобы родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 19;</code>
+       * <code>string parent_job_uuid = 19 [deprecated = true];</code>
        * @return The bytes for parentJobUuid.
        */
-      com.google.protobuf.ByteString
+      @java.lang.Deprecated com.google.protobuf.ByteString
           getParentJobUuidBytes();
 
       /**
@@ -2478,17 +2620,17 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
-      int getMetaCount();
+      @java.lang.Deprecated int getMetaCount();
       /**
        * <pre>
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
-      boolean containsMeta(
+      @java.lang.Deprecated boolean containsMeta(
           java.lang.String key);
       /**
        * Use {@link #getMetaMap()} instead.
@@ -2501,18 +2643,18 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
-      java.util.Map<java.lang.String, java.lang.String>
+      @java.lang.Deprecated java.util.Map<java.lang.String, java.lang.String>
       getMetaMap();
       /**
        * <pre>
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
-
+      @java.lang.Deprecated 
       java.lang.String getMetaOrDefault(
           java.lang.String key,
           java.lang.String defaultValue);
@@ -2521,9 +2663,9 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
-
+      @java.lang.Deprecated 
       java.lang.String getMetaOrThrow(
           java.lang.String key);
 
@@ -3172,11 +3314,11 @@ public final class WorkflowChangedOuterClass {
        * Идентификатор джобы назначения
        * </pre>
        *
-       * <code>string job_uuid = 18;</code>
+       * <code>string job_uuid = 18 [deprecated = true];</code>
        * @return The jobUuid.
        */
       @java.lang.Override
-      public java.lang.String getJobUuid() {
+      @java.lang.Deprecated public java.lang.String getJobUuid() {
         java.lang.Object ref = jobUuid_;
         if (ref instanceof java.lang.String) {
           return (java.lang.String) ref;
@@ -3193,11 +3335,11 @@ public final class WorkflowChangedOuterClass {
        * Идентификатор джобы назначения
        * </pre>
        *
-       * <code>string job_uuid = 18;</code>
+       * <code>string job_uuid = 18 [deprecated = true];</code>
        * @return The bytes for jobUuid.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getJobUuidBytes() {
         java.lang.Object ref = jobUuid_;
         if (ref instanceof java.lang.String) {
@@ -3218,11 +3360,11 @@ public final class WorkflowChangedOuterClass {
        * Идентификатор джобы родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 19;</code>
+       * <code>string parent_job_uuid = 19 [deprecated = true];</code>
        * @return The parentJobUuid.
        */
       @java.lang.Override
-      public java.lang.String getParentJobUuid() {
+      @java.lang.Deprecated public java.lang.String getParentJobUuid() {
         java.lang.Object ref = parentJobUuid_;
         if (ref instanceof java.lang.String) {
           return (java.lang.String) ref;
@@ -3239,11 +3381,11 @@ public final class WorkflowChangedOuterClass {
        * Идентификатор джобы родительского назначения для отложенной доставки
        * </pre>
        *
-       * <code>string parent_job_uuid = 19;</code>
+       * <code>string parent_job_uuid = 19 [deprecated = true];</code>
        * @return The bytes for parentJobUuid.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getParentJobUuidBytes() {
         java.lang.Object ref = parentJobUuid_;
         if (ref instanceof java.lang.String) {
@@ -3538,7 +3680,7 @@ public final class WorkflowChangedOuterClass {
         }
         return meta_;
       }
-
+      @java.lang.Deprecated 
       public int getMetaCount() {
         return internalGetMeta().getMap().size();
       }
@@ -3547,9 +3689,9 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
-
+      @java.lang.Deprecated 
       @java.lang.Override
       public boolean containsMeta(
           java.lang.String key) {
@@ -3569,10 +3711,10 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
       @java.lang.Override
-
+      @java.lang.Deprecated 
       public java.util.Map<java.lang.String, java.lang.String> getMetaMap() {
         return internalGetMeta().getMap();
       }
@@ -3581,10 +3723,10 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
       @java.lang.Override
-
+      @java.lang.Deprecated 
       public java.lang.String getMetaOrDefault(
           java.lang.String key,
           java.lang.String defaultValue) {
@@ -3598,10 +3740,10 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 8;</code>
+       * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
        */
       @java.lang.Override
-
+      @java.lang.Deprecated 
       public java.lang.String getMetaOrThrow(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -4675,10 +4817,10 @@ public final class WorkflowChangedOuterClass {
          * Идентификатор джобы назначения
          * </pre>
          *
-         * <code>string job_uuid = 18;</code>
+         * <code>string job_uuid = 18 [deprecated = true];</code>
          * @return The jobUuid.
          */
-        public java.lang.String getJobUuid() {
+        @java.lang.Deprecated public java.lang.String getJobUuid() {
           java.lang.Object ref = jobUuid_;
           if (!(ref instanceof java.lang.String)) {
             com.google.protobuf.ByteString bs =
@@ -4695,10 +4837,10 @@ public final class WorkflowChangedOuterClass {
          * Идентификатор джобы назначения
          * </pre>
          *
-         * <code>string job_uuid = 18;</code>
+         * <code>string job_uuid = 18 [deprecated = true];</code>
          * @return The bytes for jobUuid.
          */
-        public com.google.protobuf.ByteString
+        @java.lang.Deprecated public com.google.protobuf.ByteString
             getJobUuidBytes() {
           java.lang.Object ref = jobUuid_;
           if (ref instanceof String) {
@@ -4716,11 +4858,11 @@ public final class WorkflowChangedOuterClass {
          * Идентификатор джобы назначения
          * </pre>
          *
-         * <code>string job_uuid = 18;</code>
+         * <code>string job_uuid = 18 [deprecated = true];</code>
          * @param value The jobUuid to set.
          * @return This builder for chaining.
          */
-        public Builder setJobUuid(
+        @java.lang.Deprecated public Builder setJobUuid(
             java.lang.String value) {
           if (value == null) {
     throw new NullPointerException();
@@ -4735,10 +4877,10 @@ public final class WorkflowChangedOuterClass {
          * Идентификатор джобы назначения
          * </pre>
          *
-         * <code>string job_uuid = 18;</code>
+         * <code>string job_uuid = 18 [deprecated = true];</code>
          * @return This builder for chaining.
          */
-        public Builder clearJobUuid() {
+        @java.lang.Deprecated public Builder clearJobUuid() {
           
           jobUuid_ = getDefaultInstance().getJobUuid();
           onChanged();
@@ -4749,11 +4891,11 @@ public final class WorkflowChangedOuterClass {
          * Идентификатор джобы назначения
          * </pre>
          *
-         * <code>string job_uuid = 18;</code>
+         * <code>string job_uuid = 18 [deprecated = true];</code>
          * @param value The bytes for jobUuid to set.
          * @return This builder for chaining.
          */
-        public Builder setJobUuidBytes(
+        @java.lang.Deprecated public Builder setJobUuidBytes(
             com.google.protobuf.ByteString value) {
           if (value == null) {
     throw new NullPointerException();
@@ -4771,10 +4913,10 @@ public final class WorkflowChangedOuterClass {
          * Идентификатор джобы родительского назначения для отложенной доставки
          * </pre>
          *
-         * <code>string parent_job_uuid = 19;</code>
+         * <code>string parent_job_uuid = 19 [deprecated = true];</code>
          * @return The parentJobUuid.
          */
-        public java.lang.String getParentJobUuid() {
+        @java.lang.Deprecated public java.lang.String getParentJobUuid() {
           java.lang.Object ref = parentJobUuid_;
           if (!(ref instanceof java.lang.String)) {
             com.google.protobuf.ByteString bs =
@@ -4791,10 +4933,10 @@ public final class WorkflowChangedOuterClass {
          * Идентификатор джобы родительского назначения для отложенной доставки
          * </pre>
          *
-         * <code>string parent_job_uuid = 19;</code>
+         * <code>string parent_job_uuid = 19 [deprecated = true];</code>
          * @return The bytes for parentJobUuid.
          */
-        public com.google.protobuf.ByteString
+        @java.lang.Deprecated public com.google.protobuf.ByteString
             getParentJobUuidBytes() {
           java.lang.Object ref = parentJobUuid_;
           if (ref instanceof String) {
@@ -4812,11 +4954,11 @@ public final class WorkflowChangedOuterClass {
          * Идентификатор джобы родительского назначения для отложенной доставки
          * </pre>
          *
-         * <code>string parent_job_uuid = 19;</code>
+         * <code>string parent_job_uuid = 19 [deprecated = true];</code>
          * @param value The parentJobUuid to set.
          * @return This builder for chaining.
          */
-        public Builder setParentJobUuid(
+        @java.lang.Deprecated public Builder setParentJobUuid(
             java.lang.String value) {
           if (value == null) {
     throw new NullPointerException();
@@ -4831,10 +4973,10 @@ public final class WorkflowChangedOuterClass {
          * Идентификатор джобы родительского назначения для отложенной доставки
          * </pre>
          *
-         * <code>string parent_job_uuid = 19;</code>
+         * <code>string parent_job_uuid = 19 [deprecated = true];</code>
          * @return This builder for chaining.
          */
-        public Builder clearParentJobUuid() {
+        @java.lang.Deprecated public Builder clearParentJobUuid() {
           
           parentJobUuid_ = getDefaultInstance().getParentJobUuid();
           onChanged();
@@ -4845,11 +4987,11 @@ public final class WorkflowChangedOuterClass {
          * Идентификатор джобы родительского назначения для отложенной доставки
          * </pre>
          *
-         * <code>string parent_job_uuid = 19;</code>
+         * <code>string parent_job_uuid = 19 [deprecated = true];</code>
          * @param value The bytes for parentJobUuid to set.
          * @return This builder for chaining.
          */
-        public Builder setParentJobUuidBytes(
+        @java.lang.Deprecated public Builder setParentJobUuidBytes(
             com.google.protobuf.ByteString value) {
           if (value == null) {
     throw new NullPointerException();
@@ -5716,7 +5858,7 @@ public final class WorkflowChangedOuterClass {
           }
           return meta_;
         }
-
+        @java.lang.Deprecated 
         public int getMetaCount() {
           return internalGetMeta().getMap().size();
         }
@@ -5725,9 +5867,9 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 8;</code>
+         * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
          */
-
+        @java.lang.Deprecated 
         @java.lang.Override
         public boolean containsMeta(
             java.lang.String key) {
@@ -5747,10 +5889,10 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 8;</code>
+         * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
          */
         @java.lang.Override
-
+        @java.lang.Deprecated 
         public java.util.Map<java.lang.String, java.lang.String> getMetaMap() {
           return internalGetMeta().getMap();
         }
@@ -5759,10 +5901,10 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 8;</code>
+         * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
          */
         @java.lang.Override
-
+        @java.lang.Deprecated 
         public java.lang.String getMetaOrDefault(
             java.lang.String key,
             java.lang.String defaultValue) {
@@ -5776,10 +5918,10 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 8;</code>
+         * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
          */
         @java.lang.Override
-
+        @java.lang.Deprecated 
         public java.lang.String getMetaOrThrow(
             java.lang.String key) {
           if (key == null) { throw new java.lang.NullPointerException(); }
@@ -5790,7 +5932,7 @@ public final class WorkflowChangedOuterClass {
           }
           return map.get(key);
         }
-
+        @java.lang.Deprecated 
         public Builder clearMeta() {
           internalGetMutableMeta().getMutableMap()
               .clear();
@@ -5801,9 +5943,9 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 8;</code>
+         * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
          */
-
+        @java.lang.Deprecated 
         public Builder removeMeta(
             java.lang.String key) {
           if (key == null) { throw new java.lang.NullPointerException(); }
@@ -5824,9 +5966,9 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 8;</code>
+         * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
          */
-        public Builder putMeta(
+        @java.lang.Deprecated public Builder putMeta(
             java.lang.String key,
             java.lang.String value) {
           if (key == null) { throw new java.lang.NullPointerException(); }
@@ -5840,9 +5982,9 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 8;</code>
+         * <code>map&lt;string, string&gt; meta = 8 [deprecated = true];</code>
          */
-
+        @java.lang.Deprecated 
         public Builder putAllMeta(
             java.util.Map<java.lang.String, java.lang.String> values) {
           internalGetMutableMeta().getMutableMap()
@@ -6493,17 +6635,17 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
-      int getMetaCount();
+      @java.lang.Deprecated int getMetaCount();
       /**
        * <pre>
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
-      boolean containsMeta(
+      @java.lang.Deprecated boolean containsMeta(
           java.lang.String key);
       /**
        * Use {@link #getMetaMap()} instead.
@@ -6516,18 +6658,18 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
-      java.util.Map<java.lang.String, java.lang.String>
+      @java.lang.Deprecated java.util.Map<java.lang.String, java.lang.String>
       getMetaMap();
       /**
        * <pre>
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
-
+      @java.lang.Deprecated 
       java.lang.String getMetaOrDefault(
           java.lang.String key,
           java.lang.String defaultValue);
@@ -6536,9 +6678,9 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
-
+      @java.lang.Deprecated 
       java.lang.String getMetaOrThrow(
           java.lang.String key);
 
@@ -6651,6 +6793,47 @@ public final class WorkflowChangedOuterClass {
        * @return The status.
        */
       workflow.WorkflowEnums.SegmentStatus getStatus();
+
+      /**
+       * <pre>
+       * Перечень UUID джобов, которые связаны с сегментом
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 19;</code>
+       * @return A list containing the jobUuids.
+       */
+      java.util.List<java.lang.String>
+          getJobUuidsList();
+      /**
+       * <pre>
+       * Перечень UUID джобов, которые связаны с сегментом
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 19;</code>
+       * @return The count of jobUuids.
+       */
+      int getJobUuidsCount();
+      /**
+       * <pre>
+       * Перечень UUID джобов, которые связаны с сегментом
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 19;</code>
+       * @param index The index of the element to return.
+       * @return The jobUuids at the given index.
+       */
+      java.lang.String getJobUuids(int index);
+      /**
+       * <pre>
+       * Перечень UUID джобов, которые связаны с сегментом
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 19;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the jobUuids at the given index.
+       */
+      com.google.protobuf.ByteString
+          getJobUuidsBytes(int index);
     }
     /**
      * <pre>
@@ -6672,6 +6855,7 @@ public final class WorkflowChangedOuterClass {
         type_ = 0;
         shipments_ = java.util.Collections.emptyList();
         status_ = 0;
+        jobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       }
 
       @java.lang.Override
@@ -6884,6 +7068,15 @@ public final class WorkflowChangedOuterClass {
                 status_ = rawValue;
                 break;
               }
+              case 154: {
+                java.lang.String s = input.readStringRequireUtf8();
+                if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                  jobUuids_ = new com.google.protobuf.LazyStringArrayList();
+                  mutable_bitField0_ |= 0x00000004;
+                }
+                jobUuids_.add(s);
+                break;
+              }
               default: {
                 if (!parseUnknownField(
                     input, unknownFields, extensionRegistry, tag)) {
@@ -6901,6 +7094,9 @@ public final class WorkflowChangedOuterClass {
         } finally {
           if (((mutable_bitField0_ & 0x00000001) != 0)) {
             shipments_ = java.util.Collections.unmodifiableList(shipments_);
+          }
+          if (((mutable_bitField0_ & 0x00000004) != 0)) {
+            jobUuids_ = jobUuids_.getUnmodifiableView();
           }
           this.unknownFields = unknownFields.build();
           makeExtensionsImmutable();
@@ -7336,7 +7532,7 @@ public final class WorkflowChangedOuterClass {
         }
         return meta_;
       }
-
+      @java.lang.Deprecated 
       public int getMetaCount() {
         return internalGetMeta().getMap().size();
       }
@@ -7345,9 +7541,9 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
-
+      @java.lang.Deprecated 
       @java.lang.Override
       public boolean containsMeta(
           java.lang.String key) {
@@ -7367,10 +7563,10 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
       @java.lang.Override
-
+      @java.lang.Deprecated 
       public java.util.Map<java.lang.String, java.lang.String> getMetaMap() {
         return internalGetMeta().getMap();
       }
@@ -7379,10 +7575,10 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
       @java.lang.Override
-
+      @java.lang.Deprecated 
       public java.lang.String getMetaOrDefault(
           java.lang.String key,
           java.lang.String defaultValue) {
@@ -7396,10 +7592,10 @@ public final class WorkflowChangedOuterClass {
        * Мета-данные - поле для публикации дополнительной информации
        * </pre>
        *
-       * <code>map&lt;string, string&gt; meta = 13;</code>
+       * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
        */
       @java.lang.Override
-
+      @java.lang.Deprecated 
       public java.lang.String getMetaOrThrow(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -7567,6 +7763,57 @@ public final class WorkflowChangedOuterClass {
         return result == null ? workflow.WorkflowEnums.SegmentStatus.UNRECOGNIZED : result;
       }
 
+      public static final int JOB_UUIDS_FIELD_NUMBER = 19;
+      private com.google.protobuf.LazyStringList jobUuids_;
+      /**
+       * <pre>
+       * Перечень UUID джобов, которые связаны с сегментом
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 19;</code>
+       * @return A list containing the jobUuids.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getJobUuidsList() {
+        return jobUuids_;
+      }
+      /**
+       * <pre>
+       * Перечень UUID джобов, которые связаны с сегментом
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 19;</code>
+       * @return The count of jobUuids.
+       */
+      public int getJobUuidsCount() {
+        return jobUuids_.size();
+      }
+      /**
+       * <pre>
+       * Перечень UUID джобов, которые связаны с сегментом
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 19;</code>
+       * @param index The index of the element to return.
+       * @return The jobUuids at the given index.
+       */
+      public java.lang.String getJobUuids(int index) {
+        return jobUuids_.get(index);
+      }
+      /**
+       * <pre>
+       * Перечень UUID джобов, которые связаны с сегментом
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 19;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the jobUuids at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getJobUuidsBytes(int index) {
+        return jobUuids_.getByteString(index);
+      }
+
       private byte memoizedIsInitialized = -1;
       @java.lang.Override
       public final boolean isInitialized() {
@@ -7634,6 +7881,9 @@ public final class WorkflowChangedOuterClass {
         }
         if (status_ != workflow.WorkflowEnums.SegmentStatus.NEW.getNumber()) {
           output.writeEnum(18, status_);
+        }
+        for (int i = 0; i < jobUuids_.size(); i++) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 19, jobUuids_.getRaw(i));
         }
         unknownFields.writeTo(output);
       }
@@ -7718,6 +7968,14 @@ public final class WorkflowChangedOuterClass {
           size += com.google.protobuf.CodedOutputStream
             .computeEnumSize(18, status_);
         }
+        {
+          int dataSize = 0;
+          for (int i = 0; i < jobUuids_.size(); i++) {
+            dataSize += computeStringSizeNoTag(jobUuids_.getRaw(i));
+          }
+          size += dataSize;
+          size += 2 * getJobUuidsList().size();
+        }
         size += unknownFields.getSerializedSize();
         memoizedSize = size;
         return size;
@@ -7795,6 +8053,8 @@ public final class WorkflowChangedOuterClass {
         if (getDistance()
             != other.getDistance()) return false;
         if (status_ != other.status_) return false;
+        if (!getJobUuidsList()
+            .equals(other.getJobUuidsList())) return false;
         if (!unknownFields.equals(other.unknownFields)) return false;
         return true;
       }
@@ -7866,6 +8126,10 @@ public final class WorkflowChangedOuterClass {
             getDistance());
         hash = (37 * hash) + STATUS_FIELD_NUMBER;
         hash = (53 * hash) + status_;
+        if (getJobUuidsCount() > 0) {
+          hash = (37 * hash) + JOB_UUIDS_FIELD_NUMBER;
+          hash = (53 * hash) + getJobUuidsList().hashCode();
+        }
         hash = (29 * hash) + unknownFields.hashCode();
         memoizedHashCode = hash;
         return hash;
@@ -8103,6 +8367,8 @@ public final class WorkflowChangedOuterClass {
 
           status_ = 0;
 
+          jobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+          bitField0_ = (bitField0_ & ~0x00000004);
           return this;
         }
 
@@ -8196,6 +8462,11 @@ public final class WorkflowChangedOuterClass {
           }
           result.distance_ = distance_;
           result.status_ = status_;
+          if (((bitField0_ & 0x00000004) != 0)) {
+            jobUuids_ = jobUuids_.getUnmodifiableView();
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.jobUuids_ = jobUuids_;
           onBuilt();
           return result;
         }
@@ -8316,6 +8587,16 @@ public final class WorkflowChangedOuterClass {
           }
           if (other.status_ != 0) {
             setStatusValue(other.getStatusValue());
+          }
+          if (!other.jobUuids_.isEmpty()) {
+            if (jobUuids_.isEmpty()) {
+              jobUuids_ = other.jobUuids_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureJobUuidsIsMutable();
+              jobUuids_.addAll(other.jobUuids_);
+            }
+            onChanged();
           }
           this.mergeUnknownFields(other.unknownFields);
           onChanged();
@@ -9926,7 +10207,7 @@ public final class WorkflowChangedOuterClass {
           }
           return meta_;
         }
-
+        @java.lang.Deprecated 
         public int getMetaCount() {
           return internalGetMeta().getMap().size();
         }
@@ -9935,9 +10216,9 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 13;</code>
+         * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
          */
-
+        @java.lang.Deprecated 
         @java.lang.Override
         public boolean containsMeta(
             java.lang.String key) {
@@ -9957,10 +10238,10 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 13;</code>
+         * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
          */
         @java.lang.Override
-
+        @java.lang.Deprecated 
         public java.util.Map<java.lang.String, java.lang.String> getMetaMap() {
           return internalGetMeta().getMap();
         }
@@ -9969,10 +10250,10 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 13;</code>
+         * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
          */
         @java.lang.Override
-
+        @java.lang.Deprecated 
         public java.lang.String getMetaOrDefault(
             java.lang.String key,
             java.lang.String defaultValue) {
@@ -9986,10 +10267,10 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 13;</code>
+         * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
          */
         @java.lang.Override
-
+        @java.lang.Deprecated 
         public java.lang.String getMetaOrThrow(
             java.lang.String key) {
           if (key == null) { throw new java.lang.NullPointerException(); }
@@ -10000,7 +10281,7 @@ public final class WorkflowChangedOuterClass {
           }
           return map.get(key);
         }
-
+        @java.lang.Deprecated 
         public Builder clearMeta() {
           internalGetMutableMeta().getMutableMap()
               .clear();
@@ -10011,9 +10292,9 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 13;</code>
+         * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
          */
-
+        @java.lang.Deprecated 
         public Builder removeMeta(
             java.lang.String key) {
           if (key == null) { throw new java.lang.NullPointerException(); }
@@ -10034,9 +10315,9 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 13;</code>
+         * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
          */
-        public Builder putMeta(
+        @java.lang.Deprecated public Builder putMeta(
             java.lang.String key,
             java.lang.String value) {
           if (key == null) { throw new java.lang.NullPointerException(); }
@@ -10050,9 +10331,9 @@ public final class WorkflowChangedOuterClass {
          * Мета-данные - поле для публикации дополнительной информации
          * </pre>
          *
-         * <code>map&lt;string, string&gt; meta = 13;</code>
+         * <code>map&lt;string, string&gt; meta = 13 [deprecated = true];</code>
          */
-
+        @java.lang.Deprecated 
         public Builder putAllMeta(
             java.util.Map<java.lang.String, java.lang.String> values) {
           internalGetMutableMeta().getMutableMap()
@@ -10641,6 +10922,152 @@ public final class WorkflowChangedOuterClass {
           onChanged();
           return this;
         }
+
+        private com.google.protobuf.LazyStringList jobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        private void ensureJobUuidsIsMutable() {
+          if (!((bitField0_ & 0x00000004) != 0)) {
+            jobUuids_ = new com.google.protobuf.LazyStringArrayList(jobUuids_);
+            bitField0_ |= 0x00000004;
+           }
+        }
+        /**
+         * <pre>
+         * Перечень UUID джобов, которые связаны с сегментом
+         * </pre>
+         *
+         * <code>repeated string job_uuids = 19;</code>
+         * @return A list containing the jobUuids.
+         */
+        public com.google.protobuf.ProtocolStringList
+            getJobUuidsList() {
+          return jobUuids_.getUnmodifiableView();
+        }
+        /**
+         * <pre>
+         * Перечень UUID джобов, которые связаны с сегментом
+         * </pre>
+         *
+         * <code>repeated string job_uuids = 19;</code>
+         * @return The count of jobUuids.
+         */
+        public int getJobUuidsCount() {
+          return jobUuids_.size();
+        }
+        /**
+         * <pre>
+         * Перечень UUID джобов, которые связаны с сегментом
+         * </pre>
+         *
+         * <code>repeated string job_uuids = 19;</code>
+         * @param index The index of the element to return.
+         * @return The jobUuids at the given index.
+         */
+        public java.lang.String getJobUuids(int index) {
+          return jobUuids_.get(index);
+        }
+        /**
+         * <pre>
+         * Перечень UUID джобов, которые связаны с сегментом
+         * </pre>
+         *
+         * <code>repeated string job_uuids = 19;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the jobUuids at the given index.
+         */
+        public com.google.protobuf.ByteString
+            getJobUuidsBytes(int index) {
+          return jobUuids_.getByteString(index);
+        }
+        /**
+         * <pre>
+         * Перечень UUID джобов, которые связаны с сегментом
+         * </pre>
+         *
+         * <code>repeated string job_uuids = 19;</code>
+         * @param index The index to set the value at.
+         * @param value The jobUuids to set.
+         * @return This builder for chaining.
+         */
+        public Builder setJobUuids(
+            int index, java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureJobUuidsIsMutable();
+          jobUuids_.set(index, value);
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * Перечень UUID джобов, которые связаны с сегментом
+         * </pre>
+         *
+         * <code>repeated string job_uuids = 19;</code>
+         * @param value The jobUuids to add.
+         * @return This builder for chaining.
+         */
+        public Builder addJobUuids(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureJobUuidsIsMutable();
+          jobUuids_.add(value);
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * Перечень UUID джобов, которые связаны с сегментом
+         * </pre>
+         *
+         * <code>repeated string job_uuids = 19;</code>
+         * @param values The jobUuids to add.
+         * @return This builder for chaining.
+         */
+        public Builder addAllJobUuids(
+            java.lang.Iterable<java.lang.String> values) {
+          ensureJobUuidsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, jobUuids_);
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * Перечень UUID джобов, которые связаны с сегментом
+         * </pre>
+         *
+         * <code>repeated string job_uuids = 19;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearJobUuids() {
+          jobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * Перечень UUID джобов, которые связаны с сегментом
+         * </pre>
+         *
+         * <code>repeated string job_uuids = 19;</code>
+         * @param value The bytes of the jobUuids to add.
+         * @return This builder for chaining.
+         */
+        public Builder addJobUuidsBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          ensureJobUuidsIsMutable();
+          jobUuids_.add(value);
+          onChanged();
+          return this;
+        }
         @java.lang.Override
         public final Builder setUnknownFields(
             final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -11191,6 +11618,57 @@ public final class WorkflowChangedOuterClass {
       return result == null ? workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason.UNRECOGNIZED : result;
     }
 
+    public static final int REMOVED_JOB_UUIDS_FIELD_NUMBER = 17;
+    private com.google.protobuf.LazyStringList removedJobUuids_;
+    /**
+     * <pre>
+     * Массив удаленных из маршрутного листа джобов
+     * </pre>
+     *
+     * <code>repeated string removed_job_uuids = 17;</code>
+     * @return A list containing the removedJobUuids.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getRemovedJobUuidsList() {
+      return removedJobUuids_;
+    }
+    /**
+     * <pre>
+     * Массив удаленных из маршрутного листа джобов
+     * </pre>
+     *
+     * <code>repeated string removed_job_uuids = 17;</code>
+     * @return The count of removedJobUuids.
+     */
+    public int getRemovedJobUuidsCount() {
+      return removedJobUuids_.size();
+    }
+    /**
+     * <pre>
+     * Массив удаленных из маршрутного листа джобов
+     * </pre>
+     *
+     * <code>repeated string removed_job_uuids = 17;</code>
+     * @param index The index of the element to return.
+     * @return The removedJobUuids at the given index.
+     */
+    public java.lang.String getRemovedJobUuids(int index) {
+      return removedJobUuids_.get(index);
+    }
+    /**
+     * <pre>
+     * Массив удаленных из маршрутного листа джобов
+     * </pre>
+     *
+     * <code>repeated string removed_job_uuids = 17;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the removedJobUuids at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getRemovedJobUuidsBytes(int index) {
+      return removedJobUuids_.getByteString(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -11249,6 +11727,9 @@ public final class WorkflowChangedOuterClass {
       }
       if (editingReason_ != workflow.WorkflowChangedOuterClass.WorkflowChanged.WorkflowEditingReason.NOT_DEFINED.getNumber()) {
         output.writeEnum(16, editingReason_);
+      }
+      for (int i = 0; i < removedJobUuids_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 17, removedJobUuids_.getRaw(i));
       }
       unknownFields.writeTo(output);
     }
@@ -11318,6 +11799,14 @@ public final class WorkflowChangedOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(16, editingReason_);
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < removedJobUuids_.size(); i++) {
+          dataSize += computeStringSizeNoTag(removedJobUuids_.getRaw(i));
+        }
+        size += dataSize;
+        size += 2 * getRemovedJobUuidsList().size();
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -11378,6 +11867,8 @@ public final class WorkflowChangedOuterClass {
       if (!getSegmentsList()
           .equals(other.getSegmentsList())) return false;
       if (editingReason_ != other.editingReason_) return false;
+      if (!getRemovedJobUuidsList()
+          .equals(other.getRemovedJobUuidsList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -11439,6 +11930,10 @@ public final class WorkflowChangedOuterClass {
       }
       hash = (37 * hash) + EDITING_REASON_FIELD_NUMBER;
       hash = (53 * hash) + editingReason_;
+      if (getRemovedJobUuidsCount() > 0) {
+        hash = (37 * hash) + REMOVED_JOB_UUIDS_FIELD_NUMBER;
+        hash = (53 * hash) + getRemovedJobUuidsList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11641,6 +12136,8 @@ public final class WorkflowChangedOuterClass {
         }
         editingReason_ = 0;
 
+        removedJobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -11731,6 +12228,11 @@ public final class WorkflowChangedOuterClass {
           result.segments_ = segmentsBuilder_.build();
         }
         result.editingReason_ = editingReason_;
+        if (((bitField0_ & 0x00000008) != 0)) {
+          removedJobUuids_ = removedJobUuids_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000008);
+        }
+        result.removedJobUuids_ = removedJobUuids_;
         onBuilt();
         return result;
       }
@@ -11893,6 +12395,16 @@ public final class WorkflowChangedOuterClass {
         }
         if (other.editingReason_ != 0) {
           setEditingReasonValue(other.getEditingReasonValue());
+        }
+        if (!other.removedJobUuids_.isEmpty()) {
+          if (removedJobUuids_.isEmpty()) {
+            removedJobUuids_ = other.removedJobUuids_;
+            bitField0_ = (bitField0_ & ~0x00000008);
+          } else {
+            ensureRemovedJobUuidsIsMutable();
+            removedJobUuids_.addAll(other.removedJobUuids_);
+          }
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -13957,6 +14469,152 @@ public final class WorkflowChangedOuterClass {
         onChanged();
         return this;
       }
+
+      private com.google.protobuf.LazyStringList removedJobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureRemovedJobUuidsIsMutable() {
+        if (!((bitField0_ & 0x00000008) != 0)) {
+          removedJobUuids_ = new com.google.protobuf.LazyStringArrayList(removedJobUuids_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+      /**
+       * <pre>
+       * Массив удаленных из маршрутного листа джобов
+       * </pre>
+       *
+       * <code>repeated string removed_job_uuids = 17;</code>
+       * @return A list containing the removedJobUuids.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getRemovedJobUuidsList() {
+        return removedJobUuids_.getUnmodifiableView();
+      }
+      /**
+       * <pre>
+       * Массив удаленных из маршрутного листа джобов
+       * </pre>
+       *
+       * <code>repeated string removed_job_uuids = 17;</code>
+       * @return The count of removedJobUuids.
+       */
+      public int getRemovedJobUuidsCount() {
+        return removedJobUuids_.size();
+      }
+      /**
+       * <pre>
+       * Массив удаленных из маршрутного листа джобов
+       * </pre>
+       *
+       * <code>repeated string removed_job_uuids = 17;</code>
+       * @param index The index of the element to return.
+       * @return The removedJobUuids at the given index.
+       */
+      public java.lang.String getRemovedJobUuids(int index) {
+        return removedJobUuids_.get(index);
+      }
+      /**
+       * <pre>
+       * Массив удаленных из маршрутного листа джобов
+       * </pre>
+       *
+       * <code>repeated string removed_job_uuids = 17;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the removedJobUuids at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getRemovedJobUuidsBytes(int index) {
+        return removedJobUuids_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * Массив удаленных из маршрутного листа джобов
+       * </pre>
+       *
+       * <code>repeated string removed_job_uuids = 17;</code>
+       * @param index The index to set the value at.
+       * @param value The removedJobUuids to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRemovedJobUuids(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureRemovedJobUuidsIsMutable();
+        removedJobUuids_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Массив удаленных из маршрутного листа джобов
+       * </pre>
+       *
+       * <code>repeated string removed_job_uuids = 17;</code>
+       * @param value The removedJobUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addRemovedJobUuids(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureRemovedJobUuidsIsMutable();
+        removedJobUuids_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Массив удаленных из маршрутного листа джобов
+       * </pre>
+       *
+       * <code>repeated string removed_job_uuids = 17;</code>
+       * @param values The removedJobUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllRemovedJobUuids(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureRemovedJobUuidsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, removedJobUuids_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Массив удаленных из маршрутного листа джобов
+       * </pre>
+       *
+       * <code>repeated string removed_job_uuids = 17;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRemovedJobUuids() {
+        removedJobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Массив удаленных из маршрутного листа джобов
+       * </pre>
+       *
+       * <code>repeated string removed_job_uuids = 17;</code>
+       * @param value The bytes of the removedJobUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addRemovedJobUuidsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureRemovedJobUuidsIsMutable();
+        removedJobUuids_.add(value);
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -14052,7 +14710,7 @@ public final class WorkflowChangedOuterClass {
       "\n\037workflow/workflow_changed.proto\022\010workf" +
       "low\032\035workflow/workflow_enums.proto\032\037goog" +
       "le/protobuf/timestamp.proto\032\036google/prot" +
-      "obuf/duration.proto\"\302\027\n\017WorkflowChanged\022" +
+      "obuf/duration.proto\"\360\030\n\017WorkflowChanged\022" +
       "\n\n\002id\030\001 \001(\004\022\026\n\016performer_uuid\030\003 \001(\t\0220\n\006s" +
       "tatus\030\004 \001(\0162 .workflow.WorkflowChanged.S" +
       "tatus\022\020\n\010shift_id\030\007 \001(\004\0223\n\017plan_started_" +
@@ -14070,64 +14728,69 @@ public final class WorkflowChangedOuterClass {
       "WorkflowChanged.Assignment\0223\n\010segments\030\017" +
       " \003(\0132!.workflow.WorkflowChanged.Segment\022" +
       "G\n\016editing_reason\030\020 \001(\0162/.workflow.Workf" +
-      "lowChanged.WorkflowEditingReason\032\206\001\n\010Shi" +
-      "pment\022\014\n\004uuid\030\001 \001(\t\022\023\n\013is_delivery\030\002 \001(\010" +
-      "\022\023\n\013is_assembly\030\003 \001(\010\022\026\n\016fact_weight_kg\030" +
-      "\004 \001(\002\022\030\n\020fact_items_count\030\005 \001(\r\022\020\n\010entir" +
-      "ety\030\006 \001(\002\032\262\006\n\nAssignment\022\n\n\002id\030\001 \001(\004\022\033\n\023" +
-      "postponed_parent_id\030\002 \001(\004\022\014\n\004uuid\030\r \001(\t\022" +
-      "\035\n\025postponed_parent_uuid\030\014 \001(\t\022\020\n\010job_uu" +
-      "id\030\022 \001(\t\022\027\n\017parent_job_uuid\030\023 \001(\t\022\026\n\016per" +
-      "former_uuid\030\004 \001(\t\0225\n\021performer_vehicle\030\016" +
-      " \001(\0162\032.workflow.PerformerVehicle\022;\n\006stat" +
-      "us\030\005 \001(\0162+.workflow.WorkflowChanged.Assi" +
-      "gnment.Status\022-\n\rdelivery_type\030\013 \001(\0162\026.w" +
-      "orkflow.DeliveryType\022)\n\013source_type\030\021 \001(" +
-      "\0162\024.workflow.SourceType\0225\n\tshipments\030\006 \003" +
-      "(\0132\".workflow.WorkflowChanged.Shipment\022\024" +
-      "\n\014plan_payroll\030\007 \001(\002\022\031\n\021plan_payroll_bas" +
-      "e\030\017 \001(\002\022\032\n\022plan_payroll_bonus\030\020 \001(\002\022<\n\004m" +
-      "eta\030\010 \003(\0132..workflow.WorkflowChanged.Ass" +
-      "ignment.MetaEntry\022.\n\ncreated_at\030\t \001(\0132\032." +
-      "google.protobuf.Timestamp\022.\n\nupdated_at\030" +
-      "\n \001(\0132\032.google.protobuf.Timestamp\032+\n\tMet" +
-      "aEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"n" +
-      "\n\006Status\022\007\n\003NEW\020\000\022\r\n\tPOSTPONED\020\001\022\013\n\007OFFE" +
-      "RED\020\002\022\010\n\004SEEN\020\003\022\014\n\010ACCEPTED\020\004\022\014\n\010DECLINE" +
-      "D\020\005\022\013\n\007TIMEOUT\020\006\022\014\n\010CANCELED\020\007\032\206\006\n\007Segme" +
-      "nt\022\n\n\002id\030\001 \001(\004\022#\n\004type\030\002 \001(\0162\025.workflow." +
-      "SegmentType\022\020\n\010position\030\003 \001(\r\0225\n\tshipmen" +
-      "ts\030\005 \003(\0132\".workflow.WorkflowChanged.Ship" +
-      "ment\022*\n\016location_start\030\006 \001(\0132\022.workflow." +
-      "Location\0223\n\017plan_started_at\030\007 \001(\0132\032.goog" +
-      "le.protobuf.Timestamp\022(\n\014location_end\030\010 " +
-      "\001(\0132\022.workflow.Location\0221\n\rplan_ended_at" +
-      "\030\t \001(\0132\032.google.protobuf.Timestamp\0223\n\017fa" +
-      "ct_started_at\030\n \001(\0132\032.google.protobuf.Ti" +
-      "mestamp\0221\n\rfact_ended_at\030\013 \001(\0132\032.google." +
-      "protobuf.Timestamp\022+\n\010time_lag\030\014 \001(\0132\031.g" +
-      "oogle.protobuf.Duration\0229\n\004meta\030\r \003(\0132+." +
-      "workflow.WorkflowChanged.Segment.MetaEnt" +
-      "ry\022.\n\ncreated_at\030\016 \001(\0132\032.google.protobuf" +
-      ".Timestamp\022.\n\nupdated_at\030\017 \001(\0132\032.google." +
-      "protobuf.Timestamp\022+\n\010duration\030\020 \001(\0132\031.g" +
-      "oogle.protobuf.Duration\022\020\n\010distance\030\021 \001(" +
-      "\004\022\'\n\006status\030\022 \001(\0162\027.workflow.SegmentStat" +
-      "us\032+\n\tMetaEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 " +
-      "\001(\t:\0028\001\"K\n\006Status\022\007\n\003NEW\020\000\022\n\n\006QUEUED\020\001\022\017" +
-      "\n\013IN_PROGRESS\020\002\022\r\n\tCOMPLETED\020\003\022\014\n\010CANCEL" +
-      "ED\020\004\"\345\001\n\032WorkflowCancellationReason\022\020\n\014N" +
-      "OT_CANCELED\020\000\022\027\n\023ASSIGNMENT_DECLINED\020\001\022\027" +
-      "\n\023CANCEL_BY_PERFORMER\020\002\022\022\n\016ORDER_CANCELE" +
-      "D\020\003\022\r\n\tMOVE_SLOT\020\004\022\020\n\014NOT_ASSIGNED\020\005\022\017\n\013" +
-      "NOT_STARTED\020\006\022\033\n\027PERFORMER_NOT_AVAILABLE" +
-      "\020\007\022\n\n\006MANUAL\020\010\022\024\n\020CANCEL_BY_PARENT\020\t\"\351\001\n" +
-      "\025WorkflowEditingReason\022\017\n\013NOT_DEFINED\020\000\022" +
-      "\013\n\007STARTED\020\001\022\030\n\024NEXT_SEGMENT_STARTED\020\002\022\033" +
-      "\n\027CHANGE_SEGMENTS_TIMINGS\020\003\022\021\n\rORDER_DEL" +
-      "ETED\020\004\022\r\n\tCANCELLED\020\005\022\023\n\017ASSIGNMENT_SEEN" +
-      "\020\006\022\027\n\023ASSIGNMENT_ACCEPTED\020\007\022\035\n\031EXTERNAL_" +
-      "DELIVERY_CHANGED\020\010\022\014\n\010FINISHED\020\tb\006proto3"
+      "lowChanged.WorkflowEditingReason\022\031\n\021remo" +
+      "ved_job_uuids\030\021 \003(\t\032\206\001\n\010Shipment\022\014\n\004uuid" +
+      "\030\001 \001(\t\022\023\n\013is_delivery\030\002 \001(\010\022\023\n\013is_assemb" +
+      "ly\030\003 \001(\010\022\026\n\016fact_weight_kg\030\004 \001(\002\022\030\n\020fact" +
+      "_items_count\030\005 \001(\r\022\020\n\010entirety\030\006 \001(\002\032\276\006\n" +
+      "\nAssignment\022\n\n\002id\030\001 \001(\004\022\033\n\023postponed_par" +
+      "ent_id\030\002 \001(\004\022\014\n\004uuid\030\r \001(\t\022\035\n\025postponed_" +
+      "parent_uuid\030\014 \001(\t\022\024\n\010job_uuid\030\022 \001(\tB\002\030\001\022" +
+      "\033\n\017parent_job_uuid\030\023 \001(\tB\002\030\001\022\026\n\016performe" +
+      "r_uuid\030\004 \001(\t\0225\n\021performer_vehicle\030\016 \001(\0162" +
+      "\032.workflow.PerformerVehicle\022;\n\006status\030\005 " +
+      "\001(\0162+.workflow.WorkflowChanged.Assignmen" +
+      "t.Status\022-\n\rdelivery_type\030\013 \001(\0162\026.workfl" +
+      "ow.DeliveryType\022)\n\013source_type\030\021 \001(\0162\024.w" +
+      "orkflow.SourceType\0225\n\tshipments\030\006 \003(\0132\"." +
+      "workflow.WorkflowChanged.Shipment\022\024\n\014pla" +
+      "n_payroll\030\007 \001(\002\022\031\n\021plan_payroll_base\030\017 \001" +
+      "(\002\022\032\n\022plan_payroll_bonus\030\020 \001(\002\022@\n\004meta\030\010" +
+      " \003(\0132..workflow.WorkflowChanged.Assignme" +
+      "nt.MetaEntryB\002\030\001\022.\n\ncreated_at\030\t \001(\0132\032.g" +
+      "oogle.protobuf.Timestamp\022.\n\nupdated_at\030\n" +
+      " \001(\0132\032.google.protobuf.Timestamp\032+\n\tMeta" +
+      "Entry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"n\n" +
+      "\006Status\022\007\n\003NEW\020\000\022\r\n\tPOSTPONED\020\001\022\013\n\007OFFER" +
+      "ED\020\002\022\010\n\004SEEN\020\003\022\014\n\010ACCEPTED\020\004\022\014\n\010DECLINED" +
+      "\020\005\022\013\n\007TIMEOUT\020\006\022\014\n\010CANCELED\020\007\032\235\006\n\007Segmen" +
+      "t\022\n\n\002id\030\001 \001(\004\022#\n\004type\030\002 \001(\0162\025.workflow.S" +
+      "egmentType\022\020\n\010position\030\003 \001(\r\0225\n\tshipment" +
+      "s\030\005 \003(\0132\".workflow.WorkflowChanged.Shipm" +
+      "ent\022*\n\016location_start\030\006 \001(\0132\022.workflow.L" +
+      "ocation\0223\n\017plan_started_at\030\007 \001(\0132\032.googl" +
+      "e.protobuf.Timestamp\022(\n\014location_end\030\010 \001" +
+      "(\0132\022.workflow.Location\0221\n\rplan_ended_at\030" +
+      "\t \001(\0132\032.google.protobuf.Timestamp\0223\n\017fac" +
+      "t_started_at\030\n \001(\0132\032.google.protobuf.Tim" +
+      "estamp\0221\n\rfact_ended_at\030\013 \001(\0132\032.google.p" +
+      "rotobuf.Timestamp\022+\n\010time_lag\030\014 \001(\0132\031.go" +
+      "ogle.protobuf.Duration\022=\n\004meta\030\r \003(\0132+.w" +
+      "orkflow.WorkflowChanged.Segment.MetaEntr" +
+      "yB\002\030\001\022.\n\ncreated_at\030\016 \001(\0132\032.google.proto" +
+      "buf.Timestamp\022.\n\nupdated_at\030\017 \001(\0132\032.goog" +
+      "le.protobuf.Timestamp\022+\n\010duration\030\020 \001(\0132" +
+      "\031.google.protobuf.Duration\022\020\n\010distance\030\021" +
+      " \001(\004\022\'\n\006status\030\022 \001(\0162\027.workflow.SegmentS" +
+      "tatus\022\021\n\tjob_uuids\030\023 \003(\t\032+\n\tMetaEntry\022\013\n" +
+      "\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"K\n\006Status\022" +
+      "\007\n\003NEW\020\000\022\n\n\006QUEUED\020\001\022\017\n\013IN_PROGRESS\020\002\022\r\n" +
+      "\tCOMPLETED\020\003\022\014\n\010CANCELED\020\004\"\224\002\n\032WorkflowC" +
+      "ancellationReason\022\020\n\014NOT_CANCELED\020\000\022\027\n\023A" +
+      "SSIGNMENT_DECLINED\020\001\022\027\n\023CANCEL_BY_PERFOR" +
+      "MER\020\002\022\022\n\016ORDER_CANCELED\020\003\022\021\n\tMOVE_SLOT\020\004" +
+      "\032\002\010\001\022\020\n\014NOT_ASSIGNED\020\005\022\017\n\013NOT_STARTED\020\006\022" +
+      "\033\n\027PERFORMER_NOT_AVAILABLE\020\007\022\016\n\006MANUAL\020\010" +
+      "\032\002\010\001\022\024\n\020CANCEL_BY_PARENT\020\t\022\020\n\014NO_JOBS_LE" +
+      "FT\020\n\022\023\n\017TIMINGS_CHANGED\020\013\"\252\002\n\025WorkflowEd" +
+      "itingReason\022\017\n\013NOT_DEFINED\020\000\022\013\n\007STARTED\020" +
+      "\001\022\030\n\024NEXT_SEGMENT_STARTED\020\002\022\033\n\027CHANGE_SE" +
+      "GMENTS_TIMINGS\020\003\022\025\n\rORDER_DELETED\020\004\032\002\010\001\022" +
+      "\r\n\tCANCELLED\020\005\022\023\n\017ASSIGNMENT_SEEN\020\006\022\027\n\023A" +
+      "SSIGNMENT_ACCEPTED\020\007\022\035\n\031EXTERNAL_DELIVER" +
+      "Y_CHANGED\020\010\022\014\n\010FINISHED\020\t\022\020\n\014ORDER_CANCE" +
+      "L\020\n\022\031\n\025JOBS_REMOVED_BY_ADMIN\020\013\022\016\n\nSLOT_M" +
+      "OVED\020\014b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -14141,7 +14804,7 @@ public final class WorkflowChangedOuterClass {
     internal_static_workflow_WorkflowChanged_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_workflow_WorkflowChanged_descriptor,
-        new java.lang.String[] { "Id", "PerformerUuid", "Status", "ShiftId", "PlanStartedAt", "PlanEndedAt", "LocationStart", "LocationEnd", "CreatedAt", "UpdatedAt", "CancellationReason", "Shipments", "Assignments", "Segments", "EditingReason", });
+        new java.lang.String[] { "Id", "PerformerUuid", "Status", "ShiftId", "PlanStartedAt", "PlanEndedAt", "LocationStart", "LocationEnd", "CreatedAt", "UpdatedAt", "CancellationReason", "Shipments", "Assignments", "Segments", "EditingReason", "RemovedJobUuids", });
     internal_static_workflow_WorkflowChanged_Shipment_descriptor =
       internal_static_workflow_WorkflowChanged_descriptor.getNestedTypes().get(0);
     internal_static_workflow_WorkflowChanged_Shipment_fieldAccessorTable = new
@@ -14165,7 +14828,7 @@ public final class WorkflowChangedOuterClass {
     internal_static_workflow_WorkflowChanged_Segment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_workflow_WorkflowChanged_Segment_descriptor,
-        new java.lang.String[] { "Id", "Type", "Position", "Shipments", "LocationStart", "PlanStartedAt", "LocationEnd", "PlanEndedAt", "FactStartedAt", "FactEndedAt", "TimeLag", "Meta", "CreatedAt", "UpdatedAt", "Duration", "Distance", "Status", });
+        new java.lang.String[] { "Id", "Type", "Position", "Shipments", "LocationStart", "PlanStartedAt", "LocationEnd", "PlanEndedAt", "FactStartedAt", "FactEndedAt", "TimeLag", "Meta", "CreatedAt", "UpdatedAt", "Duration", "Distance", "Status", "JobUuids", });
     internal_static_workflow_WorkflowChanged_Segment_MetaEntry_descriptor =
       internal_static_workflow_WorkflowChanged_Segment_descriptor.getNestedTypes().get(0);
     internal_static_workflow_WorkflowChanged_Segment_MetaEntry_fieldAccessorTable = new

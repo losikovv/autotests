@@ -1521,6 +1521,47 @@ public final class WorkflowEnums {
      */
     com.google.protobuf.ByteString
         getStoreAddressBytes();
+
+    /**
+     * <pre>
+     * uuid-ы всех джобов заказа
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 13;</code>
+     * @return A list containing the jobUuids.
+     */
+    java.util.List<java.lang.String>
+        getJobUuidsList();
+    /**
+     * <pre>
+     * uuid-ы всех джобов заказа
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 13;</code>
+     * @return The count of jobUuids.
+     */
+    int getJobUuidsCount();
+    /**
+     * <pre>
+     * uuid-ы всех джобов заказа
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 13;</code>
+     * @param index The index of the element to return.
+     * @return The jobUuids at the given index.
+     */
+    java.lang.String getJobUuids(int index);
+    /**
+     * <pre>
+     * uuid-ы всех джобов заказа
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 13;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the jobUuids at the given index.
+     */
+    com.google.protobuf.ByteString
+        getJobUuidsBytes(int index);
   }
   /**
    * Protobuf type {@code workflow.Shipment}
@@ -1540,6 +1581,7 @@ public final class WorkflowEnums {
       storeUuid_ = "";
       storeName_ = "";
       storeAddress_ = "";
+      jobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
     @java.lang.Override
@@ -1562,6 +1604,7 @@ public final class WorkflowEnums {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1627,6 +1670,15 @@ public final class WorkflowEnums {
               uuid_ = s;
               break;
             }
+            case 106: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                jobUuids_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              jobUuids_.add(s);
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -1642,6 +1694,9 @@ public final class WorkflowEnums {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          jobUuids_ = jobUuids_.getUnmodifiableView();
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -1964,6 +2019,57 @@ public final class WorkflowEnums {
       }
     }
 
+    public static final int JOB_UUIDS_FIELD_NUMBER = 13;
+    private com.google.protobuf.LazyStringList jobUuids_;
+    /**
+     * <pre>
+     * uuid-ы всех джобов заказа
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 13;</code>
+     * @return A list containing the jobUuids.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getJobUuidsList() {
+      return jobUuids_;
+    }
+    /**
+     * <pre>
+     * uuid-ы всех джобов заказа
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 13;</code>
+     * @return The count of jobUuids.
+     */
+    public int getJobUuidsCount() {
+      return jobUuids_.size();
+    }
+    /**
+     * <pre>
+     * uuid-ы всех джобов заказа
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 13;</code>
+     * @param index The index of the element to return.
+     * @return The jobUuids at the given index.
+     */
+    public java.lang.String getJobUuids(int index) {
+      return jobUuids_.get(index);
+    }
+    /**
+     * <pre>
+     * uuid-ы всех джобов заказа
+     * </pre>
+     *
+     * <code>repeated string job_uuids = 13;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the jobUuids at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getJobUuidsBytes(int index) {
+      return jobUuids_.getByteString(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -2007,6 +2113,9 @@ public final class WorkflowEnums {
       }
       if (!getUuidBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 12, uuid_);
+      }
+      for (int i = 0; i < jobUuids_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 13, jobUuids_.getRaw(i));
       }
       unknownFields.writeTo(output);
     }
@@ -2052,6 +2161,14 @@ public final class WorkflowEnums {
       if (!getUuidBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, uuid_);
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < jobUuids_.size(); i++) {
+          dataSize += computeStringSizeNoTag(jobUuids_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getJobUuidsList().size();
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -2089,6 +2206,8 @@ public final class WorkflowEnums {
           .equals(other.getStoreName())) return false;
       if (!getStoreAddress()
           .equals(other.getStoreAddress())) return false;
+      if (!getJobUuidsList()
+          .equals(other.getJobUuidsList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2124,6 +2243,10 @@ public final class WorkflowEnums {
       hash = (53 * hash) + getStoreName().hashCode();
       hash = (37 * hash) + STORE_ADDRESS_FIELD_NUMBER;
       hash = (53 * hash) + getStoreAddress().hashCode();
+      if (getJobUuidsCount() > 0) {
+        hash = (37 * hash) + JOB_UUIDS_FIELD_NUMBER;
+        hash = (53 * hash) + getJobUuidsList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2277,6 +2400,8 @@ public final class WorkflowEnums {
 
         storeAddress_ = "";
 
+        jobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -2303,6 +2428,7 @@ public final class WorkflowEnums {
       @java.lang.Override
       public workflow.WorkflowEnums.Shipment buildPartial() {
         workflow.WorkflowEnums.Shipment result = new workflow.WorkflowEnums.Shipment(this);
+        int from_bitField0_ = bitField0_;
         result.number_ = number_;
         result.uuid_ = uuid_;
         result.itemsCount_ = itemsCount_;
@@ -2313,6 +2439,11 @@ public final class WorkflowEnums {
         result.isNew_ = isNew_;
         result.storeName_ = storeName_;
         result.storeAddress_ = storeAddress_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          jobUuids_ = jobUuids_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.jobUuids_ = jobUuids_;
         onBuilt();
         return result;
       }
@@ -2396,6 +2527,16 @@ public final class WorkflowEnums {
           storeAddress_ = other.storeAddress_;
           onChanged();
         }
+        if (!other.jobUuids_.isEmpty()) {
+          if (jobUuids_.isEmpty()) {
+            jobUuids_ = other.jobUuids_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureJobUuidsIsMutable();
+            jobUuids_.addAll(other.jobUuids_);
+          }
+          onChanged();
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -2424,6 +2565,7 @@ public final class WorkflowEnums {
         }
         return this;
       }
+      private int bitField0_;
 
       private java.lang.Object number_ = "";
       /**
@@ -3119,6 +3261,152 @@ public final class WorkflowEnums {
         onChanged();
         return this;
       }
+
+      private com.google.protobuf.LazyStringList jobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureJobUuidsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          jobUuids_ = new com.google.protobuf.LazyStringArrayList(jobUuids_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * uuid-ы всех джобов заказа
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 13;</code>
+       * @return A list containing the jobUuids.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getJobUuidsList() {
+        return jobUuids_.getUnmodifiableView();
+      }
+      /**
+       * <pre>
+       * uuid-ы всех джобов заказа
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 13;</code>
+       * @return The count of jobUuids.
+       */
+      public int getJobUuidsCount() {
+        return jobUuids_.size();
+      }
+      /**
+       * <pre>
+       * uuid-ы всех джобов заказа
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 13;</code>
+       * @param index The index of the element to return.
+       * @return The jobUuids at the given index.
+       */
+      public java.lang.String getJobUuids(int index) {
+        return jobUuids_.get(index);
+      }
+      /**
+       * <pre>
+       * uuid-ы всех джобов заказа
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 13;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the jobUuids at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getJobUuidsBytes(int index) {
+        return jobUuids_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * uuid-ы всех джобов заказа
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 13;</code>
+       * @param index The index to set the value at.
+       * @param value The jobUuids to set.
+       * @return This builder for chaining.
+       */
+      public Builder setJobUuids(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureJobUuidsIsMutable();
+        jobUuids_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * uuid-ы всех джобов заказа
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 13;</code>
+       * @param value The jobUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addJobUuids(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureJobUuidsIsMutable();
+        jobUuids_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * uuid-ы всех джобов заказа
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 13;</code>
+       * @param values The jobUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllJobUuids(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureJobUuidsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, jobUuids_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * uuid-ы всех джобов заказа
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 13;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearJobUuids() {
+        jobUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * uuid-ы всех джобов заказа
+       * </pre>
+       *
+       * <code>repeated string job_uuids = 13;</code>
+       * @param value The bytes of the jobUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addJobUuidsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureJobUuidsIsMutable();
+        jobUuids_.add(value);
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -3193,20 +3481,21 @@ public final class WorkflowEnums {
     java.lang.String[] descriptorData = {
       "\n\035workflow/workflow_enums.proto\022\010workflo" +
       "w\"$\n\010Location\022\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030\002 \001(\001\"" +
-      "\315\001\n\010Shipment\022\016\n\006number\030\001 \001(\t\022\014\n\004uuid\030\014 \001" +
+      "\340\001\n\010Shipment\022\016\n\006number\030\001 \001(\t\022\014\n\004uuid\030\014 \001" +
       "(\t\022\023\n\013items_count\030\002 \001(\r\022\032\n\022items_total_a" +
       "mount\030\003 \001(\002\022\021\n\tweight_kg\030\006 \001(\002\022\022\n\nstore_" +
       "uuid\030\007 \001(\t\022\020\n\010is_heavy\030\010 \001(\010\022\016\n\006is_new\030\t" +
       " \001(\010\022\022\n\nstore_name\030\n \001(\t\022\025\n\rstore_addres" +
-      "s\030\013 \001(\t*{\n\013SegmentType\022\n\n\006ARRIVE\020\000\022\014\n\010AS" +
-      "SEMBLY\020\001\022\024\n\020PASS_TO_DELIVERY\020\002\022\014\n\010DELIVE" +
-      "RY\020\003\022\022\n\016PASS_TO_CLIENT\020\005\022\032\n\026RECEIVING_FO" +
-      "R_DELIVERY\020\006*S\n\rSegmentStatus\022\007\n\003NEW\020\000\022\017" +
-      "\n\013IN_PROGRESS\020\001\022\014\n\010FINISHED\020\002\022\013\n\007DELETED" +
-      "\020\003\022\r\n\tCANCELLED\020\004*6\n\020PerformerVehicle\022\016\n" +
-      "\nPEDESTRIAN\020\000\022\010\n\004AUTO\020\001\022\010\n\004BIKE\020\002*&\n\nSou" +
-      "rceType\022\n\n\006MANUAL\020\000\022\014\n\010DISPATCH\020\001*%\n\014Del" +
-      "iveryType\022\013\n\007DEFAULT\020\000\022\010\n\004TAXI\020\001b\006proto3"
+      "s\030\013 \001(\t\022\021\n\tjob_uuids\030\r \003(\t*{\n\013SegmentTyp" +
+      "e\022\n\n\006ARRIVE\020\000\022\014\n\010ASSEMBLY\020\001\022\024\n\020PASS_TO_D" +
+      "ELIVERY\020\002\022\014\n\010DELIVERY\020\003\022\022\n\016PASS_TO_CLIEN" +
+      "T\020\005\022\032\n\026RECEIVING_FOR_DELIVERY\020\006*S\n\rSegme" +
+      "ntStatus\022\007\n\003NEW\020\000\022\017\n\013IN_PROGRESS\020\001\022\014\n\010FI" +
+      "NISHED\020\002\022\013\n\007DELETED\020\003\022\r\n\tCANCELLED\020\004*6\n\020" +
+      "PerformerVehicle\022\016\n\nPEDESTRIAN\020\000\022\010\n\004AUTO" +
+      "\020\001\022\010\n\004BIKE\020\002*&\n\nSourceType\022\n\n\006MANUAL\020\000\022\014" +
+      "\n\010DISPATCH\020\001*%\n\014DeliveryType\022\013\n\007DEFAULT\020" +
+      "\000\022\010\n\004TAXI\020\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3223,7 +3512,7 @@ public final class WorkflowEnums {
     internal_static_workflow_Shipment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_workflow_Shipment_descriptor,
-        new java.lang.String[] { "Number", "Uuid", "ItemsCount", "ItemsTotalAmount", "WeightKg", "StoreUuid", "IsHeavy", "IsNew", "StoreName", "StoreAddress", });
+        new java.lang.String[] { "Number", "Uuid", "ItemsCount", "ItemsTotalAmount", "WeightKg", "StoreUuid", "IsHeavy", "IsNew", "StoreName", "StoreAddress", "JobUuids", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -60,7 +60,6 @@ public class CandidatesTest extends RestBase {
         shiftsApi.stopAllActiveShifts();
 
         shiftsApi.startOfShift(StartPointsTenants.METRO_9);
-        shopperApp.sendCurrentLocator(55.915098, 37.541685, null);
 
         user2 = UserManager.getShp6Shopper2();
         shopperApp.authorisation(user2);
@@ -69,7 +68,6 @@ public class CandidatesTest extends RestBase {
         shiftsApi.stopAllActiveShifts();
 
         shiftsApi.startOfShift(StartPointsTenants.METRO_9);
-        shopperApp.sendCurrentLocator(55.915098, 37.541685, null);
 
         // TODO выяснить падение создания маршрутя
 //        SessionFactory.makeSession(SessionType.API_V2);
@@ -88,7 +86,6 @@ public class CandidatesTest extends RestBase {
         shiftsApi.stopAllActiveShifts();
 
         shiftsApi.startOfShift(StartPointsTenants.METRO_3);
-        shopperApp.sendCurrentLocator(55.857291, 38.440348, null);
 
         user4 = UserManager.getShp6Shopper4();
         shopperApp.authorisation(user4);
