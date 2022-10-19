@@ -106,38 +106,39 @@ public final class BasicSbermarketTests {
     @Story("Валидация элементов")
     @Test(description = "Тест валидности элементов в футере Сбермаркета", groups = {REGRESSION_STF, "MRAutoCheck"})
     public void successValidateElementInFooterSbermarket() {
-        shop().goToPage();
-        shop().checkPageIsAvailable();
-        shop().scrollDown();
+        home().goToPage();
+        home().checkPageIsAvailable();
+        home().scrollDown();
 
-        shop().interactFooter().checkFooterVisible();
-        shop().interactFooter().checkLogoVisible();
+        home().interactFooter().checkFooterVisible();
+        home().interactFooter().checkLogoVisible();
 
-        shop().interactFooter().checkSbermarketTitleVisible();
-        shop().interactFooter().checkAboutCompanyLinkVisible();
-        shop().interactFooter().checkContactsLinkVisible();
-        shop().interactFooter().checkVacanciesLinkVisible();
-        shop().interactFooter().checkDocumentsLinkVisible();
+        home().interactFooter().checkSbermarketTitleVisible();
+        home().interactFooter().checkAboutCompanyLinkVisible();
+        home().interactFooter().checkContactsLinkVisible();
+        home().interactFooter().checkVacanciesLinkVisible();
+        home().interactFooter().checkDocumentsLinkVisible();
 
-        shop().interactFooter().checkCustomerHelpTitleVisible();
-        shop().interactFooter().checkHowWeWorkVisible();
-        shop().interactFooter().checkDeliveryZoneVisible();
-        shop().interactFooter().checkDeliveryAndPaymentVisible();
-        shop().interactFooter().checkHelpVisible();
+        home().interactFooter().checkCustomerHelpTitleVisible();
+        home().interactFooter().checkHowWeWorkVisible();
+        home().interactFooter().checkDeliveryZoneVisible();
+        home().interactFooter().checkDeliveryAndPaymentVisible();
+        home().interactFooter().checkHelpVisible();
 
-        shop().interactFooter().checkHotlinePhoneNumberVisible();
-        shop().interactFooter().checkHotlineWorkHoursTextVisible();
+        home().interactFooter().checkHotlinePhoneNumberVisible();
+        home().interactFooter().checkHotlineWorkHoursTextVisible();
 
-        shop().interactFooter().checkVkontakteButtonVisible();
+        home().interactFooter().checkVkontakteButtonVisible();
 
-        shop().interactFooter().checkGooglePlayButtonVisible();
-        shop().interactFooter().checkAppstoreButtonVisible();
-        shop().interactFooter().checkHuaweiButtonVisible();
+        home().interactFooter().checkGooglePlayButtonVisible();
+        home().interactFooter().checkAppstoreButtonVisible();
+        home().interactFooter().checkHuaweiButtonVisible();
+        home().interactFooter().checkApkButtonVisible();
 
-        shop().interactFooter().checkReturnsPolicyLinkVisible();
-        shop().interactFooter().checkPersonalDataPolicyLinkVisible();
-        shop().interactFooter().checkPublicOfferLinkVisible();
-        shop().interactFooter().assertAll();
+        home().interactFooter().checkReturnsPolicyLinkVisible();
+        home().interactFooter().checkPersonalDataPolicyLinkVisible();
+        home().interactFooter().checkPublicOfferLinkVisible();
+        home().interactFooter().assertAll();
     }
 
     @CaseId(3470)

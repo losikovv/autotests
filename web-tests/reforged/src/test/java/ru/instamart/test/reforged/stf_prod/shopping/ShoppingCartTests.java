@@ -355,6 +355,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartNotEmpty();
 
         shop().interactCart().getFirstRetailer().removeRetailer();
+        shop().interactCart().interactCartModal().checkModalIsOpen();
         shop().interactCart().interactCartModal().confirm();
         shop().interactCart().checkCartEmpty();
     }
