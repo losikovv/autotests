@@ -16,7 +16,7 @@ public interface FooterElement {
             "подзаголовок 'Сбермаркет' в футере");
     Link aboutCompanyLink = new Link(By.xpath("//footer//a[@href='/about']"),
             "ссылка 'О компании' в футере");
-    Link contactsLink = new Link(By.xpath("//footer//a[@href='/contacts_2']"),
+    Link contactsLink = new Link(By.xpath("//footer//a[@href='/contacts']"),
             "ссылка 'Контакты' в футере");
     Link vacanciesLink = new Link(By.xpath("//footer//a[contains(@href,'https://job.sbermarket.ru/')]"),
             "ссылка 'Вакансии' в футере");
@@ -58,6 +58,8 @@ public interface FooterElement {
             "кнопка Appstore в футере");
     Button huaweiButton = new Button(By.xpath("//a[@data-qa='home_landing_huawei_store_footer']"),
             "кнопка huaweiStore в футере");
+    Button sbermarketApk = new Button(By.xpath("//a[@data-qa='home_landing_download_footer']"),
+            "кнопка Sbermarket в футере");
 
 
     Link returnsPolicyLink = new Link(By.xpath("//footer//a[@href='/rules-sbermarket']"),

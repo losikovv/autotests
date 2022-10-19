@@ -6,6 +6,6 @@ public final class ContactsPage implements StfPage {
 
     @Override
     public String pageUrl() {
-        return "contacts_2";
+        return "contacts";
     }
 }

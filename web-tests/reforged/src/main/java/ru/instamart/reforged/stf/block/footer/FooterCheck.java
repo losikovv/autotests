@@ -96,6 +96,11 @@ public interface FooterCheck extends Check, FooterElement {
         krakenAssert.assertTrue(huaweiButton.is().displayed(), "кнопка 'Huawei Store' не отображается");
     }
 
+    @Step("Проверяем что отображается кнопка 'Sbermarket APK'")
+    default void checkApkButtonVisible() {
+        krakenAssert.assertTrue(sbermarketApk.is().displayed(), "кнопка 'Sbermarket Apk' не отображается");
+    }
+
     @Step("Проверяем что отображается ссылка 'Политика возврата'")
     default void checkReturnsPolicyLinkVisible() {
         krakenAssert.assertTrue(returnsPolicyLink.is().displayed(), "ссылка 'Политика возврата' не отображается");
