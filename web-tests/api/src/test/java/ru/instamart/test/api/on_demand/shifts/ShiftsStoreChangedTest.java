@@ -16,6 +16,7 @@ import ru.instamart.jdbc.dao.shifts.PlanningAreasDao;
 import ru.instamart.jdbc.dao.shifts.PlanningPeriodsDao;
 import ru.instamart.jdbc.dao.shifts.ShopsDao;
 import ru.instamart.jdbc.dto.shifts.PlanningPeriodFilters;
+import ru.instamart.jdbc.entity.shifts.PlanningPeriodEntity;
 import ru.sbermarket.qase.annotation.CaseId;
 import shifts.ImportPlanningPeriods;
 
@@ -37,7 +38,7 @@ public class ShiftsStoreChangedTest extends RestBase {
     private final String storeUUID = UUID.randomUUID().toString(); //"4872ead0-274b-49a2-955e-a5101a7de9cb";
     private String date = getFutureDateWithoutTime(1L);
     private String dateTime = getZonedDate();
-    private String importIdBefore;
+    private List<PlanningPeriodEntity> planningPeriodsBefore;
 
     @BeforeClass(alwaysRun = true,
             description = "Отправка информации о создании магазина через кафку")
@@ -130,10 +131,10 @@ public class ShiftsStoreChangedTest extends RestBase {
     @CaseId(81)
     @Story("Импорт плановых периодов")
     @Test(groups = {"api-shifts"},
-            dependsOnMethods = "createStore",
+            dependsOnMethods = "importPlanningPeriodForUniversalAutoUniversal",
             description = "Добавление плановых периодов используя идентификатор зоны доставки")
     public void importPlanningPeriod200() {
-        importIdBefore = "KRAKEN_IMPORT" + RandomUtils.nextLong(1000000L, 9999999L);
+        var importIdBefore = "KRAKEN_IMPORT" + RandomUtils.nextLong(1000000L, 9999999L);
         var periodsImport = ImportPlanningPeriods.PlaningPeriodsImport.newBuilder()
                 .setId(importIdBefore)
                 .setSentAt(dateTime)
@@ -173,9 +174,13 @@ public class ShiftsStoreChangedTest extends RestBase {
 
         kafka.publish(configPlanningPeriods(), periodsImport);
         simplyAwait(10);
-        List<String> logsPods = kubeLog.getLogsPods(SHIFT_SERVICE_CONSUMER.getNameSpace(), SHIFT_SERVICE_CONSUMER.getLabel(), "\\\"planning_area_id\\\":" + deliveryAreaId);
-        Allure.step("Asserts", () ->
-                assertTrue(logsPods.size() > 0, "Вернулись пустые логи")
+        var filters = PlanningPeriodFilters.builder()
+                .importId(importIdBefore)
+                .build();
+        planningPeriodsBefore = PlanningPeriodsDao.INSTANCE.getPlanningPeriods(filters);
+
+        Allure.step("Проверяем импорт", () ->
+                assertTrue(planningPeriodsBefore.size() > 0, "Импорт в БД пустой")
         );
     }
 
@@ -185,10 +190,6 @@ public class ShiftsStoreChangedTest extends RestBase {
             dependsOnMethods = "importPlanningPeriod200",
             description = "Обновление существующих плановых периодов")
     public void updatePlanningPeriod200() {
-        var filters = PlanningPeriodFilters.builder()
-                .importId(importIdBefore)
-                .build();
-        var planningPeriodsBefore = PlanningPeriodsDao.INSTANCE.getPlanningPeriods(filters);
         String importId = "KRAKEN_UPDATE_" + RandomUtils.nextLong(1000000L, 9999999L);
         var filters2 = PlanningPeriodFilters.builder()
                 .importId(importId)
@@ -365,11 +366,12 @@ public class ShiftsStoreChangedTest extends RestBase {
             dependsOnMethods = "createStore",
             description = "Импорт ПП для роли universal/auto_universal (новый формат)")
     public void importPlanningPeriodForUniversalAutoUniversal() {
+        var importId = "KRAKEN_IMPORT" + RandomUtils.nextLong(1000000L, 9999999L);
         Map<String, Float> payroll = new HashMap<>();
         payroll.put("universal", 100F);
         payroll.put("auto_universal", 200F);
         var periodsImport = ImportPlanningPeriods.PlaningPeriodsImport.newBuilder()
-                .setId(String.valueOf(RandomUtils.nextLong(1000000L, 9999999L)))
+                .setId(importId)
                 .setSentAt(date + "T12:00:00+03:00")
                 .addPlanningPeriods(0,
                         ImportPlanningPeriods.PlanningPeriodItem.newBuilder()
@@ -389,9 +391,12 @@ public class ShiftsStoreChangedTest extends RestBase {
 
         kafka.publish(configPlanningPeriods(), periodsImport);
         simplyAwait(10);
-        List<String> logsPods = kubeLog.getLogsPods(SHIFT_SERVICE_CONSUMER.getNameSpace(), SHIFT_SERVICE_CONSUMER.getLabel(), "\\\"planning_area_id\\\":" + deliveryAreaId);
+        var filters = PlanningPeriodFilters.builder()
+                .importId(importId)
+                .build();
+        planningPeriodsBefore = PlanningPeriodsDao.INSTANCE.getPlanningPeriods(filters);
         Allure.step("Asserts", () ->
-                assertTrue(logsPods.size() > 0, "Вернулись пустые логи")
+                assertTrue(planningPeriodsBefore.size() > 0, "Импорт в БД пустой")
         );
     }
 }
