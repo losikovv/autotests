@@ -39,6 +39,7 @@ import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreSelgrosM
 public class StoresAdminTest extends RestBase {
 
     private Integer id;
+    private String uuid;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
@@ -62,6 +63,7 @@ public class StoresAdminTest extends RestBase {
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getStore().getLocation().getLat(), store.getStore().getLocation().getLon());
         checkFieldIsNotEmpty(storeFromDb, "магазин в БД");
         id = storeFromDb.getId();
+        uuid = storeFromDb.getUuid();
         StoreConfigsEntity storeConfigs = StoreConfigsDao.INSTANCE.getConfigsByStoreId(id);
         checkStoreInDb(store, storeFromDb, storeConfigs);
     }
@@ -73,7 +75,7 @@ public class StoresAdminTest extends RestBase {
             dependsOnMethods = "createStore")
     public void editStore() {
         StoresAdminRequest.Stores stores = getStoreSelgrosMiklouhoMaclay();
-        final Response response = StoresAdminRequest.PATCH(stores, id);
+        final Response response = StoresAdminRequest.PATCH(stores, uuid);
         checkStatusCode302(response);
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(stores.getStore().getLocation().getLat(), stores.getStore().getLocation().getLon());
         checkFieldIsNotEmpty(storeFromDb, "магазин в БД");

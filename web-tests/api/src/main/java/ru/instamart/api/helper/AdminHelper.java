@@ -236,8 +236,8 @@ public class AdminHelper {
     }
 
     @Step("Редактируем магазин")
-    public void editStore(Integer sid, StoresAdminRequest.Stores store) {
-        final Response storeResponse = StoresAdminRequest.PATCH(store, sid);
+    public void editStore(String storeUuid, StoresAdminRequest.Stores store) {
+        final Response storeResponse = StoresAdminRequest.PATCH(store, storeUuid);
         checkStatusCode(storeResponse, 201);
     }
 
