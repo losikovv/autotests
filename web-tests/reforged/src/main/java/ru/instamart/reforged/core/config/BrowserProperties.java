@@ -18,8 +18,6 @@ public final class BrowserProperties {
     @Config(configName = NAME, fieldName = "headless", defaultValue = "false")
     public static boolean HEADLESS;
 
-    @Config(configName = NAME, fieldName = "enableProxy", defaultValue = "false")
-    public static boolean ENABLE_PROXY;
     @Config(configName = NAME, fieldName = "ignoreSsl", defaultValue = "true")
     public static boolean IGNORE_SSL;
 
