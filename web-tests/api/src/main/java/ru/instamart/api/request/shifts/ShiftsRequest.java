@@ -70,7 +70,11 @@ public class ShiftsRequest extends ShiftsRequestBase {
     public static class Stop {
         @Step("{method} /" + ShiftsV1Endpoints.Shifts.STOP)
         public static Response PATCH(final long id) {
+            JSONObject body = new JSONObject();
+            body.put("cancellation_reason", "Технические проблемы");
             return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(body)
                     .patch(ShiftsV1Endpoints.Shifts.STOP, id);
         }
     }

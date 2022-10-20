@@ -33,15 +33,17 @@ public class NotificationsPositiveV3Test extends RestBase {
     private OrderV2 orderDeliveryBySbermarket;
     private OrderV2 orderDeliveryByRetailer;
     private final Integer sidDeliveryBySbermarket = 58;
+    private final String uuidDeliveryBySbermarket = "adaa359e-6c53-462a-928d-307317e399b1";
     private final Integer sidDeliveryByRetailer = 121;
+    private final String uuidDeliveryByRetailer = "5f17e133-3405-4422-8f0f-64adcd7c738a";
 
     @BeforeClass(alwaysRun = true)
     public void preconditionsBeforeClass() {
         apiV3.checkFlipper("allow_export_to_external_services");
         admin.auth();
         admin.authApi();
-        admin.editStore(sidDeliveryBySbermarket, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
-        admin.editStore(sidDeliveryByRetailer, StoresAdminRequest.getStoreVictoriaTest());
+        admin.editStore(uuidDeliveryBySbermarket, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
+        admin.editStore(uuidDeliveryByRetailer, StoresAdminRequest.getStoreVictoriaTest());
     }
 
     @BeforeMethod(alwaysRun = true)
