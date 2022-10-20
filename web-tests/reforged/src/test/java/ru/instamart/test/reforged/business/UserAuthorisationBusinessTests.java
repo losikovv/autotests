@@ -9,9 +9,9 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
 import static ru.instamart.reforged.business.page.BusinessRouter.business;
 
 @Epic("SMBUSINESS UI")
@@ -20,8 +20,7 @@ public final class UserAuthorisationBusinessTests {
 
     @CaseId(230)
     @Story("Авторизация")
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Вход по мобильному телефону (B2B)", groups = {"smoke", "regression"})
+    @Test(description = "Вход по мобильному телефону (B2B)", groups = {"smoke", REGRESSION_BUSINESS})
     public void successAuthOnMainPage() {
         business().goToPage();
         business().interactHeader().clickToLogin();
@@ -36,8 +35,7 @@ public final class UserAuthorisationBusinessTests {
     @CaseId(231)
     @Story("Авторизация")
     @Skip
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Вход по СберБизнес ID (B2B)", groups = {"smoke", "regression"})
+    @Test(description = "Вход по СберБизнес ID (B2B)", groups = {"smoke", REGRESSION_BUSINESS})
     public void successRegWithSberBusinessID() {
         business().goToPage();
         business().interactHeader().clickToLogin();

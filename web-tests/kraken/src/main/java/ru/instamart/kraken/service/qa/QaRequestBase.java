@@ -35,7 +35,7 @@ public abstract class QaRequestBase {
     }
 
     private static String addToken() {
-        if (!URL.contains("stf") && !URL.contains("sbermarket.ru") && !URL.startsWith("m.")|| URL.contains("preprod") || URL.contains("sbersuperapp")) {
+        if (!URL.contains("https://stf-") && !URL.contains("sbermarket.ru") && !URL.startsWith("m.")|| URL.contains("preprod") || URL.contains("sbersuperapp")) {
             return FEATURE_STAGE_TOKEN;
         } else if (URL.contains("sbermarket.ru")) {
             return PROD_TOKEN;

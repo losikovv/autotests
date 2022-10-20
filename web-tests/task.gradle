@@ -14,7 +14,9 @@ task ciRun(type: Test) {
     def CI_MODULE = System.getenv('CI_MODULE')
 
     switch (CI_MODULE) {
-        case 'ui': dependsOn(':reforged:ciRunUi')
+        case 'ui-stf': dependsOn(':reforged:sbermarketUiCustom')
+            break
+        case 'ui-b2b': dependsOn(':reforged:businessUiCustom')
             break
         case 'api': dependsOn(':api:ciRunApi')
             break

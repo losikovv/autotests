@@ -11,7 +11,7 @@ public final class Group {
      */
     public static final String REGRESSION_STF = "regression";
     public static final String REGRESSION_ADMIN = "regression";
-
+    public static final String REGRESSION_BUSINESS = "regression";
     /*
     ###############################
     #########Admin Section#########

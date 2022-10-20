@@ -57,16 +57,16 @@ public final class CookieFactory {
             date);
 
     public static final Cookie FORWARD_FEATURE_STF = new Cookie("sbm-forward-feature-version-stf",
-            UiProperties.HEADER_STF_FORWARD_TO,
+            UiProperties.Env.STF_FORWARD_TO,
             COOKIE_DOMAIN,
             "/",
             date);
 
-    public static final Cookie FORWARD_FEATURE_BUSINESS = new Cookie("sbm-forward-feature-version-stf",
+/*    public static final Cookie FORWARD_FEATURE_BUSINESS = new Cookie("sbm-forward-feature-version-stf",
             UiProperties.HEADER_B2B_FORWARD_TO,
             COOKIE_DOMAIN,
             "/",
-            date);
+            date);*/
 
     public static final Cookie FORWARD_FEATURE_SELGROS = new Cookie("sbm-forward-feature-version-stf",
             UiProperties.HEADER_SELGROS_FORWARD_TO,

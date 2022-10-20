@@ -10,11 +10,11 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
 import static ru.instamart.reforged.business.page.BusinessRouter.*;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
@@ -26,8 +26,7 @@ public final class ShoppingCartTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(261)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Отображение TOTAL НДС", groups = {"smoke", "regression", "all-cart"})
+    @Test(description = "Отображение TOTAL НДС", groups = {"smoke", REGRESSION_BUSINESS, "all-cart"})
     public void testTotalVatDisplayed() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
@@ -47,8 +46,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(263)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Отображение TOTAL НДС мультизаказ", groups = {"smoke", "regression", "all-cart"})
+    @Test(description = "Отображение TOTAL НДС мультизаказ", groups = {"smoke", REGRESSION_BUSINESS, "all-cart"})
     public void testTotalVatDisplayedMultiply() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
@@ -71,8 +69,7 @@ public final class ShoppingCartTests {
     //TODO Переход с STF на Business при текущей схеме невозможен см коммент https://jira.sbmt.io/browse/ATST-2251
     @Issue("ATST-2251")
     @Skip
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Перенос корзины при отсутствующем ритейлере на B2B", groups = {"smoke", "regression", "all-cart"})
+    @Test(description = "Перенос корзины при отсутствующем ритейлере на B2B", groups = {"smoke", REGRESSION_BUSINESS, "all-cart"})
     public void testTransferCartNoSuchRetailer() {
         var userData = UserManager.getQaUser();
 
@@ -108,8 +105,7 @@ public final class ShoppingCartTests {
     //TODO Переход с STF на Business при текущей схеме невозможен см коммент https://jira.sbmt.io/browse/ATST-2251
     @Issue("ATST-2251")
     @Skip
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Перенос корзины с B2C на B2B витрину", groups = {"smoke", "regression", "all-cart"})
+    @Test(description = "Перенос корзины с B2C на B2B витрину", groups = {"smoke", REGRESSION_BUSINESS, "all-cart"})
     public void testTransferCartB2CToB2B() {
         var userData = UserManager.getQaUser();
 
@@ -149,8 +145,7 @@ public final class ShoppingCartTests {
     //TODO Переход с STF на Business при текущей схеме невозможен см коммент https://jira.sbmt.io/browse/ATST-2251
     @Issue("ATST-2251")
     @Skip
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Перенос мультиритейлерной корзины с B2C на B2B витрину", groups = {"smoke", "regression", "all-cart"})
+    @Test(description = "Перенос мультиритейлерной корзины с B2C на B2B витрину", groups = {"smoke", REGRESSION_BUSINESS, "all-cart"})
     public void testTransferCartB2CToB2BMultiply() {
         var userData = UserManager.getQaUser();
 
@@ -197,8 +192,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(731)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Изменение количества товаров в корзине вводом числа", groups = {"smoke", "regression", "all-cart"})
+    @Test(description = "Изменение количества товаров в корзине вводом числа", groups = {"smoke", REGRESSION_BUSINESS, "all-cart"})
     public void testChangeItemCountFromKeyboard() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();

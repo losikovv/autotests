@@ -6,9 +6,9 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
 import static ru.instamart.reforged.business.page.BusinessRouter.*;
 
 @Epic("SMBUSINESS UI")
@@ -18,8 +18,7 @@ public final class CompaniesTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(21)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Переход в раздел 'Компании'", groups = {"smoke", "regression"})
+    @Test(description = "Переход в раздел 'Компании'", groups = {"smoke", REGRESSION_BUSINESS})
     public void gotoCompaniesFromHeader() {
         var user = UserManager.getQaUser();
 
@@ -35,8 +34,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(750)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Переход в раздел 'Компании' (B2C-витрина)", groups = {"smoke", "regression"})
+    @Test(description = "Переход в раздел 'Компании' (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
     public void gotoCompaniesFromHeaderB2C() {
         var user = UserManager.getQaUser();
 
@@ -55,8 +53,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(22)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Переход в профиль из раздела 'Компании'", groups = {"smoke", "regression"})
+    @Test(description = "Переход в профиль из раздела 'Компании'", groups = {"smoke", REGRESSION_BUSINESS})
     public void gotoProfileFromCompanies() {
         var user = UserManager.getQaUser();
 
@@ -73,8 +70,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(751)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Переход в профиль из раздела 'Компании' (B2C-витрина)", groups = {"smoke", "regression"})
+    @Test(description = "Переход в профиль из раздела 'Компании' (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
     public void gotoProfileFromCompaniesB2C() {
         var user = UserManager.getQaUser();
 
@@ -94,8 +90,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(23)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Добавление новой компании из раздела 'Компании' / ввод корректного ИНН", groups = {"smoke", "regression"})
+    @Test(description = "Добавление новой компании из раздела 'Компании' / ввод корректного ИНН", groups = {"smoke", REGRESSION_BUSINESS})
     public void addCompanyFromCompaniesPagePositive() {
         var company = JuridicalData.juridical();
         var user = UserManager.getQaUser();
@@ -123,8 +118,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(752)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Добавление новой компании из раздела 'Компании' / ввод корректного ИНН  (B2C-витрина)", groups = {"smoke", "regression"})
+    @Test(description = "Добавление новой компании из раздела 'Компании' / ввод корректного ИНН  (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
     public void addCompanyFromCompaniesPagePositiveB2C() {
         var company = JuridicalData.juridical();
         var user = UserManager.getQaUser();
@@ -155,8 +149,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(43)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Добавление новой компании из ЛК / ввод некорректного ИНН", groups = {"smoke", "regression"})
+    @Test(description = "Добавление новой компании из ЛК / ввод некорректного ИНН", groups = {"smoke", REGRESSION_BUSINESS})
     public void addCompanyFromCompaniesPageIncorrectINN() {
         var user = UserManager.getQaUser();
 
@@ -181,8 +174,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(758)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Добавление новой компании из ЛК / ввод некорректного ИНН (B2c-витрина)", groups = {"smoke", "regression"})
+    @Test(description = "Добавление новой компании из ЛК / ввод некорректного ИНН (B2c-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
     public void addCompanyFromCompaniesPageIncorrectINNB2C() {
         var user = UserManager.getQaUser();
 
@@ -207,8 +199,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(37)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Отображение  блока 'менеджер' в кабинете компании", groups = {"smoke", "regression"})
+    @Test(description = "Отображение  блока 'менеджер' в кабинете компании", groups = {"smoke", REGRESSION_BUSINESS})
     public void testCompanyManagerInfo() {
         var userData = UserManager.getQaUser();
         var managerData = UserManager.getQaUser();
@@ -230,8 +221,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(754)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Отображение  блока 'менеджер' в кабинете компании (B2C-витрина)", groups = {"smoke", "regression"})
+    @Test(description = "Отображение  блока 'менеджер' в кабинете компании (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
     public void testCompanyManagerInfoB2C() {
         var userData = UserManager.getQaUser();
         var managerData = UserManager.getQaUser();
@@ -253,8 +243,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(38)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Переход в профиль компании", groups = {"smoke", "regression"})
+    @Test(description = "Переход в профиль компании", groups = {"smoke", REGRESSION_BUSINESS})
     public void testCompanyInfo() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
@@ -274,8 +263,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(755)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Переход в профиль компании (B2C-витрина)", groups = {"smoke", "regression"})
+    @Test(description = "Переход в профиль компании (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
     public void testCompanyInfoB2C() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
@@ -295,8 +283,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(39)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Кнопка 'обновления баланса' и 'подсказка'", groups = {"smoke", "regression"})
+    @Test(description = "Кнопка 'обновления баланса' и 'подсказка'", groups = {"smoke", REGRESSION_BUSINESS})
     public void testCompanyBalance() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
@@ -341,8 +328,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(756)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Кнопка 'обновления баланса' и 'подсказка' (B2C-витрина)", groups = {"smoke", "regression"})
+    @Test(description = "Кнопка 'обновления баланса' и 'подсказка' (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
     public void testCompanyBalanceB2C() {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
@@ -387,8 +373,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(42)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Блок 'Код безопасности'", groups = {"smoke", "regression"})
+    @Test(description = "Блок 'Код безопасности'", groups = {"smoke", REGRESSION_BUSINESS})
     public void testSecurityCodeBlock() {
         var company = JuridicalData.juridical();
         var companyHeadUser = UserManager.getQaUser();
@@ -427,8 +412,7 @@ public final class CompaniesTests {
     }
 
     @CaseId(757)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Блок 'Код безопасности' (B2C-витрина)", groups = {"smoke", "regression"})
+    @Test(description = "Блок 'Код безопасности' (B2C-витрина)", groups = {"smoke", REGRESSION_BUSINESS})
     public void testSecurityCodeBlockB2C() {
         var company = JuridicalData.juridical();
         var companyHeadUser = UserManager.getQaUser();

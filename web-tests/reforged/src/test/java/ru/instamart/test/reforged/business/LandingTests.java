@@ -5,11 +5,11 @@ import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
+import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
 import static ru.instamart.reforged.business.page.BusinessRouter.*;
 
 @Epic("SMBUSINESS UI")
@@ -19,8 +19,7 @@ public final class LandingTests {
     @CaseId(25)
     //TODO Переход с STF на Business при текущей схеме невозможен см коммент https://jira.sbmt.io/browse/ATST-2251
     @Skip
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Ссылка на лендинг для неавторизованного юзера", groups = {"smoke", "regression"})
+    @Test(description = "Ссылка на лендинг для неавторизованного юзера", groups = {"smoke", REGRESSION_BUSINESS})
     public void fromB2CToB2BNotAuthorized() {
         b2cShop().goToPage();
         b2cShop().interactHeader().clickBuyForBusiness();
@@ -32,8 +31,7 @@ public final class LandingTests {
     }
 
     @CaseId(26)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Переход на страницу лендинга", groups = {"smoke", "regression"})
+    @Test(description = "Переход на страницу лендинга", groups = {"smoke", REGRESSION_BUSINESS})
     public void basicLandingCheck() {
         business().goToPage();
         business().checkLandingVisible();
@@ -49,8 +47,7 @@ public final class LandingTests {
     }
 
     @CaseId(27)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Добавление компании с лендинга", groups = {"smoke", "regression"})
+    @Test(description = "Добавление компании с лендинга", groups = {"smoke", REGRESSION_BUSINESS})
     public void addCompanyFromLanding() {
         var user = UserManager.getQaUser();
 
@@ -64,8 +61,7 @@ public final class LandingTests {
     }
 
     @CaseId(28)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Заказать обратный звонок с лендинга", groups = {"smoke", "regression"})
+    @Test(description = "Заказать обратный звонок с лендинга", groups = {"smoke", REGRESSION_BUSINESS})
     public void getCallback() {
         var user = UserManager.getQaUser();
 
@@ -83,8 +79,7 @@ public final class LandingTests {
     }
 
     @CaseId(733)
-    @CookieProvider(cookies = {"FORWARD_FEATURE_BUSINESS", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Отображение всех доступных ритейлеров в блоке 'до 20% от чека' на лендинге.", groups = {"smoke", "regression"})
+    @Test(description = "Отображение всех доступных ритейлеров в блоке 'до 20% от чека' на лендинге.", groups = {"smoke", REGRESSION_BUSINESS})
     public void retailersOnLanding() {
         business().goToPage();
         business().checkLandingVisible();

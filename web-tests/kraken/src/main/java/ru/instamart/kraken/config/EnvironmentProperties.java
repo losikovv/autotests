@@ -3,12 +3,14 @@ package ru.instamart.kraken.config;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.common.config.Config;
 import ru.instamart.kraken.common.config.Env;
+import ru.instamart.kraken.enums.CiPipelineSource;
 import ru.instamart.kraken.enums.Server;
 
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
+import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 
@@ -16,8 +18,8 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public final class EnvironmentProperties {
 
+    public static final String CI_PIPELINE_SOURCE = Optional.ofNullable(System.getenv("CI_PIPELINE_SOURCE")).orElse(CiPipelineSource.LOCAL.getName());
     public static final String NAME = "env";
-
     @Config(configName = NAME, fieldName = "tenant", defaultValue = "")
     public static String TENANT;
     @Config(configName = NAME, fieldName = "server", defaultValue = "")
@@ -99,13 +101,14 @@ public final class EnvironmentProperties {
         static {
             var customBasicUrl = System.getProperty("url_stf");
             var customShopperUrl = System.getProperty("url_shp");
+            var stfForwardTo = System.getenv("STF_FORWARD");
 
             if (nonNull(customBasicUrl) && !customBasicUrl.isBlank()) {
                 String default_sid = System.getenv("DEFAULT_SID");
-                if(Objects.nonNull(default_sid) && !default_sid.isEmpty() && !default_sid.isBlank()){
+                if (Objects.nonNull(default_sid) && !default_sid.isEmpty() && !default_sid.isBlank()) {
                     try {
                         DEFAULT_SID = Integer.parseInt(default_sid);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         log.error("Error parse default_sid");
                     }
                 }
@@ -147,6 +150,48 @@ public final class EnvironmentProperties {
                     SHOPPER_URL = "shp" + customBasicUrl.substring(3);
                 } else SHOPPER_URL = "shp-0.k-stage.sbermarket.tech";
                 log.debug("SHOPPER_URL: " + SHOPPER_URL);
+            }
+
+            if (CI_PIPELINE_SOURCE.equals(CiPipelineSource.WEB.getName()) && nonNull(stfForwardTo) && !stfForwardTo.isBlank()) {
+                STAGE = stfForwardTo.replaceAll("s-sb-stf|s-sb-|-\\w+$", "");
+                TENANT = stfForwardTo.replaceAll("^.+-", "").replaceAll("^sm", "");
+                SERVER = Server.CUSTOM.name().toLowerCase();
+
+                BASIC_URL = stfForwardTo.contains("s-sb-stf")
+                        ? stfForwardTo.replaceAll("s-sb-stf", "stf-").replaceAll("-\\w+$", "") + ".k-stage.sbermarket.tech"
+                        : stfForwardTo.replaceAll("s-sb-|-\\w+$", "") + ".k-stage.sbermarket.tech";
+
+                if (stfForwardTo.contains("s-sb-stf")) {
+                    DB_URL = DB_URL.replace("kraken", STAGE);
+                    DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
+                } else {
+                    DB_URL = DB_URL.replace("_kraken", "");
+                    DB_PGSQL_URL = DB_PGSQL_URL.replace("_kraken", "");
+                }
+
+                if (stfForwardTo.contains("s-sb-stf")) {
+                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("kraken", STAGE);
+                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("kraken", STAGE);
+                } else {
+                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("stfkraken", STAGE);
+                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("shpkraken", STAGE);
+                }
+
+                if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
+                    SHOPPER_URL = getDomainName(customShopperUrl);
+                } else if (customBasicUrl.startsWith("stf-")) {
+                    SHOPPER_URL = "shp" + customBasicUrl.substring(3);
+                } else SHOPPER_URL = "shp-0.k-stage.sbermarket.tech";
+
+                log.debug("SHOPPER_URL: " + SHOPPER_URL);
+                log.debug("Кастомные данные при ручном запуске на стейджах");
+                log.debug("BASIC_URL: {}", BASIC_URL);
+                log.debug("Server: {}", SERVER);
+                log.debug("Stage: {}", STAGE);
+                log.debug("DB_URL: {}", DB_URL);
+                log.debug("DB_PGSQL_URL: {}", DB_PGSQL_URL);
+                log.debug("K8S_NAME_STF_SPACE: {}", K8S_NAME_STF_SPACE);
+                log.debug("K8S_NAME_SHP_SPACE: {}", K8S_NAME_SHP_SPACE);
             }
         }
 

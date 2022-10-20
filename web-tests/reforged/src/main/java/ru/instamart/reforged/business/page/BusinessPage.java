@@ -15,9 +15,6 @@ public interface BusinessPage extends Page {
     }
 
     default void goToPage(final String url) {
-        if (BrowserProperties.ENABLE_PROXY) {
-            CdpHeaders.addHeader(Map.of("sbm-forward-feature-version-stf", UiProperties.HEADER_B2B_FORWARD_TO));
-        }
-        Kraken.open(addBasicAuthToUrl(UiProperties.B2B_URL + url));
+        Kraken.open(addBasicAuthToUrl(UiProperties.Env.FRONT_URL + url));
     }
 }
