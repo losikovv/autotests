@@ -150,7 +150,7 @@ public final class EnvironmentProperties {
                 log.debug("SHOPPER_URL: " + SHOPPER_URL);
             }
 
-            if ((CiPipelineSource.CI_PIPELINE_SOURCE == CiPipelineSource.WEB) && nonNull(stfForwardTo) && !stfForwardTo.isBlank()) {
+            if ((CiPipelineSource.isCustom()) && nonNull(stfForwardTo) && !stfForwardTo.isBlank()) {
                 STAGE = stfForwardTo.replaceAll("s-sb-stf|s-sb-|-\\w+$", "");
                 TENANT = stfForwardTo.replaceAll("^.+-", "").replaceAll("^sm", "");
                 SERVER = Server.CUSTOM.name().toLowerCase();

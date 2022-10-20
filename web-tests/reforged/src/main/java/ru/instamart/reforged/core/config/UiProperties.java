@@ -45,7 +45,7 @@ public final class UiProperties {
     public static class Env {
 
         static {
-            if (CiPipelineSource.CI_PIPELINE_SOURCE == CiPipelineSource.WEB) {
+            if (CiPipelineSource.isCustom()) {
                 ADMIN_URL = EnvironmentProperties.BASIC_URL + "admin/";
             }
         }

@@ -36,4 +36,12 @@ public enum CiPipelineSource {
                 .findFirst()
                 .orElse(LOCAL);
     }
+
+    public static boolean isLocal() {
+        return CI_PIPELINE_SOURCE == LOCAL;
+    }
+
+    public static boolean isCustom() {
+        return CI_PIPELINE_SOURCE == WEB;
+    }
 }

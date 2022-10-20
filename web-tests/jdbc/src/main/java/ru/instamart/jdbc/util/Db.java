@@ -99,7 +99,7 @@ public enum Db {
             EnvironmentProperties.K8S_NAME_SHP_SPACE,
             EnvironmentProperties.K8S_LABEL_SHP_SELECTOR,
             EnvironmentProperties.DB_PG_PORT,
-            CiPipelineSource.CI_PIPELINE_SOURCE == CiPipelineSource.LOCAL ? "jdbc:postgresql://localhost:%s/shopper_staging_kraken" : EnvironmentProperties.DB_PGSQL_URL,
+            CiPipelineSource.isLocal() ? "jdbc:postgresql://localhost:%s/shopper_staging_kraken" : EnvironmentProperties.DB_PGSQL_URL,
             EnvironmentProperties.DB_PGSQL_USERNAME,
             EnvironmentProperties.DB_PGSQL_PASSWORD,
             EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE

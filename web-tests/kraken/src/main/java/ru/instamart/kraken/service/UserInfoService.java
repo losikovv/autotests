@@ -17,7 +17,7 @@ public final class UserInfoService {
     public UserInfo createUserInfo() {
         final var userInfoBuilder = UserInfo.builder();
 
-        if (CiPipelineSource.CI_PIPELINE_SOURCE == CiPipelineSource.LOCAL) {
+        if (CiPipelineSource.isLocal()) {
             userInfoBuilder.gitName(getGitName())
                     .gitEmail(getGitEmail())
                     .computerName(System.getProperty("user.name"))
