@@ -41,8 +41,7 @@ variables:
     value: "https://next-default.k-stage.sbermarket.tech/"
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Нужно указывать полный url фронта"
   STF_FORWARD:
-    value: "s-sb-stfkraken-sbermarket"
-    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Связь фронта с бекендом. Значение для хедера/куки sbm-forward-feature-version-stf"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Связь фронта с бекендом. Значение для хедера/куки sbm-forward-feature-version-stf, например: s-sb-stfkraken-sbermarket"
   URL_STF_BACKEND:
     value: "stf-kraken.k-stage.sbermarket.tech"
     description: "ОБЯЗАТЕЛЬНО ДЛЯ API ЗАПУСКА! Имя stf стейджа на котором запускаем тесты"
