@@ -6,9 +6,9 @@ public final class BrowserProperties {
 
     public static final String NAME = "browser";
 
-    @Config(configName = NAME, fieldName = "defaultBrowser", defaultValue = "chrome_remote", args = "browser")
+    @Config(configName = NAME, fieldName = "defaultBrowser", defaultValue = "chrome_remote", env = "BROWSER")
     public static String BROWSER;
-    @Config(configName = NAME, fieldName = "browserVersion", defaultValue = "latest")
+    @Config(configName = NAME, fieldName = "browserVersion", defaultValue = "latest", env = "BROWSER_VERSION")
     public static String BROWSER_VERSION;
 
     @Config(configName = NAME, fieldName = "remoteUrl", defaultValue = "remoteUrl")
