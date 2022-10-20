@@ -1,0 +1,296 @@
+syntax = "proto3";
+package surgelevel.v2;
+option go_package = "gitlab.sbmt.io/paas/content/operations/surgelevel/pkg/server/grpc/surgelevel.v2";
+import "google/protobuf/struct.proto";
+
+service Service {
+    rpc SaveFormula(SaveFormulaRequest) returns (SaveFormulaResponse);
+    rpc CallFormula(CallFormulaRequest) returns (CallFormulaResponse);
+    rpc FindFormula(FindFormulaRequest) returns (FindFormulaResponse);
+    
+    rpc SetConfig(SetConfigRequest) returns (SetConfigResponse);
+    rpc GetConfig(GetConfigRequest) returns (GetConfigResponse);
+    
+    rpc SaveRegion(SaveRegionRequest) returns (SaveRegionResponse);
+    rpc FindRegion(FindRegionRequest) returns (FindRegionResponse);
+    
+    rpc SaveRetailer(SaveRetailerRequest) returns (SaveRetailerResponse);
+    rpc FindRetailer(FindRetailerRequest) returns (FindRetailerResponse);
+    
+    rpc SaveStore(SaveStoreRequest) returns (SaveStoreResponse);
+    rpc FindStore(FindStoreRequest) returns (FindStoreResponse);
+}
+
+message SaveFormulaRequest {
+    repeated Formula.Option formula = 1;
+}
+message SaveFormulaResponse {
+    repeated Formula formula = 1;
+}
+
+message FindFormulaRequest {
+    Formula.Condition condition = 1;
+}
+message FindFormulaResponse {
+    repeated Formula formula = 1;
+}
+
+message CallFormulaRequest {
+    repeated Situation.Option situation = 1;
+}
+message CallFormulaResponse {
+    repeated Result result = 1;
+}
+
+message SetConfigRequest {
+    Config.Option config = 1;
+}
+message SetConfigResponse {
+    Config config = 1;
+}
+
+message GetConfigRequest {
+}
+message GetConfigResponse {
+    Config config = 1;
+}
+
+message SaveRegionRequest {
+    repeated Region.Option region = 1;
+}
+message SaveRegionResponse {
+    repeated Region region = 1;
+}
+
+message FindRegionRequest {
+    Region.Condition condition = 1;
+}
+message FindRegionResponse {
+    repeated Region region = 1;
+}
+
+message SaveRetailerRequest {
+    repeated Retailer.Option retailer = 1;
+}
+message SaveRetailerResponse {
+    repeated Retailer retailer = 1;
+}
+
+message FindRetailerRequest {
+    Retailer.Condition condition = 1;
+}
+message FindRetailerResponse {
+    repeated Retailer retailer = 1;
+}
+
+message SaveStoreRequest {
+    repeated Store.Option store = 1;
+}
+message SaveStoreResponse {
+    repeated Store store = 1;
+}
+
+message FindStoreRequest {
+    Store.Condition condition = 1;
+}
+message FindStoreResponse {
+    repeated Store store = 1;
+}
+
+message Store {
+    string id = 1;
+    Config config = 2;
+    optional int64 retailer_id = 3;
+    optional int64 region_id = 4;
+    bool ondemand = 5; 
+    Location location = 6;
+    int64 deliveryarea = 7;
+
+    message Option {
+        string id = 1;
+        optional Config.Option config = 2;
+        optional int64 retailer_id = 3;
+        optional int64 region_id = 4;
+        optional bool ondemand = 5; 
+        optional Location location = 6; 
+        optional int64 deliveryarea = 7;
+    }
+    message Condition {
+        repeated string id = 1;
+        optional Config.Condition config = 2;
+        repeated int64 retailer_id = 3;
+        repeated int64 region_id = 4;
+        optional bool ondemand = 5; 
+        optional Area area = 6;
+        repeated int64 deliveryarea = 7;
+    }
+}
+message Region {
+    int64 id = 1;
+    optional Config config = 2;
+
+    message Option {
+        int64 id = 1;
+        optional Config.Option config = 2;
+    }
+    message Condition {
+        repeated int64 id = 1;
+        optional Config.Condition config = 2;
+    }
+}
+message Retailer {
+    int64 id = 1;
+    optional Config config = 2;
+
+    message Option {
+        int64 id = 1;
+        optional Config.Option config = 2;    
+    }
+    message Condition {
+        repeated int64 id = 1;
+        optional Config.Condition config = 2;
+    }
+}
+message Config {
+    string id = 1;
+    float step = 2;
+    bool disabled = 3;
+    Formula formula = 4;
+    repeated Config inheritance = 5;
+
+    message Option {
+        optional string id = 1;
+        optional float step = 2;
+        optional bool disabled = 3;
+        optional Formula.Option formula = 4;
+        repeated Config inheritance = 5;
+    }
+    message Condition {
+        Formula.Condition formula = 1;    
+        optional bool disabled = 2;
+    }
+}
+message Formula {
+    string id = 1;
+    string name = 2;
+    string script = 3;
+    optional google.protobuf.Struct argument = 4;
+
+    message Option {
+        optional string id = 1;
+        optional string name = 2;
+        optional string script = 3;
+        optional google.protobuf.Struct argument = 4;   
+    }
+    message Condition {
+        repeated string id = 1;
+    }
+}
+message Situation {
+    Store store = 1;
+    repeated Demand demand = 2;
+    repeated Supply supply = 3;
+
+    message Option {
+        Store.Option store = 1;
+        repeated Demand.Option demand = 2;
+        repeated Supply.Option supply = 3;
+    }
+}
+message Demand {
+    // index 1 is skipped because property 'id' maybe added later
+    Store store = 2;
+    Shipment shipment = 3;
+    float distance = 4;
+
+    message Option {
+        optional Store.Option store = 2;
+        optional Shipment.Option shipment = 3;
+        optional float distance = 4;
+    }
+}
+message Supply {
+    // index 1 is skipped because property 'id' maybe added later
+    Store store = 2;
+    Candidate candidate = 3;
+    float distance = 4;
+
+    message Option {
+        optional Store.Option store = 2;
+        optional Candidate.Option candidate = 3;
+        optional float distance = 4;
+    }
+}
+message Candidate {
+    string id = 1;
+    Role role = 2;
+    Location location = 3;
+    int64 deliveryarea = 4;
+    bool busy = 5; 
+    bool ondemand = 6;
+
+    enum Role {
+		UNKNOWN = 0;
+		SHOPPER = 1;
+		DRIVER = 2;
+		UNIVERSAL = 3;
+		AUTO_UNIVERSAL = 4;
+	}
+    message Option {
+        string id = 1;
+        optional Role role = 2;
+        optional Location location = 3;
+        optional int64 deliveryarea = 4;
+        optional bool busy = 5; 
+        optional bool ondemand = 6;
+    }
+}
+message Shipment {
+    string id = 1;
+    Status status = 2;
+    Store store = 3;
+    bool ondemand = 4;
+
+    enum Status {
+		NEW = 0;
+		POSTPONED = 1;
+		AUTOMATIC_ROUTING = 2;
+		MANUAL_ROUTING = 3;
+		OFFERING = 4;
+		OFFERED = 5;
+		DECLINED = 6;
+		CANCELED = 7;
+		SHIPPED = 8;
+		REDISPATCH = 9;
+	}
+    message Option {
+        string id = 1;
+        optional Status status = 2;
+        optional Store.Option store = 3;
+        optional bool ondemand = 4;
+    }
+}
+message Result {
+    string id = 1;
+    Method method = 2;
+    float weight = 3;
+    Log log = 4;
+
+    enum Method {
+        UNKNOWN = 0;
+        FORMULA = 1;
+        MANUAL = 2;
+    }
+    message Log {
+        repeated google.protobuf.Value info = 1;
+        repeated google.protobuf.Value debug = 2;
+    }
+}
+message Area {
+    Location location = 1;
+    int32 distance = 2;
+}
+message Location {
+    float lat  = 1;
+    float lon = 2;
+}
