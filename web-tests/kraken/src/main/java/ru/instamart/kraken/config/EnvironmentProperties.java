@@ -3,14 +3,13 @@ package ru.instamart.kraken.config;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.common.config.Config;
 import ru.instamart.kraken.common.config.Env;
-import ru.instamart.kraken.enums.CiPipelineSource;
+import ru.instamart.kraken.enums.CiModule;
 import ru.instamart.kraken.enums.Server;
 
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
-import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 
@@ -18,7 +17,7 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public final class EnvironmentProperties {
 
-    public static final String CI_PIPELINE_SOURCE = Optional.ofNullable(System.getenv("CI_PIPELINE_SOURCE")).orElse(CiPipelineSource.LOCAL.getName());
+    public static final String CI_MODULE = System.getenv("CI_MODULE");
     public static final String NAME = "env";
     @Config(configName = NAME, fieldName = "tenant", defaultValue = "")
     public static String TENANT;
@@ -152,7 +151,8 @@ public final class EnvironmentProperties {
                 log.debug("SHOPPER_URL: " + SHOPPER_URL);
             }
 
-            if (CI_PIPELINE_SOURCE.equals(CiPipelineSource.WEB.getName()) && nonNull(stfForwardTo) && !stfForwardTo.isBlank()) {
+            if (nonNull(CI_MODULE) && (CI_MODULE.equals(CiModule.UI_STF.getName()) || CI_MODULE.equals(CiModule.UI_B2B.getName())) &&
+                    nonNull(stfForwardTo) && !stfForwardTo.isBlank()) {
                 STAGE = stfForwardTo.replaceAll("s-sb-stf|s-sb-|-\\w+$", "");
                 TENANT = stfForwardTo.replaceAll("^.+-", "").replaceAll("^sm", "");
                 SERVER = Server.CUSTOM.name().toLowerCase();
