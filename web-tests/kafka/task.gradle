@@ -1,7 +1,7 @@
 task kafkaDispatch(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/kafka-dispatch.xml'
-        includeGroups 'kafka-instamart-regress'
+        includeGroups 'dispatch-orderservice-smoke'
     }
     systemProperty 'qase.Project', 'DSPTCH'
     systemProperty 'qase.Title', 'On Demand. Dispatch 2.0'

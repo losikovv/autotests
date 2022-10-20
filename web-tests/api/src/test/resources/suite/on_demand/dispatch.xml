@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="ON-DEMAND Suite" parallel="tests" thread-count="3">
+<suite name="ON-DEMAND Suite">
     <listeners>
         <listener class-name="ru.instamart.api.listener.on_demand.DispatchExecutionListener"/>
         <listener class-name="ru.instamart.api.listener.ApiTestSuiteListener"/>
@@ -10,10 +10,13 @@
             <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
         </method-selector>
     </method-selectors>
-    <test verbose="1" name="KAFKA">
+    <test verbose="1" name="KAFKA" parallel="none">
         <classes>
             <class name="ru.instamart.test.api.on_demand.KafkaDispatchTest"/>
             <class name="ru.instamart.test.api.on_demand.orderservice.OrderRedispatchTest"/>
+            <class name="ru.instamart.test.api.on_demand.orderservice.OnDemandOrderTest"/>
+            <class name="ru.instamart.test.api.on_demand.orderservice.PlanningOrderTest"/>
+            <class name="ru.instamart.test.api.on_demand.orderservice.OrderTimeToThrowTest"/>
         </classes>
     </test>
 </suite>

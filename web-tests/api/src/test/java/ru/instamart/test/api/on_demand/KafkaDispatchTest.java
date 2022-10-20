@@ -1,23 +1,23 @@
 package ru.instamart.test.api.on_demand;
 
-import com.google.protobuf.Timestamp;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
-import io.restassured.response.Response;
-import operations_order_service.OperationsOrderService;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.model.v2.DeliveryWindowV2;
 import ru.instamart.api.dataprovider.DispatchDataProvider;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.NextDeliveryV2;
-import ru.instamart.api.request.v1.StoresV1Request;
-import ru.instamart.api.response.v2.NextDeliveriesV2Response;
+import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.jdbc.dao.orders_service.OrdersDao;
+import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
+import ru.instamart.jdbc.entity.order_service.OrdersEntity;
 import ru.instamart.kafka.enums.Pods;
-import ru.instamart.kafka.enums.StatusOrder;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
-import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -26,67 +26,46 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.kafka.configs.KafkaConfigs.configFctOrderStf;
 import static ru.instamart.kafka.enums.StatusOrder.AUTOMATIC_ROUTING;
-import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
 
 @Epic("Dispatch")
 public class KafkaDispatchTest extends RestBase {
 
     private long epochCurrentTime = Instant.now().getEpochSecond();
     private String placeUUID = "684609ad-6360-4bae-9556-03918c1e41c1";
-    private String orderUuid, shipmentUuid;
+    private String shipmentUuid;
+    private NextDeliveryV2 nextDeliveryV2;
+    private OrderV2 order;
+
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
-        final Response response = StoresV1Request.NextDeliveries.GET(3, new StoresV1Request.NextDeliveriesParams());
-        NextDeliveriesV2Response nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
-        NextDeliveryV2 nextDeliveryV2 = nextDeliveriesV2Response.getNextDeliveries().get(0);
-        orderUuid = UUID.randomUUID().toString();
-        shipmentUuid = UUID.randomUUID().toString();
+        SessionFactory.makeSession(SessionType.API_V2);
+        UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
+        order = apiV2.orderOnDemand(userData, EnvironmentProperties.DEFAULT_SID);
+        shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
 
-        Allure.step("orderUuid: " + orderUuid);
+        Allure.step("orderUuid: " + order.getUuid());
         Allure.step("shipmentUuid: " + shipmentUuid);
         Allure.step("placeUUID: " + placeUUID);
-        Timestamp deliveryPromiseUpperDttmStartsAt = getTimestampFromString(nextDeliveryV2.getStartsAt());
-        Timestamp deliveryPromiseUpperDttmEndsAt = getTimestampFromString(nextDeliveryV2.getEndsAt());
 
-        //Step 1
-        OperationsOrderService.EventOrder orderEvent = OperationsOrderService.EventOrder.newBuilder()
-                .setClientLocation(OperationsOrderService.EventOrder.ClientLocation.newBuilder()
-                        .setLatitude(55.6512713)
-                        .setLongitude(37.6753374).build())
-                .setCreateTime(Timestamp.newBuilder()
-                        .setSeconds(epochCurrentTime).build())
-                .setDeliveryPromiseUpperDttmEndsAt(deliveryPromiseUpperDttmEndsAt)
-                .setDeliveryPromiseUpperDttmStartsAt(deliveryPromiseUpperDttmStartsAt)
-                .setNumberOfPositionsInOrder(1)
-                .setOrderUuid(orderUuid)
-                .setOrderWeightGramms(2000)
-                .setShipmentType(OperationsOrderService.EventOrder.RequestOrderType.ON_DEMAND)
-                .setShipmentStatus(OperationsOrderService.EventOrder.ShipmentStatus.READY)
-                .setPlaceUuid(placeUUID)
-                .setShipmentUuid(shipmentUuid)
-                .build();
-        //Отправка данных в топик yc.operations-order-service.fct.order.0
-        kafka.publish(configFctOrderStf(), orderEvent);
     }
 
     @CaseIDs({
             @CaseId(99),
             @CaseId(109)
     })
-    @Test(groups = {"kafka-instamart-regress"},
+    @Test(groups = {"dispatch-orderservice-smoke"},
             dataProvider = "shopperUniversal",
             dataProviderClass = DispatchDataProvider.class,
             description = "Полный флоу (order + dispatch+сервис кандидатов+сервис оценки маршрутов) 1 исполнитель (универсал)")
     public void fullFlowTest(UserData[] userData) {
         //авторизация универсалов
         Arrays.stream(userData).forEach(
-                user->{
+                user -> {
                     shopperApp.authorisation(user);
                     shopperApp.createShopperShift(
                             5,
@@ -97,7 +76,7 @@ public class KafkaDispatchTest extends RestBase {
         );
 
         //Step 2
-        kafka.waitDataInKafkaTopicFtcOrder(configFctOrderStf(), orderUuid);
+        kafka.waitDataInKafkaTopicFtcOrder(configFctOrderStf(), order.getUuid());
 
         kafka.waitDataInKafkaTopicStatusOrderRequest(shipmentUuid, AUTOMATIC_ROUTING);
 
@@ -138,5 +117,25 @@ public class KafkaDispatchTest extends RestBase {
 
 //        var logs3 = kubeLog.awaitLogsPod(Pods.DISPATCH, performersUUID.get(0), "\"grpc.service\":\"dispatch_shoppers.WorkAssignments\",\"method\":\"Assign\"");
 //        assertTrue(logs3.size() > 0, "Логи отправки в сервис оценки маршрутов для доступных исполнителей нет");
+    }
+
+
+    @CaseId(46)
+    @Test(groups = {"dispatch-orderservice-smoke"},
+            description = "Получение данных on-demand заказа")
+    public void getOnDemandOrder() {
+        ThreadUtil.simplyAwait(10);
+        OrdersEntity orderEntity = OrdersDao.INSTANCE.findByShipmentUuid(shipmentUuid);
+        Allure.step("", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(orderEntity.getPlaceUuid(), placeUUID, "placeUUID не совпадает");
+            softAssert.assertEquals(orderEntity.getWeight(), Integer.valueOf(2000), "weight не совпадает");
+            softAssert.assertEquals(orderEntity.getClientLocation(), "(55.6512713,37.6753374)", "clientLocation не совпадает");
+            softAssert.assertEquals(orderEntity.getType(), "ON_DEMAND", "type не совпадает");
+            softAssert.assertEquals(orderEntity.getDeliveryPromiseUpperDttm(), nextDeliveryV2.getEndsAt(), "delivery_promise_upper_dttm не совпадает");
+            softAssert.assertEquals(orderEntity.getDeliveryPromiseLowerDttm(), nextDeliveryV2.getStartsAt(), "delivery_promise_upper_dttm не совпадает");
+            softAssert.assertEquals(orderEntity.getOrderStatus(), "ROUTING", "order_status не совпадает");
+            softAssert.assertNotNull(orderEntity.getCreatedAt(), "create_at is NULL");
+        });
     }
 }

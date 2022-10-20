@@ -6,7 +6,6 @@ import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomUtils;
 import org.testng.annotations.Test;
-import ru.instamart.api.checkpoint.BaseApiCheckpoints;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
@@ -22,6 +21,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("Shopper Admin Panel API")
@@ -82,7 +82,7 @@ public class DispatchSettingsTest extends RestBase {
     public void putDispatchSettings() {
         SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
         String retailerUUID = "599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a";
-        var parameters  = ShopperAdminRequest.PutDispatchSettings.builder()
+        var parameters = ShopperAdminRequest.PutDispatchSettings.builder()
                 .settingsDispatch(ShopperAdminRequest.SettingsDispatch.builder()
                         .dispatchParameters(ShopperAdminRequest.DispatchParameters.builder()
                                 .id(2)
@@ -115,72 +115,30 @@ public class DispatchSettingsTest extends RestBase {
 
         Response responseGet = ShopperAdminRequest.Stores.DispatchSettings.GET(retailerUUID);
 
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getId(),
-                parameters.getSettingsDispatch().getDispatchParameters().getId());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getStoreId(),
-                parameters.getSettingsDispatch().getDispatchParameters().getStoreId());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getMaxOrderAssignRetryCount(),
-                parameters.getSettingsDispatch().getDispatchParameters().getMaxOrderAssignRetryCount());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getAvgParkingMinVehicle(),
-                parameters.getSettingsDispatch().getDispatchParameters().getAvgParkingMinVehicle());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getMaxCurrentOrderAssignQueue(),
-                parameters.getSettingsDispatch().getDispatchParameters().getMaxCurrentOrderAssignQueue());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getOrderWeightThresholdToAssignToVehicleGramms(),
-                parameters.getSettingsDispatch().getDispatchParameters().getOrderWeightThresholdToAssignToVehicleGramms());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getAverageSpeedForStraightDistanceToClientMin(),
-                parameters.getSettingsDispatch().getDispatchParameters().getAverageSpeedForStraightDistanceToClientMin());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getAdditionalFactorForStraightDistanceToClientMin(),
-                parameters.getSettingsDispatch().getDispatchParameters().getAdditionalFactorForStraightDistanceToClientMin());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getOrderTransferTimeFromAssemblyToDeliveryMin(),
-                parameters.getSettingsDispatch().getDispatchParameters().getOrderTransferTimeFromAssemblyToDeliveryMin());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getAvgToPlaceMin(),
-                parameters.getSettingsDispatch().getDispatchParameters().getAvgToPlaceMin());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getAvgToPlaceMinExternal(),
-                parameters.getSettingsDispatch().getDispatchParameters().getAvgToPlaceMinExternal());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getOfferSeenTimeoutSec(),
-                parameters.getSettingsDispatch().getDispatchParameters().getOfferSeenTimeoutSec());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getLastPositionExpire(),
-                parameters.getSettingsDispatch().getDispatchParameters().getLastPositionExpire());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().isTaxiDeliveryOnly(),
-                parameters.getSettingsDispatch().getDispatchParameters().isTaxiDeliveryOnly());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().isPlaceLocationCenter(),
-                parameters.getSettingsDispatch().getDispatchParameters().isPlaceLocationCenter());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getOrderTransferTimeFromDeliveryToClientMin(),
-                parameters.getSettingsDispatch().getDispatchParameters().getOrderTransferTimeFromDeliveryToClientMin());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getOrderReceiveTimeFromAssemblyToDeliveryMin(),
-                parameters.getSettingsDispatch().getDispatchParameters().getOrderReceiveTimeFromAssemblyToDeliveryMin());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getOfferServerTimeoutSec(),
-                parameters.getSettingsDispatch().getDispatchParameters().getOfferServerTimeoutSec());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().isExternalAssembliersPresented(),
-                parameters.getSettingsDispatch().getDispatchParameters().isExternalAssembliersPresented());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getGapTaxiPunishMin(),
-                parameters.getSettingsDispatch().getDispatchParameters().getGapTaxiPunishMin());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().isTaxiAvailable(),
-                parameters.getSettingsDispatch().getDispatchParameters().isTaxiAvailable());
-        BaseApiCheckpoints.compareTwoObjects(responseGet.as(StoreDispatchSettingsResponse.class)
-                        .getStoreDispatchSetting().getMaxWaitingTimeForCourierMin(),
-                parameters.getSettingsDispatch().getDispatchParameters().getMaxWaitingTimeForCourierMin());
+        StoreDispatchSettingsV1 storeDispatchSetting = responseGet.as(StoreDispatchSettingsResponse.class)
+                .getStoreDispatchSetting();
+        compareTwoObjects(storeDispatchSetting.getId(), parameters.getSettingsDispatch().getDispatchParameters().getId());
+        compareTwoObjects(storeDispatchSetting.getStoreId(), parameters.getSettingsDispatch().getDispatchParameters().getStoreId());
+        compareTwoObjects(storeDispatchSetting.getMaxOrderAssignRetryCount(), parameters.getSettingsDispatch().getDispatchParameters().getMaxOrderAssignRetryCount());
+        compareTwoObjects(storeDispatchSetting.getAvgParkingMinVehicle(), parameters.getSettingsDispatch().getDispatchParameters().getAvgParkingMinVehicle());
+        compareTwoObjects(storeDispatchSetting.getMaxCurrentOrderAssignQueue(), parameters.getSettingsDispatch().getDispatchParameters().getMaxCurrentOrderAssignQueue());
+        compareTwoObjects(storeDispatchSetting.getOrderWeightThresholdToAssignToVehicleGramms(), parameters.getSettingsDispatch().getDispatchParameters().getOrderWeightThresholdToAssignToVehicleGramms());
+        compareTwoObjects(storeDispatchSetting.getAverageSpeedForStraightDistanceToClientMin(), parameters.getSettingsDispatch().getDispatchParameters().getAverageSpeedForStraightDistanceToClientMin());
+        compareTwoObjects(storeDispatchSetting.getAdditionalFactorForStraightDistanceToClientMin(), parameters.getSettingsDispatch().getDispatchParameters().getAdditionalFactorForStraightDistanceToClientMin());
+        compareTwoObjects(storeDispatchSetting.getOrderTransferTimeFromAssemblyToDeliveryMin(), parameters.getSettingsDispatch().getDispatchParameters().getOrderTransferTimeFromAssemblyToDeliveryMin());
+        compareTwoObjects(storeDispatchSetting.getAvgToPlaceMin(), parameters.getSettingsDispatch().getDispatchParameters().getAvgToPlaceMin());
+        compareTwoObjects(storeDispatchSetting.getAvgToPlaceMinExternal(), parameters.getSettingsDispatch().getDispatchParameters().getAvgToPlaceMinExternal());
+        compareTwoObjects(storeDispatchSetting.getOfferSeenTimeoutSec(), parameters.getSettingsDispatch().getDispatchParameters().getOfferSeenTimeoutSec());
+        compareTwoObjects(storeDispatchSetting.getLastPositionExpire(), parameters.getSettingsDispatch().getDispatchParameters().getLastPositionExpire());
+        compareTwoObjects(storeDispatchSetting.isTaxiDeliveryOnly(), parameters.getSettingsDispatch().getDispatchParameters().isTaxiDeliveryOnly());
+        compareTwoObjects(storeDispatchSetting.isPlaceLocationCenter(), parameters.getSettingsDispatch().getDispatchParameters().isPlaceLocationCenter());
+        compareTwoObjects(storeDispatchSetting.getOrderTransferTimeFromDeliveryToClientMin(), parameters.getSettingsDispatch().getDispatchParameters().getOrderTransferTimeFromDeliveryToClientMin());
+        compareTwoObjects(storeDispatchSetting.getOrderReceiveTimeFromAssemblyToDeliveryMin(), parameters.getSettingsDispatch().getDispatchParameters().getOrderReceiveTimeFromAssemblyToDeliveryMin());
+        compareTwoObjects(storeDispatchSetting.getOfferServerTimeoutSec(), parameters.getSettingsDispatch().getDispatchParameters().getOfferServerTimeoutSec());
+        compareTwoObjects(storeDispatchSetting.isExternalAssembliersPresented(), parameters.getSettingsDispatch().getDispatchParameters().isExternalAssembliersPresented());
+        compareTwoObjects(storeDispatchSetting.getGapTaxiPunishMin(), parameters.getSettingsDispatch().getDispatchParameters().getGapTaxiPunishMin());
+        compareTwoObjects(storeDispatchSetting.isTaxiAvailable(), parameters.getSettingsDispatch().getDispatchParameters().isTaxiAvailable());
+        compareTwoObjects(storeDispatchSetting.getMaxWaitingTimeForCourierMin(), parameters.getSettingsDispatch().getDispatchParameters().getMaxWaitingTimeForCourierMin());
 
     }
 }
