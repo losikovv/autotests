@@ -32,10 +32,10 @@ public class StoresAdminRequest extends ApiV1RequestBase {
     }
 
     @Step("{method} /" + ApiV1Endpoints.Admin.STORE)
-    public static Response PATCH(Stores store, Integer storeId) {
+    public static Response PATCH(Stores store, String storeUuid) {
         return givenWithAuth()
                 .body(store)
-                .patch(ApiV1Endpoints.Admin.STORE, storeId);
+                .patch(ApiV1Endpoints.Admin.STORE, storeUuid);
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

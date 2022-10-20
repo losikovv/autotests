@@ -56,7 +56,7 @@ public final class ApiV1Endpoints {
         public static final String LOGISTIC_DENSITIES = "admin/logistic_densities";
         public static final String OPERATIONAL_ZONES = "admin/operational_zones";
         public static final String PAYMENT_METHODS = "admin/payment_methods";
-        public static final String STORE = "admin/stores/{storeId}";
+        public static final String STORE = "admin/stores/{storeUuid}";
         public static final String STORES = "admin/stores";
         public static final String SHIPMENTS = "admin/shipments.json";
         public static final String SHIPMENT = "admin/shipments/{uuid}";

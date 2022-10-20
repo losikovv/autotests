@@ -28,12 +28,13 @@ public class NotificationsNegativeV3Test extends RestBase {
     private OrderV2 orderShopper;
     private OrderV2 orderForAccounting;
     private final Integer sid = 7;
+    private final String storeUuid = "dd0f9a61-37ef-47fb-85f2-41d738cdcc13";
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         admin.auth();
         admin.authApi();
-        admin.editStore(sid, StoresAdminRequest.getStoreLentaElino());
+        admin.editStore(storeUuid, StoresAdminRequest.getStoreLentaElino());
 
         SessionFactory.makeSession(SessionType.API_V2);
         orderShopper = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
