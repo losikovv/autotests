@@ -1,7 +1,6 @@
 package ru.instamart.reforged.core.driver;
 
 import lombok.extern.slf4j.Slf4j;
-import org.testng.Reporter;
 import ru.instamart.reforged.core.config.BrowserProperties;
 import ru.instamart.reforged.core.enums.Browser;
 import ru.instamart.reforged.core.page.Router;
@@ -9,7 +8,6 @@ import ru.instamart.reforged.core.provider.BrowserFactory;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -24,19 +22,13 @@ public final class WebDriverContainer {
     private final AtomicBoolean isCleanStart = new AtomicBoolean(false);
 
     public DriverSession createOrGetDriver() {
-        //Get browser from suite parameter or from -Pbrowser
-        final String browser = Optional.ofNullable(
-                Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browser")
-        ).orElse(BrowserProperties.BROWSER);
-        //Get version from suite parameter or from -Pversion
-        final String version = Optional.ofNullable(
-                Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("version")
-        ).orElse(BrowserProperties.BROWSER_VERSION);
-
         return this.webDriverMap.computeIfAbsent(Thread.currentThread().getId(), threadId ->
                 this.makeAutoClosable(
                         Thread.currentThread(),
-                        BrowserFactory.createDriverSession(Browser.getValue(browser), version)
+                        BrowserFactory.createDriverSession(
+                                Browser.getValue(BrowserProperties.BROWSER),
+                                BrowserProperties.BROWSER_VERSION
+                        )
                 )
         );
     }

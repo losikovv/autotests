@@ -57,7 +57,7 @@ public final class CookieFactory {
             date);
 
     public static final Cookie FORWARD_FEATURE_STF = new Cookie("sbm-forward-feature-version-stf",
-            UiProperties.Env.STF_FORWARD_TO,
+            UiProperties.HEADER_STF_FORWARD_TO,
             COOKIE_DOMAIN,
             "/",
             date);

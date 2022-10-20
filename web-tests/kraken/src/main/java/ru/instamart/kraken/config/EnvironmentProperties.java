@@ -10,7 +10,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
-import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 
@@ -18,7 +17,6 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public final class EnvironmentProperties {
 
-    public static final String CI_PIPELINE_SOURCE = Optional.ofNullable(System.getenv("CI_PIPELINE_SOURCE")).orElse(CiPipelineSource.LOCAL.getName());
     public static final String NAME = "env";
     @Config(configName = NAME, fieldName = "tenant", defaultValue = "")
     public static String TENANT;
@@ -152,7 +150,7 @@ public final class EnvironmentProperties {
                 log.debug("SHOPPER_URL: " + SHOPPER_URL);
             }
 
-            if (CI_PIPELINE_SOURCE.equals(CiPipelineSource.WEB.getName()) && nonNull(stfForwardTo) && !stfForwardTo.isBlank()) {
+            if ((CiPipelineSource.CI_PIPELINE_SOURCE == CiPipelineSource.WEB) && nonNull(stfForwardTo) && !stfForwardTo.isBlank()) {
                 STAGE = stfForwardTo.replaceAll("s-sb-stf|s-sb-|-\\w+$", "");
                 TENANT = stfForwardTo.replaceAll("^.+-", "").replaceAll("^sm", "");
                 SERVER = Server.CUSTOM.name().toLowerCase();

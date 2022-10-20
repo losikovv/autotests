@@ -239,7 +239,7 @@ tests:customRun:
     - echo $STF_FORWARD
     - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle --continue clean build ciRun copyAllAllureHistory -Purl_stf=$URL_STF_BACKEND -Purl_stf_front=$URL_STF_FRONT -Pstf_forward=$STF_FORWARD -Purl_shp=$URL_SHP -Padmin_url=$ADMIN_URL
+    - gradle --continue clean build ciRun copyAllAllureHistory -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP -Padmin_url=$ADMIN_URL
   after_script:
     - bash ./report.sh . custom-run
   tags:

@@ -7,8 +7,7 @@ import lombok.ToString;
 import ru.instamart.kraken.common.Crypt;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
-
-import java.util.Optional;
+import ru.instamart.kraken.enums.CiPipelineSource;
 
 @RequiredArgsConstructor
 @Getter
@@ -100,7 +99,7 @@ public enum Db {
             EnvironmentProperties.K8S_NAME_SHP_SPACE,
             EnvironmentProperties.K8S_LABEL_SHP_SELECTOR,
             EnvironmentProperties.DB_PG_PORT,
-            Optional.ofNullable(System.getenv("CI_PIPELINE_SOURCE")).orElse("local").equals("local") ? "jdbc:postgresql://localhost:%s/shopper_staging_kraken" : EnvironmentProperties.DB_PGSQL_URL,
+            CiPipelineSource.CI_PIPELINE_SOURCE == CiPipelineSource.LOCAL ? "jdbc:postgresql://localhost:%s/shopper_staging_kraken" : EnvironmentProperties.DB_PGSQL_URL,
             EnvironmentProperties.DB_PGSQL_USERNAME,
             EnvironmentProperties.DB_PGSQL_PASSWORD,
             EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE

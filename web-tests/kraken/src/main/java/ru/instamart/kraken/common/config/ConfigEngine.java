@@ -30,8 +30,8 @@ public final class ConfigEngine {
      * @param configName  - название конфигурационного файла
      */
     public void loadConfig(final Class<?> configClass, String configName, String configDir) {
-        final var env = configClass.getAnnotation(Env.class);
-        if (nonNull(env)) {
+        final var environment = configClass.getAnnotation(Env.class);
+        if (nonNull(environment)) {
             var path = configName.split("-");
             if (path.length == 2) {
                 configDir += "/" + path[0];
@@ -50,11 +50,17 @@ public final class ConfigEngine {
                     final var fieldName = annotation.fieldName();
                     final var type = field.getType().getSimpleName().toLowerCase();
                     final var isEncrypted = annotation.encrypted();
-                    final var args = System.getProperty(annotation.args(), "");
+                    var args = System.getProperty(annotation.args(), "");
+                    final var env = System.getenv(annotation.env());
                     var defaultValue = annotation.defaultValue();
 
                     if (isEncrypted && (nonNull(defaultValue) && !defaultValue.isEmpty())) {
                         defaultValue = Crypt.INSTANCE.decrypt(defaultValue);
+                    }
+
+                    //Подумать от того, что бы полностью уйти от args и пропертей в пользу env
+                    if (nonNull(env)) {
+                        args = env;
                     }
 
                     try {

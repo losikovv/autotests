@@ -7,6 +7,7 @@ import ru.instamart.kraken.common.Crypt;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.TestVariables;
+import ru.instamart.kraken.enums.CiPipelineSource;
 import ru.instamart.kraken.retry.StepRetry;
 import ru.instamart.kraken.service.ab.AbService;
 import ru.instamart.kraken.service.qa.QaService;
@@ -20,7 +21,6 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public final class UserManager {
 
-    private static final String CI_PIPELINE_SOURCE = Optional.ofNullable(System.getenv("CI_PIPELINE_SOURCE")).orElse("local");
     private static final String API_SHOPPER_ALONE = System.getenv("API_SHOPPER_ALONE");
     private static final String CI_RUN_ALL_JOBS = System.getenv("CI_RUN_ALL_JOBS");
 
@@ -137,8 +137,8 @@ public final class UserManager {
 
     public static UserData getShp6Shopper1() {
         if (isNull(stf6Shopper1)) {
-            switch (CI_PIPELINE_SOURCE.toLowerCase()) {
-                case "local":
+            switch (CiPipelineSource.CI_PIPELINE_SOURCE) {
+                case LOCAL:
                     log.debug("User shopper local login");
                     stf6Shopper1 = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
@@ -161,8 +161,8 @@ public final class UserManager {
 
     public static UserData getShp6Shopper2() {
         if (isNull(stf6Shopper2)) {
-            switch (CI_PIPELINE_SOURCE.toLowerCase()) {
-                case "local":
+            switch (CiPipelineSource.CI_PIPELINE_SOURCE) {
+                case LOCAL:
                     log.debug("User shopper local login");
                     stf6Shopper2 = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("C4fgAi97cuuXHMKobHn9Yw=="))
@@ -185,8 +185,8 @@ public final class UserManager {
 
     public static UserData getShp6Shopper3() {
         if (isNull(stf6Shopper3)) {
-            switch (CI_PIPELINE_SOURCE.toLowerCase()) {
-                case "local":
+            switch (CiPipelineSource.CI_PIPELINE_SOURCE) {
+                case LOCAL:
                     log.debug("User shopper local login");
                     stf6Shopper3 = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("xhH38k1XpJGpdk8/7LkCcw=="))
@@ -209,8 +209,8 @@ public final class UserManager {
 
     public static UserData getShp6Shopper4() {
         if (isNull(stf6Shopper4)) {
-            switch (CI_PIPELINE_SOURCE.toLowerCase()) {
-                case "local":
+            switch (CiPipelineSource.CI_PIPELINE_SOURCE) {
+                case LOCAL:
                     log.debug("User shopper local login");
                     stf6Shopper4 = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("xaL2G5Kxa2fI4vosV/yX8A=="))
@@ -288,7 +288,7 @@ public final class UserManager {
     public static UserData getDefaultShopper() {
 
         if (isNull(defaultShopper)) {
-            log.debug("GitLab env CI_PIPELINE_SOURCE: {}", CI_PIPELINE_SOURCE);
+            log.debug("GitLab env CI_PIPELINE_SOURCE: {}", CiPipelineSource.CI_PIPELINE_SOURCE);
             log.debug("GitLab env API_SHOPPER_ALONE: {}", API_SHOPPER_ALONE);
             log.debug("GitLab env CI_RUN_ALL_JOBS: {}", CI_RUN_ALL_JOBS);
             log.debug("SERVER: {}", EnvironmentProperties.SERVER);
@@ -303,8 +303,8 @@ public final class UserManager {
         }
 
         if (isNull(defaultShopper)) {
-            switch (CI_PIPELINE_SOURCE.toLowerCase()) {
-                case "schedule":
+            switch (CiPipelineSource.CI_PIPELINE_SOURCE) {
+                case SCHEDULE:
                     log.debug("User shopper SCHEDULE login");
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("DNzBqyrPJQuc1LP0FzyiiQ=="))
@@ -312,8 +312,8 @@ public final class UserManager {
                             .uuid("d7f1f6aa-8890-42fe-9696-28502458048a")
                             .build();
                     break;
-                case "push":
-                    if (API_SHOPPER_ALONE != null && CI_PIPELINE_SOURCE != null && API_SHOPPER_ALONE.equals("true") && CI_RUN_ALL_JOBS.equals("false")) {
+                case PUSH:
+                    if (API_SHOPPER_ALONE != null && API_SHOPPER_ALONE.equals("true") && CI_RUN_ALL_JOBS.equals("false")) {
                         log.debug("User shopper API_SHOPPER_ALONE login");
                         defaultShopper = UserData.builder()
                                 .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
@@ -329,7 +329,7 @@ public final class UserManager {
                                 .build();
                     }
                     break;
-                case "local":
+                case LOCAL:
                     log.debug("User shopper local login");
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("qq6/4elx6MF64Jw9VdI6xg=="))

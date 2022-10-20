@@ -3,12 +3,12 @@ package ru.instamart.kraken.service;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import ru.instamart.kraken.enums.CiPipelineSource;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Slf4j
@@ -17,7 +17,7 @@ public final class UserInfoService {
     public UserInfo createUserInfo() {
         final var userInfoBuilder = UserInfo.builder();
 
-        if (isNull(System.getenv("CI_PIPELINE_SOURCE"))) {
+        if (CiPipelineSource.CI_PIPELINE_SOURCE == CiPipelineSource.LOCAL) {
             userInfoBuilder.gitName(getGitName())
                     .gitEmail(getGitEmail())
                     .computerName(System.getProperty("user.name"))

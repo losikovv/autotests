@@ -13,9 +13,9 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "", args = "admin_url")
     public static String ADMIN_URL;
 
-    @Config(configName = NAME, fieldName = "stfUrl", defaultValue = "", args = "url_stf_front")
+    @Config(configName = NAME, fieldName = "stfUrl", defaultValue = "", env = "URL_STF_FRONT")
     public static String STF_URL;
-    @Config(configName = NAME, fieldName = "headerStfForwardTo", defaultValue = "s-sb-stfkraken-sbermarket", args = "stf_forward")
+    @Config(configName = NAME, fieldName = "headerStfForwardTo", defaultValue = "s-sb-stfkraken-sbermarket", env = "STF_FORWARD")
     public static String HEADER_STF_FORWARD_TO;
 
     @Config(configName = NAME, fieldName = "selgrosUrl", defaultValue = "")
@@ -45,15 +45,11 @@ public final class UiProperties {
     public static class Env {
 
         static {
-            if (EnvironmentProperties.CI_PIPELINE_SOURCE.equals(CiPipelineSource.WEB.getName())) {
-                STF_URL = System.getenv("URL_STF_FRONT");
-                HEADER_STF_FORWARD_TO = System.getenv("STF_FORWARD");
+            if (CiPipelineSource.CI_PIPELINE_SOURCE == CiPipelineSource.WEB) {
                 ADMIN_URL = EnvironmentProperties.BASIC_URL + "admin/";
             }
         }
 
         public static String ADMIN_FRONT_URL = ADMIN_URL;
-        public static String FRONT_URL = STF_URL;
-        public static String STF_FORWARD_TO = HEADER_STF_FORWARD_TO;
     }
 }
