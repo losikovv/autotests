@@ -19,12 +19,15 @@ public class RealmResponse extends BaseResponseObject {
     @lombok.Data
     @EqualsAndHashCode(callSuper=false)
     public static class Data extends BaseObject{
+        private String description;
         @JsonSchema(required = true)
         private String name;
         @JsonSchema(required = true)
         @JsonProperty("repository_url")
         private String repositoryUrl;
         private ArrayList<Service> services;
+        @JsonProperty("user_type")
+        private String userType;
     }
 
     @lombok.Data

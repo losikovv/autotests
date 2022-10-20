@@ -295,9 +295,7 @@ public class PolicyTest extends RestBase {
                 .serviceSpec(PolicyModel.ServiceSpec
                         .builder()
                         .serviceId("example-service")
-                        .permission(PolicyModel.Permission.builder().build())
                         .build())
-                .role(PolicyModel.Role.builder().build())
                 .build();
 
         Response response = PolicyRequest.PUT("core-services", policy);
@@ -306,7 +304,7 @@ public class PolicyTest extends RestBase {
         PolicyResponse responseGet = PolicyRequest.GET("core-services").as(PolicyResponse.class);
 
         Allure.step("Проверяем, что политика обновилась, роли и разрешения пустые", () -> {
-            assertTrue(responseGet.getData().getRoles().get(0).getName().isEmpty(),
+            assertTrue(responseGet.getData().getRoles().isEmpty(),
                     "Список ролей не пустой, а значит не обновился");
             assertTrue(responseGet.getData().getServiceSpecs().isEmpty(),
                     "Список разрешений не пустой, а значит не обновился");
@@ -345,7 +343,6 @@ public class PolicyTest extends RestBase {
                                 .access("read")
                                 .build())
                         .build())
-                .role(PolicyModel.Role.builder().build())
                 .build();
 
         Response response = PolicyRequest.PUT("core-services", policy);
@@ -354,7 +351,7 @@ public class PolicyTest extends RestBase {
         PolicyResponse responseGet = PolicyRequest.GET("core-services").as(PolicyResponse.class);
 
         Allure.step("Проверяем, что политика обновилась. Роли пустые а разрешения нет", () -> {
-            assertTrue(responseGet.getData().getRoles().get(0).getName().isEmpty(),
+            assertTrue(responseGet.getData().getRoles().isEmpty(),
                     "Список ролей не пустой, а значит не обновился");
             assertFalse(responseGet.getData().getServiceSpecs().isEmpty(),
                     "Список разрешений пустой, а значит не обновился");
@@ -401,4 +398,91 @@ public class PolicyTest extends RestBase {
 
     }
 
+    @CaseId(39)
+    @Test(groups = {"api-authorization-service"},
+            description = "Добавление условия с типом Date")
+    public void updatePolicyWithDateCondition200() {
+
+        PolicyModel policy = PolicyModel
+                .builder()
+                .serviceSpec(PolicyModel.ServiceSpec
+                        .builder()
+                        .serviceId("test")
+                        .permission(PolicyModel.Permission
+                                .builder()
+                                .name("core-services/shipments")
+                                .description("date test")
+                                .access("read")
+                                .access("write")
+                                .schema(PolicyModel.Schema
+                                        .builder()
+                                        .properties(PolicyModel.Properties
+                                                .builder()
+                                                .additionalProp(PolicyModel.AdditionalProp
+                                                        .builder()
+                                                        .type("date")
+                                                        .build())
+                                                .build())
+                                        .build())
+                                .build())
+                        .build())
+                .role(PolicyModel.Role
+                        .builder()
+                        .name("CallcenterDept")
+                        .permission(PolicyModel.RolePermission
+                                .builder()
+                                .permission("test/core-services/shipments:read")
+                                .condition("{\"shipments.additionalProp\":{\"$eq\":\"359.days.ago\"}}")
+                                .build())
+                        .build())
+                .build();
+
+        Response response = PolicyRequest.PUT("core-services", policy);
+        checkStatusCode(response, 200);
+
+    }
+
+    @CaseId(40)
+    @Test(groups = {"api-authorization-service"},
+            description = "Проверка валидации соответствия типов атрибутов при сохранении условий")
+    public void checkAttributeTypeValidation() {
+
+        PolicyModel policy = PolicyModel
+                .builder()
+                .serviceSpec(PolicyModel.ServiceSpec
+                        .builder()
+                        .serviceId("test")
+                        .permission(PolicyModel.Permission
+                                .builder()
+                                .name("core-services/shipments")
+                                .description("date test")
+                                .access("read")
+                                .access("write")
+                                .schema(PolicyModel.Schema
+                                        .builder()
+                                        .properties(PolicyModel.Properties
+                                                .builder()
+                                                .additionalProp(PolicyModel.AdditionalProp
+                                                        .builder()
+                                                        .type("integer")
+                                                        .build())
+                                                .build())
+                                        .build())
+                                .build())
+                        .build())
+                .role(PolicyModel.Role
+                        .builder()
+                        .name("CallcenterDept")
+                        .permission(PolicyModel.RolePermission
+                                .builder()
+                                .permission("test/core-services/shipments:read")
+                                .condition("{\"shipments.additionalProp\":{\"$eq\":\"123string\"}}")
+                                .build())
+                        .build())
+                .build();
+
+        Response response = PolicyRequest.PUT("core-services", policy);
+        checkStatusCode(response, 422);
+
+    }
 }
