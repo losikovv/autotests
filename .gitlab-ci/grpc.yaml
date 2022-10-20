@@ -32,3 +32,15 @@ tests:salut:token:
     - gradle clean build grpcSalutToken
   after_script:
     - bash ./report.sh grpc grpc-salut-token
+
+tests:authorization:service:grpc:
+  resource_group: testsAuthorizationServiceGRPC
+  only:
+    variables:
+      - $GRPC_AUTHORIZATION_SERVER_ALONE == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  extends:
+    - ".template_grpc_tests"
+  script:
+    - gradle clean build grpcAuthorizationService
+  after_script:
+    - bash ./report.sh grpc grpc-authorization-service
