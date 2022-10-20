@@ -6,7 +6,7 @@ import lombok.Data;
 public class OrdersEntity {
     private String shipmentUuid;
     private String placeUuid;
-    private Integer weight;
+    private Double weight;
     private String clientLocation;
     private String status;
     private String type;
@@ -28,9 +28,9 @@ public class OrdersEntity {
     private String orderNumber;
     private Double itemsTotalAmount;
     private Boolean isNew;
-    private Boolean isReady;
-    private String dispatchStatus;
     private String orderStatus;
     private String lastRedispatchTime;
     private String orderUuid;
+    private String shippingMethod;
+    private Integer sendToDispatchCount;
 }

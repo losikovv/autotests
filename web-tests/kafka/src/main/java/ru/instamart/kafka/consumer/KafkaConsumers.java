@@ -48,7 +48,7 @@ public class KafkaConsumers {
         props.put(ConsumerConfig.CLIENT_ID_CONFIG, "kraken");
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, CoreProperties.KAFKA_SERVER);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "kraken");
-        props.put("session.timeout.ms", "30000");
+//        props.put("session.timeout.ms", "30000");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 //        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
 
@@ -69,12 +69,13 @@ public class KafkaConsumers {
         if (Objects.nonNull(time)) {
             final TopicPartition topicPartition0 = new TopicPartition(config.topic, 0);
             consumer.assign(Collections.singletonList(topicPartition0));
+            consumer.poll(Duration.ofSeconds(500));
             final Map<TopicPartition, Long> startOffsetsMap = new HashMap<>();
             startOffsetsMap.put(topicPartition0, getDbDateMinusMinutes(time));
             final Map<TopicPartition, OffsetAndTimestamp> startPartitionOffsetsMap = consumer
                     .offsetsForTimes(startOffsetsMap);
             long partition0StartOffset = 0;
-            if (startOffsetsMap.get(topicPartition0) != null) {
+            if (Objects.nonNull(topicPartition0) && Objects.nonNull(startOffsetsMap.get(topicPartition0))) {
                 partition0StartOffset = startPartitionOffsetsMap.get(topicPartition0).offset();
             }
 
@@ -89,9 +90,10 @@ public class KafkaConsumers {
     public List<Order.EventOrder> consumeEventOrder(String filter, StatusOrder postponed) {
         final List<Order.EventOrder> allLogs = new ArrayList<>();
         int noRecordsCount = 0;
+        int giveUp = 200;
         List<Order.EventOrder> result = new ArrayList<>();
         while (true) {
-            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(50));
+            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(500));
             for (ConsumerRecord<String, byte[]> record : records) {
                 try {
                     if (record.value() != null) {

@@ -110,8 +110,7 @@ project(":kafka") {
 
         implementation lib.javax
         implementation lib.tomcatAnnotationsApi
-
-        implementation lib.kafkaProtobuf
+        implementation lib.awaitility
 
         annotationProcessor lib.lombok
         testImplementation lib.logback

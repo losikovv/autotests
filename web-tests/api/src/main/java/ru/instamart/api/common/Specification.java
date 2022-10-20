@@ -117,6 +117,7 @@ public enum Specification {
                 .setBaseUri(apiV2FullUrl)
                 .setAccept(ContentType.JSON)
                 .addHeader("api-version", "2.2")
+                .addHeader("client-id", "SbermarketAndroid")
                 .addHeader("client-ver", "99.99.99")
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new SwaggerCoverageV3RestAssured())

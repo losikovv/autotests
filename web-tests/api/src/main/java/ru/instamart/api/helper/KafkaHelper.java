@@ -28,7 +28,7 @@ public class KafkaHelper {
 
     @Step("Получаем данные из топика {config.topic} кафки по orderUUID: {orderUUID}")
     public List<Order.EventOrder> waitDataInKafkaTopicFtcOrder(KafkaConfig config, String orderUUID, StatusOrder postponed) {
-        var kafkaConsumers = new KafkaConsumers(config, 10L);
+        var kafkaConsumers = new KafkaConsumers(config);
         List<Order.EventOrder> longEventOrderHashMap = kafkaConsumers.consumeEventOrder(orderUUID, postponed);
         assertTrue(longEventOrderHashMap.size() > 0, "Logs is empty");
         return longEventOrderHashMap;

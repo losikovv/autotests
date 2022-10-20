@@ -199,8 +199,9 @@ task onDemandShifts(type: Test) {
 task onDemandDispatch(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/on_demand/dispatch.xml'
-        includeGroups 'kafka-instamart-regress'
+        includeGroups 'dispatch-orderservice-smoke'
     }
+    environment 'P_ENV', "service-orderservice"
     systemProperty 'qase.Project', 'DSPTCH'
     systemProperty 'qase.Title', 'Dispatch 2.0 Autotests'
     systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
