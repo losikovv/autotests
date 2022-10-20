@@ -2,10 +2,9 @@ package ru.instamart.reforged.core.config;
 
 import ru.instamart.kraken.common.config.Config;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.CiPipelineSource;
 
 import java.util.List;
-
-import static ru.instamart.kraken.config.EnvironmentProperties.CUSTOM_UI_RUN;
 
 public final class UiProperties {
 
@@ -46,7 +45,7 @@ public final class UiProperties {
     public static class Env {
 
         static {
-            if (CUSTOM_UI_RUN) {
+            if (EnvironmentProperties.CI_PIPELINE_SOURCE.equals(CiPipelineSource.WEB.getName())) {
                 STF_URL = System.getenv("URL_STF_FRONT");
                 HEADER_STF_FORWARD_TO = System.getenv("STF_FORWARD");
                 ADMIN_URL = EnvironmentProperties.BASIC_URL + "admin/";

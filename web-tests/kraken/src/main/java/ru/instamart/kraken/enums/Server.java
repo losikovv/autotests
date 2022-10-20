@@ -7,6 +7,7 @@ public enum Server {
     PREPROD,
     PRODUCTION,
     STAGING,
+    CUSTOM,
     OTHER;
 
     public static Server getValue(final String constant) {

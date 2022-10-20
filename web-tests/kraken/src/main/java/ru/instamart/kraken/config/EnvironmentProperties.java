@@ -3,12 +3,14 @@ package ru.instamart.kraken.config;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.common.config.Config;
 import ru.instamart.kraken.common.config.Env;
+import ru.instamart.kraken.enums.CiPipelineSource;
 import ru.instamart.kraken.enums.Server;
 
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
+import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 
@@ -16,8 +18,8 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public final class EnvironmentProperties {
 
+    public static final String CI_PIPELINE_SOURCE = Optional.ofNullable(System.getenv("CI_PIPELINE_SOURCE")).orElse(CiPipelineSource.LOCAL.getName());
     public static final String NAME = "env";
-
     @Config(configName = NAME, fieldName = "tenant", defaultValue = "")
     public static String TENANT;
     @Config(configName = NAME, fieldName = "server", defaultValue = "")
@@ -75,8 +77,6 @@ public final class EnvironmentProperties {
     public static String K8S_NAME_SHP_SPACE;
     @Config(configName = NAME, fieldName = "k8sLabelShpSelector", defaultValue = "")
     public static String K8S_LABEL_SHP_SELECTOR;
-    @Config(configName = NAME, fieldName = "customUiRun", defaultValue = "false")
-    public static boolean CUSTOM_UI_RUN;
     @Config(configName = NAME, fieldName = "basicUrl", defaultValue = "")
     public static String BASIC_URL;
     @Config(configName = NAME, fieldName = "shopperUrl", defaultValue = "")
@@ -152,13 +152,10 @@ public final class EnvironmentProperties {
                 log.debug("SHOPPER_URL: " + SHOPPER_URL);
             }
 
-            if (CUSTOM_UI_RUN && nonNull(stfForwardTo) && !stfForwardTo.isBlank()) {
+            if (CI_PIPELINE_SOURCE.equals(CiPipelineSource.WEB.getName()) && nonNull(stfForwardTo) && !stfForwardTo.isBlank()) {
                 STAGE = stfForwardTo.replaceAll("s-sb-stf|s-sb-|-\\w+$", "");
                 TENANT = stfForwardTo.replaceAll("^.+-", "").replaceAll("^sm", "");
-                SERVER = "custom";
-/*                SERVER = stfForwardTo.contains("kraken")
-                        ? Server.PREPROD.name().toLowerCase() : stfForwardTo.contains("s-sb-stf")
-                        ? Server.STAGING.name().toLowerCase() : STAGE;*/
+                SERVER = Server.CUSTOM.name().toLowerCase();
 
                 BASIC_URL = stfForwardTo.contains("s-sb-stf")
                         ? stfForwardTo.replaceAll("s-sb-stf", "stf-").replaceAll("-\\w+$", "") + ".k-stage.sbermarket.tech"
