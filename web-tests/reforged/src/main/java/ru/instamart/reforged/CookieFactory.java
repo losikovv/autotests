@@ -62,11 +62,11 @@ public final class CookieFactory {
             "/",
             date);
 
-/*    public static final Cookie FORWARD_FEATURE_BUSINESS = new Cookie("sbm-forward-feature-version-stf",
-            UiProperties.HEADER_B2B_FORWARD_TO,
+    public static final Cookie FORWARD_FEATURE_B2B = new Cookie("sbm-forward-feature-version-stf",
+            UiProperties.Env.B2B_FORWARD_TO,
             COOKIE_DOMAIN,
             "/",
-            date);*/
+            date);
 
     public static final Cookie FORWARD_FEATURE_SELGROS = new Cookie("sbm-forward-feature-version-stf",
             UiProperties.HEADER_SELGROS_FORWARD_TO,
