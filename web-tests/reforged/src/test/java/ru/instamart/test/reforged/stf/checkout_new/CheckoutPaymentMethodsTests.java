@@ -15,8 +15,7 @@ import static ru.instamart.reforged.Group.CHECKOUT_WEB_NEW;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.business.page.BusinessRouter.business;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.*;
-import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Чекаут V3")
@@ -247,8 +246,8 @@ public final class CheckoutPaymentMethodsTests {
         checkoutNew().interactB2BOrderModal().clickConfirm();
         checkoutNew().interactB2BOrderModal().checkModalNotVisible();
 
-        checkoutNew().switchToNextWindow();
-        business().checkPageContains("smbusiness");
+        checkout().waitPageLoad();
+        checkout().checkCheckoutButtonIsVisible();
     }
 
     @CaseId(3827)
@@ -288,8 +287,8 @@ public final class CheckoutPaymentMethodsTests {
         checkoutNew().interactB2BOrderModal().clickConfirm();
         checkoutNew().interactB2BOrderModal().checkModalNotVisible();
 
-        checkoutNew().switchToNextWindow();
-        business().checkPageContains("smbusiness");
+        checkout().waitPageLoad();
+        checkout().checkCheckoutButtonIsVisible();
     }
 
     @CaseId(3885)

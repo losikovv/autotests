@@ -9,14 +9,15 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
-import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
+import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
 import static ru.instamart.reforged.Group.CHECKOUT_WEB_NEW;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.core.config.UiProperties.FREE_DELIVERY_PROMO_ID;
 import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -39,9 +40,9 @@ public final class CheckoutPromocodesTests {
 
         final String yesterday = getPastZoneDbDate(1L);
 
-        this.helper.createPromotionCode(promo, 2757, yesterday, yesterday, 100);
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        this.helper.createPromotionCode(promo, FREE_DELIVERY_PROMO_ID, yesterday, yesterday, 100);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -83,9 +84,9 @@ public final class CheckoutPromocodesTests {
 
         final String yesterday = getPastZoneDbDate(1L);
 
-        this.helper.createPromotionCode(promo, 2757, yesterday, yesterday, 100);
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        this.helper.createPromotionCode(promo, FREE_DELIVERY_PROMO_ID, yesterday, yesterday, 100);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -132,9 +133,8 @@ public final class CheckoutPromocodesTests {
         final String yesterday = getPastZoneDbDate(1L);
 
         this.helper.createPromotionCode(promo, 2761, yesterday, yesterday, 100);
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
@@ -174,8 +174,8 @@ public final class CheckoutPromocodesTests {
         final var userData = UserManager.getQaUser();
         addFlipperActor("checkout_web_new", userData.getId());
         addFlipperActor("checkout_web_force_all", userData.getId());
-        this.helper.dropAndFillCartWithoutSetAddress(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

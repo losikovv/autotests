@@ -15,6 +15,7 @@ import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.Group.CHECKOUT_WEB_NEW;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.core.config.UiProperties.ALCOHOL_CATEGORY_LINK;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -76,7 +77,8 @@ public final class CheckoutSwitchTabsTests {
         final var userData = UserManager.getQaUser();
         addFlipperActor("checkout_web_new", userData.getId());
         addFlipperActor("checkout_web_force_all", userData.getId());
-        this.helper.dropAndFillCart(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
 
@@ -138,7 +140,7 @@ public final class CheckoutSwitchTabsTests {
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/alcohol/vino/krasnoie-vino?sid=14&source=category");
+        shop().goToPage(ShopUrl.METRO.getUrl() + ALCOHOL_CATEGORY_LINK);
 
         shop().interactDisclaimer().checkDisclaimerModalVisible();
         shop().interactDisclaimer().agreeAndConfirm();

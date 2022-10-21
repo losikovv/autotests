@@ -19,6 +19,8 @@ import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_
 import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
 import static ru.instamart.reforged.Group.POST_ORDERING;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.core.config.UiProperties.ALCOHOL_CATEGORY_LINK;
+import static ru.instamart.reforged.core.config.UiProperties.FREE_DELIVERY_PROMO_ID;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_AT_CHECKOUT;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
@@ -177,7 +179,7 @@ public final class ChangingDeliverySlotTests {
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
         final String yesterday = getPastZoneDbDate(1L);
-        this.helper.createPromotionCode(promo, 2757, yesterday, yesterday, 100);
+        this.helper.createPromotionCode(promo, FREE_DELIVERY_PROMO_ID, yesterday, yesterday, 100);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -455,7 +457,7 @@ public final class ChangingDeliverySlotTests {
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        seo().goToPage(ShopUrl.METRO.getUrl() + "/c/alcohol/vino/krasnoie-vino?sid=14&source=category");
+        seo().goToPage(ShopUrl.METRO.getUrl() + ALCOHOL_CATEGORY_LINK);
         shop().interactDisclaimer().checkDisclaimerModalVisible();
         shop().interactDisclaimer().agreeAndConfirm();
         shop().interactDisclaimer().checkDisclaimerModalNotVisible();

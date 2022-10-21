@@ -19,6 +19,7 @@ import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.Group.CHECKOUT_WEB_NEW;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.core.config.UiProperties.ALCOHOL_CATEGORY_LINK;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.*;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
 import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED;
@@ -796,7 +797,7 @@ public final class CheckoutTests {
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/alcohol/vino/krasnoie-vino?sid=14&source=category");
+        shop().goToPage(ShopUrl.METRO.getUrl() + ALCOHOL_CATEGORY_LINK);
 
         shop().interactDisclaimer().checkDisclaimerModalVisible();
         shop().interactDisclaimer().agreeAndConfirm();
@@ -883,7 +884,7 @@ public final class CheckoutTests {
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/alcohol/vino/krasnoie-vino?sid=14&source=category");
+        shop().goToPage(ShopUrl.METRO.getUrl() + ALCOHOL_CATEGORY_LINK);
 
         shop().interactDisclaimer().checkDisclaimerModalVisible();
         shop().interactDisclaimer().agreeAndConfirm();
@@ -963,7 +964,7 @@ public final class CheckoutTests {
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/alcohol/vino/krasnoie-vino?sid=14&source=category");
+        shop().goToPage(ShopUrl.METRO.getUrl() + ALCOHOL_CATEGORY_LINK);
 
         shop().interactDisclaimer().checkDisclaimerModalVisible();
         shop().interactDisclaimer().agreeAndConfirm();
@@ -1041,7 +1042,7 @@ public final class CheckoutTests {
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage(ShopUrl.METRO.getUrl() + "/c/alcohol/vino/krasnoie-vino?sid=14&source=category");
+        shop().goToPage(ShopUrl.METRO.getUrl() + ALCOHOL_CATEGORY_LINK);
 
         shop().interactDisclaimer().checkDisclaimerModalVisible();
         shop().interactDisclaimer().agreeAndConfirm();
