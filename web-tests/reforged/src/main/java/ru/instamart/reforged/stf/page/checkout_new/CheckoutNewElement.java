@@ -9,7 +9,7 @@ import ru.instamart.reforged.stf.page.checkout_new.delivery_slots_modal.Delivery
 import ru.instamart.reforged.stf.page.checkout_new.payment_methods_modal.PaymentMethodsModal;
 import ru.instamart.reforged.stf.page.checkout_new.sber_spasibo_card_modal.SberSpasiboCardModal;
 
-public interface CheckoutElement {
+public interface CheckoutNewElement {
 
     PaymentMethodsModal paymentMethodsModal = new PaymentMethodsModal();
     AddPaymentCardModal addPaymentCardModal = new AddPaymentCardModal();
