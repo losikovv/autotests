@@ -10,7 +10,7 @@ import static ru.instamart.kraken.util.StringUtil.convertDigitsStringToPhoneNumb
 import static ru.instamart.kraken.util.StringUtil.convertDigitsStringToPhoneNumberWithBracketsNoDash;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
-public interface CheckoutCheck extends Check, CheckoutElement {
+public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем что страница прогрузилась")
     default void checkSpinnerNotVisible() {

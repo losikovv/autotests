@@ -8,5 +8,5 @@ public interface B2BOrderModalElement {
 
     Element modalTitle = new Element(By.xpath("//h3[contains(@class,'CheckoutModal') and contains(text(),'для бизнеса')]"), "Заголовок модалки заказа для бизнеса");
     Button close = new Button(By.xpath("//button[contains(@class,'Modal_closeButton')]/div"), "Кнопка 'Закрыть'");
-    Button confirmButton = new Button(By.xpath("//a[contains(@class,'B2bTransferModal_confirmButton')]"), "Кнопка 'Да, хочу'");
+    Button confirmButton = new Button(By.xpath("//button[contains(@class,'B2bTransferModal_confirmButton')]"), "Кнопка 'Да, хочу'");
 }
