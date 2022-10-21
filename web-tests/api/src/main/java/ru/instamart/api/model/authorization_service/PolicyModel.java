@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Singular;
 import ru.instamart.api.model.BaseObject;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 @Data
@@ -27,6 +28,7 @@ public class PolicyModel extends BaseObject {
         private String description;
         @JsonProperty("access")
         @Singular private List<String> accesses;
+        private Schema schema;
     }
 
     @Data
@@ -53,6 +55,36 @@ public class PolicyModel extends BaseObject {
         @JsonProperty("service_id")
         private String serviceId;
         @Singular private List<Permission> permissions;
+    }
+
+    @Data
+    @EqualsAndHashCode(callSuper = false)
+    @Builder
+    public static class Schema extends BaseObject {
+        public Properties properties;
+    }
+
+    @Data
+    @EqualsAndHashCode(callSuper = false)
+    @Builder
+    public static class Properties extends BaseObject {
+        public AdditionalProp additionalProp;
+    }
+
+    @Data
+    @EqualsAndHashCode(callSuper = false)
+    @Builder
+    public static class AdditionalProp extends BaseObject {
+        public String type;
+        public Items items;
+        public String properties;
+    }
+
+    @Data
+    @EqualsAndHashCode(callSuper = false)
+    @Builder
+    public static class Items{
+        public String type;
     }
 
 }

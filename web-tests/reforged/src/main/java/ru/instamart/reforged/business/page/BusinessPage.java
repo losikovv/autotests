@@ -11,6 +11,6 @@ public interface BusinessPage extends Page {
     }
 
     default void goToPage(final String url) {
-        Kraken.open(addBasicAuthToUrl(UiProperties.STF_URL + url));
+        Kraken.open(addBasicAuthToUrl(UiProperties.B2B_FRONT_URL + url));
     }
 }

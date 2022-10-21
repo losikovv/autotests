@@ -4,12 +4,12 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.authorization_service.RealmModel;
 import ru.instamart.api.request.authorization_service.RealmRequest;
 import ru.instamart.api.response.authorization_service.RealmPostErrorResponse;
 import ru.instamart.api.response.authorization_service.RealmPostResponse;
@@ -25,6 +25,8 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 @Epic("Сервис авторизации")
 @Feature("Рилм")
 public class RealmTest {
+
+    private static final String repositoryUrlBase = "gitlab.sbmt.io/paas/content/core-services/";
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -47,14 +49,16 @@ public class RealmTest {
     @Test(groups = {"api-authorization-service"},
             description = "Создание рилма")
     public void createRealm200() {
-        JSONObject body = new JSONObject();
-        body.put("name", "example-realm");
-        body.put("repository_url", "gitlab.sbmt.io/paas/content/core-services/example-service");
-        JSONArray services = new JSONArray();
-        JSONObject service = new JSONObject();
-        service.put("name", "example-service");
-        service.put("description", "example-service");
-        services.add(0, service);
+        RealmModel body = RealmModel
+                .builder()
+                .name("example-realm")
+                .repositoryUrl(repositoryUrlBase + "example-service")
+                .service(RealmModel.Service
+                        .builder()
+                        .name("example-service")
+                        .description("example-service description")
+                        .build())
+                .build();
 
         Response response = RealmRequest.POST(body);
 
@@ -71,10 +75,11 @@ public class RealmTest {
     @Test(groups = {"api-authorization-service"},
             description = "Создание рилма без сервисов")
     public void createRealmWithoutServices200() {
-        JSONObject body = new JSONObject();
-        body.put("name", "example-realm");
-        body.put("repository_url", "gitlab.sbmt.io/paas/content/core-services/example-service");
-        JSONArray services = new JSONArray();
+        RealmModel body = RealmModel
+                .builder()
+                .name("example-realm")
+                .repositoryUrl(repositoryUrlBase + "example-service")
+                .build();
 
         Response response = RealmRequest.POST(body);
 
@@ -91,14 +96,16 @@ public class RealmTest {
     @Test(groups = {"api-authorization-service"},
             description = "Создание рилма. DryRun = true")
     public void createRealmDryRunTrue200() {
-        JSONObject body = new JSONObject();
-        body.put("name", "test");
-        body.put("repository_url", "gitlab.sbmt.io/paas/content/core-services/policy-realm-test");
-        JSONArray services = new JSONArray();
-        JSONObject service = new JSONObject();
-        service.put("name", "test");
-        service.put("description", "test");
-        services.add(0, service);
+        RealmModel body = RealmModel
+                .builder()
+                .name("test")
+                .repositoryUrl(repositoryUrlBase + "policy-realm-test")
+                .service(RealmModel.Service
+                        .builder()
+                        .name("test")
+                        .description("test description")
+                        .build())
+                .build();
 
         Response response = RealmRequest.POST(true, body);
 
@@ -135,14 +142,16 @@ public class RealmTest {
     @Test(groups = {"api-authorization-service"},
             description = "Создание рилма. DryRun = false")
     public void createRealmDryRunFalse200() {
-        JSONObject body = new JSONObject();
-        body.put("name", "test");
-        body.put("repository_url", "gitlab.sbmt.io/paas/content/core-services/policy-realm-test");
-        JSONArray services = new JSONArray();
-        JSONObject service = new JSONObject();
-        service.put("name", "test");
-        service.put("description", "test");
-        services.add(0, service);
+        RealmModel body = RealmModel
+                .builder()
+                .name("test")
+                .repositoryUrl(repositoryUrlBase + "policy-realm-test")
+                .service(RealmModel.Service
+                        .builder()
+                        .name("test")
+                        .description("test description")
+                        .build())
+                .build();
 
         Response response = RealmRequest.POST(false, body);
 
@@ -159,9 +168,11 @@ public class RealmTest {
     @Test(groups = {"api-authorization-service"},
             description = "Обновление рилма")
     public void updateRealm200() {
-        JSONObject body = new JSONObject();
-        body.put("name", "test");
-        body.put("repository_url", "gitlab.sbmt.io/paas/content/core-services/policy-realm-test-updated");
+        RealmModel body = RealmModel
+                .builder()
+                .name("test")
+                .repositoryUrl(repositoryUrlBase + "policy-realm-test-updated")
+                .build();
 
         Response response = RealmRequest.PUT("test", body);
 
@@ -176,8 +187,8 @@ public class RealmTest {
 
         Allure.step("Данные рилма действительно обновились", () -> {
             assertEquals(responseGet.as(RealmResponse.class).getData().get(0).getRepositoryUrl(),
-                "gitlab.sbmt.io/paas/content/core-services/policy-realm-test-updated",
-                "Значения полей не были обновлены");
+                    repositoryUrlBase + "policy-realm-test-updated",
+                    "Значения полей не были обновлены");
         });
     }
 
@@ -185,9 +196,11 @@ public class RealmTest {
     @Test(groups = {"api-authorization-service"},
             description = "Обновление неверного рилма")
     public void updateRealmWrongRealm422() {
-        JSONObject body = new JSONObject();
-        body.put("name", "test");
-        body.put("repository_url", "gitlab.sbmt.io/paas/content/core-services/policy-realm-test-updated");
+        RealmModel body = RealmModel
+                .builder()
+                .name("test")
+                .repositoryUrl(repositoryUrlBase + "policy-realm-test-updated")
+                .build();
 
         Response response = RealmRequest.PUT("wrong", body);
 
@@ -204,9 +217,11 @@ public class RealmTest {
     @Test(groups = {"api-authorization-service"},
             description = "Обновление рилма. DryRun = true")
     public void updateRealmDryRunTrue200() {
-        JSONObject body = new JSONObject();
-        body.put("name", "test");
-        body.put("repository_url", "gitlab.sbmt.io/paas/content/core-services/policy-realm-test-updated-dry");
+        RealmModel body = RealmModel
+                .builder()
+                .name("test")
+                .repositoryUrl(repositoryUrlBase + "policy-realm-test-updated-dry")
+                .build();
 
         Response response = RealmRequest.PUT("test", true, body);
 
@@ -221,7 +236,7 @@ public class RealmTest {
 
         Allure.step("Данные рилма не были загружены", () -> {
             assertNotEquals(responseGet.as(RealmResponse.class).getData().get(0).getRepositoryUrl(),
-                    "gitlab.sbmt.io/paas/content/core-services/policy-realm-test-updated-dry",
+                    repositoryUrlBase + "policy-realm-test-updated-dry",
                     "Значения полей были обновлены при DryRun=true");
         });
     }
@@ -230,9 +245,11 @@ public class RealmTest {
     @Test(groups = {"api-authorization-service"},
             description = "Обновление рилма. DryRun = false")
     public void updateRealmDryRunFalse200() {
-        JSONObject body = new JSONObject();
-        body.put("name", "test");
-        body.put("repository_url", "gitlab.sbmt.io/paas/content/core-services/policy-realm-test-updated-not-dry");
+        RealmModel body = RealmModel
+                .builder()
+                .name("test")
+                .repositoryUrl(repositoryUrlBase + "policy-realm-test-updated-not-dry")
+                .build();
 
         Response response = RealmRequest.PUT("test", false, body);
 
@@ -247,8 +264,43 @@ public class RealmTest {
 
         Allure.step("Данные рилма действительно обновились", () -> {
             assertEquals(responseGet.as(RealmResponse.class).getData().get(0).getRepositoryUrl(),
-                    "gitlab.sbmt.io/paas/content/core-services/policy-realm-test-updated-not-dry",
+                    repositoryUrlBase + "policy-realm-test-updated-not-dry",
                     "Значения полей не были обновлены");
         });
+    }
+
+    @CaseId(41)
+    @Test(groups = {"api-authorization-service"},
+            description = "Создание рилма с заданным user_type")
+    public void createRealmWithUserType200() {
+        RealmModel body = RealmModel
+                .builder()
+                .name("test-realm")
+                .repositoryUrl(repositoryUrlBase + "test-realm")
+                .service(RealmModel.Service
+                        .builder()
+                        .name("test-service")
+                        .description("test-service description")
+                        .build())
+                .userType("testRealmUserType")
+                .build();
+
+        Response response = RealmRequest.POST(body);
+
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, RealmPostResponse.class);
+
+        Allure.step("Проверка сообщения об успешном создании рилма", () -> {
+            assertEquals(response.as(RealmPostResponse.class).getData(), "All data was added");
+        });
+
+        Response responseGet = RealmRequest.GET("test-realm");
+
+        Allure.step("Созранен заданный UserType", () -> {
+            assertEquals(responseGet.as(RealmResponse.class).getData().get(0).getUserType(),
+                    "testRealmUserType",
+                    "UserType не соответствует заданному");
+        });
+
     }
 }

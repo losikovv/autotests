@@ -2,11 +2,13 @@ package ru.instamart.test.authorization_service;
 
 import authorization.AuthorizationGrpc;
 import authorization.AuthorizationOuterClass;
+import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.grpc.common.GrpcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -65,5 +67,51 @@ public class AuthorizationTest extends GrpcBase {
         Allure.step("Пользователя не авторизует с неверными правами доступа", () -> {
             assertTrue(response.toString().isEmpty(),"Получилось авторизоваться с неверными правами доступа");
         });
+    }
+
+    @CaseId(37)
+    @Test(description = "Получение condition через GRPC DataFilters",
+            groups = {"grpc-authorization-service"})
+    public void dataFiltersGRPC() {
+        var sbmAuth = AuthorizationOuterClass.SbmAuth.newBuilder()
+                .setType("core-services")
+                .setIdentity("1")
+                .addRoles("BizdevDept")
+                .build();
+
+        var request = AuthorizationOuterClass.DataFiltersRequest.newBuilder()
+                .setPermission("example-service/core-services/retailers:write")
+                .setPermission("example-service/core-services/retailers:read")
+                .setAuth(sbmAuth)
+                .setPolicyVersion("test")
+                .build();
+
+        var response = client.dataFilters(request);
+
+        final SoftAssert softAssert = new SoftAssert();
+        Allure.step("Возвращается не пустое условие", () -> {
+            softAssert.assertFalse(response.toString().isEmpty(),"Условие вернулось пустым");
+        });
+    }
+
+    @CaseId(37)
+    @Test(description = "Получение condition через GRPC DataFilters с пустым списком ролей",
+            groups = {"grpc-authorization-service"},
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "PERMISSION_DENIED: пустой список ролей")
+    public void dataFiltersGRPCnoRoles() {
+        var sbmAuth = AuthorizationOuterClass.SbmAuth.newBuilder()
+                .setType("core-services")
+                .setIdentity("1")
+                .build();
+
+        var request = AuthorizationOuterClass.DataFiltersRequest.newBuilder()
+                .setPermission("example-service/core-services/retailers:write")
+                .setPermission("example-service/core-services/retailers:read")
+                .setAuth(sbmAuth)
+                .setPolicyVersion("test")
+                .build();
+
+        client.dataFilters(request);
     }
 }

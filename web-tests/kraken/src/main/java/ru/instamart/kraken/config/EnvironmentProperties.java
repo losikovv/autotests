@@ -99,7 +99,7 @@ public final class EnvironmentProperties {
         static {
             var customBasicUrl = System.getProperty("url_stf");
             var customShopperUrl = System.getProperty("url_shp");
-            var stfForwardTo = System.getenv("STF_FORWARD");
+            String stfForwardTo;
 
             if (nonNull(customBasicUrl) && !customBasicUrl.isBlank()) {
                 String default_sid = System.getenv("DEFAULT_SID");
@@ -151,13 +151,18 @@ public final class EnvironmentProperties {
             }
 
             if (CiModule.isUi() && nonNull(stfForwardTo) && !stfForwardTo.isBlank()) {
+                if (CI_MODULE.equals(CiModule.UI_STF.getName())) {
+                    stfForwardTo = System.getenv("STF_FORWARD");
+                } else {
+                    stfForwardTo = System.getenv("B2B_FORWARD");
+                }
                 STAGE = stfForwardTo.replaceAll("s-sb-stf|s-sb-|-\\w+$", "");
                 TENANT = stfForwardTo.replaceAll("^.+-", "").replaceAll("^sm", "");
                 SERVER = Server.CUSTOM.name().toLowerCase();
 
                 BASIC_URL = stfForwardTo.contains("s-sb-stf")
-                        ? stfForwardTo.replaceAll("s-sb-stf", "stf-").replaceAll("-\\w+$", "") + ".k-stage.sbermarket.tech"
-                        : stfForwardTo.replaceAll("s-sb-|-\\w+$", "") + ".k-stage.sbermarket.tech";
+                        ? stfForwardTo.replaceAll("s-sb-stf", "stf-").replaceAll("-sbermarket", "") + ".k-stage.sbermarket.tech"
+                        : stfForwardTo.replaceAll("s-sb-|-sbermarket", "") + ".k-stage.sbermarket.tech";
 
                 if (stfForwardTo.contains("s-sb-stf")) {
                     DB_URL = DB_URL.replace("kraken", STAGE);
@@ -180,16 +185,6 @@ public final class EnvironmentProperties {
                 } else if (customBasicUrl.startsWith("stf-")) {
                     SHOPPER_URL = "shp" + customBasicUrl.substring(3);
                 } else SHOPPER_URL = "shp-0.k-stage.sbermarket.tech";
-
-                log.debug("SHOPPER_URL: " + SHOPPER_URL);
-                log.debug("Кастомные данные при ручном запуске на стейджах");
-                log.debug("BASIC_URL: {}", BASIC_URL);
-                log.debug("Server: {}", SERVER);
-                log.debug("Stage: {}", STAGE);
-                log.debug("DB_URL: {}", DB_URL);
-                log.debug("DB_PGSQL_URL: {}", DB_PGSQL_URL);
-                log.debug("K8S_NAME_STF_SPACE: {}", K8S_NAME_STF_SPACE);
-                log.debug("K8S_NAME_SHP_SPACE: {}", K8S_NAME_SHP_SPACE);
             }
         }
 
