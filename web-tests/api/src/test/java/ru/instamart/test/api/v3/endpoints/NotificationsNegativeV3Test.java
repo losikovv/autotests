@@ -14,7 +14,6 @@ import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
-import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -32,9 +31,9 @@ public class NotificationsNegativeV3Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        admin.auth();
+        /*admin.auth();
         admin.authApi();
-        admin.editStore(storeUuid, StoresAdminRequest.getStoreLentaElino());
+        admin.editStore(storeUuid, StoresAdminRequest.getStoreLentaElino());*/
 
         SessionFactory.makeSession(SessionType.API_V2);
         orderShopper = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
