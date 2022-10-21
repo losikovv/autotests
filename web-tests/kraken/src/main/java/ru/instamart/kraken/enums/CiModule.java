@@ -27,8 +27,17 @@ public enum CiModule {
     }
 
     public static boolean isUi() {
+        return isStf() || isB2b();
+    }
+
+    public static boolean isStf() {
         if (isNull(CI_MODULE)) return false;
-        return CI_MODULE == UI_STF || CI_MODULE == UI_B2B;
+        return CI_MODULE == UI_STF;
+    }
+
+    public static boolean isB2b() {
+        if (isNull(CI_MODULE)) return false;
+        return CI_MODULE == UI_STF;
     }
 
     public static boolean isApi() {

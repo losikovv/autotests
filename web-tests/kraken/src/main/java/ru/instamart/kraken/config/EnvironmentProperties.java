@@ -150,8 +150,8 @@ public final class EnvironmentProperties {
                 log.debug("SHOPPER_URL: " + SHOPPER_URL);
             }
 
-            if (CiModule.isUi() && nonNull(stfForwardTo) && !stfForwardTo.isBlank()) {
-                if (CI_MODULE.equals(CiModule.UI_STF.getName())) {
+            if (CiModule.isUi()) {
+                if (CiModule.isStf()) {
                     stfForwardTo = System.getenv("STF_FORWARD");
                 } else {
                     stfForwardTo = System.getenv("B2B_FORWARD");
