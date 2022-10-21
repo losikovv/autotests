@@ -248,7 +248,7 @@ tests:customRun:
     - echo $B2B_FORWARD
     - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle --continue clean build ciRun copyAllAllureHistory -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP -Padmin_url=$ADMIN_URL
+    - gradle --continue clean build ciRun copyAllAllureHistory copyAllLogs -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP -Padmin_url=$ADMIN_URL
   after_script:
     - bash ./report.sh . custom-run
   tags:
@@ -257,6 +257,7 @@ tests:customRun:
     when: always
     paths:
       - web-tests/build/allure-results/
+      - web-tests/build/logs/
     expire_in: 1 week
   allow_failure: true
 
