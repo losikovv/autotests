@@ -3,13 +3,12 @@ package ru.instamart.reforged.core.component;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -36,6 +35,15 @@ public final class ElementCollection extends CollectionComponent {
 
     @Override
     protected List<WebElement> getComponents() {
+        log.debug("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
+        if (isNull(components) || isCacheDisable) {
+            components = shouldBe().elementsExists();
+        }
+        return components;
+    }
+
+    private List<WebElement> getComponents(final Object... args) {
+        setBy(ByKraken.xpathExpression(((ByKraken)getBy()).getDefaultXpathExpression(), args));
         log.debug("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
         if (isNull(components) || isCacheDisable) {
             components = shouldBe().elementsExists();
@@ -129,9 +137,18 @@ public final class ElementCollection extends CollectionComponent {
         return getComponents();
     }
 
+    public List<WebElement> getElements(final Object... args) {
+        return getComponents(args);
+    }
+
     public Set<String> getTextFromAllElements() {
         log.debug("Get text from all elements of element collection {}'s with locator {}", getClass().getSimpleName(), getBy());
         return getElements().stream().map(WebElement::getText).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
+    public List<String> getTextFromAllElementsInOrder() {
+        log.debug("Get text from all elements of element collection {}'s with locator {}", getClass().getSimpleName(), getBy());
+        return getElements().stream().map(WebElement::getText).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public synchronized Set<String> getTextFromAllElements(final Object... args) {
@@ -147,6 +164,10 @@ public final class ElementCollection extends CollectionComponent {
     }
 
     public int elementCount() {
-        return getComponents().size();
+        try {
+            return getComponents().size();
+        } catch (TimeoutException t) {
+            return 0;
+        }
     }
 }
