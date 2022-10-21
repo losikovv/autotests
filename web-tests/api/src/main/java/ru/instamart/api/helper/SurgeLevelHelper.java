@@ -1,11 +1,10 @@
 package ru.instamart.api.helper;
 
+import com.google.protobuf.Timestamp;
 import events.CandidateChangesOuterClass;
 import io.qameta.allure.Step;
 import norns.Norns;
 import order.OrderChanged;
-import order_enrichment.OrderEnrichment;
-import order_status.OrderStatus;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.jdbc.dao.surgelevel.ConfigDao;
 import ru.instamart.jdbc.dao.surgelevel.ConfigInheritanceDao;
@@ -74,6 +73,35 @@ public class SurgeLevelHelper {
                         .setStoreUuid(storeId)
                         .build())
                 .setStoreScheduleType(storeScheduleType)
+                .build();
+    }
+
+    @Step("Создаем событие отправки статуса кандидата {candidateUuid} с workflow")
+    public static CandidateChangesOuterClass.CandidateChanges getEventCandidateStatusWithWorkflow(String candidateUuid, CandidateChangesOuterClass.CandidateChanges.Role candidateRole, CandidateChangesOuterClass.CandidateChanges.Status candidateStatus, int shiftId, int deliveryAreaId, boolean fixedOnDeliveryAreaOrStore, String storeId, String storeScheduleType, int workflowId, CandidateChangesOuterClass.WorkflowStatus workflowStatus, Timestamp workflowPlanEnded, float workflowLat, float workflowLon) {
+        return CandidateChangesOuterClass.CandidateChanges.newBuilder()
+                .setUuid(candidateUuid)
+                .setRole(candidateRole)
+                .setStatus(candidateStatus)
+                .setTime(getTimestamp())
+                .setShift(CandidateChangesOuterClass.CandidateShift.newBuilder()
+                        .setShiftId(shiftId)
+                        .setDeliveryAreaId(deliveryAreaId)
+                        .setFixedOnDeliveryAreaOrStore(fixedOnDeliveryAreaOrStore)
+                        .setStoreUuid(storeId)
+                        .build())
+                .setStoreScheduleType(storeScheduleType)
+                .addQueuedWorkflows(CandidateChangesOuterClass.Workflow.newBuilder()
+                        .setId(workflowId)
+                        .setStatus(workflowStatus)
+                        .setShiftId(shiftId)
+                        .setCreatedAt(getTimestamp())
+                        .setUpdatedAt(getTimestamp())
+                        .setPlanEndedAt(workflowPlanEnded)
+                        .setCoordinatesEnd(CandidateChangesOuterClass.Location.newBuilder()
+                                .setLat(workflowLat)
+                                .setLon(workflowLon)
+                                .build())
+                        .build())
                 .build();
     }
 

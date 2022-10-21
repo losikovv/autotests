@@ -12,9 +12,11 @@ import ru.instamart.jdbc.dao.surgelevel.DemandDao;
 import ru.instamart.jdbc.dao.surgelevel.ResultDao;
 import ru.instamart.jdbc.dao.surgelevel.SupplyDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
+import surgelevel.Surgelevel;
 import surgelevelevent.Surgelevelevent;
 
 import java.util.List;
@@ -24,8 +26,7 @@ import static events.CandidateChangesOuterClass.*;
 import static norns.Norns.*;
 import static order.OrderChanged.*;
 import static org.apache.commons.lang3.RandomUtils.nextInt;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.K8sHelper.getPaasServiceEnvProp;
 import static ru.instamart.api.helper.SurgeLevelHelper.*;
@@ -33,6 +34,7 @@ import static ru.instamart.kafka.configs.KafkaConfigs.*;
 import static ru.instamart.kraken.enums.ScheduleType.*;
 import static ru.instamart.kraken.util.DistanceUtil.distance;
 import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
+import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
 @Epic("On Demand")
 @Feature("Расчет surgelevel")
@@ -47,8 +49,11 @@ public class KafkaTest extends RestBase {
     private final String ORDER_UUID = UUID.randomUUID().toString();
     private final String CANDIDATE_UUID = UUID.randomUUID().toString();
     private final String CANDIDATE_UUID_DELIVERY_AREA = UUID.randomUUID().toString();
+    private final String CANDIDATE_UUID_WORKFLOW = UUID.randomUUID().toString();
     private final int FIRST_DELIVERY_AREA_ID = nextInt(100000, 150000);
-    private final int SECOND_DELIVERY_AREA_ID = nextInt(150000, 200000);
+    private final int SECOND_DELIVERY_AREA_ID = FIRST_DELIVERY_AREA_ID + 1;
+    private final int FIRST_WORKFLOW_ID = FIRST_DELIVERY_AREA_ID;
+    private final int SECOND_WORKFLOW_ID = SECOND_DELIVERY_AREA_ID;
     private float currentSurgeLevel = 100; // см. формулу, которую используем для тестов (в конфиге DEFAULT_CONFIG_ID)
     private float currentSurgeLevelMultipleStores = 100; // см. формулу, которую используем для тестов (в конфиге DEFAULT_CONFIG_ID)
     private int currentDemandAmount;
@@ -59,20 +64,51 @@ public class KafkaTest extends RestBase {
     private int surgeEventOutdate;
     private double distFirstSecond;
     private double distFirstThird;
+    private Surgelevel.Location firstStoreLocation;
+    private Surgelevel.Location secondStoreLocation;
+    private Surgelevel.Location thirdStoreLocation;
+    private Surgelevel.Location fourthStoreLocation;
+    private Surgelevel.Location workflowPlanEnd;
 
     @BeforeClass(alwaysRun = true)
     public void preConditions() {
+
+        firstStoreLocation = Surgelevel.Location.newBuilder()
+                .setLat(27.034817f)
+                .setLon(14.426422f)
+                .build();
+
+        secondStoreLocation = Surgelevel.Location.newBuilder()
+                .setLat(27.046055f)
+                .setLon(14.421101f)
+                .build();
+
+        thirdStoreLocation = Surgelevel.Location.newBuilder()
+                .setLat(27.008896f)
+                .setLon(14.431057f)
+                .build();
+
+        fourthStoreLocation = Surgelevel.Location.newBuilder()
+                .setLat(26.9993f)
+                .setLon(14.4002f)
+                .build();
+
+        workflowPlanEnd = Surgelevel.Location.newBuilder()
+                .setLat(27.006144f)
+                .setLon(14.435349f)
+                .build();
+
         //пока прибил гвоздями
         //стор1 видит оба
         //стор2 видит только стор1 (примерно 1,3КМ от стор1)
         //стор3 видит только стор1 (примерно 2,9КМ  стор1)
-        addStore(STORE_ID, UUID.randomUUID().toString(), true, 20.0f, 20.0f, DEFAULT_CONFIG_ID, 1, FIRST_DELIVERY_AREA_ID);
-        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), true, 27.034817f, 14.426422f, DEFAULT_CONFIG_ID, 1, SECOND_DELIVERY_AREA_ID);
-        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), true, 27.046055f, 14.421101f, DEFAULT_CONFIG_ID, 1, SECOND_DELIVERY_AREA_ID);
-        addStore(THIRD_STORE_ID, UUID.randomUUID().toString(), true, 27.008896f, 14.431057f, DEFAULT_CONFIG_ID, 1, SECOND_DELIVERY_AREA_ID);
+        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), true, firstStoreLocation.getLat(), firstStoreLocation.getLon(), DEFAULT_CONFIG_ID, 1, SECOND_DELIVERY_AREA_ID);
+        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), true, secondStoreLocation.getLat(), secondStoreLocation.getLon(), DEFAULT_CONFIG_ID, 1, SECOND_DELIVERY_AREA_ID);
+        addStore(THIRD_STORE_ID, UUID.randomUUID().toString(), true, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), DEFAULT_CONFIG_ID, 1, 0);
+        addStore(STORE_ID, UUID.randomUUID().toString(), true, fourthStoreLocation.getLat(), fourthStoreLocation.getLon(), DEFAULT_CONFIG_ID, 1, FIRST_DELIVERY_AREA_ID);
 
-        distFirstSecond = distance(27.034817f, 14.426422f, 27.046055f, 14.421101f, 'K') * 1000;
-        distFirstThird = distance(27.034817f, 14.426422f, 27.008896f, 14.431057f, 'K') * 1000;
+        distFirstSecond = distance(firstStoreLocation.getLat(), firstStoreLocation.getLon(), secondStoreLocation.getLat(), secondStoreLocation.getLon(), 'K') * 1000;
+        distFirstThird = distance(firstStoreLocation.getLat(), firstStoreLocation.getLon(), thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), 'K') * 1000;
 
         List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.SURGELEVEL_NAMESPACE, " | grep -e SURGEEVENT_PRODUCE_UNCHANGED -e SURGEEVENT_OUTDATE ");
         String envPropsStr = String.join("\n", serviceEnvProperties);
@@ -248,7 +284,6 @@ public class KafkaTest extends RestBase {
         });
     }
 
-
     @CaseIDs({@CaseId(123), @CaseId(125)})
     @Story("Delivery Area Supply")
     @Test(description = "Расчет surgelevel при получении свободного кандидата по delivery_area",
@@ -306,7 +341,7 @@ public class KafkaTest extends RestBase {
 
         ThreadUtil.simplyAwait(1);
 
-        EventAddLocation eventLocation = getEventLocation(candidateUuid, 20.0f, 20.0f, false);
+        EventAddLocation eventLocation = getEventLocation(candidateUuid, fourthStoreLocation.getLat(), fourthStoreLocation.getLon(), false);
         kafka.publish(configNorns(), eventLocation);
 
         ThreadUtil.simplyAwait(5);
@@ -376,7 +411,7 @@ public class KafkaTest extends RestBase {
         Allure.step("Проверка отправка нового события surgelevel в kafka для нескольких магазинов", () -> {
             checkSurgeLevelProduce(surgeLevelFirstStore, surgeLevelFirstStore.size(), FIRST_STORE_ID, currentSurgeLevelMultipleStores + 1, currentSurgeLevelMultipleStores, 2, 1);
             checkSurgeLevelProduce(surgeLevelSecondStore, surgeLevelSecondStore.size(), SECOND_STORE_ID, currentSurgeLevelMultipleStores + 1, currentSurgeLevelMultipleStores, 2, 1);
-            checkSurgeLevelProduce(surgeLevelThirdStore, surgeLevelThirdStore.size(), THIRD_STORE_ID, currentSurgeLevelMultipleStores, currentSurgeLevelMultipleStores - 1, 1, 1);
+            assertEquals(surgeLevelThirdStore.size(), 1, "Поступило новое событие");
         });
     }
 
@@ -390,7 +425,7 @@ public class KafkaTest extends RestBase {
 
         ThreadUtil.simplyAwait(1);
 
-        EventAddLocation eventLocation = getEventLocation(CANDIDATE_UUID, 20.0f, 20.0f, false);
+        EventAddLocation eventLocation = getEventLocation(CANDIDATE_UUID, fourthStoreLocation.getLat(), fourthStoreLocation.getLon(), false);
         kafka.publish(configNorns(), eventLocation);
 
         ThreadUtil.simplyAwait(surgeEventOutdate);
@@ -478,7 +513,7 @@ public class KafkaTest extends RestBase {
 
         ThreadUtil.simplyAwait(1);
 
-        EventAddLocation eventLocation = getEventLocation(candidateUuid, 20.0f, 20.0f, false);
+        EventAddLocation eventLocation = getEventLocation(candidateUuid, fourthStoreLocation.getLat(), fourthStoreLocation.getLon(), false);
         kafka.publish(configNorns(), eventLocation);
 
         ThreadUtil.simplyAwait(5);
@@ -524,7 +559,7 @@ public class KafkaTest extends RestBase {
 
         ThreadUtil.simplyAwait(1);
 
-        EventAddLocation eventLocation = getEventLocation(candidateUUid, 27.034817f, 14.426422f, false);
+        EventAddLocation eventLocation = getEventLocation(candidateUUid, firstStoreLocation.getLat(), firstStoreLocation.getLon(), false);
         kafka.publish(configNorns(), eventLocation);
 
         ThreadUtil.simplyAwait(surgeEventOutdate);
@@ -538,7 +573,159 @@ public class KafkaTest extends RestBase {
         Allure.step("Проверка отправка нового события surgelevel в kafka для нескольких магазинов", () -> {
             checkSurgeLevelProduce(surgeLevelFirstStore, surgeLevelFirstStore.size(), FIRST_STORE_ID, currentSurgeLevelMultipleStores + 1, currentSurgeLevelMultipleStores, 2, 2);
             checkSurgeLevelProduce(surgeLevelSecondStore, surgeLevelSecondStore.size(), SECOND_STORE_ID, currentSurgeLevelMultipleStores + 1, currentSurgeLevelMultipleStores, 2, 2);
-            checkSurgeLevelProduce(surgeLevelThirdStore, surgeLevelThirdStore.size(), THIRD_STORE_ID, currentSurgeLevelMultipleStores, currentSurgeLevelMultipleStores - 1, 1, 2);
+            checkSurgeLevelProduce(surgeLevelThirdStore, surgeLevelThirdStore.size(), THIRD_STORE_ID, currentSurgeLevelMultipleStores + 1, currentSurgeLevelMultipleStores, 1, 1);
+        });
+    }
+
+    @CaseId(157)
+    @Story("Workflow")
+    @Test(description = "Проверка supply при получении in_progress МЛ",
+            groups = "ondemand-surgelevel-smoke",
+            dependsOnMethods = "surgeProduceEventCandidateLocationMultipleStores")
+    public void surgeProduceEventCandidateWithWorkflow() {
+        CandidateChanges eventCandidate = getEventCandidateStatus(CANDIDATE_UUID_WORKFLOW, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE,
+                0, 0, false, SECOND_STORE_ID, DISPATCH.getName());
+        kafka.publish(configCandidateStatus(), eventCandidate);
+
+        ThreadUtil.simplyAwait(1);
+
+        EventAddLocation eventLocation = getEventLocation(CANDIDATE_UUID_WORKFLOW, secondStoreLocation.getLat(), secondStoreLocation.getLon(), false);
+        kafka.publish(configNorns(), eventLocation);
+
+        ThreadUtil.simplyAwait(1);
+
+        CandidateChanges eventCandidateWithWorkflow = getEventCandidateStatusWithWorkflow(CANDIDATE_UUID_WORKFLOW, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.BUSY,
+                0, 0, false, SECOND_STORE_ID, DISPATCH.getName(),
+                FIRST_WORKFLOW_ID, WorkflowStatus.IN_PROGRESS, getTimestamp(), workflowPlanEnd.getLat(), workflowPlanEnd.getLon());
+        kafka.publish(configCandidateStatus(), eventCandidateWithWorkflow);
+
+        ThreadUtil.simplyAwait(1);
+
+        Allure.step("Проверка сохранения supply", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, CANDIDATE_UUID_WORKFLOW), "Пропал supply");
+            softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(SECOND_STORE_ID, CANDIDATE_UUID_WORKFLOW), "Пропал supply");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseIDs({@CaseId(158), @CaseId(159)})
+    @Story("Workflow")
+    @Test(description = "Проверка удаления supply при уходе от изначальной точки с in_progress МЛ",
+            groups = "ondemand-surgelevel-regress",
+            dependsOnMethods = "surgeProduceEventCandidateWithWorkflow")
+    public void surgeProduceEventCandidateWithWorkflowStartMoving() {
+        EventAddLocation eventLocation = getEventLocation(CANDIDATE_UUID_WORKFLOW, fourthStoreLocation.getLat(), fourthStoreLocation.getLon(), false);
+        kafka.publish(configNorns(), eventLocation);
+
+        ThreadUtil.simplyAwait(1);
+
+        Allure.step("Проверка удаления supply", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, CANDIDATE_UUID_WORKFLOW), "Supply не удалился");
+            softAssert.assertNull(SupplyDao.INSTANCE.findSupply(SECOND_STORE_ID, CANDIDATE_UUID_WORKFLOW), "Supply не удалился");
+            softAssert.assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID_WORKFLOW), "Supply добавился для магазина по пути");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(160)
+    @Story("Workflow")
+    @Test(description = "Проверка добавления supply при вхождении в радиус к точке прибытия in_progress МЛ",
+            groups = "ondemand-surgelevel-smoke",
+            dependsOnMethods = "surgeProduceEventCandidateWithWorkflowStartMoving")
+    public void surgeProduceEventCandidateWithWorkflowFinishing() {
+        EventAddLocation eventLocation = getEventLocation(CANDIDATE_UUID_WORKFLOW, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), false);
+        kafka.publish(configNorns(), eventLocation);
+
+        ThreadUtil.simplyAwait(1);
+
+        Allure.step("Проверка добавления supply в магазины в store_radius от точки прибытия", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            assertNotNull(SupplyDao.INSTANCE.findSupply(THIRD_STORE_ID, CANDIDATE_UUID_WORKFLOW), "Supply не добавился");
+            assertNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, CANDIDATE_UUID_WORKFLOW), "Supply добавился в магазин > store_radius от точки прибытия");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(162)
+    @Story("Workflow")
+    @Test(description = "Проверка отсутствия влияния in_progress МЛ на кандидата с delivery_area",
+            groups = "ondemand-surgelevel-smoke",
+            dependsOnMethods = "surgeProduceEventCandidateWithWorkflowFinishing")
+    public void surgeProduceEventCandidateWithWorkflowAndDeliveryArea() {
+        String candidateUuid = UUID.randomUUID().toString();
+
+        CandidateChanges eventCandidate = getEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE,
+                0, SECOND_DELIVERY_AREA_ID, true, SECOND_STORE_ID, DISPATCH.getName());
+        kafka.publish(configCandidateStatus(), eventCandidate);
+
+        ThreadUtil.simplyAwait(1);
+
+        EventAddLocation initialEventLocation = getEventLocation(candidateUuid, secondStoreLocation.getLat(), secondStoreLocation.getLon(), false);
+        kafka.publish(configNorns(), initialEventLocation);
+
+        ThreadUtil.simplyAwait(1);
+
+        CandidateChanges eventCandidateWithWorkflow = getEventCandidateStatusWithWorkflow(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.BUSY,
+                0, SECOND_DELIVERY_AREA_ID, true, SECOND_STORE_ID, DISPATCH.getName(),
+                SECOND_WORKFLOW_ID, WorkflowStatus.IN_PROGRESS, getTimestamp(), workflowPlanEnd.getLat(), workflowPlanEnd.getLon());
+        kafka.publish(configCandidateStatus(), eventCandidateWithWorkflow);
+
+        ThreadUtil.simplyAwait(1);
+
+        EventAddLocation finalEventLocation = getEventLocation(candidateUuid, workflowPlanEnd.getLat(), workflowPlanEnd.getLon(), false);
+        kafka.publish(configNorns(), finalEventLocation);
+
+        ThreadUtil.simplyAwait(1);
+
+        Allure.step("Проверка отсутствия применения логики workflow для deliveryarea кандидата", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, candidateUuid), "Пропал supply от deliveryarea");
+            softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(SECOND_STORE_ID, candidateUuid), "Пропал supply от deliveryarea");
+            softAssert.assertNull(SupplyDao.INSTANCE.findSupply(THIRD_STORE_ID, candidateUuid), "Supply добавился по workflow");
+            softAssert.assertAll();
+        });
+    }
+
+    @Skip
+    @Issue("HG-1092")
+    @CaseId(161)
+    @Story("Workflow")
+    @Test(description = "Проверка отсутствия влияния не in_progress МЛ на кандидата",
+            groups = "ondemand-surgelevel-regress",
+            dependsOnMethods = "surgeProduceEventCandidateWithWorkflowAndDeliveryArea")
+    public void surgeProduceEventCandidateWithQueuedWorkflow() {
+        String candidateUuid = UUID.randomUUID().toString();
+
+        CandidateChanges eventCandidate = getEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE,
+                0, 0, false, SECOND_STORE_ID, DISPATCH.getName());
+        kafka.publish(configCandidateStatus(), eventCandidate);
+
+        ThreadUtil.simplyAwait(1);
+
+        EventAddLocation initialEventLocation = getEventLocation(candidateUuid, secondStoreLocation.getLat(), secondStoreLocation.getLon(), false);
+        kafka.publish(configNorns(), initialEventLocation);
+
+        ThreadUtil.simplyAwait(1);
+
+        CandidateChanges eventCandidateWithWorkflow = getEventCandidateStatusWithWorkflow(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE,
+                0, 0, false, SECOND_STORE_ID, DISPATCH.getName(),
+                SECOND_WORKFLOW_ID + 1, WorkflowStatus.QUEUED, getTimestamp(), workflowPlanEnd.getLat(), workflowPlanEnd.getLon());
+        kafka.publish(configCandidateStatus(), eventCandidateWithWorkflow);
+
+        ThreadUtil.simplyAwait(1);
+
+        EventAddLocation finalEventLocation = getEventLocation(candidateUuid, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), false);
+        kafka.publish(configNorns(), finalEventLocation);
+
+        ThreadUtil.simplyAwait(1);
+
+        Allure.step("Проверка добавления supply только по radius", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(FIRST_STORE_ID, candidateUuid), "Не добавился supply по radius1");
+            softAssert.assertNotNull(SupplyDao.INSTANCE.findSupply(THIRD_STORE_ID, candidateUuid), "Не добавился supply по radius3");
+            softAssert.assertAll();
         });
     }
 
