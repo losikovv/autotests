@@ -16,7 +16,7 @@ public enum CiModule {
     API("api"),
     GRPC("grpc");
 
-    public static final CiModule CI_MODULE = getValue(System.getenv("CI_MODULE"));
+    private static final CiModule CI_MODULE = getValue(System.getenv("CI_MODULE"));
     private final String name;
 
     public static CiModule getValue(final String constant) {
@@ -39,5 +39,10 @@ public enum CiModule {
     public static boolean isGrpc() {
         if (isNull(CI_MODULE)) return false;
         return CI_MODULE == GRPC;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isUi());
+        System.out.println(CI_MODULE);
     }
 }
