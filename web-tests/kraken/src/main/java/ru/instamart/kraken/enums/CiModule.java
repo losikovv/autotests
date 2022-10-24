@@ -34,7 +34,7 @@ public enum CiModule {
     }
 
     public static boolean isB2b() {
-        return CI_MODULE == UI_STF;
+        return CI_MODULE == UI_B2B;
     }
 
     public static boolean isApi() {
