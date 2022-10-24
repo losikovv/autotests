@@ -55,12 +55,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = order.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = order.getShipments().get(0).getLineItems().get(0).getPacks();
 
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -90,12 +85,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = order.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = order.getShipments().get(0).getLineItems().get(0).getPacks();
 
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -125,12 +115,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = order.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = order.getShipments().get(0).getLineItems().get(0).getPacks();
 
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -164,15 +149,9 @@ public class NotificationsPositionsV3Test extends RestBase {
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity + 250;
         Integer expQuantity = (int) Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
-        Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Integer expTotal = (int) Math.round(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity,
-                String.valueOf(gramsPerUnit));
+        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -185,7 +164,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
         simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
+        Integer total = (int) Math.round(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
 
         Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
                 "Количество товаров отличается от расчетного значения");
@@ -212,13 +191,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Integer expQuantity = (int) Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
         Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity,
-                String.valueOf(gramsPerUnit));
+        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -256,13 +229,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * 2 * quantity + 250;
 
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity,
-                String.valueOf(gramsPerUnit));
+        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -301,13 +268,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * 2 * quantity + 250;
 
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity,
-                String.valueOf(gramsPerUnit));
+        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -346,13 +307,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Integer quantity = lineItem.getPacks();
         Double expTotal = lineItem.getProduct().getUnitPrice() * quantity;
 
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity,
-                "0");
+        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -390,13 +345,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Integer quantity = lineItem.getPacks();
         Double expTotal = lineItem.getProduct().getUnitPrice() * quantity;
 
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity,
-                "0");
+        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -434,15 +383,9 @@ public class NotificationsPositionsV3Test extends RestBase {
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity + 250;
         Integer expQuantity = (int) Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
-        Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Integer expTotal = (int) Math.round(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity,
-                String.valueOf(gramsPerUnit));
+        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -455,7 +398,7 @@ public class NotificationsPositionsV3Test extends RestBase {
 
         simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
+        Integer total = (int) Math.round(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
 
         Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
                 "Количество товаров отличается от расчетного значения");
@@ -482,13 +425,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Integer expQuantity = (int) Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
         Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity,
-                String.valueOf(gramsPerUnit));
+        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -528,13 +465,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Integer expQuantity = (int) Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
         Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity,
-                String.valueOf(gramsPerUnit));
+        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -574,13 +505,7 @@ public class NotificationsPositionsV3Test extends RestBase {
         Integer expQuantity = (int) Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
         Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity,
-                String.valueOf(gramsPerUnit));
+        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
