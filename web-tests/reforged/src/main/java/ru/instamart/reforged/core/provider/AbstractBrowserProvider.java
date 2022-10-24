@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
@@ -18,7 +19,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import ru.instamart.reforged.core.config.BrowserProperties;
-import ru.instamart.reforged.core.provider.chrome.ChromeDriverExtension;
 
 import java.net.URI;
 import java.util.Optional;
@@ -49,7 +49,7 @@ public abstract class AbstractBrowserProvider {
     }
 
     protected void createLocalChromeDriver(final Optional<ChromeOptions> capabilities) {
-        this.driver = capabilities.map(ChromeDriverExtension::new).orElseGet(ChromeDriverExtension::new);
+        this.driver = capabilities.map(ChromeDriver::new).orElseGet(ChromeDriver::new);
         applyOptions();
     }
 

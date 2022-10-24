@@ -17,8 +17,8 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public final class EnvironmentProperties {
 
-    public static final String CI_MODULE = System.getenv("CI_MODULE");
     public static final String NAME = "env";
+
     @Config(configName = NAME, fieldName = "tenant", defaultValue = "")
     public static String TENANT;
     @Config(configName = NAME, fieldName = "server", defaultValue = "")
@@ -27,7 +27,7 @@ public final class EnvironmentProperties {
     public static String SERVICE;
     @Config(configName = NAME, fieldName = "stage", defaultValue = "")
     public static String STAGE;
-    @Config(configName = NAME, fieldName = "defaultSid", defaultValue = "81")
+    @Config(configName = NAME, fieldName = "defaultSid", defaultValue = "81", env = "DEFAULT_SID")
     public static int DEFAULT_SID;
     @Config(configName = NAME, fieldName = "defaultMetroMoscowSid", defaultValue = "1")
     public static int DEFAULT_METRO_MOSCOW_SID;
@@ -103,15 +103,6 @@ public final class EnvironmentProperties {
             String stfForwardTo;
 
             if (nonNull(customBasicUrl) && !customBasicUrl.isBlank()) {
-                String default_sid = System.getenv("DEFAULT_SID");
-                if (Objects.nonNull(default_sid) && !default_sid.isEmpty() && !default_sid.isBlank()) {
-                    try {
-                        DEFAULT_SID = Integer.parseInt(default_sid);
-                    } catch (Exception e) {
-                        log.error("Error parse default_sid");
-                    }
-                }
-
                 customBasicUrl = getDomainName(customBasicUrl);
                 SERVER = customBasicUrl.contains("kraken")
                         ? Server.PREPROD.name().toLowerCase() : customBasicUrl.contains("k-stage")
@@ -151,13 +142,12 @@ public final class EnvironmentProperties {
                 log.debug("SHOPPER_URL: " + SHOPPER_URL);
             }
 
-            if (nonNull(CI_MODULE) && (CI_MODULE.equals(CiModule.UI_STF.getName()) || (CI_MODULE.equals(CiModule.UI_B2B.getName())))) {
-                if (CI_MODULE.equals(CiModule.UI_STF.getName())) {
+            if (CiModule.isUi()) {
+                if (CiModule.isStf()) {
                     stfForwardTo = System.getenv("STF_FORWARD");
                 } else {
                     stfForwardTo = System.getenv("B2B_FORWARD");
                 }
-
                 STAGE = stfForwardTo.replaceAll("s-sb-stf|s-sb-|-\\w+$", "");
                 TENANT = stfForwardTo.replaceAll("^.+-", "").replaceAll("^sm", "");
                 SERVER = Server.CUSTOM.name().toLowerCase();

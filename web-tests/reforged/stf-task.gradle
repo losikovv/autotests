@@ -1,5 +1,3 @@
-import org.gradle.api.tasks.testing.Test
-
 task sberUiSmoke(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/stf.xml'
@@ -26,13 +24,6 @@ task sberRegression(type: Test) {
     }
     systemProperty 'qase.Project', 'STF'
     systemProperty 'qase.Title', 'STF UI Regression'
-}
-
-task sberRegressionMulti(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/all_multi.xml'
-        includeGroups 'regression','smoke'
-    }
 }
 
 task sbermarketUiCustom(type: Test) {

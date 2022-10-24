@@ -37,3 +37,14 @@ task copyAllAllureHistory(type: Copy) {
     duplicatesStrategy = DuplicatesStrategy.WARN
     into "build/allure-results/"
 }
+
+task copyAllLogs(type: Copy) {
+    sleep(5 * 1000)
+    def paths = []
+    subprojects.each {
+        paths += it.getProjectDir().path + "/logs".toString()
+    }
+    from paths
+    duplicatesStrategy = DuplicatesStrategy.WARN
+    into "build/logs/"
+}

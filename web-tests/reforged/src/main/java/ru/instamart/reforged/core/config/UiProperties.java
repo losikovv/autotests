@@ -5,10 +5,6 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.CiModule;
 
 import java.util.List;
-import java.util.Optional;
-
-import static java.util.Objects.nonNull;
-import static ru.instamart.kraken.config.EnvironmentProperties.CI_MODULE;
 
 public final class UiProperties {
 
@@ -17,14 +13,14 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "", args = "admin_url")
     public static String ADMIN_URL;
 
-    @Config(configName = NAME, fieldName = "stfUrl", defaultValue = "", args = "url_stf_front")
+    @Config(configName = NAME, fieldName = "stfUrl", defaultValue = "", env = "URL_STF_FRONT")
     public static String STF_URL;
-    @Config(configName = NAME, fieldName = "headerStfForwardTo", defaultValue = "s-sb-stfkraken-sbermarket", args = "stf_forward")
+    @Config(configName = NAME, fieldName = "headerStfForwardTo", defaultValue = "s-sb-stfkraken-sbermarket", env = "STF_FORWARD")
     public static String HEADER_STF_FORWARD_TO;
 
-    @Config(configName = NAME, fieldName = "b2bUrl", defaultValue = "", args = "url_b2b_front")
+    @Config(configName = NAME, fieldName = "b2bUrl", defaultValue = "", args = "url_b2b_front", env = "URL_B2B_FRONT")
     public static String B2B_URL;
-    @Config(configName = NAME, fieldName = "headerB2bForwardTo", defaultValue = "s-sb-stfkraken-smbusiness", args = "b2b_forward")
+    @Config(configName = NAME, fieldName = "headerB2bForwardTo", defaultValue = "s-sb-stfkraken-smbusiness", env = "B2B_FORWARD")
     public static String HEADER_B2B_FORWARD_TO;
 
     @Config(configName = NAME, fieldName = "selgrosUrl", defaultValue = "")
@@ -54,19 +50,11 @@ public final class UiProperties {
     public static class Env {
 
         static {
-            if (nonNull(CI_MODULE) && (CI_MODULE.equals(CiModule.UI_STF.getName()) || CI_MODULE.equals(CiModule.UI_B2B.getName()))) {
-                STF_URL = Optional.ofNullable(System.getenv("URL_STF_FRONT")).orElse("");
-                HEADER_STF_FORWARD_TO = Optional.ofNullable(System.getenv("STF_FORWARD")).orElse("");
-                B2B_URL = Optional.ofNullable(System.getenv("URL_B2B_FRONT")).orElse("");
-                HEADER_B2B_FORWARD_TO = Optional.ofNullable(System.getenv("B2B_FORWARD")).orElse("");
+            if (CiModule.isUi()) {
                 ADMIN_URL = EnvironmentProperties.BASIC_URL + "admin/";
             }
         }
 
         public static String ADMIN_FRONT_URL = ADMIN_URL;
-        public static String STF_FRONT_URL = STF_URL;
-        public static String STF_FORWARD_TO = HEADER_STF_FORWARD_TO;
-        public static String B2B_FRONT_URL = B2B_URL;
-        public static String B2B_FORWARD_TO = HEADER_B2B_FORWARD_TO;
     }
 }

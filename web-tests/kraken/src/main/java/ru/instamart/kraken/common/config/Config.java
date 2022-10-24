@@ -40,4 +40,9 @@ public @interface Config {
      * @return - аргументы, которые передаются при запуске прогона
      */
     String args() default "empty";
+
+    /**
+     * @return - значение из энвайронментов
+     */
+    String env() default "";
 }
