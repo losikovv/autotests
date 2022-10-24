@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.business;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -50,14 +51,28 @@ public final class LandingTests {
     @Test(description = "Добавление компании с лендинга", groups = {"smoke", REGRESSION_BUSINESS})
     public void addCompanyFromLanding() {
         var user = UserManager.getQaUser();
+        var company = JuridicalData.juridical();
 
         business().goToPage();
-        business().checkLandingVisible();
-
-        business().clickAddCompany();
-        business().interactAuthModal().checkModalIsVisible();
+        business().interactHeader().clickToLogin();
         business().interactAuthModal().authViaPhone(user);
-        shop().interactHeader().checkProfileButtonVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
+
+        companies().goToPage();
+        companies().checkCompaniesListIsEmpty();
+
+        companies().clickAddCompany();
+        companies().interactAddCompany().checkAddCompanyModalVisible();
+        companies().interactAddCompany().fillInn(company.getInn());
+        companies().interactAddCompany().clickAddCompany();
+        companies().interactAddCompany().fillName(company.getJuridicalName());
+        companies().interactAddCompany().clickAddCompany();
+        companies().interactAddCompany().checkAddCompanyModalNotVisible();
+
+        companies().goToPage();
+        companies().checkCompaniesListIsNotEmpty();
+        companies().checkCompaniesCount(1);
+        companies().checkCompaniesListContains(company.getJuridicalName());
     }
 
     @CaseId(28)

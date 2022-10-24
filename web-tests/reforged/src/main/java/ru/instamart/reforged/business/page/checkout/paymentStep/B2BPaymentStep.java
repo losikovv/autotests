@@ -34,6 +34,21 @@ public class B2BPaymentStep implements B2BPaymentStepCheck {
         kpp.fill(data);
     }
 
+    @Step("Ввести юрлицо грузополучателя '{0}'")
+    public void fillRequisitiesConsigneeName(final String data) {
+        consigneeName.fill(data);
+    }
+
+    @Step("Ввести адрес грузополучателя '{0}'")
+    public void fillRequisitiesConsigneeAddress(final String data) {
+        consigneeAddress.fill(data);
+    }
+
+    @Step("Ввести кпп грузополучателя '{0}'")
+    public void fillRequisitiesConsigneeKpp(final String data) {
+        consigneeKpp.fill(data);
+    }
+
     @Step("Отмечаем чекбокс 'Необходима накладная ТОРГ-12'")
     public void checkNeedInvoice() {
         needInvoice.check();

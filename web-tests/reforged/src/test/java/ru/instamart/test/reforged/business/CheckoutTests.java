@@ -11,8 +11,7 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
-import static ru.instamart.reforged.business.page.BusinessRouter.checkout;
-import static ru.instamart.reforged.business.page.BusinessRouter.shop;
+import static ru.instamart.reforged.business.page.BusinessRouter.*;
 
 @Epic("SMBUSINESS UI")
 @Feature("Чекаут B2B")
@@ -27,13 +26,12 @@ public final class CheckoutTests {
         var user = UserManager.getQaUser();
         var card = PaymentCards.testBusinessCard();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), user.getEmail());
-        helper.dropAndFillCart(user, UiProperties.DEFAULT_METRO_MOSCOW_SID);
+        helper.dropAndFillCart(user, UiProperties.DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
-        shop().interactHeader().checkProfileButtonVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
         checkout().goToPage();
         checkout().checkCheckoutLoaderNotVisible();
@@ -67,6 +65,9 @@ public final class CheckoutTests {
         checkout().setPayment().fillRequisitesName(company.getJuridicalName());
         checkout().setPayment().fillRequisitesAddress(company.getJuridicalAddress());
         checkout().setPayment().fillRequisitesKPP(company.getKpp());
+        checkout().setPayment().fillRequisitiesConsigneeName(company.getJuridicalName());
+        checkout().setPayment().fillRequisitiesConsigneeAddress(company.getJuridicalAddress());
+        checkout().setPayment().fillRequisitiesConsigneeKpp(company.getKpp());
         checkout().setPayment().clickToSave();
         checkout().checkSubmitFromCheckoutVisible();
         checkout().setPayment().checkRequisitesContains(checkout().setPayment().getFirstRequisites(), company.getJuridicalName());

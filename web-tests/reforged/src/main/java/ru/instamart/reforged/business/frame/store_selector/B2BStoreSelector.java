@@ -5,14 +5,9 @@ import ru.instamart.reforged.business.frame.B2BClose;
 
 public class B2BStoreSelector implements B2BStoreSelectorCheck, B2BClose {
 
-    @Step("Выбрать первый магазин в списке")
-    public void clickToFirstStoreCard() {
-        firstStoreCard.click();
-    }
-
-    @Step("Выбрать второй магазин в списке")
-    public void clickToSecondStoreCard() {
-        secondStoreCard.click();
+    @Step("Нажимаем на карточку магазина с sid = {storeSid}")
+    public void clickOnStoreWithSid(final int storeSid) {
+        storeCardBySid.click(storeSid);
     }
 
     @Step("Нажать Изменить адресс")
