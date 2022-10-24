@@ -47,6 +47,11 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "defaultPrereplacementSid", defaultValue = "6")
     public static int DEFAULT_PREREPLACEMENT_SID;
 
+    @Config(configName = NAME, fieldName = "alcoholCategoryPermalink", defaultValue = "")
+    public static String ALCOHOL_CATEGORY_LINK;
+    @Config(configName = NAME, fieldName = "freeDeliveryPromotionId", defaultValue = "")
+    public static int FREE_DELIVERY_PROMO_ID;
+
     public static class Env {
 
         static {
