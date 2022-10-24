@@ -18,6 +18,8 @@ task ciRun(type: Test) {
             break
         case 'ui-b2b': dependsOn(':reforged:businessUiCustom')
             break
+        case 'ui-admin': dependsOn(':reforged:adminUiCustom')
+            break
         case 'api': dependsOn(':api:ciRunApi')
             break
         case 'grpc': dependsOn(':grpc:ciRunGrpc')
