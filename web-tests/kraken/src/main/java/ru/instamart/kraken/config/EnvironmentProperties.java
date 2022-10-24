@@ -178,6 +178,38 @@ public final class EnvironmentProperties {
                     SHOPPER_URL = "shp" + customBasicUrl.substring(3);
                 } else SHOPPER_URL = "shp-0.k-stage.sbermarket.tech";
             }
+
+            if (CiModule.isAdmin()) {
+                BASIC_URL = getDomainName(System.getenv("ADMIN_URL"));
+                SERVER = BASIC_URL.contains("kraken")
+                        ? Server.PREPROD.name().toLowerCase() : BASIC_URL.startsWith("stf-")
+                        ? Server.STAGING.name().toLowerCase() : Server.CUSTOM.name().toLowerCase();
+                TENANT = "sbermarket";
+                STAGE = BASIC_URL.replace("stf-", "").replace(".k-stage.sbermarket.tech", "");
+
+                if (!BASIC_URL.startsWith("stf-")) {
+                    DB_URL = DB_URL.replace("_kraken", "");
+                    DB_PGSQL_URL = DB_PGSQL_URL.replace("_kraken", "");
+                } else {
+                    DB_URL = DB_URL.replace("kraken", STAGE);
+                    DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
+                }
+
+                if (BASIC_URL.startsWith("stf-")) {
+                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("kraken", STAGE);
+                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("kraken", STAGE);
+                } else {
+                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("stfkraken", STAGE);
+                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("shpkraken", STAGE);
+                }
+
+                if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
+                    SHOPPER_URL = getDomainName(customShopperUrl);
+                } else if (customBasicUrl.startsWith("stf-")) {
+                    SHOPPER_URL = "shp" + customBasicUrl.substring(3);
+                } else SHOPPER_URL = "shp-0.k-stage.sbermarket.tech";
+                log.debug("SHOPPER_URL: " + SHOPPER_URL);
+            }
         }
 
         public static String ENV_NAME = TENANT + "-" + SERVER;

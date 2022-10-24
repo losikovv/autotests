@@ -1,8 +1,6 @@
 package ru.instamart.reforged.core.config;
 
 import ru.instamart.kraken.common.config.Config;
-import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.enums.CiModule;
 
 import java.util.List;
 
@@ -10,7 +8,7 @@ public final class UiProperties {
 
     public static final String NAME = "ui";
 
-    @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "", args = "admin_url")
+    @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "", args = "admin_url", env = "ADMIN_URL")
     public static String ADMIN_URL;
 
     @Config(configName = NAME, fieldName = "stfUrl", defaultValue = "", env = "URL_STF_FRONT")
@@ -51,15 +49,4 @@ public final class UiProperties {
     public static String ALCOHOL_CATEGORY_LINK;
     @Config(configName = NAME, fieldName = "freeDeliveryPromotionId", defaultValue = "")
     public static int FREE_DELIVERY_PROMO_ID;
-
-    public static class Env {
-
-        static {
-            if (CiModule.isUi()) {
-                ADMIN_URL = EnvironmentProperties.BASIC_URL + "admin/";
-            }
-        }
-
-        public static String ADMIN_FRONT_URL = ADMIN_URL;
-    }
 }

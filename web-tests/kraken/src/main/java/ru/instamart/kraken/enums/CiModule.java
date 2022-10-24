@@ -11,6 +11,7 @@ public enum CiModule {
 
     UI_STF("ui-stf"),
     UI_B2B("ui-b2b"),
+    UI_ADMIN("ui-admin"),
     API("api"),
     GRPC("grpc"),
     UNKNOWN("unknown");
@@ -35,6 +36,10 @@ public enum CiModule {
 
     public static boolean isB2b() {
         return CI_MODULE == UI_B2B;
+    }
+
+    public static boolean isAdmin() {
+        return CI_MODULE == UI_ADMIN;
     }
 
     public static boolean isApi() {

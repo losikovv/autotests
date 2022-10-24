@@ -57,7 +57,7 @@ variables:
   DEFAULT_SID:
     description: "Сид магазина на котором будут прогоняться тесты"
   CI_MODULE:
-    description: "Например: ui  -Возможные варианты: ui-stf/ui-b2b/api/grpc/kafka/"
+    description: "Например: ui  -Возможные варианты: ui-stf/ui-b2b/ui-admin/api/grpc/kafka"
   CI_GROUP:
     description: "Например: all-cart Например: all-cart/all-order/api-instamart-smoke/api-instamart-regress"
   BFF_FORWARD:
