@@ -20,7 +20,7 @@ public interface CompanyInfoElement {
     Element accountUpdateInfo = new Element(By.xpath("//button//div[contains(.,'Последнее обновление')]"), "Всплывающая подсказка 'Последнее обновление...'");
     Element accountAbout = new Element(By.xpath("//span[contains(.,'Баланс может обновляться')]"), "Иконка с вопросительным знаком в блоке состояния счёта");
     Element accountUpdateWarning = new Element(By.xpath("//span//div[contains(.,'Баланс может')]"), "Всплывающая подсказка 'Баланс может обновляться с задержкой...'");
-    Element paymentAccountAmount = new Element(By.xpath("//div[contains(.,'Ваш счёт')][./button]/../following-sibling::div"), "Сумма на счёте");
+    Element paymentAccountAmount = new Element(By.xpath("//div[contains(.,'Ваш счёт')][./button]/../following-sibling::div[not(.='Загрузка...')]"), "Сумма на счёте");
 
     Element companyInfo = new Element(By.xpath("//div[./button[@data-qa='user_companies_add_company_button']]/following-sibling::div[1]"), "Блок основной информации о компании");
     Element companyUserInfo = new Element(By.xpath("//div[./button[@data-qa='user_companies_add_company_button']]/following-sibling::div[2]"), "Блок информации о представителях компании");

@@ -12,7 +12,10 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
-import static ru.instamart.reforged.business.page.BusinessRouter.shop;
+import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
+import static ru.instamart.reforged.business.page.BusinessRouter.*;
+import static ru.instamart.reforged.business.page.BusinessRouter.b2cHome;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
 
 @Epic("SMBUSINESS UI")
 @Feature("Каталог B2B")
@@ -29,12 +32,14 @@ public final class ShoppingCatalogTests {
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
+        business().goToPage();
+        business().interactHeader().clickToLogin();
+        business().interactAuthModal().authViaPhone(userData);
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
+        business().clickOnStoreWithSid(DEFAULT_AUCHAN_SID);
+
+        shop().interactHeader().checkEnteredAddressIsVisible();
         shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().checkCartItemsCountSpoilerIsVisible();
@@ -61,12 +66,14 @@ public final class ShoppingCatalogTests {
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
+        business().goToPage();
+        business().interactHeader().clickToLogin();
+        business().interactAuthModal().authViaPhone(userData);
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
+        business().clickOnStoreWithSid(DEFAULT_AUCHAN_SID);
+
+        shop().interactHeader().checkEnteredAddressIsVisible();
         shop().openFirstProductCard();
         shop().interactProductCard().checkProductCardVisible();
         shop().interactProductCard().clickOnBuy();
@@ -101,12 +108,15 @@ public final class ShoppingCatalogTests {
     public void testNeedAuthAddToFavourites() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+
+        shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsOpen();
+        shop().interactHeader().interactStoreSelector().clickOnStoreWithSid(DEFAULT_AUCHAN_SID);
+        shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotOpen();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().addFirstItemToFavourites();
