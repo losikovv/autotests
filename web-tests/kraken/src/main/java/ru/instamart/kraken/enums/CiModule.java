@@ -20,7 +20,7 @@ public enum CiModule {
 
     public static CiModule getValue(final String constant) {
         return Arrays.stream(CiModule.values())
-                .filter(e -> e.name().equalsIgnoreCase(constant))
+                .filter(e -> e.getName().equalsIgnoreCase(constant))
                 .findFirst()
                 .orElse(UNKNOWN);
     }

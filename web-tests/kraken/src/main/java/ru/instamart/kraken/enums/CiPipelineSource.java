@@ -32,7 +32,7 @@ public enum CiPipelineSource {
             return LOCAL;
         }
         return Arrays.stream(CiPipelineSource.values())
-                .filter(e -> e.name().equalsIgnoreCase(constant))
+                .filter(e -> e.getName().equalsIgnoreCase(constant))
                 .findFirst()
                 .orElse(LOCAL);
     }
