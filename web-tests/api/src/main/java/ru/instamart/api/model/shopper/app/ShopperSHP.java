@@ -25,11 +25,13 @@ public class ShopperSHP extends BaseObject {
         @lombok.Data
         @EqualsAndHashCode(callSuper=false)
         public static class Attributes extends BaseObject {
+            @Null
             @JsonSchema(required = true)
             private String name;
             @Null
             @JsonSchema(required = true)
             private String login;
+            @Null
             @JsonSchema(required = true)
             private String phone;
             @JsonSchema(required = true)
@@ -70,6 +72,7 @@ public class ShopperSHP extends BaseObject {
             private VehiclesSHP vehicles;
             private EquipmentSHP equipment;
             private UniformsSHP uniforms;
+            @Null
             private StoreSHP store;
             private RolesSHP roles;
             private DeliveryAreaStoresSHP deliveryAreaStores;
