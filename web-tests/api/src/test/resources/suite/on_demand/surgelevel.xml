@@ -14,7 +14,7 @@
         <classes>
             <class name="ru.instamart.test.api.on_demand.surgelevel.GrpcV1Test"/>
             <class name="ru.instamart.test.api.on_demand.surgelevel.GrpcV2Test"/>
-            <class name="ru.instamart.test.api.on_demand.surgelevel.KafkaTest"/>
+            <class name="ru.instamart.test.api.on_demand.surgelevel.SurgeLevelTest"/>
         </classes>
     </test>
 </suite>

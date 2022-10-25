@@ -9,15 +9,19 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.jdbc.dao.surgelevel.ConfigDao;
 import ru.instamart.jdbc.dao.surgelevel.ConfigInheritanceDao;
 import ru.instamart.jdbc.dao.surgelevel.StoreDao;
+import ru.instamart.kraken.util.ThreadUtil;
 import surgelevelevent.Surgelevelevent;
 
 import java.util.List;
 import java.util.Objects;
 
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.kafka.configs.KafkaConfigs.*;
 import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
 public class SurgeLevelHelper {
+
+    private static final KafkaHelper kafka = new KafkaHelper();
 
     @Step("Создаем событие отправки заказа в kafka для магазина {storeId}")
     public static OrderChanged.EventOrderChanged getEventOrderStatus(String orderUuid, String storeId, OrderChanged.EventOrderChanged.OrderStatus orderStatus, OrderChanged.EventOrderChanged.ShipmentType shipmentType, String shipmentUuid) {
@@ -28,6 +32,13 @@ public class SurgeLevelHelper {
                 .setShipmentType(shipmentType)
                 .setShipmentUuid(shipmentUuid)
                 .build();
+    }
+
+    @Step("Отправляем событие отправки заказа в kafka для магазина {storeId}")
+    public static void publishEventOrderStatus(String orderUuid, String storeId, OrderChanged.EventOrderChanged.OrderStatus orderStatus, OrderChanged.EventOrderChanged.ShipmentType shipmentType, String shipmentUuid, int timeout) {
+        OrderChanged.EventOrderChanged eventOrder = getEventOrderStatus(orderUuid, storeId, orderStatus, shipmentType, shipmentUuid);
+        kafka.publish(configOrderStatusChanged(), eventOrder);
+        ThreadUtil.simplyAwait(timeout);
     }
 
     @Step("Проверяем отправку расчета surgelevel в kafka для магазина {storeId}")
@@ -76,6 +87,13 @@ public class SurgeLevelHelper {
                 .build();
     }
 
+    @Step("Отправляем событие отправки статуса кандидата {candidateUuid}")
+    public static void publishEventCandidateStatus(String candidateUuid, CandidateChangesOuterClass.CandidateChanges.Role candidateRole, CandidateChangesOuterClass.CandidateChanges.Status candidateStatus, int shiftId, int deliveryAreaId, boolean fixedOnDeliveryAreaOrStore, String storeId, String storeScheduleType, int timeout) {
+        CandidateChangesOuterClass.CandidateChanges eventCandidate = getEventCandidateStatus(candidateUuid, candidateRole, candidateStatus, shiftId, deliveryAreaId, fixedOnDeliveryAreaOrStore, storeId, storeScheduleType);
+        kafka.publish(configCandidateStatus(), eventCandidate);
+        ThreadUtil.simplyAwait(timeout);
+    }
+
     @Step("Создаем событие отправки статуса кандидата {candidateUuid} с workflow")
     public static CandidateChangesOuterClass.CandidateChanges getEventCandidateStatusWithWorkflow(String candidateUuid, CandidateChangesOuterClass.CandidateChanges.Role candidateRole, CandidateChangesOuterClass.CandidateChanges.Status candidateStatus, int shiftId, int deliveryAreaId, boolean fixedOnDeliveryAreaOrStore, String storeId, String storeScheduleType, int workflowId, CandidateChangesOuterClass.WorkflowStatus workflowStatus, Timestamp workflowPlanEnded, float workflowLat, float workflowLon) {
         return CandidateChangesOuterClass.CandidateChanges.newBuilder()
@@ -105,6 +123,13 @@ public class SurgeLevelHelper {
                 .build();
     }
 
+    @Step("Отправляем событие отправки статуса кандидата {candidateUuid} c workflow")
+    public static void publishEventCandidateStatusWithWorkflow(String candidateUuid, CandidateChangesOuterClass.CandidateChanges.Role candidateRole, CandidateChangesOuterClass.CandidateChanges.Status candidateStatus, int shiftId, int deliveryAreaId, boolean fixedOnDeliveryAreaOrStore, String storeId, String storeScheduleType, int workflowId, CandidateChangesOuterClass.WorkflowStatus workflowStatus, Timestamp workflowPlanEnded, float workflowLat, float workflowLon, int timeout) {
+        CandidateChangesOuterClass.CandidateChanges eventCandidate = getEventCandidateStatusWithWorkflow(candidateUuid, candidateRole, candidateStatus, shiftId, deliveryAreaId, fixedOnDeliveryAreaOrStore, storeId, storeScheduleType, workflowId, workflowStatus, workflowPlanEnded, workflowLat, workflowLon);
+        kafka.publish(configCandidateStatus(), eventCandidate);
+        ThreadUtil.simplyAwait(timeout);
+    }
+
     @Step("Создаем событие отправки геолокации кандидата {candidateUuid}")
     public static Norns.EventAddLocation getEventLocation(String userUuid, float lat, float lon, boolean isFakeGpsAppDetected) {
         return Norns.EventAddLocation.newBuilder()
@@ -114,5 +139,12 @@ public class SurgeLevelHelper {
                 .setTime(getTimestamp())
                 .setIsFakeGpsAppDetected(isFakeGpsAppDetected)
                 .build();
+    }
+
+    @Step("Отправляем событие отправки геолокации кандидата {candidateUuid}")
+    public static void publishEventLocation(String userUuid, float lat, float lon, boolean isFakeGpsAppDetected, int timeout) {
+        Norns.EventAddLocation eventLocation = getEventLocation(userUuid, lat, lon, isFakeGpsAppDetected);
+        kafka.publish(configNorns(), eventLocation);
+        ThreadUtil.simplyAwait(timeout);
     }
 }
