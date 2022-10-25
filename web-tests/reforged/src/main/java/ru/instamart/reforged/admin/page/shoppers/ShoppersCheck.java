@@ -3,9 +3,12 @@ package ru.instamart.reforged.admin.page.shoppers;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
+
 import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static ru.instamart.reforged.core.Check.krakenAssert;
 
 public interface ShoppersCheck extends ShoppersElement {
 
@@ -21,42 +24,37 @@ public interface ShoppersCheck extends ShoppersElement {
 
     @Step("Проверяем, что партнер c именем {0} найден")
     default void checkShopperWasFound(String name) {
-        shopperNameInTable.should().visible(name);
+        Assert.assertEquals(shoppersTable.getPartnersNames().get(1), name, "Искомый партнер не найден");
     }
 
-    @Step("Проверяем, что теги в списке тегов отображаются по алфавиту")
+    @Step("Проверяем, что теги в списке тегов первого партнера отображаются по алфавиту")
     default void compareSelectedTagsWithActual(Set<String> namesSetExpected) {
-        Assert.assertEquals(tags.getTextFromAllElementsInOrder(), namesSetExpected.stream().sorted(Comparator.naturalOrder()).collect(Collectors.toList()), "Теги выбранные в списке отображаются не по алфавиту");
+        Assert.assertEquals(shoppersTable.getAllTagsTextFromLine(1), namesSetExpected.stream().sorted(Comparator.naturalOrder()).collect(Collectors.toList()), "Теги выбранные в списке отображаются не по алфавиту");
     }
 
     @Step("Проверяем, что количество тегов в списке соответствует ожидаемому - {0}")
     default void compareSelectedTagsQuantityWithActual(int tagsCount) {
-        Assert.assertEquals(tags.elementCount(), tagsCount, "Количество тегов не соответствует ожидаемому");
+        Assert.assertEquals(shoppersTable.getAllTagsFromLine(1).size(), tagsCount, "Количество тегов не соответствует ожидаемому");
     }
 
     @Step("Проверяем, что тег с именем: {0} отображается в списке тегов")
     default void checkTagWithNameVisible(String name) {
-        tag.should().visible(name);
+        Assert.assertTrue(shoppersTable.getAllTagsTextFromLine(1).contains(name), "Ожидаемый тег не отображается");
     }
 
-    @Step("Проверяем, что тег с именем: {0} не отображается в списке тегов")
+    @Step("Проверяем, что тег с именем: {0} отображается в списке тегов")
     default void checkTagWithNameNotVisible(String name) {
-        tag.should().invisible(name);
+        Assert.assertFalse(shoppersTable.getAllTagsTextFromLine(1).contains(name), "Ожидаемый тег не отображается");
     }
 
     @Step("Проверить, что текст на кнопке разворачивания списка тегов - {0}")
     default void checkCollapseTagListButtonText(String text) {
-        Assert.assertEquals(collapseTagsButtons.getElements().get(0).getText(), text, "Текст на кнопке раскрытия списков тегов не '" + text +"'");
+        Assert.assertEquals(shoppersTable.getExpandButtonText(1), text, "Текст на кнопке раскрытия списков тегов не '" + text + "'");
     }
 
     @Step("Проверяем, что кнопка 'Добавить тег' отображается")
     default void checkAddTagButtonVisible() {
-        addTagButtons.should().visible();
-    }
-
-    @Step("Проверяем, что модальное окно выбора тега отображается")
-    default void checkModalVisible() {
-        modal.should().invisible();
+        Assert.assertTrue(shoppersTable.checkAddTagButtonVisible(1), "Кнопка 'Добавить тег' не отображается");
     }
 
     @Step("Проверяем, что теги в списке тегов скрыты")
@@ -71,7 +69,7 @@ public interface ShoppersCheck extends ShoppersElement {
 
     @Step("Проверяем, что кнопки удаления в списке тегов показаны")
     default void checkTagsInFieldHaveRemoveButtons() {
-        Assert.assertEquals(selectedTagsInField.elementCount(), selectedTagsInFieldRemoveButtons.elementCount(), "Количество кнопок удаления не соответствует количеству тегов");
+        Assert.assertEquals(shoppersTable.getAllTagsFromLine(1).size(), shoppersTable.getAllTagsDeleteButtons(1).size(), "Количество кнопок удаления не соответствует количеству тегов");
     }
 
     @Step("Проверяем, что тег: {0} выбран")
@@ -81,11 +79,14 @@ public interface ShoppersCheck extends ShoppersElement {
 
     @Step("Проверяем, что тег: {0} отображается у каждого отфильтрованного партнера в списке")
     default void checkTagSelectedInFilterVisibleOnAllPartners(String name) {
-        Assert.assertEquals(partnerEntryInTable.elementCount(), tagsWithName.getElements(name).size(), "Не у каждого партнера в списке есть отфильтрованный тег");
+        for (int i = 1; i < shoppersTable.getRowsCount(); i++) {
+            krakenAssert.assertTrue(shoppersTable.getAllTagsTextFromLine(i).contains(name));
+        }
+        krakenAssert.assertAll();
     }
 
     @Step("Проверяем, что теги в списке тегов показаны")
     default void compareSelectedTagsInFieldWithActual(Set<String> namesSetExpected) {
-        Assert.assertTrue(namesSetExpected.containsAll(selectedTagsInField.getTextFromAllElements()), "Теги выбранные в списке не соответствуют отображаемым в поле");
+        Assert.assertTrue(namesSetExpected.containsAll(shoppersTable.getAllTagsTextFromLine(1)), "Теги выбранные в списке не соответствуют отображаемым в поле");
     }
 }

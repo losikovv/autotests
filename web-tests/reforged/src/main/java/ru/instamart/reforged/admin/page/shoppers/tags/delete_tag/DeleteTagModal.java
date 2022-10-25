@@ -7,9 +7,9 @@ import ru.instamart.reforged.core.component.Element;
 
 public final class DeleteTagModal {
 
-    Element modal = new Element(By.xpath("//div[@class='ant-modal-content']"), "Модалка удаления тега");
-    Button cancel = new Button(By.xpath("//div[@class='ant-modal-content']//button[contains(@class,'ant-btn-default')]"), "Кнопка 'Отмена'");
-    Button approve = new Button(By.xpath("//div[@class='ant-modal-content']//button[contains(@class,'ant-btn-primary')]"), "Кнопка 'OK'");
+    private final Element modal = new Element(By.xpath("//div[@class='ant-modal-content']"), "Модалка удаления тега");
+    private final Button cancel = new Button(By.xpath("//div[@class='ant-modal-content']//button[contains(@class,'ant-btn-default')]"), "Кнопка 'Отмена'");
+    private final Button approve = new Button(By.xpath("//div[@class='ant-modal-content']//button[contains(@class,'ant-btn-primary')]"), "Кнопка 'OK'");
 
     @Step("Проверяем, что модальное окно удаления тега отображается")
     public void checkModalVisible() {
@@ -30,6 +30,4 @@ public final class DeleteTagModal {
     public void clickOnApproveButton() {
         approve.click();
     }
-
-
 }

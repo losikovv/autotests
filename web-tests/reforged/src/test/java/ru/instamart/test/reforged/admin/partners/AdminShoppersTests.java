@@ -222,7 +222,7 @@ public final class AdminShoppersTests {
         shoppers().checkSpinnerNotVisible();
 
         shoppers().checkShopperWasFound(shopperData.getName());
-        shoppers().clickOnAddTagButton();
+        shoppers().clickOnFirstAddTagButton();
 
         shoppers().interactAddTagModal().checkModalVisible();
         shoppers().interactAddTagModal().checkAddTagsButtonInactive();
@@ -250,13 +250,17 @@ public final class AdminShoppersTests {
         shoppers().interactAddTagModal().checkTagsInFieldHaveRemoveButtons();
         shoppers().interactAddTagModal().checkAddTagsButtonActive();
         shoppers().interactAddTagModal().clickOnAddTagsButton();
+        shoppers().interactAddTagModal().checkModalNotVisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
 
         shoppers().waitPageLoad();
 
         shoppers().clickOnCollapseTagListButton();
         shoppers().compareSelectedTagsWithActual(tags);
 
-        shoppers().clickOnAddTagButton();
+        shoppers().clickOnFirstAddTagButton();
         shoppers().interactAddTagModal().checkModalVisible();
         shoppers().interactAddTagModal().checkSelectedTagsInFieldEmpty();
         shoppers().interactAddTagModal().clickOnTagsSelector();
@@ -285,7 +289,7 @@ public final class AdminShoppersTests {
         shoppers().checkSpinnerNotVisible();
 
         shoppers().checkShopperWasFound(shopperData.getName());
-        shoppers().clickOnAddTagButton();
+        shoppers().clickOnFirstAddTagButton();
 
         shoppers().interactAddTagModal().checkModalVisible();
         shoppers().interactAddTagModal().checkAddTagsButtonInactive();
@@ -301,6 +305,10 @@ public final class AdminShoppersTests {
 
         shoppers().interactAddTagModal().checkAddTagsButtonActive();
         shoppers().interactAddTagModal().clickOnAddTagsButton();
+        shoppers().interactAddTagModal().checkModalNotVisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
 
         shoppers().waitPageLoad();
 
@@ -309,12 +317,18 @@ public final class AdminShoppersTests {
         shoppers().interactDeleteTagModal().clickOnCancelButton();
         shoppers().interactDeleteTagModal().checkModalNotVisible();
 
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
         shoppers().checkTagWithNameVisible(firstTagName);
 
         shoppers().clickToDeleteTag(1);
         shoppers().interactDeleteTagModal().checkModalVisible();
         shoppers().interactDeleteTagModal().clickOnApproveButton();
         shoppers().interactDeleteTagModal().checkModalNotVisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
 
         shoppers().checkTagWithNameNotVisible(firstTagName);
     }
@@ -339,7 +353,7 @@ public final class AdminShoppersTests {
         shoppers().checkSpinnerNotVisible();
 
         shoppers().checkShopperWasFound(shopperData.getName());
-        shoppers().clickOnAddTagButton();
+        shoppers().clickOnFirstAddTagButton();
 
         shoppers().interactAddTagModal().checkModalVisible();
         shoppers().interactAddTagModal().checkAddTagsButtonInactive();
@@ -363,6 +377,10 @@ public final class AdminShoppersTests {
 
         shoppers().interactAddTagModal().checkAddTagsButtonActive();
         shoppers().interactAddTagModal().clickOnAddTagsButton();
+        shoppers().interactAddTagModal().checkModalNotVisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
 
         shoppers().waitPageLoad();
 
@@ -370,7 +388,7 @@ public final class AdminShoppersTests {
         shoppers().checkAddTagButtonVisible();
         shoppers().checkCollapseTagListButtonText("Еще 1");
 
-        shoppers().clickOnAddTagButton();
+        shoppers().clickOnFirstAddTagButton();
 
         shoppers().interactAddTagModal().checkModalVisible();
         shoppers().interactAddTagModal().checkAddTagsButtonInactive();
@@ -387,6 +405,10 @@ public final class AdminShoppersTests {
 
         shoppers().interactAddTagModal().checkAddTagsButtonActive();
         shoppers().interactAddTagModal().clickOnAddTagsButton();
+        shoppers().interactAddTagModal().checkModalNotVisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
 
         shoppers().waitPageLoad();
 
@@ -398,6 +420,9 @@ public final class AdminShoppersTests {
         shoppers().interactDeleteTagModal().checkModalVisible();
         shoppers().interactDeleteTagModal().clickOnApproveButton();
         shoppers().interactDeleteTagModal().checkModalNotVisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
 
         shoppers().compareSelectedTagsQuantityWithActual(2);
         shoppers().checkAddTagButtonVisible();
@@ -421,7 +446,7 @@ public final class AdminShoppersTests {
         shoppers().clickOnTagsFilterSelector();
 
         shoppers().checkTagsDropdownVisible();
-        var firstTagName = shoppers().interactAddTagModal().getTagNameFromList(1);
+        var firstTagName = shoppers().getTagNameFromList(1);
         shoppers().clickOnTagInList(1);
         shoppers().checkTagSelected(firstTagName);
 
@@ -431,13 +456,20 @@ public final class AdminShoppersTests {
         shoppers().clickOnTagsFilterSelector();
 
         shoppers().checkTagsDropdownVisible();
-        var secondTagName = shoppers().interactAddTagModal().getTagNameFromList(2);
+        var secondTagName = shoppers().getTagNameFromList(2);
         shoppers().clickOnTagInList(2);
         shoppers().checkTagSelected(secondTagName);
 
         var tags = Set.of(firstTagName, secondTagName);
 
         shoppers().compareSelectedTagsInFieldWithActual(tags);
+
+        shoppers().clickOnTagsFilterSelector();
+        shoppers().checkTagsDropdownInvisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
         shoppers().checkTagsInFieldHaveRemoveButtons();
 
         shoppers().expandAllTags();

@@ -13,17 +13,22 @@ import java.util.Set;
 
 public final class AddTagModal {
 
-    Element modal = new Element(By.xpath("//div[@data-qa='add_tags_select']/ancestor::div[@class='ant-modal']"), "Модалка выбора тегов");
-    Button addTagsButtonInactive = new Button(By.xpath("//button[@data-qa='add_tags_button' and(@disabled)]"), "Кнопка добавления тегов");
-    Button addTagsButtonActive = new Button(By.xpath("//button[@data-qa='add_tags_button']"), "Кнопка добавления тегов");
-    Element tagsSelector = new Element(By.xpath("//div[@data-qa='add_tags_select']"), "Селектор тегов");
-    ElementCollection tagsInList = new ElementCollection(By.xpath("//div[contains(@class,' ant-select-item-option')]"), "Теги в списке тегов");
-    Element selectedTagInList = new Element(ByKraken.xpathExpression("//span[text()='%s']/ancestor::div[@aria-selected='true']"),"Выбранный тег в списке тегов");
-    ElementCollection selectedTagsInField = new ElementCollection(By.xpath("//span[@class='ant-select-selection-item-content']/span"),"Коллекция выбранных тегов в поле");
-    ElementCollection selectedTagsInFieldRemoveButtons = new ElementCollection(By.xpath("//span[@class='ant-select-selection-item']//span[contains(@class,'anticon-close')]"),"Коллекция кнопок удаления выбранных тегов в поле");
+    private final Element modal = new Element(By.xpath("//div[@data-qa='add_tags_select']/ancestor::div[@class='ant-modal']"), "Модалка выбора тегов");
+    private final Button addTagsButtonInactive = new Button(By.xpath("//button[@data-qa='add_tags_button' and(@disabled)]"), "Кнопка добавления тегов");
+    private final Button addTagsButtonActive = new Button(By.xpath("//button[@data-qa='add_tags_button']"), "Кнопка добавления тегов");
+    private final Element tagsSelector = new Element(By.xpath("//div[@data-qa='add_tags_select']"), "Селектор тегов");
+    private final ElementCollection tagsInList = new ElementCollection(By.xpath("//div[contains(@class,' ant-select-item-option')]"), "Теги в списке тегов");
+    private final Element selectedTagInList = new Element(ByKraken.xpathExpression("//span[text()='%s']/ancestor::div[@aria-selected='true']"),"Выбранный тег в списке тегов");
+    private final ElementCollection selectedTagsInField = new ElementCollection(By.xpath("//span[@class='ant-select-selection-item-content']/span"),"Коллекция выбранных тегов в поле");
+    private final ElementCollection selectedTagsInFieldRemoveButtons = new ElementCollection(By.xpath("//span[@class='ant-select-selection-item']//span[contains(@class,'anticon-close')]"),"Коллекция кнопок удаления выбранных тегов в поле");
 
     @Step("Проверяем, что модальное окно выбора тега отображается")
     public void checkModalVisible() {
+        modal.should().visible();
+    }
+
+    @Step("Проверяем, что модальное окно выбора тега не отображается")
+    public void checkModalNotVisible() {
         modal.should().invisible();
     }
 
@@ -53,7 +58,7 @@ public final class AddTagModal {
         Assert.assertEquals(selectedTagsInField.elementCount(), selectedTagsInFieldRemoveButtons.elementCount(), "Количество кнопок удаления не соответствует количеству тегов");
     }
 
-    @Step("Проверяем, что тег выбран")
+    @Step("Проверяем, что тег {0} выбран")
     public void checkTagSelected(String name) {
         selectedTagInList.should().visible(name);
     }
@@ -65,7 +70,7 @@ public final class AddTagModal {
 
     @Step("Проверяем, что поле выбранных тегов пустое")
     public void checkSelectedTagsInFieldEmpty() {
-        Assert.assertEquals(selectedTagsInField.elementCount(), 0, "Список выбранных тестов не пустой");
+        selectedTagsInField.should().invisible();
     }
 
     @Step("Проверяем, что теги в списке тегов показаны")

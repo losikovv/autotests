@@ -30,14 +30,14 @@ public final class ShoppersPage implements AdminPage, ShoppersCheck {
         nameInput.fill(name);
     }
 
-    @Step("Кликнуть на 'Добавить тег'")
-    public void clickOnAddTagButton() {
-        addTagButtons.clickOnFirst();
+    @Step("Кликнуть на кнопку 'Добавить тег' у первого партнера")
+    public void clickOnFirstAddTagButton() {
+        shoppersTable.clickOnAddTag(1);
     }
 
-    @Step("Кликнуть на 'Еще'")
+    @Step("Кликнуть на 'Еще' у первого партнера")
     public void clickOnCollapseTagListButton() {
-        collapseTagsButtons.clickOnFirst();
+        shoppersTable.clickOnExpandButton(1);
     }
 
     @Step("Кликнуть на фильтр тегов")
@@ -47,7 +47,7 @@ public final class ShoppersPage implements AdminPage, ShoppersCheck {
 
     @Step("Нажать на кнопку 'Удалить' у тега под номером: {0}")
     public void clickToDeleteTag(int tagOrder) {
-        tagsDeleteButtons.getElements().get(tagOrder - 1).click();
+        shoppersTable.getAllTagsDeleteButtons(1).get(tagOrder - 1).click();
     }
 
     @Step("Клик на {0}-й элемент списка тегов")
@@ -57,6 +57,15 @@ public final class ShoppersPage implements AdminPage, ShoppersCheck {
 
     @Step("Развернуть все списки тегов")
     public void expandAllTags() {
-        collapseTagsButtons.clickOnAll();
+        for (int i = 0; i < shoppersTable.getRowsCount(); i++) {
+            if (shoppersTable.checkExpandButtonVisible(i)) {
+                shoppersTable.clickOnExpandButton(i);
+            }
+        }
+    }
+
+    @Step("Получить название {0}-го элемента списка тегов")
+    public String getTagNameFromList(int elementOrder) {
+        return tagsInList.getElements().get(elementOrder - 1).getText();
     }
 }

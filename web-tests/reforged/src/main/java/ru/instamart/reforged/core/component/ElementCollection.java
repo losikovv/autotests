@@ -146,11 +146,6 @@ public final class ElementCollection extends CollectionComponent {
         return getElements().stream().map(WebElement::getText).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    public List<String> getTextFromAllElementsInOrder() {
-        log.debug("Get text from all elements of element collection {}'s with locator {}", getClass().getSimpleName(), getBy());
-        return getElements().stream().map(WebElement::getText).collect(Collectors.toCollection(ArrayList::new));
-    }
-
     public synchronized Set<String> getTextFromAllElements(final Object... args) {
         setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         log.debug("Get text from all elements of element collection {}'s with locator {}", getClass().getSimpleName(), getBy());
@@ -164,10 +159,6 @@ public final class ElementCollection extends CollectionComponent {
     }
 
     public int elementCount() {
-        try {
-            return getComponents().size();
-        } catch (TimeoutException t) {
-            return 0;
-        }
+        return getComponents().size();
     }
 }
