@@ -17,7 +17,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import static ru.instamart.reforged.Group.REGRESSION_BUSINESS;
 import static ru.instamart.reforged.business.page.BusinessRouter.*;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
-import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_LENTA_SID;
 
 @Epic("SMBUSINESS UI")
 @Feature("Основные тесты корзины")
@@ -31,18 +31,17 @@ public final class ShoppingCartTests {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
-        helper.dropAndFillCart(userData, DEFAULT_METRO_MOSCOW_SID);
+        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactAuthModal().checkModalIsNotVisible();
-        shop().interactHeader().checkProfileButtonVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
-        shop().interactHeader().clickToCart();
-        shop().interactCart().checkCartOpen();
-        shop().interactCart().checkTotalVatDisplayed();
+        business().interactHeaderMultisearch().clickToCart();
+        business().interactHeaderMultisearch().interactCart().checkCartOpen();
+        business().interactHeaderMultisearch().interactCart().checkTotalVatDisplayed();
     }
 
     @CaseId(263)
@@ -51,18 +50,17 @@ public final class ShoppingCartTests {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
-        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID);
+        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), DEFAULT_LENTA_SID, DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactAuthModal().checkModalIsNotVisible();
-        shop().interactHeader().checkProfileButtonVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
-        shop().interactHeader().clickToCart();
-        shop().interactCart().checkCartOpen();
-        shop().interactCart().checkTotalVatDisplayed();
+        business().interactHeaderMultisearch().clickToCart();
+        business().interactHeaderMultisearch().interactCart().checkCartOpen();
+        business().interactHeaderMultisearch().interactCart().checkTotalVatDisplayed();
     }
 
     @CaseId(725)
@@ -197,18 +195,18 @@ public final class ShoppingCartTests {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
-        helper.dropAndFillCart(userData, DEFAULT_METRO_MOSCOW_SID);
+        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactAuthModal().checkModalIsNotVisible();
-        shop().interactHeader().checkProfileButtonVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
-        shop().interactHeader().clickToCart();
-        shop().interactCart().checkCartOpen();
-        shop().interactCart().setItemCount("200");
+        business().interactHeaderMultisearch().clickToCart();
+        business().interactHeaderMultisearch().interactCart().checkCartOpen();
+        business().interactHeaderMultisearch().interactCart().setItemCount("200");
 
-        shop().interactCart().checkDisplayedItemCount("199 шт");
+        business().interactHeaderMultisearch().interactCart().checkDisplayedItemCount("199 шт");
     }
 }

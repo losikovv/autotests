@@ -35,20 +35,15 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   CI_RUN_ALL_JOBS: "true"
   ADMIN_URL:
-    value: "https://stf-kraken.k-stage.sbermarket.tech/admin/"
-    description: "ОБЯЗАТЕЛЬНО ДЛЯ API ЗАПУСКА! Нужно указывать полный url"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА ТЕСТОВ АДМИНКИ! Нужно указывать полный url. Например: https://stf-kraken.k-stage.sbermarket.tech/admin/"
   URL_STF_FRONT:
-    value: "https://next-default.k-stage.sbermarket.tech/"
-    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Нужно указывать полный url фронта"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Нужно указывать полный url фронта. Например: https://next-default.k-stage.sbermarket.tech/"
   STF_FORWARD:
-    value: "s-sb-stfkraken-sbermarket"
-    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Связь фронта с бекендом. Значение для хедера/куки sbm-forward-feature-version-stf"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Значение для хедера/куки sbm-forward-feature-version-stf. Например: s-sb-stfkraken-sbermarket"
   URL_B2B_FRONT:
-    value: "https://next-default-smbusiness.k-stage.sbermarket.tech/"
-    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА ТЕСТОВ БИЗНЕС-ВИТРИНЫ! Нужно указывать полный url фронта b2b"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА ТЕСТОВ БИЗНЕС-ВИТРИНЫ! Нужно указывать полный url фронта b2b. Например: https://next-default-smbusiness.k-stage.sbermarket.tech/"
   B2B_FORWARD:
-    value: "s-sb-stfkraken-smbusiness"
-    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКАТЕСТОВ БИЗНЕС-ВИТРИНЫ! Связь фронта с бекендом b2b. Значение для хедера/куки sbm-forward-feature-version-stf"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА ТЕСТОВ БИЗНЕС-ВИТРИНЫ! Значение для хедера/куки sbm-forward-feature-version-stf. Например: s-sb-stfkraken-smbusiness"
   URL_STF_BACKEND:
     value: "stf-kraken.k-stage.sbermarket.tech"
     description: "ОБЯЗАТЕЛЬНО ДЛЯ API ЗАПУСКА! Имя stf стейджа на котором запускаем тесты"
@@ -57,9 +52,9 @@ variables:
   DEFAULT_SID:
     description: "Сид магазина на котором будут прогоняться тесты"
   CI_MODULE:
-    description: "Например: ui  -Возможные варианты: ui-stf/ui-b2b/ui-admin/api/grpc/kafka"
+    description: "Название тестового модуля. Возможные варианты: ui-stf/ui-b2b/ui-admin/api/grpc/kafka"
   CI_GROUP:
-    description: "Например: all-cart Например: all-cart/all-order/api-instamart-smoke/api-instamart-regress"
+    description: "Название группы тестов для запуска. Например: all-cart/all-order/api-instamart-smoke/api-instamart-regress"
   BFF_FORWARD:
     value: "default"
     description: "Значение для хедера sbm-forward-feature-version-paas-content-front-platform-stf-mobile-aggregator"
