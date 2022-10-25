@@ -11,6 +11,7 @@ import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.Group.STARTING_X;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -19,7 +20,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1552)
     @Story("Регистрация на странице ретейлера")
-    @Test(description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами", groups = REGRESSION_STF)
+    @Test(description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами", groups = {STARTING_X, REGRESSION_STF})
     public void noRegWithEmptyRequisites() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -31,7 +32,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1541)
     @Story("Регистрация на лендинге")
-    @Test(description = "Регистрация нового пользователя на лендинге", groups = {"production", "smoke", "MRAutoCheck"})
+    @Test(description = "Регистрация нового пользователя на лендинге", groups = {STARTING_X, REGRESSION_STF, "smoke", "MRAutoCheck"})
     public void successRegOnLanding() {
         home().goToPage();
         home().openLoginModal();
@@ -41,7 +42,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1543)
     @Story("Регистрация на странице ретейлера")
-    @Test(description = "Регистрация нового пользователя на витрине магазина", groups = REGRESSION_STF)
+    @Test(description = "Регистрация нового пользователя на витрине магазина", groups = {STARTING_X, REGRESSION_STF})
     public void successRegOnMainPage() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -51,7 +52,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1542)
     @Story("Регистрация на странице ретейлера")
-    @Test(description = "Тест регистрации из адресной модалки феникса", groups = REGRESSION_STF)
+    @Test(description = "Тест регистрации из адресной модалки феникса", groups = {STARTING_X, REGRESSION_STF})
     @Skip() // Для незарегистрированного пользователя теперь появляется большое окно выбора адреса, там нет авторизации
     public void successRegFromAddressModal() {
         shop().goToPage();
@@ -63,7 +64,7 @@ public final class UserRegistrationTests {
 
     @CaseId(748)
     @Story("Регистрация на странице ретейлера")
-    @Test(description = "Тест регистрации при переходе из корзины в чекаут", groups = REGRESSION_STF)
+    @Test(description = "Тест регистрации при переходе из корзины в чекаут", groups = {STARTING_X, REGRESSION_STF})
     public void successRegFromCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
@@ -86,7 +87,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1545)
     @Story("Регистрация на странице ретейлера")
-    @Test(description = "Тест успешной регистрации без проставленной галки Получать выгодные предложения", groups = REGRESSION_STF)
+    @Test(description = "Тест успешной регистрации без проставленной галки Получать выгодные предложения", groups = {STARTING_X, REGRESSION_STF})
     public void successRegWithoutMailingCheckbox() {
         home().goToPage();
         home().openLoginModal();
@@ -98,7 +99,7 @@ public final class UserRegistrationTests {
 
     @CaseId(2622)
     @Story("Регистрация из корзины")
-    @Test(description = "Регистрация при попытке перехода из корзины в чекаут", groups = REGRESSION_STF)
+    @Test(description = "Регистрация при попытке перехода из корзины в чекаут", groups = {STARTING_X, REGRESSION_STF})
     public void successRegFromCartWithQuantityAndAmountCheck() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();

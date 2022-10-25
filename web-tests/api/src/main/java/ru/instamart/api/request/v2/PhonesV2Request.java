@@ -22,23 +22,23 @@ public final class PhonesV2Request extends ApiV2RequestBase {
     }
 
     public static class PhonesById {
-        @Step("{method} /" + ApiV2EndPoints.Phones.BY_ID)
+        @Step("{method} /" + ApiV2EndPoints.PHONE)
         public static Response GET(String phoneId) {
             return givenWithAuth()
-                    .get(ApiV2EndPoints.Phones.BY_ID, phoneId);
+                    .get(ApiV2EndPoints.PHONE, phoneId);
         }
 
-        @Step("{method} /" + ApiV2EndPoints.Phones.BY_ID)
+        @Step("{method} /" + ApiV2EndPoints.PHONE)
         public static Response PUT(String phoneId, Map<String, String> params) {
             return givenWithAuth()
                     .params(params)
-                    .put(ApiV2EndPoints.Phones.BY_ID, phoneId);
+                    .put(ApiV2EndPoints.PHONE, phoneId);
         }
 
-        @Step("{method} /" + ApiV2EndPoints.Phones.BY_ID)
+        @Step("{method} /" + ApiV2EndPoints.PHONE)
         public static Response DELETE(String phonesId){
             return givenWithAuth()
-                    .delete(ApiV2EndPoints.Phones.BY_ID, phonesId);
+                    .delete(ApiV2EndPoints.PHONE, phonesId);
         }
     }
 }

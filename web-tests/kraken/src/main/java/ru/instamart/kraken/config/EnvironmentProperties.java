@@ -17,8 +17,8 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public final class EnvironmentProperties {
 
-    public static final String CI_MODULE = System.getenv("CI_MODULE");
     public static final String NAME = "env";
+
     @Config(configName = NAME, fieldName = "tenant", defaultValue = "")
     public static String TENANT;
     @Config(configName = NAME, fieldName = "server", defaultValue = "")
@@ -27,7 +27,7 @@ public final class EnvironmentProperties {
     public static String SERVICE;
     @Config(configName = NAME, fieldName = "stage", defaultValue = "")
     public static String STAGE;
-    @Config(configName = NAME, fieldName = "defaultSid", defaultValue = "81")
+    @Config(configName = NAME, fieldName = "defaultSid", defaultValue = "81", env = "DEFAULT_SID")
     public static int DEFAULT_SID;
     @Config(configName = NAME, fieldName = "defaultMetroMoscowSid", defaultValue = "1")
     public static int DEFAULT_METRO_MOSCOW_SID;
@@ -103,15 +103,6 @@ public final class EnvironmentProperties {
             String stfForwardTo;
 
             if (nonNull(customBasicUrl) && !customBasicUrl.isBlank()) {
-                String default_sid = System.getenv("DEFAULT_SID");
-                if (Objects.nonNull(default_sid) && !default_sid.isEmpty() && !default_sid.isBlank()) {
-                    try {
-                        DEFAULT_SID = Integer.parseInt(default_sid);
-                    } catch (Exception e) {
-                        log.error("Error parse default_sid");
-                    }
-                }
-
                 customBasicUrl = getDomainName(customBasicUrl);
                 SERVER = customBasicUrl.contains("kraken")
                         ? Server.PREPROD.name().toLowerCase() : customBasicUrl.contains("k-stage")
@@ -151,13 +142,12 @@ public final class EnvironmentProperties {
                 log.debug("SHOPPER_URL: " + SHOPPER_URL);
             }
 
-            if (nonNull(CI_MODULE) && (CI_MODULE.equals(CiModule.UI_STF.getName()) || (CI_MODULE.equals(CiModule.UI_B2B.getName())))) {
-                if (CI_MODULE.equals(CiModule.UI_STF.getName())) {
+            if (CiModule.isUi()) {
+                if (CiModule.isStf()) {
                     stfForwardTo = System.getenv("STF_FORWARD");
                 } else {
                     stfForwardTo = System.getenv("B2B_FORWARD");
                 }
-
                 STAGE = stfForwardTo.replaceAll("s-sb-stf|s-sb-|-\\w+$", "");
                 TENANT = stfForwardTo.replaceAll("^.+-", "").replaceAll("^sm", "");
                 SERVER = Server.CUSTOM.name().toLowerCase();
@@ -187,6 +177,38 @@ public final class EnvironmentProperties {
                 } else if (customBasicUrl.startsWith("stf-")) {
                     SHOPPER_URL = "shp" + customBasicUrl.substring(3);
                 } else SHOPPER_URL = "shp-0.k-stage.sbermarket.tech";
+            }
+
+            if (CiModule.isAdmin()) {
+                BASIC_URL = getDomainName(System.getenv("ADMIN_URL"));
+                SERVER = BASIC_URL.contains("kraken")
+                        ? Server.PREPROD.name().toLowerCase() : BASIC_URL.startsWith("stf-")
+                        ? Server.STAGING.name().toLowerCase() : Server.CUSTOM.name().toLowerCase();
+                TENANT = "sbermarket";
+                STAGE = BASIC_URL.replace("stf-", "").replace(".k-stage.sbermarket.tech", "");
+
+                if (!BASIC_URL.startsWith("stf-")) {
+                    DB_URL = DB_URL.replace("_kraken", "");
+                    DB_PGSQL_URL = DB_PGSQL_URL.replace("_kraken", "");
+                } else {
+                    DB_URL = DB_URL.replace("kraken", STAGE);
+                    DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
+                }
+
+                if (BASIC_URL.startsWith("stf-")) {
+                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("kraken", STAGE);
+                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("kraken", STAGE);
+                } else {
+                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("stfkraken", STAGE);
+                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("shpkraken", STAGE);
+                }
+
+                if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
+                    SHOPPER_URL = getDomainName(customShopperUrl);
+                } else if (customBasicUrl.startsWith("stf-")) {
+                    SHOPPER_URL = "shp" + customBasicUrl.substring(3);
+                } else SHOPPER_URL = "shp-0.k-stage.sbermarket.tech";
+                log.debug("SHOPPER_URL: " + SHOPPER_URL);
             }
         }
 
@@ -232,5 +254,10 @@ public final class EnvironmentProperties {
             }
             return url;
         }
+    }
+
+    public static class BFF {
+        public static boolean TRUE = System.getProperty("bff") != null && System.getProperty("bff").equals("true");
+        public static String FORWARD = System.getProperty("bff_forward") == null ? "default" : System.getProperty("bff_forward");
     }
 }

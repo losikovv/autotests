@@ -31,7 +31,6 @@ public class StoreV2 extends BaseObject {
     private String timeZone;
 
     @Null
-    @JsonSchema(required = true)
     @JsonProperty(value = "next_delivery")
     private NextDeliveryV2 nextDelivery;
 

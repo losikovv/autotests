@@ -7,10 +7,10 @@ import ru.instamart.api.request.ApiV2RequestBase;
 
 public final class SessionsV2Request extends ApiV2RequestBase {
 
-    @Step("{method} /" + ApiV2EndPoints.Sessions.BY_TOKEN)
+    @Step("{method} /" + ApiV2EndPoints.SESSION)
     public static Response GET(final String token) {
         return givenWithSpec()
-                .get(ApiV2EndPoints.Sessions.BY_TOKEN, token);
+                .get(ApiV2EndPoints.SESSION, token);
     }
 
     public static class User {

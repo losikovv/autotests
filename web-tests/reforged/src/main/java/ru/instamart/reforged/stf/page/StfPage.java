@@ -11,6 +11,6 @@ public interface StfPage extends Page {
     }
 
     default void goToPage(final String url) {
-        Kraken.open(addBasicAuthToUrl(UiProperties.Env.STF_FRONT_URL + url));
+        Kraken.open(addBasicAuthToUrl(UiProperties.STF_URL + url));
     }
 }

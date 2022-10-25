@@ -7,6 +7,7 @@ import ru.instamart.kraken.common.Crypt;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.TestVariables;
+import ru.instamart.kraken.enums.CiPipelineSource;
 import ru.instamart.kraken.retry.StepRetry;
 import ru.instamart.kraken.service.ab.AbService;
 import ru.instamart.kraken.service.qa.QaService;
@@ -20,7 +21,6 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public final class UserManager {
 
-    private static final String CI_PIPELINE_SOURCE = Optional.ofNullable(System.getenv("CI_PIPELINE_SOURCE")).orElse("local");
     private static final String API_SHOPPER_ALONE = System.getenv("API_SHOPPER_ALONE");
     private static final String CI_RUN_ALL_JOBS = System.getenv("CI_RUN_ALL_JOBS");
 
@@ -137,23 +137,20 @@ public final class UserManager {
 
     public static UserData getShp6Shopper1() {
         if (isNull(stf6Shopper1)) {
-            switch (CI_PIPELINE_SOURCE.toLowerCase()) {
-                case "local":
-                    log.debug("User shopper local login");
-                    stf6Shopper1 = UserData.builder()
-                            .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
-                            .phone(Crypt.INSTANCE.decrypt("NN6iTCNigNa9a4D/72ZAWQ=="))
-                            .uuid("8608a93d-7def-4cdb-8d1d-8332ef526cd1")
-                            .build();
-                    break;
-                default:
-                    log.debug("User shopper default login");
-                    stf6Shopper1 = UserData.builder()
-                            .email(Crypt.INSTANCE.decrypt("cdPPLWqef3wOxlHzAFBVHQ==")) //kraken5
-                            .phone(Crypt.INSTANCE.decrypt("3fyToEegudVkelYnkpVK9A=="))
-                            .uuid("1dc885d7-1979-45d7-9458-cacd6946e24f")
-                            .build();
-                    break;
+            if (CiPipelineSource.isLocal()) {
+                log.debug("User shopper local login");
+                stf6Shopper1 = UserData.builder()
+                        .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
+                        .phone(Crypt.INSTANCE.decrypt("NN6iTCNigNa9a4D/72ZAWQ=="))
+                        .uuid("8608a93d-7def-4cdb-8d1d-8332ef526cd1")
+                        .build();
+            } else {
+                log.debug("User shopper default login");
+                stf6Shopper1 = UserData.builder()
+                        .email(Crypt.INSTANCE.decrypt("cdPPLWqef3wOxlHzAFBVHQ==")) //kraken5
+                        .phone(Crypt.INSTANCE.decrypt("3fyToEegudVkelYnkpVK9A=="))
+                        .uuid("1dc885d7-1979-45d7-9458-cacd6946e24f")
+                        .build();
             }
         }
         return stf6Shopper1;
@@ -161,23 +158,20 @@ public final class UserManager {
 
     public static UserData getShp6Shopper2() {
         if (isNull(stf6Shopper2)) {
-            switch (CI_PIPELINE_SOURCE.toLowerCase()) {
-                case "local":
-                    log.debug("User shopper local login");
-                    stf6Shopper2 = UserData.builder()
-                            .email(Crypt.INSTANCE.decrypt("C4fgAi97cuuXHMKobHn9Yw=="))
-                            .phone(Crypt.INSTANCE.decrypt("cIo8g9LlgqN+TCDGKZ4PTw=="))//68
-                            .uuid("175954c2-c5df-4474-89dd-4a9ea5c081ad")
-                            .build();
-                    break;
-                default:
-                    log.debug("User shopper default login");
-                    stf6Shopper2 = UserData.builder()
-                            .email(Crypt.INSTANCE.decrypt("N7Kq7ITgHH34r/mofuao4Q==")) //kraken6
-                            .phone(Crypt.INSTANCE.decrypt("q81rEzlGrs/uArLnV2fK2Q=="))
-                            .uuid("e7b54426-34f2-44d8-9fdf-30e64959fbfc")
-                            .build();
-                    break;
+            if (CiPipelineSource.isLocal()) {
+                log.debug("User shopper local login");
+                stf6Shopper2 = UserData.builder()
+                        .email(Crypt.INSTANCE.decrypt("C4fgAi97cuuXHMKobHn9Yw=="))
+                        .phone(Crypt.INSTANCE.decrypt("cIo8g9LlgqN+TCDGKZ4PTw=="))//68
+                        .uuid("175954c2-c5df-4474-89dd-4a9ea5c081ad")
+                        .build();
+            } else {
+                log.debug("User shopper default login");
+                stf6Shopper2 = UserData.builder()
+                        .email(Crypt.INSTANCE.decrypt("N7Kq7ITgHH34r/mofuao4Q==")) //kraken6
+                        .phone(Crypt.INSTANCE.decrypt("q81rEzlGrs/uArLnV2fK2Q=="))
+                        .uuid("e7b54426-34f2-44d8-9fdf-30e64959fbfc")
+                        .build();
             }
         }
         return stf6Shopper2;
@@ -185,23 +179,20 @@ public final class UserManager {
 
     public static UserData getShp6Shopper3() {
         if (isNull(stf6Shopper3)) {
-            switch (CI_PIPELINE_SOURCE.toLowerCase()) {
-                case "local":
-                    log.debug("User shopper local login");
-                    stf6Shopper3 = UserData.builder()
-                            .email(Crypt.INSTANCE.decrypt("xhH38k1XpJGpdk8/7LkCcw=="))
-                            .phone(Crypt.INSTANCE.decrypt("3K4qmKFewgiQsQ3x1iZPtQ=="))
-                            .uuid("9e6bd9f2-7689-49b8-8df3-5f66a36cd624")
-                            .build();
-                    break;
-                default:
-                    log.debug("User shopper default login");
-                    stf6Shopper3 = UserData.builder()
-                            .email(Crypt.INSTANCE.decrypt("Z0WNElhYANndTT33bsPASg==")) //kraken7
-                            .phone(Crypt.INSTANCE.decrypt("7R7j/OJDWsMmVAMT3lRqQw=="))
-                            .uuid("39e59b6a-07cb-4482-a993-5fc2a62db32b")
-                            .build();
-                    break;
+            if (CiPipelineSource.isLocal()) {
+                log.debug("User shopper local login");
+                stf6Shopper3 = UserData.builder()
+                        .email(Crypt.INSTANCE.decrypt("xhH38k1XpJGpdk8/7LkCcw=="))
+                        .phone(Crypt.INSTANCE.decrypt("3K4qmKFewgiQsQ3x1iZPtQ=="))
+                        .uuid("9e6bd9f2-7689-49b8-8df3-5f66a36cd624")
+                        .build();
+            } else {
+                log.debug("User shopper default login");
+                stf6Shopper3 = UserData.builder()
+                        .email(Crypt.INSTANCE.decrypt("Z0WNElhYANndTT33bsPASg==")) //kraken7
+                        .phone(Crypt.INSTANCE.decrypt("7R7j/OJDWsMmVAMT3lRqQw=="))
+                        .uuid("39e59b6a-07cb-4482-a993-5fc2a62db32b")
+                        .build();
             }
         }
         return stf6Shopper3;
@@ -209,23 +200,20 @@ public final class UserManager {
 
     public static UserData getShp6Shopper4() {
         if (isNull(stf6Shopper4)) {
-            switch (CI_PIPELINE_SOURCE.toLowerCase()) {
-                case "local":
-                    log.debug("User shopper local login");
-                    stf6Shopper4 = UserData.builder()
-                            .email(Crypt.INSTANCE.decrypt("xaL2G5Kxa2fI4vosV/yX8A=="))
-                            .phone(Crypt.INSTANCE.decrypt("GA9lbHdxv4QkcxPVJMkWQw=="))
-                            .uuid("d63b66b2-441e-4c41-85d2-64ff33daadf0")
-                            .build();
-                    break;
-                default:
-                    log.debug("User shopper default login");
-                    stf6Shopper4 = UserData.builder()
-                            .email(Crypt.INSTANCE.decrypt("e3m7+tl+IwsEdNcan+0NUg==")) //kraken8
-                            .phone(Crypt.INSTANCE.decrypt("jcpJOeUznkrUmAno+qQh1A=="))
-                            .uuid("2df5e03c-3c45-4e6e-8c07-5c642d5fb1cd")
-                            .build();
-                    break;
+            if (CiPipelineSource.isLocal()) {
+                log.debug("User shopper local login");
+                stf6Shopper4 = UserData.builder()
+                        .email(Crypt.INSTANCE.decrypt("xaL2G5Kxa2fI4vosV/yX8A=="))
+                        .phone(Crypt.INSTANCE.decrypt("GA9lbHdxv4QkcxPVJMkWQw=="))
+                        .uuid("d63b66b2-441e-4c41-85d2-64ff33daadf0")
+                        .build();
+            } else {
+                log.debug("User shopper default login");
+                stf6Shopper4 = UserData.builder()
+                        .email(Crypt.INSTANCE.decrypt("e3m7+tl+IwsEdNcan+0NUg==")) //kraken8
+                        .phone(Crypt.INSTANCE.decrypt("jcpJOeUznkrUmAno+qQh1A=="))
+                        .uuid("2df5e03c-3c45-4e6e-8c07-5c642d5fb1cd")
+                        .build();
             }
         }
         return stf6Shopper4;
@@ -288,7 +276,7 @@ public final class UserManager {
     public static UserData getDefaultShopper() {
 
         if (isNull(defaultShopper)) {
-            log.debug("GitLab env CI_PIPELINE_SOURCE: {}", CI_PIPELINE_SOURCE);
+            log.debug("GitLab env CI_PIPELINE_SOURCE: {}", CiPipelineSource.CI_PIPELINE_SOURCE);
             log.debug("GitLab env API_SHOPPER_ALONE: {}", API_SHOPPER_ALONE);
             log.debug("GitLab env CI_RUN_ALL_JOBS: {}", CI_RUN_ALL_JOBS);
             log.debug("SERVER: {}", EnvironmentProperties.SERVER);
@@ -303,8 +291,8 @@ public final class UserManager {
         }
 
         if (isNull(defaultShopper)) {
-            switch (CI_PIPELINE_SOURCE.toLowerCase()) {
-                case "schedule":
+            switch (CiPipelineSource.CI_PIPELINE_SOURCE) {
+                case SCHEDULE:
                     log.debug("User shopper SCHEDULE login");
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("DNzBqyrPJQuc1LP0FzyiiQ=="))
@@ -312,8 +300,8 @@ public final class UserManager {
                             .uuid("d7f1f6aa-8890-42fe-9696-28502458048a")
                             .build();
                     break;
-                case "push":
-                    if (API_SHOPPER_ALONE != null && CI_PIPELINE_SOURCE != null && API_SHOPPER_ALONE.equals("true") && CI_RUN_ALL_JOBS.equals("false")) {
+                case PUSH:
+                    if (API_SHOPPER_ALONE != null && API_SHOPPER_ALONE.equals("true") && CI_RUN_ALL_JOBS.equals("false")) {
                         log.debug("User shopper API_SHOPPER_ALONE login");
                         defaultShopper = UserData.builder()
                                 .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
@@ -329,7 +317,7 @@ public final class UserManager {
                                 .build();
                     }
                     break;
-                case "local":
+                case LOCAL:
                     log.debug("User shopper local login");
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("qq6/4elx6MF64Jw9VdI6xg=="))

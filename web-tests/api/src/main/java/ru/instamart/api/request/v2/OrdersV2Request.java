@@ -57,10 +57,10 @@ public final class OrdersV2Request extends ApiV2RequestBase {
     /**
      * Получение заказа по номеру
      */
-    @Step("{method} /" + ApiV2EndPoints.Orders.BY_NUMBER)
+    @Step("{method} /" + ApiV2EndPoints.ORDER)
     public static Response GET(String orderNumber) {
         return givenWithAuth()
-                .get(ApiV2EndPoints.Orders.BY_NUMBER, orderNumber);
+                .get(ApiV2EndPoints.ORDER, orderNumber);
     }
 
     /**
@@ -77,7 +77,7 @@ public final class OrdersV2Request extends ApiV2RequestBase {
     /**
      * Применяем необходимые параметры к заказу
      */
-    @Step("{method} /" + ApiV2EndPoints.Orders.BY_NUMBER)
+    @Step("{method} /" + ApiV2EndPoints.ORDER)
     public static Response PUT(//int addressId, //параметр ломает оформление заказа в некоторых магазинах
                                int replacementPolicyId,
                                String phoneNumber,
@@ -90,7 +90,7 @@ public final class OrdersV2Request extends ApiV2RequestBase {
         return PUT(replacementPolicyId, phoneNumber, instructions, paymentToolId, shipmentId, deliveryWindowId, null, shipmentMethodId, orderNumber);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Orders.BY_NUMBER)
+    @Step("{method} /" + ApiV2EndPoints.ORDER)
     public static Response PUT(//int addressId, //параметр ломает оформление заказа в некоторых магазинах
                                int replacementPolicyId,
                                String phoneNumber,
@@ -117,7 +117,7 @@ public final class OrdersV2Request extends ApiV2RequestBase {
 
         return givenWithAuth()
                 .formParams(data)
-                .put(ApiV2EndPoints.Orders.BY_NUMBER, orderNumber);
+                .put(ApiV2EndPoints.ORDER, orderNumber);
     }
 
     public static class Shipments {

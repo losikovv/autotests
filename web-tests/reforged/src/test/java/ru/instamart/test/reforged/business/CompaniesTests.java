@@ -26,7 +26,7 @@ public final class CompaniesTests {
         business().goToPage();
         business().interactHeader().clickToLogin();
         business().interactAuthModal().authViaPhone(user);
-        business().interactHeader().checkProfileButtonVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
         companies().goToPage();
         companies().checkCompaniesListIsEmpty();
@@ -62,7 +62,7 @@ public final class CompaniesTests {
         business().goToPage();
         business().interactHeader().clickToLogin();
         business().interactAuthModal().authViaPhone(user);
-        business().interactHeader().checkProfileButtonVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
         companies().goToPage();
         companies().checkProfileButtonVisible();
@@ -101,7 +101,7 @@ public final class CompaniesTests {
         business().goToPage();
         business().interactHeader().clickToLogin();
         business().interactAuthModal().authViaPhone(user);
-        business().interactHeader().checkProfileButtonVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
         companies().goToPage();
         companies().checkCompaniesListIsEmpty();
@@ -160,7 +160,7 @@ public final class CompaniesTests {
         business().goToPage();
         business().interactHeader().clickToLogin();
         business().interactAuthModal().authViaPhone(user);
-        business().interactHeader().checkProfileButtonVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
         companies().goToPage();
         companies().checkCompaniesListIsEmpty();
@@ -215,7 +215,7 @@ public final class CompaniesTests {
         business().goToPage();
         business().interactHeader().clickToLogin();
         business().interactAuthModal().authViaPhone(userData);
-        business().interactHeader().checkProfileButtonVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
         companies().goToPage();
         companies().checkCompaniesListIsNotEmpty();
@@ -258,7 +258,7 @@ public final class CompaniesTests {
         business().goToPage();
         business().interactHeader().clickToLogin();
         business().interactAuthModal().authViaPhone(userData);
-        business().interactHeader().checkProfileButtonVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
         companies().goToPage();
         companies().checkCompaniesListIsNotEmpty();
@@ -300,7 +300,7 @@ public final class CompaniesTests {
         business().goToPage();
         business().interactHeader().clickToLogin();
         business().interactAuthModal().authViaPhone(userData);
-        business().interactHeader().checkProfileButtonVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
         companies().goToPage();
         companies().checkCompaniesListIsNotEmpty();
@@ -392,7 +392,8 @@ public final class CompaniesTests {
         business().goToPage();
         business().interactHeader().clickToLogin();
         business().interactAuthModal().authViaPhone(companyHeadUser);
-        business().interactHeader().checkProfileButtonVisible();
+        business().interactAuthModal().checkModalIsNotVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
         companies().goToPage();
         companies().clickOnFirstCompanyName();
@@ -407,7 +408,7 @@ public final class CompaniesTests {
 
         business().interactHeader().clickToLogin();
         business().interactAuthModal().authViaPhone(otherUsers.get(9));
-        business().interactHeader().checkProfileButtonVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
 
         companies().goToPage();
         companies().clickOnFirstCompanyName();

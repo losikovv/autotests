@@ -200,6 +200,12 @@ public final class ApiV2Helper {
         return order;
     }
 
+    @Step("Удаляем шипмент {shipmentNumber}")
+    public void deleteShipment(String shipmentNumber) {
+        Response response = ShipmentsV2Request.DELETE(shipmentNumber);
+        checkStatusCode200(response);
+    }
+
     /**
      * Изменение/применение параметров адреса из объекта адреса с указанием имени и фамилии юзера
      */
@@ -280,6 +286,7 @@ public final class ApiV2Helper {
     /**
      * Получаем список продуктов: по одному из каждой категории
      */
+    @Deprecated
     @Step("Получаем список продуктов: по одному из каждой категории для магазина sid = {sid}")
     public List<ProductV2> getProductFromEachDepartmentOnMainPage(int sid) {
         return getProductsFromEachDepartmentOnMainPage(sid, 1, new SoftAssert());
@@ -288,6 +295,7 @@ public final class ApiV2Helper {
     /**
      * Получаем список продуктов: максимум (6) из каждой категории
      */
+    @Deprecated
     @Step("Получаем список продуктов: максимум (6) из каждой категории для магазина sid = {sid}")
     public List<ProductV2> getProductsFromEachDepartmentOnMainPage(int sid) {
         return getProductsFromEachDepartmentOnMainPage(sid, 6, new SoftAssert());
@@ -296,6 +304,7 @@ public final class ApiV2Helper {
     /**
      * Получаем список продуктов: максимум (6) из каждой категории и проверяем корректность категорий
      */
+    @Deprecated
     public List<ProductV2> getProductsFromEachDepartmentOnMainPage(int sid, SoftAssert softAssert) {
         return getProductsFromEachDepartmentOnMainPage(sid, 6, softAssert);
     }
@@ -306,6 +315,7 @@ public final class ApiV2Helper {
      * @param sid                                сид магазина
      * @param numberOfProductsFromEachDepartment количество продуктов из каждой категории (не больше 6)
      */
+    @Deprecated
     private List<ProductV2> getProductsFromEachDepartmentOnMainPage(int sid,
                                                                     int numberOfProductsFromEachDepartment,
                                                                     SoftAssert softAssert) {
@@ -1043,6 +1053,7 @@ public final class ApiV2Helper {
         return response.as(StoreV2Response.class).getStore();
     }
 
+    @Step("Получаем текущий заказ")
     public OrderV2 getCurrentOrder() {
         final Response response = OrdersV2Request.Current.GET();
         checkStatusCode200(response);
@@ -1231,7 +1242,7 @@ public final class ApiV2Helper {
 
     @Step("Добавляем несколько товаров в избранное")
     public List<ProductV2> addFavoritesQtyListProductBySid(Integer sid, Integer qty) {
-        List<ProductV2> products = getProductFromEachDepartmentOnMainPage(sid);
+        List<ProductV2> products = getProducts(sid);
         List<ProductV2> productsList = new ArrayList<>();
         products.stream()
                 .limit(qty + 1)
@@ -1364,7 +1375,14 @@ public final class ApiV2Helper {
     @Step("Очистить корзину пользователя {user.email}")
     public void dropCart(UserData user, AddressV2 address) {
         getCurrentOrderNumber();
-        deleteAllShipments();
+
+        //новый способ очистки
+        List<ShipmentV2> shipments = getCurrentOrder().getShipments();
+        for (ShipmentV2 shipment : shipments) {
+            deleteShipment(shipment.getNumber());
+        }
+        //старый способ очистки
+        //deleteAllShipments();
 
         setAddressAttributes(user, address);
     }

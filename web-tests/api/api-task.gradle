@@ -92,9 +92,10 @@ task apiV2BFF(type: Test) {
         suites 'src/test/resources/suite/all.xml'
         includeGroups 'api-bff'
     }
+    systemProperty 'bff', 'true'
     systemProperty 'qase.Project', 'INAPI'
     systemProperty 'qase.Title', 'BFF API v2'
-    systemProperty 'url_stf', 'm.k-stage.sbermarket.tech'
+    systemProperty 'url_stf', 'stf-kraken.k-stage.sbermarket.tech'
 }
 
 task apiv3Smoke(type: Test) {

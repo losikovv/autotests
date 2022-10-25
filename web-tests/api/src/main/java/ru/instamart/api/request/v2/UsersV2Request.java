@@ -15,36 +15,36 @@ public final class UsersV2Request extends ApiV2RequestBase {
     private UsersV2Request() {
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
+    @Step("{method} /" + ApiV2EndPoints.USER)
     public static Response GET(final String email, final boolean isAuth) {
         if (isAuth) {
             return givenWithAuth()
-                    .get(ApiV2EndPoints.Users.BY_EMAIL, email);
+                    .get(ApiV2EndPoints.USER, email);
         } else {
             return givenWithSpec()
-                    .get(ApiV2EndPoints.Users.BY_EMAIL, email);
+                    .get(ApiV2EndPoints.USER, email);
         }
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
+    @Step("{method} /" + ApiV2EndPoints.USER)
     public static Response GET(final String email, final boolean isAuth, final String token) {
         if (isAuth) {
             return givenCustomToken(token)
-                    .get(ApiV2EndPoints.Users.BY_EMAIL, email);
+                    .get(ApiV2EndPoints.USER, email);
         } else {
             return givenWithSpec()
-                    .get(ApiV2EndPoints.Users.BY_EMAIL, email);
+                    .get(ApiV2EndPoints.USER, email);
         }
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
+    @Step("{method} /" + ApiV2EndPoints.USER)
     public static Response GET(final String clientId, final String email) {
         return givenWithAuth()
                 .header("Client-Id", clientId)
-                .get(ApiV2EndPoints.Users.BY_EMAIL, email);
+                .get(ApiV2EndPoints.USER, email);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
+    @Step("{method} /" + ApiV2EndPoints.USER)
     public static Response PUT(
             final String email,
             final String firstName,
@@ -58,10 +58,10 @@ public final class UsersV2Request extends ApiV2RequestBase {
         data.put("user[promo_terms_accepted]", promo);
         return givenWithAuth()
                 .formParams(data)
-                .put(ApiV2EndPoints.Users.BY_EMAIL, email);
+                .put(ApiV2EndPoints.USER, email);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
+    @Step("{method} /" + ApiV2EndPoints.USER)
     public static Response PUT(final String email,
                                final String currentPassword,
                                final String password,
@@ -74,7 +74,7 @@ public final class UsersV2Request extends ApiV2RequestBase {
         data.put("user[password_confirmation]", passwordConfirmation);
         return givenWithAuth()
                 .formParams(data)
-                .put(ApiV2EndPoints.Users.BY_EMAIL, email);
+                .put(ApiV2EndPoints.USER, email);
     }
 
 

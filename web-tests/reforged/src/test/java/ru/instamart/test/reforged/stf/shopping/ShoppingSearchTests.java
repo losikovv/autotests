@@ -72,7 +72,7 @@ public final class ShoppingSearchTests {
     // AB поиска
     @CaseId(2587)
     @Story("Позитивные сценарии")
-    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"production", "smoke", REGRESSION_STF})
+    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"smoke", REGRESSION_STF})
     public void successSearchItemUsingCategorySuggests() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());

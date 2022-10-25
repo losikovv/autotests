@@ -34,10 +34,10 @@ public final class ProductFeedbacksV2Request extends ApiV2RequestBase {
                 .post(ApiV2EndPoints.PRODUCT_FEEDBACKS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.ProductFeedbacks.BY_ID)
+    @Step("{method} /" + ApiV2EndPoints.PRODUCT_FEEDBACK)
     public static Response DELETE(final String id) {
         return givenWithAuth()
-                .delete(ApiV2EndPoints.ProductFeedbacks.BY_ID, id);
+                .delete(ApiV2EndPoints.PRODUCT_FEEDBACK, id);
     }
 
     public static class CanPostFeedback {

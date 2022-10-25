@@ -38,7 +38,7 @@ public final class CheckoutPromocodeTests {
 
     @CaseId(2638)
     @Story("Добавление промокода к заказу")
-    @Test(description = "Тест успешного применения промокода в чекауте", groups = {"production", REGRESSION_STF, "smoke"})
+    @Test(description = "Тест успешного применения промокода в чекауте", groups = {REGRESSION_STF, "smoke"})
     public void successAddPromocode() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

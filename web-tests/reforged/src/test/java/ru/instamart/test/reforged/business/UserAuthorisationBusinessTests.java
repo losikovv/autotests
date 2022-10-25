@@ -27,7 +27,7 @@ public final class UserAuthorisationBusinessTests {
         business().interactAuthModal().checkModalIsVisible();
 
         business().interactAuthModal().authViaPhone(UserManager.getQaUser());
-        business().interactHeader().checkProfileButtonVisible();
+        business().interactHeaderMultisearch().checkUserActionsButtonVisible();
     }
 
     @Run(onServer = Server.PREPROD)

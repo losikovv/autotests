@@ -16,9 +16,10 @@ import static org.testng.Assert.assertTrue;
 import static ru.instamart.kraken.config.CoreProperties.BASIC_AUTH_PASSWORD;
 import static ru.instamart.kraken.config.CoreProperties.BASIC_AUTH_USERNAME;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.Group.STARTING_X;
 import static ru.instamart.reforged.core.config.BasicProperties.JOB_LANDING_URL;
-import static ru.instamart.reforged.core.config.UiProperties.Env.STF_FORWARD_TO;
-import static ru.instamart.reforged.core.config.UiProperties.Env.STF_FRONT_URL;
+import static ru.instamart.reforged.core.config.UiProperties.HEADER_STF_FORWARD_TO;
+import static ru.instamart.reforged.core.config.UiProperties.STF_URL;
 import static ru.instamart.reforged.core.service.curl.Header.FORWARD_KEY;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -28,7 +29,7 @@ public final class BasicSbermarketTests {
 
     @CaseId(1438)
     @Story("Валидация элементов")
-    @Test(description = "Тест валидности элементов и ссылок в шапке Сбермаркета", groups = {REGRESSION_STF, "MRAutoCheck"})
+    @Test(description = "Тест валидности элементов и ссылок в шапке Сбермаркета", groups = {STARTING_X, REGRESSION_STF, "MRAutoCheck"})
     public void successValidateHeader() {
         shop().goToPage();
         shop().checkPageIsAvailable();
@@ -54,7 +55,7 @@ public final class BasicSbermarketTests {
 
     @CaseId(733)
     @Story("Навигация")
-    @Test(description = "Тест перехода из Сбермаркета на как мы работаем", groups = REGRESSION_STF)
+    @Test(description = "Тест перехода из Сбермаркета на как мы работаем", groups = {STARTING_X, REGRESSION_STF})
     public void successTransitionHowWeWork() {
         shop().goToPage();
         shop().interactHeader().clickToHowWeWork();
@@ -64,7 +65,7 @@ public final class BasicSbermarketTests {
 
     @CaseId(1810)
     @Story("Навигация")
-    @Test(description = "Тест перехода из Сбермаркета на информацию о контактах", groups = REGRESSION_STF)
+    @Test(description = "Тест перехода из Сбермаркета на информацию о контактах", groups = {STARTING_X, REGRESSION_STF})
     public void successTransitionContactsInfo() {
         shop().goToPage();
         shop().interactHeader().clickToContacts();
@@ -74,7 +75,7 @@ public final class BasicSbermarketTests {
 
     @CaseId(1811)
     @Story("Навигация")
-    @Test(description = "Тест перехода из Сбермаркета на страничку с помощью для клиента", groups = REGRESSION_STF)
+    @Test(description = "Тест перехода из Сбермаркета на страничку с помощью для клиента", groups = {STARTING_X, REGRESSION_STF})
     public void successTransitionHelpInfo() {
         shop().goToPage();
         shop().interactHeader().clickToHelp();
@@ -84,7 +85,7 @@ public final class BasicSbermarketTests {
 
     @CaseId(1812)
     @Story("Навигация")
-    @Test(description = "Тест перехода из Сбермаркета на страничку с информацией о доставке", groups = REGRESSION_STF)
+    @Test(description = "Тест перехода из Сбермаркета на страничку с информацией о доставке", groups = {STARTING_X, REGRESSION_STF})
     public void successTransitionDeliveryInfo() {
         shop().goToPage();
         shop().interactHeader().clickToDeliveryAndPayment();
@@ -94,7 +95,7 @@ public final class BasicSbermarketTests {
 
     @CaseId(1813)
     @Story("Навигация")
-    @Test(description = "Тест перехода из Сбермаркета на страничку с Logo", groups = REGRESSION_STF)
+    @Test(description = "Тест перехода из Сбермаркета на страничку с Logo", groups = {STARTING_X, REGRESSION_STF})
     public void successTransitionLogo() {
         shop().goToPage();
         shop().interactHeader().clickToLogo();
@@ -104,7 +105,7 @@ public final class BasicSbermarketTests {
 
     @CaseId(1439)
     @Story("Валидация элементов")
-    @Test(description = "Тест валидности элементов в футере Сбермаркета", groups = {REGRESSION_STF, "MRAutoCheck"})
+    @Test(description = "Тест валидности элементов в футере Сбермаркета", groups = {STARTING_X, REGRESSION_STF, "MRAutoCheck"})
     public void successValidateElementInFooterSbermarket() {
         home().goToPage();
         home().checkPageIsAvailable();
@@ -147,7 +148,7 @@ public final class BasicSbermarketTests {
             dataProviderClass = StaticPage.class,
             dataProvider = "footerLinkPage",
             description = "Тест валидности переходов по ссылкам в футере Сбермаркета",
-            groups = REGRESSION_STF)
+            groups = {STARTING_X, REGRESSION_STF})
     public void successFooterLinkTransition(final String text, final String url) {
         home().goToPage();
         home().scrollDown();
@@ -160,7 +161,7 @@ public final class BasicSbermarketTests {
     @CaseId(3504)
     @Story("Статические страницы")
     @Test(description = "Тест валидности переходов по ссылкам в футере Сбермаркета, кейсы с открытием документа и модального окна",
-            groups = REGRESSION_STF)
+            groups = {STARTING_X, REGRESSION_STF})
     public void successFooterLinkTransitionOtherCases() {
         home().goToPage();
         home().interactFooter().clickToFooterElementWithText("Обработка персональных данных");
@@ -174,11 +175,11 @@ public final class BasicSbermarketTests {
     @Test(dataProviderClass = StaticPage.class,
             dataProvider = "filteredAvailableRetailersSpree",
             description = "Тест доступности витрин ритейлеров Сбермаркета ",
-            groups = REGRESSION_STF)
+            groups = {STARTING_X, REGRESSION_STF})
     public void successCheckSbermarketAvailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl = STF_FRONT_URL + retailer.getSlug();
+        final String fullUrl = STF_URL + retailer.getSlug();
         final var curl = new Curl.Builder(fullUrl)
-                .withHeader(FORWARD_KEY, STF_FORWARD_TO)
+                .withHeader(FORWARD_KEY, HEADER_STF_FORWARD_TO)
                 .withBasicAuth(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)
                 .build();
         assertTrue(CurlService.pageAvailable(curl), "Страница " + fullUrl + " недоступна");
@@ -190,11 +191,11 @@ public final class BasicSbermarketTests {
     @Test(dataProviderClass = StaticPage.class,
             dataProvider = "filteredUnavailableRetailersSpree",
             description = "Тест недоступности витрин ритейлеров Сбермаркета ",
-            groups = REGRESSION_STF)
+            groups = {STARTING_X, REGRESSION_STF})
     public void successCheckSbermarketUnavailableRetailers(final RetailerV2 retailer) {
-        final var fullUrl = STF_FRONT_URL + retailer.getSlug();
+        final var fullUrl = STF_URL + retailer.getSlug();
         final var curl = new Curl.Builder(fullUrl)
-                .withHeader(FORWARD_KEY, STF_FORWARD_TO)
+                .withHeader(FORWARD_KEY, HEADER_STF_FORWARD_TO)
                 .withBasicAuth(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)
                 .build();
         assertTrue(CurlService.pageUnavailable(curl), "Страница " + fullUrl + " доступна");
@@ -203,11 +204,11 @@ public final class BasicSbermarketTests {
     @DoNotOpenBrowser
     @CaseId(1433)
     @Story("Партнерские лендинги")
-    @Test(description = "Тест доступности партнерских лендингов", groups = REGRESSION_STF)
+    @Test(description = "Тест доступности партнерских лендингов", groups = {STARTING_X, REGRESSION_STF})
     public void successCheckPartnerLandingsAreAvailable() {
-        final var fullUrl = STF_FRONT_URL + aeroflot().pageUrl();
+        final var fullUrl = STF_URL + aeroflot().pageUrl();
         final var curl = new Curl.Builder(fullUrl)
-                .withHeader(FORWARD_KEY, STF_FORWARD_TO)
+                .withHeader(FORWARD_KEY, HEADER_STF_FORWARD_TO)
                 .withBasicAuth(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)
                 .build();
         assertTrue(CurlService.pageAvailable(curl), "Страница " + fullUrl + " недоступна");
@@ -216,11 +217,11 @@ public final class BasicSbermarketTests {
     @DoNotOpenBrowser
     @CaseId(1814)
     @Story("Сервисные страницы")
-    @Test(description = "Тест доступности сервисных страниц", groups = REGRESSION_STF)
+    @Test(description = "Тест доступности сервисных страниц", groups = {STARTING_X, REGRESSION_STF})
     public void successCheckServicePagesAreAvailable() {
-        final String fullUrl = STF_FRONT_URL + driversHiring().pageUrl();
+        final String fullUrl = STF_URL + driversHiring().pageUrl();
         final var curl = new Curl.Builder(fullUrl)
-                .withHeader(FORWARD_KEY, STF_FORWARD_TO)
+                .withHeader(FORWARD_KEY, HEADER_STF_FORWARD_TO)
                 .withBasicAuth(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)
                 .build();
         assertTrue(CurlService.pageAvailable(curl), "Страница " + fullUrl + " недоступна");
@@ -229,7 +230,7 @@ public final class BasicSbermarketTests {
     @DoNotOpenBrowser
     @CaseId(1814)
     @Story("Сервисные страницы")
-    @Test(description = "Тест доступности сервисных страниц", groups = REGRESSION_STF)
+    @Test(description = "Тест доступности сервисных страниц", groups = {STARTING_X, REGRESSION_STF})
     public void successCheckJobLandingAreAvailable() {
         final var curl = new Curl.Builder(JOB_LANDING_URL).withUserAgent("Autotest").build();
         assertTrue(CurlService.pageAvailable(curl), "Страница " + JOB_LANDING_URL + " недоступна");
@@ -242,10 +243,10 @@ public final class BasicSbermarketTests {
             dataProviderClass = StaticPage.class,
             dataProvider = "faqPage",
             description = "Тест доступности статических страниц",
-            groups = REGRESSION_STF)
+            groups = {STARTING_X, REGRESSION_STF})
     public void successCheckStaticPagesAreAvailable(final String url) {
         final var curl = new Curl.Builder(url)
-                .withHeader(FORWARD_KEY, STF_FORWARD_TO)
+                .withHeader(FORWARD_KEY, HEADER_STF_FORWARD_TO)
                 .withBasicAuth(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)
                 .build();
         assertTrue(CurlService.pageAvailable(curl), "Страница " + url + " недоступна");

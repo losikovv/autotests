@@ -19,13 +19,13 @@ public final class StaticPage {
     @DataProvider(name = "faqPage", parallel = true)
     public static Object[][] getFaqPage() {
         return new Object[][] {
-                {UiProperties.Env.STF_FRONT_URL + about().pageUrl()},
-                {UiProperties.Env.STF_FRONT_URL + contacts().pageUrl()},
-                {UiProperties.Env.STF_FRONT_URL + delivery().pageUrl()},
-                {UiProperties.Env.STF_FRONT_URL + faq().pageUrl()},
-                {UiProperties.Env.STF_FRONT_URL + howWeWork().pageUrl()},
-                {UiProperties.Env.STF_FRONT_URL + rules().pageUrl()},
-                {UiProperties.Env.STF_FRONT_URL + terms().pageUrl()}
+                {UiProperties.STF_URL + about().pageUrl()},
+                {UiProperties.STF_URL + contacts().pageUrl()},
+                {UiProperties.STF_URL + delivery().pageUrl()},
+                {UiProperties.STF_URL + faq().pageUrl()},
+                {UiProperties.STF_URL + howWeWork().pageUrl()},
+                {UiProperties.STF_URL + rules().pageUrl()},
+                {UiProperties.STF_URL + terms().pageUrl()}
         };
     }
 

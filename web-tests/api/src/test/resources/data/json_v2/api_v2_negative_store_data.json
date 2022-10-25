@@ -10,9 +10,6 @@
       "shipping_method": "by_courier"
     },
     {
-      "shipping_method": "pickup"
-    },
-    {
       "operational_zone_id": 1
     }
   ]

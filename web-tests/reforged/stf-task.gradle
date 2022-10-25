@@ -1,9 +1,8 @@
-import org.gradle.api.tasks.testing.Test
-
 task sberUiSmoke(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/stf.xml'
         includeGroups 'smoke'
+        threadCount 6
     }
     systemProperty 'qase.Project', 'STF'
     systemProperty 'qase.Title', 'STF UI Smoke'
@@ -14,7 +13,9 @@ task uiSmokeProduction(type: Test) {
         suites 'src/test/resources/suite/smoke/stf-prod.xml'
         includeGroups 'stf_prod_smoke'
     }
-    environment 'P_ENV',"sbermarket-production"
+    environment 'URL_STF_FRONT', 'https://sbermarket.ru/'
+    environment 'ADMIN_URL', 'https://admin.sbmt.io/'
+    environment 'P_ENV', "sbermarket-production"
     systemProperty 'qase.Project', 'STF'
     systemProperty 'qase.Title', 'STF UI Production Smoke'
 }
@@ -22,17 +23,11 @@ task uiSmokeProduction(type: Test) {
 task sberRegression(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/regress/stf.xml'
-        includeGroups 'regression','smoke'
+        includeGroups 'regression', 'smoke'
+        threadCount 6
     }
     systemProperty 'qase.Project', 'STF'
     systemProperty 'qase.Title', 'STF UI Regression'
-}
-
-task sberRegressionMulti(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/all_multi.xml'
-        includeGroups 'regression','smoke'
-    }
 }
 
 task sbermarketUiCustom(type: Test) {
@@ -45,6 +40,7 @@ task sbermarketUiCustom(type: Test) {
     useTestNG() {
         suites "src/test/resources/suite/regress/stf.xml"
         includeGroups CI_GROUP
+        threadCount 3
     }
     environment 'P_ENV', 'sbermarket-custom'
 }

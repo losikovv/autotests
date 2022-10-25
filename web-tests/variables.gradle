@@ -1,27 +1,9 @@
 tasks.withType(Test) {
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser',"${browser}"
-    }
-    if (project.hasProperty('version')) {
-        systemProperty 'version',"${version}"
-    }
     if (project.hasProperty('url_stf')) {
         systemProperty 'url_stf',"${url_stf}"
     }
     if (project.hasProperty('url_shp')) {
         systemProperty 'url_shp',"${url_shp}"
-    }
-    if (project.hasProperty('url_stf_front')) {
-        systemProperty 'url_stf_front',"${url_stf_front}"
-    }
-    if (project.hasProperty('stf_forward')) {
-        systemProperty 'stf_forward',"${stf_forward}"
-    }
-    if (project.hasProperty('url_b2b_front')) {
-        systemProperty 'url_b2b_front',"${url_b2b_front}"
-    }
-    if (project.hasProperty('b2b_forward')) {
-        systemProperty 'b2b_forward',"${b2b_forward}"
     }
     if (project.hasProperty('bff_forward')) {
         systemProperty 'bff_forward',"${bff_forward}"

@@ -20,11 +20,11 @@ public final class DepartmentsV2Request extends ApiV2RequestBase {
     }
 
     public static final class Id {
-        @Step("{method} /" + ApiV2EndPoints.Departments.BY_ID)
+        @Step("{method} /" + ApiV2EndPoints.DEPARTMENT)
         public static Response GET(final int id, final int sid) {
             return givenWithSpec()
                     .queryParam("sid", sid)
-                    .get(ApiV2EndPoints.Departments.BY_ID, id);
+                    .get(ApiV2EndPoints.DEPARTMENT, id);
         }
     }
 }

@@ -14,6 +14,9 @@ public interface B2BPaymentStepElement {
     Input juridicalName = new Input(By.xpath("//input[@name='requisites.name']"), "Поле ввода 'Юридическое лицо'");
     Input juridicalAddress = new Input(By.xpath("//input[@name='requisites.address']"), "Поле ввода 'Юридический адрес'");
     Input kpp = new Input(By.xpath("//input[@name='requisites.kpp']"), "Поле ввода 'КПП'");
+    Input consigneeName = new Input(By.xpath("//input[@name='requisites.companyConsigneeName']"), "поле для ввода имени компании-грузополучателя");
+    Input consigneeAddress = new Input(By.xpath("//input[@name='requisites.companyConsigneeAddress']"), "поле для ввода адреса компании-грузополучателя");
+    Input consigneeKpp = new Input(By.xpath("//input[@name='requisites.companyConsigneeKpp']"), "поле для ввода кпп компании-грузополучателя");
     Checkbox needInvoice = new Checkbox(By.xpath("//div[contains(@class, 'checkout-panel--active')]//input[@type='checkbox'][./parent::label[contains(.,'ТОРГ-12')]]"), "Чекбокс 'Необходима накладная ТОРГ-12'");
     Input account = new Input(By.xpath("//input[@name='requisites.operatingAccount']"), "Поле ввода 'Расчётный счёт'");
     Input bik = new Input(By.xpath("//input[@name='requisites.bik']"), "Поле ввода 'БИК'");

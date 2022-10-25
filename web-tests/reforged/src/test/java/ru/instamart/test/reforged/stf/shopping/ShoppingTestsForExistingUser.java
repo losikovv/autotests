@@ -38,7 +38,7 @@ public class ShoppingTestsForExistingUser {
 
         checkout().goToPage();
         shop().interactHeader().checkMinAmountAlertVisible();
-        home().checkPageUrl(home().addBasicAuthToUrl(UiProperties.Env.STF_FRONT_URL));
+        home().checkPageUrl(home().addBasicAuthToUrl(UiProperties.STF_URL));
     }
 
     @CaseId(1617)

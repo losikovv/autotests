@@ -62,7 +62,7 @@ public final class SessionFactory {
         makeSession(type, provider);
     }
 
-    @Step("Создании сессии типа {1} через {2}")
+    @Step("Создании сессии типа {0} через {1}")
     public static void makeSession(final SessionType type, final SessionProvider provider) {
         final UserData userData = provider.equals(SessionProvider.QA) ? UserManager.getQaUser() : UserManager.getUser();
         switch (type) {

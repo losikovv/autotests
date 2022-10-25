@@ -1,9 +1,12 @@
 package ru.instamart.kraken.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
+import java.util.Arrays;
+import java.util.Objects;
+
+@RequiredArgsConstructor
 @Getter
 public enum CiPipelineSource {
 
@@ -21,5 +24,24 @@ public enum CiPipelineSource {
     PIPELINE("pipeline"),
     LOCAL("local");
 
+    public static final CiPipelineSource CI_PIPELINE_SOURCE = getValue(System.getenv("CI_PIPELINE_SOURCE"));
     private final String name;
+
+    public static CiPipelineSource getValue(final String constant) {
+        if (Objects.isNull(constant)) {
+            return LOCAL;
+        }
+        return Arrays.stream(CiPipelineSource.values())
+                .filter(e -> e.getName().equalsIgnoreCase(constant))
+                .findFirst()
+                .orElse(LOCAL);
+    }
+
+    public static boolean isLocal() {
+        return CI_PIPELINE_SOURCE == LOCAL;
+    }
+
+    public static boolean isCustom() {
+        return CI_PIPELINE_SOURCE == WEB;
+    }
 }
