@@ -14,6 +14,7 @@ public interface TestVariables {
         String companyTwitterLink = "https://twitter.com/sbermarket_ru";
         String companyInstagramLink = "https://www.instagram.com/sbermarket.ru";
         String companyAdjustFooterAppLink = "https://app.adjust.com/kfrpj8y";
+        String companyTelegramLink = "https://t.me/official_sbermarket";
     }
 
     interface TestParams {

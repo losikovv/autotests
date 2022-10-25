@@ -44,6 +44,14 @@ public final class WaitAction {
                 .until(ExpectedConditions.visibilityOfElementLocated(component.getBy(args)));
     }
 
+    public WebElement elementOfCollectionShouldBeVisible(final ElementCollection elementCollection, final int elementIndex) {
+        return createWait(elementCollection).until(ExpectedConditions.visibilityOf(elementCollection.getElements().get(elementIndex)));
+    }
+
+    public void elementOfCollectionShouldNotBeVisible(final ElementCollection elementCollection, final int elementIndex) {
+        createWait(elementCollection).until(ExpectedConditions.invisibilityOf(elementCollection.getElements().get(elementIndex)));
+    }
+
     public WebElement shouldExist(final Component component) {
         return createWait(component).until(ExpectedConditions.presenceOfElementLocated(component.getBy()));
     }
@@ -51,6 +59,11 @@ public final class WaitAction {
     public WebElement shouldExist(final Component component, final WebElement webElement) {
         return createWait(component)
                 .until(KrakenCondition.presentsOfElementLocated(webElement, component.getBy()));
+    }
+
+    public void shouldNotBeAnimated(final Component component, final Object... args) {
+        createWait(component)
+                .until(KrakenCondition.steadinessOfElementLocated(component.getBy(args)));
     }
 
     public void shouldNotBeAnimated(final Component component) {
@@ -145,7 +158,7 @@ public final class WaitAction {
     }
 
     public void urlContains(final String url) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница: "+ getWebDriver().getCurrentUrl() +" не содержит ожидаемого url: " + url)
+        createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница: " + getWebDriver().getCurrentUrl() + " не содержит ожидаемого url: " + url)
                 .until(ExpectedConditions.urlContains(url));
     }
 

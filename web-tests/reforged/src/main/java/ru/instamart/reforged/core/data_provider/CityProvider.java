@@ -7,7 +7,7 @@ public final class CityProvider {
 
     @DataProvider(name = "city")
     public static Object[][] getCity() {
-        return new Object[][] {
+        return new Object[][]{
                 {RestAddresses.Moscow.defaultAddress()},
                 {RestAddresses.SaintPetersburg.defaultAddress()},
                 {RestAddresses.Kazan.defaultAddress()},

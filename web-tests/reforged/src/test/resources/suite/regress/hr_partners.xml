@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Web UI regress" data-provider-thread-count="3">
+    <listeners>
+        <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
+        <listener class-name="ru.instamart.reforged.core.listener.UiListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="Web UI tests" parallel="classes">
+        <classes>
+            <class name="ru.instamart.test.reforged.hp_ops_partners.HomePageTests"/>
+            <class name="ru.instamart.test.reforged.hp_ops_partners.VacanciesPageTests"/>
+        </classes>
+    </test>
+</suite>
