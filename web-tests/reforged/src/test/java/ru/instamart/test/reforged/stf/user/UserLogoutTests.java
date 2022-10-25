@@ -37,7 +37,7 @@ public final class UserLogoutTests {
 
     @CaseId(1474)
     @Story("Позитивный кейс")
-    @Test(description = "Тест успешной деавторизации", groups = {"production", REGRESSION_STF, "smoke"})
+    @Test(description = "Тест успешной деавторизации", groups = {REGRESSION_STF, "smoke"})
     public void successManualLogout() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

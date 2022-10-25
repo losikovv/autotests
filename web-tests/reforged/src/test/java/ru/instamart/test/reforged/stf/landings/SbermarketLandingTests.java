@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.Group.STARTING_X;
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 
 @Epic("STF UI")
@@ -13,7 +14,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.home;
 public final class SbermarketLandingTests {
 
     @CaseId(1687)
-    @Test(description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = REGRESSION_STF)
+    @Test(description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = {STARTING_X, REGRESSION_STF})
     public void successValidateSbermarketLanding() {
         home().goToPage();
         home().checkHeaderContainerIsVisible();
@@ -43,7 +44,7 @@ public final class SbermarketLandingTests {
     }
 
     @CaseId(2042)
-    @Test(description = "Кнопка СберБизнес ID при выбранном чекбоксе 'Хочу заказывать для бизнеса'", groups = REGRESSION_STF)
+    @Test(description = "Кнопка СберБизнес ID при выбранном чекбоксе 'Хочу заказывать для бизнеса'", groups = {STARTING_X, REGRESSION_STF})
     public void enabledSberBusinessIdButton() {
         home().goToPage();
         home().openLoginModal();

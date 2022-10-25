@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.Group.STARTING_X;
 import static ru.instamart.reforged.stf.page.StfRouter.driversHiring;
 
 @Epic("STF UI")
@@ -13,7 +14,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.driversHiring;
 public final class DriversHiringLandingTests {
 
     @CaseId(1686)
-    @Test(description = "Тест лендинга найма водителей Сбермаркета", groups = REGRESSION_STF)
+    @Test(description = "Тест лендинга найма водителей Сбермаркета", groups = {STARTING_X, REGRESSION_STF})
     public void successValidateSbermarketDriversHiringLanding() {
         driversHiring().goToPage();
         driversHiring().checkPageIsAvailable();
