@@ -20,10 +20,10 @@ public final class TaxonsV2Request extends ApiV2RequestBase {
     /**
      * Получение конкретного таксона в выбранном магазине
      */
-    @Step("{method} /" + ApiV2EndPoints.Taxons.BY_ID)
+    @Step("{method} /" + ApiV2EndPoints.TAXON)
     public static Response GET(final int taxonId, final int sid) {
         return givenWithSpec()
                 .queryParam("sid", sid)
-                .get(ApiV2EndPoints.Taxons.BY_ID, taxonId);
+                .get(ApiV2EndPoints.TAXON, taxonId);
     }
 }

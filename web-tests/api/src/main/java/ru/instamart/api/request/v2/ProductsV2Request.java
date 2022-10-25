@@ -22,18 +22,18 @@ public final class ProductsV2Request extends ApiV2RequestBase {
     /**
      * Получить инфо о продукте
      */
-    @Step("{method} /" + ApiV2EndPoints.Products.BY_ID)
+    @Step("{method} /" + ApiV2EndPoints.PRODUCT)
     public static Response GET(final Long productId) {
-        return givenWithSpec().get(ApiV2EndPoints.Products.BY_ID, productId);
+        return givenWithSpec().get(ApiV2EndPoints.PRODUCT, productId);
     }
 
     /**
      * Получить инфо о продукте
      */
-    @Step("{method} /" + ApiV2EndPoints.Products.BY_ID)
+    @Step("{method} /" + ApiV2EndPoints.PRODUCT)
     public static Response GET(final Long productId, final int sid) {
         return givenWithSpec()
                 .queryParam("sid", sid)
-                .get(ApiV2EndPoints.Products.BY_ID, productId);
+                .get(ApiV2EndPoints.PRODUCT, productId);
     }
 }

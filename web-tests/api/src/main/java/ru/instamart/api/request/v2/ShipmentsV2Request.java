@@ -19,10 +19,10 @@ import java.util.Objects;
 
 public final class ShipmentsV2Request extends ApiV2RequestBase {
 
-    @Step("{method} /" + ApiV2EndPoints.Shipments.SHIPMENTS)
+    @Step("{method} /" + ApiV2EndPoints.SHIPMENT)
     public static Response DELETE(final String shipmentNumber) {
         return givenWithAuth()
-                .delete(ApiV2EndPoints.Shipments.SHIPMENTS, shipmentNumber);
+                .delete(ApiV2EndPoints.SHIPMENT, shipmentNumber);
     }
 
     @Step("{method} /" + ApiV2EndPoints.Shipments.ACTIVE)

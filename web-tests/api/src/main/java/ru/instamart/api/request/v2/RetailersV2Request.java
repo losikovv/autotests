@@ -15,8 +15,8 @@ public final class RetailersV2Request extends ApiV2RequestBase {
         return givenWithSpec().get(ApiV2EndPoints.RETAILERS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Retailers.BY_ID)
+    @Step("{method} /" + ApiV2EndPoints.RETAILER)
     public static Response GET(final int retailerId) {
-        return givenWithSpec().get(ApiV2EndPoints.Retailers.BY_ID, retailerId);
+        return givenWithSpec().get(ApiV2EndPoints.RETAILER, retailerId);
     }
 }

@@ -14,9 +14,9 @@ public final class FeatureFlagsV2Request extends ApiV2RequestBase {
     }
 
     public static class FeatureFlags {
-        public static Response GET(String flag) {
+        public static Response GET(String name) {
             return givenWithSpec()
-                    .get(ApiV2EndPoints.FeatureFlags.BY_NAME, flag);
+                    .get(ApiV2EndPoints.FEATURE_FLAG, name);
         }
     }
 }

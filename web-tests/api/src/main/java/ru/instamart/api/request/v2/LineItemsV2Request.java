@@ -28,16 +28,16 @@ public final class LineItemsV2Request extends ApiV2RequestBase {
     /**
      * Удаляем товар из корзины
      */
-    @Step("{method} /" + ApiV2EndPoints.LineItems.BY_ID)
+    @Step("{method} /" + ApiV2EndPoints.LINE_ITEM)
     public static Response DELETE(long productId) {
         return givenWithAuth()
-                .delete(ApiV2EndPoints.LineItems.BY_ID, productId);
+                .delete(ApiV2EndPoints.LINE_ITEM, productId);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.LineItems.BY_ID)
+    @Step("{method} /" + ApiV2EndPoints.LINE_ITEM)
     public static Response PUT(long productId, int qty){
         return givenWithAuth()
                 .formParam("line_item[packs]", qty)
-                .put(ApiV2EndPoints.LineItems.BY_ID, productId);
+                .put(ApiV2EndPoints.LINE_ITEM, productId);
     }
 }
