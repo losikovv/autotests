@@ -6,68 +6,69 @@ package ru.instamart.api.endpoint;
 public final class ApiV2EndPoints {
 
     public static final String AB_TESTS = "vab_tests";
+    public static final String ADDRESS = "addresses/{id}";
     public static final String ADDRESSES = "addresses";
     public static final String ADS = "ads";
     public static final String ADS_IMAGES = "ads-images";
     public static final String APP_CONFIGURATION = "app_configuration";
+    public static final String BONUS_CARD = "bonus_cards/{bonusCardId}";
     public static final String BONUS_CARDS = "bonus_cards";
     public static final String BONUS_PROGRAMS = "bonus_programs";
     public static final String CATEGORIES = "categories";
     public static final String CITIES = "cities";
     public static final String COMPANY_DOCUMENTS = "company_documents";
     public static final String COMPANY_PRESENCE = "company_presence";
+    public static final String CREDIT_CARD = "credit_cards/{creditCardId}";
     public static final String CREDIT_CARDS = "credit_cards";
     public static final String CURRENT_TIME = "current_time";
     public static final String DEEPLINKS = "deeplinks";
     public static final String DELIVERY_AVAILABILITY = "delivery_availability";
+    public static final String DEPARTMENT = "departments/{id}";
     public static final String DEPARTMENTS = "departments";
+    public static final String FEATURE_FLAG = "feature_flags/{name}";
     public static final String FEATURE_FLAGS = "feature_flags";
     public static final String INSTACOIN_ACCOUNT = "instacoin_account";
     public static final String LEGAL_ENTITY = "legal_entity";
+    public static final String LINE_ITEM = "line_items/{productId}";
     public static final String LOYALTIES = "loyalties";
     public static final String LINE_ITEMS = "line_items";
     public static final String NOTIFICATIONS = "notifications";
     public static final String ONBOARDING_PAGES = "onboarding_pages";
+    public static final String ORDER = "orders/{orderNumber}";
     public static final String ORDERS = "orders";
     public static final String PASSWORDS = "passwords";
     public static final String PAYMENT_TOOLS = "payment_tools";
     public static final String PAYMENT_TOOL_TYPES = "payment_tool_types";
     public static final String PAYMENT_TOOLS_WITH_TYPES = "payment_tools_with_types";
+    public static final String PHONE = "phones/{phoneId}";
     public static final String PHONES = "phones";
+    public static final String PHONE_CONFIRMATION = "phone_confirmations/{phoneNumber}";
     public static final String PHONE_CONFIRMATIONS = "phone_confirmations";
+    public static final String PRODUCT = "products/{productId}";
     public static final String PRODUCTS = "products";
+    public static final String PRODUCT_FEEDBACK = "product_feedbacks/{id}";
     public static final String PRODUCT_FEEDBACKS = "product_feedbacks";
     public static final String PROFILE = "profile";
     public static final String PURCHASED_PRODUCTS = "purchased_products";
     public static final String REPLACEMENT_POLICIES = "replacement_policies";
+    public static final String RETAILER = "retailers/{retailerId}";
     public static final String RETAILERS = "retailers";
     public static final String REVIEWABLE_SHIPMENT = "reviewable_shipment";
+    public static final String SESSION = "sessions/{token}";
+    public static final String SHIPMENT = "shipments/{shipmentNumber}";
     public static final String SHIPPING_METHODS = "shipping_methods";
     public static final String SIMPLE_ADS = "simple-ads";
+    public static final String STORE = "stores/{sid}";
     public static final String STORES = "stores";
+    public static final String TAXON = "taxons/{taxonId}";
     public static final String TAXONS = "taxons";
+    public static final String USER = "users/{email}";
     public static final String USERS = "users";
-
-    public static final class Addresses {
-        public static final String BY_ID = "addresses/{id}";
-    }
 
     public static final class AuthProviders {
         public static final String AUTH_PARAMS = "auth_providers/{provider}/auth_params";
         public static final String AVAILABLE_FOR_ATTACH = "auth_providers/available_for_attach";
         public static final String SESSIONS = "auth_providers/{provider}/sessions";
-    }
-
-    public static final class BonusCards {
-        public static final String BY_ID = "bonus_cards/{bonusCardId}";
-    }
-
-    public static final class CreditCards {
-        public static final String BY_ID = "credit_cards/{creditCardId}";
-    }
-
-    public static final class Departments {
-        public static final String BY_ID = "departments/{id}";
     }
 
     public static final class ExternalAnalytics {
@@ -82,10 +83,6 @@ public final class ApiV2EndPoints {
         }
     }
 
-    public static final class FeatureFlags {
-        public static final String BY_NAME = "feature_flags/{name}";
-    }
-
     public static final class FavoritesList {
         public static final String ITEMS = "favorites_list/items";
         public static final String PRODUCTS_SKU = "favorites_list/products_sku";
@@ -96,7 +93,6 @@ public final class ApiV2EndPoints {
     }
 
     public static final class LineItems {
-        public static final String BY_ID = "line_items/{productId}";
     }
 
     public static final class Onboarding {
@@ -104,7 +100,6 @@ public final class ApiV2EndPoints {
     }
 
     public static final class Orders {
-        public static final String BY_NUMBER = "orders/{orderNumber}";
         public static final String CANCELLATIONS = "orders/{orderNumber}/cancellations";
         public static final String COMPANY = "orders/{orderNumber}/company";
         public static final String COMPLETION = "orders/{orderNumber}/completion";
@@ -145,35 +140,18 @@ public final class ApiV2EndPoints {
     }
 
     public static final class ProductFeedbacks {
-        public static final String BY_ID = "product_feedbacks/{id}";
         public static final String CAN_POST_FEEDBACK = "product_feedbacks/can_post_feedback";
         public static final String ACTUAL_FEEDBACK = "product_feedbacks/actual_feedback";
     }
 
-    public static final class PhoneConfirmations {
-        public static final String PHONE_NUMBER = "phone_confirmations/{phoneNumber}";
-    }
-
-    public static final class Phones {
-        public static final String BY_ID = "phones/{phoneId}";
-    }
-
-    public static final class Products {
-        public static final String BY_ID = "products/{productId}";
-    }
-
     public static final class Promotions {
         public static final String FREE_DELIVERY = "promotions/free_delivery";
-        public static final String PROMO_PRODUCTS = "promotions/{promo_id}/promo_products";
+        public static final String PROMO_PRODUCTS = "promotions/{promoId}/promo_products";
         public static final String REFERRAL_PROGRAM = "promotions/referral_program";
     }
 
     public static final class Recs {
         public static final String PERSONAL = "recs/personal";
-    }
-
-    public static final class Retailers {
-        public static final String BY_ID = "retailers/{id}";
     }
 
     public static final class Searches {
@@ -190,7 +168,6 @@ public final class ApiV2EndPoints {
     }
 
     public static final class Sessions {
-        public static final String BY_TOKEN = "sessions/{token}";
         public static final String USER = "sessions/{token}/user";
     }
 
@@ -208,7 +185,6 @@ public final class ApiV2EndPoints {
         public static final String REVIEW_ISSUES = "shipments/{shipmentNumber}/review_issues";
         public static final String REVIEW_WINDOW_CLOSE = "shipments/{shipmentNumber}/review_window_close";
         public static final String SERVICE_RATE = "shipments/{shipmentNumber}/service_rate";
-        public static final String SHIPMENTS = "shipments/{shipmentNumber}";
         public static final String SHIPPING_RATES = "shipments/{shipmentNumber}/shipping_rates";
         public static final String STATE = "shipments/{shipmentNumber}/state";
 
@@ -224,15 +200,10 @@ public final class ApiV2EndPoints {
     }
 
     public static final class Stores {
-        public static final String BY_SID = "stores/{sid}";
         public static final String FOR_MAP = "stores/for_map";
         public static final String HEALTH_CHECK = "stores/{sid}/healthcheck";
         public static final String NEXT_DELIVERIES = "stores/{sid}/next_deliveries";
         public static final String PROMOTION_CARDS = "stores/{sid}/promotion_cards";
-    }
-
-    public static final class Taxons {
-        public static final String BY_ID = "taxons/{taxonId}";
     }
 
     public static final class User {
@@ -242,7 +213,6 @@ public final class ApiV2EndPoints {
     }
 
     public static final class Users {
-        public static final String BY_EMAIL = "users/{email}";
         public static final String REFERRAL_PROGRAM = "users/{email}/referral_program";
     }
 }

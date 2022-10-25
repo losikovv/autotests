@@ -62,7 +62,6 @@ public enum Specification {
         final String shopperFullBaseUrl = EnvironmentProperties.SHOPPER_GW_URL;
         final String shopperFullAdminUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
         final String shopperStage = (EnvironmentProperties.STAGE).isBlank() ? "kraken" : EnvironmentProperties.STAGE;
-        final String bffForward = (System.getProperty("bff_forward")) == null ? "default" : System.getProperty("bff_forward");
         final String etaStage = "https://" + EnvironmentProperties.Env.ETA_NAMESPACE + ".gw-stage.sbmt.io";
 
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
@@ -124,11 +123,12 @@ public enum Specification {
                 .addFilter(new CounterFilter())
                 .build();
         //todo убрать после того как на проде можно будет обойтись без "api/v2"
-        apiV2RequestSpec.basePath(EnvironmentProperties.STAGE.equals("m") ? "" : "api/v2/");
+        apiV2RequestSpec.basePath(EnvironmentProperties.BFF.TRUE ? "" : "api/v2/");
 
-        if (EnvironmentProperties.STAGE.equals("m")) {
-            apiV2RequestSpec.header("sbm-forward-feature-version-paas-content-front-platform-stf-mobile-aggregator", bffForward);
-            apiV2RequestSpec.header("sbm-forward-feature-version-stf", "s-sb-stf0-sbermarket");
+        if (EnvironmentProperties.BFF.TRUE) {
+            apiV2RequestSpec.baseUri(apiV2FullUrl.replaceAll("stf-" + EnvironmentProperties.STAGE, "m"));
+            apiV2RequestSpec.header("sbm-forward-feature-version-paas-content-front-platform-stf-mobile-aggregator", EnvironmentProperties.BFF.FORWARD);
+            apiV2RequestSpec.header("sbm-forward-feature-version-stf", "s-sb-stf" + EnvironmentProperties.STAGE + "-sbermarket");
         }
 
         prodRequestSpec = new RequestSpecBuilder()

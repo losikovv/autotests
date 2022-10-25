@@ -27,17 +27,17 @@ public final class AddressesV2Request extends ApiV2RequestBase {
                 .post(ApiV2EndPoints.ADDRESSES);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Addresses.BY_ID)
+    @Step("{method} /" + ApiV2EndPoints.ADDRESS)
     public static Response DELETE(final int id) {
         return givenWithAuth()
-                .delete(ApiV2EndPoints.Addresses.BY_ID, id);
+                .delete(ApiV2EndPoints.ADDRESS, id);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Addresses.BY_ID)
+    @Step("{method} /" + ApiV2EndPoints.ADDRESS)
     public static Response PUT(final int id, final Addresses addresses) {
         return givenWithAuth()
                 .formParams(Mapper.INSTANCE.objectToMap(addresses))
-                .put(ApiV2EndPoints.Addresses.BY_ID, id);
+                .put(ApiV2EndPoints.ADDRESS, id);
     }
 
     /**

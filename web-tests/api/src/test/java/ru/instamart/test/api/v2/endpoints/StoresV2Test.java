@@ -94,7 +94,7 @@ public final class StoresV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
-            description = "Получить список магазинов с указанием lon или lon")
+            description = "Получить список магазинов с отсутствующими lat или/и lon")
     public void getStoresData(StoresV2Request.Store store) {
         final Response response = StoresV2Request.GET(store);
         checkStatusCode422(response);

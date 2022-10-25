@@ -255,4 +255,9 @@ public final class EnvironmentProperties {
             return url;
         }
     }
+
+    public static class BFF {
+        public static boolean TRUE = System.getProperty("bff") != null && System.getProperty("bff").equals("true");
+        public static String FORWARD = System.getProperty("bff_forward") == null ? "default" : System.getProperty("bff_forward");
+    }
 }

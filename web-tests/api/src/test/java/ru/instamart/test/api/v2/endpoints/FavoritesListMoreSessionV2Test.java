@@ -108,7 +108,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
     @CaseId(523)
     @Story("Список SKU товаров из избранного")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
-            description = "Список SKU товаров из избранного. 3 товар в избранном")
+            description = "Список SKU товаров из избранного. 3 товара в избранном")
     public void getFavoritesSku3Items() {
         apiV2.addFavoritesQtyListProductBySid(EnvironmentProperties.DEFAULT_SID, 3);
         final Response response = FavoritesV2Request.ProductSku.GET();
@@ -122,7 +122,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
             description = "Добавить товар в избранное с существующим id")
     public void addFavoritesList200() {
-        ProductV2 product = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0);
+        ProductV2 product = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0);
         final Response response = FavoritesV2Request.POST(product.getId());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, FavoritesItemV2Response.class);

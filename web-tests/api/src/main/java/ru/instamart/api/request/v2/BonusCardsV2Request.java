@@ -21,9 +21,9 @@ public final class BonusCardsV2Request extends ApiV2RequestBase {
                 .post(ApiV2EndPoints.BONUS_CARDS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.BonusCards.BY_ID)
+    @Step("{method} /" + ApiV2EndPoints.BONUS_CARD)
     public static Response DELETE(final int bonusCardId) {
         return givenWithAuth()
-                .delete(ApiV2EndPoints.BonusCards.BY_ID, bonusCardId);
+                .delete(ApiV2EndPoints.BONUS_CARD, bonusCardId);
     }
 }

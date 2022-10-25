@@ -39,7 +39,7 @@ public final class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(282)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"},
             description = "Упрощенный запрос нативной рекламы с обязательными параметрами")
     public void simpleAdsTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -124,7 +124,7 @@ public final class SimpleAdsV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(284), @CaseId(1087), @CaseId(1088), @CaseId(1089)})
     @JsonDataProvider(path = "data/json_v2/api_v2_blank_simple_ads_data.json", type = RestDataProvider.SimpleAdsV2TestDataRoot.class)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
             description = "Упрощенный запрос нативной рекламы с отсутствующими параметрами")
@@ -139,7 +139,7 @@ public final class SimpleAdsV2Test extends RestBase {
     @Skip(onServer = Server.PRODUCTION)
     @CaseIDs(value = {@CaseId(283), @CaseId(1090)})
     @JsonDataProvider(path = "data/json_v2/api_v2_invalid_simple_ads_data.json", type = RestDataProvider.SimpleAdsV2TestDataRoot.class)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
             description = "Упрощенный запрос нативной рекламы с невалидными параметрами")

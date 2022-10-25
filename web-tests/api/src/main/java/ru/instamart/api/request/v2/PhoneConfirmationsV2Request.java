@@ -42,7 +42,7 @@ public class PhoneConfirmationsV2Request extends ApiV2RequestBase {
         return PUT(phoneNumber, phoneConfirmations);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.PhoneConfirmations.PHONE_NUMBER)
+    @Step("{method} /" + ApiV2EndPoints.PHONE_CONFIRMATION)
     public static Response PUT(final String phoneNumber,
                                final String phoneConfirmationCode,
                                final boolean promoTermsAccepted) {
@@ -52,14 +52,14 @@ public class PhoneConfirmationsV2Request extends ApiV2RequestBase {
 
         return givenWithSpec()
                 .queryParams(Mapper.INSTANCE.objectToMap(jsonObject))
-                .put(ApiV2EndPoints.PhoneConfirmations.PHONE_NUMBER, phoneNumber);
+                .put(ApiV2EndPoints.PHONE_CONFIRMATION, phoneNumber);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.PhoneConfirmations.PHONE_NUMBER)
+    @Step("{method} /" + ApiV2EndPoints.PHONE_CONFIRMATION)
     public static Response PUT(final String phoneNumber, final PhoneConfirmations phoneConfirmations) {
         return givenWithSpec()
                 .formParams(Mapper.INSTANCE.objectToMap(phoneConfirmations))
-                .put(ApiV2EndPoints.PhoneConfirmations.PHONE_NUMBER, phoneNumber);
+                .put(ApiV2EndPoints.PHONE_CONFIRMATION, phoneNumber);
 
     }
 

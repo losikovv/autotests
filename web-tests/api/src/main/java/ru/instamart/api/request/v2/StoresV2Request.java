@@ -32,10 +32,10 @@ public final class StoresV2Request extends ApiV2RequestBase {
     /**
      * Получаем данные о конкретном магазине
      */
-    @Step("{method} /" + ApiV2EndPoints.Stores.BY_SID)
+    @Step("{method} /" + ApiV2EndPoints.STORE)
     public static Response GET(int sid) {
         return givenWithSpec()
-                .get(ApiV2EndPoints.Stores.BY_SID, sid);
+                .get(ApiV2EndPoints.STORE, sid);
     }
 
     public static class ForMap {

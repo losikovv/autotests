@@ -93,7 +93,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(2472)
     @Story("Список популярных запросов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Список популярных запросов без sid")
     public void topPhrasesTest() {
         final Response response = SearchesV2Request.Suggestions.TopPhrases.GET();
@@ -103,7 +103,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(2473)
     @Story("Список популярных запросов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Список популярных запросов с несуществующим sid")
     public void topPhrasesTest1() {
         final Response response = SearchesV2Request.Suggestions.TopPhrases.GET(0);
@@ -113,7 +113,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(2474)
     @Story("Список популярных запросов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
             description = "Список популярных запросов с существующим sid")
     public void topPhrasesSidTest() {
         final Response response = SearchesV2Request.Suggestions.TopPhrases.GET(EnvironmentProperties.DEFAULT_SID);

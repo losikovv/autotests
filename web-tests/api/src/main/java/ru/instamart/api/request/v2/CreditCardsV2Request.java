@@ -26,10 +26,10 @@ public class CreditCardsV2Request extends ApiV2RequestBase {
                 .get(ApiV2EndPoints.CREDIT_CARDS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.CreditCards.BY_ID)
+    @Step("{method} /" + ApiV2EndPoints.CREDIT_CARD)
     public static Response DELETE(String creditCardId) {
         return givenWithAuth()
-                .delete(ApiV2EndPoints.CreditCards.BY_ID, creditCardId);
+                .delete(ApiV2EndPoints.CREDIT_CARD, creditCardId);
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
