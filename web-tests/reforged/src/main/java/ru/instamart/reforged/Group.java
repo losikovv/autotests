@@ -35,6 +35,11 @@ public final class Group {
     #######STF Section#######
     #########################
      */
+    public static final String STARTING_X = "starting_x";   //Анна Горбачёва
+    public static final String MALSTROM = "malstrom";       //Максим Токмачев
+    public static final String JORMUNGANDR = "jormungandr"; //Виталина Романова
+    public static final String JOTUNHEIMR = "jotunheimr";   //Артём Брагин
+
     public static final String MULTIRETAILER_SEARCH = "multiretailer_search";
     public static final String CHECKOUT_WEB_NEW = "checkout_web_new";
     public static final String POST_ORDERING = "post_ordering";

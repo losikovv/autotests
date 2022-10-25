@@ -21,14 +21,14 @@ public final class UserFavoritesTests {
 
     @CaseId(1263)
     @Test(description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
-            groups = {"production", "smoke", REGRESSION_STF})
+            groups = {"smoke", REGRESSION_STF})
     public void noAccessToFavoritesForUnauthorizedUser() {
         userFavorites().goToPage();
         userFavorites().checkForbiddenPageUrl(userFavorites().pageUrl());
     }
 
     @CaseId(1265)
-    @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {"production", REGRESSION_STF})
+    @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {REGRESSION_STF})
     public void noFavoriteItemsByDefault() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -40,7 +40,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1266)
-    @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {"production", "smoke", REGRESSION_STF})
+    @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {"smoke", REGRESSION_STF})
     public void successAddFavoriteOnItemCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -125,7 +125,7 @@ public final class UserFavoritesTests {
 
     @CaseId(1272)
     @Test(description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным",
-            groups = {"production", "smoke", REGRESSION_STF})
+            groups = {"smoke", REGRESSION_STF})
     public void successAuthAfterAddFavoriteOnItemCard() {
         shop().goToPage();
         shop().openFirstProductCardProd();
@@ -137,7 +137,7 @@ public final class UserFavoritesTests {
 
     @CaseId(1492)
     @Test(description = "Тест добавления товаров в корзину из списка любимых товаров",
-            groups = {"production", "smoke", REGRESSION_STF})
+            groups = {"smoke", REGRESSION_STF})
     public void successAddFavoriteProductToCart() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.getDefaultAddress());

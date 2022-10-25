@@ -75,7 +75,7 @@ public final class OrdersPaymentsTests {
 
     @CaseId(1625)
     @Story("Тест заказа с оплатой картой курьеру")
-    @Test(description = "Тест заказа с оплатой картой курьеру", groups = {"production", "smoke", REGRESSION_STF})
+    @Test(description = "Тест заказа с оплатой картой курьеру", groups = {"smoke", REGRESSION_STF})
     public void successOrderWithCardCourier() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
