@@ -372,7 +372,7 @@ generate:report:
       - $REGRESSION == 'true'
   stage: generate-report
   script:
-    - if [ $URL_STF == "stf-kraken.k-stage.sbermarket.tech" ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
+    - if [ $URL_STF_BACKEND == "stf-kraken.k-stage.sbermarket.tech" ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
     - cd ..
     - bash ./generate-report.sh api api-instamart-$ALLURE_POSTFIX-regress
   when: always
