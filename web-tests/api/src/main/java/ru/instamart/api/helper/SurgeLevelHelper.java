@@ -53,13 +53,11 @@ public class SurgeLevelHelper {
     }
 
     @Step("Добавить магазин {storeId} и конфиг для него в БД")
-    public static void addStore(String storeId, String configId, boolean isOnDemand, float storeLat, float storeLon, String inheritedConfigId, int priority, int deliveryArea) {
-        boolean isConfigCreated = ConfigDao.INSTANCE.addConfig(configId);
+    public static void addStore(String storeId, String configId, boolean isOnDemand, float storeLat, float storeLon, String formulaId, int step, int deliveryArea) {
+        boolean isConfigCreated = ConfigDao.INSTANCE.addConfig(configId, formulaId, step);
         assertTrue(isConfigCreated, "Не добавился конфиг");
         boolean isStoreCreated = StoreDao.INSTANCE.addStore(storeId, configId, isOnDemand, storeLat, storeLon, deliveryArea);
         assertTrue(isStoreCreated, "Не добавился магазин");
-        boolean isInheritanceCreated = ConfigInheritanceDao.INSTANCE.addConfigInheritance(configId, inheritedConfigId, priority);
-        assertTrue(isInheritanceCreated, "Не добавилась зависимости");
     }
 
     @Step("Удалить магазин {storeId} и конфиг для него из БД")
