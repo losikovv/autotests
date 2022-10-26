@@ -44,7 +44,7 @@ public class SurgeLevelTest extends RestBase {
     private final String FIRST_STORE_ID = UUID.randomUUID().toString();
     private final String SECOND_STORE_ID = UUID.randomUUID().toString();
     private final String THIRD_STORE_ID = UUID.randomUUID().toString();
-    private final String DEFAULT_CONFIG_ID = "20000000-2000-2000-2000-200000000000";
+    private final String FORMULA_ID = "10000000-1000-1000-1000-100000000000";
     private final String SHIPMENT_UUID = UUID.randomUUID().toString();
     private final String ORDER_UUID = UUID.randomUUID().toString();
     private final String CANDIDATE_UUID = UUID.randomUUID().toString();
@@ -56,7 +56,7 @@ public class SurgeLevelTest extends RestBase {
     private final int SECOND_WORKFLOW_ID = SECOND_DELIVERY_AREA_ID;
     private final int SHORT_TIMEOUT = 1;
     private final int LONG_TIMEOUT = 5;
-    private float currentSurgeLevel = 100; // см. формулу, которую используем для тестов (в конфиге DEFAULT_CONFIG_ID)
+    private float currentSurgeLevel = 100; // см. формулу, которую используем для тестов
     private float currentSurgeLevelFirstStore = currentSurgeLevel;
     private float currentSurgeLevelSecondStore = currentSurgeLevel;
     private float currentSurgeLevelThirdStore = currentSurgeLevel;
@@ -104,10 +104,10 @@ public class SurgeLevelTest extends RestBase {
         //стор1 видит оба
         //стор2 видит только стор1 (примерно 1,3КМ от стор1)
         //стор3 видит только стор1 (примерно 2,9КМ  стор1)
-        addStore(STORE_ID, UUID.randomUUID().toString(), true, storeLocation.getLat(), storeLocation.getLon(), DEFAULT_CONFIG_ID, 1, FIRST_DELIVERY_AREA_ID);
-        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), true, firstStoreLocation.getLat(), firstStoreLocation.getLon(), DEFAULT_CONFIG_ID, 1, SECOND_DELIVERY_AREA_ID);
-        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), true, secondStoreLocation.getLat(), secondStoreLocation.getLon(), DEFAULT_CONFIG_ID, 1, SECOND_DELIVERY_AREA_ID);
-        addStore(THIRD_STORE_ID, UUID.randomUUID().toString(), true, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), DEFAULT_CONFIG_ID, 1, 0);
+        addStore(STORE_ID, UUID.randomUUID().toString(), true, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID);
+        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), true, firstStoreLocation.getLat(), firstStoreLocation.getLon(), FORMULA_ID, 1000, SECOND_DELIVERY_AREA_ID);
+        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), true, secondStoreLocation.getLat(), secondStoreLocation.getLon(), FORMULA_ID, 1000, SECOND_DELIVERY_AREA_ID);
+        addStore(THIRD_STORE_ID, UUID.randomUUID().toString(), true, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), FORMULA_ID, 1000, 0);
 
         distFirstSecond = distance(firstStoreLocation.getLat(), firstStoreLocation.getLon(), secondStoreLocation.getLat(), secondStoreLocation.getLon(), 'K') * 1000;
         distFirstThird = distance(firstStoreLocation.getLat(), firstStoreLocation.getLon(), thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), 'K') * 1000;
@@ -196,7 +196,7 @@ public class SurgeLevelTest extends RestBase {
         });
         Allure.step("Проверка корректной записи расстояния для inner и outer магазинов", () -> {
             final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(firstStoreDemand.getDistance(), 0d, "Не верное расстояние для inner магазина");
+            softAssert.assertEquals(firstStoreDemand.getDistance(), 0d, 5d, "Не верное расстояние для inner магазина");
             softAssert.assertEquals(secondStoreDemand.getDistance(), distFirstSecond, 10d, "Не верное расстояние для outer магазина");
             softAssert.assertEquals(thirdStoreDemand.getDistance(), distFirstThird, 10d, "Не верное расстояние для outer магазина");
             softAssert.assertAll();
@@ -378,7 +378,7 @@ public class SurgeLevelTest extends RestBase {
         });
         Allure.step("Проверка корректной записи расстояния для inner и outer магазинов", () -> {
             final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(firstStoreSupply.getDistance(), 0d, "Не верное расстояние для inner магазина");
+            softAssert.assertEquals(firstStoreSupply.getDistance(), 0d, 5d, "Не верное расстояние для inner магазина");
             softAssert.assertEquals(secondStoreSupply.getDistance(), distFirstSecond, 10d, "Не верное расстояние для outer магазина");
             softAssert.assertEquals(thirdStoreSupply.getDistance(), distFirstThird, 10d, "Не верное расстояние для outer магазина");
             softAssert.assertAll();
