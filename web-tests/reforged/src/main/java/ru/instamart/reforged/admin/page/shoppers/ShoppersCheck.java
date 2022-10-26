@@ -3,6 +3,7 @@ package ru.instamart.reforged.admin.page.shoppers;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
+import ru.instamart.reforged.core.Check;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 
 import static ru.instamart.reforged.core.Check.krakenAssert;
 
-public interface ShoppersCheck extends ShoppersElement {
+public interface ShoppersCheck extends ShoppersElement, Check {
 
     @Step("Проверяем, что спиннер отображается")
     default void checkSpinnerVisible() {
