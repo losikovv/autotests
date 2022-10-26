@@ -1,9 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -20,6 +17,7 @@ import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.time.LocalDate;
@@ -284,6 +282,8 @@ public class ShipmentsV2Test extends RestBase {
         // Allure.step("Проверяем тип доставки", () -> assertEquals(nextDeliveryV2.getKind(), "courier", "kind не равен \"courier\""));
     }
 
+    @Skip
+    @Issue("STF-9822")
     @CaseId(371)
     @Story("Получить ближайшие окна доставки")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
