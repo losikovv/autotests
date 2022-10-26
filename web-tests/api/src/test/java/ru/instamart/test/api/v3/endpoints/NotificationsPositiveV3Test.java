@@ -22,8 +22,7 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.request.v3.NotificationsV3Request.POST;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 
@@ -309,6 +308,64 @@ public class NotificationsPositiveV3Test extends RestBase {
     }
 
     @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(2835)
+    @Test(description = "Ошибка 405 Delivering (Сборка ритейлера, доставка Сбермаркета)",
+            groups = {"api-instamart-smoke", "api-v3"})
+    public void orderDeliveringDeliveryBySbermarket() {
+        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = NotificationsV3Request.POST(
+                orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseReadyForDelivery);
+        Response responseDelivering = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.DELIVERING.getValue());
+        checkStatusCode(responseDelivering, 405);
+
+        simplyAwait(3);
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Позитивные тесты")
+    @CaseId(2827)
+    @Test(description = "Delivering после ready_for_delivery (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-smoke", "api-v3"})
+    public void orderDeliveringDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseReadyForDelivery);
+        simplyAwait(3);
+        Response responseDelivering = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.DELIVERING.getValue());
+        checkStatusCode200(responseDelivering);
+
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.SHIPPING.getStatus(), "Заказ не перешел в статус Доставляется");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
+    }
+
+    @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
     @CaseId(2075)
     @Test(description = "Delivered после ready_for_delivery (Сборка и доставка ритейлером)",
@@ -341,6 +398,73 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Позитивные тесты")
+    @CaseId(2828)
+    @Test(description = "Delivered после delivering (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-smoke", "api-v3"})
+    public void orderDeliveredAfterDeliveringDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseReadyForDelivery);
+        simplyAwait(3);
+        Response responseDelivering = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.DELIVERING.getValue());
+        checkStatusCode200(responseDelivering);
+        Response responseDelivered = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.DELIVERED.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseDelivered);
+
+        simplyAwait(2);
+        OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не перешел в статус Доставлен");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(2601)
+    @Test(description = "Canceled после отмены (Сборка ритейлера, доставка Сбермаркета)",
+            groups = {"api-instamart-smoke", "api-v3"})
+    public void cancelAfterCancelOrderDeliveryBySbermarket() {
+        Response responseCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        checkStatusCode200(responseCanceled);
+        Response responseRepeatCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        //checkStatusCode422(responseRepeatCanceled); ждем фикс на проде
+
+        OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(2601)
+    @Test(description = "Canceled после отмены (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-smoke", "api-v3"})
+    public void cancelAfterCancelOrderDeliveryByRetailer() {
+        Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        checkStatusCode200(responseCanceled);
+        Response responseRepeatCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        //checkStatusCode422(responseRepeatCanceled); ждем фикс на проде
+
+        OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
     @Skip(onServer = Server.STAGING)
@@ -635,6 +759,48 @@ public class NotificationsPositiveV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
+    @CaseId(2992)
+    @Test(description = "Ready_for_delivery после оформления заказа негатив. (Сборка ритейлера, доставка Сбермаркета)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void orderReadyForDeliveryAfterCreateOrderDeliveryBySbermarket() {
+        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseReadyForDelivery = NotificationsV3Request.POST(
+                orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        //checkStatusCode422(responseReadyForDeliveryRepeat); --ждем фикс на проде
+
+        OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.READY.getStatus(), "Заказ не остался в статусе Создан");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(2992)
+    @Test(description = "Ready_for_delivery после оформления заказа негатив. (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void orderReadyForDeliveryAfterCreateOrderDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseReadyForDelivery = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        //checkStatusCode422(responseReadyForDeliveryRepeat); --ждем фикс на проде
+
+        OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.READY.getStatus(), "Заказ не остался в статусе Cоздан");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
     @CaseId(2188)
     @Test(description = "Ready_for_delivery после отмены негатив. (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-regress", "api-v3"})
@@ -677,5 +843,56 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(2993)
+    @Test(description = "Delivered после создания негатив. (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-smoke", "api-v3"})
+    public void orderDeliveredAfterCreateDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseDelivered = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.DELIVERED.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode422(responseDelivered);
+
+        OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.READY.getStatus(), "Заказ не остался в статусе Создан");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не остались в статусе Ожидают сборки");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(2994)
+    @Test(description = "Delivered после создания негатив. (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-smoke", "api-v3"})
+    public void orderDeliveredAfterInWorkDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode200(responseInWork);
+
+        Response responseDelivered = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.DELIVERED.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode422(responseDelivered);
+
+        OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не остались в статусе Ожидают сборки");
     }
 }

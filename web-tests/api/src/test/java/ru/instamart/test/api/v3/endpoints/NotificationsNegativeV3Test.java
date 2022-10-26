@@ -57,7 +57,7 @@ public class NotificationsNegativeV3Test extends RestBase {
 
     @Story("Негативные тесты")
     @CaseId(1504)
-    @Test(description = "Ошибка 405 (Шоппер)",
+    @Test(description = "Ошибка 405 (Не применяется)",
             groups = {"api-instamart-smoke", "api-v3"},
             dataProvider = "notificationTypes",
             dataProviderClass = ApiV3DataProvider.class)

@@ -14,6 +14,8 @@ import ru.instamart.reforged.core.data_provider.CarTypeProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.*;
+import java.util.Set;
+
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
@@ -198,5 +200,281 @@ public final class AdminShoppersTests {
         shoppersEdit().interactPopover().clickToOk();
         shoppersEdit().save();
         shoppersEdit().interactAlert().checkSuccessFlashVisible();
+    }
+
+    @CaseId(1870)
+    @Test(description = "Добавление тегов к партнеру",
+            groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
+    public void addTagsToShoppersTest() {
+        final var shopperData = ShoppersData.shoppers();
+        helper.createShopper(shopperData);
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        shoppers().goToPage();
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().fillName(shopperData.getName());
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().checkShopperWasFound(shopperData.getName());
+        shoppers().clickOnFirstAddTagButton();
+
+        shoppers().interactAddTagModal().checkModalVisible();
+        shoppers().interactAddTagModal().checkAddTagsButtonInactive();
+
+        shoppers().interactAddTagModal().clickOnTagsSelector();
+        shoppers().interactAddTagModal().checkTagsDropdownVisible();
+        var firstTagName = shoppers().interactAddTagModal().getTagNameFromList(1);
+        shoppers().interactAddTagModal().clickOnTagInList(1);
+        shoppers().interactAddTagModal().checkTagSelected(firstTagName);
+
+        var secondTagName = shoppers().interactAddTagModal().getTagNameFromList(2);
+        shoppers().interactAddTagModal().clickOnTagInList(2);
+        shoppers().interactAddTagModal().checkTagSelected(secondTagName);
+
+        var thirdTagName = shoppers().interactAddTagModal().getTagNameFromList(3);
+        var tags = Set.of(firstTagName, secondTagName, thirdTagName);
+
+        shoppers().interactAddTagModal().clickOnTagInList(3);
+        shoppers().interactAddTagModal().checkTagSelected(thirdTagName);
+
+        shoppers().interactAddTagModal().clickOnTagsSelector();
+        shoppers().interactAddTagModal().checkTagsDropdownInvisible();
+
+        shoppers().interactAddTagModal().compareSelectedTagsWithActual(tags);
+        shoppers().interactAddTagModal().checkTagsInFieldHaveRemoveButtons();
+        shoppers().interactAddTagModal().checkAddTagsButtonActive();
+        shoppers().interactAddTagModal().clickOnAddTagsButton();
+        shoppers().interactAddTagModal().checkModalNotVisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().waitPageLoad();
+
+        shoppers().clickOnCollapseTagListButton();
+        shoppers().compareSelectedTagsWithActual(tags);
+
+        shoppers().clickOnFirstAddTagButton();
+        shoppers().interactAddTagModal().checkModalVisible();
+        shoppers().interactAddTagModal().checkSelectedTagsInFieldEmpty();
+        shoppers().interactAddTagModal().clickOnTagsSelector();
+        shoppers().interactAddTagModal().checkTagsDropdownVisible();
+
+        shoppers().interactAddTagModal().checkTagSelectedExcludeInTagsList(tags);
+    }
+
+    @CaseId(1871)
+    @Test(description = "Удаление связки партнер/тег",
+            groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
+    public void deleteTagsFromShoppersTest() {
+        final var shopperData = ShoppersData.shoppers();
+        helper.createShopper(shopperData);
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        shoppers().goToPage();
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().fillName(shopperData.getName());
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().checkShopperWasFound(shopperData.getName());
+        shoppers().clickOnFirstAddTagButton();
+
+        shoppers().interactAddTagModal().checkModalVisible();
+        shoppers().interactAddTagModal().checkAddTagsButtonInactive();
+
+        shoppers().interactAddTagModal().clickOnTagsSelector();
+        shoppers().interactAddTagModal().checkTagsDropdownVisible();
+        var firstTagName = shoppers().interactAddTagModal().getTagNameFromList(1);
+        shoppers().interactAddTagModal().clickOnTagInList(1);
+        shoppers().interactAddTagModal().checkTagSelected(firstTagName);
+
+        shoppers().interactAddTagModal().clickOnTagsSelector();
+        shoppers().interactAddTagModal().checkTagsDropdownInvisible();
+
+        shoppers().interactAddTagModal().checkAddTagsButtonActive();
+        shoppers().interactAddTagModal().clickOnAddTagsButton();
+        shoppers().interactAddTagModal().checkModalNotVisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().waitPageLoad();
+
+        shoppers().clickToDeleteTag(1);
+        shoppers().interactDeleteTagModal().checkModalVisible();
+        shoppers().interactDeleteTagModal().clickOnCancelButton();
+        shoppers().interactDeleteTagModal().checkModalNotVisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().checkTagWithNameVisible(firstTagName);
+
+        shoppers().clickToDeleteTag(1);
+        shoppers().interactDeleteTagModal().checkModalVisible();
+        shoppers().interactDeleteTagModal().clickOnApproveButton();
+        shoppers().interactDeleteTagModal().checkModalNotVisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().checkTagWithNameNotVisible(firstTagName);
+    }
+
+    @CaseId(1872)
+    @Test(description = "Отображение 3+ тегов",
+            groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
+    public void addMultipleTagsToShoppersTest() {
+        final var shopperData = ShoppersData.shoppers();
+        helper.createShopper(shopperData);
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        shoppers().goToPage();
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().fillName(shopperData.getName());
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().checkShopperWasFound(shopperData.getName());
+        shoppers().clickOnFirstAddTagButton();
+
+        shoppers().interactAddTagModal().checkModalVisible();
+        shoppers().interactAddTagModal().checkAddTagsButtonInactive();
+
+        shoppers().interactAddTagModal().clickOnTagsSelector();
+        shoppers().interactAddTagModal().checkTagsDropdownVisible();
+        var firstTagName = shoppers().interactAddTagModal().getTagNameFromList(1);
+        shoppers().interactAddTagModal().clickOnTagInList(1);
+        shoppers().interactAddTagModal().checkTagSelected(firstTagName);
+
+        var secondTagName = shoppers().interactAddTagModal().getTagNameFromList(2);
+        shoppers().interactAddTagModal().clickOnTagInList(2);
+        shoppers().interactAddTagModal().checkTagSelected(secondTagName);
+
+        var thirdTagName = shoppers().interactAddTagModal().getTagNameFromList(3);
+        shoppers().interactAddTagModal().clickOnTagInList(3);
+        shoppers().interactAddTagModal().checkTagSelected(thirdTagName);
+
+        shoppers().interactAddTagModal().clickOnTagsSelector();
+        shoppers().interactAddTagModal().checkTagsDropdownInvisible();
+
+        shoppers().interactAddTagModal().checkAddTagsButtonActive();
+        shoppers().interactAddTagModal().clickOnAddTagsButton();
+        shoppers().interactAddTagModal().checkModalNotVisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().waitPageLoad();
+
+        shoppers().compareSelectedTagsQuantityWithActual(2);
+        shoppers().checkAddTagButtonVisible();
+        shoppers().checkCollapseTagListButtonText("Еще 1");
+
+        shoppers().clickOnFirstAddTagButton();
+
+        shoppers().interactAddTagModal().checkModalVisible();
+        shoppers().interactAddTagModal().checkAddTagsButtonInactive();
+
+        shoppers().interactAddTagModal().clickOnTagsSelector();
+        shoppers().interactAddTagModal().checkTagsDropdownVisible();
+
+        var fourthTagName = shoppers().interactAddTagModal().getTagNameFromList(1);
+        shoppers().interactAddTagModal().clickOnTagInList(1);
+        shoppers().interactAddTagModal().checkTagSelected(fourthTagName);
+
+        shoppers().interactAddTagModal().clickOnTagsSelector();
+        shoppers().interactAddTagModal().checkTagsDropdownInvisible();
+
+        shoppers().interactAddTagModal().checkAddTagsButtonActive();
+        shoppers().interactAddTagModal().clickOnAddTagsButton();
+        shoppers().interactAddTagModal().checkModalNotVisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().waitPageLoad();
+
+        shoppers().compareSelectedTagsQuantityWithActual(2);
+        shoppers().checkAddTagButtonVisible();
+        shoppers().checkCollapseTagListButtonText("Еще 2");
+
+        shoppers().clickToDeleteTag(1);
+        shoppers().interactDeleteTagModal().checkModalVisible();
+        shoppers().interactDeleteTagModal().clickOnApproveButton();
+        shoppers().interactDeleteTagModal().checkModalNotVisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().compareSelectedTagsQuantityWithActual(2);
+        shoppers().checkAddTagButtonVisible();
+        shoppers().checkCollapseTagListButtonText("Еще 1");
+    }
+
+    @CaseId(1873)
+    @Test(description = "Фильтрация по тегам",
+            groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
+    public void filterShoppersOnTagsTest() {
+        final var shopperData = ShoppersData.shoppers();
+        helper.createShopper(shopperData);
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        shoppers().goToPage();
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().clickOnTagsFilterSelector();
+
+        shoppers().checkTagsDropdownVisible();
+        var firstTagName = shoppers().getTagNameFromList(1);
+        shoppers().clickOnTagInList(1);
+        shoppers().checkTagSelected(firstTagName);
+
+        shoppers().clickOnTagsFilterSelector();
+        shoppers().checkTagsDropdownInvisible();
+
+        shoppers().clickOnTagsFilterSelector();
+
+        shoppers().checkTagsDropdownVisible();
+        var secondTagName = shoppers().getTagNameFromList(2);
+        shoppers().clickOnTagInList(2);
+        shoppers().checkTagSelected(secondTagName);
+
+        var tags = Set.of(firstTagName, secondTagName);
+
+        shoppers().compareSelectedTagsInFieldWithActual(tags);
+
+        shoppers().clickOnTagsFilterSelector();
+        shoppers().checkTagsDropdownInvisible();
+
+        shoppers().checkSpinnerVisible();
+        shoppers().checkSpinnerNotVisible();
+
+        shoppers().checkTagsInFieldHaveRemoveButtons();
+
+        shoppers().expandAllTags();
+
+        shoppers().checkTagSelectedInFilterVisibleOnAllPartners(firstTagName);
+        shoppers().checkTagSelectedInFilterVisibleOnAllPartners(secondTagName);
     }
 }

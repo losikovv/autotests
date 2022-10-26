@@ -45,6 +45,7 @@ public class ApiV3DataProvider extends RestBase {
                 {NotificationTypeV3.IN_WORK},
                 {NotificationTypeV3.ASSEMBLED},
                 {NotificationTypeV3.READY_FOR_DELIVERY},
+                {NotificationTypeV3.DELIVERING},
                 {NotificationTypeV3.DELIVERED},
                 {NotificationTypeV3.CANCELED}
         };

@@ -13,6 +13,7 @@ public enum OrderStatusV2 {
     READY("ready"),
     COLLECTING("collecting"),
     READY_TO_SHIP("ready_to_ship"),
+    SHIPPING("shipping"),
     COMPLETE("complete"),
     SHIPPED("shipped"),
     CANCELED("canceled");
