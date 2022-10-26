@@ -12,6 +12,7 @@ public class OptionV2 extends BaseObject {
     private Integer value;
     private Integer count;
     private Boolean active;
+    @Null
     private String name;
     @Null
     private String permalink;
