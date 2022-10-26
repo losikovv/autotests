@@ -11,6 +11,7 @@ public enum NotificationTypeV3 {
     IN_WORK("order.in_work"),
     ASSEMBLED("order.assembled"),
     READY_FOR_DELIVERY("order.ready_for_delivery"),
+    DELIVERING("order.delivering"),
     DELIVERED("order.delivered"),
     CANCELED("order.canceled");
 
