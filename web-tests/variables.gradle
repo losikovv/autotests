@@ -20,7 +20,7 @@ tasks.withType(Test) {
     if (project.hasProperty('url_paas_eta')) {
         systemProperty 'url_paas_eta',"${url_paas_eta}"
     }
-    if (project.hasProperty('url_paas_surgelevel')) {
-        systemProperty 'url_paas_surgelevel',"${url_paas_surgelevel}"
+    if (project.hasProperty('surge_hash_commit_or_branch')) {
+        systemProperty 'surge_hash_commit_or_branch',"${surge_hash_commit_or_branch}"
     }
 }

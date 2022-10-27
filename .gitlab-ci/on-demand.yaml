@@ -114,8 +114,8 @@ tests:on:demand:surgelevel:
       - $ON_DEMAND_SURGELEVEL == 'true'
   when: always
   script:
-    - echo $URL_PAAS_SURGELEVEL
-    - gradle clean build onDemandSurgeLevel -Purl_paas_surgelevel=$URL_PAAS_SURGELEVEL
+    - echo $SURGE_HASH_COMMIT_OR_BRANCH
+    - gradle clean build onDemandSurgeLevel -Psurge_hash_commit_or_branch=$SURGE_HASH_COMMIT_OR_BRANCH
   after_script:
     - bash ./report.sh api on-demand-surgelevel
     - bash ./mattermost.sh api onDemandSurgeLevel $MATTERMOST_HIGHGARDEN_KEY true

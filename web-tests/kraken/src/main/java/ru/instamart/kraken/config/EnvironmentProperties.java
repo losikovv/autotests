@@ -219,7 +219,8 @@ public final class EnvironmentProperties {
         public static String ADMIN_FULL_URL = "https://" + (isProduction() ? ADMIN_URL : BASIC_URL) + "/";
         public static String ONE_SESSION = System.getProperty("one_session");
         public static String ETA_NAMESPACE = getEtaNamespace();
-        public static String SURGELEVEL_NAMESPACE = getSurgelevelNamespace();
+        public static String SURGELEVEL_NAMESPACE = "paas-content-operations-surgelevel" + getSurgelevelHashOrBranch();
+        public static String SURGELEVEL_HASH_OR_BRANCH = getSurgelevelHashOrBranch();
 
         private static String getEtaNamespace() {
             String etaNamespace = System.getProperty("url_paas_eta", "paas-content-operations-eta");
@@ -229,12 +230,12 @@ public final class EnvironmentProperties {
             return etaNamespace;
         }
 
-        private static String getSurgelevelNamespace() {
-            String surgeLevelNamespace = System.getProperty("url_paas_surgelevel", "paas-content-operations-surgelevel");
-            if (Objects.isNull(surgeLevelNamespace) || surgeLevelNamespace.isEmpty() || surgeLevelNamespace.isBlank()) {
-                surgeLevelNamespace = "paas-content-operations-surgelevel";
+        private static String getSurgelevelHashOrBranch() {
+            String surgeLevelHashOrBranch = System.getProperty("surge_hash_commit_or_branch", "");
+            if (Objects.isNull(surgeLevelHashOrBranch) || surgeLevelHashOrBranch.isEmpty() || surgeLevelHashOrBranch.isBlank()) {
+                return "";
             }
-            return surgeLevelNamespace;
+            return "-" + surgeLevelHashOrBranch;
         }
 
         public static boolean isPreprod() {
