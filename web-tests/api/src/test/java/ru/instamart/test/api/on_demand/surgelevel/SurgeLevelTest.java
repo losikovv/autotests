@@ -15,7 +15,6 @@ import ru.instamart.jdbc.dao.surgelevel.SupplyDao;
 import ru.instamart.jdbc.entity.surgelevel.DemandEntity;
 import ru.instamart.jdbc.entity.surgelevel.SupplyEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -55,14 +54,14 @@ public class SurgeLevelTest extends RestBase {
     private final int FIRST_WORKFLOW_ID = FIRST_DELIVERY_AREA_ID;
     private final int SECOND_WORKFLOW_ID = SECOND_DELIVERY_AREA_ID;
     private final int SHORT_TIMEOUT = 1;
-    private final int LONG_TIMEOUT = 5;
+    private final int LONG_TIMEOUT = 7;
     private float currentSurgeLevel = 100; // см. формулу, которую используем для тестов
     private float currentSurgeLevelFirstStore = currentSurgeLevel;
     private float currentSurgeLevelSecondStore = currentSurgeLevel;
     private float currentSurgeLevelThirdStore = currentSurgeLevel;
     private int currentDemandAmount;
     private int currentSupplyAmount;
-    private float pastSurgeLevel = 0;
+    private float pastSurgeLevel;
     private int surgeEventOutdate;
     private double distFirstSecond;
     private double distFirstThird;
