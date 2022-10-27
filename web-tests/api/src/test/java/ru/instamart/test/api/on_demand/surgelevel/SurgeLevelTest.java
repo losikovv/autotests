@@ -455,8 +455,6 @@ public class SurgeLevelTest extends RestBase {
         });
     }
 
-    @Skip
-    @Issue("HG-1092")
     @CaseId(161)
     @Story("Workflow")
     @Test(description = "Отсутствие влияния не in_progress МЛ на кандидата",

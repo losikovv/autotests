@@ -7,12 +7,14 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.testng.SkipException;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.eta.StoreParametersDao;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.redis.Redis;
 import ru.instamart.redis.RedisManager;
 import ru.instamart.redis.RedisService;
@@ -22,6 +24,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -29,6 +32,8 @@ import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.EtaHelper.*;
+import static ru.instamart.api.helper.K8sHelper.getPaasServiceEnvProp;
+import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 import static ru.instamart.kraken.util.TimeUtil.getZoneDbDate;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -44,12 +49,18 @@ public class BasketEtaTest extends RestBase {
     private final String ORDER_UUID = UUID.randomUUID().toString();
     private final String SHIPMENT_UUID = UUID.randomUUID().toString();
     private final String USER_UUID = UUID.randomUUID().toString();
+    private boolean etaEnableOnDemandCheck;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientEta = PredEtaGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_ETA));
         addStore(STORE_UUID, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true);
         addStore(STORE_UUID_WITH_DIFFERENT_TIMEZONE, 55.7030f, 37.7230f, "Europe/Kaliningrad", false, "00:00:00", "00:00:00", "00:00:00", true);
+
+        List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.ETA_NAMESPACE, " | grep -e ETA_ENABLE_STORE_ON_DEMAND_CHECK ");
+        String envPropsStr = String.join("\n", serviceEnvProperties);
+        String etaEnableOnDemandCheckStr = matchWithRegex("^ETA_ENABLE_STORE_ON_DEMAND_CHECK=(.\\w+)$", envPropsStr, 1);
+        etaEnableOnDemandCheck = etaEnableOnDemandCheckStr.equals("true");
     }
 
     @AfterMethod(alwaysRun = true)
@@ -303,9 +314,14 @@ public class BasketEtaTest extends RestBase {
 
     @CaseId(41)
     @Story("Basket ETA")
-    @Test(description = "Отправка валидного запроса в закрытый магазин",
+    @Test(description = "Получение пустого ответа при запросе в закрытый магазин (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
             groups = "dispatch-eta-smoke")
-    public void getBasketEtaForClosedStore() {
+    public void getBasketEtaForClosedStoreTrue() {
+
+        if (!etaEnableOnDemandCheck) {
+            throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = false");
+        }
+
         String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(2)));
         String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(1)));
         updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "00:00:00");
@@ -318,9 +334,14 @@ public class BasketEtaTest extends RestBase {
 
     @CaseId(45)
     @Story("Basket ETA")
-    @Test(description = "Отправка валидного запроса в пределах работы параметра OnDemandClosingDelta",
+    @Test(description = "Получение пустого ответа при запросе в пределах работы параметра OnDemandClosingDelta (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
             groups = "dispatch-eta-smoke")
-    public void getBasketEtaForClosedStoreViaClosingDelta() {
+    public void getBasketEtaForClosedStoreViaClosingDeltaTrue() {
+
+        if (!etaEnableOnDemandCheck) {
+            throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = false");
+        }
+
         String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
         String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
         updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "00:30:00");
@@ -333,9 +354,14 @@ public class BasketEtaTest extends RestBase {
 
     @CaseId(50)
     @Story("Basket ETA")
-    @Test(description = "Отправка запроса с OnDemandClosingDelta равным времени работы магазина",
+    @Test(description = "Получение пустого ответа при запросе с OnDemandClosingDelta равным времени работы магазина (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
             groups = "dispatch-eta-regress")
-    public void getBasketEtaForClosedStoreEqualClosingDelta() {
+    public void getBasketEtaForClosedStoreEqualClosingDeltaTrue() {
+
+        if (!etaEnableOnDemandCheck) {
+            throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = false");
+        }
+
         String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
         String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusHours(1)));
         updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "02:00:00");
@@ -344,6 +370,66 @@ public class BasketEtaTest extends RestBase {
 
         var response = clientEta.getBasketEta(request);
         compareTwoObjects(response.getOrder().getShipmentEtasCount(), 0);
+    }
+
+    @CaseId(248)
+    @Story("Basket ETA")
+    @Test(description = "Получение ЕТА при запросе в закрытый магазин (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
+            groups = "dispatch-eta-smoke")
+    public void getBasketEtaForClosedStoreFalse() {
+
+        if (etaEnableOnDemandCheck) {
+            throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = true");
+        }
+
+        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(2)));
+        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(1)));
+        updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "00:00:00");
+
+        var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
+
+        var response = clientEta.getBasketEta(request);
+        checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
+    }
+
+    @CaseId(251)
+    @Story("Basket ETA")
+    @Test(description = "Получение ЕТА при запросе в пределах работы параметра OnDemandClosingDelta (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
+            groups = "dispatch-eta-smoke")
+    public void getBasketEtaForClosedStoreViaClosingDeltaFalse() {
+
+        if (etaEnableOnDemandCheck) {
+            throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = true");
+        }
+
+        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
+        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
+        updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "00:30:00");
+
+        var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
+
+        var response = clientEta.getBasketEta(request);
+        checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
+    }
+
+    @CaseId(252)
+    @Story("Basket ETA")
+    @Test(description = "Получение ЕТА при запросе с OnDemandClosingDelta равным времени работы магазина (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
+            groups = "dispatch-eta-regress")
+    public void getBasketEtaForClosedStoreEqualClosingDeltaFalse() {
+
+        if (etaEnableOnDemandCheck) {
+            throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = true");
+        }
+
+        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
+        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusHours(1)));
+        updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "02:00:00");
+
+        var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
+
+        var response = clientEta.getBasketEta(request);
+        checkBasketEta(response, ORDER_UUID, SHIPMENT_UUID, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 
     @CaseId(55)
@@ -392,10 +478,10 @@ public class BasketEtaTest extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void postConditions() {
-        if (Objects.nonNull(STORE_UUID) ) {
+        if (Objects.nonNull(STORE_UUID)) {
             StoreParametersDao.INSTANCE.delete(STORE_UUID);
         }
-        if (Objects.nonNull(STORE_UUID_WITH_DIFFERENT_TIMEZONE) ) {
+        if (Objects.nonNull(STORE_UUID_WITH_DIFFERENT_TIMEZONE)) {
             StoreParametersDao.INSTANCE.delete(STORE_UUID_WITH_DIFFERENT_TIMEZONE);
         }
     }
