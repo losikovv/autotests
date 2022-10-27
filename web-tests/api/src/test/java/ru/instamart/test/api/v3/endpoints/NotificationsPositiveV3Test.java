@@ -17,13 +17,12 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AssemblyItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.admin.StoresAdminRequest;
-import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
-import static ru.instamart.api.request.v3.NotificationsV3Request.POST;
+import static ru.instamart.api.request.v3.NotificationsV3Request.*;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 
 @Epic("ApiV3")
@@ -264,7 +263,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -291,7 +290,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -318,7 +317,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -347,7 +346,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -376,7 +375,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -384,7 +383,7 @@ public class NotificationsPositiveV3Test extends RestBase {
                 quantity);
         checkStatusCode200(responseReadyForDelivery);
         simplyAwait(3);
-        Response responseDelivered = NotificationsV3Request.POST(
+        Response responseDelivered = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.DELIVERED.getValue(),
                 retailerSku,
@@ -411,7 +410,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -421,7 +420,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         simplyAwait(3);
         Response responseDelivering = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.DELIVERING.getValue());
         checkStatusCode200(responseDelivering);
-        Response responseDelivered = NotificationsV3Request.POST(
+        Response responseDelivered = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.DELIVERED.getValue(),
                 retailerSku,
@@ -478,7 +477,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -486,7 +485,7 @@ public class NotificationsPositiveV3Test extends RestBase {
                 quantity);
         checkStatusCode200(responseReadyForDelivery);
         simplyAwait(3);
-        Response responseDelivered = NotificationsV3Request.POST(
+        Response responseDelivered = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.DELIVERED.getValue(),
                 retailerSku,
@@ -542,7 +541,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -571,7 +570,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -599,7 +598,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -607,7 +606,7 @@ public class NotificationsPositiveV3Test extends RestBase {
                 quantity);
         checkStatusCode200(responseReadyForDelivery);
         simplyAwait(3);
-        Response responseDelivered = NotificationsV3Request.POST(
+        Response responseDelivered = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.DELIVERED.getValue(),
                 retailerSku,
@@ -662,14 +661,14 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
                 quantity,
                 quantity);
         checkStatusCode200(responseReadyForDelivery);
-        Response responseReadyForDeliveryRepeat = NotificationsV3Request.POST(
+        Response responseReadyForDeliveryRepeat = POST(
                 orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -696,14 +695,14 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
                 quantity,
                 quantity);
         checkStatusCode200(responseReadyForDelivery);
-        Response responseReadyForDeliveryRepeat = NotificationsV3Request.POST(
+        Response responseReadyForDeliveryRepeat = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -730,7 +729,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -738,14 +737,14 @@ public class NotificationsPositiveV3Test extends RestBase {
                 quantity);
         checkStatusCode200(responseReadyForDelivery);
         simplyAwait(3);
-        Response responseDelivered = NotificationsV3Request.POST(
+        Response responseDelivered = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.DELIVERED.getValue(),
                 retailerSku,
                 quantity,
                 quantity);
         checkStatusCode200(responseDelivered);
-        Response responseReadyForDeliveryRepeat = NotificationsV3Request.POST(
+        Response responseReadyForDeliveryRepeat = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -766,7 +765,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
 
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -787,7 +786,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
 
-        Response responseReadyForDelivery = NotificationsV3Request.POST(
+        Response responseReadyForDelivery = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -810,7 +809,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
         checkStatusCode200(responseCanceled);
-        Response responseReadyForDeliveryRepeat = NotificationsV3Request.POST(
+        Response responseReadyForDeliveryRepeat = POST(
                 orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -833,7 +832,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
         checkStatusCode200(responseCanceled);
-        Response responseReadyForDeliveryRepeat = NotificationsV3Request.POST(
+        Response responseReadyForDeliveryRepeat = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 retailerSku,
@@ -854,7 +853,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
 
-        Response responseDelivered = NotificationsV3Request.POST(
+        Response responseDelivered = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.DELIVERED.getValue(),
                 retailerSku,
@@ -881,7 +880,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
 
-        Response responseDelivered = NotificationsV3Request.POST(
+        Response responseDelivered = POST(
                 orderDeliveryByRetailer.getShipments().get(0).getNumber(),
                 NotificationTypeV3.DELIVERED.getValue(),
                 retailerSku,
@@ -894,5 +893,71 @@ public class NotificationsPositiveV3Test extends RestBase {
 
         AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
         Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не остались в статусе Ожидают сборки");
+    }
+
+    @Test(groups = {})
+    public void notificationsAllFields() {
+        var body = Notifications.builder()
+                .event(Event.builder()
+                        .type("order.ready_for_delivery")
+                        .payload(Payload.builder()
+                                .orderId("H39014497241")
+                                .order(Order.builder()
+                                        .originalOrderId("H39014497241")
+                                        .customer(Customer.builder()
+                                                .name("1")
+                                                .phone("+79991111111")
+                                                .build())
+                                        .delivery(Delivery.builder()
+                                                .expectedFrom("2021-05-24T13:00:00+03:00")
+                                                .expectedTo("2021-05-24T13:00:00+03:00")
+                                                .build())
+                                        .changed(true)
+                                        .position(Position.builder()
+                                                .id("75125")
+                                                .originalQuantity(2)
+                                                .quantity(2)
+                                                .price("123")
+                                                .discountPrice("12")
+                                                .replacedByID("")
+                                                .weight(null)
+                                                .totalPrice("321")
+                                                .totalDiscountPrice("32")
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("789")
+                                                        .build())
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("987")
+                                                        .build())
+                                                .build())
+                                        .total(Total.builder()
+                                                .totalPrice("4646")
+                                                .discountTotalPrice("4949")
+                                                .build())
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response response = POST(body);
+        response.prettyPeek();
+    }
+
+    @Test(groups = {})
+    public void notificationsShortFields() {
+        var body = Notifications.builder()
+                .event(Event.builder()
+                        .type("order.ready_for_delivery")
+                        .payload(Payload.builder()
+                                .orderId("H39014497241")
+                                .order(Order.builder()
+                                        .originalOrderId("123")
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response response = POST(body);
+        response.prettyPeek();
     }
 }
