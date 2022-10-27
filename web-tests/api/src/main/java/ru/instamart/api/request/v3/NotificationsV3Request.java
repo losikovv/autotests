@@ -6,6 +6,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Singular;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV3Endpoints;
@@ -170,8 +171,10 @@ public class NotificationsV3Request extends ApiV3RequestBase {
         private String originalOrderId;
         private Customer customer;
         private Delivery delivery;
+        @Singular
         private List<Position> positions;
         private Total total;
+        private Boolean changed;
     }
 
     @Data
@@ -200,6 +203,14 @@ public class NotificationsV3Request extends ApiV3RequestBase {
         private String weight;
         private String totalPrice;
         private String totalDiscountPrice;
+        @Singular("markingCodeItem")
+        private List<MarkingCode> markingCode;
+    }
+
+    @Data
+    @Builder
+    public static final class MarkingCode {
+        private String value;
     }
 
     @Data
