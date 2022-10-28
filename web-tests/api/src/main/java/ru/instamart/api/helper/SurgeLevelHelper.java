@@ -7,8 +7,9 @@ import norns.Norns;
 import order.OrderChanged;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.jdbc.dao.surgelevel.ConfigDao;
-import ru.instamart.jdbc.dao.surgelevel.ConfigInheritanceDao;
+import ru.instamart.jdbc.dao.surgelevel.FormulaDao;
 import ru.instamart.jdbc.dao.surgelevel.StoreDao;
+import ru.instamart.jdbc.entity.surgelevel.FormulaEntity;
 import ru.instamart.kraken.util.ThreadUtil;
 import surgelevelevent.Surgelevelevent;
 
@@ -23,7 +24,7 @@ public class SurgeLevelHelper {
 
     private static final KafkaHelper kafka = new KafkaHelper();
 
-    @Step("Создаем событие отправки заказа в kafka для магазина {storeId}")
+    @Step("Создаем событие заказа для магазина {storeId}")
     public static OrderChanged.EventOrderChanged getEventOrderStatus(String orderUuid, String storeId, OrderChanged.EventOrderChanged.OrderStatus orderStatus, OrderChanged.EventOrderChanged.ShipmentType shipmentType, String shipmentUuid) {
         return OrderChanged.EventOrderChanged.newBuilder()
                 .setOrderUuid(orderUuid)
@@ -34,7 +35,7 @@ public class SurgeLevelHelper {
                 .build();
     }
 
-    @Step("Отправляем событие отправки заказа в kafka для магазина {storeId}")
+    @Step("Отправляем событие заказа для магазина {storeId} в kafka")
     public static void publishEventOrderStatus(String orderUuid, String storeId, OrderChanged.EventOrderChanged.OrderStatus orderStatus, OrderChanged.EventOrderChanged.ShipmentType shipmentType, String shipmentUuid, int timeout) {
         OrderChanged.EventOrderChanged eventOrder = getEventOrderStatus(orderUuid, storeId, orderStatus, shipmentType, shipmentUuid);
         kafka.publish(configOrderStatusChanged(), eventOrder);
@@ -60,15 +61,7 @@ public class SurgeLevelHelper {
         assertTrue(isStoreCreated, "Не добавился магазин");
     }
 
-    @Step("Удалить магазин {storeId} и конфиг для него из БД")
-    public static void deleteStore(String storeId) {
-        if (Objects.nonNull(storeId)) {
-            StoreDao.INSTANCE.delete(storeId);
-            ConfigDao.INSTANCE.deleteByStore(storeId);
-        }
-    }
-
-    @Step("Создаем событие отправки статуса кандидата {candidateUuid}")
+    @Step("Создаем событие статуса кандидата {candidateUuid}")
     public static CandidateChangesOuterClass.CandidateChanges getEventCandidateStatus(String candidateUuid, CandidateChangesOuterClass.CandidateChanges.Role candidateRole, CandidateChangesOuterClass.CandidateChanges.Status candidateStatus, int shiftId, int deliveryAreaId, boolean fixedOnDeliveryAreaOrStore, String storeId, String storeScheduleType) {
         return CandidateChangesOuterClass.CandidateChanges.newBuilder()
                 .setUuid(candidateUuid)
@@ -85,14 +78,14 @@ public class SurgeLevelHelper {
                 .build();
     }
 
-    @Step("Отправляем событие отправки статуса кандидата {candidateUuid}")
+    @Step("Отправляем событие статуса кандидата {candidateUuid} в kafka")
     public static void publishEventCandidateStatus(String candidateUuid, CandidateChangesOuterClass.CandidateChanges.Role candidateRole, CandidateChangesOuterClass.CandidateChanges.Status candidateStatus, int shiftId, int deliveryAreaId, boolean fixedOnDeliveryAreaOrStore, String storeId, String storeScheduleType, int timeout) {
         CandidateChangesOuterClass.CandidateChanges eventCandidate = getEventCandidateStatus(candidateUuid, candidateRole, candidateStatus, shiftId, deliveryAreaId, fixedOnDeliveryAreaOrStore, storeId, storeScheduleType);
         kafka.publish(configCandidateStatus(), eventCandidate);
         ThreadUtil.simplyAwait(timeout);
     }
 
-    @Step("Создаем событие отправки статуса кандидата {candidateUuid} с workflow")
+    @Step("Создаем событие статуса кандидата {candidateUuid} с workflow")
     public static CandidateChangesOuterClass.CandidateChanges getEventCandidateStatusWithWorkflow(String candidateUuid, CandidateChangesOuterClass.CandidateChanges.Role candidateRole, CandidateChangesOuterClass.CandidateChanges.Status candidateStatus, int shiftId, int deliveryAreaId, boolean fixedOnDeliveryAreaOrStore, String storeId, String storeScheduleType, int workflowId, CandidateChangesOuterClass.WorkflowStatus workflowStatus, Timestamp workflowPlanEnded, float workflowLat, float workflowLon) {
         return CandidateChangesOuterClass.CandidateChanges.newBuilder()
                 .setUuid(candidateUuid)
@@ -121,14 +114,14 @@ public class SurgeLevelHelper {
                 .build();
     }
 
-    @Step("Отправляем событие отправки статуса кандидата {candidateUuid} c workflow")
+    @Step("Отправляем событие статуса кандидата {candidateUuid} c workflow в kafka")
     public static void publishEventCandidateStatusWithWorkflow(String candidateUuid, CandidateChangesOuterClass.CandidateChanges.Role candidateRole, CandidateChangesOuterClass.CandidateChanges.Status candidateStatus, int shiftId, int deliveryAreaId, boolean fixedOnDeliveryAreaOrStore, String storeId, String storeScheduleType, int workflowId, CandidateChangesOuterClass.WorkflowStatus workflowStatus, Timestamp workflowPlanEnded, float workflowLat, float workflowLon, int timeout) {
         CandidateChangesOuterClass.CandidateChanges eventCandidate = getEventCandidateStatusWithWorkflow(candidateUuid, candidateRole, candidateStatus, shiftId, deliveryAreaId, fixedOnDeliveryAreaOrStore, storeId, storeScheduleType, workflowId, workflowStatus, workflowPlanEnded, workflowLat, workflowLon);
         kafka.publish(configCandidateStatus(), eventCandidate);
         ThreadUtil.simplyAwait(timeout);
     }
 
-    @Step("Создаем событие отправки геолокации кандидата {candidateUuid}")
+    @Step("Создаем событие геолокации кандидата {candidateUuid}")
     public static Norns.EventAddLocation getEventLocation(String userUuid, float lat, float lon, boolean isFakeGpsAppDetected) {
         return Norns.EventAddLocation.newBuilder()
                 .setUserUuid(userUuid)
@@ -139,10 +132,37 @@ public class SurgeLevelHelper {
                 .build();
     }
 
-    @Step("Отправляем событие отправки геолокации кандидата {candidateUuid}")
+    @Step("Отправляем событие геолокации кандидата {candidateUuid} в kafka")
     public static void publishEventLocation(String userUuid, float lat, float lon, boolean isFakeGpsAppDetected, int timeout) {
         Norns.EventAddLocation eventLocation = getEventLocation(userUuid, lat, lon, isFakeGpsAppDetected);
         kafka.publish(configNorns(), eventLocation);
         ThreadUtil.simplyAwait(timeout);
+    }
+
+    @Step("Проверить наличие кастомной формулы расчета surgelevel в БД")
+    public static void checkFormula(String formulaId) {
+        FormulaEntity formula = FormulaDao.INSTANCE.findFormula(formulaId);
+        if (!Objects.nonNull(formula)){
+            String script = "function main(arg) {\n" +
+                    "    var demand = 150\n" +
+                    "    var supply = 50\n" +
+                    "\n" +
+                    "    for (var i = 0; i < arg.supply.length; i++) { \n" +
+                    "        if (!arg.supply[i].candidate.busy) {\n" +
+                    "            supply++;\n" +
+                    "        }\n" +
+                    "    }\n" +
+                    "\n" +
+                    "    for (var i = 0; i < arg.demand.length; i++) { \n" +
+                    "        if (arg.demand[i].shipment.status>= 0 && arg.demand[i].shipment.status<=3) {\n" +
+                    "            demand++;\n" +
+                    "        }\n" +
+                    "    }\n" +
+                    "\n" +
+                    "    return demand - supply;\n" +
+                    "}";
+            boolean isFormulaCreated = FormulaDao.INSTANCE.addFormula(formulaId, "Kraken-tests formula", script);
+            assertTrue(isFormulaCreated, "Не добавилась формула");
+        }
     }
 }
