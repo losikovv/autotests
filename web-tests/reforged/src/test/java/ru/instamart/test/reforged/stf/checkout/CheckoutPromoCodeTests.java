@@ -19,7 +19,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Промокоды")
-public final class CheckoutPromocodeTests {
+public final class CheckoutPromoCodeTests {
 
     private final ApiHelper helper = new ApiHelper();
     private final String promoCode = Promos.getFreeOrderDeliveryPromo().getCode();
@@ -39,7 +39,7 @@ public final class CheckoutPromocodeTests {
     @CaseId(2638)
     @Story("Добавление промокода к заказу")
     @Test(description = "Тест успешного применения промокода в чекауте", groups = {REGRESSION_STF, "smoke"})
-    public void successAddPromocode() {
+    public void successAddPromoCode() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
@@ -57,7 +57,7 @@ public final class CheckoutPromocodeTests {
     @CaseId(2639)
     @Story("Удаление промокода из заказа")
     @Test(description = "Тест удаления промокода в чекауте", groups = REGRESSION_STF)
-    public void successDeletePromocode() {
+    public void successDeletePromoCode() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
@@ -76,7 +76,7 @@ public final class CheckoutPromocodeTests {
     @CaseId(1729)
     @Story("Добавление промокода к заказу")
     @Test(description = "Тест недобавления промокода при нажатии кнопки Отмена", groups = REGRESSION_STF)
-    public void noPromocodeAddedOnCancel() {
+    public void noPromoCodeAddedOnCancel() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
@@ -93,7 +93,7 @@ public final class CheckoutPromocodeTests {
     @CaseId(1730)
     @Story("Добавление промокода к заказу")
     @Test(description = "Тест не добавления промокода при закрытии модалки промокода", groups = REGRESSION_STF)
-    public void noPromocodeAddedOnModalClose() {
+    public void noPromoCodeAddedOnModalClose() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);

@@ -153,6 +153,7 @@ public final class ShoppingCartTests {
         shop().checkFirstProductCardIsVisible();
         shop().openFirstProductCardProd();
         shop().interactProductCard().increaseItemCount();
+        shop().interactProductCard().checkIsIncreaseClickable();
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
         shop().goToPage();
@@ -165,6 +166,7 @@ public final class ShoppingCartTests {
         shop().checkFirstProductCardIsVisible();
         shop().openFirstProductCardProd();
         shop().interactProductCard().decreaseItemCount();
+        shop().interactProductCard().checkDecreaseClickable();
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
 
