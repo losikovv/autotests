@@ -15,7 +15,7 @@ public final class BrowserProperties {
     public static String REMOTE_URL;
     @Config(configName = NAME, fieldName = "video", defaultValue = "false")
     public static boolean VIDEO;
-    @Config(configName = NAME, fieldName = "headless", defaultValue = "false")
+    @Config(configName = NAME, fieldName = "headless", defaultValue = "false", env = "HEADLESS")
     public static boolean HEADLESS;
 
     @Config(configName = NAME, fieldName = "ignoreSsl", defaultValue = "true")

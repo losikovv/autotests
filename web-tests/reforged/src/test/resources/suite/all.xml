@@ -61,13 +61,13 @@
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutContactsStepTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutDeliverySlotsTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPaymentStepTests"/>
-            <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPromocodeTests"/>
+            <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPromoCodeTests"/>
 
             <!--checkout_new-->
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutSwitchTabsTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutAddressTests"/>
-            <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutPromocodesTests"/>
+            <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutPromoCodesTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutPaymentMethodsTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutSlotsTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutContactsAndReplacementPolicyTests"/>

@@ -23,6 +23,8 @@ task localRun(type: Test) {
             listeners.add("ru.instamart.reforged.core.listener.UiListener")
         }
     }
+    environment 'BROWSER', 'chrome'
+    environment 'HEADLESS', 'false'
     systemProperty 'qase.Project', 'DEBUG'
     systemProperty 'qase.Title', 'STF UI DEBUG'
 }
@@ -34,7 +36,9 @@ task localRunAdminOnDemand(type: Test) {
             listeners.add("ru.instamart.reforged.core.listener.UiListener")
         }
     }
-    systemProperty 'admin_url', 'https://stf-6.k-stage.sbermarket.tech/admin/'
+    environment 'BROWSER', 'chrome'
+    environment 'HEADLESS', 'false'
+    environment 'ADMIN_URL', 'https://stf-6.k-stage.sbermarket.tech/admin/'
     systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
     systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
     systemProperty 'service', 'paas-content-operations-shifts'
@@ -49,6 +53,8 @@ task localRunSelgros(type: Test) {
             listeners.add("ru.instamart.reforged.core.listener.UiListener")
         }
     }
+    environment 'BROWSER', 'chrome'
+    environment 'HEADLESS', 'false'
     environment 'P_ENV', 'selgros-preprod'
     systemProperty 'qase.Project', 'DEBUG'
     systemProperty 'qase.Title', 'Selgros UI DEBUG'

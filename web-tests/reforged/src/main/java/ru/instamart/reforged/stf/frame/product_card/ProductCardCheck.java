@@ -113,4 +113,14 @@ public interface ProductCardCheck extends Check, ProductCardElement {
     default void checkDiscountPrice(final String cardPriceWithDiscount, final String snippetPriceWithDiscount) {
         Assert.assertEquals(cardPriceWithDiscount, snippetPriceWithDiscount, "отображаемая цена товара со скидкой в карточке не соответствует цене товара со скидкой в сниппете");
     }
+
+    @Step("Проверяем что кнопка увеличения кол-ва кликабельна")
+    default void checkIsIncreaseClickable() {
+        increase.shouldBe().clickable();
+    }
+
+    @Step("Проверяем что кнопка уменьшения кол-ва кликабельна")
+    default void checkDecreaseClickable() {
+        decrease.shouldBe().clickable();
+    }
 }

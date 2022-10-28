@@ -72,7 +72,7 @@ public final class ApiHelper {
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(userData, apiV2.getAddressBySid(sid));
         var products = apiV2.getProductsFromFavorites(sid);
-        apiV2.fillCart(products);
+        apiV2.fillCartOneByOne(products, 5);
     }
 
     /**
@@ -107,7 +107,7 @@ public final class ApiHelper {
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
-        apiV2.fillCartOneByOne(apiV2.getProductFromEachDepartmentOnMainPage(sid), 5);
+        apiV2.fillCartOneByOne(apiV2.getProducts(sid), 5);
     }
 
     @Step("Удаляем ритейлера: '{retailerName}'")
