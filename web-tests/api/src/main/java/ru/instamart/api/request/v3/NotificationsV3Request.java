@@ -1,5 +1,6 @@
 package ru.instamart.api.request.v3;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
@@ -146,12 +147,14 @@ public class NotificationsV3Request extends ApiV3RequestBase {
 
     @Data
     @Builder
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static final class Notifications {
         private Event event;
     }
 
     @Data
     @Builder
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static final class Event {
         private String type;
         private Payload payload;
@@ -159,6 +162,7 @@ public class NotificationsV3Request extends ApiV3RequestBase {
 
     @Data
     @Builder
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static final class Payload {
         @JsonProperty(value = "order_id")
         private String orderId;
@@ -167,6 +171,7 @@ public class NotificationsV3Request extends ApiV3RequestBase {
 
     @Data
     @Builder
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static final class Order {
         private String originalOrderId;
         private Customer customer;
@@ -179,6 +184,7 @@ public class NotificationsV3Request extends ApiV3RequestBase {
 
     @Data
     @Builder
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static final class Customer {
         private String name;
         private String phone;
@@ -186,6 +192,7 @@ public class NotificationsV3Request extends ApiV3RequestBase {
 
     @Data
     @Builder
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static final class Delivery {
         private String expectedFrom;
         private String expectedTo;
@@ -193,6 +200,7 @@ public class NotificationsV3Request extends ApiV3RequestBase {
 
     @Data
     @Builder
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static final class Position {
         private String id;
         private Integer originalQuantity;
@@ -209,12 +217,14 @@ public class NotificationsV3Request extends ApiV3RequestBase {
 
     @Data
     @Builder
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static final class MarkingCode {
         private String value;
     }
 
     @Data
     @Builder
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static final class Total {
         private String totalPrice;
         private String discountTotalPrice;

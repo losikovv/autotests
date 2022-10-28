@@ -920,7 +920,7 @@ public class NotificationsPositiveV3Test extends RestBase {
                                                 .price("123")
                                                 .discountPrice("12")
                                                 .replacedByID("")
-                                                .weight(null)
+                                                .weight("012")
                                                 .totalPrice("321")
                                                 .totalDiscountPrice("32")
                                                 .markingCodeItem(MarkingCode.builder()
@@ -950,9 +950,6 @@ public class NotificationsPositiveV3Test extends RestBase {
                         .type("order.ready_for_delivery")
                         .payload(Payload.builder()
                                 .orderId("H39014497241")
-                                .order(Order.builder()
-                                        .originalOrderId("123")
-                                        .build())
                                 .build())
                         .build())
                 .build();
