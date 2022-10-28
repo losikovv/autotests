@@ -20,7 +20,6 @@ import workflow.WorkflowChangedOuterClass;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.kafka.configs.KafkaConfigs.*;
 
@@ -133,7 +132,7 @@ public class KafkaHelper {
 
     @Step("Получаем данные кафки о surgelevel по магазину: {storeId}")
     public List<Surgelevelevent.SurgeEvent> waitDataInKafkaTopicSurgeLevel(String storeId) {
-        var kafkaConsumers = new KafkaConsumers(configSurgeLevel(), 10L);
+        var kafkaConsumers = new KafkaConsumers(configSurgeLevel(), 5L);
         final List<Surgelevelevent.SurgeEvent> longSurgeLevelsHashMap = kafkaConsumers.consumeSurgeLevel(storeId);
         assertTrue(longSurgeLevelsHashMap.size() > 0, "Logs is empty");
         return longSurgeLevelsHashMap;
