@@ -1,7 +1,9 @@
 package ru.instamart.api.helper;
 
 import com.google.protobuf.Duration;
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Timestamp;
+import com.google.protobuf.util.JsonFormat;
 import com.google.protobuf.util.Timestamps;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
@@ -21,15 +23,21 @@ import workflow.WorkflowOuterClass;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.data.StartPointsTenants.METRO_WORKFLOW_END;
 import static ru.instamart.kraken.data.StartPointsTenants.METRO_WORKFLOW_START;
+import static ru.instamart.kraken.util.TimeUtil.getDatePlusSec;
 
 public class WorkflowHelper {
 
     private static final UserData secondShopper = UserManager.getShp6Shopper2();
+
+    public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequest1(final OrderV2 order, final String shipmentUuid, final Timestamp time, final WorkflowEnums.DeliveryType deliveryType) {
+        return getWorkflowsRequest(order, shipmentUuid, time, deliveryType, null);
+    }
 
     @Step("Подготавливаем запрос для создания маршрутного листа")
     public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequest(OrderV2 order, String shipmentUuid, Timestamp time, WorkflowEnums.DeliveryType deliveryType) {
@@ -66,7 +74,7 @@ public class WorkflowHelper {
                                         .setLat(METRO_WORKFLOW_END.getLat())
                                         .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
-                                .setPlanEndedAt(time)
+                                .setPlanEndedAt(getDatePlusSec(300100))
                                 .setDuration(Duration.newBuilder().setSeconds(10).build())
                                 .setDistance(25L)
                                 .build())
@@ -89,12 +97,12 @@ public class WorkflowHelper {
                                         .setLat(METRO_WORKFLOW_START.getLat())
                                         .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
-                                .setPlanStartedAt(time)
+                                .setPlanStartedAt(getDatePlusSec(300150))
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
                                         .setLat(METRO_WORKFLOW_END.getLat())
                                         .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
-                                .setPlanEndedAt(time)
+                                .setPlanEndedAt(getDatePlusSec(300250))
                                 .setDuration(Duration.newBuilder().setSeconds(10).build())
                                 .setDistance(25L)
                                 .build())
@@ -117,13 +125,154 @@ public class WorkflowHelper {
                                         .setLat(METRO_WORKFLOW_START.getLat())
                                         .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
-                                .setPlanStartedAt(time)
+                                .setPlanStartedAt(getDatePlusSec(300300))
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
                                         .setLat(METRO_WORKFLOW_END.getLat())
                                         .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
-                                .setPlanEndedAt(time)
+                                .setPlanEndedAt(getDatePlusSec(300400))
                                 .setDuration(Duration.newBuilder().setSeconds(10).build())
+                                .setDistance(25L)
+                                .build())
+                        .build())
+                .build();
+    }
+
+
+    @Step("Подготавливаем запрос для создания маршрутного листа")
+    public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequest(final OrderV2 order, final String shipmentUuid, final Timestamp time, final WorkflowEnums.DeliveryType deliveryType, final Integer shiftsId) {
+        var map = new HashMap<String, String>();
+        map.put("decline_performer_uuid", "");
+        map.put("dispatch_count", "0");
+        map.put("dispatch_id", "");
+        return WorkflowOuterClass.CreateWorkflowsRequest
+                .newBuilder()
+                .addWorkflows(WorkflowOuterClass.Workflow.newBuilder()
+                        .addAssignments(WorkflowOuterClass.Assignment.newBuilder()
+                                .setPerformerUuid(SessionFactory.getSession(SessionType.SHOPPER_APP).getUserData().getUuid())
+                                .setSourceType(WorkflowEnums.SourceType.DISPATCH)
+                                .setPerformerVehicle(WorkflowEnums.PerformerVehicle.PEDESTRIAN)
+                                .setDeliveryTypeValue(deliveryType.getNumber())
+//                                .setParentJobUuid("ad9e0dfd-9274-4a7c-8363-34218e2af0bd")
+                                .putAllMeta(map)
+//                                .setShift(
+//                                        WorkflowOuterClass.Shift.newBuilder()
+//                                                .setId(shiftsId)
+//                                                .setTransport(WorkflowOuterClass.Shift.Transport.PEDESTRIAN)
+//                                                .build()
+//                                )
+                                .build())
+                        .addSegments(WorkflowOuterClass.Segment.newBuilder()
+                                .setType(WorkflowEnums.SegmentType.ARRIVE)
+                                .setPosition(0)
+                                .addShipments(WorkflowEnums.Shipment.newBuilder()
+                                        .setNumber(order.getShipments().get(0).getNumber())
+                                        .setUuid(shipmentUuid)
+                                        .setItemsCount(1500)
+                                        .setItemsTotalAmount(2539.5f)
+                                        .setWeightKg(10f)
+                                        .setStoreUuid("599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a")
+                                        .setIsHeavy(false)
+                                        .setIsNew(false)
+                                        .setStoreName("METRO, Дмитровское ш")
+                                        .setStoreAddress("Москва, Дмитровское ш, 165Б")
+                                        .build())
+                                .setLocationStart(WorkflowEnums.Location.newBuilder()
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
+                                        .build())
+                                .setPlanStartedAt(time)
+                                .setPlanEndedAt(getDatePlusSec(301000))
+                                .setLocationEnd(WorkflowEnums.Location.newBuilder()
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
+                                        .build())
+                                .setDuration(Duration.newBuilder().setSeconds(10).build())
+                                .setDistance(25L)
+                                .build())
+//                        .addSegments(WorkflowOuterClass.Segment.newBuilder()
+//                                .setType(WorkflowEnums.SegmentType.RECEIVING_FOR_DELIVERY)
+//                                .setPosition(1)
+//                                .addShipments(WorkflowEnums.Shipment.newBuilder()
+//                                        .setNumber(order.getShipments().get(0).getNumber())
+//                                        .setUuid(shipmentUuid)
+//                                        .setItemsCount(1500)
+//                                        .setItemsTotalAmount(2539.5f)
+//                                        .setWeightKg(10f)
+//                                        .setStoreUuid("599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a")
+//                                        .setIsHeavy(false)
+//                                        .setIsNew(false)
+//                                        .setStoreName("METRO, Дмитровское ш")
+//                                        .setStoreAddress("Москва, Дмитровское ш, 165Б")
+//                                        .build())
+//                                .setLocationStart(WorkflowEnums.Location.newBuilder()
+//                                        .setLat(METRO_WORKFLOW_START.getLat())
+//                                        .setLon(METRO_WORKFLOW_START.getLon())
+//                                        .build())
+//                                .setPlanStartedAt(getDatePlusSec(301000))
+//                                .setPlanEndedAt(getDatePlusSec(302000))
+//                                .setLocationEnd(WorkflowEnums.Location.newBuilder()
+//                                        .setLat(METRO_WORKFLOW_END.getLat())
+//                                        .setLon(METRO_WORKFLOW_END.getLon())
+//                                        .build())
+//                                .setDuration(Duration.newBuilder().setSeconds(10).build())
+//                                .setDistance(25L)
+//                                .build())
+
+                        .addSegments(WorkflowOuterClass.Segment.newBuilder()
+                                .setType(WorkflowEnums.SegmentType.DELIVERY)
+                                .setPosition(2)
+                                .addShipments(WorkflowEnums.Shipment.newBuilder()
+                                        .setNumber(order.getShipments().get(0).getNumber())
+                                        .setUuid(shipmentUuid)
+                                        .setItemsCount(1500)
+                                        .setItemsTotalAmount(2539.5f)
+                                        .setWeightKg(10f)
+                                        .setStoreUuid("599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a")
+                                        .setIsHeavy(false)
+                                        .setIsNew(false)
+                                        .setStoreName("METRO, Дмитровское ш")
+                                        .setStoreAddress("Москва, Дмитровское ш, 165Б")
+                                        .build())
+                                .setLocationStart(WorkflowEnums.Location.newBuilder()
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
+                                        .build())
+                                .setPlanStartedAt(getDatePlusSec(302000))
+                                .setPlanEndedAt(getDatePlusSec(303000))
+                                .setLocationEnd(WorkflowEnums.Location.newBuilder()
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
+                                        .build())
+                                .setDuration(Duration.newBuilder().setSeconds(10).build())
+                                .setDistance(25L)
+                                .build())
+                        .addSegments(WorkflowOuterClass.Segment.newBuilder()
+                                .setType(WorkflowEnums.SegmentType.PASS_TO_CLIENT)
+                                .setPosition(3)
+                                .addShipments(WorkflowEnums.Shipment.newBuilder()
+                                        .setNumber(order.getShipments().get(0).getNumber())
+                                        .setUuid(shipmentUuid)
+                                        .setItemsCount(1500)
+                                        .setItemsTotalAmount(2539.5f)
+                                        .setWeightKg(10f)
+                                        .setStoreUuid("599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a")
+                                        .setIsHeavy(false)
+                                        .setIsNew(false)
+                                        .setStoreName("METRO, Дмитровское ш")
+                                        .setStoreAddress("Москва, Дмитровское ш, 165Б")
+                                        .build())
+                                .setLocationStart(WorkflowEnums.Location.newBuilder()
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
+                                        .build())
+                                .setPlanStartedAt(getDatePlusSec(303000))
+                                .setPlanEndedAt(getDatePlusSec(304000))
+                                .setLocationEnd(WorkflowEnums.Location.newBuilder()
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
+                                        .build())
+                                .setDuration(Duration.newBuilder().setSeconds(360).build())
                                 .setDistance(25L)
                                 .build())
                         .build())
@@ -449,17 +598,12 @@ public class WorkflowHelper {
         checkStatusCode200(response);
     }
 
-    /**
-     *
-     * @param order
-     * @param shipmentUuid
-     * @param timestamp
-     * @param clientWorkflow
-     * @return
-     */
-    @Step("Создаем маршрутный лист")
     public static String getWorkflowUuid(OrderV2 order, String shipmentUuid, Timestamp timestamp, ServiceGrpc.ServiceBlockingStub clientWorkflow) {
-        var request = getWorkflowsRequest(order, shipmentUuid, timestamp, WorkflowEnums.DeliveryType.DEFAULT);
+        return getWorkflowUuid(order, shipmentUuid, timestamp, clientWorkflow, null);
+    }
+    @Step("Создаем маршрутный лист")
+    public static String getWorkflowUuid(OrderV2 order, String shipmentUuid, Timestamp timestamp, ServiceGrpc.ServiceBlockingStub clientWorkflow, Integer shiftId) {
+        var request = getWorkflowsRequest(order, shipmentUuid, timestamp, WorkflowEnums.DeliveryType.DEFAULT, shiftId);
         var response = clientWorkflow.createWorkflows(request);
         return response.getResultsMap().keySet().toArray()[0].toString();
     }

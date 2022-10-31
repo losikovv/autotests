@@ -1,6 +1,7 @@
 package ru.instamart.test.api.on_demand.workflow;
 
 import io.restassured.response.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -15,7 +16,9 @@ import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.jdbc.entity.candidates.CandidatesEntity;
 import ru.instamart.k8s.K8sPortForward;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 import workflow.ServiceGrpc;
@@ -37,23 +40,29 @@ public class WorkflowCandidatesTest extends RestBase {
     private OrderV2 secondOrder;
     private String secondShipmentUuid;
     private String workflowUuid;
+    private Integer shiftId;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
+        //Выводим на смену
+        shopperApp.authorisation(UserManager.getShp6Shopper3());
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
+        shiftId = shiftsApi.startOfShift(StartPointsTenants.METRO_9);
+
         clientWorkflow = ServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW));
         SessionFactory.makeSession(SessionType.API_V2);
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
         secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
-        shopperApp.authorisation(UserManager.getShp6Shopper3());
     }
 
     @CaseId(93)
     @Test(description = "Блокирование кандидата в статусе offered",
             groups = "dispatch-workflow-smoke")
     public void checkUnavailableCandidate() {
-        workflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(300000), clientWorkflow);
+        workflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(300000), clientWorkflow, shiftId);
         ThreadUtil.simplyAwait(5);
         CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Shopper3().getUuid());
         compareTwoObjects(candidate.getActive(), false);
@@ -100,5 +109,7 @@ public class WorkflowCandidatesTest extends RestBase {
             cancelWorkflow(clientWorkflow, secondShipmentUuid);
             cancelWorkflow(clientWorkflow, shipmentUuid);
         }
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
     }
 }
