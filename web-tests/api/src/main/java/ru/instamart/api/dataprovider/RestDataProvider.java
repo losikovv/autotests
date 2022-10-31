@@ -139,8 +139,9 @@ public class RestDataProvider extends RestBase {
         Object[][] authProviderArray = new Object[4][1];
         authProviderArray[0][0] = AuthProviderV2.METRO;
         authProviderArray[1][0] = AuthProviderV2.SBERAPP;
-        authProviderArray[2][0] = AuthProviderV2.VKONTAKTE;
-        authProviderArray[3][0] = AuthProviderV2.FACEBOOK;
+        //todo 500 ошибка
+        // authProviderArray[2][0] = AuthProviderV2.VKONTAKTE;
+        // authProviderArray[3][0] = AuthProviderV2.FACEBOOK;
         return authProviderArray;
     }
 

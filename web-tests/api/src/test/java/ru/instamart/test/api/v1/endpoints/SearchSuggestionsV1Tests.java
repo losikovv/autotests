@@ -50,7 +50,9 @@ public class SearchSuggestionsV1Tests extends RestBase {
         checkResponseJsonSchema(response, SearchSuggestionsV1Response.class);
         List<SuggestionOfferV1> offersFromResponse = response.as(SearchSuggestionsV1Response.class).getSuggestion().getOffers();
         final SoftAssert softAssert = new SoftAssert();
-        offersFromResponse.forEach(o -> softAssert.assertTrue(o.getProduct().getName().toLowerCase().contains("valio"), "Пришли неверные подсказки"));
+        offersFromResponse.forEach(o -> softAssert.assertTrue(
+                o.getProduct().getName().toLowerCase().contains("valio") ||
+                        o.getProduct().getName().toLowerCase().contains("viola"), "Пришли неверные подсказки"));
         softAssert.assertAll();
     }
 
