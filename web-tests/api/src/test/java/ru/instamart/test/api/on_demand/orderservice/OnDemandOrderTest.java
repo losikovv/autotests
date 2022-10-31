@@ -1,6 +1,8 @@
 package ru.instamart.test.api.on_demand.orderservice;
 
 import io.qameta.allure.Allure;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -14,6 +16,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
+@Epic("On Demand")
+@Feature("DISPATCH")
 public class OnDemandOrderTest extends RestBase {
 
     private OrderV2 order;

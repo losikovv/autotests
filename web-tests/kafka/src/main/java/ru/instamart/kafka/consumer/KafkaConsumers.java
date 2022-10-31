@@ -25,7 +25,6 @@ import workflow.WorkflowChangedOuterClass;
 import java.time.Duration;
 import java.util.*;
 
-import static ru.instamart.kraken.util.TimeUtil.getDbDateMinusMinutes;
 import static ru.instamart.kraken.util.TimeUtil.getZonedDate;
 
 @Slf4j
@@ -67,15 +66,12 @@ public class KafkaConsumers {
         final Properties props = consumerProperties(config);
         final KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<>(props);
         if (Objects.nonNull(time)) {
+            Map<TopicPartition, Long> timestamps = new HashMap<>();
             final TopicPartition topicPartition0 = new TopicPartition(config.topic, 0);
-            consumer.assign(Collections.singletonList(topicPartition0));
-            consumer.poll(Duration.ofSeconds(500));
-            final Map<TopicPartition, Long> startOffsetsMap = new HashMap<>();
-            startOffsetsMap.put(topicPartition0, getDbDateMinusMinutes(time));
-            final Map<TopicPartition, OffsetAndTimestamp> startPartitionOffsetsMap = consumer
-                    .offsetsForTimes(startOffsetsMap);
+            timestamps.put(topicPartition0, System.currentTimeMillis() - time * 1000);
+            Map<TopicPartition, OffsetAndTimestamp> startPartitionOffsetsMap = consumer.offsetsForTimes(timestamps);
             long partition0StartOffset = 0;
-            if (Objects.nonNull(topicPartition0) && Objects.nonNull(startOffsetsMap.get(topicPartition0))) {
+            if (topicPartition0 != null) {
                 partition0StartOffset = startPartitionOffsetsMap.get(topicPartition0).offset();
             }
 

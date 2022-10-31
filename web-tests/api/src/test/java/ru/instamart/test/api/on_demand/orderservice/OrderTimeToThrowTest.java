@@ -1,6 +1,8 @@
 package ru.instamart.test.api.on_demand.orderservice;
 
 import io.qameta.allure.Allure;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import order_enrichment.OrderEnrichment;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -14,6 +16,9 @@ import ru.instamart.jdbc.dao.orders_service.PlaceSettingsDao;
 import ru.instamart.jdbc.entity.order_service.OrdersEntity;
 import ru.instamart.jdbc.entity.order_service.PlaceSettingsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.StartPointsTenants;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -22,12 +27,21 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.kafka.enums.StatusOrder.AUTOMATIC_ROUTING;
 
+@Epic("On Demand")
+@Feature("DISPATCH")
 public class OrderTimeToThrowTest extends RestBase {
     private OrderV2 order;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
+        UserData user = UserManager.getShp6Shopper1();
+        shopperApp.authorisation(user);
+        //Удаляем все смены
+        shiftsApi.cancelAllActiveShifts();
+        shiftsApi.stopAllActiveShifts();
+        //
+        shiftsApi.startOfShift(StartPointsTenants.METRO_9);
     }
 
     @CaseId(50)

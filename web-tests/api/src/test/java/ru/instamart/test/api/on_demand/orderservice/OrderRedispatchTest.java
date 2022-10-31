@@ -1,6 +1,8 @@
 package ru.instamart.test.api.on_demand.orderservice;
 
 import io.grpc.StatusRuntimeException;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import order_redispatch.OrderGrpc;
 import order_redispatch.OrderRedispatch;
 import org.testng.annotations.BeforeClass;
@@ -16,6 +18,8 @@ import static ru.instamart.grpc.common.GrpcContentHosts.PAAS_CONTENT_OPERATIONS_
 import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
 
+@Epic("On Demand")
+@Feature("DISPATCH")
 public class OrderRedispatchTest extends RestBase {
 
     private OrderGrpc.OrderBlockingStub clientOrder;
