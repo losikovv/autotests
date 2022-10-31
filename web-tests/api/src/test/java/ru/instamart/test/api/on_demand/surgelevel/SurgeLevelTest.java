@@ -48,6 +48,7 @@ public class SurgeLevelTest extends RestBase {
     private final String CANDIDATE_UUID = UUID.randomUUID().toString();
     private final String CANDIDATE_UUID_DELIVERY_AREA = UUID.randomUUID().toString();
     private final String CANDIDATE_UUID_WORKFLOW = UUID.randomUUID().toString();
+    private final String CANDIDATE_UUID_FAKE_GPS = UUID.randomUUID().toString();
     private final int FIRST_DELIVERY_AREA_ID = nextInt(100000, 150000);
     private final int SECOND_DELIVERY_AREA_ID = FIRST_DELIVERY_AREA_ID + 1;
     private final int FIRST_WORKFLOW_ID = FIRST_DELIVERY_AREA_ID;
@@ -109,7 +110,7 @@ public class SurgeLevelTest extends RestBase {
         ThreadUtil.simplyAwait(surgeEventOutdate - SHORT_TIMEOUT);
     }
 
-    @CaseIDs({@CaseId(14), @CaseId(23), @CaseId(25), @CaseId(163), @CaseId(43)})
+    @CaseIDs({@CaseId(14), @CaseId(23), @CaseId(25), @CaseId(163), @CaseId(32)})
     @Story("Demand")
     @Test(description = "Добавление demand при получении события с новым ON_DEMAND заказом",
             groups = "ondemand-surgelevel-smoke")
@@ -242,6 +243,53 @@ public class SurgeLevelTest extends RestBase {
         Allure.step("Проверка отсутствия добавления supply", () -> assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, candidateUuid), "Кандидат добавился в supply"));
     }
 
+    @CaseId(144)
+    @Story("Supply")
+    @Test(description = "Отсутствие добавления supply с фейковыми координатами кандидата",
+            groups = "ondemand-surgelevel-smoke")
+    public void surgeProduceEventCandidateFakeGps() {
+        publishEventCandidateStatus(CANDIDATE_UUID_FAKE_GPS, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
+        publishEventLocation(CANDIDATE_UUID_FAKE_GPS, storeLocation.getLat(), storeLocation.getLon(), true, LONG_TIMEOUT);
+
+        Allure.step("Проверка отсутствия supply", () -> {
+            assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID_FAKE_GPS), "Кандидат добавился в supply");
+        });
+    }
+
+    @CaseId(145)
+    @Story("Supply")
+    @Test(description = "Добавление supply при получении настоящих координат кандидата, когда до этого были фейковые",
+            groups = "ondemand-surgelevel-regress",
+            dependsOnMethods = "surgeProduceEventCandidateFakeGps")
+    public void surgeProduceEventCandidateNoLongerFakeGps() {
+        publishEventLocation(CANDIDATE_UUID_FAKE_GPS, storeLocation.getLat(), storeLocation.getLon(), false, LONG_TIMEOUT);
+
+        currentSurgeLevel--;
+        currentSupplyAmount++;
+
+        Allure.step("Проверка добавления в supply", () -> {
+            assertNotNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID_FAKE_GPS), "Кандидат не добавился в supply");
+            compareTwoObjects(currentSurgeLevel, ResultDao.INSTANCE.findResult(STORE_ID).getSurgeLevel().floatValue());
+        });
+    }
+
+    @CaseId(143)
+    @Story("Supply")
+    @Test(description = "Удаление всего supply кандидата при получении фейковых координат",
+            groups = "ondemand-surgelevel-regress",
+            dependsOnMethods = "surgeProduceEventCandidateNoLongerFakeGps")
+    public void surgeProduceEventCandidateNewFakeGps() {
+        publishEventLocation(CANDIDATE_UUID_FAKE_GPS, storeLocation.getLat(), storeLocation.getLon(), true, LONG_TIMEOUT);
+
+        currentSurgeLevel++;
+        currentSupplyAmount--;
+
+        Allure.step("Проверка удаления supply", () -> {
+            assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID_FAKE_GPS), "Кандидат не удалился в supply");
+            compareTwoObjects(currentSurgeLevel, ResultDao.INSTANCE.findResult(STORE_ID).getSurgeLevel().floatValue());
+        });
+    }
+
     @CaseIDs({@CaseId(123), @CaseId(125)})
     @Story("Delivery Area Supply")
     @Test(description = "Добавление supply при получении кандидата по delivery_area",
@@ -296,11 +344,24 @@ public class SurgeLevelTest extends RestBase {
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount);
     }
 
+    @CaseId(140)
+    @Story("Radius Supply")
+    @Test(description = "Отсутствие удаления supply при уходе кандидата по координатам недостаточно далеко от магазина",
+            groups = "ondemand-surgelevel-regress",
+            dependsOnMethods = "surgeProduceEventCandidateWithLocation")
+    public void surgeProduceEventCandidateWithLocationWentNotFar() {
+        publishEventLocation(CANDIDATE_UUID, storeLocation.getLat() - 0.01f, storeLocation.getLon() - 0.01f, false, LONG_TIMEOUT);
+
+        Allure.step("Проверка supply", () -> {
+            assertNotNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID), "Кандидат удалился из supply");
+        });
+    }
+
     @CaseId(49)
     @Story("Radius Supply")
     @Test(description = "Удаление supply при уходе кандидата по координатам вдаль от магазина",
             groups = "ondemand-surgelevel-smoke",
-            dependsOnMethods = "surgeProduceEventCandidateWithLocation")
+            dependsOnMethods = "surgeProduceEventCandidateWithLocationWentNotFar")
     public void surgeProduceEventCandidateWithLocationWentTooFar() {
         publishEventLocation(CANDIDATE_UUID, 15.0f, 15.0f, false, LONG_TIMEOUT);
 
