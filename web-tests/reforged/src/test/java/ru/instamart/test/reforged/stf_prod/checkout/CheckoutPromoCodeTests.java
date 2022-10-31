@@ -28,7 +28,8 @@ public final class CheckoutPromoCodeTests {
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
         this.userData = UserManager.getQaUser();
-        this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
+        //Промокод хочет сумму заказа от 1000 рублей
+        this.helper.dropAndFillCartWithAmount(userData, UiProperties.DEFAULT_SID, 1100);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")

@@ -110,6 +110,15 @@ public final class ApiHelper {
         apiV2.fillCartOneByOne(apiV2.getProducts(sid), 5);
     }
 
+    @Step("Наполняем корзину с помощью API до суммы = '{amount}'")
+    public void dropAndFillCartWithAmount(final UserData user, final Integer sid, final int amount) {
+        apiV2.authByQA(user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.fillCartWithAmount(apiV2.getProducts(sid), amount);
+    }
+
     @Step("Удаляем ритейлера: '{retailerName}'")
     public void deleteRetailerWithStores(final String retailerName) {
         SpreeRetailersCleanDao.INSTANCE.deleteRetailerWithStores(retailerName);

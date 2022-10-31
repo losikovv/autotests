@@ -1232,6 +1232,17 @@ public final class ApiV2Helper {
         }
     }
 
+    public void fillCartWithAmount(final Collection<ProductV2> products, final int amount) {
+        int cartAmount = 0;
+        while (cartAmount < amount) {
+            for (final var product : products) {
+                addItemToCartOrLogError(product.getId(), Math.toIntExact(Math.max(Math.round(amount / product.getPrice()), 1)));
+                cartAmount += getCurrentOrder().getTotal();
+                if (cartAmount >= amount) break;
+            }
+        }
+    }
+
     @Step("Добавляем товар в избранное")
     public FavoritesItemV2Response addFavoritesProductBySid(Integer sid) {
         ProductV2 product = getProducts(sid).get(0);
