@@ -76,7 +76,7 @@ public final class BasicOrdersTests {
     @Test(description = "Тест заказа с любимыми товарами", groups = {STF_PROD_S})
     public void successOrderWithFavProducts() {
         userData = UserManager.getQaUser();
-        helper.addFavorites(userData, DEFAULT_SID, 1);
+        helper.addFavorites(userData, DEFAULT_SID, 5);
         helper.dropAndFillCartFromFavorites(userData, DEFAULT_SID);
 
         shop().goToPage();
@@ -102,7 +102,6 @@ public final class BasicOrdersTests {
         checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardToCourier();
-
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipments().checkPageContains(userShipments().pageUrl());
