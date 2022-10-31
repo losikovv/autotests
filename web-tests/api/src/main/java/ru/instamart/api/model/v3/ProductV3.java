@@ -14,19 +14,19 @@ import java.util.List;
 @EqualsAndHashCode(callSuper=false)
 public class ProductV3 extends BaseObject {
     @JsonSchema(required = true)
-    private String id;
+    private Long id;
 
     @JsonSchema(required = true)
     @JsonProperty("legacy_offer_id")
     private Long legacyOfferId;
 
-    @JsonSchema(required = true)
     @JsonProperty("legacy_product_id")
     private Long legacyProductId;
 
     @JsonSchema(required = true)
     private String sku;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty(value = "retailer_sku")
     private String retailerSku;
