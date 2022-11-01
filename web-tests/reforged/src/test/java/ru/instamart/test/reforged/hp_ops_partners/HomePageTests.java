@@ -219,7 +219,6 @@ public final class HomePageTests {
         home().waitPageLoad();
 
         home().interactMainBanner().clickActionsButton("Смотреть вакансии");
-        home().interactMainBanner().checkActionsButtonNotVisible("Смотреть вакансии");
         home().interactCollector().checkMoreInfoButtonVisible();
         home().interactCollectorCourier().checkMoreInfoButtonVisible();
     }
