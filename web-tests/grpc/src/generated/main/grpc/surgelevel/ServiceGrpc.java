@@ -356,6 +356,37 @@ public final class ServiceGrpc {
     return getFindStoreMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<surgelevel.Surgelevel.SaveResultRequest,
+      surgelevel.Surgelevel.SaveResultResponse> getSaveResultMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SaveResult",
+      requestType = surgelevel.Surgelevel.SaveResultRequest.class,
+      responseType = surgelevel.Surgelevel.SaveResultResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<surgelevel.Surgelevel.SaveResultRequest,
+      surgelevel.Surgelevel.SaveResultResponse> getSaveResultMethod() {
+    io.grpc.MethodDescriptor<surgelevel.Surgelevel.SaveResultRequest, surgelevel.Surgelevel.SaveResultResponse> getSaveResultMethod;
+    if ((getSaveResultMethod = ServiceGrpc.getSaveResultMethod) == null) {
+      synchronized (ServiceGrpc.class) {
+        if ((getSaveResultMethod = ServiceGrpc.getSaveResultMethod) == null) {
+          ServiceGrpc.getSaveResultMethod = getSaveResultMethod =
+              io.grpc.MethodDescriptor.<surgelevel.Surgelevel.SaveResultRequest, surgelevel.Surgelevel.SaveResultResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SaveResult"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  surgelevel.Surgelevel.SaveResultRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  surgelevel.Surgelevel.SaveResultResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ServiceMethodDescriptorSupplier("SaveResult"))
+              .build();
+        }
+      }
+    }
+    return getSaveResultMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -481,6 +512,13 @@ public final class ServiceGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getFindStoreMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void saveResult(surgelevel.Surgelevel.SaveResultRequest request,
+        io.grpc.stub.StreamObserver<surgelevel.Surgelevel.SaveResultResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSaveResultMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -560,6 +598,13 @@ public final class ServiceGrpc {
                 surgelevel.Surgelevel.FindStoreRequest,
                 surgelevel.Surgelevel.FindStoreResponse>(
                   this, METHODID_FIND_STORE)))
+          .addMethod(
+            getSaveResultMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                surgelevel.Surgelevel.SaveResultRequest,
+                surgelevel.Surgelevel.SaveResultResponse>(
+                  this, METHODID_SAVE_RESULT)))
           .build();
     }
   }
@@ -665,6 +710,14 @@ public final class ServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getFindStoreMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void saveResult(surgelevel.Surgelevel.SaveResultRequest request,
+        io.grpc.stub.StreamObserver<surgelevel.Surgelevel.SaveResultResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSaveResultMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -756,6 +809,13 @@ public final class ServiceGrpc {
     public surgelevel.Surgelevel.FindStoreResponse findStore(surgelevel.Surgelevel.FindStoreRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getFindStoreMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public surgelevel.Surgelevel.SaveResultResponse saveResult(surgelevel.Surgelevel.SaveResultRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSaveResultMethod(), getCallOptions(), request);
     }
   }
 
@@ -860,6 +920,14 @@ public final class ServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getFindStoreMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<surgelevel.Surgelevel.SaveResultResponse> saveResult(
+        surgelevel.Surgelevel.SaveResultRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSaveResultMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_SAVE_FORMULA = 0;
@@ -873,6 +941,7 @@ public final class ServiceGrpc {
   private static final int METHODID_FIND_RETAILER = 8;
   private static final int METHODID_SAVE_STORE = 9;
   private static final int METHODID_FIND_STORE = 10;
+  private static final int METHODID_SAVE_RESULT = 11;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -934,6 +1003,10 @@ public final class ServiceGrpc {
         case METHODID_FIND_STORE:
           serviceImpl.findStore((surgelevel.Surgelevel.FindStoreRequest) request,
               (io.grpc.stub.StreamObserver<surgelevel.Surgelevel.FindStoreResponse>) responseObserver);
+          break;
+        case METHODID_SAVE_RESULT:
+          serviceImpl.saveResult((surgelevel.Surgelevel.SaveResultRequest) request,
+              (io.grpc.stub.StreamObserver<surgelevel.Surgelevel.SaveResultResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -1007,6 +1080,7 @@ public final class ServiceGrpc {
               .addMethod(getFindRetailerMethod())
               .addMethod(getSaveStoreMethod())
               .addMethod(getFindStoreMethod())
+              .addMethod(getSaveResultMethod())
               .build();
         }
       }

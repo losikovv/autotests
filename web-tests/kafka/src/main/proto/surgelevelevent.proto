@@ -6,12 +6,14 @@ import "google/protobuf/timestamp.proto";
 message SurgeEvent {
     enum Method {
         UNKNOWN = 0;
-        ACTUAL = 1;    
+        ACTUAL = 1;
         PREDICT = 2;
+        MANUAL = 3;
     }
     message Info {
         int32 shipment_quantity = 1;
         int32 candidate_quantity = 2;
+        string analytics_log = 3;
     }
     string store_id = 1;
     Method method = 2;
@@ -19,6 +21,6 @@ message SurgeEvent {
     float present_surge_level = 4;
     float future_surge_level = 5;
     google.protobuf.Timestamp started_at = 6;
-    float step_surge_level = 7;  
+    float step_surge_level = 7;
     Info info = 8;
 }
