@@ -1,24 +1,27 @@
 syntax = "proto3";
 package surgelevel;
-
+option go_package = "gitlab.sbmt.io/paas/content/operations/surgelevel/pkg/server/grpc/surgelevel";
 import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
 
 service Service {
     rpc SaveFormula(SaveFormulaRequest) returns (SaveFormulaResponse);
     rpc ExecuteFormula(ExecuteFormulaRequest) returns (ExecuteFormulaResponse);
     rpc FindFormula(FindFormulaRequest) returns (FindFormulaResponse);
-    
+
     rpc SetConfig(SetConfigRequest) returns (SetConfigResponse);
     rpc GetConfig(GetConfigRequest) returns (GetConfigResponse);
-    
+
     rpc SaveRegion(SaveRegionRequest) returns (SaveRegionResponse);
     rpc FindRegion(FindRegionRequest) returns (FindRegionResponse);
-    
+
     rpc SaveRetailer(SaveRetailerRequest) returns (SaveRetailerResponse);
     rpc FindRetailer(FindRetailerRequest) returns (FindRetailerResponse);
-    
+
     rpc SaveStore(SaveStoreRequest) returns (SaveStoreResponse);
     rpc FindStore(FindStoreRequest) returns (FindStoreResponse);
+
+    rpc SaveResult(SaveResultRequest) returns (SaveResultResponse);
 }
 
 message SaveFormulaRequest {
@@ -101,28 +104,37 @@ message FindStoreResponse {
     repeated Store store = 1;
 }
 
+message SaveResultRequest {
+    repeated Store.Option store = 1;
+    Result.Option result = 2;
+}
+
+message SaveResultResponse {
+    repeated string failed_stores = 1;
+}
+
 message Store {
     message Option {
         optional string id = 1;
         optional Config.Option config = 2;
         optional int64 retailer_id = 3;
         optional int64 region_id = 4;
-        optional bool ondemand = 5; 
-        optional Location location = 6; 
+        optional bool ondemand = 5;
+        optional Location location = 6;
     }
     message Filter {
         repeated string id = 1;
         optional Config.Filter config = 2;
         repeated int64 retailer_id = 3;
         repeated int64 region_id = 4;
-        optional bool ondemand = 5; 
+        optional bool ondemand = 5;
         optional Area area = 6;
     }
     string id = 1;
     Config config = 2;
     optional int64 retailer_id = 3;
     optional int64 region_id = 4;
-    bool ondemand = 5; 
+    bool ondemand = 5;
     Location location = 6;
 }
 message Region {
@@ -140,7 +152,7 @@ message Region {
 message Retailer {
     message Option {
         int64 id = 1;
-        optional Config.Option config = 2;    
+        optional Config.Option config = 2;
     }
     message Filter {
         repeated int64 id = 1;
@@ -156,7 +168,7 @@ message Config {
         optional Config.Formula formula = 3;
     }
     message Filter {
-        surgelevel.Formula.Filter formula = 1;    
+        surgelevel.Formula.Filter formula = 1;
         optional bool disabled = 2;
     }
     message Formula {
@@ -171,7 +183,7 @@ message Formula {
     message Option {
         optional string id = 1;
         optional string name = 2;
-        optional string script = 3;   
+        optional string script = 3;
     }
     message Filter {
         repeated string id = 1;
@@ -203,4 +215,14 @@ message Location {
 message Limit {
     int32 size = 1;
     int32 skip = 2;
+}
+message Result {
+    message Option {
+        optional string id = 1;
+        optional float surge_level = 2;
+        optional google.protobuf.Timestamp expired_at = 3;
+    }
+    string id = 1;
+    float surge_level = 2;
+    google.protobuf.Timestamp expired_at = 3;
 }

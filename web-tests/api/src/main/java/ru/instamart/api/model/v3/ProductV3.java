@@ -14,7 +14,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper=false)
 public class ProductV3 extends BaseObject {
     @JsonSchema(required = true)
-    private Long id;
+    private Object id;
 
     @JsonSchema(required = true)
     @JsonProperty("legacy_offer_id")

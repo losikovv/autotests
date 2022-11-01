@@ -15874,6 +15874,1640 @@ public final class Surgelevel {
 
   }
 
+  public interface SaveResultRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:surgelevel.SaveResultRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .surgelevel.Store.Option store = 1;</code>
+     */
+    java.util.List<surgelevel.Surgelevel.Store.Option> 
+        getStoreList();
+    /**
+     * <code>repeated .surgelevel.Store.Option store = 1;</code>
+     */
+    surgelevel.Surgelevel.Store.Option getStore(int index);
+    /**
+     * <code>repeated .surgelevel.Store.Option store = 1;</code>
+     */
+    int getStoreCount();
+    /**
+     * <code>repeated .surgelevel.Store.Option store = 1;</code>
+     */
+    java.util.List<? extends surgelevel.Surgelevel.Store.OptionOrBuilder> 
+        getStoreOrBuilderList();
+    /**
+     * <code>repeated .surgelevel.Store.Option store = 1;</code>
+     */
+    surgelevel.Surgelevel.Store.OptionOrBuilder getStoreOrBuilder(
+        int index);
+
+    /**
+     * <code>.surgelevel.Result.Option result = 2;</code>
+     * @return Whether the result field is set.
+     */
+    boolean hasResult();
+    /**
+     * <code>.surgelevel.Result.Option result = 2;</code>
+     * @return The result.
+     */
+    surgelevel.Surgelevel.Result.Option getResult();
+    /**
+     * <code>.surgelevel.Result.Option result = 2;</code>
+     */
+    surgelevel.Surgelevel.Result.OptionOrBuilder getResultOrBuilder();
+  }
+  /**
+   * Protobuf type {@code surgelevel.SaveResultRequest}
+   */
+  public static final class SaveResultRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:surgelevel.SaveResultRequest)
+      SaveResultRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SaveResultRequest.newBuilder() to construct.
+    private SaveResultRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SaveResultRequest() {
+      store_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SaveResultRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SaveResultRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                store_ = new java.util.ArrayList<surgelevel.Surgelevel.Store.Option>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              store_.add(
+                  input.readMessage(surgelevel.Surgelevel.Store.Option.parser(), extensionRegistry));
+              break;
+            }
+            case 18: {
+              surgelevel.Surgelevel.Result.Option.Builder subBuilder = null;
+              if (result_ != null) {
+                subBuilder = result_.toBuilder();
+              }
+              result_ = input.readMessage(surgelevel.Surgelevel.Result.Option.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(result_);
+                result_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          store_ = java.util.Collections.unmodifiableList(store_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return surgelevel.Surgelevel.internal_static_surgelevel_SaveResultRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return surgelevel.Surgelevel.internal_static_surgelevel_SaveResultRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              surgelevel.Surgelevel.SaveResultRequest.class, surgelevel.Surgelevel.SaveResultRequest.Builder.class);
+    }
+
+    public static final int STORE_FIELD_NUMBER = 1;
+    private java.util.List<surgelevel.Surgelevel.Store.Option> store_;
+    /**
+     * <code>repeated .surgelevel.Store.Option store = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<surgelevel.Surgelevel.Store.Option> getStoreList() {
+      return store_;
+    }
+    /**
+     * <code>repeated .surgelevel.Store.Option store = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends surgelevel.Surgelevel.Store.OptionOrBuilder> 
+        getStoreOrBuilderList() {
+      return store_;
+    }
+    /**
+     * <code>repeated .surgelevel.Store.Option store = 1;</code>
+     */
+    @java.lang.Override
+    public int getStoreCount() {
+      return store_.size();
+    }
+    /**
+     * <code>repeated .surgelevel.Store.Option store = 1;</code>
+     */
+    @java.lang.Override
+    public surgelevel.Surgelevel.Store.Option getStore(int index) {
+      return store_.get(index);
+    }
+    /**
+     * <code>repeated .surgelevel.Store.Option store = 1;</code>
+     */
+    @java.lang.Override
+    public surgelevel.Surgelevel.Store.OptionOrBuilder getStoreOrBuilder(
+        int index) {
+      return store_.get(index);
+    }
+
+    public static final int RESULT_FIELD_NUMBER = 2;
+    private surgelevel.Surgelevel.Result.Option result_;
+    /**
+     * <code>.surgelevel.Result.Option result = 2;</code>
+     * @return Whether the result field is set.
+     */
+    @java.lang.Override
+    public boolean hasResult() {
+      return result_ != null;
+    }
+    /**
+     * <code>.surgelevel.Result.Option result = 2;</code>
+     * @return The result.
+     */
+    @java.lang.Override
+    public surgelevel.Surgelevel.Result.Option getResult() {
+      return result_ == null ? surgelevel.Surgelevel.Result.Option.getDefaultInstance() : result_;
+    }
+    /**
+     * <code>.surgelevel.Result.Option result = 2;</code>
+     */
+    @java.lang.Override
+    public surgelevel.Surgelevel.Result.OptionOrBuilder getResultOrBuilder() {
+      return getResult();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < store_.size(); i++) {
+        output.writeMessage(1, store_.get(i));
+      }
+      if (result_ != null) {
+        output.writeMessage(2, getResult());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < store_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, store_.get(i));
+      }
+      if (result_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getResult());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof surgelevel.Surgelevel.SaveResultRequest)) {
+        return super.equals(obj);
+      }
+      surgelevel.Surgelevel.SaveResultRequest other = (surgelevel.Surgelevel.SaveResultRequest) obj;
+
+      if (!getStoreList()
+          .equals(other.getStoreList())) return false;
+      if (hasResult() != other.hasResult()) return false;
+      if (hasResult()) {
+        if (!getResult()
+            .equals(other.getResult())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getStoreCount() > 0) {
+        hash = (37 * hash) + STORE_FIELD_NUMBER;
+        hash = (53 * hash) + getStoreList().hashCode();
+      }
+      if (hasResult()) {
+        hash = (37 * hash) + RESULT_FIELD_NUMBER;
+        hash = (53 * hash) + getResult().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static surgelevel.Surgelevel.SaveResultRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static surgelevel.Surgelevel.SaveResultRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.SaveResultRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static surgelevel.Surgelevel.SaveResultRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.SaveResultRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static surgelevel.Surgelevel.SaveResultRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.SaveResultRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static surgelevel.Surgelevel.SaveResultRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.SaveResultRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static surgelevel.Surgelevel.SaveResultRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.SaveResultRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static surgelevel.Surgelevel.SaveResultRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(surgelevel.Surgelevel.SaveResultRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code surgelevel.SaveResultRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:surgelevel.SaveResultRequest)
+        surgelevel.Surgelevel.SaveResultRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return surgelevel.Surgelevel.internal_static_surgelevel_SaveResultRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return surgelevel.Surgelevel.internal_static_surgelevel_SaveResultRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                surgelevel.Surgelevel.SaveResultRequest.class, surgelevel.Surgelevel.SaveResultRequest.Builder.class);
+      }
+
+      // Construct using surgelevel.Surgelevel.SaveResultRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getStoreFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (storeBuilder_ == null) {
+          store_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          storeBuilder_.clear();
+        }
+        if (resultBuilder_ == null) {
+          result_ = null;
+        } else {
+          result_ = null;
+          resultBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return surgelevel.Surgelevel.internal_static_surgelevel_SaveResultRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public surgelevel.Surgelevel.SaveResultRequest getDefaultInstanceForType() {
+        return surgelevel.Surgelevel.SaveResultRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public surgelevel.Surgelevel.SaveResultRequest build() {
+        surgelevel.Surgelevel.SaveResultRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public surgelevel.Surgelevel.SaveResultRequest buildPartial() {
+        surgelevel.Surgelevel.SaveResultRequest result = new surgelevel.Surgelevel.SaveResultRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (storeBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            store_ = java.util.Collections.unmodifiableList(store_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.store_ = store_;
+        } else {
+          result.store_ = storeBuilder_.build();
+        }
+        if (resultBuilder_ == null) {
+          result.result_ = result_;
+        } else {
+          result.result_ = resultBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof surgelevel.Surgelevel.SaveResultRequest) {
+          return mergeFrom((surgelevel.Surgelevel.SaveResultRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(surgelevel.Surgelevel.SaveResultRequest other) {
+        if (other == surgelevel.Surgelevel.SaveResultRequest.getDefaultInstance()) return this;
+        if (storeBuilder_ == null) {
+          if (!other.store_.isEmpty()) {
+            if (store_.isEmpty()) {
+              store_ = other.store_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureStoreIsMutable();
+              store_.addAll(other.store_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.store_.isEmpty()) {
+            if (storeBuilder_.isEmpty()) {
+              storeBuilder_.dispose();
+              storeBuilder_ = null;
+              store_ = other.store_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              storeBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getStoreFieldBuilder() : null;
+            } else {
+              storeBuilder_.addAllMessages(other.store_);
+            }
+          }
+        }
+        if (other.hasResult()) {
+          mergeResult(other.getResult());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        surgelevel.Surgelevel.SaveResultRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (surgelevel.Surgelevel.SaveResultRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<surgelevel.Surgelevel.Store.Option> store_ =
+        java.util.Collections.emptyList();
+      private void ensureStoreIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          store_ = new java.util.ArrayList<surgelevel.Surgelevel.Store.Option>(store_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          surgelevel.Surgelevel.Store.Option, surgelevel.Surgelevel.Store.Option.Builder, surgelevel.Surgelevel.Store.OptionOrBuilder> storeBuilder_;
+
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public java.util.List<surgelevel.Surgelevel.Store.Option> getStoreList() {
+        if (storeBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(store_);
+        } else {
+          return storeBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public int getStoreCount() {
+        if (storeBuilder_ == null) {
+          return store_.size();
+        } else {
+          return storeBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public surgelevel.Surgelevel.Store.Option getStore(int index) {
+        if (storeBuilder_ == null) {
+          return store_.get(index);
+        } else {
+          return storeBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public Builder setStore(
+          int index, surgelevel.Surgelevel.Store.Option value) {
+        if (storeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStoreIsMutable();
+          store_.set(index, value);
+          onChanged();
+        } else {
+          storeBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public Builder setStore(
+          int index, surgelevel.Surgelevel.Store.Option.Builder builderForValue) {
+        if (storeBuilder_ == null) {
+          ensureStoreIsMutable();
+          store_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          storeBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public Builder addStore(surgelevel.Surgelevel.Store.Option value) {
+        if (storeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStoreIsMutable();
+          store_.add(value);
+          onChanged();
+        } else {
+          storeBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public Builder addStore(
+          int index, surgelevel.Surgelevel.Store.Option value) {
+        if (storeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStoreIsMutable();
+          store_.add(index, value);
+          onChanged();
+        } else {
+          storeBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public Builder addStore(
+          surgelevel.Surgelevel.Store.Option.Builder builderForValue) {
+        if (storeBuilder_ == null) {
+          ensureStoreIsMutable();
+          store_.add(builderForValue.build());
+          onChanged();
+        } else {
+          storeBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public Builder addStore(
+          int index, surgelevel.Surgelevel.Store.Option.Builder builderForValue) {
+        if (storeBuilder_ == null) {
+          ensureStoreIsMutable();
+          store_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          storeBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public Builder addAllStore(
+          java.lang.Iterable<? extends surgelevel.Surgelevel.Store.Option> values) {
+        if (storeBuilder_ == null) {
+          ensureStoreIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, store_);
+          onChanged();
+        } else {
+          storeBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public Builder clearStore() {
+        if (storeBuilder_ == null) {
+          store_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          storeBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public Builder removeStore(int index) {
+        if (storeBuilder_ == null) {
+          ensureStoreIsMutable();
+          store_.remove(index);
+          onChanged();
+        } else {
+          storeBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public surgelevel.Surgelevel.Store.Option.Builder getStoreBuilder(
+          int index) {
+        return getStoreFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public surgelevel.Surgelevel.Store.OptionOrBuilder getStoreOrBuilder(
+          int index) {
+        if (storeBuilder_ == null) {
+          return store_.get(index);  } else {
+          return storeBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public java.util.List<? extends surgelevel.Surgelevel.Store.OptionOrBuilder> 
+           getStoreOrBuilderList() {
+        if (storeBuilder_ != null) {
+          return storeBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(store_);
+        }
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public surgelevel.Surgelevel.Store.Option.Builder addStoreBuilder() {
+        return getStoreFieldBuilder().addBuilder(
+            surgelevel.Surgelevel.Store.Option.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public surgelevel.Surgelevel.Store.Option.Builder addStoreBuilder(
+          int index) {
+        return getStoreFieldBuilder().addBuilder(
+            index, surgelevel.Surgelevel.Store.Option.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .surgelevel.Store.Option store = 1;</code>
+       */
+      public java.util.List<surgelevel.Surgelevel.Store.Option.Builder> 
+           getStoreBuilderList() {
+        return getStoreFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          surgelevel.Surgelevel.Store.Option, surgelevel.Surgelevel.Store.Option.Builder, surgelevel.Surgelevel.Store.OptionOrBuilder> 
+          getStoreFieldBuilder() {
+        if (storeBuilder_ == null) {
+          storeBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              surgelevel.Surgelevel.Store.Option, surgelevel.Surgelevel.Store.Option.Builder, surgelevel.Surgelevel.Store.OptionOrBuilder>(
+                  store_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          store_ = null;
+        }
+        return storeBuilder_;
+      }
+
+      private surgelevel.Surgelevel.Result.Option result_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          surgelevel.Surgelevel.Result.Option, surgelevel.Surgelevel.Result.Option.Builder, surgelevel.Surgelevel.Result.OptionOrBuilder> resultBuilder_;
+      /**
+       * <code>.surgelevel.Result.Option result = 2;</code>
+       * @return Whether the result field is set.
+       */
+      public boolean hasResult() {
+        return resultBuilder_ != null || result_ != null;
+      }
+      /**
+       * <code>.surgelevel.Result.Option result = 2;</code>
+       * @return The result.
+       */
+      public surgelevel.Surgelevel.Result.Option getResult() {
+        if (resultBuilder_ == null) {
+          return result_ == null ? surgelevel.Surgelevel.Result.Option.getDefaultInstance() : result_;
+        } else {
+          return resultBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.surgelevel.Result.Option result = 2;</code>
+       */
+      public Builder setResult(surgelevel.Surgelevel.Result.Option value) {
+        if (resultBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          result_ = value;
+          onChanged();
+        } else {
+          resultBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.surgelevel.Result.Option result = 2;</code>
+       */
+      public Builder setResult(
+          surgelevel.Surgelevel.Result.Option.Builder builderForValue) {
+        if (resultBuilder_ == null) {
+          result_ = builderForValue.build();
+          onChanged();
+        } else {
+          resultBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.surgelevel.Result.Option result = 2;</code>
+       */
+      public Builder mergeResult(surgelevel.Surgelevel.Result.Option value) {
+        if (resultBuilder_ == null) {
+          if (result_ != null) {
+            result_ =
+              surgelevel.Surgelevel.Result.Option.newBuilder(result_).mergeFrom(value).buildPartial();
+          } else {
+            result_ = value;
+          }
+          onChanged();
+        } else {
+          resultBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.surgelevel.Result.Option result = 2;</code>
+       */
+      public Builder clearResult() {
+        if (resultBuilder_ == null) {
+          result_ = null;
+          onChanged();
+        } else {
+          result_ = null;
+          resultBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.surgelevel.Result.Option result = 2;</code>
+       */
+      public surgelevel.Surgelevel.Result.Option.Builder getResultBuilder() {
+        
+        onChanged();
+        return getResultFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.surgelevel.Result.Option result = 2;</code>
+       */
+      public surgelevel.Surgelevel.Result.OptionOrBuilder getResultOrBuilder() {
+        if (resultBuilder_ != null) {
+          return resultBuilder_.getMessageOrBuilder();
+        } else {
+          return result_ == null ?
+              surgelevel.Surgelevel.Result.Option.getDefaultInstance() : result_;
+        }
+      }
+      /**
+       * <code>.surgelevel.Result.Option result = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          surgelevel.Surgelevel.Result.Option, surgelevel.Surgelevel.Result.Option.Builder, surgelevel.Surgelevel.Result.OptionOrBuilder> 
+          getResultFieldBuilder() {
+        if (resultBuilder_ == null) {
+          resultBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              surgelevel.Surgelevel.Result.Option, surgelevel.Surgelevel.Result.Option.Builder, surgelevel.Surgelevel.Result.OptionOrBuilder>(
+                  getResult(),
+                  getParentForChildren(),
+                  isClean());
+          result_ = null;
+        }
+        return resultBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:surgelevel.SaveResultRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:surgelevel.SaveResultRequest)
+    private static final surgelevel.Surgelevel.SaveResultRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new surgelevel.Surgelevel.SaveResultRequest();
+    }
+
+    public static surgelevel.Surgelevel.SaveResultRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SaveResultRequest>
+        PARSER = new com.google.protobuf.AbstractParser<SaveResultRequest>() {
+      @java.lang.Override
+      public SaveResultRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SaveResultRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SaveResultRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SaveResultRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public surgelevel.Surgelevel.SaveResultRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SaveResultResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:surgelevel.SaveResultResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string failed_stores = 1;</code>
+     * @return A list containing the failedStores.
+     */
+    java.util.List<java.lang.String>
+        getFailedStoresList();
+    /**
+     * <code>repeated string failed_stores = 1;</code>
+     * @return The count of failedStores.
+     */
+    int getFailedStoresCount();
+    /**
+     * <code>repeated string failed_stores = 1;</code>
+     * @param index The index of the element to return.
+     * @return The failedStores at the given index.
+     */
+    java.lang.String getFailedStores(int index);
+    /**
+     * <code>repeated string failed_stores = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the failedStores at the given index.
+     */
+    com.google.protobuf.ByteString
+        getFailedStoresBytes(int index);
+  }
+  /**
+   * Protobuf type {@code surgelevel.SaveResultResponse}
+   */
+  public static final class SaveResultResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:surgelevel.SaveResultResponse)
+      SaveResultResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SaveResultResponse.newBuilder() to construct.
+    private SaveResultResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SaveResultResponse() {
+      failedStores_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SaveResultResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SaveResultResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                failedStores_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              failedStores_.add(s);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          failedStores_ = failedStores_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return surgelevel.Surgelevel.internal_static_surgelevel_SaveResultResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return surgelevel.Surgelevel.internal_static_surgelevel_SaveResultResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              surgelevel.Surgelevel.SaveResultResponse.class, surgelevel.Surgelevel.SaveResultResponse.Builder.class);
+    }
+
+    public static final int FAILED_STORES_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList failedStores_;
+    /**
+     * <code>repeated string failed_stores = 1;</code>
+     * @return A list containing the failedStores.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getFailedStoresList() {
+      return failedStores_;
+    }
+    /**
+     * <code>repeated string failed_stores = 1;</code>
+     * @return The count of failedStores.
+     */
+    public int getFailedStoresCount() {
+      return failedStores_.size();
+    }
+    /**
+     * <code>repeated string failed_stores = 1;</code>
+     * @param index The index of the element to return.
+     * @return The failedStores at the given index.
+     */
+    public java.lang.String getFailedStores(int index) {
+      return failedStores_.get(index);
+    }
+    /**
+     * <code>repeated string failed_stores = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the failedStores at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getFailedStoresBytes(int index) {
+      return failedStores_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < failedStores_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, failedStores_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < failedStores_.size(); i++) {
+          dataSize += computeStringSizeNoTag(failedStores_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getFailedStoresList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof surgelevel.Surgelevel.SaveResultResponse)) {
+        return super.equals(obj);
+      }
+      surgelevel.Surgelevel.SaveResultResponse other = (surgelevel.Surgelevel.SaveResultResponse) obj;
+
+      if (!getFailedStoresList()
+          .equals(other.getFailedStoresList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getFailedStoresCount() > 0) {
+        hash = (37 * hash) + FAILED_STORES_FIELD_NUMBER;
+        hash = (53 * hash) + getFailedStoresList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static surgelevel.Surgelevel.SaveResultResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static surgelevel.Surgelevel.SaveResultResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.SaveResultResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static surgelevel.Surgelevel.SaveResultResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.SaveResultResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static surgelevel.Surgelevel.SaveResultResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.SaveResultResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static surgelevel.Surgelevel.SaveResultResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.SaveResultResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static surgelevel.Surgelevel.SaveResultResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.SaveResultResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static surgelevel.Surgelevel.SaveResultResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(surgelevel.Surgelevel.SaveResultResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code surgelevel.SaveResultResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:surgelevel.SaveResultResponse)
+        surgelevel.Surgelevel.SaveResultResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return surgelevel.Surgelevel.internal_static_surgelevel_SaveResultResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return surgelevel.Surgelevel.internal_static_surgelevel_SaveResultResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                surgelevel.Surgelevel.SaveResultResponse.class, surgelevel.Surgelevel.SaveResultResponse.Builder.class);
+      }
+
+      // Construct using surgelevel.Surgelevel.SaveResultResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        failedStores_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return surgelevel.Surgelevel.internal_static_surgelevel_SaveResultResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public surgelevel.Surgelevel.SaveResultResponse getDefaultInstanceForType() {
+        return surgelevel.Surgelevel.SaveResultResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public surgelevel.Surgelevel.SaveResultResponse build() {
+        surgelevel.Surgelevel.SaveResultResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public surgelevel.Surgelevel.SaveResultResponse buildPartial() {
+        surgelevel.Surgelevel.SaveResultResponse result = new surgelevel.Surgelevel.SaveResultResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          failedStores_ = failedStores_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.failedStores_ = failedStores_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof surgelevel.Surgelevel.SaveResultResponse) {
+          return mergeFrom((surgelevel.Surgelevel.SaveResultResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(surgelevel.Surgelevel.SaveResultResponse other) {
+        if (other == surgelevel.Surgelevel.SaveResultResponse.getDefaultInstance()) return this;
+        if (!other.failedStores_.isEmpty()) {
+          if (failedStores_.isEmpty()) {
+            failedStores_ = other.failedStores_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureFailedStoresIsMutable();
+            failedStores_.addAll(other.failedStores_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        surgelevel.Surgelevel.SaveResultResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (surgelevel.Surgelevel.SaveResultResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList failedStores_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureFailedStoresIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          failedStores_ = new com.google.protobuf.LazyStringArrayList(failedStores_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string failed_stores = 1;</code>
+       * @return A list containing the failedStores.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getFailedStoresList() {
+        return failedStores_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string failed_stores = 1;</code>
+       * @return The count of failedStores.
+       */
+      public int getFailedStoresCount() {
+        return failedStores_.size();
+      }
+      /**
+       * <code>repeated string failed_stores = 1;</code>
+       * @param index The index of the element to return.
+       * @return The failedStores at the given index.
+       */
+      public java.lang.String getFailedStores(int index) {
+        return failedStores_.get(index);
+      }
+      /**
+       * <code>repeated string failed_stores = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the failedStores at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getFailedStoresBytes(int index) {
+        return failedStores_.getByteString(index);
+      }
+      /**
+       * <code>repeated string failed_stores = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The failedStores to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFailedStores(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureFailedStoresIsMutable();
+        failedStores_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string failed_stores = 1;</code>
+       * @param value The failedStores to add.
+       * @return This builder for chaining.
+       */
+      public Builder addFailedStores(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureFailedStoresIsMutable();
+        failedStores_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string failed_stores = 1;</code>
+       * @param values The failedStores to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllFailedStores(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureFailedStoresIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, failedStores_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string failed_stores = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFailedStores() {
+        failedStores_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string failed_stores = 1;</code>
+       * @param value The bytes of the failedStores to add.
+       * @return This builder for chaining.
+       */
+      public Builder addFailedStoresBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureFailedStoresIsMutable();
+        failedStores_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:surgelevel.SaveResultResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:surgelevel.SaveResultResponse)
+    private static final surgelevel.Surgelevel.SaveResultResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new surgelevel.Surgelevel.SaveResultResponse();
+    }
+
+    public static surgelevel.Surgelevel.SaveResultResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SaveResultResponse>
+        PARSER = new com.google.protobuf.AbstractParser<SaveResultResponse>() {
+      @java.lang.Override
+      public SaveResultResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SaveResultResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SaveResultResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SaveResultResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public surgelevel.Surgelevel.SaveResultResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface StoreOrBuilder extends
       // @@protoc_insertion_point(interface_extends:surgelevel.Store)
       com.google.protobuf.MessageOrBuilder {
@@ -34699,6 +36333,1761 @@ public final class Surgelevel {
 
   }
 
+  public interface ResultOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:surgelevel.Result)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <code>float surge_level = 2;</code>
+     * @return The surgeLevel.
+     */
+    float getSurgeLevel();
+
+    /**
+     * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+     * @return Whether the expiredAt field is set.
+     */
+    boolean hasExpiredAt();
+    /**
+     * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+     * @return The expiredAt.
+     */
+    com.google.protobuf.Timestamp getExpiredAt();
+    /**
+     * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getExpiredAtOrBuilder();
+  }
+  /**
+   * Protobuf type {@code surgelevel.Result}
+   */
+  public static final class Result extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:surgelevel.Result)
+      ResultOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Result.newBuilder() to construct.
+    private Result(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Result() {
+      id_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Result();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Result(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            case 21: {
+
+              surgeLevel_ = input.readFloat();
+              break;
+            }
+            case 26: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (expiredAt_ != null) {
+                subBuilder = expiredAt_.toBuilder();
+              }
+              expiredAt_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(expiredAt_);
+                expiredAt_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return surgelevel.Surgelevel.internal_static_surgelevel_Result_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return surgelevel.Surgelevel.internal_static_surgelevel_Result_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              surgelevel.Surgelevel.Result.class, surgelevel.Surgelevel.Result.Builder.class);
+    }
+
+    public interface OptionOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:surgelevel.Result.Option)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>optional string id = 1;</code>
+       * @return Whether the id field is set.
+       */
+      boolean hasId();
+      /**
+       * <code>optional string id = 1;</code>
+       * @return The id.
+       */
+      java.lang.String getId();
+      /**
+       * <code>optional string id = 1;</code>
+       * @return The bytes for id.
+       */
+      com.google.protobuf.ByteString
+          getIdBytes();
+
+      /**
+       * <code>optional float surge_level = 2;</code>
+       * @return Whether the surgeLevel field is set.
+       */
+      boolean hasSurgeLevel();
+      /**
+       * <code>optional float surge_level = 2;</code>
+       * @return The surgeLevel.
+       */
+      float getSurgeLevel();
+
+      /**
+       * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+       * @return Whether the expiredAt field is set.
+       */
+      boolean hasExpiredAt();
+      /**
+       * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+       * @return The expiredAt.
+       */
+      com.google.protobuf.Timestamp getExpiredAt();
+      /**
+       * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+       */
+      com.google.protobuf.TimestampOrBuilder getExpiredAtOrBuilder();
+    }
+    /**
+     * Protobuf type {@code surgelevel.Result.Option}
+     */
+    public static final class Option extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:surgelevel.Result.Option)
+        OptionOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use Option.newBuilder() to construct.
+      private Option(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private Option() {
+        id_ = "";
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new Option();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Option(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                java.lang.String s = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                id_ = s;
+                break;
+              }
+              case 21: {
+                bitField0_ |= 0x00000002;
+                surgeLevel_ = input.readFloat();
+                break;
+              }
+              case 26: {
+                com.google.protobuf.Timestamp.Builder subBuilder = null;
+                if (((bitField0_ & 0x00000004) != 0)) {
+                  subBuilder = expiredAt_.toBuilder();
+                }
+                expiredAt_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(expiredAt_);
+                  expiredAt_ = subBuilder.buildPartial();
+                }
+                bitField0_ |= 0x00000004;
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return surgelevel.Surgelevel.internal_static_surgelevel_Result_Option_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return surgelevel.Surgelevel.internal_static_surgelevel_Result_Option_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                surgelevel.Surgelevel.Result.Option.class, surgelevel.Surgelevel.Result.Option.Builder.class);
+      }
+
+      private int bitField0_;
+      public static final int ID_FIELD_NUMBER = 1;
+      private volatile java.lang.Object id_;
+      /**
+       * <code>optional string id = 1;</code>
+       * @return Whether the id field is set.
+       */
+      @java.lang.Override
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>optional string id = 1;</code>
+       * @return The id.
+       */
+      @java.lang.Override
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>optional string id = 1;</code>
+       * @return The bytes for id.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int SURGE_LEVEL_FIELD_NUMBER = 2;
+      private float surgeLevel_;
+      /**
+       * <code>optional float surge_level = 2;</code>
+       * @return Whether the surgeLevel field is set.
+       */
+      @java.lang.Override
+      public boolean hasSurgeLevel() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>optional float surge_level = 2;</code>
+       * @return The surgeLevel.
+       */
+      @java.lang.Override
+      public float getSurgeLevel() {
+        return surgeLevel_;
+      }
+
+      public static final int EXPIRED_AT_FIELD_NUMBER = 3;
+      private com.google.protobuf.Timestamp expiredAt_;
+      /**
+       * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+       * @return Whether the expiredAt field is set.
+       */
+      @java.lang.Override
+      public boolean hasExpiredAt() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+       * @return The expiredAt.
+       */
+      @java.lang.Override
+      public com.google.protobuf.Timestamp getExpiredAt() {
+        return expiredAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : expiredAt_;
+      }
+      /**
+       * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+       */
+      @java.lang.Override
+      public com.google.protobuf.TimestampOrBuilder getExpiredAtOrBuilder() {
+        return expiredAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : expiredAt_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (((bitField0_ & 0x00000001) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+        }
+        if (((bitField0_ & 0x00000002) != 0)) {
+          output.writeFloat(2, surgeLevel_);
+        }
+        if (((bitField0_ & 0x00000004) != 0)) {
+          output.writeMessage(3, getExpiredAt());
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+        }
+        if (((bitField0_ & 0x00000002) != 0)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeFloatSize(2, surgeLevel_);
+        }
+        if (((bitField0_ & 0x00000004) != 0)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(3, getExpiredAt());
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof surgelevel.Surgelevel.Result.Option)) {
+          return super.equals(obj);
+        }
+        surgelevel.Surgelevel.Result.Option other = (surgelevel.Surgelevel.Result.Option) obj;
+
+        if (hasId() != other.hasId()) return false;
+        if (hasId()) {
+          if (!getId()
+              .equals(other.getId())) return false;
+        }
+        if (hasSurgeLevel() != other.hasSurgeLevel()) return false;
+        if (hasSurgeLevel()) {
+          if (java.lang.Float.floatToIntBits(getSurgeLevel())
+              != java.lang.Float.floatToIntBits(
+                  other.getSurgeLevel())) return false;
+        }
+        if (hasExpiredAt() != other.hasExpiredAt()) return false;
+        if (hasExpiredAt()) {
+          if (!getExpiredAt()
+              .equals(other.getExpiredAt())) return false;
+        }
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (hasId()) {
+          hash = (37 * hash) + ID_FIELD_NUMBER;
+          hash = (53 * hash) + getId().hashCode();
+        }
+        if (hasSurgeLevel()) {
+          hash = (37 * hash) + SURGE_LEVEL_FIELD_NUMBER;
+          hash = (53 * hash) + java.lang.Float.floatToIntBits(
+              getSurgeLevel());
+        }
+        if (hasExpiredAt()) {
+          hash = (37 * hash) + EXPIRED_AT_FIELD_NUMBER;
+          hash = (53 * hash) + getExpiredAt().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static surgelevel.Surgelevel.Result.Option parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static surgelevel.Surgelevel.Result.Option parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static surgelevel.Surgelevel.Result.Option parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static surgelevel.Surgelevel.Result.Option parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static surgelevel.Surgelevel.Result.Option parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static surgelevel.Surgelevel.Result.Option parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static surgelevel.Surgelevel.Result.Option parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static surgelevel.Surgelevel.Result.Option parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static surgelevel.Surgelevel.Result.Option parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static surgelevel.Surgelevel.Result.Option parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static surgelevel.Surgelevel.Result.Option parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static surgelevel.Surgelevel.Result.Option parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(surgelevel.Surgelevel.Result.Option prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code surgelevel.Result.Option}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:surgelevel.Result.Option)
+          surgelevel.Surgelevel.Result.OptionOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return surgelevel.Surgelevel.internal_static_surgelevel_Result_Option_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return surgelevel.Surgelevel.internal_static_surgelevel_Result_Option_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  surgelevel.Surgelevel.Result.Option.class, surgelevel.Surgelevel.Result.Option.Builder.class);
+        }
+
+        // Construct using surgelevel.Surgelevel.Result.Option.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+            getExpiredAtFieldBuilder();
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          id_ = "";
+          bitField0_ = (bitField0_ & ~0x00000001);
+          surgeLevel_ = 0F;
+          bitField0_ = (bitField0_ & ~0x00000002);
+          if (expiredAtBuilder_ == null) {
+            expiredAt_ = null;
+          } else {
+            expiredAtBuilder_.clear();
+          }
+          bitField0_ = (bitField0_ & ~0x00000004);
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return surgelevel.Surgelevel.internal_static_surgelevel_Result_Option_descriptor;
+        }
+
+        @java.lang.Override
+        public surgelevel.Surgelevel.Result.Option getDefaultInstanceForType() {
+          return surgelevel.Surgelevel.Result.Option.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public surgelevel.Surgelevel.Result.Option build() {
+          surgelevel.Surgelevel.Result.Option result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public surgelevel.Surgelevel.Result.Option buildPartial() {
+          surgelevel.Surgelevel.Result.Option result = new surgelevel.Surgelevel.Result.Option(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) != 0)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.id_ = id_;
+          if (((from_bitField0_ & 0x00000002) != 0)) {
+            result.surgeLevel_ = surgeLevel_;
+            to_bitField0_ |= 0x00000002;
+          }
+          if (((from_bitField0_ & 0x00000004) != 0)) {
+            if (expiredAtBuilder_ == null) {
+              result.expiredAt_ = expiredAt_;
+            } else {
+              result.expiredAt_ = expiredAtBuilder_.build();
+            }
+            to_bitField0_ |= 0x00000004;
+          }
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof surgelevel.Surgelevel.Result.Option) {
+            return mergeFrom((surgelevel.Surgelevel.Result.Option)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(surgelevel.Surgelevel.Result.Option other) {
+          if (other == surgelevel.Surgelevel.Result.Option.getDefaultInstance()) return this;
+          if (other.hasId()) {
+            bitField0_ |= 0x00000001;
+            id_ = other.id_;
+            onChanged();
+          }
+          if (other.hasSurgeLevel()) {
+            setSurgeLevel(other.getSurgeLevel());
+          }
+          if (other.hasExpiredAt()) {
+            mergeExpiredAt(other.getExpiredAt());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          surgelevel.Surgelevel.Result.Option parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (surgelevel.Surgelevel.Result.Option) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        private java.lang.Object id_ = "";
+        /**
+         * <code>optional string id = 1;</code>
+         * @return Whether the id field is set.
+         */
+        public boolean hasId() {
+          return ((bitField0_ & 0x00000001) != 0);
+        }
+        /**
+         * <code>optional string id = 1;</code>
+         * @return The id.
+         */
+        public java.lang.String getId() {
+          java.lang.Object ref = id_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            id_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string id = 1;</code>
+         * @return The bytes for id.
+         */
+        public com.google.protobuf.ByteString
+            getIdBytes() {
+          java.lang.Object ref = id_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            id_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string id = 1;</code>
+         * @param value The id to set.
+         * @return This builder for chaining.
+         */
+        public Builder setId(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+          id_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string id = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearId() {
+          bitField0_ = (bitField0_ & ~0x00000001);
+          id_ = getDefaultInstance().getId();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string id = 1;</code>
+         * @param value The bytes for id to set.
+         * @return This builder for chaining.
+         */
+        public Builder setIdBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          bitField0_ |= 0x00000001;
+          id_ = value;
+          onChanged();
+          return this;
+        }
+
+        private float surgeLevel_ ;
+        /**
+         * <code>optional float surge_level = 2;</code>
+         * @return Whether the surgeLevel field is set.
+         */
+        @java.lang.Override
+        public boolean hasSurgeLevel() {
+          return ((bitField0_ & 0x00000002) != 0);
+        }
+        /**
+         * <code>optional float surge_level = 2;</code>
+         * @return The surgeLevel.
+         */
+        @java.lang.Override
+        public float getSurgeLevel() {
+          return surgeLevel_;
+        }
+        /**
+         * <code>optional float surge_level = 2;</code>
+         * @param value The surgeLevel to set.
+         * @return This builder for chaining.
+         */
+        public Builder setSurgeLevel(float value) {
+          bitField0_ |= 0x00000002;
+          surgeLevel_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional float surge_level = 2;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearSurgeLevel() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          surgeLevel_ = 0F;
+          onChanged();
+          return this;
+        }
+
+        private com.google.protobuf.Timestamp expiredAt_;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> expiredAtBuilder_;
+        /**
+         * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+         * @return Whether the expiredAt field is set.
+         */
+        public boolean hasExpiredAt() {
+          return ((bitField0_ & 0x00000004) != 0);
+        }
+        /**
+         * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+         * @return The expiredAt.
+         */
+        public com.google.protobuf.Timestamp getExpiredAt() {
+          if (expiredAtBuilder_ == null) {
+            return expiredAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : expiredAt_;
+          } else {
+            return expiredAtBuilder_.getMessage();
+          }
+        }
+        /**
+         * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+         */
+        public Builder setExpiredAt(com.google.protobuf.Timestamp value) {
+          if (expiredAtBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            expiredAt_ = value;
+            onChanged();
+          } else {
+            expiredAtBuilder_.setMessage(value);
+          }
+          bitField0_ |= 0x00000004;
+          return this;
+        }
+        /**
+         * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+         */
+        public Builder setExpiredAt(
+            com.google.protobuf.Timestamp.Builder builderForValue) {
+          if (expiredAtBuilder_ == null) {
+            expiredAt_ = builderForValue.build();
+            onChanged();
+          } else {
+            expiredAtBuilder_.setMessage(builderForValue.build());
+          }
+          bitField0_ |= 0x00000004;
+          return this;
+        }
+        /**
+         * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+         */
+        public Builder mergeExpiredAt(com.google.protobuf.Timestamp value) {
+          if (expiredAtBuilder_ == null) {
+            if (((bitField0_ & 0x00000004) != 0) &&
+                expiredAt_ != null &&
+                expiredAt_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
+              expiredAt_ =
+                com.google.protobuf.Timestamp.newBuilder(expiredAt_).mergeFrom(value).buildPartial();
+            } else {
+              expiredAt_ = value;
+            }
+            onChanged();
+          } else {
+            expiredAtBuilder_.mergeFrom(value);
+          }
+          bitField0_ |= 0x00000004;
+          return this;
+        }
+        /**
+         * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+         */
+        public Builder clearExpiredAt() {
+          if (expiredAtBuilder_ == null) {
+            expiredAt_ = null;
+            onChanged();
+          } else {
+            expiredAtBuilder_.clear();
+          }
+          bitField0_ = (bitField0_ & ~0x00000004);
+          return this;
+        }
+        /**
+         * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+         */
+        public com.google.protobuf.Timestamp.Builder getExpiredAtBuilder() {
+          bitField0_ |= 0x00000004;
+          onChanged();
+          return getExpiredAtFieldBuilder().getBuilder();
+        }
+        /**
+         * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+         */
+        public com.google.protobuf.TimestampOrBuilder getExpiredAtOrBuilder() {
+          if (expiredAtBuilder_ != null) {
+            return expiredAtBuilder_.getMessageOrBuilder();
+          } else {
+            return expiredAt_ == null ?
+                com.google.protobuf.Timestamp.getDefaultInstance() : expiredAt_;
+          }
+        }
+        /**
+         * <code>optional .google.protobuf.Timestamp expired_at = 3;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+            getExpiredAtFieldBuilder() {
+          if (expiredAtBuilder_ == null) {
+            expiredAtBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                    getExpiredAt(),
+                    getParentForChildren(),
+                    isClean());
+            expiredAt_ = null;
+          }
+          return expiredAtBuilder_;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:surgelevel.Result.Option)
+      }
+
+      // @@protoc_insertion_point(class_scope:surgelevel.Result.Option)
+      private static final surgelevel.Surgelevel.Result.Option DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new surgelevel.Surgelevel.Result.Option();
+      }
+
+      public static surgelevel.Surgelevel.Result.Option getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<Option>
+          PARSER = new com.google.protobuf.AbstractParser<Option>() {
+        @java.lang.Override
+        public Option parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Option(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<Option> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Option> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public surgelevel.Surgelevel.Result.Option getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SURGE_LEVEL_FIELD_NUMBER = 2;
+    private float surgeLevel_;
+    /**
+     * <code>float surge_level = 2;</code>
+     * @return The surgeLevel.
+     */
+    @java.lang.Override
+    public float getSurgeLevel() {
+      return surgeLevel_;
+    }
+
+    public static final int EXPIRED_AT_FIELD_NUMBER = 3;
+    private com.google.protobuf.Timestamp expiredAt_;
+    /**
+     * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+     * @return Whether the expiredAt field is set.
+     */
+    @java.lang.Override
+    public boolean hasExpiredAt() {
+      return expiredAt_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+     * @return The expiredAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getExpiredAt() {
+      return expiredAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : expiredAt_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getExpiredAtOrBuilder() {
+      return getExpiredAt();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      if (surgeLevel_ != 0F) {
+        output.writeFloat(2, surgeLevel_);
+      }
+      if (expiredAt_ != null) {
+        output.writeMessage(3, getExpiredAt());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      if (surgeLevel_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(2, surgeLevel_);
+      }
+      if (expiredAt_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getExpiredAt());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof surgelevel.Surgelevel.Result)) {
+        return super.equals(obj);
+      }
+      surgelevel.Surgelevel.Result other = (surgelevel.Surgelevel.Result) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (java.lang.Float.floatToIntBits(getSurgeLevel())
+          != java.lang.Float.floatToIntBits(
+              other.getSurgeLevel())) return false;
+      if (hasExpiredAt() != other.hasExpiredAt()) return false;
+      if (hasExpiredAt()) {
+        if (!getExpiredAt()
+            .equals(other.getExpiredAt())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + SURGE_LEVEL_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getSurgeLevel());
+      if (hasExpiredAt()) {
+        hash = (37 * hash) + EXPIRED_AT_FIELD_NUMBER;
+        hash = (53 * hash) + getExpiredAt().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static surgelevel.Surgelevel.Result parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static surgelevel.Surgelevel.Result parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.Result parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static surgelevel.Surgelevel.Result parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.Result parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static surgelevel.Surgelevel.Result parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.Result parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static surgelevel.Surgelevel.Result parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.Result parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static surgelevel.Surgelevel.Result parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static surgelevel.Surgelevel.Result parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static surgelevel.Surgelevel.Result parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(surgelevel.Surgelevel.Result prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code surgelevel.Result}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:surgelevel.Result)
+        surgelevel.Surgelevel.ResultOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return surgelevel.Surgelevel.internal_static_surgelevel_Result_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return surgelevel.Surgelevel.internal_static_surgelevel_Result_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                surgelevel.Surgelevel.Result.class, surgelevel.Surgelevel.Result.Builder.class);
+      }
+
+      // Construct using surgelevel.Surgelevel.Result.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        surgeLevel_ = 0F;
+
+        if (expiredAtBuilder_ == null) {
+          expiredAt_ = null;
+        } else {
+          expiredAt_ = null;
+          expiredAtBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return surgelevel.Surgelevel.internal_static_surgelevel_Result_descriptor;
+      }
+
+      @java.lang.Override
+      public surgelevel.Surgelevel.Result getDefaultInstanceForType() {
+        return surgelevel.Surgelevel.Result.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public surgelevel.Surgelevel.Result build() {
+        surgelevel.Surgelevel.Result result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public surgelevel.Surgelevel.Result buildPartial() {
+        surgelevel.Surgelevel.Result result = new surgelevel.Surgelevel.Result(this);
+        result.id_ = id_;
+        result.surgeLevel_ = surgeLevel_;
+        if (expiredAtBuilder_ == null) {
+          result.expiredAt_ = expiredAt_;
+        } else {
+          result.expiredAt_ = expiredAtBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof surgelevel.Surgelevel.Result) {
+          return mergeFrom((surgelevel.Surgelevel.Result)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(surgelevel.Surgelevel.Result other) {
+        if (other == surgelevel.Surgelevel.Result.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        if (other.getSurgeLevel() != 0F) {
+          setSurgeLevel(other.getSurgeLevel());
+        }
+        if (other.hasExpiredAt()) {
+          mergeExpiredAt(other.getExpiredAt());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        surgelevel.Surgelevel.Result parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (surgelevel.Surgelevel.Result) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 1;</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private float surgeLevel_ ;
+      /**
+       * <code>float surge_level = 2;</code>
+       * @return The surgeLevel.
+       */
+      @java.lang.Override
+      public float getSurgeLevel() {
+        return surgeLevel_;
+      }
+      /**
+       * <code>float surge_level = 2;</code>
+       * @param value The surgeLevel to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSurgeLevel(float value) {
+        
+        surgeLevel_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float surge_level = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSurgeLevel() {
+        
+        surgeLevel_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp expiredAt_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> expiredAtBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+       * @return Whether the expiredAt field is set.
+       */
+      public boolean hasExpiredAt() {
+        return expiredAtBuilder_ != null || expiredAt_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+       * @return The expiredAt.
+       */
+      public com.google.protobuf.Timestamp getExpiredAt() {
+        if (expiredAtBuilder_ == null) {
+          return expiredAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : expiredAt_;
+        } else {
+          return expiredAtBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+       */
+      public Builder setExpiredAt(com.google.protobuf.Timestamp value) {
+        if (expiredAtBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          expiredAt_ = value;
+          onChanged();
+        } else {
+          expiredAtBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+       */
+      public Builder setExpiredAt(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (expiredAtBuilder_ == null) {
+          expiredAt_ = builderForValue.build();
+          onChanged();
+        } else {
+          expiredAtBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+       */
+      public Builder mergeExpiredAt(com.google.protobuf.Timestamp value) {
+        if (expiredAtBuilder_ == null) {
+          if (expiredAt_ != null) {
+            expiredAt_ =
+              com.google.protobuf.Timestamp.newBuilder(expiredAt_).mergeFrom(value).buildPartial();
+          } else {
+            expiredAt_ = value;
+          }
+          onChanged();
+        } else {
+          expiredAtBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+       */
+      public Builder clearExpiredAt() {
+        if (expiredAtBuilder_ == null) {
+          expiredAt_ = null;
+          onChanged();
+        } else {
+          expiredAt_ = null;
+          expiredAtBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getExpiredAtBuilder() {
+        
+        onChanged();
+        return getExpiredAtFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getExpiredAtOrBuilder() {
+        if (expiredAtBuilder_ != null) {
+          return expiredAtBuilder_.getMessageOrBuilder();
+        } else {
+          return expiredAt_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : expiredAt_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp expired_at = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getExpiredAtFieldBuilder() {
+        if (expiredAtBuilder_ == null) {
+          expiredAtBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getExpiredAt(),
+                  getParentForChildren(),
+                  isClean());
+          expiredAt_ = null;
+        }
+        return expiredAtBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:surgelevel.Result)
+    }
+
+    // @@protoc_insertion_point(class_scope:surgelevel.Result)
+    private static final surgelevel.Surgelevel.Result DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new surgelevel.Surgelevel.Result();
+    }
+
+    public static surgelevel.Surgelevel.Result getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Result>
+        PARSER = new com.google.protobuf.AbstractParser<Result>() {
+      @java.lang.Override
+      public Result parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Result(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Result> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Result> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public surgelevel.Surgelevel.Result getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_surgelevel_SaveFormulaRequest_descriptor;
   private static final 
@@ -34809,6 +38198,16 @@ public final class Surgelevel {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_surgelevel_FindStoreResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_surgelevel_SaveResultRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_surgelevel_SaveResultRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_surgelevel_SaveResultResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_surgelevel_SaveResultResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_surgelevel_Store_descriptor;
   private static final 
@@ -34934,6 +38333,16 @@ public final class Surgelevel {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_surgelevel_Limit_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_surgelevel_Result_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_surgelevel_Result_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_surgelevel_Result_Option_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_surgelevel_Result_Option_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -34944,134 +38353,149 @@ public final class Surgelevel {
   static {
     java.lang.String[] descriptorData = {
       "\n\032on_demand/surgelevel.proto\022\nsurgelevel" +
-      "\032\034google/protobuf/struct.proto\"A\n\022SaveFo" +
-      "rmulaRequest\022+\n\007formula\030\001 \001(\0132\032.surgelev" +
-      "el.Formula.Option\";\n\023SaveFormulaResponse" +
-      "\022$\n\007formula\030\001 \001(\0132\023.surgelevel.Formula\"@" +
-      "\n\022FindFormulaRequest\022*\n\006filter\030\001 \001(\0132\032.s" +
-      "urgelevel.Formula.Filter\";\n\023FindFormulaR" +
-      "esponse\022$\n\007formula\030\001 \003(\0132\023.surgelevel.Fo" +
-      "rmula\"s\n\025ExecuteFormulaRequest\022+\n\007formul" +
-      "a\030\001 \001(\0132\032.surgelevel.Formula.Option\022-\n\010a" +
-      "rgument\030\002 \001(\0132\033.surgelevel.Argument.Opti" +
-      "on\"{\n\026ExecuteFormulaResponse\022$\n\007formula\030" +
-      "\001 \001(\0132\023.surgelevel.Formula\022&\n\010argument\030\002" +
-      " \001(\0132\024.surgelevel.Argument\022\023\n\013surge_leve" +
-      "l\030\003 \001(\002\"=\n\020SetConfigRequest\022)\n\006config\030\001 " +
-      "\001(\0132\031.surgelevel.Config.Option\"7\n\021SetCon" +
-      "figResponse\022\"\n\006config\030\001 \001(\0132\022.surgelevel" +
-      ".Config\"\022\n\020GetConfigRequest\"7\n\021GetConfig" +
-      "Response\022\"\n\006config\030\001 \001(\0132\022.surgelevel.Co" +
-      "nfig\">\n\021SaveRegionRequest\022)\n\006region\030\001 \003(" +
-      "\0132\031.surgelevel.Region.Option\"8\n\022SaveRegi" +
-      "onResponse\022\"\n\006region\030\001 \003(\0132\022.surgelevel." +
-      "Region\">\n\021FindRegionRequest\022)\n\006filter\030\001 " +
-      "\001(\0132\031.surgelevel.Region.Filter\"8\n\022FindRe" +
-      "gionResponse\022\"\n\006region\030\001 \003(\0132\022.surgeleve" +
-      "l.Region\"D\n\023SaveRetailerRequest\022-\n\010retai" +
-      "ler\030\001 \003(\0132\033.surgelevel.Retailer.Option\">" +
-      "\n\024SaveRetailerResponse\022&\n\010retailer\030\001 \003(\013" +
-      "2\024.surgelevel.Retailer\"B\n\023FindRetailerRe" +
-      "quest\022+\n\006filter\030\001 \001(\0132\033.surgelevel.Retai" +
-      "ler.Filter\">\n\024FindRetailerResponse\022&\n\010re" +
-      "tailer\030\001 \003(\0132\024.surgelevel.Retailer\";\n\020Sa" +
-      "veStoreRequest\022\'\n\005store\030\001 \003(\0132\030.surgelev" +
-      "el.Store.Option\"5\n\021SaveStoreResponse\022 \n\005" +
-      "store\030\001 \003(\0132\021.surgelevel.Store\"^\n\020FindSt" +
-      "oreRequest\022(\n\006filter\030\001 \001(\0132\030.surgelevel." +
-      "Store.Filter\022 \n\005limit\030\002 \001(\0132\021.surgelevel" +
-      ".Limit\"5\n\021FindStoreResponse\022 \n\005store\030\001 \003" +
-      "(\0132\021.surgelevel.Store\"\231\005\n\005Store\022\n\n\002id\030\001 " +
-      "\001(\t\022\"\n\006config\030\002 \001(\0132\022.surgelevel.Config\022" +
-      "\030\n\013retailer_id\030\003 \001(\003H\000\210\001\001\022\026\n\tregion_id\030\004" +
-      " \001(\003H\001\210\001\001\022\020\n\010ondemand\030\005 \001(\010\022&\n\010location\030" +
-      "\006 \001(\0132\024.surgelevel.Location\032\211\002\n\006Option\022\017" +
-      "\n\002id\030\001 \001(\tH\000\210\001\001\022.\n\006config\030\002 \001(\0132\031.surgel" +
-      "evel.Config.OptionH\001\210\001\001\022\030\n\013retailer_id\030\003" +
-      " \001(\003H\002\210\001\001\022\026\n\tregion_id\030\004 \001(\003H\003\210\001\001\022\025\n\010ond" +
-      "emand\030\005 \001(\010H\004\210\001\001\022+\n\010location\030\006 \001(\0132\024.sur" +
-      "gelevel.LocationH\005\210\001\001B\005\n\003_idB\t\n\007_configB" +
-      "\016\n\014_retailer_idB\014\n\n_region_idB\013\n\t_ondema" +
-      "ndB\013\n\t_location\032\311\001\n\006Filter\022\n\n\002id\030\001 \003(\t\022." +
+      "\032\034google/protobuf/struct.proto\032\037google/p" +
+      "rotobuf/timestamp.proto\"A\n\022SaveFormulaRe" +
+      "quest\022+\n\007formula\030\001 \001(\0132\032.surgelevel.Form" +
+      "ula.Option\";\n\023SaveFormulaResponse\022$\n\007for" +
+      "mula\030\001 \001(\0132\023.surgelevel.Formula\"@\n\022FindF" +
+      "ormulaRequest\022*\n\006filter\030\001 \001(\0132\032.surgelev" +
+      "el.Formula.Filter\";\n\023FindFormulaResponse" +
+      "\022$\n\007formula\030\001 \003(\0132\023.surgelevel.Formula\"s" +
+      "\n\025ExecuteFormulaRequest\022+\n\007formula\030\001 \001(\013" +
+      "2\032.surgelevel.Formula.Option\022-\n\010argument" +
+      "\030\002 \001(\0132\033.surgelevel.Argument.Option\"{\n\026E" +
+      "xecuteFormulaResponse\022$\n\007formula\030\001 \001(\0132\023" +
+      ".surgelevel.Formula\022&\n\010argument\030\002 \001(\0132\024." +
+      "surgelevel.Argument\022\023\n\013surge_level\030\003 \001(\002" +
+      "\"=\n\020SetConfigRequest\022)\n\006config\030\001 \001(\0132\031.s" +
+      "urgelevel.Config.Option\"7\n\021SetConfigResp" +
+      "onse\022\"\n\006config\030\001 \001(\0132\022.surgelevel.Config" +
+      "\"\022\n\020GetConfigRequest\"7\n\021GetConfigRespons" +
+      "e\022\"\n\006config\030\001 \001(\0132\022.surgelevel.Config\">\n" +
+      "\021SaveRegionRequest\022)\n\006region\030\001 \003(\0132\031.sur" +
+      "gelevel.Region.Option\"8\n\022SaveRegionRespo" +
+      "nse\022\"\n\006region\030\001 \003(\0132\022.surgelevel.Region\"" +
+      ">\n\021FindRegionRequest\022)\n\006filter\030\001 \001(\0132\031.s" +
+      "urgelevel.Region.Filter\"8\n\022FindRegionRes" +
+      "ponse\022\"\n\006region\030\001 \003(\0132\022.surgelevel.Regio" +
+      "n\"D\n\023SaveRetailerRequest\022-\n\010retailer\030\001 \003" +
+      "(\0132\033.surgelevel.Retailer.Option\">\n\024SaveR" +
+      "etailerResponse\022&\n\010retailer\030\001 \003(\0132\024.surg" +
+      "elevel.Retailer\"B\n\023FindRetailerRequest\022+" +
+      "\n\006filter\030\001 \001(\0132\033.surgelevel.Retailer.Fil" +
+      "ter\">\n\024FindRetailerResponse\022&\n\010retailer\030" +
+      "\001 \003(\0132\024.surgelevel.Retailer\";\n\020SaveStore" +
+      "Request\022\'\n\005store\030\001 \003(\0132\030.surgelevel.Stor" +
+      "e.Option\"5\n\021SaveStoreResponse\022 \n\005store\030\001" +
+      " \003(\0132\021.surgelevel.Store\"^\n\020FindStoreRequ" +
+      "est\022(\n\006filter\030\001 \001(\0132\030.surgelevel.Store.F" +
+      "ilter\022 \n\005limit\030\002 \001(\0132\021.surgelevel.Limit\"" +
+      "5\n\021FindStoreResponse\022 \n\005store\030\001 \003(\0132\021.su" +
+      "rgelevel.Store\"g\n\021SaveResultRequest\022\'\n\005s" +
+      "tore\030\001 \003(\0132\030.surgelevel.Store.Option\022)\n\006" +
+      "result\030\002 \001(\0132\031.surgelevel.Result.Option\"" +
+      "+\n\022SaveResultResponse\022\025\n\rfailed_stores\030\001" +
+      " \003(\t\"\231\005\n\005Store\022\n\n\002id\030\001 \001(\t\022\"\n\006config\030\002 \001" +
+      "(\0132\022.surgelevel.Config\022\030\n\013retailer_id\030\003 " +
+      "\001(\003H\000\210\001\001\022\026\n\tregion_id\030\004 \001(\003H\001\210\001\001\022\020\n\010onde" +
+      "mand\030\005 \001(\010\022&\n\010location\030\006 \001(\0132\024.surgeleve" +
+      "l.Location\032\211\002\n\006Option\022\017\n\002id\030\001 \001(\tH\000\210\001\001\022." +
+      "\n\006config\030\002 \001(\0132\031.surgelevel.Config.Optio" +
+      "nH\001\210\001\001\022\030\n\013retailer_id\030\003 \001(\003H\002\210\001\001\022\026\n\tregi" +
+      "on_id\030\004 \001(\003H\003\210\001\001\022\025\n\010ondemand\030\005 \001(\010H\004\210\001\001\022" +
+      "+\n\010location\030\006 \001(\0132\024.surgelevel.LocationH" +
+      "\005\210\001\001B\005\n\003_idB\t\n\007_configB\016\n\014_retailer_idB\014" +
+      "\n\n_region_idB\013\n\t_ondemandB\013\n\t_location\032\311" +
+      "\001\n\006Filter\022\n\n\002id\030\001 \003(\t\022.\n\006config\030\002 \001(\0132\031." +
+      "surgelevel.Config.FilterH\000\210\001\001\022\023\n\013retaile" +
+      "r_id\030\003 \003(\003\022\021\n\tregion_id\030\004 \003(\003\022\025\n\010ondeman" +
+      "d\030\005 \001(\010H\001\210\001\001\022#\n\004area\030\006 \001(\0132\020.surgelevel." +
+      "AreaH\002\210\001\001B\t\n\007_configB\013\n\t_ondemandB\007\n\005_ar" +
+      "eaB\016\n\014_retailer_idB\014\n\n_region_id\"\352\001\n\006Reg" +
+      "ion\022\n\n\002id\030\001 \001(\003\022\'\n\006config\030\002 \001(\0132\022.surgel" +
+      "evel.ConfigH\000\210\001\001\032O\n\006Option\022\n\n\002id\030\001 \001(\003\022." +
+      "\n\006config\030\002 \001(\0132\031.surgelevel.Config.Optio" +
+      "nH\000\210\001\001B\t\n\007_config\032O\n\006Filter\022\n\n\002id\030\001 \003(\003\022" +
+      ".\n\006config\030\002 \001(\0132\031.surgelevel.Config.Filt" +
+      "erH\000\210\001\001B\t\n\007_configB\t\n\007_config\"\354\001\n\010Retail" +
+      "er\022\n\n\002id\030\001 \001(\003\022\'\n\006config\030\002 \001(\0132\022.surgele" +
+      "vel.ConfigH\000\210\001\001\032O\n\006Option\022\n\n\002id\030\001 \001(\003\022.\n" +
+      "\006config\030\002 \001(\0132\031.surgelevel.Config.Option" +
+      "H\000\210\001\001B\t\n\007_config\032O\n\006Filter\022\n\n\002id\030\001 \003(\003\022." +
       "\n\006config\030\002 \001(\0132\031.surgelevel.Config.Filte" +
-      "rH\000\210\001\001\022\023\n\013retailer_id\030\003 \003(\003\022\021\n\tregion_id" +
-      "\030\004 \003(\003\022\025\n\010ondemand\030\005 \001(\010H\001\210\001\001\022#\n\004area\030\006 " +
-      "\001(\0132\020.surgelevel.AreaH\002\210\001\001B\t\n\007_configB\013\n" +
-      "\t_ondemandB\007\n\005_areaB\016\n\014_retailer_idB\014\n\n_" +
-      "region_id\"\352\001\n\006Region\022\n\n\002id\030\001 \001(\003\022\'\n\006conf" +
-      "ig\030\002 \001(\0132\022.surgelevel.ConfigH\000\210\001\001\032O\n\006Opt" +
-      "ion\022\n\n\002id\030\001 \001(\003\022.\n\006config\030\002 \001(\0132\031.surgel" +
-      "evel.Config.OptionH\000\210\001\001B\t\n\007_config\032O\n\006Fi" +
-      "lter\022\n\n\002id\030\001 \003(\003\022.\n\006config\030\002 \001(\0132\031.surge" +
-      "level.Config.FilterH\000\210\001\001B\t\n\007_configB\t\n\007_" +
-      "config\"\354\001\n\010Retailer\022\n\n\002id\030\001 \001(\003\022\'\n\006confi" +
-      "g\030\002 \001(\0132\022.surgelevel.ConfigH\000\210\001\001\032O\n\006Opti" +
-      "on\022\n\n\002id\030\001 \001(\003\022.\n\006config\030\002 \001(\0132\031.surgele" +
-      "vel.Config.OptionH\000\210\001\001B\t\n\007_config\032O\n\006Fil" +
-      "ter\022\n\n\002id\030\001 \003(\003\022.\n\006config\030\002 \001(\0132\031.surgel" +
-      "evel.Config.FilterH\000\210\001\001B\t\n\007_configB\t\n\007_c" +
-      "onfig\"\232\003\n\006Config\022\030\n\020step_surge_level\030\001 \001" +
-      "(\002\022\020\n\010disabled\030\002 \001(\010\022+\n\007formula\030\003 \001(\0132\032." +
-      "surgelevel.Config.Formula\032\236\001\n\006Option\022\035\n\020" +
-      "step_surge_level\030\001 \001(\002H\000\210\001\001\022\025\n\010disabled\030" +
-      "\002 \001(\010H\001\210\001\001\0220\n\007formula\030\003 \001(\0132\032.surgelevel" +
-      ".Config.FormulaH\002\210\001\001B\023\n\021_step_surge_leve" +
-      "lB\013\n\t_disabledB\n\n\010_formula\032Y\n\006Filter\022+\n\007" +
-      "formula\030\001 \001(\0132\032.surgelevel.Formula.Filte" +
-      "r\022\025\n\010disabled\030\002 \001(\010H\000\210\001\001B\013\n\t_disabled\032;\n" +
-      "\007Formula\022\n\n\002id\030\001 \001(\t\022$\n\003var\030\002 \001(\0132\027.goog" +
-      "le.protobuf.Struct\"\247\001\n\007Formula\022\n\n\002id\030\001 \001" +
-      "(\t\022\014\n\004name\030\002 \001(\t\022\016\n\006script\030\003 \001(\t\032\\\n\006Opti" +
-      "on\022\017\n\002id\030\001 \001(\tH\000\210\001\001\022\021\n\004name\030\002 \001(\tH\001\210\001\001\022\023" +
-      "\n\006script\030\003 \001(\tH\002\210\001\001B\005\n\003_idB\007\n\005_nameB\t\n\007_" +
-      "script\032\024\n\006Filter\022\n\n\002id\030\001 \003(\t\"\365\004\n\010Argumen" +
-      "t\022 \n\005store\030\001 \001(\0132\021.surgelevel.Store\0226\n\ts" +
-      "hipments\030\002 \003(\0132#.surgelevel.Argument.Shi" +
-      "pmentsEntry\0228\n\ncandidates\030\003 \003(\0132$.surgel" +
-      "evel.Argument.CandidatesEntry\022$\n\003var\030\004 \001" +
-      "(\0132\027.google.protobuf.Struct\032\311\002\n\006Option\022\'" +
-      "\n\005store\030\001 \001(\0132\030.surgelevel.Store.Option\022" +
-      "=\n\tshipments\030\002 \003(\0132*.surgelevel.Argument" +
-      ".Option.ShipmentsEntry\022?\n\ncandidates\030\003 \003" +
-      "(\0132+.surgelevel.Argument.Option.Candidat" +
-      "esEntry\022)\n\003var\030\004 \001(\0132\027.google.protobuf.S" +
-      "tructH\000\210\001\001\0320\n\016ShipmentsEntry\022\013\n\003key\030\001 \001(" +
-      "\t\022\r\n\005value\030\002 \001(\005:\0028\001\0321\n\017CandidatesEntry\022" +
-      "\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\005:\0028\001B\006\n\004_var\032" +
-      "0\n\016ShipmentsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030" +
-      "\002 \001(\005:\0028\001\0321\n\017CandidatesEntry\022\013\n\003key\030\001 \001(" +
-      "\t\022\r\n\005value\030\002 \001(\005:\0028\001\"@\n\004Area\022&\n\010location" +
-      "\030\001 \001(\0132\024.surgelevel.Location\022\020\n\010distance" +
-      "\030\002 \001(\005\"$\n\010Location\022\013\n\003lat\030\001 \001(\002\022\013\n\003lon\030\002" +
-      " \001(\002\"#\n\005Limit\022\014\n\004size\030\001 \001(\005\022\014\n\004skip\030\002 \001(" +
-      "\0052\352\006\n\007Service\022N\n\013SaveFormula\022\036.surgeleve" +
-      "l.SaveFormulaRequest\032\037.surgelevel.SaveFo" +
-      "rmulaResponse\022W\n\016ExecuteFormula\022!.surgel" +
-      "evel.ExecuteFormulaRequest\032\".surgelevel." +
-      "ExecuteFormulaResponse\022N\n\013FindFormula\022\036." +
-      "surgelevel.FindFormulaRequest\032\037.surgelev" +
-      "el.FindFormulaResponse\022H\n\tSetConfig\022\034.su" +
-      "rgelevel.SetConfigRequest\032\035.surgelevel.S" +
-      "etConfigResponse\022H\n\tGetConfig\022\034.surgelev" +
-      "el.GetConfigRequest\032\035.surgelevel.GetConf" +
-      "igResponse\022K\n\nSaveRegion\022\035.surgelevel.Sa" +
-      "veRegionRequest\032\036.surgelevel.SaveRegionR" +
-      "esponse\022K\n\nFindRegion\022\035.surgelevel.FindR" +
-      "egionRequest\032\036.surgelevel.FindRegionResp" +
-      "onse\022Q\n\014SaveRetailer\022\037.surgelevel.SaveRe" +
-      "tailerRequest\032 .surgelevel.SaveRetailerR" +
-      "esponse\022Q\n\014FindRetailer\022\037.surgelevel.Fin" +
-      "dRetailerRequest\032 .surgelevel.FindRetail" +
-      "erResponse\022H\n\tSaveStore\022\034.surgelevel.Sav" +
-      "eStoreRequest\032\035.surgelevel.SaveStoreResp" +
-      "onse\022H\n\tFindStore\022\034.surgelevel.FindStore" +
-      "Request\032\035.surgelevel.FindStoreResponseb\006" +
-      "proto3"
+      "rH\000\210\001\001B\t\n\007_configB\t\n\007_config\"\232\003\n\006Config\022" +
+      "\030\n\020step_surge_level\030\001 \001(\002\022\020\n\010disabled\030\002 " +
+      "\001(\010\022+\n\007formula\030\003 \001(\0132\032.surgelevel.Config" +
+      ".Formula\032\236\001\n\006Option\022\035\n\020step_surge_level\030" +
+      "\001 \001(\002H\000\210\001\001\022\025\n\010disabled\030\002 \001(\010H\001\210\001\001\0220\n\007for" +
+      "mula\030\003 \001(\0132\032.surgelevel.Config.FormulaH\002" +
+      "\210\001\001B\023\n\021_step_surge_levelB\013\n\t_disabledB\n\n" +
+      "\010_formula\032Y\n\006Filter\022+\n\007formula\030\001 \001(\0132\032.s" +
+      "urgelevel.Formula.Filter\022\025\n\010disabled\030\002 \001" +
+      "(\010H\000\210\001\001B\013\n\t_disabled\032;\n\007Formula\022\n\n\002id\030\001 " +
+      "\001(\t\022$\n\003var\030\002 \001(\0132\027.google.protobuf.Struc" +
+      "t\"\247\001\n\007Formula\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022" +
+      "\016\n\006script\030\003 \001(\t\032\\\n\006Option\022\017\n\002id\030\001 \001(\tH\000\210" +
+      "\001\001\022\021\n\004name\030\002 \001(\tH\001\210\001\001\022\023\n\006script\030\003 \001(\tH\002\210" +
+      "\001\001B\005\n\003_idB\007\n\005_nameB\t\n\007_script\032\024\n\006Filter\022" +
+      "\n\n\002id\030\001 \003(\t\"\365\004\n\010Argument\022 \n\005store\030\001 \001(\0132" +
+      "\021.surgelevel.Store\0226\n\tshipments\030\002 \003(\0132#." +
+      "surgelevel.Argument.ShipmentsEntry\0228\n\nca" +
+      "ndidates\030\003 \003(\0132$.surgelevel.Argument.Can" +
+      "didatesEntry\022$\n\003var\030\004 \001(\0132\027.google.proto" +
+      "buf.Struct\032\311\002\n\006Option\022\'\n\005store\030\001 \001(\0132\030.s" +
+      "urgelevel.Store.Option\022=\n\tshipments\030\002 \003(" +
+      "\0132*.surgelevel.Argument.Option.Shipments" +
+      "Entry\022?\n\ncandidates\030\003 \003(\0132+.surgelevel.A" +
+      "rgument.Option.CandidatesEntry\022)\n\003var\030\004 " +
+      "\001(\0132\027.google.protobuf.StructH\000\210\001\001\0320\n\016Shi" +
+      "pmentsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\005:" +
+      "\0028\001\0321\n\017CandidatesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005v" +
+      "alue\030\002 \001(\005:\0028\001B\006\n\004_var\0320\n\016ShipmentsEntry" +
+      "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\005:\0028\001\0321\n\017Cand" +
+      "idatesEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\005:" +
+      "\0028\001\"@\n\004Area\022&\n\010location\030\001 \001(\0132\024.surgelev" +
+      "el.Location\022\020\n\010distance\030\002 \001(\005\"$\n\010Locatio" +
+      "n\022\013\n\003lat\030\001 \001(\002\022\013\n\003lon\030\002 \001(\002\"#\n\005Limit\022\014\n\004" +
+      "size\030\001 \001(\005\022\014\n\004skip\030\002 \001(\005\"\352\001\n\006Result\022\n\n\002i" +
+      "d\030\001 \001(\t\022\023\n\013surge_level\030\002 \001(\002\022.\n\nexpired_" +
+      "at\030\003 \001(\0132\032.google.protobuf.Timestamp\032\216\001\n" +
+      "\006Option\022\017\n\002id\030\001 \001(\tH\000\210\001\001\022\030\n\013surge_level\030" +
+      "\002 \001(\002H\001\210\001\001\0223\n\nexpired_at\030\003 \001(\0132\032.google." +
+      "protobuf.TimestampH\002\210\001\001B\005\n\003_idB\016\n\014_surge" +
+      "_levelB\r\n\013_expired_at2\267\007\n\007Service\022N\n\013Sav" +
+      "eFormula\022\036.surgelevel.SaveFormulaRequest" +
+      "\032\037.surgelevel.SaveFormulaResponse\022W\n\016Exe" +
+      "cuteFormula\022!.surgelevel.ExecuteFormulaR" +
+      "equest\032\".surgelevel.ExecuteFormulaRespon" +
+      "se\022N\n\013FindFormula\022\036.surgelevel.FindFormu" +
+      "laRequest\032\037.surgelevel.FindFormulaRespon" +
+      "se\022H\n\tSetConfig\022\034.surgelevel.SetConfigRe" +
+      "quest\032\035.surgelevel.SetConfigResponse\022H\n\t" +
+      "GetConfig\022\034.surgelevel.GetConfigRequest\032" +
+      "\035.surgelevel.GetConfigResponse\022K\n\nSaveRe" +
+      "gion\022\035.surgelevel.SaveRegionRequest\032\036.su" +
+      "rgelevel.SaveRegionResponse\022K\n\nFindRegio" +
+      "n\022\035.surgelevel.FindRegionRequest\032\036.surge" +
+      "level.FindRegionResponse\022Q\n\014SaveRetailer" +
+      "\022\037.surgelevel.SaveRetailerRequest\032 .surg" +
+      "elevel.SaveRetailerResponse\022Q\n\014FindRetai" +
+      "ler\022\037.surgelevel.FindRetailerRequest\032 .s" +
+      "urgelevel.FindRetailerResponse\022H\n\tSaveSt" +
+      "ore\022\034.surgelevel.SaveStoreRequest\032\035.surg" +
+      "elevel.SaveStoreResponse\022H\n\tFindStore\022\034." +
+      "surgelevel.FindStoreRequest\032\035.surgelevel" +
+      ".FindStoreResponse\022K\n\nSaveResult\022\035.surge" +
+      "level.SaveResultRequest\032\036.surgelevel.Sav" +
+      "eResultResponseBNZLgitlab.sbmt.io/paas/c" +
+      "ontent/operations/surgelevel/pkg/server/" +
+      "grpc/surgelevelb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.StructProto.getDescriptor(),
+          com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_surgelevel_SaveFormulaRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -35205,8 +38629,20 @@ public final class Surgelevel {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_surgelevel_FindStoreResponse_descriptor,
         new java.lang.String[] { "Store", });
-    internal_static_surgelevel_Store_descriptor =
+    internal_static_surgelevel_SaveResultRequest_descriptor =
       getDescriptor().getMessageTypes().get(22);
+    internal_static_surgelevel_SaveResultRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_surgelevel_SaveResultRequest_descriptor,
+        new java.lang.String[] { "Store", "Result", });
+    internal_static_surgelevel_SaveResultResponse_descriptor =
+      getDescriptor().getMessageTypes().get(23);
+    internal_static_surgelevel_SaveResultResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_surgelevel_SaveResultResponse_descriptor,
+        new java.lang.String[] { "FailedStores", });
+    internal_static_surgelevel_Store_descriptor =
+      getDescriptor().getMessageTypes().get(24);
     internal_static_surgelevel_Store_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_surgelevel_Store_descriptor,
@@ -35224,7 +38660,7 @@ public final class Surgelevel {
         internal_static_surgelevel_Store_Filter_descriptor,
         new java.lang.String[] { "Id", "Config", "RetailerId", "RegionId", "Ondemand", "Area", "Config", "Ondemand", "Area", });
     internal_static_surgelevel_Region_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_surgelevel_Region_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_surgelevel_Region_descriptor,
@@ -35242,7 +38678,7 @@ public final class Surgelevel {
         internal_static_surgelevel_Region_Filter_descriptor,
         new java.lang.String[] { "Id", "Config", "Config", });
     internal_static_surgelevel_Retailer_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_surgelevel_Retailer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_surgelevel_Retailer_descriptor,
@@ -35260,7 +38696,7 @@ public final class Surgelevel {
         internal_static_surgelevel_Retailer_Filter_descriptor,
         new java.lang.String[] { "Id", "Config", "Config", });
     internal_static_surgelevel_Config_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_surgelevel_Config_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_surgelevel_Config_descriptor,
@@ -35284,7 +38720,7 @@ public final class Surgelevel {
         internal_static_surgelevel_Config_Formula_descriptor,
         new java.lang.String[] { "Id", "Var", });
     internal_static_surgelevel_Formula_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_surgelevel_Formula_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_surgelevel_Formula_descriptor,
@@ -35302,7 +38738,7 @@ public final class Surgelevel {
         internal_static_surgelevel_Formula_Filter_descriptor,
         new java.lang.String[] { "Id", });
     internal_static_surgelevel_Argument_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_surgelevel_Argument_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_surgelevel_Argument_descriptor,
@@ -35338,24 +38774,37 @@ public final class Surgelevel {
         internal_static_surgelevel_Argument_CandidatesEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_surgelevel_Area_descriptor =
-      getDescriptor().getMessageTypes().get(28);
+      getDescriptor().getMessageTypes().get(30);
     internal_static_surgelevel_Area_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_surgelevel_Area_descriptor,
         new java.lang.String[] { "Location", "Distance", });
     internal_static_surgelevel_Location_descriptor =
-      getDescriptor().getMessageTypes().get(29);
+      getDescriptor().getMessageTypes().get(31);
     internal_static_surgelevel_Location_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_surgelevel_Location_descriptor,
         new java.lang.String[] { "Lat", "Lon", });
     internal_static_surgelevel_Limit_descriptor =
-      getDescriptor().getMessageTypes().get(30);
+      getDescriptor().getMessageTypes().get(32);
     internal_static_surgelevel_Limit_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_surgelevel_Limit_descriptor,
         new java.lang.String[] { "Size", "Skip", });
+    internal_static_surgelevel_Result_descriptor =
+      getDescriptor().getMessageTypes().get(33);
+    internal_static_surgelevel_Result_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_surgelevel_Result_descriptor,
+        new java.lang.String[] { "Id", "SurgeLevel", "ExpiredAt", });
+    internal_static_surgelevel_Result_Option_descriptor =
+      internal_static_surgelevel_Result_descriptor.getNestedTypes().get(0);
+    internal_static_surgelevel_Result_Option_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_surgelevel_Result_Option_descriptor,
+        new java.lang.String[] { "Id", "SurgeLevel", "ExpiredAt", "Id", "SurgeLevel", "ExpiredAt", });
     com.google.protobuf.StructProto.getDescriptor();
+    com.google.protobuf.TimestampProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
