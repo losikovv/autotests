@@ -28,7 +28,7 @@ public class ShiftsCancelTest extends RestBase {
     @BeforeClass(alwaysRun = true,
             description = "Авторизация")
     public void auth() {
-        UserData user = UserManager.getShp6Shopper1();
+        UserData user = UserManager.getShp6Universal1();
         shopperApp.authorisation(user);
         //Удаляем все смены
         shiftsApi.cancelAllActiveShifts();

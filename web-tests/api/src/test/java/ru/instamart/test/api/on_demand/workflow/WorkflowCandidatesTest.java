@@ -1,7 +1,6 @@
 package ru.instamart.test.api.on_demand.workflow;
 
 import io.restassured.response.Response;
-import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -45,7 +44,7 @@ public class WorkflowCandidatesTest extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         //Выводим на смену
-        shopperApp.authorisation(UserManager.getShp6Shopper3());
+        shopperApp.authorisation(UserManager.getShp6Universal3());
         shiftsApi.cancelAllActiveShifts();
         shiftsApi.stopAllActiveShifts();
         shiftId = shiftsApi.startOfShift(StartPointsTenants.METRO_9);
@@ -56,6 +55,7 @@ public class WorkflowCandidatesTest extends RestBase {
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
         secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
+        shopperApp.authorisation(UserManager.getShp6Universal3());
     }
 
     @CaseId(93)
@@ -64,7 +64,7 @@ public class WorkflowCandidatesTest extends RestBase {
     public void checkUnavailableCandidate() {
         workflowUuid = getWorkflowUuid(order, shipmentUuid, getDatePlusSec(300000), clientWorkflow, shiftId);
         ThreadUtil.simplyAwait(5);
-        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Shopper3().getUuid());
+        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Universal3().getUuid());
         compareTwoObjects(candidate.getActive(), false);
     }
 
@@ -75,7 +75,7 @@ public class WorkflowCandidatesTest extends RestBase {
     public void checkAvailableCandidateWithAcceptedWorkflow() {
         final Response response = AssignmentsRequest.Accept.PATCH(getShopperAssignments().get(0).getId());
         checkStatusCode200(response);
-        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Shopper3().getUuid());
+        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Universal3().getUuid());
         compareTwoObjects(candidate.getActive(), true);
     }
 
@@ -85,7 +85,7 @@ public class WorkflowCandidatesTest extends RestBase {
             dependsOnMethods = "checkAvailableCandidateWithAcceptedWorkflow")
     public void checkAvailableCandidateWithCanceledWorkflow() {
         cancelWorkflow(clientWorkflow, workflowUuid);
-        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Shopper3().getUuid());
+        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getShp6Universal3().getUuid());
         compareTwoObjects(candidate.getActive(), true);
     }
 

@@ -2,6 +2,7 @@ package ru.instamart.kraken.util;
 
 import com.google.protobuf.Timestamp;
 
+import java.sql.Time;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -184,6 +185,14 @@ public final class TimeUtil {
                 .build();
     }
 
+    public static Timestamp toTimestamp(java.sql.Timestamp timestamp){
+        var instant = timestamp.toInstant();
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
+                .build();
+    }
+
     public static Timestamp getDateMinusSec(int sec) {
         Instant instant = Instant.now().minusSeconds(sec);
         return Timestamp.newBuilder()
@@ -198,6 +207,12 @@ public final class TimeUtil {
                 .setSeconds(instant.getEpochSecond())
                 .setNanos(instant.getNano())
                 .build();
+    }
+
+    public static Timestamp addSecondsTimestamp(Timestamp timestamp, long seconds){
+        var time = timestamp.toBuilder();
+        var sec = time.getSeconds();
+        return time.setSeconds(sec + seconds).build();
     }
 
     public static LocalTime convertStringToTime(String time) {

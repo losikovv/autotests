@@ -41,9 +41,10 @@ public final class UserManager {
     private static UserData krakenUniversal2;
     private static UserData krakenUniversal3;
     private static UserData stf6Shopper1;
-    private static UserData stf6Shopper2;
-    private static UserData stf6Shopper3;
-    private static UserData stf6Shopper4;
+    private static UserData stf6Universal1;
+    private static UserData stf6Universal2;
+    private static UserData stf6Universal3;
+    private static UserData stf6Universal4;
     private static UserData stf6ShpUniversalUi;
     private static UserData defaultGmailUser;
     private static UserData defaultVkUser;
@@ -135,88 +136,99 @@ public final class UserManager {
         return defaultAdminSmsRole;
     }
 
-    public static UserData getShp6Shopper1() {
-        if (isNull(stf6Shopper1)) {
+    public static UserData getShp6Universal1() {
+        if (isNull(stf6Universal1)) {
             if (CiPipelineSource.isLocal()) {
                 log.debug("User shopper local login");
-                stf6Shopper1 = UserData.builder()
+                stf6Universal1 = UserData.builder()
                         .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
                         .phone(Crypt.INSTANCE.decrypt("NN6iTCNigNa9a4D/72ZAWQ=="))
                         .uuid("8608a93d-7def-4cdb-8d1d-8332ef526cd1")
                         .build();
             } else {
                 log.debug("User shopper default login");
-                stf6Shopper1 = UserData.builder()
+                stf6Universal1 = UserData.builder()
                         .email(Crypt.INSTANCE.decrypt("cdPPLWqef3wOxlHzAFBVHQ==")) //kraken5
                         .phone(Crypt.INSTANCE.decrypt("3fyToEegudVkelYnkpVK9A=="))
                         .uuid("1dc885d7-1979-45d7-9458-cacd6946e24f")
                         .build();
             }
         }
-        return stf6Shopper1;
+        return stf6Universal1;
     }
 
-    public static UserData getShp6Shopper2() {
-        if (isNull(stf6Shopper2)) {
+    public static UserData getShp6Universal2() {
+        if (isNull(stf6Universal2)) {
             if (CiPipelineSource.isLocal()) {
                 log.debug("User shopper local login");
-                stf6Shopper2 = UserData.builder()
+                stf6Universal2 = UserData.builder()
                         .email(Crypt.INSTANCE.decrypt("C4fgAi97cuuXHMKobHn9Yw=="))
                         .phone(Crypt.INSTANCE.decrypt("cIo8g9LlgqN+TCDGKZ4PTw=="))//68
                         .uuid("175954c2-c5df-4474-89dd-4a9ea5c081ad")
                         .build();
             } else {
                 log.debug("User shopper default login");
-                stf6Shopper2 = UserData.builder()
+                stf6Universal2 = UserData.builder()
                         .email(Crypt.INSTANCE.decrypt("N7Kq7ITgHH34r/mofuao4Q==")) //kraken6
                         .phone(Crypt.INSTANCE.decrypt("q81rEzlGrs/uArLnV2fK2Q=="))
                         .uuid("e7b54426-34f2-44d8-9fdf-30e64959fbfc")
                         .build();
             }
         }
-        return stf6Shopper2;
+        return stf6Universal2;
     }
 
-    public static UserData getShp6Shopper3() {
-        if (isNull(stf6Shopper3)) {
+    public static UserData getShp6Universal3() {
+        if (isNull(stf6Universal3)) {
             if (CiPipelineSource.isLocal()) {
                 log.debug("User shopper local login");
-                stf6Shopper3 = UserData.builder()
+                stf6Universal3 = UserData.builder()
                         .email(Crypt.INSTANCE.decrypt("xhH38k1XpJGpdk8/7LkCcw=="))
                         .phone(Crypt.INSTANCE.decrypt("3K4qmKFewgiQsQ3x1iZPtQ=="))
                         .uuid("9e6bd9f2-7689-49b8-8df3-5f66a36cd624")
                         .build();
             } else {
                 log.debug("User shopper default login");
-                stf6Shopper3 = UserData.builder()
+                stf6Universal3 = UserData.builder()
                         .email(Crypt.INSTANCE.decrypt("Z0WNElhYANndTT33bsPASg==")) //kraken7
                         .phone(Crypt.INSTANCE.decrypt("7R7j/OJDWsMmVAMT3lRqQw=="))
                         .uuid("39e59b6a-07cb-4482-a993-5fc2a62db32b")
                         .build();
             }
         }
-        return stf6Shopper3;
+        return stf6Universal3;
     }
 
-    public static UserData getShp6Shopper4() {
-        if (isNull(stf6Shopper4)) {
+    public static UserData getShp6Universal4() {
+        if (isNull(stf6Universal4)) {
             if (CiPipelineSource.isLocal()) {
                 log.debug("User shopper local login");
-                stf6Shopper4 = UserData.builder()
+                stf6Universal4 = UserData.builder()
                         .email(Crypt.INSTANCE.decrypt("xaL2G5Kxa2fI4vosV/yX8A=="))
                         .phone(Crypt.INSTANCE.decrypt("GA9lbHdxv4QkcxPVJMkWQw=="))
                         .uuid("d63b66b2-441e-4c41-85d2-64ff33daadf0")
                         .build();
             } else {
                 log.debug("User shopper default login");
-                stf6Shopper4 = UserData.builder()
+                stf6Universal4 = UserData.builder()
                         .email(Crypt.INSTANCE.decrypt("e3m7+tl+IwsEdNcan+0NUg==")) //kraken8
                         .phone(Crypt.INSTANCE.decrypt("jcpJOeUznkrUmAno+qQh1A=="))
                         .uuid("2df5e03c-3c45-4e6e-8c07-5c642d5fb1cd")
                         .build();
             }
         }
-        return stf6Shopper4;
+        return stf6Universal4;
+    }
+
+    public static UserData getShp6Shopper1() {
+        if (isNull(stf6Shopper1)) {
+            stf6Shopper1 = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("D4p9xMk+ifkXuCtuwAvu8A=="))
+                    .phone(Crypt.INSTANCE.decrypt("jBPD94GmdymxcIzJqXzomw=="))
+                    .uuid("a54a331c-42fb-4419-bd5b-c3ec838b6635")
+                    .build();
+        }
+        return stf6Shopper1;
     }
 
     public static UserData getKrakenUniversal() {
@@ -638,12 +650,12 @@ public final class UserManager {
      * Создание пользователя с использованием тестовой ручки
      *
      * @param password - обязательный параметр для создания через ручку
-     * Пароль должен содержать:
-     * min 12 chars
-     * [a-z]{1,}
-     * [A-Z]{1,}
-     * [0-9]{1,}
-     * !"#$%&'()*+,-./:;<=>?@[]^_`{}|~\{1,}
+     *                 Пароль должен содержать:
+     *                 min 12 chars
+     *                 [a-z]{1,}
+     *                 [A-Z]{1,}
+     *                 [0-9]{1,}
+     *                 !"#$%&'()*+,-./:;<=>?@[]^_`{}|~\{1,}
      * @return - возвращает собранную {@link UserData} из параметров ответа
      */
     @Step("Создание тестового пользователя")
@@ -680,12 +692,12 @@ public final class UserManager {
      * Создание пользователя с использованием {@link UserManager#createUser(String)}
      *
      * @param password - обязательный параметр для создания через ручку
-     * Пароль должен содержать:
-     * min 12 chars
-     * [a-z]{1,}
-     * [A-Z]{1,}
-     * [0-9]{1,}
-     * !"#$%&'()*+,-./:;<=>?@[]^_`{}|~\{1,}
+     *                 Пароль должен содержать:
+     *                 min 12 chars
+     *                 [a-z]{1,}
+     *                 [A-Z]{1,}
+     *                 [0-9]{1,}
+     *                 !"#$%&'()*+,-./:;<=>?@[]^_`{}|~\{1,}
      * @return - возвращает собранную {@link UserData} из параметров ответа
      */
     public static UserData createUserWithoutAb(final String password) {

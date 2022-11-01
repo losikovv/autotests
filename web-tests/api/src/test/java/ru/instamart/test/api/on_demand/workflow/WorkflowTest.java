@@ -79,7 +79,7 @@ public class WorkflowTest extends RestBase {
         secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
-        shopperApp.authorisation(UserManager.getShp6Shopper1());
+        shopperApp.authorisation(UserManager.getShp6Universal1());
     }
 
     @CaseId(101)
@@ -112,7 +112,7 @@ public class WorkflowTest extends RestBase {
                 .setWorkassignId(responseForCreation.getResultsMap().keySet().toArray()[0].toString())
                 .setWorkassignType("ASSEMBLY")
                 .setAssignedShopper(OrderPricing.Shopper.newBuilder()
-                        .setShopperUuid(UserManager.getShp6Shopper1().getUuid())
+                        .setShopperUuid(UserManager.getShp6Universal1().getUuid())
                         .setShopperType("PEDESTRIAN")
                         .build())
                 .setShipment(OrderPricing.Shipment.newBuilder()
@@ -217,7 +217,7 @@ public class WorkflowTest extends RestBase {
             groups = "dispatch-workflow-smoke",
             dependsOnMethods = "createWorkflowWithTransport")
     public void createWorkflowWithDifferentStores() {
-        var request = getWorkflowsRequestWithDifferentStores(order, shipmentUuid, UserManager.getShp6Shopper1().getUuid());
+        var request = getWorkflowsRequestWithDifferentStores(order, shipmentUuid, UserManager.getShp6Universal1().getUuid());
 
         var response = clientWorkflow.createWorkflows(request);
 
@@ -271,7 +271,7 @@ public class WorkflowTest extends RestBase {
         compareTwoObjects(workflows.get(0).getStatus(), WorkflowChangedOuterClass.WorkflowChanged.Status.NEW, softAssert);
         compareTwoObjects(assignments.get(0).getStatus(), OFFERED, softAssert);
         compareTwoObjects(notifications.get(notifications.size() - 1).getMessage().getData().getFieldsMap().get("type").getStringValue(), "ASSIGNMENT_CREATED", softAssert);
-        compareTwoObjects(notifications.get(notifications.size() - 1).getMessage().getData().getFieldsMap().get("performer_uuid").getStringValue(), UserManager.getShp6Shopper1().getUuid(), softAssert);
+        compareTwoObjects(notifications.get(notifications.size() - 1).getMessage().getData().getFieldsMap().get("performer_uuid").getStringValue(), UserManager.getShp6Universal1().getUuid(), softAssert);
         softAssert.assertAll();
     }
 

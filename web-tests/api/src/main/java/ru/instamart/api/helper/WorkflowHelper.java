@@ -1,9 +1,7 @@
 package ru.instamart.api.helper;
 
 import com.google.protobuf.Duration;
-import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Timestamp;
-import com.google.protobuf.util.JsonFormat;
 import com.google.protobuf.util.Timestamps;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
@@ -33,11 +31,7 @@ import static ru.instamart.kraken.util.TimeUtil.getDatePlusSec;
 
 public class WorkflowHelper {
 
-    private static final UserData secondShopper = UserManager.getShp6Shopper2();
-
-    public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequest1(final OrderV2 order, final String shipmentUuid, final Timestamp time, final WorkflowEnums.DeliveryType deliveryType) {
-        return getWorkflowsRequest(order, shipmentUuid, time, deliveryType, null);
-    }
+    private static final UserData secondShopper = UserManager.getShp6Universal2();
 
     @Step("Подготавливаем запрос для создания маршрутного листа")
     public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequest(OrderV2 order, String shipmentUuid, Timestamp time, WorkflowEnums.DeliveryType deliveryType) {
