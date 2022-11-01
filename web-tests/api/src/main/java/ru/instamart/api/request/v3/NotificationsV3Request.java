@@ -171,7 +171,7 @@ public class NotificationsV3Request extends ApiV3RequestBase {
 
     @Data
     @Builder
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public static final class Order {
         private String originalOrderId;
         private Customer customer;
