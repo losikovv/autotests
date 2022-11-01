@@ -33,6 +33,11 @@ public interface Page extends PageCheck {
         Kraken.open(addBasicAuthToUrl(currentUrl));
     }
 
+    @Step("Перезагружаем страницу с добавлением: '{urlAdditional}'")
+    default void refreshPageWithAdditional(final String urlAdditional) {
+        Kraken.open(Kraken.getWebDriver().getCurrentUrl() + urlAdditional);
+    }
+
     @Step("Добавить куки {0}")
     default void addCookie(final Cookie cookie) {
         CdpCookie.addCookie(cookie);

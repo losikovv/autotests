@@ -40,19 +40,20 @@ variables:
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Нужно указывать полный url фронта. Например: https://next-default.k-stage.sbermarket.tech/"
   STF_FORWARD:
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Значение для хедера/куки sbm-forward-feature-version-stf. Например: s-sb-stfkraken-sbermarket"
-  URL_B2B_FRONT:
-    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА ТЕСТОВ БИЗНЕС-ВИТРИНЫ! Нужно указывать полный url фронта b2b. Например: https://next-default-smbusiness.k-stage.sbermarket.tech/"
   B2B_FORWARD:
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА ТЕСТОВ БИЗНЕС-ВИТРИНЫ! Значение для хедера/куки sbm-forward-feature-version-stf. Например: s-sb-stfkraken-smbusiness"
+  URL_B2B_FRONT:
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА ТЕСТОВ БИЗНЕС-ВИТРИНЫ! Нужно указывать полный url фронта b2b. Например: https://next-default-smbusiness.k-stage.sbermarket.tech/"
+  HR_OPS_PARTNERS_URL:
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА ТЕСТОВ HR OPS PARTNERS! Нужно указывать полный url. Например: https://paas-content-operations-partners-partners-front-d0674d34.gw-stage.sbmt.io/"
   URL_STF_BACKEND:
-    value: "stf-kraken.k-stage.sbermarket.tech"
-    description: "ОБЯЗАТЕЛЬНО ДЛЯ API ЗАПУСКА! Имя stf стейджа на котором запускаем тесты"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ API ЗАПУСКА! Имя stf стейджа на котором запускаем тесты, например: stf-kraken.k-stage.sbermarket.tech"
   URL_SHP:
     description: "Имя shp стейджа на котором запускаем тесты. Для номерных стейджей можно пропустить"
   DEFAULT_SID:
     description: "Сид магазина на котором будут прогоняться тесты"
   CI_MODULE:
-    description: "Название тестового модуля. Возможные варианты: ui-stf/ui-b2b/ui-admin/api/grpc/kafka"
+    description: "Название тестового модуля. Возможные варианты: ui-stf/ui-b2b/ui-admin/ui-partners/api/grpc/kafka"
   CI_GROUP:
     description: "Название группы тестов для запуска. Например: all-cart/all-order/api-instamart-smoke/api-instamart-regress"
   BFF_FORWARD:
@@ -241,6 +242,7 @@ tests:customRun:
     - echo $STF_FORWARD
     - echo $URL_B2B_FRONT
     - echo $B2B_FORWARD
+    - echo $HR_OPS_PARTNERS_URL
     - echo $URL_STF_BACKEND
     - echo $URL_SHP
     - gradle --continue clean build ciRun copyAllAllureHistory copyAllLogs -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP -Padmin_url=$ADMIN_URL

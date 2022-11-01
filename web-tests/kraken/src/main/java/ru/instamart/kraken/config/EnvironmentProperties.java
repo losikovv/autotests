@@ -210,6 +210,10 @@ public final class EnvironmentProperties {
                 } else SHOPPER_URL = "shp-0.k-stage.sbermarket.tech";
                 log.debug("SHOPPER_URL: " + SHOPPER_URL);
             }
+
+            if (CiModule.isHrOpsPartners()) {
+                BASIC_URL = getDomainName(System.getenv("HR_OPS_PARTNERS_URL"));
+            }
         }
 
         public static String ENV_NAME = TENANT + "-" + SERVER;
