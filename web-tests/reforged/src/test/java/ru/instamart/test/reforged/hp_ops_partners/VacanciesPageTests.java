@@ -26,7 +26,7 @@ public final class VacanciesPageTests {
     @Test(description = "PM-58. Шапка (шаг 1-2)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageHeader1_2() {
 
-        vacancyPage().goToPage(VacancyCards.collectorMSK().getPageUrl());
+        vacancyPage().goToPage(VacancyCards.collectorCourierAutoMSK().getPageUrl());
         vacancyPage().waitPageLoad();
 
         vacancyPage().interactHeader().checkRegionTooltipVisible();
@@ -49,7 +49,7 @@ public final class VacanciesPageTests {
     @Test(description = "PM-58. Шапка (шаг 3-4)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageHeader3_4() {
 
-        vacancyPage().goToPage(VacancyCards.collectorMSK().getPageUrl());
+        vacancyPage().goToPage(VacancyCards.collectorCourierAutoMSK().getPageUrl());
         vacancyPage().waitPageLoad();
 
         vacancyPage().interactHeader().checkRegionTooltipVisible();
@@ -67,7 +67,7 @@ public final class VacanciesPageTests {
     @Test(description = "PM-58. Шапка (шаг 5)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageHeader5() {
 
-        vacancyPage().goToPage(VacancyCards.collectorMSK().getPageUrl());
+        vacancyPage().goToPage(VacancyCards.collectorCourierAutoMSK().getPageUrl());
         vacancyPage().waitPageLoad();
 
         vacancyPage().interactHeader().checkRegionTooltipVisible();
@@ -222,7 +222,7 @@ public final class VacanciesPageTests {
     @Story("Страница вакансий")
     @Test(description = "PM-60. Боди (шаг 3)", groups = {HR_OPS_PARTNERS})
     public void testVacancyPageBody3() {
-        vacancyPage().goToPage(VacancyCards.collectorCourierAutoMSK().getPageUrl() + "?lead_city=Кострома");
+        vacancyPage().goToPage(VacancyCards.callCenterOperatorMSK().getPageUrl() + "?lead_city=Санкт-Петербург");
         vacancyPage().waitPageLoad();
 
         vacancyPage().scrollToAnotherVacanciesBlock();
@@ -383,7 +383,7 @@ public final class VacanciesPageTests {
         vacancyPage().interactMainBanner().checkBannerTitle(VacancyCards.callCenterOperatorMSK().getVacancyPageTitle());
         vacancyPage().interactMainBanner().checkBannerSubtitle(VacancyCards.callCenterOperatorMSK().getVacancyPageSalary());
 
-        vacancyPage().goToPage(VacancyCards.callCenterOperatorMSK().getPageUrl() + "?lead_city=Вологда");
+        vacancyPage().goToPage(VacancyCards.callCenterOperatorMSK().getPageUrl() + "?lead_city=Брянск");
         vacancyPage().waitPageLoad();
 
         vacancyPage().interactMainBanner().checkBannerImageVisible();
@@ -397,12 +397,13 @@ public final class VacanciesPageTests {
         vacancyPage().interactMainBanner().checkBannerTitle(VacancyCards.callCenterOperatorOrel().getVacancyPageTitle());
         vacancyPage().interactMainBanner().checkBannerSubtitle(VacancyCards.callCenterOperatorMSK().getVacancyPageSalary());
 
-        vacancyPage().goToPage(VacancyCards.callCenterOperatorMSK().getPageUrl() + "?lead_city=Томск");
+        //На фича-стейдже для Томска настройки некорректные
+/*        vacancyPage().goToPage(VacancyCards.callCenterOperatorMSK().getPageUrl() + "?lead_city=Томск");
         vacancyPage().waitPageLoad();
 
         vacancyPage().interactMainBanner().checkBannerImageVisible();
         vacancyPage().interactMainBanner().checkBannerTitle(VacancyCards.callCenterOperatorTomsk().getVacancyPageTitle());
-        vacancyPage().interactMainBanner().checkBannerSubtitle(VacancyCards.callCenterOperatorMSK().getVacancyPageSalary());
+        vacancyPage().interactMainBanner().checkBannerSubtitle(VacancyCards.callCenterOperatorMSK().getVacancyPageSalary());*/
     }
 
     @CaseId(59)

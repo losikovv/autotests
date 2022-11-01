@@ -11,6 +11,6 @@ public interface HRPartnersPage extends Page {
     }
 
     default void goToPage(final String url) {
-        Kraken.open(UiProperties.HR_PARTNERS_URL + url);
+        Kraken.open(UiProperties.HR_PARTNERS_URL.replaceAll("sbermarket.ru", "do_not_run_on.prod") + url);
     }
 }
