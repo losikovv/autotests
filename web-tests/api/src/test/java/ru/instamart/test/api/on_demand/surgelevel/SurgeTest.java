@@ -18,6 +18,7 @@ import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import surgelevel.Surgelevel;
 import surgelevelevent.Surgelevelevent;
+import surgelevelevent.Surgelevelevent.SurgeEvent.Method;
 
 import java.util.List;
 import java.util.Objects;
@@ -36,7 +37,7 @@ import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
 @Epic("On Demand")
 @Feature("Расчет surgelevel")
-public class SurgeLevelTest extends RestBase {
+public class SurgeTest extends RestBase {
 
     private final String STORE_ID = UUID.randomUUID().toString();
     private final String FIRST_STORE_ID = UUID.randomUUID().toString();
@@ -121,7 +122,7 @@ public class SurgeLevelTest extends RestBase {
         currentDemandAmount++;
 
         List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID);
-        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount);
+        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount,  Method.ACTUAL);
     }
 
     @CaseId(40)
@@ -302,7 +303,7 @@ public class SurgeLevelTest extends RestBase {
         currentSupplyAmount++;
 
         List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID);
-        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount);
+        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
     }
 
     @CaseId(137)
@@ -341,7 +342,7 @@ public class SurgeLevelTest extends RestBase {
         currentSupplyAmount++;
 
         List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID);
-        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount);
+        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
     }
 
     @CaseId(140)

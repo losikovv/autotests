@@ -249,6 +249,10 @@ public final class Surgelevelevent {
        * <code>PREDICT = 2;</code>
        */
       PREDICT(2),
+      /**
+       * <code>MANUAL = 3;</code>
+       */
+      MANUAL(3),
       UNRECOGNIZED(-1),
       ;
 
@@ -264,6 +268,10 @@ public final class Surgelevelevent {
        * <code>PREDICT = 2;</code>
        */
       public static final int PREDICT_VALUE = 2;
+      /**
+       * <code>MANUAL = 3;</code>
+       */
+      public static final int MANUAL_VALUE = 3;
 
 
       public final int getNumber() {
@@ -293,6 +301,7 @@ public final class Surgelevelevent {
           case 0: return UNKNOWN;
           case 1: return ACTUAL;
           case 2: return PREDICT;
+          case 3: return MANUAL;
           default: return null;
         }
       }
@@ -364,6 +373,18 @@ public final class Surgelevelevent {
        * @return The candidateQuantity.
        */
       int getCandidateQuantity();
+
+      /**
+       * <code>string analytics_log = 3;</code>
+       * @return The analyticsLog.
+       */
+      java.lang.String getAnalyticsLog();
+      /**
+       * <code>string analytics_log = 3;</code>
+       * @return The bytes for analyticsLog.
+       */
+      com.google.protobuf.ByteString
+          getAnalyticsLogBytes();
     }
     /**
      * Protobuf type {@code surgelevelevent.SurgeEvent.Info}
@@ -378,6 +399,7 @@ public final class Surgelevelevent {
         super(builder);
       }
       private Info() {
+        analyticsLog_ = "";
       }
 
       @java.lang.Override
@@ -418,6 +440,12 @@ public final class Surgelevelevent {
               case 16: {
 
                 candidateQuantity_ = input.readInt32();
+                break;
+              }
+              case 26: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                analyticsLog_ = s;
                 break;
               }
               default: {
@@ -474,6 +502,44 @@ public final class Surgelevelevent {
         return candidateQuantity_;
       }
 
+      public static final int ANALYTICS_LOG_FIELD_NUMBER = 3;
+      private volatile java.lang.Object analyticsLog_;
+      /**
+       * <code>string analytics_log = 3;</code>
+       * @return The analyticsLog.
+       */
+      @java.lang.Override
+      public java.lang.String getAnalyticsLog() {
+        java.lang.Object ref = analyticsLog_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          analyticsLog_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string analytics_log = 3;</code>
+       * @return The bytes for analyticsLog.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getAnalyticsLogBytes() {
+        java.lang.Object ref = analyticsLog_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          analyticsLog_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
       private byte memoizedIsInitialized = -1;
       @java.lang.Override
       public final boolean isInitialized() {
@@ -494,6 +560,9 @@ public final class Surgelevelevent {
         if (candidateQuantity_ != 0) {
           output.writeInt32(2, candidateQuantity_);
         }
+        if (!getAnalyticsLogBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 3, analyticsLog_);
+        }
         unknownFields.writeTo(output);
       }
 
@@ -510,6 +579,9 @@ public final class Surgelevelevent {
         if (candidateQuantity_ != 0) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(2, candidateQuantity_);
+        }
+        if (!getAnalyticsLogBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, analyticsLog_);
         }
         size += unknownFields.getSerializedSize();
         memoizedSize = size;
@@ -530,6 +602,8 @@ public final class Surgelevelevent {
             != other.getShipmentQuantity()) return false;
         if (getCandidateQuantity()
             != other.getCandidateQuantity()) return false;
+        if (!getAnalyticsLog()
+            .equals(other.getAnalyticsLog())) return false;
         if (!unknownFields.equals(other.unknownFields)) return false;
         return true;
       }
@@ -545,6 +619,8 @@ public final class Surgelevelevent {
         hash = (53 * hash) + getShipmentQuantity();
         hash = (37 * hash) + CANDIDATE_QUANTITY_FIELD_NUMBER;
         hash = (53 * hash) + getCandidateQuantity();
+        hash = (37 * hash) + ANALYTICS_LOG_FIELD_NUMBER;
+        hash = (53 * hash) + getAnalyticsLog().hashCode();
         hash = (29 * hash) + unknownFields.hashCode();
         memoizedHashCode = hash;
         return hash;
@@ -682,6 +758,8 @@ public final class Surgelevelevent {
 
           candidateQuantity_ = 0;
 
+          analyticsLog_ = "";
+
           return this;
         }
 
@@ -710,6 +788,7 @@ public final class Surgelevelevent {
           surgelevelevent.Surgelevelevent.SurgeEvent.Info result = new surgelevelevent.Surgelevelevent.SurgeEvent.Info(this);
           result.shipmentQuantity_ = shipmentQuantity_;
           result.candidateQuantity_ = candidateQuantity_;
+          result.analyticsLog_ = analyticsLog_;
           onBuilt();
           return result;
         }
@@ -763,6 +842,10 @@ public final class Surgelevelevent {
           }
           if (other.getCandidateQuantity() != 0) {
             setCandidateQuantity(other.getCandidateQuantity());
+          }
+          if (!other.getAnalyticsLog().isEmpty()) {
+            analyticsLog_ = other.analyticsLog_;
+            onChanged();
           }
           this.mergeUnknownFields(other.unknownFields);
           onChanged();
@@ -851,6 +934,82 @@ public final class Surgelevelevent {
         public Builder clearCandidateQuantity() {
           
           candidateQuantity_ = 0;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object analyticsLog_ = "";
+        /**
+         * <code>string analytics_log = 3;</code>
+         * @return The analyticsLog.
+         */
+        public java.lang.String getAnalyticsLog() {
+          java.lang.Object ref = analyticsLog_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            analyticsLog_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string analytics_log = 3;</code>
+         * @return The bytes for analyticsLog.
+         */
+        public com.google.protobuf.ByteString
+            getAnalyticsLogBytes() {
+          java.lang.Object ref = analyticsLog_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            analyticsLog_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string analytics_log = 3;</code>
+         * @param value The analyticsLog to set.
+         * @return This builder for chaining.
+         */
+        public Builder setAnalyticsLog(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          analyticsLog_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string analytics_log = 3;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearAnalyticsLog() {
+          
+          analyticsLog_ = getDefaultInstance().getAnalyticsLog();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string analytics_log = 3;</code>
+         * @param value The bytes for analyticsLog to set.
+         * @return This builder for chaining.
+         */
+        public Builder setAnalyticsLogBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          analyticsLog_ = value;
           onChanged();
           return this;
         }
@@ -2078,7 +2237,7 @@ public final class Surgelevelevent {
   static {
     java.lang.String[] descriptorData = {
       "\n\025surgelevelevent.proto\022\017surgelevelevent" +
-      "\032\037google/protobuf/timestamp.proto\"\216\003\n\nSu" +
+      "\032\037google/protobuf/timestamp.proto\"\261\003\n\nSu" +
       "rgeEvent\022\020\n\010store_id\030\001 \001(\t\0222\n\006method\030\002 \001" +
       "(\0162\".surgelevelevent.SurgeEvent.Method\022\030" +
       "\n\020past_surge_level\030\003 \001(\002\022\033\n\023present_surg" +
@@ -2086,12 +2245,13 @@ public final class Surgelevelevent {
       "\002\022.\n\nstarted_at\030\006 \001(\0132\032.google.protobuf." +
       "Timestamp\022\030\n\020step_surge_level\030\007 \001(\002\022.\n\004i" +
       "nfo\030\010 \001(\0132 .surgelevelevent.SurgeEvent.I" +
-      "nfo\032=\n\004Info\022\031\n\021shipment_quantity\030\001 \001(\005\022\032" +
-      "\n\022candidate_quantity\030\002 \001(\005\".\n\006Method\022\013\n\007" +
-      "UNKNOWN\020\000\022\n\n\006ACTUAL\020\001\022\013\n\007PREDICT\020\002BUZSgi" +
-      "tlab.sbmt.io/paas/content/operations/sur" +
-      "gelevel/pkg/server/events/surgeleveleven" +
-      "tb\006proto3"
+      "nfo\032T\n\004Info\022\031\n\021shipment_quantity\030\001 \001(\005\022\032" +
+      "\n\022candidate_quantity\030\002 \001(\005\022\025\n\ranalytics_" +
+      "log\030\003 \001(\t\":\n\006Method\022\013\n\007UNKNOWN\020\000\022\n\n\006ACTU" +
+      "AL\020\001\022\013\n\007PREDICT\020\002\022\n\n\006MANUAL\020\003BUZSgitlab." +
+      "sbmt.io/paas/content/operations/surgelev" +
+      "el/pkg/server/events/surgeleveleventb\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2109,7 +2269,7 @@ public final class Surgelevelevent {
     internal_static_surgelevelevent_SurgeEvent_Info_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_surgelevelevent_SurgeEvent_Info_descriptor,
-        new java.lang.String[] { "ShipmentQuantity", "CandidateQuantity", });
+        new java.lang.String[] { "ShipmentQuantity", "CandidateQuantity", "AnalyticsLog", });
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 
