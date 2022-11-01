@@ -136,7 +136,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "authProviders")
     public static Object[][] getAuthProviders() {
-        Object[][] authProviderArray = new Object[4][1];
+        Object[][] authProviderArray = new Object[2][1];
         authProviderArray[0][0] = AuthProviderV2.METRO;
         authProviderArray[1][0] = AuthProviderV2.SBERAPP;
         //todo 500 ошибка
