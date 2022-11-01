@@ -212,7 +212,7 @@ public final class EnvironmentProperties {
             }
 
             if (CiModule.isHrOpsPartners()) {
-                BASIC_URL = getDomainName(System.getenv("HR_OPS_PARTNERS_URL"));
+                BASIC_URL = getDomainName(System.getenv("HR_OPS_PARTNERS_URL")).replaceAll("sbermarket.ru", "do_not_run_on.prod");
             }
         }
 
