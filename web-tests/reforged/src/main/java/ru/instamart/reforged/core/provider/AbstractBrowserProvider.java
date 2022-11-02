@@ -16,6 +16,7 @@ import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.http.ClientConfig;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import ru.instamart.reforged.core.config.BrowserProperties;
@@ -30,6 +31,7 @@ public abstract class AbstractBrowserProvider {
     protected WebDriver driver;
     @Getter
     protected DevTools devTools;
+    private final ClientConfig clientConfig = ClientConfig.defaultConfig();
 
     public abstract void createDriver(final String version);
 
@@ -40,6 +42,7 @@ public abstract class AbstractBrowserProvider {
                     .address(url)
                     .augmentUsing(new Augmenter())
                     .oneOf(capabilities)
+                    .config(clientConfig.withRetries())
                     .build();
             applyOptions();
             ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
