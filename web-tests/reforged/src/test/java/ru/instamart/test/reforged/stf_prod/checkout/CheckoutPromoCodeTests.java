@@ -11,6 +11,7 @@ import ru.instamart.kraken.data.Promos;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
+import ru.instamart.reforged.core.report.Metrics;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
@@ -37,6 +38,7 @@ public final class CheckoutPromoCodeTests {
         helper.cancelAllActiveOrders(userData);
     }
 
+    @Metrics
     @CaseId(2638)
     @Story("Добавление промокода к заказу")
     @Test(description = "Тест успешного применения промокода в чекауте", groups = {STF_PROD_S})
