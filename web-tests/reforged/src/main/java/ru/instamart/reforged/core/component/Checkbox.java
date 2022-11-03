@@ -20,14 +20,6 @@ public final class Checkbox extends AbstractComponent {
         super(by, timeout, description);
     }
 
-    public Checkbox(final By by, final String description, final String errorMsg) {
-        super(by, description, errorMsg);
-    }
-
-    public Checkbox(final By by, final long timeout, final String description, final String errorMsg) {
-        super(by, timeout, description, errorMsg);
-    }
-
     @Override
     public WebElement getComponent() {
         if (isNull(component) || isCacheDisable) {

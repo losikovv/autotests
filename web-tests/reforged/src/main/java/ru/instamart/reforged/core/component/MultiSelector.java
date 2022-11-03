@@ -36,14 +36,6 @@ public final class MultiSelector extends AbstractComponent {
         super(by, timeout, description);
     }
 
-    public MultiSelector(By by, String description, String errorMsg) {
-        super(by, description, errorMsg);
-    }
-
-    public MultiSelector(By by, long timeout, String description, String errorMsg) {
-        super(by, timeout, description, errorMsg);
-    }
-
     @Override
     public WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());

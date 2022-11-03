@@ -3,12 +3,13 @@ package ru.instamart.reforged.core.component;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -23,14 +24,6 @@ public final class ElementCollection extends CollectionComponent {
 
     public ElementCollection(final By by, final long timeout, final String description) {
         super(by, timeout, description);
-    }
-
-    public ElementCollection(final By by, final String description, final String errorMsg) {
-        super(by, description, errorMsg);
-    }
-
-    public ElementCollection(final By by, final long timeout, final String description, final String errorMsg) {
-        super(by, timeout, description, errorMsg);
     }
 
     @Override

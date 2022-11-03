@@ -19,14 +19,6 @@ public final class Autocomplete extends AbstractComponent {
         super(by, timeout, description);
     }
 
-    public Autocomplete(final By by, final String description, final String errorMsg) {
-        super(by, description, errorMsg);
-    }
-
-    public Autocomplete(final By by, final long timeout, final String description, final String errorMsg) {
-        super(by, timeout, description, errorMsg);
-    }
-
     @Override
     public WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());

@@ -9,9 +9,12 @@ import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Kraken;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Slf4j
@@ -278,7 +281,6 @@ public final class KrakenCondition {
     public static ExpectedCondition<Boolean> textToBePresentInAttributeLocated(final By locator,
                                                                              final String attribute,
                                                                              final String text) {
-
         return new ExpectedCondition<Boolean>() {
             @Override
             public Boolean apply(WebDriver driver) {
@@ -294,6 +296,69 @@ public final class KrakenCondition {
             public String toString() {
                 return String.format("text ('%s') to be present in element found by %s",
                         text, locator);
+            }
+        };
+    }
+
+    public static ExpectedCondition<List<WebElement>> elementCollectionPresent(final By locator) {
+        return new ExpectedCondition<List<WebElement>>() {
+            @Override
+            public List<WebElement> apply(WebDriver driver) {
+                try {
+                    final List<WebElement> webElements = driver.findElements(locator);
+                    if (webElements.size() > 0) {
+                        return webElements;
+                    }
+                    throw new NoSuchElementException("Elements not found or size < 1");
+                } catch (StaleElementReferenceException e) {
+                    return Collections.emptyList();
+                }
+            }
+
+            @Override
+            public String toString() {
+                return String.format("element collection located at %s", locator);
+            }
+        };
+    }
+
+    public static ExpectedCondition<List<WebElement>> elementCollectionPresent(final By locator, final WebElement webElement) {
+        return new ExpectedCondition<List<WebElement>>() {
+            @Override
+            public List<WebElement> apply(WebDriver driver) {
+                try {
+                    final List<WebElement> webElements = webElement.findElements(locator);
+                    if (webElements.size() > 0) {
+                        return webElements;
+                    }
+                    throw new NoSuchElementException("Elements not found or size < 1");
+                } catch (StaleElementReferenceException e) {
+                    return Collections.emptyList();
+                }
+            }
+
+            @Override
+            public String toString() {
+                return String.format("element collection located at %s", locator);
+            }
+        };
+    }
+
+    public static ExpectedCondition<Boolean> elementCollectionNotPresent(final By locator) {
+        return new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                try {
+                    final List<WebElement> webElements = driver.findElements(locator);
+                    return isNull(webElements) || webElements.size() == 0;
+                } catch (StaleElementReferenceException e) {
+                    return true;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return String.format("element collection not located at %s", locator);
             }
         };
     }

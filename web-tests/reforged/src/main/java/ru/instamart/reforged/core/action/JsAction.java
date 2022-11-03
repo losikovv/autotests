@@ -5,12 +5,9 @@ import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.instamart.reforged.core.component.AbstractComponent;
-import ru.instamart.reforged.core.config.WaitProperties;
+import ru.instamart.reforged.core.wait.KrakenWait;
 
-import java.time.Duration;
 import java.util.Objects;
 
 import static java.util.Objects.isNull;
@@ -55,7 +52,7 @@ public final class JsAction {
      */
     public void waitImgLoad(final String xpath) {
         createWait().until((ExpectedCondition<Boolean>) wb ->
-            JsAction.apply("return document.evaluate(\""+ xpath +"\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete;"));
+                JsAction.apply("return document.evaluate(\"" + xpath + "\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete;"));
     }
 
     public void scrollToTheTop() {
@@ -64,6 +61,7 @@ public final class JsAction {
 
     /**
      * Скролл до элемента на странице
+     *
      * @param locator - локатор достается из компонента через регулярку {@link AbstractComponent}
      */
     public void scrollToElement(final String locator) {
@@ -80,6 +78,7 @@ public final class JsAction {
 
     /**
      * Позволяет проскролить к элементу который находится внутри dropdown/selector и тп вложений
+     *
      * @param element
      */
     public void scrollIntoView(final WebElement element) {
@@ -116,18 +115,18 @@ public final class JsAction {
             throw new InvalidElementStateException(error);
         } else {
             execute("var element = arguments[0];\n" +
-                    "var eventNames = arguments[1];\n" +
-                    "for (var i = 0; i < eventNames.length; i++) {" +
-                    "  if (document.createEventObject) {\n" +  // IE
-                    "    var evt = document.createEventObject();\n" +
-                    "    element.fireEvent('on' + eventNames[i], evt);\n" +
-                    "  }\n" +
-                    "  else {\n" +
-                    "    var evt = document.createEvent('HTMLEvents');\n " +
-                    "    evt.initEvent(eventNames[i], true, true );\n " +
-                    "    element.dispatchEvent(evt);\n" +
-                    "  }\n" +
-                    '}',
+                            "var eventNames = arguments[1];\n" +
+                            "for (var i = 0; i < eventNames.length; i++) {" +
+                            "  if (document.createEventObject) {\n" +  // IE
+                            "    var evt = document.createEventObject();\n" +
+                            "    element.fireEvent('on' + eventNames[i], evt);\n" +
+                            "  }\n" +
+                            "  else {\n" +
+                            "    var evt = document.createEvent('HTMLEvents');\n " +
+                            "    evt.initEvent(eventNames[i], true, true );\n " +
+                            "    element.dispatchEvent(evt);\n" +
+                            "  }\n" +
+                            '}',
                     element, "keydown", "keypress", "input", "keyup", "change");
         }
     }
@@ -150,6 +149,7 @@ public final class JsAction {
 
     /**
      * Клик в первый элемент соответствующий xpath
+     *
      * @param locator - элемент в который нужно кликнуть
      */
     public void hoverAndClick(final String locator) {
@@ -170,7 +170,7 @@ public final class JsAction {
             final Object pendingRequest = execute("return window.pendingRequest");
             if (pendingRequest instanceof Long) {
                 final Long countRequest = (Long) pendingRequest;
-                final  Object urls = execute("return window.urls");
+                final Object urls = execute("return window.urls");
                 if (Objects.nonNull(urls)) {
                     wait.withMessage("Wait pending urls: " + urls);
                 }
@@ -184,35 +184,34 @@ public final class JsAction {
 
     /**
      * Создаем патч на странице для прослушивания реквестов и сохранения их урлов и статуса.
-     * Если реквест выполняется листнер удаляет урл и декриментит счетчик
+     * Если реквест выполняется, листнер удаляет урл и декриментит счетчик
      */
     private void patchForPendingRequest() {
         final String script =
                 "(function() {" +
-                    "var oldOpen = XMLHttpRequest.prototype.open;" +
-                    "window.urls = [];" +
-                    "window.pendingRequest = 0;" +
-                    "XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {" +
+                        "var oldOpen = XMLHttpRequest.prototype.open;" +
+                        "window.urls = [];" +
+                        "window.pendingRequest = 0;" +
+                        "XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {" +
                         "window.pendingRequest++;" +
                         "window.urls.push(url);" +
                         "this.addEventListener('readystatechange', function() {" +
-                            "if(this.readyState == 4) {" +
-                                "window.pendingRequest--;" +
-                                "const index = window.urls.indexOf(url);\n" +
-                                "if (index > -1) {\n" +
-                                    "  window.urls.splice(index, 1);\n" +
-                                "}" +
-                            "}" +
+                        "if(this.readyState == 4) {" +
+                        "window.pendingRequest--;" +
+                        "const index = window.urls.indexOf(url);\n" +
+                        "if (index > -1) {\n" +
+                        "  window.urls.splice(index, 1);\n" +
+                        "}" +
+                        "}" +
                         "}, false);" +
                         "oldOpen.call(this, method, url, async, user, pass);" +
-                    "}" +
-                "})();";
+                        "}" +
+                        "})();";
         execute(script);
     }
 
-    private FluentWait<WebDriver> createWait() {
-        return new WebDriverWait(getWebDriver(), Duration.ofSeconds(WaitProperties.BASIC_TIMEOUT))
-                .pollingEvery(Duration.ofMillis(WaitProperties.POLLING_INTERVAL));
+    private KrakenWait<WebDriver> createWait() {
+        return new KrakenWait<>(getWebDriver());
     }
 
     private static Boolean apply(final String jsCode) {

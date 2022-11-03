@@ -53,22 +53,14 @@ public abstract class AbstractComponent implements Component {
     private final ShouldBe shouldBe;
 
     public AbstractComponent(final By by, final String description) {
-        this(by, WaitProperties.BASIC_TIMEOUT, description, null);
+        this(by, WaitProperties.WAITING_TIMEOUT, description);
     }
 
     public AbstractComponent(final By by, final long timeout, final String description) {
-        this(by, timeout, description, null);
-    }
-
-    public AbstractComponent(final By by, final String description, final String errorMsg) {
-        this(by, WaitProperties.BASIC_TIMEOUT, description, errorMsg);
-    }
-
-    public AbstractComponent(final By by, final long timeout, final String description, final String errorMsg) {
         this.by = by;
         this.timeout = timeout;
         this.description = isNull(description) ? this.getClass().getSimpleName() : description;
-        this.errorMsg = isNull(errorMsg) ? "Элемент " + by + " не найден" : errorMsg;
+        this.errorMsg = String.format("Для элемента '%s', '%s' не выполнено условие: ", description, by);
         this.actions = new Actions(this);
         this.is = new Is(this);
         this.should = new Should(this);

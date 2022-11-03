@@ -22,14 +22,6 @@ public final class Selector extends AbstractComponent {
         super(by, timeout, description);
     }
 
-    public Selector(final By by, final String description, final String errorMsg) {
-        super(by, description, errorMsg);
-    }
-
-    public Selector(final By by, final long timeout, final String description, final String errorMsg) {
-        super(by, timeout, description, errorMsg);
-    }
-
     @Override
     public WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());

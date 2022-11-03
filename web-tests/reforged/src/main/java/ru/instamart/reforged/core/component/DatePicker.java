@@ -23,14 +23,6 @@ public final class DatePicker extends AbstractComponent {
         super(by, timeout, description);
     }
 
-    public DatePicker(By by, String description, String errorMsg) {
-        super(by, description, errorMsg);
-    }
-
-    public DatePicker(By by, long timeout, String description, String errorMsg) {
-        super(by, timeout, description, errorMsg);
-    }
-
     @Override
     public WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());
