@@ -13,6 +13,7 @@
     <test verbose="1" name="CANDIDATES" parallel="classes" thread-count="1">
         <classes>
             <class name="ru.instamart.test.api.on_demand.candidates.CandidatesTest"/>
+            <class name="ru.instamart.test.api.on_demand.candidates.CandidatesShopperTest"/>
         </classes>
     </test>
 </suite>
