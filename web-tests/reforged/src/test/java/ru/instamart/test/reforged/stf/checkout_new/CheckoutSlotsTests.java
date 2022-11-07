@@ -33,7 +33,7 @@ public final class CheckoutSlotsTests {
     @Issue("B2C-9738")
     @CaseId(3638)
     @Story("Слоты")
-    @Test(description = "Выбор слота доставки", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Выбор слота доставки", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSelectDeliverySlot() {
         final var userData = UserManager.getQaUser();
@@ -139,7 +139,7 @@ public final class CheckoutSlotsTests {
 
     @CaseId(3634)
     @Story("Слоты")
-    @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSelectSlotRequired() {
         final var userData = UserManager.getQaUser();

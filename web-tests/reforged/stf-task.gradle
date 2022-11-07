@@ -37,10 +37,11 @@ task sbermarketUiCustom(type: Test) {
         println('U miss CI_GROUP')
         return
     }
+
     useTestNG() {
         suites "src/test/resources/suite/regress/stf.xml"
         includeGroups CI_GROUP
-        threadCount 3
+        threadCount System.getenv('STF_FORWARD').startsWith('s-sb-stf') ? 6 : 3
     }
     environment 'P_ENV', 'sbermarket-custom'
 }
