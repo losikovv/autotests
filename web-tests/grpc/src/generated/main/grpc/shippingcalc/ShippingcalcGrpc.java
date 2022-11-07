@@ -139,6 +139,130 @@ public final class ShippingcalcGrpc {
     return getUnbindStrategyMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.CreateBindingRuleRequest,
+      shippingcalc.CreateBindingRuleResponse> getCreateBindingRuleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "CreateBindingRule",
+      requestType = shippingcalc.CreateBindingRuleRequest.class,
+      responseType = shippingcalc.CreateBindingRuleResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shippingcalc.CreateBindingRuleRequest,
+      shippingcalc.CreateBindingRuleResponse> getCreateBindingRuleMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.CreateBindingRuleRequest, shippingcalc.CreateBindingRuleResponse> getCreateBindingRuleMethod;
+    if ((getCreateBindingRuleMethod = ShippingcalcGrpc.getCreateBindingRuleMethod) == null) {
+      synchronized (ShippingcalcGrpc.class) {
+        if ((getCreateBindingRuleMethod = ShippingcalcGrpc.getCreateBindingRuleMethod) == null) {
+          ShippingcalcGrpc.getCreateBindingRuleMethod = getCreateBindingRuleMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.CreateBindingRuleRequest, shippingcalc.CreateBindingRuleResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CreateBindingRule"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.CreateBindingRuleRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.CreateBindingRuleResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("CreateBindingRule"))
+              .build();
+        }
+      }
+    }
+    return getCreateBindingRuleMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.UpdateBindingRuleRequest,
+      shippingcalc.UpdateBindingRuleResponse> getUpdateBindingRuleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateBindingRule",
+      requestType = shippingcalc.UpdateBindingRuleRequest.class,
+      responseType = shippingcalc.UpdateBindingRuleResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shippingcalc.UpdateBindingRuleRequest,
+      shippingcalc.UpdateBindingRuleResponse> getUpdateBindingRuleMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.UpdateBindingRuleRequest, shippingcalc.UpdateBindingRuleResponse> getUpdateBindingRuleMethod;
+    if ((getUpdateBindingRuleMethod = ShippingcalcGrpc.getUpdateBindingRuleMethod) == null) {
+      synchronized (ShippingcalcGrpc.class) {
+        if ((getUpdateBindingRuleMethod = ShippingcalcGrpc.getUpdateBindingRuleMethod) == null) {
+          ShippingcalcGrpc.getUpdateBindingRuleMethod = getUpdateBindingRuleMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.UpdateBindingRuleRequest, shippingcalc.UpdateBindingRuleResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateBindingRule"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.UpdateBindingRuleRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.UpdateBindingRuleResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("UpdateBindingRule"))
+              .build();
+        }
+      }
+    }
+    return getUpdateBindingRuleMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetBindingRulesRequest,
+      shippingcalc.GetBindingRulesResponse> getGetBindingRulesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetBindingRules",
+      requestType = shippingcalc.GetBindingRulesRequest.class,
+      responseType = shippingcalc.GetBindingRulesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shippingcalc.GetBindingRulesRequest,
+      shippingcalc.GetBindingRulesResponse> getGetBindingRulesMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetBindingRulesRequest, shippingcalc.GetBindingRulesResponse> getGetBindingRulesMethod;
+    if ((getGetBindingRulesMethod = ShippingcalcGrpc.getGetBindingRulesMethod) == null) {
+      synchronized (ShippingcalcGrpc.class) {
+        if ((getGetBindingRulesMethod = ShippingcalcGrpc.getGetBindingRulesMethod) == null) {
+          ShippingcalcGrpc.getGetBindingRulesMethod = getGetBindingRulesMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.GetBindingRulesRequest, shippingcalc.GetBindingRulesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetBindingRules"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.GetBindingRulesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.GetBindingRulesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetBindingRules"))
+              .build();
+        }
+      }
+    }
+    return getGetBindingRulesMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.DeleteBindingRuleRequest,
+      shippingcalc.DeleteBindingRuleResponse> getDeleteBindingRuleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeleteBindingRule",
+      requestType = shippingcalc.DeleteBindingRuleRequest.class,
+      responseType = shippingcalc.DeleteBindingRuleResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shippingcalc.DeleteBindingRuleRequest,
+      shippingcalc.DeleteBindingRuleResponse> getDeleteBindingRuleMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.DeleteBindingRuleRequest, shippingcalc.DeleteBindingRuleResponse> getDeleteBindingRuleMethod;
+    if ((getDeleteBindingRuleMethod = ShippingcalcGrpc.getDeleteBindingRuleMethod) == null) {
+      synchronized (ShippingcalcGrpc.class) {
+        if ((getDeleteBindingRuleMethod = ShippingcalcGrpc.getDeleteBindingRuleMethod) == null) {
+          ShippingcalcGrpc.getDeleteBindingRuleMethod = getDeleteBindingRuleMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.DeleteBindingRuleRequest, shippingcalc.DeleteBindingRuleResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteBindingRule"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.DeleteBindingRuleRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.DeleteBindingRuleResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("DeleteBindingRule"))
+              .build();
+        }
+      }
+    }
+    return getDeleteBindingRuleMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<shippingcalc.GetStrategiesRequest,
       shippingcalc.GetStrategiesResponse> getGetStrategiesMethod;
 
@@ -756,6 +880,46 @@ public final class ShippingcalcGrpc {
 
     /**
      * <pre>
+     * Создать правило привязки стратегии (эти правила используются автобиндером)
+     * </pre>
+     */
+    public void createBindingRule(shippingcalc.CreateBindingRuleRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.CreateBindingRuleResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreateBindingRuleMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Обновить правило привязки стратегии (эти правила используются автобиндером)
+     * </pre>
+     */
+    public void updateBindingRule(shippingcalc.UpdateBindingRuleRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.UpdateBindingRuleResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateBindingRuleMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Получить правила привязки стратегий (эти правила используются автобиндером)
+     * </pre>
+     */
+    public void getBindingRules(shippingcalc.GetBindingRulesRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetBindingRulesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetBindingRulesMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Удалить правило привязки стратегии (эти правила используются автобиндером)
+     * </pre>
+     */
+    public void deleteBindingRule(shippingcalc.DeleteBindingRuleRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.DeleteBindingRuleResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteBindingRuleMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * Получить все существующие стратегии
      * </pre>
      */
@@ -955,6 +1119,34 @@ public final class ShippingcalcGrpc {
                 shippingcalc.UnbindStrategyResponse>(
                   this, METHODID_UNBIND_STRATEGY)))
           .addMethod(
+            getCreateBindingRuleMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shippingcalc.CreateBindingRuleRequest,
+                shippingcalc.CreateBindingRuleResponse>(
+                  this, METHODID_CREATE_BINDING_RULE)))
+          .addMethod(
+            getUpdateBindingRuleMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shippingcalc.UpdateBindingRuleRequest,
+                shippingcalc.UpdateBindingRuleResponse>(
+                  this, METHODID_UPDATE_BINDING_RULE)))
+          .addMethod(
+            getGetBindingRulesMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shippingcalc.GetBindingRulesRequest,
+                shippingcalc.GetBindingRulesResponse>(
+                  this, METHODID_GET_BINDING_RULES)))
+          .addMethod(
+            getDeleteBindingRuleMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shippingcalc.DeleteBindingRuleRequest,
+                shippingcalc.DeleteBindingRuleResponse>(
+                  this, METHODID_DELETE_BINDING_RULE)))
+          .addMethod(
             getGetStrategiesMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
@@ -1133,6 +1325,50 @@ public final class ShippingcalcGrpc {
         io.grpc.stub.StreamObserver<shippingcalc.UnbindStrategyResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getUnbindStrategyMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Создать правило привязки стратегии (эти правила используются автобиндером)
+     * </pre>
+     */
+    public void createBindingRule(shippingcalc.CreateBindingRuleRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.CreateBindingRuleResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getCreateBindingRuleMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Обновить правило привязки стратегии (эти правила используются автобиндером)
+     * </pre>
+     */
+    public void updateBindingRule(shippingcalc.UpdateBindingRuleRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.UpdateBindingRuleResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateBindingRuleMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Получить правила привязки стратегий (эти правила используются автобиндером)
+     * </pre>
+     */
+    public void getBindingRules(shippingcalc.GetBindingRulesRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetBindingRulesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetBindingRulesMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Удалить правило привязки стратегии (эти правила используются автобиндером)
+     * </pre>
+     */
+    public void deleteBindingRule(shippingcalc.DeleteBindingRuleRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.DeleteBindingRuleResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteBindingRuleMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -1379,6 +1615,46 @@ public final class ShippingcalcGrpc {
 
     /**
      * <pre>
+     * Создать правило привязки стратегии (эти правила используются автобиндером)
+     * </pre>
+     */
+    public shippingcalc.CreateBindingRuleResponse createBindingRule(shippingcalc.CreateBindingRuleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getCreateBindingRuleMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Обновить правило привязки стратегии (эти правила используются автобиндером)
+     * </pre>
+     */
+    public shippingcalc.UpdateBindingRuleResponse updateBindingRule(shippingcalc.UpdateBindingRuleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateBindingRuleMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Получить правила привязки стратегий (эти правила используются автобиндером)
+     * </pre>
+     */
+    public shippingcalc.GetBindingRulesResponse getBindingRules(shippingcalc.GetBindingRulesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetBindingRulesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Удалить правило привязки стратегии (эти правила используются автобиндером)
+     * </pre>
+     */
+    public shippingcalc.DeleteBindingRuleResponse deleteBindingRule(shippingcalc.DeleteBindingRuleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteBindingRuleMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * Получить все существующие стратегии
      * </pre>
      */
@@ -1608,6 +1884,50 @@ public final class ShippingcalcGrpc {
 
     /**
      * <pre>
+     * Создать правило привязки стратегии (эти правила используются автобиндером)
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.CreateBindingRuleResponse> createBindingRule(
+        shippingcalc.CreateBindingRuleRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getCreateBindingRuleMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Обновить правило привязки стратегии (эти правила используются автобиндером)
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.UpdateBindingRuleResponse> updateBindingRule(
+        shippingcalc.UpdateBindingRuleRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateBindingRuleMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Получить правила привязки стратегий (эти правила используются автобиндером)
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetBindingRulesResponse> getBindingRules(
+        shippingcalc.GetBindingRulesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetBindingRulesMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Удалить правило привязки стратегии (эти правила используются автобиндером)
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.DeleteBindingRuleResponse> deleteBindingRule(
+        shippingcalc.DeleteBindingRuleRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteBindingRuleMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * Получить все существующие стратегии
      * </pre>
      */
@@ -1798,23 +2118,27 @@ public final class ShippingcalcGrpc {
   private static final int METHODID_UPDATE_STRATEGY = 1;
   private static final int METHODID_BIND_STRATEGY = 2;
   private static final int METHODID_UNBIND_STRATEGY = 3;
-  private static final int METHODID_GET_STRATEGIES = 4;
-  private static final int METHODID_GET_STRATEGY = 5;
-  private static final int METHODID_GET_STRATEGIES_FOR_STORE = 6;
-  private static final int METHODID_DELETE_STRATEGY = 7;
-  private static final int METHODID_CREATE_SCRIPT = 8;
-  private static final int METHODID_UPDATE_SCRIPT = 9;
-  private static final int METHODID_GET_SCRIPT = 10;
-  private static final int METHODID_GET_SCRIPTS = 11;
-  private static final int METHODID_GET_SCRIPT_TEST_RESULTS = 12;
-  private static final int METHODID_DELETE_SCRIPT = 13;
-  private static final int METHODID_GET_DELIVERY_PRICE = 14;
-  private static final int METHODID_SET_INTERVALS_SURGE = 15;
-  private static final int METHODID_GET_INTERVALS_SURGE = 16;
-  private static final int METHODID_SET_SWITCHBACK_EXPERIMENTS = 17;
-  private static final int METHODID_GET_SWITCHBACK_EXPERIMENTS = 18;
-  private static final int METHODID_GET_MIN_CART_AMOUNTS = 19;
-  private static final int METHODID_GET_DELIVERY_CONDITIONS = 20;
+  private static final int METHODID_CREATE_BINDING_RULE = 4;
+  private static final int METHODID_UPDATE_BINDING_RULE = 5;
+  private static final int METHODID_GET_BINDING_RULES = 6;
+  private static final int METHODID_DELETE_BINDING_RULE = 7;
+  private static final int METHODID_GET_STRATEGIES = 8;
+  private static final int METHODID_GET_STRATEGY = 9;
+  private static final int METHODID_GET_STRATEGIES_FOR_STORE = 10;
+  private static final int METHODID_DELETE_STRATEGY = 11;
+  private static final int METHODID_CREATE_SCRIPT = 12;
+  private static final int METHODID_UPDATE_SCRIPT = 13;
+  private static final int METHODID_GET_SCRIPT = 14;
+  private static final int METHODID_GET_SCRIPTS = 15;
+  private static final int METHODID_GET_SCRIPT_TEST_RESULTS = 16;
+  private static final int METHODID_DELETE_SCRIPT = 17;
+  private static final int METHODID_GET_DELIVERY_PRICE = 18;
+  private static final int METHODID_SET_INTERVALS_SURGE = 19;
+  private static final int METHODID_GET_INTERVALS_SURGE = 20;
+  private static final int METHODID_SET_SWITCHBACK_EXPERIMENTS = 21;
+  private static final int METHODID_GET_SWITCHBACK_EXPERIMENTS = 22;
+  private static final int METHODID_GET_MIN_CART_AMOUNTS = 23;
+  private static final int METHODID_GET_DELIVERY_CONDITIONS = 24;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1848,6 +2172,22 @@ public final class ShippingcalcGrpc {
         case METHODID_UNBIND_STRATEGY:
           serviceImpl.unbindStrategy((shippingcalc.UnbindStrategyRequest) request,
               (io.grpc.stub.StreamObserver<shippingcalc.UnbindStrategyResponse>) responseObserver);
+          break;
+        case METHODID_CREATE_BINDING_RULE:
+          serviceImpl.createBindingRule((shippingcalc.CreateBindingRuleRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.CreateBindingRuleResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_BINDING_RULE:
+          serviceImpl.updateBindingRule((shippingcalc.UpdateBindingRuleRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.UpdateBindingRuleResponse>) responseObserver);
+          break;
+        case METHODID_GET_BINDING_RULES:
+          serviceImpl.getBindingRules((shippingcalc.GetBindingRulesRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetBindingRulesResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_BINDING_RULE:
+          serviceImpl.deleteBindingRule((shippingcalc.DeleteBindingRuleRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.DeleteBindingRuleResponse>) responseObserver);
           break;
         case METHODID_GET_STRATEGIES:
           serviceImpl.getStrategies((shippingcalc.GetStrategiesRequest) request,
@@ -1982,6 +2322,10 @@ public final class ShippingcalcGrpc {
               .addMethod(getUpdateStrategyMethod())
               .addMethod(getBindStrategyMethod())
               .addMethod(getUnbindStrategyMethod())
+              .addMethod(getCreateBindingRuleMethod())
+              .addMethod(getUpdateBindingRuleMethod())
+              .addMethod(getGetBindingRulesMethod())
+              .addMethod(getDeleteBindingRuleMethod())
               .addMethod(getGetStrategiesMethod())
               .addMethod(getGetStrategyMethod())
               .addMethod(getGetStrategiesForStoreMethod())

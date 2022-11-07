@@ -183,14 +183,15 @@ private static final long serialVersionUID = 0L;
   private boolean replaceAll_;
   /**
    * <pre>
-   * Удалять ли существующие привязки перед добавлением
+   * Раньше этот флаг указывал, удалять ли существующие привязки перед добавлением
+   * Теперь удалять привязки запрещено. Можно лишь заменить стратегию в привязке
    * </pre>
    *
-   * <code>bool replace_all = 3;</code>
+   * <code>bool replace_all = 3 [deprecated = true];</code>
    * @return The replaceAll.
    */
   @java.lang.Override
-  public boolean getReplaceAll() {
+  @java.lang.Deprecated public boolean getReplaceAll() {
     return replaceAll_;
   }
 
@@ -929,26 +930,28 @@ private static final long serialVersionUID = 0L;
     private boolean replaceAll_ ;
     /**
      * <pre>
-     * Удалять ли существующие привязки перед добавлением
+     * Раньше этот флаг указывал, удалять ли существующие привязки перед добавлением
+     * Теперь удалять привязки запрещено. Можно лишь заменить стратегию в привязке
      * </pre>
      *
-     * <code>bool replace_all = 3;</code>
+     * <code>bool replace_all = 3 [deprecated = true];</code>
      * @return The replaceAll.
      */
     @java.lang.Override
-    public boolean getReplaceAll() {
+    @java.lang.Deprecated public boolean getReplaceAll() {
       return replaceAll_;
     }
     /**
      * <pre>
-     * Удалять ли существующие привязки перед добавлением
+     * Раньше этот флаг указывал, удалять ли существующие привязки перед добавлением
+     * Теперь удалять привязки запрещено. Можно лишь заменить стратегию в привязке
      * </pre>
      *
-     * <code>bool replace_all = 3;</code>
+     * <code>bool replace_all = 3 [deprecated = true];</code>
      * @param value The replaceAll to set.
      * @return This builder for chaining.
      */
-    public Builder setReplaceAll(boolean value) {
+    @java.lang.Deprecated public Builder setReplaceAll(boolean value) {
       
       replaceAll_ = value;
       onChanged();
@@ -956,13 +959,14 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Удалять ли существующие привязки перед добавлением
+     * Раньше этот флаг указывал, удалять ли существующие привязки перед добавлением
+     * Теперь удалять привязки запрещено. Можно лишь заменить стратегию в привязке
      * </pre>
      *
-     * <code>bool replace_all = 3;</code>
+     * <code>bool replace_all = 3 [deprecated = true];</code>
      * @return This builder for chaining.
      */
-    public Builder clearReplaceAll() {
+    @java.lang.Deprecated public Builder clearReplaceAll() {
       
       replaceAll_ = false;
       onChanged();

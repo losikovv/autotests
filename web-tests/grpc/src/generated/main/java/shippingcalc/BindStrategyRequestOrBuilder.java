@@ -63,11 +63,12 @@ public interface BindStrategyRequestOrBuilder extends
 
   /**
    * <pre>
-   * Удалять ли существующие привязки перед добавлением
+   * Раньше этот флаг указывал, удалять ли существующие привязки перед добавлением
+   * Теперь удалять привязки запрещено. Можно лишь заменить стратегию в привязке
    * </pre>
    *
-   * <code>bool replace_all = 3;</code>
+   * <code>bool replace_all = 3 [deprecated = true];</code>
    * @return The replaceAll.
    */
-  boolean getReplaceAll();
+  @java.lang.Deprecated boolean getReplaceAll();
 }

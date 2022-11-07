@@ -42,43 +42,43 @@ public interface ShipmentOrBuilder extends
    * Список продуктов
    * </pre>
    *
-   * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+   * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
    */
-  java.util.List<shippingcalc.ProductRequest> 
+  @java.lang.Deprecated java.util.List<shippingcalc.ProductRequest> 
       getProductsList();
   /**
    * <pre>
    * Список продуктов
    * </pre>
    *
-   * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+   * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
    */
-  shippingcalc.ProductRequest getProducts(int index);
+  @java.lang.Deprecated shippingcalc.ProductRequest getProducts(int index);
   /**
    * <pre>
    * Список продуктов
    * </pre>
    *
-   * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+   * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
    */
-  int getProductsCount();
+  @java.lang.Deprecated int getProductsCount();
   /**
    * <pre>
    * Список продуктов
    * </pre>
    *
-   * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+   * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
    */
-  java.util.List<? extends shippingcalc.ProductRequestOrBuilder> 
+  @java.lang.Deprecated java.util.List<? extends shippingcalc.ProductRequestOrBuilder> 
       getProductsOrBuilderList();
   /**
    * <pre>
    * Список продуктов
    * </pre>
    *
-   * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+   * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
    */
-  shippingcalc.ProductRequestOrBuilder getProductsOrBuilder(
+  @java.lang.Deprecated shippingcalc.ProductRequestOrBuilder getProductsOrBuilder(
       int index);
 
   /**
@@ -196,4 +196,44 @@ public interface ShipmentOrBuilder extends
    * @return The retailerId.
    */
   long getRetailerId();
+
+  /**
+   * <pre>
+   * Индетификаторы лейблов магазина связанные только с тенантом sbermarket
+   * </pre>
+   *
+   * <code>repeated uint64 store_labels_id = 14;</code>
+   * @return A list containing the storeLabelsId.
+   */
+  java.util.List<java.lang.Long> getStoreLabelsIdList();
+  /**
+   * <pre>
+   * Индетификаторы лейблов магазина связанные только с тенантом sbermarket
+   * </pre>
+   *
+   * <code>repeated uint64 store_labels_id = 14;</code>
+   * @return The count of storeLabelsId.
+   */
+  int getStoreLabelsIdCount();
+  /**
+   * <pre>
+   * Индетификаторы лейблов магазина связанные только с тенантом sbermarket
+   * </pre>
+   *
+   * <code>repeated uint64 store_labels_id = 14;</code>
+   * @param index The index of the element to return.
+   * @return The storeLabelsId at the given index.
+   */
+  long getStoreLabelsId(int index);
+
+  /**
+   * <pre>
+   * Кол-во позиций (уникальное кол-во товаров в shipment-e)
+   * По сути это количество products
+   * </pre>
+   *
+   * <code>uint32 positions_count = 15;</code>
+   * @return The positionsCount.
+   */
+  int getPositionsCount();
 }

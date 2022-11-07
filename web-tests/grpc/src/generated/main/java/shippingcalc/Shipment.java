@@ -20,6 +20,7 @@ private static final long serialVersionUID = 0L;
     products_ = java.util.Collections.emptyList();
     storeId_ = "";
     status_ = "";
+    storeLabelsId_ = emptyLongList();
   }
 
   @java.lang.Override
@@ -125,6 +126,32 @@ private static final long serialVersionUID = 0L;
             retailerId_ = input.readUInt64();
             break;
           }
+          case 112: {
+            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+              storeLabelsId_ = newLongList();
+              mutable_bitField0_ |= 0x00000002;
+            }
+            storeLabelsId_.addLong(input.readUInt64());
+            break;
+          }
+          case 114: {
+            int length = input.readRawVarint32();
+            int limit = input.pushLimit(length);
+            if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
+              storeLabelsId_ = newLongList();
+              mutable_bitField0_ |= 0x00000002;
+            }
+            while (input.getBytesUntilLimit() > 0) {
+              storeLabelsId_.addLong(input.readUInt64());
+            }
+            input.popLimit(limit);
+            break;
+          }
+          case 120: {
+
+            positionsCount_ = input.readUInt32();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -142,6 +169,9 @@ private static final long serialVersionUID = 0L;
     } finally {
       if (((mutable_bitField0_ & 0x00000001) != 0)) {
         products_ = java.util.Collections.unmodifiableList(products_);
+      }
+      if (((mutable_bitField0_ & 0x00000002) != 0)) {
+        storeLabelsId_.makeImmutable(); // C
       }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
@@ -228,10 +258,10 @@ private static final long serialVersionUID = 0L;
    * Список продуктов
    * </pre>
    *
-   * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+   * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
    */
   @java.lang.Override
-  public java.util.List<shippingcalc.ProductRequest> getProductsList() {
+  @java.lang.Deprecated public java.util.List<shippingcalc.ProductRequest> getProductsList() {
     return products_;
   }
   /**
@@ -239,10 +269,10 @@ private static final long serialVersionUID = 0L;
    * Список продуктов
    * </pre>
    *
-   * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+   * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
    */
   @java.lang.Override
-  public java.util.List<? extends shippingcalc.ProductRequestOrBuilder> 
+  @java.lang.Deprecated public java.util.List<? extends shippingcalc.ProductRequestOrBuilder> 
       getProductsOrBuilderList() {
     return products_;
   }
@@ -251,10 +281,10 @@ private static final long serialVersionUID = 0L;
    * Список продуктов
    * </pre>
    *
-   * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+   * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
    */
   @java.lang.Override
-  public int getProductsCount() {
+  @java.lang.Deprecated public int getProductsCount() {
     return products_.size();
   }
   /**
@@ -262,10 +292,10 @@ private static final long serialVersionUID = 0L;
    * Список продуктов
    * </pre>
    *
-   * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+   * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
    */
   @java.lang.Override
-  public shippingcalc.ProductRequest getProducts(int index) {
+  @java.lang.Deprecated public shippingcalc.ProductRequest getProducts(int index) {
     return products_.get(index);
   }
   /**
@@ -273,10 +303,10 @@ private static final long serialVersionUID = 0L;
    * Список продуктов
    * </pre>
    *
-   * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+   * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
    */
   @java.lang.Override
-  public shippingcalc.ProductRequestOrBuilder getProductsOrBuilder(
+  @java.lang.Deprecated public shippingcalc.ProductRequestOrBuilder getProductsOrBuilder(
       int index) {
     return products_.get(index);
   }
@@ -489,6 +519,62 @@ private static final long serialVersionUID = 0L;
     return retailerId_;
   }
 
+  public static final int STORE_LABELS_ID_FIELD_NUMBER = 14;
+  private com.google.protobuf.Internal.LongList storeLabelsId_;
+  /**
+   * <pre>
+   * Индетификаторы лейблов магазина связанные только с тенантом sbermarket
+   * </pre>
+   *
+   * <code>repeated uint64 store_labels_id = 14;</code>
+   * @return A list containing the storeLabelsId.
+   */
+  @java.lang.Override
+  public java.util.List<java.lang.Long>
+      getStoreLabelsIdList() {
+    return storeLabelsId_;
+  }
+  /**
+   * <pre>
+   * Индетификаторы лейблов магазина связанные только с тенантом sbermarket
+   * </pre>
+   *
+   * <code>repeated uint64 store_labels_id = 14;</code>
+   * @return The count of storeLabelsId.
+   */
+  public int getStoreLabelsIdCount() {
+    return storeLabelsId_.size();
+  }
+  /**
+   * <pre>
+   * Индетификаторы лейблов магазина связанные только с тенантом sbermarket
+   * </pre>
+   *
+   * <code>repeated uint64 store_labels_id = 14;</code>
+   * @param index The index of the element to return.
+   * @return The storeLabelsId at the given index.
+   */
+  public long getStoreLabelsId(int index) {
+    return storeLabelsId_.getLong(index);
+  }
+  private int storeLabelsIdMemoizedSerializedSize = -1;
+
+  public static final int POSITIONS_COUNT_FIELD_NUMBER = 15;
+  private int positionsCount_;
+  /**
+   * <pre>
+   * Кол-во позиций (уникальное кол-во товаров в shipment-e)
+   * По сути это количество products
+   * </pre>
+   *
+   * <code>uint32 positions_count = 15;</code>
+   * @return The positionsCount.
+   */
+  @java.lang.Override
+  public int getPositionsCount() {
+    return positionsCount_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -503,6 +589,7 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    getSerializedSize();
     if (!getIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
     }
@@ -541,6 +628,16 @@ private static final long serialVersionUID = 0L;
     }
     if (retailerId_ != 0L) {
       output.writeUInt64(13, retailerId_);
+    }
+    if (getStoreLabelsIdList().size() > 0) {
+      output.writeUInt32NoTag(114);
+      output.writeUInt32NoTag(storeLabelsIdMemoizedSerializedSize);
+    }
+    for (int i = 0; i < storeLabelsId_.size(); i++) {
+      output.writeUInt64NoTag(storeLabelsId_.getLong(i));
+    }
+    if (positionsCount_ != 0) {
+      output.writeUInt32(15, positionsCount_);
     }
     unknownFields.writeTo(output);
   }
@@ -600,6 +697,24 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(13, retailerId_);
     }
+    {
+      int dataSize = 0;
+      for (int i = 0; i < storeLabelsId_.size(); i++) {
+        dataSize += com.google.protobuf.CodedOutputStream
+          .computeUInt64SizeNoTag(storeLabelsId_.getLong(i));
+      }
+      size += dataSize;
+      if (!getStoreLabelsIdList().isEmpty()) {
+        size += 1;
+        size += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(dataSize);
+      }
+      storeLabelsIdMemoizedSerializedSize = dataSize;
+    }
+    if (positionsCount_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt32Size(15, positionsCount_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -643,6 +758,10 @@ private static final long serialVersionUID = 0L;
             other.getLon())) return false;
     if (getRetailerId()
         != other.getRetailerId()) return false;
+    if (!getStoreLabelsIdList()
+        .equals(other.getStoreLabelsIdList())) return false;
+    if (getPositionsCount()
+        != other.getPositionsCount()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -690,6 +809,12 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + RETAILER_ID_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getRetailerId());
+    if (getStoreLabelsIdCount() > 0) {
+      hash = (37 * hash) + STORE_LABELS_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getStoreLabelsIdList().hashCode();
+    }
+    hash = (37 * hash) + POSITIONS_COUNT_FIELD_NUMBER;
+    hash = (53 * hash) + getPositionsCount();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -854,6 +979,10 @@ private static final long serialVersionUID = 0L;
 
       retailerId_ = 0L;
 
+      storeLabelsId_ = emptyLongList();
+      bitField0_ = (bitField0_ & ~0x00000002);
+      positionsCount_ = 0;
+
       return this;
     }
 
@@ -902,6 +1031,12 @@ private static final long serialVersionUID = 0L;
       result.lat_ = lat_;
       result.lon_ = lon_;
       result.retailerId_ = retailerId_;
+      if (((bitField0_ & 0x00000002) != 0)) {
+        storeLabelsId_.makeImmutable();
+        bitField0_ = (bitField0_ & ~0x00000002);
+      }
+      result.storeLabelsId_ = storeLabelsId_;
+      result.positionsCount_ = positionsCount_;
       onBuilt();
       return result;
     }
@@ -1014,6 +1149,19 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getRetailerId() != 0L) {
         setRetailerId(other.getRetailerId());
+      }
+      if (!other.storeLabelsId_.isEmpty()) {
+        if (storeLabelsId_.isEmpty()) {
+          storeLabelsId_ = other.storeLabelsId_;
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          ensureStoreLabelsIdIsMutable();
+          storeLabelsId_.addAll(other.storeLabelsId_);
+        }
+        onChanged();
+      }
+      if (other.getPositionsCount() != 0) {
+        setPositionsCount(other.getPositionsCount());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1201,9 +1349,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public java.util.List<shippingcalc.ProductRequest> getProductsList() {
+    @java.lang.Deprecated public java.util.List<shippingcalc.ProductRequest> getProductsList() {
       if (productsBuilder_ == null) {
         return java.util.Collections.unmodifiableList(products_);
       } else {
@@ -1215,9 +1363,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public int getProductsCount() {
+    @java.lang.Deprecated public int getProductsCount() {
       if (productsBuilder_ == null) {
         return products_.size();
       } else {
@@ -1229,9 +1377,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public shippingcalc.ProductRequest getProducts(int index) {
+    @java.lang.Deprecated public shippingcalc.ProductRequest getProducts(int index) {
       if (productsBuilder_ == null) {
         return products_.get(index);
       } else {
@@ -1243,9 +1391,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public Builder setProducts(
+    @java.lang.Deprecated public Builder setProducts(
         int index, shippingcalc.ProductRequest value) {
       if (productsBuilder_ == null) {
         if (value == null) {
@@ -1264,9 +1412,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public Builder setProducts(
+    @java.lang.Deprecated public Builder setProducts(
         int index, shippingcalc.ProductRequest.Builder builderForValue) {
       if (productsBuilder_ == null) {
         ensureProductsIsMutable();
@@ -1282,9 +1430,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public Builder addProducts(shippingcalc.ProductRequest value) {
+    @java.lang.Deprecated public Builder addProducts(shippingcalc.ProductRequest value) {
       if (productsBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1302,9 +1450,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public Builder addProducts(
+    @java.lang.Deprecated public Builder addProducts(
         int index, shippingcalc.ProductRequest value) {
       if (productsBuilder_ == null) {
         if (value == null) {
@@ -1323,9 +1471,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public Builder addProducts(
+    @java.lang.Deprecated public Builder addProducts(
         shippingcalc.ProductRequest.Builder builderForValue) {
       if (productsBuilder_ == null) {
         ensureProductsIsMutable();
@@ -1341,9 +1489,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public Builder addProducts(
+    @java.lang.Deprecated public Builder addProducts(
         int index, shippingcalc.ProductRequest.Builder builderForValue) {
       if (productsBuilder_ == null) {
         ensureProductsIsMutable();
@@ -1359,9 +1507,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public Builder addAllProducts(
+    @java.lang.Deprecated public Builder addAllProducts(
         java.lang.Iterable<? extends shippingcalc.ProductRequest> values) {
       if (productsBuilder_ == null) {
         ensureProductsIsMutable();
@@ -1378,9 +1526,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public Builder clearProducts() {
+    @java.lang.Deprecated public Builder clearProducts() {
       if (productsBuilder_ == null) {
         products_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -1395,9 +1543,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public Builder removeProducts(int index) {
+    @java.lang.Deprecated public Builder removeProducts(int index) {
       if (productsBuilder_ == null) {
         ensureProductsIsMutable();
         products_.remove(index);
@@ -1412,9 +1560,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public shippingcalc.ProductRequest.Builder getProductsBuilder(
+    @java.lang.Deprecated public shippingcalc.ProductRequest.Builder getProductsBuilder(
         int index) {
       return getProductsFieldBuilder().getBuilder(index);
     }
@@ -1423,9 +1571,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public shippingcalc.ProductRequestOrBuilder getProductsOrBuilder(
+    @java.lang.Deprecated public shippingcalc.ProductRequestOrBuilder getProductsOrBuilder(
         int index) {
       if (productsBuilder_ == null) {
         return products_.get(index);  } else {
@@ -1437,9 +1585,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public java.util.List<? extends shippingcalc.ProductRequestOrBuilder> 
+    @java.lang.Deprecated public java.util.List<? extends shippingcalc.ProductRequestOrBuilder> 
          getProductsOrBuilderList() {
       if (productsBuilder_ != null) {
         return productsBuilder_.getMessageOrBuilderList();
@@ -1452,9 +1600,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public shippingcalc.ProductRequest.Builder addProductsBuilder() {
+    @java.lang.Deprecated public shippingcalc.ProductRequest.Builder addProductsBuilder() {
       return getProductsFieldBuilder().addBuilder(
           shippingcalc.ProductRequest.getDefaultInstance());
     }
@@ -1463,9 +1611,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public shippingcalc.ProductRequest.Builder addProductsBuilder(
+    @java.lang.Deprecated public shippingcalc.ProductRequest.Builder addProductsBuilder(
         int index) {
       return getProductsFieldBuilder().addBuilder(
           index, shippingcalc.ProductRequest.getDefaultInstance());
@@ -1475,9 +1623,9 @@ private static final long serialVersionUID = 0L;
      * Список продуктов
      * </pre>
      *
-     * <code>repeated .shippingcalc.ProductRequest products = 3;</code>
+     * <code>repeated .shippingcalc.ProductRequest products = 3 [deprecated = true];</code>
      */
-    public java.util.List<shippingcalc.ProductRequest.Builder> 
+    @java.lang.Deprecated public java.util.List<shippingcalc.ProductRequest.Builder> 
          getProductsBuilderList() {
       return getProductsFieldBuilder().getBuilderList();
     }
@@ -2016,6 +2164,159 @@ private static final long serialVersionUID = 0L;
     public Builder clearRetailerId() {
       
       retailerId_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.Internal.LongList storeLabelsId_ = emptyLongList();
+    private void ensureStoreLabelsIdIsMutable() {
+      if (!((bitField0_ & 0x00000002) != 0)) {
+        storeLabelsId_ = mutableCopy(storeLabelsId_);
+        bitField0_ |= 0x00000002;
+       }
+    }
+    /**
+     * <pre>
+     * Индетификаторы лейблов магазина связанные только с тенантом sbermarket
+     * </pre>
+     *
+     * <code>repeated uint64 store_labels_id = 14;</code>
+     * @return A list containing the storeLabelsId.
+     */
+    public java.util.List<java.lang.Long>
+        getStoreLabelsIdList() {
+      return ((bitField0_ & 0x00000002) != 0) ?
+               java.util.Collections.unmodifiableList(storeLabelsId_) : storeLabelsId_;
+    }
+    /**
+     * <pre>
+     * Индетификаторы лейблов магазина связанные только с тенантом sbermarket
+     * </pre>
+     *
+     * <code>repeated uint64 store_labels_id = 14;</code>
+     * @return The count of storeLabelsId.
+     */
+    public int getStoreLabelsIdCount() {
+      return storeLabelsId_.size();
+    }
+    /**
+     * <pre>
+     * Индетификаторы лейблов магазина связанные только с тенантом sbermarket
+     * </pre>
+     *
+     * <code>repeated uint64 store_labels_id = 14;</code>
+     * @param index The index of the element to return.
+     * @return The storeLabelsId at the given index.
+     */
+    public long getStoreLabelsId(int index) {
+      return storeLabelsId_.getLong(index);
+    }
+    /**
+     * <pre>
+     * Индетификаторы лейблов магазина связанные только с тенантом sbermarket
+     * </pre>
+     *
+     * <code>repeated uint64 store_labels_id = 14;</code>
+     * @param index The index to set the value at.
+     * @param value The storeLabelsId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setStoreLabelsId(
+        int index, long value) {
+      ensureStoreLabelsIdIsMutable();
+      storeLabelsId_.setLong(index, value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Индетификаторы лейблов магазина связанные только с тенантом sbermarket
+     * </pre>
+     *
+     * <code>repeated uint64 store_labels_id = 14;</code>
+     * @param value The storeLabelsId to add.
+     * @return This builder for chaining.
+     */
+    public Builder addStoreLabelsId(long value) {
+      ensureStoreLabelsIdIsMutable();
+      storeLabelsId_.addLong(value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Индетификаторы лейблов магазина связанные только с тенантом sbermarket
+     * </pre>
+     *
+     * <code>repeated uint64 store_labels_id = 14;</code>
+     * @param values The storeLabelsId to add.
+     * @return This builder for chaining.
+     */
+    public Builder addAllStoreLabelsId(
+        java.lang.Iterable<? extends java.lang.Long> values) {
+      ensureStoreLabelsIdIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, storeLabelsId_);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Индетификаторы лейблов магазина связанные только с тенантом sbermarket
+     * </pre>
+     *
+     * <code>repeated uint64 store_labels_id = 14;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearStoreLabelsId() {
+      storeLabelsId_ = emptyLongList();
+      bitField0_ = (bitField0_ & ~0x00000002);
+      onChanged();
+      return this;
+    }
+
+    private int positionsCount_ ;
+    /**
+     * <pre>
+     * Кол-во позиций (уникальное кол-во товаров в shipment-e)
+     * По сути это количество products
+     * </pre>
+     *
+     * <code>uint32 positions_count = 15;</code>
+     * @return The positionsCount.
+     */
+    @java.lang.Override
+    public int getPositionsCount() {
+      return positionsCount_;
+    }
+    /**
+     * <pre>
+     * Кол-во позиций (уникальное кол-во товаров в shipment-e)
+     * По сути это количество products
+     * </pre>
+     *
+     * <code>uint32 positions_count = 15;</code>
+     * @param value The positionsCount to set.
+     * @return This builder for chaining.
+     */
+    public Builder setPositionsCount(int value) {
+      
+      positionsCount_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Кол-во позиций (уникальное кол-во товаров в shipment-e)
+     * По сути это количество products
+     * </pre>
+     *
+     * <code>uint32 positions_count = 15;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearPositionsCount() {
+      
+      positionsCount_ = 0;
       onChanged();
       return this;
     }

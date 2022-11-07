@@ -136,11 +136,11 @@ private static final long serialVersionUID = 0L;
    * Минимальная цена корзины
    * </pre>
    *
-   * <code>uint64 minimal_cart_price = 2;</code>
+   * <code>uint64 minimal_cart_price = 2 [deprecated = true];</code>
    * @return The minimalCartPrice.
    */
   @java.lang.Override
-  public long getMinimalCartPrice() {
+  @java.lang.Deprecated public long getMinimalCartPrice() {
     return minimalCartPrice_;
   }
 
@@ -151,11 +151,11 @@ private static final long serialVersionUID = 0L;
    * Минимальное кол-во позиций в корзине
    * </pre>
    *
-   * <code>uint32 minimal_cart_items = 3;</code>
+   * <code>uint32 minimal_cart_items = 3 [deprecated = true];</code>
    * @return The minimalCartItems.
    */
   @java.lang.Override
-  public int getMinimalCartItems() {
+  @java.lang.Deprecated public int getMinimalCartItems() {
     return minimalCartItems_;
   }
 
@@ -696,11 +696,11 @@ private static final long serialVersionUID = 0L;
      * Минимальная цена корзины
      * </pre>
      *
-     * <code>uint64 minimal_cart_price = 2;</code>
+     * <code>uint64 minimal_cart_price = 2 [deprecated = true];</code>
      * @return The minimalCartPrice.
      */
     @java.lang.Override
-    public long getMinimalCartPrice() {
+    @java.lang.Deprecated public long getMinimalCartPrice() {
       return minimalCartPrice_;
     }
     /**
@@ -708,11 +708,11 @@ private static final long serialVersionUID = 0L;
      * Минимальная цена корзины
      * </pre>
      *
-     * <code>uint64 minimal_cart_price = 2;</code>
+     * <code>uint64 minimal_cart_price = 2 [deprecated = true];</code>
      * @param value The minimalCartPrice to set.
      * @return This builder for chaining.
      */
-    public Builder setMinimalCartPrice(long value) {
+    @java.lang.Deprecated public Builder setMinimalCartPrice(long value) {
       
       minimalCartPrice_ = value;
       onChanged();
@@ -723,10 +723,10 @@ private static final long serialVersionUID = 0L;
      * Минимальная цена корзины
      * </pre>
      *
-     * <code>uint64 minimal_cart_price = 2;</code>
+     * <code>uint64 minimal_cart_price = 2 [deprecated = true];</code>
      * @return This builder for chaining.
      */
-    public Builder clearMinimalCartPrice() {
+    @java.lang.Deprecated public Builder clearMinimalCartPrice() {
       
       minimalCartPrice_ = 0L;
       onChanged();
@@ -739,11 +739,11 @@ private static final long serialVersionUID = 0L;
      * Минимальное кол-во позиций в корзине
      * </pre>
      *
-     * <code>uint32 minimal_cart_items = 3;</code>
+     * <code>uint32 minimal_cart_items = 3 [deprecated = true];</code>
      * @return The minimalCartItems.
      */
     @java.lang.Override
-    public int getMinimalCartItems() {
+    @java.lang.Deprecated public int getMinimalCartItems() {
       return minimalCartItems_;
     }
     /**
@@ -751,11 +751,11 @@ private static final long serialVersionUID = 0L;
      * Минимальное кол-во позиций в корзине
      * </pre>
      *
-     * <code>uint32 minimal_cart_items = 3;</code>
+     * <code>uint32 minimal_cart_items = 3 [deprecated = true];</code>
      * @param value The minimalCartItems to set.
      * @return This builder for chaining.
      */
-    public Builder setMinimalCartItems(int value) {
+    @java.lang.Deprecated public Builder setMinimalCartItems(int value) {
       
       minimalCartItems_ = value;
       onChanged();
@@ -766,10 +766,10 @@ private static final long serialVersionUID = 0L;
      * Минимальное кол-во позиций в корзине
      * </pre>
      *
-     * <code>uint32 minimal_cart_items = 3;</code>
+     * <code>uint32 minimal_cart_items = 3 [deprecated = true];</code>
      * @return This builder for chaining.
      */
-    public Builder clearMinimalCartItems() {
+    @java.lang.Deprecated public Builder clearMinimalCartItems() {
       
       minimalCartItems_ = 0;
       onChanged();

@@ -73,7 +73,7 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Получение условий доставки для магазина с валидными данными",
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryConditions() {
-        var request = getDeliveryConditionsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getDeliveryConditionsRequest(STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
                 AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), false);
 
@@ -104,8 +104,8 @@ public class MinCartTest extends ShippingCalcBase {
                         .setLon(55.55f)
                         .build())
                 .setCustomer(Customer.newBuilder()
-                        .setId(CUSTOMER_ID)
-                        .setAnonymousId(ANONYMOUS_ID)
+                        .setId(UUID.randomUUID().toString())
+                        .setAnonymousId(UUID.randomUUID().toString())
                         .setOrdersCount(1)
                         .setRegisteredAt(1655822708)
                         .setLat(55.55f)
@@ -147,7 +147,7 @@ public class MinCartTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryConditionsGlobalStrategy() {
         String storeId = UUID.randomUUID().toString();
-        var request = getDeliveryConditionsRequest(storeId, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getDeliveryConditionsRequest(storeId, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
                 AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), false);
 
@@ -194,7 +194,7 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Получение условий доставки для магазина без повышенного спроса для не on-demand магазина",
             groups = "dispatch-shippingcalc-regress")
     public void getDeliveryConditionsWithNoSurge() {
-        var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
                 AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), false);
 
@@ -222,7 +222,7 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Получение условий доставки для магазина без повышенного спроса для новых клиентов",
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryConditionsWithoutSurgeNewCustomers() {
-        var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
                 AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), true);
 
@@ -281,7 +281,7 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Получение условий доставки для магазина без повышенного спроса для самовывоза",
             groups = "dispatch-shippingcalc-regress")
     public void getDeliveryConditionsWithNoSurgeSelfDelivery() {
-        var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_SELF_DELIVERY_VALUE,
                 AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), true);
 
@@ -302,10 +302,10 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Проверка прохождений условий в правилах мин корзины",
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryConditionsDifferentRules() {
-        var firstRequest = getDeliveryConditionsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var firstRequest = getDeliveryConditionsRequest(STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
                 AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), false);
-        var secondRequest = getDeliveryConditionsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var secondRequest = getDeliveryConditionsRequest(STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
                 AppVersion.IOS.getName(), AppVersion.IOS.getVersion(), false);
 
@@ -328,7 +328,7 @@ public class MinCartTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-regress")
     public void getDeliveryConditionsNotFound() {
         String storeId = UUID.randomUUID().toString();
-        var request = getDeliveryConditionsRequest(storeId, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getDeliveryConditionsRequest(storeId, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_SELF_DELIVERY_VALUE, AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), false);
 
         var response = clientShippingCalc.getDeliveryConditions(request);
@@ -437,7 +437,7 @@ public class MinCartTest extends ShippingCalcBase {
                         .setLon(55.55f)
                         .build())
                 .setCustomer(Customer.newBuilder()
-                        .setAnonymousId(ANONYMOUS_ID)
+                        .setAnonymousId(UUID.randomUUID().toString())
                         .setOrdersCount(0)
                         .setRegisteredAt(1655822708)
                         .setLat(55.55f)
@@ -464,7 +464,7 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Получение минимальной корзины с валидными данными",
             groups = "dispatch-shippingcalc-smoke")
     public void getMinCartAmounts() {
-        var request = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, false);
 
         var response = clientShippingCalc.getMinCartAmounts(request);
@@ -488,8 +488,8 @@ public class MinCartTest extends ShippingCalcBase {
                         .setLon(55.55f)
                         .build())
                 .setCustomer(Customer.newBuilder()
-                        .setId(CUSTOMER_ID)
-                        .setAnonymousId(ANONYMOUS_ID)
+                        .setId(UUID.randomUUID().toString())
+                        .setAnonymousId(UUID.randomUUID().toString())
                         .setOrdersCount(1)
                         .setRegisteredAt(1655822708)
                         .setLat(55.55f)
@@ -521,7 +521,7 @@ public class MinCartTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke")
     public void getMinCartAmountsGlobalStrategy() {
         String storeId = UUID.randomUUID().toString();
-        var request = getMinCartAmountsRequest(storeId, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getMinCartAmountsRequest(storeId, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, false);
 
         var response = clientShippingCalc.getMinCartAmounts(request);
@@ -533,9 +533,9 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Проверка прохождений условий в правилах мин корзины",
             groups = "dispatch-shippingcalc-smoke")
     public void getMinCartAmountsDifferentRules() {
-        var firstRequest = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var firstRequest = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, false);
-        var secondRequest = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var secondRequest = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, false);
 
         var firstResponse = clientShippingCalc.getMinCartAmounts(firstRequest);
@@ -550,7 +550,7 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Получение минимальной корзины для магазина с повышенным спросом",
             groups = "dispatch-shippingcalc-smoke")
     public void getMinCartAmountsWithSurge() {
-        var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, true);
 
         var response = clientShippingCalc.getMinCartAmounts(request);
@@ -562,7 +562,7 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Получение минимальной корзины без повышенного спроса для не on_demand магазина",
             groups = "dispatch-shippingcalc-regress")
     public void getMinCartAmountsWithSurgeNotOnDemand() {
-        var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, false);
 
         var response = clientShippingCalc.getMinCartAmounts(request);
@@ -574,7 +574,7 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Получение минимальной корзины для магазина без повышенного спроса для новых клиентов",
             groups = "dispatch-shippingcalc-regress")
     public void getMinCartAmountsWithSurgeNewCustomer() {
-        var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, true);
 
         var response = clientShippingCalc.getMinCartAmounts(request);
@@ -586,7 +586,7 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Получение минимальной корзины без повышенного спроса для самовывоза",
             groups = "dispatch-shippingcalc-regress")
     public void getMinCartAmountsWithNoSurgeSelfDelivery() {
-        var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_SELF_DELIVERY_VALUE, true);
 
         var response = clientShippingCalc.getMinCartAmounts(request);
@@ -602,7 +602,7 @@ public class MinCartTest extends ShippingCalcBase {
         String storeId = UUID.randomUUID().toString();
         addBinding(tempStrategyId, storeId, Tenant.SBERMARKET.getId(), DeliveryType.B2B_SELF_DELIVERY.toString());
 
-        var request = getMinCartAmountsRequest(storeId, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getMinCartAmountsRequest(storeId, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, false);
 
         var response = clientShippingCalc.getMinCartAmounts(request);
@@ -622,7 +622,7 @@ public class MinCartTest extends ShippingCalcBase {
     @Test(description = "Получение пустого списка для магазина у которого не нашли связку",
             groups = "dispatch-shippingcalc-regress")
     public void getMinCartAmountsNotFound() {
-        var request = getMinCartAmountsRequest(UUID.randomUUID().toString(), 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
+        var request = getMinCartAmountsRequest(UUID.randomUUID().toString(), 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_SELF_DELIVERY_VALUE, false);
 
         var response = clientShippingCalc.getMinCartAmounts(request);
@@ -669,7 +669,7 @@ public class MinCartTest extends ShippingCalcBase {
                         .setLon(55.55f)
                         .build())
                 .setCustomer(Customer.newBuilder()
-                        .setAnonymousId(ANONYMOUS_ID)
+                        .setAnonymousId(UUID.randomUUID().toString())
                         .setOrdersCount(0)
                         .setRegisteredAt(1655822708)
                         .setLat(55.55f)
