@@ -22,20 +22,20 @@ public interface GetDeliveryPriceResponseOrBuilder extends
    * Минимальная цена корзины
    * </pre>
    *
-   * <code>uint64 minimal_cart_price = 2;</code>
+   * <code>uint64 minimal_cart_price = 2 [deprecated = true];</code>
    * @return The minimalCartPrice.
    */
-  long getMinimalCartPrice();
+  @java.lang.Deprecated long getMinimalCartPrice();
 
   /**
    * <pre>
    * Минимальное кол-во позиций в корзине
    * </pre>
    *
-   * <code>uint32 minimal_cart_items = 3;</code>
+   * <code>uint32 minimal_cart_items = 3 [deprecated = true];</code>
    * @return The minimalCartItems.
    */
-  int getMinimalCartItems();
+  @java.lang.Deprecated int getMinimalCartItems();
 
   /**
    * <pre>

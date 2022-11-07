@@ -364,6 +364,51 @@ public final class ShippingcalcOuterClass {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_shippingcalc_GetDeliveryConditionsResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_CreateBindingRuleRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_CreateBindingRuleRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_CreateBindingRuleResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_CreateBindingRuleResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_UpdateBindingRuleRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_UpdateBindingRuleRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_UpdateBindingRuleResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_UpdateBindingRuleResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_GetBindingRulesRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_GetBindingRulesRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_GetBindingRulesResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_GetBindingRulesResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_DeleteBindingRuleRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_DeleteBindingRuleRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_DeleteBindingRuleResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_DeleteBindingRuleResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_BindingRule_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_BindingRule_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -374,283 +419,329 @@ public final class ShippingcalcOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\034on_demand/shippingcalc.proto\022\014shipping" +
-      "calc\"\210\002\n\025CreateStrategyRequest\022*\n\005rules\030" +
-      "\001 \003(\0132\033.shippingcalc.NewRuleObject\022\022\n\ncr" +
-      "eator_id\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022\016\n\006global\030\004" +
-      " \001(\010\022\020\n\010priority\030\005 \001(\r\022\023\n\013description\030\006 " +
-      "\001(\t\0221\n\rdelivery_type\030\007 \001(\0162\032.shippingcal" +
-      "c.DeliveryType\0227\n\016min_cart_rules\030\010 \003(\0132\037" +
-      ".shippingcalc.MinCartRuleObject\"-\n\026Creat" +
-      "eStrategyResponse\022\023\n\013strategy_id\030\001 \001(\r\"\241" +
-      "\002\n\025UpdateStrategyRequest\022\023\n\013strategy_id\030" +
-      "\001 \001(\r\022*\n\005rules\030\002 \003(\0132\033.shippingcalc.NewR" +
-      "uleObject\022\022\n\ncreator_id\030\003 \001(\t\022\014\n\004name\030\004 " +
-      "\001(\t\022\022\n\006global\030\005 \001(\010B\002\030\001\022\020\n\010priority\030\006 \001(" +
-      "\r\022\023\n\013description\030\007 \001(\t\0221\n\rdelivery_type\030" +
-      "\010 \001(\0162\032.shippingcalc.DeliveryType\0227\n\016min" +
-      "_cart_rules\030\t \003(\0132\037.shippingcalc.MinCart" +
-      "RuleObject\"\207\001\n\rNewRuleObject\022\021\n\tscript_i" +
-      "d\030\001 \001(\r\022\033\n\023script_param_values\030\002 \001(\t\0224\n\n" +
-      "conditions\030\003 \003(\0132 .shippingcalc.NewCondi" +
-      "tionObject\022\020\n\010priority\030\004 \001(\005\"s\n\021MinCartR" +
-      "uleObject\022\026\n\016min_cart_value\030\001 \001(\004\0224\n\ncon" +
-      "ditions\030\002 \003(\0132 .shippingcalc.NewConditio" +
-      "nObject\022\020\n\010priority\030\003 \001(\005\"Y\n\022NewConditio" +
-      "nObject\0223\n\016condition_type\030\001 \001(\0162\033.shippi" +
-      "ngcalc.ConditionType\022\016\n\006params\030\002 \001(\t\"E\n\026" +
-      "UpdateStrategyResponse\022\020\n\010rules_id\030\001 \003(\r" +
-      "\022\031\n\021min_cart_rules_id\030\002 \003(\r\"m\n\023BindStrat" +
-      "egyRequest\022\023\n\013strategy_id\030\001 \001(\r\022,\n\005binds" +
-      "\030\002 \003(\0132\035.shippingcalc.StrategyBinding\022\023\n" +
-      "\013replace_all\030\003 \001(\010\"i\n\017StrategyBinding\022\020\n" +
-      "\010store_id\030\001 \001(\t\022\021\n\ttenant_id\030\002 \001(\t\0221\n\rde" +
-      "livery_type\030\003 \001(\0162\032.shippingcalc.Deliver" +
-      "yType\"D\n\024BindStrategyResponse\022,\n\010strateg" +
-      "y\030\001 \001(\0132\032.shippingcalc.StrategyView\"\205\002\n\014" +
-      "StrategyView\022\023\n\013strategy_id\030\001 \001(\r\022\022\n\ncre" +
-      "ator_id\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022\016\n\006global\030\004 " +
-      "\001(\010\022\020\n\010priority\030\005 \001(\r\022,\n\005binds\030\006 \003(\0132\035.s" +
-      "hippingcalc.StrategyBinding\022\023\n\013descripti" +
-      "on\030\007 \001(\t\022\022\n\ncreated_at\030\010 \001(\003\022\022\n\nupdated_" +
-      "at\030\t \001(\003\0221\n\rdelivery_type\030\n \001(\0162\032.shippi" +
-      "ngcalc.DeliveryType\"\354\001\n\021StrategyViewLigh" +
-      "t\022\023\n\013strategy_id\030\001 \001(\r\022\022\n\ncreator_id\030\002 \001" +
-      "(\t\022\014\n\004name\030\003 \001(\t\022\016\n\006global\030\004 \001(\010\022\020\n\010prio" +
-      "rity\030\005 \001(\r\022\016\n\006stores\030\006 \003(\t\022\023\n\013descriptio" +
-      "n\030\007 \001(\t\022\022\n\ncreated_at\030\010 \001(\003\022\022\n\nupdated_a" +
-      "t\030\t \001(\003\0221\n\rdelivery_type\030\n \001(\0162\032.shippin" +
-      "gcalc.DeliveryType\"Z\n\025UnbindStrategyRequ" +
+      "calc\032\037google/protobuf/timestamp.proto\"\210\002" +
+      "\n\025CreateStrategyRequest\022*\n\005rules\030\001 \003(\0132\033" +
+      ".shippingcalc.NewRuleObject\022\022\n\ncreator_i" +
+      "d\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022\016\n\006global\030\004 \001(\010\022\020\n" +
+      "\010priority\030\005 \001(\r\022\023\n\013description\030\006 \001(\t\0221\n\r" +
+      "delivery_type\030\007 \001(\0162\032.shippingcalc.Deliv" +
+      "eryType\0227\n\016min_cart_rules\030\010 \003(\0132\037.shippi" +
+      "ngcalc.MinCartRuleObject\"-\n\026CreateStrate" +
+      "gyResponse\022\023\n\013strategy_id\030\001 \001(\r\"\241\002\n\025Upda" +
+      "teStrategyRequest\022\023\n\013strategy_id\030\001 \001(\r\022*" +
+      "\n\005rules\030\002 \003(\0132\033.shippingcalc.NewRuleObje" +
+      "ct\022\022\n\ncreator_id\030\003 \001(\t\022\014\n\004name\030\004 \001(\t\022\022\n\006" +
+      "global\030\005 \001(\010B\002\030\001\022\020\n\010priority\030\006 \001(\r\022\023\n\013de" +
+      "scription\030\007 \001(\t\0221\n\rdelivery_type\030\010 \001(\0162\032" +
+      ".shippingcalc.DeliveryType\0227\n\016min_cart_r" +
+      "ules\030\t \003(\0132\037.shippingcalc.MinCartRuleObj" +
+      "ect\"\207\001\n\rNewRuleObject\022\021\n\tscript_id\030\001 \001(\r" +
+      "\022\033\n\023script_param_values\030\002 \001(\t\0224\n\nconditi" +
+      "ons\030\003 \003(\0132 .shippingcalc.NewConditionObj" +
+      "ect\022\020\n\010priority\030\004 \001(\005\"s\n\021MinCartRuleObje" +
+      "ct\022\026\n\016min_cart_value\030\001 \001(\004\0224\n\nconditions" +
+      "\030\002 \003(\0132 .shippingcalc.NewConditionObject" +
+      "\022\020\n\010priority\030\003 \001(\005\"Y\n\022NewConditionObject" +
+      "\0223\n\016condition_type\030\001 \001(\0162\033.shippingcalc." +
+      "ConditionType\022\016\n\006params\030\002 \001(\t\"E\n\026UpdateS" +
+      "trategyResponse\022\020\n\010rules_id\030\001 \003(\r\022\031\n\021min" +
+      "_cart_rules_id\030\002 \003(\r\"q\n\023BindStrategyRequ" +
       "est\022\023\n\013strategy_id\030\001 \001(\r\022,\n\005binds\030\002 \003(\0132" +
-      "\035.shippingcalc.StrategyBinding\"F\n\026Unbind" +
-      "StrategyResponse\022,\n\010strategy\030\001 \001(\0132\032.shi" +
-      "ppingcalc.StrategyView\"p\n\024GetStrategiesR" +
-      "equest\022\025\n\rstrategy_name\030\001 \001(\t\0221\n\rdeliver" +
-      "y_type\030\002 \001(\0162\032.shippingcalc.DeliveryType" +
-      "\022\016\n\006stores\030\003 \003(\t\"L\n\025GetStrategiesRespons" +
-      "e\0223\n\nstrategies\030\001 \003(\0132\037.shippingcalc.Str" +
-      "ategyViewLight\")\n\022GetStrategyRequest\022\023\n\013" +
-      "strategy_id\030\001 \001(\r\"\241\001\n\023GetStrategyRespons" +
-      "e\022,\n\010strategy\030\001 \001(\0132\032.shippingcalc.Strat" +
-      "egyView\022%\n\005rules\030\002 \003(\0132\026.shippingcalc.Ru" +
-      "leView\0225\n\016min_cart_rules\030\003 \003(\0132\035.shippin" +
-      "gcalc.MinCartRuleView\"\306\001\n\010RuleView\022\n\n\002id" +
-      "\030\001 \001(\r\022\021\n\tscript_id\030\002 \001(\r\022\023\n\013script_name" +
-      "\030\003 \001(\t\022\033\n\023script_param_values\030\004 \001(\t\022/\n\nc" +
-      "onditions\030\005 \003(\0132\033.shippingcalc.Condition" +
-      "View\022\020\n\010priority\030\006 \001(\005\022\022\n\ncreator_id\030\007 \001" +
-      "(\t\022\022\n\ncreated_at\030\010 \001(\003\"\240\001\n\017MinCartRuleVi" +
-      "ew\022\n\n\002id\030\001 \001(\r\022\026\n\016min_cart_value\030\002 \001(\004\022/" +
-      "\n\nconditions\030\003 \003(\0132\033.shippingcalc.Condit" +
-      "ionView\022\020\n\010priority\030\004 \001(\005\022\022\n\ncreator_id\030" +
-      "\005 \001(\t\022\022\n\ncreated_at\030\006 \001(\003\"T\n\rConditionVi" +
-      "ew\0223\n\016condition_type\030\001 \001(\0162\033.shippingcal" +
-      "c.ConditionType\022\016\n\006params\030\002 \001(\t\"s\n\034GetSt" +
-      "rategiesForStoreRequest\022\020\n\010store_id\030\001 \001(" +
-      "\t\022\016\n\006tenant\030\002 \001(\t\0221\n\rdelivery_type\030\003 \001(\016" +
-      "2\032.shippingcalc.DeliveryType\"\\\n\025Explaine" +
-      "dStrategyView\022\023\n\013strategy_id\030\001 \001(\r\022.\n\007bi" +
-      "nding\030\002 \001(\0132\035.shippingcalc.StrategyBindi" +
-      "ng\"V\n\035GetStrategiesForStoreResponse\0225\n\010s" +
-      "trategy\030\001 \003(\0132#.shippingcalc.ExplainedSt" +
-      "rategyView\",\n\025DeleteStrategyRequest\022\023\n\013s" +
-      "trategy_id\030\001 \001(\r\"\030\n\026DeleteStrategyRespon" +
-      "se\"S\n\023CreateScriptRequest\022\023\n\013script_name" +
-      "\030\001 \001(\t\022\023\n\013script_body\030\002 \001(\t\022\022\n\ncreator_i" +
-      "d\030\003 \001(\t\"k\n\024CreateScriptResponse\022\021\n\tscrip" +
-      "t_id\030\001 \001(\r\022(\n\005state\030\002 \001(\0162\031.shippingcalc" +
-      ".ScriptState\022\026\n\016result_message\030\003 \001(\t\"f\n\023" +
-      "UpdateScriptRequest\022\021\n\tscript_id\030\001 \001(\r\022\023" +
-      "\n\013script_name\030\002 \001(\t\022\023\n\013script_body\030\003 \001(\t" +
-      "\022\022\n\ncreator_id\030\004 \001(\t\"X\n\024UpdateScriptResp" +
-      "onse\022(\n\005state\030\001 \001(\0162\031.shippingcalc.Scrip" +
-      "tState\022\026\n\016result_message\030\003 \001(\t\"\023\n\021GetScr" +
-      "iptsRequest\"?\n\022GetScriptsResponse\022)\n\007scr" +
-      "ipts\030\001 \003(\0132\030.shippingcalc.ScriptView\"\221\002\n" +
-      "\nScriptView\022\021\n\tscript_id\030\001 \001(\r\022\023\n\013script" +
-      "_name\030\002 \001(\t\022\023\n\013script_body\030\003 \001(\t\0222\n\017requ" +
-      "ired_params\030\004 \003(\0132\031.shippingcalc.ScriptP" +
-      "aram\022\022\n\ncreated_at\030\005 \001(\003\022\022\n\nupdated_at\030\006" +
-      " \001(\003\0223\n\005state\030\007 \001(\0162$.shippingcalc.Scrip" +
-      "tView.ScriptState\"5\n\013ScriptState\022\010\n\004NONE" +
-      "\020\000\022\013\n\007TEST_OK\020\001\022\017\n\013TEST_FAILED\020\002\"\274\001\n\013Scr" +
-      "iptParam\0227\n\004type\030\001 \001(\0162).shippingcalc.Sc" +
-      "riptParam.ScriptParamType\022\014\n\004name\030\002 \001(\t\022" +
-      "\017\n\007caption\030\003 \001(\t\022\020\n\010fraction\030\004 \001(\004\"C\n\017Sc" +
-      "riptParamType\022\017\n\013PARAM_FLOAT\020\000\022\r\n\tPARAM_" +
-      "INT\020\001\022\020\n\014PARAM_STRING\020\002\"%\n\020GetScriptRequ" +
-      "est\022\021\n\tscript_id\030\001 \001(\r\"=\n\021GetScriptRespo" +
-      "nse\022(\n\006script\030\001 \001(\0132\030.shippingcalc.Scrip" +
-      "tView\"(\n\023DeleteScriptRequest\022\021\n\tscript_i" +
-      "d\030\001 \001(\r\"\026\n\024DeleteScriptResponse\"0\n\033GetSc" +
-      "riptTestResultsRequest\022\021\n\tscript_id\030\001 \001(" +
-      "\r\"c\n\034GetScriptTestResultsResponse\022/\n\007res" +
-      "ults\030\001 \003(\0132\036.shippingcalc.ScriptTestResu" +
-      "lt\022\022\n\nall_passed\030\002 \001(\010\"L\n\020ScriptTestResu" +
-      "lt\022\021\n\ttest_name\030\001 \001(\t\022\016\n\006passed\030\002 \001(\010\022\025\n" +
-      "\rerror_message\030\003 \001(\t\"\327\002\n\027GetDeliveryPric" +
-      "eRequest\022\020\n\010order_id\030\001 \001(\t\022)\n\tshipments\030" +
-      "\003 \003(\0132\026.shippingcalc.Shipment\022(\n\010custome" +
-      "r\030\004 \001(\0132\026.shippingcalc.Customer\022\024\n\014is_b2" +
-      "b_order\030\005 \001(\010\022\024\n\014is_promocode\030\006 \001(\010\022\026\n\016p" +
-      "ayment_method\030\007 \001(\t\022\032\n\022has_payment_metho" +
-      "d\030\010 \001(\010\0221\n\rdelivery_type\030\t \001(\0162\032.shippin" +
-      "gcalc.DeliveryType\022\021\n\ttenant_id\030\013 \001(\t\022\025\n" +
-      "\rplatform_name\030\014 \001(\t\022\030\n\020platform_version" +
-      "\030\r \001(\t\"\233\002\n\010Shipment\022\n\n\002id\030\001 \001(\t\022\023\n\013is_on" +
-      "demand\030\002 \001(\010\022.\n\010products\030\003 \003(\0132\034.shippin" +
-      "gcalc.ProductRequest\022\016\n\006weight\030\004 \001(\004\022\023\n\013" +
-      "items_count\030\005 \001(\r\022\r\n\005price\030\006 \001(\004\022\020\n\010stor" +
-      "e_id\030\007 \001(\t\022\016\n\006status\030\010 \001(\t\022\021\n\tregion_id\030" +
-      "\t \001(\004\022&\n\036surge_delivery_window_addition\030" +
-      "\n \001(\004\022\013\n\003lat\030\013 \001(\002\022\013\n\003lon\030\014 \001(\002\022\023\n\013retai" +
-      "ler_id\030\r \001(\004\"e\n\016ProductRequest\022\020\n\010quanti" +
-      "ty\030\001 \001(\r\022\n\n\002id\030\002 \001(\t\022\r\n\005price\030\003 \001(\004\022\026\n\016d" +
-      "iscount_price\030\004 \001(\004\022\016\n\006weight\030\005 \001(\004\"s\n\010C" +
-      "ustomer\022\n\n\002id\030\001 \001(\t\022\024\n\014anonymous_id\030\002 \001(" +
-      "\t\022\024\n\014orders_count\030\003 \001(\r\022\025\n\rregistered_at" +
-      "\030\004 \001(\003\022\013\n\003lat\030\005 \001(\002\022\013\n\003lon\030\006 \001(\002\"\274\001\n\030Get" +
-      "DeliveryPriceResponse\022\031\n\021is_order_possib" +
-      "le\030\001 \001(\010\022\032\n\022minimal_cart_price\030\002 \001(\004\022\032\n\022" +
-      "minimal_cart_items\030\003 \001(\r\022\034\n\024total_shippi" +
-      "ng_price\030\004 \001(\004\022/\n\tshipments\030\005 \003(\0132\034.ship" +
-      "pingcalc.PricedShipment\"\372\003\n\016PricedShipme" +
-      "nt\022\023\n\013shipment_id\030\001 \001(\t\022\026\n\016shipping_pric" +
-      "e\030\002 \001(\004\022\030\n\020offer_expires_at\030\003 \001(\003\022\022\n\noff" +
-      "er_hash\030\004 \001(\t\022(\n\006ladder\030\005 \003(\0132\030.shipping" +
-      "calc.LadderStep\022\023\n\013strategy_id\030\006 \001(\r\022\017\n\007" +
-      "rule_id\030\007 \001(\r\022\024\n\014we_had_offer\030\010 \001(\010\022\034\n\024s" +
-      "urge_level_addition\030\t \001(\004\022\022\n\nsurge_used\030" +
-      "\n \001(\010\022\023\n\013surge_level\030\013 \001(\002\022&\n\036surge_deli" +
-      "very_window_addition\030\014 \001(\004\022&\n\005hints\030\r \003(" +
-      "\0132\027.shippingcalc.PriceHint\0229\n\021price_expl" +
-      "anation\030\016 \001(\0132\036.shippingcalc.PriceExplan" +
-      "ation\022\032\n\022minimal_cart_price\030\017 \001(\004\022\037\n\027sur" +
-      "ge_min_cart_addition\030\020 \001(\004\022\030\n\020min_cart_r" +
-      "ule_id\030\021 \001(\r\"a\n\tPriceHint\022\014\n\004type\030\001 \001(\t\022" +
-      "\017\n\007caption\030\002 \001(\t\022\r\n\005price\030\003 \001(\004\022\030\n\020addit" +
-      "ional_label\030\004 \001(\t\022\014\n\004meta\030\005 \001(\t\"\211\001\n\020Pric" +
-      "eExplanation\022=\n\021passed_conditions\030\001 \003(\0132" +
-      "\".shippingcalc.PricePassedCondition\0226\n\020p" +
-      "rice_components\030\002 \003(\0132\034.shippingcalc.Pri" +
-      "ceComponent\"4\n\024PricePassedCondition\022\014\n\004t" +
-      "ype\030\001 \001(\t\022\016\n\006params\030\002 \001(\t\";\n\016PriceCompon" +
-      "ent\022\014\n\004type\030\001 \001(\t\022\r\n\005price\030\002 \001(\004\022\014\n\004meta" +
-      "\030\003 \001(\t\"\250\001\n\nLadderStep\022\027\n\nprice_from\030\001 \001(" +
-      "\004H\000\210\001\001\022\025\n\010price_to\030\002 \001(\004H\001\210\001\001\022\026\n\016shippin" +
-      "g_price\030\003 \001(\004\0226\n\020price_components\030\004 \003(\0132" +
-      "\034.shippingcalc.PriceComponentB\r\n\013_price_" +
-      "fromB\013\n\t_price_to\"\213\001\n\rSurgeInterval\022\025\n\rl" +
-      "eft_boundary\030\001 \001(\002\022\026\n\016right_boundary\030\002 \001" +
-      "(\002\022\026\n\016price_addition\030\003 \001(\004\022\030\n\020percent_ad" +
-      "dition\030\004 \001(\004\022\031\n\021min_cart_addition\030\005 \001(\004\"" +
-      "J\n\030SetIntervalsSurgeRequest\022.\n\tintervals" +
-      "\030\001 \003(\0132\033.shippingcalc.SurgeInterval\"\033\n\031S" +
-      "etIntervalsSurgeResponse\"\032\n\030GetIntervals" +
-      "SurgeRequest\"K\n\031GetIntervalsSurgeRespons" +
-      "e\022.\n\tintervals\030\001 \003(\0132\033.shippingcalc.Surg" +
-      "eInterval\"m\n\031SurgeSwitchbackExperiment\022\027" +
-      "\n\017start_date_time\030\001 \001(\003\022\025\n\rend_date_time" +
-      "\030\002 \001(\003\022\021\n\tregion_id\030\003 \001(\004\022\r\n\005group\030\004 \001(\t" +
-      "\"d\n\037SetSwitchbackExperimentsRequest\022\014\n\004d" +
-      "ata\030\001 \001(\t\0223\n\004type\030\002 \001(\0162%.shippingcalc.S" +
-      "urgeSwitchbackDataType\"\"\n SetSwitchbackE" +
-      "xperimentsResponse\"!\n\037GetSwitchbackExper" +
-      "imentsRequest\"`\n GetSwitchbackExperiment" +
-      "sResponse\022<\n\013experiments\030\001 \003(\0132\'.shippin" +
-      "gcalc.SurgeSwitchbackExperiment\"\335\001\n\030GetM" +
-      "inCartAmountsRequest\022#\n\006stores\030\001 \003(\0132\023.s" +
-      "hippingcalc.Store\022(\n\010customer\030\002 \001(\0132\026.sh" +
-      "ippingcalc.Customer\022\016\n\006tenant\030\003 \001(\t\0221\n\rd" +
-      "elivery_type\030\004 \001(\0162\032.shippingcalc.Delive" +
-      "ryType\022\025\n\rplatform_name\030\005 \001(\t\022\030\n\020platfor" +
-      "m_version\030\006 \001(\t\"j\n\005Store\022\n\n\002id\030\001 \001(\t\022\013\n\003" +
-      "lat\030\002 \001(\002\022\013\n\003lon\030\003 \001(\002\022\023\n\013is_ondemand\030\007 " +
-      "\001(\010\022\021\n\tregion_id\030\010 \001(\004\022\023\n\013retailer_id\030\t " +
-      "\001(\004\"R\n\031GetMinCartAmountsResponse\0225\n\020min_" +
-      "cart_amounts\030\001 \003(\0132\033.shippingcalc.MinCar" +
-      "tAmount\"t\n\rMinCartAmount\022\020\n\010store_id\030\001 \001" +
-      "(\t\022\022\n\006amount\030\002 \001(\004B\002\030\001\022\037\n\027amount_courier" +
-      "_delivery\030\003 \001(\004\022\034\n\024amount_self_delivery\030" +
-      "\004 \001(\004\"\341\001\n\034GetDeliveryConditionsRequest\022#" +
-      "\n\006stores\030\001 \003(\0132\023.shippingcalc.Store\022(\n\010c" +
-      "ustomer\030\002 \001(\0132\026.shippingcalc.Customer\022\016\n" +
-      "\006tenant\030\003 \001(\t\0221\n\rdelivery_type\030\004 \001(\0162\032.s" +
-      "hippingcalc.DeliveryType\022\025\n\rplatform_nam" +
-      "e\030\005 \001(\t\022\030\n\020platform_version\030\006 \001(\t\"2\n\005Sur" +
-      "ge\022\r\n\005is_on\030\001 \001(\010\022\r\n\005level\030\002 \001(\002\022\013\n\003ttl\030" +
-      "\003 \001(\003\"\214\001\n\021DeliveryCondition\022\020\n\010store_id\030" +
-      "\001 \001(\t\022\027\n\017min_cart_amount\030\002 \001(\004\022\"\n\005surge\030" +
-      "\003 \001(\0132\023.shippingcalc.Surge\022(\n\006ladder\030\004 \003" +
-      "(\0132\030.shippingcalc.LadderStep\"]\n\035GetDeliv" +
-      "eryConditionsResponse\022<\n\023delivery_condit" +
-      "ions\030\001 \003(\0132\037.shippingcalc.DeliveryCondit" +
-      "ion*a\n\014DeliveryType\022\010\n\004NONE\020\000\022\021\n\rSELF_DE" +
-      "LIVERY\020\001\022\024\n\020COURIER_DELIVERY\020\002\022\007\n\003B2B\020\003\022" +
-      "\025\n\021B2B_SELF_DELIVERY\020\004*\233\001\n\rConditionType" +
-      "\022\n\n\006ALWAYS\020\000\022\022\n\016FIRST_N_ORDERS\020\001\022\025\n\021ORDE" +
-      "R_VALUE_RANGE\020\002\022\024\n\020AB_TEST_ENTRANCE\020\003\022\030\n" +
-      "\024ORDER_DISTANCE_RANGE\020\004\022\r\n\tPLATFORMS\020\005\022\024" +
-      "\n\020REGISTERED_AFTER\020\006*1\n\013ScriptState\022\020\n\014S" +
-      "CRIPT_VALID\020\000\022\020\n\014SCRIPT_ERROR\020\001*\"\n\027Surge" +
-      "SwitchbackDataType\022\007\n\003CSV\020\0002\211\020\n\014Shipping" +
-      "calc\022[\n\016CreateStrategy\022#.shippingcalc.Cr" +
-      "eateStrategyRequest\032$.shippingcalc.Creat" +
-      "eStrategyResponse\022[\n\016UpdateStrategy\022#.sh" +
-      "ippingcalc.UpdateStrategyRequest\032$.shipp" +
-      "ingcalc.UpdateStrategyResponse\022U\n\014BindSt" +
-      "rategy\022!.shippingcalc.BindStrategyReques" +
-      "t\032\".shippingcalc.BindStrategyResponse\022[\n" +
-      "\016UnbindStrategy\022#.shippingcalc.UnbindStr" +
-      "ategyRequest\032$.shippingcalc.UnbindStrate" +
-      "gyResponse\022X\n\rGetStrategies\022\".shippingca" +
-      "lc.GetStrategiesRequest\032#.shippingcalc.G" +
-      "etStrategiesResponse\022R\n\013GetStrategy\022 .sh" +
-      "ippingcalc.GetStrategyRequest\032!.shipping" +
-      "calc.GetStrategyResponse\022p\n\025GetStrategie" +
-      "sForStore\022*.shippingcalc.GetStrategiesFo" +
-      "rStoreRequest\032+.shippingcalc.GetStrategi" +
-      "esForStoreResponse\022[\n\016DeleteStrategy\022#.s" +
-      "hippingcalc.DeleteStrategyRequest\032$.ship" +
-      "pingcalc.DeleteStrategyResponse\022U\n\014Creat" +
-      "eScript\022!.shippingcalc.CreateScriptReque" +
-      "st\032\".shippingcalc.CreateScriptResponse\022U" +
-      "\n\014UpdateScript\022!.shippingcalc.UpdateScri" +
-      "ptRequest\032\".shippingcalc.UpdateScriptRes" +
-      "ponse\022L\n\tGetScript\022\036.shippingcalc.GetScr" +
-      "iptRequest\032\037.shippingcalc.GetScriptRespo" +
-      "nse\022O\n\nGetScripts\022\037.shippingcalc.GetScri" +
-      "ptsRequest\032 .shippingcalc.GetScriptsResp" +
-      "onse\022m\n\024GetScriptTestResults\022).shippingc" +
-      "alc.GetScriptTestResultsRequest\032*.shippi" +
-      "ngcalc.GetScriptTestResultsResponse\022U\n\014D" +
-      "eleteScript\022!.shippingcalc.DeleteScriptR" +
-      "equest\032\".shippingcalc.DeleteScriptRespon" +
-      "se\022a\n\020GetDeliveryPrice\022%.shippingcalc.Ge" +
-      "tDeliveryPriceRequest\032&.shippingcalc.Get" +
-      "DeliveryPriceResponse\022d\n\021SetIntervalsSur" +
-      "ge\022&.shippingcalc.SetIntervalsSurgeReque" +
-      "st\032\'.shippingcalc.SetIntervalsSurgeRespo" +
-      "nse\022d\n\021GetIntervalsSurge\022&.shippingcalc." +
-      "GetIntervalsSurgeRequest\032\'.shippingcalc." +
-      "GetIntervalsSurgeResponse\022y\n\030SetSwitchba" +
-      "ckExperiments\022-.shippingcalc.SetSwitchba" +
-      "ckExperimentsRequest\032..shippingcalc.SetS" +
-      "witchbackExperimentsResponse\022y\n\030GetSwitc" +
-      "hbackExperiments\022-.shippingcalc.GetSwitc" +
-      "hbackExperimentsRequest\032..shippingcalc.G" +
-      "etSwitchbackExperimentsResponse\022d\n\021GetMi" +
-      "nCartAmounts\022&.shippingcalc.GetMinCartAm" +
-      "ountsRequest\032\'.shippingcalc.GetMinCartAm" +
-      "ountsResponse\022p\n\025GetDeliveryConditions\022*" +
-      ".shippingcalc.GetDeliveryConditionsReque" +
-      "st\032+.shippingcalc.GetDeliveryConditionsR" +
-      "esponseBTP\001ZPgitlab.sbmt.io/paas/content" +
-      "/operations/shippingcalc/pkg/server/grpc" +
-      "/shippingcalcb\006proto3"
+      "\035.shippingcalc.StrategyBinding\022\027\n\013replac" +
+      "e_all\030\003 \001(\010B\002\030\001\"i\n\017StrategyBinding\022\020\n\010st" +
+      "ore_id\030\001 \001(\t\022\021\n\ttenant_id\030\002 \001(\t\0221\n\rdeliv" +
+      "ery_type\030\003 \001(\0162\032.shippingcalc.DeliveryTy" +
+      "pe\"D\n\024BindStrategyResponse\022,\n\010strategy\030\001" +
+      " \001(\0132\032.shippingcalc.StrategyView\"\205\002\n\014Str" +
+      "ategyView\022\023\n\013strategy_id\030\001 \001(\r\022\022\n\ncreato" +
+      "r_id\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022\016\n\006global\030\004 \001(\010" +
+      "\022\020\n\010priority\030\005 \001(\r\022,\n\005binds\030\006 \003(\0132\035.ship" +
+      "pingcalc.StrategyBinding\022\023\n\013description\030" +
+      "\007 \001(\t\022\022\n\ncreated_at\030\010 \001(\003\022\022\n\nupdated_at\030" +
+      "\t \001(\003\0221\n\rdelivery_type\030\n \001(\0162\032.shippingc" +
+      "alc.DeliveryType\"\354\001\n\021StrategyViewLight\022\023" +
+      "\n\013strategy_id\030\001 \001(\r\022\022\n\ncreator_id\030\002 \001(\t\022" +
+      "\014\n\004name\030\003 \001(\t\022\016\n\006global\030\004 \001(\010\022\020\n\010priorit" +
+      "y\030\005 \001(\r\022\016\n\006stores\030\006 \003(\t\022\023\n\013description\030\007" +
+      " \001(\t\022\022\n\ncreated_at\030\010 \001(\003\022\022\n\nupdated_at\030\t" +
+      " \001(\003\0221\n\rdelivery_type\030\n \001(\0162\032.shippingca" +
+      "lc.DeliveryType\"Z\n\025UnbindStrategyRequest" +
+      "\022\023\n\013strategy_id\030\001 \001(\r\022,\n\005binds\030\002 \003(\0132\035.s" +
+      "hippingcalc.StrategyBinding\"F\n\026UnbindStr" +
+      "ategyResponse\022,\n\010strategy\030\001 \001(\0132\032.shippi" +
+      "ngcalc.StrategyView\"p\n\024GetStrategiesRequ" +
+      "est\022\025\n\rstrategy_name\030\001 \001(\t\0221\n\rdelivery_t" +
+      "ype\030\002 \001(\0162\032.shippingcalc.DeliveryType\022\016\n" +
+      "\006stores\030\003 \003(\t\"L\n\025GetStrategiesResponse\0223" +
+      "\n\nstrategies\030\001 \003(\0132\037.shippingcalc.Strate" +
+      "gyViewLight\")\n\022GetStrategyRequest\022\023\n\013str" +
+      "ategy_id\030\001 \001(\r\"\241\001\n\023GetStrategyResponse\022," +
+      "\n\010strategy\030\001 \001(\0132\032.shippingcalc.Strategy" +
+      "View\022%\n\005rules\030\002 \003(\0132\026.shippingcalc.RuleV" +
+      "iew\0225\n\016min_cart_rules\030\003 \003(\0132\035.shippingca" +
+      "lc.MinCartRuleView\"\306\001\n\010RuleView\022\n\n\002id\030\001 " +
+      "\001(\r\022\021\n\tscript_id\030\002 \001(\r\022\023\n\013script_name\030\003 " +
+      "\001(\t\022\033\n\023script_param_values\030\004 \001(\t\022/\n\ncond" +
+      "itions\030\005 \003(\0132\033.shippingcalc.ConditionVie" +
+      "w\022\020\n\010priority\030\006 \001(\005\022\022\n\ncreator_id\030\007 \001(\t\022" +
+      "\022\n\ncreated_at\030\010 \001(\003\"\240\001\n\017MinCartRuleView\022" +
+      "\n\n\002id\030\001 \001(\r\022\026\n\016min_cart_value\030\002 \001(\004\022/\n\nc" +
+      "onditions\030\003 \003(\0132\033.shippingcalc.Condition" +
+      "View\022\020\n\010priority\030\004 \001(\005\022\022\n\ncreator_id\030\005 \001" +
+      "(\t\022\022\n\ncreated_at\030\006 \001(\003\"T\n\rConditionView\022" +
+      "3\n\016condition_type\030\001 \001(\0162\033.shippingcalc.C" +
+      "onditionType\022\016\n\006params\030\002 \001(\t\"s\n\034GetStrat" +
+      "egiesForStoreRequest\022\020\n\010store_id\030\001 \001(\t\022\016" +
+      "\n\006tenant\030\002 \001(\t\0221\n\rdelivery_type\030\003 \001(\0162\032." +
+      "shippingcalc.DeliveryType\"\\\n\025ExplainedSt" +
+      "rategyView\022\023\n\013strategy_id\030\001 \001(\r\022.\n\007bindi" +
+      "ng\030\002 \001(\0132\035.shippingcalc.StrategyBinding\"" +
+      "V\n\035GetStrategiesForStoreResponse\0225\n\010stra" +
+      "tegy\030\001 \003(\0132#.shippingcalc.ExplainedStrat" +
+      "egyView\",\n\025DeleteStrategyRequest\022\023\n\013stra" +
+      "tegy_id\030\001 \001(\r\"\030\n\026DeleteStrategyResponse\"" +
+      "S\n\023CreateScriptRequest\022\023\n\013script_name\030\001 " +
+      "\001(\t\022\023\n\013script_body\030\002 \001(\t\022\022\n\ncreator_id\030\003" +
+      " \001(\t\"k\n\024CreateScriptResponse\022\021\n\tscript_i" +
+      "d\030\001 \001(\r\022(\n\005state\030\002 \001(\0162\031.shippingcalc.Sc" +
+      "riptState\022\026\n\016result_message\030\003 \001(\t\"f\n\023Upd" +
+      "ateScriptRequest\022\021\n\tscript_id\030\001 \001(\r\022\023\n\013s" +
+      "cript_name\030\002 \001(\t\022\023\n\013script_body\030\003 \001(\t\022\022\n" +
+      "\ncreator_id\030\004 \001(\t\"X\n\024UpdateScriptRespons" +
+      "e\022(\n\005state\030\001 \001(\0162\031.shippingcalc.ScriptSt" +
+      "ate\022\026\n\016result_message\030\003 \001(\t\"\023\n\021GetScript" +
+      "sRequest\"?\n\022GetScriptsResponse\022)\n\007script" +
+      "s\030\001 \003(\0132\030.shippingcalc.ScriptView\"\221\002\n\nSc" +
+      "riptView\022\021\n\tscript_id\030\001 \001(\r\022\023\n\013script_na" +
+      "me\030\002 \001(\t\022\023\n\013script_body\030\003 \001(\t\0222\n\017require" +
+      "d_params\030\004 \003(\0132\031.shippingcalc.ScriptPara" +
+      "m\022\022\n\ncreated_at\030\005 \001(\003\022\022\n\nupdated_at\030\006 \001(" +
+      "\003\0223\n\005state\030\007 \001(\0162$.shippingcalc.ScriptVi" +
+      "ew.ScriptState\"5\n\013ScriptState\022\010\n\004NONE\020\000\022" +
+      "\013\n\007TEST_OK\020\001\022\017\n\013TEST_FAILED\020\002\"\274\001\n\013Script" +
+      "Param\0227\n\004type\030\001 \001(\0162).shippingcalc.Scrip" +
+      "tParam.ScriptParamType\022\014\n\004name\030\002 \001(\t\022\017\n\007" +
+      "caption\030\003 \001(\t\022\020\n\010fraction\030\004 \001(\004\"C\n\017Scrip" +
+      "tParamType\022\017\n\013PARAM_FLOAT\020\000\022\r\n\tPARAM_INT" +
+      "\020\001\022\020\n\014PARAM_STRING\020\002\"%\n\020GetScriptRequest" +
+      "\022\021\n\tscript_id\030\001 \001(\r\"=\n\021GetScriptResponse" +
+      "\022(\n\006script\030\001 \001(\0132\030.shippingcalc.ScriptVi" +
+      "ew\"(\n\023DeleteScriptRequest\022\021\n\tscript_id\030\001" +
+      " \001(\r\"\026\n\024DeleteScriptResponse\"0\n\033GetScrip" +
+      "tTestResultsRequest\022\021\n\tscript_id\030\001 \001(\r\"c" +
+      "\n\034GetScriptTestResultsResponse\022/\n\007result" +
+      "s\030\001 \003(\0132\036.shippingcalc.ScriptTestResult\022" +
+      "\022\n\nall_passed\030\002 \001(\010\"L\n\020ScriptTestResult\022" +
+      "\021\n\ttest_name\030\001 \001(\t\022\016\n\006passed\030\002 \001(\010\022\025\n\rer" +
+      "ror_message\030\003 \001(\t\"\220\003\n\027GetDeliveryPriceRe" +
+      "quest\022\020\n\010order_id\030\001 \001(\t\022)\n\tshipments\030\003 \003" +
+      "(\0132\026.shippingcalc.Shipment\022(\n\010customer\030\004" +
+      " \001(\0132\026.shippingcalc.Customer\022\024\n\014is_b2b_o" +
+      "rder\030\005 \001(\010\022\024\n\014is_promocode\030\006 \001(\010\022\026\n\016paym" +
+      "ent_method\030\007 \001(\t\022\032\n\022has_payment_method\030\010" +
+      " \001(\010\0221\n\rdelivery_type\030\t \001(\0162\032.shippingca" +
+      "lc.DeliveryType\022\021\n\ttenant_id\030\013 \001(\t\022\025\n\rpl" +
+      "atform_name\030\014 \001(\t\022\030\n\020platform_version\030\r " +
+      "\001(\t\022\026\n\ttest_meta\030\016 \001(\tH\000\210\001\001\022\021\n\tclient_id" +
+      "\030\017 \001(\tB\014\n\n_test_meta\"\321\002\n\010Shipment\022\n\n\002id\030" +
+      "\001 \001(\t\022\023\n\013is_ondemand\030\002 \001(\010\0222\n\010products\030\003" +
+      " \003(\0132\034.shippingcalc.ProductRequestB\002\030\001\022\016" +
+      "\n\006weight\030\004 \001(\004\022\023\n\013items_count\030\005 \001(\r\022\r\n\005p" +
+      "rice\030\006 \001(\004\022\020\n\010store_id\030\007 \001(\t\022\016\n\006status\030\010" +
+      " \001(\t\022\021\n\tregion_id\030\t \001(\004\022&\n\036surge_deliver" +
+      "y_window_addition\030\n \001(\004\022\013\n\003lat\030\013 \001(\002\022\013\n\003" +
+      "lon\030\014 \001(\002\022\023\n\013retailer_id\030\r \001(\004\022\027\n\017store_" +
+      "labels_id\030\016 \003(\004\022\027\n\017positions_count\030\017 \001(\r" +
+      "\"e\n\016ProductRequest\022\020\n\010quantity\030\001 \001(\r\022\n\n\002" +
+      "id\030\002 \001(\t\022\r\n\005price\030\003 \001(\004\022\026\n\016discount_pric" +
+      "e\030\004 \001(\004\022\016\n\006weight\030\005 \001(\004\"s\n\010Customer\022\n\n\002i" +
+      "d\030\001 \001(\t\022\024\n\014anonymous_id\030\002 \001(\t\022\024\n\014orders_" +
+      "count\030\003 \001(\r\022\025\n\rregistered_at\030\004 \001(\003\022\013\n\003la" +
+      "t\030\005 \001(\002\022\013\n\003lon\030\006 \001(\002\"\304\001\n\030GetDeliveryPric" +
+      "eResponse\022\031\n\021is_order_possible\030\001 \001(\010\022\036\n\022" +
+      "minimal_cart_price\030\002 \001(\004B\002\030\001\022\036\n\022minimal_" +
+      "cart_items\030\003 \001(\rB\002\030\001\022\034\n\024total_shipping_p" +
+      "rice\030\004 \001(\004\022/\n\tshipments\030\005 \003(\0132\034.shipping" +
+      "calc.PricedShipment\"\372\003\n\016PricedShipment\022\023" +
+      "\n\013shipment_id\030\001 \001(\t\022\026\n\016shipping_price\030\002 " +
+      "\001(\004\022\030\n\020offer_expires_at\030\003 \001(\003\022\022\n\noffer_h" +
+      "ash\030\004 \001(\t\022(\n\006ladder\030\005 \003(\0132\030.shippingcalc" +
+      ".LadderStep\022\023\n\013strategy_id\030\006 \001(\r\022\017\n\007rule" +
+      "_id\030\007 \001(\r\022\024\n\014we_had_offer\030\010 \001(\010\022\034\n\024surge" +
+      "_level_addition\030\t \001(\004\022\022\n\nsurge_used\030\n \001(" +
+      "\010\022\023\n\013surge_level\030\013 \001(\002\022&\n\036surge_delivery" +
+      "_window_addition\030\014 \001(\004\022&\n\005hints\030\r \003(\0132\027." +
+      "shippingcalc.PriceHint\0229\n\021price_explanat" +
+      "ion\030\016 \001(\0132\036.shippingcalc.PriceExplanatio" +
+      "n\022\032\n\022minimal_cart_price\030\017 \001(\004\022\037\n\027surge_m" +
+      "in_cart_addition\030\020 \001(\004\022\030\n\020min_cart_rule_" +
+      "id\030\021 \001(\r\"a\n\tPriceHint\022\014\n\004type\030\001 \001(\t\022\017\n\007c" +
+      "aption\030\002 \001(\t\022\r\n\005price\030\003 \001(\004\022\030\n\020additiona" +
+      "l_label\030\004 \001(\t\022\014\n\004meta\030\005 \001(\t\"\211\001\n\020PriceExp" +
+      "lanation\022=\n\021passed_conditions\030\001 \003(\0132\".sh" +
+      "ippingcalc.PricePassedCondition\0226\n\020price" +
+      "_components\030\002 \003(\0132\034.shippingcalc.PriceCo" +
+      "mponent\"4\n\024PricePassedCondition\022\014\n\004type\030" +
+      "\001 \001(\t\022\016\n\006params\030\002 \001(\t\";\n\016PriceComponent\022" +
+      "\014\n\004type\030\001 \001(\t\022\r\n\005price\030\002 \001(\004\022\014\n\004meta\030\003 \001" +
+      "(\t\"\250\001\n\nLadderStep\022\027\n\nprice_from\030\001 \001(\004H\000\210" +
+      "\001\001\022\025\n\010price_to\030\002 \001(\004H\001\210\001\001\022\026\n\016shipping_pr" +
+      "ice\030\003 \001(\004\0226\n\020price_components\030\004 \003(\0132\034.sh" +
+      "ippingcalc.PriceComponentB\r\n\013_price_from" +
+      "B\013\n\t_price_to\"\213\001\n\rSurgeInterval\022\025\n\rleft_" +
+      "boundary\030\001 \001(\002\022\026\n\016right_boundary\030\002 \001(\002\022\026" +
+      "\n\016price_addition\030\003 \001(\004\022\030\n\020percent_additi" +
+      "on\030\004 \001(\004\022\031\n\021min_cart_addition\030\005 \001(\004\"J\n\030S" +
+      "etIntervalsSurgeRequest\022.\n\tintervals\030\001 \003" +
+      "(\0132\033.shippingcalc.SurgeInterval\"\033\n\031SetIn" +
+      "tervalsSurgeResponse\"\032\n\030GetIntervalsSurg" +
+      "eRequest\"K\n\031GetIntervalsSurgeResponse\022.\n" +
+      "\tintervals\030\001 \003(\0132\033.shippingcalc.SurgeInt" +
+      "erval\"m\n\031SurgeSwitchbackExperiment\022\027\n\017st" +
+      "art_date_time\030\001 \001(\003\022\025\n\rend_date_time\030\002 \001" +
+      "(\003\022\021\n\tregion_id\030\003 \001(\004\022\r\n\005group\030\004 \001(\t\"d\n\037" +
+      "SetSwitchbackExperimentsRequest\022\014\n\004data\030" +
+      "\001 \001(\t\0223\n\004type\030\002 \001(\0162%.shippingcalc.Surge" +
+      "SwitchbackDataType\"\"\n SetSwitchbackExper" +
+      "imentsResponse\"!\n\037GetSwitchbackExperimen" +
+      "tsRequest\"`\n GetSwitchbackExperimentsRes" +
+      "ponse\022<\n\013experiments\030\001 \003(\0132\'.shippingcal" +
+      "c.SurgeSwitchbackExperiment\"\335\001\n\030GetMinCa" +
+      "rtAmountsRequest\022#\n\006stores\030\001 \003(\0132\023.shipp" +
+      "ingcalc.Store\022(\n\010customer\030\002 \001(\0132\026.shippi" +
+      "ngcalc.Customer\022\016\n\006tenant\030\003 \001(\t\0221\n\rdeliv" +
+      "ery_type\030\004 \001(\0162\032.shippingcalc.DeliveryTy" +
+      "pe\022\025\n\rplatform_name\030\005 \001(\t\022\030\n\020platform_ve" +
+      "rsion\030\006 \001(\t\"j\n\005Store\022\n\n\002id\030\001 \001(\t\022\013\n\003lat\030" +
+      "\002 \001(\002\022\013\n\003lon\030\003 \001(\002\022\023\n\013is_ondemand\030\007 \001(\010\022" +
+      "\021\n\tregion_id\030\010 \001(\004\022\023\n\013retailer_id\030\t \001(\004\"" +
+      "R\n\031GetMinCartAmountsResponse\0225\n\020min_cart" +
+      "_amounts\030\001 \003(\0132\033.shippingcalc.MinCartAmo" +
+      "unt\"t\n\rMinCartAmount\022\020\n\010store_id\030\001 \001(\t\022\022" +
+      "\n\006amount\030\002 \001(\004B\002\030\001\022\037\n\027amount_courier_del" +
+      "ivery\030\003 \001(\004\022\034\n\024amount_self_delivery\030\004 \001(" +
+      "\004\"\341\001\n\034GetDeliveryConditionsRequest\022#\n\006st" +
+      "ores\030\001 \003(\0132\023.shippingcalc.Store\022(\n\010custo" +
+      "mer\030\002 \001(\0132\026.shippingcalc.Customer\022\016\n\006ten" +
+      "ant\030\003 \001(\t\0221\n\rdelivery_type\030\004 \001(\0162\032.shipp" +
+      "ingcalc.DeliveryType\022\025\n\rplatform_name\030\005 " +
+      "\001(\t\022\030\n\020platform_version\030\006 \001(\t\"2\n\005Surge\022\r" +
+      "\n\005is_on\030\001 \001(\010\022\r\n\005level\030\002 \001(\002\022\013\n\003ttl\030\003 \001(" +
+      "\003\"\214\001\n\021DeliveryCondition\022\020\n\010store_id\030\001 \001(" +
+      "\t\022\027\n\017min_cart_amount\030\002 \001(\004\022\"\n\005surge\030\003 \001(" +
+      "\0132\023.shippingcalc.Surge\022(\n\006ladder\030\004 \003(\0132\030" +
+      ".shippingcalc.LadderStep\"]\n\035GetDeliveryC" +
+      "onditionsResponse\022<\n\023delivery_conditions" +
+      "\030\001 \003(\0132\037.shippingcalc.DeliveryCondition\"" +
+      "\355\001\n\030CreateBindingRuleRequest\022\023\n\013strategy" +
+      "_id\030\001 \001(\r\022\026\n\ttenant_id\030\002 \001(\tH\000\210\001\001\022\026\n\treg" +
+      "ion_id\030\003 \001(\004H\001\210\001\001\022\030\n\013retailer_id\030\004 \001(\004H\002" +
+      "\210\001\001\022\025\n\010ondemand\030\005 \001(\010H\003\210\001\001\022\025\n\010label_id\030\006" +
+      " \001(\004H\004\210\001\001B\014\n\n_tenant_idB\014\n\n_region_idB\016\n" +
+      "\014_retailer_idB\013\n\t_ondemandB\013\n\t_label_id\"" +
+      "\033\n\031CreateBindingRuleResponse\"\233\002\n\030UpdateB" +
+      "indingRuleRequest\022\027\n\017binding_rule_id\030\001 \001" +
+      "(\r\022\030\n\013strategy_id\030\002 \001(\rH\000\210\001\001\022\026\n\ttenant_i" +
+      "d\030\003 \001(\tH\001\210\001\001\022\026\n\tregion_id\030\004 \001(\004H\002\210\001\001\022\030\n\013" +
+      "retailer_id\030\005 \001(\004H\003\210\001\001\022\025\n\010ondemand\030\006 \001(\010" +
+      "H\004\210\001\001\022\025\n\010label_id\030\007 \001(\004H\005\210\001\001B\016\n\014_strateg" +
+      "y_idB\014\n\n_tenant_idB\014\n\n_region_idB\016\n\014_ret" +
+      "ailer_idB\013\n\t_ondemandB\013\n\t_label_id\"\033\n\031Up" +
+      "dateBindingRuleResponse\"\030\n\026GetBindingRul" +
+      "esRequest\"K\n\027GetBindingRulesResponse\0220\n\r" +
+      "binding_rules\030\001 \003(\0132\031.shippingcalc.Bindi" +
+      "ngRule\"3\n\030DeleteBindingRuleRequest\022\027\n\017bi" +
+      "nding_rule_id\030\001 \001(\r\"\033\n\031DeleteBindingRule" +
+      "Response\"\276\003\n\013BindingRule\022\n\n\002id\030\001 \001(\r\022\023\n\013" +
+      "strategy_id\030\002 \001(\r\022,\n\010shipping\030\003 \001(\0162\032.sh" +
+      "ippingcalc.DeliveryType\022\026\n\ttenant_id\030\004 \001" +
+      "(\tH\000\210\001\001\022\026\n\tregion_id\030\005 \001(\004H\001\210\001\001\022\030\n\013retai" +
+      "ler_id\030\006 \001(\004H\002\210\001\001\022\025\n\010ondemand\030\007 \001(\010H\003\210\001\001" +
+      "\022\025\n\010label_id\030\010 \001(\004H\004\210\001\001\022.\n\ncreated_at\030\t " +
+      "\001(\0132\032.google.protobuf.Timestamp\022.\n\nupdat" +
+      "ed_at\030\n \001(\0132\032.google.protobuf.Timestamp\022" +
+      "3\n\ndeleted_at\030\013 \001(\0132\032.google.protobuf.Ti" +
+      "mestampH\005\210\001\001B\014\n\n_tenant_idB\014\n\n_region_id" +
+      "B\016\n\014_retailer_idB\013\n\t_ondemandB\013\n\t_label_" +
+      "idB\r\n\013_deleted_at*a\n\014DeliveryType\022\010\n\004NON" +
+      "E\020\000\022\021\n\rSELF_DELIVERY\020\001\022\024\n\020COURIER_DELIVE" +
+      "RY\020\002\022\007\n\003B2B\020\003\022\025\n\021B2B_SELF_DELIVERY\020\004*\272\001\n" +
+      "\rConditionType\022\n\n\006ALWAYS\020\000\022\022\n\016FIRST_N_OR" +
+      "DERS\020\001\022\025\n\021ORDER_VALUE_RANGE\020\002\022\024\n\020AB_TEST" +
+      "_ENTRANCE\020\003\022\030\n\024ORDER_DISTANCE_RANGE\020\004\022\r\n" +
+      "\tPLATFORMS\020\005\022\024\n\020REGISTERED_AFTER\020\006\022\r\n\tON" +
+      "_DEMAND\020\007\022\016\n\nCLIENT_API\020\010*1\n\013ScriptState" +
+      "\022\020\n\014SCRIPT_VALID\020\000\022\020\n\014SCRIPT_ERROR\020\001*\"\n\027" +
+      "SurgeSwitchbackDataType\022\007\n\003CSV\020\0002\233\023\n\014Shi" +
+      "ppingcalc\022[\n\016CreateStrategy\022#.shippingca" +
+      "lc.CreateStrategyRequest\032$.shippingcalc." +
+      "CreateStrategyResponse\022[\n\016UpdateStrategy" +
+      "\022#.shippingcalc.UpdateStrategyRequest\032$." +
+      "shippingcalc.UpdateStrategyResponse\022U\n\014B" +
+      "indStrategy\022!.shippingcalc.BindStrategyR" +
+      "equest\032\".shippingcalc.BindStrategyRespon" +
+      "se\022[\n\016UnbindStrategy\022#.shippingcalc.Unbi" +
+      "ndStrategyRequest\032$.shippingcalc.UnbindS" +
+      "trategyResponse\022d\n\021CreateBindingRule\022&.s" +
+      "hippingcalc.CreateBindingRuleRequest\032\'.s" +
+      "hippingcalc.CreateBindingRuleResponse\022d\n" +
+      "\021UpdateBindingRule\022&.shippingcalc.Update" +
+      "BindingRuleRequest\032\'.shippingcalc.Update" +
+      "BindingRuleResponse\022^\n\017GetBindingRules\022$" +
+      ".shippingcalc.GetBindingRulesRequest\032%.s" +
+      "hippingcalc.GetBindingRulesResponse\022d\n\021D" +
+      "eleteBindingRule\022&.shippingcalc.DeleteBi" +
+      "ndingRuleRequest\032\'.shippingcalc.DeleteBi" +
+      "ndingRuleResponse\022X\n\rGetStrategies\022\".shi" +
+      "ppingcalc.GetStrategiesRequest\032#.shippin" +
+      "gcalc.GetStrategiesResponse\022R\n\013GetStrate" +
+      "gy\022 .shippingcalc.GetStrategyRequest\032!.s" +
+      "hippingcalc.GetStrategyResponse\022p\n\025GetSt" +
+      "rategiesForStore\022*.shippingcalc.GetStrat" +
+      "egiesForStoreRequest\032+.shippingcalc.GetS" +
+      "trategiesForStoreResponse\022[\n\016DeleteStrat" +
+      "egy\022#.shippingcalc.DeleteStrategyRequest" +
+      "\032$.shippingcalc.DeleteStrategyResponse\022U" +
+      "\n\014CreateScript\022!.shippingcalc.CreateScri" +
+      "ptRequest\032\".shippingcalc.CreateScriptRes" +
+      "ponse\022U\n\014UpdateScript\022!.shippingcalc.Upd" +
+      "ateScriptRequest\032\".shippingcalc.UpdateSc" +
+      "riptResponse\022L\n\tGetScript\022\036.shippingcalc" +
+      ".GetScriptRequest\032\037.shippingcalc.GetScri" +
+      "ptResponse\022O\n\nGetScripts\022\037.shippingcalc." +
+      "GetScriptsRequest\032 .shippingcalc.GetScri" +
+      "ptsResponse\022m\n\024GetScriptTestResults\022).sh" +
+      "ippingcalc.GetScriptTestResultsRequest\032*" +
+      ".shippingcalc.GetScriptTestResultsRespon" +
+      "se\022U\n\014DeleteScript\022!.shippingcalc.Delete" +
+      "ScriptRequest\032\".shippingcalc.DeleteScrip" +
+      "tResponse\022a\n\020GetDeliveryPrice\022%.shipping" +
+      "calc.GetDeliveryPriceRequest\032&.shippingc" +
+      "alc.GetDeliveryPriceResponse\022d\n\021SetInter" +
+      "valsSurge\022&.shippingcalc.SetIntervalsSur" +
+      "geRequest\032\'.shippingcalc.SetIntervalsSur" +
+      "geResponse\022d\n\021GetIntervalsSurge\022&.shippi" +
+      "ngcalc.GetIntervalsSurgeRequest\032\'.shippi" +
+      "ngcalc.GetIntervalsSurgeResponse\022y\n\030SetS" +
+      "witchbackExperiments\022-.shippingcalc.SetS" +
+      "witchbackExperimentsRequest\032..shippingca" +
+      "lc.SetSwitchbackExperimentsResponse\022y\n\030G" +
+      "etSwitchbackExperiments\022-.shippingcalc.G" +
+      "etSwitchbackExperimentsRequest\032..shippin" +
+      "gcalc.GetSwitchbackExperimentsResponse\022d" +
+      "\n\021GetMinCartAmounts\022&.shippingcalc.GetMi" +
+      "nCartAmountsRequest\032\'.shippingcalc.GetMi" +
+      "nCartAmountsResponse\022p\n\025GetDeliveryCondi" +
+      "tions\022*.shippingcalc.GetDeliveryConditio" +
+      "nsRequest\032+.shippingcalc.GetDeliveryCond" +
+      "itionsResponseBTP\001ZPgitlab.sbmt.io/paas/" +
+      "content/operations/shippingcalc/pkg/serv" +
+      "er/grpc/shippingcalcb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_shippingcalc_CreateStrategyRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -903,13 +994,13 @@ public final class ShippingcalcOuterClass {
     internal_static_shippingcalc_GetDeliveryPriceRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetDeliveryPriceRequest_descriptor,
-        new java.lang.String[] { "OrderId", "Shipments", "Customer", "IsB2BOrder", "IsPromocode", "PaymentMethod", "HasPaymentMethod", "DeliveryType", "TenantId", "PlatformName", "PlatformVersion", });
+        new java.lang.String[] { "OrderId", "Shipments", "Customer", "IsB2BOrder", "IsPromocode", "PaymentMethod", "HasPaymentMethod", "DeliveryType", "TenantId", "PlatformName", "PlatformVersion", "TestMeta", "ClientId", "TestMeta", });
     internal_static_shippingcalc_Shipment_descriptor =
       getDescriptor().getMessageTypes().get(42);
     internal_static_shippingcalc_Shipment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_Shipment_descriptor,
-        new java.lang.String[] { "Id", "IsOndemand", "Products", "Weight", "ItemsCount", "Price", "StoreId", "Status", "RegionId", "SurgeDeliveryWindowAddition", "Lat", "Lon", "RetailerId", });
+        new java.lang.String[] { "Id", "IsOndemand", "Products", "Weight", "ItemsCount", "Price", "StoreId", "Status", "RegionId", "SurgeDeliveryWindowAddition", "Lat", "Lon", "RetailerId", "StoreLabelsId", "PositionsCount", });
     internal_static_shippingcalc_ProductRequest_descriptor =
       getDescriptor().getMessageTypes().get(43);
     internal_static_shippingcalc_ProductRequest_fieldAccessorTable = new
@@ -1072,6 +1163,61 @@ public final class ShippingcalcOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_GetDeliveryConditionsResponse_descriptor,
         new java.lang.String[] { "DeliveryConditions", });
+    internal_static_shippingcalc_CreateBindingRuleRequest_descriptor =
+      getDescriptor().getMessageTypes().get(70);
+    internal_static_shippingcalc_CreateBindingRuleRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_CreateBindingRuleRequest_descriptor,
+        new java.lang.String[] { "StrategyId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", });
+    internal_static_shippingcalc_CreateBindingRuleResponse_descriptor =
+      getDescriptor().getMessageTypes().get(71);
+    internal_static_shippingcalc_CreateBindingRuleResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_CreateBindingRuleResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_shippingcalc_UpdateBindingRuleRequest_descriptor =
+      getDescriptor().getMessageTypes().get(72);
+    internal_static_shippingcalc_UpdateBindingRuleRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_UpdateBindingRuleRequest_descriptor,
+        new java.lang.String[] { "BindingRuleId", "StrategyId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "StrategyId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", });
+    internal_static_shippingcalc_UpdateBindingRuleResponse_descriptor =
+      getDescriptor().getMessageTypes().get(73);
+    internal_static_shippingcalc_UpdateBindingRuleResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_UpdateBindingRuleResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_shippingcalc_GetBindingRulesRequest_descriptor =
+      getDescriptor().getMessageTypes().get(74);
+    internal_static_shippingcalc_GetBindingRulesRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_GetBindingRulesRequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_shippingcalc_GetBindingRulesResponse_descriptor =
+      getDescriptor().getMessageTypes().get(75);
+    internal_static_shippingcalc_GetBindingRulesResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_GetBindingRulesResponse_descriptor,
+        new java.lang.String[] { "BindingRules", });
+    internal_static_shippingcalc_DeleteBindingRuleRequest_descriptor =
+      getDescriptor().getMessageTypes().get(76);
+    internal_static_shippingcalc_DeleteBindingRuleRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_DeleteBindingRuleRequest_descriptor,
+        new java.lang.String[] { "BindingRuleId", });
+    internal_static_shippingcalc_DeleteBindingRuleResponse_descriptor =
+      getDescriptor().getMessageTypes().get(77);
+    internal_static_shippingcalc_DeleteBindingRuleResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_DeleteBindingRuleResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_shippingcalc_BindingRule_descriptor =
+      getDescriptor().getMessageTypes().get(78);
+    internal_static_shippingcalc_BindingRule_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_BindingRule_descriptor,
+        new java.lang.String[] { "Id", "StrategyId", "Shipping", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "CreatedAt", "UpdatedAt", "DeletedAt", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "DeletedAt", });
+    com.google.protobuf.TimestampProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

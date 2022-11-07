@@ -218,4 +218,56 @@ public interface GetDeliveryPriceRequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getPlatformVersionBytes();
+
+  /**
+   * <pre>
+   * Это поле используется только в тестовых запросах (например, для НТ).
+   * В нем хранится некоторая тестовая метаинформация
+   * </pre>
+   *
+   * <code>optional string test_meta = 14;</code>
+   * @return Whether the testMeta field is set.
+   */
+  boolean hasTestMeta();
+  /**
+   * <pre>
+   * Это поле используется только в тестовых запросах (например, для НТ).
+   * В нем хранится некоторая тестовая метаинформация
+   * </pre>
+   *
+   * <code>optional string test_meta = 14;</code>
+   * @return The testMeta.
+   */
+  java.lang.String getTestMeta();
+  /**
+   * <pre>
+   * Это поле используется только в тестовых запросах (например, для НТ).
+   * В нем хранится некоторая тестовая метаинформация
+   * </pre>
+   *
+   * <code>optional string test_meta = 14;</code>
+   * @return The bytes for testMeta.
+   */
+  com.google.protobuf.ByteString
+      getTestMetaBytes();
+
+  /**
+   * <pre>
+   * Идентификатор внешней витрины
+   * </pre>
+   *
+   * <code>string client_id = 15;</code>
+   * @return The clientId.
+   */
+  java.lang.String getClientId();
+  /**
+   * <pre>
+   * Идентификатор внешней витрины
+   * </pre>
+   *
+   * <code>string client_id = 15;</code>
+   * @return The bytes for clientId.
+   */
+  com.google.protobuf.ByteString
+      getClientIdBytes();
 }
