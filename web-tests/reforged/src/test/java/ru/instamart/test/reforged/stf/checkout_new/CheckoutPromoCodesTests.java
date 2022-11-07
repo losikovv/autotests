@@ -28,7 +28,7 @@ public final class CheckoutPromoCodesTests {
 
     @CaseId(3612)
     @Story("Промокоды")
-    @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Доставка", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Доставка", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testApplyFreeDeliveryPromo() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -72,7 +72,7 @@ public final class CheckoutPromoCodesTests {
 
     @CaseId(3612)
     @Story("Промокоды")
-    @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Самовывоз", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Применение промокода на бесплатную доставку и сборку при методе Самовывоз", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testApplyFreeDeliveryPromoOnPickup() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -120,7 +120,7 @@ public final class CheckoutPromoCodesTests {
 
     @CaseIDs(value = {@CaseId(3689), @CaseId(3646), @CaseId(3781)})
     @Story("Промокоды")
-    @Test(description = "Проверка отображения примененного промокода после рефреша", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Проверка отображения примененного промокода после рефреша", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSuccessApplyPromo() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -165,7 +165,7 @@ public final class CheckoutPromoCodesTests {
 
     @CaseId(3645)
     @Story("Промокоды")
-    @Test(description = "Проверка применения несуществующего промокода", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Проверка применения несуществующего промокода", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testApplyNonExistPromo() {
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
