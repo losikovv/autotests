@@ -1,5 +1,6 @@
 package ru.instamart.test.api.on_demand.surgelevel;
 
+import events.CandidateChangesOuterClass;
 import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
@@ -13,6 +14,7 @@ import ru.instamart.grpc.common.GrpcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.surgelevel.ResultDao;
 import ru.instamart.jdbc.dao.surgelevel.StoreDao;
+import ru.instamart.jdbc.entity.surgelevel.ResultEntity;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -25,9 +27,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
-import static ru.instamart.api.helper.SurgeLevelHelper.addStore;
-import static ru.instamart.api.helper.SurgeLevelHelper.checkSurgeLevelProduce;
+import static ru.instamart.api.helper.SurgeLevelHelper.*;
+import static ru.instamart.kraken.enums.ScheduleType.DISPATCH;
 import static ru.instamart.kraken.util.TimeUtil.getDateMinusSec;
 import static ru.instamart.kraken.util.TimeUtil.getDatePlusSec;
 
@@ -39,13 +42,15 @@ public class ManualSurgeTest extends GrpcBase {
     protected static final KafkaHelper kafka = new KafkaHelper();
     private final String FIRST_STORE_ID = UUID.randomUUID().toString();
     private final String SECOND_STORE_ID = UUID.randomUUID().toString();
+    private final int DELIVERY_AREA_ID = nextInt(150000, 200000);
     private final int LONG_TIMEOUT = 7;
     private final float SURGE_LEVEL = 5;
+    private String expiredAt;
 
     @BeforeClass(alwaysRun = true)
     public void preConditions() {
-        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), true, 1f, 1f, null, 1, 0);
-        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), true, 1f, 1f, null, 1, 0);
+        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), null, true, 1f, 1f, null, 1, DELIVERY_AREA_ID);
+        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), null, true, 1f, 1f, null, 1, DELIVERY_AREA_ID);
         channel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SURGELEVEL);
         client = ServiceGrpc.newBlockingStub(channel);
     }
@@ -90,7 +95,6 @@ public class ManualSurgeTest extends GrpcBase {
             groups = "ondemand-surgelevel-smoke",
             dependsOnMethods = "manualSurgeRecalculate")
     public void saveResultMultipleStores() {
-        float surgeLevel = SURGE_LEVEL + 10;
         var request = Surgelevel.SaveResultRequest.newBuilder()
                 .addStore(Surgelevel.Store.Option.newBuilder()
                         .setId(FIRST_STORE_ID)
@@ -99,7 +103,7 @@ public class ManualSurgeTest extends GrpcBase {
                         .setId(SECOND_STORE_ID)
                         .build())
                 .setResult(Surgelevel.Result.Option.newBuilder()
-                        .setSurgeLevel(surgeLevel)
+                        .setSurgeLevel(SURGE_LEVEL)
                         .setExpiredAt(getDatePlusSec(1200))
                         .build())
                 .build();
@@ -108,11 +112,28 @@ public class ManualSurgeTest extends GrpcBase {
         ThreadUtil.simplyAwait(LONG_TIMEOUT);
 
         Allure.step("Проверка surgelevel", () -> {
-            compareTwoObjects(surgeLevel, ResultDao.INSTANCE.findResult(FIRST_STORE_ID).getSurgeLevel().floatValue());
-            compareTwoObjects(surgeLevel, ResultDao.INSTANCE.findResult(SECOND_STORE_ID).getSurgeLevel().floatValue());
+            ResultEntity firstResult = ResultDao.INSTANCE.findResult(FIRST_STORE_ID);
+            ResultEntity secondResult = ResultDao.INSTANCE.findResult(SECOND_STORE_ID);
+            compareTwoObjects(SURGE_LEVEL, firstResult.getSurgeLevel().floatValue());
+            compareTwoObjects(SURGE_LEVEL, secondResult.getSurgeLevel().floatValue());
+            expiredAt = secondResult.getExpiredAt();
         });
     }
 
+    @CaseId(156)
+    @Story("Manual Surge")
+    @Test(description = "Отсутствие перерасчета surgelevel, если не наступило expiredAt",
+            groups = "ondemand-surgelevel-smoke",
+            dependsOnMethods = "saveResultMultipleStores")
+    public void manualSurgeNotRecalculate() {
+        publishEventCandidateStatus(UUID.randomUUID().toString(), CandidateChangesOuterClass.CandidateChanges.Role.UNIVERSAL, CandidateChangesOuterClass.CandidateChanges.Status.BUSY, 0, DELIVERY_AREA_ID, true, SECOND_STORE_ID, DISPATCH.getName(), LONG_TIMEOUT);
+
+        Allure.step("Проверка отсутствия изменения surgelevel", () -> {
+            ResultEntity result = ResultDao.INSTANCE.findResult(SECOND_STORE_ID);
+            compareTwoObjects(expiredAt, result.getExpiredAt());
+            compareTwoObjects(SURGE_LEVEL, result.getSurgeLevel().floatValue());
+        });
+    }
 
     @CaseId(148)
     @Story("Save Result")

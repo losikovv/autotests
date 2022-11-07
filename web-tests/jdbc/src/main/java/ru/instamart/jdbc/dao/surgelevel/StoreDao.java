@@ -49,6 +49,28 @@ public class StoreDao extends AbstractDao<String, StoreEntity> {
 
     @Override
     public Optional<StoreEntity> findById(String id) {
-        return Optional.empty();
+        StoreEntity store = null;
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SURGE_LEVEL).getConnection();
+             final var preparedStatement = connect.prepareStatement(" SELECT * FROM store WHERE id = ?::uuid")) {
+            preparedStatement.setString(1, id);
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    store = new StoreEntity();
+                    store.setId(resultSet.getString("id"));
+                    store.setConfigId(resultSet.getString("config_id"));
+                    store.setRetailerId(resultSet.getInt("retailer_id"));
+                    store.setRegionId(resultSet.getInt("region_id"));
+                    store.setDeliveryArea(resultSet.getInt("deliveryarea"));
+                    store.setOndemand(resultSet.getBoolean("ondemand"));
+                    store.setLat(resultSet.getFloat("lat"));
+                    store.setLon(resultSet.getFloat("lon"));
+                    store.setActualResultId(resultSet.getString("actual_result_id"));
+                    store.setPredictResultId(resultSet.getString("predict_result_id"));
+                }
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLSurgelevelManager. Error: " + e.getMessage());
+        }
+        return Optional.ofNullable(store);
     }
 }
