@@ -11,6 +11,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.jdbc.dao.surgelevel.*;
 import ru.instamart.jdbc.entity.surgelevel.DemandEntity;
+import ru.instamart.jdbc.entity.surgelevel.StoreEntity;
 import ru.instamart.jdbc.entity.surgelevel.SupplyEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -22,6 +23,7 @@ import surgelevelevent.Surgelevelevent.SurgeEvent.Method;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 import static events.CandidateChangesOuterClass.*;
@@ -43,6 +45,8 @@ public class SurgeTest extends RestBase {
     private final String FIRST_STORE_ID = UUID.randomUUID().toString();
     private final String SECOND_STORE_ID = UUID.randomUUID().toString();
     private final String THIRD_STORE_ID = UUID.randomUUID().toString();
+    private final String STORE_ID_NOT_ON_DEMAND = UUID.randomUUID().toString();
+    private final String STORE_ID_DISABLED = UUID.randomUUID().toString();
     private final String FORMULA_ID = "10000000-1000-1000-1000-100000000000";
     private final String SHIPMENT_UUID = UUID.randomUUID().toString();
     private final String ORDER_UUID = UUID.randomUUID().toString();
@@ -88,10 +92,12 @@ public class SurgeTest extends RestBase {
         distFirstThird = distance(firstStoreLocation.getLat(), firstStoreLocation.getLon(), thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), 'K') * 1000;
 
         checkFormula(FORMULA_ID);
-        addStore(STORE_ID, UUID.randomUUID().toString(), true, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID);
-        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), true, firstStoreLocation.getLat(), firstStoreLocation.getLon(), FORMULA_ID, 1000, SECOND_DELIVERY_AREA_ID);
-        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), true, secondStoreLocation.getLat(), secondStoreLocation.getLon(), FORMULA_ID, 1000, SECOND_DELIVERY_AREA_ID);
-        addStore(THIRD_STORE_ID, UUID.randomUUID().toString(), true, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), FORMULA_ID, 1000, 0);
+        addStore(STORE_ID, UUID.randomUUID().toString(), false, true, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID);
+        addStore(STORE_ID_NOT_ON_DEMAND, UUID.randomUUID().toString(), false, false, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID);
+        addStore(STORE_ID_DISABLED, UUID.randomUUID().toString(), true, true, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID);
+        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), null, true, firstStoreLocation.getLat(), firstStoreLocation.getLon(), FORMULA_ID, 1000, SECOND_DELIVERY_AREA_ID);
+        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), null, true, secondStoreLocation.getLat(), secondStoreLocation.getLon(), FORMULA_ID, 1000, SECOND_DELIVERY_AREA_ID);
+        addStore(THIRD_STORE_ID, UUID.randomUUID().toString(), null, true, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), FORMULA_ID, 1000, 0);
 
         List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.SURGELEVEL_NAMESPACE, " | grep -e SURGEEVENT_OUTDATE ");
         String envPropsStr = String.join("\n", serviceEnvProperties);
@@ -111,6 +117,32 @@ public class SurgeTest extends RestBase {
         ThreadUtil.simplyAwait(surgeEventOutdate - SHORT_TIMEOUT);
     }
 
+    @CaseId(24)
+    @Story("Surge Calculation")
+    @Test(description = "Отсутствие расчета surgelevel для не ON_DEMAND магазинов",
+            groups = "ondemand-surgelevel-regress",
+            dependsOnMethods = "surgeProduceEventOrderOnDemand")
+    public void surgeNotOnDemandStore() {
+        Allure.step("Проверка отсутствия расчета surgelevel", () -> {
+            Optional<StoreEntity> store = StoreDao.INSTANCE.findById(STORE_ID_NOT_ON_DEMAND);
+            assertEquals(STORE_ID_NOT_ON_DEMAND, store.get().getId());
+            assertNull(store.get().getActualResultId());
+        });
+    }
+
+    @CaseId(36)
+    @Story("Surge Calculation")
+    @Test(description = "Отсутствие расчета surgelevel при disabled=true в конфиге",
+            groups = "ondemand-surgelevel-regress",
+            dependsOnMethods = "surgeProduceEventOrderOnDemand")
+    public void surgeDisabledStore() {
+        Allure.step("Проверка отсутствия расчета surgelevel", () -> {
+            Optional<StoreEntity> store = StoreDao.INSTANCE.findById(STORE_ID_DISABLED);
+            assertEquals(STORE_ID_DISABLED, store.get().getId());
+            assertNull(store.get().getActualResultId());
+        });
+    }
+
     @CaseIDs({@CaseId(14), @CaseId(23), @CaseId(25), @CaseId(163), @CaseId(32)})
     @Story("Demand")
     @Test(description = "Добавление demand при получении события с новым ON_DEMAND заказом",
@@ -122,7 +154,7 @@ public class SurgeTest extends RestBase {
         currentDemandAmount++;
 
         List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID);
-        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount,  Method.ACTUAL);
+        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
     }
 
     @CaseId(40)
@@ -147,7 +179,7 @@ public class SurgeTest extends RestBase {
         Allure.step("Проверка отсутствия добавления demand", () -> assertNull(DemandDao.INSTANCE.findDemand(STORE_ID, shipmentUuid), "Заказ добавился в demand"));
     }
 
-    @CaseIDs({@CaseId(133), @CaseId(135)})
+    @CaseIDs({@CaseId(133), @CaseId(135), @CaseId(43)})
     @Story("Demand")
     @Test(description = "Добавление demand для нескольких магазинов при получении события с новым ON_DEMAND заказом",
             groups = "ondemand-surgelevel-smoke")
@@ -252,9 +284,7 @@ public class SurgeTest extends RestBase {
         publishEventCandidateStatus(CANDIDATE_UUID_FAKE_GPS, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
         publishEventLocation(CANDIDATE_UUID_FAKE_GPS, storeLocation.getLat(), storeLocation.getLon(), true, LONG_TIMEOUT);
 
-        Allure.step("Проверка отсутствия supply", () -> {
-            assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID_FAKE_GPS), "Кандидат добавился в supply");
-        });
+        Allure.step("Проверка отсутствия supply", () -> assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID_FAKE_GPS), "Кандидат добавился в supply"));
     }
 
     @CaseId(145)
@@ -353,9 +383,7 @@ public class SurgeTest extends RestBase {
     public void surgeProduceEventCandidateWithLocationWentNotFar() {
         publishEventLocation(CANDIDATE_UUID, storeLocation.getLat() - 0.01f, storeLocation.getLon() - 0.01f, false, LONG_TIMEOUT);
 
-        Allure.step("Проверка supply", () -> {
-            assertNotNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID), "Кандидат удалился из supply");
-        });
+        Allure.step("Проверка supply", () -> assertNotNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID), "Кандидат удалился из supply"));
     }
 
     @CaseId(49)
@@ -518,6 +546,12 @@ public class SurgeTest extends RestBase {
     public void postConditions() {
         if (Objects.nonNull(STORE_ID)) {
             StoreDao.INSTANCE.delete(STORE_ID);
+        }
+        if (Objects.nonNull(STORE_ID_NOT_ON_DEMAND)) {
+            StoreDao.INSTANCE.delete(STORE_ID_NOT_ON_DEMAND);
+        }
+        if (Objects.nonNull(STORE_ID_DISABLED)) {
+            StoreDao.INSTANCE.delete(STORE_ID_DISABLED);
         }
         if (Objects.nonNull(FIRST_STORE_ID)) {
             StoreDao.INSTANCE.delete(FIRST_STORE_ID);
