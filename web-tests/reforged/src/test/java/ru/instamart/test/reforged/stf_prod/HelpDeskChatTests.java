@@ -9,7 +9,7 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
-import static ru.instamart.reforged.stf.page.StfRouter.checkout;
+import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
@@ -31,8 +31,9 @@ public final class HelpDeskChatTests {
         shop().interactHeader().clickToCart();
         shop().interactCart().submitOrder();
 
-        checkout().checkCheckoutButtonIsVisible();
-        checkout().interactHelpDesk().checkHelpDeskWidgetNotVisible();
+        checkoutNew().checkSpinnerNotVisible();
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().interactHelpDesk().checkHelpDeskWidgetNotVisible();
     }
 
     @CaseId(1759)

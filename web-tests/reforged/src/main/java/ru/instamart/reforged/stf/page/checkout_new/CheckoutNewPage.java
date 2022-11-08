@@ -5,6 +5,7 @@ import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.core.page.Window;
+import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.page.StfPage;
 import ru.instamart.reforged.stf.page.checkout_new.add_payment_card_modal.AddPaymentCardModal;
 import ru.instamart.reforged.stf.page.checkout_new.b2b_order_modal.B2BOrderModal;
@@ -32,6 +33,10 @@ public class CheckoutNewPage implements StfPage, CheckoutNewCheck, Window {
 
     public SberSpasiboCardModal interactSberSpasiboModal() {
         return sberSpasiboCardModal;
+    }
+
+    public HelpDesk interactHelpDesk() {
+        return helpDesk;
     }
 
     @Step("Переходим на вкладку 'Самовывоз'")
@@ -76,7 +81,7 @@ public class CheckoutNewPage implements StfPage, CheckoutNewCheck, Window {
 
     @Step("Вводим в поле 'Комментарий': '{commentValue}'")
     public void fillComment(final String commentValue) {
-        entrance.fill(commentValue);
+        comment.fill(commentValue);
     }
 
     @Step("Выбираем чекбокс 'Бесконтактная доставка'")
@@ -158,6 +163,11 @@ public class CheckoutNewPage implements StfPage, CheckoutNewCheck, Window {
     @Step("Получаем сумму заказа")
     public String getOrderAmount() {
         return orderAmount.getText();
+    }
+
+    @Step("Получаем сумму заказа")
+    public Double getOrderAmountDouble() {
+        return StringUtil.stringToDouble(orderAmount.getText());
     }
 
     @Step("Убеждаемся что сумма заказа уменьшилась после применения промокода")

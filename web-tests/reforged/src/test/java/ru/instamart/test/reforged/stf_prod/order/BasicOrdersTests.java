@@ -7,8 +7,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.data.Generate;
-import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
@@ -16,6 +14,9 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.core.config.UiProperties.*;
+import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
+import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
+import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -28,48 +29,6 @@ public final class BasicOrdersTests {
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
         helper.cancelAllActiveOrders(userData);
-    }
-
-    @CaseId(1674)
-    @Test(description = "Тест заказа с добавлением нового юр. лица", groups = {STF_PROD_S})
-    public void successCompleteCheckoutWithNewJuridical() {
-        userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, DEFAULT_SID);
-
-        var company = JuridicalData.juridical();
-
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-        shop().interactHeader().clickToCart();
-        shop().interactCart().submitOrder();
-
-        checkout().checkCheckoutButtonIsVisible();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
-
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
-        checkout().setDeliveryOptions().clickToSubmitForDelivery();
-
-        checkout().checkCheckoutLoaderNotVisible();
-
-        checkout().setContacts().fillContactInfo();
-        checkout().setContacts().clickToSubmit();
-
-        checkout().setReplacementPolicy().checkSubmitVisible();
-        checkout().setReplacementPolicy().clickToSubmit();
-        checkout().setReplacementPolicy().checkReplacementSpinnerNotVisible();
-
-        checkout().setSlot().setLastActiveSlot();
-
-        checkout().setPayment().clickToByCardToCourier();
-        checkout().setPayment().clickToSubmitFromCheckoutColumn();
-
-        userShipments().checkPageContains(userShipments().pageUrl());
     }
 
     @CaseId(1681)
@@ -86,59 +45,42 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToCart();
         shop().interactCart().submitOrder();
 
-        checkout().checkCheckoutButtonIsVisible();
-        checkout().setDeliveryOptions().clickToForSelf();
+        checkoutNew().checkSpinnerNotVisible();
 
-        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
-        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+        var apartmentValue = "1";
+        checkoutNew().fillApartment(apartmentValue);
+        checkoutNew().checkApartmentValue(apartmentValue);
 
-        checkout().checkCheckoutLoaderNotVisible();
+        checkoutNew().fillComment("test");
 
-        checkout().setContacts().fillContactInfo();
-        checkout().setContacts().clickToSubmit();
+        checkoutNew().checkDeliverySlotsVisible();
+        checkoutNew().checkDeliverySlotDateVisible();
+        checkoutNew().checkDeliverySlotDeliveryTimeVisible();
+        checkoutNew().checkDeliverySlotPriceVisible();
 
-        checkout().setReplacementPolicy().clickToSubmit();
+        checkoutNew().clickFirstSlot();
+        checkoutNew().checkSlotActive(1);
 
-        checkout().setSlot().setLastActiveSlot();
+        checkoutNew().openPaymentMethodModal();
+        checkoutNew().interactPaymentMethodsModal().checkModalVisible();
+        checkoutNew().interactPaymentMethodsModal().selectPaymentMethod(BY_CARD_TO_COURIER.getName());
+        checkoutNew().interactPaymentMethodsModal().clickConfirm();
+        checkoutNew().interactPaymentMethodsModal().checkModalNotVisible();
 
-        checkout().setPayment().clickToByCardToCourier();
-        checkout().setPayment().clickToSubmitFromCheckoutColumn();
+        checkoutNew().checkSelectedPaymentMethodContains(BY_CARD_TO_COURIER.getName());
 
-        userShipments().checkPageContains(userShipments().pageUrl());
-    }
+        checkoutNew().clickReplacementPolicy();
+        checkoutNew().selectReplacementPolicyByName(CALL_AND_REMOVE.getName());
+        checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
-    @CaseId(1673)
-    @Test(description = "Тест успешного заказа с оплатой картой курьеру", groups = {STF_PROD_S})
-    public void successOrderWithCardCourier() {
-        userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, DEFAULT_SID);
+        checkoutNew().clickConfirmOrder();
 
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-        shop().interactHeader().clickToCart();
-        shop().interactCart().submitOrder();
+        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkShipmentNumberVisible();
+        userShipment().checkShippingAddressVisible();
+        userShipment().checkShipmentCostVisible();
+        userShipment().checkTotalCostVisible();
 
-        checkout().checkCheckoutButtonIsVisible();
-        checkout().setDeliveryOptions().clickToForSelf();
-
-        checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
-        checkout().setDeliveryOptions().clickToSubmitForDelivery();
-
-        checkout().checkCheckoutLoaderNotVisible();
-
-        checkout().setContacts().fillContactInfo();
-        checkout().setContacts().clickToSubmit();
-
-        checkout().setReplacementPolicy().clickToSubmit();
-
-        checkout().setSlot().setLastActiveSlot();
-
-        checkout().setPayment().clickToByCardToCourier();
-        checkout().setPayment().clickToSubmitFromCheckoutColumn();
-
-        userShipments().checkPageContains(userShipments().pageUrl());
     }
 
     @CaseId(2623)
