@@ -198,7 +198,8 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
     @Step("Проверяем, что текущая выбранная политика замен (блок свернут): '{expectedReplacementPolicy}'")
     default void checkSelectedReplacementPolicyInCollapsedBlock(final String expectedReplacementPolicy) {
         Assert.assertTrue(replacementPolicySummary.getText().contains(expectedReplacementPolicy),
-                String.format("Текущая выбранная политика замен: '%s' не содержит '%s'", replacementPolicySummary.getText(), expectedReplacementPolicy));    }
+                String.format("Текущая выбранная политика замен: '%s' не содержит '%s'", replacementPolicySummary.getText(), expectedReplacementPolicy));
+    }
 
     @Step("Проверяем, что текущая выбранная политика замен: '{expectedReplacementPolicy}'")
     default void checkSelectedReplacementPolicy(final String expectedReplacementPolicy) {
@@ -267,6 +268,11 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
     @Step("Проверяем, что отображается информация о примененном промокоде")
     default void checkPromoAppliedLabelVisible() {
         Kraken.waitAction().shouldBeVisible(promoAppliedLabel);
+    }
+
+    @Step("Проверяем, что значение в поле ввода 'Промокод': {expectedText}")
+    default void checkPromoCodeValue(final String expectedText) {
+        Assert.assertEquals(promoCode.getValue(), expectedText, "Значение в поле ввода 'Промокод' отличается от ожидаемого");
     }
 
     @Step("Проверяем, что стоимость доставки и сборки - бесплатная")
@@ -352,5 +358,11 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
     @Step("Проверяем, что кнопка перехода на Б2Б витрину не отображается")
     default void checkB2BTransitionButtonNotVisible() {
         b2bLink.should().invisible();
+    }
+
+    @Step("Сравниваем сумму заказа до {orderAmountFromCart} и после регистрации {orderAmountFromCheckout}")
+    default void compareOrderAmountAfterRegistration(double orderAmountFromCart, double orderAmountFromCheckout) {
+        krakenAssert.assertEquals(orderAmountFromCart, orderAmountFromCheckout,
+                "Сумма заказа из корзины после регистрации не совпадает с ожидаемой");
     }
 }
