@@ -277,6 +277,12 @@ public final class Eta {
      * @return The estimateSource.
      */
     eta.Eta.EstimateSource getEstimateSource();
+
+    /**
+     * <code>bool is_eta_disabled = 5;</code>
+     * @return The isEtaDisabled.
+     */
+    boolean getIsEtaDisabled();
   }
   /**
    * Protobuf type {@code eta.StoreEta}
@@ -345,6 +351,11 @@ public final class Eta {
               int rawValue = input.readEnum();
 
               estimateSource_ = rawValue;
+              break;
+            }
+            case 40: {
+
+              isEtaDisabled_ = input.readBool();
               break;
             }
             default: {
@@ -458,6 +469,17 @@ public final class Eta {
       return result == null ? eta.Eta.EstimateSource.UNRECOGNIZED : result;
     }
 
+    public static final int IS_ETA_DISABLED_FIELD_NUMBER = 5;
+    private boolean isEtaDisabled_;
+    /**
+     * <code>bool is_eta_disabled = 5;</code>
+     * @return The isEtaDisabled.
+     */
+    @java.lang.Override
+    public boolean getIsEtaDisabled() {
+      return isEtaDisabled_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -484,6 +506,9 @@ public final class Eta {
       if (estimateSource_ != eta.Eta.EstimateSource.ML.getNumber()) {
         output.writeEnum(4, estimateSource_);
       }
+      if (isEtaDisabled_ != false) {
+        output.writeBool(5, isEtaDisabled_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -508,6 +533,10 @@ public final class Eta {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, estimateSource_);
       }
+      if (isEtaDisabled_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, isEtaDisabled_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -530,6 +559,8 @@ public final class Eta {
       if (getSigma()
           != other.getSigma()) return false;
       if (estimateSource_ != other.estimateSource_) return false;
+      if (getIsEtaDisabled()
+          != other.getIsEtaDisabled()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -549,6 +580,9 @@ public final class Eta {
       hash = (53 * hash) + getSigma();
       hash = (37 * hash) + ESTIMATE_SOURCE_FIELD_NUMBER;
       hash = (53 * hash) + estimateSource_;
+      hash = (37 * hash) + IS_ETA_DISABLED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsEtaDisabled());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -690,6 +724,8 @@ public final class Eta {
 
         estimateSource_ = 0;
 
+        isEtaDisabled_ = false;
+
         return this;
       }
 
@@ -720,6 +756,7 @@ public final class Eta {
         result.eta_ = eta_;
         result.sigma_ = sigma_;
         result.estimateSource_ = estimateSource_;
+        result.isEtaDisabled_ = isEtaDisabled_;
         onBuilt();
         return result;
       }
@@ -780,6 +817,9 @@ public final class Eta {
         }
         if (other.estimateSource_ != 0) {
           setEstimateSourceValue(other.getEstimateSourceValue());
+        }
+        if (other.getIsEtaDisabled() != false) {
+          setIsEtaDisabled(other.getIsEtaDisabled());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -998,6 +1038,37 @@ public final class Eta {
       public Builder clearEstimateSource() {
         
         estimateSource_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private boolean isEtaDisabled_ ;
+      /**
+       * <code>bool is_eta_disabled = 5;</code>
+       * @return The isEtaDisabled.
+       */
+      @java.lang.Override
+      public boolean getIsEtaDisabled() {
+        return isEtaDisabled_;
+      }
+      /**
+       * <code>bool is_eta_disabled = 5;</code>
+       * @param value The isEtaDisabled to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsEtaDisabled(boolean value) {
+        
+        isEtaDisabled_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool is_eta_disabled = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsEtaDisabled() {
+        
+        isEtaDisabled_ = false;
         onChanged();
         return this;
       }
@@ -8028,6 +8099,18 @@ public final class Eta {
      * <code>.eta.OrderData order = 2;</code>
      */
     eta.Eta.OrderDataOrBuilder getOrderOrBuilder();
+
+    /**
+     * <code>string anonymousId = 4;</code>
+     * @return The anonymousId.
+     */
+    java.lang.String getAnonymousId();
+    /**
+     * <code>string anonymousId = 4;</code>
+     * @return The bytes for anonymousId.
+     */
+    com.google.protobuf.ByteString
+        getAnonymousIdBytes();
   }
   /**
    * Protobuf type {@code eta.UserEtaRequest}
@@ -8042,6 +8125,7 @@ public final class Eta {
       super(builder);
     }
     private UserEtaRequest() {
+      anonymousId_ = "";
     }
 
     @java.lang.Override
@@ -8098,6 +8182,12 @@ public final class Eta {
                 order_ = subBuilder.buildPartial();
               }
 
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              anonymousId_ = s;
               break;
             }
             default: {
@@ -8184,6 +8274,44 @@ public final class Eta {
       return getOrder();
     }
 
+    public static final int ANONYMOUSID_FIELD_NUMBER = 4;
+    private volatile java.lang.Object anonymousId_;
+    /**
+     * <code>string anonymousId = 4;</code>
+     * @return The anonymousId.
+     */
+    @java.lang.Override
+    public java.lang.String getAnonymousId() {
+      java.lang.Object ref = anonymousId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        anonymousId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string anonymousId = 4;</code>
+     * @return The bytes for anonymousId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAnonymousIdBytes() {
+      java.lang.Object ref = anonymousId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        anonymousId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -8204,6 +8332,9 @@ public final class Eta {
       if (order_ != null) {
         output.writeMessage(2, getOrder());
       }
+      if (!getAnonymousIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, anonymousId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -8220,6 +8351,9 @@ public final class Eta {
       if (order_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getOrder());
+      }
+      if (!getAnonymousIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, anonymousId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -8246,6 +8380,8 @@ public final class Eta {
         if (!getOrder()
             .equals(other.getOrder())) return false;
       }
+      if (!getAnonymousId()
+          .equals(other.getAnonymousId())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -8265,6 +8401,8 @@ public final class Eta {
         hash = (37 * hash) + ORDER_FIELD_NUMBER;
         hash = (53 * hash) + getOrder().hashCode();
       }
+      hash = (37 * hash) + ANONYMOUSID_FIELD_NUMBER;
+      hash = (53 * hash) + getAnonymousId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -8410,6 +8548,8 @@ public final class Eta {
           order_ = null;
           orderBuilder_ = null;
         }
+        anonymousId_ = "";
+
         return this;
       }
 
@@ -8446,6 +8586,7 @@ public final class Eta {
         } else {
           result.order_ = orderBuilder_.build();
         }
+        result.anonymousId_ = anonymousId_;
         onBuilt();
         return result;
       }
@@ -8499,6 +8640,10 @@ public final class Eta {
         }
         if (other.hasOrder()) {
           mergeOrder(other.getOrder());
+        }
+        if (!other.getAnonymousId().isEmpty()) {
+          anonymousId_ = other.anonymousId_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -8766,6 +8911,82 @@ public final class Eta {
         }
         return orderBuilder_;
       }
+
+      private java.lang.Object anonymousId_ = "";
+      /**
+       * <code>string anonymousId = 4;</code>
+       * @return The anonymousId.
+       */
+      public java.lang.String getAnonymousId() {
+        java.lang.Object ref = anonymousId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          anonymousId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string anonymousId = 4;</code>
+       * @return The bytes for anonymousId.
+       */
+      public com.google.protobuf.ByteString
+          getAnonymousIdBytes() {
+        java.lang.Object ref = anonymousId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          anonymousId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string anonymousId = 4;</code>
+       * @param value The anonymousId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAnonymousId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        anonymousId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string anonymousId = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAnonymousId() {
+        
+        anonymousId_ = getDefaultInstance().getAnonymousId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string anonymousId = 4;</code>
+       * @param value The bytes for anonymousId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAnonymousIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        anonymousId_ = value;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -8857,6 +9078,12 @@ public final class Eta {
      * @return The estimateSource.
      */
     eta.Eta.EstimateSource getEstimateSource();
+
+    /**
+     * <code>bool is_eta_disabled = 5;</code>
+     * @return The isEtaDisabled.
+     */
+    boolean getIsEtaDisabled();
   }
   /**
    * Protobuf type {@code eta.ShipmentEta}
@@ -8925,6 +9152,11 @@ public final class Eta {
               int rawValue = input.readEnum();
 
               estimateSource_ = rawValue;
+              break;
+            }
+            case 40: {
+
+              isEtaDisabled_ = input.readBool();
               break;
             }
             default: {
@@ -9038,6 +9270,17 @@ public final class Eta {
       return result == null ? eta.Eta.EstimateSource.UNRECOGNIZED : result;
     }
 
+    public static final int IS_ETA_DISABLED_FIELD_NUMBER = 5;
+    private boolean isEtaDisabled_;
+    /**
+     * <code>bool is_eta_disabled = 5;</code>
+     * @return The isEtaDisabled.
+     */
+    @java.lang.Override
+    public boolean getIsEtaDisabled() {
+      return isEtaDisabled_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -9064,6 +9307,9 @@ public final class Eta {
       if (estimateSource_ != eta.Eta.EstimateSource.ML.getNumber()) {
         output.writeEnum(4, estimateSource_);
       }
+      if (isEtaDisabled_ != false) {
+        output.writeBool(5, isEtaDisabled_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -9088,6 +9334,10 @@ public final class Eta {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, estimateSource_);
       }
+      if (isEtaDisabled_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, isEtaDisabled_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -9110,6 +9360,8 @@ public final class Eta {
       if (getSigma()
           != other.getSigma()) return false;
       if (estimateSource_ != other.estimateSource_) return false;
+      if (getIsEtaDisabled()
+          != other.getIsEtaDisabled()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -9129,6 +9381,9 @@ public final class Eta {
       hash = (53 * hash) + getSigma();
       hash = (37 * hash) + ESTIMATE_SOURCE_FIELD_NUMBER;
       hash = (53 * hash) + estimateSource_;
+      hash = (37 * hash) + IS_ETA_DISABLED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsEtaDisabled());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -9270,6 +9525,8 @@ public final class Eta {
 
         estimateSource_ = 0;
 
+        isEtaDisabled_ = false;
+
         return this;
       }
 
@@ -9300,6 +9557,7 @@ public final class Eta {
         result.eta_ = eta_;
         result.sigma_ = sigma_;
         result.estimateSource_ = estimateSource_;
+        result.isEtaDisabled_ = isEtaDisabled_;
         onBuilt();
         return result;
       }
@@ -9360,6 +9618,9 @@ public final class Eta {
         }
         if (other.estimateSource_ != 0) {
           setEstimateSourceValue(other.getEstimateSourceValue());
+        }
+        if (other.getIsEtaDisabled() != false) {
+          setIsEtaDisabled(other.getIsEtaDisabled());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -9578,6 +9839,37 @@ public final class Eta {
       public Builder clearEstimateSource() {
         
         estimateSource_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private boolean isEtaDisabled_ ;
+      /**
+       * <code>bool is_eta_disabled = 5;</code>
+       * @return The isEtaDisabled.
+       */
+      @java.lang.Override
+      public boolean getIsEtaDisabled() {
+        return isEtaDisabled_;
+      }
+      /**
+       * <code>bool is_eta_disabled = 5;</code>
+       * @param value The isEtaDisabled to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsEtaDisabled(boolean value) {
+        
+        isEtaDisabled_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool is_eta_disabled = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsEtaDisabled() {
+        
+        isEtaDisabled_ = false;
         onChanged();
         return this;
       }
@@ -15492,6 +15784,5104 @@ public final class Eta {
 
   }
 
+  public interface DisableEtaRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:eta.DisableEtaRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Массив UUID-ов магазинов (должен быть непустым)
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @return A list containing the storeUuids.
+     */
+    java.util.List<java.lang.String>
+        getStoreUuidsList();
+    /**
+     * <pre>
+     * Массив UUID-ов магазинов (должен быть непустым)
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @return The count of storeUuids.
+     */
+    int getStoreUuidsCount();
+    /**
+     * <pre>
+     * Массив UUID-ов магазинов (должен быть непустым)
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The storeUuids at the given index.
+     */
+    java.lang.String getStoreUuids(int index);
+    /**
+     * <pre>
+     * Массив UUID-ов магазинов (должен быть непустым)
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the storeUuids at the given index.
+     */
+    com.google.protobuf.ByteString
+        getStoreUuidsBytes(int index);
+
+    /**
+     * <pre>
+     * Левая граница интервала в UTC (непустая, включается в интервал)
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp left_border = 2;</code>
+     * @return Whether the leftBorder field is set.
+     */
+    boolean hasLeftBorder();
+    /**
+     * <pre>
+     * Левая граница интервала в UTC (непустая, включается в интервал)
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp left_border = 2;</code>
+     * @return The leftBorder.
+     */
+    com.google.protobuf.Timestamp getLeftBorder();
+    /**
+     * <pre>
+     * Левая граница интервала в UTC (непустая, включается в интервал)
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp left_border = 2;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getLeftBorderOrBuilder();
+
+    /**
+     * <pre>
+     * Правая граница интервала в UTC (непустая, не включается в интервал)
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp right_border = 3;</code>
+     * @return Whether the rightBorder field is set.
+     */
+    boolean hasRightBorder();
+    /**
+     * <pre>
+     * Правая граница интервала в UTC (непустая, не включается в интервал)
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp right_border = 3;</code>
+     * @return The rightBorder.
+     */
+    com.google.protobuf.Timestamp getRightBorder();
+    /**
+     * <pre>
+     * Правая граница интервала в UTC (непустая, не включается в интервал)
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp right_border = 3;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getRightBorderOrBuilder();
+
+    /**
+     * <pre>
+     * Хотя бы один из флагов ниже должен быть true
+     * Нужно ли отключать ETA в заданном интервале
+     * </pre>
+     *
+     * <code>bool disable_eta = 4;</code>
+     * @return The disableEta.
+     */
+    boolean getDisableEta();
+
+    /**
+     * <pre>
+     * Нужно ли отключать слоты в заданном интервале
+     * </pre>
+     *
+     * <code>bool disable_slot = 5;</code>
+     * @return The disableSlot.
+     */
+    boolean getDisableSlot();
+  }
+  /**
+   * Protobuf type {@code eta.DisableEtaRequest}
+   */
+  public static final class DisableEtaRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:eta.DisableEtaRequest)
+      DisableEtaRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DisableEtaRequest.newBuilder() to construct.
+    private DisableEtaRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DisableEtaRequest() {
+      storeUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DisableEtaRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private DisableEtaRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                storeUuids_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              storeUuids_.add(s);
+              break;
+            }
+            case 18: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (leftBorder_ != null) {
+                subBuilder = leftBorder_.toBuilder();
+              }
+              leftBorder_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(leftBorder_);
+                leftBorder_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 26: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (rightBorder_ != null) {
+                subBuilder = rightBorder_.toBuilder();
+              }
+              rightBorder_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(rightBorder_);
+                rightBorder_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 32: {
+
+              disableEta_ = input.readBool();
+              break;
+            }
+            case 40: {
+
+              disableSlot_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          storeUuids_ = storeUuids_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return eta.Eta.internal_static_eta_DisableEtaRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return eta.Eta.internal_static_eta_DisableEtaRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              eta.Eta.DisableEtaRequest.class, eta.Eta.DisableEtaRequest.Builder.class);
+    }
+
+    public static final int STORE_UUIDS_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList storeUuids_;
+    /**
+     * <pre>
+     * Массив UUID-ов магазинов (должен быть непустым)
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @return A list containing the storeUuids.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getStoreUuidsList() {
+      return storeUuids_;
+    }
+    /**
+     * <pre>
+     * Массив UUID-ов магазинов (должен быть непустым)
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @return The count of storeUuids.
+     */
+    public int getStoreUuidsCount() {
+      return storeUuids_.size();
+    }
+    /**
+     * <pre>
+     * Массив UUID-ов магазинов (должен быть непустым)
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The storeUuids at the given index.
+     */
+    public java.lang.String getStoreUuids(int index) {
+      return storeUuids_.get(index);
+    }
+    /**
+     * <pre>
+     * Массив UUID-ов магазинов (должен быть непустым)
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the storeUuids at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getStoreUuidsBytes(int index) {
+      return storeUuids_.getByteString(index);
+    }
+
+    public static final int LEFT_BORDER_FIELD_NUMBER = 2;
+    private com.google.protobuf.Timestamp leftBorder_;
+    /**
+     * <pre>
+     * Левая граница интервала в UTC (непустая, включается в интервал)
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp left_border = 2;</code>
+     * @return Whether the leftBorder field is set.
+     */
+    @java.lang.Override
+    public boolean hasLeftBorder() {
+      return leftBorder_ != null;
+    }
+    /**
+     * <pre>
+     * Левая граница интервала в UTC (непустая, включается в интервал)
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp left_border = 2;</code>
+     * @return The leftBorder.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getLeftBorder() {
+      return leftBorder_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : leftBorder_;
+    }
+    /**
+     * <pre>
+     * Левая граница интервала в UTC (непустая, включается в интервал)
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp left_border = 2;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getLeftBorderOrBuilder() {
+      return getLeftBorder();
+    }
+
+    public static final int RIGHT_BORDER_FIELD_NUMBER = 3;
+    private com.google.protobuf.Timestamp rightBorder_;
+    /**
+     * <pre>
+     * Правая граница интервала в UTC (непустая, не включается в интервал)
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp right_border = 3;</code>
+     * @return Whether the rightBorder field is set.
+     */
+    @java.lang.Override
+    public boolean hasRightBorder() {
+      return rightBorder_ != null;
+    }
+    /**
+     * <pre>
+     * Правая граница интервала в UTC (непустая, не включается в интервал)
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp right_border = 3;</code>
+     * @return The rightBorder.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getRightBorder() {
+      return rightBorder_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : rightBorder_;
+    }
+    /**
+     * <pre>
+     * Правая граница интервала в UTC (непустая, не включается в интервал)
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp right_border = 3;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getRightBorderOrBuilder() {
+      return getRightBorder();
+    }
+
+    public static final int DISABLE_ETA_FIELD_NUMBER = 4;
+    private boolean disableEta_;
+    /**
+     * <pre>
+     * Хотя бы один из флагов ниже должен быть true
+     * Нужно ли отключать ETA в заданном интервале
+     * </pre>
+     *
+     * <code>bool disable_eta = 4;</code>
+     * @return The disableEta.
+     */
+    @java.lang.Override
+    public boolean getDisableEta() {
+      return disableEta_;
+    }
+
+    public static final int DISABLE_SLOT_FIELD_NUMBER = 5;
+    private boolean disableSlot_;
+    /**
+     * <pre>
+     * Нужно ли отключать слоты в заданном интервале
+     * </pre>
+     *
+     * <code>bool disable_slot = 5;</code>
+     * @return The disableSlot.
+     */
+    @java.lang.Override
+    public boolean getDisableSlot() {
+      return disableSlot_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < storeUuids_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, storeUuids_.getRaw(i));
+      }
+      if (leftBorder_ != null) {
+        output.writeMessage(2, getLeftBorder());
+      }
+      if (rightBorder_ != null) {
+        output.writeMessage(3, getRightBorder());
+      }
+      if (disableEta_ != false) {
+        output.writeBool(4, disableEta_);
+      }
+      if (disableSlot_ != false) {
+        output.writeBool(5, disableSlot_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < storeUuids_.size(); i++) {
+          dataSize += computeStringSizeNoTag(storeUuids_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getStoreUuidsList().size();
+      }
+      if (leftBorder_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getLeftBorder());
+      }
+      if (rightBorder_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getRightBorder());
+      }
+      if (disableEta_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, disableEta_);
+      }
+      if (disableSlot_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, disableSlot_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof eta.Eta.DisableEtaRequest)) {
+        return super.equals(obj);
+      }
+      eta.Eta.DisableEtaRequest other = (eta.Eta.DisableEtaRequest) obj;
+
+      if (!getStoreUuidsList()
+          .equals(other.getStoreUuidsList())) return false;
+      if (hasLeftBorder() != other.hasLeftBorder()) return false;
+      if (hasLeftBorder()) {
+        if (!getLeftBorder()
+            .equals(other.getLeftBorder())) return false;
+      }
+      if (hasRightBorder() != other.hasRightBorder()) return false;
+      if (hasRightBorder()) {
+        if (!getRightBorder()
+            .equals(other.getRightBorder())) return false;
+      }
+      if (getDisableEta()
+          != other.getDisableEta()) return false;
+      if (getDisableSlot()
+          != other.getDisableSlot()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getStoreUuidsCount() > 0) {
+        hash = (37 * hash) + STORE_UUIDS_FIELD_NUMBER;
+        hash = (53 * hash) + getStoreUuidsList().hashCode();
+      }
+      if (hasLeftBorder()) {
+        hash = (37 * hash) + LEFT_BORDER_FIELD_NUMBER;
+        hash = (53 * hash) + getLeftBorder().hashCode();
+      }
+      if (hasRightBorder()) {
+        hash = (37 * hash) + RIGHT_BORDER_FIELD_NUMBER;
+        hash = (53 * hash) + getRightBorder().hashCode();
+      }
+      hash = (37 * hash) + DISABLE_ETA_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getDisableEta());
+      hash = (37 * hash) + DISABLE_SLOT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getDisableSlot());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static eta.Eta.DisableEtaRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eta.Eta.DisableEtaRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eta.Eta.DisableEtaRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eta.Eta.DisableEtaRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eta.Eta.DisableEtaRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eta.Eta.DisableEtaRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eta.Eta.DisableEtaRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static eta.Eta.DisableEtaRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static eta.Eta.DisableEtaRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static eta.Eta.DisableEtaRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static eta.Eta.DisableEtaRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static eta.Eta.DisableEtaRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(eta.Eta.DisableEtaRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code eta.DisableEtaRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:eta.DisableEtaRequest)
+        eta.Eta.DisableEtaRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return eta.Eta.internal_static_eta_DisableEtaRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return eta.Eta.internal_static_eta_DisableEtaRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                eta.Eta.DisableEtaRequest.class, eta.Eta.DisableEtaRequest.Builder.class);
+      }
+
+      // Construct using eta.Eta.DisableEtaRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        storeUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (leftBorderBuilder_ == null) {
+          leftBorder_ = null;
+        } else {
+          leftBorder_ = null;
+          leftBorderBuilder_ = null;
+        }
+        if (rightBorderBuilder_ == null) {
+          rightBorder_ = null;
+        } else {
+          rightBorder_ = null;
+          rightBorderBuilder_ = null;
+        }
+        disableEta_ = false;
+
+        disableSlot_ = false;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return eta.Eta.internal_static_eta_DisableEtaRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public eta.Eta.DisableEtaRequest getDefaultInstanceForType() {
+        return eta.Eta.DisableEtaRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public eta.Eta.DisableEtaRequest build() {
+        eta.Eta.DisableEtaRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public eta.Eta.DisableEtaRequest buildPartial() {
+        eta.Eta.DisableEtaRequest result = new eta.Eta.DisableEtaRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          storeUuids_ = storeUuids_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.storeUuids_ = storeUuids_;
+        if (leftBorderBuilder_ == null) {
+          result.leftBorder_ = leftBorder_;
+        } else {
+          result.leftBorder_ = leftBorderBuilder_.build();
+        }
+        if (rightBorderBuilder_ == null) {
+          result.rightBorder_ = rightBorder_;
+        } else {
+          result.rightBorder_ = rightBorderBuilder_.build();
+        }
+        result.disableEta_ = disableEta_;
+        result.disableSlot_ = disableSlot_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof eta.Eta.DisableEtaRequest) {
+          return mergeFrom((eta.Eta.DisableEtaRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(eta.Eta.DisableEtaRequest other) {
+        if (other == eta.Eta.DisableEtaRequest.getDefaultInstance()) return this;
+        if (!other.storeUuids_.isEmpty()) {
+          if (storeUuids_.isEmpty()) {
+            storeUuids_ = other.storeUuids_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureStoreUuidsIsMutable();
+            storeUuids_.addAll(other.storeUuids_);
+          }
+          onChanged();
+        }
+        if (other.hasLeftBorder()) {
+          mergeLeftBorder(other.getLeftBorder());
+        }
+        if (other.hasRightBorder()) {
+          mergeRightBorder(other.getRightBorder());
+        }
+        if (other.getDisableEta() != false) {
+          setDisableEta(other.getDisableEta());
+        }
+        if (other.getDisableSlot() != false) {
+          setDisableSlot(other.getDisableSlot());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        eta.Eta.DisableEtaRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (eta.Eta.DisableEtaRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList storeUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureStoreUuidsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          storeUuids_ = new com.google.protobuf.LazyStringArrayList(storeUuids_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * Массив UUID-ов магазинов (должен быть непустым)
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @return A list containing the storeUuids.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getStoreUuidsList() {
+        return storeUuids_.getUnmodifiableView();
+      }
+      /**
+       * <pre>
+       * Массив UUID-ов магазинов (должен быть непустым)
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @return The count of storeUuids.
+       */
+      public int getStoreUuidsCount() {
+        return storeUuids_.size();
+      }
+      /**
+       * <pre>
+       * Массив UUID-ов магазинов (должен быть непустым)
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @param index The index of the element to return.
+       * @return The storeUuids at the given index.
+       */
+      public java.lang.String getStoreUuids(int index) {
+        return storeUuids_.get(index);
+      }
+      /**
+       * <pre>
+       * Массив UUID-ов магазинов (должен быть непустым)
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the storeUuids at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getStoreUuidsBytes(int index) {
+        return storeUuids_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * Массив UUID-ов магазинов (должен быть непустым)
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The storeUuids to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreUuids(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureStoreUuidsIsMutable();
+        storeUuids_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Массив UUID-ов магазинов (должен быть непустым)
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @param value The storeUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addStoreUuids(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureStoreUuidsIsMutable();
+        storeUuids_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Массив UUID-ов магазинов (должен быть непустым)
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @param values The storeUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllStoreUuids(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureStoreUuidsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, storeUuids_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Массив UUID-ов магазинов (должен быть непустым)
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStoreUuids() {
+        storeUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Массив UUID-ов магазинов (должен быть непустым)
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @param value The bytes of the storeUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addStoreUuidsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureStoreUuidsIsMutable();
+        storeUuids_.add(value);
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp leftBorder_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> leftBorderBuilder_;
+      /**
+       * <pre>
+       * Левая граница интервала в UTC (непустая, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp left_border = 2;</code>
+       * @return Whether the leftBorder field is set.
+       */
+      public boolean hasLeftBorder() {
+        return leftBorderBuilder_ != null || leftBorder_ != null;
+      }
+      /**
+       * <pre>
+       * Левая граница интервала в UTC (непустая, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp left_border = 2;</code>
+       * @return The leftBorder.
+       */
+      public com.google.protobuf.Timestamp getLeftBorder() {
+        if (leftBorderBuilder_ == null) {
+          return leftBorder_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : leftBorder_;
+        } else {
+          return leftBorderBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Левая граница интервала в UTC (непустая, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp left_border = 2;</code>
+       */
+      public Builder setLeftBorder(com.google.protobuf.Timestamp value) {
+        if (leftBorderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          leftBorder_ = value;
+          onChanged();
+        } else {
+          leftBorderBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Левая граница интервала в UTC (непустая, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp left_border = 2;</code>
+       */
+      public Builder setLeftBorder(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (leftBorderBuilder_ == null) {
+          leftBorder_ = builderForValue.build();
+          onChanged();
+        } else {
+          leftBorderBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Левая граница интервала в UTC (непустая, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp left_border = 2;</code>
+       */
+      public Builder mergeLeftBorder(com.google.protobuf.Timestamp value) {
+        if (leftBorderBuilder_ == null) {
+          if (leftBorder_ != null) {
+            leftBorder_ =
+              com.google.protobuf.Timestamp.newBuilder(leftBorder_).mergeFrom(value).buildPartial();
+          } else {
+            leftBorder_ = value;
+          }
+          onChanged();
+        } else {
+          leftBorderBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Левая граница интервала в UTC (непустая, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp left_border = 2;</code>
+       */
+      public Builder clearLeftBorder() {
+        if (leftBorderBuilder_ == null) {
+          leftBorder_ = null;
+          onChanged();
+        } else {
+          leftBorder_ = null;
+          leftBorderBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Левая граница интервала в UTC (непустая, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp left_border = 2;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getLeftBorderBuilder() {
+        
+        onChanged();
+        return getLeftBorderFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Левая граница интервала в UTC (непустая, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp left_border = 2;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getLeftBorderOrBuilder() {
+        if (leftBorderBuilder_ != null) {
+          return leftBorderBuilder_.getMessageOrBuilder();
+        } else {
+          return leftBorder_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : leftBorder_;
+        }
+      }
+      /**
+       * <pre>
+       * Левая граница интервала в UTC (непустая, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp left_border = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getLeftBorderFieldBuilder() {
+        if (leftBorderBuilder_ == null) {
+          leftBorderBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getLeftBorder(),
+                  getParentForChildren(),
+                  isClean());
+          leftBorder_ = null;
+        }
+        return leftBorderBuilder_;
+      }
+
+      private com.google.protobuf.Timestamp rightBorder_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> rightBorderBuilder_;
+      /**
+       * <pre>
+       * Правая граница интервала в UTC (непустая, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp right_border = 3;</code>
+       * @return Whether the rightBorder field is set.
+       */
+      public boolean hasRightBorder() {
+        return rightBorderBuilder_ != null || rightBorder_ != null;
+      }
+      /**
+       * <pre>
+       * Правая граница интервала в UTC (непустая, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp right_border = 3;</code>
+       * @return The rightBorder.
+       */
+      public com.google.protobuf.Timestamp getRightBorder() {
+        if (rightBorderBuilder_ == null) {
+          return rightBorder_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : rightBorder_;
+        } else {
+          return rightBorderBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Правая граница интервала в UTC (непустая, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp right_border = 3;</code>
+       */
+      public Builder setRightBorder(com.google.protobuf.Timestamp value) {
+        if (rightBorderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          rightBorder_ = value;
+          onChanged();
+        } else {
+          rightBorderBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Правая граница интервала в UTC (непустая, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp right_border = 3;</code>
+       */
+      public Builder setRightBorder(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (rightBorderBuilder_ == null) {
+          rightBorder_ = builderForValue.build();
+          onChanged();
+        } else {
+          rightBorderBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Правая граница интервала в UTC (непустая, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp right_border = 3;</code>
+       */
+      public Builder mergeRightBorder(com.google.protobuf.Timestamp value) {
+        if (rightBorderBuilder_ == null) {
+          if (rightBorder_ != null) {
+            rightBorder_ =
+              com.google.protobuf.Timestamp.newBuilder(rightBorder_).mergeFrom(value).buildPartial();
+          } else {
+            rightBorder_ = value;
+          }
+          onChanged();
+        } else {
+          rightBorderBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Правая граница интервала в UTC (непустая, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp right_border = 3;</code>
+       */
+      public Builder clearRightBorder() {
+        if (rightBorderBuilder_ == null) {
+          rightBorder_ = null;
+          onChanged();
+        } else {
+          rightBorder_ = null;
+          rightBorderBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Правая граница интервала в UTC (непустая, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp right_border = 3;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getRightBorderBuilder() {
+        
+        onChanged();
+        return getRightBorderFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Правая граница интервала в UTC (непустая, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp right_border = 3;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getRightBorderOrBuilder() {
+        if (rightBorderBuilder_ != null) {
+          return rightBorderBuilder_.getMessageOrBuilder();
+        } else {
+          return rightBorder_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : rightBorder_;
+        }
+      }
+      /**
+       * <pre>
+       * Правая граница интервала в UTC (непустая, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp right_border = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getRightBorderFieldBuilder() {
+        if (rightBorderBuilder_ == null) {
+          rightBorderBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getRightBorder(),
+                  getParentForChildren(),
+                  isClean());
+          rightBorder_ = null;
+        }
+        return rightBorderBuilder_;
+      }
+
+      private boolean disableEta_ ;
+      /**
+       * <pre>
+       * Хотя бы один из флагов ниже должен быть true
+       * Нужно ли отключать ETA в заданном интервале
+       * </pre>
+       *
+       * <code>bool disable_eta = 4;</code>
+       * @return The disableEta.
+       */
+      @java.lang.Override
+      public boolean getDisableEta() {
+        return disableEta_;
+      }
+      /**
+       * <pre>
+       * Хотя бы один из флагов ниже должен быть true
+       * Нужно ли отключать ETA в заданном интервале
+       * </pre>
+       *
+       * <code>bool disable_eta = 4;</code>
+       * @param value The disableEta to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDisableEta(boolean value) {
+        
+        disableEta_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Хотя бы один из флагов ниже должен быть true
+       * Нужно ли отключать ETA в заданном интервале
+       * </pre>
+       *
+       * <code>bool disable_eta = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDisableEta() {
+        
+        disableEta_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean disableSlot_ ;
+      /**
+       * <pre>
+       * Нужно ли отключать слоты в заданном интервале
+       * </pre>
+       *
+       * <code>bool disable_slot = 5;</code>
+       * @return The disableSlot.
+       */
+      @java.lang.Override
+      public boolean getDisableSlot() {
+        return disableSlot_;
+      }
+      /**
+       * <pre>
+       * Нужно ли отключать слоты в заданном интервале
+       * </pre>
+       *
+       * <code>bool disable_slot = 5;</code>
+       * @param value The disableSlot to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDisableSlot(boolean value) {
+        
+        disableSlot_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Нужно ли отключать слоты в заданном интервале
+       * </pre>
+       *
+       * <code>bool disable_slot = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDisableSlot() {
+        
+        disableSlot_ = false;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:eta.DisableEtaRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:eta.DisableEtaRequest)
+    private static final eta.Eta.DisableEtaRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new eta.Eta.DisableEtaRequest();
+    }
+
+    public static eta.Eta.DisableEtaRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DisableEtaRequest>
+        PARSER = new com.google.protobuf.AbstractParser<DisableEtaRequest>() {
+      @java.lang.Override
+      public DisableEtaRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new DisableEtaRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<DisableEtaRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DisableEtaRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public eta.Eta.DisableEtaRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DisableEtaResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:eta.DisableEtaResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code eta.DisableEtaResponse}
+   */
+  public static final class DisableEtaResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:eta.DisableEtaResponse)
+      DisableEtaResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DisableEtaResponse.newBuilder() to construct.
+    private DisableEtaResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DisableEtaResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DisableEtaResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private DisableEtaResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return eta.Eta.internal_static_eta_DisableEtaResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return eta.Eta.internal_static_eta_DisableEtaResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              eta.Eta.DisableEtaResponse.class, eta.Eta.DisableEtaResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof eta.Eta.DisableEtaResponse)) {
+        return super.equals(obj);
+      }
+      eta.Eta.DisableEtaResponse other = (eta.Eta.DisableEtaResponse) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static eta.Eta.DisableEtaResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eta.Eta.DisableEtaResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eta.Eta.DisableEtaResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eta.Eta.DisableEtaResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eta.Eta.DisableEtaResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eta.Eta.DisableEtaResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eta.Eta.DisableEtaResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static eta.Eta.DisableEtaResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static eta.Eta.DisableEtaResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static eta.Eta.DisableEtaResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static eta.Eta.DisableEtaResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static eta.Eta.DisableEtaResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(eta.Eta.DisableEtaResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code eta.DisableEtaResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:eta.DisableEtaResponse)
+        eta.Eta.DisableEtaResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return eta.Eta.internal_static_eta_DisableEtaResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return eta.Eta.internal_static_eta_DisableEtaResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                eta.Eta.DisableEtaResponse.class, eta.Eta.DisableEtaResponse.Builder.class);
+      }
+
+      // Construct using eta.Eta.DisableEtaResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return eta.Eta.internal_static_eta_DisableEtaResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public eta.Eta.DisableEtaResponse getDefaultInstanceForType() {
+        return eta.Eta.DisableEtaResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public eta.Eta.DisableEtaResponse build() {
+        eta.Eta.DisableEtaResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public eta.Eta.DisableEtaResponse buildPartial() {
+        eta.Eta.DisableEtaResponse result = new eta.Eta.DisableEtaResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof eta.Eta.DisableEtaResponse) {
+          return mergeFrom((eta.Eta.DisableEtaResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(eta.Eta.DisableEtaResponse other) {
+        if (other == eta.Eta.DisableEtaResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        eta.Eta.DisableEtaResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (eta.Eta.DisableEtaResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:eta.DisableEtaResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:eta.DisableEtaResponse)
+    private static final eta.Eta.DisableEtaResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new eta.Eta.DisableEtaResponse();
+    }
+
+    public static eta.Eta.DisableEtaResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DisableEtaResponse>
+        PARSER = new com.google.protobuf.AbstractParser<DisableEtaResponse>() {
+      @java.lang.Override
+      public DisableEtaResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new DisableEtaResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<DisableEtaResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DisableEtaResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public eta.Eta.DisableEtaResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface CheckSlotDisableRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:eta.CheckSlotDisableRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * UUID-ы магазинов
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @return A list containing the storeUuids.
+     */
+    java.util.List<java.lang.String>
+        getStoreUuidsList();
+    /**
+     * <pre>
+     * UUID-ы магазинов
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @return The count of storeUuids.
+     */
+    int getStoreUuidsCount();
+    /**
+     * <pre>
+     * UUID-ы магазинов
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The storeUuids at the given index.
+     */
+    java.lang.String getStoreUuids(int index);
+    /**
+     * <pre>
+     * UUID-ы магазинов
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the storeUuids at the given index.
+     */
+    com.google.protobuf.ByteString
+        getStoreUuidsBytes(int index);
+  }
+  /**
+   * Protobuf type {@code eta.CheckSlotDisableRequest}
+   */
+  public static final class CheckSlotDisableRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:eta.CheckSlotDisableRequest)
+      CheckSlotDisableRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use CheckSlotDisableRequest.newBuilder() to construct.
+    private CheckSlotDisableRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private CheckSlotDisableRequest() {
+      storeUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CheckSlotDisableRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CheckSlotDisableRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                storeUuids_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              storeUuids_.add(s);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          storeUuids_ = storeUuids_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return eta.Eta.internal_static_eta_CheckSlotDisableRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return eta.Eta.internal_static_eta_CheckSlotDisableRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              eta.Eta.CheckSlotDisableRequest.class, eta.Eta.CheckSlotDisableRequest.Builder.class);
+    }
+
+    public static final int STORE_UUIDS_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList storeUuids_;
+    /**
+     * <pre>
+     * UUID-ы магазинов
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @return A list containing the storeUuids.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getStoreUuidsList() {
+      return storeUuids_;
+    }
+    /**
+     * <pre>
+     * UUID-ы магазинов
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @return The count of storeUuids.
+     */
+    public int getStoreUuidsCount() {
+      return storeUuids_.size();
+    }
+    /**
+     * <pre>
+     * UUID-ы магазинов
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @param index The index of the element to return.
+     * @return The storeUuids at the given index.
+     */
+    public java.lang.String getStoreUuids(int index) {
+      return storeUuids_.get(index);
+    }
+    /**
+     * <pre>
+     * UUID-ы магазинов
+     * </pre>
+     *
+     * <code>repeated string store_uuids = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the storeUuids at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getStoreUuidsBytes(int index) {
+      return storeUuids_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < storeUuids_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, storeUuids_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < storeUuids_.size(); i++) {
+          dataSize += computeStringSizeNoTag(storeUuids_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getStoreUuidsList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof eta.Eta.CheckSlotDisableRequest)) {
+        return super.equals(obj);
+      }
+      eta.Eta.CheckSlotDisableRequest other = (eta.Eta.CheckSlotDisableRequest) obj;
+
+      if (!getStoreUuidsList()
+          .equals(other.getStoreUuidsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getStoreUuidsCount() > 0) {
+        hash = (37 * hash) + STORE_UUIDS_FIELD_NUMBER;
+        hash = (53 * hash) + getStoreUuidsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static eta.Eta.CheckSlotDisableRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eta.Eta.CheckSlotDisableRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eta.Eta.CheckSlotDisableRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eta.Eta.CheckSlotDisableRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eta.Eta.CheckSlotDisableRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eta.Eta.CheckSlotDisableRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eta.Eta.CheckSlotDisableRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static eta.Eta.CheckSlotDisableRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static eta.Eta.CheckSlotDisableRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static eta.Eta.CheckSlotDisableRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static eta.Eta.CheckSlotDisableRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static eta.Eta.CheckSlotDisableRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(eta.Eta.CheckSlotDisableRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code eta.CheckSlotDisableRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:eta.CheckSlotDisableRequest)
+        eta.Eta.CheckSlotDisableRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return eta.Eta.internal_static_eta_CheckSlotDisableRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return eta.Eta.internal_static_eta_CheckSlotDisableRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                eta.Eta.CheckSlotDisableRequest.class, eta.Eta.CheckSlotDisableRequest.Builder.class);
+      }
+
+      // Construct using eta.Eta.CheckSlotDisableRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        storeUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return eta.Eta.internal_static_eta_CheckSlotDisableRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public eta.Eta.CheckSlotDisableRequest getDefaultInstanceForType() {
+        return eta.Eta.CheckSlotDisableRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public eta.Eta.CheckSlotDisableRequest build() {
+        eta.Eta.CheckSlotDisableRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public eta.Eta.CheckSlotDisableRequest buildPartial() {
+        eta.Eta.CheckSlotDisableRequest result = new eta.Eta.CheckSlotDisableRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          storeUuids_ = storeUuids_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.storeUuids_ = storeUuids_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof eta.Eta.CheckSlotDisableRequest) {
+          return mergeFrom((eta.Eta.CheckSlotDisableRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(eta.Eta.CheckSlotDisableRequest other) {
+        if (other == eta.Eta.CheckSlotDisableRequest.getDefaultInstance()) return this;
+        if (!other.storeUuids_.isEmpty()) {
+          if (storeUuids_.isEmpty()) {
+            storeUuids_ = other.storeUuids_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureStoreUuidsIsMutable();
+            storeUuids_.addAll(other.storeUuids_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        eta.Eta.CheckSlotDisableRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (eta.Eta.CheckSlotDisableRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList storeUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureStoreUuidsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          storeUuids_ = new com.google.protobuf.LazyStringArrayList(storeUuids_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * UUID-ы магазинов
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @return A list containing the storeUuids.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getStoreUuidsList() {
+        return storeUuids_.getUnmodifiableView();
+      }
+      /**
+       * <pre>
+       * UUID-ы магазинов
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @return The count of storeUuids.
+       */
+      public int getStoreUuidsCount() {
+        return storeUuids_.size();
+      }
+      /**
+       * <pre>
+       * UUID-ы магазинов
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @param index The index of the element to return.
+       * @return The storeUuids at the given index.
+       */
+      public java.lang.String getStoreUuids(int index) {
+        return storeUuids_.get(index);
+      }
+      /**
+       * <pre>
+       * UUID-ы магазинов
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the storeUuids at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getStoreUuidsBytes(int index) {
+        return storeUuids_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * UUID-ы магазинов
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The storeUuids to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreUuids(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureStoreUuidsIsMutable();
+        storeUuids_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * UUID-ы магазинов
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @param value The storeUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addStoreUuids(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureStoreUuidsIsMutable();
+        storeUuids_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * UUID-ы магазинов
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @param values The storeUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllStoreUuids(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureStoreUuidsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, storeUuids_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * UUID-ы магазинов
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStoreUuids() {
+        storeUuids_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * UUID-ы магазинов
+       * </pre>
+       *
+       * <code>repeated string store_uuids = 1;</code>
+       * @param value The bytes of the storeUuids to add.
+       * @return This builder for chaining.
+       */
+      public Builder addStoreUuidsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureStoreUuidsIsMutable();
+        storeUuids_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:eta.CheckSlotDisableRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:eta.CheckSlotDisableRequest)
+    private static final eta.Eta.CheckSlotDisableRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new eta.Eta.CheckSlotDisableRequest();
+    }
+
+    public static eta.Eta.CheckSlotDisableRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<CheckSlotDisableRequest>
+        PARSER = new com.google.protobuf.AbstractParser<CheckSlotDisableRequest>() {
+      @java.lang.Override
+      public CheckSlotDisableRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CheckSlotDisableRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CheckSlotDisableRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CheckSlotDisableRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public eta.Eta.CheckSlotDisableRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface CheckSlotDisableResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:eta.CheckSlotDisableResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+     * </pre>
+     *
+     * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+     */
+    int getDisableIntervalsByStoreCount();
+    /**
+     * <pre>
+     * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+     * </pre>
+     *
+     * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+     */
+    boolean containsDisableIntervalsByStore(
+        java.lang.String key);
+    /**
+     * Use {@link #getDisableIntervalsByStoreMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList>
+    getDisableIntervalsByStore();
+    /**
+     * <pre>
+     * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+     * </pre>
+     *
+     * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+     */
+    java.util.Map<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList>
+    getDisableIntervalsByStoreMap();
+    /**
+     * <pre>
+     * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+     * </pre>
+     *
+     * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+     */
+
+    eta.Eta.CheckSlotDisableResponse.DisableIntervalList getDisableIntervalsByStoreOrDefault(
+        java.lang.String key,
+        eta.Eta.CheckSlotDisableResponse.DisableIntervalList defaultValue);
+    /**
+     * <pre>
+     * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+     * </pre>
+     *
+     * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+     */
+
+    eta.Eta.CheckSlotDisableResponse.DisableIntervalList getDisableIntervalsByStoreOrThrow(
+        java.lang.String key);
+  }
+  /**
+   * Protobuf type {@code eta.CheckSlotDisableResponse}
+   */
+  public static final class CheckSlotDisableResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:eta.CheckSlotDisableResponse)
+      CheckSlotDisableResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use CheckSlotDisableResponse.newBuilder() to construct.
+    private CheckSlotDisableResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private CheckSlotDisableResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CheckSlotDisableResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CheckSlotDisableResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                disableIntervalsByStore_ = com.google.protobuf.MapField.newMapField(
+                    DisableIntervalsByStoreDefaultEntryHolder.defaultEntry);
+                mutable_bitField0_ |= 0x00000001;
+              }
+              com.google.protobuf.MapEntry<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList>
+              disableIntervalsByStore__ = input.readMessage(
+                  DisableIntervalsByStoreDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              disableIntervalsByStore_.getMutableMap().put(
+                  disableIntervalsByStore__.getKey(), disableIntervalsByStore__.getValue());
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return eta.Eta.internal_static_eta_CheckSlotDisableResponse_descriptor;
+    }
+
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapField internalGetMapField(
+        int number) {
+      switch (number) {
+        case 1:
+          return internalGetDisableIntervalsByStore();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return eta.Eta.internal_static_eta_CheckSlotDisableResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              eta.Eta.CheckSlotDisableResponse.class, eta.Eta.CheckSlotDisableResponse.Builder.class);
+    }
+
+    public interface DisableIntervalOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:eta.CheckSlotDisableResponse.DisableInterval)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <pre>
+       * Время начала отключения слотов в UTC (непустое, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_at = 1;</code>
+       * @return Whether the startAt field is set.
+       */
+      boolean hasStartAt();
+      /**
+       * <pre>
+       * Время начала отключения слотов в UTC (непустое, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_at = 1;</code>
+       * @return The startAt.
+       */
+      com.google.protobuf.Timestamp getStartAt();
+      /**
+       * <pre>
+       * Время начала отключения слотов в UTC (непустое, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_at = 1;</code>
+       */
+      com.google.protobuf.TimestampOrBuilder getStartAtOrBuilder();
+
+      /**
+       * <pre>
+       * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_at = 2;</code>
+       * @return Whether the endAt field is set.
+       */
+      boolean hasEndAt();
+      /**
+       * <pre>
+       * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_at = 2;</code>
+       * @return The endAt.
+       */
+      com.google.protobuf.Timestamp getEndAt();
+      /**
+       * <pre>
+       * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_at = 2;</code>
+       */
+      com.google.protobuf.TimestampOrBuilder getEndAtOrBuilder();
+    }
+    /**
+     * <pre>
+     * Интервал отключения слотов
+     * </pre>
+     *
+     * Protobuf type {@code eta.CheckSlotDisableResponse.DisableInterval}
+     */
+    public static final class DisableInterval extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:eta.CheckSlotDisableResponse.DisableInterval)
+        DisableIntervalOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use DisableInterval.newBuilder() to construct.
+      private DisableInterval(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private DisableInterval() {
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new DisableInterval();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private DisableInterval(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                com.google.protobuf.Timestamp.Builder subBuilder = null;
+                if (startAt_ != null) {
+                  subBuilder = startAt_.toBuilder();
+                }
+                startAt_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(startAt_);
+                  startAt_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              case 18: {
+                com.google.protobuf.Timestamp.Builder subBuilder = null;
+                if (endAt_ != null) {
+                  subBuilder = endAt_.toBuilder();
+                }
+                endAt_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(endAt_);
+                  endAt_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return eta.Eta.internal_static_eta_CheckSlotDisableResponse_DisableInterval_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return eta.Eta.internal_static_eta_CheckSlotDisableResponse_DisableInterval_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                eta.Eta.CheckSlotDisableResponse.DisableInterval.class, eta.Eta.CheckSlotDisableResponse.DisableInterval.Builder.class);
+      }
+
+      public static final int START_AT_FIELD_NUMBER = 1;
+      private com.google.protobuf.Timestamp startAt_;
+      /**
+       * <pre>
+       * Время начала отключения слотов в UTC (непустое, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_at = 1;</code>
+       * @return Whether the startAt field is set.
+       */
+      @java.lang.Override
+      public boolean hasStartAt() {
+        return startAt_ != null;
+      }
+      /**
+       * <pre>
+       * Время начала отключения слотов в UTC (непустое, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_at = 1;</code>
+       * @return The startAt.
+       */
+      @java.lang.Override
+      public com.google.protobuf.Timestamp getStartAt() {
+        return startAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : startAt_;
+      }
+      /**
+       * <pre>
+       * Время начала отключения слотов в UTC (непустое, включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp start_at = 1;</code>
+       */
+      @java.lang.Override
+      public com.google.protobuf.TimestampOrBuilder getStartAtOrBuilder() {
+        return getStartAt();
+      }
+
+      public static final int END_AT_FIELD_NUMBER = 2;
+      private com.google.protobuf.Timestamp endAt_;
+      /**
+       * <pre>
+       * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_at = 2;</code>
+       * @return Whether the endAt field is set.
+       */
+      @java.lang.Override
+      public boolean hasEndAt() {
+        return endAt_ != null;
+      }
+      /**
+       * <pre>
+       * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_at = 2;</code>
+       * @return The endAt.
+       */
+      @java.lang.Override
+      public com.google.protobuf.Timestamp getEndAt() {
+        return endAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : endAt_;
+      }
+      /**
+       * <pre>
+       * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp end_at = 2;</code>
+       */
+      @java.lang.Override
+      public com.google.protobuf.TimestampOrBuilder getEndAtOrBuilder() {
+        return getEndAt();
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (startAt_ != null) {
+          output.writeMessage(1, getStartAt());
+        }
+        if (endAt_ != null) {
+          output.writeMessage(2, getEndAt());
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (startAt_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, getStartAt());
+        }
+        if (endAt_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(2, getEndAt());
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof eta.Eta.CheckSlotDisableResponse.DisableInterval)) {
+          return super.equals(obj);
+        }
+        eta.Eta.CheckSlotDisableResponse.DisableInterval other = (eta.Eta.CheckSlotDisableResponse.DisableInterval) obj;
+
+        if (hasStartAt() != other.hasStartAt()) return false;
+        if (hasStartAt()) {
+          if (!getStartAt()
+              .equals(other.getStartAt())) return false;
+        }
+        if (hasEndAt() != other.hasEndAt()) return false;
+        if (hasEndAt()) {
+          if (!getEndAt()
+              .equals(other.getEndAt())) return false;
+        }
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (hasStartAt()) {
+          hash = (37 * hash) + START_AT_FIELD_NUMBER;
+          hash = (53 * hash) + getStartAt().hashCode();
+        }
+        if (hasEndAt()) {
+          hash = (37 * hash) + END_AT_FIELD_NUMBER;
+          hash = (53 * hash) + getEndAt().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static eta.Eta.CheckSlotDisableResponse.DisableInterval parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableInterval parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableInterval parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableInterval parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableInterval parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableInterval parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableInterval parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableInterval parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableInterval parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableInterval parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableInterval parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableInterval parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(eta.Eta.CheckSlotDisableResponse.DisableInterval prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * <pre>
+       * Интервал отключения слотов
+       * </pre>
+       *
+       * Protobuf type {@code eta.CheckSlotDisableResponse.DisableInterval}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:eta.CheckSlotDisableResponse.DisableInterval)
+          eta.Eta.CheckSlotDisableResponse.DisableIntervalOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return eta.Eta.internal_static_eta_CheckSlotDisableResponse_DisableInterval_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return eta.Eta.internal_static_eta_CheckSlotDisableResponse_DisableInterval_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  eta.Eta.CheckSlotDisableResponse.DisableInterval.class, eta.Eta.CheckSlotDisableResponse.DisableInterval.Builder.class);
+        }
+
+        // Construct using eta.Eta.CheckSlotDisableResponse.DisableInterval.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          if (startAtBuilder_ == null) {
+            startAt_ = null;
+          } else {
+            startAt_ = null;
+            startAtBuilder_ = null;
+          }
+          if (endAtBuilder_ == null) {
+            endAt_ = null;
+          } else {
+            endAt_ = null;
+            endAtBuilder_ = null;
+          }
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return eta.Eta.internal_static_eta_CheckSlotDisableResponse_DisableInterval_descriptor;
+        }
+
+        @java.lang.Override
+        public eta.Eta.CheckSlotDisableResponse.DisableInterval getDefaultInstanceForType() {
+          return eta.Eta.CheckSlotDisableResponse.DisableInterval.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public eta.Eta.CheckSlotDisableResponse.DisableInterval build() {
+          eta.Eta.CheckSlotDisableResponse.DisableInterval result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public eta.Eta.CheckSlotDisableResponse.DisableInterval buildPartial() {
+          eta.Eta.CheckSlotDisableResponse.DisableInterval result = new eta.Eta.CheckSlotDisableResponse.DisableInterval(this);
+          if (startAtBuilder_ == null) {
+            result.startAt_ = startAt_;
+          } else {
+            result.startAt_ = startAtBuilder_.build();
+          }
+          if (endAtBuilder_ == null) {
+            result.endAt_ = endAt_;
+          } else {
+            result.endAt_ = endAtBuilder_.build();
+          }
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof eta.Eta.CheckSlotDisableResponse.DisableInterval) {
+            return mergeFrom((eta.Eta.CheckSlotDisableResponse.DisableInterval)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(eta.Eta.CheckSlotDisableResponse.DisableInterval other) {
+          if (other == eta.Eta.CheckSlotDisableResponse.DisableInterval.getDefaultInstance()) return this;
+          if (other.hasStartAt()) {
+            mergeStartAt(other.getStartAt());
+          }
+          if (other.hasEndAt()) {
+            mergeEndAt(other.getEndAt());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          eta.Eta.CheckSlotDisableResponse.DisableInterval parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (eta.Eta.CheckSlotDisableResponse.DisableInterval) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private com.google.protobuf.Timestamp startAt_;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> startAtBuilder_;
+        /**
+         * <pre>
+         * Время начала отключения слотов в UTC (непустое, включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp start_at = 1;</code>
+         * @return Whether the startAt field is set.
+         */
+        public boolean hasStartAt() {
+          return startAtBuilder_ != null || startAt_ != null;
+        }
+        /**
+         * <pre>
+         * Время начала отключения слотов в UTC (непустое, включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp start_at = 1;</code>
+         * @return The startAt.
+         */
+        public com.google.protobuf.Timestamp getStartAt() {
+          if (startAtBuilder_ == null) {
+            return startAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : startAt_;
+          } else {
+            return startAtBuilder_.getMessage();
+          }
+        }
+        /**
+         * <pre>
+         * Время начала отключения слотов в UTC (непустое, включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp start_at = 1;</code>
+         */
+        public Builder setStartAt(com.google.protobuf.Timestamp value) {
+          if (startAtBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            startAt_ = value;
+            onChanged();
+          } else {
+            startAtBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * Время начала отключения слотов в UTC (непустое, включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp start_at = 1;</code>
+         */
+        public Builder setStartAt(
+            com.google.protobuf.Timestamp.Builder builderForValue) {
+          if (startAtBuilder_ == null) {
+            startAt_ = builderForValue.build();
+            onChanged();
+          } else {
+            startAtBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * Время начала отключения слотов в UTC (непустое, включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp start_at = 1;</code>
+         */
+        public Builder mergeStartAt(com.google.protobuf.Timestamp value) {
+          if (startAtBuilder_ == null) {
+            if (startAt_ != null) {
+              startAt_ =
+                com.google.protobuf.Timestamp.newBuilder(startAt_).mergeFrom(value).buildPartial();
+            } else {
+              startAt_ = value;
+            }
+            onChanged();
+          } else {
+            startAtBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * Время начала отключения слотов в UTC (непустое, включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp start_at = 1;</code>
+         */
+        public Builder clearStartAt() {
+          if (startAtBuilder_ == null) {
+            startAt_ = null;
+            onChanged();
+          } else {
+            startAt_ = null;
+            startAtBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * Время начала отключения слотов в UTC (непустое, включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp start_at = 1;</code>
+         */
+        public com.google.protobuf.Timestamp.Builder getStartAtBuilder() {
+          
+          onChanged();
+          return getStartAtFieldBuilder().getBuilder();
+        }
+        /**
+         * <pre>
+         * Время начала отключения слотов в UTC (непустое, включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp start_at = 1;</code>
+         */
+        public com.google.protobuf.TimestampOrBuilder getStartAtOrBuilder() {
+          if (startAtBuilder_ != null) {
+            return startAtBuilder_.getMessageOrBuilder();
+          } else {
+            return startAt_ == null ?
+                com.google.protobuf.Timestamp.getDefaultInstance() : startAt_;
+          }
+        }
+        /**
+         * <pre>
+         * Время начала отключения слотов в UTC (непустое, включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp start_at = 1;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+            getStartAtFieldBuilder() {
+          if (startAtBuilder_ == null) {
+            startAtBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                    getStartAt(),
+                    getParentForChildren(),
+                    isClean());
+            startAt_ = null;
+          }
+          return startAtBuilder_;
+        }
+
+        private com.google.protobuf.Timestamp endAt_;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> endAtBuilder_;
+        /**
+         * <pre>
+         * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp end_at = 2;</code>
+         * @return Whether the endAt field is set.
+         */
+        public boolean hasEndAt() {
+          return endAtBuilder_ != null || endAt_ != null;
+        }
+        /**
+         * <pre>
+         * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp end_at = 2;</code>
+         * @return The endAt.
+         */
+        public com.google.protobuf.Timestamp getEndAt() {
+          if (endAtBuilder_ == null) {
+            return endAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : endAt_;
+          } else {
+            return endAtBuilder_.getMessage();
+          }
+        }
+        /**
+         * <pre>
+         * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp end_at = 2;</code>
+         */
+        public Builder setEndAt(com.google.protobuf.Timestamp value) {
+          if (endAtBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            endAt_ = value;
+            onChanged();
+          } else {
+            endAtBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp end_at = 2;</code>
+         */
+        public Builder setEndAt(
+            com.google.protobuf.Timestamp.Builder builderForValue) {
+          if (endAtBuilder_ == null) {
+            endAt_ = builderForValue.build();
+            onChanged();
+          } else {
+            endAtBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp end_at = 2;</code>
+         */
+        public Builder mergeEndAt(com.google.protobuf.Timestamp value) {
+          if (endAtBuilder_ == null) {
+            if (endAt_ != null) {
+              endAt_ =
+                com.google.protobuf.Timestamp.newBuilder(endAt_).mergeFrom(value).buildPartial();
+            } else {
+              endAt_ = value;
+            }
+            onChanged();
+          } else {
+            endAtBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp end_at = 2;</code>
+         */
+        public Builder clearEndAt() {
+          if (endAtBuilder_ == null) {
+            endAt_ = null;
+            onChanged();
+          } else {
+            endAt_ = null;
+            endAtBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp end_at = 2;</code>
+         */
+        public com.google.protobuf.Timestamp.Builder getEndAtBuilder() {
+          
+          onChanged();
+          return getEndAtFieldBuilder().getBuilder();
+        }
+        /**
+         * <pre>
+         * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp end_at = 2;</code>
+         */
+        public com.google.protobuf.TimestampOrBuilder getEndAtOrBuilder() {
+          if (endAtBuilder_ != null) {
+            return endAtBuilder_.getMessageOrBuilder();
+          } else {
+            return endAt_ == null ?
+                com.google.protobuf.Timestamp.getDefaultInstance() : endAt_;
+          }
+        }
+        /**
+         * <pre>
+         * Время окончания отключения слотов в UTC (непустое, не включается в интервал)
+         * </pre>
+         *
+         * <code>.google.protobuf.Timestamp end_at = 2;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+            getEndAtFieldBuilder() {
+          if (endAtBuilder_ == null) {
+            endAtBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                    getEndAt(),
+                    getParentForChildren(),
+                    isClean());
+            endAt_ = null;
+          }
+          return endAtBuilder_;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:eta.CheckSlotDisableResponse.DisableInterval)
+      }
+
+      // @@protoc_insertion_point(class_scope:eta.CheckSlotDisableResponse.DisableInterval)
+      private static final eta.Eta.CheckSlotDisableResponse.DisableInterval DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new eta.Eta.CheckSlotDisableResponse.DisableInterval();
+      }
+
+      public static eta.Eta.CheckSlotDisableResponse.DisableInterval getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<DisableInterval>
+          PARSER = new com.google.protobuf.AbstractParser<DisableInterval>() {
+        @java.lang.Override
+        public DisableInterval parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new DisableInterval(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<DisableInterval> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<DisableInterval> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public eta.Eta.CheckSlotDisableResponse.DisableInterval getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public interface DisableIntervalListOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:eta.CheckSlotDisableResponse.DisableIntervalList)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+       */
+      java.util.List<eta.Eta.CheckSlotDisableResponse.DisableInterval> 
+          getDisableIntervalsList();
+      /**
+       * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+       */
+      eta.Eta.CheckSlotDisableResponse.DisableInterval getDisableIntervals(int index);
+      /**
+       * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+       */
+      int getDisableIntervalsCount();
+      /**
+       * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+       */
+      java.util.List<? extends eta.Eta.CheckSlotDisableResponse.DisableIntervalOrBuilder> 
+          getDisableIntervalsOrBuilderList();
+      /**
+       * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+       */
+      eta.Eta.CheckSlotDisableResponse.DisableIntervalOrBuilder getDisableIntervalsOrBuilder(
+          int index);
+    }
+    /**
+     * <pre>
+     * Список интервалов отключения слотов
+     * </pre>
+     *
+     * Protobuf type {@code eta.CheckSlotDisableResponse.DisableIntervalList}
+     */
+    public static final class DisableIntervalList extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:eta.CheckSlotDisableResponse.DisableIntervalList)
+        DisableIntervalListOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use DisableIntervalList.newBuilder() to construct.
+      private DisableIntervalList(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private DisableIntervalList() {
+        disableIntervals_ = java.util.Collections.emptyList();
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new DisableIntervalList();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private DisableIntervalList(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                  disableIntervals_ = new java.util.ArrayList<eta.Eta.CheckSlotDisableResponse.DisableInterval>();
+                  mutable_bitField0_ |= 0x00000001;
+                }
+                disableIntervals_.add(
+                    input.readMessage(eta.Eta.CheckSlotDisableResponse.DisableInterval.parser(), extensionRegistry));
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          if (((mutable_bitField0_ & 0x00000001) != 0)) {
+            disableIntervals_ = java.util.Collections.unmodifiableList(disableIntervals_);
+          }
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return eta.Eta.internal_static_eta_CheckSlotDisableResponse_DisableIntervalList_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return eta.Eta.internal_static_eta_CheckSlotDisableResponse_DisableIntervalList_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                eta.Eta.CheckSlotDisableResponse.DisableIntervalList.class, eta.Eta.CheckSlotDisableResponse.DisableIntervalList.Builder.class);
+      }
+
+      public static final int DISABLE_INTERVALS_FIELD_NUMBER = 1;
+      private java.util.List<eta.Eta.CheckSlotDisableResponse.DisableInterval> disableIntervals_;
+      /**
+       * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+       */
+      @java.lang.Override
+      public java.util.List<eta.Eta.CheckSlotDisableResponse.DisableInterval> getDisableIntervalsList() {
+        return disableIntervals_;
+      }
+      /**
+       * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+       */
+      @java.lang.Override
+      public java.util.List<? extends eta.Eta.CheckSlotDisableResponse.DisableIntervalOrBuilder> 
+          getDisableIntervalsOrBuilderList() {
+        return disableIntervals_;
+      }
+      /**
+       * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+       */
+      @java.lang.Override
+      public int getDisableIntervalsCount() {
+        return disableIntervals_.size();
+      }
+      /**
+       * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+       */
+      @java.lang.Override
+      public eta.Eta.CheckSlotDisableResponse.DisableInterval getDisableIntervals(int index) {
+        return disableIntervals_.get(index);
+      }
+      /**
+       * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+       */
+      @java.lang.Override
+      public eta.Eta.CheckSlotDisableResponse.DisableIntervalOrBuilder getDisableIntervalsOrBuilder(
+          int index) {
+        return disableIntervals_.get(index);
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        for (int i = 0; i < disableIntervals_.size(); i++) {
+          output.writeMessage(1, disableIntervals_.get(i));
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        for (int i = 0; i < disableIntervals_.size(); i++) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, disableIntervals_.get(i));
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof eta.Eta.CheckSlotDisableResponse.DisableIntervalList)) {
+          return super.equals(obj);
+        }
+        eta.Eta.CheckSlotDisableResponse.DisableIntervalList other = (eta.Eta.CheckSlotDisableResponse.DisableIntervalList) obj;
+
+        if (!getDisableIntervalsList()
+            .equals(other.getDisableIntervalsList())) return false;
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (getDisableIntervalsCount() > 0) {
+          hash = (37 * hash) + DISABLE_INTERVALS_FIELD_NUMBER;
+          hash = (53 * hash) + getDisableIntervalsList().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static eta.Eta.CheckSlotDisableResponse.DisableIntervalList parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableIntervalList parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableIntervalList parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableIntervalList parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableIntervalList parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableIntervalList parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableIntervalList parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableIntervalList parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableIntervalList parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableIntervalList parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableIntervalList parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static eta.Eta.CheckSlotDisableResponse.DisableIntervalList parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(eta.Eta.CheckSlotDisableResponse.DisableIntervalList prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * <pre>
+       * Список интервалов отключения слотов
+       * </pre>
+       *
+       * Protobuf type {@code eta.CheckSlotDisableResponse.DisableIntervalList}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:eta.CheckSlotDisableResponse.DisableIntervalList)
+          eta.Eta.CheckSlotDisableResponse.DisableIntervalListOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return eta.Eta.internal_static_eta_CheckSlotDisableResponse_DisableIntervalList_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return eta.Eta.internal_static_eta_CheckSlotDisableResponse_DisableIntervalList_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  eta.Eta.CheckSlotDisableResponse.DisableIntervalList.class, eta.Eta.CheckSlotDisableResponse.DisableIntervalList.Builder.class);
+        }
+
+        // Construct using eta.Eta.CheckSlotDisableResponse.DisableIntervalList.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+            getDisableIntervalsFieldBuilder();
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          if (disableIntervalsBuilder_ == null) {
+            disableIntervals_ = java.util.Collections.emptyList();
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            disableIntervalsBuilder_.clear();
+          }
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return eta.Eta.internal_static_eta_CheckSlotDisableResponse_DisableIntervalList_descriptor;
+        }
+
+        @java.lang.Override
+        public eta.Eta.CheckSlotDisableResponse.DisableIntervalList getDefaultInstanceForType() {
+          return eta.Eta.CheckSlotDisableResponse.DisableIntervalList.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public eta.Eta.CheckSlotDisableResponse.DisableIntervalList build() {
+          eta.Eta.CheckSlotDisableResponse.DisableIntervalList result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public eta.Eta.CheckSlotDisableResponse.DisableIntervalList buildPartial() {
+          eta.Eta.CheckSlotDisableResponse.DisableIntervalList result = new eta.Eta.CheckSlotDisableResponse.DisableIntervalList(this);
+          int from_bitField0_ = bitField0_;
+          if (disableIntervalsBuilder_ == null) {
+            if (((bitField0_ & 0x00000001) != 0)) {
+              disableIntervals_ = java.util.Collections.unmodifiableList(disableIntervals_);
+              bitField0_ = (bitField0_ & ~0x00000001);
+            }
+            result.disableIntervals_ = disableIntervals_;
+          } else {
+            result.disableIntervals_ = disableIntervalsBuilder_.build();
+          }
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof eta.Eta.CheckSlotDisableResponse.DisableIntervalList) {
+            return mergeFrom((eta.Eta.CheckSlotDisableResponse.DisableIntervalList)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(eta.Eta.CheckSlotDisableResponse.DisableIntervalList other) {
+          if (other == eta.Eta.CheckSlotDisableResponse.DisableIntervalList.getDefaultInstance()) return this;
+          if (disableIntervalsBuilder_ == null) {
+            if (!other.disableIntervals_.isEmpty()) {
+              if (disableIntervals_.isEmpty()) {
+                disableIntervals_ = other.disableIntervals_;
+                bitField0_ = (bitField0_ & ~0x00000001);
+              } else {
+                ensureDisableIntervalsIsMutable();
+                disableIntervals_.addAll(other.disableIntervals_);
+              }
+              onChanged();
+            }
+          } else {
+            if (!other.disableIntervals_.isEmpty()) {
+              if (disableIntervalsBuilder_.isEmpty()) {
+                disableIntervalsBuilder_.dispose();
+                disableIntervalsBuilder_ = null;
+                disableIntervals_ = other.disableIntervals_;
+                bitField0_ = (bitField0_ & ~0x00000001);
+                disableIntervalsBuilder_ = 
+                  com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                     getDisableIntervalsFieldBuilder() : null;
+              } else {
+                disableIntervalsBuilder_.addAllMessages(other.disableIntervals_);
+              }
+            }
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          eta.Eta.CheckSlotDisableResponse.DisableIntervalList parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (eta.Eta.CheckSlotDisableResponse.DisableIntervalList) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        private java.util.List<eta.Eta.CheckSlotDisableResponse.DisableInterval> disableIntervals_ =
+          java.util.Collections.emptyList();
+        private void ensureDisableIntervalsIsMutable() {
+          if (!((bitField0_ & 0x00000001) != 0)) {
+            disableIntervals_ = new java.util.ArrayList<eta.Eta.CheckSlotDisableResponse.DisableInterval>(disableIntervals_);
+            bitField0_ |= 0x00000001;
+           }
+        }
+
+        private com.google.protobuf.RepeatedFieldBuilderV3<
+            eta.Eta.CheckSlotDisableResponse.DisableInterval, eta.Eta.CheckSlotDisableResponse.DisableInterval.Builder, eta.Eta.CheckSlotDisableResponse.DisableIntervalOrBuilder> disableIntervalsBuilder_;
+
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public java.util.List<eta.Eta.CheckSlotDisableResponse.DisableInterval> getDisableIntervalsList() {
+          if (disableIntervalsBuilder_ == null) {
+            return java.util.Collections.unmodifiableList(disableIntervals_);
+          } else {
+            return disableIntervalsBuilder_.getMessageList();
+          }
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public int getDisableIntervalsCount() {
+          if (disableIntervalsBuilder_ == null) {
+            return disableIntervals_.size();
+          } else {
+            return disableIntervalsBuilder_.getCount();
+          }
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public eta.Eta.CheckSlotDisableResponse.DisableInterval getDisableIntervals(int index) {
+          if (disableIntervalsBuilder_ == null) {
+            return disableIntervals_.get(index);
+          } else {
+            return disableIntervalsBuilder_.getMessage(index);
+          }
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public Builder setDisableIntervals(
+            int index, eta.Eta.CheckSlotDisableResponse.DisableInterval value) {
+          if (disableIntervalsBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureDisableIntervalsIsMutable();
+            disableIntervals_.set(index, value);
+            onChanged();
+          } else {
+            disableIntervalsBuilder_.setMessage(index, value);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public Builder setDisableIntervals(
+            int index, eta.Eta.CheckSlotDisableResponse.DisableInterval.Builder builderForValue) {
+          if (disableIntervalsBuilder_ == null) {
+            ensureDisableIntervalsIsMutable();
+            disableIntervals_.set(index, builderForValue.build());
+            onChanged();
+          } else {
+            disableIntervalsBuilder_.setMessage(index, builderForValue.build());
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public Builder addDisableIntervals(eta.Eta.CheckSlotDisableResponse.DisableInterval value) {
+          if (disableIntervalsBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureDisableIntervalsIsMutable();
+            disableIntervals_.add(value);
+            onChanged();
+          } else {
+            disableIntervalsBuilder_.addMessage(value);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public Builder addDisableIntervals(
+            int index, eta.Eta.CheckSlotDisableResponse.DisableInterval value) {
+          if (disableIntervalsBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureDisableIntervalsIsMutable();
+            disableIntervals_.add(index, value);
+            onChanged();
+          } else {
+            disableIntervalsBuilder_.addMessage(index, value);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public Builder addDisableIntervals(
+            eta.Eta.CheckSlotDisableResponse.DisableInterval.Builder builderForValue) {
+          if (disableIntervalsBuilder_ == null) {
+            ensureDisableIntervalsIsMutable();
+            disableIntervals_.add(builderForValue.build());
+            onChanged();
+          } else {
+            disableIntervalsBuilder_.addMessage(builderForValue.build());
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public Builder addDisableIntervals(
+            int index, eta.Eta.CheckSlotDisableResponse.DisableInterval.Builder builderForValue) {
+          if (disableIntervalsBuilder_ == null) {
+            ensureDisableIntervalsIsMutable();
+            disableIntervals_.add(index, builderForValue.build());
+            onChanged();
+          } else {
+            disableIntervalsBuilder_.addMessage(index, builderForValue.build());
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public Builder addAllDisableIntervals(
+            java.lang.Iterable<? extends eta.Eta.CheckSlotDisableResponse.DisableInterval> values) {
+          if (disableIntervalsBuilder_ == null) {
+            ensureDisableIntervalsIsMutable();
+            com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                values, disableIntervals_);
+            onChanged();
+          } else {
+            disableIntervalsBuilder_.addAllMessages(values);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public Builder clearDisableIntervals() {
+          if (disableIntervalsBuilder_ == null) {
+            disableIntervals_ = java.util.Collections.emptyList();
+            bitField0_ = (bitField0_ & ~0x00000001);
+            onChanged();
+          } else {
+            disableIntervalsBuilder_.clear();
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public Builder removeDisableIntervals(int index) {
+          if (disableIntervalsBuilder_ == null) {
+            ensureDisableIntervalsIsMutable();
+            disableIntervals_.remove(index);
+            onChanged();
+          } else {
+            disableIntervalsBuilder_.remove(index);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public eta.Eta.CheckSlotDisableResponse.DisableInterval.Builder getDisableIntervalsBuilder(
+            int index) {
+          return getDisableIntervalsFieldBuilder().getBuilder(index);
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public eta.Eta.CheckSlotDisableResponse.DisableIntervalOrBuilder getDisableIntervalsOrBuilder(
+            int index) {
+          if (disableIntervalsBuilder_ == null) {
+            return disableIntervals_.get(index);  } else {
+            return disableIntervalsBuilder_.getMessageOrBuilder(index);
+          }
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public java.util.List<? extends eta.Eta.CheckSlotDisableResponse.DisableIntervalOrBuilder> 
+             getDisableIntervalsOrBuilderList() {
+          if (disableIntervalsBuilder_ != null) {
+            return disableIntervalsBuilder_.getMessageOrBuilderList();
+          } else {
+            return java.util.Collections.unmodifiableList(disableIntervals_);
+          }
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public eta.Eta.CheckSlotDisableResponse.DisableInterval.Builder addDisableIntervalsBuilder() {
+          return getDisableIntervalsFieldBuilder().addBuilder(
+              eta.Eta.CheckSlotDisableResponse.DisableInterval.getDefaultInstance());
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public eta.Eta.CheckSlotDisableResponse.DisableInterval.Builder addDisableIntervalsBuilder(
+            int index) {
+          return getDisableIntervalsFieldBuilder().addBuilder(
+              index, eta.Eta.CheckSlotDisableResponse.DisableInterval.getDefaultInstance());
+        }
+        /**
+         * <code>repeated .eta.CheckSlotDisableResponse.DisableInterval disable_intervals = 1;</code>
+         */
+        public java.util.List<eta.Eta.CheckSlotDisableResponse.DisableInterval.Builder> 
+             getDisableIntervalsBuilderList() {
+          return getDisableIntervalsFieldBuilder().getBuilderList();
+        }
+        private com.google.protobuf.RepeatedFieldBuilderV3<
+            eta.Eta.CheckSlotDisableResponse.DisableInterval, eta.Eta.CheckSlotDisableResponse.DisableInterval.Builder, eta.Eta.CheckSlotDisableResponse.DisableIntervalOrBuilder> 
+            getDisableIntervalsFieldBuilder() {
+          if (disableIntervalsBuilder_ == null) {
+            disableIntervalsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+                eta.Eta.CheckSlotDisableResponse.DisableInterval, eta.Eta.CheckSlotDisableResponse.DisableInterval.Builder, eta.Eta.CheckSlotDisableResponse.DisableIntervalOrBuilder>(
+                    disableIntervals_,
+                    ((bitField0_ & 0x00000001) != 0),
+                    getParentForChildren(),
+                    isClean());
+            disableIntervals_ = null;
+          }
+          return disableIntervalsBuilder_;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:eta.CheckSlotDisableResponse.DisableIntervalList)
+      }
+
+      // @@protoc_insertion_point(class_scope:eta.CheckSlotDisableResponse.DisableIntervalList)
+      private static final eta.Eta.CheckSlotDisableResponse.DisableIntervalList DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new eta.Eta.CheckSlotDisableResponse.DisableIntervalList();
+      }
+
+      public static eta.Eta.CheckSlotDisableResponse.DisableIntervalList getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<DisableIntervalList>
+          PARSER = new com.google.protobuf.AbstractParser<DisableIntervalList>() {
+        @java.lang.Override
+        public DisableIntervalList parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new DisableIntervalList(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<DisableIntervalList> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<DisableIntervalList> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public eta.Eta.CheckSlotDisableResponse.DisableIntervalList getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public static final int DISABLE_INTERVALS_BY_STORE_FIELD_NUMBER = 1;
+    private static final class DisableIntervalsByStoreDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList>newDefaultInstance(
+                  eta.Eta.internal_static_eta_CheckSlotDisableResponse_DisableIntervalsByStoreEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.MESSAGE,
+                  eta.Eta.CheckSlotDisableResponse.DisableIntervalList.getDefaultInstance());
+    }
+    private com.google.protobuf.MapField<
+        java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList> disableIntervalsByStore_;
+    private com.google.protobuf.MapField<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList>
+    internalGetDisableIntervalsByStore() {
+      if (disableIntervalsByStore_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            DisableIntervalsByStoreDefaultEntryHolder.defaultEntry);
+      }
+      return disableIntervalsByStore_;
+    }
+
+    public int getDisableIntervalsByStoreCount() {
+      return internalGetDisableIntervalsByStore().getMap().size();
+    }
+    /**
+     * <pre>
+     * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+     * </pre>
+     *
+     * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+     */
+
+    @java.lang.Override
+    public boolean containsDisableIntervalsByStore(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      return internalGetDisableIntervalsByStore().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getDisableIntervalsByStoreMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList> getDisableIntervalsByStore() {
+      return getDisableIntervalsByStoreMap();
+    }
+    /**
+     * <pre>
+     * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+     * </pre>
+     *
+     * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+     */
+    @java.lang.Override
+
+    public java.util.Map<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList> getDisableIntervalsByStoreMap() {
+      return internalGetDisableIntervalsByStore().getMap();
+    }
+    /**
+     * <pre>
+     * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+     * </pre>
+     *
+     * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+     */
+    @java.lang.Override
+
+    public eta.Eta.CheckSlotDisableResponse.DisableIntervalList getDisableIntervalsByStoreOrDefault(
+        java.lang.String key,
+        eta.Eta.CheckSlotDisableResponse.DisableIntervalList defaultValue) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList> map =
+          internalGetDisableIntervalsByStore().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <pre>
+     * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+     * </pre>
+     *
+     * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+     */
+    @java.lang.Override
+
+    public eta.Eta.CheckSlotDisableResponse.DisableIntervalList getDisableIntervalsByStoreOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList> map =
+          internalGetDisableIntervalsByStore().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      com.google.protobuf.GeneratedMessageV3
+        .serializeStringMapTo(
+          output,
+          internalGetDisableIntervalsByStore(),
+          DisableIntervalsByStoreDefaultEntryHolder.defaultEntry,
+          1);
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (java.util.Map.Entry<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList> entry
+           : internalGetDisableIntervalsByStore().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList>
+        disableIntervalsByStore__ = DisableIntervalsByStoreDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, disableIntervalsByStore__);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof eta.Eta.CheckSlotDisableResponse)) {
+        return super.equals(obj);
+      }
+      eta.Eta.CheckSlotDisableResponse other = (eta.Eta.CheckSlotDisableResponse) obj;
+
+      if (!internalGetDisableIntervalsByStore().equals(
+          other.internalGetDisableIntervalsByStore())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (!internalGetDisableIntervalsByStore().getMap().isEmpty()) {
+        hash = (37 * hash) + DISABLE_INTERVALS_BY_STORE_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetDisableIntervalsByStore().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static eta.Eta.CheckSlotDisableResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eta.Eta.CheckSlotDisableResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eta.Eta.CheckSlotDisableResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eta.Eta.CheckSlotDisableResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eta.Eta.CheckSlotDisableResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eta.Eta.CheckSlotDisableResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eta.Eta.CheckSlotDisableResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static eta.Eta.CheckSlotDisableResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static eta.Eta.CheckSlotDisableResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static eta.Eta.CheckSlotDisableResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static eta.Eta.CheckSlotDisableResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static eta.Eta.CheckSlotDisableResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(eta.Eta.CheckSlotDisableResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code eta.CheckSlotDisableResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:eta.CheckSlotDisableResponse)
+        eta.Eta.CheckSlotDisableResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return eta.Eta.internal_static_eta_CheckSlotDisableResponse_descriptor;
+      }
+
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMapField(
+          int number) {
+        switch (number) {
+          case 1:
+            return internalGetDisableIntervalsByStore();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMutableMapField(
+          int number) {
+        switch (number) {
+          case 1:
+            return internalGetMutableDisableIntervalsByStore();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return eta.Eta.internal_static_eta_CheckSlotDisableResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                eta.Eta.CheckSlotDisableResponse.class, eta.Eta.CheckSlotDisableResponse.Builder.class);
+      }
+
+      // Construct using eta.Eta.CheckSlotDisableResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        internalGetMutableDisableIntervalsByStore().clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return eta.Eta.internal_static_eta_CheckSlotDisableResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public eta.Eta.CheckSlotDisableResponse getDefaultInstanceForType() {
+        return eta.Eta.CheckSlotDisableResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public eta.Eta.CheckSlotDisableResponse build() {
+        eta.Eta.CheckSlotDisableResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public eta.Eta.CheckSlotDisableResponse buildPartial() {
+        eta.Eta.CheckSlotDisableResponse result = new eta.Eta.CheckSlotDisableResponse(this);
+        int from_bitField0_ = bitField0_;
+        result.disableIntervalsByStore_ = internalGetDisableIntervalsByStore();
+        result.disableIntervalsByStore_.makeImmutable();
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof eta.Eta.CheckSlotDisableResponse) {
+          return mergeFrom((eta.Eta.CheckSlotDisableResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(eta.Eta.CheckSlotDisableResponse other) {
+        if (other == eta.Eta.CheckSlotDisableResponse.getDefaultInstance()) return this;
+        internalGetMutableDisableIntervalsByStore().mergeFrom(
+            other.internalGetDisableIntervalsByStore());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        eta.Eta.CheckSlotDisableResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (eta.Eta.CheckSlotDisableResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.MapField<
+          java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList> disableIntervalsByStore_;
+      private com.google.protobuf.MapField<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList>
+      internalGetDisableIntervalsByStore() {
+        if (disableIntervalsByStore_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              DisableIntervalsByStoreDefaultEntryHolder.defaultEntry);
+        }
+        return disableIntervalsByStore_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList>
+      internalGetMutableDisableIntervalsByStore() {
+        onChanged();;
+        if (disableIntervalsByStore_ == null) {
+          disableIntervalsByStore_ = com.google.protobuf.MapField.newMapField(
+              DisableIntervalsByStoreDefaultEntryHolder.defaultEntry);
+        }
+        if (!disableIntervalsByStore_.isMutable()) {
+          disableIntervalsByStore_ = disableIntervalsByStore_.copy();
+        }
+        return disableIntervalsByStore_;
+      }
+
+      public int getDisableIntervalsByStoreCount() {
+        return internalGetDisableIntervalsByStore().getMap().size();
+      }
+      /**
+       * <pre>
+       * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+       * </pre>
+       *
+       * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+       */
+
+      @java.lang.Override
+      public boolean containsDisableIntervalsByStore(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        return internalGetDisableIntervalsByStore().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getDisableIntervalsByStoreMap()} instead.
+       */
+      @java.lang.Override
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList> getDisableIntervalsByStore() {
+        return getDisableIntervalsByStoreMap();
+      }
+      /**
+       * <pre>
+       * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+       * </pre>
+       *
+       * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+       */
+      @java.lang.Override
+
+      public java.util.Map<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList> getDisableIntervalsByStoreMap() {
+        return internalGetDisableIntervalsByStore().getMap();
+      }
+      /**
+       * <pre>
+       * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+       * </pre>
+       *
+       * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+       */
+      @java.lang.Override
+
+      public eta.Eta.CheckSlotDisableResponse.DisableIntervalList getDisableIntervalsByStoreOrDefault(
+          java.lang.String key,
+          eta.Eta.CheckSlotDisableResponse.DisableIntervalList defaultValue) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList> map =
+            internalGetDisableIntervalsByStore().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <pre>
+       * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+       * </pre>
+       *
+       * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+       */
+      @java.lang.Override
+
+      public eta.Eta.CheckSlotDisableResponse.DisableIntervalList getDisableIntervalsByStoreOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList> map =
+            internalGetDisableIntervalsByStore().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+
+      public Builder clearDisableIntervalsByStore() {
+        internalGetMutableDisableIntervalsByStore().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <pre>
+       * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+       * </pre>
+       *
+       * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+       */
+
+      public Builder removeDisableIntervalsByStore(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableDisableIntervalsByStore().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList>
+      getMutableDisableIntervalsByStore() {
+        return internalGetMutableDisableIntervalsByStore().getMutableMap();
+      }
+      /**
+       * <pre>
+       * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+       * </pre>
+       *
+       * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+       */
+      public Builder putDisableIntervalsByStore(
+          java.lang.String key,
+          eta.Eta.CheckSlotDisableResponse.DisableIntervalList value) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        if (value == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableDisableIntervalsByStore().getMutableMap()
+            .put(key, value);
+        return this;
+      }
+      /**
+       * <pre>
+       * Интервалы отключения слотов по магазину (содержит только магазины с непустым списком интервалов)
+       * </pre>
+       *
+       * <code>map&lt;string, .eta.CheckSlotDisableResponse.DisableIntervalList&gt; disable_intervals_by_store = 1;</code>
+       */
+
+      public Builder putAllDisableIntervalsByStore(
+          java.util.Map<java.lang.String, eta.Eta.CheckSlotDisableResponse.DisableIntervalList> values) {
+        internalGetMutableDisableIntervalsByStore().getMutableMap()
+            .putAll(values);
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:eta.CheckSlotDisableResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:eta.CheckSlotDisableResponse)
+    private static final eta.Eta.CheckSlotDisableResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new eta.Eta.CheckSlotDisableResponse();
+    }
+
+    public static eta.Eta.CheckSlotDisableResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<CheckSlotDisableResponse>
+        PARSER = new com.google.protobuf.AbstractParser<CheckSlotDisableResponse>() {
+      @java.lang.Override
+      public CheckSlotDisableResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CheckSlotDisableResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CheckSlotDisableResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CheckSlotDisableResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public eta.Eta.CheckSlotDisableResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_eta_StoreEta_descriptor;
   private static final 
@@ -15582,6 +20972,41 @@ public final class Eta {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_eta_CourierEtaResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_eta_DisableEtaRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_eta_DisableEtaRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_eta_DisableEtaResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_eta_DisableEtaResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_eta_CheckSlotDisableRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_eta_CheckSlotDisableRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_eta_CheckSlotDisableResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_eta_CheckSlotDisableResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_eta_CheckSlotDisableResponse_DisableInterval_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_eta_CheckSlotDisableResponse_DisableInterval_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_eta_CheckSlotDisableResponse_DisableIntervalList_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_eta_CheckSlotDisableResponse_DisableIntervalList_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_eta_CheckSlotDisableResponse_DisableIntervalsByStoreEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_eta_CheckSlotDisableResponse_DisableIntervalsByStoreEntry_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -15591,67 +21016,91 @@ public final class Eta {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\023on_demand/eta.proto\022\003eta\"h\n\010StoreEta\022\022" +
-      "\n\nstore_uuid\030\001 \001(\t\022\013\n\003eta\030\002 \001(\005\022\r\n\005sigma" +
-      "\030\003 \001(\005\022,\n\017estimate_source\030\004 \001(\0162\023.eta.Es" +
-      "timateSource\"i\n\023StoreUserEtaRequest\022\023\n\013s" +
-      "tore_uuids\030\001 \003(\t\022\013\n\003lat\030\002 \001(\002\022\013\n\003lon\030\003 \001" +
-      "(\002\022\023\n\013anonymousId\030\004 \001(\t\022\016\n\006userId\030\005 \001(\t\"" +
-      "J\n\024StoreUserEtaResponse\022\033\n\004data\030\001 \003(\0132\r." +
-      "eta.StoreEta\022\025\n\rmodel_version\030\002 \001(\005\"7\n\010U" +
-      "serData\022\021\n\tuser_uuid\030\001 \001(\t\022\013\n\003lat\030\002 \001(\002\022" +
-      "\013\n\003lon\030\003 \001(\002\"A\n\007SkuData\022\013\n\003sku\030\001 \001(\t\022\025\n\r" +
-      "unit_quantity\030\002 \001(\002\022\022\n\nprice_type\030\003 \001(\t\"" +
-      "9\n\tStoreData\022\022\n\nstore_uuid\030\001 \001(\t\022\013\n\003lat\030" +
-      "\002 \001(\002\022\013\n\003lon\030\003 \001(\002\"<\n\017UserStoreBasket\022\031\n" +
-      "\003sku\030\001 \003(\0132\014.eta.SkuData\022\016\n\006weight\030\002 \001(\002" +
-      "\"o\n\014ShipmentData\022\025\n\rshipment_uuid\030\001 \001(\t\022" +
-      "\"\n\nstore_info\030\002 \001(\0132\016.eta.StoreData\022$\n\006b" +
-      "asket\030\003 \001(\0132\024.eta.UserStoreBasket\"E\n\tOrd" +
-      "erData\022\022\n\norder_uuid\030\001 \001(\t\022$\n\tshipments\030" +
-      "\002 \003(\0132\021.eta.ShipmentData\"L\n\016UserEtaReque" +
-      "st\022\033\n\004user\030\001 \001(\0132\r.eta.UserData\022\035\n\005order" +
-      "\030\002 \001(\0132\016.eta.OrderData\"n\n\013ShipmentEta\022\025\n" +
-      "\rshipment_uuid\030\001 \001(\t\022\013\n\003eta\030\002 \001(\005\022\r\n\005sig" +
-      "ma\030\003 \001(\005\022,\n\017estimate_source\030\004 \001(\0162\023.eta." +
-      "EstimateSource\"G\n\010OrderEta\022\022\n\norder_uuid" +
-      "\030\001 \001(\t\022\'\n\rshipment_etas\030\002 \003(\0132\020.eta.Ship" +
-      "mentEta\"F\n\017UserEtaResponse\022\025\n\rmodel_vers" +
-      "ion\030\001 \001(\005\022\034\n\005order\030\002 \001(\0132\r.eta.OrderEta\"" +
-      "\265\001\n\020InitStoreRequest\022\n\n\002id\030\001 \001(\003\022\014\n\004uuid" +
-      "\030\002 \001(\t\022\023\n\013retailer_id\030\003 \001(\003\022\021\n\ttime_zone" +
-      "\030\004 \001(\t\022.\n\007address\030\005 \001(\0132\035.eta.InitStoreR" +
-      "equest.Address\032/\n\007Address\022\n\n\002id\030\001 \001(\003\022\013\n" +
-      "\003lat\030\002 \001(\002\022\013\n\003lon\030\003 \001(\002\"\335\001\n\021CourierEtaRe" +
-      "quest\022\024\n\014courier_uuid\030\001 \001(\t\022\022\n\nstore_uui" +
-      "d\030\002 \001(\t\022\025\n\rshipment_uuid\030\003 \001(\t\022\024\n\014anonym" +
-      "ous_id\030\004 \001(\t\0228\n\014client_point\030\005 \001(\0132\".eta" +
-      ".CourierEtaRequest.ClientPoint\022\016\n\006userId" +
-      "\030\006 \001(\t\032\'\n\013ClientPoint\022\013\n\003lat\030\001 \001(\002\022\013\n\003lo" +
-      "n\030\002 \001(\002\"Y\n\022CourierEtaResponse\022\013\n\003eta\030\001 \001" +
-      "(\005\0226\n\017estimate_source\030\002 \001(\0162\035.eta.Courie" +
-      "rEtaEstimateSource*&\n\016EstimateSource\022\006\n\002" +
-      "ML\020\000\022\014\n\010FALLBACK\020\001*E\n\030CourierEtaEstimate" +
-      "Source\022\006\n\002RE\020\000\022\017\n\013RE_FALLBACK\020\001\022\020\n\014APP_F" +
-      "ALLBACK\020\0022\312\001\n\007PredEta\022B\n\013GetStoreEta\022\030.e" +
-      "ta.StoreUserEtaRequest\032\031.eta.StoreUserEt" +
-      "aResponse\0229\n\014GetBasketEta\022\023.eta.UserEtaR" +
-      "equest\032\024.eta.UserEtaResponse\022@\n\rGetCouri" +
-      "erEta\022\026.eta.CourierEtaRequest\032\027.eta.Cour" +
-      "ierEtaResponseB@Z>gitlab.sbmt.io/paas/co" +
-      "ntent/operations/eta/pkg/server/grpc/eta" +
-      "b\006proto3"
+      "\n\023on_demand/eta.proto\022\003eta\032\037google/proto" +
+      "buf/timestamp.proto\"\201\001\n\010StoreEta\022\022\n\nstor" +
+      "e_uuid\030\001 \001(\t\022\013\n\003eta\030\002 \001(\005\022\r\n\005sigma\030\003 \001(\005" +
+      "\022,\n\017estimate_source\030\004 \001(\0162\023.eta.Estimate" +
+      "Source\022\027\n\017is_eta_disabled\030\005 \001(\010\"i\n\023Store" +
+      "UserEtaRequest\022\023\n\013store_uuids\030\001 \003(\t\022\013\n\003l" +
+      "at\030\002 \001(\002\022\013\n\003lon\030\003 \001(\002\022\023\n\013anonymousId\030\004 \001" +
+      "(\t\022\016\n\006userId\030\005 \001(\t\"J\n\024StoreUserEtaRespon" +
+      "se\022\033\n\004data\030\001 \003(\0132\r.eta.StoreEta\022\025\n\rmodel" +
+      "_version\030\002 \001(\005\"7\n\010UserData\022\021\n\tuser_uuid\030" +
+      "\001 \001(\t\022\013\n\003lat\030\002 \001(\002\022\013\n\003lon\030\003 \001(\002\"A\n\007SkuDa" +
+      "ta\022\013\n\003sku\030\001 \001(\t\022\025\n\runit_quantity\030\002 \001(\002\022\022" +
+      "\n\nprice_type\030\003 \001(\t\"9\n\tStoreData\022\022\n\nstore" +
+      "_uuid\030\001 \001(\t\022\013\n\003lat\030\002 \001(\002\022\013\n\003lon\030\003 \001(\002\"<\n" +
+      "\017UserStoreBasket\022\031\n\003sku\030\001 \003(\0132\014.eta.SkuD" +
+      "ata\022\016\n\006weight\030\002 \001(\002\"o\n\014ShipmentData\022\025\n\rs" +
+      "hipment_uuid\030\001 \001(\t\022\"\n\nstore_info\030\002 \001(\0132\016" +
+      ".eta.StoreData\022$\n\006basket\030\003 \001(\0132\024.eta.Use" +
+      "rStoreBasket\"E\n\tOrderData\022\022\n\norder_uuid\030" +
+      "\001 \001(\t\022$\n\tshipments\030\002 \003(\0132\021.eta.ShipmentD" +
+      "ata\"a\n\016UserEtaRequest\022\033\n\004user\030\001 \001(\0132\r.et" +
+      "a.UserData\022\035\n\005order\030\002 \001(\0132\016.eta.OrderDat" +
+      "a\022\023\n\013anonymousId\030\004 \001(\t\"\207\001\n\013ShipmentEta\022\025" +
+      "\n\rshipment_uuid\030\001 \001(\t\022\013\n\003eta\030\002 \001(\005\022\r\n\005si" +
+      "gma\030\003 \001(\005\022,\n\017estimate_source\030\004 \001(\0162\023.eta" +
+      ".EstimateSource\022\027\n\017is_eta_disabled\030\005 \001(\010" +
+      "\"G\n\010OrderEta\022\022\n\norder_uuid\030\001 \001(\t\022\'\n\rship" +
+      "ment_etas\030\002 \003(\0132\020.eta.ShipmentEta\"F\n\017Use" +
+      "rEtaResponse\022\025\n\rmodel_version\030\001 \001(\005\022\034\n\005o" +
+      "rder\030\002 \001(\0132\r.eta.OrderEta\"\265\001\n\020InitStoreR" +
+      "equest\022\n\n\002id\030\001 \001(\003\022\014\n\004uuid\030\002 \001(\t\022\023\n\013reta" +
+      "iler_id\030\003 \001(\003\022\021\n\ttime_zone\030\004 \001(\t\022.\n\007addr" +
+      "ess\030\005 \001(\0132\035.eta.InitStoreRequest.Address" +
+      "\032/\n\007Address\022\n\n\002id\030\001 \001(\003\022\013\n\003lat\030\002 \001(\002\022\013\n\003" +
+      "lon\030\003 \001(\002\"\335\001\n\021CourierEtaRequest\022\024\n\014couri" +
+      "er_uuid\030\001 \001(\t\022\022\n\nstore_uuid\030\002 \001(\t\022\025\n\rshi" +
+      "pment_uuid\030\003 \001(\t\022\024\n\014anonymous_id\030\004 \001(\t\0228" +
+      "\n\014client_point\030\005 \001(\0132\".eta.CourierEtaReq" +
+      "uest.ClientPoint\022\016\n\006userId\030\006 \001(\t\032\'\n\013Clie" +
+      "ntPoint\022\013\n\003lat\030\001 \001(\002\022\013\n\003lon\030\002 \001(\002\"Y\n\022Cou" +
+      "rierEtaResponse\022\013\n\003eta\030\001 \001(\005\0226\n\017estimate" +
+      "_source\030\002 \001(\0162\035.eta.CourierEtaEstimateSo" +
+      "urce\"\266\001\n\021DisableEtaRequest\022\023\n\013store_uuid" +
+      "s\030\001 \003(\t\022/\n\013left_border\030\002 \001(\0132\032.google.pr" +
+      "otobuf.Timestamp\0220\n\014right_border\030\003 \001(\0132\032" +
+      ".google.protobuf.Timestamp\022\023\n\013disable_et" +
+      "a\030\004 \001(\010\022\024\n\014disable_slot\030\005 \001(\010\"\024\n\022Disable" +
+      "EtaResponse\".\n\027CheckSlotDisableRequest\022\023" +
+      "\n\013store_uuids\030\001 \003(\t\"\273\003\n\030CheckSlotDisable" +
+      "Response\022^\n\032disable_intervals_by_store\030\001" +
+      " \003(\0132:.eta.CheckSlotDisableResponse.Disa" +
+      "bleIntervalsByStoreEntry\032k\n\017DisableInter" +
+      "val\022,\n\010start_at\030\001 \001(\0132\032.google.protobuf." +
+      "Timestamp\022*\n\006end_at\030\002 \001(\0132\032.google.proto" +
+      "buf.Timestamp\032_\n\023DisableIntervalList\022H\n\021" +
+      "disable_intervals\030\001 \003(\0132-.eta.CheckSlotD" +
+      "isableResponse.DisableInterval\032q\n\034Disabl" +
+      "eIntervalsByStoreEntry\022\013\n\003key\030\001 \001(\t\022@\n\005v" +
+      "alue\030\002 \001(\01321.eta.CheckSlotDisableRespons" +
+      "e.DisableIntervalList:\0028\001*&\n\016EstimateSou" +
+      "rce\022\006\n\002ML\020\000\022\014\n\010FALLBACK\020\001*E\n\030CourierEtaE" +
+      "stimateSource\022\006\n\002RE\020\000\022\017\n\013RE_FALLBACK\020\001\022\020" +
+      "\n\014APP_FALLBACK\020\0022\332\002\n\007PredEta\022B\n\013GetStore" +
+      "Eta\022\030.eta.StoreUserEtaRequest\032\031.eta.Stor" +
+      "eUserEtaResponse\0229\n\014GetBasketEta\022\023.eta.U" +
+      "serEtaRequest\032\024.eta.UserEtaResponse\022@\n\rG" +
+      "etCourierEta\022\026.eta.CourierEtaRequest\032\027.e" +
+      "ta.CourierEtaResponse\022=\n\nDisableEta\022\026.et" +
+      "a.DisableEtaRequest\032\027.eta.DisableEtaResp" +
+      "onse\022O\n\020CheckSlotDisable\022\034.eta.CheckSlot" +
+      "DisableRequest\032\035.eta.CheckSlotDisableRes" +
+      "ponseB@Z>gitlab.sbmt.io/paas/content/ope" +
+      "rations/eta/pkg/server/grpc/etab\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_eta_StoreEta_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_eta_StoreEta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_eta_StoreEta_descriptor,
-        new java.lang.String[] { "StoreUuid", "Eta", "Sigma", "EstimateSource", });
+        new java.lang.String[] { "StoreUuid", "Eta", "Sigma", "EstimateSource", "IsEtaDisabled", });
     internal_static_eta_StoreUserEtaRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_eta_StoreUserEtaRequest_fieldAccessorTable = new
@@ -15705,13 +21154,13 @@ public final class Eta {
     internal_static_eta_UserEtaRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_eta_UserEtaRequest_descriptor,
-        new java.lang.String[] { "User", "Order", });
+        new java.lang.String[] { "User", "Order", "AnonymousId", });
     internal_static_eta_ShipmentEta_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_eta_ShipmentEta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_eta_ShipmentEta_descriptor,
-        new java.lang.String[] { "ShipmentUuid", "Eta", "Sigma", "EstimateSource", });
+        new java.lang.String[] { "ShipmentUuid", "Eta", "Sigma", "EstimateSource", "IsEtaDisabled", });
     internal_static_eta_OrderEta_descriptor =
       getDescriptor().getMessageTypes().get(11);
     internal_static_eta_OrderEta_fieldAccessorTable = new
@@ -15754,6 +21203,49 @@ public final class Eta {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_eta_CourierEtaResponse_descriptor,
         new java.lang.String[] { "Eta", "EstimateSource", });
+    internal_static_eta_DisableEtaRequest_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_eta_DisableEtaRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_eta_DisableEtaRequest_descriptor,
+        new java.lang.String[] { "StoreUuids", "LeftBorder", "RightBorder", "DisableEta", "DisableSlot", });
+    internal_static_eta_DisableEtaResponse_descriptor =
+      getDescriptor().getMessageTypes().get(17);
+    internal_static_eta_DisableEtaResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_eta_DisableEtaResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_eta_CheckSlotDisableRequest_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_eta_CheckSlotDisableRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_eta_CheckSlotDisableRequest_descriptor,
+        new java.lang.String[] { "StoreUuids", });
+    internal_static_eta_CheckSlotDisableResponse_descriptor =
+      getDescriptor().getMessageTypes().get(19);
+    internal_static_eta_CheckSlotDisableResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_eta_CheckSlotDisableResponse_descriptor,
+        new java.lang.String[] { "DisableIntervalsByStore", });
+    internal_static_eta_CheckSlotDisableResponse_DisableInterval_descriptor =
+      internal_static_eta_CheckSlotDisableResponse_descriptor.getNestedTypes().get(0);
+    internal_static_eta_CheckSlotDisableResponse_DisableInterval_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_eta_CheckSlotDisableResponse_DisableInterval_descriptor,
+        new java.lang.String[] { "StartAt", "EndAt", });
+    internal_static_eta_CheckSlotDisableResponse_DisableIntervalList_descriptor =
+      internal_static_eta_CheckSlotDisableResponse_descriptor.getNestedTypes().get(1);
+    internal_static_eta_CheckSlotDisableResponse_DisableIntervalList_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_eta_CheckSlotDisableResponse_DisableIntervalList_descriptor,
+        new java.lang.String[] { "DisableIntervals", });
+    internal_static_eta_CheckSlotDisableResponse_DisableIntervalsByStoreEntry_descriptor =
+      internal_static_eta_CheckSlotDisableResponse_descriptor.getNestedTypes().get(2);
+    internal_static_eta_CheckSlotDisableResponse_DisableIntervalsByStoreEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_eta_CheckSlotDisableResponse_DisableIntervalsByStoreEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    com.google.protobuf.TimestampProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
