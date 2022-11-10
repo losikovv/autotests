@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.ShippingCalcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.AppVersion;
 import ru.instamart.kraken.enums.Tenant;
 import ru.instamart.redis.Redis;
@@ -17,10 +18,13 @@ import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import shippingcalc.*;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.helper.K8sHelper.getPaasServiceEnvProp;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
+import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDate;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -31,13 +35,18 @@ public class DeliveryPriceTest extends ShippingCalcBase {
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
     private int localStrategyId;
     private int conditionStrategyId;
-    protected int globalStrategyId;
+    private int globalStrategyId;
     private final String STORE_ID = UUID.randomUUID().toString();
     private final String SURGE_STORE_ID = UUID.randomUUID().toString();
     private final String SHIPMENT_ID = UUID.randomUUID().toString();
     private final String CUSTOMER_ID = UUID.randomUUID().toString();
     private final String ANONYMOUS_ID = UUID.randomUUID().toString();
     private final String ORDER_ID = UUID.randomUUID().toString();
+    private Integer minCartAmountFirst = 100000;
+    private Integer minCartAmountSecond = minCartAmountFirst - 1;
+    private Integer minCartAmountThird = minCartAmountSecond - 1;
+    private Integer minCartAmountGlobal = minCartAmountFirst + 1;
+    private boolean minCartOnlyForSwitchback;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -48,8 +57,8 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         addCondition(addRule(localStrategyId, COMPLEX_SCRIPT_NAME, String.format(COMPLEX_SCRIPT_PARAMS, "19900"), 1, "delivery_price"), "{\"Max\": 100000, \"Min\": 0}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
         addCondition(addRule(localStrategyId, COMPLEX_SCRIPT_NAME, String.format(COMPLEX_SCRIPT_PARAMS, "9900"), 2, "delivery_price"), "{\"Max\": 300000, \"Min\": 100000}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
         addCondition(addRule(localStrategyId, COMPLEX_SCRIPT_NAME, String.format(COMPLEX_SCRIPT_PARAMS, "0"), 3, "delivery_price"), "{\"Max\": 1000000000000000, \"Min\": 300100}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
-        addCondition(addRule(localStrategyId, "", "100000", 0, "min_cart"), "{\"Max\": 300000, \"Min\": 0}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
-        addCondition(addRule(localStrategyId, "", "50000", 1, "min_cart"), "{\"Max\": 1000000000000000, \"Min\": 300100}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
+        addCondition(addRule(localStrategyId, "", minCartAmountFirst.toString(), 0, "min_cart"), "{\"Max\": 300000, \"Min\": 0}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
+        addCondition(addRule(localStrategyId, "", minCartAmountSecond.toString(), 1, "min_cart"), "{\"Max\": 1000000000000000, \"Min\": 300100}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
         addBinding(localStrategyId, STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
         addBinding(localStrategyId, SURGE_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.COURIER_DELIVERY.toString());
 
@@ -62,15 +71,28 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         addCondition(multipleConditionRuleId, "{\"Count\": 2}", ConditionType.FIRST_N_ORDERS.name().toLowerCase());
         addCondition(multipleConditionRuleId, "{\"Max\": 1000000000000000, \"Min\": 300000}", ConditionType.ORDER_VALUE_RANGE.name().toLowerCase());
         addCondition(addRule(conditionStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "29900"), 5, "delivery_price"), "{}", ConditionType.ALWAYS.name().toLowerCase());
-        addCondition(addRule(conditionStrategyId, "", "100000", 0, "min_cart"), "{}", ConditionType.ALWAYS.name().toLowerCase());
+        addCondition(addRule(conditionStrategyId, "", minCartAmountThird.toString(), 0, "min_cart"), "{}", ConditionType.ALWAYS.name().toLowerCase());
         addBinding(conditionStrategyId, STORE_ID, Tenant.INSTAMART.getId(), DeliveryType.SELF_DELIVERY.toString());
         addBinding(conditionStrategyId, SURGE_STORE_ID, Tenant.INSTAMART.getId(), DeliveryType.SELF_DELIVERY.toString());
 
         globalStrategyId = addStrategy(true, 0, DeliveryType.COURIER_DELIVERY.toString());
         addCondition(addRule(globalStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "10001"), 0, "delivery_price"), "{}", "always");
-        addCondition(addRule(globalStrategyId, "", "100001", 0, "min_cart"), "{}", "always");
+        addCondition(addRule(globalStrategyId, "", minCartAmountGlobal.toString(), 0, "min_cart"), "{}", "always");
 
         RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 1000);
+
+        List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.SHIPPINGCALC_NAMESPACE, " | grep -e MIN_CART_ONLY_FOR_SWITCHBACK ");
+        String envPropsStr = String.join("\n", serviceEnvProperties);
+        String minCartOnlyForSwitchbackStr = matchWithRegex("^MIN_CART_ONLY_FOR_SWITCHBACK=(.\\w+)$", envPropsStr, 1);
+        minCartOnlyForSwitchback = minCartOnlyForSwitchbackStr.equals("true");
+
+        if (minCartOnlyForSwitchback) {
+            Allure.step("Зануляем мин. корзину");
+            minCartAmountFirst = 0;
+            minCartAmountSecond = 0;
+            minCartAmountThird = 0;
+            minCartAmountGlobal = 0;
+        }
     }
 
     @CaseIDs(value = {@CaseId(355), @CaseId(356), @CaseId(289), @CaseId(321), @CaseId(322), @CaseId(328), @CaseId(330), @CaseId(383), @CaseId(427)})
@@ -85,7 +107,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0);
     }
 
     @CaseIDs(value = {@CaseId(242), @CaseId(381)})
@@ -100,7 +122,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, globalStrategyId, 10001, 100001, 1, 0, 0, 0);
+        checkDeliveryPrice(response, globalStrategyId, 10001, minCartAmountGlobal, 1, 0, 0, 0);
     }
 
     @CaseIDs(value = {@CaseId(248), @CaseId(325), @CaseId(329), @CaseId(382)})
@@ -115,7 +137,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 0, 100000, 1, 0, 1, 0);
+        checkDeliveryPrice(response, localStrategyId, 0, minCartAmountFirst, 1, 0, 1, 0);
     }
 
     @CaseId(237)
@@ -191,8 +213,8 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 .build();
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 29800, 100000, 3, 4, 0, 0);
-        checkDeliveryPrice(response, localStrategyId, 29800, 100000, 3, 4, 0, 1);
+        checkDeliveryPrice(response, localStrategyId, 29800, minCartAmountFirst, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 29800, minCartAmountFirst, 3, 4, 0, 1);
     }
 
     @CaseIDs(value = {@CaseId(240), @CaseId(274)})
@@ -221,14 +243,14 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             softAssert.assertTrue(offerResponse.getShipments(0).getWeHadOffer(), "Получили цену не из оффера");
             softAssert.assertEquals(offerResponse.getTotalShippingPrice(), 19900, "Не ожидаемая цена доставки");
             softAssert.assertEquals(offerResponse.getShipments(0).getStrategyId(), localStrategyId, "Посчитали по неверной стратегии");
-            softAssert.assertEquals(offerResponse.getShipments(0).getMinimalCartPrice(), 100000, "Отдали неверную цену мин. корзины");
+            softAssert.assertEquals(offerResponse.getShipments(0).getMinimalCartPrice(), minCartAmountFirst.intValue(), "Отдали неверную цену мин. корзины");
             softAssert.assertEquals(offerResponse.getShipments(0).getLadderCount(), 3, "В лесенке не ожидаемое кол-во ступеней");
             softAssert.assertEquals(offerResponse.getShipments(0).getHintsCount(), 4, "Не ожидаемое кол-во подсказок");
             softAssert.assertEquals(offerResponse.getShipments(0).getPriceExplanation().getPassedConditionsCount(), 0, "Не ожидаемое кол-во прошедших условий");
             softAssert.assertAll();
         });
 
-        Allure.step("Проверяем новую расчитанную цену", () -> checkDeliveryPrice(newResponse, localStrategyId, 19900, 100000, 3, 4, 0, 0));
+        Allure.step("Проверяем новую расчитанную цену", () -> checkDeliveryPrice(newResponse, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0));
     }
 
     @CaseId(288)
@@ -251,7 +273,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 11990, "Не верная наценка");
             softAssert.assertAll();
         });
-        checkDeliveryPrice(response, localStrategyId, 31890, 110000, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 31890, minCartAmountFirst + surgeLevelAddition, 3, 4, 0, 0);
     }
 
     @CaseId(421)
@@ -274,7 +296,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 0, "Не верная наценка");
             softAssert.assertAll();
         });
-        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0);
     }
 
     @CaseId(422)
@@ -283,7 +305,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryPriceWithoutSurgeNewCustomers() {
         var request = getDeliveryPriceRequest(
-                1,UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -297,7 +319,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 0, "Не верная наценка");
             softAssert.assertAll();
         });
-        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0);
     }
 
     @CaseId(422)
@@ -323,7 +345,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 10990, "Не верная наценка");
             softAssert.assertAll();
         });
-        checkDeliveryPrice(response, localStrategyId, 20890, 110000, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 20890, minCartAmountFirst + surgeLevelAddition, 3, 4, 0, 0);
     }
 
     @CaseId(456)
@@ -346,7 +368,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 0, "Не верная наценка");
             softAssert.assertAll();
         });
-        checkDeliveryPrice(response, conditionStrategyId, 19900, 100000, 1, 0, 1, 0);
+        checkDeliveryPrice(response, conditionStrategyId, 19900, minCartAmountThird, 1, 0, 1, 0);
     }
 
     @CaseId(320)
@@ -361,7 +383,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 29900, 100000, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 29900, minCartAmountFirst, 3, 4, 0, 0);
     }
 
     @CaseId(389)
@@ -376,7 +398,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 19900, 100000, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0);
     }
 
     @CaseIDs(value = {@CaseId(357), @CaseId(326), @CaseId(332)})
@@ -398,7 +420,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             softAssert.assertFalse(response.getShipments(0).getWeHadOffer(), "Получили цену из оффера");
             softAssert.assertEquals(response.getTotalShippingPrice(), 19900, "Не ожидаемая общая цена доставки");
             softAssert.assertEquals(response.getShipments(0).getStrategyId(), localStrategyId, "Посчитали по неверной стратегии");
-            softAssert.assertEquals(response.getShipments(0).getMinimalCartPrice(), 100000, "Отдали неверную цену мин. корзины");
+            softAssert.assertEquals(response.getShipments(0).getMinimalCartPrice(), minCartAmountFirst.intValue(), "Отдали неверную цену мин. корзины");
             softAssert.assertEquals(response.getShipments(0).getLadderCount(), 1, "В лесенке не ожидаемое кол-во ступеней");
             softAssert.assertEquals(response.getShipments(0).getHintsCount(), 4, "Не ожидаемое кол-во подсказок");
             softAssert.assertEquals(response.getShipments(0).getPriceExplanation().getPassedConditionsCount(), 0, "Не ожидаемое кол-во прошедших условий");
@@ -418,7 +440,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 14900, 100000, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 14900, minCartAmountFirst, 3, 4, 0, 0);
         Allure.step("Проверяем наценку за перевес", () -> assertEquals(response.getShipments(0).getPriceExplanation().getPriceComponents(3).getPrice(), 5000, "Не ожидаемая наценка за перевес"));
     }
 
@@ -567,7 +589,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, conditionStrategyId, 9900, 100000, 1, 0, 1, 0);
+        checkDeliveryPrice(response, conditionStrategyId, 9900, minCartAmountThird, 1, 0, 1, 0);
     }
 
     @CaseId(386)
@@ -582,7 +604,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 Tenant.INSTAMART.getId(), AppVersion.IOS.getName(), AppVersion.IOS.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, conditionStrategyId, 14900, 100000, 1, 0, 1, 0);
+        checkDeliveryPrice(response, conditionStrategyId, 14900, minCartAmountThird, 1, 0, 1, 0);
     }
 
     @CaseId(407)
@@ -597,7 +619,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, conditionStrategyId, 19900, 100000, 1, 0, 1, 0);
+        checkDeliveryPrice(response, conditionStrategyId, 19900, minCartAmountThird, 1, 0, 1, 0);
     }
 
     @CaseId(387)
@@ -612,7 +634,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, conditionStrategyId, 0, 100000, 2, 0, 1, 0);
+        checkDeliveryPrice(response, conditionStrategyId, 0, minCartAmountThird, 2, 0, 1, 0);
     }
 
     @AfterClass(alwaysRun = true)

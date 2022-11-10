@@ -23,6 +23,8 @@ public class ShippingCalcBase {
     protected GrpcHelper grpc = new GrpcHelper();
     protected static final KafkaHelper kafka = new KafkaHelper();
     protected int surgeLevel = 5;
+    protected int surgeLevelAddition = 10000;
+    protected int surgeLevelPercentAddition = 10;
     protected List<IntervalsSurgeEntity> intervalsList;
     protected List<Integer> globalStrategiesList;
     protected final String FIXED_SCRIPT_NAME = "Фиксированная цена, с подсказками и объяснением";
@@ -47,9 +49,9 @@ public class ShippingCalcBase {
                 new IntervalsSurgeEntity() {{
                     setLeftBoundary(1);
                     setRightBoundary(surgeLevel);
-                    setPriceAddition(10000);
-                    setPercentAddition(10);
-                    setMinCartAddition(10000);
+                    setPriceAddition(surgeLevelAddition);
+                    setPercentAddition(surgeLevelPercentAddition);
+                    setMinCartAddition(surgeLevelAddition);
                 }},
                 new IntervalsSurgeEntity() {{
                     setLeftBoundary(surgeLevel);

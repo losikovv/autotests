@@ -66,7 +66,7 @@ public enum Db {
     ),
     PG_SHIPPING_CALC(
             DbType.POSTGRESQL,
-            System.getProperty("url_paas_shippingcalc", "paas-content-operations-shippingcalc"),
+            EnvironmentProperties.Env.SHIPPINGCALC_NAMESPACE,
             "statefulset.kubernetes.io/pod-name=postgresql-0",
             5432,
             "jdbc:postgresql://localhost:%s/app",
