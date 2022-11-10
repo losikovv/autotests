@@ -97,6 +97,20 @@ public class RulesDao implements Dao<Integer, RulesEntity> {
         return 0;
     }
 
+    public boolean updateRuleParams(String params, Integer strategyId, Integer rulePriority, String ruleType) {
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             PreparedStatement preparedStatement = connect.prepareStatement(" UPDATE rules SET script_params = ?::jsonb WHERE strategy_id = ? AND priority = ? AND rule_type = ?::rule_type ")) {
+            preparedStatement.setString(1, params);
+            preparedStatement.setInt(2, strategyId);
+            preparedStatement.setInt(3, rulePriority);
+            preparedStatement.setString(4, ruleType);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+        return false;
+    }
+
     @Override
     public boolean delete(Integer id) {
         try (Connection connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
