@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package protobuf.retail_onboarding_store_data;
+
+message Store {
+  message Location {
+    message Coordinates {
+      double lat = 1;
+      double lon = 2;
+    }
+    string city_name = 1;
+    string street = 2;
+    string building = 3;
+    string block = 4;
+    string country = 5;
+    string full_address = 6;
+    Coordinates coordinates = 7;
+    string time_zone = 8;
+  }
+  message OrderRules {
+    float min_order_amount = 1;
+    float min_first_order_amount = 2;
+    float min_order_amount_pickup = 3;
+    float min_first_order_amount_pickup = 4;
+  }
+
+  string uuid = 1;
+  int64 event_id = 2 [deprecated = true];
+  int64 legacy_stf_id = 3;
+  string retailer_uuid = 4;
+  int64 legacy_stf_retailer_id = 5;
+  Location location = 6;
+  string inn = 7;
+  string legal_name = 8;
+  string ogrn = 9;
+  string email = 10;
+  string phone = 11;
+  google.protobuf.Timestamp creation_timestamp = 12;
+  google.protobuf.Timestamp event_timestamp = 13 [deprecated = true];
+  string import_key = 14;
+  OrderRules order_rules = 15;
+  string orders_api_integration_type = 16;
+  bool active = 17; // статус магазина в разделе Онбординга. Может отличаться от статуса в основном разделе.
+  string send_created_hook = 18;
+  string payment_at_checkout = 19;
+  bool orders_api_send_customer = 20;
+  string how_to_take = 21;
+  optional uint64 order_preparation_sla_minutes = 22;
+}

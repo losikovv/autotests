@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package protobuf.retail_onboarding_retailer_data;
+
+message Retailer {
+  message ServiceConfig {
+    string base_url = 1;
+    string basic_auth = 2;
+    int64 polling_interval = 3;
+  }
+
+  message Appearance {
+    message LogoImage {
+      string file_name = 1;
+      string content_type = 2;
+      int64 file_size = 3;
+      google.protobuf.Timestamp updated_at = 4;
+      string url = 5;
+    }
+
+    message MiniLogoImage {
+      string file_name = 1;
+      string content_type = 2;
+      int64 file_size = 3;
+      google.protobuf.Timestamp updated_at = 4;
+      string url = 5;
+    }
+
+    message SideImage {
+      string file_name = 1;
+      string content_type = 2;
+      int64 file_size = 3;
+      google.protobuf.Timestamp updated_at = 4;
+      string url = 5;
+    }
+
+    string color = 1;
+    string secondary_color = 2;
+    string logo_background_color = 3;
+    string background_color = 4;
+    string image_color = 5;
+    bool black_theme = 6;
+    LogoImage logo_image = 7;
+    MiniLogoImage mini_logo_image = 8;
+    SideImage side_image = 9;
+  }
+
+  string name = 1;
+  string short_name = 2;
+  string description = 3;
+  string slug = 4;
+  string legal_name = 5;
+  string inn = 6;
+  string contract_type = 7; // Deprecated! Служит для внутренних целей монолита. Не использовать в сервисах!!! Вопросы - @insaf.gallyamov
+  string phone = 8;
+  string legal_address = 9;
+  string import_key = 10;
+  ServiceConfig service_config = 11;
+  Appearance appearance = 12;
+  string uuid = 13;
+  int64 legacy_stf_id = 14;
+  google.protobuf.Timestamp creation_timestamp = 15;
+
+  google.protobuf.Timestamp event_timestamp = 16 [deprecated = true];
+  int64 event_id = 17 [deprecated = true];
+  string how_to_take = 18;
+
+  enum RetailerVertical {
+    GROCERY = 0;
+    PHARMACY = 1;
+    RESTAURANT = 2;
+  }
+
+  RetailerVertical vertical = 19;
+}

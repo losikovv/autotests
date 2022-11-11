@@ -3,9 +3,11 @@ package ru.instamart.api.helper;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import order.Order;
+import order.OrderChanged;
 import order_enrichment.OrderEnrichment;
 import order_status.OrderStatus;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import protobuf.retail_onboarding_retailer_data.RetailOnboardingRetailerData;
 import push.Push;
 import ru.instamart.kafka.KafkaConfig;
 import ru.instamart.kafka.consumer.KafkaConsumers;
@@ -137,4 +139,29 @@ public class KafkaHelper {
         assertTrue(longSurgeLevelsHashMap.size() > 0, "Logs is empty");
         return longSurgeLevelsHashMap;
     }
+
+    @Step("Получаем данные в кафке по orderUUID в топике со статусом заказа: {orderUuid}")
+    public List<OrderChanged.EventOrderChanged> waitDataInKafkaTopicOrderStatusChanged(final String orderUuid) {
+        var kafkaConsumers = new KafkaConsumers(configOrderStatusChanged(), 10L);
+        List<OrderChanged.EventOrderChanged> longOrderChangedHashMap = kafkaConsumers.consumeOrderStatusChanged(orderUuid);
+        assertTrue(longOrderChangedHashMap.size() > 0, "Logs is empty");
+        return longOrderChangedHashMap;
+    }
+
+    @Step("Получаем данные в кафке по orderUUID и статусу заказа в топике со статусом заказа: {orderUuid}, {orderStatus}")
+    public List<OrderChanged.EventOrderChanged> waitDataInKafkaTopicOrderStatusChangedByStatus(final String orderUuid, final OrderChanged.EventOrderChanged.OrderStatus orderStatus) {
+        var kafkaConsumers = new KafkaConsumers(configOrderStatusChanged(), 10L);
+        List<OrderChanged.EventOrderChanged> longOrderChangedHashMap = kafkaConsumers.consumeOrderStatusChangedByStatus(orderUuid, orderStatus);
+        assertTrue(longOrderChangedHashMap.size() > 0, "Logs is empty");
+        return longOrderChangedHashMap;
+    }
+
+    @Step("Получаем данные в кафке по retailerUUID в топике с изменениями ретейлера {retailerUuid}")
+    public List<RetailOnboardingRetailerData.Retailer> waitDataInKafkaTopicRetailOnboardingRetailer(final String retailerUuid) {
+        var kafkaConsumers = new KafkaConsumers(configRetailerChanged(), 10L);
+        List<RetailOnboardingRetailerData.Retailer> longRetailerChangedHashMap = kafkaConsumers.consumeRetailerChanged(retailerUuid);
+        assertTrue(longRetailerChangedHashMap.size() > 0, "Logs is empty");
+        return longRetailerChangedHashMap;
+    }
+
 }
