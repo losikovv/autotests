@@ -4,6 +4,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import io.qameta.allure.Allure;
 import lombok.extern.slf4j.Slf4j;
 import order.Order;
+import order.OrderChanged;
 import order_enrichment.OrderEnrichment;
 import order_status.OrderStatus;
 import org.apache.kafka.clients.consumer.*;
@@ -11,6 +12,7 @@ import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import protobuf.retail_onboarding_retailer_data.RetailOnboardingRetailerData;
 import push.Push;
 import ru.instamart.kafka.KafkaConfig;
 import ru.instamart.kafka.enums.StatusOrder;
@@ -88,8 +90,8 @@ public class KafkaConsumers {
 
     public List<Order.EventOrder> consumeEventOrder(String filter, StatusOrder postponed) {
         final List<Order.EventOrder> allLogs = new ArrayList<>();
+        final int giveUp = 500;
         int noRecordsCount = 0;
-        int giveUp = 200;
         List<Order.EventOrder> result = new ArrayList<>();
         while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(500));
@@ -469,6 +471,127 @@ public class KafkaConsumers {
 
                         if (Objects.nonNull(parseSurgelevel) && parseSurgelevel.getStoreId().equals(storeId)) {
                             result.add(parseSurgelevel);
+                        }
+                    }
+                } catch (InvalidProtocolBufferException e) {
+                    log.debug("Fail parsing kafka message. offset: {}, error: {}", record.offset(), e.getMessage());
+                }
+            }
+            if (records.count() == 0) {
+                ThreadUtil.simplyAwait(1);
+                noRecordsCount++;
+                if (noRecordsCount > giveUp) {
+                    log.debug("No records noRecordsCount: {}, giveUp: {}", noRecordsCount, giveUp);
+                    break;
+                } else continue;
+            }
+            consumer.commitAsync();
+            break;
+        }
+        log.debug("Kafka get data");
+        consumer.close();
+        Allure.addAttachment("Filter logs", result.toString());
+        Allure.addAttachment("All logs", allLogs.toString());
+        return result;
+    }
+
+    public List<OrderChanged.EventOrderChanged> consumeOrderStatusChanged(String orderUuid) {
+        List<String> allLogs = new ArrayList<>();
+        int noRecordsCount = 0;
+        List<OrderChanged.EventOrderChanged> result = new ArrayList<>();
+        while (true) {
+            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
+            for (ConsumerRecord<String, byte[]> record : records) {
+                try {
+                    if (record.value() != null) {
+                        var parseOrderChanged = OrderChanged.EventOrderChanged.parseFrom(record.value());
+                        log.debug("record: {}", parseOrderChanged.toString());
+                        allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseOrderChanged.toString());
+                        log.info("parseOrderChanged.orderUuid: {}", parseOrderChanged.getOrderUuid());
+                        if (parseOrderChanged != null && parseOrderChanged.getOrderUuid().equalsIgnoreCase(orderUuid)) {
+                                result.add(parseOrderChanged);
+                            }
+                    }
+                } catch (InvalidProtocolBufferException e) {
+                    log.debug("Fail parsing kafka message. offset: {}, error: {}", record.offset(), e.getMessage());
+                }
+            }
+            if (records.count() == 0) {
+                ThreadUtil.simplyAwait(1);
+                noRecordsCount++;
+                if (noRecordsCount > giveUp) {
+                    log.debug("No records noRecordsCount: {}, giveUp: {}", noRecordsCount, giveUp);
+                    break;
+                } else continue;
+            }
+            consumer.commitAsync();
+            break;
+        }
+        log.debug("Kafka get data");
+        consumer.close();
+        Allure.addAttachment("Filter logs", result.toString());
+        Allure.addAttachment("All logs", allLogs.toString());
+        return result;
+    }
+
+    public List<OrderChanged.EventOrderChanged> consumeOrderStatusChangedByStatus(String orderUuid, OrderChanged.EventOrderChanged.OrderStatus orderStatus) {
+        List<String> allLogs = new ArrayList<>();
+        int noRecordsCount = 0;
+        List<OrderChanged.EventOrderChanged> result = new ArrayList<>();
+        while (true) {
+            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
+            for (ConsumerRecord<String, byte[]> record : records) {
+                try {
+                    if (record.value() != null) {
+                        var parseOrderChanged = OrderChanged.EventOrderChanged.parseFrom(record.value());
+                        log.debug("record: {}", parseOrderChanged.toString());
+                        allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseOrderChanged.toString());
+                        log.info("parseOrderChanged.orderUuid: {}", parseOrderChanged.getOrderUuid());
+                        if (parseOrderChanged != null && parseOrderChanged.getOrderUuid().equalsIgnoreCase(orderUuid)) {
+                            if (orderStatus != null && parseOrderChanged.getOrderStatus().name().equalsIgnoreCase(String.valueOf(orderStatus))) {
+                                result.add(parseOrderChanged);
+                            } else if (orderStatus == null) {
+                                result.add(parseOrderChanged);
+                            }
+                        }
+                    }
+                } catch (InvalidProtocolBufferException e) {
+                    log.debug("Fail parsing kafka message. offset: {}, error: {}", record.offset(), e.getMessage());
+                }
+            }
+            if (records.count() == 0) {
+                ThreadUtil.simplyAwait(1);
+                noRecordsCount++;
+                if (noRecordsCount > giveUp) {
+                    log.debug("No records noRecordsCount: {}, giveUp: {}", noRecordsCount, giveUp);
+                    break;
+                } else continue;
+            }
+            consumer.commitAsync();
+            break;
+        }
+        log.debug("Kafka get data");
+        consumer.close();
+        Allure.addAttachment("Filter logs", result.toString());
+        Allure.addAttachment("All logs", allLogs.toString());
+        return result;
+    }
+
+    public List<RetailOnboardingRetailerData.Retailer> consumeRetailerChanged(String uuid) {
+        List<String> allLogs = new ArrayList<>();
+        int noRecordsCount = 0;
+        List<RetailOnboardingRetailerData.Retailer> result = new ArrayList<>();
+        while (true) {
+            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
+            for (ConsumerRecord<String, byte[]> record : records) {
+                try {
+                    if (record.value() != null) {
+                        var parseRetailerChanged = RetailOnboardingRetailerData.Retailer.parseFrom(record.value());
+                        log.debug("record: {}", parseRetailerChanged.toString());
+                        allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseRetailerChanged.toString());
+                        log.info("parseRetailerChanged.uuid: {}", parseRetailerChanged.getUuid());
+                        if (parseRetailerChanged != null && parseRetailerChanged.getUuid().equalsIgnoreCase(uuid)) {
+                            result.add(parseRetailerChanged);
                         }
                     }
                 } catch (InvalidProtocolBufferException e) {
