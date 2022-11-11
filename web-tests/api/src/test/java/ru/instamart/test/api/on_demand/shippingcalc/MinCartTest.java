@@ -119,15 +119,15 @@ public class MinCartTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryConditionsFromCache() {
         String customerUuid = UUID.randomUUID().toString();
-        int minCartAmountGlobalFromCache = minCartAmountGlobal;
-        int deliveryPriceGlobalFromCache = deliveryPriceGlobal;
+        Integer minCartAmountGlobalFromCache = minCartAmountGlobal;
+        Integer deliveryPriceGlobalFromCache = deliveryPriceGlobal;
 
         var firstRequest = getDeliveryConditionsRequest(STORE_ID_GLOBAL, 55.55f, 55.55f, customerUuid, customerUuid,
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
                 AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), false);
         var firstResponse = clientShippingCalc.getDeliveryConditions(firstRequest);
         checkDeliveryConditions(firstResponse, STORE_ID_GLOBAL, minCartAmountGlobal, 1, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> compareTwoObjects(firstResponse.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), deliveryPriceGlobal));
+        Allure.step("Проверяем базовую цену в лесенке", () -> compareTwoObjects(firstResponse.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), deliveryPriceGlobal.longValue()));
 
         Allure.step("Обновляем значение мин. корзины и цены доставки", () -> {
             boolean ruleUpdatedMinCart = RulesDao.INSTANCE.updateRuleParams("222222", globalStrategyId, 0, "min_cart");
@@ -145,7 +145,7 @@ public class MinCartTest extends ShippingCalcBase {
                 AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), false);
         var secondResponse = clientShippingCalc.getDeliveryConditions(secondRequest);
         checkDeliveryConditions(secondResponse, STORE_ID_GLOBAL, minCartAmountGlobalFromCache, 1, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> compareTwoObjects(secondResponse.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), deliveryPriceGlobalFromCache));
+        Allure.step("Проверяем базовую цену в лесенке", () -> compareTwoObjects(secondResponse.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), deliveryPriceGlobalFromCache.longValue()));
     }
 
     @CaseId(412)
@@ -213,7 +213,7 @@ public class MinCartTest extends ShippingCalcBase {
 
         var response = clientShippingCalc.getDeliveryConditions(request);
         checkDeliveryConditions(response, STORE_ID_GLOBAL, minCartAmountGlobal, 1, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> compareTwoObjects(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), deliveryPriceGlobal));
+        Allure.step("Проверяем базовую цену в лесенке", () -> compareTwoObjects(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), deliveryPriceGlobal.longValue()));
     }
 
     @CaseId(414)
