@@ -150,6 +150,7 @@ public final class SimpleAdsV2Test extends RestBase {
         Allure.step("Проверка сообщения о ошибке", () -> assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный"));
     }
 
+    @Skip() //todo Рекомендаций нет
     @CaseId(285)
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"},
             description = "Запрос проверки существующего изображения")

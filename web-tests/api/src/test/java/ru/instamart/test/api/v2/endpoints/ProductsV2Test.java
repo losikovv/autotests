@@ -217,7 +217,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(807)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отфильтрованные по бренду продукты",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"})
     public void getProductsFilteredByBrand() {
         final String brandName = "metro";
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
