@@ -56,8 +56,17 @@ public class NotificationsPositiveV3Test extends RestBase {
     @CaseId(1461)
     @Test(description = "Canceled после создания (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-smoke", "api-v3"})
-    public void cancelOrderDeliveryBySbermarket() {
-        Response responseCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+    public void canceledOrderDeliveryBySbermarket() {
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
@@ -69,8 +78,17 @@ public class NotificationsPositiveV3Test extends RestBase {
     @CaseId(1461)
     @Test(description = "Canceled после создания (Сборка и доставка ритейлером)",
             groups = {"api-instamart-smoke", "api-v3"})
-    public void cancelOrderDeliveryByRetailer() {
-        Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+    public void canceledOrderDeliveryByRetailer() {
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
@@ -82,10 +100,27 @@ public class NotificationsPositiveV3Test extends RestBase {
     @CaseId(1462)
     @Test(description = "Canceled после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-regress", "api-v3"})
-    public void cancelOrderInWorkDeliveryBySbermarket() {
-        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+    public void canceledOrderInWorkDeliveryBySbermarket() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
@@ -97,44 +132,27 @@ public class NotificationsPositiveV3Test extends RestBase {
     @CaseId(1462)
     @Test(description = "Canceled после order.in_work (Сборка и доставка ритейлером)",
             groups = {"api-instamart-regress", "api-v3"})
-    public void cancelOrderInWorkDeliveryByRetailer() {
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+    public void canceledOrderInWorkDeliveryByRetailer() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
-        checkStatusCode200(responseCanceled);
-
-        OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
-        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
-    }
-
-    @Skip(onServer = Server.STAGING)
-    @Story("Позитивные тесты")
-    @CaseId(1463)
-    @Test(description = "Canceled после order.assembled (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-regress", "api-v3"})
-    public void cancelOrderAssembledDeliveryBySbermarket() {
-        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
-        checkStatusCode200(responseInWork);
-        Response responseAssembled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.ASSEMBLED.getValue());
-        checkStatusCode200(responseAssembled);
-        Response responseCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
-        checkStatusCode200(responseCanceled);
-
-        OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
-        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
-    }
-
-    @Skip(onServer = Server.STAGING)
-    @Story("Позитивные тесты")
-    @CaseId(1463)
-    @Test(description = "Canceled после order.assembled (Сборка и доставка ритейлером)",
-            groups = {"api-instamart-regress", "api-v3"})
-    public void cancelOrderAssembledDeliveryByRetailer() {
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
-        checkStatusCode200(responseInWork);
-        Response responseAssembled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.ASSEMBLED.getValue());
-        checkStatusCode200(responseAssembled);
-        Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
@@ -146,12 +164,41 @@ public class NotificationsPositiveV3Test extends RestBase {
     @CaseId(1464)
     @Test(description = "Canceled после order.ready_for_delivery (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-regress", "api-v3"})
-    public void cancelOrderReadyForDeliveryDeliveryBySbermarket() {
-        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+    public void canceledOrderReadyForDeliveryDeliveryBySbermarket() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.READY_FOR_DELIVERY.getValue());
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
-        Response responseCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
@@ -163,12 +210,41 @@ public class NotificationsPositiveV3Test extends RestBase {
     @CaseId(1464)
     @Test(description = "Canceled после order.ready_for_delivery (Сборка и доставка ритейлером)",
             groups = {"api-instamart-regress", "api-v3"})
-    public void cancelOrderReadyForDeliveryDeliveryByRetailer() {
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+    public void canceledOrderReadyForDeliveryDeliveryByRetailer() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.READY_FOR_DELIVERY.getValue());
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
-        Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
 
         simplyAwait(3);
@@ -178,11 +254,78 @@ public class NotificationsPositiveV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
+    @CaseId(3087)
+    @Test(description = "Canceled после order.delivering",
+            groups = {"api-instamart-smoke", "api-v3"})
+    public void cancelOrderDeliveringDeliveryByRetailer() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivering = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERING.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode200(responseReadyForDelivery);
+        simplyAwait(3);
+        Response responseDelivering = POST(bodyDelivering);
+        checkStatusCode200(responseDelivering);
+        Response responseCanceled = POST(bodyCanceled);
+        checkStatusCode200(responseCanceled);
+
+        simplyAwait(1);
+        OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Позитивные тесты")
     @CaseId(1466)
     @Test(description = "In_work после создания (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-smoke", "api-v3"})
-    public void orderInWorkDeliveryBySbermarket() {
-        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+    public void orderedInWorkDeliveryBySbermarket() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
 
         OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
@@ -195,38 +338,17 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "In_work после создания (Сборка и доставка ритейлером)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void orderInWorkDeliveryByRetailer() {
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-
-        OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
-        Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не перешел в статус Собирается");
-    }
-
-    @Skip(onServer = Server.STAGING)
-    @Story("Позитивные тесты")
-    @CaseId(1467)
-    @Test(description = "Assembled после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
-            groups = {"api-instamart-smoke", "api-v3"})
-    public void orderAssembledDeliveryBySbermarket() {
-        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
-        checkStatusCode200(responseInWork);
-        Response responseAssembled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.ASSEMBLED.getValue());
-        checkStatusCode200(responseAssembled);
-
-        OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
-        Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не перешел в статус Собирается");
-    }
-
-    @Skip(onServer = Server.STAGING)
-    @Story("Позитивные тесты")
-    @CaseId(1467)
-    @Test(description = "Assembled после order.in_work (Сборка и доставка ритейлером)",
-            groups = {"api-instamart-smoke", "api-v3"})
-    public void orderAssembledDeliveryByRetailer() {
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
-        checkStatusCode200(responseInWork);
-        Response responseAssembled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.ASSEMBLED.getValue());
-        checkStatusCode200(responseAssembled);
 
         OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не перешел в статус Собирается");
@@ -238,17 +360,30 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Ready_for_delivery после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void orderReadyForDeliveryDeliveryBySbermarket() {
-        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(
-                orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
 
         simplyAwait(3);
@@ -265,17 +400,30 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Ready_for_delivery после order.in_work (Сборка и доставка ритейлером)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void orderReadyForDeliveryDeliveryByRetailer() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
 
         simplyAwait(3);
@@ -292,19 +440,40 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Ошибка 405 Delivering (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void orderDeliveringDeliveryBySbermarket() {
-        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivering = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERING.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(
-                orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
-        Response responseDelivering = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.DELIVERING.getValue());
+        Response responseDelivering = POST(bodyDelivering);
         checkStatusCode(responseDelivering, 405);
 
         simplyAwait(3);
@@ -321,20 +490,41 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Delivering после ready_for_delivery (Сборка и доставка ритейлером)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void orderDeliveringDeliveryByRetailer() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivering = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERING.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
         simplyAwait(3);
-        Response responseDelivering = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.DELIVERING.getValue());
+        Response responseDelivering = POST(bodyDelivering);
         checkStatusCode200(responseDelivering);
 
         OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
@@ -350,25 +540,45 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Delivered после ready_for_delivery (Сборка и доставка ритейлером)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void orderDeliveredDeliveryByRetailer() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivered = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
         simplyAwait(3);
-        Response responseDelivered = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.DELIVERED.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseDelivered = POST(bodyDelivered);
         checkStatusCode200(responseDelivered);
 
         simplyAwait(2);
@@ -385,27 +595,55 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Delivered после delivering (Сборка и доставка ритейлером)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void orderDeliveredAfterDeliveringDeliveryByRetailer() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivering = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERING.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivered = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
         simplyAwait(3);
-        Response responseDelivering = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.DELIVERING.getValue());
+        Response responseDelivering = POST(bodyDelivering);
         checkStatusCode200(responseDelivering);
-        Response responseDelivered = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.DELIVERED.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseDelivered = POST(bodyDelivered);
         checkStatusCode200(responseDelivered);
 
         simplyAwait(2);
@@ -422,9 +660,18 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Canceled после отмены (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void cancelAfterCancelOrderDeliveryBySbermarket() {
-        Response responseCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
-        Response responseRepeatCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        Response responseRepeatCanceled = POST(bodyCanceled);
         //checkStatusCode422(responseRepeatCanceled); ждем фикс на проде
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
@@ -437,9 +684,18 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Canceled после отмены (Сборка и доставка ритейлером)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void cancelAfterCancelOrderDeliveryByRetailer() {
-        Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
-        Response responseRepeatCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        Response responseRepeatCanceled = POST(bodyCanceled);
         //checkStatusCode422(responseRepeatCanceled); ждем фикс на проде
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
@@ -452,27 +708,55 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Canceled после доставки негатив.",
             groups = {"api-instamart-smoke", "api-v3"})
     public void cancelOrderDeliveredDeliveryByRetailer() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivered = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
         simplyAwait(3);
-        Response responseDelivered = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.DELIVERED.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseDelivered = POST(bodyDelivered);
         checkStatusCode200(responseDelivered);
-        Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        Response responseCanceled = POST(bodyCanceled);
         checkStatusCode422(responseCanceled);
 
         simplyAwait(1);
@@ -486,9 +770,18 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Повторная отправка in_work негатив. (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderInWorkRepeatDeliveryBySbermarket() {
-        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseInWorkRepeat = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWorkRepeat = POST(bodyInWork);
         checkStatusCode422(responseInWorkRepeat);
 
         OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
@@ -501,9 +794,18 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Повторная отправка in_work негатив. (Сборка и доставка ритейлером)",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderInWorkRepeatDeliveryByRetailer() {
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseInWorkRepeat = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWorkRepeat = POST(bodyInWork);
         checkStatusCode422(responseInWorkRepeat);
 
         OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
@@ -516,19 +818,32 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "In_work после ready_for_delivery негатив. (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderInWorkAfterReadyForDelivery() {
-        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(
-                orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
-        Response responseInWorkRepeat = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWorkRepeat = POST(bodyInWork);
         checkStatusCode422(responseInWorkRepeat);
 
         simplyAwait(3);
@@ -545,19 +860,32 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "In_work после ready_for_delivery негатив. (Сборка и доставка ритейлером)",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderInWorkAfterReadyForDeliveryDeliveryByRetailer() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
-        Response responseInWorkRepeat = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWorkRepeat = POST(bodyInWork);
         checkStatusCode422(responseInWorkRepeat);
 
         simplyAwait(3);
@@ -573,27 +901,47 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "In_work после доставки негатив.",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderInWorkAfterDeliveredDeliveryByRetailer() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivered = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
         simplyAwait(3);
-        Response responseDelivered = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.DELIVERED.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseDelivered = POST(bodyDelivered);
         checkStatusCode200(responseDelivered);
-        Response responseInWorkRepeat = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWorkRepeat = POST(bodyInWork);
         checkStatusCode422(responseInWorkRepeat);
 
         OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
@@ -606,9 +954,26 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "In_work после отмены негатив. (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderInWorkAfterCancelOrderDeliveryBySbermarket() {
-        Response responseCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
-        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode422(responseInWork);
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
@@ -621,9 +986,26 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "In_work после отмены негатив. (Сборка и доставка ритейлером)",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderInWorkAfterCancelOrderDeliveryByRetailer() {
-        Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode422(responseInWork);
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
@@ -636,24 +1018,32 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Повторная отправка ready_for_delivery негатив. (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderReadyForDeliveryRepeatDeliveryBySbermarket() {
-        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(
-                orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
-        Response responseReadyForDeliveryRepeat = POST(
-                orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDeliveryRepeat = POST(bodyReadyForDelivery);
         checkStatusCode422(responseReadyForDeliveryRepeat);
 
         simplyAwait(3);
@@ -670,24 +1060,32 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Повторная отправка ready_for_delivery негатив. (Сборка и доставка ритейлером)",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderReadyForDeliveryRepeatDeliveryByRetailer() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
-        Response responseReadyForDeliveryRepeat = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDeliveryRepeat = POST(bodyReadyForDelivery);
         checkStatusCode422(responseReadyForDeliveryRepeat);
 
         simplyAwait(3);
@@ -704,32 +1102,47 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Ready_for_delivery после доставки негатив.",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderReadyForDeliveryAfterDeliveredDeliveryByRetailer() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivered = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         checkStatusCode200(responseReadyForDelivery);
         simplyAwait(3);
-        Response responseDelivered = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.DELIVERED.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseDelivered = POST(bodyDelivered);
         checkStatusCode200(responseDelivered);
-        Response responseReadyForDeliveryRepeat = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDeliveryRepeat = POST(bodyReadyForDelivery);
         checkStatusCode422(responseReadyForDeliveryRepeat);
 
         OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
@@ -742,15 +1155,20 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Ready_for_delivery после оформления заказа негатив. (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderReadyForDeliveryAfterCreateOrderDeliveryBySbermarket() {
-        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseReadyForDelivery = POST(
-                orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         //checkStatusCode422(responseReadyForDeliveryRepeat); --ждем фикс на проде
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
@@ -763,15 +1181,20 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Ready_for_delivery после оформления заказа негатив. (Сборка и доставка ритейлером)",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderReadyForDeliveryAfterCreateOrderDeliveryByRetailer() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseReadyForDelivery = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
         //checkStatusCode422(responseReadyForDeliveryRepeat); --ждем фикс на проде
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
@@ -784,18 +1207,31 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Ready_for_delivery после отмены негатив. (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderReadyForDeliveryAfterCancelOrderDeliveryBySbermarket() {
-        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
-        Response responseReadyForDeliveryRepeat = POST(
-                orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
-        //checkStatusCode422(responseReadyForDeliveryRepeat); --ждем фикс на проде
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        //checkStatusCode422(responseReadyForDelivery); --ждем фикс на проде
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
@@ -807,18 +1243,31 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Ready_for_delivery после отмены негатив. (Сборка и доставка ритейлером)",
             groups = {"api-instamart-regress", "api-v3"})
     public void orderReadyForDeliveryAfterCancelOrderDeliveryByRetailer() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        Response responseCanceled = POST(bodyCanceled);
         checkStatusCode200(responseCanceled);
-        Response responseReadyForDeliveryRepeat = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
-        //checkStatusCode422(responseReadyForDeliveryRepeat); --ждем фикс на проде
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        //checkStatusCode422(responseReadyForDelivery); --ждем фикс на проде
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
@@ -830,15 +1279,20 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(description = "Delivered после создания негатив. (Сборка и доставка ритейлером)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void orderDeliveredAfterCreateDeliveryByRetailer() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyDelivered = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseDelivered = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.DELIVERED.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseDelivered = POST(bodyDelivered);
         checkStatusCode422(responseDelivered);
 
         OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
@@ -851,21 +1305,33 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Skip(onServer = Server.STAGING)
     @Story("Негативные тесты")
     @CaseId(2994)
-    @Test(description = "Delivered после создания негатив. (Сборка и доставка ритейлером)",
+    @Test(description = "Delivered после in_work негатив. (Сборка и доставка ритейлером)",
             groups = {"api-instamart-smoke", "api-v3"})
     public void orderDeliveredAfterInWorkDeliveryByRetailer() {
-        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
-        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivered = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
 
-        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        Response responseInWork = POST(bodyInWork);
         checkStatusCode200(responseInWork);
-
-        Response responseDelivered = POST(
-                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
-                NotificationTypeV3.DELIVERED.getValue(),
-                retailerSku,
-                quantity,
-                quantity);
+        Response responseDelivered = POST(bodyDelivered);
         checkStatusCode422(responseDelivered);
 
         OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
@@ -921,11 +1387,125 @@ public class NotificationsPositiveV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
+    @CaseId(3035)
+    @Test(description = "Валидация in_work + необязательные поля (Сборка ритейлера, доставка Сбермаркета)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationInWorkAllDeliveryBySbermarket() {
+        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                        .customer(Customer.builder()
+                                                .name("name")
+                                                .phone("+77777777777")
+                                                .build())
+                                        .delivery(Delivery.builder()
+                                                .expectedFrom("2021-05-24T13:00:00+03:00")
+                                                .expectedTo("2021-05-24T13:00:00+03:00")
+                                                .build())
+                                        .changed(true)
+                                        .position(Position.builder()
+                                                .id(retailerSku)
+                                                .originalQuantity(quantity)
+                                                .quantity(quantity)
+                                                .price("1000")
+                                                .discountPrice("1000")
+                                                .replacedByID("")
+                                                .weight("1000")
+                                                .totalPrice("1000")
+                                                .totalDiscountPrice("1000")
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("789")
+                                                        .build())
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("987")
+                                                        .build())
+                                                .build())
+                                        .total(Total.builder()
+                                                .totalPrice("1000")
+                                                .discountTotalPrice("1000")
+                                                .build())
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+
+        OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не перешел в статус Собирается");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Позитивные тесты")
+    @CaseId(3035)
+    @Test(description = "Валидация in_work + необязательные поля (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationInWorkAllDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .customer(Customer.builder()
+                                                .name("name")
+                                                .phone("+77777777777")
+                                                .build())
+                                        .delivery(Delivery.builder()
+                                                .expectedFrom("2021-05-24T13:00:00+03:00")
+                                                .expectedTo("2021-05-24T13:00:00+03:00")
+                                                .build())
+                                        .changed(true)
+                                        .position(Position.builder()
+                                                .id(retailerSku)
+                                                .originalQuantity(quantity)
+                                                .quantity(quantity)
+                                                .price("1000")
+                                                .discountPrice("1000")
+                                                .replacedByID("")
+                                                .weight("1000")
+                                                .totalPrice("1000")
+                                                .totalDiscountPrice("1000")
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("789")
+                                                        .build())
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("987")
+                                                        .build())
+                                                .build())
+                                        .total(Total.builder()
+                                                .totalPrice("1000")
+                                                .discountTotalPrice("1000")
+                                                .build())
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+
+        OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не перешел в статус Собирается");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Позитивные тесты")
     @CaseId(2716)
     @Test(description = "Валидация canceled (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-regress", "api-v3"})
-    public void validationCancelDeliveryBySbermarket() {
-        var bodyCancel = Notifications.builder()
+    public void validationCanceledDeliveryBySbermarket() {
+        var bodyCanceled = Notifications.builder()
                 .event(Event.builder()
                         .type(NotificationTypeV3.CANCELED.getValue())
                         .payload(Payload.builder()
@@ -934,8 +1514,8 @@ public class NotificationsPositiveV3Test extends RestBase {
                         .build())
                 .build();
 
-        Response responseCancel = POST(bodyCancel);
-        checkStatusCode200(responseCancel);
+        Response responseCanceled = POST(bodyCanceled);
+        checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
@@ -946,8 +1526,8 @@ public class NotificationsPositiveV3Test extends RestBase {
     @CaseId(2716)
     @Test(description = "Валидация canceled (Сборка и доставка ритейлером)",
             groups = {"api-instamart-regress", "api-v3"})
-    public void validationCancelDeliveryByRetailer() {
-        var bodyCancel = Notifications.builder()
+    public void validationCanceledDeliveryByRetailer() {
+        var bodyCanceled = Notifications.builder()
                 .event(Event.builder()
                         .type(NotificationTypeV3.CANCELED.getValue())
                         .payload(Payload.builder()
@@ -956,8 +1536,122 @@ public class NotificationsPositiveV3Test extends RestBase {
                         .build())
                 .build();
 
-        Response responseCancel = POST(bodyCancel);
-        checkStatusCode200(responseCancel);
+        Response responseCanceled = POST(bodyCanceled);
+        checkStatusCode200(responseCanceled);
+
+        OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Позитивные тесты")
+    @CaseId(3036)
+    @Test(description = "Валидация canceled + необязательные поля (Сборка ритейлера, доставка Сбермаркета)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationCanceledAllDeliveryBySbermarket() {
+        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                        .customer(Customer.builder()
+                                                .name("name")
+                                                .phone("+77777777777")
+                                                .build())
+                                        .delivery(Delivery.builder()
+                                                .expectedFrom("2021-05-24T13:00:00+03:00")
+                                                .expectedTo("2021-05-24T13:00:00+03:00")
+                                                .build())
+                                        .changed(true)
+                                        .position(Position.builder()
+                                                .id(retailerSku)
+                                                .originalQuantity(quantity)
+                                                .quantity(quantity)
+                                                .price("1000")
+                                                .discountPrice("1000")
+                                                .replacedByID("")
+                                                .weight("1000")
+                                                .totalPrice("1000")
+                                                .totalDiscountPrice("1000")
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("789")
+                                                        .build())
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("987")
+                                                        .build())
+                                                .build())
+                                        .total(Total.builder()
+                                                .totalPrice("1000")
+                                                .discountTotalPrice("1000")
+                                                .build())
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseCanceled = POST(bodyCanceled);
+        checkStatusCode200(responseCanceled);
+
+        OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Позитивные тесты")
+    @CaseId(3036)
+    @Test(description = "Валидация canceled + необязательные поля (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationCancelAllDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .customer(Customer.builder()
+                                                .name("name")
+                                                .phone("+77777777777")
+                                                .build())
+                                        .delivery(Delivery.builder()
+                                                .expectedFrom("2021-05-24T13:00:00+03:00")
+                                                .expectedTo("2021-05-24T13:00:00+03:00")
+                                                .build())
+                                        .changed(true)
+                                        .position(Position.builder()
+                                                .id(retailerSku)
+                                                .originalQuantity(quantity)
+                                                .quantity(quantity)
+                                                .price("1000")
+                                                .discountPrice("1000")
+                                                .replacedByID("")
+                                                .weight("1000")
+                                                .totalPrice("1000")
+                                                .totalDiscountPrice("1000")
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("789")
+                                                        .build())
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("987")
+                                                        .build())
+                                                .build())
+                                        .total(Total.builder()
+                                                .totalPrice("1000")
+                                                .discountTotalPrice("1000")
+                                                .build())
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseCanceled = POST(bodyCanceled);
+        checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
@@ -1060,7 +1754,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @CaseId(3041)
     @Test(description = "Валидация ready_for_delivery (changed true) (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-regress", "api-v3"})
-    public void validationReadyForDeliveryChangedTrueDeliveryBySbermarket() {
+    public void validationReadyForDeliveryTrueDeliveryBySbermarket() {
         String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
         var bodyInWork = Notifications.builder()
@@ -1107,7 +1801,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @CaseId(3041)
     @Test(description = "Валидация ready_for_delivery (changed true) (Сборка и доставка ритейлером)",
             groups = {"api-instamart-regress", "api-v3"})
-    public void validationReadyForDeliveryChangesTrueDeliveryByRetailer() {
+    public void validationReadyForDeliveryTrueDeliveryByRetailer() {
         String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
         var bodyInWork = Notifications.builder()
@@ -1154,7 +1848,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @CaseId(3042)
     @Test(description = "Валидация ready_for_delivery (changed false) (Сборка ритейлера, доставка Сбермаркета)",
             groups = {"api-instamart-regress", "api-v3"})
-    public void validationReadyForDeliveryChangedFalseDeliveryBySbermarket() {
+    public void validationReadyForDeliveryFalseDeliveryBySbermarket() {
         var bodyInWork = Notifications.builder()
                 .event(Event.builder()
                         .type(NotificationTypeV3.IN_WORK.getValue())
@@ -1194,7 +1888,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @CaseId(3042)
     @Test(description = "Валидация ready_for_delivery (changed false) (Сборка и доставка ритейлером)",
             groups = {"api-instamart-regress", "api-v3"})
-    public void validationReadyForDeliveryChangesFalseDeliveryByRetailer() {
+    public void validationReadyForDeliveryFalseDeliveryByRetailer() {
         var bodyInWork = Notifications.builder()
                 .event(Event.builder()
                         .type(NotificationTypeV3.IN_WORK.getValue())
@@ -1211,6 +1905,148 @@ public class NotificationsPositiveV3Test extends RestBase {
                                 .order(Order.builder()
                                         .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
                                         .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode200(responseReadyForDelivery);
+
+        simplyAwait(3);
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Позитивные тесты")
+    @CaseId(3045)
+    @Test(description = "Валидация ready_for_delivery + необязательные поля (Сборка ритейлера, доставка Сбермаркета)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationReadyForDeliveryAllDeliveryBySbermarket() {
+        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                        .customer(Customer.builder()
+                                                .name("name")
+                                                .phone("+77777777777")
+                                                .build())
+                                        .delivery(Delivery.builder()
+                                                .expectedFrom("2021-05-24T13:00:00+03:00")
+                                                .expectedTo("2021-05-24T13:00:00+03:00")
+                                                .build())
+                                        .changed(true)
+                                        .position(Position.builder()
+                                                .id(retailerSku)
+                                                .originalQuantity(quantity)
+                                                .quantity(quantity)
+                                                .price("1000")
+                                                .discountPrice("1000")
+                                                .replacedByID("")
+                                                .weight("1000")
+                                                .totalPrice("1000")
+                                                .totalDiscountPrice("1000")
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("789")
+                                                        .build())
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("987")
+                                                        .build())
+                                                .build())
+                                        .total(Total.builder()
+                                                .totalPrice("1000")
+                                                .discountTotalPrice("1000")
+                                                .build())
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode200(responseReadyForDelivery);
+
+        simplyAwait(3);
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Позитивные тесты")
+    @CaseId(3045)
+    @Test(description = "Валидация ready_for_delivery + необязательные поля (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationReadyForDeliveryAllDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .customer(Customer.builder()
+                                                .name("name")
+                                                .phone("+77777777777")
+                                                .build())
+                                        .delivery(Delivery.builder()
+                                                .expectedFrom("2021-05-24T13:00:00+03:00")
+                                                .expectedTo("2021-05-24T13:00:00+03:00")
+                                                .build())
+                                        .changed(true)
+                                        .position(Position.builder()
+                                                .id(retailerSku)
+                                                .originalQuantity(quantity)
+                                                .quantity(quantity)
+                                                .price("1000")
+                                                .discountPrice("1000")
+                                                .replacedByID("")
+                                                .weight("1000")
+                                                .totalPrice("1000")
+                                                .totalDiscountPrice("1000")
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("789")
+                                                        .build())
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("987")
+                                                        .build())
+                                                .build())
+                                        .total(Total.builder()
+                                                .totalPrice("1000")
+                                                .discountTotalPrice("1000")
+                                                .build())
                                         .build())
                                 .build())
                         .build())
@@ -1408,6 +2244,92 @@ public class NotificationsPositiveV3Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @Story("Позитивные тесты")
+    @CaseId(3050)
+    @Test(description = "Валидация delivered + необязательные поля (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationDeliveredAllDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivered = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .customer(Customer.builder()
+                                                .name("name")
+                                                .phone("+77777777777")
+                                                .build())
+                                        .delivery(Delivery.builder()
+                                                .expectedFrom("2021-05-24T13:00:00+03:00")
+                                                .expectedTo("2021-05-24T13:00:00+03:00")
+                                                .build())
+                                        .changed(true)
+                                        .position(Position.builder()
+                                                .id(retailerSku)
+                                                .originalQuantity(quantity)
+                                                .quantity(quantity)
+                                                .price("1000")
+                                                .discountPrice("1000")
+                                                .replacedByID("")
+                                                .weight("1000")
+                                                .totalPrice("1000")
+                                                .totalDiscountPrice("1000")
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("789")
+                                                        .build())
+                                                .markingCodeItem(MarkingCode.builder()
+                                                        .value("987")
+                                                        .build())
+                                                .build())
+                                        .total(Total.builder()
+                                                .totalPrice("1000")
+                                                .discountTotalPrice("1000")
+                                                .build())
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode200(responseReadyForDelivery);
+        simplyAwait(3);
+        Response responseDelivered = POST(bodyDelivered);
+        checkStatusCode200(responseDelivered);
+
+        simplyAwait(2);
+        OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не перешел в статус Доставлен");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Позитивные тесты")
     @CaseId(2832)
     @Test(description = "Валидация delivering (Сборка и доставка ритейлером)",
             groups = {"api-instamart-regress", "api-v3"})
@@ -1456,18 +2378,44 @@ public class NotificationsPositiveV3Test extends RestBase {
         Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
-    @Test(groups = {})
-    public void notificationsAllFields() {
-        var body = Notifications.builder()
+    @Skip(onServer = Server.STAGING)
+    @Story("Позитивные тесты")
+    @CaseId(3037)
+    @Test(description = "Валидация delivering + необязательные поля (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationDeliveringAllDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+        var bodyInWork = Notifications.builder()
                 .event(Event.builder()
-                        .type("order.ready_for_delivery")
+                        .type(NotificationTypeV3.IN_WORK.getValue())
                         .payload(Payload.builder()
-                                .orderId("H39014497241")
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
                                 .order(Order.builder()
-                                        .originalOrderId("H39014497241")
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivering = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERING.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
                                         .customer(Customer.builder()
-                                                .name("1")
-                                                .phone("+79991111111")
+                                                .name("name")
+                                                .phone("+77777777777")
                                                 .build())
                                         .delivery(Delivery.builder()
                                                 .expectedFrom("2021-05-24T13:00:00+03:00")
@@ -1475,15 +2423,15 @@ public class NotificationsPositiveV3Test extends RestBase {
                                                 .build())
                                         .changed(true)
                                         .position(Position.builder()
-                                                .id("75125")
-                                                .originalQuantity(2)
-                                                .quantity(2)
-                                                .price("123")
-                                                .discountPrice("12")
+                                                .id(retailerSku)
+                                                .originalQuantity(quantity)
+                                                .quantity(quantity)
+                                                .price("1000")
+                                                .discountPrice("1000")
                                                 .replacedByID("")
-                                                .weight("012")
-                                                .totalPrice("321")
-                                                .totalDiscountPrice("32")
+                                                .weight("1000")
+                                                .totalPrice("1000")
+                                                .totalDiscountPrice("1000")
                                                 .markingCodeItem(MarkingCode.builder()
                                                         .value("789")
                                                         .build())
@@ -1492,16 +2440,546 @@ public class NotificationsPositiveV3Test extends RestBase {
                                                         .build())
                                                 .build())
                                         .total(Total.builder()
-                                                .totalPrice("4646")
-                                                .discountTotalPrice("4949")
+                                                .totalPrice("1000")
+                                                .discountTotalPrice("1000")
                                                 .build())
                                         .build())
                                 .build())
                         .build())
                 .build();
 
-        Response response = POST(body);
-        response.prettyPeek();
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode200(responseReadyForDelivery);
+        simplyAwait(3);
+        Response responseDelivering = POST(bodyDelivering);
+        checkStatusCode200(responseDelivering);
+
+        OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPING.getStatus(), "Заказ не перешел в статус Доставляется");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(2711)
+    @Test(description = "Валидация in_work негатив (Сборка ритейлера, доставка Сбермаркета)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationInWorkNegativeDeliveryBySbermarket() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode422(responseInWork);
+
+        OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.READY.getStatus(), "Заказ не остался в статусе Создан");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(2711)
+    @Test(description = "Валидация in_work негатив (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationInWorkNegativeDeliveryByRetailer() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode422(responseInWork);
+
+        OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.READY.getStatus(), "Заказ не остался в статусе Создан");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(2717)
+    @Test(description = "Валидация canceled негатив (Сборка ритейлера, доставка Сбермаркета)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationCanceledNegativeDeliveryBySbermarket() {
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .build())
+                .build();
+
+        Response responseCanceled = POST(bodyCanceled);
+        checkStatusCode422(responseCanceled);
+
+        OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.READY.getStatus(), "Заказ не остался в статусе Создан");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(2717)
+    @Test(description = "Валидация canceled негатив (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationCanceledNegativeDeliveryByRetailer() {
+        var bodyCanceled = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.CANCELED.getValue())
+                        .build())
+                .build();
+
+        Response responseCanceled = POST(bodyCanceled);
+        checkStatusCode422(responseCanceled);
+
+        OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.READY.getStatus(), "Заказ не остался в статусе Создан");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(3044)
+    @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка ритейлера, доставка Сбермаркета)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationReadyForDeliveryFalseWithoutOrderIdDeliveryBySbermarket() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode422(responseReadyForDelivery);
+
+        simplyAwait(2);
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не осталась в статусе Ожидает");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(3044)
+    @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationReadyForDeliveryFalseWithoutOrderIdDeliveryByRetailer() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode422(responseReadyForDelivery);
+
+        simplyAwait(2);
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не осталась в статусе Ожидает");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(3044)
+    @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка ритейлера, доставка Сбермаркета)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationReadyForDeliveryFalseWithoutOriginalOrderIdDeliveryBySbermarket() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode422(responseReadyForDelivery);
+
+        simplyAwait(2);
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не осталась в статусе Ожидает");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(3044)
+    @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationReadyForDeliveryFalseWithoutOriginalOrderIdDeliveryByRetailer() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode422(responseReadyForDelivery);
+
+        simplyAwait(2);
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не осталась в статусе Ожидает");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(3044)
+    @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка ритейлера, доставка Сбермаркета)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationReadyForDeliveryFalseWithoutChangedDeliveryBySbermarket() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryBySbermarket.getShipments().get(0).getNumber())
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode422(responseReadyForDelivery);
+
+        simplyAwait(2);
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не осталась в статусе Ожидает");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(3044)
+    @Test(description = "Валидация ready_for_delivery негатив. (changed false) (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationReadyForDeliveryFalseWithoutChangedDeliveryByRetailer() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode422(responseReadyForDelivery);
+
+        simplyAwait(2);
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.PENDING.getValue(), "Позиция не осталась в статусе Ожидает");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(2833)
+    @Test(description = "Валидация delivering негатив. (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationDeliveringNegativeDeliveryByRetailer() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivering = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERING.getValue())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode200(responseReadyForDelivery);
+        simplyAwait(3);
+        Response responseDelivering = POST(bodyDelivering);
+        checkStatusCode422(responseDelivering);
+
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не остался в статусе Готов к доставке");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не осталась в статусе Собран");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(3049)
+    @Test(description = "Валидация delivered негатив. (changed false) (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationDeliveredFalseWithoutOrderIdDeliveryByRetailer() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivered = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERED.getValue())
+                        .payload(Payload.builder()
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode200(responseReadyForDelivery);
+        simplyAwait(3);
+        Response responseDelivered = POST(bodyDelivered);
+        checkStatusCode422(responseDelivered);
+
+        simplyAwait(2);
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не остался в статусе Готов к доставке");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не осталась в статусе Собран");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(3049)
+    @Test(description = "Валидация delivered негатив. (changed false) (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationDeliveredFalseWithoutOriginalOrderIdDeliveryByRetailer() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivered = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode200(responseReadyForDelivery);
+        simplyAwait(3);
+        Response responseDelivered = POST(bodyDelivered);
+        checkStatusCode422(responseDelivered);
+
+        simplyAwait(2);
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не остался в статусе Готов к доставке");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не осталась в статусе Собран");
+    }
+
+    @Skip(onServer = Server.STAGING)
+    @Story("Негативные тесты")
+    @CaseId(3049)
+    @Test(description = "Валидация delivered негатив. (changed false) (Сборка и доставка ритейлером)",
+            groups = {"api-instamart-regress", "api-v3"})
+    public void validationDeliveredFalseWithoutChangedDeliveryByRetailer() {
+        var bodyInWork = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.IN_WORK.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .build())
+                        .build())
+                .build();
+        var bodyReadyForDelivery = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.READY_FOR_DELIVERY.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .changed(false)
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        var bodyDelivered = Notifications.builder()
+                .event(Event.builder()
+                        .type(NotificationTypeV3.DELIVERED.getValue())
+                        .payload(Payload.builder()
+                                .orderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                .order(Order.builder()
+                                        .originalOrderId(orderDeliveryByRetailer.getShipments().get(0).getNumber())
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        Response responseInWork = POST(bodyInWork);
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = POST(bodyReadyForDelivery);
+        checkStatusCode200(responseReadyForDelivery);
+        simplyAwait(3);
+        Response responseDelivered = POST(bodyDelivered);
+        checkStatusCode422(responseDelivered);
+
+        simplyAwait(2);
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не остался в статусе Готов к доставке");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не осталась в статусе Собран");
     }
 
 }

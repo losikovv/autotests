@@ -107,21 +107,13 @@ public class ShippingCalcHelper {
 
     @Step("Получаем запрос для получения цены доставки")
     public static GetDeliveryPriceRequest getDeliveryPriceRequest(
-            Integer quantity, String productId, Integer productPrice, Integer discountPrice, Integer productWeight,
-            String shipmentId, Boolean isOndemand, Integer shipmentWeight, Integer itemsCount, Integer shipmentPrice,
+            Integer positionsCount, String shipmentId, Boolean isOndemand, Integer shipmentWeight, Integer itemsCount, Integer shipmentPrice,
             String storeId, String status, Integer regionId, Integer surgeDeliveryWindowAddition, Double storeLat, Double storeLon,
             String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Double customerLat, Double customerLon,
             String orderId, Boolean isB2bOrder, Boolean isPromocode, String paymentMethod, Boolean hasPaymentMethod, Integer deliveryType,
             String tenantId, String platformName, String platformVersion) {
         return GetDeliveryPriceRequest.newBuilder()
                 .addShipments(Shipment.newBuilder()
-                        .addProducts(ProductRequest.newBuilder()
-                                .setQuantity(quantity)
-                                .setId(productId)
-                                .setPrice(productPrice)
-                                .setDiscountPrice(discountPrice)
-                                .setWeight(productWeight)
-                                .build())
                         .setId(shipmentId)
                         .setIsOndemand(isOndemand)
                         .setWeight(shipmentWeight)
@@ -133,6 +125,7 @@ public class ShippingCalcHelper {
                         .setSurgeDeliveryWindowAddition(surgeDeliveryWindowAddition)
                         .setLat(storeLat.floatValue())
                         .setLon(storeLon.floatValue())
+                        .setPositionsCount(positionsCount)
                         .build())
                 .setCustomer(Customer.newBuilder()
                         .setId(customerId)

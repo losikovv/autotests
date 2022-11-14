@@ -69,24 +69,23 @@ public final class UserRegistrationTests {
 
         shop().waitPageLoad();
         shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().plusFirstItemToCartProd();
+        shop().plusItemToCartByPosition(3);
 
         shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseFirstItemCountToMin();
         final var orderAmount = shop().interactCart().getOrderAmount();
-        final var positionsCount = shop().interactCart().getFirstRetailer().getItemsCountInHeaderProd();
 
         shop().interactCart().submitOrder();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
-        checkout().checkCheckoutButtonIsVisible();
 
-        final var orderAmountInCheckout = checkout().getOrderAmount();
-        final var positionsCountInCheckout = checkout().getPositionsCountProd();
+        checkoutNew().checkSpinnerNotVisible();
+        checkoutNew().checkDeliverySlotsVisible();
 
-        checkout().compareOrderAmountAfterRegistration(orderAmount, orderAmountInCheckout);
-        checkout().comparePositionCountAfterRegistration(positionsCount, positionsCountInCheckout);
+        final var orderAmountInCheckout = checkoutNew().getOrderAmountDouble();
 
-        checkout().assertAll();
+        checkoutNew().compareOrderAmountAfterRegistration(orderAmount, orderAmountInCheckout);
+
+        checkoutNew().assertAll();
     }
 }

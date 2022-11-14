@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.page.checkout_new;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.*;
+import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.page.checkout_new.add_payment_card_modal.AddPaymentCardModal;
 import ru.instamart.reforged.stf.page.checkout_new.b2b_order_modal.B2BOrderModal;
 import ru.instamart.reforged.stf.page.checkout_new.delivery_slots_modal.DeliverySlotsModal;
@@ -16,6 +17,7 @@ public interface CheckoutNewElement {
     DeliverySlotsModal deliverySlotsModal = new DeliverySlotsModal();
     B2BOrderModal b2bOrderModal = new B2BOrderModal();
     SberSpasiboCardModal sberSpasiboCardModal = new SberSpasiboCardModal();
+    HelpDesk helpDesk = new HelpDesk();
 
     Element loadingSpinner = new Element(By.xpath("//div[contains(@class,'Spinner')]"), "Спиннер загрузки страницы");
 
@@ -67,10 +69,10 @@ public interface CheckoutNewElement {
             "Информация в свернутом блоке 'Контакты'");
     Button contactsEdit = new Button(By.xpath("//div[contains(@class,'CheckoutEditableCard_header')][.//h3[.='Контакты']]//button"), "Кнопка 'Изменить' (Контакты)");
     Input contactsPhone = new Input(By.xpath("//input[@name='contacts.phone']"), "Поле ввода 'Телефон'");
-    Element contactsPhoneInvalid = new Element(By.xpath("//input[@name='contacts.phone'][contains(@class,'FormGroup_invalid')]"),"Алерт в поле ввода 'Телефон'");
+    Element contactsPhoneInvalid = new Element(By.xpath("//input[@name='contacts.phone'][contains(@class,'FormGroup_invalid')]"), "Алерт в поле ввода 'Телефон'");
     Element contactsPhoneErrorDescription = new Element(By.xpath("//label[contains(@class,'FormGroup_description')][@for='FormGroup_contacts.phone']"), "Описание ошибки в поле ввода 'Телефон'");
     Input contactsEmail = new Input(By.xpath("//input[@name='contacts.email']"), "Поле ввода 'Email'");
-    Element contactsEmailInvalid = new Element(By.xpath("//input[@name='contacts.email'][contains(@class,'FormGroup_invalid')]"),"Алерт в поле ввода 'Email'");
+    Element contactsEmailInvalid = new Element(By.xpath("//input[@name='contacts.email'][contains(@class,'FormGroup_invalid')]"), "Алерт в поле ввода 'Email'");
     Element contactsEmailErrorDescription = new Element(By.xpath("//label[contains(@class,'FormGroup_description')][@for='FormGroup_contacts.email']"), "Описание ошибки в поле ввода 'Email'");
 
     Element replacementPolicySummary = new Element(By.xpath("//div[contains(@class,'CheckoutEditableCard_header')][.//h3[.='Замена товара']]//div[contains(@class,'CheckoutEditableCard_details')]"),

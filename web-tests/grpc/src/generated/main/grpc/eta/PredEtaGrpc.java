@@ -108,6 +108,68 @@ public final class PredEtaGrpc {
     return getGetCourierEtaMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<eta.Eta.DisableEtaRequest,
+      eta.Eta.DisableEtaResponse> getDisableEtaMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DisableEta",
+      requestType = eta.Eta.DisableEtaRequest.class,
+      responseType = eta.Eta.DisableEtaResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<eta.Eta.DisableEtaRequest,
+      eta.Eta.DisableEtaResponse> getDisableEtaMethod() {
+    io.grpc.MethodDescriptor<eta.Eta.DisableEtaRequest, eta.Eta.DisableEtaResponse> getDisableEtaMethod;
+    if ((getDisableEtaMethod = PredEtaGrpc.getDisableEtaMethod) == null) {
+      synchronized (PredEtaGrpc.class) {
+        if ((getDisableEtaMethod = PredEtaGrpc.getDisableEtaMethod) == null) {
+          PredEtaGrpc.getDisableEtaMethod = getDisableEtaMethod =
+              io.grpc.MethodDescriptor.<eta.Eta.DisableEtaRequest, eta.Eta.DisableEtaResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DisableEta"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  eta.Eta.DisableEtaRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  eta.Eta.DisableEtaResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new PredEtaMethodDescriptorSupplier("DisableEta"))
+              .build();
+        }
+      }
+    }
+    return getDisableEtaMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<eta.Eta.CheckSlotDisableRequest,
+      eta.Eta.CheckSlotDisableResponse> getCheckSlotDisableMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "CheckSlotDisable",
+      requestType = eta.Eta.CheckSlotDisableRequest.class,
+      responseType = eta.Eta.CheckSlotDisableResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<eta.Eta.CheckSlotDisableRequest,
+      eta.Eta.CheckSlotDisableResponse> getCheckSlotDisableMethod() {
+    io.grpc.MethodDescriptor<eta.Eta.CheckSlotDisableRequest, eta.Eta.CheckSlotDisableResponse> getCheckSlotDisableMethod;
+    if ((getCheckSlotDisableMethod = PredEtaGrpc.getCheckSlotDisableMethod) == null) {
+      synchronized (PredEtaGrpc.class) {
+        if ((getCheckSlotDisableMethod = PredEtaGrpc.getCheckSlotDisableMethod) == null) {
+          PredEtaGrpc.getCheckSlotDisableMethod = getCheckSlotDisableMethod =
+              io.grpc.MethodDescriptor.<eta.Eta.CheckSlotDisableRequest, eta.Eta.CheckSlotDisableResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CheckSlotDisable"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  eta.Eta.CheckSlotDisableRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  eta.Eta.CheckSlotDisableResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new PredEtaMethodDescriptorSupplier("CheckSlotDisable"))
+              .build();
+        }
+      }
+    }
+    return getCheckSlotDisableMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -177,6 +239,20 @@ public final class PredEtaGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetCourierEtaMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void disableEta(eta.Eta.DisableEtaRequest request,
+        io.grpc.stub.StreamObserver<eta.Eta.DisableEtaResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDisableEtaMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void checkSlotDisable(eta.Eta.CheckSlotDisableRequest request,
+        io.grpc.stub.StreamObserver<eta.Eta.CheckSlotDisableResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCheckSlotDisableMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -200,6 +276,20 @@ public final class PredEtaGrpc {
                 eta.Eta.CourierEtaRequest,
                 eta.Eta.CourierEtaResponse>(
                   this, METHODID_GET_COURIER_ETA)))
+          .addMethod(
+            getDisableEtaMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                eta.Eta.DisableEtaRequest,
+                eta.Eta.DisableEtaResponse>(
+                  this, METHODID_DISABLE_ETA)))
+          .addMethod(
+            getCheckSlotDisableMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                eta.Eta.CheckSlotDisableRequest,
+                eta.Eta.CheckSlotDisableResponse>(
+                  this, METHODID_CHECK_SLOT_DISABLE)))
           .build();
     }
   }
@@ -241,6 +331,22 @@ public final class PredEtaGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetCourierEtaMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void disableEta(eta.Eta.DisableEtaRequest request,
+        io.grpc.stub.StreamObserver<eta.Eta.DisableEtaResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDisableEtaMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void checkSlotDisable(eta.Eta.CheckSlotDisableRequest request,
+        io.grpc.stub.StreamObserver<eta.Eta.CheckSlotDisableResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getCheckSlotDisableMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -276,6 +382,20 @@ public final class PredEtaGrpc {
     public eta.Eta.CourierEtaResponse getCourierEta(eta.Eta.CourierEtaRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetCourierEtaMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public eta.Eta.DisableEtaResponse disableEta(eta.Eta.DisableEtaRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDisableEtaMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public eta.Eta.CheckSlotDisableResponse checkSlotDisable(eta.Eta.CheckSlotDisableRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getCheckSlotDisableMethod(), getCallOptions(), request);
     }
   }
 
@@ -316,11 +436,29 @@ public final class PredEtaGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetCourierEtaMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<eta.Eta.DisableEtaResponse> disableEta(
+        eta.Eta.DisableEtaRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDisableEtaMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<eta.Eta.CheckSlotDisableResponse> checkSlotDisable(
+        eta.Eta.CheckSlotDisableRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getCheckSlotDisableMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_STORE_ETA = 0;
   private static final int METHODID_GET_BASKET_ETA = 1;
   private static final int METHODID_GET_COURIER_ETA = 2;
+  private static final int METHODID_DISABLE_ETA = 3;
+  private static final int METHODID_CHECK_SLOT_DISABLE = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -350,6 +488,14 @@ public final class PredEtaGrpc {
         case METHODID_GET_COURIER_ETA:
           serviceImpl.getCourierEta((eta.Eta.CourierEtaRequest) request,
               (io.grpc.stub.StreamObserver<eta.Eta.CourierEtaResponse>) responseObserver);
+          break;
+        case METHODID_DISABLE_ETA:
+          serviceImpl.disableEta((eta.Eta.DisableEtaRequest) request,
+              (io.grpc.stub.StreamObserver<eta.Eta.DisableEtaResponse>) responseObserver);
+          break;
+        case METHODID_CHECK_SLOT_DISABLE:
+          serviceImpl.checkSlotDisable((eta.Eta.CheckSlotDisableRequest) request,
+              (io.grpc.stub.StreamObserver<eta.Eta.CheckSlotDisableResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -415,6 +561,8 @@ public final class PredEtaGrpc {
               .addMethod(getGetStoreEtaMethod())
               .addMethod(getGetBasketEtaMethod())
               .addMethod(getGetCourierEtaMethod())
+              .addMethod(getDisableEtaMethod())
+              .addMethod(getCheckSlotDisableMethod())
               .build();
         }
       }

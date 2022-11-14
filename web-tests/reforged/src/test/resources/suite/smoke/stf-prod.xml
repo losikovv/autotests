@@ -12,13 +12,16 @@
     </method-selectors>
     <test verbose="1" name="Stf UI tests production" parallel="classes" thread-count="5">
         <classes>
-            <class name="ru.instamart.test.reforged.stf_prod.checkout.CheckoutDeliverySlotsTests"/>
-            <class name="ru.instamart.test.reforged.stf_prod.checkout.CheckoutPromoCodeTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.checkout_new.CheckoutTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.checkout_new.CheckoutPaymentMethodsTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.checkout_new.CheckoutAddressTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.checkout_new.CheckoutContactsAndReplacementPolicyTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.checkout_new.CheckoutPromoCodesTests"/>
+            <class name="ru.instamart.test.reforged.stf_prod.checkout_new.CheckoutSlotsTests"/>
 
             <class name="ru.instamart.test.reforged.stf_prod.order.BasicOrdersTests"/>
             <class name="ru.instamart.test.reforged.stf_prod.order.OrderEvaluationTests"/>
             <class name="ru.instamart.test.reforged.stf_prod.order.OrderRepeatTests"/>
-            <class name="ru.instamart.test.reforged.stf_prod.order.OrdersPaymentsTests"/>
 
             <class name="ru.instamart.test.reforged.stf_prod.shopping.ShoppingCartTests"/>
             <class name="ru.instamart.test.reforged.stf_prod.shopping.ShoppingSearchTests"/>

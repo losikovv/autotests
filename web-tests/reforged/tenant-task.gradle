@@ -44,6 +44,7 @@ task businessUiCustom(type: Test) {
     useTestNG() {
         suites "src/test/resources/suite/regress/business.xml"
         includeGroups CI_GROUP
+        threadCount System.getenv('B2B_FORWARD').startsWith('s-sb-stf') ? 6 : 3
     }
     environment 'P_ENV', 'business-custom'
 }

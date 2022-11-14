@@ -66,7 +66,7 @@ public enum Db {
     ),
     PG_SHIPPING_CALC(
             DbType.POSTGRESQL,
-            System.getProperty("url_paas_shippingcalc", "paas-content-operations-shippingcalc"),
+            EnvironmentProperties.Env.SHIPPINGCALC_NAMESPACE,
             "statefulset.kubernetes.io/pod-name=postgresql-0",
             5432,
             "jdbc:postgresql://localhost:%s/app",
@@ -87,6 +87,16 @@ public enum Db {
     PG_SURGE_LEVEL(
             DbType.POSTGRESQL,
             EnvironmentProperties.Env.SURGELEVEL_NAMESPACE,
+            "statefulset.kubernetes.io/pod-name=postgresql-0",
+            5432,
+            "jdbc:postgresql://localhost:%s/app",
+            Crypt.INSTANCE.decrypt("O4On6ImtTAIvvUDOsqOHDw=="),
+            Crypt.INSTANCE.decrypt("DQdUNB8CjrqEUiIrAaZlCg=="),
+            EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE
+    ),
+    PG_NORNS(
+            DbType.POSTGRESQL,
+            "paas-content-operations-norns",
             "statefulset.kubernetes.io/pod-name=postgresql-0",
             5432,
             "jdbc:postgresql://localhost:%s/app",

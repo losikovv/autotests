@@ -36,7 +36,7 @@ public class GrpcV2Test extends GrpcBase {
         client = surgelevel.v2.ServiceGrpc.newBlockingStub(channel);
     }
 
-    @CaseId(51)
+    @CaseId(52)
     @Story("Set Config")
     @Test(description = "Изменить дефолтную конфигурацию",
             groups = "ondemand-surgelevel-smoke")
@@ -75,7 +75,7 @@ public class GrpcV2Test extends GrpcBase {
         check.notNull(response.getConfig().getFormula().getScript());
     }
 
-    @CaseId(87)
+    @CaseId(88)
     @Story("Save Region")
     @Test(description = "Сохранение региона",
             groups = "ondemand-surgelevel-smoke")
@@ -112,7 +112,7 @@ public class GrpcV2Test extends GrpcBase {
         check.notNull(response.getRegion(0).getConfig().getInheritance(0).getFormula());
     }
 
-    @CaseId(61)
+    @CaseId(62)
     @Story("Save Retailer")
     @Test(description = "Сохранение ритейлера",
             groups = "ondemand-surgelevel-smoke")
@@ -149,7 +149,7 @@ public class GrpcV2Test extends GrpcBase {
         check.notNull(response.getRetailer(0).getConfig().getInheritance(0).getFormula());
     }
 
-    @CaseId(70)
+    @CaseId(71)
     @Story("Save Store")
     @Test(description = "Сохранение магазина",
             groups = "ondemand-surgelevel-smoke")
@@ -242,7 +242,7 @@ public class GrpcV2Test extends GrpcBase {
         check.equals(response.getFormula(0).getScript(), FORMULA_SCRIPT);
     }
 
-    @CaseId(95)
+    @CaseId(97)
     @Story("Call Formula")
     @Test(description = "Выполнение формулы",
             groups = "ondemand-surgelevel-smoke")

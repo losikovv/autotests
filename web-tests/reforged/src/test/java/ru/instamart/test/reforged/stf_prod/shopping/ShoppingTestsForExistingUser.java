@@ -11,7 +11,7 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
-import static ru.instamart.reforged.stf.page.StfRouter.checkout;
+import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
@@ -39,7 +39,8 @@ public class ShoppingTestsForExistingUser {
         shop().interactCart().checkCartNotEmpty();
         shop().interactCart().checkOrderButtonIsEnabled();
         shop().interactCart().submitOrder();
-        checkout().checkPageIsAvailable();
-        checkout().checkCheckoutButtonIsVisible();
+
+        checkoutNew().checkSpinnerNotVisible();
+        checkoutNew().checkDeliverySlotsVisible();
     }
 }

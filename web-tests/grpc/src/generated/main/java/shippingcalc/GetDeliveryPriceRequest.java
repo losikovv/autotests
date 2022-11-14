@@ -23,6 +23,8 @@ private static final long serialVersionUID = 0L;
     tenantId_ = "";
     platformName_ = "";
     platformVersion_ = "";
+    testMeta_ = "";
+    clientId_ = "";
   }
 
   @java.lang.Override
@@ -129,6 +131,18 @@ private static final long serialVersionUID = 0L;
             platformVersion_ = s;
             break;
           }
+          case 114: {
+            java.lang.String s = input.readStringRequireUtf8();
+            bitField0_ |= 0x00000001;
+            testMeta_ = s;
+            break;
+          }
+          case 122: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            clientId_ = s;
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -164,6 +178,7 @@ private static final long serialVersionUID = 0L;
             shippingcalc.GetDeliveryPriceRequest.class, shippingcalc.GetDeliveryPriceRequest.Builder.class);
   }
 
+  private int bitField0_;
   public static final int ORDER_ID_FIELD_NUMBER = 1;
   private volatile java.lang.Object orderId_;
   /**
@@ -556,6 +571,113 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int TEST_META_FIELD_NUMBER = 14;
+  private volatile java.lang.Object testMeta_;
+  /**
+   * <pre>
+   * Это поле используется только в тестовых запросах (например, для НТ).
+   * В нем хранится некоторая тестовая метаинформация
+   * </pre>
+   *
+   * <code>optional string test_meta = 14;</code>
+   * @return Whether the testMeta field is set.
+   */
+  @java.lang.Override
+  public boolean hasTestMeta() {
+    return ((bitField0_ & 0x00000001) != 0);
+  }
+  /**
+   * <pre>
+   * Это поле используется только в тестовых запросах (например, для НТ).
+   * В нем хранится некоторая тестовая метаинформация
+   * </pre>
+   *
+   * <code>optional string test_meta = 14;</code>
+   * @return The testMeta.
+   */
+  @java.lang.Override
+  public java.lang.String getTestMeta() {
+    java.lang.Object ref = testMeta_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      testMeta_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Это поле используется только в тестовых запросах (например, для НТ).
+   * В нем хранится некоторая тестовая метаинформация
+   * </pre>
+   *
+   * <code>optional string test_meta = 14;</code>
+   * @return The bytes for testMeta.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getTestMetaBytes() {
+    java.lang.Object ref = testMeta_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      testMeta_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int CLIENT_ID_FIELD_NUMBER = 15;
+  private volatile java.lang.Object clientId_;
+  /**
+   * <pre>
+   * Идентификатор внешней витрины
+   * </pre>
+   *
+   * <code>string client_id = 15;</code>
+   * @return The clientId.
+   */
+  @java.lang.Override
+  public java.lang.String getClientId() {
+    java.lang.Object ref = clientId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      clientId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Идентификатор внешней витрины
+   * </pre>
+   *
+   * <code>string client_id = 15;</code>
+   * @return The bytes for clientId.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getClientIdBytes() {
+    java.lang.Object ref = clientId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      clientId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -602,6 +724,12 @@ private static final long serialVersionUID = 0L;
     }
     if (!getPlatformVersionBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 13, platformVersion_);
+    }
+    if (((bitField0_ & 0x00000001) != 0)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 14, testMeta_);
+    }
+    if (!getClientIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 15, clientId_);
     }
     unknownFields.writeTo(output);
   }
@@ -651,6 +779,12 @@ private static final long serialVersionUID = 0L;
     if (!getPlatformVersionBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, platformVersion_);
     }
+    if (((bitField0_ & 0x00000001) != 0)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, testMeta_);
+    }
+    if (!getClientIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, clientId_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -690,6 +824,13 @@ private static final long serialVersionUID = 0L;
         .equals(other.getPlatformName())) return false;
     if (!getPlatformVersion()
         .equals(other.getPlatformVersion())) return false;
+    if (hasTestMeta() != other.hasTestMeta()) return false;
+    if (hasTestMeta()) {
+      if (!getTestMeta()
+          .equals(other.getTestMeta())) return false;
+    }
+    if (!getClientId()
+        .equals(other.getClientId())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -730,6 +871,12 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getPlatformName().hashCode();
     hash = (37 * hash) + PLATFORM_VERSION_FIELD_NUMBER;
     hash = (53 * hash) + getPlatformVersion().hashCode();
+    if (hasTestMeta()) {
+      hash = (37 * hash) + TEST_META_FIELD_NUMBER;
+      hash = (53 * hash) + getTestMeta().hashCode();
+    }
+    hash = (37 * hash) + CLIENT_ID_FIELD_NUMBER;
+    hash = (53 * hash) + getClientId().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -894,6 +1041,10 @@ private static final long serialVersionUID = 0L;
 
       platformVersion_ = "";
 
+      testMeta_ = "";
+      bitField0_ = (bitField0_ & ~0x00000002);
+      clientId_ = "";
+
       return this;
     }
 
@@ -921,6 +1072,7 @@ private static final long serialVersionUID = 0L;
     public shippingcalc.GetDeliveryPriceRequest buildPartial() {
       shippingcalc.GetDeliveryPriceRequest result = new shippingcalc.GetDeliveryPriceRequest(this);
       int from_bitField0_ = bitField0_;
+      int to_bitField0_ = 0;
       result.orderId_ = orderId_;
       if (shipmentsBuilder_ == null) {
         if (((bitField0_ & 0x00000001) != 0)) {
@@ -944,6 +1096,12 @@ private static final long serialVersionUID = 0L;
       result.tenantId_ = tenantId_;
       result.platformName_ = platformName_;
       result.platformVersion_ = platformVersion_;
+      if (((from_bitField0_ & 0x00000002) != 0)) {
+        to_bitField0_ |= 0x00000001;
+      }
+      result.testMeta_ = testMeta_;
+      result.clientId_ = clientId_;
+      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
@@ -1051,6 +1209,15 @@ private static final long serialVersionUID = 0L;
       }
       if (!other.getPlatformVersion().isEmpty()) {
         platformVersion_ = other.platformVersion_;
+        onChanged();
+      }
+      if (other.hasTestMeta()) {
+        bitField0_ |= 0x00000002;
+        testMeta_ = other.testMeta_;
+        onChanged();
+      }
+      if (!other.getClientId().isEmpty()) {
+        clientId_ = other.clientId_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -2209,6 +2376,215 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       platformVersion_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object testMeta_ = "";
+    /**
+     * <pre>
+     * Это поле используется только в тестовых запросах (например, для НТ).
+     * В нем хранится некоторая тестовая метаинформация
+     * </pre>
+     *
+     * <code>optional string test_meta = 14;</code>
+     * @return Whether the testMeta field is set.
+     */
+    public boolean hasTestMeta() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <pre>
+     * Это поле используется только в тестовых запросах (например, для НТ).
+     * В нем хранится некоторая тестовая метаинформация
+     * </pre>
+     *
+     * <code>optional string test_meta = 14;</code>
+     * @return The testMeta.
+     */
+    public java.lang.String getTestMeta() {
+      java.lang.Object ref = testMeta_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        testMeta_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Это поле используется только в тестовых запросах (например, для НТ).
+     * В нем хранится некоторая тестовая метаинформация
+     * </pre>
+     *
+     * <code>optional string test_meta = 14;</code>
+     * @return The bytes for testMeta.
+     */
+    public com.google.protobuf.ByteString
+        getTestMetaBytes() {
+      java.lang.Object ref = testMeta_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        testMeta_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Это поле используется только в тестовых запросах (например, для НТ).
+     * В нем хранится некоторая тестовая метаинформация
+     * </pre>
+     *
+     * <code>optional string test_meta = 14;</code>
+     * @param value The testMeta to set.
+     * @return This builder for chaining.
+     */
+    public Builder setTestMeta(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+      testMeta_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Это поле используется только в тестовых запросах (например, для НТ).
+     * В нем хранится некоторая тестовая метаинформация
+     * </pre>
+     *
+     * <code>optional string test_meta = 14;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearTestMeta() {
+      bitField0_ = (bitField0_ & ~0x00000002);
+      testMeta_ = getDefaultInstance().getTestMeta();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Это поле используется только в тестовых запросах (например, для НТ).
+     * В нем хранится некоторая тестовая метаинформация
+     * </pre>
+     *
+     * <code>optional string test_meta = 14;</code>
+     * @param value The bytes for testMeta to set.
+     * @return This builder for chaining.
+     */
+    public Builder setTestMetaBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      bitField0_ |= 0x00000002;
+      testMeta_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object clientId_ = "";
+    /**
+     * <pre>
+     * Идентификатор внешней витрины
+     * </pre>
+     *
+     * <code>string client_id = 15;</code>
+     * @return The clientId.
+     */
+    public java.lang.String getClientId() {
+      java.lang.Object ref = clientId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        clientId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Идентификатор внешней витрины
+     * </pre>
+     *
+     * <code>string client_id = 15;</code>
+     * @return The bytes for clientId.
+     */
+    public com.google.protobuf.ByteString
+        getClientIdBytes() {
+      java.lang.Object ref = clientId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        clientId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Идентификатор внешней витрины
+     * </pre>
+     *
+     * <code>string client_id = 15;</code>
+     * @param value The clientId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setClientId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      clientId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Идентификатор внешней витрины
+     * </pre>
+     *
+     * <code>string client_id = 15;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearClientId() {
+      
+      clientId_ = getDefaultInstance().getClientId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Идентификатор внешней витрины
+     * </pre>
+     *
+     * <code>string client_id = 15;</code>
+     * @param value The bytes for clientId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setClientIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      clientId_ = value;
       onChanged();
       return this;
     }

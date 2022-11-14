@@ -8,6 +8,8 @@ import static ru.instamart.kraken.config.EnvironmentProperties.Env.SURGELEVEL_HA
 public class KafkaConfigs {
     private static String workflowUser = Crypt.INSTANCE.decrypt("W8t2xfaWNDbOiygPZb58sw==");
     private static String workflowPass = Crypt.INSTANCE.decrypt("qDEePBkZyGVm909bb9boEA==");
+    private static String retailerUser = Crypt.INSTANCE.decrypt("8umFnbBPQlFkXL2Ngw2wyMEEUcogUnQinsGC6YpsrmJOnXIBqr63D420KmvvZXtc");
+    private static String retailerPass = Crypt.INSTANCE.decrypt("B0VN+R0oaWvTwe5+OBq5Nw==");
 
     public static KafkaConfig configFctOrderStf() {
         return KafkaConfig.builder()
@@ -118,6 +120,22 @@ public class KafkaConfigs {
                 .topic("yc.operations-order-service.fct.order-status-changed.0")
                 .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lNLTflx90VI0n6hzBgecvll6tdcTqGMheErKEU2y3QOl"))
                 .password(Crypt.INSTANCE.decrypt("2upy3AL136//Hs/NMMaWnw=="))
+                .build();
+    }
+
+    public static KafkaConfig configRetailerChanged() {
+        return KafkaConfig.builder()
+                .topic("yc.retail-onboarding.fct.retailers.16")
+                .login(retailerUser)
+                .password(retailerPass)
+                .build();
+    }
+
+    public static KafkaConfig configRetailerOnboardingStoreChanged() {
+        return KafkaConfig.builder()
+                .topic("yc.retail-onboarding.fct.stores.16")
+                .login(retailerUser)
+                .password(retailerPass)
                 .build();
     }
 }

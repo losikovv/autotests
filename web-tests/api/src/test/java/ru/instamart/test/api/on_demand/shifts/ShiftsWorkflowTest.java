@@ -41,7 +41,7 @@ public class ShiftsWorkflowTest extends RestBase {
             description = "Оформляем смену и маршрутный лист")
     public void preconditions() {
         clientWorkflow = ServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW));
-        UserData user = UserManager.getShp6Shopper1();
+        UserData user = UserManager.getShp6Universal1();
         shopperApp.authorisation(user);
 
         //Удаляем все смены

@@ -223,6 +223,7 @@ public final class EnvironmentProperties {
         public static String ADMIN_FULL_URL = "https://" + (isProduction() ? ADMIN_URL : BASIC_URL) + "/";
         public static String ONE_SESSION = System.getProperty("one_session");
         public static String ETA_NAMESPACE = getEtaNamespace();
+        public static String SHIPPINGCALC_NAMESPACE = getShippingcalcNamespace();
         public static String SURGELEVEL_NAMESPACE = "paas-content-operations-surgelevel" + getSurgelevelHashOrBranch();
         public static String SURGELEVEL_HASH_OR_BRANCH = getSurgelevelHashOrBranch();
 
@@ -232,6 +233,14 @@ public final class EnvironmentProperties {
                 etaNamespace = "paas-content-operations-eta";
             }
             return etaNamespace;
+        }
+
+        private static String getShippingcalcNamespace() {
+            String shippingcalcNamespace = System.getProperty("url_paas_shippingcalc", "paas-content-operations-shippingcalc");
+            if (Objects.isNull(shippingcalcNamespace) || shippingcalcNamespace.isEmpty() || shippingcalcNamespace.isBlank()) {
+                shippingcalcNamespace = "paas-content-operations-shippingcalc";
+            }
+            return shippingcalcNamespace;
         }
 
         private static String getSurgelevelHashOrBranch() {

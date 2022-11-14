@@ -61,7 +61,7 @@ public class TimeoutWorkflowTest extends RestBase {
         secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
-        shopperApp.authorisation(UserManager.getShp6Shopper4());
+        shopperApp.authorisation(UserManager.getShp6Universal4());
     }
 
     @Skip //TODO: посмотреть, как стабилизировать тесты, кроме увеличения времени

@@ -36,6 +36,14 @@ public enum ConditionType
    * <code>REGISTERED_AFTER = 6;</code>
    */
   REGISTERED_AFTER(6),
+  /**
+   * <code>ON_DEMAND = 7;</code>
+   */
+  ON_DEMAND(7),
+  /**
+   * <code>CLIENT_API = 8;</code>
+   */
+  CLIENT_API(8),
   UNRECOGNIZED(-1),
   ;
 
@@ -67,6 +75,14 @@ public enum ConditionType
    * <code>REGISTERED_AFTER = 6;</code>
    */
   public static final int REGISTERED_AFTER_VALUE = 6;
+  /**
+   * <code>ON_DEMAND = 7;</code>
+   */
+  public static final int ON_DEMAND_VALUE = 7;
+  /**
+   * <code>CLIENT_API = 8;</code>
+   */
+  public static final int CLIENT_API_VALUE = 8;
 
 
   public final int getNumber() {
@@ -100,6 +116,8 @@ public enum ConditionType
       case 4: return ORDER_DISTANCE_RANGE;
       case 5: return PLATFORMS;
       case 6: return REGISTERED_AFTER;
+      case 7: return ON_DEMAND;
+      case 8: return CLIENT_API;
       default: return null;
     }
   }

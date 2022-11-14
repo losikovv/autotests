@@ -18,13 +18,14 @@ public class ConfigDao extends AbstractDao<String, ConfigEntity> {
     private final String INSERT_SQL = "INSERT INTO config ";
     private final String DELETE_SQL = "DELETE FROM config ";
 
-    public boolean addConfig(String configId, String formulaId, Integer step){
+    public boolean addConfig(String configId, String formulaId, Integer step, Boolean isDisabled){
         try (Connection connect = ConnectionManager.getDataSource(Db.PG_SURGE_LEVEL).getConnection();
-             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (id, formula_id, step_surge_level) " +
-                     " VALUES (?::uuid, ?::uuid, ?) ")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (id, formula_id, step_surge_level, disabled) " +
+                     " VALUES (?::uuid, ?::uuid, ?, ?) ")) {
             preparedStatement.setString(1, configId);
             preparedStatement.setString(2, formulaId);
             preparedStatement.setInt(3, step);
+            preparedStatement.setObject(4, isDisabled);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLSurgelevelManager. Error: " + e.getMessage());
