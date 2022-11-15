@@ -260,8 +260,8 @@ public final class KrakenCondition {
         return new ExpectedCondition<WebElement>() {
             @Override
             public WebElement apply(WebDriver driver) {
-                final var element = visibilityOfElementLocated(webElement, locator).apply(driver);
                 try {
+                    final var element = visibilityOfElementLocated(webElement, locator).apply(driver);
                     if (nonNull(element) && element.isEnabled()) {
                         return element;
                     }

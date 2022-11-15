@@ -15,7 +15,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что тултип автоопределения города не отображается")
     default void checkRegionTooltipNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(headerTooltip);
+        Assert.assertTrue(headerTooltip.is().invisible());
     }
 
     @Step("Проверяем, что город в тултипе: '{expectedRegion}'")

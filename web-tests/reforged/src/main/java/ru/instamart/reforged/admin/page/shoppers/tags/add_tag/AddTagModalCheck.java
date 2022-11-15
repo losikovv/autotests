@@ -16,7 +16,7 @@ public interface AddTagModalCheck extends Check, AddTagModalElements {
 
     @Step("Проверяем, что модальное окно выбора тега не отображается")
     default void checkModalNotVisible() {
-        modal.should().invisible();
+        Assert.assertTrue(modal.is().invisible());
     }
 
     @Step("Проверяем, что кнопка добавления тегов отображается и задизейблена")
@@ -32,7 +32,7 @@ public interface AddTagModalCheck extends Check, AddTagModalElements {
 
     @Step("Проверяем, что теги в списке тегов скрыты")
     default void checkTagsDropdownInvisible() {
-        tagsInList.should().invisible();
+        Assert.assertTrue(tagsInList.is().invisible());
     }
 
     @Step("Проверяем, что теги в списке тегов показаны")
@@ -57,7 +57,7 @@ public interface AddTagModalCheck extends Check, AddTagModalElements {
 
     @Step("Проверяем, что поле выбранных тегов пустое")
     default void checkSelectedTagsInFieldEmpty() {
-        selectedTagsInField.should().invisible();
+        Assert.assertTrue(selectedTagsInField.is().invisible());
     }
 
     @Step("Проверяем, что теги в списке тегов показаны")

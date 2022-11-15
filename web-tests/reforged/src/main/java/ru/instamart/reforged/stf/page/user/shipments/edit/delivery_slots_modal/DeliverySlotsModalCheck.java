@@ -14,7 +14,7 @@ public interface DeliverySlotsModalCheck extends Check, DeliverySlotsModalElemen
 
     @Step("Проверяем, что модальное окно не отображается")
     default void checkModalNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(close);
+        Assert.assertTrue(close.is().invisible());
     }
 
     @Step("Проверяем, что заголовок окна: '{expectedTitle}'")
@@ -60,7 +60,7 @@ public interface DeliverySlotsModalCheck extends Check, DeliverySlotsModalElemen
 
     @Step("Проверяем, что выбранные слоты отсутствуют")
     default void checkSelectedSlotNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(selectedSlots);
+        Assert.assertTrue(selectedSlots.is().invisible());
     }
 
     @Step("Проверяем, что в списке слотов отображаются слоты с большей стоимостью доставки")
@@ -75,7 +75,7 @@ public interface DeliverySlotsModalCheck extends Check, DeliverySlotsModalElemen
 
     @Step("Проверяем, что в списке слотов не отображаются слоты с информацией об изменении цены доставки")
     default void checkDeliverySlotWithAnotherPriceNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(slotsWithAnotherDeliveryPrice);
+        Assert.assertTrue(slotsWithAnotherDeliveryPrice.is().invisible());
     }
 
     @Step("Проверяем, что количество выбранных слотов: '{expectedCount}'")

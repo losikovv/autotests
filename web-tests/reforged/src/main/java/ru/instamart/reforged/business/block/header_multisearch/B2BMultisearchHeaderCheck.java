@@ -1,6 +1,7 @@
 package ru.instamart.reforged.business.block.header_multisearch;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
@@ -28,7 +29,7 @@ public interface B2BMultisearchHeaderCheck extends Check, B2BMultisearchHeaderEl
 
     @Step("Проверяем, что не отображается поле ввода мультиритейлерного поиска")
     default void checkMultisearchInputNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(multisearch);
+        Assert.assertTrue(multisearch.is().invisible());
     }
 
     @Step("Проверяем, что отображается кнопка пользовательского меню")
@@ -53,7 +54,7 @@ public interface B2BMultisearchHeaderCheck extends Check, B2BMultisearchHeaderEl
 
     @Step("Проверяем, саджестор не отображается")
     default void checkProductsNotVisibleInSuggester() {
-        Kraken.waitAction().shouldNotBeVisible(productsInActiveTab);
+        Assert.assertTrue(productsInActiveTab.is().invisible());
     }
 
     @Step("Проверяем, что все найденные продукты саджестора соответствуют критериям поиска: '{searchText}'")

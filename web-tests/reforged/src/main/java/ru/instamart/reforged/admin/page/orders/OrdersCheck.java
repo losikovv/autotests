@@ -20,12 +20,12 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     @Step("Проверяем, что в таблице отображаются заказы")
     default void checkShipmentListNotEmpty() {
-        Kraken.waitAction().shouldNotBeVisible(emptyShipmentsListLabel);
+        Assert.assertTrue(emptyShipmentsListLabel.is().invisible());
     }
 
     @Step("Проверяем, что подгрузка данных завершена")
     default void checkLoadingLabelNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(shipmentsLoadingLabel);
+        Assert.assertTrue(shipmentsLoadingLabel.is().invisible());
     }
 
     @Step("Проверяем отображаемое количество найденных заказов в заголовке таблицы равно: '{expectedShipmentsCount}'")
@@ -199,7 +199,7 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Сборщик'")
     default void checkCollectorDropdownItemsNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(collectorDropdownList);
+        Assert.assertTrue(collectorDropdownList.is().invisible());
     }
 
     @Step("Проверяем, что отображается список выпадающих элементов селектора 'Курьер'")
@@ -209,7 +209,7 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Курьер'")
     default void checkCourierDropdownItemsNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(courierDropdownList);
+        Assert.assertTrue(courierDropdownList.is().invisible());
     }
 
     @Step("Проверяем, что отображается виджет выбора даты и времени создания заказа")
@@ -219,7 +219,7 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     @Step("Проверяем, что не отображается виджет выбора даты и времени создания заказа")
     default void checkCreateDateTimePickerNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(shipmentCreateDateTimePicker);
+        Assert.assertTrue(shipmentCreateDateTimePicker.is().invisible());
     }
 
     @Step("Проверяем, что отображается виджет выбора даты и времени доставки заказа")
@@ -229,7 +229,7 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     @Step("Проверяем, что не отображается виджет выбора даты и времени доставки заказа")
     default void checkDeliveryDateTimePickerNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(shipmentDeliveryDateTimePicker);
+        Assert.assertTrue(shipmentDeliveryDateTimePicker.is().invisible());
     }
 
     @Step("Проверяем, что все отфильтрованные заказы содержат в номере доставки: {expectedValue}")

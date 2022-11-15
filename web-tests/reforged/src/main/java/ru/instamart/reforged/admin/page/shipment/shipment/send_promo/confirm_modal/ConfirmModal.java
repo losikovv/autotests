@@ -2,6 +2,7 @@ package ru.instamart.reforged.admin.page.shipment.shipment.send_promo.confirm_mo
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import ru.instamart.reforged.core.component.Element;
 
 public final class ConfirmModal {
@@ -17,6 +18,6 @@ public final class ConfirmModal {
     @Step("Проверяем, что отобразилось модальное окно")
     public void checkModalVisible() {
         modal.should().visible();
-        modal.should().notAnimated();
+        Assert.assertTrue(modal.is().animationFinished());
     }
 }

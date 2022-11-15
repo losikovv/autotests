@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.checkout_new.add_payment_card_modal;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
@@ -13,7 +14,7 @@ public interface AddPaymentCardCheck extends Check, AddPaymentCardElement {
 
     @Step("Проверяем, что модальное окно не отображается")
     default void checkModalNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(addCard);
+        Assert.assertTrue(addCard.is().invisible());
     }
 
     @Step("Проверка отображения ошибки заполнения поля ввода '{0}'")

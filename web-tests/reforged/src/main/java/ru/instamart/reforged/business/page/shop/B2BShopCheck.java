@@ -1,6 +1,7 @@
 package ru.instamart.reforged.business.page.shop;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -14,7 +15,7 @@ public interface B2BShopCheck extends Check, B2BShopElement {
 
     @Step("Проверяем, спиннер не отображается")
     default void checkSpinnerIsNotVisible() {
-        waitAction().shouldNotBeVisible(spinner);
+        Assert.assertTrue(spinner.is().invisible());
     }
 
     @Step("Проверяем, что отображется сниппет товара каталога")
@@ -24,6 +25,6 @@ public interface B2BShopCheck extends Check, B2BShopElement {
 
     @Step("Проверяем, что у товара отображается кнопка 'Убрать товар из корзины'")
     default void checkMinusButtonIsNotVisible() {
-        waitAction().shouldNotBeVisible(minusFirstItemFromCart);
+        Assert.assertTrue(minusFirstItemFromCart.is().invisible());
     }
 }

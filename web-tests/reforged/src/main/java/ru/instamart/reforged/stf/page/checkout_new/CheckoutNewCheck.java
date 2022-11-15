@@ -14,7 +14,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем что страница прогрузилась")
     default void checkSpinnerNotVisible() {
-        waitAction().shouldNotBeVisible(loadingSpinner);
+        Assert.assertTrue(loadingSpinner.is().invisible());
     }
 
     @Step("Проверяем что страница появился спиннер")
@@ -85,7 +85,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что не отображаются выбранные слоты доставки")
     default void checkActiveDeliverySlotsNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(activeDeliverySlots);
+        Assert.assertTrue(activeDeliverySlots.is().invisible());
     }
 
     @Step("Проверяем, проверяем количество выбранных слотов доставки")
@@ -148,7 +148,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что метод оплаты не выбран")
     default void checkPaymentMethodEmpty() {
-        Kraken.waitAction().shouldNotBeVisible(currentPaymentMethod);
+        Assert.assertTrue(currentPaymentMethod.is().invisible());
     }
 
     @Step("Проверяем, что текущий выбранный способ оплаты содержит текст: '{expectedPaymentMethodText}'")
@@ -307,7 +307,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что кнопка 'Заказать' активна")
     default void checkConfirmOrderActive() {
-        Kraken.waitAction().shouldNotBeVisible(confirmOrderDisabled);
+        Assert.assertTrue(confirmOrderDisabled.is().invisible());
     }
 
     @Step("Проверяем, что кнопка 'Оплатить' отображается")
@@ -317,7 +317,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что кнопка 'Оплатить' активна")
     default void checkConfirmPayActive() {
-        Kraken.waitAction().shouldNotBeVisible(confirmPayDisabled);
+        Assert.assertTrue(confirmPayDisabled.is().invisible());
     }
 
     @Step("Проверяем, что появилось всплывающее сообщение")
@@ -342,7 +342,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что вкладка 'Доставка' недоступна")
     default void checkDeliveryTabNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(deliveryTab);
+        Assert.assertTrue(deliveryTab.is().invisible());
     }
 
     @Step("Проверяем, что отображается алерт невведенного номера квартиры/офиса")
@@ -357,7 +357,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что кнопка перехода на Б2Б витрину не отображается")
     default void checkB2BTransitionButtonNotVisible() {
-        b2bLink.should().invisible();
+        Assert.assertTrue(b2bLink.is().invisible());
     }
 
     @Step("Сравниваем сумму заказа до {orderAmountFromCart} и после регистрации {orderAmountFromCheckout}")

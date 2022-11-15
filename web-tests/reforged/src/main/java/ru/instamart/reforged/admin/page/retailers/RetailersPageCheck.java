@@ -28,7 +28,7 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что попап удаления магазина не отображается")
     default void checkDeactivateStorePopupNotVisible() {
-        waitAction().shouldNotBeVisible(deactivateStorePopup);
+        Assert.assertTrue(deactivateStorePopup.is().invisible());
     }
 
     @Step("Проверяем, что попап фильтра ретейлеров по доступности отображается")
@@ -38,7 +38,7 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что попап фильтра ретейлеров по доступности не отображается")
     default void checkAccessibilityFilterDropdownNotVisible() {
-        waitAction().shouldNotBeVisible(accessibilityFilterDropdown);
+        Assert.assertTrue(accessibilityFilterDropdown.is().invisible());
     }
 
     @Step("Сравнение количества ретейлеров с количеством надписей о доступности/недоступности {0}")
@@ -130,7 +130,7 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что спиннер скрыт")
     default void checkSpinnerNotVisible() {
-        waitAction().shouldNotBeVisible(spinner);
+        Assert.assertTrue(spinner.is().invisible());
     }
 
     @Step("Проверяем, что ретейлеры загружены")
@@ -140,7 +140,7 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что ретейлеры не загружены")
     default void checkRetailersNotLoaded() {
-        waitAction().shouldNotBeVisible(retailersLoadCondition);
+        Assert.assertTrue(retailersLoadCondition.is().invisible());
     }
 
     @Step("Проверяем, что кнопка фильтра доступности кликабельна")
@@ -155,7 +155,7 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что спиннер скрыт")
     default void checkRegionSearchSpinnerNotVisible() {
-        waitAction().shouldNotBeVisible(spinnerRegionSearch);
+        Assert.assertTrue(spinnerRegionSearch.is().invisible());
     }
 
     @Step("Проверяем, что лейбл с именем ретейлера {0} появился в строке поиска")
@@ -233,6 +233,6 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что кнопка фильтра доступности ретейлеров отображается и не анимирована")
     default void checkAccessibilityFilterButtonNotAnimated() {
-        waitAction().shouldNotBeAnimated(accessibilityFilterButton);
+        Assert.assertTrue(accessibilityFilterButton.is().animationFinished());
     }
 }

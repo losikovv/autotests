@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.frame.auth.auth_modal;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -14,13 +15,13 @@ public interface AuthModalCheck extends Check, AuthModalElement {
 
     @Step("Проверяем, что модальное окно видимо и готово к работе")
     default void checkModalIsVisible() {
-        waitAction().shouldBeVisible(modalLogin);
-        waitAction().shouldNotBeAnimated(modalLogin);
+        modalLogin.should().visible();
+        Assert.assertTrue(modalLogin.is().animationFinished());
     }
 
     @Step("Проверяем, что модальное окно скрыто")
     default void checkModalIsNotVisible() {
-        waitAction().shouldNotBeVisible(modalLogin);
+        Assert.assertTrue(modalLogin.is().invisible());
     }
 
     @Step("Проверяем, что отображается окно подтверждения номера телефона")
@@ -40,7 +41,7 @@ public interface AuthModalCheck extends Check, AuthModalElement {
 
     @Step("Проверяем, что кнопка входа по SberID для бизнеса скрыта")
     default void checkSberBusinessIdIsNotVisible() {
-        waitAction().shouldNotBeVisible(sberBusinessIdButton);
+        Assert.assertTrue(sberBusinessIdButton.is().invisible());
     }
 
     @Step("Проверяем, что кнопка через SberID показана")

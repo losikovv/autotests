@@ -1,6 +1,7 @@
 package ru.instamart.reforged.core.component.condition;
 
 import lombok.RequiredArgsConstructor;
+import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.AbstractComponent;
 
@@ -13,12 +14,20 @@ public class Is {
         return Kraken.waitAction().isVisible(component);
     }
 
-    public boolean invisible() {
-        return Kraken.waitAction().isInvisible(component);
+    public boolean invisible(final Object... args) {
+        return Kraken.waitAction().isInvisible(component, args);
     }
 
-    public boolean displayed(final Object... args) {
-        return !Kraken.waitAction().shouldNotBeVisible(component, args);
+    public boolean invisible(final WebElement webElement) {
+        return Kraken.waitAction().isInvisible(component, webElement);
+    }
+
+    public boolean unclickable(final Object... args) {
+        return Kraken.waitAction().isUnclickable(component, args);
+    }
+
+    public boolean animationFinished(final Object... args) {
+        return Kraken.waitAction().isAnimationFinished(component, args);
     }
 
     public boolean containText(final String text) {

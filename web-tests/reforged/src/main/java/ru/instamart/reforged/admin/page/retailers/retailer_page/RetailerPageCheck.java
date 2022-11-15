@@ -10,7 +10,7 @@ public interface RetailerPageCheck extends Check, RetailerPageElements {
 
     @Step("Лого завершило анимацию")
     default void checkLogoNotAnimated() {
-        logo.should().notAnimated();
+        Assert.assertTrue(logo.is().animationFinished());
     }
 
     @Step("Проверяем, что кнопка 'Добавить магазин' отображается")

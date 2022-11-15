@@ -1,6 +1,7 @@
 package ru.instamart.reforged.admin.page.shipment.shipment.send_promo;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 
 public interface SendPromoCheck extends SendPromoElement {
 
@@ -11,12 +12,12 @@ public interface SendPromoCheck extends SendPromoElement {
 
     @Step("Проверяем, что список промо не отображается")
     default void checkPromoCompensationNotVisible() {
-        compensationItemInList.should().invisible();
+        Assert.assertTrue(compensationItemInList.is().invisible());
     }
 
     @Step("Проверяем, что список промо открылся")
     default void checkPromoCompensationItemsListVisible() {
         compensationItemInList.should().visible();
-        compensationItemInList.should().notAnimated();
+        Assert.assertTrue(compensationItemInList.is().animationFinished());
     }
 }

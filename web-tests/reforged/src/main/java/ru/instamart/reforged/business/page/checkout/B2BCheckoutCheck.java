@@ -1,6 +1,7 @@
 package ru.instamart.reforged.business.page.checkout;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -19,6 +20,6 @@ public interface B2BCheckoutCheck extends Check, B2BCheckoutElement {
 
     @Step("Проверяем что лоадер чекаута скрылся")
     default void checkCheckoutLoaderNotVisible() {
-        waitAction().shouldNotBeVisible(checkoutLoader, 15);
+        Assert.assertTrue(checkoutLoader.is().invisible());
     }
 }

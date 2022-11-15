@@ -3,7 +3,6 @@ package ru.instamart.reforged.admin.block.authored_header;
 import io.qameta.allure.Step;
 import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
-import ru.instamart.reforged.core.Kraken;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
@@ -36,6 +35,6 @@ public interface AuthoredHeaderCheck extends Check, AuthoredHeaderElement {
 
     @Step("Пользователь не авторизовался")
     default void checkIsNotAuth() {
-        Kraken.waitAction().shouldNotBeVisible(adminName);
+        Assert.assertTrue(adminName.is().invisible());
     }
 }

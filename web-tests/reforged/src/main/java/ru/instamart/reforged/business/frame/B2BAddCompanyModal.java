@@ -2,6 +2,7 @@ package ru.instamart.reforged.business.frame;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
@@ -30,7 +31,7 @@ public class B2BAddCompanyModal {
 
     @Step("Проверяем, что окно 'Добавление компании' не отображается")
     public void checkAddCompanyModalNotVisible() {
-        waitAction().shouldNotBeVisible(addCompany);
+        Assert.assertTrue(addCompany.is().invisible());
     }
 
     @Step("Вводим ИНН: {innCode}")

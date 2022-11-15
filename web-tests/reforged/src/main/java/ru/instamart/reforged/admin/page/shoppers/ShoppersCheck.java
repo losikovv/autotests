@@ -9,8 +9,6 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static ru.instamart.reforged.core.Check.krakenAssert;
-
 public interface ShoppersCheck extends ShoppersElement, Check {
 
     @Step("Проверяем, что спиннер отображается")
@@ -20,7 +18,7 @@ public interface ShoppersCheck extends ShoppersElement, Check {
 
     @Step("Проверяем, что спиннер не отображается")
     default void checkSpinnerNotVisible() {
-        spinner.should().invisible();
+        Assert.assertTrue(spinner.is().invisible());
     }
 
     @Step("Проверяем, что партнер c именем {0} найден")
@@ -60,7 +58,7 @@ public interface ShoppersCheck extends ShoppersElement, Check {
 
     @Step("Проверяем, что теги в списке тегов скрыты")
     default void checkTagsDropdownInvisible() {
-        tagsInList.should().invisible();
+        Assert.assertTrue(tagsInList.is().invisible());
     }
 
     @Step("Проверяем, что теги в списке тегов показаны")

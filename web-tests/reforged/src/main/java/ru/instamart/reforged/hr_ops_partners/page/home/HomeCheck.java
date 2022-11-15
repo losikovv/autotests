@@ -3,13 +3,12 @@ package ru.instamart.reforged.hr_ops_partners.page.home;
 import io.qameta.allure.Step;
 import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
-import ru.instamart.reforged.core.Kraken;
 
 public interface HomeCheck extends Check, HomeElement {
 
     @Step("Проверяем, что страница загрузилась")
     default void checkPageLoaded() {
-        Kraken.waitAction().shouldNotBeVisible(pageLoaderRoot);
+        Assert.assertTrue(pageLoaderRoot.is().invisible());
     }
 
     @Step("Проверяем количество вакансий в списке")

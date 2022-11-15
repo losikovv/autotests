@@ -2,11 +2,10 @@ package ru.instamart.reforged.stf.frame;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
-
-import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public final class RepeatModal implements Check, Close {
 
@@ -16,8 +15,8 @@ public final class RepeatModal implements Check, Close {
 
     @Step("Проверка видимости модального окна Повторить заказ")
     public void checkModalWindowVisible() {
-        waitAction().shouldBeVisible(modal);
-        waitAction().shouldNotBeAnimated(modal);
+        modal.should().visible();
+        Assert.assertTrue(modal.is().animationFinished());
     }
 
     @Step("Подтвердить действие")

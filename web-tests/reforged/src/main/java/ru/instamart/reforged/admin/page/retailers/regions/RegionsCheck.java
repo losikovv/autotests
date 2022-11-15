@@ -1,6 +1,7 @@
 package ru.instamart.reforged.admin.page.retailers.regions;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertEquals;
@@ -14,7 +15,7 @@ public interface RegionsCheck extends Check, RegionsElements {
 
     @Step("Проверяем, что тестовый регион: {0} не добавился в таблицу")
     default void checkRegionInTableNotVisible(final String cityName) {
-        city.should().invisible(cityName);
+        Assert.assertTrue(city.is().invisible(cityName));
     }
 
     @Step("Проверяем, что количество кнопок настройки регионов совпадает с кол-вом регионов")

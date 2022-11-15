@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.seo;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
@@ -30,7 +31,7 @@ public interface SeoCatalogCheck extends Check, SeoCatalogElement {
 
     @Step("Проверяем, не отображается спиннер")
     default void checkSpinnerIsNotVisible() {
-        waitAction().shouldNotBeVisible(spinner);
+        Assert.assertTrue(spinner.is().invisible());
     }
 
     @Step("Проверяем, что заглушка загрузки видна")
@@ -40,7 +41,7 @@ public interface SeoCatalogCheck extends Check, SeoCatalogElement {
 
     @Step("Проверяем, что заглушка загрузки не видна")
     default void checkProductsStubNotVisible() {
-        waitAction().shouldNotBeVisible(productsStub);
+        Assert.assertTrue(productsStub.is().invisible());
     }
 
     @Step("Проверяем, что сортировка 'Сначала дешевые' работает корректно")

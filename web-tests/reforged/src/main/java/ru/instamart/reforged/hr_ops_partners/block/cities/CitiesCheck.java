@@ -39,7 +39,7 @@ public interface CitiesCheck extends Check, CitiesElement {
 
     @Step("Проверяем, что не отображается скрытый под спойлером список городов")
     default void checkHiddenCitiesListNotVisible() {
-        Assert.assertTrue(Kraken.waitAction().shouldNotBeVisible(hiddenCities));
+        Assert.assertTrue(hiddenCities.is().invisible());
     }
 
     @Step("Проверяем, что количество городов в основном списке: {expectedCount}")
@@ -54,11 +54,11 @@ public interface CitiesCheck extends Check, CitiesElement {
 
     @Step("Проверяем, что кнопка 'Показать все' не отображается")
     default void checkShowAllButtonNotVisible() {
-        Assert.assertTrue(Kraken.waitAction().shouldNotBeVisible(showAllButton));
+        Assert.assertTrue(showAllButton.is().invisible());
     }
 
     @Step("Проверяем, что кнопка 'Скрыть' не отображается")
     default void checkHideButtonNotVisible() {
-        Assert.assertTrue(Kraken.waitAction().shouldNotBeVisible(hideButton));
+        Assert.assertTrue(hideButton.is().invisible());
     }
 }

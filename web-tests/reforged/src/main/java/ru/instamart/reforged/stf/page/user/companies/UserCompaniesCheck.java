@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.user.companies;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertEquals;
@@ -26,7 +27,7 @@ public interface UserCompaniesCheck extends Check, UserCompaniesElement {
 
     @Step("Проверяем, что список компаний не пуст")
     default void checkCompaniesListIsNotEmpty() {
-        waitAction().shouldNotBeVisible(emptyCompaniesListPlaceholder);
+        Assert.assertTrue(emptyCompaniesListPlaceholder.is().invisible());
     }
 
     @Step("Проверяем, что количество компаний в списке: {expectedCount}")

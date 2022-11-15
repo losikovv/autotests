@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.search;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
@@ -41,7 +42,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что заглушка загрузки не видна")
     default void checkProductsStubNotVisible() {
-        waitAction().shouldNotBeVisible(productsStub);
+        Assert.assertTrue(productsStub.is().invisible());
     }
 
     @Step("Проверяем, что отображается спиннер в поиске")
@@ -51,7 +52,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что спиннер в поиске не отображается")
     default void checkSearchProductsSpinnerNotVisible() {
-        waitAction().shouldNotBeVisible(searchSpinner);
+        Assert.assertTrue(searchSpinner.is().invisible());
     }
 
     @Step("Проверяем, что отображается спиннер в бесконечном поиске")
@@ -61,7 +62,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что спиннер в бесконечном поиске не отображается")
     default void checkInfiniteSearchProductsSpinnerNotVisible() {
-        waitAction().shouldNotBeVisible(infiniteSearchSpinner);
+        Assert.assertTrue(infiniteSearchSpinner.is().invisible());
     }
 
     @Step("Проверяем, что кол-во товаров: {0} не равно кол-ву после применения фильтра: {1}")
@@ -71,12 +72,12 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что не отображается заглушка товаров в поиске")
     default void checkSearchProductsSkeletonNotVisible() {
-        waitAction().shouldNotBeVisible(searchProductsSkeleton);
+        Assert.assertTrue(searchProductsSkeleton.is().invisible());
     }
 
     @Step("Проверка подскролла страницы поиска к новой выдаче")
     default void checkPageScrolled() {
-        waitAction().elementCollectionSizeShouldBeEqual(searchProductPrices, 40);
+        Assert.assertTrue(waitAction().isElementCollectionSizeEqual(searchProductPrices, 40));
     }
 
     @Step("Проверяем, что сортировка 'Сначала дешевые' работает корректно")
@@ -101,7 +102,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверить, что фильтр '{0}' задизейблен")
     default void checkFilterDisabled(String filterText) {
-        waitAction().shouldNotBeClickable(filterCheckbox, filterText);
+        Assert.assertTrue(filterCheckbox.is().unclickable(filterText));
     }
 
     @Step("Проверить, что сортировка '{0}' применена")
@@ -118,7 +119,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что сетка найденных товаров не отображается")
     default void checkSearchProductGridNotVisible() {
-        waitAction().shouldNotBeVisible(searchProductGrid);
+        Assert.assertTrue(searchProductGrid.is().invisible());
     }
 
     @Step("Проверяем, что заголовок 'Нашлось по запросу: ...' содержит текст {0}")

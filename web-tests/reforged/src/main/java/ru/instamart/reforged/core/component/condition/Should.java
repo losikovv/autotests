@@ -19,24 +19,8 @@ public final class Should {
         Kraken.waitAction().shouldBeVisible(component, args);
     }
 
-    public void invisible() {
-        Kraken.waitAction().shouldNotBeVisible(component);
-    }
-
-    public void invisible(final String args) {
-        Kraken.waitAction().shouldNotBeVisible(component, args);
-    }
-
-    public void notClickable() {
-        Kraken.waitAction().shouldNotBeClickable(component);
-    }
-
     public void clickable() {
         Kraken.waitAction().shouldBeClickable(component);
-    }
-
-    public void notAnimated() {
-        Kraken.waitAction().shouldNotBeAnimated(component);
     }
 
     public void screenDiff(final Component... components) {

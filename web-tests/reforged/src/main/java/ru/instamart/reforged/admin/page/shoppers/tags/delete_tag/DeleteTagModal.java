@@ -2,6 +2,7 @@ package ru.instamart.reforged.admin.page.shoppers.tags.delete_tag;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 
@@ -18,7 +19,7 @@ public final class DeleteTagModal {
 
     @Step("Проверяем, что модальное окно удаления тега не отображается")
     public void checkModalNotVisible() {
-        modal.should().invisible();
+        Assert.assertTrue(modal.is().invisible());
     }
 
     @Step("Нажимаем на кнопку отмены удаления")

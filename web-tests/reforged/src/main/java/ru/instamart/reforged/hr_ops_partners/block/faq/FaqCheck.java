@@ -24,12 +24,12 @@ public interface FaqCheck extends Check, FaqElement {
 
     @Step("Проверяем, что не отображается кнопка 'Больше вопросов'")
     default void checkMoreFAQButtonNotVisible() {
-        Assert.assertTrue(Kraken.waitAction().shouldNotBeVisible(moreFaq));
+        Assert.assertTrue(moreFaq.is().invisible());
     }
 
     @Step("Проверяем, что не отображается кнопка 'Меньше вопросов'")
     default void checkLessFAQButtonNotVisible() {
-        Assert.assertTrue(Kraken.waitAction().shouldNotBeVisible(lessFaq));
+        Assert.assertTrue(lessFaq.is().invisible());
     }
 
     @Step("Проверяем, что отображается основной список вопросов")
@@ -44,8 +44,7 @@ public interface FaqCheck extends Check, FaqElement {
 
     @Step("Проверяем, что не отображается скрытый под спойлером список вопросов")
     default void checkHiddenFAQListNotVisible() {
-
-        Assert.assertTrue(Kraken.waitAction().shouldNotBeVisible(hiddenFaqsList));
+        Assert.assertTrue(hiddenFaqsList.is().invisible());
     }
 
     @Step("Проверяем, что количество вопросов в основном списке: {expectedCount}")
@@ -60,7 +59,7 @@ public interface FaqCheck extends Check, FaqElement {
 
     @Step("Проверяем, что ответы на вопросы скрыты")
     default void checkExpandeAnswersNotVisible() {
-        Assert.assertTrue(Kraken.waitAction().shouldNotBeVisible(expandedFaqsList));
+        Assert.assertTrue(expandedFaqsList.is().invisible());
     }
 
     @Step("Проверяем, что количество развёрнутых ответов: '{expectedExpandedAnswersCount}'")
@@ -75,6 +74,6 @@ public interface FaqCheck extends Check, FaqElement {
 
     @Step("Проверяем, что не отображается ответ на вопрос '{faqTitle}'")
     default void checkAnswerNotVisible(final String faqTitle) {
-        Assert.assertTrue(Kraken.waitAction().shouldNotBeVisible(faqAnswerByTitle, faqTitle.substring(faqTitle.length() - 15)));
+        Assert.assertTrue(faqAnswerByTitle.is().invisible(faqTitle.substring(faqTitle.length() - 15)));
     }
 }

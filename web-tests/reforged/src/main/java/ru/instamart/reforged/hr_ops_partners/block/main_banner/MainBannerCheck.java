@@ -14,7 +14,7 @@ public interface MainBannerCheck extends Check, MainBannerElement {
 
     @Step("Проверяем, что кнопка '{buttonText}' не отображается ")
     default void checkActionsButtonNotVisible(final String buttonText) {
-        Assert.assertTrue(Kraken.waitAction().shouldNotBeVisible(vacancyActionsButton, buttonText));
+        Assert.assertTrue(vacancyActionsButton.is().invisible(buttonText));
     }
 
     @Step("Проверяем, что заголовок на баннере соответствует ожидаемому: '{expectedText}'")

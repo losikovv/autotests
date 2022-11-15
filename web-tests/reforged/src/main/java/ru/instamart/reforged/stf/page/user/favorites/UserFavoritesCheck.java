@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.user.favorites;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertEquals;
@@ -16,7 +17,7 @@ public interface UserFavoritesCheck extends Check, UseFavoritesElement {
 
     @Step("Проверяем что список избранного не пустой")
     default void checkNotEmptyFavorites() {
-        waitAction().shouldNotBeVisible(emptyFavorites);
+        Assert.assertTrue(emptyFavorites.is().invisible());
     }
 
     @Step("Проверяем что подгрузились избранные товары")
@@ -26,7 +27,7 @@ public interface UserFavoritesCheck extends Check, UseFavoritesElement {
 
     @Step("Проверяем, не отображается спиннер")
     default void checkSpinnerNotVisible() {
-        spinner.should().invisible();
+        Assert.assertTrue(spinner.is().invisible());
     }
 
     @Step("Проверяем что товаров стало {0}")
