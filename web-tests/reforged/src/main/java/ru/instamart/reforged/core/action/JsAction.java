@@ -30,7 +30,7 @@ public final class JsAction {
      * Ожидание инициализации реактовского jQuery
      */
     public void jQueryReady() {
-        createWait().until((ExpectedCondition<Boolean>) wb ->
+        createWait("jQuery status not ready").until((ExpectedCondition<Boolean>) wb ->
                 JsAction.apply("return ReactRailsUJS.jQuery.active==0"));
     }
 
@@ -38,7 +38,7 @@ public final class JsAction {
      * Ожидание загрузки дома
      */
     public void waitForDocumentReady() {
-        createWait().until((ExpectedCondition<Boolean>) wb -> {
+        createWait("DOM no ready yet").until((ExpectedCondition<Boolean>) wb -> {
             final Object state = execute("return document.readyState");
             if (isNull(state)) {
                 return false;
@@ -51,7 +51,7 @@ public final class JsAction {
      * Ожидание загрузки картинки
      */
     public void waitImgLoad(final String xpath) {
-        createWait().until((ExpectedCondition<Boolean>) wb ->
+        createWait("img isn't loading").until((ExpectedCondition<Boolean>) wb ->
                 JsAction.apply("return document.evaluate(\"" + xpath + "\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete;"));
     }
 
@@ -165,7 +165,7 @@ public final class JsAction {
     }
 
     public void checkPendingRequests() {
-        var wait = createWait();
+        var wait = createWait("pending request not ready yet");
         wait.until((ExpectedCondition<Boolean>) wb -> {
             final Object pendingRequest = execute("return window.pendingRequest");
             if (pendingRequest instanceof Long) {
@@ -210,8 +210,9 @@ public final class JsAction {
         execute(script);
     }
 
-    private KrakenWait<WebDriver> createWait() {
-        return new KrakenWait<>(getWebDriver());
+    private KrakenWait<WebDriver> createWait(final String errorMsg) {
+        return new KrakenWait<>(getWebDriver())
+                .withMessage(errorMsg);
     }
 
     private static Boolean apply(final String jsCode) {
