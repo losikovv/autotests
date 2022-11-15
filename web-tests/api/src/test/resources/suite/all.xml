@@ -194,7 +194,8 @@
             <class name="ru.instamart.test.api.v3.endpoints.CategoriesV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.ProductsV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.NotificationsNegativeV3Test"/>
-            <class name="ru.instamart.test.api.v3.endpoints.NotificationsPositiveV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.NotificationsBySbermarketV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.NotificationsByRetailerV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.NotificationsPositionsV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.AppConfigurationsV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.CheckoutByCourierV3Test"/>
@@ -211,14 +212,6 @@
             <class name="ru.instamart.test.api.v3.endpoints.CheckoutCompletionV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.CheckoutCompletionWithCardV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.CheckoutShippingMethodV3Test"/>
-        </classes>
-    </test>
-
-    <test verbose="1" name="API v3 Tests Notifications" parallel="classes" thread-count="3">
-        <classes>
-            <class name="ru.instamart.test.api.v3.endpoints.NotificationsNegativeV3Test"/>
-            <class name="ru.instamart.test.api.v3.endpoints.NotificationsPositiveV3Test"/>
-            <class name="ru.instamart.test.api.v3.endpoints.NotificationsPositionsV3Test"/>
         </classes>
     </test>
 

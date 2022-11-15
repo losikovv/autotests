@@ -23,6 +23,7 @@ public class RestBase {
     protected static final ApiV2Helper apiV2 = new ApiV2Helper();
     protected static final ShopperAppApiHelper shopperApp = new ShopperAppApiHelper();
     protected static final ApiV3Helper apiV3 = new ApiV3Helper();
+    protected static final NotificationsApiV3Helper apiV3Notifications = new NotificationsApiV3Helper();
     protected static final DeliveryClubHelper dc = new DeliveryClubHelper();
     protected static final AdminHelper admin = new AdminHelper();
     protected final ShopperAdminApiHelper shopperAdmin = new ShopperAdminApiHelper();

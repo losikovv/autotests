@@ -192,6 +192,8 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartOpen();
 
         shop().interactCart().getFirstItem().deleteItem();
+        shop().interactCart().getFirstItem().checkReturnDeletedButtonVisible();
+
         shop().interactCart().checkCartEmpty();
     }
 

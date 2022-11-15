@@ -4,6 +4,7 @@ import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.testng.Assert;
 import ru.instamart.jdbc.dao.stf.StoresDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -565,6 +566,7 @@ public class ProductHubBackTest extends GrpcBase {
                 .build();
         ProductHubFrontDataOuterClass.GetOffersResponse responseForCheck = clientFrontDataGrpc.getOffers(requestForCheck);
 
+        Assert.assertFalse(responseForCheck.getOffersList().isEmpty(), "Пустой список офферов");
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(responseForCheck.getOffers(0).getRetailerId(), request.getOffers(0).getRetailerId(), "id ретейлеров не совпадают");
         softAssert.assertEquals(responseForCheck.getOffers(0).getRetailerSku(), request.getOffers(0).getRetailerSku(), "SKU ретейлеров не совпадают");

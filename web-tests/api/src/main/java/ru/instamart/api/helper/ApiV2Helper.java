@@ -37,8 +37,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.fail;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200or422;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.common.RestStaticTestData.userPhone;
 
 @Slf4j
@@ -1590,7 +1589,7 @@ public final class ApiV2Helper {
     @Step("Добавляем компанию")
     public CompanyV2 addCompany(final String inn, final String name) {
         final Response response = UserV2Request.POST(inn, name);
-        checkStatusCode200or422(response);
+        checkStatusCode(response, 201);
 
         return response.statusCode() == 200 ? response.as(CompanyV2Response.class).getCompany() : getCompany().getCompanies().stream()
                 .filter(p -> p.getInn().equals(inn))

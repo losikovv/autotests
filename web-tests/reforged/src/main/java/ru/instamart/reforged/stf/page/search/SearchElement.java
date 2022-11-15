@@ -29,8 +29,8 @@ public interface SearchElement {
 
     ElementCollection searchProductsCollectionImagesAlco = new ElementCollection(By.xpath("//div[contains(@data-qa, 'search_result_products_products_grid')]//a//img[contains(@src, 'adult-warning')]"), "Коллекция картинок-заглушек алко в поиске");
 
-    Selector selectSort = new Selector(By.xpath("//div[@data-qa='search_result_products_filter']//select"), "Селектор сортировки продуктов");
-    Selector selectSortApplied = new Selector(ByKraken.xpathExpression("//div[@data-qa='search_result_products_filter']//select/option[contains(text(),'%s')]"), "Селектор сортировки продуктов");
+    Selector selectSort = new Selector(By.xpath("//select[contains(@class,'ProductsFilterSort_')]"), "Селектор сортировки продуктов");
+    Selector selectSortApplied = new Selector(ByKraken.xpathExpression("//select[contains(@class,'ProductsFilterSort_')]/option[contains(text(),'%s')]"), "Селектор сортировки продуктов");
 
     Element searchProductGrid = new Element(By.xpath("//div[@data-qa='search_result_products_products_grid']"), "Сетка продуктов в результатах поиска");
     Element emptySearchPlaceHolder = new Element(By.xpath("//div[@data-qa='search_result_products_products_grid_no_products_title']"), "Заголовок пустых результатов поиска");
