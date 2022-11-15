@@ -50,8 +50,8 @@ public interface PageCheck extends PageElement {
 
     @Step("Ожидание загрузки страницы")
     default void waitPageLoad() {
-        Kraken.jsAction().waitForDocumentReady();
-        Kraken.jsAction().checkPendingRequests();
+        Assert.assertTrue(Kraken.jsAction().waitForDocumentReady());
+        Assert.assertTrue(Kraken.jsAction().checkPendingRequests());
     }
 
     @Step("Проверяем, что страница открылась (отсутствует сообщение об ошибке)")

@@ -27,18 +27,10 @@ public final class JsAction {
             "})";
 
     /**
-     * Ожидание инициализации реактовского jQuery
-     */
-    public void jQueryReady() {
-        createWait("jQuery status not ready").until((ExpectedCondition<Boolean>) wb ->
-                JsAction.apply("return ReactRailsUJS.jQuery.active==0"));
-    }
-
-    /**
      * Ожидание загрузки дома
      */
-    public void waitForDocumentReady() {
-        createWait("DOM no ready yet").until((ExpectedCondition<Boolean>) wb -> {
+    public boolean waitForDocumentReady() {
+        return createWait("DOM no ready yet").until((ExpectedCondition<Boolean>) wb -> {
             final Object state = execute("return document.readyState");
             if (isNull(state)) {
                 return false;
@@ -50,8 +42,8 @@ public final class JsAction {
     /**
      * Ожидание загрузки картинки
      */
-    public void waitImgLoad(final String xpath) {
-        createWait("img isn't loading").until((ExpectedCondition<Boolean>) wb ->
+    public boolean waitImgLoad(final String xpath) {
+        return createWait("img isn't loading").until((ExpectedCondition<Boolean>) wb ->
                 JsAction.apply("return document.evaluate(\"" + xpath + "\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete;"));
     }
 
@@ -164,9 +156,9 @@ public final class JsAction {
         return String.valueOf(o);
     }
 
-    public void checkPendingRequests() {
+    public boolean checkPendingRequests() {
         var wait = createWait("pending request not ready yet");
-        wait.until((ExpectedCondition<Boolean>) wb -> {
+        return wait.until((ExpectedCondition<Boolean>) wb -> {
             final Object pendingRequest = execute("return window.pendingRequest");
             if (pendingRequest instanceof Long) {
                 final Long countRequest = (Long) pendingRequest;

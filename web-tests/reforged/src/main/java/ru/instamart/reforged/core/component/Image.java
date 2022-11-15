@@ -3,6 +3,7 @@ package ru.instamart.reforged.core.component;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 
@@ -37,6 +38,6 @@ public final class Image extends AbstractComponent {
      */
     public void waitImgLoad() {
         log.debug("Get img '{}' with locator {}", getDescription(), getBy());
-        Kraken.jsAction().waitImgLoad(getLocator());
+        Assert.assertTrue(Kraken.jsAction().waitImgLoad(getLocator()));
     }
 }

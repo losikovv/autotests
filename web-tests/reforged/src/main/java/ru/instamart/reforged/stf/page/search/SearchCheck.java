@@ -112,9 +112,8 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверить, что все картинки загружены")
     default void checkSearchImgLoaded() {
-        searchProductsImagesCollection.getElements().forEach(element -> {
-            productImg.waitImgLoad(element.getAttribute("src"));
-        });
+        searchProductsImagesCollection.getElements()
+                .forEach(element -> productImg.waitImgLoad(element.getAttribute("src")));
     }
 
     @Step("Проверяем, что сетка найденных товаров не отображается")
