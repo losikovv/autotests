@@ -9,7 +9,6 @@ import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Kraken;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -183,7 +182,7 @@ public final class KrakenCondition {
             public WebElement apply(WebDriver driver) {
                 try {
                     return elementIfVisible(findElement(webElement, locator));
-                } catch (StaleElementReferenceException e) {
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
                     return null;
                 }
             }
@@ -201,7 +200,7 @@ public final class KrakenCondition {
             public WebElement apply(WebDriver driver) {
                 try {
                     return findElement(webElement, locator);
-                } catch (NoSuchElementException e) {
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
                     return null;
                 }
             }
@@ -218,7 +217,7 @@ public final class KrakenCondition {
             @Override
             public Boolean apply(WebDriver driver) {
                 try {
-                    return (driver.findElement(locator).isDisplayed());
+                    return driver.findElement(locator).isDisplayed();
                 } catch (NoSuchElementException | StaleElementReferenceException e) {
                     // Returns false because the element is not present in DOM. The
                     // try block checks if the element is present and visible.
@@ -266,7 +265,7 @@ public final class KrakenCondition {
                         return element;
                     }
                     return null;
-                } catch (StaleElementReferenceException e) {
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
                     return null;
                 }
             }
@@ -287,7 +286,7 @@ public final class KrakenCondition {
                 try {
                     String elementText = driver.findElement(locator).getAttribute(attribute);
                     return elementText.contains(text);
-                } catch (StaleElementReferenceException e) {
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
                     return false;
                 }
             }
@@ -309,9 +308,9 @@ public final class KrakenCondition {
                     if (webElements.size() > 0) {
                         return webElements;
                     }
-                    throw new NoSuchElementException("Elements not found or size < 1");
+                    throw new NoSuchElementException("Elements size < 1");
                 } catch (StaleElementReferenceException e) {
-                    return Collections.emptyList();
+                    return null;
                 }
             }
 
@@ -331,9 +330,9 @@ public final class KrakenCondition {
                     if (webElements.size() > 0) {
                         return webElements;
                     }
-                    throw new NoSuchElementException("Elements not found or size < 1");
+                    throw new NoSuchElementException("Elements size < 1");
                 } catch (StaleElementReferenceException e) {
-                    return Collections.emptyList();
+                    return null;
                 }
             }
 
@@ -351,7 +350,7 @@ public final class KrakenCondition {
                 try {
                     final List<WebElement> webElements = driver.findElements(locator);
                     return isNull(webElements) || webElements.size() == 0;
-                } catch (StaleElementReferenceException e) {
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
                     return true;
                 }
             }
