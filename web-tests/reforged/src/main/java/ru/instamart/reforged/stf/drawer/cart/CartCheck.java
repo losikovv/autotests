@@ -40,7 +40,7 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что корзина не пуста")
     default void checkCartNotEmpty() {
-        Assert.assertTrue(cartIsEmptyPlaceholder.is().invisible());
+        firstItem.shouldBe().visible();
     }
 
     @Step("Проверяем, что отображается плейсхолдер пустой корзины")

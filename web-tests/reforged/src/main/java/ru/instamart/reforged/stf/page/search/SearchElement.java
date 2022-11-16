@@ -15,7 +15,7 @@ public interface SearchElement {
     ProductCard productCard = new ProductCard();
     Disclaimer disclaimer = new Disclaimer();
 
-    Element searchResultsTitle = new Element(ByKraken.xpathExpression("//h1[@data-qa='search_result_header_title'][contains(.,'%s')]"), "заголовок 'Нашлось по запросу:...'");
+    Element searchResultsTitle = new Element(ByKraken.xpathExpression("//h1[@data-qa='search_result_header_title'][contains(.,'%s')]"), "заголовок 'Результаты поиска по запросу:...'");
 
     ElementCollection subCategories = new ElementCollection(By.xpath("//a[contains(@class, 'SimpleTaxons')]"), "Подкатегории");
     Button firstAddToCartButton = new Button(By.xpath("//button[@title='Добавить в корзину']"), "Кнопка добавить в корзину у первого элемента на странице поиска");
