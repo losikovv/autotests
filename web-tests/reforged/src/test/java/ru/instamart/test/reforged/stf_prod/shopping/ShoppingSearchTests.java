@@ -161,8 +161,8 @@ public final class ShoppingSearchTests {
         search().checkSearchImgLoaded();
         search().selectSort("Сначала дешевые");
 
+        search().waitPageLoad();
         search().checkSearchImgLoaded();
-        //search().checkSortEnabled("Сначала дешевые");
         search().checkPriceAscSortCorrect();
     }
 }

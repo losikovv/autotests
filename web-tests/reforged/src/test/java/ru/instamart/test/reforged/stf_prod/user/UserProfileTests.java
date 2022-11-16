@@ -182,12 +182,14 @@ public final class UserProfileTests {
     public void changePhone() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
 
         final var newUser = UserManager.getQaUser();
         userEdit().goToPage();
         userEdit().clickToChangePhone();
+        userEdit().interactAuthModal().checkModalIsVisible();
         userEdit().interactAuthModal().authViaPhone(newUser);
         userEdit().checkSaveAlert();
         userEdit().checkPhone(newUser.getPhone(), StringUtil.getPhone(userEdit().getPhone()));
