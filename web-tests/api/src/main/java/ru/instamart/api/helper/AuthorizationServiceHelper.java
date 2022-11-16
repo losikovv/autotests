@@ -2,6 +2,7 @@ package ru.instamart.api.helper;
 
 import io.qameta.allure.Step;
 import ru.instamart.api.model.authorization_service.PolicyModel;
+import ru.instamart.api.model.authorization_service.RealmModel;
 
 public class AuthorizationServiceHelper {
 
@@ -14,21 +15,21 @@ public class AuthorizationServiceHelper {
                         .serviceId("example-service")
                         .permission(PolicyModel.Permission
                                 .builder()
-                                .name("core-services/retailers")
+                                .name("kraken-api-tests/retailers")
                                 .description("test")
                                 .access("read")
                                 .access("write")
                                 .build())
                         .permission(PolicyModel.Permission
                                 .builder()
-                                .name("core-services/retailers.stores")
+                                .name("kraken-api-tests/retailers.stores")
                                 .description("test")
                                 .access("read")
                                 .access("write")
                                 .build())
                         .permission(PolicyModel.Permission
                                 .builder()
-                                .name("core-services/shipments")
+                                .name("kraken-api-tests/shipments")
                                 .description("test")
                                 .access("read")
                                 .build())
@@ -38,19 +39,19 @@ public class AuthorizationServiceHelper {
                         .name("BizdevDept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("example-service/core-services/retailers:read")
+                                .permission("example-service/kraken-api-tests/retailers:read")
                                 .build())
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("example-service/core-services/retailers:write")
+                                .permission("example-service/kraken-api-tests/retailers:write")
                                 .build())
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("example-service/core-services/retailers.stores:read")
+                                .permission("example-service/kraken-api-tests/retailers.stores:read")
                                 .build())
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("example-service/core-services/retailers.stores:write")
+                                .permission("example-service/kraken-api-tests/retailers.stores:write")
                                 .build())
                         .build())
                 .role(PolicyModel.Role
@@ -58,7 +59,7 @@ public class AuthorizationServiceHelper {
                         .name("CallcenterDept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("example-service/core-services/shipments:read")
+                                .permission("example-service/kraken-api-tests/shipments:read")
                                 .condition("")
                                 .build())
                         .build())
@@ -67,12 +68,28 @@ public class AuthorizationServiceHelper {
                         .name("OperationsDept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("example-service/core-services/shipments:read")
+                                .permission("example-service/kraken-api-tests/shipments:read")
                                 .condition("")
                                 .build())
                         .build())
                 .build();
 
         return policy;
+    }
+
+    @Step("Подготавливаем запрос для создания рилма")
+    public static RealmModel getInitialRealm() {
+        RealmModel realm = RealmModel
+                .builder()
+                .name("kraken-api-tests")
+                .repositoryUrl("gitlab.sbmt.io/paas/content/kraken-api-tests/example-service")
+                .service(RealmModel.Service
+                        .builder()
+                        .name("example-service")
+                        .description("example-service description")
+                        .build())
+                .build();
+
+        return realm;
     }
 }
