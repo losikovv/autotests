@@ -127,6 +127,8 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, FavoritesItemV2Response.class);
         FavoritesItemV2Response favorites = response.as(FavoritesItemV2Response.class);
+        favorites.getItem().getProduct().setHumanVolume(favorites.getItem().getProduct().getHumanVolume().replace(".", ""));
+        product.setHumanVolume(favorites.getItem().getProduct().getHumanVolume().replace(".", ""));
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(favorites.getItem().getProduct().getId(), product.getId(), "Id товара не совпадает");
         softAssert.assertEquals(favorites.getItem().getSku(), product.getSku(), "sku товара не совпадает");
