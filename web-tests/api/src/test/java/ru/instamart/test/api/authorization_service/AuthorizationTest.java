@@ -8,13 +8,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.AuthorizationServiceHelper;
 import ru.instamart.api.request.authorization_service.AuthorizationRequest;
 import ru.instamart.api.request.authorization_service.PolicyRequest;
+import ru.instamart.api.request.authorization_service.RealmRequest;
 import ru.instamart.api.response.authorization_service.AuthorizationResponse;
-import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertFalse;
@@ -28,7 +26,8 @@ public class AuthorizationTest {
 
     @BeforeClass(alwaysRun = true)
     public void precondition() {
-        PolicyRequest.PUT("core-services", AuthorizationServiceHelper.getInitialPolicy());
+        PolicyRequest.PUT("kraken-api-tests", AuthorizationServiceHelper.getInitialPolicy());
+        Response response = RealmRequest.POST(AuthorizationServiceHelper.getInitialRealm());
     }
 
     @CaseId(17)
@@ -38,10 +37,10 @@ public class AuthorizationTest {
 
         JSONObject body = new JSONObject();
         JSONArray permissions = new JSONArray();
-        permissions.add("example-service/core-services/retailers:write");
-        permissions.add("example-service/core-services/retailers:read");
+        permissions.add("example-service/kraken-api-tests/retailers:write");
+        permissions.add("example-service/kraken-api-tests/retailers:read");
         body.put("permissions", permissions);
-        Response response = AuthorizationRequest.POST("core-services", body);
+        Response response = AuthorizationRequest.POST("kraken-api-tests", body);
 
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AuthorizationResponse.class);
@@ -61,7 +60,7 @@ public class AuthorizationTest {
         permissions.add("stf/admin/retailers:test");
         permissions.add("stf/admin/retailers:wrong");
         body.put("permissions", permissions);
-        Response response = AuthorizationRequest.POST("core-services", body);
+        Response response = AuthorizationRequest.POST("kraken-api-tests", body);
 
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AuthorizationResponse.class);
