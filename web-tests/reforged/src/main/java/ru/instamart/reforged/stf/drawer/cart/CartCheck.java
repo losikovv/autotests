@@ -41,7 +41,7 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что корзина не пуста")
     default void checkCartNotEmpty() {
-        waitAction().shouldNotBeVisible(cartIsEmptyPlaceholder);
+        waitAction().shouldBeVisible(firstItem);
     }
 
     @Step("Проверяем, что отображается плейсхолдер пустой корзины")
