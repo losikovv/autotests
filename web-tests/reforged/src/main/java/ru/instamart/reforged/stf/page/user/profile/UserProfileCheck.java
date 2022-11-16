@@ -26,7 +26,7 @@ public interface UserProfileCheck extends UserProfileElement, Check {
 
     @Step("Алерт 'Данные успешно сохранены' отобразился")
     default void checkSaveAlert() {
-        waitAction().shouldBeVisible(alert);
+        alert.shouldBe().visible();
     }
 
     @Step("Алерт 'Данные успешно сохранены' скрылись")

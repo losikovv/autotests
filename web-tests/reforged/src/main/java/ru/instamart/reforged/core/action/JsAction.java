@@ -8,6 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import ru.instamart.reforged.core.component.AbstractComponent;
 import ru.instamart.reforged.core.wait.KrakenWait;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import static java.util.Objects.isNull;
@@ -163,8 +166,10 @@ public final class JsAction {
             if (pendingRequest instanceof Long) {
                 final Long countRequest = (Long) pendingRequest;
                 final Object urls = execute("return window.urls");
-                if (Objects.nonNull(urls)) {
-                    wait.withMessage("Wait pending urls: " + urls);
+                if (Objects.nonNull(urls) && urls instanceof ArrayList) {
+                    final var urlsString = String.join(",", (List<String>) urls);
+                    log.debug("Wait pending urls: {}", urlsString);
+                    wait.withMessage("Wait pending urls: " + urlsString);
                 }
                 return countRequest == 0L;
             } else {

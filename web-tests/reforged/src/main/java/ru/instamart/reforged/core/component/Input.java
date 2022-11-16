@@ -102,12 +102,13 @@ public final class Input extends AbstractComponent {
 
     public void clearByKeysCombination() {
         log.debug("Clear input {} field", getDescription());
+        final var component = getComponent();
         if (InfoUtil.isMac()) {
-            getComponent().sendKeys(Keys.COMMAND + "a");
+            component.sendKeys(Keys.COMMAND + "a");
         } else {
-            getComponent().sendKeys(Keys.CONTROL + "a");
+            component.sendKeys(Keys.CONTROL + "a");
         }
-        getComponent().sendKeys(Keys.DELETE);
+        component.sendKeys(Keys.DELETE);
     }
 
     public String getValue() {

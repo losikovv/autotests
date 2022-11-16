@@ -70,8 +70,8 @@ public final class KrakenCondition {
         return new ExpectedCondition<>() {
             @Override
             public Boolean apply(WebDriver driver) {
-                final var element = ExpectedConditions.visibilityOfElementLocated(locator).apply(driver);
                 try {
+                    final var element = ExpectedConditions.visibilityOfElementLocated(locator).apply(driver);
                     return nonNull(element) && !element.isEnabled();
                 } catch (StaleElementReferenceException e) {
                     return false;
@@ -284,7 +284,7 @@ public final class KrakenCondition {
             @Override
             public Boolean apply(WebDriver driver) {
                 try {
-                    String elementText = driver.findElement(locator).getAttribute(attribute);
+                    final var elementText = driver.findElement(locator).getAttribute(attribute);
                     return elementText.contains(text);
                 } catch (NoSuchElementException | StaleElementReferenceException e) {
                     return false;

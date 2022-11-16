@@ -48,10 +48,10 @@ public interface PageCheck extends PageElement {
         Assert.assertTrue(Kraken.waitAction().isUrlContains(expectedUrl));
     }
 
-    @Step("Ожидание загрузки страницы")
+    @Step("Ожидание загрузки страницы DOM и Network")
     default void waitPageLoad() {
-        Assert.assertTrue(Kraken.jsAction().waitForDocumentReady());
-        Assert.assertTrue(Kraken.jsAction().checkPendingRequests());
+        Assert.assertTrue(Kraken.jsAction().waitForDocumentReady(), "DOM не в статусе ready");
+        Assert.assertTrue(Kraken.jsAction().checkPendingRequests(), "Запросы из нетворка остались в статусе pinding");
     }
 
     @Step("Проверяем, что страница открылась (отсутствует сообщение об ошибке)")

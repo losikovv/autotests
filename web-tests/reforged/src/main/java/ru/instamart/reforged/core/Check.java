@@ -38,6 +38,6 @@ public interface Check {
 
     @Step("Проверяем, что все запросы загрузились")
     default void checkRequestsWasLoad() {
-        Assert.assertTrue(Kraken.jsAction().checkPendingRequests());
+        Assert.assertTrue(Kraken.jsAction().checkPendingRequests(), "Запросы из нетворка остались в статусе pinding");
     }
 }

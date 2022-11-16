@@ -123,7 +123,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что заголовок 'Нашлось по запросу: ...' содержит текст {0}")
     default void checkSearchTitle(final String searchText) {
-        waitAction().shouldBeVisible(searchResultsTitle, searchText);
+        searchResultsTitle.shouldBe().visible(searchText);
     }
 
     @Step("Проверяем, что товарные подсказки при поиске алко имеют картинки 18+")

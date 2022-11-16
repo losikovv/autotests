@@ -25,6 +25,7 @@ public final class PaymentMethodsModal {
     @Step("Проверяем, что модальное окно появилось")
     public void checkModalVisible() {
         Kraken.waitAction().shouldBeVisible(title);
+        Assert.assertTrue(title.is().animationFinished());
     }
 
     @Step("Проверяем, что модальное окно закрылось")

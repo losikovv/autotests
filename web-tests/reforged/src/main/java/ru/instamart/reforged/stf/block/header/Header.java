@@ -117,8 +117,6 @@ public final class Header implements HeaderCheck {
 
     @Step("Открыть корзину")
     public void clickToCart() {
-        //TODO ожидаем, пока исчезнет попап-алерт с ошибкой, который перекрывает кнопку. Убрать после того, как баг пофиксят и ошибка уйдёт
-        checkErrorAlertIsNotDisplayed();
         cart.click();
     }
 
@@ -218,15 +216,11 @@ public final class Header implements HeaderCheck {
 
     @Step("Нажимаем на попап-уведомление 'Выберите замену для товара'")
     public void clickPrereplacementPopup() {
-        //TODO ожидаем, пока исчезнет попап-алерт с ошибкой, который перекрывает кнопку. Убрать после того, как баг пофиксят и ошибка уйдёт
-        checkErrorAlertIsNotDisplayed();
         popupAlert.click();
     }
 
     @Step("Закрываем попап-уведомление 'Выберите замену для товара'")
     public void closePrereplacementPopup() {
-        //TODO ожидаем, пока исчезнет попап-алерт с ошибкой, который перекрывает кнопку. Убрать после того, как баг пофиксят и ошибка уйдёт
-        checkErrorAlertIsNotDisplayed();
         closePopupAlert.click();
     }
 }

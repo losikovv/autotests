@@ -209,7 +209,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что в 'Телефон' отображается ошибка")
     default void checkPhoneInvalid() {
-        Kraken.waitAction().shouldBeVisible(contactsPhoneInvalid);
+        contactsPhoneInvalid.shouldBe().visible();
     }
 
     @Step("Проверяем, что отображается описание ошибки поля ввода 'Телефон'")
