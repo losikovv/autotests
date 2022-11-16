@@ -1,7 +1,6 @@
 package ru.instamart.reforged.business.block.header;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -25,7 +24,7 @@ public interface B2BHeaderCheck extends B2BHeaderElement, Check {
 
     @Step("Проверяем, что нотификация после добавления нового товара в корзину исчезла")
     default void checkCartNotificationIsNotVisible() {
-        Assert.assertTrue(cartNotification.is().invisible());
+        cartNotification.should().invisible();
     }
 
     @Step("Проверяем, что отображается значок с количеством товаров в корзине над кнопкой")
@@ -35,7 +34,7 @@ public interface B2BHeaderCheck extends B2BHeaderElement, Check {
 
     @Step("Проверяем, что не отображается значок с количеством товаров в корзине над кнопкой")
     default void checkCartItemsCountSpoilerIsNotVisible() {
-        Assert.assertTrue(itemsCountSpoilerOnCartButton.is().invisible());
+        itemsCountSpoilerOnCartButton.should().invisible();
     }
 
     @Step("Проверяем, что отображается сообщение об ошибке")

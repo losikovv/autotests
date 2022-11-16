@@ -2,7 +2,6 @@ package ru.instamart.reforged.admin.page.retailers.activate_store_modal;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.stf.frame.Close;
@@ -22,11 +21,11 @@ public class ActivateStoreModal implements Close {
     @Step("Проверяем, что модальное окно активации магазина показано")
     public void checkActivateStoreModalVisible() {
         waitAction().shouldBeVisible(activateStoreModal);
-        Assert.assertTrue(activateStoreModal.is().animationFinished());
+        activateStoreModal.should().animationFinished();
     }
 
     @Step("Проверяем, что модальное окно активации магазина скрыто")
     public void checkActivateStoreModalNotVisible() {
-        Assert.assertTrue(activateStoreModal.is().invisible());
+        activateStoreModal.should().invisible();
     }
 }

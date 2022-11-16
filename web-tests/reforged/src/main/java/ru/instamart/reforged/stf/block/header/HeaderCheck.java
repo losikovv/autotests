@@ -87,7 +87,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что нотификация после добавления товара в корзину скрыта")
     default void checkCartNotificationIsNotVisible() {
-        Assert.assertTrue(cartNotification.is().invisible());
+        cartNotification.should().invisible();
     }
 
     @Step("Проверяем, что нотификация после добавления товара в корзину показана")
@@ -107,7 +107,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что кнопка профиля не видна")
     default void checkProfileButtonNotVisible() {
-        Assert.assertTrue(profile.is().invisible());
+        profile.should().invisible();
     }
 
     @Step("Проверяем, что кнопка профиля видна")
@@ -164,7 +164,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что категория 'все сразу' не отображается в саджесторе")
     default void checkCategoryAllInvisible() {
-        Assert.assertTrue(suggesterTabHeaders.is().invisible());
+        suggesterTabHeaders.should().invisible();
     }
 
     @Step("Проверяем, что инпут поиска пустой")
@@ -225,7 +225,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что не отображается введенный адрес")
     default void checkEnteredAddressNotVisible() {
-        Assert.assertTrue(enteredAddress.is().invisible());
+        enteredAddress.should().invisible();
     }
 
     @Step("Проверяем, что отображается сообщение об ошибке")
@@ -245,6 +245,6 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что не отображается всплывающее сообщение о возможности предзамены")
     default void checkPrereplacementPopupNotDisplayed() {
-        Assert.assertTrue(popupAlert.is().invisible());
+        popupAlert.should().invisible();
     }
 }

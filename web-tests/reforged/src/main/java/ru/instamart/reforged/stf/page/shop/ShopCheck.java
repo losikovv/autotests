@@ -69,6 +69,6 @@ public interface ShopCheck extends Check, ShopElement {
 
     @Step("Проверяем что категория 'Вы покупали ранее' не отображается")
     default void checkYouBoughtBeforeCategoryNotDisplayed() {
-        Assert.assertTrue(youBoughtBeforeCategory.is().invisible());
+        youBoughtBeforeCategory.should().invisible();
     }
 }

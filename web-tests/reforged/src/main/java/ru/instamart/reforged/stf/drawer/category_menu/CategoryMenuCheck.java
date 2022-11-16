@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.drawer.category_menu;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -20,6 +19,6 @@ public interface CategoryMenuCheck extends CategoryMenuElement, Check {
 
     @Step("Шторка каталога закрыта")
     default void checkCatalogMenuIsClosed() {
-        Assert.assertTrue(categoryMenuDrawer.is().invisible());
+        categoryMenuDrawer.should().invisible();
     }
 }

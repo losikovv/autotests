@@ -65,7 +65,7 @@ public interface UserShipmentCheck extends Check, UserShipmentElement {
 
     @Step("Проверяем, что всплывающее сообщение не отображается")
     default void checkAlertNotVisible() {
-        Assert.assertTrue(alert.is().invisible());
+        alert.should().invisible();
     }
 
     @Step("Проверяем что текст бабл-сообщения соответствует ожидаемому")

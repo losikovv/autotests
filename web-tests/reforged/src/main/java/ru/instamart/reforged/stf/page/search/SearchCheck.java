@@ -42,7 +42,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что заглушка загрузки не видна")
     default void checkProductsStubNotVisible() {
-        Assert.assertTrue(productsStub.is().invisible());
+        productsStub.should().invisible();
     }
 
     @Step("Проверяем, что отображается спиннер в поиске")
@@ -52,7 +52,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что спиннер в поиске не отображается")
     default void checkSearchProductsSpinnerNotVisible() {
-        Assert.assertTrue(searchSpinner.is().invisible());
+        searchSpinner.should().invisible();
     }
 
     @Step("Проверяем, что отображается спиннер в бесконечном поиске")
@@ -62,7 +62,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что спиннер в бесконечном поиске не отображается")
     default void checkInfiniteSearchProductsSpinnerNotVisible() {
-        Assert.assertTrue(infiniteSearchSpinner.is().invisible());
+        infiniteSearchSpinner.should().invisible();
     }
 
     @Step("Проверяем, что кол-во товаров: {0} не равно кол-ву после применения фильтра: {1}")
@@ -72,7 +72,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что не отображается заглушка товаров в поиске")
     default void checkSearchProductsSkeletonNotVisible() {
-        Assert.assertTrue(searchProductsSkeleton.is().invisible());
+        searchProductsSkeleton.should().invisible();
     }
 
     @Step("Проверка подскролла страницы поиска к новой выдаче")
@@ -102,7 +102,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверить, что фильтр '{0}' задизейблен")
     default void checkFilterDisabled(String filterText) {
-        Assert.assertTrue(filterCheckbox.is().unclickable(filterText));
+        filterCheckbox.should().unclickable(filterText);
     }
 
     @Step("Проверить, что сортировка '{0}' применена")
@@ -118,7 +118,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что сетка найденных товаров не отображается")
     default void checkSearchProductGridNotVisible() {
-        Assert.assertTrue(searchProductGrid.is().invisible());
+        searchProductGrid.should().invisible();
     }
 
     @Step("Проверяем, что заголовок 'Нашлось по запросу: ...' содержит текст {0}")

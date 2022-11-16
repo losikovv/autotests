@@ -11,12 +11,12 @@ public interface B2BCartCheck extends Check, B2BCartElement {
     @Step("Проверяем, что корзина открыта")
     default void checkCartOpen() {
         waitAction().shouldBeVisible(cartContainer);
-        Assert.assertTrue(cartContainer.is().animationFinished());
+        cartContainer.should().animationFinished();
     }
 
     @Step("Проверяем, что корзина закрыта")
     default void checkCartClose() {
-        Assert.assertTrue(cartContainer.is().invisible());
+        cartContainer.should().invisible();
     }
 
     @Step("Проверка что корзина пуста")
@@ -26,7 +26,7 @@ public interface B2BCartCheck extends Check, B2BCartElement {
 
     @Step("Проверяем, что корзина не пуста")
     default void checkCartNotEmpty() {
-        Assert.assertTrue(cartIsEmptyPlaceholder.is().invisible());
+        cartIsEmptyPlaceholder.should().invisible();
     }
 
     @Step("Проверяем, что количество товаров в корзине равно: {expectedCount}")

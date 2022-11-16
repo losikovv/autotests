@@ -25,12 +25,12 @@ public interface CartCheck extends Check, CartElement {
     @Step("Проверяем, что корзина открыта")
     default void checkCartOpen() {
         cartContainer.should().visible();
-        Assert.assertTrue(cartContainer.is().animationFinished());
+        cartContainer.should().animationFinished();
     }
 
     @Step("Проверяем, что корзина закрыта")
     default void checkCartClose() {
-        Assert.assertTrue(cartContainer.is().invisible());
+        cartContainer.should().invisible();
     }
 
     @Step("Проверка что корзина пуста")
@@ -80,7 +80,7 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что анимация удаления завершена")
     default void checkDeleteAnimationOver() {
-        Assert.assertTrue(items.is().animationFinished());
+        items.should().animationFinished();
     }
 
     @Step("Проверяем соответствие текущего количества товаров {0} ожидаемому {1}")
@@ -95,6 +95,6 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что рителер '{retailerName}' не отображается в корзине")
     default void checkRetailerNotVisible(final String retailerName) {
-        Assert.assertTrue(retailerByName.is().invisible(retailerName));
+        retailerByName.should().invisible(retailerName);
     }
 }

@@ -8,7 +8,7 @@ public interface HomeCheck extends Check, HomeElement {
 
     @Step("Проверяем, что страница загрузилась")
     default void checkPageLoaded() {
-        Assert.assertTrue(pageLoaderRoot.is().invisible());
+        pageLoaderRoot.should().invisible();
     }
 
     @Step("Проверяем количество вакансий в списке")

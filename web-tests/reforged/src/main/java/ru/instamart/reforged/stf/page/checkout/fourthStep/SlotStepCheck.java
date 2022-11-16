@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.page.checkout.fourthStep;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -15,7 +14,7 @@ public interface SlotStepCheck extends Check, SlotStepElement {
 
     @Step("Проверяем не виден спиннер в разделе слотов")
     default void checkSlotsSpinnerIsNotVisible() {
-        Assert.assertTrue(slotsSpinner.is().invisible());
+        slotsSpinner.should().invisible();
     }
 
     @Step("Проверяем, что первый слот кликабелен")

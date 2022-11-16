@@ -1,7 +1,6 @@
 package ru.instamart.reforged.business.page.checkout.slotsStep;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -15,7 +14,7 @@ public interface B2BSlotStepCheck extends Check, B2BSlotStepElement {
 
     @Step("Проверяем, что кнопка 'Продолжить' шага 'Выберите время получения' не видна")
     default void checkSubmitButtonNotVisible() {
-        Assert.assertTrue(submit.is().invisible());
+        submit.should().invisible();
     }
 
     @Step("Проверяем виден спиннер в разделе слотов")
@@ -25,6 +24,6 @@ public interface B2BSlotStepCheck extends Check, B2BSlotStepElement {
 
     @Step("Проверяем не виден спиннер в разделе слотов")
     default void checkSlotsSpinnerIsNotVisible() {
-        Assert.assertTrue(slotsSpinner.is().invisible());
+        slotsSpinner.should().invisible();
     }
 }

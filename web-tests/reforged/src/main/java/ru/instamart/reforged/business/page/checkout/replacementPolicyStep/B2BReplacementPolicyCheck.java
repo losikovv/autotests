@@ -1,7 +1,6 @@
 package ru.instamart.reforged.business.page.checkout.replacementPolicyStep;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -15,12 +14,12 @@ public interface B2BReplacementPolicyCheck extends Check, B2BReplacementPolicyEl
 
     @Step("Проверяем, что кнопка 'Продолжить' шага 'Выберите способ осуществления замен' не видна")
     default void checkSubmitButtonNotVisible() {
-        Assert.assertTrue(submit.is().invisible());
+        submit.should().invisible();
     }
 
     @Step("Проверяем что спиннер в разделе 'Выберите способ осуществления замен' не виден")
     default void checkReplacementSpinnerNotVisible() {
-        Assert.assertTrue(spinner.is().invisible());
+        spinner.should().invisible();
     }
 
     @Step("Проверяем что спиннер в разделе 'Выберите способ осуществления замен' виден")

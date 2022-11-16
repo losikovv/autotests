@@ -1,7 +1,6 @@
 package ru.instamart.reforged.business.frame.address;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -15,12 +14,12 @@ public interface B2BAddressLargeCheck extends B2BAddressLargeElement, Check {
 
     @Step("Проверяем, что фрейм выбора адреса не отображается")
     default void checkAddressModalNotVisible() {
-        Assert.assertTrue(addressModal.is().invisible());
+        addressModal.should().invisible();
     }
 
     @Step("Проверяем, что маркер 'Адрес можно выбирать прямо на карте' не отображается")
     default void checkMarkerOnMapInAdviceIsNotVisible() {
-        Assert.assertTrue(markerSelectOnMap.is().invisible());
+        markerSelectOnMap.should().invisible();
     }
 
     @Step("Проверяем, что адрес находится не в зоне доставки")

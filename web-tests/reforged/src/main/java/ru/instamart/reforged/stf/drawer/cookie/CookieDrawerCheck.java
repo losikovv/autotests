@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.drawer.cookie;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 public interface CookieDrawerCheck extends Check, CookieDrawerElement {
@@ -13,7 +12,7 @@ public interface CookieDrawerCheck extends Check, CookieDrawerElement {
 
     @Step("Проверка что не отображается алерт с cookie")
     default void checkAlertNotVisible() {
-        Assert.assertTrue(alert.is().invisible());
+        alert.should().invisible();
     }
 
     @Step("Проверка отображения кнопки в алерте")

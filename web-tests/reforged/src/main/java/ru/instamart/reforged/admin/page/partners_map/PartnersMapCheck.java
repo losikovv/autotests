@@ -9,13 +9,13 @@ public interface PartnersMapCheck extends Check, PartnersMapElement {
     @Step("Проверка загрузки карты")
     default void checkMapLoaded() {
         map.should().visible();
-        map.is().animationFinished();
+        map.should().animationFinished();
     }
 
     @Step("Проверка отображения балуна")
     default void checkPartnerBalloon() {
         balloon.should().visible();
-        balloon.is().animationFinished();
+        balloon.should().animationFinished();
     }
 
     @Step("Имя в балуне соответствует имени '{name}'")

@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.page.checkout;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
@@ -81,7 +80,7 @@ public interface CheckoutCheck extends Check, CheckoutElement {
 
     @Step("Проверяем, что промокод не применен")
     default void checkPromoCodeNotApplied() {
-        Assert.assertTrue(deletePromoCode.is().invisible());
+        deletePromoCode.should().invisible();
     }
 
     @Step("Проверяем, что кнопка добавления промокода в корзине видна")
@@ -101,17 +100,17 @@ public interface CheckoutCheck extends Check, CheckoutElement {
 
     @Step("Проверяем что бонусная карта {0} не применена")
     default void checkBonusCardNotApplied(String bonusCard) {
-        Assert.assertTrue(editLoyaltyCard.is().invisible(bonusCard));
+        editLoyaltyCard.should().invisible(bonusCard);
     }
 
     @Step("Проверяем что лоадер в блоке карт лояльности скрылся")
     default void checkLoyaltyCardLoaderNotVisible() {
-        Assert.assertTrue(loyaltyCardLoader.is().invisible());
+        loyaltyCardLoader.should().invisible();
     }
 
     @Step("Проверяем что лоадер чекаута скрылся")
     default void checkCheckoutLoaderNotVisible() {
-        Assert.assertTrue(checkoutLoader.is().invisible());
+        checkoutLoader.should().invisible();
     }
 
     @Step("Проверяем что лоадер чекаута показан")
@@ -121,7 +120,7 @@ public interface CheckoutCheck extends Check, CheckoutElement {
 
     @Step("Проверяем что лоадер чекаута скрылся")
     default void checkCheckoutSidebarSpinnerNotVisible() {
-        Assert.assertTrue(sideBarSpinner.is().invisible());
+        sideBarSpinner.should().invisible();
     }
 
     @Step("Сравниваем сумму заказа до {orderAmountFromCart} и после регистрации {orderAmountFromCheckout}")

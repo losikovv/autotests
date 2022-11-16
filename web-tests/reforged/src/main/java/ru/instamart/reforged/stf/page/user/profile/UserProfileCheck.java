@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.page.user.profile;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertEquals;
@@ -31,7 +30,7 @@ public interface UserProfileCheck extends UserProfileElement, Check {
 
     @Step("Алерт 'Данные успешно сохранены' скрылись")
     default void checkSaveAlertHide() {
-        Assert.assertTrue(alert.is().invisible());
+        alert.should().invisible();
     }
 
 

@@ -75,7 +75,7 @@ public final class Item extends Container {
 
     @Step("Проверяем, что спиннер пропал")
     public void checkSpinnerIsNotVisible() {
-        Assert.assertTrue(costSpinner.is().invisible());
+        costSpinner.should().invisible();
     }
 
     @Step("Проверяем, что спиннер отображается")
@@ -122,7 +122,7 @@ public final class Item extends Container {
 
     @Step("Проверяем, что блок с выбранными предзаменами не отображается")
     public void checkPrereplacementBlockNotDisplayed() {
-        Assert.assertTrue(prereplacementBlock.is().invisible());
+        prereplacementBlock.should().invisible();
     }
 
     @Step("Нажимаем на кнопку 'Редактировать' (замену)")

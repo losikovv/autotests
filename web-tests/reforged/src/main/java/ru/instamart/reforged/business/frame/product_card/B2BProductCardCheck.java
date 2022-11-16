@@ -1,7 +1,6 @@
 package ru.instamart.reforged.business.frame.product_card;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -15,11 +14,11 @@ public interface B2BProductCardCheck extends Check, B2BProductCardElement {
 
     @Step("Проверяем, что карточка продукта закрыта")
     default void checkProductCardIsNotVisible() {
-        Assert.assertTrue(itemName.is().invisible());
+        itemName.should().invisible();
     }
 
     @Step("Проверяем, что кнопка 'уменьшить количество продуктов в корзине' не отображается")
     default void checkDecreaseCountButtonNotVisible() {
-        Assert.assertTrue(decrease.is().invisible());
+        decrease.should().invisible();
     }
 }

@@ -2,7 +2,6 @@ package ru.instamart.reforged.stf.frame;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 
@@ -25,6 +24,6 @@ public class ClearCartModal implements Close {
     @Step("Модальное окно открыто")
     public void checkModalIsOpen() {
         modal.should().visible();
-        Assert.assertTrue(modal.is().animationFinished());
+        modal.should().animationFinished();
     }
 }

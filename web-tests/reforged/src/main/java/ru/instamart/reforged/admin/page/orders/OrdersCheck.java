@@ -20,12 +20,12 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     @Step("Проверяем, что в таблице отображаются заказы")
     default void checkShipmentListNotEmpty() {
-        Assert.assertTrue(emptyShipmentsListLabel.is().invisible());
+        emptyShipmentsListLabel.should().invisible();
     }
 
     @Step("Проверяем, что подгрузка данных завершена")
     default void checkLoadingLabelNotVisible() {
-        Assert.assertTrue(shipmentsLoadingLabel.is().invisible());
+        shipmentsLoadingLabel.should().invisible();
     }
 
     @Step("Проверяем отображаемое количество найденных заказов в заголовке таблицы равно: '{expectedShipmentsCount}'")
@@ -199,7 +199,7 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Сборщик'")
     default void checkCollectorDropdownItemsNotVisible() {
-        Assert.assertTrue(collectorDropdownList.is().invisible());
+        collectorDropdownList.should().invisible();
     }
 
     @Step("Проверяем, что отображается список выпадающих элементов селектора 'Курьер'")
@@ -209,7 +209,7 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     @Step("Проверяем, что не отображается список выпадающих элементов селектора 'Курьер'")
     default void checkCourierDropdownItemsNotVisible() {
-        Assert.assertTrue(courierDropdownList.is().invisible());
+        courierDropdownList.should().invisible();
     }
 
     @Step("Проверяем, что отображается виджет выбора даты и времени создания заказа")
@@ -219,7 +219,7 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     @Step("Проверяем, что не отображается виджет выбора даты и времени создания заказа")
     default void checkCreateDateTimePickerNotVisible() {
-        Assert.assertTrue(shipmentCreateDateTimePicker.is().invisible());
+        shipmentCreateDateTimePicker.should().invisible();
     }
 
     @Step("Проверяем, что отображается виджет выбора даты и времени доставки заказа")
@@ -229,7 +229,7 @@ public interface OrdersCheck extends Check, OrdersElement {
 
     @Step("Проверяем, что не отображается виджет выбора даты и времени доставки заказа")
     default void checkDeliveryDateTimePickerNotVisible() {
-        Assert.assertTrue(shipmentDeliveryDateTimePicker.is().invisible());
+        shipmentDeliveryDateTimePicker.should().invisible();
     }
 
     @Step("Проверяем, что все отфильтрованные заказы содержат в номере доставки: {expectedValue}")

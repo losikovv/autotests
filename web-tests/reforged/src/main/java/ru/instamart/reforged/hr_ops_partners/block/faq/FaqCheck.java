@@ -24,12 +24,12 @@ public interface FaqCheck extends Check, FaqElement {
 
     @Step("Проверяем, что не отображается кнопка 'Больше вопросов'")
     default void checkMoreFAQButtonNotVisible() {
-        Assert.assertTrue(moreFaq.is().invisible());
+        moreFaq.should().invisible();
     }
 
     @Step("Проверяем, что не отображается кнопка 'Меньше вопросов'")
     default void checkLessFAQButtonNotVisible() {
-        Assert.assertTrue(lessFaq.is().invisible());
+        lessFaq.should().invisible();
     }
 
     @Step("Проверяем, что отображается основной список вопросов")
@@ -44,7 +44,7 @@ public interface FaqCheck extends Check, FaqElement {
 
     @Step("Проверяем, что не отображается скрытый под спойлером список вопросов")
     default void checkHiddenFAQListNotVisible() {
-        Assert.assertTrue(hiddenFaqsList.is().invisible());
+        hiddenFaqsList.should().invisible();
     }
 
     @Step("Проверяем, что количество вопросов в основном списке: {expectedCount}")
@@ -59,7 +59,7 @@ public interface FaqCheck extends Check, FaqElement {
 
     @Step("Проверяем, что ответы на вопросы скрыты")
     default void checkExpandeAnswersNotVisible() {
-        Assert.assertTrue(expandedFaqsList.is().invisible());
+        expandedFaqsList.should().invisible();
     }
 
     @Step("Проверяем, что количество развёрнутых ответов: '{expectedExpandedAnswersCount}'")
@@ -74,6 +74,6 @@ public interface FaqCheck extends Check, FaqElement {
 
     @Step("Проверяем, что не отображается ответ на вопрос '{faqTitle}'")
     default void checkAnswerNotVisible(final String faqTitle) {
-        Assert.assertTrue(faqAnswerByTitle.is().invisible(faqTitle.substring(faqTitle.length() - 15)));
+        faqAnswerByTitle.should().invisible(faqTitle.substring(faqTitle.length() - 15));
     }
 }

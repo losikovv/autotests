@@ -14,7 +14,7 @@ public interface DeliverySlotsModalCheck extends Check, DeliverySlotsModalElemen
 
     @Step("Проверяем, что модальное окно не отображается")
     default void checkModalNotVisible() {
-        Assert.assertTrue(close.is().invisible());
+        close.should().invisible();
     }
 
     @Step("Проверяем, что заголовок окна: '{expectedTitle}'")
@@ -60,7 +60,7 @@ public interface DeliverySlotsModalCheck extends Check, DeliverySlotsModalElemen
 
     @Step("Проверяем, что выбранные слоты отсутствуют")
     default void checkSelectedSlotNotVisible() {
-        Assert.assertTrue(selectedSlots.is().invisible());
+        selectedSlots.should().invisible();
     }
 
     @Step("Проверяем, что в списке слотов отображаются слоты с большей стоимостью доставки")
@@ -75,7 +75,7 @@ public interface DeliverySlotsModalCheck extends Check, DeliverySlotsModalElemen
 
     @Step("Проверяем, что в списке слотов не отображаются слоты с информацией об изменении цены доставки")
     default void checkDeliverySlotWithAnotherPriceNotVisible() {
-        Assert.assertTrue(slotsWithAnotherDeliveryPrice.is().invisible());
+        slotsWithAnotherDeliveryPrice.should().invisible();
     }
 
     @Step("Проверяем, что количество выбранных слотов: '{expectedCount}'")

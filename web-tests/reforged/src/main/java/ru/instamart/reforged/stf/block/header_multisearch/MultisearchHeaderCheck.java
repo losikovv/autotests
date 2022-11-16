@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.block.header_multisearch;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
@@ -29,12 +28,12 @@ public interface MultisearchHeaderCheck extends Check, MultisearchHeaderElement 
 
     @Step("Проверяем, что не отображается поле ввода мультиритейлерного поиска")
     default void checkMultisearchInputNotVisible() {
-        Assert.assertTrue(multisearch.is().invisible());
+        multisearch.should().invisible();
     }
 
     @Step("Проверяем, что отображается кнопка пользовательского меню")
     default void checkUserActionsButtonVisible() {
-        Assert.assertTrue(userActionsToggle.is().invisible());
+        userActionsToggle.should().invisible();
     }
 
     @Step("Проверяем, что указан адрес: '{expectedAddress}'")
@@ -54,7 +53,7 @@ public interface MultisearchHeaderCheck extends Check, MultisearchHeaderElement 
 
     @Step("Проверяем, саджестор не отображается")
     default void checkProductsNotVisibleInSuggester() {
-        Assert.assertTrue(productsInActiveTab.is().invisible());
+        productsInActiveTab.should().invisible();
     }
 
     @Step("Проверяем, что все найденные продукты саджестора соответствуют критериям поиска: '{searchText}'")

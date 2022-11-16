@@ -1,7 +1,6 @@
 package ru.instamart.reforged.admin.page.shoppers.edit;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
@@ -60,6 +59,6 @@ public interface ShoppersEditCheck extends Check, ShoppersEditElement {
 
     @Step("Кнопка 'Сохранить' неактивна")
     default void checkButtonSaveInactive() {
-        Assert.assertTrue(saveButton.is().unclickable());
+        saveButton.should().unclickable();
     }
 }

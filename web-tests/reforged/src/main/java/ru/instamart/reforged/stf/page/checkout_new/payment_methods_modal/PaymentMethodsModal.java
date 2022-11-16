@@ -2,7 +2,6 @@ package ru.instamart.reforged.stf.page.checkout_new.payment_methods_modal;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.Button;
@@ -25,17 +24,17 @@ public final class PaymentMethodsModal {
     @Step("Проверяем, что модальное окно появилось")
     public void checkModalVisible() {
         Kraken.waitAction().shouldBeVisible(title);
-        Assert.assertTrue(title.is().animationFinished());
+        title.should().animationFinished();
     }
 
     @Step("Проверяем, что модальное окно закрылось")
     public void checkModalNotVisible() {
-        Assert.assertTrue(title.is().invisible());
+        title.should().invisible();
     }
 
     @Step("Проверяем, что способ оплаты '{paymentMethod}' не отображается")
     public void checkPaymentMethodNotVisible(final String paymentMethod){
-        Assert.assertTrue(paymentMethodByName.is().invisible(paymentMethod));
+        paymentMethodByName.should().invisible(paymentMethod);
     }
 
     @Step("Закрываем модальное окно выбора способа оплаты")

@@ -1,7 +1,6 @@
 package ru.instamart.reforged.admin.page.shipment.shipment.payments.new_payment.payments;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -15,6 +14,6 @@ public interface ShipmentNewPaymentCheck extends Check, ShipmentNewPaymentElemen
 
     @Step("Проверяем, что модальное окно отправки уведомления показано")
     default void checkSendNotificationModalNotVisisble() {
-        Assert.assertTrue(sendNotificationModal.is().invisible());
+        sendNotificationModal.should().invisible();
     }
 }

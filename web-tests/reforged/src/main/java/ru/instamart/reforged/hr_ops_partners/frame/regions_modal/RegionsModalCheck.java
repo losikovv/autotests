@@ -10,17 +10,17 @@ public interface RegionsModalCheck extends RegionsModalElement, Check {
     @Step("Проверяем, что окно выбора региона отображается")
     default void checkRegionsModalVisible() {
         modalTitle.should().visible();
-        Assert.assertTrue(modalTitle.is().animationFinished());
+        modalTitle.should().animationFinished();
     }
 
     @Step("Проверяем, что окно выбора региона не отображается")
     default void checkRegionsModalNotVisible() {
-        Assert.assertTrue(modalTitle.is().invisible());
+        modalTitle.should().invisible();
     }
 
     @Step("Проверяем, что список найденных регионов не отображается")
     default void checkRegionsListNotVisible() {
-        Assert.assertTrue(regionsList.is().invisible());
+        regionsList.should().invisible();
     }
 
     @Step("Проверяем, что отображается плейсхолдер пустого списка регионов")

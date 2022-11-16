@@ -35,6 +35,6 @@ public interface AuthoredHeaderCheck extends Check, AuthoredHeaderElement {
 
     @Step("Пользователь не авторизовался")
     default void checkIsNotAuth() {
-        Assert.assertTrue(adminName.is().invisible());
+        adminName.should().invisible();
     }
 }

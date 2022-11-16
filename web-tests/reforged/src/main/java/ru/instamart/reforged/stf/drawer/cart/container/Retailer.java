@@ -46,7 +46,7 @@ public final class Retailer extends Container {
 
     @Step("Проверяем, что сообщение о минимальной сумме заказа не отображается")
     public void isAlertNotDisplayed() {
-        Assert.assertTrue(minAmountAlert.is().invisible(getContainer()));
+        minAmountAlert.should().invisible(getContainer());
     }
 
     @Step("Получаем {0} по порядку продукт из списка продуктов магазина")

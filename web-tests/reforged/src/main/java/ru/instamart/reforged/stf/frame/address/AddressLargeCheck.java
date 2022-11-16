@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.frame.address;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertEquals;
@@ -16,12 +15,12 @@ public interface AddressLargeCheck extends AddressLargeElement, Check {
 
     @Step("Проверяем, что фрейм выбора адреса не отображается")
     default void checkAddressModalNotVisible() {
-        Assert.assertTrue(addressModal.is().invisible());
+        addressModal.should().invisible();
     }
 
     @Step("Проверяем, что маркер 'Адрес можно выбирать прямо на карте' не отображается")
     default void checkMarkerOnMapInAdviceIsNotVisible() {
-        Assert.assertTrue(markerSelectOnMap.is().invisible());
+        markerSelectOnMap.should().invisible();
     }
 
     @Step("Проверяем, что адрес находится не в зоне доставки")
@@ -36,7 +35,7 @@ public interface AddressLargeCheck extends AddressLargeElement, Check {
 
     @Step("Фрейм адреса доставки не отображается")
     default void checkAddressModalIsNotVisible() {
-        Assert.assertTrue(addressModal.is().invisible());
+        addressModal.should().invisible();
     }
 
     @Step("Проверка что сохраненных адресов '{0}'")

@@ -14,7 +14,7 @@ public interface DeliverySlotsModalCheck extends Check, DeliverySlotsModalElemen
 
     @Step("Проверяем, что модальное окно не отображается")
     default void checkModalNotVisible() {
-        Assert.assertTrue(apply.is().invisible());
+        apply.should().invisible();
     }
 
     @Step("Проверяем что карусель выбора дня доставки отображается")
@@ -45,7 +45,7 @@ public interface DeliverySlotsModalCheck extends Check, DeliverySlotsModalElemen
 
     @Step("Проверяем, что выбранные слоты отсутствуют")
     default void checkSelectedSlotNotVisible() {
-        Assert.assertTrue(selectedSlots.is().invisible());
+        selectedSlots.should().invisible();
     }
 
     @Step("Проверяем, что количество выбранных слотов: '{expectedCount}'")

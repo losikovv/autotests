@@ -2,7 +2,6 @@ package ru.instamart.reforged.stf.frame.checkout.subsections;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.stf.frame.Close;
@@ -18,12 +17,12 @@ public interface CommonFrameButtons extends Close {
     @Step("Модальное окно открыто")
     default void checkModalWindow() {
         modal.should().visible();
-        Assert.assertTrue(modal.is().animationFinished());
+        modal.should().animationFinished();
     }
 
     @Step("Модальное окно не отображается")
     default void checkModalWindowNotVisible() {
-        Assert.assertTrue(modal.is().invisible());
+        modal.should().invisible();
     }
 
     @Step("Нажать 'Сохранить'")

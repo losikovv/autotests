@@ -10,12 +10,12 @@ public interface ApplyFormModalCheck extends ApplyFormModalElement, Check {
     @Step("Проверяем, что окно отклика отображается")
     default void checkModalVisible() {
         Kraken.waitAction().shouldBeVisible(modalTitle);
-        Assert.assertTrue(modalTitle.is().animationFinished());
+        modalTitle.should().animationFinished();
     }
 
     @Step("Проверяем, что окно отклика не отображается")
     default void checkModalNotVisible() {
-        Assert.assertTrue(modalTitle.is().invisible());
+        modalTitle.should().invisible();
     }
 
     @Step("Проверяем, что список регионов отображается")

@@ -15,7 +15,7 @@ public interface OrderEvaluationModalCheck extends Check, OrderEvaluationModalEl
 
     @Step("Проверяем, что окно оценки заказа закрылось")
     default void checkOrderEvaluationModalNotDisplayed() {
-        Assert.assertTrue(evaluationStars.is().invisible());
+        evaluationStars.should().invisible();
     }
 
     @Step("Проверяем, что появилась кнопка 'Отправить отзыв'")

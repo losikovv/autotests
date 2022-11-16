@@ -30,7 +30,7 @@ public interface RetailerAddCheck extends Check, RetailerAddElements {
 
     @Step("Проверяем, что ошибка ввода в поле 'Ключ в файле импорта' не отображается")
     default void checkImportKeyInputErrorNotVisible() {
-        Assert.assertTrue(importKeyInputError.is().invisible());
+        importKeyInputError.should().invisible();
     }
 
     @Step("Проверяем, что текст в поле 'Наименование' соответствует ожидаемому: {expectedText}")

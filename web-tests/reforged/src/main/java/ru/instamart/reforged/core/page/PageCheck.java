@@ -56,7 +56,7 @@ public interface PageCheck extends PageElement {
 
     @Step("Проверяем, что страница открылась (отсутствует сообщение об ошибке)")
     default void checkPageOpened() {
-        Assert.assertTrue(page404Error.is().invisible());
+        page404Error.should().invisible();
     }
 
     @Step("Проверяем, что на странице открылся фрейм")

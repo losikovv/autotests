@@ -18,7 +18,7 @@ public interface ShoppersCheck extends ShoppersElement, Check {
 
     @Step("Проверяем, что спиннер не отображается")
     default void checkSpinnerNotVisible() {
-        Assert.assertTrue(spinner.is().invisible());
+        spinner.should().invisible();
     }
 
     @Step("Проверяем, что партнер c именем {0} найден")
@@ -58,7 +58,7 @@ public interface ShoppersCheck extends ShoppersElement, Check {
 
     @Step("Проверяем, что теги в списке тегов скрыты")
     default void checkTagsDropdownInvisible() {
-        Assert.assertTrue(tagsInList.is().invisible());
+        tagsInList.should().invisible();
     }
 
     @Step("Проверяем, что теги в списке тегов показаны")

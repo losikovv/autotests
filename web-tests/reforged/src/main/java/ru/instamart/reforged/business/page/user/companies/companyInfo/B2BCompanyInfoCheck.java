@@ -1,7 +1,6 @@
 package ru.instamart.reforged.business.page.user.companies.companyInfo;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertTrue;
@@ -11,7 +10,7 @@ public interface B2BCompanyInfoCheck extends Check, B2BCompanyInfoElement {
 
     @Step("Проверяем, что не отображается спиннер загрузки информации")
     default void checkLoadingSpinnerNotVisible(){
-        Assert.assertTrue(loadingSpinner.is().invisible());
+        loadingSpinner.should().invisible();
     }
 
     @Step("Проверяем, что информация о компании видна")
@@ -64,6 +63,6 @@ public interface B2BCompanyInfoCheck extends Check, B2BCompanyInfoElement {
 
     @Step("Проверяем, что не отображается блок 'Код безопасности'")
     default void checkSecurityBlockNotDisplayed() {
-        Assert.assertTrue(companySecurityInfo.is().invisible());
+        companySecurityInfo.should().invisible();
     }
 }

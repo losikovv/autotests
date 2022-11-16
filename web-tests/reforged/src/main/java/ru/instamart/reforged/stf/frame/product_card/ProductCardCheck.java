@@ -16,7 +16,7 @@ public interface ProductCardCheck extends Check, ProductCardElement {
 
     @Step("Продуктовая карта закрыта")
     default void checkProductCardIsNotVisible() {
-        Assert.assertTrue(itemName.is().invisible());
+        itemName.should().invisible();
     }
 
     @Step("На продуктовой карте есть алерт продажи алкоголя 18+")
@@ -41,7 +41,7 @@ public interface ProductCardCheck extends Check, ProductCardElement {
 
     @Step("Кнопка 'Купить' отображается неактивной")
     default void checkBuyButtonInactive() {
-        Assert.assertTrue(buy.is().unclickable());
+        buy.should().unclickable();
     }
 
     @Step("Проверяем, что отображается иконка скидки (для товара со скидкой)")
@@ -51,7 +51,7 @@ public interface ProductCardCheck extends Check, ProductCardElement {
 
     @Step("Проверяем, что не отображается иконка скидки (для товара без скидки)")
     default void checkDiscountLabelNotDisplayed() {
-        Assert.assertTrue(discountLabel.is().invisible());
+        discountLabel.should().invisible();
     }
 
     @Step("Проверяем, что навигационная цепочка категорий (хлебные крошки) отображается")
