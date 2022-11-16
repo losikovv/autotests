@@ -35,7 +35,9 @@ public class RestBase {
 
     @BeforeSuite(alwaysRun = true)
     public void qaService() {
-        if (!EnvironmentProperties.Env.isProduction()) {
+        if (EnvironmentProperties.BFF.TRUE) {
+            SessionFactory.setProvider(SessionProvider.PHONE);
+        } else if (!EnvironmentProperties.Env.isProduction()) {
             try {
                 K8sHelper.createQaService();
             } catch (Exception e) {
