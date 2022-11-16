@@ -335,6 +335,13 @@ public class ShippingCalcHelper {
         assertNotEquals(script.getCreatedAt(), script.getUpdatedAt(), "Поле updated_at не обновилось");
     }
 
+    @Step("Получаем запрос для удаления скрипта")
+    public static DeleteScriptRequest getDeleteScriptRequest(Integer scriptId) {
+        return DeleteScriptRequest.newBuilder()
+                .setScriptId(scriptId)
+                .build();
+    }
+
     @Step("Получаем запрос для получения условий доставки магазина")
     public static GetDeliveryConditionsRequest getDeliveryConditionsRequest(String storeId, Float storeLat, Float storeLon, String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Float customerLat, Float customerLon, String tenant, Integer deliveryTypeValue, String platformName, String platformVersion, Boolean onDemand) {
         return GetDeliveryConditionsRequest.newBuilder()
