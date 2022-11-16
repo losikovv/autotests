@@ -43,7 +43,7 @@ public class ManualSurgeTest extends GrpcBase {
     private final String FIRST_STORE_ID = UUID.randomUUID().toString();
     private final String SECOND_STORE_ID = UUID.randomUUID().toString();
     private final int DELIVERY_AREA_ID = nextInt(150000, 200000);
-    private final int LONG_TIMEOUT = 7;
+    private final int LONG_TIMEOUT = 10;
     private final float SURGE_LEVEL = 5;
     private String expiredAt;
 
