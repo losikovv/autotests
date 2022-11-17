@@ -9,6 +9,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.ShippingCalcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.shippingcalc.ScriptsDao;
+import ru.instamart.jdbc.entity.shippingcalc.ScriptsEntity;
 import ru.sbermarket.qase.annotation.CaseId;
 import shippingcalc.*;
 
@@ -24,12 +25,14 @@ public class ScriptTest extends ShippingCalcBase {
 
     private Integer scriptId;
     private Integer secondScriptId;
+    private Integer strategyId;
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
     private final String FIXED_PRICE_SCRIPT = "exportVars = [\n {\n \"type\": \"int\",\n \"name\": \"basicPrice\",\n \"caption\": \"Базовая цена, в рублях\",\n \"fraction\": 100\n },\n {\n \"type\": \"int\",\n \"name\": \"assemblyIncrease\",\n \"caption\": \"Надбавка за сборку, в рублях\",\n \"fraction\": 100\n },\n {\n \"type\": \"int\",\n \"name\": \"bagIncrease\",\n \"caption\": \"Надбавка за пакеты, в рублях\",\n \"fraction\": 100\n  }\n]; \nfunction result() {\n  return Params.basicPrice + Params.assemblyIncrease + Params.bagIncrease;\n}";
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientShippingCalc = ShippingcalcGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC));
+        strategyId = addStrategy(false, 0, DeliveryType.COURIER_DELIVERY.toString());
     }
 
     @CaseId(38)
@@ -56,7 +59,7 @@ public class ScriptTest extends ShippingCalcBase {
 
     @CaseId(4)
     @Story("Create Script")
-    @Test(description = "Получение ошибки, при создани скрипта с пустым именем",
+    @Test(description = "Получение ошибки, при создании скрипта с пустым именем",
             groups = "dispatch-shippingcalc-regress",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: script name cannot be empty")
@@ -67,7 +70,7 @@ public class ScriptTest extends ShippingCalcBase {
 
     @CaseId(10)
     @Story("Create Script")
-    @Test(description = "Получение ошибки, при создани скрипта с пустым телом скрипта",
+    @Test(description = "Получение ошибки, при создании скрипта с пустым телом скрипта",
             groups = "dispatch-shippingcalc-regress",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: script body cannot be empty")
@@ -78,7 +81,7 @@ public class ScriptTest extends ShippingCalcBase {
 
     @CaseId(13)
     @Story("Create Script")
-    @Test(description = "Получение ошибки, при создани скрипта с пустым автором",
+    @Test(description = "Получение ошибки, при создании скрипта с пустым автором",
             groups = "dispatch-shippingcalc-regress",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: creator_id cannot be empty")
@@ -104,9 +107,9 @@ public class ScriptTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke",
             dependsOnMethods = "getScript")
     public void updateScriptWithInvalidData() {
-        var request = getUpdateScriptRequest(scriptId, "autotest-update", "test", "autotest-update");
+        var request = getUpdateScriptRequest(scriptId, "autotest-update-with-rule", "test", "autotest-update");
         clientShippingCalc.updateScript(request);
-        checkUpdatedScript(scriptId, "autotest-update", "TestFailed");
+        checkUpdatedScript(scriptId, "autotest-update-with-rule", "TestFailed");
     }
 
     @CaseId(16)
@@ -204,6 +207,48 @@ public class ScriptTest extends ShippingCalcBase {
         clientShippingCalc.getScript(request);
     }
 
+    @CaseId(135)
+    @Story("Delete Script")
+    @Test(description = "Удаление существующего скрипта без привязки к правилам",
+            groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "updateScript")
+    public void deleteScript() {
+        var request = getDeleteScriptRequest(secondScriptId);
+        var response = clientShippingCalc.deleteScript(request);
+
+        ScriptsEntity scripts = ScriptsDao.INSTANCE.getScriptById(secondScriptId);
+        Allure.step("Проверка удаления скрипта", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            compareTwoObjects(response.toString(), "", softAssert);
+            softAssert.assertNotNull(scripts.getDeletedAt(), "Скрипт не помечен удаленным");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(134)
+    @Story("Delete Script")
+    @Test(description = "Получение ошибки, при удалении скрипта, привязанного к правилу",
+            groups = "dispatch-shippingcalc-smoke",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot delete script: can't delete script: script is used in non-deleted rules",
+            dependsOnMethods = "updateScriptWithInvalidData")
+    public void deleteScriptWithRules() {
+        addRule(strategyId, "autotest-update-with-rule", "{}", 0, "delivery_price");
+        var request = getDeleteScriptRequest(scriptId);
+        clientShippingCalc.deleteScript(request);
+    }
+
+    @CaseId(131)
+    @Story("Delete Script")
+    @Test(description = "Получение ошибки, при удалении несуществующего скрипта",
+            groups = "dispatch-shippingcalc-smoke",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot delete script: entity not found")
+    public void deleteScriptNonExistent() {
+        var request = getDeleteScriptRequest(123456789);
+        clientShippingCalc.deleteScript(request);
+    }
+
     @AfterClass(alwaysRun = true)
     public void postConditions() {
         if (Objects.nonNull(scriptId) ) {
@@ -212,5 +257,6 @@ public class ScriptTest extends ShippingCalcBase {
         if (Objects.nonNull(secondScriptId) ) {
             ScriptsDao.INSTANCE.delete(secondScriptId);
         }
+        deleteCreatedStrategy(strategyId);
     }
 }

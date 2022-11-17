@@ -34,11 +34,11 @@ public class AuthorizationTest extends GrpcBase {
             groups = {"grpc-authorization-service"})
     public void authorizationGRPC() {
         var request = AuthorizationOuterClass.AuthorizedPermissionsRequest.newBuilder()
-                .addPermissions("example-service/core-services/retailers:write")
-                .addPermissions("example-service/core-services/retailers:read")
+                .addPermissions("example-service/kraken-api-tests/retailers:write")
+                .addPermissions("example-service/kraken-api-tests/retailers:read")
                 .setSbmAuthIdentity("1")
                 .addSbmAuthRoles("BizdevDept")
-                .setSbmAuthType("core-services")
+                .setSbmAuthType("kraken-api-tests")
                 .setPolicyVersion("test")
                 .build();
 
@@ -54,11 +54,11 @@ public class AuthorizationTest extends GrpcBase {
             groups = {"grpc-authorization-service"})
     public void authorizationWrongPermissonsGRPC() {
         var request = AuthorizationOuterClass.AuthorizedPermissionsRequest.newBuilder()
-                .addPermissions("example-service/core-services/retailers:wrong")
-                .addPermissions("example-service/core-services/wrong:read")
+                .addPermissions("example-service/kraken-api-tests/retailers:wrong")
+                .addPermissions("example-service/kraken-api-tests/wrong:read")
                 .setSbmAuthIdentity("1")
                 .addSbmAuthRoles("BizdevDept")
-                .setSbmAuthType("core-services")
+                .setSbmAuthType("kraken-api-tests")
                 .setPolicyVersion("test")
                 .build();
 
@@ -74,14 +74,14 @@ public class AuthorizationTest extends GrpcBase {
             groups = {"grpc-authorization-service"})
     public void dataFiltersGRPC() {
         var sbmAuth = AuthorizationOuterClass.SbmAuth.newBuilder()
-                .setType("core-services")
+                .setType("kraken-api-tests")
                 .setIdentity("1")
                 .addRoles("BizdevDept")
                 .build();
 
         var request = AuthorizationOuterClass.DataFiltersRequest.newBuilder()
-                .setPermission("example-service/core-services/retailers:write")
-                .setPermission("example-service/core-services/retailers:read")
+                .setPermission("example-service/kraken-api-tests/retailers:write")
+                .setPermission("example-service/kraken-api-tests/retailers:read")
                 .setAuth(sbmAuth)
                 .setPolicyVersion("test")
                 .build();
@@ -101,13 +101,13 @@ public class AuthorizationTest extends GrpcBase {
             expectedExceptionsMessageRegExp = "PERMISSION_DENIED: пустой список ролей")
     public void dataFiltersGRPCnoRoles() {
         var sbmAuth = AuthorizationOuterClass.SbmAuth.newBuilder()
-                .setType("core-services")
+                .setType("kraken-api-tests")
                 .setIdentity("1")
                 .build();
 
         var request = AuthorizationOuterClass.DataFiltersRequest.newBuilder()
-                .setPermission("example-service/core-services/retailers:write")
-                .setPermission("example-service/core-services/retailers:read")
+                .setPermission("example-service/kraken-api-tests/retailers:write")
+                .setPermission("example-service/kraken-api-tests/retailers:read")
                 .setAuth(sbmAuth)
                 .setPolicyVersion("test")
                 .build();

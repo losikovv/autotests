@@ -58,8 +58,8 @@ public class SurgeTest extends RestBase {
     private final int SECOND_DELIVERY_AREA_ID = FIRST_DELIVERY_AREA_ID + 1;
     private final int FIRST_WORKFLOW_ID = FIRST_DELIVERY_AREA_ID;
     private final int SECOND_WORKFLOW_ID = SECOND_DELIVERY_AREA_ID;
-    private final int SHORT_TIMEOUT = 1;
-    private final int LONG_TIMEOUT = 7;
+    private final int SHORT_TIMEOUT = 3;
+    private final int LONG_TIMEOUT = 10;
     private float currentSurgeLevel = 100; // см. формулу, которую используем для тестов
     private float currentSurgeLevelFirstStore = currentSurgeLevel;
     private float currentSurgeLevelSecondStore = currentSurgeLevel;

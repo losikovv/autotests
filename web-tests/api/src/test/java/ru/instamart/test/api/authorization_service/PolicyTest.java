@@ -6,13 +6,14 @@ import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.common.RestBase;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.AuthorizationServiceHelper;
 import ru.instamart.api.model.authorization_service.PolicyModel;
 import ru.instamart.api.request.authorization_service.PolicyRequest;
+import ru.instamart.api.request.authorization_service.RealmRequest;
 import ru.instamart.api.response.authorization_service.PolicyErrorResponse;
 import ru.instamart.api.response.authorization_service.PolicyResponse;
 import ru.instamart.kraken.data.user.UserManager;
@@ -29,6 +30,7 @@ public class PolicyTest extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.createSessionToken(SessionType.AUTHORIZATION_SERVICE, UserManager.getAuthorizationServiceKeycloakClient());
+        Response response = RealmRequest.POST(AuthorizationServiceHelper.getInitialRealm());
     }
 
     @CaseId(1)
@@ -36,11 +38,11 @@ public class PolicyTest extends RestBase {
             description = "Создание политики")
     public void putPolicy200() {
 
-        Response response = PolicyRequest.PUT("core-services", AuthorizationServiceHelper.getInitialPolicy());
+        Response response = PolicyRequest.PUT("kraken-api-tests", AuthorizationServiceHelper.getInitialPolicy());
 
         checkStatusCode(response, 200);
 
-        Response responseGet = PolicyRequest.GET("core-services");
+        Response responseGet = PolicyRequest.GET("kraken-api-tests");
 
         Allure.step("Проверяем, что политика обновилась", () -> {
             assertEquals(responseGet.as(PolicyResponse.class).getData().getRoles().get(0).getName(),
@@ -62,7 +64,7 @@ public class PolicyTest extends RestBase {
                         .serviceId("example-service")
                         .permission(PolicyModel.Permission
                                 .builder()
-                                .name("core-services/retailers")
+                                .name("kraken-api-tests/retailers")
                                 .description("test - dryRun - true")
                                 .access("read")
                                 .access("write")
@@ -73,20 +75,20 @@ public class PolicyTest extends RestBase {
                         .name("BizdevDept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("example-service/core-services/retailers:read")
+                                .permission("example-service/kraken-api-tests/retailers:read")
                                 .build())
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("example-service/core-services/retailers:write")
+                                .permission("example-service/kraken-api-tests/retailers:write")
                                 .build())
                         .build())
                 .build();
 
-        Response response = PolicyRequest.PUT("core-services", true, policy);
+        Response response = PolicyRequest.PUT("kraken-api-tests", true, policy);
 
         checkStatusCode(response, 200);
 
-        Response responseGet = PolicyRequest.GET("core-services");
+        Response responseGet = PolicyRequest.GET("kraken-api-tests");
 
         Allure.step("Проверяем, что политика не обновилась", () -> {
             assertNotEquals(responseGet.as(PolicyResponse.class).getData().getServiceSpecs().get(0)
@@ -105,7 +107,7 @@ public class PolicyTest extends RestBase {
                         .serviceId("example-service")
                         .permission(PolicyModel.Permission
                                 .builder()
-                                .name("core-services/retailers")
+                                .name("kraken-api-tests/retailers")
                                 .description("test - dryRun - false")
                                 .access("read")
                                 .access("write")
@@ -116,19 +118,19 @@ public class PolicyTest extends RestBase {
                         .name("BizdevDept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("example-service/core-services/retailers:read")
+                                .permission("example-service/kraken-api-tests/retailers:read")
                                 .build())
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("example-service/core-services/retailers:write")
+                                .permission("example-service/kraken-api-tests/retailers:write")
                                 .build())
                         .build())
                 .build();
-        Response response = PolicyRequest.PUT("core-services", false, policy);
+        Response response = PolicyRequest.PUT("kraken-api-tests", false, policy);
 
         checkStatusCode(response, 200);
 
-        Response responseGet = PolicyRequest.GET("core-services");
+        Response responseGet = PolicyRequest.GET("kraken-api-tests");
 
         Allure.step("Проверяем, что политика обновилась", () -> {
             assertEquals(responseGet.as(PolicyResponse.class).getData().getServiceSpecs().get(0)
@@ -164,7 +166,7 @@ public class PolicyTest extends RestBase {
                         .build())
                 .build();
 
-        Response response = PolicyRequest.PUT("core-services", policy);
+        Response response = PolicyRequest.PUT("kraken-api-tests", policy);
 
         checkStatusCode422(response);
         checkResponseJsonSchema(response, PolicyErrorResponse.class);
@@ -188,7 +190,7 @@ public class PolicyTest extends RestBase {
                         .serviceId("example-service")
                         .permission(PolicyModel.Permission
                                 .builder()
-                                .name("core-services/retailers")
+                                .name("kraken-api-tests/retailers")
                                 .description("negative test")
                                 .access("asd")
                                 .build())
@@ -198,19 +200,19 @@ public class PolicyTest extends RestBase {
                         .name("BizdevDept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("example-service/core-services/retailers:read")
+                                .permission("example-service/kraken-api-tests/retailers:read")
                                 .build())
                         .build())
                 .build();
 
-        Response response = PolicyRequest.PUT("core-services", policy);
+        Response response = PolicyRequest.PUT("kraken-api-tests", policy);
 
         checkStatusCode422(response);
         checkResponseJsonSchema(response, PolicyErrorResponse.class);
 
         final SoftAssert softAssert = new SoftAssert();
         Allure.step("Проверяем, что политика не добавилась по соответствующей причине", () -> {
-            softAssert.assertEquals(response.as(PolicyErrorResponse.class).getError().getTitle(), "unexpected permission example-service/core-services/retailers:read", "Сообщение об ошибке не соответствует тесту");
+            softAssert.assertEquals(response.as(PolicyErrorResponse.class).getError().getTitle(), "unexpected permission example-service/kraken-api-tests/retailers:read", "Сообщение об ошибке не соответствует тесту");
         });
     }
 
@@ -226,7 +228,7 @@ public class PolicyTest extends RestBase {
                         .serviceId("example-service")
                         .permission(PolicyModel.Permission
                                 .builder()
-                                .name("core-services/retailers")
+                                .name("kraken-api-tests/retailers")
                                 .description("negative test")
                                 .access("read")
                                 .build())
@@ -236,7 +238,7 @@ public class PolicyTest extends RestBase {
                         .name("Test")
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("example-service/core-services/retailers:read")
+                                .permission("example-service/kraken-api-tests/retailers:read")
                                 .build())
                         .build())
                 .role(PolicyModel.Role
@@ -244,12 +246,12 @@ public class PolicyTest extends RestBase {
                         .name("Test")
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("example-service/core-services/retailers:read")
+                                .permission("example-service/kraken-api-tests/retailers:read")
                                 .build())
                         .build())
                 .build();
 
-        Response response = PolicyRequest.PUT("core-services", policy);
+        Response response = PolicyRequest.PUT("kraken-api-tests", policy);
 
         checkStatusCode422(response);
         checkResponseJsonSchema(response, PolicyErrorResponse.class);
@@ -264,7 +266,7 @@ public class PolicyTest extends RestBase {
     @Test(groups = {"api-authorization-service"},
             description = "Получение списка политик")
     public void getPolicy200() {
-        Response response = PolicyRequest.GET("core-services");
+        Response response = PolicyRequest.GET("kraken-api-tests");
 
         checkStatusCode200(response);
         checkResponseJsonSchema(response, PolicyResponse.class);
@@ -298,10 +300,10 @@ public class PolicyTest extends RestBase {
                         .build())
                 .build();
 
-        Response response = PolicyRequest.PUT("core-services", policy);
+        Response response = PolicyRequest.PUT("kraken-api-tests", policy);
         checkStatusCode(response, 200);
 
-        PolicyResponse responseGet = PolicyRequest.GET("core-services").as(PolicyResponse.class);
+        PolicyResponse responseGet = PolicyRequest.GET("kraken-api-tests").as(PolicyResponse.class);
 
         Allure.step("Проверяем, что политика обновилась, роли и разрешения пустые", () -> {
             assertTrue(responseGet.getData().getRoles().isEmpty(),
@@ -324,31 +326,31 @@ public class PolicyTest extends RestBase {
                         .serviceId("example-service")
                         .permission(PolicyModel.Permission
                                 .builder()
-                                .name("core-services/retailers")
+                                .name("kraken-api-tests/retailers")
                                 .description("test")
                                 .access("read")
                                 .access("write")
                                 .build())
                         .permission(PolicyModel.Permission
                                 .builder()
-                                .name("core-services/retailers.stores")
+                                .name("kraken-api-tests/retailers.stores")
                                 .description("test")
                                 .access("read")
                                 .access("write")
                                 .build())
                         .permission(PolicyModel.Permission
                                 .builder()
-                                .name("core-services/shipments")
+                                .name("kraken-api-tests/shipments")
                                 .description("test")
                                 .access("read")
                                 .build())
                         .build())
                 .build();
 
-        Response response = PolicyRequest.PUT("core-services", policy);
+        Response response = PolicyRequest.PUT("kraken-api-tests", policy);
         checkStatusCode(response, 200);
 
-        PolicyResponse responseGet = PolicyRequest.GET("core-services").as(PolicyResponse.class);
+        PolicyResponse responseGet = PolicyRequest.GET("kraken-api-tests").as(PolicyResponse.class);
 
         Allure.step("Проверяем, что политика обновилась. Роли пустые а разрешения нет", () -> {
             assertTrue(responseGet.getData().getRoles().isEmpty(),
@@ -384,10 +386,10 @@ public class PolicyTest extends RestBase {
                         .build())
                 .build();
 
-        Response response = PolicyRequest.PUT("core-services", policy);
+        Response response = PolicyRequest.PUT("kraken-api-tests", policy);
         checkStatusCode(response, 200);
 
-        PolicyResponse responseGet = PolicyRequest.GET("core-services").as(PolicyResponse.class);
+        PolicyResponse responseGet = PolicyRequest.GET("kraken-api-tests").as(PolicyResponse.class);
 
         Allure.step("Проверяем, что политика обновилась. Разрешения пустые, а роли нет", () -> {
             assertTrue(responseGet.getData().getServiceSpecs().isEmpty(),
@@ -410,7 +412,7 @@ public class PolicyTest extends RestBase {
                         .serviceId("test")
                         .permission(PolicyModel.Permission
                                 .builder()
-                                .name("core-services/shipments")
+                                .name("kraken-api-tests/shipments")
                                 .description("date test")
                                 .access("read")
                                 .access("write")
@@ -431,13 +433,13 @@ public class PolicyTest extends RestBase {
                         .name("CallcenterDept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("test/core-services/shipments:read")
+                                .permission("test/kraken-api-tests/shipments:read")
                                 .condition("{\"shipments.additionalProp\":{\"$eq\":\"359.days.ago\"}}")
                                 .build())
                         .build())
                 .build();
 
-        Response response = PolicyRequest.PUT("core-services", policy);
+        Response response = PolicyRequest.PUT("kraken-api-tests", policy);
         checkStatusCode(response, 200);
 
     }
@@ -454,7 +456,7 @@ public class PolicyTest extends RestBase {
                         .serviceId("test")
                         .permission(PolicyModel.Permission
                                 .builder()
-                                .name("core-services/shipments")
+                                .name("kraken-api-tests/shipments")
                                 .description("date test")
                                 .access("read")
                                 .access("write")
@@ -475,13 +477,13 @@ public class PolicyTest extends RestBase {
                         .name("CallcenterDept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
-                                .permission("test/core-services/shipments:read")
+                                .permission("test/kraken-api-tests/shipments:read")
                                 .condition("{\"shipments.additionalProp\":{\"$eq\":\"123string\"}}")
                                 .build())
                         .build())
                 .build();
 
-        Response response = PolicyRequest.PUT("core-services", policy);
+        Response response = PolicyRequest.PUT("kraken-api-tests", policy);
         checkStatusCode(response, 422);
 
     }

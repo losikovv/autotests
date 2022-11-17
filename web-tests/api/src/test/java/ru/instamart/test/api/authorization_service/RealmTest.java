@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.helper.AuthorizationServiceHelper;
 import ru.instamart.api.model.authorization_service.RealmModel;
 import ru.instamart.api.request.authorization_service.RealmRequest;
 import ru.instamart.api.response.authorization_service.RealmPostErrorResponse;
@@ -18,7 +19,8 @@ import ru.instamart.api.response.authorization_service.RealmResponse;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotEquals;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
@@ -26,11 +28,12 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 @Feature("Рилм")
 public class RealmTest {
 
-    private static final String repositoryUrlBase = "gitlab.sbmt.io/paas/content/core-services/";
+    private static final String repositoryUrlBase = "gitlab.sbmt.io/paas/content/kraken-api-tests/";
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.createSessionToken(SessionType.AUTHORIZATION_SERVICE, UserManager.getAuthorizationServiceKeycloakClient());
+        Response response = RealmRequest.POST(AuthorizationServiceHelper.getInitialRealm());
     }
 
     @CaseId(19)
@@ -51,7 +54,7 @@ public class RealmTest {
     public void createRealm200() {
         RealmModel body = RealmModel
                 .builder()
-                .name("example-realm")
+                .name("kraken-api-tests")
                 .repositoryUrl(repositoryUrlBase + "example-service")
                 .service(RealmModel.Service
                         .builder()
@@ -77,7 +80,7 @@ public class RealmTest {
     public void createRealmWithoutServices200() {
         RealmModel body = RealmModel
                 .builder()
-                .name("example-realm")
+                .name("kraken-api-tests")
                 .repositoryUrl(repositoryUrlBase + "example-service")
                 .build();
 
