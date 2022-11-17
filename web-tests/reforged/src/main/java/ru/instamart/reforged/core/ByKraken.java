@@ -1,17 +1,18 @@
 package ru.instamart.reforged.core;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+@Slf4j
 public final class ByKraken extends By implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,6 +26,7 @@ public final class ByKraken extends By implements Serializable {
         if (nonNull(args) && (args.length > 0)) {
             //TODO: Заменить медленный format на свою реализацию
             this.xpathExpression = String.format(defaultXpathExpression, args);
+            log.debug("Custom locator {}", this.xpathExpression);
         } else {
             this.xpathExpression = defaultXpathExpression;
         }

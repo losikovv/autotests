@@ -9,7 +9,7 @@ public interface ReplacementPolicyCheck extends Check, ReplacementPolicyElement 
 
     @Step("Проверяем что спиннер в разделе замен не виден")
     default void checkReplacementSpinnerNotVisible() {
-        waitAction().shouldNotBeVisible(spinner);
+        spinner.should().invisible();
     }
 
     @Step("Проверяем что спиннер в разделе замен виден")
@@ -19,7 +19,7 @@ public interface ReplacementPolicyCheck extends Check, ReplacementPolicyElement 
 
     @Step("Проверяем что кнопка 'продолжить' в разделе замен видна")
     default void checkSubmitVisible() {
-        submit.should().notAnimated();
         submit.should().visible();
+        submit.should().animationFinished();
     }
 }

@@ -24,14 +24,13 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что корзина открыта")
     default void checkCartOpen() {
-        waitAction().shouldBeVisible(cartContainer);
-        waitAction().shouldNotBeAnimated(cartContainer);
+        cartContainer.should().visible();
+        cartContainer.should().animationFinished();
     }
 
     @Step("Проверяем, что корзина закрыта")
     default void checkCartClose() {
-        waitAction().shouldNotBeVisible(cartContainer);
-        waitAction().shouldNotBeAnimated(cartContainer);
+        cartContainer.should().invisible();
     }
 
     @Step("Проверка что корзина пуста")
@@ -41,7 +40,7 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что корзина не пуста")
     default void checkCartNotEmpty() {
-        waitAction().shouldBeVisible(firstItem);
+        firstItem.shouldBe().visible();
     }
 
     @Step("Проверяем, что отображается плейсхолдер пустой корзины")
@@ -81,7 +80,7 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что анимация удаления завершена")
     default void checkDeleteAnimationOver() {
-        waitAction().shouldNotBeAnimated(items);
+        items.should().animationFinished();
     }
 
     @Step("Проверяем соответствие текущего количества товаров {0} ожидаемому {1}")
@@ -91,12 +90,11 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что количество магазинов в корзине равно {0}")
     default void checkRetailersCountShouldBe(int expectedRetailersCount) {
-        waitAction().elementCollectionSizeShouldBeEqual(retailers, expectedRetailersCount);
+        Assert.assertTrue(waitAction().isElementCollectionSizeEqual(retailers, expectedRetailersCount));
     }
 
     @Step("Проверяем, что рителер '{retailerName}' не отображается в корзине")
     default void checkRetailerNotVisible(final String retailerName) {
-        waitAction().shouldNotBeVisible(retailerByName, retailerName);
+        retailerByName.should().invisible(retailerName);
     }
-
 }

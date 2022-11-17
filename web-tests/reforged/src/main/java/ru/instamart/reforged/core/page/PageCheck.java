@@ -1,6 +1,7 @@
 package ru.instamart.reforged.core.page;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Kraken;
 
 import static org.testng.Assert.*;
@@ -34,7 +35,7 @@ public interface PageCheck extends PageElement {
 
     @Step("Проверка что находимся на странице '{0}'")
     default void checkPageUrl(final String url) {
-        Kraken.waitAction().urlEquals(url);
+        Assert.assertTrue(Kraken.waitAction().isUrlEquals(url));
     }
 
     @Step("Проверка что страница '{0}' не открылась")
@@ -44,18 +45,18 @@ public interface PageCheck extends PageElement {
 
     @Step("Проверка что страница содержит часть url '{0}'")
     default void checkPageContains(final String expectedUrl) {
-        Kraken.waitAction().urlContains(expectedUrl);
+        Assert.assertTrue(Kraken.waitAction().isUrlContains(expectedUrl));
     }
 
-    @Step("Ожидание загрузки страницы")
+    @Step("Ожидание загрузки страницы DOM и Network")
     default void waitPageLoad() {
-        Kraken.jsAction().waitForDocumentReady();
-        Kraken.jsAction().checkPendingRequests();
+        Assert.assertTrue(Kraken.jsAction().waitForDocumentReady(), "DOM не в статусе ready");
+        Assert.assertTrue(Kraken.jsAction().checkPendingRequests(), "Запросы из нетворка остались в статусе pinding");
     }
 
     @Step("Проверяем, что страница открылась (отсутствует сообщение об ошибке)")
     default void checkPageOpened() {
-        Kraken.waitAction().shouldNotBeVisible(page404Error);
+        page404Error.should().invisible();
     }
 
     @Step("Проверяем, что на странице открылся фрейм")

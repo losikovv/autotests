@@ -9,7 +9,7 @@ public interface HelpDeskCheck extends Check, HelpDeskElement {
 
     @Step("Проверка что виджет HelpDesk отсутствует на странице")
     default void checkHelpDeskWidgetNotVisible() {
-        waitAction().shouldNotBeVisible(chatButton);
+        chatButton.should().invisible();
     }
 
     @Step("Проверка что окно открыто")
@@ -19,6 +19,6 @@ public interface HelpDeskCheck extends Check, HelpDeskElement {
 
     @Step("Проверка что окно закрыто")
     default void checkHelpDeskClose() {
-        waitAction().shouldNotBeVisible(chatContainer);
+        chatContainer.should().invisible();
     }
 }

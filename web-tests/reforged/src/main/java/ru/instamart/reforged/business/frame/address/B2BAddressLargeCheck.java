@@ -14,12 +14,12 @@ public interface B2BAddressLargeCheck extends B2BAddressLargeElement, Check {
 
     @Step("Проверяем, что фрейм выбора адреса не отображается")
     default void checkAddressModalNotVisible() {
-        waitAction().shouldNotBeVisible(addressModal);
+        addressModal.should().invisible();
     }
 
     @Step("Проверяем, что маркер 'Адрес можно выбирать прямо на карте' не отображается")
     default void checkMarkerOnMapInAdviceIsNotVisible() {
-        waitAction().shouldNotBeVisible(markerSelectOnMap);
+        markerSelectOnMap.should().invisible();
     }
 
     @Step("Проверяем, что адрес находится не в зоне доставки")

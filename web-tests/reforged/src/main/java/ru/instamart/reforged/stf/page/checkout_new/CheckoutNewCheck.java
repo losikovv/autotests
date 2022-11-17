@@ -14,7 +14,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем что страница прогрузилась")
     default void checkSpinnerNotVisible() {
-        waitAction().shouldNotBeVisible(loadingSpinner);
+        loadingSpinner.should().invisible();
     }
 
     @Step("Проверяем что страница появился спиннер")
@@ -85,7 +85,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что не отображаются выбранные слоты доставки")
     default void checkActiveDeliverySlotsNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(activeDeliverySlots);
+        activeDeliverySlots.should().invisible();
     }
 
     @Step("Проверяем, проверяем количество выбранных слотов доставки")
@@ -148,7 +148,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что метод оплаты не выбран")
     default void checkPaymentMethodEmpty() {
-        Kraken.waitAction().shouldNotBeVisible(currentPaymentMethod);
+        currentPaymentMethod.should().invisible();
     }
 
     @Step("Проверяем, что текущий выбранный способ оплаты содержит текст: '{expectedPaymentMethodText}'")
@@ -209,7 +209,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что в 'Телефон' отображается ошибка")
     default void checkPhoneInvalid() {
-        Kraken.waitAction().shouldBeVisible(contactsPhoneInvalid);
+        contactsPhoneInvalid.shouldBe().visible();
     }
 
     @Step("Проверяем, что отображается описание ошибки поля ввода 'Телефон'")
@@ -307,7 +307,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что кнопка 'Заказать' активна")
     default void checkConfirmOrderActive() {
-        Kraken.waitAction().shouldNotBeVisible(confirmOrderDisabled);
+        confirmOrderDisabled.should().invisible();
     }
 
     @Step("Проверяем, что кнопка 'Оплатить' отображается")
@@ -317,7 +317,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что кнопка 'Оплатить' активна")
     default void checkConfirmPayActive() {
-        Kraken.waitAction().shouldNotBeVisible(confirmPayDisabled);
+        confirmPayDisabled.should().invisible();
     }
 
     @Step("Проверяем, что появилось всплывающее сообщение")
@@ -342,7 +342,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Проверяем, что вкладка 'Доставка' недоступна")
     default void checkDeliveryTabNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(deliveryTab);
+        deliveryTab.should().invisible();
     }
 
     @Step("Проверяем, что отображается алерт невведенного номера квартиры/офиса")

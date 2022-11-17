@@ -19,11 +19,11 @@ public interface StoreSelectorCheck extends Check, StoreSelectorElement {
 
     @Step("Проверяем, что в окне выбора магазинов нет магазинов для выбора")
     default void checkStoreSelectorDrawerIsEmpty() {
-        waitAction().shouldNotBeVisible(firstStoreCard);
+        firstStoreCard.should().invisible();
     }
 
     @Step("Проверяем, что окно выбора магазина закрыто")
     default void checkStoreSelectorFrameIsNotOpen() {
-        waitAction().shouldNotBeVisible(storeSelector);
+        storeSelector.should().invisible();
     }
 }

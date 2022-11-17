@@ -24,16 +24,17 @@ public final class PaymentMethodsModal {
     @Step("Проверяем, что модальное окно появилось")
     public void checkModalVisible() {
         Kraken.waitAction().shouldBeVisible(title);
+        title.should().animationFinished();
     }
 
     @Step("Проверяем, что модальное окно закрылось")
     public void checkModalNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(title);
+        title.should().invisible();
     }
 
     @Step("Проверяем, что способ оплаты '{paymentMethod}' не отображается")
     public void checkPaymentMethodNotVisible(final String paymentMethod){
-        Kraken.waitAction().shouldNotBeVisible(paymentMethodByName, paymentMethod);
+        paymentMethodByName.should().invisible(paymentMethod);
     }
 
     @Step("Закрываем модальное окно выбора способа оплаты")

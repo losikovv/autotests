@@ -13,6 +13,6 @@ public interface B2BContactsStepCheck extends B2BContactsStepElement, Check {
 
     @Step("Проверяем, что кнопка 'Продолжить' шага 'Контакты' не видна")
     default void checkSubmitButtonNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(submit);
+        submit.should().invisible();
     }
 }

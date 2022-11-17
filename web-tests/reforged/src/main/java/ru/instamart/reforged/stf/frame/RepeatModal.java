@@ -6,8 +6,6 @@ import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 
-import static ru.instamart.reforged.core.Kraken.waitAction;
-
 public final class RepeatModal implements Check, Close {
 
     private final Element modal = new Element(By.xpath("//div[@data-qa='user-shipment-repeat-modal']"), "модальное окно повтора заказа");
@@ -16,8 +14,8 @@ public final class RepeatModal implements Check, Close {
 
     @Step("Проверка видимости модального окна Повторить заказ")
     public void checkModalWindowVisible() {
-        waitAction().shouldBeVisible(modal);
-        waitAction().shouldNotBeAnimated(modal);
+        modal.should().visible();
+        modal.should().animationFinished();
     }
 
     @Step("Подтвердить действие")

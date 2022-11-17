@@ -22,14 +22,14 @@ public abstract class InnerComponent extends AbstractComponent {
     private final String errorMsg;
 
     public InnerComponent(final WebElement webElement, final By by, final String description) {
-        this(webElement, by, WaitProperties.BASIC_TIMEOUT, description, null);
+        this(webElement, by, WaitProperties.WAITING_TIMEOUT, description);
     }
 
-    public InnerComponent(final WebElement webElement, final By by, final long timeout, final String description, final String errorMsg) {
-        super(by, timeout, description, errorMsg);
+    public InnerComponent(final WebElement webElement, final By by, final long timeout, final String description) {
+        super(by, timeout, description);
         this.webElement = webElement;
         this.timeout = timeout;
         this.description = isNull(description) ? this.getClass().getSimpleName() : description;
-        this.errorMsg = isNull(errorMsg) ? "Элемент " + by + " не найден" : errorMsg;
+        this.errorMsg = String.format("Для элемента '%s', '%s' не выполнено условие: ", description, by);
     }
 }

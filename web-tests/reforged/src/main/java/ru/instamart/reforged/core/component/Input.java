@@ -24,14 +24,6 @@ public final class Input extends AbstractComponent {
         super(by, timeout, description);
     }
 
-    public Input(final By by, final String description, final String errorMsg) {
-        super(by, description, errorMsg);
-    }
-
-    public Input(final By by, final long timeout, final String description, final String errorMsg) {
-        super(by, timeout, description, errorMsg);
-    }
-
     @Override
     public WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());
@@ -69,7 +61,7 @@ public final class Input extends AbstractComponent {
      */
     public void fillField(final String data, final boolean isPhone) {
         log.debug("Fill with wait and check {} with locator {} and data {}", getDescription(), getBy(), data);
-        Kraken.waitAction().fillField(getComponent(), data, isPhone);
+        Kraken.waitAction().fillField(this, data, isPhone);
     }
 
     /**
@@ -104,18 +96,23 @@ public final class Input extends AbstractComponent {
     }
 
     public void clear() {
+        clear(false);
+    }
+
+    public void clear(final boolean isPhoneField) {
         log.debug("Clear input {} field", getDescription());
-        getComponent().clear();
+        fillField("", isPhoneField);
     }
 
     public void clearByKeysCombination() {
         log.debug("Clear input {} field", getDescription());
+        final var component = getComponent();
         if (InfoUtil.isMac()) {
-            getComponent().sendKeys(Keys.COMMAND + "a");
+            component.sendKeys(Keys.COMMAND + "a");
         } else {
-            getComponent().sendKeys(Keys.CONTROL + "a");
+            component.sendKeys(Keys.CONTROL + "a");
         }
-        getComponent().sendKeys(Keys.DELETE);
+        component.sendKeys(Keys.DELETE);
     }
 
     public String getValue() {

@@ -10,18 +10,18 @@ public interface AddressCheck extends AddressElement, Check {
 
     @Step("Фрейм адреса доставки не отображается")
     default void checkAddressModalIsNotVisible() {
-        waitAction().shouldNotBeVisible(addressModal);
+        addressModal.should().invisible();
     }
 
     @Step("Фрейм адреса доставки отображается")
     default void checkAddressModalVisible() {
-        waitAction().shouldBeVisible(addressModal);
-        waitAction().shouldNotBeAnimated(addressModal);
+        addressModal.should().visible();
+        addressModal.should().animationFinished();
     }
 
     @Step("Маркер не отображается")
     default void checkMarkerOnMapInAdviceIsNotVisible() {
-        waitAction().shouldNotBeVisible(markerImageOnMapInAdvice);
+        markerImageOnMapInAdvice.should().invisible();
     }
 
     @Step("Проверяем, что адрес находится не в зоне доставки")

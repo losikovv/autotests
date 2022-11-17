@@ -25,7 +25,7 @@ public interface CompanyCheck extends Check, CompanyElement {
 
     @Step("Проверяем, что не отображается всплывающее уведомление")
     default void checkNoticePopupNotDisplayed() {
-        waitAction().shouldNotBeVisible(noticePopup);
+        noticePopup.should().invisible();
     }
 
     @Step("Проверяем, что отображается всплывающее окно подтверждения действия")
@@ -60,7 +60,7 @@ public interface CompanyCheck extends Check, CompanyElement {
 
     @Step("Проверяем, что у компании отсутствуют менеджеры")
     default void checkCompanyManagersNotDisplayed() {
-        waitAction().shouldNotBeVisible(companyManagers);
+        companyManagers.should().invisible();
     }
 
     @Step("Проверяем, что отобразился список представителей")
@@ -75,7 +75,7 @@ public interface CompanyCheck extends Check, CompanyElement {
 
     @Step("Проверяем, что у компании отсутствуют представители")
     default void checkCompanyEmployeesNotDisplayed() {
-        waitAction().shouldNotBeVisible(companyEmployees);
+        companyEmployees.should().invisible();
     }
 
     @Step("Проверяем, что отобразился список найденных пользователей")
@@ -85,7 +85,7 @@ public interface CompanyCheck extends Check, CompanyElement {
 
     @Step("Проверяем, что в списке договоров пусто")
     default void checkContractsListIsEmpty() {
-        waitAction().shouldNotBeVisible(contracts);
+        contracts.should().invisible();
     }
 
     @Step("Проверяем, что в списке договоров '{expectedContractsCount}' записей")
@@ -105,7 +105,7 @@ public interface CompanyCheck extends Check, CompanyElement {
 
     @Step("Проверяем, что дата договора не заполнена")
     default void checkContractDateIsEmpty() {
-        waitAction().shouldNotBeVisible(contractDate);
+        contractDate.should().invisible();
     }
 
     @Step("Проверяем, что дата договора: '{expectedDate}'")
@@ -115,7 +115,7 @@ public interface CompanyCheck extends Check, CompanyElement {
 
     @Step("Проверяем, что договор действующий")
     default void checkContractNotInArchive() {
-        waitAction().shouldNotBeVisible(archiveLabel);
+        archiveLabel.should().invisible();
     }
 
     @Step("Проверяем, что договор переведен в архив")

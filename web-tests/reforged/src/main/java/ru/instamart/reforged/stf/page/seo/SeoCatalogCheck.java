@@ -30,7 +30,7 @@ public interface SeoCatalogCheck extends Check, SeoCatalogElement {
 
     @Step("Проверяем, не отображается спиннер")
     default void checkSpinnerIsNotVisible() {
-        waitAction().shouldNotBeVisible(spinner);
+        spinner.should().invisible();
     }
 
     @Step("Проверяем, что заглушка загрузки видна")
@@ -40,7 +40,7 @@ public interface SeoCatalogCheck extends Check, SeoCatalogElement {
 
     @Step("Проверяем, что заглушка загрузки не видна")
     default void checkProductsStubNotVisible() {
-        waitAction().shouldNotBeVisible(productsStub);
+        productsStub.should().invisible();
     }
 
     @Step("Проверяем, что сортировка 'Сначала дешевые' работает корректно")

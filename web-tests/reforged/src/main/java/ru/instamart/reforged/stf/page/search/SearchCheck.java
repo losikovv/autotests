@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.search;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
@@ -41,7 +42,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что заглушка загрузки не видна")
     default void checkProductsStubNotVisible() {
-        waitAction().shouldNotBeVisible(productsStub);
+        productsStub.should().invisible();
     }
 
     @Step("Проверяем, что отображается спиннер в поиске")
@@ -51,7 +52,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что спиннер в поиске не отображается")
     default void checkSearchProductsSpinnerNotVisible() {
-        waitAction().shouldNotBeVisible(searchSpinner);
+        searchSpinner.should().invisible();
     }
 
     @Step("Проверяем, что отображается спиннер в бесконечном поиске")
@@ -61,7 +62,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что спиннер в бесконечном поиске не отображается")
     default void checkInfiniteSearchProductsSpinnerNotVisible() {
-        waitAction().shouldNotBeVisible(infiniteSearchSpinner);
+        infiniteSearchSpinner.should().invisible();
     }
 
     @Step("Проверяем, что кол-во товаров: {0} не равно кол-ву после применения фильтра: {1}")
@@ -71,21 +72,20 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что не отображается заглушка товаров в поиске")
     default void checkSearchProductsSkeletonNotVisible() {
-        waitAction().shouldNotBeVisible(searchProductsSkeleton);
+        searchProductsSkeleton.should().invisible();
     }
 
     @Step("Проверка подскролла страницы поиска к новой выдаче")
     default void checkPageScrolled() {
-        waitAction().elementCollectionSizeShouldBeEqual(searchProductPrices, 40);
+        Assert.assertTrue(waitAction().isElementCollectionSizeEqual(searchProductPrices, 40));
     }
 
     @Step("Проверяем, что сортировка 'Сначала дешевые' работает корректно")
     default void checkPriceAscSortCorrect() {
         jsAction().waitForDocumentReady();
         var tmp = new ArrayList<>();
-        searchProductPrices.getElements().forEach(element -> {
-            tmp.add(StringUtil.stringToDouble(element.getText()));
-        });
+        searchProductPrices.getElements()
+                .forEach(element -> tmp.add(StringUtil.stringToDouble(element.getText())));
         assertEquals(tmp, tmp.stream().sorted().collect(Collectors.toList()), "Сортировка 'Сначала дешевые' работает неправильно");
     }
 
@@ -93,15 +93,13 @@ public interface SearchCheck extends Check, SearchElement {
     default void checkPriceDescSortCorrect() {
         jsAction().waitForDocumentReady();
         var tmp = new ArrayList<>();
-        searchProductPrices.getElements().forEach(element -> {
-            tmp.add(StringUtil.stringToDouble(element.getText()));
-        });
+        searchProductPrices.getElements().forEach(element -> tmp.add(StringUtil.stringToDouble(element.getText())));
         assertEquals(tmp, tmp.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList()), "Сортировка 'Сначала дорогие' работает неправильно");
     }
 
     @Step("Проверить, что фильтр '{0}' задизейблен")
     default void checkFilterDisabled(String filterText) {
-        waitAction().shouldNotBeClickable(filterCheckbox, filterText);
+        filterCheckbox.should().unclickable(filterText);
     }
 
     @Step("Проверить, что сортировка '{0}' применена")
@@ -111,19 +109,18 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверить, что все картинки загружены")
     default void checkSearchImgLoaded() {
-        searchProductsImagesCollection.getElements().forEach(element -> {
-            productImg.waitImgLoad(element.getAttribute("src"));
-        });
+        searchProductsImagesCollection.getElements()
+                .forEach(element -> productImg.waitImgLoad(element.getAttribute("src")));
     }
 
     @Step("Проверяем, что сетка найденных товаров не отображается")
     default void checkSearchProductGridNotVisible() {
-        waitAction().shouldNotBeVisible(searchProductGrid);
+        searchProductGrid.should().invisible();
     }
 
     @Step("Проверяем, что заголовок 'Нашлось по запросу: ...' содержит текст {0}")
     default void checkSearchTitle(final String searchText) {
-        waitAction().shouldBeVisible(searchResultsTitle, searchText);
+        searchResultsTitle.shouldBe().visible(searchText);
     }
 
     @Step("Проверяем, что товарные подсказки при поиске алко имеют картинки 18+")

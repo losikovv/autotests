@@ -10,7 +10,7 @@ public interface CompanyInfoCheck extends Check, CompanyInfoElement {
 
     @Step("Проверяем, что не отображается спиннер загрузки информации")
     default void checkLoadingSpinnerNotVisible(){
-        waitAction().shouldNotBeVisible(loadingSpinner);
+        loadingSpinner.should().invisible();
     }
 
     @Step("Проверяем, что информация о компании видна")
@@ -63,6 +63,6 @@ public interface CompanyInfoCheck extends Check, CompanyInfoElement {
 
     @Step("Проверяем, что не отображается блок 'Код безопасности'")
     default void checkSecurityBlockNotDisplayed() {
-        waitAction().shouldNotBeVisible(companySecurityInfo);
+        companySecurityInfo.should().invisible();
     }
 }

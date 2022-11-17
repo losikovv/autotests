@@ -208,7 +208,7 @@ public class CheckoutNewPage implements StfPage, CheckoutNewCheck, Window {
 
     @Step("Очищаем поле 'Телефон'")
     public void clearPhone() {
-        contactsPhone.clearByKeysCombination();
+        contactsPhone.clear(true);
     }
 
     @Step("Вводим в поле 'Телефон': '{phoneValue}'")

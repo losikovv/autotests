@@ -14,11 +14,11 @@ public interface B2BProductCardCheck extends Check, B2BProductCardElement {
 
     @Step("Проверяем, что карточка продукта закрыта")
     default void checkProductCardIsNotVisible() {
-        waitAction().shouldNotBeVisible(itemName);
+        itemName.should().invisible();
     }
 
     @Step("Проверяем, что кнопка 'уменьшить количество продуктов в корзине' не отображается")
     default void checkDecreaseCountButtonNotVisible() {
-        waitAction().shouldNotBeVisible(decrease);
+        decrease.should().invisible();
     }
 }

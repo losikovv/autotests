@@ -26,7 +26,7 @@ public interface UserCompaniesCheck extends Check, UserCompaniesElement {
 
     @Step("Проверяем, что список компаний не пуст")
     default void checkCompaniesListIsNotEmpty() {
-        waitAction().shouldNotBeVisible(emptyCompaniesListPlaceholder);
+        emptyCompaniesListPlaceholder.should().invisible();
     }
 
     @Step("Проверяем, что количество компаний в списке: {expectedCount}")

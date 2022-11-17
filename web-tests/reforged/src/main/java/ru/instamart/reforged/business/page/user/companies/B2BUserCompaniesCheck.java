@@ -26,7 +26,7 @@ public interface B2BUserCompaniesCheck extends Check, B2BUserCompaniesElement {
 
     @Step("Проверяем, что список компаний не пуст")
     default void checkCompaniesListIsNotEmpty() {
-        waitAction().shouldNotBeVisible(emptyCompaniesListPlaceholder);
+        emptyCompaniesListPlaceholder.should().invisible();
     }
 
     @Step("Проверяем, что количество компаний в списке: {expectedCount}")

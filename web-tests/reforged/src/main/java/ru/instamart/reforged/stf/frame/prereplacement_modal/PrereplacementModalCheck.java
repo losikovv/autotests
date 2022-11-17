@@ -15,7 +15,7 @@ public interface PrereplacementModalCheck extends Check, PrereplacementModalElem
 
     @Step("Проверяем что модальное окно предзамен закрылось")
     default void checkPrererlacementModalNotVisible() {
-        waitAction().shouldNotBeVisible(prereplacementModal);
+        prereplacementModal.should().invisible();
     }
 
     @Step("Проверяем что кнопка 'Подойдет любой товар' отображается")
@@ -25,7 +25,7 @@ public interface PrereplacementModalCheck extends Check, PrereplacementModalElem
 
     @Step("Проверяем что кнопка 'Подойдет любой товар' не отображается")
     default void checkAnyWillSuitButtonNotDisplayed() {
-        waitAction().shouldNotBeVisible(anyWillSuit);
+        anyWillSuit.should().invisible();
     }
 
     @Step("Проверяем, что количество товаров, для которых нужно выбрать предзамены: '{0}' соответсвует ожидаемому: '{1}'")

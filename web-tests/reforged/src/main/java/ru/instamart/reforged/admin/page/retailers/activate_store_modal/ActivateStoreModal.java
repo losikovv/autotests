@@ -21,11 +21,11 @@ public class ActivateStoreModal implements Close {
     @Step("Проверяем, что модальное окно активации магазина показано")
     public void checkActivateStoreModalVisible() {
         waitAction().shouldBeVisible(activateStoreModal);
-        waitAction().shouldNotBeAnimated(activateStoreModal);
+        activateStoreModal.should().animationFinished();
     }
 
     @Step("Проверяем, что модальное окно активации магазина скрыто")
     public void checkActivateStoreModalNotVisible() {
-        waitAction().shouldNotBeVisible(activateStoreModal);
+        activateStoreModal.should().invisible();
     }
 }

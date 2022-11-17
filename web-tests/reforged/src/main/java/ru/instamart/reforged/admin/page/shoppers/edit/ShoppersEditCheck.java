@@ -59,6 +59,6 @@ public interface ShoppersEditCheck extends Check, ShoppersEditElement {
 
     @Step("Кнопка 'Сохранить' неактивна")
     default void checkButtonSaveInactive() {
-        saveButton.should().notClickable();
+        saveButton.should().unclickable();
     }
 }

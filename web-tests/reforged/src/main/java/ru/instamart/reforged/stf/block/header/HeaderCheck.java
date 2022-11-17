@@ -87,7 +87,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что нотификация после добавления товара в корзину скрыта")
     default void checkCartNotificationIsNotVisible() {
-        waitAction().shouldNotBeVisible(cartNotification);
+        cartNotification.should().invisible();
     }
 
     @Step("Проверяем, что нотификация после добавления товара в корзину показана")
@@ -107,7 +107,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что кнопка профиля не видна")
     default void checkProfileButtonNotVisible() {
-        waitAction().shouldNotBeVisible(profile);
+        profile.should().invisible();
     }
 
     @Step("Проверяем, что кнопка профиля видна")
@@ -164,7 +164,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что категория 'все сразу' не отображается в саджесторе")
     default void checkCategoryAllInvisible() {
-        waitAction().shouldNotBeVisible(suggesterTabHeaders);
+        suggesterTabHeaders.should().invisible();
     }
 
     @Step("Проверяем, что инпут поиска пустой")
@@ -225,7 +225,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что не отображается введенный адрес")
     default void checkEnteredAddressNotVisible() {
-        waitAction().shouldNotBeVisible(enteredAddress);
+        enteredAddress.should().invisible();
     }
 
     @Step("Проверяем, что отображается сообщение об ошибке")
@@ -235,7 +235,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что сообщение об ошибке закрылось")
     default void checkErrorAlertIsNotDisplayed() {
-        waitAction().isElementsShouldNotBeExist(alerts);
+        Assert.assertTrue(waitAction().isElementsShouldNotBeExist(alerts));
     }
 
     @Step("Проверяем, что появилось всплывающее сообщение о возможности предзамены")
@@ -245,6 +245,6 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что не отображается всплывающее сообщение о возможности предзамены")
     default void checkPrereplacementPopupNotDisplayed() {
-        waitAction().shouldNotBeVisible(popupAlert);
+        popupAlert.should().invisible();
     }
 }

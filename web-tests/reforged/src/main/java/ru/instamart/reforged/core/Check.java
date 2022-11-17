@@ -3,6 +3,7 @@ package ru.instamart.reforged.core;
 import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 import ru.instamart.kraken.helper.KrakenAssert;
 
 public interface Check {
@@ -37,6 +38,6 @@ public interface Check {
 
     @Step("Проверяем, что все запросы загрузились")
     default void checkRequestsWasLoad() {
-        Kraken.jsAction().checkPendingRequests();
+        Assert.assertTrue(Kraken.jsAction().checkPendingRequests(), "Запросы из нетворка остались в статусе pinding");
     }
 }

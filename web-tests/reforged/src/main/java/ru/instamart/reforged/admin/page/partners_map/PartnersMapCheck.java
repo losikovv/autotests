@@ -1,6 +1,7 @@
 package ru.instamart.reforged.admin.page.partners_map;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 public interface PartnersMapCheck extends Check, PartnersMapElement {
@@ -8,28 +9,28 @@ public interface PartnersMapCheck extends Check, PartnersMapElement {
     @Step("Проверка загрузки карты")
     default void checkMapLoaded() {
         map.should().visible();
-        map.should().notAnimated();
+        map.should().animationFinished();
     }
 
     @Step("Проверка отображения балуна")
     default void checkPartnerBalloon() {
         balloon.should().visible();
-        balloon.should().notAnimated();
+        balloon.should().animationFinished();
     }
 
     @Step("Имя в балуне соответствует имени '{name}'")
     default void checkNameInBalloon(final String name) {
-        partnerNameBalloon.is().containText(name);
+        Assert.assertTrue(partnerNameBalloon.is().containText(name));
     }
 
     @Step("Телефон в балуне соответствует имени '{name}'")
     default void checkPhoneInBalloon(final String phone) {
-        partnerPhoneBalloon.is().containText(phone);
+        Assert.assertTrue(partnerPhoneBalloon.is().containText(phone));
     }
 
     @Step("Номер заказа в балуне соответствует заданному '{number}'")
     default void checkOrderNumberInBalloon(final String number) {
-        activeOrdersBalloon.is().containText(number);
+        Assert.assertTrue(activeOrdersBalloon.is().containText(number));
     }
 
     @Step("Сверка скриншотов карты")

@@ -65,7 +65,7 @@ public interface UserShipmentCheck extends Check, UserShipmentElement {
 
     @Step("Проверяем, что всплывающее сообщение не отображается")
     default void checkAlertNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(alert);
+        alert.should().invisible();
     }
 
     @Step("Проверяем что текст бабл-сообщения соответствует ожидаемому")

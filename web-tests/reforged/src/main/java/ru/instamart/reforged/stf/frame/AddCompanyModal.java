@@ -29,7 +29,7 @@ public class AddCompanyModal {
 
     @Step("Проверяем, что окно 'Добавление компании' не отображается")
     public void checkAddCompanyModalNotVisible() {
-        waitAction().shouldNotBeVisible(addCompany);
+        addCompany.should().invisible();
     }
 
     @Step("Вводим ИНН: {innCode}")

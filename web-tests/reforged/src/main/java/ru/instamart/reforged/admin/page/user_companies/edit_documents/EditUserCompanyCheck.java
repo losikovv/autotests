@@ -76,7 +76,7 @@ public interface EditUserCompanyCheck extends Check, EditUserCompanyElement {
 
     @Step("Проверяем, что ошибка в поле ввода 'Юридическое лицо покупателя' не отображается")
     default void checkJuridicalNameErrorNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(juridicalNameError);
+        juridicalNameError.should().invisible();
     }
 
     @Step("Проверяем, что текст ошибки в поле ввода 'Юридическое лицо покупателя': '{expectedErrorText}'")

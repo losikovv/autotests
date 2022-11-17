@@ -14,7 +14,7 @@ public interface ShopAddCheck extends Check, ShopAddElements {
 
     @Step("Проверяем, что лоадер не отображается")
     default void checkGlobalLoaderNotVisible() {
-        waitAction().shouldNotBeVisible(globalLoader);
+        globalLoader.should().invisible();
     }
 
     @Step("Проверяем, что добавленный регион находится через поиск")

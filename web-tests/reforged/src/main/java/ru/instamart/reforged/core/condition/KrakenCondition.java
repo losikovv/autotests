@@ -9,9 +9,11 @@ import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Kraken;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Slf4j
@@ -19,34 +21,39 @@ public final class KrakenCondition {
 
     /**
      * Проверяет состояние при котором значение инпута не начнет совпадать с ожидаемым текстом
-     * @param element - элемент для поиска
+     * @param by - элемент для поиска
      * @param data - текст для ввода
      * @param isPhone - если в true то форматирует введенный текст под номер телефона
      */
-    public static ExpectedCondition<Boolean> keysSendCondition(final WebElement element, final String data, final boolean isPhone) {
+    public static ExpectedCondition<Boolean> keysSendCondition(final By by, final String data, final boolean isPhone) {
         return new ExpectedCondition<>() {
             @Override
             public Boolean apply(@Nullable WebDriver driver) {
-                if (element.isDisplayed()) {
-                    element.click();
-                    var value = element.getAttribute("value");
+                try {
+                    final var element = findElement(by);
+                    if (element.isDisplayed()) {
+                        element.click();
+                        var value = element.getAttribute("value");
 
-                    if (nonNull(value) && value.length() != 0) {
-                        if (isPhone) {
-                            if (StringUtil.getPhone(value).equals(data)) {
-                                return true;
+                        if (nonNull(value) && value.length() != 0) {
+                            if (isPhone) {
+                                if (StringUtil.getPhone(value).equals(data)) {
+                                    return true;
+                                }
                             }
-                        }
 
-                        if (InfoUtil.isMac()) {
-                            element.sendKeys(Keys.COMMAND + "a");
-                        } else {
-                            element.sendKeys(Keys.CONTROL + "a");
+                            if (InfoUtil.isMac()) {
+                                element.sendKeys(Keys.COMMAND + "a");
+                            } else {
+                                element.sendKeys(Keys.CONTROL + "a");
+                            }
+                            element.sendKeys(Keys.DELETE);
                         }
-                        element.sendKeys(Keys.DELETE);
+                        element.sendKeys(data);
+                        return element.getAttribute("value").equals(data);
                     }
-                    element.sendKeys(data);
-                    return element.getAttribute("value").equals(data);
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
+                    return false;
                 }
                 return false;
             }
@@ -68,8 +75,8 @@ public final class KrakenCondition {
         return new ExpectedCondition<>() {
             @Override
             public Boolean apply(WebDriver driver) {
-                final var element = ExpectedConditions.visibilityOfElementLocated(locator).apply(driver);
                 try {
+                    final var element = ExpectedConditions.visibilityOfElementLocated(locator).apply(driver);
                     return nonNull(element) && !element.isEnabled();
                 } catch (StaleElementReferenceException e) {
                     return false;
@@ -180,7 +187,7 @@ public final class KrakenCondition {
             public WebElement apply(WebDriver driver) {
                 try {
                     return elementIfVisible(findElement(webElement, locator));
-                } catch (StaleElementReferenceException e) {
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
                     return null;
                 }
             }
@@ -198,7 +205,7 @@ public final class KrakenCondition {
             public WebElement apply(WebDriver driver) {
                 try {
                     return findElement(webElement, locator);
-                } catch (NoSuchElementException e) {
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
                     return null;
                 }
             }
@@ -215,7 +222,7 @@ public final class KrakenCondition {
             @Override
             public Boolean apply(WebDriver driver) {
                 try {
-                    return (driver.findElement(locator).isDisplayed());
+                    return driver.findElement(locator).isDisplayed();
                 } catch (NoSuchElementException | StaleElementReferenceException e) {
                     // Returns false because the element is not present in DOM. The
                     // try block checks if the element is present and visible.
@@ -257,13 +264,13 @@ public final class KrakenCondition {
         return new ExpectedCondition<WebElement>() {
             @Override
             public WebElement apply(WebDriver driver) {
-                final var element = visibilityOfElementLocated(webElement, locator).apply(driver);
                 try {
+                    final var element = visibilityOfElementLocated(webElement, locator).apply(driver);
                     if (nonNull(element) && element.isEnabled()) {
                         return element;
                     }
                     return null;
-                } catch (StaleElementReferenceException e) {
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
                     return null;
                 }
             }
@@ -278,14 +285,13 @@ public final class KrakenCondition {
     public static ExpectedCondition<Boolean> textToBePresentInAttributeLocated(final By locator,
                                                                              final String attribute,
                                                                              final String text) {
-
         return new ExpectedCondition<Boolean>() {
             @Override
             public Boolean apply(WebDriver driver) {
                 try {
-                    String elementText = driver.findElement(locator).getAttribute(attribute);
+                    final var elementText = driver.findElement(locator).getAttribute(attribute);
                     return elementText.contains(text);
-                } catch (StaleElementReferenceException e) {
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
                     return false;
                 }
             }
@@ -294,6 +300,69 @@ public final class KrakenCondition {
             public String toString() {
                 return String.format("text ('%s') to be present in element found by %s",
                         text, locator);
+            }
+        };
+    }
+
+    public static ExpectedCondition<List<WebElement>> elementCollectionPresent(final By locator) {
+        return new ExpectedCondition<List<WebElement>>() {
+            @Override
+            public List<WebElement> apply(WebDriver driver) {
+                try {
+                    final List<WebElement> webElements = driver.findElements(locator);
+                    if (webElements.size() > 0) {
+                        return webElements;
+                    }
+                    throw new NoSuchElementException("Elements size < 1");
+                } catch (StaleElementReferenceException e) {
+                    return null;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return String.format("element collection located at %s", locator);
+            }
+        };
+    }
+
+    public static ExpectedCondition<List<WebElement>> elementCollectionPresent(final By locator, final WebElement webElement) {
+        return new ExpectedCondition<List<WebElement>>() {
+            @Override
+            public List<WebElement> apply(WebDriver driver) {
+                try {
+                    final List<WebElement> webElements = webElement.findElements(locator);
+                    if (webElements.size() > 0) {
+                        return webElements;
+                    }
+                    throw new NoSuchElementException("Elements size < 1");
+                } catch (StaleElementReferenceException e) {
+                    return null;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return String.format("element collection located at %s", locator);
+            }
+        };
+    }
+
+    public static ExpectedCondition<Boolean> elementCollectionNotPresent(final By locator) {
+        return new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                try {
+                    final List<WebElement> webElements = driver.findElements(locator);
+                    return isNull(webElements) || webElements.size() == 0;
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
+                    return true;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return String.format("element collection not located at %s", locator);
             }
         };
     }

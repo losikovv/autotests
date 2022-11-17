@@ -9,18 +9,18 @@ public interface RegionsModalCheck extends RegionsModalElement, Check {
 
     @Step("Проверяем, что окно выбора региона отображается")
     default void checkRegionsModalVisible() {
-        Kraken.waitAction().shouldBeVisible(modalTitle);
-        Kraken.waitAction().shouldNotBeAnimated(modalTitle);
+        modalTitle.should().visible();
+        modalTitle.should().animationFinished();
     }
 
     @Step("Проверяем, что окно выбора региона не отображается")
     default void checkRegionsModalNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(modalTitle);
+        modalTitle.should().invisible();
     }
 
     @Step("Проверяем, что список найденных регионов не отображается")
     default void checkRegionsListNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(regionsList);
+        regionsList.should().invisible();
     }
 
     @Step("Проверяем, что отображается плейсхолдер пустого списка регионов")

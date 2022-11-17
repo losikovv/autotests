@@ -17,6 +17,6 @@ public final class ConfirmModal {
     @Step("Проверяем, что отобразилось модальное окно")
     public void checkModalVisible() {
         modal.should().visible();
-        modal.should().notAnimated();
+        modal.should().animationFinished();
     }
 }

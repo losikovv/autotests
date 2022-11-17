@@ -23,7 +23,7 @@ public class ClearCartModal implements Close {
 
     @Step("Модальное окно открыто")
     public void checkModalIsOpen() {
-        modal.should().notAnimated();
         modal.should().visible();
+        modal.should().animationFinished();
     }
 }

@@ -9,12 +9,12 @@ public interface B2BAddressCheck extends B2BAddressElement, Check {
 
     @Step("Фрейм адреса доставки не отображается")
     default void checkAddressModalIsNotVisible() {
-        waitAction().shouldNotBeVisible(addressModal);
+        addressModal.should().invisible();
     }
 
     @Step("Маркер не отображается")
     default void checkMarkerOnMapInAdviceIsNotVisible() {
-        waitAction().shouldNotBeVisible(markerImageOnMapInAdvice);
+        markerImageOnMapInAdvice.should().invisible();
     }
 
     @Step("Проверяем, что яндекс карты готовы к работе")

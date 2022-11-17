@@ -2,12 +2,9 @@ package ru.instamart.reforged.stf.frame.checkout.subsections;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.stf.frame.Close;
-
-import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface CommonFrameButtons extends Close {
 
@@ -19,13 +16,13 @@ public interface CommonFrameButtons extends Close {
 
     @Step("Модальное окно открыто")
     default void checkModalWindow() {
-        waitAction().shouldBeVisible(modal);
-        waitAction().shouldNotBeAnimated(modal);
+        modal.should().visible();
+        modal.should().animationFinished();
     }
 
     @Step("Модальное окно не отображается")
     default void checkModalWindowNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(modal);
+        modal.should().invisible();
     }
 
     @Step("Нажать 'Сохранить'")

@@ -75,7 +75,7 @@ public final class Item extends Container {
 
     @Step("Проверяем, что спиннер пропал")
     public void checkSpinnerIsNotVisible() {
-        waitAction().shouldNotBeVisible(costSpinner);
+        costSpinner.should().invisible();
     }
 
     @Step("Проверяем, что спиннер отображается")
@@ -122,7 +122,7 @@ public final class Item extends Container {
 
     @Step("Проверяем, что блок с выбранными предзаменами не отображается")
     public void checkPrereplacementBlockNotDisplayed() {
-        waitAction().shouldNotBeVisible(prereplacementBlock);
+        prereplacementBlock.should().invisible();
     }
 
     @Step("Нажимаем на кнопку 'Редактировать' (замену)")

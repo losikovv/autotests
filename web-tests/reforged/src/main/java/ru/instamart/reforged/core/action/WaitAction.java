@@ -4,219 +4,162 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.reforged.core.component.Component;
 import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.core.condition.KrakenCondition;
-import ru.instamart.reforged.core.config.WaitProperties;
+import ru.instamart.reforged.core.wait.KrakenWait;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Set;
 
 import static ru.instamart.reforged.core.Kraken.getWebDriver;
 
 @Slf4j
 public final class WaitAction {
 
+    //######################## Clickable ########################
     public WebElement shouldBeClickable(final Component component) {
-        return createWait(component)
+        return createWait(component, "элемент должен быть кликабельным")
                 .until(ExpectedConditions.elementToBeClickable(component.getBy()));
     }
 
     public WebElement shouldBeClickable(final Component component, final WebElement webElement) {
-        return createWait(component)
+        return createWait(component, "элемент должен быть кликабельным")
                 .until(KrakenCondition.elementToBeClickable(webElement, component.getBy()));
     }
 
-    public WebElement shouldBeVisible(final Component component) {
-        return createWait(component)
-                .until(ExpectedConditions.visibilityOfElementLocated(component.getBy()));
+    //######################## Not Clickable ########################
+    public boolean isUnclickable(final Component component, final Object... args) {
+        return createWait(component, "элемент не должен быть кликабельным")
+                .until(KrakenCondition.elementNotToBeClickable(component.getBy(args)));
     }
 
+    //######################## Visible ########################
     public WebElement shouldBeVisible(final Component component, final WebElement webElement) {
-        return createWait(component)
+        return createWait(component, "элемент должен отображаться")
                 .until(KrakenCondition.visibilityOfElementLocated(webElement, component.getBy()));
     }
 
     public WebElement shouldBeVisible(final Component component, final Object... args) {
-        return createWait(component)
+        return createWait(component, "элемент должен отображаться")
                 .until(ExpectedConditions.visibilityOfElementLocated(component.getBy(args)));
     }
 
     public WebElement elementOfCollectionShouldBeVisible(final ElementCollection elementCollection, final int elementIndex) {
-        return createWait(elementCollection).until(ExpectedConditions.visibilityOf(elementCollection.getElements().get(elementIndex)));
-    }
-
-    public void elementOfCollectionShouldNotBeVisible(final ElementCollection elementCollection, final int elementIndex) {
-        createWait(elementCollection).until(ExpectedConditions.invisibilityOf(elementCollection.getElements().get(elementIndex)));
-    }
-
-    public WebElement shouldExist(final Component component) {
-        return createWait(component).until(ExpectedConditions.presenceOfElementLocated(component.getBy()));
-    }
-
-    public WebElement shouldExist(final Component component, final WebElement webElement) {
-        return createWait(component)
-                .until(KrakenCondition.presentsOfElementLocated(webElement, component.getBy()));
-    }
-
-    public void shouldNotBeAnimated(final Component component, final Object... args) {
-        createWait(component)
-                .until(KrakenCondition.steadinessOfElementLocated(component.getBy(args)));
-    }
-
-    public void shouldNotBeAnimated(final Component component) {
-        createWait(component)
-                .until(KrakenCondition.steadinessOfElementLocated(component.getBy()));
-    }
-
-    public boolean shouldNotBeVisible(final Component component) {
-        try {
-            return createWait(component)
-                    .until(ExpectedConditions.invisibilityOfElementLocated(component.getBy()));
-        } catch (TimeoutException e) {
-            return false;
-        }
+        return createWait(elementCollection, "элементы коллекции должны быть видимы")
+                .until(ExpectedConditions.visibilityOf(elementCollection.getElements().get(elementIndex)));
     }
 
     public boolean isVisible(final Component component) {
-        try {
-            return createWait(component)
-                    .until(KrakenCondition.visibilityOfElementLocated(component.getBy()));
-        } catch (TimeoutException e) {
-            return false;
-        }
-    }
-
-    public boolean isInvisible(final Component component) {
-        try {
-            return createWait(component)
-                    .until(ExpectedConditions.invisibilityOfElementLocated(component.getBy()));
-        } catch (TimeoutException e) {
-            return false;
-        }
-    }
-
-    public boolean shouldNotBeVisible(final Component component, final WebElement webElement) {
-        return createWait(component)
-                .until(KrakenCondition.invisibilityOfElementLocated(webElement, component.getBy()));
-    }
-
-    public boolean shouldNotBeVisible(final Component component, final Object... args) {
-        try {
-            return createWait(component)
-                    .until(ExpectedConditions.invisibilityOfElementLocated(component.getBy(args)));
-        } catch (TimeoutException e) {
-            return false;
-        }
-    }
-
-    public List<WebElement> isElementsExist(final Component component) {
-        return createWait(component)
-                .until((ExpectedCondition<List<WebElement>>) driver -> {
-                    final List<WebElement> webElements = driver.findElements(component.getBy());
-                    if (webElements.size() > 0) {
-                        return webElements;
-                    }
-                    throw new NoSuchElementException("Elements not found or size < 1");
-                });
-    }
-
-    public List<WebElement> isElementsExist(final Component component, final WebElement webElement) {
-        return createWait(component)
-                .until((ExpectedCondition<List<WebElement>>) driver -> {
-                    final List<WebElement> webElements = webElement.findElements(component.getBy());
-                    if (webElements.size() > 0) {
-                        return webElements;
-                    }
-                    throw new NoSuchElementException("Elements not found or size < 1");
-                });
-    }
-
-    public void isElementsShouldNotBeExist(final Component component) {
-        createWait(component)
-                .until((ExpectedCondition<Boolean>) driver -> {
-                    final List<WebElement> webElements = driver.findElements(component.getBy());
-                    return webElements.size() == 0;
-                });
-    }
-
-    public void elementSelectCheckboxState(final WebElement element, final boolean selected) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Состояние чекбокса, отличается от ожидаемого")
-                .until(KrakenCondition.elementSelectCheckboxState(element, selected));
-    }
-
-    public void shouldNotBeClickable(final Component component, final Object... args) {
-        createWait(component)
-                .until(KrakenCondition.elementNotToBeClickable(component.getBy(args)));
-    }
-
-    public void urlEquals(final String url) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница: " + getWebDriver().getCurrentUrl() + " отличается от ожидаемой:" + url)
-                .until(ExpectedConditions.urlToBe(url));
-    }
-
-    public void urlContains(final String url) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница: " + getWebDriver().getCurrentUrl() + " не содержит ожидаемого url: " + url)
-                .until(ExpectedConditions.urlContains(url));
-    }
-
-    public boolean containText(final Component component, final String text, final Object... args) {
-        try {
-            return createWait(component)
-                    .until(ExpectedConditions.textToBePresentInElementLocated(component.getBy(args), text));
-        } catch (TimeoutException e) {
-            return false;
-        }
-    }
-
-    public boolean containTextFromAttribute(final Component component, final String attribute, final String text, final Object... args) {
-        try {
-            return createWait(component)
-                    .until(KrakenCondition.textToBePresentInAttributeLocated(component.getBy(args), attribute, text));
-        } catch (TimeoutException e) {
-            return false;
-        }
+        return createWait(component, "элемент должен быть видим")
+                .until(KrakenCondition.visibilityOfElementLocated(component.getBy()));
     }
 
     public void frameShouldBeVisible(final int frame) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Фрейм не загрузился")
+        createWait("Фрейм не загрузился")
                 .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
     }
 
-    public void fillField(final WebElement element, final String data, final boolean isPhone) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Текущее содержимое поля отличается от ожидаемого")
-                .until(KrakenCondition.keysSendCondition(element, data, isPhone));
+    //######################## Not Visible ########################
+    public boolean elementOfCollectionShouldNotBeVisible(final ElementCollection elementCollection, final int elementIndex) {
+        return createWait(elementCollection, "элемент коллекции не должен отображаться")
+                .until(ExpectedConditions.invisibilityOf(elementCollection.getElements().get(elementIndex)));
     }
 
-    public void elementCollectionSizeShouldBeEqual(ElementCollection collection, final int size) {
-        createWait(collection.getTimeout(), "Кол-во элементов в коллекции: " + collection.elementCount() + " не совпадает с ожидаемым: " + size)
+    public boolean isInvisible(final Component component, final WebElement webElement) {
+        return createWait(component, "элемент не должен быть видим")
+                .until(KrakenCondition.invisibilityOfElementLocated(webElement, component.getBy()));
+    }
+
+    public boolean isInvisible(final Component component, final Object... args) {
+        return createWait(component, "элемент не должен быть видим")
+                .until(ExpectedConditions.invisibilityOfElementLocated(component.getBy(args)));
+    }
+
+    //######################## Exist ########################
+    public WebElement shouldExist(final Component component) {
+        return createWait(component, "элемент должен быть в DOM")
+                .until(ExpectedConditions.presenceOfElementLocated(component.getBy()));
+    }
+
+    public WebElement shouldExist(final Component component, final WebElement webElement) {
+        return createWait(component, "элемент должен быть в DOM")
+                .until(KrakenCondition.presentsOfElementLocated(webElement, component.getBy()));
+    }
+
+    public List<WebElement> isElementsExist(final Component component) {
+        return createWait(component, "коллекция элементов должна быть видима")
+                .until(KrakenCondition.elementCollectionPresent(component.getBy()));
+    }
+
+    public List<WebElement> isElementsExist(final Component component, final WebElement webElement) {
+        return createWait(component, "коллекция элементов должна быть видима")
+                .until(KrakenCondition.elementCollectionPresent(component.getBy(), webElement));
+    }
+
+    //######################## Not Exist ########################
+    public boolean isElementsShouldNotBeExist(final ElementCollection component) {
+        return createWait(component, "коллекции элементов не должно быть")
+                .until(KrakenCondition.elementCollectionNotPresent(component.getBy()));
+    }
+
+    //######################## Not Animated ########################
+    public boolean isAnimationFinished(final Component component, final Object... args) {
+        return createWait(component, "анимация у элемента должна закончиться")
+                .until(KrakenCondition.steadinessOfElementLocated(component.getBy(args)));
+    }
+
+    //######################## CheckState ########################
+    public void elementSelectCheckboxState(final WebElement element, final boolean selected) {
+        createWait("Состояние чекбокса, отличается от ожидаемого")
+                .until(KrakenCondition.elementSelectCheckboxState(element, selected));
+    }
+
+    //######################## Url equals ########################
+    public boolean isUrlEquals(final String url) {
+        return createWait(String.format("Текущая страница: %s отличается от ожидаемой: %s", getWebDriver().getCurrentUrl(), url))
+                .until(ExpectedConditions.urlToBe(url));
+    }
+
+    //######################## Url Contains ########################
+    public boolean isUrlContains(final String url) {
+        return createWait(String.format("Текущая страница: %s не содержит ожидаемого url: %s", getWebDriver().getCurrentUrl(), url))
+                .until(ExpectedConditions.urlContains(url));
+    }
+
+    //######################## Contains Text ########################
+    public boolean containText(final Component component, final String text, final Object... args) {
+        return createWait(component, String.format("должен присутствовать текс: %s", text))
+                .until(ExpectedConditions.textToBePresentInElementLocated(component.getBy(args), text));
+    }
+
+    public boolean containTextFromAttribute(final Component component, final String attribute, final String text, final Object... args) {
+        return createWait(component, String.format("должен присутствовать текст: %s в атрибуте %s", text, attribute))
+                .until(KrakenCondition.textToBePresentInAttributeLocated(component.getBy(args), attribute, text));
+    }
+
+    public void fillField(final Component component, final String data, final boolean isPhone) {
+        createWait("Текущее содержимое поля отличается от ожидаемого")
+                .until(KrakenCondition.keysSendCondition(component.getBy(), data, isPhone));
+    }
+
+    public boolean isElementCollectionSizeEqual(final ElementCollection collection, final int size) {
+        return createWait(collection, String.format("Кол-во элементов в коллекции: %s не совпадает с ожидаемым: %d", collection.elementCount(), size))
                 .until((ExpectedCondition<Boolean>) wb -> collection.elementCount() == size);
     }
 
-    public void cookieShouldBeExist(final String data) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Нет куки с таким именем: " + data)
-                .until(KrakenCondition.cookieExist(data));
+    private KrakenWait<WebDriver> createWait(final String errorConditionMsg) {
+        return new KrakenWait<>(getWebDriver())
+                .withMessage(errorConditionMsg)
+                .ignoring(NoSuchElementException.class)
+                .ignoring(ElementClickInterceptedException.class)
+                .ignoring(NotFoundException.class);
     }
 
-    public void cookiesShouldBeExist(final Set<String> data) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Нет куки с таким именем: " + String.join(",", data))
-                .until(KrakenCondition.cookiesExist(data));
-    }
-
-    private FluentWait<WebDriver> createWait(final long wait, final String errorMsg) {
-        return new FluentWait<>(getWebDriver())
-                .withTimeout(Duration.ofSeconds(wait))
-                .withMessage(errorMsg)
-                .pollingEvery(Duration.ofMillis(WaitProperties.POLLING_INTERVAL));
-    }
-
-    private FluentWait<WebDriver> createWait(final Component component) {
-        return new FluentWait<>(getWebDriver())
+    private KrakenWait<WebDriver> createWait(final Component component, final String errorConditionMsg) {
+        return new KrakenWait<>(getWebDriver())
                 .withTimeout(Duration.ofSeconds(component.getTimeout()))
-                .withMessage(component.getErrorMsg())
-                .pollingEvery(Duration.ofMillis(WaitProperties.POLLING_INTERVAL))
+                .withMessage(component.getErrorMsg() + errorConditionMsg)
                 .ignoring(NoSuchElementException.class)
                 .ignoring(ElementClickInterceptedException.class)
                 .ignoring(NotFoundException.class);

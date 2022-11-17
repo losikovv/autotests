@@ -12,8 +12,8 @@ public final class ShouldBe {
 
     private final AbstractComponent component;
 
-    public WebElement visible() {
-        return Kraken.waitAction().shouldBeVisible(component);
+    public WebElement visible(final Object... args) {
+        return Kraken.waitAction().shouldBeVisible(component, args);
     }
 
     public WebElement elementExists() {

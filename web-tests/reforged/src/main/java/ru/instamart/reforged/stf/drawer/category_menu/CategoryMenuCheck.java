@@ -19,6 +19,6 @@ public interface CategoryMenuCheck extends CategoryMenuElement, Check {
 
     @Step("Шторка каталога закрыта")
     default void checkCatalogMenuIsClosed() {
-        waitAction().shouldNotBeVisible(categoryMenuDrawer);
+        categoryMenuDrawer.should().invisible();
     }
 }

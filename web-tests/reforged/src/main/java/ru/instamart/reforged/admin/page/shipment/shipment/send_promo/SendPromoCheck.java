@@ -17,6 +17,6 @@ public interface SendPromoCheck extends SendPromoElement {
     @Step("Проверяем, что список промо открылся")
     default void checkPromoCompensationItemsListVisible() {
         compensationItemInList.should().visible();
-        compensationItemInList.should().notAnimated();
+        compensationItemInList.should().animationFinished();
     }
 }

@@ -16,8 +16,7 @@ public interface FlashAlertCheck extends Check, FlashAlertElement {
 
     @Step("Проверяем что пропала нотификация об успешном сохранении")
     default void checkSuccessFlashNotVisible() {
-        waitAction().shouldNotBeVisible(successFlash);
-
+        successFlash.should().invisible();
     }
 
     @Step("Проверяем что появилась нотификация об неуспешном сохранении")

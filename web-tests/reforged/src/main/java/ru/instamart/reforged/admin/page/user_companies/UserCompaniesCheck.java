@@ -14,7 +14,7 @@ public interface UserCompaniesCheck extends Check, UserCompaniesElement {
 
     @Step("Проверяем, что список компаний не пуст")
     default void checkCompaniesListNotEmpty() {
-        Kraken.waitAction().shouldNotBeVisible(listIsEmpty);
+        listIsEmpty.should().invisible();
     }
 
     @Step("Проверяем, что количество компаний в таблице равно: '{expectedCount}'")

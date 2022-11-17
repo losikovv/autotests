@@ -19,12 +19,12 @@ public interface DisclaimerCheck extends DisclaimerElement, Check {
 
     @Step("Проверяем, дисклеймер о продаже алкоголя не виден")
     default void checkDisclaimerModalNotVisible() {
-        waitAction().shouldNotBeVisible(disclaimerModal);
+        disclaimerModal.should().invisible();
     }
 
     @Step("Убедиться что модалка дисклеймера не анимируется")
     default void checkDisclaimerModalNotAnimated() {
-        waitAction().shouldBeVisible(disclaimerModal);
-        waitAction().shouldNotBeAnimated(disclaimerModal);
+        disclaimerModal.should().visible();
+        disclaimerModal.should().animationFinished();
     }
 }

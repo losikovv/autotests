@@ -13,6 +13,6 @@ public interface B2BDeliveryOptionCheck extends Check, B2BDeliveryOptionElement 
 
     @Step("Проверяем, что кнопка 'Продолжить' шага 'Способ получения' не видна")
     default void checkSubmitButtonNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(submit);
+        submit.should().invisible();
     }
 }

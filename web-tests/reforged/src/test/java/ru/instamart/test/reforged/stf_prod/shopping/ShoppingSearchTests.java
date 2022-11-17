@@ -158,11 +158,10 @@ public final class ShoppingSearchTests {
         shop().interactHeader().fillSearch("печенье");
         shop().interactHeader().clickSearchButton();
 
-        search().checkSearchImgLoaded();
+        search().waitPageLoad();
         search().selectSort("Сначала дешевые");
 
-        search().checkSearchImgLoaded();
-        //search().checkSortEnabled("Сначала дешевые");
+        search().waitPageLoad();
         search().checkPriceAscSortCorrect();
     }
 }

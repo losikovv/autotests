@@ -28,7 +28,7 @@ public interface B2BMultisearchHeaderCheck extends Check, B2BMultisearchHeaderEl
 
     @Step("Проверяем, что не отображается поле ввода мультиритейлерного поиска")
     default void checkMultisearchInputNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(multisearch);
+        multisearch.should().invisible();
     }
 
     @Step("Проверяем, что отображается кнопка пользовательского меню")
@@ -53,7 +53,7 @@ public interface B2BMultisearchHeaderCheck extends Check, B2BMultisearchHeaderEl
 
     @Step("Проверяем, саджестор не отображается")
     default void checkProductsNotVisibleInSuggester() {
-        Kraken.waitAction().shouldNotBeVisible(productsInActiveTab);
+        productsInActiveTab.should().invisible();
     }
 
     @Step("Проверяем, что все найденные продукты саджестора соответствуют критериям поиска: '{searchText}'")

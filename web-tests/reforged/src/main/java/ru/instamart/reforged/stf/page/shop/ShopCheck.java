@@ -42,12 +42,12 @@ public interface ShopCheck extends Check, ShopElement {
 
     @Step("Проверяем, что для товара без скидки отображается только одна цена")
     default void checkItemWithoutDiscountPricesCount() {
-        waitAction().elementCollectionSizeShouldBeEqual(pricesInItemWithoutDiscount, 1);
+        Assert.assertTrue(waitAction().isElementCollectionSizeEqual(pricesInItemWithoutDiscount, 1));
     }
 
     @Step("Проверяем, что для товара со скидкой отображаются две цены")
     default void checkItemWithDiscountPricesCount() {
-        waitAction().elementCollectionSizeShouldBeEqual(pricesInItemWithDiscount, 3);
+        Assert.assertTrue(waitAction().isElementCollectionSizeEqual(pricesInItemWithDiscount, 3));
     }
 
     @Step("Проверяем что заголовок первой категории товаров в магазине '{0}' соответствует '{1}'")
@@ -69,6 +69,6 @@ public interface ShopCheck extends Check, ShopElement {
 
     @Step("Проверяем что категория 'Вы покупали ранее' не отображается")
     default void checkYouBoughtBeforeCategoryNotDisplayed() {
-        waitAction().shouldNotBeVisible(youBoughtBeforeCategory);
+        youBoughtBeforeCategory.should().invisible();
     }
 }

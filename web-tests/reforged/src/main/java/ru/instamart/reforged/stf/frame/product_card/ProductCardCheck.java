@@ -16,7 +16,7 @@ public interface ProductCardCheck extends Check, ProductCardElement {
 
     @Step("Продуктовая карта закрыта")
     default void checkProductCardIsNotVisible() {
-        waitAction().shouldNotBeVisible(itemName);
+        itemName.should().invisible();
     }
 
     @Step("На продуктовой карте есть алерт продажи алкоголя 18+")
@@ -41,7 +41,7 @@ public interface ProductCardCheck extends Check, ProductCardElement {
 
     @Step("Кнопка 'Купить' отображается неактивной")
     default void checkBuyButtonInactive() {
-        Kraken.waitAction().shouldNotBeClickable(buy);
+        buy.should().unclickable();
     }
 
     @Step("Проверяем, что отображается иконка скидки (для товара со скидкой)")
@@ -51,7 +51,7 @@ public interface ProductCardCheck extends Check, ProductCardElement {
 
     @Step("Проверяем, что не отображается иконка скидки (для товара без скидки)")
     default void checkDiscountLabelNotDisplayed() {
-        waitAction().shouldNotBeVisible(discountLabel);
+        discountLabel.should().invisible();
     }
 
     @Step("Проверяем, что навигационная цепочка категорий (хлебные крошки) отображается")
@@ -96,12 +96,12 @@ public interface ProductCardCheck extends Check, ProductCardElement {
 
     @Step("Проверяем, что для товара без скидки отображается только одна цена")
     default void checkItemWithoutDiscountPricesCount() {
-        waitAction().elementCollectionSizeShouldBeEqual(prices, 1);
+        Assert.assertTrue(waitAction().isElementCollectionSizeEqual(prices, 1));
     }
 
     @Step("Проверяем, что для товара со скидкой отображаются две цены")
     default void checkItemWithDiscountPricesCount() {
-        waitAction().elementCollectionSizeShouldBeEqual(prices, 2);
+        Assert.assertTrue(waitAction().isElementCollectionSizeEqual(prices, 2));
     }
 
     @Step("Проверяем соответствие цены товара в карточке: {0} и сниппете: {1}")

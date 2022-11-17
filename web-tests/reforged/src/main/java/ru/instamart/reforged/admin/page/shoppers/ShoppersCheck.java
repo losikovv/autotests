@@ -9,8 +9,6 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static ru.instamart.reforged.core.Check.krakenAssert;
-
 public interface ShoppersCheck extends ShoppersElement, Check {
 
     @Step("Проверяем, что спиннер отображается")

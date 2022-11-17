@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Container;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.inner.InnerButton;
 import ru.instamart.reforged.core.component.inner.InnerCollectionComponent;
 import ru.instamart.reforged.core.component.inner.InnerElement;
@@ -47,7 +46,7 @@ public final class Retailer extends Container {
 
     @Step("Проверяем, что сообщение о минимальной сумме заказа не отображается")
     public void isAlertNotDisplayed() {
-        Kraken.waitAction().shouldNotBeVisible(minAmountAlert, getContainer());
+        minAmountAlert.should().invisible(getContainer());
     }
 
     @Step("Получаем {0} по порядку продукт из списка продуктов магазина")

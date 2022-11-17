@@ -20,14 +20,6 @@ public final class Link extends AbstractComponent {
         super(by, timeout, description);
     }
 
-    public Link(final By by, final String description, final String errorMsg) {
-        super(by, description, errorMsg);
-    }
-
-    public Link(final By by, final long timeout, final String description, final String errorMsg) {
-        super(by, timeout, description, errorMsg);
-    }
-
     @Override
     public WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());

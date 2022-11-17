@@ -80,7 +80,7 @@ public interface CheckoutCheck extends Check, CheckoutElement {
 
     @Step("Проверяем, что промокод не применен")
     default void checkPromoCodeNotApplied() {
-        waitAction().shouldNotBeVisible(deletePromoCode);
+        deletePromoCode.should().invisible();
     }
 
     @Step("Проверяем, что кнопка добавления промокода в корзине видна")
@@ -100,17 +100,17 @@ public interface CheckoutCheck extends Check, CheckoutElement {
 
     @Step("Проверяем что бонусная карта {0} не применена")
     default void checkBonusCardNotApplied(String bonusCard) {
-        waitAction().shouldNotBeVisible(editLoyaltyCard, bonusCard);
+        editLoyaltyCard.should().invisible(bonusCard);
     }
 
     @Step("Проверяем что лоадер в блоке карт лояльности скрылся")
     default void checkLoyaltyCardLoaderNotVisible() {
-        waitAction().shouldNotBeVisible(loyaltyCardLoader);
+        loyaltyCardLoader.should().invisible();
     }
 
     @Step("Проверяем что лоадер чекаута скрылся")
     default void checkCheckoutLoaderNotVisible() {
-        waitAction().shouldNotBeVisible(checkoutLoader);
+        checkoutLoader.should().invisible();
     }
 
     @Step("Проверяем что лоадер чекаута показан")
@@ -120,7 +120,7 @@ public interface CheckoutCheck extends Check, CheckoutElement {
 
     @Step("Проверяем что лоадер чекаута скрылся")
     default void checkCheckoutSidebarSpinnerNotVisible() {
-        waitAction().shouldNotBeVisible(sideBarSpinner);
+        sideBarSpinner.should().invisible();
     }
 
     @Step("Сравниваем сумму заказа до {orderAmountFromCart} и после регистрации {orderAmountFromCheckout}")

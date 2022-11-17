@@ -20,7 +20,7 @@ public class VacancyNotAvailableModal {
 
     @Step("Проверяем, что окно 'Вакансия не найдена' не отображается")
     public void checkModalNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(title);
+        title.should().invisible();
     }
 
     @Step("Проверяем, что текст в окне 'Вакансия не найдена' содержит: '{expectedText}'")

@@ -9,18 +9,17 @@ public interface RegionsAddCheck extends Check, RegionsAddElements {
 
     @Step("Проверяем, что кнопка добавления нового региона отображается и не анимирована")
     default void checkAddNewRegionModalNotAnimated() {
-        waitAction().shouldNotBeAnimated(newRegionName);
+        newRegionName.should().animationFinished();
     }
 
     @Step("Проверяем, что модальное окно добавления региона отображается и не анимировано")
     default void checkAddNewRegionModalVisible() {
         waitAction().shouldBeVisible(addNewRegionModal);
-        waitAction().shouldNotBeAnimated(addNewRegionModal);
+        addNewRegionModal.should().animationFinished();
     }
 
     @Step("Проверяем, что модальное окно добавления региона не отображается")
     default void checkAddNewRegionModalNotVisible() {
-        waitAction().shouldNotBeVisible(addNewRegionModal);
+        addNewRegionModal.should().invisible();
     }
-
 }

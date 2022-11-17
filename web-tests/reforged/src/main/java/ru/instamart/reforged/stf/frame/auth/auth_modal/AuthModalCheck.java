@@ -14,13 +14,13 @@ public interface AuthModalCheck extends Check, AuthModalElement {
 
     @Step("Проверяем, что модальное окно видимо и готово к работе")
     default void checkModalIsVisible() {
-        waitAction().shouldBeVisible(modalLogin);
-        waitAction().shouldNotBeAnimated(modalLogin);
+        modalLogin.should().visible();
+        modalLogin.should().animationFinished();
     }
 
     @Step("Проверяем, что модальное окно скрыто")
     default void checkModalIsNotVisible() {
-        waitAction().shouldNotBeVisible(modalLogin);
+        modalLogin.should().invisible();
     }
 
     @Step("Проверяем, что отображается окно подтверждения номера телефона")
@@ -40,7 +40,7 @@ public interface AuthModalCheck extends Check, AuthModalElement {
 
     @Step("Проверяем, что кнопка входа по SberID для бизнеса скрыта")
     default void checkSberBusinessIdIsNotVisible() {
-        waitAction().shouldNotBeVisible(sberBusinessIdButton);
+        sberBusinessIdButton.should().invisible();
     }
 
     @Step("Проверяем, что кнопка через SberID показана")

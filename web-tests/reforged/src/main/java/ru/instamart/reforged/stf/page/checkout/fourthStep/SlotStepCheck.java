@@ -14,7 +14,7 @@ public interface SlotStepCheck extends Check, SlotStepElement {
 
     @Step("Проверяем не виден спиннер в разделе слотов")
     default void checkSlotsSpinnerIsNotVisible() {
-        waitAction().shouldNotBeVisible(slotsSpinner);
+        slotsSpinner.should().invisible();
     }
 
     @Step("Проверяем, что первый слот кликабелен")

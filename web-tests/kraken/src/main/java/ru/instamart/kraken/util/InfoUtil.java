@@ -18,9 +18,5 @@ public final class InfoUtil {
         return getOsName().contains("Linux");
     }
 
-    public static void main(String[] args) {
-        System.out.println(getOsName());
-    }
-
     private InfoUtil() {}
 }

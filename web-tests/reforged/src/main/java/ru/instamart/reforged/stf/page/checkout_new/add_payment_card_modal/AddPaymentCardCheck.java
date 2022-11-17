@@ -13,7 +13,7 @@ public interface AddPaymentCardCheck extends Check, AddPaymentCardElement {
 
     @Step("Проверяем, что модальное окно не отображается")
     default void checkModalNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(addCard);
+        addCard.should().invisible();
     }
 
     @Step("Проверка отображения ошибки заполнения поля ввода '{0}'")

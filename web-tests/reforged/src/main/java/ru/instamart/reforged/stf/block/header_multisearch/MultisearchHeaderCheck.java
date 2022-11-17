@@ -28,12 +28,12 @@ public interface MultisearchHeaderCheck extends Check, MultisearchHeaderElement 
 
     @Step("Проверяем, что не отображается поле ввода мультиритейлерного поиска")
     default void checkMultisearchInputNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(multisearch);
+        multisearch.should().invisible();
     }
 
     @Step("Проверяем, что отображается кнопка пользовательского меню")
     default void checkUserActionsButtonVisible() {
-        Kraken.waitAction().shouldNotBeVisible(userActionsToggle);
+        userActionsToggle.should().invisible();
     }
 
     @Step("Проверяем, что указан адрес: '{expectedAddress}'")
@@ -53,7 +53,7 @@ public interface MultisearchHeaderCheck extends Check, MultisearchHeaderElement 
 
     @Step("Проверяем, саджестор не отображается")
     default void checkProductsNotVisibleInSuggester() {
-        Kraken.waitAction().shouldNotBeVisible(productsInActiveTab);
+        productsInActiveTab.should().invisible();
     }
 
     @Step("Проверяем, что все найденные продукты саджестора соответствуют критериям поиска: '{searchText}'")

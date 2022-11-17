@@ -14,12 +14,12 @@ public interface B2BReplacementPolicyCheck extends Check, B2BReplacementPolicyEl
 
     @Step("Проверяем, что кнопка 'Продолжить' шага 'Выберите способ осуществления замен' не видна")
     default void checkSubmitButtonNotVisible() {
-        waitAction().shouldNotBeVisible(submit);
+        submit.should().invisible();
     }
 
     @Step("Проверяем что спиннер в разделе 'Выберите способ осуществления замен' не виден")
     default void checkReplacementSpinnerNotVisible() {
-        waitAction().shouldNotBeVisible(spinner);
+        spinner.should().invisible();
     }
 
     @Step("Проверяем что спиннер в разделе 'Выберите способ осуществления замен' виден")

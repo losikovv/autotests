@@ -24,7 +24,7 @@ public interface B2BHeaderCheck extends B2BHeaderElement, Check {
 
     @Step("Проверяем, что нотификация после добавления нового товара в корзину исчезла")
     default void checkCartNotificationIsNotVisible() {
-        waitAction().shouldNotBeVisible(cartNotification);
+        cartNotification.should().invisible();
     }
 
     @Step("Проверяем, что отображается значок с количеством товаров в корзине над кнопкой")
@@ -34,7 +34,7 @@ public interface B2BHeaderCheck extends B2BHeaderElement, Check {
 
     @Step("Проверяем, что не отображается значок с количеством товаров в корзине над кнопкой")
     default void checkCartItemsCountSpoilerIsNotVisible() {
-        waitAction().shouldNotBeVisible(itemsCountSpoilerOnCartButton);
+        itemsCountSpoilerOnCartButton.should().invisible();
     }
 
     @Step("Проверяем, что отображается сообщение об ошибке")

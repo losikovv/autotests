@@ -14,7 +14,7 @@ public interface B2BSlotStepCheck extends Check, B2BSlotStepElement {
 
     @Step("Проверяем, что кнопка 'Продолжить' шага 'Выберите время получения' не видна")
     default void checkSubmitButtonNotVisible() {
-        waitAction().shouldNotBeVisible(submit);
+        submit.should().invisible();
     }
 
     @Step("Проверяем виден спиннер в разделе слотов")
@@ -24,7 +24,6 @@ public interface B2BSlotStepCheck extends Check, B2BSlotStepElement {
 
     @Step("Проверяем не виден спиннер в разделе слотов")
     default void checkSlotsSpinnerIsNotVisible() {
-        waitAction().shouldNotBeVisible(slotsSpinner);
+        slotsSpinner.should().invisible();
     }
-
 }

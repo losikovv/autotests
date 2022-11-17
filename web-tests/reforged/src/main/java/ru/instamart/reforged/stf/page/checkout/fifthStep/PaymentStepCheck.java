@@ -7,9 +7,9 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface PaymentStepCheck extends Check, PaymentStepElement {
 
-    @Step("Проверяем, что кнопка заказа некликабельна")
+    @Step("Проверяем, что кнопка заказа не кликабельна")
     default void checkSubmitOrderButtonNotClickable() {
-        waitAction().shouldNotBeClickable(submitFromCheckoutColumn);
+        submitFromCheckoutColumn.should().unclickable();
     }
 
     @Step("Проверяем, что кнопка заказа кликабельна")
