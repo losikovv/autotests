@@ -71,7 +71,7 @@ public final class UserRegistrationTests {
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().plusItemToCartByPosition(3);
 
-        shop().goToPage();
+        shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseFirstItemCountToMin();
         final var orderAmount = shop().interactCart().getOrderAmount();
