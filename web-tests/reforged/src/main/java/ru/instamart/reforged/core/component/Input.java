@@ -61,7 +61,7 @@ public final class Input extends AbstractComponent {
      */
     public void fillField(final String data, final boolean isPhone) {
         log.debug("Fill with wait and check {} with locator {} and data {}", getDescription(), getBy(), data);
-        Kraken.waitAction().fillField(getComponent(), data, isPhone);
+        Kraken.waitAction().fillField(this, data, isPhone);
     }
 
     /**
@@ -96,8 +96,12 @@ public final class Input extends AbstractComponent {
     }
 
     public void clear() {
+        clear(false);
+    }
+
+    public void clear(final boolean isPhoneField) {
         log.debug("Clear input {} field", getDescription());
-        getComponent().clear();
+        fillField("", isPhoneField);
     }
 
     public void clearByKeysCombination() {

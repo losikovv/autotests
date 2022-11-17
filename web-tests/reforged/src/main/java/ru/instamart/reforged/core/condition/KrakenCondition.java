@@ -21,34 +21,39 @@ public final class KrakenCondition {
 
     /**
      * Проверяет состояние при котором значение инпута не начнет совпадать с ожидаемым текстом
-     * @param element - элемент для поиска
+     * @param by - элемент для поиска
      * @param data - текст для ввода
      * @param isPhone - если в true то форматирует введенный текст под номер телефона
      */
-    public static ExpectedCondition<Boolean> keysSendCondition(final WebElement element, final String data, final boolean isPhone) {
+    public static ExpectedCondition<Boolean> keysSendCondition(final By by, final String data, final boolean isPhone) {
         return new ExpectedCondition<>() {
             @Override
             public Boolean apply(@Nullable WebDriver driver) {
-                if (element.isDisplayed()) {
-                    element.click();
-                    var value = element.getAttribute("value");
+                try {
+                    final var element = findElement(by);
+                    if (element.isDisplayed()) {
+                        element.click();
+                        var value = element.getAttribute("value");
 
-                    if (nonNull(value) && value.length() != 0) {
-                        if (isPhone) {
-                            if (StringUtil.getPhone(value).equals(data)) {
-                                return true;
+                        if (nonNull(value) && value.length() != 0) {
+                            if (isPhone) {
+                                if (StringUtil.getPhone(value).equals(data)) {
+                                    return true;
+                                }
                             }
-                        }
 
-                        if (InfoUtil.isMac()) {
-                            element.sendKeys(Keys.COMMAND + "a");
-                        } else {
-                            element.sendKeys(Keys.CONTROL + "a");
+                            if (InfoUtil.isMac()) {
+                                element.sendKeys(Keys.COMMAND + "a");
+                            } else {
+                                element.sendKeys(Keys.CONTROL + "a");
+                            }
+                            element.sendKeys(Keys.DELETE);
                         }
-                        element.sendKeys(Keys.DELETE);
+                        element.sendKeys(data);
+                        return element.getAttribute("value").equals(data);
                     }
-                    element.sendKeys(data);
-                    return element.getAttribute("value").equals(data);
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
+                    return false;
                 }
                 return false;
             }

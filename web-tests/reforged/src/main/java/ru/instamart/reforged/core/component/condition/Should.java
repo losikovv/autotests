@@ -14,19 +14,19 @@ public final class Should {
     private final AbstractComponent component;
 
     public void invisible(final Object... args) {
-        Assert.assertTrue(Kraken.waitAction().isInvisible(component, args), "Элемент видим");
+        Assert.assertTrue(Kraken.waitAction().isInvisible(component, args), "Элемент должен быть невидимым");
     }
 
     public void invisible(final WebElement webElement) {
-        Assert.assertTrue(Kraken.waitAction().isInvisible(component, webElement), "Элемент видим");
+        Assert.assertTrue(Kraken.waitAction().isInvisible(component, webElement), "Элемент должен быть невидимым");
     }
 
     public void unclickable(final Object... args) {
-        Assert.assertTrue(Kraken.waitAction().isUnclickable(component, args), "Элемент кликабелен");
+        Assert.assertTrue(Kraken.waitAction().isUnclickable(component, args), "Элемент должен быть не кликабелен");
     }
 
     public void animationFinished(final Object... args) {
-        Assert.assertTrue(Kraken.waitAction().isAnimationFinished(component, args), "Анимация не завершена");
+        Assert.assertTrue(Kraken.waitAction().isAnimationFinished(component, args), "Анимация должна быть завершена завершена");
     }
 
     public void visible() {

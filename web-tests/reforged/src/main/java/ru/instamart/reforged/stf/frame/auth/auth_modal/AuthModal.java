@@ -105,7 +105,7 @@ public final class AuthModal implements Close, AuthModalCheck {
     @Issue("B2C-245")
     @Step("Авторизоваться пользователем {userData.phone}")
     public void authViaPhone(final UserData userData) {
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         fillPhone(userData.getPhone());
         sendSms();
         fillSMS(userData.getSmsCode());

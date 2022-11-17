@@ -138,9 +138,9 @@ public final class WaitAction {
                 .until(KrakenCondition.textToBePresentInAttributeLocated(component.getBy(args), attribute, text));
     }
 
-    public void fillField(final WebElement element, final String data, final boolean isPhone) {
+    public void fillField(final Component component, final String data, final boolean isPhone) {
         createWait("Текущее содержимое поля отличается от ожидаемого")
-                .until(KrakenCondition.keysSendCondition(element, data, isPhone));
+                .until(KrakenCondition.keysSendCondition(component.getBy(), data, isPhone));
     }
 
     public boolean isElementCollectionSizeEqual(final ElementCollection collection, final int size) {
