@@ -5,7 +5,6 @@ tests:UiSmoke:
   extends:
     - ".template_ui_tests"
     - ".template_run_all_jobs_at_a_time_on_master"
-  when: manual
   script:
     - gradle clean build sberUiSmoke -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
   after_script:
@@ -32,7 +31,6 @@ tests:AdminUiSmoke:
     - ".template_ui_tests"
     - ".template_run_all_jobs_at_a_time_on_master"
   stage: tests-ui-admin
-  when: manual
   script:
     - gradle clean build adminUiSmoke -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
   after_script:
