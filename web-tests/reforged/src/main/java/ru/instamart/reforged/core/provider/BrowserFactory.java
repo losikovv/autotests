@@ -13,6 +13,7 @@ import static java.util.Objects.isNull;
 public final class BrowserFactory {
 
     public static DriverSession createDriverSession(final Browser browserType, final String version) {
+        //System.setProperty("webdriver.http.factory", "jdk-http-client");
         AbstractBrowserProvider provider;
         switch (browserType) {
             case CHROME_REMOTE:

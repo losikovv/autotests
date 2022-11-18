@@ -16,4 +16,9 @@ public final class WaitProperties {
     public static int MAX_PAGE_LOAD_TIMEOUT;
     @Config(configName = NAME, fieldName = "maxScriptLoadTimeout", defaultValue = "250")
     public static int MAX_SCRIPT_LOAD_TIMEOUT;
+
+    @Config(configName = NAME, fieldName = "remoteDriverConnectionTimeout", defaultValue = "30")
+    public static int REMOTE_DRIVER_CONNECTION_TIMEOUT;
+    @Config(configName = NAME, fieldName = "remoteDriverReadTimeout", defaultValue = "3")
+    public static int REMOTE_DRIVER_READ_TIMEOUT;
 }

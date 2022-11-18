@@ -1,7 +1,7 @@
 package ru.instamart.reforged.core.cdp;
 
-import org.openqa.selenium.devtools.v103.network.Network;
-import org.openqa.selenium.devtools.v103.network.model.Headers;
+import org.openqa.selenium.devtools.v107.network.Network;
+import org.openqa.selenium.devtools.v107.network.model.Headers;
 import ru.instamart.reforged.core.Kraken;
 
 import java.util.Map;

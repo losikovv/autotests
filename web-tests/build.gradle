@@ -129,6 +129,7 @@ project(":reforged") {
         implementation project(":jdbc")
 
         implementation lib.seleniumJava
+        //implementation lib.seleniumHttp
         implementation lib.webdrivermanager
         implementation lib.ashot
 
