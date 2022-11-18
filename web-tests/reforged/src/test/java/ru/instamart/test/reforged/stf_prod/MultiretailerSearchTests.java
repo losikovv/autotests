@@ -78,7 +78,7 @@ public final class MultiretailerSearchTests {
     @Test(description = "Добавление товара в корзину из межритейлерного саджестора", groups = {STF_PROD_S})
     public void testAddProductToCartFromMultisearchSuggester() {
         final UserData userData = UserManager.getQaUser();
-        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+        apiHelper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         home().goToPage();
         home().checkPageIsAvailable();
@@ -156,7 +156,7 @@ public final class MultiretailerSearchTests {
     @Test(description = "Добавление товара в корзину в межритейлерном поиске", groups = {STF_PROD_S})
     public void testAddProductToCartFromMultisearchPage() {
         final UserData userData = UserManager.getQaUser();
-        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+        apiHelper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         home().goToPage();
         home().checkPageIsAvailable();
