@@ -12,8 +12,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.jdbc.dao.orders_service.OrdersDao;
 import ru.instamart.jdbc.dao.orders_service.PlacesDao;
 import ru.instamart.jdbc.dao.orders_service.RetailersDao;
+import ru.instamart.jdbc.entity.order_service.OrdersEntity;
 import ru.instamart.jdbc.entity.order_service.PlacesEntity;
 import ru.instamart.jdbc.entity.order_service.RetailersEntity;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -28,7 +30,7 @@ import static ru.instamart.api.helper.OrderServiceHelper.*;
 @Epic("Dispatch")
 public class OrderServiceKafkaTest extends RestBase {
     private final String placeUUID = "684609ad-6360-4bae-9556-03918c1e41c1";
-
+    private final String multiOrderPlaceUUID = "0c479c59-f1a4-4214-9690-f0ade4568652";
     private final String retailerUuid = "1f7b042f-650f-46ef-9f4d-10aacf71a532";
     double latitude = 55.6512713;
     double longitude = 55.6512713;
@@ -102,7 +104,28 @@ public class OrderServiceKafkaTest extends RestBase {
             softAssert.assertAll();
         });
     }
+    @Test(description = "Получение и сохранение двух заказов из мультизаказа",
+            groups = "kafka-instamart-regress")
+    public void receiveMultiOrder() {
+        String orderUuid = UUID.randomUUID().toString();
+        String firstShipmentUuid = UUID.randomUUID().toString();
+        String secondShipmentUuid = UUID.randomUUID().toString();
+        String firstOrderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
+        String secondOrderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
+        publishOrderEvent(latitude, longitude, getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseUpperDttmEndsAt(), 1, orderUuid, 2000, RequestOrderType.ON_DEMAND, ShipmentStatus.READY, placeUUID, firstShipmentUuid, firstOrderNumber, 3599, false, ShippingMethodKind.BY_COURIER);
+        publishOrderEvent(latitude, longitude, getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseUpperDttmEndsAt(), 1, orderUuid, 2000, RequestOrderType.ON_DEMAND, ShipmentStatus.READY, multiOrderPlaceUUID, secondShipmentUuid, secondOrderNumber, 3599, false, ShippingMethodKind.BY_COURIER);
 
+        ThreadUtil.simplyAwait(1);
+        OrdersEntity firstOrderEntity = OrdersDao.INSTANCE.findByShipmentUuid(firstShipmentUuid);
+        OrdersEntity secondOrderEntity = OrdersDao.INSTANCE.findByShipmentUuid(secondShipmentUuid);
+
+        Allure.step("Проверка полученных сообщений о мультизаказах в кафке", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(firstOrderEntity.getShipmentUuid(), firstShipmentUuid, "Первый заказ из мультизаказа не сохранился в БД");
+            softAssert.assertEquals(secondOrderEntity.getShipmentUuid(), secondShipmentUuid, "Второй заказ из мультизаказа не сохранился в БД");
+            softAssert.assertAll();
+        });
+    }
     @Test(description = "При получении события отмены заказа статусы джобов и заказа переходят в CANCELED",
             groups = "kafka-instamart-regress")
     public void receiveNewCancelledOrderEvent() {

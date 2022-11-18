@@ -54,6 +54,16 @@ public enum Db {
             Crypt.INSTANCE.decrypt("DQdUNB8CjrqEUiIrAaZlCg=="),
             EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE
     ),
+    PG_ROUTE_ESTIMATOR(
+            DbType.POSTGRESQL,
+            "paas-content-operations-route-estimator",
+            "statefulset.kubernetes.io/pod-name=postgresql-0",
+            5432,
+            "jdbc:postgresql://localhost:%s/app",
+            Crypt.INSTANCE.decrypt("O4On6ImtTAIvvUDOsqOHDw=="),
+            Crypt.INSTANCE.decrypt("DQdUNB8CjrqEUiIrAaZlCg=="),
+            EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE
+    ),
     PG_SHIFT(
             DbType.POSTGRESQL,
             "paas-content-operations-shifts",
