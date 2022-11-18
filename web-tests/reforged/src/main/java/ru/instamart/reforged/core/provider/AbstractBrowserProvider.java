@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v103.network.Network;
+import org.openqa.selenium.devtools.v107.network.Network;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -20,8 +20,10 @@ import org.openqa.selenium.remote.http.ClientConfig;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import ru.instamart.reforged.core.config.BrowserProperties;
+import ru.instamart.reforged.core.config.WaitProperties;
 
 import java.net.URI;
+import java.time.Duration;
 import java.util.Optional;
 
 @Slf4j
@@ -31,18 +33,20 @@ public abstract class AbstractBrowserProvider {
     protected WebDriver driver;
     @Getter
     protected DevTools devTools;
-    private final ClientConfig clientConfig = ClientConfig.defaultConfig();
+    private final ClientConfig clientConfig = ClientConfig.defaultConfig().withRetries();
 
     public abstract void createDriver(final String version);
 
     protected void createRemoteDriver(final Capabilities capabilities) {
         try {
             final var url = URI.create(BrowserProperties.REMOTE_URL).toURL();
+            clientConfig.connectionTimeout(Duration.ofSeconds(WaitProperties.REMOTE_DRIVER_CONNECTION_TIMEOUT))
+                    .readTimeout(Duration.ofMinutes(WaitProperties.REMOTE_DRIVER_READ_TIMEOUT));
             this.driver = RemoteWebDriver.builder()
                     .address(url)
                     .augmentUsing(new Augmenter())
                     .oneOf(capabilities)
-                    .config(clientConfig.withRetries())
+                    .config(clientConfig)
                     .build();
             applyOptions();
             ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());

@@ -2,6 +2,7 @@ package ru.instamart.reforged.core.provider.chrome;
 
 import org.testng.Reporter;
 import ru.instamart.reforged.core.config.BrowserProperties;
+import ru.instamart.reforged.core.config.UiProperties;
 
 import java.util.Map;
 
@@ -14,7 +15,8 @@ public final class ChromeProvider extends AbstractChromeProvider {
                 "name", Reporter.getCurrentTestResult().getName(),
                 "enableVideo", BrowserProperties.VIDEO,
                 "sessionTimeout", "5m",
-                "screenResolution", "1920x1080x24"
+                "screenResolution", "1920x1080x24",
+                "hostsEntries", UiProperties.HOSTS_ENTRIES
         ));
 
         createRemoteDriver(options);

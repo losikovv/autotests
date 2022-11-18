@@ -55,4 +55,7 @@ public final class UiProperties {
     public static String ALCOHOL_CATEGORY_LINK;
     @Config(configName = NAME, fieldName = "freeDeliveryPromotionId", defaultValue = "")
     public static int FREE_DELIVERY_PROMO_ID;
+
+    @Config(configName = NAME, fieldName = "hostsEntries", defaultValue = "")
+    public static List<String> HOSTS_ENTRIES;
 }

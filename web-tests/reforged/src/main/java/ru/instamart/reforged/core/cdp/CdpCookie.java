@@ -3,11 +3,11 @@ package ru.instamart.reforged.core.cdp;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.devtools.v103.network.Network;
-import org.openqa.selenium.devtools.v103.network.model.CookieParam;
-import org.openqa.selenium.devtools.v103.network.model.CookiePriority;
-import org.openqa.selenium.devtools.v103.network.model.CookieSourceScheme;
-import org.openqa.selenium.devtools.v103.network.model.TimeSinceEpoch;
+import org.openqa.selenium.devtools.v107.network.Network;
+import org.openqa.selenium.devtools.v107.network.model.CookieParam;
+import org.openqa.selenium.devtools.v107.network.model.CookiePriority;
+import org.openqa.selenium.devtools.v107.network.model.CookieSourceScheme;
+import org.openqa.selenium.devtools.v107.network.model.TimeSinceEpoch;
 import ru.instamart.reforged.core.Kraken;
 
 import java.util.ArrayList;
@@ -20,12 +20,12 @@ import static java.util.Objects.isNull;
 @Slf4j
 public final class CdpCookie {
 
-    public static List<org.openqa.selenium.devtools.v103.network.model.Cookie> getAllCookies() {
+    public static List<org.openqa.selenium.devtools.v107.network.model.Cookie> getAllCookies() {
         log.debug("Получить список cookies");
         return Kraken.getDevTools().send(Network.getAllCookies());
     }
 
-    public static void deleteCookie(final org.openqa.selenium.devtools.v103.network.model.Cookie cookie) {
+    public static void deleteCookie(final org.openqa.selenium.devtools.v107.network.model.Cookie cookie) {
         log.debug("Удалить куку {}", cookie);
         Kraken.getDevTools().send(Network.deleteCookies(
                 cookie.getName(),
