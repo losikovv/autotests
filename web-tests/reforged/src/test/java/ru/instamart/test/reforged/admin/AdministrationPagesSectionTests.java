@@ -13,6 +13,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.stf.page.StfRouter;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.PROD_ADMIN_SMOKE;
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;

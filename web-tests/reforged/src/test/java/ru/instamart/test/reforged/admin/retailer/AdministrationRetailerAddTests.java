@@ -10,6 +10,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.PROD_ADMIN_SMOKE;
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
@@ -31,7 +32,7 @@ public final class AdministrationRetailerAddTests {
 
     @CaseIDs
             ({@CaseId(206), @CaseId(207), @CaseId(208)})
-    @Test(description = "Проверка обязательности заполнения полей", groups = REGRESSION_ADMIN)
+    @Test(description = "Проверка обязательности заполнения полей", groups = {REGRESSION_ADMIN, PROD_ADMIN_SMOKE})
     public void checkRequiredFields() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

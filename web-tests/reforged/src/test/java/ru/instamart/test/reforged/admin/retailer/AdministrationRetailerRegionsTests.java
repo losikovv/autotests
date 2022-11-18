@@ -11,6 +11,7 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.admin.AdminRout.login;
 import static ru.instamart.reforged.admin.AdminRout.regions;
 
@@ -22,7 +23,7 @@ public final class AdministrationRetailerRegionsTests {
     @Issue("GARM-1125")
     @Story("Тест добавления нового региона для магазинов в админке")
     @Test(description = "Создать новый регион",
-            groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void successCreateNewRetailerRegion() {
         final var regionName = "тест-" + Generate.literalCyrillicString(6);
 
@@ -42,7 +43,7 @@ public final class AdministrationRetailerRegionsTests {
 
     @CaseId(470)
     @Test(description = "Настройки региона",
-            groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void regionSetting() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -56,7 +57,7 @@ public final class AdministrationRetailerRegionsTests {
     @CaseId(472)
     @Story("Валидация страницы регионов")
     @Test(description = "Валидация страницы регионов",
-            groups = {"ondemand_shoppers_regression", "ondemand_shoppers_smoke", "admin_ondemand_smoke", "admin_ondemand_regression"})
+            groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS, PROD_ADMIN_SMOKE})
     public void storeRegionsPageValidation() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

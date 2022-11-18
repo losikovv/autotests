@@ -13,6 +13,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.PROD_ADMIN_SMOKE;
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
@@ -24,7 +25,7 @@ public final class AdministrationUsersSectionTests {
 
     @CaseId(19)
     @Story("Тест поиска пользователя в админке")
-    @Test(description = "Работоспособность поиска в списке юзеров", groups = {REGRESSION_ADMIN, "production"})
+    @Test(description = "Работоспособность поиска в списке юзеров", groups = {REGRESSION_ADMIN, PROD_ADMIN_SMOKE})
     public void successSearchUser() {
         final var email = UserManager.getDefaultAdmin().getEmail();
 

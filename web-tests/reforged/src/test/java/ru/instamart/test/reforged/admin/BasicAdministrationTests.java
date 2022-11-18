@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.PROD_ADMIN_SMOKE;
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
 import static ru.instamart.reforged.stf.page.StfRouter.home;
@@ -18,7 +19,7 @@ public final class BasicAdministrationTests {
 
     @CaseId(419)
     @Story("Тест доступности корневых разделов админки")
-    @Test(description = "Тест доступности корневых разделов админки", groups = {REGRESSION_ADMIN, "smoke", "production"})
+    @Test(description = "Тест доступности корневых разделов админки", groups = {REGRESSION_ADMIN, "smoke", PROD_ADMIN_SMOKE})
     public void successCheckAdminSectionsAvailability() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -45,7 +46,7 @@ public final class BasicAdministrationTests {
 
     @CaseId(420)
     @Story("Тест доступности вьюхи oktell")
-    @Test(description = "Тест доступности вьюхи oktell", groups = {REGRESSION_ADMIN, "production"})
+    @Test(description = "Тест доступности вьюхи oktell", groups = {REGRESSION_ADMIN, PROD_ADMIN_SMOKE})
     public void successCheckOktellViewAvailability() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -56,7 +57,7 @@ public final class BasicAdministrationTests {
 
     @CaseId(416)
     @Story("Проверка наличия элементов в шапке админки")
-    @Test(description = "Проверка наличия элементов в шапке админки", groups = {REGRESSION_ADMIN, "production"})
+    @Test(description = "Проверка наличия элементов в шапке админки", groups = {REGRESSION_ADMIN, PROD_ADMIN_SMOKE})
     public void successValidateHeader() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -70,7 +71,7 @@ public final class BasicAdministrationTests {
     @Flaky
     @CaseId(4)
     @Story("Тест валидности ссылок навигационного меню в шапке админки")
-    @Test(description = "Тест валидности ссылок навигационного меню в шапке админки", groups = {REGRESSION_ADMIN, "smoke", "production"})
+    @Test(description = "Тест валидности ссылок навигационного меню в шапке админки", groups = {REGRESSION_ADMIN, "smoke", PROD_ADMIN_SMOKE})
     public void successValidateNavigationMenu() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

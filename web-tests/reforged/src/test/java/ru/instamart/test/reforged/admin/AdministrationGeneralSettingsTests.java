@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.Group.PROD_ADMIN_SMOKE;
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
@@ -14,7 +15,7 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 public final class AdministrationGeneralSettingsTests {
 
     @CaseId(346)
-    @Test(description = "Корректное отображение страницы основных настроек", groups = {REGRESSION_ADMIN, "production"})
+    @Test(description = "Корректное отображение страницы основных настроек", groups = {REGRESSION_ADMIN, PROD_ADMIN_SMOKE})
     public void generalSettingsPageValidate() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -120,7 +121,7 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(572)
-    @Test(description = "Корректное отображение страницы настройки городов", groups = {REGRESSION_ADMIN, "production"})
+    @Test(description = "Корректное отображение страницы настройки городов", groups = {REGRESSION_ADMIN, PROD_ADMIN_SMOKE})
     public void citiesSettingsPageValidate() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -132,7 +133,7 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(575)
-    @Test(description = "Корректное отображение страницы добавления городов", groups = {REGRESSION_ADMIN, "production"})
+    @Test(description = "Корректное отображение страницы добавления городов", groups = {REGRESSION_ADMIN, PROD_ADMIN_SMOKE})
     public void cityAddTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -165,7 +166,7 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(573)
-    @Test(description = "Корректное отображение страницы редактирования городов", groups = {REGRESSION_ADMIN, "production"})
+    @Test(description = "Корректное отображение страницы редактирования городов", groups = {REGRESSION_ADMIN, PROD_ADMIN_SMOKE})
     public void cityEditTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -199,7 +200,7 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(367)
-    @Test(description = "Корректное отображение страницы настроек методов оплаты", groups = {REGRESSION_ADMIN, "production"})
+    @Test(description = "Корректное отображение страницы настроек методов оплаты", groups = {REGRESSION_ADMIN, PROD_ADMIN_SMOKE})
     public void paymentMethodsSettingsPageValidate() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -210,7 +211,7 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(393)
-    @Test(description = "Корректное отображение страницы настроек компаний", groups = {REGRESSION_ADMIN, "production"})
+    @Test(description = "Корректное отображение страницы настроек компаний", groups = {REGRESSION_ADMIN, PROD_ADMIN_SMOKE})
     public void companySettingsPageValidate() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -265,7 +266,7 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(394)
-    @Test(description = "Корректное отображение страницы настроек смс", groups = {REGRESSION_ADMIN, "production"})
+    @Test(description = "Корректное отображение страницы настроек смс", groups = {REGRESSION_ADMIN, PROD_ADMIN_SMOKE})
     public void smsSettingsPageValidate() {
         login().goToPage();
         login().auth(UserManager.getAdminSmsRole());
