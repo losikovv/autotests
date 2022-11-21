@@ -32,7 +32,7 @@ task adminKeycloak(type: Test) {
         suites 'src/test/resources/suite/submodule/admin-keycloak.xml'
         includeGroups 'admin-keycloak'
     }
-    systemProperty 'admin_url', 'https://stf-0.k-stage.sbermarket.tech/admin/'
+    environment 'ADMIN_URL', 'https://stf-0.k-stage.sbermarket.tech/'
     systemProperty 'qase.Project', 'CS'
     systemProperty 'qase.Title', 'STF admin keycloak tests'
 }
@@ -42,9 +42,9 @@ task adminOnDemandSmoke(type: Test) {
         suites 'src/test/resources/suite/submodule/admin-on-demand.xml'
         includeGroups 'admin_ondemand_smoke'
     }
-    systemProperty 'admin_url', 'https://stf-6.k-stage.sbermarket.tech/admin/'
-    systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
-    systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
+    environment 'ADMIN_URL', 'https://stf-6.k-stage.sbermarket.tech/'
+    environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
+    environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
     systemProperty 'service', 'paas-content-operations-shifts'
     systemProperty 'qase.Project', 'SA'
     systemProperty 'qase.Title', 'On-Demand Admin Smoke'
@@ -55,9 +55,9 @@ task adminOnDemandRegress(type: Test) {
         suites 'src/test/resources/suite/submodule/admin-on-demand.xml'
         includeGroups 'admin_ondemand_regression'
     }
-    systemProperty 'admin_url', 'https://stf-6.k-stage.sbermarket.tech/admin/'
-    systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
-    systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
+    environment 'ADMIN_URL', 'https://stf-6.k-stage.sbermarket.tech/'
+    environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
+    environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
     systemProperty 'service', 'paas-content-operations-shifts'
     systemProperty 'qase.Project', 'SA'
     systemProperty 'qase.Title', 'On-Demand Admin Regress'

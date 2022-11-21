@@ -1,10 +1,4 @@
 tasks.withType(Test) {
-    if (project.hasProperty('url_stf')) {
-        systemProperty 'url_stf',"${url_stf}"
-    }
-    if (project.hasProperty('url_shp')) {
-        systemProperty 'url_shp',"${url_shp}"
-    }
     if (project.hasProperty('bff_forward')) {
         systemProperty 'bff_forward',"${bff_forward}"
     }
@@ -13,9 +7,6 @@ tasks.withType(Test) {
     }
     if (project.hasProperty('url_paas_shippingcalc')) {
         systemProperty 'url_paas_shippingcalc',"${url_paas_shippingcalc}"
-    }
-    if (project.hasProperty('admin_url')) {
-        systemProperty 'admin_url',"${admin_url}"
     }
     if (project.hasProperty('url_paas_eta')) {
         systemProperty 'url_paas_eta',"${url_paas_eta}"

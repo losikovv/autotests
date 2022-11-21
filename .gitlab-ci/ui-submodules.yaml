@@ -5,7 +5,7 @@ tests:adminKeycloak:
   extends:
     - ".template_ui_tests"
   script:
-    - gradle clean build adminKeycloak -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
+    - gradle clean build adminKeycloak
   after_script:
     - bash ./report.sh reforged ui-stf-keycloak
 
