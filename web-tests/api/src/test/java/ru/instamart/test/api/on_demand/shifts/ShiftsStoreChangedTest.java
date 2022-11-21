@@ -77,7 +77,10 @@ public class ShiftsStoreChangedTest extends RestBase {
 
     @AfterClass(alwaysRun = true, description = "Clear")
     public void after() {
-        ShopsDao.INSTANCE.delete(baseStoreId);
+        boolean delete = PlanningAreasDao.INSTANCE.delete(baseStoreId);
+        if(delete) {
+            ShopsDao.INSTANCE.delete(baseStoreId);
+        }
     }
 
     @CaseId(177)
