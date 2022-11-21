@@ -22,7 +22,6 @@ import java.util.UUID;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
-import static ru.instamart.kraken.config.EnvironmentProperties.Env.isProduction;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Авторизация")
@@ -65,9 +64,7 @@ public final class AuthProviderV2Test extends RestBase {
             final SoftAssert softAssert = new SoftAssert();
             compareTwoObjects(availableProvider.getId(), "sberbank", softAssert);
             compareTwoObjects(availableProvider.getIconType(), "sberprime", softAssert);
-            softAssert.assertEquals(availableProvider.getDescription(),
-                    isProduction() ? "Покупали подписку? Войдите по Сбер ID и получайте до 5% бонусов СберСпасибо" : "Покупали подписку? Войдите по Сбер ID, чтобы покупки стали выгоднее",
-                    "description не совпадает с ожидаемым");
+            softAssert.assertTrue(availableProvider.getDescription().contains("Покупали подписку? Войдите по Сбер ID"), "description не совпадает с ожидаемым");
             softAssert.assertEquals(availableProvider.getConfirmText(), "Войти по Сбер ID", "confirm_text не совпадает");
             softAssert.assertAll();
         });
