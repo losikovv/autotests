@@ -211,12 +211,13 @@ public class OffersV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
+    @Skip
     @CaseId(2227)
     @Issue("FEP-3655")
     @Story("Офферы")
     @Test(description = "Получение оффера",
             groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
-            dependsOnMethods = "getOffer", enabled = false)
+            dependsOnMethods = "getOffer")
     public void getOffersByPermalink() {
         final Response response = ProductsV1Request.GET(offerForRequest.getPermalink());
         checkStatusCode200(response);
