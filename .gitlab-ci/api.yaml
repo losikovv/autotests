@@ -11,7 +11,7 @@ tests:ApiInstamart:
   script:
     - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle clean build apiInstamartSmoke -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
+    - gradle clean build apiInstamartSmoke
   after_script:
     - if [ $URL_STF_BACKEND == "stf-kraken.k-stage.sbermarket.tech" ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
     - echo $ALLURE_POSTFIX
@@ -25,7 +25,7 @@ tests:ApiV2InstamartRegress:
   script:
     - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle clean build apiV2InstamartRegress -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
+    - gradle clean build apiV2InstamartRegress
   after_script:
     - bash ./clean-directory.sh api api-instamart-preprod-regress
     - bash ./send-files.sh api api-instamart-preprod-regress
@@ -38,7 +38,7 @@ tests:ApiV1InstamartRegress:
   script:
     - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle clean build apiV1InstamartRegress -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
+    - gradle clean build apiV1InstamartRegress
   after_script:
     - bash ./send-files.sh api api-instamart-preprod-regress
 
@@ -50,7 +50,7 @@ tests:ApiV3InstamartRegress:
   script:
     - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle clean build apiV3InstamartRegress -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
+    - gradle clean build apiV3InstamartRegress
   after_script:
     - bash ./send-files.sh api api-instamart-preprod-regress
 

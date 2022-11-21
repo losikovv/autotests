@@ -6,7 +6,7 @@ tests:UiSmoke:
     - ".template_ui_tests"
     - ".template_run_all_jobs_at_a_time_on_master"
   script:
-    - gradle clean build sberUiSmoke -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
+    - gradle clean build sberUiSmoke
   after_script:
     - bash ./report.sh reforged ui-stf-smoke
 
@@ -19,7 +19,7 @@ tests:UiRegress:
     - "tests:ApiV2InstamartRegress"
     - "tests:ApiV3InstamartRegress"
   script:
-    - gradle clean build sberRegression -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
+    - gradle clean build sberRegression
   after_script:
     - bash ./report.sh reforged ui-stf-regress
 
@@ -32,7 +32,7 @@ tests:AdminUiSmoke:
     - ".template_run_all_jobs_at_a_time_on_master"
   stage: tests-ui-admin
   script:
-    - gradle clean build adminUiSmoke -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
+    - gradle clean build adminUiSmoke
   after_script:
     - bash ./report.sh reforged ui-admin-smoke
 
@@ -46,7 +46,7 @@ tests:AdminUiRegress:
     - "tests:ApiV2InstamartRegress"
     - "tests:ApiV3InstamartRegress"
   script:
-    - gradle clean build adminUiRegress -Purl_stf=$URL_STF_BACKEND -Purl_shp=$URL_SHP
+    - gradle clean build adminUiRegress
   after_script:
     - bash ./report.sh reforged ui-admin-regress
 

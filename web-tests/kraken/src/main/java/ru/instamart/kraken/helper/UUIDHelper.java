@@ -2,8 +2,6 @@ package ru.instamart.kraken.helper;
 
 import lombok.NonNull;
 
-import java.util.List;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,7 +19,7 @@ public class UUIDHelper {
 
     public static String getFirstUUID(@NonNull final String str){
         Matcher matcher = UUID_REGEX_PATTERN2.matcher(str);
-        while(matcher.find()) {
+        if (matcher.find()) {
             return matcher.group(1);
         }
         return null;

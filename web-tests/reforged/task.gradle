@@ -38,9 +38,9 @@ task localRunAdminOnDemand(type: Test) {
     }
     environment 'BROWSER', 'chrome'
     environment 'HEADLESS', 'false'
-    environment 'ADMIN_URL', 'https://stf-6.k-stage.sbermarket.tech/admin/'
-    systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
-    systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
+    environment 'ADMIN_URL', 'https://stf-6.k-stage.sbermarket.tech/'
+    environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
+    environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
     systemProperty 'service', 'paas-content-operations-shifts'
     systemProperty 'qase.Project', 'DEBUG'
     systemProperty 'qase.Title', 'Admin On Demand UI DEBUG'
