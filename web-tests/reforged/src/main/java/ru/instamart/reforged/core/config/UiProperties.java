@@ -56,6 +56,6 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "freeDeliveryPromotionId", defaultValue = "")
     public static int FREE_DELIVERY_PROMO_ID;
 
-    @Config(configName = NAME, fieldName = "hostsEntries", defaultValue = "")
+    @Config(configName = NAME, fieldName = "hostsEntries", defaultValue = "", env = "HOSTS")
     public static List<String> HOSTS_ENTRIES;
 }

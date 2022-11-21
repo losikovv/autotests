@@ -3,9 +3,19 @@ package ru.instamart.test.reforged.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import lombok.RequiredArgsConstructor;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.function.Consumer;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
 import static ru.instamart.reforged.admin.AdminRout.login;
@@ -14,6 +24,32 @@ import static ru.instamart.reforged.admin.AdminRout.main;
 @Epic("Админка STF")
 @Feature("Страница логина")
 public final class AdministrationLoginTests {
+
+    @Test
+    public void foo() throws ExecutionException, InterruptedException, IOException {
+        //dscacheutil -q host -a name admin.sbmt.io
+        Process process = Runtime.getRuntime().exec("dscacheutil -q host -a name admin.sbmt.io");
+        StreamGobbler streamGobbler =
+                new StreamGobbler(process.getInputStream(), System.out::println);
+        Future<?> future = Executors.newSingleThreadExecutor().submit(streamGobbler);
+
+        int exitCode = process.waitFor();
+        assert exitCode == 0;
+
+        future.get();
+    }
+
+    @RequiredArgsConstructor
+    private static class StreamGobbler implements Runnable {
+        private final InputStream inputStream;
+        private final Consumer<String> consumer;
+
+        @Override
+        public void run() {
+            new BufferedReader(new InputStreamReader(inputStream)).lines()
+                    .forEach(consumer);
+        }
+    }
 
     @CaseId(440)
     @Story("Тест неуспешной авторизации с пустыми полями")
