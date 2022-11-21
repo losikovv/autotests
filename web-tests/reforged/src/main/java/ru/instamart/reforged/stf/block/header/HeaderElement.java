@@ -25,7 +25,7 @@ public interface HeaderElement {
     Link logo = new Link(By.xpath("//header//i"), "лого на сайте");
 
     Button delivery = new Button(By.xpath("//button[@data-qa='ship_selector_type_delivery']"), "кнопка доставки");
-    Button pickup = new Button(By.xpath("//button[@data-qa='ship_selector_type_pickup']"), "кнопка самовывоза");
+    Button pickup = new Button(By.xpath("//span[contains(@class,'ShippingSwitcher_title_')][.='Cамовывоз']"), "кнопка самовывоза");
     Button pickupSelected = new Button(By.xpath("//button[@data-qa='ship_selector_type_pickup' and @aria-selected='true']"), "выбранная кнопка самовывоза");
     Button selectAddress = new Button(By.xpath("//button[@data-qa='select-button']"), "кнопка выбора адреса");
     Button firstSelectAddress = new Button(By.xpath("//button[@data-qa='shipping_method_button']"), "выбранный адрес");

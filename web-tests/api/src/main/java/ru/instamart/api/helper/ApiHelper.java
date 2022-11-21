@@ -33,6 +33,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.kraken.util.TimeUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -293,7 +294,7 @@ public final class ApiHelper {
         apiV2.getAvailableShippingMethod(sid);
         apiV2.getAvailableDeliveryWindow();
 
-        apiV2.setDefaultOrderAttributes();
+        apiV2.setDefaultOrderAttributes(user, "test");
         return apiV2.completeOrder();
     }
 
@@ -386,7 +387,7 @@ public final class ApiHelper {
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
     @Step("Оформляем заказ с помощью API на завтра")
-    public void makeOrderOnTomorrow(final UserData user, final Integer sid, final Integer itemsNumber) {
+    public OrderV2 makeOrderOnTomorrow(final UserData user, final Integer sid, final Integer itemsNumber) {
         apiV2.authByPhone(user);
 
         apiV2.getCurrentOrderNumber();
@@ -399,8 +400,8 @@ public final class ApiHelper {
         apiV2.getAvailableShippingMethod();
         apiV2.getAvailableDeliveryWindowOnTomorrow();
 
-        apiV2.setDefaultOrderAttributes();
-        apiV2.completeOrder();
+        apiV2.setDefaultOrderAttributes(user, "test");
+        return apiV2.completeOrder();
     }
 
     /**
@@ -478,10 +479,19 @@ public final class ApiHelper {
         return apiV2.cancelOrder(order.getNumber());
     }
 
-    public void makeAndCompleteOrder(final UserData user, final int sid, final int itemsNumber) {
+    @Step("Оформляем заказ с датой доставки {shippedDate} при помощи API")
+    public OrderV2 makeAndCompleteOrderWithDate(final UserData user, final int sid, final int itemsNumber, LocalDateTime shippedDate) {
+        final var shipment = makeOrder(user, sid, itemsNumber);
+        final var order = SpreeOrdersDao.INSTANCE.getOrderByShipment(shipment.getShipments().get(0).getNumber());
+        SpreeOrdersDao.INSTANCE.updateShipmentStateToShip(order.getNumber(), TimeUtil.getDbDate(shippedDate));
+        return shipment;
+    }
+
+    public OrderV2 makeAndCompleteOrder(final UserData user, final int sid, final int itemsNumber) {
         final var shipment = makeOrder(user, sid, itemsNumber);
         final var order = SpreeOrdersDao.INSTANCE.getOrderByShipment(shipment.getShipments().get(0).getNumber());
         SpreeOrdersDao.INSTANCE.updateShipmentStateToShip(order.getNumber(), TimeUtil.getDbDate());
+        return shipment;
     }
 
     @Step("Устанавливаем заказу: '{orderNumber}' статус 'shipmentState'")

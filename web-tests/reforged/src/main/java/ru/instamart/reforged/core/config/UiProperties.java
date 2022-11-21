@@ -50,6 +50,9 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "defaultLentaSid", defaultValue = "58")
     public static int DEFAULT_LENTA_SID;
 
+    @Config(configName = NAME, fieldName = "defaultAzbukaVkusaSid", defaultValue = "99")
+    public static int DEFAULT_AZBUKAVKUSA_SID;
+
     @Config(configName = NAME, fieldName = "defaultPrereplacementSid", defaultValue = "6")
     public static int DEFAULT_PREREPLACEMENT_SID;
 

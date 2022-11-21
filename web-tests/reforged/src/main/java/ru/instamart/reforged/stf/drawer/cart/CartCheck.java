@@ -83,6 +83,16 @@ public interface CartCheck extends Check, CartElement {
         items.should().animationFinished();
     }
 
+    @Step("Проверяем, что в количество товаров в корзине равно: {expectedCount}")
+    default void checkItemsCount(final int expectedCount) {
+        Assert.assertEquals(items.elementCount(), expectedCount, "Количество товаров в корзине отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что в количество товаров в корзине больше чем: {expectedCount}")
+    default void checkItemsCountMoreThan(final int expectedCount) {
+        Assert.assertTrue(items.elementCount() > expectedCount, "Количество товаров в корзине отличается от ожидаемого");
+    }
+
     @Step("Проверяем соответствие текущего количества товаров {0} ожидаемому {1}")
     default void checkItemsCount(final int actualItemsCount, final int expectedItemsCount) {
         Assert.assertEquals(actualItemsCount, expectedItemsCount, "Количество товаров в корзине не соответствует ожидаемому");
@@ -96,5 +106,10 @@ public interface CartCheck extends Check, CartElement {
     @Step("Проверяем, что рителер '{retailerName}' не отображается в корзине")
     default void checkRetailerNotVisible(final String retailerName) {
         retailerByName.should().invisible(retailerName);
+    }
+
+    @Step("Проверяем, что в списке товаров присутствует: '{expectedItemName}'")
+    default void checkItemListContains(final String expectedItemName){
+        Assert.assertTrue(itemNames.getTextFromAllElements().contains(expectedItemName), "В списке товаров в корзине не найдено ожидаемого");
     }
 }

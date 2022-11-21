@@ -22,7 +22,7 @@ import static ru.instamart.reforged.Group.JOTUNHEIMR;
 import static ru.instamart.reforged.core.config.UiProperties.ALCOHOL_CATEGORY_LINK;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.*;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
-import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED;
+import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -139,7 +139,7 @@ public final class CheckoutTests {
         //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkShipmentCostVisible();
@@ -199,7 +199,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickConfirmOrder();
 
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkShipmentCostVisible();
@@ -282,7 +282,7 @@ public final class CheckoutTests {
         //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkShipmentCostVisible();
@@ -360,7 +360,7 @@ public final class CheckoutTests {
         checkoutNew().clickConfirmPay();
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkShipmentCostVisible();
@@ -422,7 +422,7 @@ public final class CheckoutTests {
         checkoutNew().clickConfirmOrder();
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkAssemblyCostVisible();
@@ -491,7 +491,7 @@ public final class CheckoutTests {
         //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkAssemblyCostVisible();
@@ -546,7 +546,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickConfirmOrder();
 
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkShipmentCostVisible();
@@ -628,7 +628,7 @@ public final class CheckoutTests {
         //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkShipmentCostVisible();
@@ -705,7 +705,7 @@ public final class CheckoutTests {
         checkoutNew().clickConfirmPay();
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkShipmentCostVisible();
@@ -766,7 +766,7 @@ public final class CheckoutTests {
         checkoutNew().clickConfirmOrder();
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkShipmentCostVisible();
@@ -854,7 +854,7 @@ public final class CheckoutTests {
         //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkShipmentCostVisible();
@@ -934,7 +934,7 @@ public final class CheckoutTests {
         checkoutNew().clickConfirmOrder();
 
         userShipment().checkPageContains(userShipments().pageUrl());
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkShipmentCostVisible();
@@ -1013,7 +1013,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickConfirmOrder();
 
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkShipmentCostVisible();
@@ -1088,7 +1088,7 @@ public final class CheckoutTests {
 
         checkoutNew().clickConfirmOrder();
 
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkShipmentCostVisible();

@@ -38,6 +38,7 @@ public class RestAddresses {
         // 03.12.19 по этому адресу доступны 4 ритейлера
         public static AddressV2 defaultAddress() {
             return AddressV2.builder()
+                    .fullAddress("Москва, просп. Мира, 211, стр. 1")
                     .city("Москва")
                     .street("просп. Мира")
                     .building("211, стр. 1")
@@ -48,7 +49,6 @@ public class RestAddresses {
 
         public static AddressV2 checkoutAddress() {
             return AddressV2.builder()
-                    .fullAddress("ул. Луговая, д. 193")
                     .city("Москва")
                     .street("Рябиновая")
                     .building("59")

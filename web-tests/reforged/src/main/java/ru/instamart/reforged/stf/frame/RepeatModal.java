@@ -18,6 +18,11 @@ public final class RepeatModal implements Check, Close {
         modal.should().animationFinished();
     }
 
+    @Step("Проверяем, что окно подтверждения повтора заказа не отображается")
+    public void checkModalWindowNotVisible() {
+        modal.should().invisible();
+    }
+
     @Step("Подтвердить действие")
     public void clickToAccept() {
         accept.click();

@@ -23,6 +23,7 @@ public interface CartElement {
 
     Element firstItem = new Element(By.xpath("//div[@data-qa='line-item']"), 20, "Первый товар в корзине");
     ElementCollection items = new ElementCollection(By.xpath("//div[@data-qa='line-item']"), "Все товары в корзине");
+    ElementCollection itemNames = new ElementCollection(By.xpath("//div[@data-qa='line-item']//dt[contains(@class,'line_item_productTitle_')]"), "Названия продуктов в корзине");
     Element firstRetailer = new Element(By.xpath("//div[@class='cart-retailer']"), "Первый магазин в корзине");
     Element retailerByName = new Element(ByKraken.xpathExpression("//div[@class='cart-retailer__header']/div/a/img[@alt='%s']"), "Ритейлер по названию");
     ElementCollection retailers = new ElementCollection(By.xpath("//div[@class='cart-retailer']"), "Все магазины в корзине");

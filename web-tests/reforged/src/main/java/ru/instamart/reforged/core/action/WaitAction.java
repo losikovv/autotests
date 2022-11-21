@@ -11,6 +11,7 @@ import ru.instamart.reforged.core.wait.KrakenWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static ru.instamart.reforged.core.Kraken.getWebDriver;
 
@@ -128,8 +129,13 @@ public final class WaitAction {
     }
 
     //######################## Contains Text ########################
+    public boolean textMatches(final Component component, final Pattern pattern, final Object... args) {
+        return createWait(component, String.format("текст элемента должен соответствовать паттерну: %s", pattern))
+                .until(ExpectedConditions.textMatches(component.getBy(args), pattern));
+    }
+
     public boolean containText(final Component component, final String text, final Object... args) {
-        return createWait(component, String.format("должен присутствовать текс: %s", text))
+        return createWait(component, String.format("должен присутствовать текст: %s", text))
                 .until(ExpectedConditions.textToBePresentInElementLocated(component.getBy(args), text));
     }
 
