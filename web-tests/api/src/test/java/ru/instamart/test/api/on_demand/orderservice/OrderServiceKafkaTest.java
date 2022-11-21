@@ -60,6 +60,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
+    @CaseId(209)
     @Test(description = "Получение информации о статусе джобов и заказа для нового ондеманд заказа",
             groups = "kafka-instamart-regress")
     public void receiveNewOnDemandOrderEvent() {
@@ -82,7 +83,7 @@ public class OrderServiceKafkaTest extends RestBase {
             softAssert.assertAll();
         });
     }
-
+    @CaseId(211)
     @Test(description = "Получение информации о статусе джобы и заказа для нового заказа самовывоза",
             groups = "kafka-instamart-regress")
     public void receiveNewPickupOrderEvent() {
@@ -104,6 +105,7 @@ public class OrderServiceKafkaTest extends RestBase {
             softAssert.assertAll();
         });
     }
+    @CaseId(212)
     @Test(description = "Получение и сохранение двух заказов из мультизаказа",
             groups = "kafka-instamart-regress")
     public void receiveMultiOrder() {
@@ -126,6 +128,7 @@ public class OrderServiceKafkaTest extends RestBase {
             softAssert.assertAll();
         });
     }
+    @CaseId(195)
     @Test(description = "При получении события отмены заказа статусы джобов и заказа переходят в CANCELED",
             groups = "kafka-instamart-regress")
     public void receiveNewCancelledOrderEvent() {

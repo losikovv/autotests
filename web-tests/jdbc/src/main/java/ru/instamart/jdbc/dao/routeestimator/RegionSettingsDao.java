@@ -21,7 +21,7 @@ public class RegionSettingsDao implements Dao<Integer, RegionSettingsEntity> {
              final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE region_id = ? ")) {
             preparedStatement.setInt(1, regionId);
             try (final var resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
+                if (resultSet.next()) {
                     regionSettingsEntity.setRegionId(resultSet.getInt("region_id"));
                     regionSettingsEntity.setBicycleCorrectionFactor(resultSet.getDouble("bicycle_correction_factor"));
                     regionSettingsEntity.setBicycleIncreasingFactorSec(resultSet.getInt("bicycle_increasing_factor_sec"));
@@ -34,7 +34,7 @@ public class RegionSettingsDao implements Dao<Integer, RegionSettingsEntity> {
                     regionSettingsEntity.setPedestrianMinimumSegmentLengthSec(resultSet.getInt("pedestrian_minimum_segment_length_sec"));
                     regionSettingsEntity.setCreatedAt(resultSet.getString("created_at"));
                     regionSettingsEntity.setUpdatedAt(resultSet.getString("updated_at"));
-                }
+                } else return null;
         }
     } catch (SQLException e) {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
