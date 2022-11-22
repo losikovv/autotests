@@ -23,6 +23,8 @@ task localRun(type: Test) {
             listeners.add("ru.instamart.reforged.core.listener.UiListener")
         }
     }
+    environment 'BROWSER', 'chrome_remote'
+    environment 'HEADLESS', 'true'
     systemProperty 'qase.Project', 'DEBUG'
     systemProperty 'qase.Title', 'STF UI DEBUG'
 }
