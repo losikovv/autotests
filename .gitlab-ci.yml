@@ -232,7 +232,7 @@ tests:customRun:
   except:
     - schedules
     - merge_request
-  resource_group: customRun:$CI_GROUP:$URL_STF_BACKEND
+  resource_group: customRun:$CI_MODULE:$CI_GROUP
   stage: custom-run
   script:
     - echo $CI_GROUP
@@ -374,7 +374,7 @@ generate:report:
       - $REGRESSION == 'true'
   stage: generate-report
   script:
-    - if [ $URL_STF_BACKEND == "stf-kraken.k-stage.sbermarket.tech" ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
+    - if [ '$URL_STF_BACKEND == null || $URL_STF_BACKEND == stf-kraken.k-stage.sbermarket.tech' ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
     - cd ..
     - bash ./generate-report.sh api api-instamart-$ALLURE_POSTFIX-regress
   when: always

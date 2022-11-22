@@ -76,7 +76,7 @@ public final class EnvironmentProperties {
     public static String K8S_NAME_SHP_SPACE;
     @Config(configName = NAME, fieldName = "k8sLabelShpSelector", defaultValue = "")
     public static String K8S_LABEL_SHP_SELECTOR;
-    @Config(configName = NAME, fieldName = "basicUrl", defaultValue = "", env = "URL_STF_BACKEND")
+    @Config(configName = NAME, fieldName = "basicUrl", defaultValue = "stf-kraken.k-stage.sbermarket.tech", env = "URL_STF_BACKEND")
     public static String BASIC_URL;
     @Config(configName = NAME, fieldName = "shopperUrl", defaultValue = "", env = "URL_SHP")
     private static String SHOPPER_URL;

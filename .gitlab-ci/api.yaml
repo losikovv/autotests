@@ -13,7 +13,7 @@ tests:ApiInstamart:
     - echo $URL_SHP
     - gradle clean build apiInstamartSmoke
   after_script:
-    - if [ $URL_STF_BACKEND == "stf-kraken.k-stage.sbermarket.tech" ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
+    - if [ '$URL_STF_BACKEND == null || $URL_STF_BACKEND == stf-kraken.k-stage.sbermarket.tech' ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
     - echo $ALLURE_POSTFIX
     - bash ./report.sh api api-instamart-$ALLURE_POSTFIX-smoke
 
