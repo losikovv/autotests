@@ -23,10 +23,6 @@ task localRun(type: Test) {
             listeners.add("ru.instamart.reforged.core.listener.UiListener")
         }
     }
-    environment 'ADMIN_URL', 'https://admin.sbmt.io/'
-    environment 'HOSTS', 'admin.sbmt.io:10.65.23.122'
-    environment 'BROWSER', 'chrome_remote'
-    environment 'HEADLESS', 'true'
     systemProperty 'qase.Project', 'DEBUG'
     systemProperty 'qase.Title', 'STF UI DEBUG'
 }
