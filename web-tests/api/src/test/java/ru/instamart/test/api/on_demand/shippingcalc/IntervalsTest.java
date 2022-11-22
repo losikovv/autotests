@@ -18,6 +18,7 @@ import shippingcalc.SurgeInterval;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 
+// skipped in resources
 @Epic("On Demand")
 @Feature("ShippingCalc")
 public class IntervalsTest extends ShippingCalcBase {
