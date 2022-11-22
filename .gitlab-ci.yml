@@ -76,6 +76,7 @@ stages:
   - tests-ui
   - tests-ui-tenant
   - custom-run
+  - triggered-run
 
 .template_only_branches:
   only:
@@ -225,6 +226,42 @@ java_gradle:build:
     - echo -e "\e[0Ksection_end:`date +%s`:docker_login_step\r\e[0K"
   script:
     - build_docker_images.sh
+
+tests:triggeredRun:
+  only:
+    refs:
+      - triggers
+    variables:
+      - $TRIGGERED_RUN == 'true'
+  except:
+    - web
+    - schedules
+    - merge_request
+  resource_group: triggeredRun:$CI_MODULE:$CI_GROUP
+  stage: triggered-run
+  script:
+    - echo $CI_GROUP
+    - echo $CI_MODULE
+    - echo $ADMIN_URL
+    - echo $URL_STF_FRONT
+    - echo $STF_FORWARD
+    - echo $URL_B2B_FRONT
+    - echo $B2B_FORWARD
+    - echo $HR_OPS_PARTNERS_URL
+    - echo $URL_STF_BACKEND
+    - echo $URL_SHP
+    - gradle --continue clean build ciRun copyAllAllureHistory copyAllLogs
+  after_script:
+    - bash ./report.sh . custom-run
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/build/allure-results/
+      - web-tests/build/logs/
+    expire_in: 1 week
+  allow_failure: true
 
 tests:customRun:
   only:
