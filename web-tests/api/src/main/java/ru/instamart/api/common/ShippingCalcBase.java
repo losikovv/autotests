@@ -25,6 +25,12 @@ public class ShippingCalcBase {
     protected int surgeLevel = 5;
     protected int surgeLevelAddition = 10000;
     protected int surgeLevelPercentAddition = 10;
+    protected Integer minCartAmountFirst = 100000;
+    protected Integer minCartAmountSecond = minCartAmountFirst - 1;
+    protected Integer minCartAmountThird = minCartAmountSecond - 1;
+    protected Integer minCartAmountFourth = minCartAmountThird - 1;
+    protected Integer minCartAmountGlobal = minCartAmountFirst + 1;
+    protected Integer deliveryPriceGlobal = 200000;
     protected List<IntervalsSurgeEntity> intervalsList;
     protected List<Integer> globalStrategiesList;
     protected final String FIXED_SCRIPT_NAME = "Фиксированная цена, с подсказками и объяснением";
