@@ -92,10 +92,10 @@ task apiV2BFF(type: Test) {
         suites 'src/test/resources/suite/all.xml'
         includeGroups 'api-bff'
     }
+    environment 'URL_STF_BACKEND', 'stf-kraken.k-stage.sbermarket.tech'
     systemProperty 'bff', 'true'
     systemProperty 'qase.Project', 'INAPI'
     systemProperty 'qase.Title', 'BFF API v2'
-    systemProperty 'url_stf', 'stf-kraken.k-stage.sbermarket.tech'
 }
 
 task apiv3Smoke(type: Test) {
@@ -190,11 +190,11 @@ task onDemandShifts(type: Test) {
         suites 'src/test/resources/suite/on_demand/shifts.xml'
         includeGroups 'api-shifts'
     }
+    environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
+    environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
     environment 'P_ENV', "service-shifts"
     systemProperty 'qase.Project', 'ODFS'
     systemProperty 'qase.Title', 'Shifts Autotests'
-    systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
-    systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
 }
 
 task onDemandDispatch(type: Test) {
@@ -202,11 +202,11 @@ task onDemandDispatch(type: Test) {
         suites 'src/test/resources/suite/on_demand/dispatch.xml'
         includeGroups 'dispatch-orderservice-smoke'
     }
+    environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
+    environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
     environment 'P_ENV', "service-orderservice"
     systemProperty 'qase.Project', 'DSPTCH'
     systemProperty 'qase.Title', 'Dispatch 2.0 Autotests'
-    systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
-    systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
 }
 
 task onDemandWorkflow(type: Test) {
@@ -214,11 +214,11 @@ task onDemandWorkflow(type: Test) {
         suites 'src/test/resources/suite/on_demand/workflow.xml'
         includeGroups 'dispatch-workflow-smoke'
     }
+    environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
+    environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
     environment 'P_ENV', "service-workflow"
     systemProperty 'qase.Project', 'ODW'
     systemProperty 'qase.Title', 'Workflow Autotests'
-    systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
-    systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
 }
 
 task onDemandETA(type: Test) {

@@ -41,6 +41,7 @@ public final class Group {
     public static final String STARTING_X = "starting_x";   //Анна Горбачёва
     public static final String MALSTROM = "malstrom";       //Максим Токмачев
     public static final String JORMUNGANDR = "jormungandr"; //Виталина Романова
+    public static final String VALHALLA = "valhalla";       //Теймур Халилов
     public static final String JOTUNHEIMR = "jotunheimr";   //Артём Брагин
 
     public static final String MULTIRETAILER_SEARCH = "multiretailer_search";

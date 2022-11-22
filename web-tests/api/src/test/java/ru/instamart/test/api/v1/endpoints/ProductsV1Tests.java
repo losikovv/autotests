@@ -14,6 +14,7 @@ import ru.instamart.api.response.v1.ProductV1Response;
 import ru.instamart.jdbc.dao.stf.SpreeProductsDao;
 import ru.instamart.jdbc.entity.stf.SpreeProductsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
@@ -40,11 +41,11 @@ public class ProductsV1Tests extends RestBase {
         softAssert.assertAll();
     }
 
+    @Skip
     @CaseId(45)
     @Issue("STF-9811")
     @Story("Получить данные о продукте")
-    @Test(enabled = false,
-            description = "Получаем данные о продукте",
+    @Test(description = "Получаем данные о продукте",
             groups = {"api-instamart-prod", "api-v1"})
     public void getProductInfoProd() {
         final Response response = StoresV1Request.Products.GET(EnvironmentProperties.DEFAULT_SID, "banany-a0c7489");

@@ -92,7 +92,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(2708)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "В категории больше 3 дефолтных фильтров",
-            groups = {"api-instamart-prod", "api-instamart-regress", "api-v2", "api-bff"})
+            groups = {"api-instamart-prod", "api-instamart-regress", "api-v2"})
     public void getProductsWithManyFilters() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                 .sid(EnvironmentProperties.DEFAULT_SID)

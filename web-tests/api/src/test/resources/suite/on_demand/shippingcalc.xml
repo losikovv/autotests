@@ -18,9 +18,9 @@
             <class name="ru.instamart.test.api.on_demand.shippingcalc.MinCartTest"/>
         </classes>
     </test>
-    <test verbose="1" name="SHIPPINGCALC SURGE INTERVALS" parallel="classes" thread-count="1">
+    <test verbose="1" name="SHIPPINGCALC SECONDARY API" parallel="classes" thread-count="1">
         <classes>
-            <class name="ru.instamart.test.api.on_demand.shippingcalc.IntervalsTest"/>
+<!--            <class name="ru.instamart.test.api.on_demand.shippingcalc.IntervalsTest"/>-->
         </classes>
     </test>
 </suite>

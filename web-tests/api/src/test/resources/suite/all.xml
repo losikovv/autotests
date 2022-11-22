@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Custom Run API suite">
+<suite name="REST API Suite">
     <listeners>
         <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
     </listeners>

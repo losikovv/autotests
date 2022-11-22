@@ -76,12 +76,12 @@ public final class EnvironmentProperties {
     public static String K8S_NAME_SHP_SPACE;
     @Config(configName = NAME, fieldName = "k8sLabelShpSelector", defaultValue = "")
     public static String K8S_LABEL_SHP_SELECTOR;
-    @Config(configName = NAME, fieldName = "basicUrl", defaultValue = "")
+    @Config(configName = NAME, fieldName = "basicUrl", defaultValue = "stf-kraken.k-stage.sbermarket.tech", env = "URL_STF_BACKEND")
     public static String BASIC_URL;
-    @Config(configName = NAME, fieldName = "shopperUrl", defaultValue = "")
+    @Config(configName = NAME, fieldName = "shopperUrl", defaultValue = "", env = "URL_SHP")
     private static String SHOPPER_URL;
 
-    @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "")
+    @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "", env = "ADMIN_URL")
     private static String ADMIN_URL;
     @Config(configName = NAME, fieldName = "shopperGwUrl", defaultValue = "")
     public static String SHOPPER_GW_URL;
@@ -98,14 +98,14 @@ public final class EnvironmentProperties {
 
         //TODO: Немножк костылей. Насколько мне известно эти урлы можно без костылей достать из переменных которые в основной пайпе от разработки
         static {
-            var customBasicUrl = System.getProperty("url_stf");
-            var customShopperUrl = System.getProperty("url_shp");
+            var customBasicUrl = System.getenv("URL_STF_BACKEND");
+            var customShopperUrl = System.getenv("URL_SHP");
             String stfForwardTo;
 
             if (nonNull(customBasicUrl) && !customBasicUrl.isBlank()) {
                 customBasicUrl = getDomainName(customBasicUrl);
                 SERVER = customBasicUrl.contains("kraken")
-                        ? Server.PREPROD.name().toLowerCase() : customBasicUrl.contains("k-stage")
+                        ? Server.PREPROD.name().toLowerCase() : customBasicUrl.contains("stage")
                         ? Server.STAGING.name().toLowerCase() : Server.PRODUCTION.name().toLowerCase();
                 BASIC_URL = customBasicUrl;
                 STAGE = BASIC_URL.replace("stf-", "").replace(".k-stage.sbermarket.tech", "");
@@ -220,7 +220,7 @@ public final class EnvironmentProperties {
 
         public static String FULL_SITE_URL = "https://" + (isProduction() ? "api." : "") + BASIC_URL + "/";
         public static String FULL_SHOPPER_URL = "https://" + SHOPPER_URL + "/";
-        public static String ADMIN_FULL_URL = "https://" + (isProduction() ? ADMIN_URL : BASIC_URL) + "/";
+        public static String ADMIN_FULL_URL = isProduction() ? ADMIN_URL : "https://" + BASIC_URL + "/";
         public static String ONE_SESSION = System.getProperty("one_session");
         public static String ETA_NAMESPACE = getEtaNamespace();
         public static String SHIPPINGCALC_NAMESPACE = getShippingcalcNamespace();

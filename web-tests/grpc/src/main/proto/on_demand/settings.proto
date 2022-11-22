@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package settings;
+
+import "google/protobuf/timestamp.proto";
+option go_package = "./";
+
+service SettingsService {
+  rpc PutResSettings(PutResSettingsRequest) returns (PutResSettingsReply) {}
+  rpc GetResSettings(GetResSettingsRequest) returns (GetResSettingsReply) {}
+  rpc PutOperationalZoneSettings(PutResOperationalZoneSettingsRequest) returns (PutResOperationalZoneSettingsReply){}
+  rpc GetOperationalZoneSettings(GetResOperationalZoneSettingsRequest) returns (GetResOperationalZoneSettingsReply){}
+}
+
+message ResSettings {
+  string place_uuid = 1;
+  uint64 avg_parking_min_vehicle = 2;
+  uint64 average_speed_for_straight_distance_to_client_min = 3;
+  uint64 additional_factor_for_straight_distance_to_client_min = 4;
+  uint64 order_transfer_time_from_assembly_to_delivery_min = 5;
+  uint64 avg_to_place_min_external = 6;
+  uint64 order_transfer_time_from_delivery_to_client_min = 7;
+  uint64 order_receive_time_from_assembly_to_delivery_min = 8;
+}
+
+message ResOperationalZoneSettings {
+  int64 operational_zone_id = 1;
+  double correction_factor = 2;
+  int64 increasing_factor = 3; // секунды
+  int64 minimum_segment_length = 4; // секунды
+  google.protobuf.Timestamp updated_at = 5;
+  LinerModelRatios bicycle_liner_model_ratios = 6;
+  LinerModelRatios auto_liner_model_ratios = 7;
+  LinerModelRatios pedestrian_liner_model_ratios = 8;
+}
+
+message PutResSettingsRequest {
+  ResSettings res_settings = 1;
+}
+
+message PutResSettingsReply {
+  bool ok = 1;
+  string error_msg = 2;
+}
+
+message GetResSettingsRequest {
+  string place_uuid = 1;
+}
+
+message GetResSettingsReply {
+  bool ok = 1;
+  ResSettings res_settings = 2;
+  string error_msg = 3;
+}
+
+message PutResOperationalZoneSettingsRequest {
+  ResOperationalZoneSettings res_operational_zone_settings = 1;
+}
+
+message PutResOperationalZoneSettingsReply {
+  bool ok = 1;
+  string error_msg = 2;
+}
+
+message GetResOperationalZoneSettingsRequest {
+  int64 operational_zone_id = 1;
+}
+
+message GetResOperationalZoneSettingsReply {
+  bool ok = 1;
+  string error_msg = 2;
+  ResOperationalZoneSettings res_operational_zone_settings = 3;
+}
+
+message LinerModelRatios {
+  double correction_factor = 1;
+  int64 increasing_factor = 2; // секунды
+  int64 minimum_segment_length = 3; // секунды
+}

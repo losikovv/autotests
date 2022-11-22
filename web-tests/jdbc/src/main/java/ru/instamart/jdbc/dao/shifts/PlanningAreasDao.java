@@ -16,6 +16,7 @@ public class PlanningAreasDao extends AbstractDao<Long, PlanningPeriodsEntity> {
 
     public static final PlanningAreasDao INSTANCE = new PlanningAreasDao();
     private final String SELECT_SQL = "SELECT * FROM planning_areas WHERE delivery_area_id=?;";
+    private final String DELETE = "DELETE FROM public.shops";
 
     public List<PlanningAreasEntity> getPlanningAreas(Integer deliveryAreaId) {
         final var planningAreasResult = new ArrayList<PlanningAreasEntity>();
@@ -46,5 +47,16 @@ public class PlanningAreasDao extends AbstractDao<Long, PlanningPeriodsEntity> {
             fail("Error init ConnectionPgSQLShiftsManager. Error: " + e.getMessage());
         }
         return planningAreasResult;
+    }
+
+    public boolean delete(Integer baseStoreId) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIFT).getConnection();
+             final var preparedStatement = connect.prepareStatement(DELETE + " WHERE delivery_area_id = ?")) {
+            preparedStatement.setInt(1, baseStoreId);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+        return false;
     }
 }
