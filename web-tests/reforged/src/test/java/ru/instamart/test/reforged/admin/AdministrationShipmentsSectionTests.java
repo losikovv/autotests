@@ -29,7 +29,7 @@ public final class AdministrationShipmentsSectionTests {
     @Skip
     @CaseId(175)
     @Story("Тест на корректное отображение элементов страницы со списком заказов в админке")
-    @Test(description = "Тест на корректное отображение элементов страницы со списком заказов в админке", groups = {REGRESSION_ADMIN, "production"})
+    @Test(description = "Тест на корректное отображение элементов страницы со списком заказов в админке", groups = REGRESSION_ADMIN)
     public void validateDefaultAdminShipmentsPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -44,7 +44,7 @@ public final class AdministrationShipmentsSectionTests {
 
     @CaseId(172)
     @Story("Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ")
-    @Test(description = "Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ", groups = {REGRESSION_ADMIN, "smoke", "production"})
+    @Test(description = "Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ", groups = {REGRESSION_ADMIN, "smoke"})
     public void validateFilterDateAndTimeAdminShipmentsPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -216,7 +216,7 @@ public final class AdministrationShipmentsSectionTests {
 
     @CaseId(183)
     @Story("Тест поиска B2B заказа в админке")
-    @Test(description = "Тест поиска B2B заказа в админке", groups = {REGRESSION_ADMIN, "production"})
+    @Test(description = "Тест поиска B2B заказа в админке", groups = REGRESSION_ADMIN)
     public void successSearchB2BOrder() {
         final var shipments = helper.getShipments(ShipmentsAdminV1Request.ShipmentsData
                 .builder()

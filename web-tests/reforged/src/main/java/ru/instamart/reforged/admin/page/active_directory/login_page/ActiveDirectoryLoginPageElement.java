@@ -15,5 +15,4 @@ public interface ActiveDirectoryLoginPageElement {
     Element wrongLoginFormatAlert = new Element(By.xpath(
             "//span[contains(text(),'Введите идентификатор пользователя в формате') or contains(text(),'Enter your user ID in the format')]"),
             "Алерт неверного пароля или логина");
-
 }

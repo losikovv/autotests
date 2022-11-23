@@ -24,7 +24,7 @@ public final class AdministrationUsersSectionTests {
 
     @CaseId(19)
     @Story("Тест поиска пользователя в админке")
-    @Test(description = "Работоспособность поиска в списке юзеров", groups = {REGRESSION_ADMIN, "production"})
+    @Test(description = "Работоспособность поиска в списке юзеров", groups = REGRESSION_ADMIN)
     public void successSearchUser() {
         final var email = UserManager.getDefaultAdmin().getEmail();
 

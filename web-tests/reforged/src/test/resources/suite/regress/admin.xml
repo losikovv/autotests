@@ -12,14 +12,28 @@
     </method-selectors>
     <test verbose="1" name="Admin UI tests" parallel="classes" thread-count="5">
         <classes>
-            <class name="ru.instamart.test.reforged.admin.AdministrationCompaniesTests"/>
-            <class name="ru.instamart.test.reforged.admin.AdministrationUserCompaniesTests"/>
-            <class name="ru.instamart.test.reforged.admin.AdministrationGeneralSettingsTests"/>
-            <class name="ru.instamart.test.reforged.admin.AdministrationLoginTests"/>
-            <class name="ru.instamart.test.reforged.admin.AdministrationPagesSectionTests"/>
+
+            <class name="ru.instamart.test.reforged.admin.orders.AdministrationBasicOrdersTests"/>
+            <class name="ru.instamart.test.reforged.admin.orders.AdministrationMultiselectFiltersOrdersTests"/>
+            <class name="ru.instamart.test.reforged.admin.orders.AdministrationOrdersEditTests"/>
+            <class name="ru.instamart.test.reforged.admin.orders.AdministrationShipmentInTableTests"/>
+
+            <class name="ru.instamart.test.reforged.admin.partners.AdminPartnersMapTests"/>
+            <class name="ru.instamart.test.reforged.admin.partners.AdminShoppersTests"/>
+
+            <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerEditTests"/>
+            <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerAddTests"/>
             <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerRegionsTests"/>
             <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerTests"/>
             <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerActivateTests"/>
+
+            <class name="ru.instamart.test.reforged.admin.ActiveDirectoryLoginTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationCompaniesTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationGeneralSettingsTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationLoginTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationPagesSectionTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationPaymentsTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationPromocodesTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationShipmentsSectionTests"/>
             <!--
             Настройка способов доставки больше не работает.
@@ -27,20 +41,10 @@
             Новая админка скоро будет доступна по ссылке - https://admin.sbmt.io/admin/spa/pricing_strategies
             <class name="ru.instamart.test.reforged.admin.AdministrationShippingSettingsTests"/>
             -->
+            <class name="ru.instamart.test.reforged.admin.AdministrationStoreGroupsTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationUserCompaniesTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationUsersSectionTests"/>
             <class name="ru.instamart.test.reforged.admin.BasicAdministrationTests"/>
-            <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerEditTests"/>
-            <class name="ru.instamart.test.reforged.admin.retailer.AdministrationRetailerAddTests"/>
-            <class name="ru.instamart.test.reforged.admin.AdministrationOrdersEditTests"/>
-            <class name="ru.instamart.test.reforged.admin.AdministrationStoreGroupsTests"/>
-            <class name="ru.instamart.test.reforged.admin.AdministrationPaymentsTests"/>
-            <class name="ru.instamart.test.reforged.admin.AdministrationPromocodesTests"/>
-
-            <class name="ru.instamart.test.reforged.admin.orders.AdministrationBasicOrdersTests"/>
-            <class name="ru.instamart.test.reforged.admin.orders.AdministrationMultiselectFiltersOrdersTests"/>
-            <class name="ru.instamart.test.reforged.admin.orders.AdministrationShipmentInTableTests"/>
-
-            <class name="ru.instamart.test.reforged.admin.partners.AdminShoppersTests"/>
         </classes>
     </test>
 </suite>

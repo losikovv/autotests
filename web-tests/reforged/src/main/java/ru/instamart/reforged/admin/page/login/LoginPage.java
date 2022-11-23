@@ -1,6 +1,8 @@
 package ru.instamart.reforged.admin.page.login;
 
+import io.qameta.allure.Param;
 import io.qameta.allure.Step;
+import io.qameta.allure.model.Parameter;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.reforged.admin.AdminPage;
 
@@ -21,8 +23,8 @@ public final class LoginPage implements AdminPage, LoginCheck {
         username.fill(text);
     }
 
-    @Step("Заполнить поле пароль {0}")
-    public void setPassword(final String text) {
+    @Step("Заполнить поле пароль")
+    public void setPassword(@Param(value = "password", mode = Parameter.Mode.MASKED) final String text) {
         password.fill(text);
     }
 

@@ -1,12 +1,13 @@
-package ru.instamart.test.reforged.admin;
+package ru.instamart.test.reforged.admin_prod;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
+import static ru.instamart.reforged.Group.PROD_ADMIN_SMOKE;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
@@ -14,10 +15,19 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 public final class AdministrationGeneralSettingsTests {
 
     @CaseId(346)
-    @Test(description = "Корректное отображение страницы основных настроек", groups = REGRESSION_ADMIN)
+    @Test(description = "Корректное отображение страницы основных настроек", groups =  PROD_ADMIN_SMOKE)
     public void generalSettingsPageValidate() {
+
+        UserData defaultAdmin = UserManager.getDefaultAdmin();
+
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().clickOnLoginViaActiveDirectory();
+
+        activeDirectory().fillMail(defaultAdmin.getEmail());
+        activeDirectory().fillPassword(defaultAdmin.getPassword());
+        activeDirectory().clickOnLoginButton();
+
+        main().interactAuthoredHeader().checkAdminAuth();
 
         settings().goToPage();
 
@@ -120,10 +130,18 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(572)
-    @Test(description = "Корректное отображение страницы настройки городов", groups = REGRESSION_ADMIN)
+    @Test(description = "Корректное отображение страницы настройки городов", groups = PROD_ADMIN_SMOKE)
     public void citiesSettingsPageValidate() {
+        UserData defaultAdmin = UserManager.getDefaultAdmin();
+
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().clickOnLoginViaActiveDirectory();
+
+        activeDirectory().fillMail(defaultAdmin.getEmail());
+        activeDirectory().fillPassword(defaultAdmin.getPassword());
+        activeDirectory().clickOnLoginButton();
+
+        main().interactAuthoredHeader().checkAdminAuth();
 
         allCities().goToPage();
         allCities().checkPageHeaderVisible();
@@ -132,10 +150,18 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(575)
-    @Test(description = "Корректное отображение страницы добавления городов", groups = REGRESSION_ADMIN)
-    public void cityAddTest() {
+    @Test(description = "Корректное отображение страницы добавления городов", groups = PROD_ADMIN_SMOKE)
+    public void cityAddPageValidate() {
+        UserData defaultAdmin = UserManager.getDefaultAdmin();
+
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().clickOnLoginViaActiveDirectory();
+
+        activeDirectory().fillMail(defaultAdmin.getEmail());
+        activeDirectory().fillPassword(defaultAdmin.getPassword());
+        activeDirectory().clickOnLoginButton();
+
+        main().interactAuthoredHeader().checkAdminAuth();
 
         allCities().goToPage();
         allCities().clickOnAddCityButton();
@@ -165,10 +191,18 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(573)
-    @Test(description = "Корректное отображение страницы редактирования городов", groups = REGRESSION_ADMIN)
-    public void cityEditTest() {
+    @Test(description = "Корректное отображение страницы редактирования городов", groups = PROD_ADMIN_SMOKE)
+    public void cityEditPageValidate() {
+        UserData defaultAdmin = UserManager.getDefaultAdmin();
+
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().clickOnLoginViaActiveDirectory();
+
+        activeDirectory().fillMail(defaultAdmin.getEmail());
+        activeDirectory().fillPassword(defaultAdmin.getPassword());
+        activeDirectory().clickOnLoginButton();
+
+        main().interactAuthoredHeader().checkAdminAuth();
 
         allCities().goToPage();
         allCities().clickOnEditCityButton("Абакан");
@@ -199,10 +233,18 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(367)
-    @Test(description = "Корректное отображение страницы настроек методов оплаты", groups = REGRESSION_ADMIN)
+    @Test(description = "Корректное отображение страницы настроек методов оплаты", groups = PROD_ADMIN_SMOKE)
     public void paymentMethodsSettingsPageValidate() {
+        UserData defaultAdmin = UserManager.getDefaultAdmin();
+
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().clickOnLoginViaActiveDirectory();
+
+        activeDirectory().fillMail(defaultAdmin.getEmail());
+        activeDirectory().fillPassword(defaultAdmin.getPassword());
+        activeDirectory().clickOnLoginButton();
+
+        main().interactAuthoredHeader().checkAdminAuth();
 
         payments().goToPage();
         payments().checkPageTitleVisible();
@@ -210,10 +252,18 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(393)
-    @Test(description = "Корректное отображение страницы настроек компаний", groups = REGRESSION_ADMIN)
+    @Test(description = "Корректное отображение страницы настроек компаний", groups = PROD_ADMIN_SMOKE)
     public void companySettingsPageValidate() {
+        UserData defaultAdmin = UserManager.getDefaultAdmin();
+
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().clickOnLoginViaActiveDirectory();
+
+        activeDirectory().fillMail(defaultAdmin.getEmail());
+        activeDirectory().fillPassword(defaultAdmin.getPassword());
+        activeDirectory().clickOnLoginButton();
+
+        main().interactAuthoredHeader().checkAdminAuth();
 
         companySettings().goToPage();
         companySettings().checkPageTitleVisible();
@@ -265,10 +315,18 @@ public final class AdministrationGeneralSettingsTests {
     }
 
     @CaseId(394)
-    @Test(description = "Корректное отображение страницы настроек смс", groups = REGRESSION_ADMIN)
+    @Test(description = "Корректное отображение страницы настроек смс", groups = PROD_ADMIN_SMOKE)
     public void smsSettingsPageValidate() {
+        UserData defaultAdmin = UserManager.getDefaultAdmin();
+
         login().goToPage();
-        login().auth(UserManager.getAdminSmsRole());
+        login().clickOnLoginViaActiveDirectory();
+
+        activeDirectory().fillMail(defaultAdmin.getEmail());
+        activeDirectory().fillPassword(defaultAdmin.getPassword());
+        activeDirectory().clickOnLoginButton();
+
+        main().interactAuthoredHeader().checkAdminAuth();
 
         smsSettings().goToPageOld();
         smsSettings().checkPageTitleVisible();

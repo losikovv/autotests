@@ -10,7 +10,6 @@ import ru.instamart.jdbc.dao.stf.SpreePagesDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.StaticPages;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.stf.page.StfRouter;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_ADMIN;

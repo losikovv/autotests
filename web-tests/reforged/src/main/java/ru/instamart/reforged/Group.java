@@ -3,6 +3,7 @@ package ru.instamart.reforged;
 public final class Group {
 
     public static final String STF_PROD_S = "stf_prod_smoke";
+    public static final String PROD_ADMIN_SMOKE = "prod_admin_smoke";
 
     /*
     #########################
@@ -21,6 +22,7 @@ public final class Group {
     public static final String PHOENIX_SMOKE = "phoenix_smoke";
     public static final String OD_REGRESS = "admin_ondemand_regression";
     public static final String OD_SMOKE = "admin_ondemand_smoke";
+    public static final String ADMIN_KEYCLOAK = "admin_keycloak";
 
     public static final String OD_SHOPPERS_MAP_REGRESS = "ondemand_shoppers_map_regression";
     public static final String OD_SHOPPERS_MAP_SMOKE = "ondemand_shoppers_map_smoke";

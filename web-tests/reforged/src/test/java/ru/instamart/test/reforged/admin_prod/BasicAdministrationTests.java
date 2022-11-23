@@ -1,14 +1,15 @@
-package ru.instamart.test.reforged.admin;
+package ru.instamart.test.reforged.admin_prod;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Flaky;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.Group.REGRESSION_ADMIN;
+import static ru.instamart.reforged.Group.PROD_ADMIN_SMOKE;
 import static ru.instamart.reforged.admin.AdminRout.*;
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 
@@ -18,10 +19,18 @@ public final class BasicAdministrationTests {
 
     @CaseId(419)
     @Story("Тест доступности корневых разделов админки")
-    @Test(description = "Тест доступности корневых разделов админки", groups = {REGRESSION_ADMIN, "smoke"})
+    @Test(description = "Тест доступности корневых разделов админки", groups = PROD_ADMIN_SMOKE)
     public void successCheckAdminSectionsAvailability() {
+        UserData defaultAdmin = UserManager.getDefaultAdmin();
+
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().clickOnLoginViaActiveDirectory();
+
+        activeDirectory().fillMail(defaultAdmin.getEmail());
+        activeDirectory().fillPassword(defaultAdmin.getPassword());
+        activeDirectory().clickOnLoginButton();
+
+        main().interactAuthoredHeader().checkAdminAuth();
 
         shipments().goToPage();
         shipments().checkPageIsAvailable();
@@ -45,10 +54,18 @@ public final class BasicAdministrationTests {
 
     @CaseId(420)
     @Story("Тест доступности вьюхи oktell")
-    @Test(description = "Тест доступности вьюхи oktell", groups = REGRESSION_ADMIN)
+    @Test(description = "Тест доступности вьюхи oktell", groups = PROD_ADMIN_SMOKE)
     public void successCheckOktellViewAvailability() {
+        UserData defaultAdmin = UserManager.getDefaultAdmin();
+
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().clickOnLoginViaActiveDirectory();
+
+        activeDirectory().fillMail(defaultAdmin.getEmail());
+        activeDirectory().fillPassword(defaultAdmin.getPassword());
+        activeDirectory().clickOnLoginButton();
+
+        main().interactAuthoredHeader().checkAdminAuth();
 
         home().goToPage(oktell().pageUrl());
         home().checkPageIsAvailable();
@@ -56,10 +73,18 @@ public final class BasicAdministrationTests {
 
     @CaseId(416)
     @Story("Проверка наличия элементов в шапке админки")
-    @Test(description = "Проверка наличия элементов в шапке админки", groups = REGRESSION_ADMIN)
+    @Test(description = "Проверка наличия элементов в шапке админки", groups = PROD_ADMIN_SMOKE)
     public void successValidateHeader() {
+        UserData defaultAdmin = UserManager.getDefaultAdmin();
+
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().clickOnLoginViaActiveDirectory();
+
+        activeDirectory().fillMail(defaultAdmin.getEmail());
+        activeDirectory().fillPassword(defaultAdmin.getPassword());
+        activeDirectory().clickOnLoginButton();
+
+        main().interactAuthoredHeader().checkAdminAuth();
 
         main().interactAuthoredHeader().checkAdminNavigationTitle();
         main().interactAuthoredHeader().checkAdminAuth();
@@ -70,10 +95,18 @@ public final class BasicAdministrationTests {
     @Flaky
     @CaseId(4)
     @Story("Тест валидности ссылок навигационного меню в шапке админки")
-    @Test(description = "Тест валидности ссылок навигационного меню в шапке админки", groups = {REGRESSION_ADMIN, "smoke"})
+    @Test(description = "Тест валидности ссылок навигационного меню в шапке админки", groups = PROD_ADMIN_SMOKE)
     public void successValidateNavigationMenu() {
+        UserData defaultAdmin = UserManager.getDefaultAdmin();
+
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().clickOnLoginViaActiveDirectory();
+
+        activeDirectory().fillMail(defaultAdmin.getEmail());
+        activeDirectory().fillPassword(defaultAdmin.getPassword());
+        activeDirectory().clickOnLoginButton();
+
+        main().interactAuthoredHeader().checkAdminAuth();
 
         main().interactSideMenu().storesDropdownClick();
         main().interactSideMenu().regionsClick();

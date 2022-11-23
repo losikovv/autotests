@@ -12,11 +12,12 @@
     </method-selectors>
     <test verbose="1" name="Admin UI tests" parallel="classes" thread-count="5">
         <classes>
-            <class name="ru.instamart.test.reforged.admin.BasicAdministrationTests"/>
-            <class name="ru.instamart.test.reforged.admin.AdministrationGeneralSettingsTests"/>
-            <class name="ru.instamart.test.reforged.admin.AdministrationLoginTests"/>
-            <class name="ru.instamart.test.reforged.admin.AdministrationShipmentsSectionTests"/>
-            <class name="ru.instamart.test.reforged.admin.AdministrationUsersSectionTests"/>
+            <class name="ru.instamart.test.reforged.admin_prod.BasicAdministrationTests"/>
+            <class name="ru.instamart.test.reforged.admin_prod.AdministrationGeneralSettingsTests"/>
+            <class name="ru.instamart.test.reforged.admin_prod.AdministrationLoginTests"/>
+            <class name="ru.instamart.test.reforged.admin_prod.AdministrationShipmentsSectionTests"/>
+            <class name="ru.instamart.test.reforged.admin_prod.AdministrationUsersSectionTests"/>
+            <class name="ru.instamart.test.reforged.admin.ActiveDirectoryLoginTests"/>
         </classes>
     </test>
 </suite>

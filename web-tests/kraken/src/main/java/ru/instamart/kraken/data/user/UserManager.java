@@ -275,11 +275,25 @@ public final class UserManager {
         return stf6ShpUniversalUi;
     }
 
-    public static UserData getActiveDirectoryUser() {
+    public static UserData getDefaultActiveDirectoryUser() {
+        return (EnvironmentProperties.Env.isProduction() ? getActiveDirectoryUserProd() : getActiveDirectoryUser());
+    }
+
+    private static UserData getActiveDirectoryUser() {
         if (isNull(activeDirectoryUser)) {
             activeDirectoryUser = UserData.builder()
                     .email(Crypt.INSTANCE.decrypt("jbLnzLjta1V4pY9Hh1oFzBpbBGZdWIhYb645pKKM3V8="))
                     .password(Crypt.INSTANCE.decrypt("MYkGiIbAAYmHoCFi7xG5rA=="))
+                    .build();
+        }
+        return activeDirectoryUser;
+    }
+
+    private static UserData getActiveDirectoryUserProd() {
+        if (isNull(activeDirectoryUser)) {
+            activeDirectoryUser = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("Mmp3ajPLslqdrUv2SowV69oixTngoK/kDH6y86joZH0="))
+                    .password(Crypt.INSTANCE.decrypt("0SukNTI5qAEeL05UkFiAqA=="))
                     .build();
         }
         return activeDirectoryUser;

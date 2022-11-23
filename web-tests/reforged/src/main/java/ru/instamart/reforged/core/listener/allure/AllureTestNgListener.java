@@ -375,7 +375,7 @@ public class AllureTestNgListener implements ISuiteListener, ITestListener, IInv
                 .setParameters(parameters)
                 .setLinks(getLinks(method, iClass))
                 .setLabels(labels);
-        processDescription(getClass().getClassLoader(), method.getConstructorOrMethod().getMethod(), result);
+        processDescription(getClass().getClassLoader(), method.getConstructorOrMethod().getMethod(), result::setDescriptionHtml, result::setDescription);
         getLifecycle().scheduleTestCase(parentUuid, result);
         getLifecycle().startTestCase(uuid);
     }

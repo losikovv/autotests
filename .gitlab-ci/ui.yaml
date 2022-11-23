@@ -65,6 +65,9 @@ tests:prodUiSmoke:
    - bash ./mattermost.sh reforged uiSmokeProduction $MATTERMOST_KEY false
 
 #tests:prodUiSmokeAdmin:
+#  only:
+#    variables:
+#      - $ADMIN_PROD_SMOKE == 'true'
 #  extends:
 #    - ".template_ui_tests"
 #    - ".template_prod"
