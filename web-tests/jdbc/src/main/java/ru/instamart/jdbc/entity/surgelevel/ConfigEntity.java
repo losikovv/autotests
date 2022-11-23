@@ -7,6 +7,7 @@ public class ConfigEntity {
     private String id;
     private Float stepSurgeLevel;
     private Boolean disabled;
+    private Integer distance;
     private String formulaId;
     private String formulaVar;
     private Boolean basic;

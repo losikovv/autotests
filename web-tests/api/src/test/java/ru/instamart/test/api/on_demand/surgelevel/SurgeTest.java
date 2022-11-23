@@ -92,12 +92,12 @@ public class SurgeTest extends RestBase {
         distFirstThird = distance(firstStoreLocation.getLat(), firstStoreLocation.getLon(), thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), 'K') * 1000;
 
         checkFormula(FORMULA_ID);
-        addStore(STORE_ID, UUID.randomUUID().toString(), false, true, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID);
-        addStore(STORE_ID_NOT_ON_DEMAND, UUID.randomUUID().toString(), false, false, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID);
-        addStore(STORE_ID_DISABLED, UUID.randomUUID().toString(), true, true, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID);
-        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), null, true, firstStoreLocation.getLat(), firstStoreLocation.getLon(), FORMULA_ID, 1000, SECOND_DELIVERY_AREA_ID);
-        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), null, true, secondStoreLocation.getLat(), secondStoreLocation.getLon(), FORMULA_ID, 1000, SECOND_DELIVERY_AREA_ID);
-        addStore(THIRD_STORE_ID, UUID.randomUUID().toString(), null, true, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), FORMULA_ID, 1000, 0);
+        addStore(STORE_ID, UUID.randomUUID().toString(), false, true, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID, 1000);
+        addStore(STORE_ID_NOT_ON_DEMAND, UUID.randomUUID().toString(), false, false, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID, null);
+        addStore(STORE_ID_DISABLED, UUID.randomUUID().toString(), true, true, storeLocation.getLat(), storeLocation.getLon(), FORMULA_ID, 1000, FIRST_DELIVERY_AREA_ID, null);
+        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), null, true, firstStoreLocation.getLat(), firstStoreLocation.getLon(), FORMULA_ID, 1000, SECOND_DELIVERY_AREA_ID, null);
+        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), null, true, secondStoreLocation.getLat(), secondStoreLocation.getLon(), FORMULA_ID, 1000, SECOND_DELIVERY_AREA_ID, null);
+        addStore(THIRD_STORE_ID, UUID.randomUUID().toString(), null, true, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), FORMULA_ID, 1000, 0, null);
 
         List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.SURGELEVEL_NAMESPACE, " | grep -e SURGEEVENT_OUTDATE ");
         String envPropsStr = String.join("\n", serviceEnvProperties);
@@ -146,7 +146,8 @@ public class SurgeTest extends RestBase {
     @CaseIDs({@CaseId(14), @CaseId(23), @CaseId(25), @CaseId(163), @CaseId(32)})
     @Story("Demand")
     @Test(description = "Добавление demand при получении события с новым ON_DEMAND заказом",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel-smoke",
+            priority = -1)
     public void surgeProduceEventOrderOnDemand() {
         publishEventOrderStatus(ORDER_UUID, STORE_ID, OrderStatus.NEW, ShipmentType.ON_DEMAND, SHIPMENT_UUID, LONG_TIMEOUT);
 
@@ -174,12 +175,12 @@ public class SurgeTest extends RestBase {
             groups = "ondemand-surgelevel-smoke")
     public void surgeProduceEventOrderNotOnDemand() {
         String shipmentUuid = UUID.randomUUID().toString();
-        publishEventOrderStatus(UUID.randomUUID().toString(), STORE_ID, OrderStatus.NEW, ShipmentType.PLANNED, shipmentUuid, SHORT_TIMEOUT);
+        publishEventOrderStatus(UUID.randomUUID().toString(), STORE_ID, OrderStatus.NEW, ShipmentType.PLANNED, shipmentUuid, LONG_TIMEOUT);
 
         Allure.step("Проверка отсутствия добавления demand", () -> assertNull(DemandDao.INSTANCE.findDemand(STORE_ID, shipmentUuid), "Заказ добавился в demand"));
     }
 
-    @CaseIDs({@CaseId(133), @CaseId(135), @CaseId(43)})
+    @CaseIDs({@CaseId(133), @CaseId(135), @CaseId(43), @CaseId(165), @CaseId(44)})
     @Story("Demand")
     @Test(description = "Добавление demand для нескольких магазинов при получении события с новым ON_DEMAND заказом",
             groups = "ondemand-surgelevel-smoke")
@@ -244,7 +245,7 @@ public class SurgeTest extends RestBase {
     public void surgeProduceEventCandidateNotOnDemand() {
         String candidateUuid = UUID.randomUUID().toString();
         publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, FIRST_DELIVERY_AREA_ID, true, STORE_ID, YANDEX.getName(), SHORT_TIMEOUT);
-        publishEventLocation(candidateUuid, storeLocation.getLat(), storeLocation.getLon(), false, SHORT_TIMEOUT);
+        publishEventLocation(candidateUuid, storeLocation.getLat(), storeLocation.getLon(), false, LONG_TIMEOUT);
 
         Allure.step("Проверка отсутствия добавления supply", () -> assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, candidateUuid), "Кандидат добавился в supply"));
     }
@@ -260,7 +261,7 @@ public class SurgeTest extends RestBase {
         currentSurgeLevel++;
         currentSupplyAmount--;
 
-        publishEventCandidateStatus(CANDIDATE_UUID_DELIVERY_AREA, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.UNCHANGED, 0, FIRST_DELIVERY_AREA_ID, true, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
+        publishEventCandidateStatus(CANDIDATE_UUID_DELIVERY_AREA, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.UNCHANGED, 0, FIRST_DELIVERY_AREA_ID, true, STORE_ID, DISPATCH.getName(), LONG_TIMEOUT);
 
         Allure.step("Проверка отсутствия удаления supply", () -> assertNotNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID_DELIVERY_AREA), "Кандидат удалился из supply"));
     }
@@ -271,7 +272,7 @@ public class SurgeTest extends RestBase {
             groups = "ondemand-surgelevel-regress")
     public void surgeProduceEventCandidateNoCoordinates() {
         String candidateUuid = UUID.randomUUID().toString();
-        publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, FIRST_DELIVERY_AREA_ID, true, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
+        publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, FIRST_DELIVERY_AREA_ID, true, STORE_ID, DISPATCH.getName(), LONG_TIMEOUT);
 
         Allure.step("Проверка отсутствия добавления supply", () -> assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, candidateUuid), "Кандидат добавился в supply"));
     }
@@ -360,7 +361,7 @@ public class SurgeTest extends RestBase {
         });
     }
 
-    @CaseId(20)
+    @CaseIDs({@CaseId(20), @CaseId(166)})
     @Story("Radius Supply")
     @Test(description = "Добавление supply при получении кандидата по координатам в близи от магазина",
             groups = "ondemand-surgelevel-smoke")
@@ -381,9 +382,21 @@ public class SurgeTest extends RestBase {
             groups = "ondemand-surgelevel-regress",
             dependsOnMethods = "surgeProduceEventCandidateWithLocation")
     public void surgeProduceEventCandidateWithLocationWentNotFar() {
-        publishEventLocation(CANDIDATE_UUID, storeLocation.getLat() - 0.01f, storeLocation.getLon() - 0.01f, false, LONG_TIMEOUT);
+        publishEventLocation(CANDIDATE_UUID, storeLocation.getLat() - 0.001f, storeLocation.getLon() - 0.001f, false, LONG_TIMEOUT);
 
         Allure.step("Проверка supply", () -> assertNotNull(SupplyDao.INSTANCE.findSupply(STORE_ID, CANDIDATE_UUID), "Кандидат удалился из supply"));
+    }
+
+    @CaseId(167)
+    @Story("Surge Calculation")
+    @Test(description = "Отсутствие расчета surgelevel с радиусом в конфиге не null",
+            groups = "ondemand-surgelevel-regress")
+    public void surgeDistanceFromConfigTooFar() {
+        String candidateUuid = UUID.randomUUID().toString();
+        publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
+        publishEventLocation(candidateUuid, storeLocation.getLat() - 0.01f, storeLocation.getLon() - 0.01f, false, LONG_TIMEOUT);
+
+        Allure.step("Проверка отсутствия добавления supply", () -> assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, candidateUuid), "Кандидат добавился в supply"));
     }
 
     @CaseId(49)
@@ -410,13 +423,13 @@ public class SurgeTest extends RestBase {
     public void surgeProduceEventCandidateWithLocationFar() {
         String candidateUuid = UUID.randomUUID().toString();
         publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
-        publishEventLocation(candidateUuid, 15.0f, 15.0f, false, SHORT_TIMEOUT);
+        publishEventLocation(candidateUuid, 15.0f, 15.0f, false, LONG_TIMEOUT);
 
         Allure.step("Проверка отсутствия добавления supply", () -> assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, candidateUuid), "Кандидат добавился в supply"));
     }
 
 
-    @CaseIDs({@CaseId(41), @CaseId(136)})
+    @CaseIDs({@CaseId(41), @CaseId(136), @CaseId(45)})
     @Story("Radius Supply")
     @Test(description = "Добавление supply для нескольких магазинов при получении кандидата в близи от этих магазинов",
             groups = "ondemand-surgelevel-smoke")
@@ -459,7 +472,7 @@ public class SurgeTest extends RestBase {
     public void surgeProduceEventCandidateWithWorkflow() {
         publishEventCandidateStatus(CANDIDATE_UUID_WORKFLOW, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, SECOND_STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
         publishEventLocation(CANDIDATE_UUID_WORKFLOW, secondStoreLocation.getLat(), secondStoreLocation.getLon(), false, SHORT_TIMEOUT);
-        publishEventCandidateStatusWithWorkflow(CANDIDATE_UUID_WORKFLOW, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.BUSY, 0, 0, false, SECOND_STORE_ID, DISPATCH.getName(), FIRST_WORKFLOW_ID, WorkflowStatus.IN_PROGRESS, getTimestamp(), workflowPlanEndLocation.getLat(), workflowPlanEndLocation.getLon(), SHORT_TIMEOUT);
+        publishEventCandidateStatusWithWorkflow(CANDIDATE_UUID_WORKFLOW, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.BUSY, 0, 0, false, SECOND_STORE_ID, DISPATCH.getName(), FIRST_WORKFLOW_ID, WorkflowStatus.IN_PROGRESS, getTimestamp(), workflowPlanEndLocation.getLat(), workflowPlanEndLocation.getLon(), LONG_TIMEOUT);
 
         Allure.step("Проверка сохранения supply", () -> {
             final SoftAssert softAssert = new SoftAssert();
@@ -475,7 +488,7 @@ public class SurgeTest extends RestBase {
             groups = "ondemand-surgelevel-smoke",
             dependsOnMethods = "surgeProduceEventCandidateWithWorkflow")
     public void surgeProduceEventCandidateWithWorkflowStartMoving() {
-        publishEventLocation(CANDIDATE_UUID_WORKFLOW, storeLocation.getLat(), storeLocation.getLon(), false, SHORT_TIMEOUT);
+        publishEventLocation(CANDIDATE_UUID_WORKFLOW, storeLocation.getLat(), storeLocation.getLon(), false, LONG_TIMEOUT);
 
         Allure.step("Проверка удаления supply", () -> {
             final SoftAssert softAssert = new SoftAssert();
@@ -492,7 +505,7 @@ public class SurgeTest extends RestBase {
             groups = "ondemand-surgelevel-smoke",
             dependsOnMethods = "surgeProduceEventCandidateWithWorkflowStartMoving")
     public void surgeProduceEventCandidateWithWorkflowFinishing() {
-        publishEventLocation(CANDIDATE_UUID_WORKFLOW, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), false, SHORT_TIMEOUT);
+        publishEventLocation(CANDIDATE_UUID_WORKFLOW, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), false, LONG_TIMEOUT);
 
         Allure.step("Проверка добавления supply в магазины в store_radius от точки прибытия", () -> {
             final SoftAssert softAssert = new SoftAssert();
@@ -511,7 +524,7 @@ public class SurgeTest extends RestBase {
         publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, SECOND_DELIVERY_AREA_ID, true, SECOND_STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
         publishEventLocation(candidateUuid, secondStoreLocation.getLat(), secondStoreLocation.getLon(), false, SHORT_TIMEOUT);
         publishEventCandidateStatusWithWorkflow(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.BUSY, 0, SECOND_DELIVERY_AREA_ID, true, SECOND_STORE_ID, DISPATCH.getName(), SECOND_WORKFLOW_ID, WorkflowStatus.IN_PROGRESS, getTimestamp(), workflowPlanEndLocation.getLat(), workflowPlanEndLocation.getLon(), SHORT_TIMEOUT);
-        publishEventLocation(candidateUuid, workflowPlanEndLocation.getLat(), workflowPlanEndLocation.getLon(), false, SHORT_TIMEOUT);
+        publishEventLocation(candidateUuid, workflowPlanEndLocation.getLat(), workflowPlanEndLocation.getLon(), false, LONG_TIMEOUT);
 
         Allure.step("Проверка отсутствия применения логики workflow для deliveryarea кандидата", () -> {
             final SoftAssert softAssert = new SoftAssert();
@@ -531,7 +544,7 @@ public class SurgeTest extends RestBase {
         publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, SECOND_STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
         publishEventLocation(candidateUuid, secondStoreLocation.getLat(), secondStoreLocation.getLon(), false, SHORT_TIMEOUT);
         publishEventCandidateStatusWithWorkflow(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.BUSY, 0, 0, false, SECOND_STORE_ID, DISPATCH.getName(), SECOND_WORKFLOW_ID + 1, WorkflowStatus.QUEUED, getTimestamp(), workflowPlanEndLocation.getLat(), workflowPlanEndLocation.getLon(), SHORT_TIMEOUT);
-        publishEventLocation(candidateUuid, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), false, SHORT_TIMEOUT);
+        publishEventLocation(candidateUuid, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), false, LONG_TIMEOUT);
 
         Allure.step("Проверка добавления supply только по radius", () -> {
             final SoftAssert softAssert = new SoftAssert();
