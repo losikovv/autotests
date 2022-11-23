@@ -9,8 +9,8 @@ import ru.instamart.kraken.enums.Server;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Objects;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Env
@@ -125,21 +125,9 @@ public final class EnvironmentProperties {
                     K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("stfkraken", STAGE);
                     K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("shpkraken", STAGE);
                 }
-                log.debug("Кастомные данные при ручном запуске на стейджах");
-                log.debug("BASIC_URL: {}", BASIC_URL);
-                log.debug("Server: {}", SERVER);
-                log.debug("Stage: {}", STAGE);
-                log.debug("DB_URL: {}", DB_URL);
-                log.debug("DB_PGSQL_URL: {}", DB_PGSQL_URL);
-                log.debug("K8S_NAME_STF_SPACE: {}", K8S_NAME_STF_SPACE);
-                log.debug("K8S_NAME_SHP_SPACE: {}", K8S_NAME_SHP_SPACE);
 
-                if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
-                    SHOPPER_URL = getDomainName(customShopperUrl);
-                } else if (customBasicUrl.startsWith("stf-")) {
-                    SHOPPER_URL = "shp" + customBasicUrl.substring(3);
-                } else SHOPPER_URL = "shp-0.k-stage.sbermarket.tech";
-                log.debug("SHOPPER_URL: " + SHOPPER_URL);
+                shopperUrl(customBasicUrl, customShopperUrl);
+                printProperty();
             }
 
             if (CiModule.isUi()) {
@@ -148,71 +136,20 @@ public final class EnvironmentProperties {
                 } else {
                     stfForwardTo = System.getenv("B2B_FORWARD");
                 }
-                STAGE = stfForwardTo.replaceAll("s-sb-stf|s-sb-|-\\w+$", "");
-                TENANT = stfForwardTo.replaceAll("^.+-", "").replaceAll("^sm", "");
-                SERVER = Server.CUSTOM.name().toLowerCase();
-
-                BASIC_URL = stfForwardTo.contains("s-sb-stf")
-                        ? stfForwardTo.replaceAll("s-sb-stf", "stf-").replaceAll("-sbermarket", "") + ".k-stage.sbermarket.tech"
-                        : stfForwardTo.replaceAll("s-sb-|-sbermarket", "") + ".k-stage.sbermarket.tech";
-
-                if (stfForwardTo.contains("s-sb-stf")) {
-                    DB_URL = DB_URL.replace("kraken", STAGE);
-                    DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
-                } else {
-                    DB_URL = DB_URL.replace("_kraken", "");
-                    DB_PGSQL_URL = DB_PGSQL_URL.replace("_kraken", "");
-                }
-
-                if (stfForwardTo.contains("s-sb-stf")) {
-                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("kraken", STAGE);
-                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("kraken", STAGE);
-                } else {
-                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("stfkraken", STAGE);
-                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("shpkraken", STAGE);
-                }
-
-                if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
-                    SHOPPER_URL = getDomainName(customShopperUrl);
-                } else if (customBasicUrl.startsWith("stf-")) {
-                    SHOPPER_URL = "shp" + customBasicUrl.substring(3);
-                } else SHOPPER_URL = "shp-0.k-stage.sbermarket.tech";
+                forward(stfForwardTo);
+                shopperUrl(customBasicUrl, customShopperUrl);
+                printProperty();
             }
 
             if (CiModule.isAdmin()) {
-                BASIC_URL = getDomainName(System.getenv("ADMIN_URL"));
-                SERVER = BASIC_URL.contains("kraken")
-                        ? Server.PREPROD.name().toLowerCase() : BASIC_URL.startsWith("stf-")
-                        ? Server.STAGING.name().toLowerCase() : Server.CUSTOM.name().toLowerCase();
-                TENANT = "sbermarket";
-                STAGE = BASIC_URL.replace("stf-", "").replace(".k-stage.sbermarket.tech", "");
-
-                if (!BASIC_URL.startsWith("stf-")) {
-                    DB_URL = DB_URL.replace("_kraken", "");
-                    DB_PGSQL_URL = DB_PGSQL_URL.replace("_kraken", "");
-                } else {
-                    DB_URL = DB_URL.replace("kraken", STAGE);
-                    DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
-                }
-
-                if (BASIC_URL.startsWith("stf-")) {
-                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("kraken", STAGE);
-                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("kraken", STAGE);
-                } else {
-                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("stfkraken", STAGE);
-                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("shpkraken", STAGE);
-                }
-
-                if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
-                    SHOPPER_URL = getDomainName(customShopperUrl);
-                } else if (customBasicUrl.startsWith("stf-")) {
-                    SHOPPER_URL = "shp" + customBasicUrl.substring(3);
-                } else SHOPPER_URL = "shp-0.k-stage.sbermarket.tech";
-                log.debug("SHOPPER_URL: " + SHOPPER_URL);
+                forward(System.getenv("ADMIN_FORWARD"));
+                shopperUrl(customBasicUrl, customShopperUrl);
+                printProperty();
             }
 
             if (CiModule.isHrOpsPartners()) {
                 BASIC_URL = getDomainName(System.getenv("HR_OPS_PARTNERS_URL")).replaceAll("sbermarket.ru", "do_not_run_on.prod");
+                printProperty();
             }
         }
 
@@ -228,8 +165,8 @@ public final class EnvironmentProperties {
         public static String SURGELEVEL_HASH_OR_BRANCH = getSurgelevelHashOrBranch();
 
         private static String getEtaNamespace() {
-            String etaNamespace = System.getProperty("url_paas_eta", "paas-content-operations-eta");
-            if (Objects.isNull(etaNamespace) || etaNamespace.isEmpty() || etaNamespace.isBlank()) {
+            var etaNamespace = System.getProperty("url_paas_eta", "paas-content-operations-eta");
+            if (isNull(etaNamespace) || etaNamespace.isEmpty() || etaNamespace.isBlank()) {
                 etaNamespace = "paas-content-operations-eta";
             }
             return etaNamespace;
@@ -237,7 +174,7 @@ public final class EnvironmentProperties {
 
         private static String getShippingcalcNamespace() {
             String shippingcalcNamespace = System.getProperty("url_paas_shippingcalc", "paas-content-operations-shippingcalc");
-            if (Objects.isNull(shippingcalcNamespace) || shippingcalcNamespace.isEmpty() || shippingcalcNamespace.isBlank()) {
+            if (isNull(shippingcalcNamespace) || shippingcalcNamespace.isEmpty() || shippingcalcNamespace.isBlank()) {
                 shippingcalcNamespace = "paas-content-operations-shippingcalc";
             }
             return shippingcalcNamespace;
@@ -245,7 +182,7 @@ public final class EnvironmentProperties {
 
         private static String getSurgelevelHashOrBranch() {
             String surgeLevelHashOrBranch = System.getProperty("surge_hash_commit_or_branch", "");
-            if (Objects.isNull(surgeLevelHashOrBranch) || surgeLevelHashOrBranch.isEmpty() || surgeLevelHashOrBranch.isBlank()) {
+            if (isNull(surgeLevelHashOrBranch) || surgeLevelHashOrBranch.isEmpty() || surgeLevelHashOrBranch.isBlank()) {
                 return "";
             }
             return "-" + surgeLevelHashOrBranch;
@@ -259,14 +196,62 @@ public final class EnvironmentProperties {
             return Server.PRODUCTION.name().equalsIgnoreCase(EnvironmentProperties.SERVER);
         }
 
-        private static String getDomainName(String url) {
+        private static String getDomainName(final String url) {
             try {
-                URI uri = new URI(url);
+                final var uri = new URI(url);
                 return uri.toURL().getHost();
             } catch (IllegalArgumentException | MalformedURLException | URISyntaxException e) {
                 log.debug("Domain parse error: {}", e.getMessage());
             }
             return url;
+        }
+
+        private static void forward(final String stfForwardTo) {
+            if (isNull(stfForwardTo)) {
+                return;
+            }
+            STAGE = stfForwardTo.replaceAll("s-sb-stf|s-sb-|-\\w+$", "");
+            TENANT = stfForwardTo.replaceAll("^.+-", "").replaceAll("^sm", "");
+            BASIC_URL = stfForwardTo.contains("s-sb-stf")
+                    ? stfForwardTo.replaceAll("s-sb-stf", "stf-").replaceAll("-sbermarket", "") + ".k-stage.sbermarket.tech"
+                    : stfForwardTo.replaceAll("s-sb-|-sbermarket", "") + ".k-stage.sbermarket.tech";
+            SERVER = Server.CUSTOM.name().toLowerCase();
+
+            if (stfForwardTo.contains("s-sb-stf")) {
+                DB_URL = DB_URL.replace("kraken", STAGE);
+                DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
+            } else {
+                DB_URL = DB_URL.replace("_kraken", "");
+                DB_PGSQL_URL = DB_PGSQL_URL.replace("_kraken", "");
+            }
+
+            if (stfForwardTo.contains("s-sb-stf")) {
+                K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("kraken", STAGE);
+                K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("kraken", STAGE);
+            } else {
+                K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("stfkraken", STAGE);
+                K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("shpkraken", STAGE);
+            }
+        }
+
+        private static void shopperUrl(final String customBasicUrl, final String customShopperUrl) {
+            if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
+                SHOPPER_URL = getDomainName(customShopperUrl);
+            } else if (nonNull(customBasicUrl) && customBasicUrl.startsWith("stf-")) {
+                SHOPPER_URL = "shp" + customBasicUrl.substring(3);
+            } else SHOPPER_URL = "shp-0.k-stage.sbermarket.tech";
+        }
+
+        private static void printProperty() {
+            log.debug("Кастомные данные при ручном запуске на стейджах");
+            log.debug("BASIC_URL: {}", BASIC_URL);
+            log.debug("Server: {}", SERVER);
+            log.debug("Stage: {}", STAGE);
+            log.debug("DB_URL: {}", DB_URL);
+            log.debug("DB_PGSQL_URL: {}", DB_PGSQL_URL);
+            log.debug("K8S_NAME_STF_SPACE: {}", K8S_NAME_STF_SPACE);
+            log.debug("K8S_NAME_SHP_SPACE: {}", K8S_NAME_SHP_SPACE);
+            log.debug("SHOPPER_URL: " + SHOPPER_URL);
         }
     }
 

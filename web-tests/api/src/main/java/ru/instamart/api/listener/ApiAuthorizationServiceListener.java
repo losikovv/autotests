@@ -15,6 +15,7 @@ public class ApiAuthorizationServiceListener extends ApiExecutionListener {
     @Override
     public void onExecutionStart() {
         super.onExecutionStart();
+        this.revealKraken();
     }
 
     @Override
@@ -27,11 +28,9 @@ public class ApiAuthorizationServiceListener extends ApiExecutionListener {
     public void setupAllureReport() {
         AllureHelper.allureEnvironmentWriter(
                 Map.ofEntries(
-                        Map.entry("Host", "https://paas-content-core-services-authorization.gw-stage.sbmt.io")),
-                System.getProperty("user.dir") + "/build/allure-results/");
+                        Map.entry("Host", "https://paas-content-core-services-authorization.gw-stage.sbmt.io")));
     }
 
-    @Override
     public void revealKraken() {
         log.debug("Host: {}", "https://paas-content-core-services-authorization.gw-stage.sbmt.io");
         log.debug("TEST RUN ID: {}", runId);

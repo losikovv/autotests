@@ -18,6 +18,7 @@ public final class TagManagerExecutionListener extends ExecutionListener {
     @Override
     public void onExecutionStart() {
         super.onExecutionStart();
+        this.revealKraken();
     }
 
     @Override
@@ -30,11 +31,9 @@ public final class TagManagerExecutionListener extends ExecutionListener {
     public void setupAllureReport() {
         AllureHelper.allureEnvironmentWriter(
                 Map.ofEntries(
-                        Map.entry("gRPC", GrpcContentHosts.PAAS_CONTENT_OPERATIONS_TAG_MANAGER)),
-                System.getProperty("user.dir") + "/build/allure-results/");
+                        Map.entry("gRPC", GrpcContentHosts.PAAS_CONTENT_OPERATIONS_TAG_MANAGER)));
     }
 
-    @Override
     public void revealKraken() {
         log.debug("gRPC {}", GrpcContentHosts.PAAS_CONTENT_OPERATIONS_TAG_MANAGER);
         log.debug("TEST RUN ID: {}", runId);

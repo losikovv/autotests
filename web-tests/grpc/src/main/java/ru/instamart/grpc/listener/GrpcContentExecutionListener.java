@@ -19,6 +19,7 @@ public final class GrpcContentExecutionListener extends ExecutionListener {
     @Override
     public void onExecutionStart() {
         super.onExecutionStart();
+        this.revealKraken();
     }
 
     @Override
@@ -37,11 +38,9 @@ public final class GrpcContentExecutionListener extends ExecutionListener {
                         Map.entry("Product Filter Host", GrpcContentHosts.PAAS_CONTENT_PRODUCT_FILTER),
                         Map.entry("Catalog Host", GrpcContentHosts.PAAS_CONTENT_CATALOG),
                         Map.entry("Catalog Navigation Host", GrpcContentHosts.PAAS_CONTENT_CATALOG_NAVIGATION),
-                        Map.entry("Catalog Shelf Host", GrpcContentHosts.PAAS_CONTENT_CATALOG_SHELF)),
-                System.getProperty("user.dir") + "/build/allure-results/");
+                        Map.entry("Catalog Shelf Host", GrpcContentHosts.PAAS_CONTENT_CATALOG_SHELF)));
     }
 
-    @Override
     public void revealKraken() {
         log.debug("Product Hub Back Host: {}", GrpcContentHosts.PAAS_CONTENT_PRODUCT_HUB_BACK);
         log.debug("Product Hub Front Host: {}", GrpcContentHosts.PAAS_CONTENT_PRODUCT_HUB_FRONT);
