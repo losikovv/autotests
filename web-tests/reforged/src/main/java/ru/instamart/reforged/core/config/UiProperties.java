@@ -10,13 +10,13 @@ public final class UiProperties {
 
     @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "", args = "admin_url", env = "ADMIN_URL")
     public static String ADMIN_URL;
+    @Config(configName = NAME, fieldName = "headerAdminForwardTo", defaultValue = "s-sb-stfkraken-backend-sbermarket", env = "ADMIN_FORWARD")
+    public static String HEADER_ADMIN_FORWARD_TO;
 
     @Config(configName = NAME, fieldName = "stfUrl", defaultValue = "", env = "URL_STF_FRONT")
     public static String STF_URL;
     @Config(configName = NAME, fieldName = "headerStfForwardTo", defaultValue = "s-sb-stfkraken-sbermarket", env = "STF_FORWARD")
     public static String HEADER_STF_FORWARD_TO;
-    @Config(configName = NAME, fieldName = "headerAdminForwardTo", defaultValue = "s-sb-stfkraken-backend-sbermarket", env = "ADMIN_FORWARD")
-    public static String HEADER_ADMIN_FORWARD_TO;
 
     @Config(configName = NAME, fieldName = "b2bUrl", defaultValue = "", args = "url_b2b_front", env = "URL_B2B_FRONT")
     public static String B2B_URL;
