@@ -372,17 +372,31 @@ public final class ApiV2Helper {
     @Step("Добавляем товар в корзину: id товара = {productId} и количество = {quantity} ")
     public LineItemV2 addItemToCart(long productId, int quantity) {
         Response response = LineItemsV2Request.POST(productId, quantity, currentOrderNumber.get());
-        checkStatusCode200(response);
-        LineItemV2 lineItem = response.as(LineItemV2Response.class).getLineItem();
+//        TODO: Костыль добавления товара в корзину
+//        checkStatusCode200(response);
+//        LineItemV2 lineItem = response.as(LineItemV2Response.class).getLineItem();
+//        log.debug(lineItem.toString());
+//        return lineItem;
 
-        log.debug(lineItem.toString());
-        return lineItem;
+        checkStatusCode200or404(response);
+        switch (response.getStatusCode()) {
+            case 200:
+                Allure.step("Товар добавлен в корзину");
+                final var lineItem = response.as(LineItemV2Response.class).getLineItem();
+                log.debug(lineItem.toString());
+                return lineItem;
+            case 404:
+                Allure.step("Невозможно добавить товар в корзину " + response.as(ErrorResponse.class).getErrors().getBase());
+                log.error("Невозможно добавить товар в корзину '{}'", response.as(ErrorResponse.class).getErrors().getBase());
+                return null;
+        }
+        return null;
     }
 
     @Step("Добавляем товар в корзину: id товара = {productId} и количество = {quantity} ")
     public void addItemToCartOrLogError(final long productId, final int quantity) {
         final var response = LineItemsV2Request.POST(productId, quantity, currentOrderNumber.get());
-        checkStatusCode200or422(response);
+        checkStatusCode200or404or422(response);
 
         switch (response.getStatusCode()) {
             case 200: {
@@ -390,6 +404,7 @@ public final class ApiV2Helper {
                 log.debug(lineItem.toString());
                 break;
             }
+            case 404:
             case 422: {
                 log.error("Невозможно добавить товар в корзину '{}'", response.as(ErrorResponse.class).getErrors().getBase());
                 break;
@@ -1317,6 +1332,7 @@ public final class ApiV2Helper {
         setDefaultOrderAttributes(comment);
         return completeOrder();
     }
+
     /**
      * Поменять адрес у юзера
      */
@@ -1495,7 +1511,7 @@ public final class ApiV2Helper {
      * Отменить последнюю доставку (с которым взаимодействовали в этой сессии через REST API)
      */
     @Step("Отменить последнюю доставку (с которым взаимодействовали в этой сессии через REST API)")
-    public void canselCurrentShipment(){
+    public void canselCurrentShipment() {
         if (currentShipmentNumber.get() != null && orderCompleted.get() != null && orderCompleted.get())
             cancelShipment(currentShipmentNumber.get());
     }
@@ -1601,7 +1617,7 @@ public final class ApiV2Helper {
         Map<String, String> params = new HashMap<>();
         params.put("cargo", "false");
         params.put("shipping_method", "by_courier");
-        if(Objects.nonNull(address)) {
+        if (Objects.nonNull(address)) {
             params.put("lat", address.getLat().toString());
             params.put("lon", address.getLon().toString());
         }
