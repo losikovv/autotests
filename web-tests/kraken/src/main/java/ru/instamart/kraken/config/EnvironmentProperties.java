@@ -100,7 +100,6 @@ public final class EnvironmentProperties {
         static {
             var customBasicUrl = System.getenv("URL_STF_BACKEND");
             var customShopperUrl = System.getenv("URL_SHP");
-            String stfForwardTo;
 
             if (nonNull(customBasicUrl) && !customBasicUrl.isBlank()) {
                 customBasicUrl = getDomainName(customBasicUrl);
@@ -131,11 +130,8 @@ public final class EnvironmentProperties {
             }
 
             if (CiModule.isUi()) {
-                if (CiModule.isStf()) {
-                    stfForwardTo = System.getenv("STF_FORWARD");
-                } else {
-                    stfForwardTo = System.getenv("B2B_FORWARD");
-                }
+                final var stfForwardTo = CiModule.isStf() ?
+                        System.getenv("STF_FORWARD") : System.getenv("B2B_FORWARD");
                 forward(stfForwardTo);
                 shopperUrl(customBasicUrl, customShopperUrl);
                 printProperty();
