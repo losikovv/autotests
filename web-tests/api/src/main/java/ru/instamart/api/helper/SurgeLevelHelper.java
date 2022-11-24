@@ -55,8 +55,8 @@ public class SurgeLevelHelper {
     }
 
     @Step("Добавить магазин {storeId} и конфиг для него в БД")
-    public static void addStore(String storeId, String configId, Boolean isDisabled, boolean isOnDemand, float storeLat, float storeLon, String formulaId, int step, int deliveryArea) {
-        boolean isConfigCreated = ConfigDao.INSTANCE.addConfig(configId, formulaId, step, isDisabled);
+    public static void addStore(String storeId, String configId, Boolean isDisabled, boolean isOnDemand, float storeLat, float storeLon, String formulaId, int step, int deliveryArea, Integer distance) {
+        boolean isConfigCreated = ConfigDao.INSTANCE.addConfig(configId, formulaId, step, isDisabled, distance);
         assertTrue(isConfigCreated, "Не добавился конфиг");
         boolean isStoreCreated = StoreDao.INSTANCE.addStore(storeId, configId, isOnDemand, storeLat, storeLon, deliveryArea);
         assertTrue(isStoreCreated, "Не добавился магазин");

@@ -49,8 +49,8 @@ public class ManualSurgeTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void preConditions() {
-        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), null, true, 1f, 1f, null, 1, DELIVERY_AREA_ID);
-        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), null, true, 1f, 1f, null, 1, DELIVERY_AREA_ID);
+        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), null, true, 1f, 1f, null, 1, DELIVERY_AREA_ID, null);
+        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), null, true, 1f, 1f, null, 1, DELIVERY_AREA_ID, null);
         channel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SURGELEVEL);
         client = ServiceGrpc.newBlockingStub(channel);
     }
