@@ -37,7 +37,7 @@ public class AuthorizationTest extends GrpcBase {
                 .addPermissions("example-service/kraken-api-tests/retailers:write")
                 .addPermissions("example-service/kraken-api-tests/retailers:read")
                 .setSbmAuthIdentity("1")
-                .addSbmAuthRoles("BizdevDept")
+                .addSbmAuthRoles("bizdev_dept")
                 .setSbmAuthType("kraken-api-tests")
                 .setPolicyVersion("test")
                 .build();
@@ -57,7 +57,7 @@ public class AuthorizationTest extends GrpcBase {
                 .addPermissions("example-service/kraken-api-tests/retailers:wrong")
                 .addPermissions("example-service/kraken-api-tests/wrong:read")
                 .setSbmAuthIdentity("1")
-                .addSbmAuthRoles("BizdevDept")
+                .addSbmAuthRoles("bizdev_dept")
                 .setSbmAuthType("kraken-api-tests")
                 .setPolicyVersion("test")
                 .build();
@@ -76,7 +76,7 @@ public class AuthorizationTest extends GrpcBase {
         var sbmAuth = AuthorizationOuterClass.SbmAuth.newBuilder()
                 .setType("kraken-api-tests")
                 .setIdentity("1")
-                .addRoles("BizdevDept")
+                .addRoles("bizdev_dept")
                 .build();
 
         var request = AuthorizationOuterClass.DataFiltersRequest.newBuilder()

@@ -36,7 +36,7 @@ public class AuthorizationServiceHelper {
                         .build())
                 .role(PolicyModel.Role
                         .builder()
-                        .name("BizdevDept")
+                        .name("bizdev_dept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
                                 .permission("example-service/kraken-api-tests/retailers:read")
@@ -56,7 +56,7 @@ public class AuthorizationServiceHelper {
                         .build())
                 .role(PolicyModel.Role
                         .builder()
-                        .name("CallcenterDept")
+                        .name("callcenter_dept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
                                 .permission("example-service/kraken-api-tests/shipments:read")
@@ -65,7 +65,7 @@ public class AuthorizationServiceHelper {
                         .build())
                 .role(PolicyModel.Role
                         .builder()
-                        .name("OperationsDept")
+                        .name("operations_dept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
                                 .permission("example-service/kraken-api-tests/shipments:read")
