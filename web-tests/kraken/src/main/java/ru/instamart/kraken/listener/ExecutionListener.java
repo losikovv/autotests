@@ -34,7 +34,6 @@ public abstract class ExecutionListener implements IExecutionListener {
 
         log.debug("Setup Allure report");
         setupAllureReport();
-        revealKraken();
     }
 
     public void setupAllureReport() {
@@ -43,17 +42,7 @@ public abstract class ExecutionListener implements IExecutionListener {
                         Map.entry("Tenant", EnvironmentProperties.Env.ENV_NAME),
                         Map.entry("URL Backend", EnvironmentProperties.Env.FULL_SITE_URL),
                         Map.entry("Administration Backend", EnvironmentProperties.Env.ADMIN_FULL_URL),
-                        Map.entry("Shopper", EnvironmentProperties.Env.FULL_SHOPPER_URL)),
-                System.getProperty("user.dir") + "/build/allure-results/");
-    }
-
-    public void revealKraken() {
-        log.debug("ENVIRONMENT: {} ({})", EnvironmentProperties.TENANT, EnvironmentProperties.Env.FULL_SITE_URL);
-        log.debug("Tenant {}", EnvironmentProperties.Env.ENV_NAME);
-        log.debug("URL Backend {}", EnvironmentProperties.Env.FULL_SITE_URL);
-        log.debug("Administration Backend {}", EnvironmentProperties.Env.ADMIN_FULL_URL);
-        log.debug("Shopper {}", EnvironmentProperties.Env.FULL_SHOPPER_URL);
-        log.debug("TEST RUN ID: {}", runId);
+                        Map.entry("Shopper", EnvironmentProperties.Env.FULL_SHOPPER_URL)));
     }
 
     @Override

@@ -18,6 +18,7 @@ public final class ShiftsExecutionListener extends ApiExecutionListener {
     @Override
     public void onExecutionStart() {
         super.onExecutionStart();
+        this.revealKraken();
     }
 
     @Override
@@ -30,8 +31,7 @@ public final class ShiftsExecutionListener extends ApiExecutionListener {
         AllureHelper.allureEnvironmentWriter(
                 Map.ofEntries(
                         Map.entry("STF", EnvironmentProperties.Env.FULL_SITE_URL),
-                        Map.entry("Shopper", EnvironmentProperties.Env.FULL_SHOPPER_URL)),
-                System.getProperty("user.dir") + "/build/allure-results/");
+                        Map.entry("Shopper", EnvironmentProperties.Env.FULL_SHOPPER_URL)));
     }
 
     public void revealKraken() {

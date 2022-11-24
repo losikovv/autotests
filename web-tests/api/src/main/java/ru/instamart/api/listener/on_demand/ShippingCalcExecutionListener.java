@@ -18,6 +18,7 @@ public final class ShippingCalcExecutionListener extends ApiExecutionListener {
     @Override
     public void onExecutionStart() {
         super.onExecutionStart();
+        this.revealKraken();
     }
 
     @Override
@@ -29,8 +30,7 @@ public final class ShippingCalcExecutionListener extends ApiExecutionListener {
     public void setupAllureReport() {
         AllureHelper.allureEnvironmentWriter(
                 Map.ofEntries(
-                        Map.entry("gRPC", GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC)),
-                System.getProperty("user.dir") + "/build/allure-results/");
+                        Map.entry("gRPC", GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC)));
     }
 
     public void revealKraken() {

@@ -16,6 +16,7 @@ public final class ApiRisExporterExecutionListener extends ApiExecutionListener 
     @Override
     public void onExecutionStart() {
         super.onExecutionStart();
+        this.revealKraken();
     }
 
     @Override
@@ -28,11 +29,9 @@ public final class ApiRisExporterExecutionListener extends ApiExecutionListener 
     public void setupAllureReport() {
         AllureHelper.allureEnvironmentWriter(
                 Map.ofEntries(
-                        Map.entry("Host", "https://api-deliveryclub.sbermarket.ru")), //todo убрать хардкод как появится стэйдж
-                System.getProperty("user.dir") + "/build/allure-results/");
+                        Map.entry("Host", "https://api-deliveryclub.sbermarket.ru"))); //todo убрать хардкод как появится стэйдж
     }
 
-    @Override
     public void revealKraken() {
         log.debug("Host: {}", "https://api-deliveryclub.sbermarket.ru"); //todo убрать хардкод как появится стэйдж
         log.debug("TEST RUN ID: {}", runId);

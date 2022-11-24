@@ -19,6 +19,7 @@ public final class WorkflowExecutionListener extends ApiExecutionListener {
     @Override
     public void onExecutionStart() {
         super.onExecutionStart();
+        this.revealKraken();
     }
 
     @Override
@@ -32,8 +33,7 @@ public final class WorkflowExecutionListener extends ApiExecutionListener {
                 Map.ofEntries(
                         Map.entry("gRPC", GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW),
                         Map.entry("STF", EnvironmentProperties.Env.FULL_SITE_URL),
-                        Map.entry("Shopper", EnvironmentProperties.Env.FULL_SHOPPER_URL)),
-                System.getProperty("user.dir") + "/build/allure-results/");
+                        Map.entry("Shopper", EnvironmentProperties.Env.FULL_SHOPPER_URL)));
     }
 
     public void revealKraken() {
