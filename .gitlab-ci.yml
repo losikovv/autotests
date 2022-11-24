@@ -231,6 +231,7 @@ tests:triggeredRun:
   only:
     refs:
       - triggers
+      - pipelines
     variables:
       - $TRIGGERED_RUN == 'true'
   except:
