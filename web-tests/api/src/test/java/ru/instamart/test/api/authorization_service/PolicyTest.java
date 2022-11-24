@@ -46,7 +46,7 @@ public class PolicyTest extends RestBase {
 
         Allure.step("Проверяем, что политика обновилась", () -> {
             assertEquals(responseGet.as(PolicyResponse.class).getData().getRoles().get(0).getName(),
-                    "BizdevDept", "Список ролей не обновился");
+                    "bizdev_dept", "Список ролей не обновился");
             assertEquals(responseGet.as(PolicyResponse.class).getData().getServiceSpecs().get(0).getServiceId(),
                     "example-service", "Список разрешений не обновился");
         });
@@ -72,7 +72,7 @@ public class PolicyTest extends RestBase {
                         .build())
                 .role(PolicyModel.Role
                         .builder()
-                        .name("BizdevDept")
+                        .name("bizdev_dept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
                                 .permission("example-service/kraken-api-tests/retailers:read")
@@ -115,7 +115,7 @@ public class PolicyTest extends RestBase {
                         .build())
                 .role(PolicyModel.Role
                         .builder()
-                        .name("BizdevDept")
+                        .name("bizdev_dept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
                                 .permission("example-service/kraken-api-tests/retailers:read")
@@ -197,7 +197,7 @@ public class PolicyTest extends RestBase {
                         .build())
                 .role(PolicyModel.Role
                         .builder()
-                        .name("BizdevDept")
+                        .name("bizdev_dept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
                                 .permission("example-service/kraken-api-tests/retailers:read")
@@ -235,7 +235,7 @@ public class PolicyTest extends RestBase {
                         .build())
                 .role(PolicyModel.Role
                         .builder()
-                        .name("Test")
+                        .name("test")
                         .permission(PolicyModel.RolePermission
                                 .builder()
                                 .permission("example-service/kraken-api-tests/retailers:read")
@@ -243,7 +243,7 @@ public class PolicyTest extends RestBase {
                         .build())
                 .role(PolicyModel.Role
                         .builder()
-                        .name("Test")
+                        .name("test")
                         .permission(PolicyModel.RolePermission
                                 .builder()
                                 .permission("example-service/kraken-api-tests/retailers:read")
@@ -374,15 +374,15 @@ public class PolicyTest extends RestBase {
                         .build())
                 .role(PolicyModel.Role
                         .builder()
-                        .name("BizdevDept")
+                        .name("bizdev_dept")
                         .build())
                 .role(PolicyModel.Role
                         .builder()
-                        .name("CallcenterDept")
+                        .name("callcenter_dept")
                         .build())
                 .role(PolicyModel.Role
                         .builder()
-                        .name("OperationsDept")
+                        .name("operations_dept")
                         .build())
                 .build();
 
@@ -430,7 +430,7 @@ public class PolicyTest extends RestBase {
                         .build())
                 .role(PolicyModel.Role
                         .builder()
-                        .name("CallcenterDept")
+                        .name("callcenter_dept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
                                 .permission("test/kraken-api-tests/shipments:read")
@@ -474,7 +474,7 @@ public class PolicyTest extends RestBase {
                         .build())
                 .role(PolicyModel.Role
                         .builder()
-                        .name("CallcenterDept")
+                        .name("callcenter_dept")
                         .permission(PolicyModel.RolePermission
                                 .builder()
                                 .permission("test/kraken-api-tests/shipments:read")

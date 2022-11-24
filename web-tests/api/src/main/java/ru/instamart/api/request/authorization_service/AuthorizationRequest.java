@@ -9,7 +9,7 @@ import ru.instamart.api.request.AuthorizationServiceRequestBase;
 public class AuthorizationRequest extends AuthorizationServiceRequestBase {
     @Step("{method} /" + AuthorizationServiceEndpoints.Authorization.AUTHORIZATION)
     public static Response POST(final String baseRealm, final JSONObject body) {
-        return givenWithAuthAndHeaders("BizdevDept,TestRole", baseRealm, 1)
+        return givenWithAuthAndHeaders("bizdev_dept,test_role", baseRealm, 1)
                 .body(body)
                 .post(AuthorizationServiceEndpoints.Authorization.AUTHORIZATION);
     }

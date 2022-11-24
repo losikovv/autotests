@@ -306,4 +306,27 @@ public class RealmTest {
         });
 
     }
+
+    @CaseId(42)
+    @Test(groups = {"api-authorization-service"},
+            description = "Создание рилма с именем в uppercase")
+    public void createRealWithWrongName() {
+        RealmModel body = RealmModel
+                .builder()
+                .name("kraken-api-tests")
+                .repositoryUrl(repositoryUrlBase + "UpperCase")
+                .service(RealmModel.Service
+                        .builder()
+                        .name("UpperCase")
+                        .description("wrong name in uppercase")
+                        .build())
+                .build();
+
+        Response response = RealmRequest.POST(body);
+
+        checkStatusCode422(response);
+        Allure.step("Проверка сообщения об ошибке", () -> {
+            assertEquals(response.as(RealmPutErrorResponse.class).getError().getTitle(), "Request parameters didn't validate");
+        });
+    }
 }

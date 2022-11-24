@@ -8,7 +8,7 @@ import ru.instamart.api.request.AuthorizationServiceRequestBase;
 public class PermissionsRequest extends AuthorizationServiceRequestBase {
     @Step("{method} /" + AuthorizationServiceEndpoints.Permissions.PERMISSION)
     public static Response GET(final String baseRealm, final String resource) {
-        return givenWithAuthAndHeaders("BizdevDept,TestRole", baseRealm, 1)
+        return givenWithAuthAndHeaders("bizdev_dept,test_role", baseRealm, 1)
                 .queryParam("resource", resource)
                 .get(AuthorizationServiceEndpoints.Permissions.PERMISSION);
     }
