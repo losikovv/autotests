@@ -17,6 +17,7 @@ public class AuthorizationServiceExecutionListener extends ExecutionListener {
     @Override
     public void onExecutionStart() {
         super.onExecutionStart();
+        this.revealKraken();
     }
 
     @Override
@@ -28,8 +29,7 @@ public class AuthorizationServiceExecutionListener extends ExecutionListener {
     public void setupAllureReport() {
         AllureHelper.allureEnvironmentWriter(
                 Map.ofEntries(
-                        Map.entry("gRPC", GrpcContentHosts.PAAS_CONTENT_CORE_SERVICES_AUTHORIZATION)),
-                System.getProperty("user.dir") + "/build/allure-results/");
+                        Map.entry("gRPC", GrpcContentHosts.PAAS_CONTENT_CORE_SERVICES_AUTHORIZATION)));
     }
 
     public void revealKraken() {

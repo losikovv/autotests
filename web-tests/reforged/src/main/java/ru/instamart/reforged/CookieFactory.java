@@ -16,6 +16,7 @@ public final class CookieFactory {
     private static final String FIXED_ANONYMOUS_ID = "49f6c82a-b00d-42f5-ba0a-3c2a1875194c";
     private static final String FIXED_ANONYMOUS_ID_CHECKOUT = "ace4b8b6-21d7-4f41-9d7f-3f79eb75ee28";
     private static final String COOKIE_DOMAIN = EnvironmentProperties.Env.isProduction() ? "sbermarket.ru" : ".sbermarket.tech";
+    private static final String FORWARD_COOKIE_NAME = "sbm-forward-feature-version-stf";
 
     //Алерт о политике хранения cookies
     public static final Cookie COOKIE_ALERT = new Cookie("cookies_consented",
@@ -56,20 +57,26 @@ public final class CookieFactory {
             "/",
             date);
 
-    public static final Cookie FORWARD_FEATURE_STF = new Cookie("sbm-forward-feature-version-stf",
+    public static final Cookie FORWARD_FEATURE_STF = new Cookie(FORWARD_COOKIE_NAME,
             UiProperties.HEADER_STF_FORWARD_TO,
             COOKIE_DOMAIN,
             "/",
             date);
 
-    public static final Cookie FORWARD_FEATURE_B2B = new Cookie("sbm-forward-feature-version-stf",
+    public static final Cookie FORWARD_FEATURE_B2B = new Cookie(FORWARD_COOKIE_NAME,
             UiProperties.HEADER_B2B_FORWARD_TO,
             COOKIE_DOMAIN,
             "/",
             date);
 
-    public static final Cookie FORWARD_FEATURE_SELGROS = new Cookie("sbm-forward-feature-version-stf",
+    public static final Cookie FORWARD_FEATURE_SELGROS = new Cookie(FORWARD_COOKIE_NAME,
             UiProperties.HEADER_SELGROS_FORWARD_TO,
+            COOKIE_DOMAIN,
+            "/",
+            date);
+
+    public static final Cookie FORWARD_FEATURE_ADMIN = new Cookie(FORWARD_COOKIE_NAME,
+            UiProperties.HEADER_ADMIN_FORWARD_TO,
             COOKIE_DOMAIN,
             "/",
             date);

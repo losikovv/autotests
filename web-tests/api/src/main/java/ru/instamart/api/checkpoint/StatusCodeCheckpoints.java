@@ -4,12 +4,10 @@ import io.qameta.allure.Allure;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.hamcrest.Matchers;
 
 import java.util.Objects;
 
 import static org.hamcrest.Matchers.*;
-import static org.testng.Assert.assertNull;
 
 @Slf4j
 public class StatusCodeCheckpoints {
@@ -92,6 +90,15 @@ public class StatusCodeCheckpoints {
     public static void checkStatusCode200or422(final Response response) {
         response.then().statusCode(anyOf(is(200), is(422)));
         Allure.step("Проверка на 200 или 422 статус код");
+        if (response.statusCode() == 200) {
+            response.then().contentType(ContentType.JSON);
+            Allure.step("Проверка на JSON тип контента");
+        }
+    }
+
+    public static void checkStatusCode200or404or422(final Response response) {
+        response.then().statusCode(anyOf(is(200), is(404), is(422)));
+        Allure.step("Проверка на 200, 404 или 422 статус код");
         if (response.statusCode() == 200) {
             response.then().contentType(ContentType.JSON);
             Allure.step("Проверка на JSON тип контента");

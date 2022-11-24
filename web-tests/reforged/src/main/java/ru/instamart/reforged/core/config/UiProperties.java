@@ -10,6 +10,8 @@ public final class UiProperties {
 
     @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "", args = "admin_url", env = "ADMIN_URL")
     public static String ADMIN_URL;
+    @Config(configName = NAME, fieldName = "headerAdminForwardTo", defaultValue = "s-sb-stfkraken-sbermarket", env = "ADMIN_FORWARD")
+    public static String HEADER_ADMIN_FORWARD_TO;
 
     @Config(configName = NAME, fieldName = "stfUrl", defaultValue = "", env = "URL_STF_FRONT")
     public static String STF_URL;
