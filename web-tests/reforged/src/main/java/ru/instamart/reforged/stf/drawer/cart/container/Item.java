@@ -19,7 +19,7 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 public final class Item extends Container {
 
     private final InnerButton buttonOpenItemPopupInfo = new InnerButton(getContainer(), By.xpath(".//a[@data-qa='open-button']"), "Открыть карточку товара");
-    private final InnerButton buttonDeleteItem = new InnerButton(getContainer(), By.xpath(".//div[contains(@class,'LineItem_v2_deleteButton')]"), "Кнопка удалить товар");
+    private final InnerButton buttonDeleteItem = new InnerButton(getContainer(), By.xpath(".//div[contains(@class,'ineItem_productPriceWeb')]//button[@data-qa='cart_delete_item_button']"), "Кнопка удалить товар");
     private final InnerButton returnDeletedItem = new InnerButton(getContainer(), By.xpath(".//button[contains(@class,'LineItem_returnProductButton')]"), "Кнопка 'Вернуть' удаленный товар");
 
     private final InnerButton buttonIncreaseItemsCount = new InnerButton(getContainer(), By.xpath(".//div[contains(@class,'LineItemQuantityButton')][@title='Добавить еще']"), "Кнопка увеличить количество товара");
@@ -44,7 +44,7 @@ public final class Item extends Container {
 
     @Step("Удаляем товар")
     public void deleteItem() {
-        itemName.getActions().mouseOver();
+        itemsAmount.getActions().mouseOver();
         buttonDeleteItem.getActions().moveToElementAndClick();
     }
 
@@ -148,6 +148,11 @@ public final class Item extends Container {
 
     @Step("Проверяем, что отображается кнопка 'Вернуть'")
     public void checkReturnDeletedButtonVisible() {
-        returnDeletedItem.shouldBe().visible();
+        returnDeletedItem.should().visible();
+    }
+
+    @Step("Проверяем, что не отображается кнопка 'Вернуть'")
+    public void checkReturnDeletedButtonInvisible() {
+        returnDeletedItem.should().invisible();
     }
 }
