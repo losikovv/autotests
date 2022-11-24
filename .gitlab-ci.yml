@@ -37,7 +37,7 @@ variables:
   ADMIN_URL:
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА ТЕСТОВ АДМИНКИ! Нужно указывать полный url. Например: https://stf-kraken.k-stage.sbermarket.tech/"
   ADMIN_FORWARD:
-    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Значение для хедера/куки sbm-forward-feature-version-stf. Например: s-sb-stfkraken-backend-sbermarket"
+    description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Значение для хедера/куки sbm-forward-feature-version-stf. Например: s-sb-stfkraken-sbermarket"
   URL_STF_FRONT:
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Нужно указывать полный url фронта. Например: https://next-default.k-stage.sbermarket.tech/"
   STF_FORWARD:
