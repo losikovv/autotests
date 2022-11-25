@@ -78,6 +78,7 @@ public final class BasicOrdersTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
 

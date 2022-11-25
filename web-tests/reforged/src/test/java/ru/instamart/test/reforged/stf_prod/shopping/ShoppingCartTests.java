@@ -407,6 +407,6 @@ public final class ShoppingCartTests {
         shop().interactCart().checkRetailersCountShouldBe(2);
 
         shop().interactCart().getFirstRetailer().removeAllItemsFromRetailer();
-        shop().interactCart().checkRetailerNotVisible("AUCHAN");
+        shop().interactCart().checkRetailerNotVisible("АШАН");
     }
 }
