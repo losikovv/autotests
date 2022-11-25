@@ -17,7 +17,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
-import static ru.instamart.reforged.Group.*;
+import static ru.instamart.reforged.Group.CHECKOUT_WEB_NEW;
+import static ru.instamart.reforged.Group.JOTUNHEIMR;
 import static ru.instamart.reforged.core.config.UiProperties.ALCOHOL_CATEGORY_LINK;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.*;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
@@ -424,6 +425,7 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -492,6 +494,7 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }

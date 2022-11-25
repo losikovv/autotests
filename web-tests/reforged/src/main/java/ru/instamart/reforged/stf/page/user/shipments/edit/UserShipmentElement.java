@@ -28,7 +28,8 @@ public interface UserShipmentElement {
 
     Element paymentMethod = new Element(By.xpath("//span[@data-qa='user-shipment-payment-method']"), "Метод оплаты в заказе");
     Element productsCost = new Element(By.xpath("//span[@data-qa='user-shipment-products-cost']"), "Стоимость продуктов");
-    Element shipmentCost = new Element(By.xpath("//div[@data-qa='user-shipment-cost']"), "Стоимость доставки");
+    Element assemblyCost = new Element(By.xpath("//span[text()='Сборка']/following-sibling::span[@data-qa='user-shipment-cost']"), "Стоимость сборки");
+    Element shipmentCost = new Element(By.xpath("//span[text()='Доставка']/following-sibling::span[@data-qa='user-shipment-cost']"), "Стоимость доставки");
     Element promoCode = new Element(By.xpath("//div[@data-qa='user-shipment-promocode']"), "Промокод");
     Element totalCost = new Element(By.xpath("//span[@data-qa='user-shipment-total']"), "Итого");
     Button repeatOrder = new Button(By.xpath("//button[@data-qa='user-shipment-repeat']"), "кнопка 'Повторить заказ'");

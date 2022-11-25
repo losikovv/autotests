@@ -19,7 +19,7 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 public final class Item extends Container {
 
     private final InnerButton buttonOpenItemPopupInfo = new InnerButton(getContainer(), By.xpath(".//a[@data-qa='open-button']"), "Открыть карточку товара");
-    private final InnerButton buttonDeleteItem = new InnerButton(getContainer(), By.xpath(".//div[contains(@class,'ineItem_productPriceWeb')]//button[@data-qa='cart_delete_item_button']"), "Кнопка удалить товар");
+    private final InnerButton buttonDeleteItem = new InnerButton(getContainer(), By.xpath(".//div[contains(@class, 'LineItem_v2_deleteButton')]"), "Кнопка удалить товар");
     private final InnerButton returnDeletedItem = new InnerButton(getContainer(), By.xpath(".//button[contains(@class,'LineItem_returnProductButton')]"), "Кнопка 'Вернуть' удаленный товар");
 
     private final InnerButton buttonIncreaseItemsCount = new InnerButton(getContainer(), By.xpath(".//div[contains(@class,'LineItemQuantityButton')][@title='Добавить еще']"), "Кнопка увеличить количество товара");
@@ -27,7 +27,7 @@ public final class Item extends Container {
     private final InnerInput itemCountInput = new InnerInput(getContainer(), By.xpath(".//div[contains(@class,'LineItemQuantityInput_quantity')]/span"), "Поле ввода кол-ва товара");
     private final InnerElement itemName = new InnerElement(getContainer(), By.xpath(".//a[contains(@class,'LineItem_productTitle')]"), "Название товара");
     private final InnerElement itemPackageSize = new InnerElement(getContainer(), By.xpath(".//dd"), "Размер упаковки товара");
-    private final InnerElement itemsAmount = new InnerElement(getContainer(), By.xpath(".//button[@data-qa='cart_delete_item_button']/../div"), "Общая стоимость товара");
+    private final InnerElement itemsAmount = new InnerElement(getContainer(), By.xpath(".//div[contains(@class, 'LineItem_priceTotal')]"), "Общая стоимость товара");
     private final InnerElement costSpinner = new InnerElement(getContainer(), By.xpath("//div[contains(@class,'Spinner_root')]"), "Спиннер пересчета цены позиции");
 
     //Предзамены Задача на добавление data-qa атрибутов B2C-8387
@@ -44,7 +44,6 @@ public final class Item extends Container {
 
     @Step("Удаляем товар")
     public void deleteItem() {
-        itemsAmount.getActions().mouseOver();
         buttonDeleteItem.getActions().moveToElementAndClick();
     }
 
@@ -83,13 +82,13 @@ public final class Item extends Container {
         waitAction().shouldBeVisible(costSpinner);
     }
 
-    @Step("Кликаем на кнопку 'Уменьшить' количество товара")
+    @Step("Кликаем на кнопку 'Увеличить' количество товара")
     public void increaseCount() {
         itemCountInput.getActions().mouseOver(); //кнопка становится видимой только после того, как наводимся на поле
         buttonIncreaseItemsCount.getActions().moveToElementAndClick();
     }
 
-    @Step("Кликаем на кнопку 'Увеличить' количество товара")
+    @Step("Кликаем на кнопку 'Уменьшить' количество товара")
     public void decreaseCount() {
         itemCountInput.getActions().mouseOver(); //кнопка становится видимой только после того, как наводимся на поле
         buttonDecreaseItemsCount.getActions().moveToElementAndClick();

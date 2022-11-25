@@ -86,6 +86,7 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
@@ -143,6 +144,7 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }

@@ -38,6 +38,11 @@ public interface UserShipmentCheck extends Check, UserShipmentElement {
         Kraken.waitAction().shouldBeVisible(shipmentCost);
     }
 
+    @Step("Проверяем, что отображается стоимость сборки")
+    default void checkAssemblyCostVisible() {
+        Kraken.waitAction().shouldBeVisible(assemblyCost);
+    }
+
     @Step("Проверяем, что отображается промокод")
     default void checkPromoCodeVisible() {
         Kraken.waitAction().shouldBeVisible(promoCode);
