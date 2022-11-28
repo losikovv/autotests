@@ -213,13 +213,11 @@ public final class AdminShoppersTests {
         login().auth(UserManager.getDefaultAdmin());
 
         shoppers().goToPage();
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
+        shoppers().waitPageLoad();
 
         shoppers().fillName(shopperData.getName());
 
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
+        shoppers().waitPageLoad();
 
         shoppers().checkShopperWasFound(shopperData.getName());
         shoppers().clickOnFirstAddTagButton();
@@ -252,9 +250,6 @@ public final class AdminShoppersTests {
         shoppers().interactAddTagModal().clickOnAddTagsButton();
         shoppers().interactAddTagModal().checkModalNotVisible();
 
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
-
         shoppers().waitPageLoad();
 
         shoppers().clickOnCollapseTagListButton();
@@ -284,8 +279,7 @@ public final class AdminShoppersTests {
 
         shoppers().fillName(shopperData.getName());
 
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
+        shoppers().waitPageLoad();
 
         shoppers().checkShopperWasFound(shopperData.getName());
         shoppers().clickOnFirstAddTagButton();
@@ -306,9 +300,6 @@ public final class AdminShoppersTests {
         shoppers().interactAddTagModal().clickOnAddTagsButton();
         shoppers().interactAddTagModal().checkModalNotVisible();
 
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
-
         shoppers().waitPageLoad();
 
         shoppers().clickToDeleteTag(1);
@@ -316,8 +307,7 @@ public final class AdminShoppersTests {
         shoppers().interactDeleteTagModal().clickOnCancelButton();
         shoppers().interactDeleteTagModal().checkModalNotVisible();
 
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
+        shoppers().waitPageLoad();
 
         shoppers().checkTagWithNameVisible(firstTagName);
 
@@ -326,8 +316,7 @@ public final class AdminShoppersTests {
         shoppers().interactDeleteTagModal().clickOnApproveButton();
         shoppers().interactDeleteTagModal().checkModalNotVisible();
 
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
+        shoppers().waitPageLoad();
 
         shoppers().checkTagWithNameNotVisible(firstTagName);
     }
@@ -343,13 +332,11 @@ public final class AdminShoppersTests {
         login().auth(UserManager.getDefaultAdmin());
 
         shoppers().goToPage();
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
+        shoppers().waitPageLoad();
 
         shoppers().fillName(shopperData.getName());
 
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
+        shoppers().waitPageLoad();
 
         shoppers().checkShopperWasFound(shopperData.getName());
         shoppers().clickOnFirstAddTagButton();
@@ -377,9 +364,6 @@ public final class AdminShoppersTests {
         shoppers().interactAddTagModal().checkAddTagsButtonActive();
         shoppers().interactAddTagModal().clickOnAddTagsButton();
         shoppers().interactAddTagModal().checkModalNotVisible();
-
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
 
         shoppers().waitPageLoad();
 
@@ -417,8 +401,7 @@ public final class AdminShoppersTests {
         shoppers().interactDeleteTagModal().clickOnApproveButton();
         shoppers().interactDeleteTagModal().checkModalNotVisible();
 
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
+        shoppers().waitPageLoad();
 
         shoppers().compareSelectedTagsQuantityWithActual(2);
         shoppers().checkAddTagButtonVisible();
@@ -436,8 +419,7 @@ public final class AdminShoppersTests {
         login().auth(UserManager.getDefaultAdmin());
 
         shoppers().goToPage();
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
+        shoppers().waitPageLoad();
 
         shoppers().clickOnTagsFilterSelector();
 

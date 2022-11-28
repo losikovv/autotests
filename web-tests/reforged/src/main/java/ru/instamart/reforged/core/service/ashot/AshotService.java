@@ -61,7 +61,7 @@ public final class AshotService {
     }
 
     public static void compareImage(final Screenshot expected, final WebElement element, final Component... components) {
-        final var actual = screenWebElement(element, actual_img, true, components);
+        final var actual = screenWebElement(element);
         if (getDiffSize(expected, actual) > allowableDiffSize) {
             final var diff = saveDiffImage(expected, actual);
             Allure.label("testType", "screenshotDiff");
@@ -89,7 +89,7 @@ public final class AshotService {
         final var ashot = new AShot()
                 .coordsProvider(new WebDriverCoordsProvider())
                 .ignoredElements(Arrays.stream(components).map(Component::getBy).collect(Collectors.toSet()));
-        final var screen = ashot.takeScreenshot(Kraken.getWebDriver());
+        final var screen = ashot.takeScreenshot(Kraken.getWebDriver(), element);
 
         writeImg(fillIgnoredArea(screen), img.toFile());
 
