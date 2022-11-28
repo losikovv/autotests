@@ -2,11 +2,20 @@ package ru.instamart.reforged.stf.block.retail_rocket;
 
 import io.qameta.allure.Step;
 
+import java.util.Objects;
+
 public final class RetailRocket implements RetailRocketCheck {
 
     @Step("Получаем название первого товара блока рекоммендаций '{blockName}'")
     public String getFirstItemTitleInBlockByName(final String blockName) {
-        return itemNamesRecommendationCarouselByName.getFirstElementText(blockName);
+        //Если название больше 56 символов, появляется aria-label в котором содержится полное название
+        final var firstElement = itemNamesRecommendationCarouselByName.getElements(blockName)
+                .stream().findFirst().orElseThrow();
+        final var label = firstElement.getAttribute("aria-label");
+        if (Objects.isNull(label)) {
+            return firstElement.getText();
+        }
+        return label;
     }
 
     @Step("Открываем карточку первого товара блока рекоммендаций '{blockName}'")
