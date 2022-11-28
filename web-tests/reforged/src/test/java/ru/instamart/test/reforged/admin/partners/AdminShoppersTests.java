@@ -337,6 +337,7 @@ public final class AdminShoppersTests {
         shoppers().fillName(shopperData.getName());
 
         shoppers().waitPageLoad();
+        shoppers().checkSpinnerNotVisible();
 
         shoppers().checkShopperWasFound(shopperData.getName());
         shoppers().clickOnFirstAddTagButton();

@@ -459,7 +459,6 @@ public final class AdministrationMultiselectFiltersOrdersTests {
     // Все из-за того, что планировали все увести на диспач
     // и потом выпилить этот фильтр и перей/ти на статусы джобов
     @Flaky
-    @Issue("GARM-1371") // пятисотит статус оплаты overpaid
     @Test(description = "Фильтрация заказа по статусу доставки",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void deliveryStatusFilterTest() {
@@ -546,6 +545,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
     @CaseId(2160)
     @Flaky
+    @Issue("GARM-1371") // пятисотит статус оплаты overpaid
     @Test(description = "Фильтрация заказов по статусу оплаты",
             groups = {OD_ORDERS_REGRESS, OD_ORDERS_SMOKE, OD_SMOKE, OD_REGRESS})
     public void paymentStatusFilterTest() {
