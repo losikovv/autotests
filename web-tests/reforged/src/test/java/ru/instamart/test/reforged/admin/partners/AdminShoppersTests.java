@@ -218,6 +218,7 @@ public final class AdminShoppersTests {
         shoppers().fillName(shopperData.getName());
 
         shoppers().waitPageLoad();
+        shoppers().checkPageContains(shopperData.getName());
 
         shoppers().checkShopperWasFound(shopperData.getName());
         shoppers().clickOnFirstAddTagButton();
@@ -280,6 +281,7 @@ public final class AdminShoppersTests {
         shoppers().fillName(shopperData.getName());
 
         shoppers().waitPageLoad();
+        shoppers().checkPageContains(shopperData.getName());
 
         shoppers().checkShopperWasFound(shopperData.getName());
         shoppers().clickOnFirstAddTagButton();
@@ -337,7 +339,7 @@ public final class AdminShoppersTests {
         shoppers().fillName(shopperData.getName());
 
         shoppers().waitPageLoad();
-        shoppers().checkSpinnerNotVisible();
+        shoppers().checkPageContains(shopperData.getName());
 
         shoppers().checkShopperWasFound(shopperData.getName());
         shoppers().clickOnFirstAddTagButton();
