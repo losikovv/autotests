@@ -19,7 +19,7 @@ public interface ShoppersElement {
 
     Button createShoppersButton = new Button(By.xpath("//button/span[@aria-label='user-add']"), "кнопка 'Добавить сотрудника'");
     Input nameInput = new Input(By.xpath("//input[@name='name']"), "Инпут имени");
-    Element spinner = new Element(By.xpath("//div[@class='ant-spin-nested-loading']"), "Спиннер");
+    Element spinner = new Element(By.xpath("//div[contains(@class,'ant-spin-spinning')]"), "Спиннер");
     Element tagFilterField = new Element(By.xpath("//div[@name='tagIds']"), "Поле выбора тегов");
 
     Element modal = new Element(By.xpath("//div[@data-qa='add_tags_select']/ancestor::div[@class='ant-modal']"), "Модалка выбора тегов");

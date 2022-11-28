@@ -98,12 +98,14 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
 
     @Step("Указываем 'Кол-во позиций' от {}")
     public void addOrderItemsFrom(final String from) {
-        itemsCountStart.fillField(from);
+        itemsCountStart.clearByKeysCombination();
+        itemsCountStart.fill(from);
     }
 
     @Step("Указываем 'Кол-во позиций' до {}")
     public void addOrderItemsTo(final String to) {
-        itemsCountEnd.fillField(to);
+        itemsCountEnd.clearByKeysCombination();
+        itemsCountEnd.fill(to);
     }
 
     @Step("Добавляем фильтр 'Платформа': '{platformName}'")

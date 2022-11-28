@@ -55,8 +55,8 @@ public interface OrdersElement {
     Button resetFilters = new Button(By.xpath("//button[@data-qa='reset_shipments_filter_button']"), "Кнопка 'Сбросить'");
     Button applyFilters = new Button(By.xpath("//button[@data-qa='apply_shipments_filter_button']"), "Кнопка 'Применить фильтры'");
 
-    Element searchResultCount = new Element(By.xpath("//div[contains(@aria-label,'shipments loaded')]/../preceding-sibling::div"), "Заголовок 'Найдено ... заказов'");
-    Element shipmentsLoadingLabel = new Element(By.xpath("//div[contains(@aria-label,'loading')]"), "Лоадер загрузки/применения фильтра");
+    Element searchResultCount = new Element(By.xpath("//div[@data-qa='order_list_table']/ancestor::div[contains(@class,'ant-table-wrapper')]/preceding-sibling::div"), "Заголовок 'Найдено ... заказов'");
+    Element shipmentsLoadingLabel = new Element(By.xpath("//span[contains(@aria-label,'loading')]"), 20, "Лоадер загрузки/применения фильтра");
     Element emptyShipmentsListLabel = new Element(By.xpath("//div[contains(@class,'ant-empty-normal')]"), "Иконка пустого списка заказов");
 
     //дропдаун-меню доставки раскрывается при клике на номер доставки.

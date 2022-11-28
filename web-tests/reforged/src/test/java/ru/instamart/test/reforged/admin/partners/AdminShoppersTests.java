@@ -280,8 +280,7 @@ public final class AdminShoppersTests {
         login().auth(UserManager.getDefaultAdmin());
 
         shoppers().goToPage();
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
+        shoppers().waitPageLoad();
 
         shoppers().fillName(shopperData.getName());
 
@@ -407,9 +406,6 @@ public final class AdminShoppersTests {
         shoppers().interactAddTagModal().clickOnAddTagsButton();
         shoppers().interactAddTagModal().checkModalNotVisible();
 
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
-
         shoppers().waitPageLoad();
 
         shoppers().compareSelectedTagsQuantityWithActual(2);
@@ -467,8 +463,7 @@ public final class AdminShoppersTests {
         shoppers().clickOnTagsFilterSelector();
         shoppers().checkTagsDropdownInvisible();
 
-        shoppers().checkSpinnerVisible();
-        shoppers().checkSpinnerNotVisible();
+        shoppers().waitPageLoad();
 
         shoppers().checkTagsInFieldHaveRemoveButtons();
 
