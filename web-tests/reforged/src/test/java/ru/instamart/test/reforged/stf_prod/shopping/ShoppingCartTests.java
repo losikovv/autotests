@@ -369,7 +369,7 @@ public final class ShoppingCartTests {
     public void testMultiplyOrderGroupingProductsByRetailers() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
-        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID, 2);
+        helper.dropAndFillCartByOneProduct(userData, DEFAULT_AUCHAN_SID, 1);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -384,7 +384,7 @@ public final class ShoppingCartTests {
         shop().interactCart().checkRetailersCountShouldBe(2);
 
         var itemsCountInRetailer = shop().interactCart().getRetailerByOrder(1).getItemsCountInList();
-        shop().interactCart().checkItemsCount(itemsCountInRetailer, 2);
+        shop().interactCart().checkItemsCount(itemsCountInRetailer, 1);
 
         itemsCountInRetailer = shop().interactCart().getRetailerByOrder(2).getItemsCountInList();
         shop().interactCart().checkItemsCount(itemsCountInRetailer, 1);
