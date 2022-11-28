@@ -817,7 +817,7 @@ public final class AdministrationMultiselectFiltersOrdersTests {
 
         //TODO В заказе никак не обозначенo что он B2B. Признак B2B можно проверить только у пользовател, сделавшего заказ в профиле
         //Для stf-6 основные B2B-клиенты от которых сыпятся заказы - Ivan Petrov, Pavel Nep.
-        orders().checkAllShipmentInTableHasCustomerIn(Set.of("Ivan Petrov", "Pavel Nep", "Ольга Медведева", "йй йй"));
+        orders().checkAllShipmentInTableHasCustomerIn(Set.of("Ivan Petrov", "Pavel Nep", "Ольга Медведева", "йй йй", "Алексей Павлов"));
     }
 
     @CaseId(2070)
