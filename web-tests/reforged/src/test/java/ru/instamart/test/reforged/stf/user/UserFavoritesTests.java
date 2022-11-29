@@ -47,7 +47,7 @@ public final class UserFavoritesTests {
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().addToFavorite();
         shop().interactProductCard().clickOnClose();
 
@@ -127,7 +127,7 @@ public final class UserFavoritesTests {
             groups = {"smoke", REGRESSION_STF})
     public void successAuthAfterAddFavoriteOnItemCard() {
         shop().goToPage();
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().addToFavorite();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());

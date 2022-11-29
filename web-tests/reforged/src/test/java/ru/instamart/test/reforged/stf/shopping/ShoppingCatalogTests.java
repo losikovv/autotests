@@ -98,7 +98,7 @@ public final class ShoppingCatalogTests {
         shop().goToPage();
         shop().refreshWithoutBasicAuth();
 
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().checkProductCardVisible();
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
@@ -196,7 +196,7 @@ public final class ShoppingCatalogTests {
     @Test(description = "Проверка открытия модального окна карточки товара при переходе по прямой ссылке", groups = REGRESSION_STF)
     public void openProductCardByLink() {
         shop().goToPage();
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().checkProductCardVisible();
 
         String productLink = shop().interactProductCard().getProductPermalink();
@@ -214,7 +214,7 @@ public final class ShoppingCatalogTests {
     @Test(description = "Проверка корректного открытия карточки товара при обновлении страницы", groups = REGRESSION_STF)
     public void openProductCardAfterRefresh() {
         shop().goToPage();
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().checkProductCardVisible();
 
         shop().refresh();
@@ -249,7 +249,7 @@ public final class ShoppingCatalogTests {
         shop().checkItemImageDisplayed();
         shop().checkItemPackageSizeDisplayed();
 
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().checkBreadscrumbsVisible();
         shop().interactProductCard().checkProductImageDisplayed();
         shop().interactProductCard().checkNameDisplayed();

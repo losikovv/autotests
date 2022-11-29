@@ -136,7 +136,9 @@ public final class ShopPage implements StfPage, ShopCheck {
     }
 
     @Step("Открыть карточку первого товара на проде")
-    public void openFirstProductCardProd(final String taxons) {
+    public void openFirstProductCardInTaxon(final String taxons) {
+        //Костыль для таксонов ниже первого ряда. В идеале до 3 ряда, ниже уже нет гарантий загрузки
+        //TODO: Подумать над механизмом доступа к подгружаемым элементам
         Kraken.jsAction().scrollToTheBottom();
         waitPageLoad();
         productsCard.clickOnFirst(taxons);

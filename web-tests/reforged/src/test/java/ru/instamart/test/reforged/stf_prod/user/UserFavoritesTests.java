@@ -45,7 +45,7 @@ public final class UserFavoritesTests {
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCardProd("3");
+        shop().openFirstProductCardInTaxon("3");
         shop().interactProductCard().addToFavorite();
         shop().interactProductCard().clickOnClose();
 
@@ -115,7 +115,7 @@ public final class UserFavoritesTests {
             groups = {STF_PROD_S})
     public void successAuthAfterAddFavoriteOnItemCard() {
         shop().goToPage();
-        shop().openFirstProductCardProd("3");
+        shop().openFirstProductCardInTaxon("3");
         shop().interactProductCard().addToFavorite();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());

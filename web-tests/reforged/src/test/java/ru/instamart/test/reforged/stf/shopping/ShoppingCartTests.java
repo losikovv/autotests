@@ -85,7 +85,7 @@ public final class ShoppingCartTests {
         //TODO: Костыль из-за бейсик авторизации
         shop().refreshWithoutBasicAuth();
 
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().checkProductCardVisible();
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().clickOnClose();
@@ -147,7 +147,7 @@ public final class ShoppingCartTests {
         shop().goToPage();
 
         shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().clickOnBuy();
         shop().goToPage();
         shop().interactProductCard().checkProductCardIsNotVisible();
@@ -158,7 +158,7 @@ public final class ShoppingCartTests {
         shop().refresh();
 
         shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().checkIsIncreaseClickable();
         shop().interactProductCard().clickOnClose();
@@ -170,7 +170,7 @@ public final class ShoppingCartTests {
         shop().goToPage();
         shop().refreshWithoutBasicAuth();
 
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().checkDecreaseClickable();
         shop().interactProductCard().clickOnClose();
@@ -275,7 +275,7 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().checkProductCardVisible();
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().decreaseItemCount();
@@ -319,7 +319,7 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().clickOnClose();
 
@@ -341,7 +341,7 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().increaseItemCount();
@@ -353,7 +353,7 @@ public final class ShoppingCartTests {
         shop().assertAll();
         shop().interactCart().closeCart();
 
-        shop().openFirstProductCardProd("0");
+        shop().openFirstProductCardInTaxon("0");
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().decreaseItemCount();
