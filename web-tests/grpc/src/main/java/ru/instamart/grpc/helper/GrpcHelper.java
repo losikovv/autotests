@@ -25,11 +25,29 @@ public class GrpcHelper {
         return createChannel(name, CoreProperties.GRPC_PORT);
     }
 
+    public ManagedChannel createChannelWith(final String name, final Integer messageSize) {
+        return createChannel(name, CoreProperties.GRPC_PORT, messageSize);
+    }
+
     @Step
     @NonNull
     public ManagedChannel createChannel(final String name, final Integer port) {
         log.debug("Creating channel: " + name);
-        return ManagedChannelBuilder.forAddress(name, port).intercept(new GrpcInterceptor()).build();
+        return ManagedChannelBuilder
+                .forAddress(name, port)
+                .intercept(new GrpcInterceptor())
+                .build();
+    }
+
+    @Step
+    @NonNull
+    public ManagedChannel createChannel(final String name, final Integer port, final Integer messageSize) {
+        log.debug("Creating channel: " + name);
+        return ManagedChannelBuilder
+                .forAddress(name, port)
+                .intercept(new GrpcInterceptor())
+                .maxInboundMessageSize(messageSize)
+                .build();
     }
 
     /**

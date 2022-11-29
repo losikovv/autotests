@@ -47,6 +47,10 @@ public final class TimeUtil {
         return dt.format(ZonedDateTime.of(LocalDate.now(), LocalTime.MAX, ZONE_ID));
     }
 
+    public static String getDateWithoutTimezone() {
+        return dt.format(ZonedDateTime.now(ZONE_ID));
+    }
+
     public static String getDateWithoutTime() {
         return dtd.format(ZonedDateTime.now(ZONE_ID));
     }

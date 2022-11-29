@@ -7,24 +7,27 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import ru.instamart.api.helper.KafkaHelper;
 import ru.instamart.grpc.helper.GrpcHelper;
-import ru.instamart.jdbc.dao.shippingcalc.IntervalsSurgeDao;
+import ru.instamart.jdbc.dao.shippingcalc.BindingRulesDao;
 import ru.instamart.jdbc.dao.shippingcalc.StrategiesDao;
+import ru.instamart.jdbc.dao.shippingcalc.SurgeThresholdsDao;
 import ru.instamart.jdbc.entity.shippingcalc.IntervalsSurgeEntity;
+import ru.instamart.jdbc.entity.shippingcalc.SurgeThresholdsEntity;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
+import static ru.instamart.kraken.util.TimeUtil.getDateWithoutTimezone;
 
 public class ShippingCalcBase {
 
     protected Response response;
     protected GrpcHelper grpc = new GrpcHelper();
     protected static final KafkaHelper kafka = new KafkaHelper();
-    protected int surgeLevel = 5;
-    protected int surgeLevelAddition = 10000;
-    protected int surgeLevelPercentAddition = 10;
     protected Integer minCartAmountFirst = 100000;
     protected Integer minCartAmountSecond = minCartAmountFirst - 1;
     protected Integer minCartAmountThird = minCartAmountSecond - 1;
@@ -32,42 +35,76 @@ public class ShippingCalcBase {
     protected Integer minCartAmountGlobal = minCartAmountFirst + 1;
     protected Integer deliveryPriceGlobal = 200000;
     protected List<IntervalsSurgeEntity> intervalsList;
+    protected List<Integer> bindingRulesList;
     protected List<Integer> globalStrategiesList;
+    protected static final int REGION_ID_WITH_THRESHOLDS = nextInt(100000, 150000);
+    protected final int REGION_ID_WITHOUT_THRESHOLDS = REGION_ID_WITH_THRESHOLDS + 1;
+    protected final int SURGE_LEVEL = 5;
+    protected final int SURGE_LEVEL_ADDITION_DEFAULT = 10000;
+    protected final int SURGE_LEVEL_PERCENT_ADDITION = 10;
+    protected final int SURGE_LEVEL_ADDITION_CUSTOM_DIFF = 1;
     protected final String FIXED_SCRIPT_NAME = "Фиксированная цена, с подсказками и объяснением";
     protected final String COMPLEX_SCRIPT_NAME = "Цена с учётом сложности, с подсказками и объяснением";
     protected final String FIXED_SCRIPT_PARAMS = "{\"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
     protected final String COMPLEX_SCRIPT_PARAMS = "{\"baseMass\": \"30000\", \"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"basePositions\": \"30\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}";
     protected final String REDIS_VALUE = "{\"StoreID\":\"%s\",\"Method\":1,\"PastSurgeLever\":%d,\"PresentSurgeLevel\":%d,\"FutureSurgeLevel\":%d,\"StartedAt\":\"%s\",\"StepSurgeLevel\":1}";
+    protected final String SURGE_THRESHOLD_PARAMETERS = "{\"intervals\": [{\"left_boundary\": 0, \"price_addition\": 0, \"right_boundary\": 1, \"percent_addition\": 0, \"min_cart_addition\": 0}, {\"left_boundary\": 1, \"price_addition\": %s, \"right_boundary\": %s, \"percent_addition\": %s, \"min_cart_addition\": %s}, {\"left_boundary\": %s, \"price_addition\": 20000, \"right_boundary\": 10, \"percent_addition\": 20, \"min_cart_addition\": 20000}]}";
 
-    @BeforeSuite(alwaysRun = true, description = "Устанавливаем интервалы surge")
-    public void setTestSurgeIntervals() {
-        intervalsList = IntervalsSurgeDao.INSTANCE.getIntervals();
-        IntervalsSurgeDao.INSTANCE.clearIntervals();
+//    @BeforeSuite(alwaysRun = true, description = "Устанавливаем интервалы surge")
+//    public void setTestSurgeIntervals() {
+//        intervalsList = IntervalsSurgeDao.INSTANCE.getIntervals();
+//        IntervalsSurgeDao.INSTANCE.clearIntervals();
+//
+//        List<IntervalsSurgeEntity> newIntervalsList = asList(
+//                new IntervalsSurgeEntity() {{
+//                    setLeftBoundary(0);
+//                    setRightBoundary(1);
+//                    setPriceAddition(0);
+//                    setPercentAddition(0);
+//                    setMinCartAddition(0);
+//                }},
+//                new IntervalsSurgeEntity() {{
+//                    setLeftBoundary(1);
+//                    setRightBoundary(surgeLevel);
+//                    setPriceAddition(surgeLevelAddition);
+//                    setPercentAddition(surgeLevelPercentAddition);
+//                    setMinCartAddition(surgeLevelAddition);
+//                }},
+//                new IntervalsSurgeEntity() {{
+//                    setLeftBoundary(surgeLevel);
+//                    setRightBoundary(10);
+//                    setPriceAddition(20000);
+//                    setPercentAddition(20);
+//                    setMinCartAddition(20000);
+//                }});
+//
+//        IntervalsSurgeDao.INSTANCE.setIntervals(newIntervalsList);
+//    }
 
-        List<IntervalsSurgeEntity> newIntervalsList = asList(
-                new IntervalsSurgeEntity() {{
-                    setLeftBoundary(0);
-                    setRightBoundary(1);
-                    setPriceAddition(0);
-                    setPercentAddition(0);
-                    setMinCartAddition(0);
-                }},
-                new IntervalsSurgeEntity() {{
-                    setLeftBoundary(1);
-                    setRightBoundary(surgeLevel);
-                    setPriceAddition(surgeLevelAddition);
-                    setPercentAddition(surgeLevelPercentAddition);
-                    setMinCartAddition(surgeLevelAddition);
-                }},
-                new IntervalsSurgeEntity() {{
-                    setLeftBoundary(surgeLevel);
-                    setRightBoundary(10);
-                    setPriceAddition(20000);
-                    setPercentAddition(20);
-                    setMinCartAddition(20000);
-                }});
+    @BeforeSuite(alwaysRun = true, description = "Убираем автобиндер")
+    public void deactivateBindingRules() {
+        bindingRulesList = BindingRulesDao.INSTANCE.getActiveBindingRulesList();
+        if (!bindingRulesList.isEmpty()) {
+            BindingRulesDao.INSTANCE.updateBindingRulesState(getDateWithoutTimezone(), bindingRulesList);
+        }
+    }
 
-        IntervalsSurgeDao.INSTANCE.setIntervals(newIntervalsList);
+    @BeforeSuite(alwaysRun = true, description = "Устанавливаем Surge Threshold")
+    public void setSurgeThreshold() {
+        boolean defaultRegion = SurgeThresholdsDao.INSTANCE.setSurgeThreshold(
+                new SurgeThresholdsEntity() {{
+                    setRegionId(0);
+                    setParameters(String.format(SURGE_THRESHOLD_PARAMETERS, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL));
+                }}
+        );
+        boolean customRegion = SurgeThresholdsDao.INSTANCE.setSurgeThreshold(
+                new SurgeThresholdsEntity() {{
+                    setRegionId(REGION_ID_WITH_THRESHOLDS);
+                    setParameters(String.format(SURGE_THRESHOLD_PARAMETERS, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_ADDITION_CUSTOM_DIFF, SURGE_LEVEL, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_ADDITION_CUSTOM_DIFF, SURGE_LEVEL));
+                }}
+        );
+        Allure.step("Смогли установить трешхолды для дефолтного региона = " + defaultRegion);
+        Allure.step("Смогли установить трешхолды для кастомного региона = " + customRegion);
     }
 
     @BeforeSuite(alwaysRun = true, description = "Выключаем все глобальные стратегии")
@@ -85,12 +122,26 @@ public class ShippingCalcBase {
         Allure.addAttachment("Системный лог теста", result);
     }
 
-    @AfterSuite(alwaysRun = true, description = "Возвращаем интервалы surge")
-    public void returnSurgeIntervals() {
-        IntervalsSurgeDao.INSTANCE.clearIntervals();
-        if (!intervalsList.isEmpty()) {
-            IntervalsSurgeDao.INSTANCE.setIntervals(intervalsList);
+//    @AfterSuite(alwaysRun = true, description = "Возвращаем интервалы surge")
+//    public void returnSurgeIntervals() {
+//        IntervalsSurgeDao.INSTANCE.clearIntervals();
+//        if (!intervalsList.isEmpty()) {
+//            IntervalsSurgeDao.INSTANCE.setIntervals(intervalsList);
+//        }
+//    }
+
+    @AfterSuite(alwaysRun = true, description = "Возвращаем автобиндер")
+    public void returnBindingRules() {
+        if (!bindingRulesList.isEmpty()) {
+            BindingRulesDao.INSTANCE.updateBindingRulesState(null, bindingRulesList);
         }
+    }
+
+    @AfterSuite(alwaysRun = true, description = "Удаляем Surge Thresholds")
+    public void deleteSurgeThresholds() {
+        SurgeThresholdsDao.INSTANCE.deleteSurgeThresholds(
+                Collections.singletonList(REGION_ID_WITH_THRESHOLDS)
+        );
     }
 
     @AfterSuite(alwaysRun = true, description = "Возвращаем глобальные стратегии")

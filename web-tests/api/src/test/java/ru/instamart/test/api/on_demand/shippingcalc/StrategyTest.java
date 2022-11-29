@@ -48,7 +48,7 @@ public class StrategyTest extends ShippingCalcBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        clientShippingCalc = ShippingcalcGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC));
+        clientShippingCalc = ShippingcalcGrpc.newBlockingStub(grpc.createChannelWith(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC, 1024 * 1024 * 10));
     }
 
     @CaseIDs(value = {@CaseId(46), @CaseId(60), @CaseId(74), @CaseId(335), @CaseId(339), @CaseId(333)})
