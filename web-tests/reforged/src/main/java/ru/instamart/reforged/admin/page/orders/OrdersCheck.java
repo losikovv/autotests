@@ -29,6 +29,11 @@ public interface OrdersCheck extends Check, OrdersElement {
         shipmentsLoadingLabel.should().invisible();
     }
 
+    @Step("Проверяем, что подгрузка данных началась")
+    default void checkLoadingLabelVisible() {
+        shipmentsLoadingLabel.should().visible();
+    }
+
     @Step("Проверяем отображаемое количество найденных заказов в заголовке таблицы равно: '{expectedShipmentsCount}'")
     default void checkShipmentsCountInTableHeader(final int expectedShipmentsCount) {
         Assert.assertEquals(StringUtil.extractNumberFromString(searchResultCount.getText()), expectedShipmentsCount, "Количество найденных заказов, отображаемое в заголовке таблицы не соответствует ожидаемому");

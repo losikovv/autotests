@@ -215,7 +215,7 @@ public final class OrdersPage implements AdminPage, OrdersCheck, Window {
 
     @Step("Очищаем фильтры 'Быстрые фильтры'")
     public void clearQuickFilters() {
-        quickFilters.removeAll();
+        quickFilters.removeAllOneByOne();
     }
 
     @Step("Кликаем в поле 'Сборщик'")

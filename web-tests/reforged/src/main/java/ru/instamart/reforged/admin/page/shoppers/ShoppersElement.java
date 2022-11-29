@@ -25,4 +25,7 @@ public interface ShoppersElement {
     Element modal = new Element(By.xpath("//div[@data-qa='add_tags_select']/ancestor::div[@class='ant-modal']"), "Модалка выбора тегов");
     ElementCollection tagsInList = new ElementCollection(By.xpath("//div[contains(@class,' ant-select-item-option')]"), "Теги в списке тегов");
     Element selectedTagInList = new Element(ByKraken.xpathExpression("//span[text()='%s']/ancestor::div[@aria-selected='true']"),"Выбранный тег в списке тегов");
+
+    Element shopper = new Element(ByKraken.xpathExpression("//a[text()='%s']"), "Тестовый партнер в списке партнеров");
+
 }

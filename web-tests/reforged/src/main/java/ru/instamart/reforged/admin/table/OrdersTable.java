@@ -21,7 +21,7 @@ public final class OrdersTable extends Table {
     private static final By orderLink = By.xpath(".//a[contains(@href,'edit')]");
     private static final By totalWeight = By.xpath(".//div[.='Вес']/following-sibling::div");
     private static final By itemsCount = By.xpath(".//div[.='кол-во']/following-sibling::div");
-    private static final By platform = By.xpath("..//div[.='кол-во']/../following-sibling::div");
+    private static final By platform = By.xpath("..//div[.='кол-во']/../following-sibling::div[not(@class='ant-row')]");
     private static final By documentsLink = By.xpath(".//a[contains(@href,'documentation')]");
 
     private static final By shipmentNumber = By.xpath(".//div[contains(@class,'ant-dropdown-trigger')]/span");
@@ -37,7 +37,7 @@ public final class OrdersTable extends Table {
     private static final By promoLabel = By.xpath(".//span[@data-qa='shipments_table_payment_tag_promo']");
     private static final By paymentStatus = By.xpath(".//a[contains(@href,'payments')]/span");
 
-    private static final By customerName = By.xpath(".//a[contains(@href,'customer')]");
+    private static final By customerName = By.xpath(".//a[contains(@href,'customer')and not(contains(@href,'customers'))]");
     private static final By customerPhone = By.xpath(".//a[contains(@href,'customer')]/following-sibling::div");
 
     private static final By collector = By.xpath("(./div/div/div[2])[1]");
@@ -205,7 +205,10 @@ public final class OrdersTable extends Table {
     }
 
     public List<String> getAllCustomerNames() {
-        return getAll(Column.CLIENT, customerName);
+        return getElementsFromColumn(Column.CLIENT.label).stream()
+                .map(webElement ->
+                        webElement.findElement(customerName).getText())
+                .collect(Collectors.toList());
     }
 
     public List<String> getAllCollectorsList() {
