@@ -61,7 +61,7 @@ public final class AshotService {
     }
 
     public static void compareImage(final Screenshot expected, final WebElement element, final Component... components) {
-        final var actual = screenWebElement(element);
+        final var actual = screenWebElement(element, actual_img, true, components);
         if (getDiffSize(expected, actual) > allowableDiffSize) {
             final var diff = saveDiffImage(expected, actual);
             Allure.label("testType", "screenshotDiff");

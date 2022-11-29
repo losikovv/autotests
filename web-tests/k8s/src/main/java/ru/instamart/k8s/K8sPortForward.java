@@ -4,6 +4,7 @@ import io.kubernetes.client.openapi.ApiException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static org.testng.Assert.fail;
 import static ru.instamart.k8s.K8sConsumer.getK8sPortForward;
@@ -18,7 +19,7 @@ public enum K8sPortForward {
         log.debug("Forward for - namespace: {}, label: {}, internalPort: {}, containerPort: {}", namespace, label, internalPort, containerPort);
         try {
             final var podList = getPodList(namespace, label);
-            final var pod = podList.getItems().stream().findFirst();
+            final var pod = podList.getItems().stream().filter(item-> Objects.equals(Objects.requireNonNull(item.getStatus()).getPhase(), "Running")).findFirst();
             if (pod.isPresent()) {
                 getK8sPortForward(pod.get(), internalPort, containerPort);
             } else {
