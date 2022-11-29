@@ -2,7 +2,6 @@ package ru.instamart.kraken.util;
 
 import com.google.protobuf.Timestamp;
 
-import java.sql.Time;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -125,6 +124,10 @@ public final class TimeUtil {
 
     public static String getFutureZoneDbDate(Long days) {
         return dtdb.format(ZonedDateTime.now(ZONE_ID).plusDays(days));
+    }
+
+    public static String getZoneDbDatePlusMinutes(Integer minutes) {
+        return dtdb.format(ZonedDateTime.now(ZONE_ID).plusMinutes(minutes));
     }
 
     public static Long getDbDateMinusMinutes(Long minutes) {

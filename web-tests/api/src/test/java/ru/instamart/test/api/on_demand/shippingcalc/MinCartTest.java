@@ -238,6 +238,99 @@ public class MinCartTest extends ShippingCalcBase {
         });
     }
 
+    @CaseId(528)
+    @Story("Get Delivery Conditions")
+    @Test(description = "Наценка по параметрам свитчбек-эксперимента региона",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryConditionsWithSwitchbackExperiment() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
+                99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
+                AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), true, REGION_ID_WITH_SWITCHBACK);
+
+        var response = clientShippingCalc.getDeliveryConditions(request);
+
+        checkDeliveryConditions(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, 2, 3);
+        Allure.step("Проверяем базовую цену в лесенке", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertAll();
+        });
+        Allure.step("Проверяем наличие повышенного спроса", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж выключен");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), (float) SURGE_LEVEL, "Не ожидаемый уровень сюрджа");
+            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getTtl() > 0, "Не ожидаемый уровень ttl сюрджа");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 31890 + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, "Не ожидаемая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 20890 + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, "Не ожидаемая цена в лесенке");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(529)
+    @Story("Get Delivery Conditions")
+    @Test(description = "Отсутствие наценки по параметрам свитчбек-эксперимента региона при не попадании в временной интервал",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryConditionsWithFutureSwitchbackExperiment() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
+                99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
+                AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), true, REGION_ID_WITH_FUTURE_SWITCHBACK);
+
+        var response = clientShippingCalc.getDeliveryConditions(request);
+
+        checkDeliveryConditions(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT, 2, 3);
+        Allure.step("Проверяем базовую цену в лесенке", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertAll();
+        });
+        Allure.step("Проверяем наличие повышенного спроса", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж выключен");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), (float) SURGE_LEVEL, "Не ожидаемый уровень сюрджа");
+            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getTtl() > 0, "Не ожидаемый уровень ttl сюрджа");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 31890, "Не ожидаемая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 20890, "Не ожидаемая цена в лесенке");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(509)
+    @Story("Get Delivery Conditions")
+    @Test(description = "Получение условий доставки для магазина без повышенного спроса для не on-demand магазина с не нулевой мин. корзиной",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryConditionsWithMinCartForPlanned() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
+                99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
+                AppVersion.WEB.getName(), AppVersion.WEB.getVersion(), false, REGION_ID_WITH_SWITCHBACK);
+
+        var response = clientShippingCalc.getDeliveryConditions(request);
+
+        checkDeliveryConditions(response, SURGE_STORE_ID, minCartAmountThird, 2, 3);
+        Allure.step("Проверяем базовую цену в лесенке", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
+            softAssert.assertAll();
+        });
+    }
+
     @CaseIDs({@CaseId(525), @CaseId(530)})
     @Story("Get Delivery Conditions")
     @Test(description = "Наценка по параметрам трешхолдов региона, имеющихся в БД",
@@ -254,7 +347,7 @@ public class MinCartTest extends ShippingCalcBase {
 
         var response = clientShippingCalc.getDeliveryConditions(request);
 
-        checkDeliveryConditions(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_ADDITION_CUSTOM_DIFF, 2, 3);
+        checkDeliveryConditions(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, 2, 3);
         Allure.step("Проверяем базовую цену в лесенке", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
@@ -266,8 +359,8 @@ public class MinCartTest extends ShippingCalcBase {
             softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж выключен");
             softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), (float) SURGE_LEVEL, "Не ожидаемый уровень сюрджа");
             softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getTtl() > 0, "Не ожидаемый уровень ttl сюрджа");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 31890 + SURGE_LEVEL_ADDITION_CUSTOM_DIFF, "Не ожидаемая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 20890 + SURGE_LEVEL_ADDITION_CUSTOM_DIFF, "Не ожидаемая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 31890 + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, "Не ожидаемая цена в лесенке");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 20890 + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, "Не ожидаемая цена в лесенке");
             softAssert.assertAll();
         });
     }
@@ -735,6 +828,57 @@ public class MinCartTest extends ShippingCalcBase {
         checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT);
     }
 
+    @CaseId(531)
+    @Story("Get Min Cart Amounts")
+    @Test(description = "Наценка по параметрам свитчбек-эксперимента региона",
+            groups = "dispatch-shippingcalc-regress")
+    public void getMinCartAmountsWithSwitchbackExperiment() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
+                99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, true, REGION_ID_WITH_SWITCHBACK);
+
+        var response = clientShippingCalc.getMinCartAmounts(request);
+        checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF);
+    }
+
+    @CaseId(532)
+    @Story("Get Min Cart Amounts")
+    @Test(description = "Отсутствие наценки по параметрам свитчбек-эксперимента региона при не попадании в временной интервал",
+            groups = "dispatch-shippingcalc-regress")
+    public void getMinCartAmountsWithFutureSwitchbackExperiment() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
+                99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, true, REGION_ID_WITH_FUTURE_SWITCHBACK);
+
+        var response = clientShippingCalc.getMinCartAmounts(request);
+        checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT);
+    }
+
+    @CaseId(504)
+    @Story("Get Min Cart Amounts")
+    @Test(description = "Получение не нулевой минимальной корзины для не on_demand магазина",
+            groups = "dispatch-shippingcalc-regress")
+    public void getMinCartAmountsWithMinCartForPlanned() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
+                99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, false, REGION_ID_WITH_SWITCHBACK);
+
+        var response = clientShippingCalc.getMinCartAmounts(request);
+        checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird);
+    }
+
     @CaseIDs({@CaseId(534), @CaseId(533)})
     @Story("Get Min Cart Amounts")
     @Test(description = "Наценка по параметрам трешхолдов региона, имеющихся в БД",
@@ -749,7 +893,7 @@ public class MinCartTest extends ShippingCalcBase {
                 99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, true, REGION_ID_WITH_THRESHOLDS);
 
         var response = clientShippingCalc.getMinCartAmounts(request);
-        checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_ADDITION_CUSTOM_DIFF);
+        checkMinCartAmounts(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF);
     }
 
     @CaseId(506)

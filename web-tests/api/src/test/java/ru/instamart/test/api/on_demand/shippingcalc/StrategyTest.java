@@ -1872,7 +1872,7 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.deleteStrategy(request);
     }
 
-    @CaseId(372)
+    @CaseId(373)
     @Story("Delete Strategy")
     @Test(description = "Получение ошибки при удалении несуществующей стратегии",
             groups = "dispatch-shippingcalc-regress",

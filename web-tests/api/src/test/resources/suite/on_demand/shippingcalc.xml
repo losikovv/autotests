@@ -20,7 +20,8 @@
     </test>
     <test verbose="1" name="SHIPPINGCALC SECONDARY API" parallel="classes" thread-count="1">
         <classes>
-<!--            <class name="ru.instamart.test.api.on_demand.shippingcalc.IntervalsTest"/>-->
+            <class name="ru.instamart.test.api.on_demand.shippingcalc.SwitchbackExperimentsTest"/>
+            <!--<class name="ru.instamart.test.api.on_demand.shippingcalc.IntervalsTest"/>-->
         </classes>
     </test>
 </suite>
