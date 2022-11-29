@@ -83,7 +83,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         addBinding(selfDeliveryStrategyId, STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.SELF_DELIVERY.toString());
         addBinding(selfDeliveryStrategyId, SURGE_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.SELF_DELIVERY.toString());
 
-        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, surgeLevel, surgeLevel, surgeLevel, getZonedUTCDate()), 1000);
+        RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, SURGE_LEVEL, SURGE_LEVEL, SURGE_LEVEL, getZonedUTCDate()), 1000);
 
         List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.SHIPPINGCALC_NAMESPACE, " | grep -e SURGE_DISABLED ");
         String envPropsStr = String.join("\n", serviceEnvProperties);
@@ -249,7 +249,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         Allure.step("Проверяем новую расчитанную цену", () -> checkDeliveryPrice(newResponse, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0));
     }
 
-    @CaseIDs({@CaseId(288), @CaseId(513)})
+    @CaseIDs({@CaseId(288), @CaseId(513), @CaseId(541)})
     @Story("Get Delivery Price")
     @Test(description = "Расчет цены с наценкой surge",
             groups = "dispatch-shippingcalc-smoke")
@@ -260,7 +260,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         }
 
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_THRESHOLDS, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -270,11 +270,39 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         Allure.step("Проверяем наценку по surge", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(response.getShipments(0).getSurgeUsed(), "Surge не использовался при расчете цены");
-            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), (float) surgeLevel, "Не верный surgelevel");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), (float) SURGE_LEVEL, "Не верный surgelevel");
             softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 11990, "Не верная наценка");
             softAssert.assertAll();
         });
-        checkDeliveryPrice(response, localStrategyId, 31890, minCartAmountFirst + surgeLevelAddition, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 31890, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT, 3, 4, 0, 0);
+    }
+
+    @CaseIDs({@CaseId(540), @CaseId(539)})
+    @Story("Get Delivery Price")
+    @Test(description = "Наценка по параметрам трешхолдов региона, имеющихся в БД",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryPriceWithSurgeRegionThreshold() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_THRESHOLDS, 0,
+                55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 99, 1655822708, 55.57, 55.57,
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+
+        Allure.step("Проверяем наценку по surge", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getShipments(0).getSurgeUsed(), "Surge не использовался при расчете цены");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), (float) SURGE_LEVEL, "Не верный surgelevel");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 11990 + SURGE_LEVEL_ADDITION_CUSTOM_DIFF, "Не верная наценка");
+            softAssert.assertAll();
+        });
+        checkDeliveryPrice(response, localStrategyId, 31890 + SURGE_LEVEL_ADDITION_CUSTOM_DIFF, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_ADDITION_CUSTOM_DIFF, 3, 4, 0, 0);
     }
 
     @CaseId(511)
@@ -288,7 +316,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         }
 
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_THRESHOLDS, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -311,7 +339,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryPriceWithoutSurge() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, SURGE_STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_THRESHOLDS, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -334,7 +362,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-smoke")
     public void getDeliveryPriceWithoutSurgeNewCustomers() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_THRESHOLDS, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -360,7 +388,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         Allure.step("Меняем уровень surge у магазина", () -> RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, 0, 0, 0, getZonedUTCDate()), 100));
 
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 199900, SURGE_STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 199900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_THRESHOLDS, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
@@ -370,11 +398,11 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         Allure.step("Проверяем получение изначального уровня surge и наценки по нему", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(response.getShipments(0).getSurgeUsed(), "Surge не использовался при расчете цены");
-            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), (float) surgeLevel, "Не верный surgelevel");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), (float) SURGE_LEVEL, "Не верный surgelevel");
             softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 10990, "Не верная наценка");
             softAssert.assertAll();
         });
-        checkDeliveryPrice(response, localStrategyId, 20890, minCartAmountFirst + surgeLevelAddition, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 20890, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT, 3, 4, 0, 0);
     }
 
     @CaseIDs({@CaseId(456), @CaseId(516)})
@@ -383,7 +411,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             groups = "dispatch-shippingcalc-regress")
     public void getDeliveryPriceWithNoSurgeSelfDelivery() {
         var request = getDeliveryPriceRequest(
-                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", 1, 0,
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITHOUT_THRESHOLDS, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 99, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.SELF_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());

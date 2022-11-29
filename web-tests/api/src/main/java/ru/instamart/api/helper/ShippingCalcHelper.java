@@ -343,13 +343,14 @@ public class ShippingCalcHelper {
     }
 
     @Step("Получаем запрос для получения условий доставки магазина")
-    public static GetDeliveryConditionsRequest getDeliveryConditionsRequest(String storeId, Float storeLat, Float storeLon, String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Float customerLat, Float customerLon, String tenant, Integer deliveryTypeValue, String platformName, String platformVersion, Boolean onDemand) {
+    public static GetDeliveryConditionsRequest getDeliveryConditionsRequest(String storeId, Float storeLat, Float storeLon, String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Float customerLat, Float customerLon, String tenant, Integer deliveryTypeValue, String platformName, String platformVersion, Boolean onDemand, Integer regionId) {
         return GetDeliveryConditionsRequest.newBuilder()
                 .addStores(Store.newBuilder()
                         .setId(storeId)
                         .setLat(storeLat)
                         .setLon(storeLon)
                         .setIsOndemand(onDemand)
+                        .setRegionId(regionId)
                         .build())
                 .setCustomer(Customer.newBuilder()
                         .setId(customerId)
@@ -378,13 +379,14 @@ public class ShippingCalcHelper {
     }
 
     @Step("Получаем запрос для получения мин. корзины магазина")
-    public static GetMinCartAmountsRequest getMinCartAmountsRequest(String storeId, Float storeLat, Float storeLon, String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Float customerLat, Float customerLon, String tenant, Integer deliveryTypeValue, Boolean onDemand) {
+    public static GetMinCartAmountsRequest getMinCartAmountsRequest(String storeId, Float storeLat, Float storeLon, String customerId, String anonymousId, Integer ordersCount, Integer registeredAt, Float customerLat, Float customerLon, String tenant, Integer deliveryTypeValue, Boolean onDemand, Integer regionId) {
         return GetMinCartAmountsRequest.newBuilder()
                 .addStores(Store.newBuilder()
                         .setId(storeId)
                         .setLat(storeLat)
                         .setLon(storeLon)
                         .setIsOndemand(onDemand)
+                        .setRegionId(regionId)
                         .build())
                 .setCustomer(Customer.newBuilder()
                         .setId(customerId)

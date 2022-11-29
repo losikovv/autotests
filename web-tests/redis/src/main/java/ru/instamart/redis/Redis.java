@@ -17,7 +17,7 @@ public enum Redis {
             "localhost"
     ),
     SHIPPINGCALC(
-            "paas-content-operations-shippingcalc",
+            EnvironmentProperties.Env.SHIPPINGCALC_NAMESPACE,
             "statefulset.kubernetes.io/pod-name=redis-persistent-0",
             6379,
             "localhost"
