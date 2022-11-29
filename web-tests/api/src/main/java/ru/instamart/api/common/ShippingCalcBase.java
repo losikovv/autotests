@@ -10,8 +10,10 @@ import ru.instamart.grpc.helper.GrpcHelper;
 import ru.instamart.jdbc.dao.shippingcalc.BindingRulesDao;
 import ru.instamart.jdbc.dao.shippingcalc.StrategiesDao;
 import ru.instamart.jdbc.dao.shippingcalc.SurgeThresholdsDao;
+import ru.instamart.jdbc.dao.shippingcalc.SwitchbackExperimentsDao;
 import ru.instamart.jdbc.entity.shippingcalc.IntervalsSurgeEntity;
 import ru.instamart.jdbc.entity.shippingcalc.SurgeThresholdsEntity;
+import ru.instamart.jdbc.entity.shippingcalc.SwitchbackExperimentsEntity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +24,7 @@ import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
 import static ru.instamart.kraken.util.TimeUtil.getDateWithoutTimezone;
+import static ru.instamart.kraken.util.TimeUtil.getZoneDbDatePlusMinutes;
 
 public class ShippingCalcBase {
 
@@ -37,18 +40,22 @@ public class ShippingCalcBase {
     protected List<IntervalsSurgeEntity> intervalsList;
     protected List<Integer> bindingRulesList;
     protected List<Integer> globalStrategiesList;
-    protected static final int REGION_ID_WITH_THRESHOLDS = nextInt(100000, 150000);
-    protected final int REGION_ID_WITHOUT_THRESHOLDS = REGION_ID_WITH_THRESHOLDS + 1;
     protected final int SURGE_LEVEL = 5;
     protected final int SURGE_LEVEL_ADDITION_DEFAULT = 10000;
     protected final int SURGE_LEVEL_PERCENT_ADDITION = 10;
-    protected final int SURGE_LEVEL_ADDITION_CUSTOM_DIFF = 1;
+    protected final int SURGE_LEVEL_THRESHOLD_ADDITION_DIFF = 1;
+    protected final int SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF = SURGE_LEVEL_THRESHOLD_ADDITION_DIFF + 1;
+    protected static final int REGION_ID_WITH_SWITCHBACK = nextInt(100000, 150000);
+    protected static final int REGION_ID_WITH_FUTURE_SWITCHBACK = REGION_ID_WITH_SWITCHBACK + 1;
+    protected static final int REGION_ID_WITH_THRESHOLDS = nextInt(150000, 200000);
+    protected static final int REGION_ID_WITHOUT_THRESHOLDS = REGION_ID_WITH_THRESHOLDS + 1;
     protected final String FIXED_SCRIPT_NAME = "Фиксированная цена, с подсказками и объяснением";
     protected final String COMPLEX_SCRIPT_NAME = "Цена с учётом сложности, с подсказками и объяснением";
     protected final String FIXED_SCRIPT_PARAMS = "{\"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"assemblyIncrease\": \"0\"}";
     protected final String COMPLEX_SCRIPT_PARAMS = "{\"baseMass\": \"30000\", \"basicPrice\": \"%s\", \"bagIncrease\": \"0\", \"basePositions\": \"30\", \"additionalMass\": \"1000\", \"assemblyIncrease\": \"0\", \"additionalPositions\": \"5\", \"additionalMassIncrease\": \"500\", \"additionalPositionsIncrease\": \"0\"}";
     protected final String REDIS_VALUE = "{\"StoreID\":\"%s\",\"Method\":1,\"PastSurgeLever\":%d,\"PresentSurgeLevel\":%d,\"FutureSurgeLevel\":%d,\"StartedAt\":\"%s\",\"StepSurgeLevel\":1}";
-    protected final String SURGE_THRESHOLD_PARAMETERS = "{\"intervals\": [{\"left_boundary\": 0, \"price_addition\": 0, \"right_boundary\": 1, \"percent_addition\": 0, \"min_cart_addition\": 0}, {\"left_boundary\": 1, \"price_addition\": %s, \"right_boundary\": %s, \"percent_addition\": %s, \"min_cart_addition\": %s}, {\"left_boundary\": %s, \"price_addition\": 20000, \"right_boundary\": 10, \"percent_addition\": 20, \"min_cart_addition\": 20000}]}";
+    protected final String SURGE_THRESHOLD_PARAMETERS = "{\"intervals\": [{\"left_boundary\": 0, \"right_boundary\": 1, \"price_addition\": 0, \"percent_addition\": 0, \"min_cart_addition\": 0}, {\"left_boundary\": 1, \"right_boundary\": %s, \"price_addition\": %s, \"percent_addition\": %s, \"min_cart_addition\": %s}, {\"left_boundary\": %s, \"right_boundary\": 10, \"price_addition\": 20000, \"percent_addition\": 20, \"min_cart_addition\": 20000}]}";
+    protected final String SURGE_PLANNED_THRESHOLD_PARAMETERS = "{\"intervals\": [{\"left_boundary\": 0, \"right_boundary\": 1, \"price_addition\": 0, \"percent_addition\": 0, \"min_cart_addition\": 0}, {\"left_boundary\": 1, \"right_boundary\": %s, \"price_addition\": %s, \"percent_addition\": %s, \"min_cart_addition\": %s}, {\"left_boundary\": %s, \"right_boundary\": 10, \"price_addition\": 20000, \"percent_addition\": 20, \"min_cart_addition\": 20000}], \"allow_min_cart_for_planned\": true}";
 
 //    @BeforeSuite(alwaysRun = true, description = "Устанавливаем интервалы surge")
 //    public void setTestSurgeIntervals() {
@@ -89,22 +96,42 @@ public class ShippingCalcBase {
         }
     }
 
-    @BeforeSuite(alwaysRun = true, description = "Устанавливаем Surge Threshold")
+    @BeforeSuite(alwaysRun = true, description = "Устанавливаем Switchback & Surge Threshold")
     public void setSurgeThreshold() {
         boolean defaultRegion = SurgeThresholdsDao.INSTANCE.setSurgeThreshold(
-                new SurgeThresholdsEntity() {{
-                    setRegionId(0);
-                    setParameters(String.format(SURGE_THRESHOLD_PARAMETERS, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL));
-                }}
-        );
+                SurgeThresholdsEntity.builder()
+                        .regionId(0)
+                        .parameters(String.format(SURGE_THRESHOLD_PARAMETERS,
+                                SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT, SURGE_LEVEL))
+                        .build());
         boolean customRegion = SurgeThresholdsDao.INSTANCE.setSurgeThreshold(
-                new SurgeThresholdsEntity() {{
-                    setRegionId(REGION_ID_WITH_THRESHOLDS);
-                    setParameters(String.format(SURGE_THRESHOLD_PARAMETERS, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_ADDITION_CUSTOM_DIFF, SURGE_LEVEL, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_ADDITION_CUSTOM_DIFF, SURGE_LEVEL));
-                }}
-        );
+                SurgeThresholdsEntity.builder()
+                        .regionId(REGION_ID_WITH_THRESHOLDS)
+                        .parameters(String.format(SURGE_THRESHOLD_PARAMETERS,
+                                SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, SURGE_LEVEL))
+                        .build());
+        boolean switchbackRegion = SwitchbackExperimentsDao.INSTANCE.setSwitchbackExperiments(
+                SwitchbackExperimentsEntity.builder()
+                        .startDateTime(getZoneDbDatePlusMinutes(0))
+                        .endDateTime(getZoneDbDatePlusMinutes(20))
+                        .regionId(REGION_ID_WITH_SWITCHBACK)
+                        .group("test")
+                        .parameters(String.format(SURGE_PLANNED_THRESHOLD_PARAMETERS,
+                                SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, SURGE_LEVEL))
+                        .build());
+        boolean futureSwitchbackRegion = SwitchbackExperimentsDao.INSTANCE.setSwitchbackExperiments(
+                SwitchbackExperimentsEntity.builder()
+                        .startDateTime(getZoneDbDatePlusMinutes(20))
+                        .endDateTime(getZoneDbDatePlusMinutes(30))
+                        .regionId(REGION_ID_WITH_FUTURE_SWITCHBACK)
+                        .group("test")
+                        .parameters(String.format(SURGE_THRESHOLD_PARAMETERS,
+                                SURGE_LEVEL, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, SURGE_LEVEL_PERCENT_ADDITION, SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, SURGE_LEVEL))
+                        .build());
         Allure.step("Смогли установить трешхолды для дефолтного региона = " + defaultRegion);
         Allure.step("Смогли установить трешхолды для кастомного региона = " + customRegion);
+        Allure.step("Смогли установить свитчбек для региона = " + switchbackRegion);
+        Allure.step("Смогли установить свитчбек в будущем для кастомного региона = " + futureSwitchbackRegion);
     }
 
     @BeforeSuite(alwaysRun = true, description = "Выключаем все глобальные стратегии")

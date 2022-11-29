@@ -5,7 +5,10 @@ import lombok.Data;
 
 @Builder
 @Data
-public class SurgeThresholdsEntity {
+public class SwitchbackExperimentsEntity {
+    private String startDateTime;
+    private String endDateTime;
     private Integer regionId;
+    private String group;
     private String parameters;
 }

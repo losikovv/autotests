@@ -213,7 +213,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 29800, minCartAmountFirst, 3, 4, 0, 1);
     }
 
-    @CaseIDs(value = {@CaseId(240), @CaseId(274)})
+    @CaseIDs(value = {@CaseId(240), @CaseId(274), @CaseId(359)})
     @Story("Get Delivery Price")
     @Test(description = "Создание оффера, фиксирующего стоимость доставки",
             groups = "dispatch-shippingcalc-smoke",
@@ -277,6 +277,83 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 31890, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT, 3, 4, 0, 0);
     }
 
+    @CaseId(537)
+    @Story("Get Delivery Price")
+    @Test(description = "Наценка по параметрам свитчбек-эксперимента региона",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryPriceWithSwitchbackExperiment() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_SWITCHBACK, 0,
+                55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 99, 1655822708, 55.57, 55.57,
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+
+        Allure.step("Проверяем наценку по surge", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getShipments(0).getSurgeUsed(), "Surge не использовался при расчете цены");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), (float) SURGE_LEVEL, "Не верный surgelevel");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 11990 + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, "Не верная наценка");
+            softAssert.assertAll();
+        });
+        checkDeliveryPrice(response, localStrategyId, 31890 + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, 3, 4, 0, 0);
+    }
+
+    @CaseId(538)
+    @Story("Get Delivery Price")
+    @Test(description = "Отсутствие наценки по параметрам свитчбек-эксперимента региона при не попадании в временной интервал",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryPriceWithFutureSwitchbackExperiment() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_FUTURE_SWITCHBACK, 0,
+                55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 99, 1655822708, 55.57, 55.57,
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+
+        Allure.step("Проверяем наценку по surge", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getShipments(0).getSurgeUsed(), "Surge не использовался при расчете цены");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), (float) SURGE_LEVEL, "Не верный surgelevel");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 11990, "Не верная наценка");
+            softAssert.assertAll();
+        });
+        checkDeliveryPrice(response, localStrategyId, 31890, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT, 3, 4, 0, 0);
+    }
+
+    @CaseId(515)
+    @Story("Get Delivery Price")
+    @Test(description = "Проверка прокидывания не нулевой корзины для не on-demand магазина",
+            groups = "dispatch-shippingcalc-regress")
+    public void getDeliveryPriceWithMinCartForPlanned() {
+
+        if (surgeDisabled) {
+            throw new SkipException("Пропускаем, потому что SURGE_DISABLED = true");
+        }
+
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, SURGE_STORE_ID, "NEW", REGION_ID_WITH_SWITCHBACK, 0,
+                55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 99, 1655822708, 55.57, 55.57,
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+
+        checkDeliveryPrice(response, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0);
+    }
+
     @CaseIDs({@CaseId(540), @CaseId(539)})
     @Story("Get Delivery Price")
     @Test(description = "Наценка по параметрам трешхолдов региона, имеющихся в БД",
@@ -299,10 +376,10 @@ public class DeliveryPriceTest extends ShippingCalcBase {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(response.getShipments(0).getSurgeUsed(), "Surge не использовался при расчете цены");
             softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), (float) SURGE_LEVEL, "Не верный surgelevel");
-            softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 11990 + SURGE_LEVEL_ADDITION_CUSTOM_DIFF, "Не верная наценка");
+            softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), 11990 + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, "Не верная наценка");
             softAssert.assertAll();
         });
-        checkDeliveryPrice(response, localStrategyId, 31890 + SURGE_LEVEL_ADDITION_CUSTOM_DIFF, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_ADDITION_CUSTOM_DIFF, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 31890 + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, minCartAmountFirst + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, 3, 4, 0, 0);
     }
 
     @CaseId(511)
