@@ -43,9 +43,9 @@ public interface ShopElement {
     ElementCollection removeFromFavorite = new ElementCollection(By.xpath("//button[contains(@class,'ProductCardFavoriteButton_styles_active')]"), "Кнопка 'Добавить в избранное' избранного товара");
     Button plusItemToCart = new Button(ByKraken.xpathExpression("//div[@data-qa='catalog_page_taxons_list_taxon_item_%s_product_item_%s']//button[@title='Добавить в корзину']"),
             "Кнопка добавить в корзину у элемента");
-    ElementCollection productsCart = new ElementCollection(ByKraken.xpathExpression("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li"),
+    ElementCollection productsCard = new ElementCollection(ByKraken.xpathExpression("//section[@data-qa='catalog_page_taxons_list_taxon_item_%s']//li"),
             "Карточки продукта");
-    ElementCollection productsCartTitlesFromFirstCategory = new ElementCollection(ByKraken.xpathExpression("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li//h3"),
+    ElementCollection productsCardTitlesFromFirstCategory = new ElementCollection(ByKraken.xpathExpression("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li//h3"),
             "Названия продуктов на карточках");
     ElementCollection addToCartButtonsProd = new ElementCollection(By.xpath("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li//button[@title='Добавить в корзину']"),
             "Кнопка добавить в корзину у элемента");

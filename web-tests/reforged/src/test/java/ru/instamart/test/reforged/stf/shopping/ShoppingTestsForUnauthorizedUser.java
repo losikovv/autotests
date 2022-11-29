@@ -56,7 +56,6 @@ public final class ShoppingTestsForUnauthorizedUser {
         home().clickOnStoreWithSid(DEFAULT_METRO_MOSCOW_SID);
 
         shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().checkFirstProductCardIsVisible();
         shop().plusFirstItemToCartProd();
 
         shop().goToPage();

@@ -15,11 +15,6 @@ public interface ShopCheck extends Check, ShopElement {
         waitAction().shouldBeVisible(minusItemFromCart, line, element);
     }
 
-    @Step("Проверяем, что отображается карточка товара")
-    default void checkFirstProductCardIsVisible() {
-        waitAction().shouldBeVisible(productsCart);
-    }
-
     @Step("Проверяем, что отображется сниппет каталога")
     default void checkSnippet() {
         firstProductCardProd.should().visible();
