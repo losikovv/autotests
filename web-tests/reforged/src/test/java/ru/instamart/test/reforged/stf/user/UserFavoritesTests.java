@@ -47,7 +47,7 @@ public final class UserFavoritesTests {
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCardProd();
+        shop().openFirstProductCardProd("0");
         shop().interactProductCard().addToFavorite();
         shop().interactProductCard().clickOnClose();
 
@@ -116,7 +116,6 @@ public final class UserFavoritesTests {
     @Test(description = "Регистрация, при попытке добавить товар из каталога в любимые товары неавторизованным", groups = REGRESSION_STF)
     public void successRegAfterAddFavoriteOnCatalog() {
         shop().goToPage();
-        shop().checkFirstProductCardIsVisible();
         shop().addFirstItemToFavorite();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
@@ -128,7 +127,7 @@ public final class UserFavoritesTests {
             groups = {"smoke", REGRESSION_STF})
     public void successAuthAfterAddFavoriteOnItemCard() {
         shop().goToPage();
-        shop().openFirstProductCardProd();
+        shop().openFirstProductCardProd("0");
         shop().interactProductCard().addToFavorite();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());

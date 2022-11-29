@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.page.shop;
 import io.qameta.allure.Step;
 import ru.instamart.kraken.util.CollectionUtil;
 import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.header.Header;
@@ -111,7 +112,7 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Step("Вернуть значение имени {itemPosition}-го товара на проде")
     public String getProductTitleByPositionProd(final int itemPosition) {
-        return productsCartTitlesFromFirstCategory.getElementText(itemPosition - 1);
+        return productsCardTitlesFromFirstCategory.getElementText(itemPosition - 1);
     }
 
     @Step("Нажать на минус у товара - строка №{line}, элемент по порядку №{element}")
@@ -135,8 +136,10 @@ public final class ShopPage implements StfPage, ShopCheck {
     }
 
     @Step("Открыть карточку первого товара на проде")
-    public void openFirstProductCardProd() {
-        productsCart.clickOnFirst();
+    public void openFirstProductCardProd(final String taxons) {
+        Kraken.jsAction().scrollToTheBottom();
+        waitPageLoad();
+        productsCard.clickOnFirst(taxons);
     }
 
     @Step("Получаем цену товара")
