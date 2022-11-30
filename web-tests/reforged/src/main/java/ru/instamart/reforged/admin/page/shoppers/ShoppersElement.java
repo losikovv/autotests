@@ -26,6 +26,6 @@ public interface ShoppersElement {
     ElementCollection tagsInList = new ElementCollection(By.xpath("//div[contains(@class,' ant-select-item-option')]"), "Теги в списке тегов");
     Element selectedTagInList = new Element(ByKraken.xpathExpression("//span[text()='%s']/ancestor::div[@aria-selected='true']"),"Выбранный тег в списке тегов");
 
-    Element shopper = new Element(ByKraken.xpathExpression("//a[text()='%s']"), "Тестовый партнер в списке партнеров");
+    Element shopper = new Element(ByKraken.xpathExpression("//a[text()='%s']"), 20, "Тестовый партнер в списке партнеров");
 
 }

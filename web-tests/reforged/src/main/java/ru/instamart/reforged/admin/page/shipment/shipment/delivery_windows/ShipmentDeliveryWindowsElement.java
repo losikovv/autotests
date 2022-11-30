@@ -12,7 +12,7 @@ public interface ShipmentDeliveryWindowsElement {
 
     Element savedShipmentInterval = new Element(By.xpath("//span[@class='ant-descriptions-item-label'][contains(.,'Сохраненный слот доставки')]/following-sibling::span"), "Сохраненный интервал доставки в шапке");
     Element savedShop = new Element(By.xpath("//span[@class='ant-descriptions-item-label'][contains(.,'Магазин')]/following-sibling::span"), "Выбранный магазин");
-    ElementCollection availableIntervals = new ElementCollection(By.xpath("//label[@class='ant-radio-wrapper']"), "Доступные интервалы доставки");
+    ElementCollection availableIntervals = new ElementCollection(By.xpath("//label[contains(@class,'ant-radio-wrapper')]"), "Доступные интервалы доставки");
     Element checkedInterval = new Element(By.xpath("//label[contains(@class,'ant-radio-wrapper-checked')]"), "Выбранный интервал доставки");
 
     Element deliveryChangeReason = new Element(By.xpath("//span[contains(.,'Причина изменения')]"), "Инпут выбора причины изменения интервала доставки");
