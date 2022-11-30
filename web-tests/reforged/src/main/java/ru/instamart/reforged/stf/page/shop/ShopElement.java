@@ -22,6 +22,12 @@ import ru.instamart.reforged.stf.frame.store_modal.StoreModal;
 
 public interface ShopElement {
 
+
+    String notRecommendationTaxons = "//section[contains(@data-qa,'catalog_page_taxons_list_taxon_item')]" +
+            "[not(contains(.,'Стоит присмотреться'))]" +
+            "[not(contains(.,'Рекомендуем'))]" +
+            "[not(contains(.,'Новый год'))]";
+
     Header header = new Header();
     StoreModal storeModal = new StoreModal();
     RetailRocket retailRocket = new RetailRocket();
@@ -38,24 +44,25 @@ public interface ShopElement {
 
     Button openAddress = new Button(By.xpath("//button[@data-qa='select-button']"), "empty");
     Element firstProductCardProd = new Element(By.xpath("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[1]"), "Карточка первого товара в каталоге на проде");
-    Element firstProductCard = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']"), "Карточка первого товара в каталоге на стейдже");
-    ElementCollection addToFavoriteButtons = new ElementCollection(By.xpath("//button[@title='Добавить в избранное']"), "Кнопки 'Добавить в избранное' товаров");
-    ElementCollection removeFromFavorite = new ElementCollection(By.xpath("//button[contains(@class,'ProductCardFavoriteButton_styles_active')]"), "Кнопка 'Добавить в избранное' избранного товара");
+    ElementCollection addToFavoriteButtons = new ElementCollection(By.xpath(notRecommendationTaxons + "//button[@title='Добавить в избранное']"), "Кнопки 'Добавить в избранное' товаров");
+    ElementCollection removeFromFavorite = new ElementCollection(By.xpath(notRecommendationTaxons + "//button[contains(@class,'ProductCardFavoriteButton_styles_active')]"), "Кнопка 'Добавить в избранное' избранного товара");
     Button plusItemToCart = new Button(ByKraken.xpathExpression("//div[@data-qa='catalog_page_taxons_list_taxon_item_%s_product_item_%s']//button[@title='Добавить в корзину']"),
             "Кнопка добавить в корзину у элемента");
     ElementCollection productsCard = new ElementCollection(ByKraken.xpathExpression("//section[@data-qa='catalog_page_taxons_list_taxon_item_%s']//li"),
             "Карточки продукта");
-    ElementCollection productsCardTitlesFromFirstCategory = new ElementCollection(ByKraken.xpathExpression("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li//h3"),
+    ElementCollection nonRecsProductCards = new ElementCollection(ByKraken.xpathExpression(notRecommendationTaxons + "//li"),
+            "Карточки продуктов не из блоков рекомендаци");
+    ElementCollection productsCardTitlesFromFirstCategory = new ElementCollection(ByKraken.xpathExpression(notRecommendationTaxons + "//li//h3"),
             "Названия продуктов на карточках");
-    ElementCollection addToCartButtonsProd = new ElementCollection(By.xpath("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li//button[@title='Добавить в корзину']"),
+    ElementCollection addToCartButtonsProd = new ElementCollection(By.xpath(notRecommendationTaxons + "//li//button[@title='Добавить в корзину']"),
             "Кнопка добавить в корзину у элемента");
     Button minusItemFromCart = new Button(ByKraken.xpathExpression("//div[@data-qa='catalog_page_taxons_list_taxon_item_%s_product_item_%s']//button[contains(@title, 'Убрать из корзины')]"),
             "Кнопка убрать из корзины у элемента");
     Element productTitle = new Element(ByKraken.xpathExpression("//div[@data-qa='catalog_page_taxons_list_taxon_item_%s_product_item_%s']//h3"), "Имя первого товара в каталоге на стейдже");
 
-    Element imageInFirstItem = new Element(By.xpath("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')]//img"), "Изображение товара");
-    Element nameInFirstItem = new Element(By.xpath("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')]//h3"), "Название товара");
-    Element packageSizeInFirstItem = new Element(By.xpath("//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')]//h3/following-sibling::div[1]"), "Размер упаковки товара");
+    Element imageInFirstItem = new Element(By.xpath(notRecommendationTaxons + "//li[contains(@class,'Carousel_slide')]//img"), "Изображение товара");
+    Element nameInFirstItem = new Element(By.xpath(notRecommendationTaxons + "//li[contains(@class,'Carousel_slide')]//h3"), "Название товара");
+    Element packageSizeInFirstItem = new Element(By.xpath(notRecommendationTaxons + "//li[contains(@class,'Carousel_slide')]//h3/following-sibling::div[1]"), "Размер упаковки товара");
     ElementCollection pricesInItemWithoutDiscount = new ElementCollection(By.xpath("(//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')][not(.//li[contains(@class,'ProductCardBadgeGroup')])])[1]//div[contains(@class,'ProductCardPrice_styles_root')]/div"), "Отображаемые цены (для первого товара без скидки)");
     ElementCollection pricesInItemWithDiscount = new ElementCollection(By.xpath("(//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')][.//li[contains(@class,'ProductCardBadgeGroup')]])[1]//div[contains(@class,'ProductCardPrice_styles_root')]/div"), "Отображаемые цены (для первого товара со скидкой)");
     Element priceInFirstItemWithoutDiscount = new Element(By.xpath("(//section[@data-qa='catalog_page_taxons_list_taxon_item_0']//li[contains(@class,'Carousel_slide')][not(.//li[contains(@class,'ProductCardBadgeGroup')])])[1]//div[./span[contains(.,'Цена за')]]"), "Цена товара (для первого товара без скидки)");

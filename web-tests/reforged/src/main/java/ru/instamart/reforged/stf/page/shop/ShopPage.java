@@ -130,11 +130,6 @@ public final class ShopPage implements StfPage, ShopCheck {
         removeFromFavorite.clickOnFirst();
     }
 
-    @Step("Открыть карточку первого товара на стейдже")
-    public void openFirstProductCard() {
-        firstProductCard.getActions().moveToElementAndClick();
-    }
-
     @Step("Открыть карточку первого товара на проде")
     public void openFirstProductCardInTaxon(final String taxons) {
         //Костыль для таксонов ниже первого ряда. В идеале до 3 ряда, ниже уже нет гарантий загрузки
@@ -142,6 +137,13 @@ public final class ShopPage implements StfPage, ShopCheck {
         Kraken.jsAction().scrollToTheBottom();
         waitPageLoad();
         productsCard.clickOnFirst(taxons);
+    }
+
+    @Step("Открыть карточку первого товара (исключая таксоны рекомендации)")
+    public void openFirstNonRecommendationsProductCard() {
+        Kraken.jsAction().scrollToTheBottom();
+        waitPageLoad();
+        nonRecsProductCards.clickOnFirst();
     }
 
     @Step("Получаем цену товара")
