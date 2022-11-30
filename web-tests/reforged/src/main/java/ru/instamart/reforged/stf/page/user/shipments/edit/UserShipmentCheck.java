@@ -2,6 +2,7 @@ package ru.instamart.reforged.stf.page.user.shipments.edit;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
+import ru.instamart.kraken.util.PatternUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
@@ -39,7 +40,6 @@ public interface UserShipmentCheck extends Check, UserShipmentElement {
     @Step("Проверяем, что отображается дата и время доставки")
     default void checkShippedDateVisible() {
         dateShippedDate.should().visible();
-
     }
 
     @Step("Проверяем, что отображается блок оценки заказа")
@@ -179,25 +179,25 @@ public interface UserShipmentCheck extends Check, UserShipmentElement {
     @Step("Проверяем, название {position}-го товара")
     default void checkItemName(final int position) {
         itemName.should().visible(String.valueOf(position));
-        itemName.should().textMatches(String.valueOf(position), Pattern.compile("[а-яА-Я].+"));
+        itemName.should().textMatches(PatternUtil.rusString(), String.valueOf(position));
     }
 
     @Step("Проверяем, вес {position}-го товара")
     default void checkItemWeight(final int position) {
         itemWeight.should().visible(String.valueOf(position));
-        itemWeight.should().textMatches(String.valueOf(position), Pattern.compile("(^\\d+|^\\d+.\\d+) (г|кг|мл|л|шт)( x \\d+)?"));
+        itemWeight.should().textMatches(PatternUtil.productWeight(), String.valueOf(position));
     }
 
     @Step("Проверяем, количество {position}-го товара")
     default void checkItemQuantity(final int position) {
         itemQuantity.should().visible(String.valueOf(position));
-        itemQuantity.should().textMatches(String.valueOf(position), Pattern.compile("(^\\d+) шт"));
+        itemQuantity.should().textMatches(PatternUtil.productQuantity(), String.valueOf(position));
     }
 
     @Step("Проверяем, стоимость {position}-го товара")
     default void checkItemCost(final int position) {
         itemCost.should().visible(String.valueOf(position));
-        itemCost.should().textMatches(String.valueOf(position), Pattern.compile("(^\\d+,\\d\\d)|(^\\d+ \\d\\d\\d,\\d\\d) ₽"));
+        itemCost.should().textMatches(PatternUtil.costWithThousandSeparator(), String.valueOf(position));
     }
 
     @Step("Проверяем, что статус сборки {position}-го товара отображается")
@@ -208,7 +208,7 @@ public interface UserShipmentCheck extends Check, UserShipmentElement {
     @Step("Проверяем, что статус сборки {position}-го товара: '{expectedText}'")
     default void checkItemStatus(final int position, final String expectedText) {
         itemStatus.should().visible(String.valueOf(position));
-        itemStatus.should().textContains(String.valueOf(position), expectedText);
+        itemStatus.should().textContains(expectedText, String.valueOf(position));
     }
 
     @Step("Проверяем, что отображается номер заказа")

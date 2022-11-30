@@ -746,7 +746,7 @@ public final class UserShipmentTests {
     }
 
     @CaseIDs({@CaseId(3535), @CaseId(2062)})
-    @Test(description = "Вывод информации о дозаказе / в заказе есть алкоголь", groups = {JORMUNGANDR})
+    @Test(description = "Вывод информации о дозаказе / в заказе есть алкоголь", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testAdditionalOrderInfoEditAlcohol() {
         final var userData = UserManager.getQaUser();
 
@@ -764,7 +764,7 @@ public final class UserShipmentTests {
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        seo().goToPage(ShopUrl.METRO.getUrl() + ALCOHOL_CATEGORY_LINK);
+        shop().goToPage(ShopUrl.METRO.getUrl() + ALCOHOL_CATEGORY_LINK);
         shop().interactDisclaimer().checkDisclaimerModalVisible();
         shop().interactDisclaimer().agreeAndConfirm();
         shop().interactDisclaimer().checkDisclaimerModalNotVisible();

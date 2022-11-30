@@ -47,12 +47,12 @@ public final class Should {
         AshotService.compareImage(component.screenWebElement(components), component.getComponent(), components);
     }
 
-    public void textContains(final String args, final String text) {
+    public void textContains(final String text, final String args) {
         Assert.assertTrue(Kraken.waitAction().containText(component, text, args),
                 String.format("Текст элемента '%s' не содержит ожидаемого: '%s'", component.getBy(args), text));
     }
 
-    public void textMatches(final String args, final Pattern pattern) {
+    public void textMatches(final Pattern pattern, final String args) {
         Assert.assertTrue(Kraken.waitAction().textMatches(component, pattern, args),
                 String.format("Текст элемента '%s' не соответсвует паттерну: '%s'", component.getBy(args), pattern));
     }
