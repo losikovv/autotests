@@ -3,6 +3,7 @@ package ru.instamart.test.api.on_demand.eta;
 import com.google.protobuf.Timestamp;
 import eta.Eta;
 import eta.PredEtaGrpc;
+import eta.PredEtaGrpc.PredEtaBlockingStub;
 import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
@@ -27,7 +28,7 @@ import static ru.instamart.kraken.util.TimeUtil.getDatePlusSec;
 @Feature("ETA")
 public class DisableEtaTest extends RestBase {
 
-    private PredEtaGrpc.PredEtaBlockingStub clientEta;
+    private PredEtaBlockingStub clientEta;
     private final String STORE_UUID_FIRST = UUID.randomUUID().toString();
     private final String STORE_UUID_SECOND = UUID.randomUUID().toString();
     private final Timestamp LEFT_BORDER = getDatePlusSec(1200);
@@ -88,8 +89,8 @@ public class DisableEtaTest extends RestBase {
 
         Allure.step("Проверка успешного сохранения интервалов", () -> {
             compareTwoObjects(response.toString(), "");
-            List<DisableEtaIntervalsEntity> intervals =  DisableEtaIntervalsDao.INSTANCE.getIntervals(STORE_UUID_SECOND);
-            assertTrue(intervals.size() >= 2, "Сохранены не все интервалы");
+            final var intervalsList =  DisableEtaIntervalsDao.INSTANCE.getIntervals(STORE_UUID_SECOND);
+            assertTrue(intervalsList.size() >= 2, "Сохранены не все интервалы");
         });
     }
 

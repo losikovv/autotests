@@ -15,6 +15,7 @@ import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.response.shopper.admin.RouteRoutingSettings;
 import ru.instamart.jdbc.dao.orders_service.PlaceSettingsDao;
 import ru.instamart.jdbc.entity.order_service.PlaceSettingsEntity;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -37,22 +38,19 @@ public class RouteSettingsTest extends RestBase {
     @Test(description = "Установка маршрутизатизации на диспатч",
             groups = {"api-shopper-regress", "dispatch-orderservice-smoke"})
     public void patchRoutingSettingsDispatch() {
-
-        int storeId = 16;
         String schedule_type = "dispatch";
 
-        final Response response = ShopperAdminRequest.RoutingSettings.PATCH(storeId, schedule_type);
+        final Response response = ShopperAdminRequest.RoutingSettings.PATCH(EnvironmentProperties.DEFAULT_SID, schedule_type);
         RouteRoutingSettings parameters = response.as(RouteRoutingSettings.class);
-
-        String place_uuid = parameters.getStore().getUuid();
+        final var place_uuid = parameters.getStore().getUuid();
 
         PlaceSettingsEntity placeSettingsEntity = PlaceSettingsDao.INSTANCE.getScheduleType(place_uuid);
 
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RouteRoutingSettings.class);
-        Allure.step("", () -> {
+        Allure.step("Проверка данных магазина", () -> {
             final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(parameters.getStore().getId(), storeId, "Вернулся неверный ID магазина");
+            softAssert.assertEquals(parameters.getStore().getId(), EnvironmentProperties.DEFAULT_SID, "Вернулся неверный ID магазина");
             softAssert.assertEquals(parameters.getStore().getScheduleType(), schedule_type, "Вернулись не верные настройки маршрутизации");
             compareTwoObjects(parameters.getStore().getScheduleType(), placeSettingsEntity.getScheduleType(), softAssert);
             softAssert.assertAll();
@@ -61,25 +59,20 @@ public class RouteSettingsTest extends RestBase {
 
     @CaseId(165)
     @Story("Routing settings")
-    @Test(description = "Установка маршрутизатизации на револьверную",
+    @Test(description = "Установка маршрутизации на револьверную",
             groups = {"api-shopper-regress", "dispatch-orderservice-smoke"})
     public void patchRoutingSettingsList() {
-        int storeId = 16;
         String schedule_type = "list";
 
-        final Response response = ShopperAdminRequest.RoutingSettings.PATCH(storeId, schedule_type);
-        RouteRoutingSettings parameters = response.as(RouteRoutingSettings.class);
-
-        String place_uuid = parameters.getStore().getUuid();
-
-        PlaceSettingsEntity placeSettingsEntity = PlaceSettingsDao.INSTANCE.getScheduleType(place_uuid);
-
+        final var response = ShopperAdminRequest.RoutingSettings.PATCH(EnvironmentProperties.DEFAULT_SID, schedule_type);
         checkStatusCode200(response);
-
         checkResponseJsonSchema(response, RouteRoutingSettings.class);
-        Allure.step("", () -> {
+        final var parameters = response.as(RouteRoutingSettings.class);
+        final var place_uuid = parameters.getStore().getUuid();
+        final var placeSettingsEntity = PlaceSettingsDao.INSTANCE.getScheduleType(place_uuid);
+        Allure.step("Проверка маршрутизации", () -> {
             final SoftAssert softAssert = new SoftAssert();
-            assertEquals(parameters.getStore().getId(), storeId, "Вернулся неверный ID магазина");
+            assertEquals(parameters.getStore().getId(), EnvironmentProperties.DEFAULT_SID, "Вернулся неверный ID магазина");
             assertEquals(parameters.getStore().getScheduleType(), schedule_type, "Вернулись не верные настройки маршрутизации");
             compareTwoObjects(parameters.getStore().getScheduleType(), placeSettingsEntity.getScheduleType());
             softAssert.assertAll();

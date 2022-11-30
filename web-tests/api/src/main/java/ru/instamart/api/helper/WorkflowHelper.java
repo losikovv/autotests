@@ -10,20 +10,30 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.workflows.ShopperAssignment;
 import ru.instamart.api.request.workflows.AssignmentsRequest;
+import ru.instamart.api.request.workflows.SegmentsRequest;
+import ru.instamart.api.response.workflows.AssignmentResponse;
+import ru.instamart.api.response.workflows.AssignmentsResponse;
 import ru.instamart.jdbc.dao.stf.StoresDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import workflow.ServiceGrpc;
+import workflow.ServiceGrpc.ServiceBlockingStub;
 import workflow.WorkflowEnums;
+import workflow.WorkflowEnums.DeliveryType;
+import workflow.WorkflowEnums.SegmentType;
 import workflow.WorkflowOuterClass;
+import workflow.WorkflowOuterClass.CreateWorkflowsRequest;
+import workflow.WorkflowOuterClass.RejectWorkflowByShipmentUuidResponse;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import static java.util.Arrays.asList;
+import static org.awaitility.Awaitility.with;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.data.StartPointsTenants.METRO_WORKFLOW_END;
 import static ru.instamart.kraken.data.StartPointsTenants.METRO_WORKFLOW_START;
@@ -34,8 +44,8 @@ public class WorkflowHelper {
     private static final UserData secondShopper = UserManager.getShp6Universal2();
 
     @Step("Подготавливаем запрос для создания маршрутного листа")
-    public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequest(OrderV2 order, String shipmentUuid, Timestamp time, WorkflowEnums.DeliveryType deliveryType) {
-        return WorkflowOuterClass.CreateWorkflowsRequest
+    public static CreateWorkflowsRequest getWorkflowsRequest(final OrderV2 order, final String shipmentUuid, final Timestamp time, final DeliveryType deliveryType) {
+        return CreateWorkflowsRequest
                 .newBuilder()
                 .addWorkflows(WorkflowOuterClass.Workflow.newBuilder()
                         .addAssignments(WorkflowOuterClass.Assignment.newBuilder()
@@ -45,7 +55,7 @@ public class WorkflowHelper {
                                 .setDeliveryTypeValue(deliveryType.getNumber())
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setTypeValue(WorkflowEnums.SegmentType.ARRIVE_VALUE)
+                                .setTypeValue(SegmentType.ARRIVE_VALUE)
                                 .setPosition(0)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
@@ -73,7 +83,7 @@ public class WorkflowHelper {
                                 .setDistance(25L)
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setTypeValue(WorkflowEnums.SegmentType.DELIVERY_VALUE)
+                                .setTypeValue(SegmentType.DELIVERY_VALUE)
                                 .setPosition(2)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
@@ -101,7 +111,7 @@ public class WorkflowHelper {
                                 .setDistance(25L)
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setTypeValue(WorkflowEnums.SegmentType.PASS_TO_CLIENT_VALUE)
+                                .setTypeValue(SegmentType.PASS_TO_CLIENT_VALUE)
                                 .setPosition(3)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
@@ -134,12 +144,12 @@ public class WorkflowHelper {
 
 
     @Step("Подготавливаем запрос для создания маршрутного листа")
-    public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequest(final OrderV2 order, final String shipmentUuid, final Timestamp time, final WorkflowEnums.DeliveryType deliveryType, final Integer shiftsId) {
+    public static CreateWorkflowsRequest getWorkflowsRequest(final OrderV2 order, final String shipmentUuid, final Timestamp time, final DeliveryType deliveryType, final Integer shiftsId) {
         var map = new HashMap<String, String>();
         map.put("decline_performer_uuid", "");
         map.put("dispatch_count", "0");
         map.put("dispatch_id", "");
-        return WorkflowOuterClass.CreateWorkflowsRequest
+        return CreateWorkflowsRequest
                 .newBuilder()
                 .addWorkflows(WorkflowOuterClass.Workflow.newBuilder()
                         .addAssignments(WorkflowOuterClass.Assignment.newBuilder()
@@ -149,7 +159,7 @@ public class WorkflowHelper {
                                 .setDeliveryTypeValue(deliveryType.getNumber())
 //                                .setParentJobUuid("ad9e0dfd-9274-4a7c-8363-34218e2af0bd")
                                 .putAllMeta(map)
-//                                .setShift(
+//                                .setShift( //todo отправить wfs при передаче shiftId
 //                                        WorkflowOuterClass.Shift.newBuilder()
 //                                                .setId(shiftsId)
 //                                                .setTransport(WorkflowOuterClass.Shift.Transport.PEDESTRIAN)
@@ -157,7 +167,7 @@ public class WorkflowHelper {
 //                                )
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setType(WorkflowEnums.SegmentType.ARRIVE)
+                                .setType(SegmentType.ARRIVE)
                                 .setPosition(0)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
@@ -214,7 +224,7 @@ public class WorkflowHelper {
 //                                .build())
 
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setType(WorkflowEnums.SegmentType.DELIVERY)
+                                .setType(SegmentType.DELIVERY)
                                 .setPosition(2)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
@@ -242,7 +252,7 @@ public class WorkflowHelper {
                                 .setDistance(25L)
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setType(WorkflowEnums.SegmentType.PASS_TO_CLIENT)
+                                .setType(SegmentType.PASS_TO_CLIENT)
                                 .setPosition(3)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
@@ -274,19 +284,19 @@ public class WorkflowHelper {
     }
 
     @Step("Подготавливаем запрос для создания маршрутного листа c разными параметрами")
-    public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequestWithDifferentParams(OrderV2 order, String shipmentUuid, OrderV2 secondOrder, String secondShipmentUuid, String parentUuid) {
-        return WorkflowOuterClass.CreateWorkflowsRequest
+    public static CreateWorkflowsRequest getWorkflowsRequestWithDifferentParams(final OrderV2 order, final String shipmentUuid, final OrderV2 secondOrder, final String secondShipmentUuid, final String parentUuid) {
+        return CreateWorkflowsRequest
                 .newBuilder()
                 .addWorkflows(WorkflowOuterClass.Workflow.newBuilder()
                         .addAssignments(WorkflowOuterClass.Assignment.newBuilder()
                                 .setPerformerUuid(secondShopper.getUuid())
                                 .setSourceTypeValue(WorkflowEnums.SourceType.DISPATCH_VALUE)
                                 .setPerformerVehicleValue(WorkflowEnums.PerformerVehicle.PEDESTRIAN_VALUE)
-                                .setDeliveryTypeValue(WorkflowEnums.DeliveryType.DEFAULT_VALUE)
+                                .setDeliveryTypeValue(DeliveryType.DEFAULT_VALUE)
                                 .setPostponedParentUuid(parentUuid)
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setTypeValue(WorkflowEnums.SegmentType.ARRIVE_VALUE)
+                                .setTypeValue(SegmentType.ARRIVE_VALUE)
                                 .setPosition(0)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
@@ -314,7 +324,7 @@ public class WorkflowHelper {
                                 .setDistance(25L)
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setTypeValue(WorkflowEnums.SegmentType.DELIVERY_VALUE)
+                                .setTypeValue(SegmentType.DELIVERY_VALUE)
                                 .setPosition(2)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(secondOrder.getShipments().get(0).getNumber())
@@ -342,7 +352,7 @@ public class WorkflowHelper {
                                 .setDistance(24L)
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setTypeValue(WorkflowEnums.SegmentType.PASS_TO_CLIENT_VALUE)
+                                .setTypeValue(SegmentType.PASS_TO_CLIENT_VALUE)
                                 .setPosition(3)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(secondOrder.getShipments().get(0).getNumber())
@@ -374,22 +384,22 @@ public class WorkflowHelper {
     }
 
     @Step("Подготавливаем запрос для создания маршрутного листа c транспортом {transportType}")
-    public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequestWithTransport(OrderV2 order, String shipmentUuid, long transportId, WorkflowOuterClass.Shift.Transport transportType) {
-        return WorkflowOuterClass.CreateWorkflowsRequest
+    public static CreateWorkflowsRequest getWorkflowsRequestWithTransport(final OrderV2 order, final String shipmentUuid, final long transportId, final WorkflowOuterClass.Shift.Transport transportType) {
+        return CreateWorkflowsRequest
                 .newBuilder()
                 .addWorkflows(WorkflowOuterClass.Workflow.newBuilder()
                         .addAssignments(WorkflowOuterClass.Assignment.newBuilder()
                                 .setPerformerUuid(SessionFactory.getSession(SessionType.SHOPPER_APP).getUserData().getUuid())
                                 .setSourceTypeValue(WorkflowEnums.SourceType.DISPATCH.getNumber())
                                 .setPerformerVehicleValue(WorkflowEnums.PerformerVehicle.PEDESTRIAN_VALUE)
-                                .setDeliveryTypeValue(WorkflowEnums.DeliveryType.DEFAULT_VALUE)
+                                .setDeliveryTypeValue(DeliveryType.DEFAULT_VALUE)
                                 .setShift(WorkflowOuterClass.Shift.newBuilder()
                                         .setId(transportId)
                                         .setTransport(transportType)
                                         .build())
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setTypeValue(WorkflowEnums.SegmentType.ARRIVE_VALUE)
+                                .setTypeValue(SegmentType.ARRIVE_VALUE)
                                 .setPosition(0)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
@@ -417,7 +427,7 @@ public class WorkflowHelper {
                                 .setDistance(25L)
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setTypeValue(WorkflowEnums.SegmentType.DELIVERY_VALUE)
+                                .setTypeValue(SegmentType.DELIVERY_VALUE)
                                 .setPosition(2)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
@@ -445,7 +455,7 @@ public class WorkflowHelper {
                                 .setDistance(25L)
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setTypeValue(WorkflowEnums.SegmentType.PASS_TO_CLIENT_VALUE)
+                                .setTypeValue(SegmentType.PASS_TO_CLIENT_VALUE)
                                 .setPosition(3)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
@@ -477,18 +487,18 @@ public class WorkflowHelper {
     }
 
     @Step("Подготавливаем запрос для создания маршрутного листа c разными магазинами в сегментах")
-    public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequestWithDifferentStores(OrderV2 order, String shipmentUuid, String performerUuid) {
-        return WorkflowOuterClass.CreateWorkflowsRequest
+    public static CreateWorkflowsRequest getWorkflowsRequestWithDifferentStores(final OrderV2 order, final String shipmentUuid, final String performerUuid) {
+        return CreateWorkflowsRequest
                 .newBuilder()
                 .addWorkflows(WorkflowOuterClass.Workflow.newBuilder()
                         .addAssignments(WorkflowOuterClass.Assignment.newBuilder()
                                 .setPerformerUuid(performerUuid)
                                 .setSourceTypeValue(WorkflowEnums.SourceType.DISPATCH.getNumber())
                                 .setPerformerVehicleValue(WorkflowEnums.PerformerVehicle.PEDESTRIAN_VALUE)
-                                .setDeliveryTypeValue(WorkflowEnums.DeliveryType.DEFAULT_VALUE)
+                                .setDeliveryTypeValue(DeliveryType.DEFAULT_VALUE)
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setTypeValue(WorkflowEnums.SegmentType.ARRIVE_VALUE)
+                                .setTypeValue(SegmentType.ARRIVE_VALUE)
                                 .setPosition(0)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
@@ -514,7 +524,7 @@ public class WorkflowHelper {
                                 .setDistance(25L)
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setTypeValue(WorkflowEnums.SegmentType.DELIVERY_VALUE)
+                                .setTypeValue(SegmentType.DELIVERY_VALUE)
                                 .setPosition(2)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
@@ -540,7 +550,7 @@ public class WorkflowHelper {
                                 .setDistance(25L)
                                 .build())
                         .addSegments(WorkflowOuterClass.Segment.newBuilder()
-                                .setTypeValue(WorkflowEnums.SegmentType.PASS_TO_CLIENT_VALUE)
+                                .setTypeValue(SegmentType.PASS_TO_CLIENT_VALUE)
                                 .setPosition(3)
                                 .addShipments(WorkflowEnums.Shipment.newBuilder()
                                         .setNumber(order.getShipments().get(0).getNumber())
@@ -571,41 +581,75 @@ public class WorkflowHelper {
 
 
     @Step("Отменяем маршрутный лист")
-    public static void cancelWorkflow(ServiceGrpc.ServiceBlockingStub clientWorkflow, String shipmentUuid) {
-        var request = WorkflowOuterClass.RejectWorkflowByShipmentUuidRequest
+    public static RejectWorkflowByShipmentUuidResponse cancelWorkflow(final ServiceBlockingStub clientWorkflow, final String shipmentUuid) {
+        final var request = WorkflowOuterClass.RejectWorkflowByShipmentUuidRequest
                 .newBuilder()
                 .setShipmentUuid(shipmentUuid)
                 .build();
 
-        var response = clientWorkflow.rejectWorkflowByShipmentUUID(request);
+       return clientWorkflow.rejectWorkflowByShipmentUUID(request);
     }
 
     @Step("Берем в работу маршрутный лист")
     public static void acceptWorkflow(String assignmentId) {
-        final Response response = AssignmentsRequest.Accept.PATCH(assignmentId);
+        final var response = AssignmentsRequest.Accept.PATCH(assignmentId);
         checkStatusCode200(response);
     }
 
     @Step("Берем в работу маршрутный лист и начинаем маршрут")
-    public static void acceptWorkflowAndStart(String assignmentId, StartPointsTenants coordinates) {
-        final Response response = AssignmentsRequest.Accept.PATCH(assignmentId, coordinates);
+    public static AssignmentResponse acceptWorkflowAndStart(final String assignmentId, final StartPointsTenants coordinates) {
+        final var response = AssignmentsRequest.Accept.PATCH(assignmentId, coordinates);
         checkStatusCode200(response);
+        return response.as(AssignmentResponse.class);
     }
 
-    public static String getWorkflowUuid(OrderV2 order, String shipmentUuid, Timestamp timestamp, ServiceGrpc.ServiceBlockingStub clientWorkflow) {
+    public static String getWorkflowUuid(final OrderV2 order, final String shipmentUuid, final Timestamp timestamp, final ServiceBlockingStub clientWorkflow) {
         return getWorkflowUuid(order, shipmentUuid, timestamp, clientWorkflow, null);
     }
+
     @Step("Создаем маршрутный лист")
-    public static String getWorkflowUuid(OrderV2 order, String shipmentUuid, Timestamp timestamp, ServiceGrpc.ServiceBlockingStub clientWorkflow, Integer shiftId) {
-        var request = getWorkflowsRequest(order, shipmentUuid, timestamp, WorkflowEnums.DeliveryType.DEFAULT, shiftId);
-        var response = clientWorkflow.createWorkflows(request);
+    public static String getWorkflowUuid(final OrderV2 order, final String shipmentUuid, final Timestamp timestamp, final ServiceBlockingStub clientWorkflow, final Integer shiftId) {
+        final var request = getWorkflowsRequest(order, shipmentUuid, timestamp, DeliveryType.DEFAULT, shiftId);
+        final var response = clientWorkflow.createWorkflows(request);
         return response.getResultsMap().keySet().toArray()[0].toString();
     }
 
     @Step("Получаем список маршрутных листов шоппера")
     public static List<ShopperAssignment> getShopperAssignments() {
-        final Response response = AssignmentsRequest.GET();
+        final var response = AssignmentsRequest.GET();
         checkStatusCode200(response);
-        return Arrays.asList(response.as(ShopperAssignment[].class));
+        return asList(response.as(ShopperAssignment[].class));
     }
+
+    @Step("Ожидание маршрутного листа")
+    public static List<AssignmentsResponse> getAllShopperAssignments() {
+        with().pollInSameThread()
+                .await() //wiki https://github.com/awaitility/awaitility/wiki/Usage
+                .atMost(3, TimeUnit.MINUTES) //максимальное время ожидания
+                .pollInterval(15, TimeUnit.SECONDS) //Интервал между запросами
+                .until(() -> {
+                    final var response = AssignmentsRequest.All.GET();
+                    response.prettyPeek();
+                    final var assignmentsResponses = response.as(AssignmentsResponse[].class);
+                    return Arrays.stream(assignmentsResponses).count() > 0;
+                });
+        final var responseAll = AssignmentsRequest.All.GET();
+        checkStatusCode200(responseAll);
+        final var assignmentsResponses = responseAll.as(AssignmentsResponse[].class);
+        return asList(assignmentsResponses);
+    }
+
+    @Step("Завершить первый сегмент (Подлёт)")
+    public static AssignmentResponse stopSegments(final Long workflowId, final Long segmentId, final StartPointsTenants coordinates) {
+        final var segmentData = SegmentsRequest.SegmentData.builder()
+                .segmentId(segmentId)
+                .lat(coordinates.getLat())
+                .lon(coordinates.getLon())
+                .skipGeoWarn(true)
+                .build();
+        final var response = SegmentsRequest.PATCH(workflowId, segmentData);
+        checkStatusCode200(response);
+        return response.as(AssignmentResponse.class);
+    }
+
 }

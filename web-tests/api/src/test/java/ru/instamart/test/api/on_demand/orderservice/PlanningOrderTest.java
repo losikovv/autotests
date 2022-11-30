@@ -35,16 +35,15 @@ public class PlanningOrderTest extends RestBase {
             description = "Получение данных on-demand заказа")
     public void createOrder() {
         ThreadUtil.simplyAwait(10);
-        OrdersEntity orderEntity = OrdersDao.INSTANCE.findByOrderUuid(order.getUuid());
-        Allure.step("", () -> {
+        final var orderEntity = OrdersDao.INSTANCE.findByOrderUuid(order.getUuid());
+        Allure.step("Проверка orderEntity", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(orderEntity.getPlaceUuid(), "599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a", "placeUUID не совпадает");
             softAssert.assertEquals(orderEntity.getWeight(), order.getTotalWeight(), "weight не совпадает");
             softAssert.assertEquals(orderEntity.getType(), "ON_DEMAND", "type не совпадает");
-            softAssert.assertEquals(orderEntity.getOrderStatus(), "ROUTING",  "order_status не совпадает");
-            softAssert.assertEquals(orderEntity.getItemCount(), order.getItemCount(),  "order_status не совпадает");
             softAssert.assertNotNull(orderEntity.getCreatedAt(),  "create_at is NULL");
             softAssert.assertEquals(orderEntity.getOrderNumber(), order.getShipments().get(0).getNumber(),  "order number не совпадает");
+            softAssert.assertAll();
         });
     }
 }

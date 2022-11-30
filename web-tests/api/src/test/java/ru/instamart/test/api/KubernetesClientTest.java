@@ -27,9 +27,9 @@ public final class KubernetesClientTest extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Список подов для namespace = s-sb-stfkraken")
     public void kubeTest() {
-        V1PodList list = getPodList(namespace, labelSelector);
+        final var list = getPodList(namespace, labelSelector);
         AtomicReference<String> attach = new AtomicReference<>();
-        list.getItems().forEach(item -> attach.set(item.getMetadata().getName()));
+        list.forEach(item -> attach.set(item.getMetadata().getName()));
         Allure.addAttachment("Pods kraken stage", String.valueOf(attach));
     }
 

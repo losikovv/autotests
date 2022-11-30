@@ -9,6 +9,7 @@ import protobuf.retail_onboarding_store_data.RetailOnboardingStoreData;
 import ru.instamart.api.model.v2.NextDeliveryV2;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.response.v2.NextDeliveriesV2Response;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static ru.instamart.kafka.configs.KafkaConfigs.*;
 import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
@@ -19,7 +20,12 @@ public class OrderServiceHelper {
     private static final KafkaHelper kafka = new KafkaHelper();
 
     @Step("Создаем событие нового заказа для магазина")
-    public static OperationsOrderService.EventOrder getOrderEvent(final double latitude, final double longitude, final Timestamp deliveryPromiseUpperDttmStartsAt, final Timestamp deliveryPromiseUpperDttmEndsAt, final int numberOfPositionsInOrder, final String orderUuid, final int orderWeightGramms, final OperationsOrderService.EventOrder.RequestOrderType requestOrderType,final OperationsOrderService.EventOrder.ShipmentStatus shipmentStatus, final String placeUUID, final String shipmentUuid, final String orderNumber, final float itemsTotalAmount, final boolean isNew, final OperationsOrderService.EventOrder.ShippingMethodKind shippingMethodKind) {
+    public static OperationsOrderService.EventOrder getOrderEvent(final double latitude, final double longitude, final Timestamp deliveryPromiseUpperDttmStartsAt,
+                                                                  final Timestamp deliveryPromiseUpperDttmEndsAt, final int numberOfPositionsInOrder,
+                                                                  final String orderUuid, final int orderWeightGramms, final OperationsOrderService.EventOrder.RequestOrderType requestOrderType,
+                                                                  final OperationsOrderService.EventOrder.ShipmentStatus shipmentStatus, final String placeUUID,
+                                                                  final String shipmentUuid, final String orderNumber, final float itemsTotalAmount,
+                                                                  final boolean isNew, final OperationsOrderService.EventOrder.ShippingMethodKind shippingMethodKind) {
         return OperationsOrderService.EventOrder.newBuilder()
                 .setClientLocation(OperationsOrderService.EventOrder.ClientLocation.newBuilder()
                         .setLatitude(latitude)
@@ -43,12 +49,17 @@ public class OrderServiceHelper {
     }
 
     @Step("Отправляем событие нового заказа для магазина в kafka")
-    public static void publishOrderEvent(final double latitude, final double longitude, final Timestamp deliveryPromiseUpperDttmStartsAt, final Timestamp deliveryPromiseUpperDttmEndsAt, final int numberOfPositionsInOrder, final String orderUuid, final int orderWeightGramms, final OperationsOrderService.EventOrder.RequestOrderType requestOrderType, final OperationsOrderService.EventOrder.ShipmentStatus shipmentStatus, final String placeUUID, final String shipmentUuid, final String orderNumber, final float itemsTotalAmount, final boolean isNew, final OperationsOrderService.EventOrder.ShippingMethodKind shippingMethodKind) {
-        OperationsOrderService.EventOrder orderEvent = getOrderEvent(latitude, longitude, deliveryPromiseUpperDttmStartsAt, deliveryPromiseUpperDttmEndsAt, numberOfPositionsInOrder, orderUuid, orderWeightGramms, requestOrderType,shipmentStatus, placeUUID, shipmentUuid, orderNumber,itemsTotalAmount, isNew, shippingMethodKind);
+    public static void publishOrderEvent(final double latitude, final double longitude, final Timestamp deliveryPromiseUpperDttmStartsAt,
+                                         final Timestamp deliveryPromiseUpperDttmEndsAt, final int numberOfPositionsInOrder, final String orderUuid,
+                                         final int orderWeightGramms, final OperationsOrderService.EventOrder.RequestOrderType requestOrderType,
+                                         final OperationsOrderService.EventOrder.ShipmentStatus shipmentStatus, final String placeUUID,
+                                         final String shipmentUuid, final String orderNumber, final float itemsTotalAmount, final boolean isNew,
+                                         final OperationsOrderService.EventOrder.ShippingMethodKind shippingMethodKind) {
+        final var orderEvent = getOrderEvent(latitude, longitude, deliveryPromiseUpperDttmStartsAt, deliveryPromiseUpperDttmEndsAt, numberOfPositionsInOrder, orderUuid, orderWeightGramms, requestOrderType, shipmentStatus, placeUUID, shipmentUuid, orderNumber, itemsTotalAmount, isNew, shippingMethodKind);
         kafka.publish(configFctOrderStf(), orderEvent);
     }
 
-    @Step("Создаем событие нового изменения ретейлера")
+    @Step("Создаем событие нового изменения ритейлера")
     public static RetailOnboardingRetailerData.Retailer getRetailerEvent(final String uuid, final RetailOnboardingRetailerData.Retailer.RetailerVertical retailerVertical) {
         return RetailOnboardingRetailerData.Retailer.newBuilder()
                 .setAppearance(RetailOnboardingRetailerData.Retailer.Appearance.newBuilder()
@@ -96,20 +107,21 @@ public class OrderServiceHelper {
                 .build();
     }
 
-    @Step("Отправляем событие изменения ретейлера в kafka")
+    @Step("Отправляем событие изменения ритейлера в kafka")
     public static void publishRetailerChangedEvent(final String uuid, final RetailOnboardingRetailerData.Retailer.RetailerVertical retailerVertical) {
-        RetailOnboardingRetailerData.Retailer retailerEvent = getRetailerEvent(uuid, retailerVertical);
+        final var retailerEvent = getRetailerEvent(uuid, retailerVertical);
         kafka.publish(configRetailerChanged(), retailerEvent);
     }
 
 
-    @Step("Создаем событие нового изменения магазина в сервисе retail-onboaring")
-    public static RetailOnboardingStoreData.Store getStoreEvent (final String uuid, final int orderPreparationSlaMinutes, final String ordersApiIntegrationType, final String retailerUuid) {
+    @Step("Создаем событие нового изменения магазина в сервисе retail-onboarding")
+    public static RetailOnboardingStoreData.Store getStoreEvent(final String uuid, final int orderPreparationSlaMinutes,
+                                                                final String ordersApiIntegrationType, final String retailerUuid) {
         return RetailOnboardingStoreData.Store.newBuilder()
                 .setActive(true)
                 .setCreationTimestamp(getTimestamp())
                 .setImportKey("1-19")
-                .setLegacyStfId(3)
+                .setLegacyStfId(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID)
                 .setLegacyStfRetailerId(1)
                 .setLocation(RetailOnboardingStoreData.Store.Location.newBuilder()
                         .setBuilding("2Б")
@@ -138,27 +150,25 @@ public class OrderServiceHelper {
     }
 
     @Step("Отправляем событие изменения магазина в kafka")
-    public static void publishStoreChangedEvent(final String uuid,final int orderPreparationSlaMinutes, final String ordersApiIntegrationType, final String retailerUuid) {
-        RetailOnboardingStoreData.Store storeEvent = getStoreEvent(uuid, orderPreparationSlaMinutes, ordersApiIntegrationType, retailerUuid);
+    public static void publishStoreChangedEvent(final String uuid, final int orderPreparationSlaMinutes, final String ordersApiIntegrationType,
+                                                final String retailerUuid) {
+        final var storeEvent = getStoreEvent(uuid, orderPreparationSlaMinutes, ordersApiIntegrationType, retailerUuid);
         kafka.publish(configRetailerOnboardingStoreChanged(), storeEvent);
     }
 
     @Step("Получение левой границы слота")
     public static Timestamp getDeliveryPromiseUpperDttmStartsAt() {
-        final Response response = StoresV1Request.NextDeliveries.GET(3, new StoresV1Request.NextDeliveriesParams());
-        NextDeliveriesV2Response nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
-        NextDeliveryV2 nextDeliveryV2 = nextDeliveriesV2Response.getNextDeliveries().get(0);
-        Timestamp deliveryPromiseUpperDttmStartsAt = getTimestampFromString(nextDeliveryV2.getStartsAt());
-        return deliveryPromiseUpperDttmStartsAt;
+        final var response = StoresV1Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, new StoresV1Request.NextDeliveriesParams());
+        final var nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
+        final var nextDeliveryV2 = nextDeliveriesV2Response.getNextDeliveries().get(0);
+        return getTimestampFromString(nextDeliveryV2.getStartsAt());
     }
 
     @Step("Получение правой границы слота")
     public static Timestamp getDeliveryPromiseUpperDttmEndsAt() {
-        final Response response = StoresV1Request.NextDeliveries.GET(3, new StoresV1Request.NextDeliveriesParams());
-        NextDeliveriesV2Response nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
-        NextDeliveryV2 nextDeliveryV2 = nextDeliveriesV2Response.getNextDeliveries().get(0);
-        Timestamp deliveryPromiseUpperDttmEndsAt = getTimestampFromString(nextDeliveryV2.getEndsAt());
-        return deliveryPromiseUpperDttmEndsAt;
+        final var response = StoresV1Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, new StoresV1Request.NextDeliveriesParams());
+        final var nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
+        final var nextDeliveryV2 = nextDeliveriesV2Response.getNextDeliveries().get(0);
+        return getTimestampFromString(nextDeliveryV2.getEndsAt());
     }
-
 }

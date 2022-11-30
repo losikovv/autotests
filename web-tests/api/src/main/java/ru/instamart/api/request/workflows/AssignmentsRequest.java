@@ -35,6 +35,13 @@ public class AssignmentsRequest extends WorkflowsRequestBase {
         }
     }
 
+    public static class All{
+        public static Response GET(){
+            return givenWithAuth()
+                    .get(WorkflowsV1Endpoints.Assignments.ALL);
+        }
+    }
+
     public static class Decline {
         @Step("{method} /" + WorkflowsV1Endpoints.Assignments.DECLINE)
         public static Response PATCH(long assignmentId) {

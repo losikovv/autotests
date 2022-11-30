@@ -68,13 +68,12 @@ public class StoreParametersEtaTest extends RestBase {
     @Test(description = "Получение ошибки не существующего магазина",
             groups = "dispatch-eta-regress")
     public void getStoreParametersUndefined() {
-        String storeId = "11111111-1111-1111-1111-111111111111";
-        String expectedResult = String.format("магазин id = %s не существует", storeId);
-        final Response response = StoreParametersEtaRequest.GET(storeId);
+        final var storeId = "11111111-1111-1111-1111-111111111111";
+        final var response = StoreParametersEtaRequest.GET(storeId);
 
         checkStatusCode(response, 404, "");
         ErrorResponse parameters = response.as(ErrorResponse.class);
-        compareTwoObjects(parameters.getMessage(), expectedResult);
+        compareTwoObjects(parameters.getMessage(), String.format("магазин id = %s не существует", storeId));
     }
 
     @CaseId(227)

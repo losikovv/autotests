@@ -36,7 +36,7 @@ public class GrpcSegmentsCalculationTest extends GrpcBase {
     @CaseId(1)
     @Test(description = "Расчёт времени подлёта через 2GIS для пешего универсала")
     public void estimateArriveSegmentPedestrian() {
-        Estimator.GetRouteEstimationResponse routeEstimationResponse = clientRes.getRouteEstimation(getEstimateRequest(performerUuid, Estimator.PerformerType.UNIVERSAL, Estimator.PerformerVehicle.PEDESTRIAN,55.698762, 37.728196, timeToCalc, Estimator.SegmentType.ARRIVE, 55.700683, 37.726683, placeUUID, numberOfPositionsInOrder));
+        final var routeEstimationResponse = clientRes.getRouteEstimation(getEstimateRequest(performerUuid, Estimator.PerformerType.UNIVERSAL, Estimator.PerformerVehicle.PEDESTRIAN,55.698762, 37.728196, timeToCalc, Estimator.SegmentType.ARRIVE, 55.700683, 37.726683, placeUUID, numberOfPositionsInOrder));
         Allure.step("Проверка полученных значений по GRPC", () -> {
             assertEquals(routeEstimationResponse.getPerformers(0).getSegments(0).getEstimateType(), Estimator.SegmentTime.EstimateType.TWO_GIS, "Для расстояния больше 50 метров ответ вернул не 2GIS");
             assertEquals(routeEstimationResponse.getPerformers(0).getSegments(0).getEndTime(), addSecondsTimestamp(timeToCalc, toSeconds(routeEstimationResponse.getPerformers(0).getSegments(0).getDuration())), "Время завершения сегмента не равно сумме начального времени и времени выполнения сегмента");

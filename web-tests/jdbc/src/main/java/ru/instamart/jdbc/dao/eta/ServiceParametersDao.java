@@ -45,13 +45,14 @@ public class ServiceParametersDao extends AbstractDao<Long, ServiceParametersEnt
         return serviceParametersEntity;
     }
 
-    public void updateWaitMlTimeout(String waitMlTimeout) {
+    public boolean updateWaitMlTimeout(String waitMlTimeout) {
         try (Connection connect = ConnectionManager.getDataSource(Db.PG_ETA).getConnection();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " wait_ml_timeout = ?::interval")) {
             preparedStatement.setString(1, waitMlTimeout);
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLEtaManager. Error: " + e.getMessage());
         }
+        return false;
     }
 }

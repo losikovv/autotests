@@ -182,6 +182,7 @@ project(":api") {
         implementation lib.victoolsSchemaModuleJavaxValidation
         implementation lib.swaggerCoverage
         implementation lib.protobufUtil
+        implementation lib.awaitility
 
         annotationProcessor lib.lombok
         testImplementation lib.logback

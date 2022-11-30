@@ -18,7 +18,8 @@ public enum K8sPortForward {
         log.debug("Forward for - namespace: {}, label: {}, internalPort: {}, containerPort: {}", namespace, label, internalPort, containerPort);
         try {
             final var podList = getPodList(namespace, label);
-            final var pod = podList.getItems().stream().findFirst();
+            final var pod = podList.stream().findFirst();
+            log.debug("Select pod: {}", pod.get().getSpec().getNodeName());
             if (pod.isPresent()) {
                 getK8sPortForward(pod.get(), internalPort, containerPort);
             } else {

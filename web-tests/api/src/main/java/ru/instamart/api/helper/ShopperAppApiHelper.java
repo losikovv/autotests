@@ -332,6 +332,7 @@ public class ShopperAppApiHelper {
     /**
      * Собираем все позиции в текущей сборке с изначальным количеством
      */
+    @Step("Собираем все позиции в текущей сборке с изначальным количеством")
     public void assemblyItemsWithOriginalQty() {
         getItems().forEach(item -> assemblyItem(item.getId(), item.getAttributes().getQty()));
     }
@@ -671,5 +672,11 @@ public class ShopperAppApiHelper {
                                    final Double speed) {
         final Response response = LocatorRequest.Location.POST(latitude, longitude, speed, getTimestampLong());
         checkStatusCode(response, 200, "");
+    }
+
+    @Step("Получаем данные о заказе")
+    public ShipmentSHPResponse getShipments(final String shipmentId){
+        final var response = ShipmentsSHPRequest.GET(shipmentId);
+        return response.as(ShipmentSHPResponse.class);
     }
 }

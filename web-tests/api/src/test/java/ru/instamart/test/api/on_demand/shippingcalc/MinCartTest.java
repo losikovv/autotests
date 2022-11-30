@@ -1,7 +1,10 @@
 package ru.instamart.test.api.on_demand.shippingcalc;
 
 import io.grpc.StatusRuntimeException;
-import io.qameta.allure.*;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -35,16 +38,16 @@ import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDate;
 @Feature("ShippingCalc")
 public class MinCartTest extends ShippingCalcBase {
 
-    private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
-    private int localStrategyId;
-    private int globalStrategyId;
-    private int selfDeliveryStrategyId;
     private final String STORE_ID = UUID.randomUUID().toString();
     private final String SECOND_STORE_ID = UUID.randomUUID().toString();
     private final String SURGE_STORE_ID = UUID.randomUUID().toString();
     private final String STORE_ID_GLOBAL = UUID.randomUUID().toString();
     private final String CUSTOMER_ID = UUID.randomUUID().toString();
     private final String ANONYMOUS_ID = UUID.randomUUID().toString();
+    private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
+    private int localStrategyId;
+    private int globalStrategyId;
+    private int selfDeliveryStrategyId;
     private boolean surgeDisabled;
 
     @BeforeClass(alwaysRun = true)
@@ -118,12 +121,9 @@ public class MinCartTest extends ShippingCalcBase {
         Allure.step("Обновляем значение мин. корзины и цены доставки", () -> {
             boolean ruleUpdatedMinCart = RulesDao.INSTANCE.updateRuleParams("222222", globalStrategyId, 0, "min_cart");
             boolean ruleUpdatedDeliveryPrice = RulesDao.INSTANCE.updateRuleParams(String.format(FIXED_SCRIPT_PARAMS, "222222"), globalStrategyId, 0, "delivery_price");
-            if (ruleUpdatedMinCart) {
-                minCartAmountGlobal = 222222;
-            }
-            if (ruleUpdatedDeliveryPrice) {
-                deliveryPriceGlobal = 222222;
-            }
+            if (ruleUpdatedMinCart) minCartAmountGlobal = 222222;
+            if (ruleUpdatedDeliveryPrice) deliveryPriceGlobal = 222222;
+
         });
 
         var secondRequest = getDeliveryConditionsRequest(STORE_ID_GLOBAL, 55.55f, 55.55f, customerUuid, customerUuid,

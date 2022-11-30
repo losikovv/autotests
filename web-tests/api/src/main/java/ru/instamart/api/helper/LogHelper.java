@@ -26,7 +26,7 @@ public class LogHelper {
     public List<String> getLogsPods(String nameSpace, String label, String filterData) {
         final var podList = getPodList(nameSpace, label);
         final var collect = new ArrayList<String>();
-        podList.getItems().forEach(
+        podList.forEach(
                 item -> {
                     final var logs = getLogs(item, "app", 100);
                     Allure.addAttachment("Все логи", String.join("\r\n", logs));

@@ -2,6 +2,7 @@ package ru.instamart.test.api.on_demand.eta;
 
 import eta.Eta;
 import eta.PredEtaGrpc;
+import eta.PredEtaGrpc.PredEtaBlockingStub;
 import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
@@ -41,7 +42,7 @@ import static ru.instamart.kraken.util.TimeUtil.getZoneDbDate;
 @Feature("ETA")
 public class BasketEtaTest extends RestBase {
 
-    private PredEtaGrpc.PredEtaBlockingStub clientEta;
+    private PredEtaBlockingStub clientEta;
     private final String STORE_UUID = UUID.randomUUID().toString();
     private final String STORE_UUID_WITH_DIFFERENT_TIMEZONE = UUID.randomUUID().toString();
     //ML работает не со всеми магазинами на стейдже, с STORE_UUID_WITH_ML должно работать
@@ -57,9 +58,9 @@ public class BasketEtaTest extends RestBase {
         addStore(STORE_UUID, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true);
         addStore(STORE_UUID_WITH_DIFFERENT_TIMEZONE, 55.7030f, 37.7230f, "Europe/Kaliningrad", false, "00:00:00", "00:00:00", "00:00:00", true);
 
-        List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.ETA_NAMESPACE, " | grep -e ETA_ENABLE_STORE_ON_DEMAND_CHECK ");
-        String envPropsStr = String.join("\n", serviceEnvProperties);
-        String etaEnableOnDemandCheckStr = matchWithRegex("^ETA_ENABLE_STORE_ON_DEMAND_CHECK=(.\\w+)$", envPropsStr, 1);
+        final var serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.ETA_NAMESPACE, " | grep -e ETA_ENABLE_STORE_ON_DEMAND_CHECK ");
+        final var envPropsStr = String.join("\n", serviceEnvProperties);
+        final var etaEnableOnDemandCheckStr = matchWithRegex("^ETA_ENABLE_STORE_ON_DEMAND_CHECK=(.\\w+)$", envPropsStr, 1);
         etaEnableOnDemandCheck = etaEnableOnDemandCheckStr.equals("true");
     }
 
@@ -322,8 +323,8 @@ public class BasketEtaTest extends RestBase {
             throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = false");
         }
 
-        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(2)));
-        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(1)));
+        final var openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(2)));
+        final var closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(1)));
         updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "00:00:00");
 
         var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
@@ -342,8 +343,8 @@ public class BasketEtaTest extends RestBase {
             throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = false");
         }
 
-        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
-        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
+        final var openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
+        final var closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
         updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "00:30:00");
 
         var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
@@ -362,8 +363,8 @@ public class BasketEtaTest extends RestBase {
             throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = false");
         }
 
-        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
-        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusHours(1)));
+        final var openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
+        final var closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusHours(1)));
         updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "02:00:00");
 
         var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
@@ -402,8 +403,8 @@ public class BasketEtaTest extends RestBase {
             throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = true");
         }
 
-        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
-        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
+        final var openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
+        final var closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
         updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "00:30:00");
 
         var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
@@ -422,8 +423,8 @@ public class BasketEtaTest extends RestBase {
             throw new SkipException("Пропускапем, потому что ETA_ENABLE_STORE_ON_DEMAND_CHECK = true");
         }
 
-        String openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
-        String closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusHours(1)));
+        final var openingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1)));
+        final var closingDate = getZoneDbDate(LocalDateTime.of(LocalDate.now(), LocalTime.now().plusHours(1)));
         updateStoreWorkingTime(STORE_UUID, openingDate, closingDate, "02:00:00");
 
         var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
@@ -467,7 +468,7 @@ public class BasketEtaTest extends RestBase {
             groups = "dispatch-eta-smoke")
     public void getBasketEtaWithZeroML() {
         //магазин, которого нет в ML, но есть в ETA
-        String storeUuid = "7f6b0fa1-ec20-41f9-9246-bfa0d6529dad";
+        final var storeUuid = "7f6b0fa1-ec20-41f9-9246-bfa0d6529dad";
         updateStoreMLStatus(storeUuid, true);
 
         var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, storeUuid, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
