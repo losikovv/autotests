@@ -89,7 +89,7 @@ public final class AshotService {
         final var ashot = new AShot()
                 .coordsProvider(new WebDriverCoordsProvider())
                 .ignoredElements(Arrays.stream(components).map(Component::getBy).collect(Collectors.toSet()));
-        final var screen = ashot.takeScreenshot(Kraken.getWebDriver());
+        final var screen = ashot.takeScreenshot(Kraken.getWebDriver(), element);
 
         writeImg(fillIgnoredArea(screen), img.toFile());
 

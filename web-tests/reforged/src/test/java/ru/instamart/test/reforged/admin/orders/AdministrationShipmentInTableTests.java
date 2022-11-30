@@ -183,6 +183,7 @@ public final class AdministrationShipmentInTableTests {
         orders().goToPage();
         orders().checkLoadingLabelNotVisible();
         orders().checkOrdersLoaded();
+        orders().checkRequestsWasLoad();
 
         var orderNumber = orders().getOrderNumber(1);
         orders().clickCustomerName(1);

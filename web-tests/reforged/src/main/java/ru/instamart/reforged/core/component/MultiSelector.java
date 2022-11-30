@@ -21,6 +21,7 @@ public final class MultiSelector extends AbstractComponent {
     private final By selected = By.xpath(".//div[@class='ant-select-selection-overflow-item']");
     private final ByKraken removeItem = (ByKraken) ByKraken.xpathExpression(".//span[contains(@class,'content')][.='%s']/following-sibling::span");
     private final By clearSelector = By.xpath(".//span[@class='ant-select-clear']//span");
+    private final By clearItem = By.xpath(".//span[@class='ant-select-selection-item-remove']//span");
 
     private final By itemsLoadingSpinner = By.xpath("//div[contains(@class,'ant-spin-spinning')]");
     private final ByKraken itemInDropDownContains = (ByKraken) ByKraken.xpathExpression("//div[@id='%s']/following-sibling::div//div[contains(@class,'ant-select-item ')][.//*[contains(.,'%s')]]");
@@ -147,5 +148,9 @@ public final class MultiSelector extends AbstractComponent {
 
     public void removeAll() {
         getComponent().findElement(clearSelector).click();
+    }
+
+    public void removeAllOneByOne() {
+        getComponent().findElements(clearItem).forEach(WebElement::click);
     }
 }

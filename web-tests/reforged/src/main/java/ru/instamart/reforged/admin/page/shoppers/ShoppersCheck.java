@@ -23,7 +23,7 @@ public interface ShoppersCheck extends ShoppersElement, Check {
 
     @Step("Проверяем, что партнер c именем {0} найден")
     default void checkShopperWasFound(String name) {
-        Assert.assertEquals(shoppersTable.getPartnersNames().get(1), name, "Искомый партнер не найден");
+        shopper.should().visible(name);
     }
 
     @Step("Проверяем, что теги в списке тегов первого партнера отображаются по алфавиту")

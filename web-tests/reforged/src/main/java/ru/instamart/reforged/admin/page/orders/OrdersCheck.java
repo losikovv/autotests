@@ -1,5 +1,6 @@
 package ru.instamart.reforged.admin.page.orders;
 
+import com.google.common.collect.Lists;
 import io.qameta.allure.Step;
 import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
@@ -26,6 +27,11 @@ public interface OrdersCheck extends Check, OrdersElement {
     @Step("Проверяем, что подгрузка данных завершена")
     default void checkLoadingLabelNotVisible() {
         shipmentsLoadingLabel.should().invisible();
+    }
+
+    @Step("Проверяем, что подгрузка данных началась")
+    default void checkLoadingLabelVisible() {
+        shipmentsLoadingLabel.should().visible();
     }
 
     @Step("Проверяем отображаемое количество найденных заказов в заголовке таблицы равно: '{expectedShipmentsCount}'")
@@ -276,6 +282,16 @@ public interface OrdersCheck extends Check, OrdersElement {
                     String.format("Статус доставки заказа '%s' не найден среди ожидаемых: '%s'", status, expectedValues)
             );
         });
+        krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что все отфильтрованные заказы имеют Статус доставки: {expectedValues}")
+    default void checkAllShipmentInTableHasDoubleShippingStatusIn(final Set<String> expectedValues) { //двойные статусы доставки OnDemand
+        List<List<String>>statusesByTwo = Lists.partition(tableComponent.getAllDeliveryShipmentStatusesList(), 2);
+        statusesByTwo.forEach(statusList -> krakenAssert.assertTrue(
+                statusList.stream().anyMatch(expectedValues::contains),
+                String.format("Статус доставки заказа '%s' не найден среди ожидаемых: '%s'", expectedValues, expectedValues)
+        ));
         krakenAssert.assertAll();
     }
 
