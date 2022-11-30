@@ -1,7 +1,8 @@
-package ru.instamart.test.api.on_demand;
+package ru.instamart.test.api.on_demand.orderservice;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -31,7 +32,8 @@ import static org.testng.Assert.assertTrue;
 import static ru.instamart.kafka.configs.KafkaConfigs.configFctOrderStf;
 import static ru.instamart.kafka.enums.StatusOrder.AUTOMATIC_ROUTING;
 
-@Epic("Dispatch")
+@Epic("On Demand")
+@Feature("DISPATCH")
 public class KafkaDispatchTest extends RestBase {
 
     private long epochCurrentTime = Instant.now().getEpochSecond();

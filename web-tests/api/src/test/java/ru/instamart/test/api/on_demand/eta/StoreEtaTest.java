@@ -305,7 +305,7 @@ public class StoreEtaTest extends RestBase {
             groups = "dispatch-eta-smoke")
     public void getEtaForZeroML() {
         //магазин, которого нет в ML, но есть в ETA
-        String storeUuid = "7f6b0fa1-ec20-41f9-9246-bfa0d6529dad";
+        final var storeUuid = "7f6b0fa1-ec20-41f9-9246-bfa0d6529dad";
         updateStoreMLStatus(storeUuid, true);
 
         var request = getStoreUserEtaRequest(storeUuid, 55.7006f, 37.7266f);

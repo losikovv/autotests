@@ -16,7 +16,7 @@ public class PlanningAreasDao extends AbstractDao<Long, PlanningPeriodsEntity> {
 
     public static final PlanningAreasDao INSTANCE = new PlanningAreasDao();
     private final String SELECT_SQL = "SELECT * FROM planning_areas WHERE delivery_area_id=?;";
-    private final String DELETE = "DELETE FROM public.shops";
+    private final String DELETE = "DELETE FROM planning_areas";
 
     public List<PlanningAreasEntity> getPlanningAreas(Integer deliveryAreaId) {
         final var planningAreasResult = new ArrayList<PlanningAreasEntity>();

@@ -2,6 +2,7 @@ package ru.instamart.test.api.on_demand.eta;
 
 import eta.Eta;
 import eta.PredEtaGrpc;
+import eta.PredEtaGrpc.PredEtaBlockingStub;
 import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -30,7 +31,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 @Feature("ETA")
 public class CourierEtaTest extends RestBase {
 
-    private PredEtaGrpc.PredEtaBlockingStub clientEta;
+    private PredEtaBlockingStub clientEta;
     private AddressV2 address;
     private UserData userData;
     private OrderV2 order;

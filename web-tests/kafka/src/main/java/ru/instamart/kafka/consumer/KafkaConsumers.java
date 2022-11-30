@@ -12,6 +12,7 @@ import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.testng.SkipException;
 import protobuf.retail_onboarding_retailer_data.RetailOnboardingRetailerData;
 import push.Push;
 import ru.instamart.kafka.KafkaConfig;
@@ -27,14 +28,13 @@ import workflow.WorkflowChangedOuterClass;
 import java.time.Duration;
 import java.util.*;
 
-import static ru.instamart.kraken.util.TimeUtil.getDbDateMinusMinutes;
 import static ru.instamart.kraken.util.TimeUtil.getZonedDate;
 
 @Slf4j
 public class KafkaConsumers {
     private static String saslConfigs = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";";
-    private KafkaConsumer<String, byte[]> consumer;
     private final int giveUp = 100;
+    private KafkaConsumer<String, byte[]> consumer;
 
     public KafkaConsumers(KafkaConfig config) {
         this.consumer = createConsumer(config, null);
@@ -50,9 +50,7 @@ public class KafkaConsumers {
         props.put(ConsumerConfig.CLIENT_ID_CONFIG, "kraken");
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, CoreProperties.KAFKA_SERVER);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "kraken");
-//        props.put("session.timeout.ms", "30000");
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-//        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
+//        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 
         //protobuf
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
@@ -66,26 +64,42 @@ public class KafkaConsumers {
     }
 
     private KafkaConsumer<String, byte[]> createConsumer(final KafkaConfig config, final Long time) {
-        final Properties props = consumerProperties(config);
+        final var props = consumerProperties(config);
         final KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<>(props);
+        final var endingOffset = getEndingOffset(consumer, config, 0);
+        log.debug("endingOffset: {}", endingOffset);
         if (Objects.nonNull(time)) {
+            Map<TopicPartition, Long> timestamps = new HashMap<>();
             final TopicPartition topicPartition0 = new TopicPartition(config.topic, 0);
             consumer.assign(Collections.singletonList(topicPartition0));
-            consumer.poll(Duration.ofSeconds(500));
-            final Map<TopicPartition, Long> startOffsetsMap = new HashMap<>();
-            startOffsetsMap.put(topicPartition0, getDbDateMinusMinutes(time));
-            final Map<TopicPartition, OffsetAndTimestamp> startPartitionOffsetsMap = consumer
-                    .offsetsForTimes(startOffsetsMap);
+            timestamps.put(topicPartition0, System.currentTimeMillis() - time * 1000);
+            Map<TopicPartition, OffsetAndTimestamp> startPartitionOffsetsMap = consumer.offsetsForTimes(timestamps);
             long partition0StartOffset = 0;
-            if (Objects.nonNull(topicPartition0) && Objects.nonNull(startOffsetsMap.get(topicPartition0))) {
-                partition0StartOffset = startPartitionOffsetsMap.get(topicPartition0).offset();
+            if (Objects.nonNull(topicPartition0)) {
+                OffsetAndTimestamp offsetAndTimestamp = startPartitionOffsetsMap.get(topicPartition0);
+                log.debug("offsetAndTimestamp 1 : {}", offsetAndTimestamp);
+                if (Objects.isNull(offsetAndTimestamp)) {
+                    partition0StartOffset = endingOffset - 100;
+                    log.debug("partition0StartOffset is null offsetAndTimestamp : {}", partition0StartOffset);
+                } else {
+                    partition0StartOffset = offsetAndTimestamp.offset();
+                    log.debug("partition0StartOffset not null offsetAndTimestamp: {}", partition0StartOffset);
+                }
             }
+
             log.debug("Начальное смещение раздела:{}", partition0StartOffset);
             consumer.seek(topicPartition0, partition0StartOffset);
         } else {
             consumer.subscribe(Collections.singleton(config.topic));
         }
         return consumer;
+    }
+
+    private Long getEndingOffset(KafkaConsumer<String, byte[]> kafkaConsumer, KafkaConfig config, int partition) {
+        TopicPartition topicPartition = new TopicPartition(config.topic, partition);
+        Map<TopicPartition, Long> offsets = kafkaConsumer.endOffsets(Collections.singleton(topicPartition));
+        return Optional.ofNullable(offsets.get(topicPartition))
+                .orElseThrow(() -> new SkipException(String.format("Ending offset for partition %s not found", topicPartition)));
     }
 
     public List<Order.EventOrder> consumeEventOrder(String filter, StatusOrder postponed) {
@@ -509,8 +523,8 @@ public class KafkaConsumers {
                         allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseOrderChanged.toString());
                         log.info("parseOrderChanged.orderUuid: {}", parseOrderChanged.getOrderUuid());
                         if (parseOrderChanged != null && parseOrderChanged.getOrderUuid().equalsIgnoreCase(orderUuid)) {
-                                result.add(parseOrderChanged);
-                            }
+                            result.add(parseOrderChanged);
+                        }
                     }
                 } catch (InvalidProtocolBufferException e) {
                     log.debug("Fail parsing kafka message. offset: {}, error: {}", record.offset(), e.getMessage());

@@ -6,7 +6,6 @@ import io.kubernetes.client.PortForward;
 import io.kubernetes.client.PortForward.PortForwardResult;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1Pod;
-import io.kubernetes.client.openapi.models.V1PodList;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.common.Mapper;
@@ -45,13 +44,18 @@ public final class K8sConsumer {
      * @return - получение первого пода в списке
      */
     public static V1Pod getPod(final String namespace, final String label) {
-        return getPodList(namespace, label).getItems().stream().findFirst().orElse(null);
+        return getPodList(namespace, label).stream()
+                .findFirst()
+                .orElse(null);
     }
 
-    public static V1PodList getPodList(final String namespace, final String label) {
+    public static List<V1Pod> getPodList(final String namespace, final String label) {
         try {
-            return K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
+            final var v1PodList = K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
                     null, label, null, null, null, null, null);
+            return v1PodList.getItems().stream()
+                    .filter(item -> item.getStatus().getPhase().equals("Running"))
+                    .collect(Collectors.toList());
         } catch (ApiException e) {
             throw new RuntimeException("Не получилось вызвать api k8s: " + e.getMessage());
         }

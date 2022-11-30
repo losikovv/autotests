@@ -10,15 +10,17 @@ import java.util.stream.Stream;
 @ToString
 public enum RoleSHP {
 
-    SHOPPER("shopper"),
-    DRIVER("driver"),
-    UNIVERSAL("universal"),
-    AUTO_UNIVERSAL("auto_universal"),
-    PACKER("packer"),
-    EXTERNAL_INSPECTOR("external_inspector");
+    SHOPPER("shopper",0),
+    DRIVER("driver", 1),
+    UNIVERSAL("universal",2),
+    AUTO_UNIVERSAL("auto_universal",3),
+    PACKER("packer", 4),
+    EXTERNAL_INSPECTOR("external_inspector", 5);
 
     @Getter
     private final String role;
+    @Getter
+    private final Integer id;
 
     public static Stream<RoleSHP> stream() {
         return Stream.of(RoleSHP.values());

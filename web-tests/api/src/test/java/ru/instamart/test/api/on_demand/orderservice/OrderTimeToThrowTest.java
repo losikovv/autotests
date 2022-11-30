@@ -53,8 +53,8 @@ public class OrderTimeToThrowTest extends RestBase {
                 EnvironmentProperties.DEFAULT_SID
         );
         ThreadUtil.simplyAwait(10);
-        OrdersEntity orderEntity = OrdersDao.INSTANCE.findByOrderUuid(order.getUuid());
-        Allure.step("", () -> {
+        final var orderEntity = OrdersDao.INSTANCE.findByOrderUuid(order.getUuid());
+        Allure.step("Проверка orderEntity", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(orderEntity.getPlaceUuid(), "599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a", "placeUUID не совпадает");
             softAssert.assertEquals(orderEntity.getWeight(), order.getTotalWeight(), "weight не совпадает");
@@ -63,6 +63,7 @@ public class OrderTimeToThrowTest extends RestBase {
             softAssert.assertEquals(orderEntity.getItemCount(), order.getItemCount(), "order_status не совпадает");
             softAssert.assertNotNull(orderEntity.getCreatedAt(), "create_at is NULL");
             softAssert.assertEquals(orderEntity.getOrderNumber(), order.getShipments().get(0).getNumber(), "order number не совпадает");
+            softAssert.assertAll();
         });
 
         Allure.step("Проверяем дошел ли заказ на обогащение", () -> kafka.waitDataInKafkaTopicConsumeOrderEnrichment(orderEntity.getShipmentUuid(), AUTOMATIC_ROUTING));
@@ -73,17 +74,16 @@ public class OrderTimeToThrowTest extends RestBase {
     @Test(groups = {"dispatch-orderservice-smoke"},
             description = "Проверка расчёта time_to_throw")
     public void createOnDemandOrder() {
-        List<OrderEnrichment.EventOrderEnrichment> eventOrderEnrichments;
         order = apiV2.order(
                 SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         );
         ThreadUtil.simplyAwait(10);
+
         OrdersEntity orderEntity = OrdersDao.INSTANCE.findByOrderUuid(order.getUuid());
-        eventOrderEnrichments = kafka.waitDataInKafkaTopicConsumeOrderEnrichment(orderEntity.getShipmentUuid(), AUTOMATIC_ROUTING);
+        final var eventOrderEnrichments = kafka.waitDataInKafkaTopicConsumeOrderEnrichment(orderEntity.getShipmentUuid(), AUTOMATIC_ROUTING);
 
-
-        PlaceSettingsEntity scheduleType = PlaceSettingsDao.INSTANCE.getScheduleType("599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a");
+        final var scheduleType = PlaceSettingsDao.INSTANCE.getScheduleType("599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a");
         assertEquals(scheduleType.getPeriodForTimeToThrowMin(), eventOrderEnrichments.get(0).getDeliveryPromiseUpperDttmEndsAt(), "Проверка времени time_to_throw");
     }
 }

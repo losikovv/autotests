@@ -61,8 +61,8 @@ public class MLTimeoutTest extends RestBase {
     @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML не возвращает ответ по таймауту",
             groups = "dispatch-eta-smoke")
     public void getBasketEtaWithMLTimeout() {
-        String orderUuid = UUID.randomUUID().toString();
-        String shipmentUuid = UUID.randomUUID().toString();
+        final var orderUuid = UUID.randomUUID().toString();
+        final var shipmentUuid = UUID.randomUUID().toString();
 
         var request = getUserEtaRequest(UUID.randomUUID().toString(), 55.7010f, 37.7280f, STORE_UUID_WITH_ML, 55.7010f, 37.7280f,orderUuid, shipmentUuid);
         var response = clientEta.getBasketEta(request);

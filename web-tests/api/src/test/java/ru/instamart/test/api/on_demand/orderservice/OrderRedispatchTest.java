@@ -34,15 +34,14 @@ public class OrderRedispatchTest extends RestBase {
     @Test(description = "Редиспатч работает для заказа в статусе Ручная диспатчеризация",
             groups = "dispatch-orderservice-smoke")
     public void redispatchForAManualOrder() {
-
-        var requestBody = OrderRedispatch.RedispatchRequest.newBuilder()
+        final var requestBody = OrderRedispatch.RedispatchRequest.newBuilder()
                 .setShipmentUuid("a9c96b7d-d6ad-4298-982f-077ccf8cfadf")
                 .setPlaceUuid("684609ad-6360-4bae-9556-03918c1e41c1")
                 .setUpperDtm(getTimestampFromString("2022-07-16T15:00:00.999+03:00"))
                 .setLowerDtm(getTimestampFromString("2022-07-16T14:30:00.999+03:00"))
-
                 .build();
-        OrderRedispatch.RedispatchReply redispatch = clientOrder.redispatch(requestBody);
+
+        final var redispatch = clientOrder.redispatch(requestBody);
         assertEquals(redispatch.getShipmentStatusValue(), 1, "Редиспатч не сработал");
     }
 
@@ -53,17 +52,15 @@ public class OrderRedispatchTest extends RestBase {
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "UNKNOWN: ScheduleType != 'dispatch' for PlaceUUID a9c96b7d-d6ad-4298-982f-077ccf8cfadf")
     public void redispatchForAManualOrderNegativeTest() {
-        String shipmentUUID = UUID.randomUUID().toString();
-        var requestBody = OrderRedispatch.RedispatchRequest.newBuilder()
+        final var shipmentUUID = UUID.randomUUID().toString();
+        final var requestBody = OrderRedispatch.RedispatchRequest.newBuilder()
                 .setShipmentUuid(shipmentUUID)
                 .setPlaceUuid("a9c96b7d-d6ad-4298-982f-077ccf8cfadf")
                 .setUpperDtm(getTimestamp())
                 .setLowerDtm(getTimestamp())
-
                 .build();
 
         clientOrder.redispatch(requestBody);
-
     }
 
 }
