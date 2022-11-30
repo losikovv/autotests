@@ -7,12 +7,14 @@ import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.frame.RepeatModal;
+import ru.instamart.reforged.stf.frame.order_evaluation_modal.OrderEvaluationModal;
 import ru.instamart.reforged.stf.frame.shipment_cancel_modal.ShipmentCancelModal;
 
 public interface UserShipmentsElement {
 
     RepeatModal repeatModal = new RepeatModal();
     ShipmentCancelModal shipmentModal = new ShipmentCancelModal();
+    OrderEvaluationModal orderEvaluationModal = new OrderEvaluationModal();
 
     Button repeatOrder = new Button(By.xpath("//button[@data-qa='undefined-repeat']"), "кнопка 'Повторить'");
     Button repeatOrderFromOrderPage = new Button(By.xpath("//button[@data-qa='user-shipment-repeat']"), "кнопка 'Повторить заказ'");
@@ -27,6 +29,9 @@ public interface UserShipmentsElement {
     Element userShipmentPromocode = new Element(By.xpath("//div[@data-qa='user-shipment-promocode']"), "промокод на странице статуса заказа");
     Element shipmentNumber = new Element(By.xpath("//div[@data-qa='user-shipment-number']"), "Номер заказа");
     Element shippingAddress = new Element(By.xpath("//span[@data-qa='user-shipment-address']"), "Адрес доставки");
+    Element comment = new Element(By.xpath("//span[contains(@class,'styles_commentSection_')]"), "Комментарий к заказу"); //Спрятан за ФФ и АБ, вопросы - Артёму Брагину
+    Button editComment = new Button(By.xpath("//button[contains(@class,'ChangeCommentButton')]"), "Кнопка редактирования комментария"); //Спрятан за ФФ и АБ, вопросы - Артёму Брагину
+
     Element productsCost = new Element(By.xpath("//span[@data-qa='user-shipment-products-cost']"), "Стоимость продуктов");
     Element shipmentCost = new Element(By.xpath("//div[@data-qa='user-shipment-cost']"), "Стоимость доставки");
     Element totalCost = new Element(By.xpath("//span[@data-qa='user-shipment-total']"), "Итого");

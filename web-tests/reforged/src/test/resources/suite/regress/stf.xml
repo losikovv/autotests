@@ -67,6 +67,8 @@
             <class name="ru.instamart.test.reforged.stf.checkout_new.CheckoutContactsAndReplacementPolicyTests"/>
 
             <class name="ru.instamart.test.reforged.stf.changing_order_details.ChangingDeliverySlotTests"/>
+
+            <class name="ru.instamart.test.reforged.stf.user_shipment.UserShipmentTests"/>
         </classes>
     </test>
 </suite>

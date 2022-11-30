@@ -705,6 +705,29 @@ public final class ApiV2Helper {
         return order;
     }
 
+    @Step("Применяем параметры к заказу по умолчанию")
+    OrderV2 setDefaultOrderAttributes(final UserData userData, final String comment) {
+        Response response = OrdersV2Request.PUT(
+                //currentAddressId.get(), //параметр ломает оформление заказа в некоторых магазинах
+                1,
+                userData.getPhone(),
+                comment,
+                currentPaymentTool.get().getId(),
+                currentShipmentId.get(),
+                currentDeliveryWindowId.get(),
+                currentShipmentMethodId.get(),
+                currentOrderNumber.get());
+        checkStatusCode200(response);
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
+        Allure.step("Применены атрибуты для заказа: " + order.getNumber() + "<br>" +
+                "        full_address: " + order.getAddress().getFullAddress() + "<br>" +
+                "  replacement_policy: " + order.getReplacementPolicy().getDescription() + "<br>" +
+                "  delivery_starts_at: " + order.getShipments().get(0).getDeliveryWindow().getStartsAt() + "<br>" +
+                "    delivery_ends_at: " + order.getShipments().get(0).getDeliveryWindow().getEndsAt() + "<br>" +
+                "special_instructions: " + order.getSpecialInstructions());
+        return order;
+    }
+
     /**
      * Применяем дефолтные параметры к заказу
      */

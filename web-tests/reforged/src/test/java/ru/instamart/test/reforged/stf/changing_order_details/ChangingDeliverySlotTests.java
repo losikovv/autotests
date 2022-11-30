@@ -43,8 +43,6 @@ public final class ChangingDeliverySlotTests {
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testChangeSlotOnPostCheckout() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
@@ -104,8 +102,6 @@ public final class ChangingDeliverySlotTests {
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testChangeSlotOnPostCheckoutPickup() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
@@ -171,8 +167,6 @@ public final class ChangingDeliverySlotTests {
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testChangeSlotOnPostCheckoutWithFreeDeliveryPromo() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
@@ -234,8 +228,6 @@ public final class ChangingDeliverySlotTests {
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testChangeSlotOnPostCheckoutWithPromo() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
@@ -301,8 +293,6 @@ public final class ChangingDeliverySlotTests {
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testChangeSlotToOnDemandOnPostCheckout() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
@@ -353,8 +343,6 @@ public final class ChangingDeliverySlotTests {
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNotAvailableChangeSlotFromOnDemandToNormalOnPostCheckout() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
@@ -397,8 +385,6 @@ public final class ChangingDeliverySlotTests {
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNotAvailableChangeSlotIfDisabledInAdmin() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCart(userData, 6);
 
@@ -438,8 +424,6 @@ public final class ChangingDeliverySlotTests {
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNotAvailableChangeSlotIfAlcohol() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
 
         shop().goToPage();
@@ -553,8 +537,6 @@ public final class ChangingDeliverySlotTests {
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNotAvailableChangeSlotIfIncorrectShipmentStatePickup() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());

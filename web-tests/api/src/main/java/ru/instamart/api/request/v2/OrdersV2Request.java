@@ -103,6 +103,7 @@ public final class OrdersV2Request extends ApiV2RequestBase {
                                String orderNumber) {
         Map<String, Object> data = new HashMap<>();
         //data.put("order[address_attributes][id]", addressId);
+        data.put("order[address_attributes][comments]", instructions);
         data.put("order[replacement_policy_id]", replacementPolicyId);
         data.put("order[phone_attributes][value]", phoneNumber);
         data.put("order[address_attributes][instructions]", instructions);

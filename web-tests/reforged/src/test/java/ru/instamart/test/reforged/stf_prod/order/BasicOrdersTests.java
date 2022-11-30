@@ -16,7 +16,7 @@ import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.core.config.UiProperties.*;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
-import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED;
+import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -75,7 +75,7 @@ public final class BasicOrdersTests {
 
         checkoutNew().clickConfirmOrder();
 
-        userShipment().checkActiveShipmentState(ACCEPTED.getName());
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkAssemblyCostVisible();

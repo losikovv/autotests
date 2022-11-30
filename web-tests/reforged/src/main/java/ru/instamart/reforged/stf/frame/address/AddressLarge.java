@@ -57,4 +57,9 @@ public final class AddressLarge implements Close, AddressLargeCheck {
     public void selectStoreByAddress(final String address) {
         storeByAddress.click(address);
     }
+
+    @Step("Выбираем первый магазин в списке")
+    public void selectFirstRetailerStore() {
+        retailerStores.clickOnFirst();
+    }
 }

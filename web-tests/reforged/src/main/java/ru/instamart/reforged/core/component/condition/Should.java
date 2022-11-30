@@ -8,6 +8,8 @@ import ru.instamart.reforged.core.component.AbstractComponent;
 import ru.instamart.reforged.core.component.Component;
 import ru.instamart.reforged.core.service.ashot.AshotService;
 
+import java.util.regex.Pattern;
+
 @RequiredArgsConstructor
 public final class Should {
 
@@ -43,5 +45,15 @@ public final class Should {
 
     public void screenDiff(final Component... components) {
         AshotService.compareImage(component.screenWebElement(components), component.getComponent(), components);
+    }
+
+    public void textContains(final String text, final String args) {
+        Assert.assertTrue(Kraken.waitAction().containText(component, text, args),
+                String.format("Текст элемента '%s' не содержит ожидаемого: '%s'", component.getBy(args), text));
+    }
+
+    public void textMatches(final Pattern pattern, final String args) {
+        Assert.assertTrue(Kraken.waitAction().textMatches(component, pattern, args),
+                String.format("Текст элемента '%s' не соответсвует паттерну: '%s'", component.getBy(args), pattern));
     }
 }

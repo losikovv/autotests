@@ -25,4 +25,6 @@ public interface AddressLargeElement {
     Element storesModal = new Element(By.xpath("//h3[contains(@class,'PickupStoresModal_header')]"),"Список магазинов");
     Element retailerByName = new Element(ByKraken.xpathExpression("//span[contains(@class,'RetailerItem_name')][contains(.,'%s')]"), "Ритейлер самовывоза по названию");
     Element storeByAddress = new Element(ByKraken.xpathExpression("//div[contains(@class,'Store_root')][.//div[contains(.,'%s')]]/button"), "Магазин самовывоза по адресу");
+    ElementCollection retailerStores = new ElementCollection(ByKraken.xpathExpression("//div[contains(@class,'Store_root')]//button"), "Магазины самовывоза ритейлера списком");
+
 }

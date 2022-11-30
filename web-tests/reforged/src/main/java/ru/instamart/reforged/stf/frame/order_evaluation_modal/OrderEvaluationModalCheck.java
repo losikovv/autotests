@@ -10,12 +10,17 @@ public interface OrderEvaluationModalCheck extends Check, OrderEvaluationModalEl
 
     @Step("Проверяем, что появилось окно оценки заказа")
     default void checkOrderEvaluationModalDisplayed() {
-        waitAction().shouldBeVisible(evaluationStars);
+        waitAction().shouldBeVisible(rateOrange);
     }
 
     @Step("Проверяем, что окно оценки заказа закрылось")
     default void checkOrderEvaluationModalNotDisplayed() {
-        evaluationStars.should().invisible();
+        rateOrange.should().invisible();
+    }
+
+    @Step("Проверяем, что выбрана оценка {starsCount} звезд(ы)")
+    default void checkEvaluationRate(final int starsCount) {
+        Assert.assertEquals(selectedEvaluationStars.elementCount(), starsCount, "Количество выбранных звёзд отличается от ожидаемого");
     }
 
     @Step("Проверяем, что появилась кнопка 'Отправить отзыв'")
