@@ -67,7 +67,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что кол-во товаров: {0} не равно кол-ву после применения фильтра: {1}")
     default void checkQuantitiesNotEquals(double firstQuantity, double secondQuantity) {
-        krakenAssert.assertNotEquals(firstQuantity, secondQuantity, "Фильтр не применился, кол-во товаров не изменилось");
+        Assert.assertNotEquals(firstQuantity, secondQuantity, "Фильтр не применился, кол-во товаров не изменилось");
     }
 
     @Step("Проверяем, что не отображается заглушка товаров в поиске")

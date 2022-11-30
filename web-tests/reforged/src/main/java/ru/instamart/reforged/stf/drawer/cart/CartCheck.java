@@ -70,12 +70,12 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что первоначальная {0} цена товаров в корзине равна текущей {1}")
     default void checkAmountEquals(final double startOrderAmount, final double actualOrderAmount) {
-        krakenAssert.assertEquals(startOrderAmount, actualOrderAmount, "Текущая цена товаров в корзине отличается от ожидаемой");
+        Assert.assertEquals(startOrderAmount, actualOrderAmount, "Текущая цена товаров в корзине отличается от ожидаемой");
     }
 
     @Step("Проверяем, что первоначальная {0} цена товаров в корзине отличается от текущей {1}")
     default void checkAmountNotEquals(final double startOrderAmount, final double actualOrderAmount) {
-        krakenAssert.assertNotEquals(startOrderAmount, actualOrderAmount, "Текущая цена товаров в корзине не отличается от первоначальной");
+        Assert.assertNotEquals(startOrderAmount, actualOrderAmount, "Текущая цена товаров в корзине не отличается от первоначальной");
     }
 
     @Step("Проверяем, что анимация удаления завершена")

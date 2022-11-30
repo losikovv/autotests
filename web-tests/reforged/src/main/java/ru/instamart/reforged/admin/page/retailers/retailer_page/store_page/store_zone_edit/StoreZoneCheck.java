@@ -21,7 +21,7 @@ public interface StoreZoneCheck extends Check, StoreZoneElements {
 
     @Step("Сравнение количества кнопок удаления зон с количеством зон")
     default void zoneDeleteButtonsCompare(final int quantity) {
-        krakenAssert.assertEquals(deleteZoneInTableButton.elementCount(), quantity);
+        Assert.assertEquals(deleteZoneInTableButton.elementCount(), quantity);
     }
 
     @Step("Проверяем, что таблица на странице зон отображается")

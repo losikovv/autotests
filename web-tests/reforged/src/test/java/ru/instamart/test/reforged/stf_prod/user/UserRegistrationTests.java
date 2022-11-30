@@ -85,7 +85,5 @@ public final class UserRegistrationTests {
         final var orderAmountInCheckout = checkoutNew().getOrderAmountDouble();
 
         checkoutNew().compareOrderAmountAfterRegistration(orderAmount, orderAmountInCheckout);
-
-        checkoutNew().assertAll();
     }
 }

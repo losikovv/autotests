@@ -298,7 +298,6 @@ public final class ShoppingCartTests {
         shop().interactCart().getFirstItem().compareItemQuantityInCart(firstItemQuantity + 1);
         final var secondOrderAmount = shop().interactCart().getOrderAmount();
         shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
-        shop().assertAll();
     }
 
     @CaseId(2609)
