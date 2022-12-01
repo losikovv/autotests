@@ -176,10 +176,9 @@ public final class UserShipmentTests {
 
     @CaseId(3146)
     @Test(description = "Отображение информации о заказе | заказ в статусе Принят", groups = {REGRESSION_STF, JORMUNGANDR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testShipmentReadyView() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        //addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         var order = helper.makeOrderOnTomorrow(userData, DEFAULT_AUCHAN_SID, 6);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
@@ -195,7 +194,6 @@ public final class UserShipmentTests {
         userShipment().waitPageLoad();
         userShipment().checkShipmentTitle("Ваш заказ");
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
-        //Уточнить по пояснению к статусу
 
         userShipment().checkAdditionalOrderTitle("Нужно ещё что-нибудь?");
         userShipment().checkAdditionalOrderText("Добавьте товары в корзину и перенесите в заказ. Сборщик их соберёт");
@@ -228,10 +226,9 @@ public final class UserShipmentTests {
 
     @CaseId(3149)
     @Test(description = "Отображение информации о заказе | заказ в статусе Собирается", groups = {REGRESSION_STF, JORMUNGANDR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testShipmentCollectingView() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        //addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         var order = helper.makeOrderOnTomorrow(userData, DEFAULT_AUCHAN_SID, 6);
         helper.updateShipmentStateByOrderNumber(order.getNumber(), COLLECTING.getValue());
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -280,10 +277,9 @@ public final class UserShipmentTests {
 
     @CaseId(3147)
     @Test(description = "Отображение информации о заказе | заказ в статусе Собран", groups = {REGRESSION_STF, JORMUNGANDR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testShipmentCollectedView() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        //addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         var order = helper.makeOrderOnTomorrow(userData, DEFAULT_AUCHAN_SID, 6);
         helper.updateShipmentStateByOrderNumber(order.getNumber(), READY_TO_SHIP.getValue());
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -331,10 +327,9 @@ public final class UserShipmentTests {
 
     @CaseId(3148)
     @Test(description = "Отображение информации о заказе | заказ в статусе В пути", groups = {REGRESSION_STF, JORMUNGANDR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testShipmentShippingView() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        //addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         var order = helper.makeOrderOnTomorrow(userData, DEFAULT_AUCHAN_SID, 6);
         helper.updateShipmentStateByOrderNumber(order.getNumber(), SHIPPING.getValue());
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -382,10 +377,9 @@ public final class UserShipmentTests {
 
     @CaseId(3150)
     @Test(description = "Отображение информации о заказе | заказ в статусе Получен", groups = {REGRESSION_STF, JORMUNGANDR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testShipmentShippedView() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        //addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         var order = helper.makeAndCompleteOrder(userData, DEFAULT_AUCHAN_SID, 6);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
@@ -434,10 +428,9 @@ public final class UserShipmentTests {
 
     @CaseId(3151)
     @Test(description = "Отображение информации о заказе | заказ в статусе Отменен", groups = {REGRESSION_STF, JORMUNGANDR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testShipmentCancelledView() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
+        //addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         var order = helper.makeOrderOnTomorrow(userData, DEFAULT_AUCHAN_SID, 6);
         helper.updateShipmentStateByOrderNumber(order.getNumber(), CANCELED.getValue());
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -524,7 +517,7 @@ public final class UserShipmentTests {
         userShipments().waitPageLoad();
         userShipments().interactOrderEvaluationModal().checkOrderEvaluationModalDisplayed();
         userShipments().interactOrderEvaluationModal().setEvaluationValue(5);
-        userShipment().interactOrderEvaluationModal().clickSend();
+        userShipments().interactOrderEvaluationModal().clickSend();
         userShipments().interactOrderEvaluationModal().checkOrderEvaluationModalNotDisplayed();
 
         userShipments().clickToFirstShipment();
