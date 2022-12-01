@@ -14,9 +14,9 @@ import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.helper.K8sHelper;
 import ru.instamart.api.model.v2.AssemblyItemV2;
 import ru.instamart.api.model.v2.OrderV2;
-import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -32,12 +32,13 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     private final Integer sidDeliveryBySbermarket = 58;
     private final String uuidDeliveryBySbermarket = "adaa359e-6c53-462a-928d-307317e399b1";
 
-    @BeforeClass(alwaysRun = false)
+    @BeforeClass(alwaysRun = true)
     public void preconditionsBeforeClass() {
         apiV3.checkFlipper("allow_export_to_external_services");
-        admin.auth();
-        admin.authApi();
-        admin.editStore(uuidDeliveryBySbermarket, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
+        K8sHelper.updateApiIntegrationType("0", sidDeliveryBySbermarket.toString());
+        //admin.auth();
+        //admin.authApi();
+        //admin.editStore(uuidDeliveryBySbermarket, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
     }
 
     @BeforeMethod(alwaysRun = true)
