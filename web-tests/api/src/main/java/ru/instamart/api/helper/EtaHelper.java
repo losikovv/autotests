@@ -21,6 +21,7 @@ import java.util.stream.Stream;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.util.TimeUtil.convertStringToTime;
 
@@ -147,18 +148,18 @@ public class EtaHelper {
     @Step("Изменяем настройки ETA сервиса")
     public static void updateServiceParameters(final ServiceParametersEtaResponse serviceParameters) {
         final var response = ServiceParametersEtaRequest.PUT(serviceParameters);
-        checkStatusCode200(response);
+        checkStatusCode(response, 200);
     }
 
     @Step("Изменяем настройки ритейлера")
     public static void updateRetailerParameters(final String retailerId, final RetailerParametersEtaResponse retailerParameters) {
         final var response = RetailerParametersEtaRequest.PUT(retailerId, retailerParameters);
-        checkStatusCode200(response);
+        checkStatusCode(response, 200);
     }
 
     @Step("Изменяем настройки магазина")
     public static void updateStoreParameters(final String storeId, final StoreParametersEtaResponse storeParameters) {
         final var response = StoreParametersEtaRequest.PUT(storeId, storeParameters);
-        checkStatusCode200(response);
+        checkStatusCode(response, 200);
     }
 }
