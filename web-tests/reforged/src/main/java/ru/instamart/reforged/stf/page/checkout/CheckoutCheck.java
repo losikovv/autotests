@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.checkout;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
@@ -125,19 +126,19 @@ public interface CheckoutCheck extends Check, CheckoutElement {
 
     @Step("Сравниваем сумму заказа до {orderAmountFromCart} и после регистрации {orderAmountFromCheckout}")
     default void compareOrderAmountAfterRegistration(double orderAmountFromCart, double orderAmountFromCheckout) {
-        krakenAssert.assertEquals(orderAmountFromCart, orderAmountFromCheckout,
+        Assert.assertEquals(orderAmountFromCart, orderAmountFromCheckout,
                 "Сумма заказа из корзины после регистрации не совпадает с ожидаемой");
     }
 
     @Step("Сравниваем количество позиций до {positionCountFromCart} и после регистрации {positionCountFromCheckout}")
     default void comparePositionCountAfterRegistration(String positionCountFromCart, String positionCountFromCheckout) {
-        krakenAssert.assertEquals(positionCountFromCart, positionCountFromCheckout,
+        Assert.assertEquals(positionCountFromCart, positionCountFromCheckout,
                 "Количество позиций из корзины после регистрации не совпадает с ожидаемой");
     }
 
     @Step("Сравниваем количество позиций до {positionCountFromCart} и после регистрации {positionCountFromCheckout}")
     default void comparePositionCountAfterRegistration(final int positionCountFromCart, final int positionCountFromCheckout) {
-        krakenAssert.assertEquals(positionCountFromCart, positionCountFromCheckout,
+        Assert.assertEquals(positionCountFromCart, positionCountFromCheckout,
                 "Количество позиций из корзины после регистрации не совпадает с ожидаемой");
     }
 }

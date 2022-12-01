@@ -85,7 +85,6 @@ public final class AdministrationRetailerTests {
         zonePage().checkHintVisible();
         zonePage().checkBackButtonVisible();
         zonePage().checkDownloadButtonVisible();
-        zonePage().assertAll();
     }
 
     @CaseId(536)
@@ -180,6 +179,7 @@ public final class AdministrationRetailerTests {
 
         retailers().checkSortViaNameAscEnabled();
         retailers().checkSortViaNameAsc();
+        retailers().assertAll();
 
         retailers().clickOnSortViaName();
         retailers().refresh();
@@ -206,6 +206,7 @@ public final class AdministrationRetailerTests {
 
         retailers().checkSortViaCreationDateAscEnabled();
         retailers().checkSortViaCreationDateAsc();
+        retailers().assertAll();
 
         retailers().clickOnSortViaCreationDate();
         retailers().refresh();
@@ -233,6 +234,7 @@ public final class AdministrationRetailerTests {
 
         retailers().checkSortViaCreationDateAscEnabled();
         retailers().checkSortViaCreationDateAsc();
+        retailers().assertAll();
 
         retailers().checkPageContains("?sortKey=created_at&sortOrder=ascend");
 
@@ -244,7 +246,6 @@ public final class AdministrationRetailerTests {
 
         retailers().checkSortViaCreationDateAscEnabled();
         retailers().checkSortViaCreationDateAsc();
-
         retailers().assertAll();
     }
 
@@ -301,6 +302,7 @@ public final class AdministrationRetailerTests {
         retailers().checkAccessibilityFilterDropdownNotVisible();
 
         retailers().checkOnlyAccessibleRetailersVisible();
+        retailers().assertAll();
 
         retailers().clickOnAccessibilityFilter();
         retailers().checkAccessibilityFilterDropdownVisible();

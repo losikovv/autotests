@@ -127,7 +127,6 @@ public final class ShoppingCartTests {
         shop().interactCart().getFirstItem().checkSpinnerIsVisible();
         shop().interactCart().getFirstItem().checkSpinnerIsNotVisible();
         shop().interactCart().checkAmountEquals(orderAmount, shop().interactCart().getOrderAmount());
-        shop().assertAll();
     }
 
     @CaseId(1575)
@@ -413,7 +412,6 @@ public final class ShoppingCartTests {
         shop().interactCart().getFirstItem().compareItemQuantityInCart(firstItemQuantity + 1);
         final var secondOrderAmount = shop().interactCart().getOrderAmount();
         shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
-        shop().assertAll();
     }
 
     @CaseId(2609)
@@ -482,7 +480,6 @@ public final class ShoppingCartTests {
         shop().interactCart().getFirstRetailer().compareItemsInCart(startProductsQuantity - 1);
         final var secondOrderAmount = shop().interactCart().getOrderAmount();
         shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
-        shop().assertAll();
     }
 
     @CaseId(1572)

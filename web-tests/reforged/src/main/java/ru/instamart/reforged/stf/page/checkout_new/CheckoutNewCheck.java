@@ -362,7 +362,7 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
 
     @Step("Сравниваем сумму заказа до {orderAmountFromCart} и после регистрации {orderAmountFromCheckout}")
     default void compareOrderAmountAfterRegistration(double orderAmountFromCart, double orderAmountFromCheckout) {
-        krakenAssert.assertEquals(orderAmountFromCart, orderAmountFromCheckout,
+        Assert.assertEquals(orderAmountFromCart, orderAmountFromCheckout,
                 "Сумма заказа из корзины после регистрации не совпадает с ожидаемой");
     }
 }

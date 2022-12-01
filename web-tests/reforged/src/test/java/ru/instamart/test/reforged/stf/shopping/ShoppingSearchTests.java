@@ -267,8 +267,6 @@ public final class ShoppingSearchTests {
         final int someFilterProductsQuantity = search().returnSearchProductsQuantity();
 
         search().checkQuantitiesNotEquals(discountFilterProductsQuantity, someFilterProductsQuantity);
-
-        search().assertAll();
     }
 
     @CaseId(2591)

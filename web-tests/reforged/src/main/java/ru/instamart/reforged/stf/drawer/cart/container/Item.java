@@ -69,7 +69,7 @@ public final class Item extends Container {
 
     @Step("Сравниваем кол-во штук товара с ожидаемым значением {0}")
     public void compareItemQuantityInCart(final int expected) {
-        krakenAssert.assertEquals(itemCountInput.getNumericValue(), expected, "Количество штук товара в корзине отличается от ожидаемого");
+        Assert.assertEquals(itemCountInput.getNumericValue(), expected, "Количество штук товара в корзине отличается от ожидаемого");
     }
 
     @Step("Проверяем, что спиннер пропал")

@@ -127,7 +127,5 @@ public final class UserRegistrationTests {
 
         checkout().compareOrderAmountAfterRegistration(orderAmount, orderAmountInCheckout);
         checkout().comparePositionCountAfterRegistration(positionsCount, positionsCountInCheckout);
-
-        checkout().assertAll();
     }
 }
