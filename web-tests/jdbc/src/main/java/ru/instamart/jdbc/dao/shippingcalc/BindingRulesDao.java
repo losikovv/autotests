@@ -15,6 +15,63 @@ import static org.testng.Assert.fail;
 public class BindingRulesDao implements Dao<Integer, BindingRulesEntity> {
     public static final BindingRulesDao INSTANCE = new BindingRulesDao();
 
+    public BindingRulesEntity getBindingRuleById(Integer id) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(" SELECT * FROM binding_rules WHERE id = ? ")) {
+            preparedStatement.setInt(1, id);
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    final var rule = new BindingRulesEntity();
+                    rule.setId(resultSet.getInt("id"));
+                    rule.setStrategyId(resultSet.getInt("strategy_id"));
+                    rule.setShipping(resultSet.getString("shipping"));
+                    rule.setTenantId(resultSet.getString("tenant_id"));
+                    rule.setRegionId(resultSet.getInt("region_id"));
+                    rule.setRetailerId(resultSet.getInt("retailer_id"));
+                    rule.setOndemand(resultSet.getBoolean("ondemand"));
+                    rule.setLabelId(resultSet.getInt("label_id"));
+                    rule.setCreatedAt(resultSet.getString("created_at"));
+                    rule.setUpdatedAt(resultSet.getString("updated_at"));
+                    rule.setDeletedAt(resultSet.getString("deleted_at"));
+                    rule.setDescription(resultSet.getString("description"));
+                    return rule;
+                }
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public BindingRulesEntity getBindingRuleByStrategyAndTenant(Integer strategyId, String tenantId) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(" SELECT * FROM binding_rules WHERE strategy_id = ? AND tenant_id = ? ")) {
+            preparedStatement.setInt(1, strategyId);
+            preparedStatement.setString(2, tenantId);
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    final var rule = new BindingRulesEntity();
+                    rule.setId(resultSet.getInt("id"));
+                    rule.setStrategyId(resultSet.getInt("strategy_id"));
+                    rule.setShipping(resultSet.getString("shipping"));
+                    rule.setTenantId(resultSet.getString("tenant_id"));
+                    rule.setRegionId(resultSet.getInt("region_id"));
+                    rule.setRetailerId(resultSet.getInt("retailer_id"));
+                    rule.setOndemand(resultSet.getBoolean("ondemand"));
+                    rule.setLabelId(resultSet.getInt("label_id"));
+                    rule.setCreatedAt(resultSet.getString("created_at"));
+                    rule.setUpdatedAt(resultSet.getString("updated_at"));
+                    rule.setDeletedAt(resultSet.getString("deleted_at"));
+                    rule.setDescription(resultSet.getString("description"));
+                    return rule;
+                }
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+        return null;
+    }
+
     public List<Integer> getActiveBindingRulesList() {
         List<Integer> bindingRulesResult = new ArrayList<>();
         try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();

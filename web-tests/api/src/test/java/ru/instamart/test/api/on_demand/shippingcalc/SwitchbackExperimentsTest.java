@@ -2,6 +2,8 @@ package ru.instamart.test.api.on_demand.shippingcalc;
 
 import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -16,6 +18,8 @@ import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.kraken.util.TimeUtil.getDbDate;
 
+@Epic("On Demand")
+@Feature("ShippingCalc")
 public class SwitchbackExperimentsTest extends ShippingCalcBase {
 
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
