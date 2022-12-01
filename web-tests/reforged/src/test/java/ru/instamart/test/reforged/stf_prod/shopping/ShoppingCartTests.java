@@ -14,6 +14,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
 import static ru.instamart.reforged.core.config.UiProperties.*;
+import static ru.instamart.reforged.stf.page.StfRouter.home;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
@@ -82,7 +83,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();
-        shop().openFirstProductCardInTaxon("3");
+        shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().clickOnClose();
 
@@ -123,53 +124,50 @@ public final class ShoppingCartTests {
     @CaseId(1575)
     @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {STF_PROD_S})
     public void successChangeItemQuantityInCartViaItemCard() {
-        shop().goToPage();
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddressLarge().checkYmapsReady();
-        shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
-        shop().interactAddressLarge().selectFirstAddress();
-        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddressLarge().clickSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        home().goToPage();
+        home().clickToSetAddress();
+        home().interactAddressModal().checkYmapsReady();
+        home().interactAddressModal().fillAddress(RestAddresses.Moscow.learningCenter().getFullAddress());
+        home().interactAddressModal().selectFirstAddress();
+        home().interactAddressModal().clickFindStores();
+        home().interactAddressModal().checkAddressModalIsNotVisible();
+        home().checkStoreCardsAnimationFinished();
+        home().clickOnStoreWithSid(DEFAULT_SID);
+
+        shop().waitPageLoad();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage();
-        shop().interactHeader().checkEnteredAddressIsVisible();
         shop().checkSnippet();
-        shop().openFirstProductCardInTaxon("3");
+        shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().clickOnBuy();
-        shop().goToPage();
+        shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
+        shop().interactHeader().checkCartNotificationIsVisible();
+
         shop().interactHeader().clickToCart();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
+        shop().interactCart().closeCart();
+        shop().interactCart().checkCartClose();
 
-        shop().goToPage();
-        shop().interactHeader().checkEnteredAddressIsVisible();
-
-        shop().checkSnippet();
-        shop().openFirstProductCardInTaxon("3");
+        shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().checkIsIncreaseClickable();
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
-        shop().goToPage();
+
         shop().interactHeader().clickToCart();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(2);
+        shop().interactCart().closeCart();
+        shop().interactCart().checkCartClose();
 
-        shop().goToPage();
-        shop().interactHeader().checkEnteredAddressIsVisible();
-
-        shop().checkSnippet();
-        shop().openFirstProductCardInTaxon("3");
+        shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().checkDecreaseClickable();
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
 
-        shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
-        shop().assertAll();
     }
 
     @CaseId(1576)
@@ -209,7 +207,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();
-        shop().openFirstProductCardInTaxon("3");
+        shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().checkProductCardVisible();
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().decreaseItemCount();
@@ -228,7 +226,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();
-        shop().openFirstProductCardInTaxon("3");
+        shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().increaseItemCount();
@@ -237,10 +235,9 @@ public final class ShoppingCartTests {
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(3);
-        shop().assertAll();
         shop().interactCart().closeCart();
 
-        shop().openFirstProductCardInTaxon("3");
+        shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().decreaseItemCount();
@@ -308,16 +305,17 @@ public final class ShoppingCartTests {
         helper.setAddress(userData, RestAddresses.Moscow.learningCenter());
         helper.dropAndFillCart(userData, DEFAULT_METRO_MOSCOW_SID);
 
-        shop().goToPage();
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddressLarge().checkYmapsReady();
-        shop().interactAddressLarge().fillAddress(RestAddresses.Moscow.learningCenter().getFullAddress());
-        shop().interactAddressLarge().selectFirstAddress();
-        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddressLarge().clickSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        home().goToPage();
+        home().clickToSetAddress();
+        home().interactAddressModal().checkYmapsReady();
+        home().interactAddressModal().fillAddress(RestAddresses.Moscow.learningCenter().getFullAddress());
+        home().interactAddressModal().selectFirstAddress();
+        home().interactAddressModal().clickFindStores();
+        home().interactAddressModal().checkAddressModalIsNotVisible();
+        home().checkStoreCardsAnimationFinished();
+        home().clickOnStoreWithSid(DEFAULT_METRO_MOSCOW_SID);
 
-        shop().goToPage();
+        shop().waitPageLoad();
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().checkSnippet();
 
