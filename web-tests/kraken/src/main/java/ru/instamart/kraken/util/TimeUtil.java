@@ -127,7 +127,7 @@ public final class TimeUtil {
     }
 
     public static String getZoneDbDatePlusMinutes(Integer minutes) {
-        return dtdb.format(ZonedDateTime.now(ZONE_ID).plusMinutes(minutes));
+        return dtdb.format(ZonedDateTime.now(ZONE_UTC).plusMinutes(minutes));
     }
 
     public static Long getDbDateMinusMinutes(Long minutes) {
