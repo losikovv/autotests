@@ -11,8 +11,8 @@ public enum QuickFilters {
     LONG_DISPATCH("Долгая диспетчеризация"),
 
     QUICK_DELIVERY("Быстрая доставка"),
-    COMPLETED("Завершённые"),
-    NOT_COMPLETED("Незавершённые"),
+    COMPLETED("Завершенные"),
+    NOT_COMPLETED("Незавершенные"),
     B2B_CLIENTS("B2B клиенты"),
 
     DELIVERY_TIME_CHANGED("Время доставки перенесено");
