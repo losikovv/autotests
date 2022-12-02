@@ -121,4 +121,33 @@ public interface CreateBindingRuleRequestOrBuilder extends
    * @return The labelId.
    */
   long getLabelId();
+
+  /**
+   * <pre>
+   * Описание правила
+   * </pre>
+   *
+   * <code>optional string description = 7;</code>
+   * @return Whether the description field is set.
+   */
+  boolean hasDescription();
+  /**
+   * <pre>
+   * Описание правила
+   * </pre>
+   *
+   * <code>optional string description = 7;</code>
+   * @return The description.
+   */
+  java.lang.String getDescription();
+  /**
+   * <pre>
+   * Описание правила
+   * </pre>
+   *
+   * <code>optional string description = 7;</code>
+   * @return The bytes for description.
+   */
+  com.google.protobuf.ByteString
+      getDescriptionBytes();
 }

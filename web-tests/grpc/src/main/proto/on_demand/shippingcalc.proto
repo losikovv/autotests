@@ -56,6 +56,12 @@ service Shippingcalc {
 	rpc GetMinCartAmounts (GetMinCartAmountsRequest) returns (GetMinCartAmountsResponse);
 	// Наиболее выгодные условия доставки для магазинов
 	rpc GetDeliveryConditions (GetDeliveryConditionsRequest) returns (GetDeliveryConditionsResponse);
+	// Получить все трешхолды для surge
+	rpc GetSurgeThresholds (GetSurgeThresholdsRequest) returns (GetSurgeThresholdsResponse);
+	// Установить трешхолды для surge
+	rpc SetSurgeThresholds (SetSurgeThresholdsRequest) returns (SetSurgeThresholdsResponse);
+	// Удалить трешхолды для surge
+	rpc DeleteSurgeThresholds (DeleteSurgeThresholdsRequest) returns (DeleteSurgeThresholdsResponse);
 }
 
 enum DeliveryType {
@@ -808,6 +814,8 @@ message CreateBindingRuleRequest {
 	optional bool ondemand = 5;
 	// Идентификатор лейбла
 	optional uint64 label_id = 6;
+	// Описание правила
+	optional string description = 7;
 }
 
 message CreateBindingRuleResponse {}
@@ -830,6 +838,8 @@ message UpdateBindingRuleRequest {
 	optional bool ondemand = 6;
 	// Идентификатор лейбла
 	optional uint64 label_id = 7;
+	// Описание правила
+	optional string description = 8;
 }
 
 message UpdateBindingRuleResponse {}
@@ -871,4 +881,33 @@ message BindingRule {
 	google.protobuf.Timestamp updated_at = 10;
 	// Время удаления правила (актуально только для удаленных правил)
 	optional google.protobuf.Timestamp deleted_at = 11;
+	// Описание правила
+	optional string description = 12;
 }
+
+message GetSurgeThresholdsRequest {};
+
+message GetSurgeThresholdsResponse {
+	repeated SurgeThreshold thresholds = 1;
+};
+
+message SetSurgeThresholdsRequest {
+	repeated SurgeThreshold thresholds = 1;
+};
+
+message SetSurgeThresholdsResponse {};
+
+message DeleteSurgeThresholdsRequest {
+	repeated uint64 region_id = 1;
+};
+
+message DeleteSurgeThresholdsResponse {};
+
+message SurgeThreshold {
+	uint64 region_id = 1;
+	SurgeThresholdParameters parameters = 2;
+};
+
+message SurgeThresholdParameters {
+	repeated SurgeInterval intervals = 1;
+};

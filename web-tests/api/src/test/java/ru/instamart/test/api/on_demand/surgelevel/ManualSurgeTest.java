@@ -83,7 +83,7 @@ public class ManualSurgeTest extends GrpcBase {
             groups = "ondemand-surgelevel-smoke",
             dependsOnMethods = "saveResult")
     public void manualSurgeRecalculate() {
-        ThreadUtil.simplyAwait(LONG_TIMEOUT + 5);
+        ThreadUtil.simplyAwait(LONG_TIMEOUT + 10);
 
         List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID);
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, SURGE_LEVEL, SURGE_LEVEL - 1, 0, 0, Method.ACTUAL);

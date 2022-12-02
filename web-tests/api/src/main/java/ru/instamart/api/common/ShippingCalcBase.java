@@ -24,7 +24,7 @@ import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
 import static ru.instamart.kraken.util.TimeUtil.getDateWithoutTimezone;
-import static ru.instamart.kraken.util.TimeUtil.getZoneDbDatePlusMinutes;
+import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDatePlusMinutes;
 
 public class ShippingCalcBase {
 
@@ -112,8 +112,8 @@ public class ShippingCalcBase {
                         .build());
         boolean switchbackRegion = SwitchbackExperimentsDao.INSTANCE.setSwitchbackExperiments(
                 SwitchbackExperimentsEntity.builder()
-                        .startDateTime(getZoneDbDatePlusMinutes(0))
-                        .endDateTime(getZoneDbDatePlusMinutes(20))
+                        .startDateTime(getZonedUTCDatePlusMinutes(0))
+                        .endDateTime(getZonedUTCDatePlusMinutes(20))
                         .regionId(REGION_ID_WITH_SWITCHBACK)
                         .group("test")
                         .parameters(String.format(SURGE_PLANNED_THRESHOLD_PARAMETERS,
@@ -121,8 +121,8 @@ public class ShippingCalcBase {
                         .build());
         boolean futureSwitchbackRegion = SwitchbackExperimentsDao.INSTANCE.setSwitchbackExperiments(
                 SwitchbackExperimentsEntity.builder()
-                        .startDateTime(getZoneDbDatePlusMinutes(20))
-                        .endDateTime(getZoneDbDatePlusMinutes(30))
+                        .startDateTime(getZonedUTCDatePlusMinutes(20))
+                        .endDateTime(getZonedUTCDatePlusMinutes(30))
                         .regionId(REGION_ID_WITH_FUTURE_SWITCHBACK)
                         .group("test")
                         .parameters(String.format(SURGE_THRESHOLD_PARAMETERS,

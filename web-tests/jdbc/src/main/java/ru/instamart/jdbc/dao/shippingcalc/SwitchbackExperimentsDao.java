@@ -17,7 +17,7 @@ public class SwitchbackExperimentsDao implements Dao<Integer, SwitchbackExperime
     public boolean setSwitchbackExperiments(SwitchbackExperimentsEntity switchbackExperiment) {
         try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
              final var preparedStatement = connect.prepareStatement(" INSERT INTO switchback_experiments (start_date_time, end_date_time, region_id, \"group\", parameters) " +
-                     " VALUES (?::timestamp, ?::timestamp, ?, ?::text, ?::jsonb) ")) {
+                     " VALUES (?::timestamp with time zone, ?::timestamp with time zone, ?, ?::text, ?::jsonb) ")) {
             preparedStatement.setString(1, switchbackExperiment.getStartDateTime());
             preparedStatement.setString(2, switchbackExperiment.getEndDateTime());
             preparedStatement.setInt(3, switchbackExperiment.getRegionId());
