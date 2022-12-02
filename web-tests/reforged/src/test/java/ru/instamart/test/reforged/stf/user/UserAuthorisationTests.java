@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf.user;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -111,6 +112,7 @@ public final class UserAuthorisationTests {
 
     @CaseId(2735)
     @Story("Авторизация через VK")
+    @Issue("B2C-11803")
     @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {STARTING_X, "smoke", REGRESSION_STF})
     public void successRegWithVkontakte() {
         UserData vkUser = UserManager.getNewVkUser();
@@ -133,6 +135,7 @@ public final class UserAuthorisationTests {
 
     @CaseId(1460)
     @Story("Авторизация через Mail.ru")
+    @Issue("B2C-11803")
     @Test(description = "Тест успешной авторизация через MailRu", groups = {STARTING_X, "smoke", REGRESSION_STF})
     public void successRegWithMailRu() {
         shop().goToPage();
