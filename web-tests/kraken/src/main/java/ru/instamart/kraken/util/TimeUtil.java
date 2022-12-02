@@ -96,6 +96,10 @@ public final class TimeUtil {
         return zdt.format(ZonedDateTime.now(ZONE_UTC));
     }
 
+    public static String getZonedUTCDatePlusMinutes(Integer minutes) {
+        return zdt.format(ZonedDateTime.now(ZONE_UTC).plusMinutes(minutes));
+    }
+
     public static String getZonedUTCFutureDate(Long days) {
         return zdt.format(ZonedDateTime.now(ZONE_UTC).plusDays(days));
     }
@@ -126,10 +130,6 @@ public final class TimeUtil {
 
     public static String getFutureZoneDbDate(Long days) {
         return dtdb.format(ZonedDateTime.now(ZONE_ID).plusDays(days));
-    }
-
-    public static String getZoneDbDatePlusMinutes(Integer minutes) {
-        return dtdb.format(ZonedDateTime.now(ZONE_UTC).plusMinutes(minutes));
     }
 
     public static Long getDbDateMinusMinutes(Long minutes) {

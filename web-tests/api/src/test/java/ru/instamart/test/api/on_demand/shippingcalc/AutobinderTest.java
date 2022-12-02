@@ -54,7 +54,7 @@ public class AutobinderTest extends ShippingCalcBase {
                 .build();
         var response = clientShippingCalc.createBindingRule(request);
 
-        Allure.step("Проверка успешного выполнения запроса и сохранения в БД и сохранения в БД", () -> {
+        Allure.step("Проверка успешного выполнения запроса и сохранения в БД", () -> {
             assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
             BindingRulesEntity rule = BindingRulesDao.INSTANCE.getBindingRuleByStrategyAndTenant(strategyId, "test");
             ruleId = rule.getId();

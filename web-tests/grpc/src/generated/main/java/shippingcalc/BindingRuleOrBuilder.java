@@ -231,4 +231,33 @@ public interface BindingRuleOrBuilder extends
    * <code>optional .google.protobuf.Timestamp deleted_at = 11;</code>
    */
   com.google.protobuf.TimestampOrBuilder getDeletedAtOrBuilder();
+
+  /**
+   * <pre>
+   * Описание правила
+   * </pre>
+   *
+   * <code>optional string description = 12;</code>
+   * @return Whether the description field is set.
+   */
+  boolean hasDescription();
+  /**
+   * <pre>
+   * Описание правила
+   * </pre>
+   *
+   * <code>optional string description = 12;</code>
+   * @return The description.
+   */
+  java.lang.String getDescription();
+  /**
+   * <pre>
+   * Описание правила
+   * </pre>
+   *
+   * <code>optional string description = 12;</code>
+   * @return The bytes for description.
+   */
+  com.google.protobuf.ByteString
+      getDescriptionBytes();
 }

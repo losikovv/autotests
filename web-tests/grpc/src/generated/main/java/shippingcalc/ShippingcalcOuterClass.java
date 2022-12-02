@@ -409,6 +409,46 @@ public final class ShippingcalcOuterClass {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_shippingcalc_BindingRule_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_GetSurgeThresholdsRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_GetSurgeThresholdsRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_GetSurgeThresholdsResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_GetSurgeThresholdsResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_SetSurgeThresholdsRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_SetSurgeThresholdsRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_SetSurgeThresholdsResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_SetSurgeThresholdsResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_DeleteSurgeThresholdsRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_DeleteSurgeThresholdsRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_DeleteSurgeThresholdsResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_DeleteSurgeThresholdsResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_SurgeThreshold_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_SurgeThreshold_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shippingcalc_SurgeThresholdParameters_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shippingcalc_SurgeThresholdParameters_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -633,110 +673,133 @@ public final class ShippingcalcOuterClass {
       ".shippingcalc.LadderStep\"]\n\035GetDeliveryC" +
       "onditionsResponse\022<\n\023delivery_conditions" +
       "\030\001 \003(\0132\037.shippingcalc.DeliveryCondition\"" +
-      "\355\001\n\030CreateBindingRuleRequest\022\023\n\013strategy" +
+      "\227\002\n\030CreateBindingRuleRequest\022\023\n\013strategy" +
       "_id\030\001 \001(\r\022\026\n\ttenant_id\030\002 \001(\tH\000\210\001\001\022\026\n\treg" +
       "ion_id\030\003 \001(\004H\001\210\001\001\022\030\n\013retailer_id\030\004 \001(\004H\002" +
       "\210\001\001\022\025\n\010ondemand\030\005 \001(\010H\003\210\001\001\022\025\n\010label_id\030\006" +
-      " \001(\004H\004\210\001\001B\014\n\n_tenant_idB\014\n\n_region_idB\016\n" +
-      "\014_retailer_idB\013\n\t_ondemandB\013\n\t_label_id\"" +
-      "\033\n\031CreateBindingRuleResponse\"\233\002\n\030UpdateB" +
-      "indingRuleRequest\022\027\n\017binding_rule_id\030\001 \001" +
-      "(\r\022\030\n\013strategy_id\030\002 \001(\rH\000\210\001\001\022\026\n\ttenant_i" +
-      "d\030\003 \001(\tH\001\210\001\001\022\026\n\tregion_id\030\004 \001(\004H\002\210\001\001\022\030\n\013" +
-      "retailer_id\030\005 \001(\004H\003\210\001\001\022\025\n\010ondemand\030\006 \001(\010" +
-      "H\004\210\001\001\022\025\n\010label_id\030\007 \001(\004H\005\210\001\001B\016\n\014_strateg" +
-      "y_idB\014\n\n_tenant_idB\014\n\n_region_idB\016\n\014_ret" +
-      "ailer_idB\013\n\t_ondemandB\013\n\t_label_id\"\033\n\031Up" +
-      "dateBindingRuleResponse\"\030\n\026GetBindingRul" +
-      "esRequest\"K\n\027GetBindingRulesResponse\0220\n\r" +
-      "binding_rules\030\001 \003(\0132\031.shippingcalc.Bindi" +
-      "ngRule\"3\n\030DeleteBindingRuleRequest\022\027\n\017bi" +
-      "nding_rule_id\030\001 \001(\r\"\033\n\031DeleteBindingRule" +
-      "Response\"\276\003\n\013BindingRule\022\n\n\002id\030\001 \001(\r\022\023\n\013" +
-      "strategy_id\030\002 \001(\r\022,\n\010shipping\030\003 \001(\0162\032.sh" +
-      "ippingcalc.DeliveryType\022\026\n\ttenant_id\030\004 \001" +
-      "(\tH\000\210\001\001\022\026\n\tregion_id\030\005 \001(\004H\001\210\001\001\022\030\n\013retai" +
-      "ler_id\030\006 \001(\004H\002\210\001\001\022\025\n\010ondemand\030\007 \001(\010H\003\210\001\001" +
-      "\022\025\n\010label_id\030\010 \001(\004H\004\210\001\001\022.\n\ncreated_at\030\t " +
-      "\001(\0132\032.google.protobuf.Timestamp\022.\n\nupdat" +
-      "ed_at\030\n \001(\0132\032.google.protobuf.Timestamp\022" +
-      "3\n\ndeleted_at\030\013 \001(\0132\032.google.protobuf.Ti" +
-      "mestampH\005\210\001\001B\014\n\n_tenant_idB\014\n\n_region_id" +
-      "B\016\n\014_retailer_idB\013\n\t_ondemandB\013\n\t_label_" +
-      "idB\r\n\013_deleted_at*a\n\014DeliveryType\022\010\n\004NON" +
-      "E\020\000\022\021\n\rSELF_DELIVERY\020\001\022\024\n\020COURIER_DELIVE" +
-      "RY\020\002\022\007\n\003B2B\020\003\022\025\n\021B2B_SELF_DELIVERY\020\004*\272\001\n" +
-      "\rConditionType\022\n\n\006ALWAYS\020\000\022\022\n\016FIRST_N_OR" +
-      "DERS\020\001\022\025\n\021ORDER_VALUE_RANGE\020\002\022\024\n\020AB_TEST" +
-      "_ENTRANCE\020\003\022\030\n\024ORDER_DISTANCE_RANGE\020\004\022\r\n" +
-      "\tPLATFORMS\020\005\022\024\n\020REGISTERED_AFTER\020\006\022\r\n\tON" +
-      "_DEMAND\020\007\022\016\n\nCLIENT_API\020\010*1\n\013ScriptState" +
-      "\022\020\n\014SCRIPT_VALID\020\000\022\020\n\014SCRIPT_ERROR\020\001*\"\n\027" +
-      "SurgeSwitchbackDataType\022\007\n\003CSV\020\0002\233\023\n\014Shi" +
-      "ppingcalc\022[\n\016CreateStrategy\022#.shippingca" +
-      "lc.CreateStrategyRequest\032$.shippingcalc." +
-      "CreateStrategyResponse\022[\n\016UpdateStrategy" +
-      "\022#.shippingcalc.UpdateStrategyRequest\032$." +
-      "shippingcalc.UpdateStrategyResponse\022U\n\014B" +
-      "indStrategy\022!.shippingcalc.BindStrategyR" +
-      "equest\032\".shippingcalc.BindStrategyRespon" +
-      "se\022[\n\016UnbindStrategy\022#.shippingcalc.Unbi" +
-      "ndStrategyRequest\032$.shippingcalc.UnbindS" +
-      "trategyResponse\022d\n\021CreateBindingRule\022&.s" +
-      "hippingcalc.CreateBindingRuleRequest\032\'.s" +
-      "hippingcalc.CreateBindingRuleResponse\022d\n" +
-      "\021UpdateBindingRule\022&.shippingcalc.Update" +
-      "BindingRuleRequest\032\'.shippingcalc.Update" +
-      "BindingRuleResponse\022^\n\017GetBindingRules\022$" +
-      ".shippingcalc.GetBindingRulesRequest\032%.s" +
-      "hippingcalc.GetBindingRulesResponse\022d\n\021D" +
-      "eleteBindingRule\022&.shippingcalc.DeleteBi" +
-      "ndingRuleRequest\032\'.shippingcalc.DeleteBi" +
-      "ndingRuleResponse\022X\n\rGetStrategies\022\".shi" +
-      "ppingcalc.GetStrategiesRequest\032#.shippin" +
-      "gcalc.GetStrategiesResponse\022R\n\013GetStrate" +
-      "gy\022 .shippingcalc.GetStrategyRequest\032!.s" +
-      "hippingcalc.GetStrategyResponse\022p\n\025GetSt" +
-      "rategiesForStore\022*.shippingcalc.GetStrat" +
-      "egiesForStoreRequest\032+.shippingcalc.GetS" +
-      "trategiesForStoreResponse\022[\n\016DeleteStrat" +
-      "egy\022#.shippingcalc.DeleteStrategyRequest" +
-      "\032$.shippingcalc.DeleteStrategyResponse\022U" +
-      "\n\014CreateScript\022!.shippingcalc.CreateScri" +
-      "ptRequest\032\".shippingcalc.CreateScriptRes" +
-      "ponse\022U\n\014UpdateScript\022!.shippingcalc.Upd" +
-      "ateScriptRequest\032\".shippingcalc.UpdateSc" +
-      "riptResponse\022L\n\tGetScript\022\036.shippingcalc" +
-      ".GetScriptRequest\032\037.shippingcalc.GetScri" +
-      "ptResponse\022O\n\nGetScripts\022\037.shippingcalc." +
-      "GetScriptsRequest\032 .shippingcalc.GetScri" +
-      "ptsResponse\022m\n\024GetScriptTestResults\022).sh" +
-      "ippingcalc.GetScriptTestResultsRequest\032*" +
-      ".shippingcalc.GetScriptTestResultsRespon" +
-      "se\022U\n\014DeleteScript\022!.shippingcalc.Delete" +
-      "ScriptRequest\032\".shippingcalc.DeleteScrip" +
-      "tResponse\022a\n\020GetDeliveryPrice\022%.shipping" +
-      "calc.GetDeliveryPriceRequest\032&.shippingc" +
-      "alc.GetDeliveryPriceResponse\022d\n\021SetInter" +
-      "valsSurge\022&.shippingcalc.SetIntervalsSur" +
-      "geRequest\032\'.shippingcalc.SetIntervalsSur" +
-      "geResponse\022d\n\021GetIntervalsSurge\022&.shippi" +
-      "ngcalc.GetIntervalsSurgeRequest\032\'.shippi" +
-      "ngcalc.GetIntervalsSurgeResponse\022y\n\030SetS" +
-      "witchbackExperiments\022-.shippingcalc.SetS" +
-      "witchbackExperimentsRequest\032..shippingca" +
-      "lc.SetSwitchbackExperimentsResponse\022y\n\030G" +
-      "etSwitchbackExperiments\022-.shippingcalc.G" +
-      "etSwitchbackExperimentsRequest\032..shippin" +
-      "gcalc.GetSwitchbackExperimentsResponse\022d" +
-      "\n\021GetMinCartAmounts\022&.shippingcalc.GetMi" +
-      "nCartAmountsRequest\032\'.shippingcalc.GetMi" +
-      "nCartAmountsResponse\022p\n\025GetDeliveryCondi" +
-      "tions\022*.shippingcalc.GetDeliveryConditio" +
-      "nsRequest\032+.shippingcalc.GetDeliveryCond" +
-      "itionsResponseBTP\001ZPgitlab.sbmt.io/paas/" +
-      "content/operations/shippingcalc/pkg/serv" +
-      "er/grpc/shippingcalcb\006proto3"
+      " \001(\004H\004\210\001\001\022\030\n\013description\030\007 \001(\tH\005\210\001\001B\014\n\n_" +
+      "tenant_idB\014\n\n_region_idB\016\n\014_retailer_idB" +
+      "\013\n\t_ondemandB\013\n\t_label_idB\016\n\014_descriptio" +
+      "n\"\033\n\031CreateBindingRuleResponse\"\305\002\n\030Updat" +
+      "eBindingRuleRequest\022\027\n\017binding_rule_id\030\001" +
+      " \001(\r\022\030\n\013strategy_id\030\002 \001(\rH\000\210\001\001\022\026\n\ttenant" +
+      "_id\030\003 \001(\tH\001\210\001\001\022\026\n\tregion_id\030\004 \001(\004H\002\210\001\001\022\030" +
+      "\n\013retailer_id\030\005 \001(\004H\003\210\001\001\022\025\n\010ondemand\030\006 \001" +
+      "(\010H\004\210\001\001\022\025\n\010label_id\030\007 \001(\004H\005\210\001\001\022\030\n\013descri" +
+      "ption\030\010 \001(\tH\006\210\001\001B\016\n\014_strategy_idB\014\n\n_ten" +
+      "ant_idB\014\n\n_region_idB\016\n\014_retailer_idB\013\n\t" +
+      "_ondemandB\013\n\t_label_idB\016\n\014_description\"\033" +
+      "\n\031UpdateBindingRuleResponse\"\030\n\026GetBindin" +
+      "gRulesRequest\"K\n\027GetBindingRulesResponse" +
+      "\0220\n\rbinding_rules\030\001 \003(\0132\031.shippingcalc.B" +
+      "indingRule\"3\n\030DeleteBindingRuleRequest\022\027" +
+      "\n\017binding_rule_id\030\001 \001(\r\"\033\n\031DeleteBinding" +
+      "RuleResponse\"\350\003\n\013BindingRule\022\n\n\002id\030\001 \001(\r" +
+      "\022\023\n\013strategy_id\030\002 \001(\r\022,\n\010shipping\030\003 \001(\0162" +
+      "\032.shippingcalc.DeliveryType\022\026\n\ttenant_id" +
+      "\030\004 \001(\tH\000\210\001\001\022\026\n\tregion_id\030\005 \001(\004H\001\210\001\001\022\030\n\013r" +
+      "etailer_id\030\006 \001(\004H\002\210\001\001\022\025\n\010ondemand\030\007 \001(\010H" +
+      "\003\210\001\001\022\025\n\010label_id\030\010 \001(\004H\004\210\001\001\022.\n\ncreated_a" +
+      "t\030\t \001(\0132\032.google.protobuf.Timestamp\022.\n\nu" +
+      "pdated_at\030\n \001(\0132\032.google.protobuf.Timest" +
+      "amp\0223\n\ndeleted_at\030\013 \001(\0132\032.google.protobu" +
+      "f.TimestampH\005\210\001\001\022\030\n\013description\030\014 \001(\tH\006\210" +
+      "\001\001B\014\n\n_tenant_idB\014\n\n_region_idB\016\n\014_retai" +
+      "ler_idB\013\n\t_ondemandB\013\n\t_label_idB\r\n\013_del" +
+      "eted_atB\016\n\014_description\"\033\n\031GetSurgeThres" +
+      "holdsRequest\"N\n\032GetSurgeThresholdsRespon" +
+      "se\0220\n\nthresholds\030\001 \003(\0132\034.shippingcalc.Su" +
+      "rgeThreshold\"M\n\031SetSurgeThresholdsReques" +
+      "t\0220\n\nthresholds\030\001 \003(\0132\034.shippingcalc.Sur" +
+      "geThreshold\"\034\n\032SetSurgeThresholdsRespons" +
+      "e\"1\n\034DeleteSurgeThresholdsRequest\022\021\n\treg" +
+      "ion_id\030\001 \003(\004\"\037\n\035DeleteSurgeThresholdsRes" +
+      "ponse\"_\n\016SurgeThreshold\022\021\n\tregion_id\030\001 \001" +
+      "(\004\022:\n\nparameters\030\002 \001(\0132&.shippingcalc.Su" +
+      "rgeThresholdParameters\"J\n\030SurgeThreshold" +
+      "Parameters\022.\n\tintervals\030\001 \003(\0132\033.shipping" +
+      "calc.SurgeInterval*a\n\014DeliveryType\022\010\n\004NO" +
+      "NE\020\000\022\021\n\rSELF_DELIVERY\020\001\022\024\n\020COURIER_DELIV" +
+      "ERY\020\002\022\007\n\003B2B\020\003\022\025\n\021B2B_SELF_DELIVERY\020\004*\272\001" +
+      "\n\rConditionType\022\n\n\006ALWAYS\020\000\022\022\n\016FIRST_N_O" +
+      "RDERS\020\001\022\025\n\021ORDER_VALUE_RANGE\020\002\022\024\n\020AB_TES" +
+      "T_ENTRANCE\020\003\022\030\n\024ORDER_DISTANCE_RANGE\020\004\022\r" +
+      "\n\tPLATFORMS\020\005\022\024\n\020REGISTERED_AFTER\020\006\022\r\n\tO" +
+      "N_DEMAND\020\007\022\016\n\nCLIENT_API\020\010*1\n\013ScriptStat" +
+      "e\022\020\n\014SCRIPT_VALID\020\000\022\020\n\014SCRIPT_ERROR\020\001*\"\n" +
+      "\027SurgeSwitchbackDataType\022\007\n\003CSV\020\0002\337\025\n\014Sh" +
+      "ippingcalc\022[\n\016CreateStrategy\022#.shippingc" +
+      "alc.CreateStrategyRequest\032$.shippingcalc" +
+      ".CreateStrategyResponse\022[\n\016UpdateStrateg" +
+      "y\022#.shippingcalc.UpdateStrategyRequest\032$" +
+      ".shippingcalc.UpdateStrategyResponse\022U\n\014" +
+      "BindStrategy\022!.shippingcalc.BindStrategy" +
+      "Request\032\".shippingcalc.BindStrategyRespo" +
+      "nse\022[\n\016UnbindStrategy\022#.shippingcalc.Unb" +
+      "indStrategyRequest\032$.shippingcalc.Unbind" +
+      "StrategyResponse\022d\n\021CreateBindingRule\022&." +
+      "shippingcalc.CreateBindingRuleRequest\032\'." +
+      "shippingcalc.CreateBindingRuleResponse\022d" +
+      "\n\021UpdateBindingRule\022&.shippingcalc.Updat" +
+      "eBindingRuleRequest\032\'.shippingcalc.Updat" +
+      "eBindingRuleResponse\022^\n\017GetBindingRules\022" +
+      "$.shippingcalc.GetBindingRulesRequest\032%." +
+      "shippingcalc.GetBindingRulesResponse\022d\n\021" +
+      "DeleteBindingRule\022&.shippingcalc.DeleteB" +
+      "indingRuleRequest\032\'.shippingcalc.DeleteB" +
+      "indingRuleResponse\022X\n\rGetStrategies\022\".sh" +
+      "ippingcalc.GetStrategiesRequest\032#.shippi" +
+      "ngcalc.GetStrategiesResponse\022R\n\013GetStrat" +
+      "egy\022 .shippingcalc.GetStrategyRequest\032!." +
+      "shippingcalc.GetStrategyResponse\022p\n\025GetS" +
+      "trategiesForStore\022*.shippingcalc.GetStra" +
+      "tegiesForStoreRequest\032+.shippingcalc.Get" +
+      "StrategiesForStoreResponse\022[\n\016DeleteStra" +
+      "tegy\022#.shippingcalc.DeleteStrategyReques" +
+      "t\032$.shippingcalc.DeleteStrategyResponse\022" +
+      "U\n\014CreateScript\022!.shippingcalc.CreateScr" +
+      "iptRequest\032\".shippingcalc.CreateScriptRe" +
+      "sponse\022U\n\014UpdateScript\022!.shippingcalc.Up" +
+      "dateScriptRequest\032\".shippingcalc.UpdateS" +
+      "criptResponse\022L\n\tGetScript\022\036.shippingcal" +
+      "c.GetScriptRequest\032\037.shippingcalc.GetScr" +
+      "iptResponse\022O\n\nGetScripts\022\037.shippingcalc" +
+      ".GetScriptsRequest\032 .shippingcalc.GetScr" +
+      "iptsResponse\022m\n\024GetScriptTestResults\022).s" +
+      "hippingcalc.GetScriptTestResultsRequest\032" +
+      "*.shippingcalc.GetScriptTestResultsRespo" +
+      "nse\022U\n\014DeleteScript\022!.shippingcalc.Delet" +
+      "eScriptRequest\032\".shippingcalc.DeleteScri" +
+      "ptResponse\022a\n\020GetDeliveryPrice\022%.shippin" +
+      "gcalc.GetDeliveryPriceRequest\032&.shipping" +
+      "calc.GetDeliveryPriceResponse\022d\n\021SetInte" +
+      "rvalsSurge\022&.shippingcalc.SetIntervalsSu" +
+      "rgeRequest\032\'.shippingcalc.SetIntervalsSu" +
+      "rgeResponse\022d\n\021GetIntervalsSurge\022&.shipp" +
+      "ingcalc.GetIntervalsSurgeRequest\032\'.shipp" +
+      "ingcalc.GetIntervalsSurgeResponse\022y\n\030Set" +
+      "SwitchbackExperiments\022-.shippingcalc.Set" +
+      "SwitchbackExperimentsRequest\032..shippingc" +
+      "alc.SetSwitchbackExperimentsResponse\022y\n\030" +
+      "GetSwitchbackExperiments\022-.shippingcalc." +
+      "GetSwitchbackExperimentsRequest\032..shippi" +
+      "ngcalc.GetSwitchbackExperimentsResponse\022" +
+      "d\n\021GetMinCartAmounts\022&.shippingcalc.GetM" +
+      "inCartAmountsRequest\032\'.shippingcalc.GetM" +
+      "inCartAmountsResponse\022p\n\025GetDeliveryCond" +
+      "itions\022*.shippingcalc.GetDeliveryConditi" +
+      "onsRequest\032+.shippingcalc.GetDeliveryCon" +
+      "ditionsResponse\022g\n\022GetSurgeThresholds\022\'." +
+      "shippingcalc.GetSurgeThresholdsRequest\032(" +
+      ".shippingcalc.GetSurgeThresholdsResponse" +
+      "\022g\n\022SetSurgeThresholds\022\'.shippingcalc.Se" +
+      "tSurgeThresholdsRequest\032(.shippingcalc.S" +
+      "etSurgeThresholdsResponse\022p\n\025DeleteSurge" +
+      "Thresholds\022*.shippingcalc.DeleteSurgeThr" +
+      "esholdsRequest\032+.shippingcalc.DeleteSurg" +
+      "eThresholdsResponseBTP\001ZPgitlab.sbmt.io/" +
+      "paas/content/operations/shippingcalc/pkg" +
+      "/server/grpc/shippingcalcb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1168,7 +1231,7 @@ public final class ShippingcalcOuterClass {
     internal_static_shippingcalc_CreateBindingRuleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_CreateBindingRuleRequest_descriptor,
-        new java.lang.String[] { "StrategyId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", });
+        new java.lang.String[] { "StrategyId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "Description", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "Description", });
     internal_static_shippingcalc_CreateBindingRuleResponse_descriptor =
       getDescriptor().getMessageTypes().get(71);
     internal_static_shippingcalc_CreateBindingRuleResponse_fieldAccessorTable = new
@@ -1180,7 +1243,7 @@ public final class ShippingcalcOuterClass {
     internal_static_shippingcalc_UpdateBindingRuleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_UpdateBindingRuleRequest_descriptor,
-        new java.lang.String[] { "BindingRuleId", "StrategyId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "StrategyId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", });
+        new java.lang.String[] { "BindingRuleId", "StrategyId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "Description", "StrategyId", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "Description", });
     internal_static_shippingcalc_UpdateBindingRuleResponse_descriptor =
       getDescriptor().getMessageTypes().get(73);
     internal_static_shippingcalc_UpdateBindingRuleResponse_fieldAccessorTable = new
@@ -1216,7 +1279,55 @@ public final class ShippingcalcOuterClass {
     internal_static_shippingcalc_BindingRule_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shippingcalc_BindingRule_descriptor,
-        new java.lang.String[] { "Id", "StrategyId", "Shipping", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "CreatedAt", "UpdatedAt", "DeletedAt", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "DeletedAt", });
+        new java.lang.String[] { "Id", "StrategyId", "Shipping", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "CreatedAt", "UpdatedAt", "DeletedAt", "Description", "TenantId", "RegionId", "RetailerId", "Ondemand", "LabelId", "DeletedAt", "Description", });
+    internal_static_shippingcalc_GetSurgeThresholdsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(79);
+    internal_static_shippingcalc_GetSurgeThresholdsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_GetSurgeThresholdsRequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_shippingcalc_GetSurgeThresholdsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(80);
+    internal_static_shippingcalc_GetSurgeThresholdsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_GetSurgeThresholdsResponse_descriptor,
+        new java.lang.String[] { "Thresholds", });
+    internal_static_shippingcalc_SetSurgeThresholdsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(81);
+    internal_static_shippingcalc_SetSurgeThresholdsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_SetSurgeThresholdsRequest_descriptor,
+        new java.lang.String[] { "Thresholds", });
+    internal_static_shippingcalc_SetSurgeThresholdsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(82);
+    internal_static_shippingcalc_SetSurgeThresholdsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_SetSurgeThresholdsResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_shippingcalc_DeleteSurgeThresholdsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(83);
+    internal_static_shippingcalc_DeleteSurgeThresholdsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_DeleteSurgeThresholdsRequest_descriptor,
+        new java.lang.String[] { "RegionId", });
+    internal_static_shippingcalc_DeleteSurgeThresholdsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(84);
+    internal_static_shippingcalc_DeleteSurgeThresholdsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_DeleteSurgeThresholdsResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_shippingcalc_SurgeThreshold_descriptor =
+      getDescriptor().getMessageTypes().get(85);
+    internal_static_shippingcalc_SurgeThreshold_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_SurgeThreshold_descriptor,
+        new java.lang.String[] { "RegionId", "Parameters", });
+    internal_static_shippingcalc_SurgeThresholdParameters_descriptor =
+      getDescriptor().getMessageTypes().get(86);
+    internal_static_shippingcalc_SurgeThresholdParameters_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shippingcalc_SurgeThresholdParameters_descriptor,
+        new java.lang.String[] { "Intervals", });
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 

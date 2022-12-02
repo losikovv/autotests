@@ -1,6 +1,7 @@
 package ru.instamart.jdbc.dao.shippingcalc;
 
 import ru.instamart.jdbc.dao.Dao;
+import ru.instamart.jdbc.entity.shippingcalc.StrategyBindingsEntity;
 import ru.instamart.jdbc.entity.shippingcalc.SurgeThresholdsEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
@@ -15,6 +16,25 @@ import static org.testng.Assert.fail;
 
 public class SurgeThresholdsDao implements Dao<Integer, SurgeThresholdsEntity> {
     public static final SurgeThresholdsDao INSTANCE = new SurgeThresholdsDao();
+
+    public SurgeThresholdsEntity getSurgeThresholdByRegionId(Integer regionId) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(" SELECT * FROM surge_thresholds WHERE region_id = ? ")) {
+            preparedStatement.setInt(1, regionId);
+
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return SurgeThresholdsEntity.builder()
+                            .regionId(resultSet.getInt("region_id"))
+                            .parameters(resultSet.getString("parameters"))
+                            .build();
+                }
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+        return null;
+    }
 
     public boolean setSurgeThreshold(SurgeThresholdsEntity surgeThreshold) {
         try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();

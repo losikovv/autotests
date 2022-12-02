@@ -790,6 +790,99 @@ public final class ShippingcalcGrpc {
     return getGetDeliveryConditionsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.GetSurgeThresholdsRequest,
+      shippingcalc.GetSurgeThresholdsResponse> getGetSurgeThresholdsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetSurgeThresholds",
+      requestType = shippingcalc.GetSurgeThresholdsRequest.class,
+      responseType = shippingcalc.GetSurgeThresholdsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shippingcalc.GetSurgeThresholdsRequest,
+      shippingcalc.GetSurgeThresholdsResponse> getGetSurgeThresholdsMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.GetSurgeThresholdsRequest, shippingcalc.GetSurgeThresholdsResponse> getGetSurgeThresholdsMethod;
+    if ((getGetSurgeThresholdsMethod = ShippingcalcGrpc.getGetSurgeThresholdsMethod) == null) {
+      synchronized (ShippingcalcGrpc.class) {
+        if ((getGetSurgeThresholdsMethod = ShippingcalcGrpc.getGetSurgeThresholdsMethod) == null) {
+          ShippingcalcGrpc.getGetSurgeThresholdsMethod = getGetSurgeThresholdsMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.GetSurgeThresholdsRequest, shippingcalc.GetSurgeThresholdsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetSurgeThresholds"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.GetSurgeThresholdsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.GetSurgeThresholdsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("GetSurgeThresholds"))
+              .build();
+        }
+      }
+    }
+    return getGetSurgeThresholdsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.SetSurgeThresholdsRequest,
+      shippingcalc.SetSurgeThresholdsResponse> getSetSurgeThresholdsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SetSurgeThresholds",
+      requestType = shippingcalc.SetSurgeThresholdsRequest.class,
+      responseType = shippingcalc.SetSurgeThresholdsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shippingcalc.SetSurgeThresholdsRequest,
+      shippingcalc.SetSurgeThresholdsResponse> getSetSurgeThresholdsMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.SetSurgeThresholdsRequest, shippingcalc.SetSurgeThresholdsResponse> getSetSurgeThresholdsMethod;
+    if ((getSetSurgeThresholdsMethod = ShippingcalcGrpc.getSetSurgeThresholdsMethod) == null) {
+      synchronized (ShippingcalcGrpc.class) {
+        if ((getSetSurgeThresholdsMethod = ShippingcalcGrpc.getSetSurgeThresholdsMethod) == null) {
+          ShippingcalcGrpc.getSetSurgeThresholdsMethod = getSetSurgeThresholdsMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.SetSurgeThresholdsRequest, shippingcalc.SetSurgeThresholdsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetSurgeThresholds"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.SetSurgeThresholdsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.SetSurgeThresholdsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("SetSurgeThresholds"))
+              .build();
+        }
+      }
+    }
+    return getSetSurgeThresholdsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<shippingcalc.DeleteSurgeThresholdsRequest,
+      shippingcalc.DeleteSurgeThresholdsResponse> getDeleteSurgeThresholdsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeleteSurgeThresholds",
+      requestType = shippingcalc.DeleteSurgeThresholdsRequest.class,
+      responseType = shippingcalc.DeleteSurgeThresholdsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shippingcalc.DeleteSurgeThresholdsRequest,
+      shippingcalc.DeleteSurgeThresholdsResponse> getDeleteSurgeThresholdsMethod() {
+    io.grpc.MethodDescriptor<shippingcalc.DeleteSurgeThresholdsRequest, shippingcalc.DeleteSurgeThresholdsResponse> getDeleteSurgeThresholdsMethod;
+    if ((getDeleteSurgeThresholdsMethod = ShippingcalcGrpc.getDeleteSurgeThresholdsMethod) == null) {
+      synchronized (ShippingcalcGrpc.class) {
+        if ((getDeleteSurgeThresholdsMethod = ShippingcalcGrpc.getDeleteSurgeThresholdsMethod) == null) {
+          ShippingcalcGrpc.getDeleteSurgeThresholdsMethod = getDeleteSurgeThresholdsMethod =
+              io.grpc.MethodDescriptor.<shippingcalc.DeleteSurgeThresholdsRequest, shippingcalc.DeleteSurgeThresholdsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteSurgeThresholds"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.DeleteSurgeThresholdsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shippingcalc.DeleteSurgeThresholdsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShippingcalcMethodDescriptorSupplier("DeleteSurgeThresholds"))
+              .build();
+        }
+      }
+    }
+    return getDeleteSurgeThresholdsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -1088,6 +1181,36 @@ public final class ShippingcalcGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetDeliveryConditionsMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     * Получить все трешхолды для surge
+     * </pre>
+     */
+    public void getSurgeThresholds(shippingcalc.GetSurgeThresholdsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetSurgeThresholdsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetSurgeThresholdsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Установить трешхолды для surge
+     * </pre>
+     */
+    public void setSurgeThresholds(shippingcalc.SetSurgeThresholdsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.SetSurgeThresholdsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetSurgeThresholdsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Удалить трешхолды для surge
+     * </pre>
+     */
+    public void deleteSurgeThresholds(shippingcalc.DeleteSurgeThresholdsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.DeleteSurgeThresholdsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteSurgeThresholdsMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -1265,6 +1388,27 @@ public final class ShippingcalcGrpc {
                 shippingcalc.GetDeliveryConditionsRequest,
                 shippingcalc.GetDeliveryConditionsResponse>(
                   this, METHODID_GET_DELIVERY_CONDITIONS)))
+          .addMethod(
+            getGetSurgeThresholdsMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shippingcalc.GetSurgeThresholdsRequest,
+                shippingcalc.GetSurgeThresholdsResponse>(
+                  this, METHODID_GET_SURGE_THRESHOLDS)))
+          .addMethod(
+            getSetSurgeThresholdsMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shippingcalc.SetSurgeThresholdsRequest,
+                shippingcalc.SetSurgeThresholdsResponse>(
+                  this, METHODID_SET_SURGE_THRESHOLDS)))
+          .addMethod(
+            getDeleteSurgeThresholdsMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shippingcalc.DeleteSurgeThresholdsRequest,
+                shippingcalc.DeleteSurgeThresholdsResponse>(
+                  this, METHODID_DELETE_SURGE_THRESHOLDS)))
           .build();
     }
   }
@@ -1557,6 +1701,39 @@ public final class ShippingcalcGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetDeliveryConditionsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * Получить все трешхолды для surge
+     * </pre>
+     */
+    public void getSurgeThresholds(shippingcalc.GetSurgeThresholdsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.GetSurgeThresholdsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetSurgeThresholdsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Установить трешхолды для surge
+     * </pre>
+     */
+    public void setSurgeThresholds(shippingcalc.SetSurgeThresholdsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.SetSurgeThresholdsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSetSurgeThresholdsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Удалить трешхолды для surge
+     * </pre>
+     */
+    public void deleteSurgeThresholds(shippingcalc.DeleteSurgeThresholdsRequest request,
+        io.grpc.stub.StreamObserver<shippingcalc.DeleteSurgeThresholdsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteSurgeThresholdsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -1821,6 +1998,36 @@ public final class ShippingcalcGrpc {
     public shippingcalc.GetDeliveryConditionsResponse getDeliveryConditions(shippingcalc.GetDeliveryConditionsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetDeliveryConditionsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Получить все трешхолды для surge
+     * </pre>
+     */
+    public shippingcalc.GetSurgeThresholdsResponse getSurgeThresholds(shippingcalc.GetSurgeThresholdsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetSurgeThresholdsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Установить трешхолды для surge
+     * </pre>
+     */
+    public shippingcalc.SetSurgeThresholdsResponse setSurgeThresholds(shippingcalc.SetSurgeThresholdsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSetSurgeThresholdsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Удалить трешхолды для surge
+     * </pre>
+     */
+    public shippingcalc.DeleteSurgeThresholdsResponse deleteSurgeThresholds(shippingcalc.DeleteSurgeThresholdsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteSurgeThresholdsMethod(), getCallOptions(), request);
     }
   }
 
@@ -2112,6 +2319,39 @@ public final class ShippingcalcGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetDeliveryConditionsMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * Получить все трешхолды для surge
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.GetSurgeThresholdsResponse> getSurgeThresholds(
+        shippingcalc.GetSurgeThresholdsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetSurgeThresholdsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Установить трешхолды для surge
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.SetSurgeThresholdsResponse> setSurgeThresholds(
+        shippingcalc.SetSurgeThresholdsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSetSurgeThresholdsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Удалить трешхолды для surge
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shippingcalc.DeleteSurgeThresholdsResponse> deleteSurgeThresholds(
+        shippingcalc.DeleteSurgeThresholdsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteSurgeThresholdsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_STRATEGY = 0;
@@ -2139,6 +2379,9 @@ public final class ShippingcalcGrpc {
   private static final int METHODID_GET_SWITCHBACK_EXPERIMENTS = 22;
   private static final int METHODID_GET_MIN_CART_AMOUNTS = 23;
   private static final int METHODID_GET_DELIVERY_CONDITIONS = 24;
+  private static final int METHODID_GET_SURGE_THRESHOLDS = 25;
+  private static final int METHODID_SET_SURGE_THRESHOLDS = 26;
+  private static final int METHODID_DELETE_SURGE_THRESHOLDS = 27;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -2257,6 +2500,18 @@ public final class ShippingcalcGrpc {
           serviceImpl.getDeliveryConditions((shippingcalc.GetDeliveryConditionsRequest) request,
               (io.grpc.stub.StreamObserver<shippingcalc.GetDeliveryConditionsResponse>) responseObserver);
           break;
+        case METHODID_GET_SURGE_THRESHOLDS:
+          serviceImpl.getSurgeThresholds((shippingcalc.GetSurgeThresholdsRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.GetSurgeThresholdsResponse>) responseObserver);
+          break;
+        case METHODID_SET_SURGE_THRESHOLDS:
+          serviceImpl.setSurgeThresholds((shippingcalc.SetSurgeThresholdsRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.SetSurgeThresholdsResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_SURGE_THRESHOLDS:
+          serviceImpl.deleteSurgeThresholds((shippingcalc.DeleteSurgeThresholdsRequest) request,
+              (io.grpc.stub.StreamObserver<shippingcalc.DeleteSurgeThresholdsResponse>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -2343,6 +2598,9 @@ public final class ShippingcalcGrpc {
               .addMethod(getGetSwitchbackExperimentsMethod())
               .addMethod(getGetMinCartAmountsMethod())
               .addMethod(getGetDeliveryConditionsMethod())
+              .addMethod(getGetSurgeThresholdsMethod())
+              .addMethod(getSetSurgeThresholdsMethod())
+              .addMethod(getDeleteSurgeThresholdsMethod())
               .build();
         }
       }
