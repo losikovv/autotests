@@ -5,6 +5,8 @@ import ru.instamart.jdbc.entity.order_service.PlacesEntity;
 import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +16,8 @@ import static org.testng.Assert.fail;
 public class PlacesDao implements Dao<String, PlacesDao> {
     public static final PlacesDao INSTANCE = new PlacesDao();
     private final String SELECT_SQL = "SELECT %s FROM places";
+
+    private final String UPDATE_SQL = "UPDATE places";
 
     @Override
     public boolean delete(String id) {
@@ -66,5 +70,18 @@ public class PlacesDao implements Dao<String, PlacesDao> {
     @Override
     public List<PlacesDao> findAll() {
         return null;
+    }
+
+    public void updatePlaces(String retailerUuid, String assemblyTaskType, String uuid, Integer sla) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_ORDER).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(UPDATE_SQL) + " SET retailer_uuid = ?::uuid, assembly_task_type = ?::assembly_task_type, sla_min = ?::integer WHERE uuid = ?::uuid")) {
+            preparedStatement.setString(1, retailerUuid);
+            preparedStatement.setString(2, assemblyTaskType);
+            preparedStatement.setInt(3, sla);
+            preparedStatement.setString(4, uuid);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
     }
 }

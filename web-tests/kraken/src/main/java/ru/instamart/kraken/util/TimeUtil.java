@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Locale;
 
+import static java.time.format.DateTimeFormatter.ISO_INSTANT;
+
 public final class TimeUtil {
 
     public static final ZoneId ZONE_ID = ZoneId.of("Europe/Moscow");
@@ -172,6 +174,24 @@ public final class TimeUtil {
      */
     public static Timestamp getTimestampFromString(String dateTime) {
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateTime, zdtz);
+        Instant instant = zonedDateTime.toInstant();
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
+                .build();
+    }
+
+    public static Timestamp getTimestampFromStringzdtkf(String dateTime) {
+        ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateTime, ISO_INSTANT.withZone(ZONE_ID));
+        Instant instant = zonedDateTime.toInstant();
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
+                .build();
+    }
+
+    public static Timestamp getTimestampFromStringDtdb(String dateTime) {
+        ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateTime, dtdb.withZone(ZONE_ID));
         Instant instant = zonedDateTime.toInstant();
         return Timestamp.newBuilder()
                 .setSeconds(instant.getEpochSecond())
