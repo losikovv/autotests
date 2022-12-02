@@ -13,13 +13,14 @@ import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
+import ru.instamart.api.enums.v3.IntegrationTypeV3;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.ApiV3Helper;
+import ru.instamart.api.helper.K8sHelper;
 import ru.instamart.api.model.v2.AssemblyItemV2;
 import ru.instamart.api.model.v2.LineItemV2;
 import ru.instamart.api.model.v2.OrderV2;
-import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
@@ -32,15 +33,16 @@ import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 @Epic("ApiV3")
 @Feature("Нотификации")
 public class NotificationsPositionsV3Test extends RestBase {
-    private final Integer sid = 58;
-    private final String uuid = "adaa359e-6c53-462a-928d-307317e399b1";
+    private final Integer sidDeliveryBySbermarket = 58;
+    private final String uuidDeliveryBySbermarket = "adaa359e-6c53-462a-928d-307317e399b1";
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         ApiV3Helper.checkFlipper("allow_export_to_external_services");
         if (!EnvironmentProperties.Env.isPreprod()) {
-            admin.auth();
-            admin.editStore(uuid, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
+            K8sHelper.updateApiIntegrationType(IntegrationTypeV3.DELIVERY_BY_SBERMARKET.getValue(), sidDeliveryBySbermarket.toString());
+            //admin.auth();
+            //admin.editStore(uuidDeliveryBySbermarket, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
         }
     }
 

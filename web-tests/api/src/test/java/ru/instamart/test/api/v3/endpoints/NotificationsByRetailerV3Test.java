@@ -12,16 +12,18 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v2.StateV2;
+import ru.instamart.api.enums.v3.IntegrationTypeV3;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.helper.K8sHelper;
 import ru.instamart.api.model.v2.AssemblyItemV2;
 import ru.instamart.api.model.v2.OrderV2;
-import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 import static ru.instamart.api.request.v3.NotificationsV3Request.*;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 
@@ -35,9 +37,10 @@ public class NotificationsByRetailerV3Test extends RestBase {
     @BeforeClass(alwaysRun = false)
     public void preconditionsBeforeClass() {
         apiV3.checkFlipper("allow_export_to_external_services");
-        admin.auth();
-        admin.authApi();
-        admin.editStore(uuidDeliveryByRetailer, StoresAdminRequest.getStoreVictoriaTest());
+        K8sHelper.updateApiIntegrationType(IntegrationTypeV3.DELIVERY_BY_RETAILER.getValue(), sidDeliveryByRetailer.toString());
+        //admin.auth();
+        //admin.authApi();
+        //admin.editStore(uuidDeliveryByRetailer, StoresAdminRequest.getStoreVictoriaTest());
     }
 
     @BeforeMethod(alwaysRun = true)

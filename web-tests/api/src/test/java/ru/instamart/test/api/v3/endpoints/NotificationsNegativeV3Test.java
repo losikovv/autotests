@@ -11,8 +11,10 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.ApiV3DataProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
+import ru.instamart.api.enums.v3.IntegrationTypeV3;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.helper.K8sHelper;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -26,18 +28,20 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public class NotificationsNegativeV3Test extends RestBase {
     private OrderV2 orderShopper;
     private OrderV2 orderForAccounting;
-    private final Integer sid = 7;
+    private final Integer sidIntegrationForAccounting = 7;
     private final String storeUuid = "dd0f9a61-37ef-47fb-85f2-41d738cdcc13";
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
+        apiV3.checkFlipper("allow_export_to_external_services");
+        K8sHelper.updateApiIntegrationType(IntegrationTypeV3.INTEGRATION_FOR_ACCOUNTING.getValue(), sidIntegrationForAccounting.toString());
         /*admin.auth();
         admin.authApi();
         admin.editStore(storeUuid, StoresAdminRequest.getStoreLentaElino());*/
 
         SessionFactory.makeSession(SessionType.API_V2);
         orderShopper = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
-        orderForAccounting = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid);
+        orderForAccounting = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidIntegrationForAccounting);
     }
 
     @Story("Негативные тесты")
