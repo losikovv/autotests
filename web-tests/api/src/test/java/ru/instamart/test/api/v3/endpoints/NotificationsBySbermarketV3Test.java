@@ -12,6 +12,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v2.StateV2;
+import ru.instamart.api.enums.v3.IntegrationTypeV3;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.K8sHelper;
@@ -35,7 +36,7 @@ public class NotificationsBySbermarketV3Test extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditionsBeforeClass() {
         apiV3.checkFlipper("allow_export_to_external_services");
-        K8sHelper.updateApiIntegrationType("0", sidDeliveryBySbermarket.toString());
+        K8sHelper.updateApiIntegrationType(IntegrationTypeV3.DELIVERY_BY_SBERMARKET.getValue(), sidDeliveryBySbermarket.toString());
         //admin.auth();
         //admin.authApi();
         //admin.editStore(uuidDeliveryBySbermarket, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
