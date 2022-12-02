@@ -8,8 +8,6 @@ import ru.instamart.reforged.core.ByKraken;
 
 import java.nio.file.Path;
 
-import static java.util.Objects.isNull;
-
 /**
  * Компонент для загрузки файлов на сервер. Input с типом file, локатор //input[@type='file']
  */
@@ -27,11 +25,8 @@ public final class Upload extends AbstractComponent {
 
     @Override
     public WebElement getComponent() {
-        log.debug("Create {} with locator {}", getDescription(), getBy());
-        if (isNull(component) || isCacheDisable) {
-            component = shouldBe().elementExists();
-        }
-        return component;
+        log.debug("getComponent {} with locator {}", getDescription(), getBy());
+        return shouldBe().elementExists();
     }
 
     public void upload(final String filePath, final Object... args) {

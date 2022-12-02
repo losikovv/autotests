@@ -2,7 +2,6 @@ package ru.instamart.test.reforged.admin.retailer;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
@@ -20,7 +19,6 @@ import static ru.instamart.reforged.admin.AdminRout.regions;
 public final class AdministrationRetailerRegionsTests {
 
     @CaseId(469)
-    @Issue("GARM-1125")
     @Story("Тест добавления нового региона для магазинов в админке")
     @Test(description = "Создать новый регион",
             groups = {OD_SHOPPERS_REGRESS, OD_SHOPPERS_SMOKE, OD_SMOKE, OD_REGRESS})

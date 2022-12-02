@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static java.util.Objects.isNull;
-
 @ToString(callSuper = true)
 @Slf4j
 public final class Autocomplete extends AbstractComponent {
@@ -21,11 +19,8 @@ public final class Autocomplete extends AbstractComponent {
 
     @Override
     public WebElement getComponent() {
-        log.debug("Create {} with locator {}", getDescription(), getBy());
-        if (isNull(component) || isCacheDisable) {
-            component = shouldBe().clickable();
-        }
-        return component;
+        log.debug("getComponent {} with locator {}", getDescription(), getBy());
+        return shouldBe().clickable();
     }
 
     public void fill(final String data) {

@@ -54,7 +54,14 @@ public final class K8sConsumer {
             final var v1PodList = K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
                     null, label, null, null, null, null, null);
             return v1PodList.getItems().stream()
-                    .filter(item -> item.getStatus().getPhase().equals("Running"))
+                    .filter(item -> {
+                        final var status = item.getStatus();
+                        if (nonNull(status)) {
+                            final var phase = status.getPhase();
+                            return nonNull(phase) && phase.equals("Running");
+                        }
+                        return false;
+                    })
                     .collect(Collectors.toList());
         } catch (ApiException e) {
             throw new RuntimeException("Не получилось вызвать api k8s: " + e.getMessage());

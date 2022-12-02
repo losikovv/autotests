@@ -6,8 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.ByKraken;
 
-import static java.util.Objects.isNull;
-
 @ToString(callSuper = true)
 @Slf4j
 public final class Button extends AbstractComponent {
@@ -22,11 +20,8 @@ public final class Button extends AbstractComponent {
 
     @Override
     public WebElement getComponent() {
-        log.debug("Create {} with locator {}", getDescription(), getBy());
-        if (isNull(component) || isCacheDisable) {
-            component = shouldBe().clickable();
-        }
-        return component;
+        log.debug("getComponent {} with locator {}", getDescription(), getBy());
+        return shouldBe().clickable();
     }
 
     public synchronized void click(final Object... args) {

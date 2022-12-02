@@ -9,7 +9,6 @@ import ru.instamart.reforged.core.component.AbstractComponent;
 import ru.instamart.reforged.core.wait.KrakenWait;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,14 +19,6 @@ import static ru.instamart.reforged.core.Kraken.getWebDriver;
 
 @Slf4j
 public final class JsAction {
-
-    //Код для получения размеров страницы, необходим для создания полностраничного скрина
-    public static final String JS_GET_PAGE_SIZE = "({" +
-            "width: Math.max(window.innerWidth,document.body.scrollWidth,document.documentElement.scrollWidth)|0," +
-            "height: Math.max(window.innerHeight,document.body.scrollHeight,document.documentElement.scrollHeight)|0," +
-            "deviceScaleFactor: window.devicePixelRatio || 1," +
-            "mobile: typeof window.orientation !== 'undefined'" +
-            "})";
 
     /**
      * Ожидание загрузки дома
@@ -167,6 +158,7 @@ public final class JsAction {
                 final Long countRequest = (Long) pendingRequest;
                 final Object urls = execute("return window.urls");
                 if (Objects.nonNull(urls) && urls instanceof ArrayList) {
+                    @SuppressWarnings("unchecked")
                     final var urlsString = String.join(",", (List<String>) urls);
                     log.debug("Wait pending urls: {}", urlsString);
                     wait.withMessage("Wait pending urls: " + urlsString);

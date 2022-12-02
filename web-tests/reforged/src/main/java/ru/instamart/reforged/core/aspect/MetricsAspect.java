@@ -15,7 +15,7 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public final class MetricsAspect {
 
-    @Pointcut("@annotation(ru.instamart.reforged.core.report.Metrics)")
+    @Pointcut("@annotation(ru.instamart.reforged.core.annotation.Metrics)")
     public void withMetricsAnnotation() {
         //pointcut body, should be empty
     }
