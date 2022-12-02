@@ -58,6 +58,24 @@ public class RetailersDao implements Dao<String, RetailersEntity> {
         return retailersEntity;
     }
 
+    public RetailersEntity findByVertical() {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_ORDER).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE vertical = 'RESTAURANT' LIMIT 1")) {
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    RetailersEntity retailersEntity;
+                    retailersEntity = new RetailersEntity();
+                    retailersEntity.setUuid(resultSet.getString("uuid"));
+                    return retailersEntity;
+                }
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLOrderServiceManager. Error: " + e.getMessage());
+        }
+        return null;
+    }
+
+
     @Override
     public List<RetailersEntity> findAll() {
         return null;
