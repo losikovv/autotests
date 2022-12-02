@@ -28,17 +28,14 @@ public final class ElementCollection extends CollectionComponent {
 
     @Override
     protected List<WebElement> getComponents() {
-        log.debug("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
-        if (isNull(components) || isCacheDisable) {
-            components = shouldBe().elementsExists();
-        }
-        return components;
+        log.debug("getComponent {} with locator {}", getDescription(), getBy());
+        return shouldBe().elementsExists();
     }
 
     private List<WebElement> getComponents(final Object... args) {
         setBy(ByKraken.xpathExpression(((ByKraken)getBy()).getDefaultXpathExpression(), args));
         log.debug("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
-        if (isNull(components) || isCacheDisable) {
+        if (isNull(components)) {
             components = shouldBe().elementsExists();
         }
         return components;

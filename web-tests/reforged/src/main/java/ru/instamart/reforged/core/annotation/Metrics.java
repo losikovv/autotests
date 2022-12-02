@@ -1,4 +1,4 @@
-package ru.instamart.reforged.core.report;
+package ru.instamart.reforged.core.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -7,7 +7,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.devtools.v107.performance.model.Metric;
 import org.openqa.selenium.logging.LogType;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.annotation.KrakenParams;
 import ru.instamart.reforged.core.cdp.CdpCookie;
 
 import java.io.File;
@@ -55,9 +54,8 @@ public final class CustomReport {
      * Создаём скриншот и добавляем его в Allure
      */
     @Attachment(value = "Скриншот с веб страницы", type = "image/jpg")
-    public static byte[] takeScreenshot(final KrakenParams params) {
-        final var driver = Kraken.getWebDriver();
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+    public static byte[] takeScreenshot() {
+        return ((TakesScreenshot) Kraken.getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
     /**

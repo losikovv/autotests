@@ -27,6 +27,9 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import static ru.instamart.reforged.core.config.AshotProperties.ALLOWABLE_DIFF_SIZE;
+import static ru.instamart.reforged.core.config.AshotProperties.ASHOT_PATH;
+
 /**
  * При дальнейшем расширении необходимо часть констант вытащить в конфиги
  * Работу с файловой системой вынести в отдельный класс
@@ -39,12 +42,11 @@ public final class AshotService {
     private static final String expected_img = "expected.png";
     private static final String actual_img = "actual.png";
     private static final String diff_img = "diff.png";
-    private static final int allowableDiffSize = 1;
     private static final String type = "png";
 
     static {
         try {
-            Files.createDirectories(Paths.get("src", "test", "resources", "ashot"));
+            Files.createDirectories(Paths.get(ASHOT_PATH));
         } catch (IOException e) {
             log.error("Can't create dir");
         }
@@ -62,7 +64,7 @@ public final class AshotService {
 
     public static void compareImage(final Screenshot expected, final WebElement element, final Component... components) {
         final var actual = screenWebElement(element, actual_img, true, components);
-        if (getDiffSize(expected, actual) > allowableDiffSize) {
+        if (getDiffSize(expected, actual) > ALLOWABLE_DIFF_SIZE) {
             final var diff = saveDiffImage(expected, actual);
             Allure.label("testType", "screenshotDiff");
             attachImg("expected", expected.getImage());
@@ -88,7 +90,11 @@ public final class AshotService {
         }
         final var ashot = new AShot()
                 .coordsProvider(new WebDriverCoordsProvider())
-                .ignoredElements(Arrays.stream(components).map(Component::getBy).collect(Collectors.toSet()));
+                .ignoredElements(
+                        Arrays.stream(components)
+                        .map(Component::getBy)
+                        .collect(Collectors.toSet())
+                );
         final var screen = ashot.takeScreenshot(Kraken.getWebDriver(), element);
 
         writeImg(fillIgnoredArea(screen), img.toFile());
@@ -137,7 +143,7 @@ public final class AshotService {
             final var result = Reporter.getCurrentTestResult();
             final var simpleClassName = result.getTestClass().getRealClass().getSimpleName();
             final var simpleMethodName = result.getMethod().getMethodName();
-            return Files.createDirectories(Paths.get("src","test","resources", "ashot", simpleClassName, simpleMethodName)).toAbsolutePath().toString();
+            return Files.createDirectories(Paths.get(ASHOT_PATH, simpleClassName, simpleMethodName)).toAbsolutePath().toString();
         } catch (IOException e) {
             log.error("FATAL: Create dir failed");
             throw new RuntimeException(e);

@@ -23,17 +23,14 @@ public final class DropDown extends CollectionComponent {
 
     @Override
     public WebElement getComponent() {
-        log.debug("Create {} with locator {}", getDescription(), getBy());
-        if (isNull(component) || isCacheDisable) {
-            component = shouldBe().clickable();
-        }
-        return component;
+        log.debug("getComponent {} with locator {}", getDescription(), getBy());
+        return shouldBe().clickable();
     }
 
     @Override
     protected List<WebElement> getComponents() {
         log.debug("Get {}'s with locator {}", getDescription(), getBy());
-        if (isNull(components) || isCacheDisable) {
+        if (isNull(components)) {
             components = shouldBe().elementsExists();
         }
         return components;

@@ -10,8 +10,6 @@ import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 
-import static java.util.Objects.isNull;
-
 @ToString(callSuper = true)
 @Slf4j
 public final class Input extends AbstractComponent {
@@ -26,11 +24,8 @@ public final class Input extends AbstractComponent {
 
     @Override
     public WebElement getComponent() {
-        log.debug("Create {} with locator {}", getDescription(), getBy());
-        if (isNull(component) || isCacheDisable) {
-            component = shouldBe().clickable();
-        }
-        return component;
+        log.debug("getComponent {} with locator {}", getDescription(), getBy());
+        return shouldBe().clickable();
     }
 
     public synchronized void fill(final String data, final Object... args) {

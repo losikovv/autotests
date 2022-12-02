@@ -7,8 +7,6 @@ import org.testng.Assert;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 
-import static java.util.Objects.isNull;
-
 @Slf4j
 public final class Image extends AbstractComponent {
 
@@ -18,11 +16,8 @@ public final class Image extends AbstractComponent {
 
     @Override
     public WebElement getComponent() {
-        log.debug("Create {} with locator {}", getDescription(), getBy());
-        if (isNull(component) || isCacheDisable) {
-            component = shouldBe().visible();
-        }
-        return component;
+        log.debug("getComponent {} with locator {}", getDescription(), getBy());
+        return shouldBe().visible();
     }
 
     /**

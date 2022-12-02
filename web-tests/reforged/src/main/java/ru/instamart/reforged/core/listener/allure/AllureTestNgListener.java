@@ -21,7 +21,6 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.annotation.DoNotOpenBrowser;
-import ru.instamart.reforged.core.annotation.KrakenParams;
 import ru.instamart.reforged.core.cdp.CdpCookie;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.instamart.reforged.core.report.CustomReport;
@@ -259,17 +258,10 @@ public class AllureTestNgListener implements ISuiteListener, ITestListener, IInv
             //CustomReport.addSourcePage();
             CustomReport.addBrowserLog();
             CustomReport.addCookieLog();
-            CustomReport.takeScreenshot(getParamsOrNull(method));
+            CustomReport.takeScreenshot();
             CustomReport.addLocalStorage();
         }
         Kraken.closeBrowser();
-    }
-
-    protected KrakenParams getParamsOrNull(final Method method) {
-        if (method.isAnnotationPresent(KrakenParams.class)) {
-            return method.getAnnotation(KrakenParams.class);
-        }
-        return null;
     }
 
     protected void addCookie(final IInvokedMethod method) {

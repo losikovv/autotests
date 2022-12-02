@@ -16,7 +16,6 @@ import ru.instamart.reforged.core.config.WaitProperties;
 import ru.instamart.reforged.core.service.ashot.AshotService;
 import ru.yandex.qatools.ashot.Screenshot;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.Objects.isNull;
@@ -28,7 +27,6 @@ public abstract class AbstractComponent implements Component {
     public static final Pattern LOCATOR = Pattern.compile("[(|/][^\\r\\n]*");
 
     protected WebElement component;
-    protected boolean isCacheDisable = true;
 
     @Getter
     @Setter
@@ -108,7 +106,7 @@ public abstract class AbstractComponent implements Component {
     }
 
     protected String getLocator(final By by) {
-        final Matcher matcher = LOCATOR.matcher(by.toString());
+        final var matcher = LOCATOR.matcher(by.toString());
         if (matcher.find()) {
             return matcher.group();
         } else {

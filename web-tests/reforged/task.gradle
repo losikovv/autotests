@@ -41,6 +41,8 @@ task localRunAdminOnDemand(type: Test) {
     environment 'ADMIN_URL', 'https://stf-6.k-stage.sbermarket.tech/'
     environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
     environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
+    environment 'SHP_NAMESPACE', 'paas-content-shopper-6'
+    environment 'SHP_LABEL', 'app.kubernetes.io/component=pg-exporter'
     systemProperty 'service', 'paas-content-operations-shifts'
     systemProperty 'qase.Project', 'DEBUG'
     systemProperty 'qase.Title', 'Admin On Demand UI DEBUG'

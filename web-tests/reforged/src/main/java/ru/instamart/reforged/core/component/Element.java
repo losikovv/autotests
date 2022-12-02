@@ -23,11 +23,8 @@ public final class Element extends AbstractComponent {
 
     @Override
     public WebElement getComponent() {
-        log.debug("Create {} with locator {}", getDescription(), getBy());
-        if (isNull(component) || isCacheDisable) {
-            component = shouldBe().visible();
-        }
-        return component;
+        log.debug("getComponent {} with locator {}", getDescription(), getBy());
+        return shouldBe().visible();
     }
 
     public synchronized WebElement getComponent(final Object... args) {

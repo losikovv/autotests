@@ -3,8 +3,6 @@ package ru.instamart.reforged.core.config;
 import ru.instamart.kraken.common.config.AbstractConfigManager;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
-import static ru.instamart.reforged.core.Check.log;
-
 public final class ConfigManager extends AbstractConfigManager {
 
     private static final String CONFIG_DIR = "config";
@@ -15,6 +13,7 @@ public final class ConfigManager extends AbstractConfigManager {
         ENGINE.loadConfig(BrowserProperties.class, BrowserProperties.NAME, CONFIG_DIR);
         ENGINE.loadConfig(WaitProperties.class, WaitProperties.NAME, CONFIG_DIR);
         ENGINE.loadConfig(BasicProperties.class, BasicProperties.NAME, CONFIG_DIR);
+        ENGINE.loadConfig(AshotProperties.class, AshotProperties.NAME, CONFIG_DIR);
         ENGINE.loadConfig(UiProperties.class, UiProperties.NAME, getEnvConfigDir());
     }
 

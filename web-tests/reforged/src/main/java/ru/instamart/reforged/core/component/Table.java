@@ -31,11 +31,8 @@ public class Table extends AbstractComponent {
 
     @Override
     public WebElement getComponent() {
-        log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
-        if (isNull(component) || isCacheDisable) {
-            component = shouldBe().visible();
-        }
-        return component;
+        log.debug("getComponent {} with locator {}", getDescription(), getBy());
+        return shouldBe().visible();
     }
 
     public List<String> getDataFromColumn(final String columnTitle) {

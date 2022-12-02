@@ -6,8 +6,8 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.annotation.Metrics;
 import ru.instamart.reforged.core.config.UiProperties;
-import ru.instamart.reforged.core.report.Metrics;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;

@@ -12,8 +12,6 @@ import ru.instamart.reforged.core.Kraken;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.Objects.isNull;
-
 @Slf4j
 public final class MultiSelector extends AbstractComponent {
 
@@ -39,11 +37,8 @@ public final class MultiSelector extends AbstractComponent {
 
     @Override
     public WebElement getComponent() {
-        log.debug("Create {} with locator {}", getDescription(), getBy());
-        if (isNull(component) || isCacheDisable) {
-            component = shouldBe().clickable();
-        }
-        return component;
+        log.debug("getComponent {} with locator {}", getDescription(), getBy());
+        return shouldBe().clickable();
     }
 
     public void fillAndSelect(final String... names) {
