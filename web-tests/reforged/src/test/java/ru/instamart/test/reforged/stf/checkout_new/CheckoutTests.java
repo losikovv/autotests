@@ -15,10 +15,8 @@ import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
-import static ru.instamart.reforged.Group.CHECKOUT_WEB_NEW;
-import static ru.instamart.reforged.Group.JOTUNHEIMR;
+import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.core.config.UiProperties.ALCOHOL_CATEGORY_LINK;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.*;
 import static ru.instamart.reforged.stf.enums.ReplacementPolicies.CALL_AND_REMOVE;
@@ -28,21 +26,14 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Epic("STF UI")
 @Feature("Чекаут V3")
 public final class CheckoutTests {
-    // Для включения нового чекаута необходимо, чтобы были включены ФФ checkout_web_new, checkout_web_force_all, tmp_b2c_9162_spree_shipment_changes (для постчекаута)
-    // Пользователь должен быть добавлен в А/Б-тесты:
-    // 2ae723fe-fdc0-4ab6-97ee-7692d2a19c90 группу new_checkout_web
-    // 7cb891fd-a69d-4aef-854e-09b0da121536 группу w_changing_details
-    // 7be2e177-5ce6-4769-b04e-c794633076e8 группу w_new_statuses
 
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(3595)
-    @Test(description = "Выбранный способ 'Доставка'/'Самовывоз' сохраняется если открыть страницу в новой вкладке", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Выбранный способ 'Доставка'/'Самовывоз' сохраняется если открыть страницу в новой вкладке", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testPaymentMethodSaveIfOpenCheckoutInNewTab() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
 
         final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
@@ -78,12 +69,10 @@ public final class CheckoutTests {
 
     @Issues({@Issue("B2C-9732"), @Issue("B2C-9730")})
     @CaseId(3623)
-    @Test(description = "Тест полного оформления заказа с оплатой картой онлайн (Доставка)", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Тест полного оформления заказа с оплатой картой онлайн (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithOnlinePaymentAndDelivery() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         var card = PaymentCards.testCardNo3ds();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
@@ -147,12 +136,10 @@ public final class CheckoutTests {
     }
 
     @CaseId(3624)
-    @Test(description = "Тест полного оформления заказа с оплатой картой курьеру (Доставка)", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Тест полного оформления заказа с оплатой картой курьеру (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayToCourierAndDelivery() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
@@ -202,17 +189,16 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
 
     @CaseId(3839)
-    @Test(description = "Тест полного оформления заказа с оплатой 'Новой картой онлайн' (Доставка)", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Тест полного оформления заказа с оплатой 'Новой картой онлайн' (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithNewCard() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         var card = PaymentCards.testCardNo3ds();
         var cardNew = PaymentCards.testCardNo3dsWithSpasibo();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -250,7 +236,6 @@ public final class CheckoutTests {
 
         checkoutNew().interactAddPaymentCardModal().fillCardData(card);
         checkoutNew().interactAddPaymentCardModal().clickAdd();
-        //B2C-9732
 
         checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
         checkoutNew().checkSelectedPaymentMethodContains(card.getCardNumber().substring(card.getCardNumber().length() - 4));
@@ -263,7 +248,6 @@ public final class CheckoutTests {
 
         checkoutNew().interactAddPaymentCardModal().fillCardData(cardNew);
         checkoutNew().interactAddPaymentCardModal().clickAdd();
-        //B2C-9732
 
         checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
         checkoutNew().checkSelectedPaymentMethodContains(cardNew.getCardNumber().substring(cardNew.getCardNumber().length() - 4));
@@ -279,24 +263,21 @@ public final class CheckoutTests {
         checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
-        //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkShipmentCostVisible();
         userShipment().checkTotalCostVisible();
     }
 
-    @Issue("B2C-10410")
     @CaseId(3838)
-    @Test(description = "Тест полного оформления заказа с оплатой бонусами от СберСпасибо (Доставка)", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Тест полного оформления заказа с оплатой бонусами от СберСпасибо (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithSberSpasibo() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         var card = PaymentCards.testCardNo3dsWithSpasibo();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
@@ -333,7 +314,6 @@ public final class CheckoutTests {
 
         checkoutNew().interactSberSpasiboModal().checkModalVisible();
         checkoutNew().interactSberSpasiboModal().fillCardData(card);
-        //B2C-10410
         checkoutNew().interactSberSpasiboModal().fillBonusesAmount(bonusesAmount);
         checkoutNew().interactSberSpasiboModal().clickWithdraw();
 
@@ -343,9 +323,13 @@ public final class CheckoutTests {
         checkoutNew().interactSberSpasiboModal().clickWithdraw();
 
         checkoutNew().interactSberSpasiboModal().checkModalNotVisible();
-        checkoutNew().checkSberSpasiboWidgetContainsCardNumber(card.getCardNumber().substring(card.getCardNumber().length() - 4));
-        checkoutNew().checkSberSpasiboWidgetContainsBonusesAmount(bonusesAmount);
-        checkoutNew().checkSidebarContainsBonusesAmount(bonusesAmount);
+        checkoutNew().checkSelectedPaymentMethodContains(SBERSPASIBO_BONUSES.getName());
+        checkoutNew().checkSberSpasiboWidgetText("Спишем " +
+                bonusesAmount
+                + " бонусов с карты •••• " +
+                card.getCardNumber().substring(card.getCardNumber().length() - 4));
+        checkoutNew().checkSberSpasiboInOrderSummaryVisible();
+        checkoutNew().checkSberSpasiboAmountInOrderSummary(String.format("-%s ₽", bonusesAmount));
 
         checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
 
@@ -363,17 +347,15 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkShipmentCostVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkTotalCostVisible();
     }
 
     @CaseId(3840)
-    @Test(description = "Тест полного оформления заказа с оплатой наличными (Доставка)", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Тест полного оформления заказа с оплатой наличными (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithCash() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
@@ -431,12 +413,10 @@ public final class CheckoutTests {
     }
 
     @CaseId(3647)
-    @Test(description = "Тест полного оформления заказа с оплатой Картой онлайн (Cамовывоз | Только продукты)", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Тест полного оформления заказа с оплатой Картой онлайн (Cамовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithOnlinePaymentAndPickup() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         var card = PaymentCards.testCardNo3ds();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
@@ -488,24 +468,21 @@ public final class CheckoutTests {
         checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
-        //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
         userShipment().checkAssemblyCostVisible();
-        userShipment().checkShipmentCostVisible();
+        userShipment().checkShipmentCostNotVisible();
         userShipment().checkTotalCostVisible();
     }
 
     @CaseId(3648)
-    @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Только продукты)", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayOnCashDeskAndPickup() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
@@ -549,17 +526,15 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkShipmentCostVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkTotalCostVisible();
     }
 
     @CaseId(3841)
-    @Test(description = "Тест полного оформления заказа с оплатой 'Новой картой онлайн' (Самовывоз | Только продукты)", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Тест полного оформления заказа с оплатой 'Новой картой онлайн' (Самовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithNewCardAndPickup() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         var card = PaymentCards.testCardNo3ds();
         var cardNew = PaymentCards.testCardNo3dsWithSpasibo();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -596,7 +571,6 @@ public final class CheckoutTests {
 
         checkoutNew().interactAddPaymentCardModal().fillCardData(card);
         checkoutNew().interactAddPaymentCardModal().clickAdd();
-        //B2C-9732
 
         checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
         checkoutNew().checkSelectedPaymentMethodContains(card.getCardNumber().substring(card.getCardNumber().length() - 4));
@@ -609,7 +583,6 @@ public final class CheckoutTests {
 
         checkoutNew().interactAddPaymentCardModal().fillCardData(cardNew);
         checkoutNew().interactAddPaymentCardModal().clickAdd();
-        //B2C-9732
 
         checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
         checkoutNew().checkSelectedPaymentMethodContains(cardNew.getCardNumber().substring(cardNew.getCardNumber().length() - 4));
@@ -625,24 +598,20 @@ public final class CheckoutTests {
         checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
-        //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkShipmentCostVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkTotalCostVisible();
     }
 
-    @Issue("B2C-10410")
     @CaseId(3842)
-    @Test(description = "Тест полного оформления заказа с оплатой бонусами от СберСпасибо (Самовывоз | Только продукты)", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Тест полного оформления заказа с оплатой бонусами от СберСпасибо (Самовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithSberSpasiboAndPickup() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         var card = PaymentCards.testCardNo3dsWithSpasibo();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
@@ -678,7 +647,6 @@ public final class CheckoutTests {
 
         checkoutNew().interactSberSpasiboModal().checkModalVisible();
         checkoutNew().interactSberSpasiboModal().fillCardData(card);
-        //B2C-10410
         checkoutNew().interactSberSpasiboModal().fillBonusesAmount(bonusesAmount);
         checkoutNew().interactSberSpasiboModal().clickWithdraw();
 
@@ -688,9 +656,13 @@ public final class CheckoutTests {
         checkoutNew().interactSberSpasiboModal().clickWithdraw();
 
         checkoutNew().interactSberSpasiboModal().checkModalNotVisible();
-        checkoutNew().checkSberSpasiboWidgetContainsCardNumber(card.getCardNumber().substring(card.getCardNumber().length() - 4));
-        checkoutNew().checkSberSpasiboWidgetContainsBonusesAmount(bonusesAmount);
-        checkoutNew().checkSidebarContainsBonusesAmount(bonusesAmount);
+        checkoutNew().checkSelectedPaymentMethodContains(SBERSPASIBO_BONUSES.getName());
+        checkoutNew().checkSberSpasiboWidgetText("Спишем " +
+                bonusesAmount
+                + " бонусов с карты •••• " +
+                card.getCardNumber().substring(card.getCardNumber().length() - 4));
+        checkoutNew().checkSberSpasiboInOrderSummaryVisible();
+        checkoutNew().checkSberSpasiboAmountInOrderSummary(String.format("-%s ₽", bonusesAmount));
 
         checkoutNew().checkContactsSummary(userData.getPhone(), userData.getEmail());
 
@@ -708,17 +680,15 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkShipmentCostVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkTotalCostVisible();
     }
 
     @CaseId(3622)
-    @Test(description = "Тест полного оформления заказа с оплатой Наличными (Самовывоз | Только продукты)", groups = {CHECKOUT_WEB_NEW})
+    @Test(description = "Тест полного оформления заказа с оплатой Наличными (Самовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithCashAndPickup() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
@@ -769,17 +739,15 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkShipmentCostVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkTotalCostVisible();
     }
 
     @CaseId(3625)
-    @Test(description = "Тест полного оформления заказа с оплатой Картой онлайн (Самовывоз | Алкоголь и продукты)", groups = {CHECKOUT_WEB_NEW})
+    @Test(description = "Тест полного оформления заказа с оплатой Картой онлайн (Самовывоз | Алкоголь и продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithOnlinePaymentIncludeAlcoAndPickup() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         var card = PaymentCards.testCardNo3ds();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
@@ -793,9 +761,7 @@ public final class CheckoutTests {
 
         shop().interactHeader().clickToPickup();
         shop().interactAddressLarge().checkYmapsReady();
-        shop().interactAddressLarge().clickShowAsList();
-        shop().interactAddressLarge().checkPickupStoresModalVisible();
-        shop().interactAddressLarge().selectStoreByAddress(fullAddress);
+        shop().interactAddressLarge().clickTakeFromHere();
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -835,7 +801,6 @@ public final class CheckoutTests {
 
         checkoutNew().interactAddPaymentCardModal().fillCardData(card);
         checkoutNew().interactAddPaymentCardModal().clickAdd();
-        //B2C-9732
 
         checkoutNew().interactAddPaymentCardModal().checkModalNotVisible();
         checkoutNew().checkSelectedPaymentMethodContains(card.getCardNumber().substring(card.getCardNumber().length() - 4));
@@ -851,27 +816,22 @@ public final class CheckoutTests {
         checkoutNew().checkSelectedReplacementPolicy(CALL_AND_REMOVE.getName());
 
         checkoutNew().clickConfirmPay();
-        //B2C-9730
 
         userShipment().checkPageContains(userShipments().pageUrl());
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkShipmentCostVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkTotalCostVisible();
     }
 
     @CaseId(3843)
-    @Test(description = "Тест полного оформления заказа с оплатой Наличными (Самовывоз | Алкоголь и продукты)", groups = {CHECKOUT_WEB_NEW})
+    @Test(description = "Тест полного оформления заказа с оплатой Наличными (Самовывоз | Алкоголь и продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithCashIncludeAlcoAndPickup() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
-
-        final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -880,9 +840,7 @@ public final class CheckoutTests {
 
         shop().interactHeader().clickToPickup();
         shop().interactAddressLarge().checkYmapsReady();
-        shop().interactAddressLarge().clickShowAsList();
-        shop().interactAddressLarge().checkPickupStoresModalVisible();
-        shop().interactAddressLarge().selectStoreByAddress(fullAddress);
+        shop().interactAddressLarge().clickTakeFromHere();
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -937,21 +895,17 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkShipmentCostVisible();
+        userShipment().checkAssemblyCostVisible();
         userShipment().checkTotalCostVisible();
     }
 
     @CaseId(3844)
-    @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Алкоголь и продукты)", groups = {CHECKOUT_WEB_NEW})
+    @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Алкоголь и продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayOnCashDeskIncludeAlcoAndPickup() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
-
-        final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -960,9 +914,7 @@ public final class CheckoutTests {
 
         shop().interactHeader().clickToPickup();
         shop().interactAddressLarge().checkYmapsReady();
-        shop().interactAddressLarge().clickShowAsList();
-        shop().interactAddressLarge().checkPickupStoresModalVisible();
-        shop().interactAddressLarge().selectStoreByAddress(fullAddress);
+        shop().interactAddressLarge().clickTakeFromHere();
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -1016,17 +968,16 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkShipmentCostVisible();
+        userShipment().checkAssemblyCostVisible();
+        userShipment().checkShipmentCostNotVisible();
         userShipment().checkTotalCostVisible();
     }
 
     @CaseId(3845)
-    @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Только алкоголь)", groups = {CHECKOUT_WEB_NEW})
+    @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Только алкоголь)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayOnCashDeskOnlyAlcoAndPickup() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
@@ -1038,9 +989,7 @@ public final class CheckoutTests {
 
         shop().interactHeader().clickToPickup();
         shop().interactAddressLarge().checkYmapsReady();
-        shop().interactAddressLarge().clickShowAsList();
-        shop().interactAddressLarge().checkPickupStoresModalVisible();
-        shop().interactAddressLarge().selectStoreByAddress(fullAddress);
+        shop().interactAddressLarge().clickTakeFromHere();
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
@@ -1091,17 +1040,16 @@ public final class CheckoutTests {
         userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
         userShipment().checkShipmentNumberVisible();
         userShipment().checkShippingAddressVisible();
-        userShipment().checkShipmentCostVisible();
+        userShipment().checkAssemblyCostVisible();
+        userShipment().checkShipmentCostNotVisible();
         userShipment().checkTotalCostVisible();
     }
 
     @CaseId(3884)
-    @Test(description = "Тест перехода на v3 чекаут с незалогиненного нового юзера", groups = {"regression", "checkout_web_new"})
+    @Test(description = "Тест перехода на v3 чекаут с незалогиненного нового юзера", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testAuthAndForwardV3CheckoutFromCartNewUser() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
 
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -1114,7 +1062,7 @@ public final class CheckoutTests {
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().plusFirstItemToCartProd();
-        shop().goToPage();
+        shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
         shop().interactCart().increaseFirstItemCountToMin();

@@ -83,7 +83,7 @@ public final class ShoppingCartTests {
         b2cShop().interactAddressLarge().selectFirstAddress();
         b2cShop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
         b2cShop().interactAddressLarge().clickSave();
-        b2cShop().interactAddressLarge().checkAddressModalNotVisible();
+        b2cShop().interactAddressLarge().checkAddressModalIsNotVisible();
         b2cShop().interactHeader().checkEnteredAddressIsVisible();
 
         b2cShop().plusItemToCart("1", "0");
@@ -118,7 +118,7 @@ public final class ShoppingCartTests {
         b2cShop().interactAddressLarge().selectFirstAddress();
         b2cShop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
         b2cShop().interactAddressLarge().clickSave();
-        b2cShop().interactAddressLarge().checkAddressModalNotVisible();
+        b2cShop().interactAddressLarge().checkAddressModalIsNotVisible();
         b2cShop().interactHeader().checkEnteredAddressIsVisible();
 
         b2cShop().plusItemToCart("1", "0");
@@ -158,7 +158,7 @@ public final class ShoppingCartTests {
         b2cShop().interactAddressLarge().selectFirstAddress();
         b2cShop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
         b2cShop().interactAddressLarge().clickSave();
-        b2cShop().interactAddressLarge().checkAddressModalNotVisible();
+        b2cShop().interactAddressLarge().checkAddressModalIsNotVisible();
         b2cShop().interactHeader().checkEnteredAddressIsVisible();
 
         b2cShop().plusItemToCart("1", "0");

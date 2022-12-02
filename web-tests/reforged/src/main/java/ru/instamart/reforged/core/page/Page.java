@@ -86,4 +86,10 @@ public interface Page extends PageCheck {
         }
         return url.replace("://", "://" + BASIC_AUTH);
     }
+
+    default void setFixedExternalAnalyticsAnonymousId(final String UUID) {
+        CdpCookie.deleteCookie(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST);
+        CdpCookie.addCookie(CookieFactory.setFixedExternalAnalyticsAnonymousId(UUID));
+        refresh();
+    }
 }

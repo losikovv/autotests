@@ -15,8 +15,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.time.LocalDateTime;
 
 import static ru.instamart.api.enums.v2.StateV2.*;
-import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
-import static ru.instamart.api.helper.K8sHelper.*;
+import static ru.instamart.api.helper.K8sHelper.changeItemToCancel;
+import static ru.instamart.api.helper.K8sHelper.changeToAssembled;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.Group.JORMUNGANDR;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
@@ -36,8 +36,6 @@ public final class UserShipmentTests {
     // Вопросы - Артёму Брагину
 
     // Отображение стоимости доставки "Сборка" + "Доставка" (отдельно) или "Сборка и доставка" (одной суммой) зависит от настройки выбранного слота
-
-
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(3144)
@@ -399,6 +397,8 @@ public final class UserShipmentTests {
         userShipment().checkRetailerLabelVisible();
         userShipment().checkShippedDateTitleVisible();
         userShipment().checkShippedDateVisible();
+
+        //Оценка заказа под АБ
         userShipment().checkRateBlockVisible();
 
         userShipment().checkFilterAllButtonVisible();

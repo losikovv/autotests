@@ -25,7 +25,7 @@ public final class CdpCookie {
         return Kraken.getDevTools().send(Network.getAllCookies());
     }
 
-    public static void deleteCookie(final org.openqa.selenium.devtools.v107.network.model.Cookie cookie) {
+    public static void deleteCookie(final Cookie cookie) {
         log.debug("Удалить куку {}", cookie);
         Kraken.getDevTools().send(Network.deleteCookies(
                 cookie.getName(),

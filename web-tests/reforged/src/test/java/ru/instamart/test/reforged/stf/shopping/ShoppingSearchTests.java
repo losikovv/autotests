@@ -238,16 +238,16 @@ public final class ShoppingSearchTests {
     public void successApplyFilters() {
         shop().goToPage();
         shop().goToPage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
-        search().checkSearchImgLoaded();
+        search().waitPageLoad();
 
         search().checkProductsQuantityVisible();
         final int startProductsQuantity = search().returnSearchProductsQuantity();
 
         search().clickToDiscountFilter();
-        search().checkSearchImgLoaded();
+        search().waitPageLoad();
 
         search().refresh();
-        search().checkSearchImgLoaded();
+        search().waitPageLoad();
 
         search().checkProductsQuantityVisible();
         final int discountFilterProductsQuantity = search().returnSearchProductsQuantity();
@@ -255,13 +255,13 @@ public final class ShoppingSearchTests {
         search().checkQuantitiesNotEquals(startProductsQuantity, discountFilterProductsQuantity);
 
         shop().goToPage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
-        search().checkSearchImgLoaded();
+        search().waitPageLoad();
 
         search().clickOnFilter("Ультрапастеризованное");
         search().checkFilterActivePinVisible();
         search().refresh();
 
-        search().checkSearchImgLoaded();
+        search().waitPageLoad();
 
         search().checkProductsQuantityVisible();
         final int someFilterProductsQuantity = search().returnSearchProductsQuantity();
@@ -329,12 +329,12 @@ public final class ShoppingSearchTests {
     @CaseId(2592)
     @Test(description = "При применении фильтра для выданных товаров блокируются другие фильтры (неприменимые к ним)", groups = {REGRESSION_STF})
     public void successApplyOtherFilters() {
-        shop().goToPage();
+
         shop().goToPage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
-        search().checkSearchImgLoaded();
+        shop().waitPageLoad();
 
         search().clickToDiscountFilter();
-        search().checkSearchImgLoaded();
+        search().waitPageLoad();
 
         search().checkFilterDisabled("Стерилизованное");
     }

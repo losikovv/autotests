@@ -59,6 +59,11 @@ public interface PageCheck extends PageElement {
         page404Error.should().invisible();
     }
 
+    @Step("Проверяем, что страница не открылась (отображается ошибка 'Ничего не нашлось')")
+    default void checkPageError404() {
+        page404Error.should().visible();
+    }
+
     @Step("Проверяем, что на странице открылся фрейм")
     default void checkFrameOpened() {
         Kraken.waitAction().frameShouldBeVisible(0);

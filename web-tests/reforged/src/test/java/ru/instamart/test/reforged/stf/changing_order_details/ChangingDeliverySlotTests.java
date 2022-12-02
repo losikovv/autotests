@@ -39,11 +39,10 @@ public final class ChangingDeliverySlotTests {
 
     @CaseId(3692)
     @Story("Изменение слота доставки")
-    @Test(description = "Проверка возможности изменения слота доставки", groups = {POST_ORDERING, JOTUNHEIMR})
+    @Test(description = "Проверка возможности изменения слота доставки", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testChangeSlotOnPostCheckout() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
@@ -98,11 +97,10 @@ public final class ChangingDeliverySlotTests {
 
     @CaseId(3715)
     @Story("Изменение слота доставки")
-    @Test(description = "Проверка возможности изменения слота самовывоза", groups = {POST_ORDERING, JOTUNHEIMR})
+    @Test(description = "Проверка возможности изменения слота самовывоза", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testChangeSlotOnPostCheckoutPickup() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
@@ -163,11 +161,10 @@ public final class ChangingDeliverySlotTests {
 
     @CaseId(3693)
     @Story("Изменение слота доставки")
-    @Test(description = "Проверка возможности изменения слота доставки/самовывоза с учетом промика бесплатной доставки в заказе", groups = {POST_ORDERING, JOTUNHEIMR})
+    @Test(description = "Проверка возможности изменения слота доставки/самовывоза с учетом промика бесплатной доставки в заказе", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testChangeSlotOnPostCheckoutWithFreeDeliveryPromo() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -224,11 +221,10 @@ public final class ChangingDeliverySlotTests {
 
     @CaseId(3718)
     @Story("Изменение слота доставки")
-    @Test(description = "Проверка возможности изменения слота доставки/самовывоза с учетом промика в заказе", groups = {POST_ORDERING, JOTUNHEIMR})
+    @Test(description = "Проверка возможности изменения слота доставки/самовывоза с учетом промика в заказе", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testChangeSlotOnPostCheckoutWithPromo() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -289,11 +285,10 @@ public final class ChangingDeliverySlotTests {
 
     @CaseId(3782)
     @Story("Изменение слота доставки")
-    @Test(description = "Проверка возможности изменения слота с обычного на OnDemand", groups = {POST_ORDERING, JOTUNHEIMR})
+    @Test(description = "Проверка возможности изменения слота с обычного на OnDemand", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testChangeSlotToOnDemandOnPostCheckout() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
@@ -339,11 +334,10 @@ public final class ChangingDeliverySlotTests {
 
     @CaseId(3695)
     @Story("Изменение слота доставки")
-    @Test(description = "Проверка невозможности изменения слота доставки когда оформлен OnDemand", groups = {POST_ORDERING, JOTUNHEIMR})
+    @Test(description = "Проверка невозможности изменения слота доставки когда оформлен OnDemand", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNotAvailableChangeSlotFromOnDemandToNormalOnPostCheckout() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
@@ -381,11 +375,10 @@ public final class ChangingDeliverySlotTests {
     // У магазина должен быть отключена функция смены слота доставки Админка -> Редактирование магазина -> Разрешить менять слот доставки после оформления заказа
     @CaseId(3719)
     @Story("Изменение слота доставки")
-    @Test(description = "Проверка невозможности изменения слота при невозможности изменения в выбранном магазине", groups = {POST_ORDERING, JOTUNHEIMR})
+    @Test(description = "Проверка невозможности изменения слота при невозможности изменения в выбранном магазине", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNotAvailableChangeSlotIfDisabledInAdmin() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCart(userData, 6);
 
         shop().goToPage();
@@ -420,11 +413,10 @@ public final class ChangingDeliverySlotTests {
 
     @CaseId(3712)
     @Story("Изменение слота доставки")
-    @Test(description = "Проверка невозможности изменения слота самовывоза, имея в шипменте алкоголь", groups = {POST_ORDERING, JOTUNHEIMR})
+    @Test(description = "Проверка невозможности изменения слота самовывоза, имея в шипменте алкоголь", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNotAvailableChangeSlotIfAlcohol() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -478,11 +470,10 @@ public final class ChangingDeliverySlotTests {
 
     @CaseId(3714)
     @Story("Изменение слота доставки")
-    @Test(description = "Проверка невозможности изменения слота доставки, когда статус заказа старше статуса 'Ожидает сборки'", groups = {POST_ORDERING, JOTUNHEIMR})
+    @Test(description = "Проверка невозможности изменения слота доставки, когда статус заказа старше статуса 'Ожидает сборки'", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNotAvailableChangeSlotIfIncorrectShipmentState() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         var order = helper.makeOrder(userData, DEFAULT_CHECKOUT_SID, 1);
         helper.updateShipmentStateByOrderNumber(order.getNumber(), COLLECTING.getValue());
 
@@ -533,11 +524,10 @@ public final class ChangingDeliverySlotTests {
 
     @CaseId(3716)
     @Story("Изменение слота доставки")
-    @Test(description = "Проверка невозможности изменения слота самовывоза, когда статус заказа старше статуса 'Ожидает сборки'", groups = {POST_ORDERING, JOTUNHEIMR})
+    @Test(description = "Проверка невозможности изменения слота самовывоза, когда статус заказа старше статуса 'Ожидает сборки'", groups = {POST_ORDERING, JOTUNHEIMR, REGRESSION_STF})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNotAvailableChangeSlotIfIncorrectShipmentStatePickup() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("tmp_b2c_9162_spree_shipment_changes", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 

@@ -23,6 +23,7 @@ public final class StringUtil {
     private static final String TOTAL_SLOT_COUNT = "^.+\\/";
     private static final Pattern DOUBLE_PATTERN = Pattern.compile("(?!=\\d\\.\\d\\.)([\\d.]+)");
     private static final String STRING_PATTERN = "([a-z])([A-Z]+)";
+    private static final String THREE_DOTS_AT_END = "\\.\\.\\.$";
 
     private StringUtil() {
     }
@@ -203,5 +204,9 @@ public final class StringUtil {
     public static String substringToLastIndexOfStr(final String deliveryType, final String str) {
         int lastIndex = deliveryType.lastIndexOf(str);
         return lastIndex == -1 ? deliveryType.toLowerCase() : deliveryType.substring(0, lastIndex).toLowerCase();
+    }
+
+    public static String cutThreeDotsFromEnd(final String text) {
+        return text.replaceAll(THREE_DOTS_AT_END, "");
     }
 }

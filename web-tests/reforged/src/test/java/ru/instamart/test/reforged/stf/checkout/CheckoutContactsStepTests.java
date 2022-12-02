@@ -38,17 +38,25 @@ public final class CheckoutContactsStepTests {
     @Story("Корзина")
     @Test(description = "Тест на изменение телефона и контактов", groups = REGRESSION_STF)
     public void successChangePhoneAndContacts() {
-        helper.makeOrder(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID, 1);
+        helper.makeOrder(userData, UiProperties.DEFAULT_AUCHAN_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, UiProperties.DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));

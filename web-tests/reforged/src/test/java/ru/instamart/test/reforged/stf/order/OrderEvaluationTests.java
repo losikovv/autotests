@@ -9,6 +9,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -22,7 +23,7 @@ public final class OrderEvaluationTests {
     @Test(description = "Оценка заказа | положительная", groups = REGRESSION_STF)
     public void orderPositiveEvaluation() {
         UserData userData = UserManager.getQaUser();
-        helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
+        helper.makeAndCompleteOrder(userData, DEFAULT_AUCHAN_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -40,7 +41,7 @@ public final class OrderEvaluationTests {
     @Test(description = "Оценка заказа | отрицательная", groups = REGRESSION_STF)
     public void orderNegativeEvaluation() {
         UserData userData = UserManager.getQaUser();
-        helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
+        helper.makeAndCompleteOrder(userData, DEFAULT_AUCHAN_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -58,7 +59,7 @@ public final class OrderEvaluationTests {
     @Test(description = "Выбор тегов для оценки заказа", groups = REGRESSION_STF)
     public void orderNegativeEvaluationTags() {
         UserData userData = UserManager.getQaUser();
-        helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
+        helper.makeAndCompleteOrder(userData, DEFAULT_AUCHAN_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -79,7 +80,7 @@ public final class OrderEvaluationTests {
     @Test(description = "Оценка заказа с комментарием", groups = REGRESSION_STF)
     public void orderEvaluationComment() {
         UserData userData = UserManager.getQaUser();
-        helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
+        helper.makeAndCompleteOrder(userData, DEFAULT_AUCHAN_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -99,7 +100,7 @@ public final class OrderEvaluationTests {
     @Test(description = "Оценка заказа с фото", groups = REGRESSION_STF)
     public void orderEvaluationPhoto() {
         UserData userData = UserManager.getQaUser();
-        helper.makeAndCompleteOrder(userData, DEFAULT_SID, 2);
+        helper.makeAndCompleteOrder(userData, DEFAULT_AUCHAN_SID, 2);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

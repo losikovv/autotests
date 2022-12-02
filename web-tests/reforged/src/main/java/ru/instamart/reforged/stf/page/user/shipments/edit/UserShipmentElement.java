@@ -25,6 +25,7 @@ public interface UserShipmentElement {
     Element deliveryInterval = new Element(By.xpath("//div[contains(@class,'NewShipmentState_stateDate')]"), "Интервал доставки");
     Button changeDeliverySlot = new Button(By.xpath("//div[contains(@class,'ChangeDeliverySlotButton')]/button"), "Кнопка 'Изменить' (слот доставки)");
     Element shipmentState = new Element(By.xpath("//div[contains(@class,'NewShipmentState_stateListItemActive')]/div"), "Статус заказа");
+    Element shipmentStateDescription = new Element(By.xpath("//div[contains(@class, 'NewShipmentState_description')]"), "Пояснение к статусу заказа");
     Element shipmentStateCancelled = new Element(By.xpath("//div[contains(@class,'NewShipmentState_stateCancel_')]"), "Статус 'Заказ отменен'");
     Element shipmentStateShipped = new Element(By.xpath("//p[contains(@class,'NewShipmentState_stateCompleteName')][.='Заказ доставлен']"), "Статус 'Заказ доставлен'");
     Element storeLabelShipped = new Element(By.xpath("//picture[contains(@class,'NewShipmentState_stateStoreImage')]"), "Лейбл ритейлера в доставленном заказе");
@@ -60,9 +61,9 @@ public interface UserShipmentElement {
     Element replacementPolicy = new Element(ByKraken.xpathExpression("//span[@data-qa='user-shipment-replacement-policy' and text()='%s']"), "Политика замен в заказе");
     Element paymentMethod = new Element(By.xpath("//span[@data-qa='user-shipment-payment-method']"), "Метод оплаты в заказе");
     Element productsCost = new Element(By.xpath("//span[@data-qa='user-shipment-products-cost']"), "Стоимость продуктов");
-    Element assemblyCost = new Element(By.xpath("//span[text()='Сборка']/following-sibling::span[@data-qa='user-shipment-cost']"), "Стоимость сборки");
-    Element shipmentCost = new Element(By.xpath("//span[text()='Доставка']/following-sibling::span[@data-qa='user-shipment-cost']"), "Стоимость доставки");
-    Element shipmentSummaryCost = new Element(By.xpath("//div[@data-qa='user-shipment-cost']"), "Суммарная стоимость 'Сборка и доставка'");
+    Element assemblyCost = new Element(By.xpath("//*[.='Сборка']/following-sibling::*[@data-qa='user-shipment-cost']"), "Стоимость сборки");
+    Element shipmentCost = new Element(By.xpath("//*[.='Доставка']/following-sibling::*[@data-qa='user-shipment-cost']"), "Стоимость доставки");
+    Element shipmentSummaryCost = new Element(By.xpath("//div[.='Сборка и доставка']/following-sibling::span[@data-qa='user-shipment-cost']"), "Суммарная стоимость 'Сборка и доставка'");
 
     Element promoCode = new Element(By.xpath("//div[@data-qa='user-shipment-promocode']"), "Промокод");
     Element totalCost = new Element(By.xpath("//span[@data-qa='user-shipment-total']"), "Итого");

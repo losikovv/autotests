@@ -18,6 +18,7 @@ import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -32,7 +33,7 @@ public final class OrdersPaymentsTests {
     public void beforeTest() {
         this.company = JuridicalData.juridical();
         this.ordersUser = UserManager.getQaUser();
-        this.helper.dropAndFillCart(ordersUser, UiProperties.DEFAULT_METRO_MOSCOW_SID);
+        this.helper.dropAndFillCart(ordersUser, UiProperties.DEFAULT_AUCHAN_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
@@ -48,8 +49,18 @@ public final class OrdersPaymentsTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
         checkout().setDeliveryOptions().fillComments("test");
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
@@ -69,8 +80,8 @@ public final class OrdersPaymentsTests {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        userShipments().checkPageContains(userShipments().pageUrl());
-        userShipments().checkStatusShipmentReady();
+        userShipment().waitPageLoad();
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
     }
 
     @CaseId(1625)
@@ -81,8 +92,18 @@ public final class OrdersPaymentsTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
         checkout().setDeliveryOptions().fillComments("test");
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
@@ -97,9 +118,8 @@ public final class OrdersPaymentsTests {
         checkout().setPayment().clickToByCardToCourier();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        userShipments().checkPageContains(userShipments().pageUrl());
-
-        userShipments().checkStatusShipmentReady();
+        userShipment().waitPageLoad();
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
     }
 
     @CaseId(1626)
@@ -110,8 +130,18 @@ public final class OrdersPaymentsTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
@@ -140,9 +170,8 @@ public final class OrdersPaymentsTests {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        userShipments().checkPageContains(userShipments().pageUrl());
-
-        userShipments().checkStatusShipmentReady();
+        userShipment().waitPageLoad();
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
     }
 
     @CaseIDs({@CaseId(3238), @CaseId(3235)})
@@ -155,8 +184,18 @@ public final class OrdersPaymentsTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
         checkout().setDeliveryOptions().fillDeliveryAddress(data);
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
@@ -195,8 +234,18 @@ public final class OrdersPaymentsTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
         checkout().setDeliveryOptions().fillDeliveryAddress(data);
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
@@ -237,8 +286,18 @@ public final class OrdersPaymentsTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
         checkout().setDeliveryOptions().fillDeliveryAddress(data);
         checkout().setDeliveryOptions().clickToSubmitForDelivery();

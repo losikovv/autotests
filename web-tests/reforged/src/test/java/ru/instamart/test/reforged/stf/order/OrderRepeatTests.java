@@ -12,8 +12,7 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
-import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Покупка товара")
@@ -25,16 +24,16 @@ public final class OrderRepeatTests {
     @BeforeMethod(alwaysRun = true, description = "Аутентификация и выбор адреса доставки")
     public void preconditions() {
         userData = UserManager.getQaUser();
-        helper.makeOrder(userData, UiProperties.DEFAULT_METRO_MOSCOW_SID, 2);
+        helper.makeOrder(userData, UiProperties.DEFAULT_AUCHAN_SID, 2);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена заказа")
     public void afterTest() {
-        this.helper.cancelAllActiveOrders(userData);
+        helper.cancelAllActiveOrders(userData);
     }
 
     @CaseId(2614)
-    @Test(description = "Добавление в корзину товаров из истории заказов", groups = {"smoke", REGRESSION_STF})
+    @Test(description = "Добавление в корзину товаров из истории заказов", groups = {REGRESSION_STF})
     public void successRepeatLastOrderFromOrderHistory() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -62,9 +61,9 @@ public final class OrderRepeatTests {
 
         userShipments().goToPage();
         userShipments().clickToFirstShipment();
-        userShipments().clickToRepeatFromOrder();
-        userShipments().interactRepeatModal().checkModalWindowVisible();
-        userShipments().interactRepeatModal().clickToAccept();
+        userShipment().clickToRepeatFromOrder();
+        userShipment().interactRepeatModal().checkModalWindowVisible();
+        userShipment().interactRepeatModal().clickToAccept();
 
         shop().checkPageContains(shop().pageUrl());
         shop().interactCart().checkCartOpen();
@@ -82,9 +81,14 @@ public final class OrderRepeatTests {
 
         userShipments().goToPage();
         userShipments().clickToFirstShipment();
-        userShipments().clickToCancelFromOrder();
-        userShipments().interactShipmentCancelModal().shipmentCancelModalVisible();
-        userShipments().interactShipmentCancelModal().clickToAccept();
-        userShipments().checkStatusWasCanceled();
+        userShipment().clickToRepeatFromOrder();
+        userShipment().interactRepeatModal().checkModalWindowVisible();
+        userShipment().interactRepeatModal().clickToDecline();
+
+        userShipment().interactRepeatModal().checkModalWindowNotVisible();
+        userShipment().interactHeader().clickToCart();
+
+        userShipment().interactHeader().interactCart().checkCartOpen();
+        userShipment().interactHeader().interactCart().checkCartEmpty();
     }
 }

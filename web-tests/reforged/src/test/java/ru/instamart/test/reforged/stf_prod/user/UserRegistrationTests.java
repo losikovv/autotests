@@ -63,7 +63,7 @@ public final class UserRegistrationTests {
         home().interactAddressModal().selectFirstAddress();
         home().interactAddressModal().checkMarkerOnMapInAdviceIsNotVisible();
         home().interactAddressModal().clickFindStores();
-        home().interactAddressModal().checkAddressModalNotVisible();
+        home().interactAddressModal().checkAddressModalIsNotVisible();
 
         home().clickOnStoreWithSid(UiProperties.DEFAULT_SID);
 

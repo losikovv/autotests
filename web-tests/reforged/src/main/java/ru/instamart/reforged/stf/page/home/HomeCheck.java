@@ -69,6 +69,11 @@ public interface HomeCheck extends Check, HomeElement {
         waitAction().shouldBeVisible(deliveryStores);
     }
 
+    @Step("Проверяем, что карточки магазинов не отображаются")
+    default void checkDeliveryStoresNotVisible() {
+        deliveryStores.should().invisible();
+    }
+
     @Step("Проверяем, что закончилась анимация карточек магазинов")
     default void checkStoreCardsAnimationFinished() {
         deliveryStores.should().animationFinished();

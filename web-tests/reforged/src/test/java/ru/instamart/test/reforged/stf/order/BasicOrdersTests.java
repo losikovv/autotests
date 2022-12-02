@@ -11,6 +11,8 @@ import ru.instamart.kraken.data.*;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
+import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -33,10 +35,10 @@ public final class BasicOrdersTests {
     }
 
     @CaseId(1674)
-    @Test(description = "Тест заказа с добавлением нового юр. лица", groups = {"smoke", REGRESSION_STF, "all-order"})
+    @Test(description = "Тест заказа с добавлением нового юр. лица", groups = {REGRESSION_STF})
     public void successCompleteCheckoutWithNewJuridical() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, DEFAULT_SID);
+        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID);
 
         var company = JuridicalData.juridical();
 
@@ -44,8 +46,19 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
+
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
@@ -71,10 +84,10 @@ public final class BasicOrdersTests {
     }
 
     @CaseIDs(value = {@CaseId(1672), @CaseId(2627)})
-    @Test(description = "Тест заказа с новой картой оплаты c 3ds", groups = {REGRESSION_STF, "smoke"})
+    @Test(description = "Тест заказа с новой картой оплаты c 3ds", groups = {REGRESSION_STF})
     public void successCompleteCheckoutWithNewPaymentCard() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, DEFAULT_SID);
+        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID);
 
         var card = PaymentCards.testCard();
 
@@ -82,9 +95,18 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForSelf();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
 
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
@@ -118,7 +140,7 @@ public final class BasicOrdersTests {
     @Test(description = "Тест заказа с новой картой оплаты без 3ds", groups = REGRESSION_STF)
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, DEFAULT_METRO_MOSCOW_SID);
+        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID);
 
         var card = PaymentCards.testCardNo3dsWithSpasibo();
 
@@ -126,8 +148,16 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
 
-        checkout().goToPage();
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
@@ -157,15 +187,24 @@ public final class BasicOrdersTests {
     @Test(description = "Тест заказа с любимыми товарами", groups = REGRESSION_STF)
     public void successOrderWithFavProducts() {
         userData = UserManager.getQaUser();
-        helper.addFavorites(userData, DEFAULT_SID, 1);
-        helper.dropAndFillCartFromFavorites(userData, DEFAULT_SID);
+        helper.addFavorites(userData, DEFAULT_AUCHAN_SID, 1);
+        helper.dropAndFillCartFromFavorites(userData, DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
@@ -188,17 +227,26 @@ public final class BasicOrdersTests {
     }
 
     @CaseId(1673)
-    @Test(description = "Тест успешного заказа с оплатой картой курьеру", groups = {"smoke", REGRESSION_STF})
+    @Test(description = "Тест успешного заказа с оплатой картой курьеру", groups = {REGRESSION_STF})
     public void successOrderWithCardCourier() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, DEFAULT_SID);
+        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
@@ -226,14 +274,24 @@ public final class BasicOrdersTests {
         final AddressDetailsData data = TestVariables.testAddressData();
         //Тут используется не qa ручка, потому что в ней уже задано имя для пользователя
         userData = UserManager.getUser();
-        helper.dropAndFillCart(userData, DEFAULT_SID);
+        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID, helper.getAddressBySid(DEFAULT_AUCHAN_SID));
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
         checkout().setDeliveryOptions().fillApartment(data.getApartment());
         checkout().setDeliveryOptions().fillFloor(data.getFloor());
@@ -267,7 +325,7 @@ public final class BasicOrdersTests {
     @Test(description = "Отмена заказа", groups = REGRESSION_STF)
     public void successOrderCancel() {
         userData = UserManager.getQaUser();
-        helper.makeOrder(userData, DEFAULT_METRO_MOSCOW_SID, 1);
+        helper.makeOrder(userData, DEFAULT_AUCHAN_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -278,13 +336,13 @@ public final class BasicOrdersTests {
 
         userShipments().goToPage();
         userShipments().clickToFirstShipment();
-        userShipments().clickToCancelFromOrder();
+        userShipment().clickToCancelFromOrder();
 
         userShipments().interactShipmentCancelModal().shipmentCancelModalVisible();
-        userShipments().interactShipmentCancelModal().clickToAccept();
-        userShipments().interactShipmentCancelModal().shipmentCancelModalNotVisible();
+        userShipment().interactShipmentCancelModal().clickToAccept();
+        userShipment().interactShipmentCancelModal().shipmentCancelModalNotVisible();
 
-        userShipments().checkStatusWasCanceled();
+        userShipment().checkShipmentStateCancelled();
     }
 
     @CaseId(2624)
@@ -293,10 +351,10 @@ public final class BasicOrdersTests {
     public void successAddItemsInActiveOrder() {
         userData = UserManager.getQaUser();
 
-        helper.makeOrderOnTomorrow(userData, DEFAULT_METRO_MOSCOW_SID, 1);
+        helper.makeOrderOnTomorrow(userData, DEFAULT_AUCHAN_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage();
+        shop().goToPage(ShopUrl.AUCHAN);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -305,12 +363,12 @@ public final class BasicOrdersTests {
         shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
-        shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().getFirstRetailer().mergeProducts();
         shop().interactCart().clickToViewOrder();
 
-        userShipments().checkProductListContains(itemName);
+        userShipments().waitPageLoad();
+        userShipment().checkProductListContains(StringUtil.cutThreeDotsFromEnd(itemName));
     }
 
     @CaseId(2625)
@@ -374,6 +432,7 @@ public final class BasicOrdersTests {
 
     @CaseId(2626)
     @Story("Заказ")
+    @Skip
     @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = REGRESSION_STF)
     public void successCancelMultiOrderViaCancelOneOrder() {
         userData = UserManager.getQaUser();
@@ -401,7 +460,7 @@ public final class BasicOrdersTests {
     public void successCompleteCheckoutWithNewPaymentCard3DSAlreadyIn() {
         //TODO: после починки addCreditCard() нужно добавить сюда добавление карты через апи
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, DEFAULT_SID);
+        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID);
 
         var card = PaymentCards.testCard();
 
@@ -409,10 +468,19 @@ public final class BasicOrdersTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
-
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 

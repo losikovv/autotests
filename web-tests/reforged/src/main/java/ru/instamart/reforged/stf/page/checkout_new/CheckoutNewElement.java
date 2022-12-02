@@ -105,6 +105,8 @@ public interface CheckoutNewElement {
     Element notificationBannerTitle = new Element(By.xpath("//div[contains(@class,'NotificationBubble_banner')]//h3"), "Заголовок всплывающего сообщения об ошибке");
     Element notificationBannerText = new Element(By.xpath("//div[contains(@class,'NotificationBubble_banner')]//p"), "Текст всплывающего сообщения об ошибке");
     Element cardToCourierBubble = new Element(By.xpath("//div[contains(@class,'CardToCourierBubble_root')]"), "Алерт недоступности оплаты картой курьеру при бесконтактной доставке");
-    Element sberSpasiboWidget = new Element(By.xpath("//div[contains(@class,'SberSpasiboPaymentToolWidget')]/p"), "Виджет сберспасибо");
-    Element sidebarSberSpasiboAmount = new Element(ByKraken.xpathExpression("//div[contains(@class,'SberSpasiboPaymentToolWidget')]/p"), "Надпись с колвом бонусов в сайдбаре");
+    Element sberSpasiboWidget = new Element(By.xpath("//div[contains(@class,'PaymentToolWidget')]/p"), "Виджет сберспасибо");
+    Element sidebarSberSpasiboAmount = new Element(ByKraken.xpathExpression("//div[contains(@class,'PaymentToolWidget')]/p"), "Надпись с кол-вом бонусов в сайдбаре");
+    Element orderSummarySberSpasiboLabel = new Element(By.xpath("//span[@data-qa='checkout_page_sidebar_order_summary_sber_spasibo_amount_label']"), "Загловок 'Бонусы от СберСпасибо' в суммарной информации заказа (блок справа)");
+    Element orderSummarySberSpasiboAmount = new Element(By.xpath("//span[@data-qa='checkout_page_sidebar_order_summary_sber_spasibo_amount_price']"), "Сумма списываемых бонусов в суммарной информации заказа (блок справа)");
 }

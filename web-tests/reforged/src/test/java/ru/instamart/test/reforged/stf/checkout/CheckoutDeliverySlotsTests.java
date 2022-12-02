@@ -26,7 +26,7 @@ public final class CheckoutDeliverySlotsTests {
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
         this.userData = UserManager.getQaUser();
-        this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_AUCHAN_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
@@ -44,9 +44,15 @@ public final class CheckoutDeliverySlotsTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
         shop().interactCart().submitOrder();
 
-        checkout().checkCheckoutButtonIsVisible();
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
@@ -79,15 +85,14 @@ public final class CheckoutDeliverySlotsTests {
         checkout().setSlot().setNextDay();
         checkout().setSlot().setFirstActiveSlot();
 
-        var deliveryDate = checkout().setSlot().getDeliveryDate();
         var deliveryTime = checkout().setSlot().getDeliveryTime();
 
         checkout().setPayment().clickToByCardToCourier();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        userShipments().checkPageContains(userShipments().pageUrl());
+        userShipment().checkPageContains(userShipments().pageUrl());
 
-        userShipments().checkDeliveryIntervalCorrect(deliveryDate + " " + deliveryTime);
+        userShipment().checkDeliveryIntervalCorrect("Завтра, " + deliveryTime);
     }
 
     @CaseId(2649)
@@ -100,9 +105,15 @@ public final class CheckoutDeliverySlotsTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
         shop().interactCart().submitOrder();
 
-        checkout().checkCheckoutButtonIsVisible();
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
