@@ -69,7 +69,7 @@ public final class UserManager {
         if (isNull(defaultUser)) {
             defaultUser = UserData.builder()
                     .role("superuser")
-                    .email(Crypt.INSTANCE.decrypt("D5wuri+PUl0JhrSjG3+o47c+W1b5j1OxGnnwAC1/bJk=")) //TODO: autotestuser@instamart.ru->autotestuser@sbermarket.ru
+                    .email(Crypt.INSTANCE.decrypt("D5wuri+PUl0JhrSjG3+o47c+W1b5j1OxGnnwAC1/bJk="))
                     .phone(Crypt.INSTANCE.decrypt("8pvQF1rKDw0Y+9PskqcKLQ=="))
                     .password(PASSWD_1)
                     .name("autotest superuser")
@@ -82,7 +82,7 @@ public final class UserManager {
         if (isNull(defaultAdminStage)) {
             defaultAdminStage = UserData.builder()
                     .role("superadmin")
-                    .email(Crypt.INSTANCE.decrypt("D5wuri+PUl0JhrSjG3+o47c+W1b5j1OxGnnwAC1/bJk=")) //TODO: autotestuser@instamart.ru->autotestuser@sbermarket.ru
+                    .email(Crypt.INSTANCE.decrypt("D5wuri+PUl0JhrSjG3+o47c+W1b5j1OxGnnwAC1/bJk="))
                     .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
                     .password(EnvironmentProperties.ADMIN_PASSWORD)
                     .name("autotest superadmin")
@@ -96,7 +96,7 @@ public final class UserManager {
         if (isNull(defaultAdminAllRoles)) {
             defaultAdminAllRoles = UserData.builder()
                     .role("superadmin")
-                    .email(Crypt.INSTANCE.decrypt("wTfubFbVMEA2P1HT80pKDXJfzWnJ15xgPBJr240lktU=")) //TODO: autotestallrole@instamart.ru->autotestallrole@sbermarket.ru
+                    .email(Crypt.INSTANCE.decrypt("wTfubFbVMEA2P1HT80pKDXJfzWnJ15xgPBJr240lktU="))
                     .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
                     .password(PASSWD_1)
                     .name("autotest superadminallroles")
@@ -131,7 +131,7 @@ public final class UserManager {
         if (isNull(defaultAdmin)) {
             defaultAdmin = UserData.builder()
                     .role("superadmin")
-                    .email(Crypt.INSTANCE.decrypt("D5wuri+PUl0JhrSjG3+o47c+W1b5j1OxGnnwAC1/bJk=")) //TODO: autotestuser@instamart.ru->autotestuser@sbermarket.ru
+                    .email(Crypt.INSTANCE.decrypt("D5wuri+PUl0JhrSjG3+o47c+W1b5j1OxGnnwAC1/bJk="))
                     .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
                     .password(Crypt.INSTANCE.decrypt("CTgdSuT/irlxFJzeTOdzDQ=="))
                     .name("Autotest PROD User")
@@ -145,7 +145,7 @@ public final class UserManager {
         if (isNull(defaultAdminSmsRole)) {
             defaultAdminSmsRole = UserData.builder()
                     .role("superadmin")
-                    .email(Crypt.INSTANCE.decrypt("KlMoYV/REWC3sSm3Tzk0Wtim8WxZZ7FGe+jVsSBh5yw=")) //TODO: autotestsmsuser@instamart.ru->autotestsmsuser@sbermarket.ru
+                    .email(Crypt.INSTANCE.decrypt("KlMoYV/REWC3sSm3Tzk0Wtim8WxZZ7FGe+jVsSBh5yw="))
                     .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
                     .password(PASSWD_1)
                     .name("autotest superadminallroles")
@@ -509,7 +509,7 @@ public final class UserManager {
     public static UserData getUserWithoutAdminPermission() {
         if (isNull(defaultUserWithoutPermission)) {
             defaultUserWithoutPermission = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("ECME0oVDIK76qsrZeUtsFPmH3StNoTg4V5ow1j3ejSI="))//TODO: testnoadminaccess@instamart.ru->testnoadminaccess@sbermarket.ru
+                    .email(Crypt.INSTANCE.decrypt("ECME0oVDIK76qsrZeUtsFPmH3StNoTg4V5ow1j3ejSI="))
                     .password(PASSWD_1)
                     .build();
         }
@@ -519,7 +519,7 @@ public final class UserManager {
     public static UserData getForB2BUser() {
         if (isNull(forB2BUser)) {
             forB2BUser = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("wCHYh5w1ntSZJsA928KF5DN9kljP4vkENgTsqjaDrJc="))//TODO: b2bunsettest@instamart.ru->b2bunsettest@sbermarket.ru
+                    .email(Crypt.INSTANCE.decrypt("wCHYh5w1ntSZJsA928KF5DN9kljP4vkENgTsqjaDrJc="))
                     .phone(Crypt.INSTANCE.decrypt("pOR0GW7vjYFSN634MFxxxg=="))
                     .password(PASSWD_1)
                     .build();
@@ -556,7 +556,7 @@ public final class UserManager {
     public static UserData getCallCenterDeptOperator() {
         if (isNull(callCenterDeptUser)) {
             callCenterDeptUser = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("eqdUvO1/LSKTjURve32+g6iNM31JLh9WLX8YW1KOcM0="))//TODO: autotestccdept@instamart.ru->autotestccdept@sbermarket.ru
+                    .email(Crypt.INSTANCE.decrypt("eqdUvO1/LSKTjURve32+g6iNM31JLh9WLX8YW1KOcM0="))
                     .password(Crypt.INSTANCE.decrypt("3ZSHJWJ8HNYosYuYajNkpA=="))
                     .build();
         }
@@ -566,7 +566,7 @@ public final class UserManager {
     public static UserData getCallCenterDeptLeader() {
         if (isNull(callCenterDeptLeaderUser)) {
             callCenterDeptLeaderUser = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("PFcQSiyvGm/YPj4ztNn3wAVAYx87RsWMPv56R6REvyroilH6Xntjp8ERYFfLluWp")) //TODO: autotestccdeptleader@instamart.ru->autotestccdeptleader@sbermarket.ru
+                    .email(Crypt.INSTANCE.decrypt("PFcQSiyvGm/YPj4ztNn3wAVAYx87RsWMPv56R6REvyroilH6Xntjp8ERYFfLluWp"))
                     .password(Crypt.INSTANCE.decrypt("3ZSHJWJ8HNYosYuYajNkpA=="))
                     .build();
         }
