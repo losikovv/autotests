@@ -241,7 +241,7 @@ public final class UserProfileTests {
 
         userEdit().goToPage();
         userEdit().clickToChangeEmail();
-        userEdit().interactEmailFrame().fillEmail(UserManager.getDefaultAdmin().getEmail());
+        userEdit().interactEmailFrame().fillEmail(UserManager.getDefaultAdminOld().getEmail());
         userEdit().interactEmailFrame().submit();
         userEdit().interactEmailFrame().clickToOk();
         //TODO: Проверка почты, что нет письма

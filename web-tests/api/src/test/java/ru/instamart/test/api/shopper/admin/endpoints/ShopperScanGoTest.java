@@ -27,7 +27,7 @@ public class ShopperScanGoTest extends RestBase {
     @Test(description = "Получение конфига с валидным токеном",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void shopperScanGo200() {
-        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
+        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
         response = ShopperAdminRequest.Scango.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ScangoEnginesResponse.class);

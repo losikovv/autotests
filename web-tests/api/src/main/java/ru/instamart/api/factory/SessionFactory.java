@@ -287,7 +287,7 @@ public final class SessionFactory {
     }
 
     private static SessionInfo createShopperAdminSession(final UserData userData) {
-        createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
+        createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdminOld());
         final Response response = TokensV1Request.GET();
         checkStatusCode200(response);
         final ShoppersBackendV1 shoppersBackend = response.as(TokensV1Response.class).getShoppersBackend();

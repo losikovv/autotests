@@ -17,7 +17,6 @@ public final class AdministrationGeneralSettingsTests {
     @CaseId(346)
     @Test(description = "Корректное отображение страницы основных настроек", groups =  PROD_ADMIN_SMOKE)
     public void generalSettingsPageValidate() {
-
         UserData defaultAdmin = UserManager.getDefaultAdmin();
 
         login().goToPage();

@@ -68,7 +68,7 @@ public final class OrdersV2Request extends ApiV2RequestBase {
      */
     @Step("{method} /" + ApiV2EndPoints.ORDERS)
     public static Response POST() {
-        return givenWithAuth()
+        return givenWithAuth().log().all()
                 .header("Client-Id",
                         "InstamartApp")
                 .post(ApiV2EndPoints.ORDERS);

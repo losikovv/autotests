@@ -32,7 +32,7 @@ public class DispatchSettingsTest extends RestBase {
     @Test(description = "Получение конфига с валидным токеном",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void dispatchSettings200() {
-        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
+        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
         response = ShopperAdminRequest.OperationalZones.DispatchSettings.GET(EnvironmentProperties.DEFAULT_ID_ZONE);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, OperationalZoneDispatchSettingResponse.class);
@@ -43,7 +43,7 @@ public class DispatchSettingsTest extends RestBase {
     @Test(description = "Получение конфига с несуществующим zoneId",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void dispatchSettings404() {
-        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
+        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
         response = ShopperAdminRequest.OperationalZones.DispatchSettings.GET(9999);
         checkStatusCode404(response);
         assertEquals(response.as(ErrorsListResponse.class).getErrors().get(0).getDetail(), "OperationalZone не существует", "Error message not valid");
@@ -65,7 +65,7 @@ public class DispatchSettingsTest extends RestBase {
     @Test(description = "Получение настроек Диспетчеризация 2.0",
             groups = {"api-shopper-regress"})
     public void getDispatchSettings() {
-        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
+        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
         String retailerUUID = "c158f834-b944-4c84-9165-65f311e6aed4";
 
         final Response response = ShopperAdminRequest.Stores.DispatchSettings.GET(retailerUUID);
@@ -80,7 +80,7 @@ public class DispatchSettingsTest extends RestBase {
     @Test(description = "Изменение настроек диспатчеризации",
             groups = {"api-shopper-regress"})
     public void putDispatchSettings() {
-        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
+        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
         String retailerUUID = "599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a";
         var parameters = ShopperAdminRequest.PutDispatchSettings.builder()
                 .settingsDispatch(ShopperAdminRequest.SettingsDispatch.builder()
