@@ -3,6 +3,9 @@ package ru.instamart.test.api.on_demand.candidates;
 
 import candidates.CandidatesGrpc;
 import candidates.CandidatesOuterClass;
+import candidates.CandidatesOuterClass.Candidate.EmploymentType;
+import candidates.CandidatesOuterClass.CandidateLastLocation;
+import candidates.CandidatesOuterClass.CandidateTransport;
 import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
@@ -14,6 +17,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.grpc.common.GrpcContentHosts;
+import ru.instamart.jdbc.dao.candidates.CandidatesDao;
 import ru.instamart.jdbc.dao.norns.LocationsDao;
 import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
@@ -31,8 +35,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.grpc.common.GrpcContentHosts.PAAS_CONTENT_OPERATIONS_CANDIDATES;
 import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
@@ -51,6 +54,7 @@ public class CandidatesTest extends RestBase {
     private String shipmentUuid;
     private Timestamp createdAt;
     private ServiceGrpc.ServiceBlockingStub clientWorkflow;
+    private String placeUuid = "599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a";
 
     @BeforeClass(alwaysRun = true)
     public void auth() {
@@ -111,7 +115,7 @@ public class CandidatesTest extends RestBase {
     public void candidatesAreWithinARadius() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.915098)
                                 .setLon(37.541685)
                                 .build())
@@ -130,7 +134,7 @@ public class CandidatesTest extends RestBase {
     public void exceedingTheDateTimeNegativeTest() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.915098)
                                 .setLon(37.541685)
                                 .setCreatedAt(getTimestampFromString("2021-11-22T00:04:05.999+03:00"))
@@ -144,7 +148,7 @@ public class CandidatesTest extends RestBase {
     public void candidatesAreOutOfRadius() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.775353) //координаты рядом с магазином магазина ,55.700905, 37.735048  55.723251, 37.718116
                                 .setLon(37.592168)
                                 .build())
@@ -159,7 +163,7 @@ public class CandidatesTest extends RestBase {
     public void candidatesAreOutOfRadiusShifts() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(58.683364) //58.683364, 37.927337
                                 .setLon(37.927337)
                                 .build())
@@ -177,7 +181,7 @@ public class CandidatesTest extends RestBase {
 
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.915098)
                                 .setLon(37.541685)
                                 .setCreatedAt(toTimestamp(createdAt))
@@ -195,11 +199,11 @@ public class CandidatesTest extends RestBase {
     public void transportCandidate() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.915098)
                                 .setLon(37.541685)
                                 .build())
-                        .addTransports(CandidatesOuterClass.CandidateTransport.BICYCLE) //2 = велосипед
+                        .addTransports(CandidateTransport.BICYCLE) //2 = велосипед
                 ).build();
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         Allure.step("Проверка кандидатов. Список кандидатов не пустой", () -> assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0,
@@ -211,7 +215,7 @@ public class CandidatesTest extends RestBase {
     public void roleCandidate() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.915098)
                                 .setLon(37.541685)
                                 .build())
@@ -227,7 +231,7 @@ public class CandidatesTest extends RestBase {
     public void withoutRoleCandidate() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.915098)
                                 .setLon(37.541685)
                                 .build())
@@ -246,11 +250,11 @@ public class CandidatesTest extends RestBase {
     public void lackOfTransportCandidates() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.915098)
                                 .setLon(37.541685)
                                 .build())
-                        .addTransports(CandidatesOuterClass.CandidateTransport.CAR))
+                        .addTransports(CandidateTransport.CAR))
                 .build();
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         Allure.step("Проверка кандидатов. Список кандидатов пустой", () ->
@@ -276,18 +280,18 @@ public class CandidatesTest extends RestBase {
     public void selectionByManyFilters() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.915098)
                                 .setLon(37.541685)
                                 .build())
                         .setRadius(200.00F)
                         .addRoles(CandidatesOuterClass.CandidateRole.UNIVERSAL))
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.857291)
                                 .setLon(38.440348)
                                 .build())
-                        .setRadius(200.00F).addTransports(CandidatesOuterClass.CandidateTransport.BICYCLE)).build();
+                        .setRadius(200.00F).addTransports(CandidateTransport.BICYCLE)).build();
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
         Allure.step("Проверка кандидатов. Список кандидатов не пустой и минимум два универсала", () -> {
             assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0, "UUID кандидата вернулся пустым");
@@ -301,7 +305,7 @@ public class CandidatesTest extends RestBase {
     public void lackOfTransportCandidatesInRadius() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.915098)
                                 .setLon(37.541685)
                                 .build())
@@ -319,7 +323,7 @@ public class CandidatesTest extends RestBase {
     public void selectionByQueueSize() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.915098)
                                 .setLon(37.541685)
                                 .build())
@@ -335,7 +339,7 @@ public class CandidatesTest extends RestBase {
     public void selectionByFilters() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.915098)
                                 .setLon(37.541685)
                                 .build())
@@ -357,8 +361,8 @@ public class CandidatesTest extends RestBase {
         Allure.step("Проверка данных kraken4 ", () -> {
             final SoftAssert softAssert = new SoftAssert();
             compareTwoObjects(kraken4.get(0).getFullName(), "Kraken Test4", softAssert);
-            compareTwoObjects(kraken4.get(0).getTransport(), CandidatesOuterClass.CandidateTransport.CAR, softAssert);
-            compareTwoObjects(kraken4.get(0).getEmploymentType(), CandidatesOuterClass.Candidate.EmploymentType.EXTERNAL_EMPLOYEE, softAssert);
+            compareTwoObjects(kraken4.get(0).getTransport(), CandidateTransport.CAR, softAssert);
+            compareTwoObjects(kraken4.get(0).getEmploymentType(), EmploymentType.EXTERNAL_EMPLOYEE, softAssert);
             softAssert.assertAll();
         });
     }
@@ -368,7 +372,7 @@ public class CandidatesTest extends RestBase {
     public void selectionByAllFilters() {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
-                        .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
                                 .setLat(55.915098)
                                 .setLon(37.541685)
                                 .setCreatedAt(toTimestamp(createdAt))
@@ -377,9 +381,9 @@ public class CandidatesTest extends RestBase {
                         .setMaxQueueSize(1)
                         .addRoles(CandidatesOuterClass.CandidateRole.UNIVERSAL)
                         .addRoles(CandidatesOuterClass.CandidateRole.SHOPPER)
-                        .addTransports(CandidatesOuterClass.CandidateTransport.BICYCLE)
-                        .addTransports(CandidatesOuterClass.CandidateTransport.PEDESTRIAN)
-                        .addTransports(CandidatesOuterClass.CandidateTransport.CAR)
+                        .addTransports(CandidateTransport.BICYCLE)
+                        .addTransports(CandidateTransport.PEDESTRIAN)
+                        .addTransports(CandidateTransport.CAR)
                         .setPlaceUuid("599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a"))
                 .build();
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
@@ -396,8 +400,62 @@ public class CandidatesTest extends RestBase {
                 .setState(CandidatesOuterClass.CandidateState.BLOCKED)
                 .build();
         var setCandidatesState = clientCandidates.setCandidatesState(requestBody);
-        //TODO дописать проверки
-        Allure.step("",()->assertTrue(setCandidatesState.getResultsCount()>0, "Информация с блокировками не вернулась"));
+        Allure.step("", () -> assertTrue(setCandidatesState.getResultsCount() > 0, "Информация с блокировками не вернулась"));
+        final var candidatesDb = CandidatesDao.INSTANCE.getCandidateInUuid(candidates);
+        //TODO актуализировать проверки
+    }
+
+    @CaseId(107)
+    @Test(groups = {"dispatch-candidates-smoke"},
+            description = "Отправить запрос на изменение статуса нескольких кандидатов в разных статусах")
+    public void changeStatusSeveralCandidates() {
+        List<String> candidates = Arrays.asList(user.getUuid(), user2.getUuid(), user3.getUuid(), user4.getUuid());
+        final var request = CandidatesOuterClass.SetCandidateStateRequest.newBuilder()
+                .addAllCandidatesUuids(candidates)
+                .setState(CandidatesOuterClass.CandidateState.BLOCKED)
+                .build();
+        final var setCandidatesState = clientCandidates.setCandidatesState(request);
+        Allure.step("", () -> assertTrue(setCandidatesState.getResultsCount() > 0, "Информация с блокировками не вернулась"));
+        final var candidatesDb = CandidatesDao.INSTANCE.getCandidateInUuid(candidates);
+        //TODO актуализировать проверки
+    }
+
+
+    @CaseIDs({@CaseId(110), @CaseId(111), @CaseId(112), @CaseId(115), @CaseId(116)})
+    @Test(groups = {"dispatch-candidates-smoke"},
+            description = "Checking the Shift ID in the Response")
+    public void checkingShiftInResponse() {
+        final var request = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
+                .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
+                        .setTargetPoint(CandidateLastLocation.newBuilder()
+                                .setLat(StartPointsTenants.METRO_9.getLat())
+                                .setLon(StartPointsTenants.METRO_9.getLat())
+                        )
+                        .setPlaceUuid(placeUuid) //TODO
+                        .build())
+                .build();
+        final var selectCandidates = clientCandidates.selectCandidates(request);
+        Allure.step("Проверка ответа selectCandidates", () -> {
+            assertTrue(selectCandidates.getResultsCount() > 0, "Информация с блокировками не вернулась");
+            final var softAssert = new SoftAssert();
+            softAssert.assertNotNull(selectCandidates.getResults(0).getCandidate(0).getUuid(), "uuid кандидата не совпадает");
+            softAssert.assertEquals(selectCandidates.getResults(0).getCandidate(0).getTransport(), CandidateTransport.CAR, "uuid кандидата не совпадает");
+            softAssert.assertEquals(selectCandidates.getResults(0).getCandidate(0).getEmploymentType(), EmploymentType.EXTERNAL_EMPLOYEE, "uuid кандидата не совпадает");
+            softAssert.assertAll();
+        });
+    }
+    @CaseId(129)
+    @Test(groups = {"dispatch-candidates-smoke"},
+            description = "Checking the Shift ID in the Response")
+    public void selectionCandidatesWithActiveML(){
+        final var request = CandidatesOuterClass.HaveActiveWorkflowRequest.newBuilder()
+                .addCandidatesUuids(user4.getUuid())
+                .build();
+        final var activeWFS = clientCandidates.haveActiveWorkflow(request);
+        Allure.step("", ()->{
+            assertTrue(activeWFS.getResultsCount()>0, "");
+            assertFalse(activeWFS.getResultsMap().get(user4.getUuid()), "uuid кандидата не совпадает");
+        });
     }
 }
 

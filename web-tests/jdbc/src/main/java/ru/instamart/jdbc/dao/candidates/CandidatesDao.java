@@ -6,6 +6,10 @@ import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.testng.Assert.fail;
 
@@ -15,23 +19,47 @@ public class CandidatesDao extends AbstractDao<Long, CandidatesEntity> {
     private final String SELECT_SQL = "SELECT %s FROM candidates";
 
     public CandidatesEntity getCandidateByUuid(String candidateUuid) {
-        CandidatesEntity candidatesEntity = null;
         try (final var connect = ConnectionManager.getDataSource(Db.PG_CANDIDATE).getConnection();
              final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE uuid = ?")) {
             preparedStatement.setString(1, candidateUuid);
             try (final var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    candidatesEntity = new CandidatesEntity();
+                    final var candidatesEntity = new CandidatesEntity();
                     candidatesEntity.setId(resultSet.getLong("id"));
                     candidatesEntity.setActive(resultSet.getBoolean("active"));
                     candidatesEntity.setFullName(resultSet.getString("full_name"));
                     candidatesEntity.setTransport(resultSet.getString("transport"));
-                } else return null;
+                    return candidatesEntity;
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLCandidateManager. Error: " + e.getMessage());
         }
-        return candidatesEntity;
+        return null;
+    }
+
+    public CandidatesEntity getCandidateInUuid(List<String> candidateUuid) {
+        String collect = candidateUuid.stream()
+                .map(item -> "?")
+                .collect(Collectors.joining(" ,"));
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_CANDIDATE).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE uuid in (" + collect + ")")) {
+            AtomicInteger index = new AtomicInteger(1);
+            for (String uuid : candidateUuid) preparedStatement.setString(index.getAndIncrement(), uuid);
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    final var candidatesEntity = new CandidatesEntity();
+                    candidatesEntity.setId(resultSet.getLong("id"));
+                    candidatesEntity.setActive(resultSet.getBoolean("active"));
+                    candidatesEntity.setFullName(resultSet.getString("full_name"));
+                    candidatesEntity.setTransport(resultSet.getString("transport"));
+                    return candidatesEntity;
+                }
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLCandidateManager. Error: " + e.getMessage());
+        }
+        return null;
     }
 
     public String getCandidateUuidByStatus(boolean status) {
