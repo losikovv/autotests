@@ -37,7 +37,7 @@ public class NotificationsByRetailerV3Test extends RestBase {
     @BeforeClass(alwaysRun = false)
     public void preconditionsBeforeClass() {
         apiV3.checkFlipper("allow_export_to_external_services");
-        K8sHelper.updateApiIntegrationType(IntegrationTypeV3.DELIVERY_BY_RETAILER.getValue(), sidDeliveryByRetailer.toString());
+        K8sHelper.updateApiIntegrationType(IntegrationTypeV3.DELIVERY_BY_RETAILER.getValue(), sidDeliveryByRetailer);
         //admin.auth();
         //admin.authApi();
         //admin.editStore(uuidDeliveryByRetailer, StoresAdminRequest.getStoreVictoriaTest());
