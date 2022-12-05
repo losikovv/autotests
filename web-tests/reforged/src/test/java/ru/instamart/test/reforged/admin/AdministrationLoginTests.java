@@ -104,8 +104,8 @@ public final class AdministrationLoginTests {
     @Test(description = "Тест недоступности админки пользователю без админ. прав", groups = {REGRESSION_ADMIN, "smoke"})
     public void loginWithoutAdminPermission() {
         login().goToPage();
-        login().setUsername(UserManager.userWithoutAdminPermission().getEmail());
-        login().setPassword(UserManager.userWithoutAdminPermission().getPassword());
+        login().setUsername(UserManager.getUserWithoutAdminPermission().getEmail());
+        login().setPassword(UserManager.getUserWithoutAdminPermission().getPassword());
         login().submit();
         main().interactAuthoredHeader().checkIsNotAuth();
     }
