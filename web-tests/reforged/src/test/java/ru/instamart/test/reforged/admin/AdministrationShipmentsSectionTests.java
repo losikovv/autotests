@@ -259,7 +259,7 @@ public final class AdministrationShipmentsSectionTests {
         final var shipmentNumber = shipmentB2b.number;
 
         login().goToPage();
-        login().auth(UserManager.forB2BUser());
+        login().auth(UserManager.getForB2BUser());
 
         shipments().goToPageOld();
         shipments().setB2BOrders();
