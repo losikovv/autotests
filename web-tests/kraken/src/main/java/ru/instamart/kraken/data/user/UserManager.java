@@ -69,7 +69,7 @@ public final class UserManager {
         if (isNull(defaultUser)) {
             defaultUser = UserData.builder()
                     .role("superuser")
-                    .email(Crypt.INSTANCE.decrypt("aDPCwj7Br+dx8nAMvfc+/zywS4BuPQ25pLnnhiT3WnQ="))
+                    .email(Crypt.INSTANCE.decrypt("D5wuri+PUl0JhrSjG3+o47c+W1b5j1OxGnnwAC1/bJk="))
                     .phone(Crypt.INSTANCE.decrypt("8pvQF1rKDw0Y+9PskqcKLQ=="))
                     .password(PASSWD_1)
                     .name("autotest superuser")
@@ -82,7 +82,7 @@ public final class UserManager {
         if (isNull(defaultAdminStage)) {
             defaultAdminStage = UserData.builder()
                     .role("superadmin")
-                    .email(Crypt.INSTANCE.decrypt("Gh1MsACysUuEYv98vkOuOOx/HVxUh5J54NKCNSJCPFQ="))
+                    .email(Crypt.INSTANCE.decrypt("D5wuri+PUl0JhrSjG3+o47c+W1b5j1OxGnnwAC1/bJk="))
                     .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
                     .password(EnvironmentProperties.ADMIN_PASSWORD)
                     .name("autotest superadmin")
@@ -105,11 +105,15 @@ public final class UserManager {
         return defaultAdminAllRoles;
     }
 
+    public static UserData getDefaultAdminOld() {
+        return (EnvironmentProperties.Env.isProduction() ? getDefaultAdminProdOld() : getDefaultAdminStage());
+    }
+
     public static UserData getDefaultAdmin() {
         return (EnvironmentProperties.Env.isProduction() ? getDefaultAdminProd() : getDefaultAdminStage());
     }
 
-    public static UserData getDefaultAdminProd() {
+    public static UserData getDefaultAdminProdOld() {
         if (isNull(defaultAdmin)) {
             defaultAdmin = UserData.builder()
                     .role("superadmin")
@@ -123,11 +127,25 @@ public final class UserManager {
         return defaultAdmin;
     }
 
+    public static UserData getDefaultAdminProd() {
+        if (isNull(defaultAdmin)) {
+            defaultAdmin = UserData.builder()
+                    .role("superadmin")
+                    .email(Crypt.INSTANCE.decrypt("D5wuri+PUl0JhrSjG3+o47c+W1b5j1OxGnnwAC1/bJk="))
+                    .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
+                    .password(Crypt.INSTANCE.decrypt("CTgdSuT/irlxFJzeTOdzDQ=="))
+                    .name("Autotest PROD User")
+                    .token(Crypt.INSTANCE.decrypt("fOirPL+gZMmUegHv1749gumS6q0SJpPUPtjMwaVPTvv3fF6EoM9AZBSUACS5kY9E"))
+                    .build();
+        }
+        return defaultAdmin;
+    }
+
     public static UserData getAdminSmsRole() {
         if (isNull(defaultAdminSmsRole)) {
             defaultAdminSmsRole = UserData.builder()
                     .role("superadmin")
-                    .email(Crypt.INSTANCE.decrypt("KlMoYV/REWC3sSm3Tzk0WtH1SVSFpTuQ7swGVY8kfHY="))
+                    .email(Crypt.INSTANCE.decrypt("KlMoYV/REWC3sSm3Tzk0Wtim8WxZZ7FGe+jVsSBh5yw="))
                     .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
                     .password(PASSWD_1)
                     .name("autotest superadminallroles")
@@ -488,7 +506,7 @@ public final class UserManager {
         return authorizationServiceKeycloakClient;
     }
 
-    public static UserData userWithoutAdminPermission() {
+    public static UserData getUserWithoutAdminPermission() {
         if (isNull(defaultUserWithoutPermission)) {
             defaultUserWithoutPermission = UserData.builder()
                     .email(Crypt.INSTANCE.decrypt("ECME0oVDIK76qsrZeUtsFPmH3StNoTg4V5ow1j3ejSI="))
@@ -498,10 +516,10 @@ public final class UserManager {
         return defaultUserWithoutPermission;
     }
 
-    public static UserData forB2BUser() {
+    public static UserData getForB2BUser() {
         if (isNull(forB2BUser)) {
             forB2BUser = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("4iwwd7hWsW7NN4TyGWohVfIbI/Qx5ujSol6s9rPHw0g="))
+                    .email(Crypt.INSTANCE.decrypt("wCHYh5w1ntSZJsA928KF5DN9kljP4vkENgTsqjaDrJc="))
                     .phone(Crypt.INSTANCE.decrypt("pOR0GW7vjYFSN634MFxxxg=="))
                     .password(PASSWD_1)
                     .build();
@@ -509,7 +527,7 @@ public final class UserManager {
         return forB2BUser;
     }
 
-    public static UserData addressUser() {
+    public static UserData getAddressUser() {
         if (isNull(addressUser)) {
             addressUser = UserData.builder()
                     .phone(Crypt.INSTANCE.decrypt("UFfwiiQLwQCGLRIVnqnyuQ=="))
@@ -518,7 +536,7 @@ public final class UserManager {
         return addressUser;
     }
 
-    public static UserData checkoutUser() {
+    public static UserData getCheckoutUser() {
         return UserData.builder()
                 .phone(Crypt.INSTANCE.decrypt("Il5CC+ZHETemFCNdOxuR0w=="))
                 .email(Crypt.INSTANCE.decrypt("OvdigRywldL077CUQY5nV7DaRhGzRl2X0i18kkhZj9w="))
@@ -538,7 +556,7 @@ public final class UserManager {
     public static UserData getCallCenterDeptOperator() {
         if (isNull(callCenterDeptUser)) {
             callCenterDeptUser = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("v89nlBKjmOLB6gqR759ezT/QhEsRFxzACVX/uIdUMRA="))
+                    .email(Crypt.INSTANCE.decrypt("eqdUvO1/LSKTjURve32+g6iNM31JLh9WLX8YW1KOcM0="))
                     .password(Crypt.INSTANCE.decrypt("3ZSHJWJ8HNYosYuYajNkpA=="))
                     .build();
         }
@@ -548,7 +566,7 @@ public final class UserManager {
     public static UserData getCallCenterDeptLeader() {
         if (isNull(callCenterDeptLeaderUser)) {
             callCenterDeptLeaderUser = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("PFcQSiyvGm/YPj4ztNn3wLpwwxMgsgeGK+yJuVnW5TBTb9Ax2ttdhAeIoHJ/Pls0"))
+                    .email(Crypt.INSTANCE.decrypt("PFcQSiyvGm/YPj4ztNn3wAVAYx87RsWMPv56R6REvyroilH6Xntjp8ERYFfLluWp"))
                     .password(Crypt.INSTANCE.decrypt("3ZSHJWJ8HNYosYuYajNkpA=="))
                     .build();
         }
@@ -615,7 +633,6 @@ public final class UserManager {
     public static UserData getQaUser() {
         final UserData userData = createUser(Generate.generatePassword(12, true, true, true, true));
         USER_DATA_LIST.add(userData);
-
         return userData;
     }
 

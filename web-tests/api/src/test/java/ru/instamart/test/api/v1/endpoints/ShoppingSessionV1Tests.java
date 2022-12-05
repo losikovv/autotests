@@ -30,7 +30,7 @@ public class ShoppingSessionV1Tests extends RestBase {
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
             description = "Получение сессии для авторизованного пользователя")
     public void getShoppingSessionWithAuth() {
-        UserData user = UserManager.getDefaultAdmin();
+        UserData user = UserManager.getDefaultAdminOld();
         apiV1.authByEmail(user);
         final Response response = ShoppingSessionV1Request.GET();
         checkStatusCode200(response);

@@ -251,7 +251,7 @@ public class ShopperAppApiHelper {
 
     @Step("Проверяем обновление информации о заказе")
     public void shopperReceivedDelivery(String shipmentNumber, Integer retryCount) {
-        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
+        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
         List<ShipmentsItemSHP> filterCollect;
         int i = 0;
         do {

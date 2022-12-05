@@ -184,7 +184,7 @@ public class AdminHelper {
 
     @Step("Авторизация администратором")
     public void auth() {
-        final var user = UserManager.getDefaultAdmin();
+        final var user = UserManager.getDefaultAdminOld();
         if (!EnvironmentProperties.Env.isProduction() && !defaultAdmin.get()) {
             if (SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
                 createAdmin(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
@@ -196,7 +196,7 @@ public class AdminHelper {
 
     @Step("Авторизация администратором для API")
     public void authApi() {
-        final var user = UserManager.getDefaultAdmin();
+        final var user = UserManager.getDefaultAdminOld();
         if (!EnvironmentProperties.Env.isProduction() && !defaultAdminV1.get()) {
             if (SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
                 createAdmin(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
@@ -207,7 +207,7 @@ public class AdminHelper {
     }
 
     public void authShopperAdmin() {
-        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
+        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
     }
 
     @Step("Авторизация администратором со включенными новыми ролями для API")

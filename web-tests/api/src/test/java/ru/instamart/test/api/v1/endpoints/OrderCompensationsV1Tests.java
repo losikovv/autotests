@@ -95,7 +95,7 @@ public class OrderCompensationsV1Tests extends RestBase {
     public void createCompensation() {
         compensation = OrdersV1Request.Compensation.builder()
                 .compensation(OrdersV1Request.CompensationParams.builder()
-                        .email(UserManager.getDefaultAdmin().getEmail())
+                        .email(UserManager.getDefaultAdminOld().getEmail())
                         .emailBody("Autotest-" + Generate.literalString(6))
                         .promotionId(compensationPromotionsId)
                         .promoType(promoTypeId)

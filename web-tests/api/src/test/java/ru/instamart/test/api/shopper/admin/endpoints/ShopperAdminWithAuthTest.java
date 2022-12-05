@@ -50,7 +50,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void auth() {
-        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
+        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
     }
 
     @CaseId(23)
