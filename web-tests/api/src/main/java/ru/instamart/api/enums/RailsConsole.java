@@ -1,6 +1,7 @@
 package ru.instamart.api.enums;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import static java.lang.String.format;
 
@@ -141,17 +142,17 @@ public interface RailsConsole {
     }
 
 
-    @AllArgsConstructor
+    @RequiredArgsConstructor
     enum ApiV3 implements RailsConsole {
         GET_RETAILER("Spree::Retailer.where(slug: :%s)"),
         OFFER_WHERE_LAST("Offer.where(%s).last"),
         OFFER_JOIN_PRODUCT("Offer.joins(:product).where(%s).last"),
         CREATE_API_CLIENT("ApiClient.create(client_id: '%s', verifiable: false, custom_prices: true, tenant_id: '%s', custom_promo: false,  sku_kind: 'sku_kind_internal', basic_auth: nil, webhook_auth_token: nil, card_payment_method: nil, notifiable_by_sms: true,  notifiable_by_email: true).tokens.create(value: SecureRandom.base64(64))"),
         UPDATE_API_INTEGRATION_TYPE("ActiveRecord::Base.connection.execute('UPDATE store_configs SET orders_api_integration_type = %s WHERE store_configs.store_id = %s')");
-        private String command;
+        private final String command;
 
-        public String get(String... values) {
-            return format(command, (Object[]) values);
+        public String get(final Object... values) {
+            return format(command, values);
         }
     }
 

@@ -40,7 +40,7 @@ public class NotificationsPositionsV3Test extends RestBase {
     public void preconditions() {
         ApiV3Helper.checkFlipper("allow_export_to_external_services");
         if (!EnvironmentProperties.Env.isPreprod()) {
-            K8sHelper.updateApiIntegrationType(IntegrationTypeV3.DELIVERY_BY_SBERMARKET.getValue(), sidDeliveryBySbermarket.toString());
+            K8sHelper.updateApiIntegrationType(IntegrationTypeV3.DELIVERY_BY_SBERMARKET.getValue(), sidDeliveryBySbermarket);
             //admin.auth();
             //admin.editStore(uuidDeliveryBySbermarket, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
         }
@@ -143,7 +143,7 @@ public class NotificationsPositionsV3Test extends RestBase {
             groups = {"api-instamart-regress", "api-v3"})
     public void weightKilo() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid, ProductPriceTypeV2.PER_KILO);
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidDeliveryBySbermarket, ProductPriceTypeV2.PER_KILO);
 
         LineItemV2 lineItem = order.getShipments().get(0).getLineItems().get(0);
 
@@ -183,7 +183,7 @@ public class NotificationsPositionsV3Test extends RestBase {
             groups = {"api-instamart-regress", "api-v3"})
     public void weightPackage() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid, ProductPriceTypeV2.PER_PACKAGE);
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidDeliveryBySbermarket, ProductPriceTypeV2.PER_PACKAGE);
 
         LineItemV2 lineItem = order.getShipments().get(0).getLineItems().get(0);
 
@@ -223,7 +223,7 @@ public class NotificationsPositionsV3Test extends RestBase {
             groups = {"api-instamart-regress", "api-v3"})
     public void weightItem() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid, ProductPriceTypeV2.PER_ITEM);
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidDeliveryBySbermarket, ProductPriceTypeV2.PER_ITEM);
 
         LineItemV2 lineItem = order.getShipments().get(0).getLineItems().get(0);
 
@@ -262,7 +262,7 @@ public class NotificationsPositionsV3Test extends RestBase {
             groups = {"api-instamart-regress", "api-v3"})
     public void weightPack() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid, ProductPriceTypeV2.PER_PACK);
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidDeliveryBySbermarket, ProductPriceTypeV2.PER_PACK);
 
         LineItemV2 lineItem = order.getShipments().get(0).getLineItems().get(0);
 
@@ -301,7 +301,7 @@ public class NotificationsPositionsV3Test extends RestBase {
             groups = {"api-instamart-regress", "api-v3"})
     public void weightNullItem() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid, ProductPriceTypeV2.PER_ITEM);
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidDeliveryBySbermarket, ProductPriceTypeV2.PER_ITEM);
 
         LineItemV2 lineItem = order.getShipments().get(0).getLineItems().get(0);
 
@@ -339,7 +339,7 @@ public class NotificationsPositionsV3Test extends RestBase {
             groups = {"api-instamart-regress", "api-v3"})
     public void weightNullPack() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid, ProductPriceTypeV2.PER_PACK);
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidDeliveryBySbermarket, ProductPriceTypeV2.PER_PACK);
 
         LineItemV2 lineItem = order.getShipments().get(0).getLineItems().get(0);
 
@@ -377,7 +377,7 @@ public class NotificationsPositionsV3Test extends RestBase {
             groups = {"api-instamart-regress", "api-v3"})
     public void weightNotNullKilo() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid, ProductPriceTypeV2.PER_KILO);
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidDeliveryBySbermarket, ProductPriceTypeV2.PER_KILO);
 
         LineItemV2 lineItem = order.getShipments().get(0).getLineItems().get(0);
 
@@ -417,7 +417,7 @@ public class NotificationsPositionsV3Test extends RestBase {
             groups = {"api-instamart-regress", "api-v3"})
     public void weightNotNullPackage() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid, ProductPriceTypeV2.PER_PACKAGE);
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidDeliveryBySbermarket, ProductPriceTypeV2.PER_PACKAGE);
 
         LineItemV2 lineItem = order.getShipments().get(0).getLineItems().get(0);
 
@@ -457,7 +457,7 @@ public class NotificationsPositionsV3Test extends RestBase {
             groups = {"api-instamart-regress", "api-v3"})
     public void weightLessKilo() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid, ProductPriceTypeV2.PER_KILO);
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidDeliveryBySbermarket, ProductPriceTypeV2.PER_KILO);
 
         LineItemV2 lineItem = order.getShipments().get(0).getLineItems().get(0);
 
@@ -497,7 +497,7 @@ public class NotificationsPositionsV3Test extends RestBase {
             groups = {"api-instamart-regress", "api-v3"})
     public void weightLessPackage() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid, ProductPriceTypeV2.PER_PACKAGE);
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sidDeliveryBySbermarket, ProductPriceTypeV2.PER_PACKAGE);
 
         LineItemV2 lineItem = order.getShipments().get(0).getLineItems().get(0);
 

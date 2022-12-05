@@ -34,7 +34,7 @@ public class NotificationsNegativeV3Test extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         apiV3.checkFlipper("allow_export_to_external_services");
-        K8sHelper.updateApiIntegrationType(IntegrationTypeV3.INTEGRATION_FOR_ACCOUNTING.getValue(), sidIntegrationForAccounting.toString());
+        K8sHelper.updateApiIntegrationType(IntegrationTypeV3.INTEGRATION_FOR_ACCOUNTING.getValue(), sidIntegrationForAccounting);
         /*admin.auth();
         admin.authApi();
         admin.editStore(storeUuid, StoresAdminRequest.getStoreLentaElino());*/

@@ -238,7 +238,7 @@ public class K8sHelper {
     }
 
     @Step("Меняем тип интеграции через API по заказам у магазина")
-    public static void updateApiIntegrationType(final String integrationId, final String storeId) {
+    public static void updateApiIntegrationType(final String integrationId, final int storeId) {
         List<String> strings = execRailsCommandWithPod(UPDATE_API_INTEGRATION_TYPE.get(integrationId, storeId));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
