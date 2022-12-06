@@ -257,3 +257,12 @@ task onDemandSurgeLevel(type: Test) {
     systemProperty 'qase.Project', 'SURGE'
     systemProperty 'qase.Title', 'SurgeLevel Autotests'
 }
+
+task onDemandRes(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/on_demand/routeestimator.xml'
+        includeGroups 'ondemand-res-smoke'
+    }
+    systemProperty 'qase.Project', 'RES'
+    systemProperty 'qase.Title', 'RES Autotests'
+}
