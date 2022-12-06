@@ -2,6 +2,7 @@ package ru.instamart.test.api.on_demand.routeestimator;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.apache.commons.lang3.RandomUtils;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -21,6 +22,8 @@ import static ru.instamart.grpc.common.GrpcContentHosts.PAAS_CONTENT_OPERATIONS_
 import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
 @Epic("On Demand")
+@Feature("RES")
+
 public class GrpcSettingsTest extends GrpcBase {
     private SettingsServiceGrpc.SettingsServiceBlockingStub clientRes;
     private final Integer regionId = 1;
@@ -36,7 +39,8 @@ public class GrpcSettingsTest extends GrpcBase {
     }
 
     @CaseId(29)
-    @Test(description = "Получение коэффициентов RES по региону")
+    @Test(description = "Получение коэффициентов RES по региону",
+            groups = "ondemand-res-smoke")
     public void getRegionSettings() {
         var request = Settings.GetResOperationalZoneSettingsRequest.newBuilder()
                 .setOperationalZoneId(regionId)
@@ -57,7 +61,8 @@ public class GrpcSettingsTest extends GrpcBase {
     }
 
     @CaseId(30)
-    @Test(description = "Получение коэффициентов RES для региона, которого нет в базе")
+    @Test(description = "Получение коэффициентов RES для региона, которого нет в базе",
+            groups = "ondemand-res-smoke")
     public void getNewRegionSettings() {
         var request = Settings.GetResOperationalZoneSettingsRequest.newBuilder()
                 .setOperationalZoneId(1003)
@@ -78,7 +83,8 @@ public class GrpcSettingsTest extends GrpcBase {
     }
 
     @CaseId(30)
-    @Test(description = "Изменение коэффициентов RES по региону")
+    @Test(description = "Изменение коэффициентов RES по региону",
+            groups = "ondemand-res-smoke")
     public void putRegionSettings() {
         var request = Settings.PutResOperationalZoneSettingsRequest.newBuilder()
                 .setResOperationalZoneSettings(Settings.ResOperationalZoneSettings.newBuilder()
@@ -124,7 +130,8 @@ public class GrpcSettingsTest extends GrpcBase {
     }
 
     @CaseId(31)
-    @Test(description = "Получение настроек RES по магазину")
+    @Test(description = "Получение настроек RES по магазину",
+            groups = "ondemand-res-smoke")
     public void getStoreSettings() {
         var request = Settings.GetResSettingsRequest.newBuilder()
                 .setPlaceUuid(placeUUID)
@@ -144,7 +151,8 @@ public class GrpcSettingsTest extends GrpcBase {
     }
 
     @CaseId(33)
-    @Test(description = "Изменение настроек RES для магазина")
+    @Test(description = "Изменение настроек RES для магазина",
+            groups = "ondemand-res-smoke")
     public void putStoreSettings() {
         var request = Settings.PutResSettingsRequest.newBuilder()
                 .setResSettings(Settings.ResSettings.newBuilder()

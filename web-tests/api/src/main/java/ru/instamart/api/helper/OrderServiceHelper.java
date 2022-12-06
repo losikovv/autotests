@@ -125,6 +125,7 @@ public class OrderServiceHelper {
                 .setLegacyStfRetailerId(1)
                 .setLocation(RetailOnboardingStoreData.Store.Location.newBuilder()
                         .setBuilding("2Б")
+                        .setCityId(28)
                         .setCityName("Москва")
                         .setCoordinates(RetailOnboardingStoreData.Store.Location.Coordinates.newBuilder()
                                 .setLat(55.700683)
@@ -146,6 +147,7 @@ public class OrderServiceHelper {
                 .setSendCreatedHook("immediately")
                 .setUuid(uuid)
                 .setOrderPreparationSlaMinutes(orderPreparationSlaMinutes)
+                .setStatus(RetailOnboardingStoreData.Store.Status.ACTIVE)
                 .build();
     }
 

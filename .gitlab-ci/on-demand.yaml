@@ -120,3 +120,17 @@ tests:on:demand:surgelevel:
     - bash ./report.sh api on-demand-surgelevel
     - bash ./mattermost.sh api onDemandSurgeLevel $MATTERMOST_HIGHGARDEN_KEY true
     - bash ./mattermost.sh api onDemandSurgeLevel $MATTERMOST_ONDEMAND_KEY false
+
+tests:on:demand:routeestimator:
+  resource_group: onDemandRouteEstimator
+  extends:
+    - ".template_api_tests"
+  only:
+    variables:
+      - $ON_DEMAND_ROUTEESTIMATOR == 'true'
+  when: always
+  script:
+    - gradle clean build onDemandRes
+  after_script:
+    - bash ./report.sh api on-demand-route-estimator
+    - bash ./mattermost.sh api onDemandRes $MATTERMOST_ONDEMAND_KEY false

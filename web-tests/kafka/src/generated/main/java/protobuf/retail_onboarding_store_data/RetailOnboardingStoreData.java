@@ -257,15 +257,90 @@ public final class RetailOnboardingStoreData {
         getHowToTakeBytes();
 
     /**
-     * <code>optional uint64 order_preparation_sla_minutes = 22;</code>
+     * <code>.protobuf.retail_onboarding_store_data.Store.Status status = 22;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    int getStatusValue();
+    /**
+     * <code>.protobuf.retail_onboarding_store_data.Store.Status status = 22;</code>
+     * @return The status.
+     */
+    protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.Status getStatus();
+
+    /**
+     * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+     * @return Whether the merchantStatusRequest field is set.
+     */
+    boolean hasMerchantStatusRequest();
+    /**
+     * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+     * @return The merchantStatusRequest.
+     */
+    protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest getMerchantStatusRequest();
+    /**
+     * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+     */
+    protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequestOrBuilder getMerchantStatusRequestOrBuilder();
+
+    /**
+     * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+     * @return Whether the workSchedules field is set.
+     */
+    boolean hasWorkSchedules();
+    /**
+     * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+     * @return The workSchedules.
+     */
+    protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules getWorkSchedules();
+    /**
+     * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+     */
+    protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedulesOrBuilder getWorkSchedulesOrBuilder();
+
+    /**
+     * <code>optional uint32 order_preparation_sla_minutes = 25;</code>
      * @return Whether the orderPreparationSlaMinutes field is set.
      */
     boolean hasOrderPreparationSlaMinutes();
     /**
-     * <code>optional uint64 order_preparation_sla_minutes = 22;</code>
+     * <code>optional uint32 order_preparation_sla_minutes = 25;</code>
      * @return The orderPreparationSlaMinutes.
      */
-    long getOrderPreparationSlaMinutes();
+    int getOrderPreparationSlaMinutes();
+
+    /**
+     * <code>optional string terminal_group_id = 26;</code>
+     * @return Whether the terminalGroupId field is set.
+     */
+    boolean hasTerminalGroupId();
+    /**
+     * <code>optional string terminal_group_id = 26;</code>
+     * @return The terminalGroupId.
+     */
+    java.lang.String getTerminalGroupId();
+    /**
+     * <code>optional string terminal_group_id = 26;</code>
+     * @return The bytes for terminalGroupId.
+     */
+    com.google.protobuf.ByteString
+        getTerminalGroupIdBytes();
+
+    /**
+     * <code>optional string oms_slug = 27;</code>
+     * @return Whether the omsSlug field is set.
+     */
+    boolean hasOmsSlug();
+    /**
+     * <code>optional string oms_slug = 27;</code>
+     * @return The omsSlug.
+     */
+    java.lang.String getOmsSlug();
+    /**
+     * <code>optional string oms_slug = 27;</code>
+     * @return The bytes for omsSlug.
+     */
+    com.google.protobuf.ByteString
+        getOmsSlugBytes();
   }
   /**
    * Protobuf type {@code protobuf.retail_onboarding_store_data.Store}
@@ -292,6 +367,9 @@ public final class RetailOnboardingStoreData {
       sendCreatedHook_ = "";
       paymentAtCheckout_ = "";
       howToTake_ = "";
+      status_ = 0;
+      terminalGroupId_ = "";
+      omsSlug_ = "";
     }
 
     @java.lang.Override
@@ -475,8 +553,52 @@ public final class RetailOnboardingStoreData {
               break;
             }
             case 176: {
+              int rawValue = input.readEnum();
+
+              status_ = rawValue;
+              break;
+            }
+            case 186: {
+              protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) != 0)) {
+                subBuilder = merchantStatusRequest_.toBuilder();
+              }
+              merchantStatusRequest_ = input.readMessage(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(merchantStatusRequest_);
+                merchantStatusRequest_ = subBuilder.buildPartial();
+              }
               bitField0_ |= 0x00000001;
-              orderPreparationSlaMinutes_ = input.readUInt64();
+              break;
+            }
+            case 194: {
+              protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) != 0)) {
+                subBuilder = workSchedules_.toBuilder();
+              }
+              workSchedules_ = input.readMessage(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(workSchedules_);
+                workSchedules_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+            case 200: {
+              bitField0_ |= 0x00000004;
+              orderPreparationSlaMinutes_ = input.readUInt32();
+              break;
+            }
+            case 210: {
+              java.lang.String s = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000008;
+              terminalGroupId_ = s;
+              break;
+            }
+            case 218: {
+              java.lang.String s = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000010;
+              omsSlug_ = s;
               break;
             }
             default: {
@@ -509,6 +631,276 @@ public final class RetailOnboardingStoreData {
       return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.class, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code protobuf.retail_onboarding_store_data.Store.Status}
+     */
+    public enum Status
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>ACTIVE = 0;</code>
+       */
+      ACTIVE(0),
+      /**
+       * <code>INACTIVE = 1;</code>
+       */
+      INACTIVE(1),
+      /**
+       * <code>DISCONNECTED = 2;</code>
+       */
+      DISCONNECTED(2),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>ACTIVE = 0;</code>
+       */
+      public static final int ACTIVE_VALUE = 0;
+      /**
+       * <code>INACTIVE = 1;</code>
+       */
+      public static final int INACTIVE_VALUE = 1;
+      /**
+       * <code>DISCONNECTED = 2;</code>
+       */
+      public static final int DISCONNECTED_VALUE = 2;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static Status valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static Status forNumber(int value) {
+        switch (value) {
+          case 0: return ACTIVE;
+          case 1: return INACTIVE;
+          case 2: return DISCONNECTED;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Status>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Status> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Status>() {
+              public Status findValueByNumber(int number) {
+                return Status.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final Status[] VALUES = values();
+
+      public static Status valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private Status(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:protobuf.retail_onboarding_store_data.Store.Status)
+    }
+
+    /**
+     * Protobuf enum {@code protobuf.retail_onboarding_store_data.Store.WeekDay}
+     */
+    public enum WeekDay
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>MONDAY = 0;</code>
+       */
+      MONDAY(0),
+      /**
+       * <code>TUESDAY = 1;</code>
+       */
+      TUESDAY(1),
+      /**
+       * <code>WEDNESDAY = 2;</code>
+       */
+      WEDNESDAY(2),
+      /**
+       * <code>THURSDAY = 3;</code>
+       */
+      THURSDAY(3),
+      /**
+       * <code>FRIDAY = 4;</code>
+       */
+      FRIDAY(4),
+      /**
+       * <code>SATURDAY = 5;</code>
+       */
+      SATURDAY(5),
+      /**
+       * <code>SUNDAY = 6;</code>
+       */
+      SUNDAY(6),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>MONDAY = 0;</code>
+       */
+      public static final int MONDAY_VALUE = 0;
+      /**
+       * <code>TUESDAY = 1;</code>
+       */
+      public static final int TUESDAY_VALUE = 1;
+      /**
+       * <code>WEDNESDAY = 2;</code>
+       */
+      public static final int WEDNESDAY_VALUE = 2;
+      /**
+       * <code>THURSDAY = 3;</code>
+       */
+      public static final int THURSDAY_VALUE = 3;
+      /**
+       * <code>FRIDAY = 4;</code>
+       */
+      public static final int FRIDAY_VALUE = 4;
+      /**
+       * <code>SATURDAY = 5;</code>
+       */
+      public static final int SATURDAY_VALUE = 5;
+      /**
+       * <code>SUNDAY = 6;</code>
+       */
+      public static final int SUNDAY_VALUE = 6;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static WeekDay valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static WeekDay forNumber(int value) {
+        switch (value) {
+          case 0: return MONDAY;
+          case 1: return TUESDAY;
+          case 2: return WEDNESDAY;
+          case 3: return THURSDAY;
+          case 4: return FRIDAY;
+          case 5: return SATURDAY;
+          case 6: return SUNDAY;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<WeekDay>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          WeekDay> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<WeekDay>() {
+              public WeekDay findValueByNumber(int number) {
+                return WeekDay.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.getDescriptor().getEnumTypes().get(1);
+      }
+
+      private static final WeekDay[] VALUES = values();
+
+      public static WeekDay valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private WeekDay(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:protobuf.retail_onboarding_store_data.Store.WeekDay)
     }
 
     public interface LocationOrBuilder extends
@@ -613,6 +1005,12 @@ public final class RetailOnboardingStoreData {
        */
       com.google.protobuf.ByteString
           getTimeZoneBytes();
+
+      /**
+       * <code>int64 city_id = 9;</code>
+       * @return The cityId.
+       */
+      long getCityId();
     }
     /**
      * Protobuf type {@code protobuf.retail_onboarding_store_data.Store.Location}
@@ -719,6 +1117,11 @@ public final class RetailOnboardingStoreData {
                 java.lang.String s = input.readStringRequireUtf8();
 
                 timeZone_ = s;
+                break;
+              }
+              case 72: {
+
+                cityId_ = input.readInt64();
                 break;
               }
               default: {
@@ -1607,6 +2010,17 @@ public final class RetailOnboardingStoreData {
         }
       }
 
+      public static final int CITY_ID_FIELD_NUMBER = 9;
+      private long cityId_;
+      /**
+       * <code>int64 city_id = 9;</code>
+       * @return The cityId.
+       */
+      @java.lang.Override
+      public long getCityId() {
+        return cityId_;
+      }
+
       private byte memoizedIsInitialized = -1;
       @java.lang.Override
       public final boolean isInitialized() {
@@ -1645,6 +2059,9 @@ public final class RetailOnboardingStoreData {
         if (!getTimeZoneBytes().isEmpty()) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 8, timeZone_);
         }
+        if (cityId_ != 0L) {
+          output.writeInt64(9, cityId_);
+        }
         unknownFields.writeTo(output);
       }
 
@@ -1678,6 +2095,10 @@ public final class RetailOnboardingStoreData {
         }
         if (!getTimeZoneBytes().isEmpty()) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, timeZone_);
+        }
+        if (cityId_ != 0L) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt64Size(9, cityId_);
         }
         size += unknownFields.getSerializedSize();
         memoizedSize = size;
@@ -1713,6 +2134,8 @@ public final class RetailOnboardingStoreData {
         }
         if (!getTimeZone()
             .equals(other.getTimeZone())) return false;
+        if (getCityId()
+            != other.getCityId()) return false;
         if (!unknownFields.equals(other.unknownFields)) return false;
         return true;
       }
@@ -1742,6 +2165,9 @@ public final class RetailOnboardingStoreData {
         }
         hash = (37 * hash) + TIME_ZONE_FIELD_NUMBER;
         hash = (53 * hash) + getTimeZone().hashCode();
+        hash = (37 * hash) + CITY_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getCityId());
         hash = (29 * hash) + unknownFields.hashCode();
         memoizedHashCode = hash;
         return hash;
@@ -1895,6 +2321,8 @@ public final class RetailOnboardingStoreData {
           }
           timeZone_ = "";
 
+          cityId_ = 0L;
+
           return this;
         }
 
@@ -1933,6 +2361,7 @@ public final class RetailOnboardingStoreData {
             result.coordinates_ = coordinatesBuilder_.build();
           }
           result.timeZone_ = timeZone_;
+          result.cityId_ = cityId_;
           onBuilt();
           return result;
         }
@@ -2011,6 +2440,9 @@ public final class RetailOnboardingStoreData {
           if (!other.getTimeZone().isEmpty()) {
             timeZone_ = other.timeZone_;
             onChanged();
+          }
+          if (other.getCityId() != 0L) {
+            setCityId(other.getCityId());
           }
           this.mergeUnknownFields(other.unknownFields);
           onChanged();
@@ -2688,6 +3120,37 @@ public final class RetailOnboardingStoreData {
   checkByteStringIsUtf8(value);
           
           timeZone_ = value;
+          onChanged();
+          return this;
+        }
+
+        private long cityId_ ;
+        /**
+         * <code>int64 city_id = 9;</code>
+         * @return The cityId.
+         */
+        @java.lang.Override
+        public long getCityId() {
+          return cityId_;
+        }
+        /**
+         * <code>int64 city_id = 9;</code>
+         * @param value The cityId to set.
+         * @return This builder for chaining.
+         */
+        public Builder setCityId(long value) {
+          
+          cityId_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>int64 city_id = 9;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearCityId() {
+          
+          cityId_ = 0L;
           onChanged();
           return this;
         }
@@ -3450,6 +3913,3456 @@ public final class RetailOnboardingStoreData {
 
     }
 
+    public interface MerchantStatusRequestOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus status = 1;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      int getStatusValue();
+      /**
+       * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus status = 1;</code>
+       * @return The status.
+       */
+      protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus getStatus();
+
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+       * @return Whether the scheduledChange field is set.
+       */
+      boolean hasScheduledChange();
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+       * @return The scheduledChange.
+       */
+      protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange getScheduledChange();
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+       */
+      protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChangeOrBuilder getScheduledChangeOrBuilder();
+
+      /**
+       * <code>string comment = 3;</code>
+       * @return The comment.
+       */
+      java.lang.String getComment();
+      /**
+       * <code>string comment = 3;</code>
+       * @return The bytes for comment.
+       */
+      com.google.protobuf.ByteString
+          getCommentBytes();
+    }
+    /**
+     * Protobuf type {@code protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest}
+     */
+    public static final class MerchantStatusRequest extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest)
+        MerchantStatusRequestOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use MerchantStatusRequest.newBuilder() to construct.
+      private MerchantStatusRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private MerchantStatusRequest() {
+        status_ = 0;
+        comment_ = "";
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new MerchantStatusRequest();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private MerchantStatusRequest(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                int rawValue = input.readEnum();
+
+                status_ = rawValue;
+                break;
+              }
+              case 18: {
+                protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.Builder subBuilder = null;
+                if (((bitField0_ & 0x00000001) != 0)) {
+                  subBuilder = scheduledChange_.toBuilder();
+                }
+                scheduledChange_ = input.readMessage(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(scheduledChange_);
+                  scheduledChange_ = subBuilder.buildPartial();
+                }
+                bitField0_ |= 0x00000001;
+                break;
+              }
+              case 26: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                comment_ = s;
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.class, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.Builder.class);
+      }
+
+      /**
+       * Protobuf enum {@code protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus}
+       */
+      public enum MerchantStatus
+          implements com.google.protobuf.ProtocolMessageEnum {
+        /**
+         * <code>ACTIVE = 0;</code>
+         */
+        ACTIVE(0),
+        /**
+         * <code>INACTIVE = 1;</code>
+         */
+        INACTIVE(1),
+        UNRECOGNIZED(-1),
+        ;
+
+        /**
+         * <code>ACTIVE = 0;</code>
+         */
+        public static final int ACTIVE_VALUE = 0;
+        /**
+         * <code>INACTIVE = 1;</code>
+         */
+        public static final int INACTIVE_VALUE = 1;
+
+
+        public final int getNumber() {
+          if (this == UNRECOGNIZED) {
+            throw new java.lang.IllegalArgumentException(
+                "Can't get the number of an unknown enum value.");
+          }
+          return value;
+        }
+
+        /**
+         * @param value The numeric wire value of the corresponding enum entry.
+         * @return The enum associated with the given numeric wire value.
+         * @deprecated Use {@link #forNumber(int)} instead.
+         */
+        @java.lang.Deprecated
+        public static MerchantStatus valueOf(int value) {
+          return forNumber(value);
+        }
+
+        /**
+         * @param value The numeric wire value of the corresponding enum entry.
+         * @return The enum associated with the given numeric wire value.
+         */
+        public static MerchantStatus forNumber(int value) {
+          switch (value) {
+            case 0: return ACTIVE;
+            case 1: return INACTIVE;
+            default: return null;
+          }
+        }
+
+        public static com.google.protobuf.Internal.EnumLiteMap<MerchantStatus>
+            internalGetValueMap() {
+          return internalValueMap;
+        }
+        private static final com.google.protobuf.Internal.EnumLiteMap<
+            MerchantStatus> internalValueMap =
+              new com.google.protobuf.Internal.EnumLiteMap<MerchantStatus>() {
+                public MerchantStatus findValueByNumber(int number) {
+                  return MerchantStatus.forNumber(number);
+                }
+              };
+
+        public final com.google.protobuf.Descriptors.EnumValueDescriptor
+            getValueDescriptor() {
+          if (this == UNRECOGNIZED) {
+            throw new java.lang.IllegalStateException(
+                "Can't get the descriptor of an unrecognized enum value.");
+          }
+          return getDescriptor().getValues().get(ordinal());
+        }
+        public final com.google.protobuf.Descriptors.EnumDescriptor
+            getDescriptorForType() {
+          return getDescriptor();
+        }
+        public static final com.google.protobuf.Descriptors.EnumDescriptor
+            getDescriptor() {
+          return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.getDescriptor().getEnumTypes().get(0);
+        }
+
+        private static final MerchantStatus[] VALUES = values();
+
+        public static MerchantStatus valueOf(
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+          if (desc.getType() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "EnumValueDescriptor is not for this type.");
+          }
+          if (desc.getIndex() == -1) {
+            return UNRECOGNIZED;
+          }
+          return VALUES[desc.getIndex()];
+        }
+
+        private final int value;
+
+        private MerchantStatus(int value) {
+          this.value = value;
+        }
+
+        // @@protoc_insertion_point(enum_scope:protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus)
+      }
+
+      public interface ScheduledChangeOrBuilder extends
+          // @@protoc_insertion_point(interface_extends:protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange)
+          com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus current_status = 1;</code>
+         * @return The enum numeric value on the wire for currentStatus.
+         */
+        int getCurrentStatusValue();
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus current_status = 1;</code>
+         * @return The currentStatus.
+         */
+        protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus getCurrentStatus();
+
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus scheduled_status = 2;</code>
+         * @return The enum numeric value on the wire for scheduledStatus.
+         */
+        int getScheduledStatusValue();
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus scheduled_status = 2;</code>
+         * @return The scheduledStatus.
+         */
+        protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus getScheduledStatus();
+
+        /**
+         * <code>.google.protobuf.Timestamp change_at = 3;</code>
+         * @return Whether the changeAt field is set.
+         */
+        boolean hasChangeAt();
+        /**
+         * <code>.google.protobuf.Timestamp change_at = 3;</code>
+         * @return The changeAt.
+         */
+        com.google.protobuf.Timestamp getChangeAt();
+        /**
+         * <code>.google.protobuf.Timestamp change_at = 3;</code>
+         */
+        com.google.protobuf.TimestampOrBuilder getChangeAtOrBuilder();
+      }
+      /**
+       * Protobuf type {@code protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange}
+       */
+      public static final class ScheduledChange extends
+          com.google.protobuf.GeneratedMessageV3 implements
+          // @@protoc_insertion_point(message_implements:protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange)
+          ScheduledChangeOrBuilder {
+      private static final long serialVersionUID = 0L;
+        // Use ScheduledChange.newBuilder() to construct.
+        private ScheduledChange(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+          super(builder);
+        }
+        private ScheduledChange() {
+          currentStatus_ = 0;
+          scheduledStatus_ = 0;
+        }
+
+        @java.lang.Override
+        @SuppressWarnings({"unused"})
+        protected java.lang.Object newInstance(
+            UnusedPrivateParameter unused) {
+          return new ScheduledChange();
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+          return this.unknownFields;
+        }
+        private ScheduledChange(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          this();
+          if (extensionRegistry == null) {
+            throw new java.lang.NullPointerException();
+          }
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+              com.google.protobuf.UnknownFieldSet.newBuilder();
+          try {
+            boolean done = false;
+            while (!done) {
+              int tag = input.readTag();
+              switch (tag) {
+                case 0:
+                  done = true;
+                  break;
+                case 8: {
+                  int rawValue = input.readEnum();
+
+                  currentStatus_ = rawValue;
+                  break;
+                }
+                case 16: {
+                  int rawValue = input.readEnum();
+
+                  scheduledStatus_ = rawValue;
+                  break;
+                }
+                case 26: {
+                  com.google.protobuf.Timestamp.Builder subBuilder = null;
+                  if (changeAt_ != null) {
+                    subBuilder = changeAt_.toBuilder();
+                  }
+                  changeAt_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+                  if (subBuilder != null) {
+                    subBuilder.mergeFrom(changeAt_);
+                    changeAt_ = subBuilder.buildPartial();
+                  }
+
+                  break;
+                }
+                default: {
+                  if (!parseUnknownField(
+                      input, unknownFields, extensionRegistry, tag)) {
+                    done = true;
+                  }
+                  break;
+                }
+              }
+            }
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.setUnfinishedMessage(this);
+          } catch (java.io.IOException e) {
+            throw new com.google.protobuf.InvalidProtocolBufferException(
+                e).setUnfinishedMessage(this);
+          } finally {
+            this.unknownFields = unknownFields.build();
+            makeExtensionsImmutable();
+          }
+        }
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_ScheduledChange_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_ScheduledChange_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.class, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.Builder.class);
+        }
+
+        public static final int CURRENT_STATUS_FIELD_NUMBER = 1;
+        private int currentStatus_;
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus current_status = 1;</code>
+         * @return The enum numeric value on the wire for currentStatus.
+         */
+        @java.lang.Override public int getCurrentStatusValue() {
+          return currentStatus_;
+        }
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus current_status = 1;</code>
+         * @return The currentStatus.
+         */
+        @java.lang.Override public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus getCurrentStatus() {
+          @SuppressWarnings("deprecation")
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus result = protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.valueOf(currentStatus_);
+          return result == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.UNRECOGNIZED : result;
+        }
+
+        public static final int SCHEDULED_STATUS_FIELD_NUMBER = 2;
+        private int scheduledStatus_;
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus scheduled_status = 2;</code>
+         * @return The enum numeric value on the wire for scheduledStatus.
+         */
+        @java.lang.Override public int getScheduledStatusValue() {
+          return scheduledStatus_;
+        }
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus scheduled_status = 2;</code>
+         * @return The scheduledStatus.
+         */
+        @java.lang.Override public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus getScheduledStatus() {
+          @SuppressWarnings("deprecation")
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus result = protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.valueOf(scheduledStatus_);
+          return result == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.UNRECOGNIZED : result;
+        }
+
+        public static final int CHANGE_AT_FIELD_NUMBER = 3;
+        private com.google.protobuf.Timestamp changeAt_;
+        /**
+         * <code>.google.protobuf.Timestamp change_at = 3;</code>
+         * @return Whether the changeAt field is set.
+         */
+        @java.lang.Override
+        public boolean hasChangeAt() {
+          return changeAt_ != null;
+        }
+        /**
+         * <code>.google.protobuf.Timestamp change_at = 3;</code>
+         * @return The changeAt.
+         */
+        @java.lang.Override
+        public com.google.protobuf.Timestamp getChangeAt() {
+          return changeAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : changeAt_;
+        }
+        /**
+         * <code>.google.protobuf.Timestamp change_at = 3;</code>
+         */
+        @java.lang.Override
+        public com.google.protobuf.TimestampOrBuilder getChangeAtOrBuilder() {
+          return getChangeAt();
+        }
+
+        private byte memoizedIsInitialized = -1;
+        @java.lang.Override
+        public final boolean isInitialized() {
+          byte isInitialized = memoizedIsInitialized;
+          if (isInitialized == 1) return true;
+          if (isInitialized == 0) return false;
+
+          memoizedIsInitialized = 1;
+          return true;
+        }
+
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                            throws java.io.IOException {
+          if (currentStatus_ != protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.ACTIVE.getNumber()) {
+            output.writeEnum(1, currentStatus_);
+          }
+          if (scheduledStatus_ != protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.ACTIVE.getNumber()) {
+            output.writeEnum(2, scheduledStatus_);
+          }
+          if (changeAt_ != null) {
+            output.writeMessage(3, getChangeAt());
+          }
+          unknownFields.writeTo(output);
+        }
+
+        @java.lang.Override
+        public int getSerializedSize() {
+          int size = memoizedSize;
+          if (size != -1) return size;
+
+          size = 0;
+          if (currentStatus_ != protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.ACTIVE.getNumber()) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeEnumSize(1, currentStatus_);
+          }
+          if (scheduledStatus_ != protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.ACTIVE.getNumber()) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeEnumSize(2, scheduledStatus_);
+          }
+          if (changeAt_ != null) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeMessageSize(3, getChangeAt());
+          }
+          size += unknownFields.getSerializedSize();
+          memoizedSize = size;
+          return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+          if (obj == this) {
+           return true;
+          }
+          if (!(obj instanceof protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange)) {
+            return super.equals(obj);
+          }
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange other = (protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange) obj;
+
+          if (currentStatus_ != other.currentStatus_) return false;
+          if (scheduledStatus_ != other.scheduledStatus_) return false;
+          if (hasChangeAt() != other.hasChangeAt()) return false;
+          if (hasChangeAt()) {
+            if (!getChangeAt()
+                .equals(other.getChangeAt())) return false;
+          }
+          if (!unknownFields.equals(other.unknownFields)) return false;
+          return true;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+          if (memoizedHashCode != 0) {
+            return memoizedHashCode;
+          }
+          int hash = 41;
+          hash = (19 * hash) + getDescriptor().hashCode();
+          hash = (37 * hash) + CURRENT_STATUS_FIELD_NUMBER;
+          hash = (53 * hash) + currentStatus_;
+          hash = (37 * hash) + SCHEDULED_STATUS_FIELD_NUMBER;
+          hash = (53 * hash) + scheduledStatus_;
+          if (hasChangeAt()) {
+            hash = (37 * hash) + CHANGE_AT_FIELD_NUMBER;
+            hash = (53 * hash) + getChangeAt().hashCode();
+          }
+          hash = (29 * hash) + unknownFields.hashCode();
+          memoizedHashCode = hash;
+          return hash;
+        }
+
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange parseFrom(
+            java.nio.ByteBuffer data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange parseFrom(
+            java.nio.ByteBuffer data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+          return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @java.lang.Override
+        public Builder newBuilderForType() { return newBuilder(); }
+        public static Builder newBuilder() {
+          return DEFAULT_INSTANCE.toBuilder();
+        }
+        public static Builder newBuilder(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange prototype) {
+          return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+        @java.lang.Override
+        public Builder toBuilder() {
+          return this == DEFAULT_INSTANCE
+              ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          Builder builder = new Builder(parent);
+          return builder;
+        }
+        /**
+         * Protobuf type {@code protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange}
+         */
+        public static final class Builder extends
+            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange)
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChangeOrBuilder {
+          public static final com.google.protobuf.Descriptors.Descriptor
+              getDescriptor() {
+            return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_ScheduledChange_descriptor;
+          }
+
+          @java.lang.Override
+          protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+              internalGetFieldAccessorTable() {
+            return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_ScheduledChange_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                    protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.class, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.Builder.class);
+          }
+
+          // Construct using protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.newBuilder()
+          private Builder() {
+            maybeForceBuilderInitialization();
+          }
+
+          private Builder(
+              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            super(parent);
+            maybeForceBuilderInitialization();
+          }
+          private void maybeForceBuilderInitialization() {
+            if (com.google.protobuf.GeneratedMessageV3
+                    .alwaysUseFieldBuilders) {
+            }
+          }
+          @java.lang.Override
+          public Builder clear() {
+            super.clear();
+            currentStatus_ = 0;
+
+            scheduledStatus_ = 0;
+
+            if (changeAtBuilder_ == null) {
+              changeAt_ = null;
+            } else {
+              changeAt_ = null;
+              changeAtBuilder_ = null;
+            }
+            return this;
+          }
+
+          @java.lang.Override
+          public com.google.protobuf.Descriptors.Descriptor
+              getDescriptorForType() {
+            return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_ScheduledChange_descriptor;
+          }
+
+          @java.lang.Override
+          public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange getDefaultInstanceForType() {
+            return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.getDefaultInstance();
+          }
+
+          @java.lang.Override
+          public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange build() {
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange result = buildPartial();
+            if (!result.isInitialized()) {
+              throw newUninitializedMessageException(result);
+            }
+            return result;
+          }
+
+          @java.lang.Override
+          public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange buildPartial() {
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange result = new protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange(this);
+            result.currentStatus_ = currentStatus_;
+            result.scheduledStatus_ = scheduledStatus_;
+            if (changeAtBuilder_ == null) {
+              result.changeAt_ = changeAt_;
+            } else {
+              result.changeAt_ = changeAtBuilder_.build();
+            }
+            onBuilt();
+            return result;
+          }
+
+          @java.lang.Override
+          public Builder clone() {
+            return super.clone();
+          }
+          @java.lang.Override
+          public Builder setField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
+            return super.setField(field, value);
+          }
+          @java.lang.Override
+          public Builder clearField(
+              com.google.protobuf.Descriptors.FieldDescriptor field) {
+            return super.clearField(field);
+          }
+          @java.lang.Override
+          public Builder clearOneof(
+              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+            return super.clearOneof(oneof);
+          }
+          @java.lang.Override
+          public Builder setRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              int index, java.lang.Object value) {
+            return super.setRepeatedField(field, index, value);
+          }
+          @java.lang.Override
+          public Builder addRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
+            return super.addRepeatedField(field, value);
+          }
+          @java.lang.Override
+          public Builder mergeFrom(com.google.protobuf.Message other) {
+            if (other instanceof protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange) {
+              return mergeFrom((protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange)other);
+            } else {
+              super.mergeFrom(other);
+              return this;
+            }
+          }
+
+          public Builder mergeFrom(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange other) {
+            if (other == protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.getDefaultInstance()) return this;
+            if (other.currentStatus_ != 0) {
+              setCurrentStatusValue(other.getCurrentStatusValue());
+            }
+            if (other.scheduledStatus_ != 0) {
+              setScheduledStatusValue(other.getScheduledStatusValue());
+            }
+            if (other.hasChangeAt()) {
+              mergeChangeAt(other.getChangeAt());
+            }
+            this.mergeUnknownFields(other.unknownFields);
+            onChanged();
+            return this;
+          }
+
+          @java.lang.Override
+          public final boolean isInitialized() {
+            return true;
+          }
+
+          @java.lang.Override
+          public Builder mergeFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange parsedMessage = null;
+            try {
+              parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+              parsedMessage = (protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange) e.getUnfinishedMessage();
+              throw e.unwrapIOException();
+            } finally {
+              if (parsedMessage != null) {
+                mergeFrom(parsedMessage);
+              }
+            }
+            return this;
+          }
+
+          private int currentStatus_ = 0;
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus current_status = 1;</code>
+           * @return The enum numeric value on the wire for currentStatus.
+           */
+          @java.lang.Override public int getCurrentStatusValue() {
+            return currentStatus_;
+          }
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus current_status = 1;</code>
+           * @param value The enum numeric value on the wire for currentStatus to set.
+           * @return This builder for chaining.
+           */
+          public Builder setCurrentStatusValue(int value) {
+            
+            currentStatus_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus current_status = 1;</code>
+           * @return The currentStatus.
+           */
+          @java.lang.Override
+          public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus getCurrentStatus() {
+            @SuppressWarnings("deprecation")
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus result = protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.valueOf(currentStatus_);
+            return result == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.UNRECOGNIZED : result;
+          }
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus current_status = 1;</code>
+           * @param value The currentStatus to set.
+           * @return This builder for chaining.
+           */
+          public Builder setCurrentStatus(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus value) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            
+            currentStatus_ = value.getNumber();
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus current_status = 1;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearCurrentStatus() {
+            
+            currentStatus_ = 0;
+            onChanged();
+            return this;
+          }
+
+          private int scheduledStatus_ = 0;
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus scheduled_status = 2;</code>
+           * @return The enum numeric value on the wire for scheduledStatus.
+           */
+          @java.lang.Override public int getScheduledStatusValue() {
+            return scheduledStatus_;
+          }
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus scheduled_status = 2;</code>
+           * @param value The enum numeric value on the wire for scheduledStatus to set.
+           * @return This builder for chaining.
+           */
+          public Builder setScheduledStatusValue(int value) {
+            
+            scheduledStatus_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus scheduled_status = 2;</code>
+           * @return The scheduledStatus.
+           */
+          @java.lang.Override
+          public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus getScheduledStatus() {
+            @SuppressWarnings("deprecation")
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus result = protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.valueOf(scheduledStatus_);
+            return result == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.UNRECOGNIZED : result;
+          }
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus scheduled_status = 2;</code>
+           * @param value The scheduledStatus to set.
+           * @return This builder for chaining.
+           */
+          public Builder setScheduledStatus(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus value) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            
+            scheduledStatus_ = value.getNumber();
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus scheduled_status = 2;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearScheduledStatus() {
+            
+            scheduledStatus_ = 0;
+            onChanged();
+            return this;
+          }
+
+          private com.google.protobuf.Timestamp changeAt_;
+          private com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> changeAtBuilder_;
+          /**
+           * <code>.google.protobuf.Timestamp change_at = 3;</code>
+           * @return Whether the changeAt field is set.
+           */
+          public boolean hasChangeAt() {
+            return changeAtBuilder_ != null || changeAt_ != null;
+          }
+          /**
+           * <code>.google.protobuf.Timestamp change_at = 3;</code>
+           * @return The changeAt.
+           */
+          public com.google.protobuf.Timestamp getChangeAt() {
+            if (changeAtBuilder_ == null) {
+              return changeAt_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : changeAt_;
+            } else {
+              return changeAtBuilder_.getMessage();
+            }
+          }
+          /**
+           * <code>.google.protobuf.Timestamp change_at = 3;</code>
+           */
+          public Builder setChangeAt(com.google.protobuf.Timestamp value) {
+            if (changeAtBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              changeAt_ = value;
+              onChanged();
+            } else {
+              changeAtBuilder_.setMessage(value);
+            }
+
+            return this;
+          }
+          /**
+           * <code>.google.protobuf.Timestamp change_at = 3;</code>
+           */
+          public Builder setChangeAt(
+              com.google.protobuf.Timestamp.Builder builderForValue) {
+            if (changeAtBuilder_ == null) {
+              changeAt_ = builderForValue.build();
+              onChanged();
+            } else {
+              changeAtBuilder_.setMessage(builderForValue.build());
+            }
+
+            return this;
+          }
+          /**
+           * <code>.google.protobuf.Timestamp change_at = 3;</code>
+           */
+          public Builder mergeChangeAt(com.google.protobuf.Timestamp value) {
+            if (changeAtBuilder_ == null) {
+              if (changeAt_ != null) {
+                changeAt_ =
+                  com.google.protobuf.Timestamp.newBuilder(changeAt_).mergeFrom(value).buildPartial();
+              } else {
+                changeAt_ = value;
+              }
+              onChanged();
+            } else {
+              changeAtBuilder_.mergeFrom(value);
+            }
+
+            return this;
+          }
+          /**
+           * <code>.google.protobuf.Timestamp change_at = 3;</code>
+           */
+          public Builder clearChangeAt() {
+            if (changeAtBuilder_ == null) {
+              changeAt_ = null;
+              onChanged();
+            } else {
+              changeAt_ = null;
+              changeAtBuilder_ = null;
+            }
+
+            return this;
+          }
+          /**
+           * <code>.google.protobuf.Timestamp change_at = 3;</code>
+           */
+          public com.google.protobuf.Timestamp.Builder getChangeAtBuilder() {
+            
+            onChanged();
+            return getChangeAtFieldBuilder().getBuilder();
+          }
+          /**
+           * <code>.google.protobuf.Timestamp change_at = 3;</code>
+           */
+          public com.google.protobuf.TimestampOrBuilder getChangeAtOrBuilder() {
+            if (changeAtBuilder_ != null) {
+              return changeAtBuilder_.getMessageOrBuilder();
+            } else {
+              return changeAt_ == null ?
+                  com.google.protobuf.Timestamp.getDefaultInstance() : changeAt_;
+            }
+          }
+          /**
+           * <code>.google.protobuf.Timestamp change_at = 3;</code>
+           */
+          private com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+              getChangeAtFieldBuilder() {
+            if (changeAtBuilder_ == null) {
+              changeAtBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                  com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                      getChangeAt(),
+                      getParentForChildren(),
+                      isClean());
+              changeAt_ = null;
+            }
+            return changeAtBuilder_;
+          }
+          @java.lang.Override
+          public final Builder setUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+            return super.setUnknownFields(unknownFields);
+          }
+
+          @java.lang.Override
+          public final Builder mergeUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+            return super.mergeUnknownFields(unknownFields);
+          }
+
+
+          // @@protoc_insertion_point(builder_scope:protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange)
+        }
+
+        // @@protoc_insertion_point(class_scope:protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange)
+        private static final protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange DEFAULT_INSTANCE;
+        static {
+          DEFAULT_INSTANCE = new protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange();
+        }
+
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange getDefaultInstance() {
+          return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<ScheduledChange>
+            PARSER = new com.google.protobuf.AbstractParser<ScheduledChange>() {
+          @java.lang.Override
+          public ScheduledChange parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            return new ScheduledChange(input, extensionRegistry);
+          }
+        };
+
+        public static com.google.protobuf.Parser<ScheduledChange> parser() {
+          return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<ScheduledChange> getParserForType() {
+          return PARSER;
+        }
+
+        @java.lang.Override
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange getDefaultInstanceForType() {
+          return DEFAULT_INSTANCE;
+        }
+
+      }
+
+      private int bitField0_;
+      public static final int STATUS_FIELD_NUMBER = 1;
+      private int status_;
+      /**
+       * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus status = 1;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus status = 1;</code>
+       * @return The status.
+       */
+      @java.lang.Override public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus getStatus() {
+        @SuppressWarnings("deprecation")
+        protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus result = protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.valueOf(status_);
+        return result == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.UNRECOGNIZED : result;
+      }
+
+      public static final int SCHEDULED_CHANGE_FIELD_NUMBER = 2;
+      private protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange scheduledChange_;
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+       * @return Whether the scheduledChange field is set.
+       */
+      @java.lang.Override
+      public boolean hasScheduledChange() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+       * @return The scheduledChange.
+       */
+      @java.lang.Override
+      public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange getScheduledChange() {
+        return scheduledChange_ == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.getDefaultInstance() : scheduledChange_;
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+       */
+      @java.lang.Override
+      public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChangeOrBuilder getScheduledChangeOrBuilder() {
+        return scheduledChange_ == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.getDefaultInstance() : scheduledChange_;
+      }
+
+      public static final int COMMENT_FIELD_NUMBER = 3;
+      private volatile java.lang.Object comment_;
+      /**
+       * <code>string comment = 3;</code>
+       * @return The comment.
+       */
+      @java.lang.Override
+      public java.lang.String getComment() {
+        java.lang.Object ref = comment_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          comment_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string comment = 3;</code>
+       * @return The bytes for comment.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getCommentBytes() {
+        java.lang.Object ref = comment_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          comment_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (status_ != protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.ACTIVE.getNumber()) {
+          output.writeEnum(1, status_);
+        }
+        if (((bitField0_ & 0x00000001) != 0)) {
+          output.writeMessage(2, getScheduledChange());
+        }
+        if (!getCommentBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 3, comment_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (status_ != protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.ACTIVE.getNumber()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeEnumSize(1, status_);
+        }
+        if (((bitField0_ & 0x00000001) != 0)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(2, getScheduledChange());
+        }
+        if (!getCommentBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, comment_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest)) {
+          return super.equals(obj);
+        }
+        protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest other = (protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest) obj;
+
+        if (status_ != other.status_) return false;
+        if (hasScheduledChange() != other.hasScheduledChange()) return false;
+        if (hasScheduledChange()) {
+          if (!getScheduledChange()
+              .equals(other.getScheduledChange())) return false;
+        }
+        if (!getComment()
+            .equals(other.getComment())) return false;
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + STATUS_FIELD_NUMBER;
+        hash = (53 * hash) + status_;
+        if (hasScheduledChange()) {
+          hash = (37 * hash) + SCHEDULED_CHANGE_FIELD_NUMBER;
+          hash = (53 * hash) + getScheduledChange().hashCode();
+        }
+        hash = (37 * hash) + COMMENT_FIELD_NUMBER;
+        hash = (53 * hash) + getComment().hashCode();
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest)
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequestOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.class, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.Builder.class);
+        }
+
+        // Construct using protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+            getScheduledChangeFieldBuilder();
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          status_ = 0;
+
+          if (scheduledChangeBuilder_ == null) {
+            scheduledChange_ = null;
+          } else {
+            scheduledChangeBuilder_.clear();
+          }
+          bitField0_ = (bitField0_ & ~0x00000001);
+          comment_ = "";
+
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_descriptor;
+        }
+
+        @java.lang.Override
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest getDefaultInstanceForType() {
+          return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest build() {
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest buildPartial() {
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest result = new protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          result.status_ = status_;
+          if (((from_bitField0_ & 0x00000001) != 0)) {
+            if (scheduledChangeBuilder_ == null) {
+              result.scheduledChange_ = scheduledChange_;
+            } else {
+              result.scheduledChange_ = scheduledChangeBuilder_.build();
+            }
+            to_bitField0_ |= 0x00000001;
+          }
+          result.comment_ = comment_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest) {
+            return mergeFrom((protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest other) {
+          if (other == protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.getDefaultInstance()) return this;
+          if (other.status_ != 0) {
+            setStatusValue(other.getStatusValue());
+          }
+          if (other.hasScheduledChange()) {
+            mergeScheduledChange(other.getScheduledChange());
+          }
+          if (!other.getComment().isEmpty()) {
+            comment_ = other.comment_;
+            onChanged();
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        private int status_ = 0;
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus status = 1;</code>
+         * @return The enum numeric value on the wire for status.
+         */
+        @java.lang.Override public int getStatusValue() {
+          return status_;
+        }
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus status = 1;</code>
+         * @param value The enum numeric value on the wire for status to set.
+         * @return This builder for chaining.
+         */
+        public Builder setStatusValue(int value) {
+          
+          status_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus status = 1;</code>
+         * @return The status.
+         */
+        @java.lang.Override
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus getStatus() {
+          @SuppressWarnings("deprecation")
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus result = protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.valueOf(status_);
+          return result == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus.UNRECOGNIZED : result;
+        }
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus status = 1;</code>
+         * @param value The status to set.
+         * @return This builder for chaining.
+         */
+        public Builder setStatus(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.MerchantStatus value) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          
+          status_ = value.getNumber();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.MerchantStatus status = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearStatus() {
+          
+          status_ = 0;
+          onChanged();
+          return this;
+        }
+
+        private protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange scheduledChange_;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.Builder, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChangeOrBuilder> scheduledChangeBuilder_;
+        /**
+         * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+         * @return Whether the scheduledChange field is set.
+         */
+        public boolean hasScheduledChange() {
+          return ((bitField0_ & 0x00000001) != 0);
+        }
+        /**
+         * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+         * @return The scheduledChange.
+         */
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange getScheduledChange() {
+          if (scheduledChangeBuilder_ == null) {
+            return scheduledChange_ == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.getDefaultInstance() : scheduledChange_;
+          } else {
+            return scheduledChangeBuilder_.getMessage();
+          }
+        }
+        /**
+         * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+         */
+        public Builder setScheduledChange(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange value) {
+          if (scheduledChangeBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            scheduledChange_ = value;
+            onChanged();
+          } else {
+            scheduledChangeBuilder_.setMessage(value);
+          }
+          bitField0_ |= 0x00000001;
+          return this;
+        }
+        /**
+         * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+         */
+        public Builder setScheduledChange(
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.Builder builderForValue) {
+          if (scheduledChangeBuilder_ == null) {
+            scheduledChange_ = builderForValue.build();
+            onChanged();
+          } else {
+            scheduledChangeBuilder_.setMessage(builderForValue.build());
+          }
+          bitField0_ |= 0x00000001;
+          return this;
+        }
+        /**
+         * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+         */
+        public Builder mergeScheduledChange(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange value) {
+          if (scheduledChangeBuilder_ == null) {
+            if (((bitField0_ & 0x00000001) != 0) &&
+                scheduledChange_ != null &&
+                scheduledChange_ != protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.getDefaultInstance()) {
+              scheduledChange_ =
+                protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.newBuilder(scheduledChange_).mergeFrom(value).buildPartial();
+            } else {
+              scheduledChange_ = value;
+            }
+            onChanged();
+          } else {
+            scheduledChangeBuilder_.mergeFrom(value);
+          }
+          bitField0_ |= 0x00000001;
+          return this;
+        }
+        /**
+         * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+         */
+        public Builder clearScheduledChange() {
+          if (scheduledChangeBuilder_ == null) {
+            scheduledChange_ = null;
+            onChanged();
+          } else {
+            scheduledChangeBuilder_.clear();
+          }
+          bitField0_ = (bitField0_ & ~0x00000001);
+          return this;
+        }
+        /**
+         * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+         */
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.Builder getScheduledChangeBuilder() {
+          bitField0_ |= 0x00000001;
+          onChanged();
+          return getScheduledChangeFieldBuilder().getBuilder();
+        }
+        /**
+         * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+         */
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChangeOrBuilder getScheduledChangeOrBuilder() {
+          if (scheduledChangeBuilder_ != null) {
+            return scheduledChangeBuilder_.getMessageOrBuilder();
+          } else {
+            return scheduledChange_ == null ?
+                protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.getDefaultInstance() : scheduledChange_;
+          }
+        }
+        /**
+         * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest.ScheduledChange scheduled_change = 2;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.Builder, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChangeOrBuilder> 
+            getScheduledChangeFieldBuilder() {
+          if (scheduledChangeBuilder_ == null) {
+            scheduledChangeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChange.Builder, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.ScheduledChangeOrBuilder>(
+                    getScheduledChange(),
+                    getParentForChildren(),
+                    isClean());
+            scheduledChange_ = null;
+          }
+          return scheduledChangeBuilder_;
+        }
+
+        private java.lang.Object comment_ = "";
+        /**
+         * <code>string comment = 3;</code>
+         * @return The comment.
+         */
+        public java.lang.String getComment() {
+          java.lang.Object ref = comment_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            comment_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string comment = 3;</code>
+         * @return The bytes for comment.
+         */
+        public com.google.protobuf.ByteString
+            getCommentBytes() {
+          java.lang.Object ref = comment_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            comment_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string comment = 3;</code>
+         * @param value The comment to set.
+         * @return This builder for chaining.
+         */
+        public Builder setComment(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          comment_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string comment = 3;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearComment() {
+          
+          comment_ = getDefaultInstance().getComment();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string comment = 3;</code>
+         * @param value The bytes for comment to set.
+         * @return This builder for chaining.
+         */
+        public Builder setCommentBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          comment_ = value;
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest)
+      }
+
+      // @@protoc_insertion_point(class_scope:protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest)
+      private static final protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest();
+      }
+
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<MerchantStatusRequest>
+          PARSER = new com.google.protobuf.AbstractParser<MerchantStatusRequest>() {
+        @java.lang.Override
+        public MerchantStatusRequest parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new MerchantStatusRequest(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<MerchantStatusRequest> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<MerchantStatusRequest> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public interface WorkSchedulesOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:protobuf.retail_onboarding_store_data.Store.WorkSchedules)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+       */
+      java.util.List<protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours> 
+          getDayWorkingHoursList();
+      /**
+       * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+       */
+      protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours getDayWorkingHours(int index);
+      /**
+       * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+       */
+      int getDayWorkingHoursCount();
+      /**
+       * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+       */
+      java.util.List<? extends protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHoursOrBuilder> 
+          getDayWorkingHoursOrBuilderList();
+      /**
+       * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+       */
+      protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHoursOrBuilder getDayWorkingHoursOrBuilder(
+          int index);
+    }
+    /**
+     * Protobuf type {@code protobuf.retail_onboarding_store_data.Store.WorkSchedules}
+     */
+    public static final class WorkSchedules extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:protobuf.retail_onboarding_store_data.Store.WorkSchedules)
+        WorkSchedulesOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use WorkSchedules.newBuilder() to construct.
+      private WorkSchedules(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private WorkSchedules() {
+        dayWorkingHours_ = java.util.Collections.emptyList();
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new WorkSchedules();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private WorkSchedules(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                  dayWorkingHours_ = new java.util.ArrayList<protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours>();
+                  mutable_bitField0_ |= 0x00000001;
+                }
+                dayWorkingHours_.add(
+                    input.readMessage(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.parser(), extensionRegistry));
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          if (((mutable_bitField0_ & 0x00000001) != 0)) {
+            dayWorkingHours_ = java.util.Collections.unmodifiableList(dayWorkingHours_);
+          }
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.class, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.Builder.class);
+      }
+
+      public interface WeekDayWorkingHoursOrBuilder extends
+          // @@protoc_insertion_point(interface_extends:protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours)
+          com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.WeekDay week_day = 1;</code>
+         * @return The enum numeric value on the wire for weekDay.
+         */
+        int getWeekDayValue();
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.WeekDay week_day = 1;</code>
+         * @return The weekDay.
+         */
+        protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WeekDay getWeekDay();
+
+        /**
+         * <code>string opening_time = 2;</code>
+         * @return The openingTime.
+         */
+        java.lang.String getOpeningTime();
+        /**
+         * <code>string opening_time = 2;</code>
+         * @return The bytes for openingTime.
+         */
+        com.google.protobuf.ByteString
+            getOpeningTimeBytes();
+
+        /**
+         * <code>string closing_time = 3;</code>
+         * @return The closingTime.
+         */
+        java.lang.String getClosingTime();
+        /**
+         * <code>string closing_time = 3;</code>
+         * @return The bytes for closingTime.
+         */
+        com.google.protobuf.ByteString
+            getClosingTimeBytes();
+      }
+      /**
+       * Protobuf type {@code protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours}
+       */
+      public static final class WeekDayWorkingHours extends
+          com.google.protobuf.GeneratedMessageV3 implements
+          // @@protoc_insertion_point(message_implements:protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours)
+          WeekDayWorkingHoursOrBuilder {
+      private static final long serialVersionUID = 0L;
+        // Use WeekDayWorkingHours.newBuilder() to construct.
+        private WeekDayWorkingHours(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+          super(builder);
+        }
+        private WeekDayWorkingHours() {
+          weekDay_ = 0;
+          openingTime_ = "";
+          closingTime_ = "";
+        }
+
+        @java.lang.Override
+        @SuppressWarnings({"unused"})
+        protected java.lang.Object newInstance(
+            UnusedPrivateParameter unused) {
+          return new WeekDayWorkingHours();
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+          return this.unknownFields;
+        }
+        private WeekDayWorkingHours(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          this();
+          if (extensionRegistry == null) {
+            throw new java.lang.NullPointerException();
+          }
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+              com.google.protobuf.UnknownFieldSet.newBuilder();
+          try {
+            boolean done = false;
+            while (!done) {
+              int tag = input.readTag();
+              switch (tag) {
+                case 0:
+                  done = true;
+                  break;
+                case 8: {
+                  int rawValue = input.readEnum();
+
+                  weekDay_ = rawValue;
+                  break;
+                }
+                case 18: {
+                  java.lang.String s = input.readStringRequireUtf8();
+
+                  openingTime_ = s;
+                  break;
+                }
+                case 26: {
+                  java.lang.String s = input.readStringRequireUtf8();
+
+                  closingTime_ = s;
+                  break;
+                }
+                default: {
+                  if (!parseUnknownField(
+                      input, unknownFields, extensionRegistry, tag)) {
+                    done = true;
+                  }
+                  break;
+                }
+              }
+            }
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.setUnfinishedMessage(this);
+          } catch (java.io.IOException e) {
+            throw new com.google.protobuf.InvalidProtocolBufferException(
+                e).setUnfinishedMessage(this);
+          } finally {
+            this.unknownFields = unknownFields.build();
+            makeExtensionsImmutable();
+          }
+        }
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_WeekDayWorkingHours_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_WeekDayWorkingHours_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.class, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.Builder.class);
+        }
+
+        public static final int WEEK_DAY_FIELD_NUMBER = 1;
+        private int weekDay_;
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.WeekDay week_day = 1;</code>
+         * @return The enum numeric value on the wire for weekDay.
+         */
+        @java.lang.Override public int getWeekDayValue() {
+          return weekDay_;
+        }
+        /**
+         * <code>.protobuf.retail_onboarding_store_data.Store.WeekDay week_day = 1;</code>
+         * @return The weekDay.
+         */
+        @java.lang.Override public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WeekDay getWeekDay() {
+          @SuppressWarnings("deprecation")
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WeekDay result = protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WeekDay.valueOf(weekDay_);
+          return result == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WeekDay.UNRECOGNIZED : result;
+        }
+
+        public static final int OPENING_TIME_FIELD_NUMBER = 2;
+        private volatile java.lang.Object openingTime_;
+        /**
+         * <code>string opening_time = 2;</code>
+         * @return The openingTime.
+         */
+        @java.lang.Override
+        public java.lang.String getOpeningTime() {
+          java.lang.Object ref = openingTime_;
+          if (ref instanceof java.lang.String) {
+            return (java.lang.String) ref;
+          } else {
+            com.google.protobuf.ByteString bs = 
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            openingTime_ = s;
+            return s;
+          }
+        }
+        /**
+         * <code>string opening_time = 2;</code>
+         * @return The bytes for openingTime.
+         */
+        @java.lang.Override
+        public com.google.protobuf.ByteString
+            getOpeningTimeBytes() {
+          java.lang.Object ref = openingTime_;
+          if (ref instanceof java.lang.String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            openingTime_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+
+        public static final int CLOSING_TIME_FIELD_NUMBER = 3;
+        private volatile java.lang.Object closingTime_;
+        /**
+         * <code>string closing_time = 3;</code>
+         * @return The closingTime.
+         */
+        @java.lang.Override
+        public java.lang.String getClosingTime() {
+          java.lang.Object ref = closingTime_;
+          if (ref instanceof java.lang.String) {
+            return (java.lang.String) ref;
+          } else {
+            com.google.protobuf.ByteString bs = 
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            closingTime_ = s;
+            return s;
+          }
+        }
+        /**
+         * <code>string closing_time = 3;</code>
+         * @return The bytes for closingTime.
+         */
+        @java.lang.Override
+        public com.google.protobuf.ByteString
+            getClosingTimeBytes() {
+          java.lang.Object ref = closingTime_;
+          if (ref instanceof java.lang.String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            closingTime_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+
+        private byte memoizedIsInitialized = -1;
+        @java.lang.Override
+        public final boolean isInitialized() {
+          byte isInitialized = memoizedIsInitialized;
+          if (isInitialized == 1) return true;
+          if (isInitialized == 0) return false;
+
+          memoizedIsInitialized = 1;
+          return true;
+        }
+
+        @java.lang.Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                            throws java.io.IOException {
+          if (weekDay_ != protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WeekDay.MONDAY.getNumber()) {
+            output.writeEnum(1, weekDay_);
+          }
+          if (!getOpeningTimeBytes().isEmpty()) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 2, openingTime_);
+          }
+          if (!getClosingTimeBytes().isEmpty()) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 3, closingTime_);
+          }
+          unknownFields.writeTo(output);
+        }
+
+        @java.lang.Override
+        public int getSerializedSize() {
+          int size = memoizedSize;
+          if (size != -1) return size;
+
+          size = 0;
+          if (weekDay_ != protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WeekDay.MONDAY.getNumber()) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeEnumSize(1, weekDay_);
+          }
+          if (!getOpeningTimeBytes().isEmpty()) {
+            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, openingTime_);
+          }
+          if (!getClosingTimeBytes().isEmpty()) {
+            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, closingTime_);
+          }
+          size += unknownFields.getSerializedSize();
+          memoizedSize = size;
+          return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+          if (obj == this) {
+           return true;
+          }
+          if (!(obj instanceof protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours)) {
+            return super.equals(obj);
+          }
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours other = (protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours) obj;
+
+          if (weekDay_ != other.weekDay_) return false;
+          if (!getOpeningTime()
+              .equals(other.getOpeningTime())) return false;
+          if (!getClosingTime()
+              .equals(other.getClosingTime())) return false;
+          if (!unknownFields.equals(other.unknownFields)) return false;
+          return true;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+          if (memoizedHashCode != 0) {
+            return memoizedHashCode;
+          }
+          int hash = 41;
+          hash = (19 * hash) + getDescriptor().hashCode();
+          hash = (37 * hash) + WEEK_DAY_FIELD_NUMBER;
+          hash = (53 * hash) + weekDay_;
+          hash = (37 * hash) + OPENING_TIME_FIELD_NUMBER;
+          hash = (53 * hash) + getOpeningTime().hashCode();
+          hash = (37 * hash) + CLOSING_TIME_FIELD_NUMBER;
+          hash = (53 * hash) + getClosingTime().hashCode();
+          hash = (29 * hash) + unknownFields.hashCode();
+          memoizedHashCode = hash;
+          return hash;
+        }
+
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours parseFrom(
+            java.nio.ByteBuffer data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours parseFrom(
+            java.nio.ByteBuffer data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+          return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+        }
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @java.lang.Override
+        public Builder newBuilderForType() { return newBuilder(); }
+        public static Builder newBuilder() {
+          return DEFAULT_INSTANCE.toBuilder();
+        }
+        public static Builder newBuilder(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours prototype) {
+          return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+        @java.lang.Override
+        public Builder toBuilder() {
+          return this == DEFAULT_INSTANCE
+              ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          Builder builder = new Builder(parent);
+          return builder;
+        }
+        /**
+         * Protobuf type {@code protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours}
+         */
+        public static final class Builder extends
+            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours)
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHoursOrBuilder {
+          public static final com.google.protobuf.Descriptors.Descriptor
+              getDescriptor() {
+            return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_WeekDayWorkingHours_descriptor;
+          }
+
+          @java.lang.Override
+          protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+              internalGetFieldAccessorTable() {
+            return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_WeekDayWorkingHours_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                    protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.class, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.Builder.class);
+          }
+
+          // Construct using protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.newBuilder()
+          private Builder() {
+            maybeForceBuilderInitialization();
+          }
+
+          private Builder(
+              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            super(parent);
+            maybeForceBuilderInitialization();
+          }
+          private void maybeForceBuilderInitialization() {
+            if (com.google.protobuf.GeneratedMessageV3
+                    .alwaysUseFieldBuilders) {
+            }
+          }
+          @java.lang.Override
+          public Builder clear() {
+            super.clear();
+            weekDay_ = 0;
+
+            openingTime_ = "";
+
+            closingTime_ = "";
+
+            return this;
+          }
+
+          @java.lang.Override
+          public com.google.protobuf.Descriptors.Descriptor
+              getDescriptorForType() {
+            return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_WeekDayWorkingHours_descriptor;
+          }
+
+          @java.lang.Override
+          public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours getDefaultInstanceForType() {
+            return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.getDefaultInstance();
+          }
+
+          @java.lang.Override
+          public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours build() {
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours result = buildPartial();
+            if (!result.isInitialized()) {
+              throw newUninitializedMessageException(result);
+            }
+            return result;
+          }
+
+          @java.lang.Override
+          public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours buildPartial() {
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours result = new protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours(this);
+            result.weekDay_ = weekDay_;
+            result.openingTime_ = openingTime_;
+            result.closingTime_ = closingTime_;
+            onBuilt();
+            return result;
+          }
+
+          @java.lang.Override
+          public Builder clone() {
+            return super.clone();
+          }
+          @java.lang.Override
+          public Builder setField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
+            return super.setField(field, value);
+          }
+          @java.lang.Override
+          public Builder clearField(
+              com.google.protobuf.Descriptors.FieldDescriptor field) {
+            return super.clearField(field);
+          }
+          @java.lang.Override
+          public Builder clearOneof(
+              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+            return super.clearOneof(oneof);
+          }
+          @java.lang.Override
+          public Builder setRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              int index, java.lang.Object value) {
+            return super.setRepeatedField(field, index, value);
+          }
+          @java.lang.Override
+          public Builder addRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
+            return super.addRepeatedField(field, value);
+          }
+          @java.lang.Override
+          public Builder mergeFrom(com.google.protobuf.Message other) {
+            if (other instanceof protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours) {
+              return mergeFrom((protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours)other);
+            } else {
+              super.mergeFrom(other);
+              return this;
+            }
+          }
+
+          public Builder mergeFrom(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours other) {
+            if (other == protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.getDefaultInstance()) return this;
+            if (other.weekDay_ != 0) {
+              setWeekDayValue(other.getWeekDayValue());
+            }
+            if (!other.getOpeningTime().isEmpty()) {
+              openingTime_ = other.openingTime_;
+              onChanged();
+            }
+            if (!other.getClosingTime().isEmpty()) {
+              closingTime_ = other.closingTime_;
+              onChanged();
+            }
+            this.mergeUnknownFields(other.unknownFields);
+            onChanged();
+            return this;
+          }
+
+          @java.lang.Override
+          public final boolean isInitialized() {
+            return true;
+          }
+
+          @java.lang.Override
+          public Builder mergeFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours parsedMessage = null;
+            try {
+              parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+              parsedMessage = (protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours) e.getUnfinishedMessage();
+              throw e.unwrapIOException();
+            } finally {
+              if (parsedMessage != null) {
+                mergeFrom(parsedMessage);
+              }
+            }
+            return this;
+          }
+
+          private int weekDay_ = 0;
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.WeekDay week_day = 1;</code>
+           * @return The enum numeric value on the wire for weekDay.
+           */
+          @java.lang.Override public int getWeekDayValue() {
+            return weekDay_;
+          }
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.WeekDay week_day = 1;</code>
+           * @param value The enum numeric value on the wire for weekDay to set.
+           * @return This builder for chaining.
+           */
+          public Builder setWeekDayValue(int value) {
+            
+            weekDay_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.WeekDay week_day = 1;</code>
+           * @return The weekDay.
+           */
+          @java.lang.Override
+          public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WeekDay getWeekDay() {
+            @SuppressWarnings("deprecation")
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WeekDay result = protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WeekDay.valueOf(weekDay_);
+            return result == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WeekDay.UNRECOGNIZED : result;
+          }
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.WeekDay week_day = 1;</code>
+           * @param value The weekDay to set.
+           * @return This builder for chaining.
+           */
+          public Builder setWeekDay(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WeekDay value) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            
+            weekDay_ = value.getNumber();
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>.protobuf.retail_onboarding_store_data.Store.WeekDay week_day = 1;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearWeekDay() {
+            
+            weekDay_ = 0;
+            onChanged();
+            return this;
+          }
+
+          private java.lang.Object openingTime_ = "";
+          /**
+           * <code>string opening_time = 2;</code>
+           * @return The openingTime.
+           */
+          public java.lang.String getOpeningTime() {
+            java.lang.Object ref = openingTime_;
+            if (!(ref instanceof java.lang.String)) {
+              com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
+              java.lang.String s = bs.toStringUtf8();
+              openingTime_ = s;
+              return s;
+            } else {
+              return (java.lang.String) ref;
+            }
+          }
+          /**
+           * <code>string opening_time = 2;</code>
+           * @return The bytes for openingTime.
+           */
+          public com.google.protobuf.ByteString
+              getOpeningTimeBytes() {
+            java.lang.Object ref = openingTime_;
+            if (ref instanceof String) {
+              com.google.protobuf.ByteString b = 
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                      (java.lang.String) ref);
+              openingTime_ = b;
+              return b;
+            } else {
+              return (com.google.protobuf.ByteString) ref;
+            }
+          }
+          /**
+           * <code>string opening_time = 2;</code>
+           * @param value The openingTime to set.
+           * @return This builder for chaining.
+           */
+          public Builder setOpeningTime(
+              java.lang.String value) {
+            if (value == null) {
+    throw new NullPointerException();
+  }
+  
+            openingTime_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>string opening_time = 2;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearOpeningTime() {
+            
+            openingTime_ = getDefaultInstance().getOpeningTime();
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>string opening_time = 2;</code>
+           * @param value The bytes for openingTime to set.
+           * @return This builder for chaining.
+           */
+          public Builder setOpeningTimeBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+            
+            openingTime_ = value;
+            onChanged();
+            return this;
+          }
+
+          private java.lang.Object closingTime_ = "";
+          /**
+           * <code>string closing_time = 3;</code>
+           * @return The closingTime.
+           */
+          public java.lang.String getClosingTime() {
+            java.lang.Object ref = closingTime_;
+            if (!(ref instanceof java.lang.String)) {
+              com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
+              java.lang.String s = bs.toStringUtf8();
+              closingTime_ = s;
+              return s;
+            } else {
+              return (java.lang.String) ref;
+            }
+          }
+          /**
+           * <code>string closing_time = 3;</code>
+           * @return The bytes for closingTime.
+           */
+          public com.google.protobuf.ByteString
+              getClosingTimeBytes() {
+            java.lang.Object ref = closingTime_;
+            if (ref instanceof String) {
+              com.google.protobuf.ByteString b = 
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                      (java.lang.String) ref);
+              closingTime_ = b;
+              return b;
+            } else {
+              return (com.google.protobuf.ByteString) ref;
+            }
+          }
+          /**
+           * <code>string closing_time = 3;</code>
+           * @param value The closingTime to set.
+           * @return This builder for chaining.
+           */
+          public Builder setClosingTime(
+              java.lang.String value) {
+            if (value == null) {
+    throw new NullPointerException();
+  }
+  
+            closingTime_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>string closing_time = 3;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearClosingTime() {
+            
+            closingTime_ = getDefaultInstance().getClosingTime();
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>string closing_time = 3;</code>
+           * @param value The bytes for closingTime to set.
+           * @return This builder for chaining.
+           */
+          public Builder setClosingTimeBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+            
+            closingTime_ = value;
+            onChanged();
+            return this;
+          }
+          @java.lang.Override
+          public final Builder setUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+            return super.setUnknownFields(unknownFields);
+          }
+
+          @java.lang.Override
+          public final Builder mergeUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+            return super.mergeUnknownFields(unknownFields);
+          }
+
+
+          // @@protoc_insertion_point(builder_scope:protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours)
+        }
+
+        // @@protoc_insertion_point(class_scope:protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours)
+        private static final protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours DEFAULT_INSTANCE;
+        static {
+          DEFAULT_INSTANCE = new protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours();
+        }
+
+        public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours getDefaultInstance() {
+          return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<WeekDayWorkingHours>
+            PARSER = new com.google.protobuf.AbstractParser<WeekDayWorkingHours>() {
+          @java.lang.Override
+          public WeekDayWorkingHours parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            return new WeekDayWorkingHours(input, extensionRegistry);
+          }
+        };
+
+        public static com.google.protobuf.Parser<WeekDayWorkingHours> parser() {
+          return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<WeekDayWorkingHours> getParserForType() {
+          return PARSER;
+        }
+
+        @java.lang.Override
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours getDefaultInstanceForType() {
+          return DEFAULT_INSTANCE;
+        }
+
+      }
+
+      public static final int DAY_WORKING_HOURS_FIELD_NUMBER = 1;
+      private java.util.List<protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours> dayWorkingHours_;
+      /**
+       * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+       */
+      @java.lang.Override
+      public java.util.List<protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours> getDayWorkingHoursList() {
+        return dayWorkingHours_;
+      }
+      /**
+       * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+       */
+      @java.lang.Override
+      public java.util.List<? extends protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHoursOrBuilder> 
+          getDayWorkingHoursOrBuilderList() {
+        return dayWorkingHours_;
+      }
+      /**
+       * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+       */
+      @java.lang.Override
+      public int getDayWorkingHoursCount() {
+        return dayWorkingHours_.size();
+      }
+      /**
+       * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+       */
+      @java.lang.Override
+      public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours getDayWorkingHours(int index) {
+        return dayWorkingHours_.get(index);
+      }
+      /**
+       * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+       */
+      @java.lang.Override
+      public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHoursOrBuilder getDayWorkingHoursOrBuilder(
+          int index) {
+        return dayWorkingHours_.get(index);
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        for (int i = 0; i < dayWorkingHours_.size(); i++) {
+          output.writeMessage(1, dayWorkingHours_.get(i));
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        for (int i = 0; i < dayWorkingHours_.size(); i++) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, dayWorkingHours_.get(i));
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules)) {
+          return super.equals(obj);
+        }
+        protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules other = (protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules) obj;
+
+        if (!getDayWorkingHoursList()
+            .equals(other.getDayWorkingHoursList())) return false;
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (getDayWorkingHoursCount() > 0) {
+          hash = (37 * hash) + DAY_WORKING_HOURS_FIELD_NUMBER;
+          hash = (53 * hash) + getDayWorkingHoursList().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code protobuf.retail_onboarding_store_data.Store.WorkSchedules}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:protobuf.retail_onboarding_store_data.Store.WorkSchedules)
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedulesOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.class, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.Builder.class);
+        }
+
+        // Construct using protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+            getDayWorkingHoursFieldBuilder();
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          if (dayWorkingHoursBuilder_ == null) {
+            dayWorkingHours_ = java.util.Collections.emptyList();
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            dayWorkingHoursBuilder_.clear();
+          }
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_descriptor;
+        }
+
+        @java.lang.Override
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules getDefaultInstanceForType() {
+          return protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules build() {
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules buildPartial() {
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules result = new protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules(this);
+          int from_bitField0_ = bitField0_;
+          if (dayWorkingHoursBuilder_ == null) {
+            if (((bitField0_ & 0x00000001) != 0)) {
+              dayWorkingHours_ = java.util.Collections.unmodifiableList(dayWorkingHours_);
+              bitField0_ = (bitField0_ & ~0x00000001);
+            }
+            result.dayWorkingHours_ = dayWorkingHours_;
+          } else {
+            result.dayWorkingHours_ = dayWorkingHoursBuilder_.build();
+          }
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules) {
+            return mergeFrom((protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules other) {
+          if (other == protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.getDefaultInstance()) return this;
+          if (dayWorkingHoursBuilder_ == null) {
+            if (!other.dayWorkingHours_.isEmpty()) {
+              if (dayWorkingHours_.isEmpty()) {
+                dayWorkingHours_ = other.dayWorkingHours_;
+                bitField0_ = (bitField0_ & ~0x00000001);
+              } else {
+                ensureDayWorkingHoursIsMutable();
+                dayWorkingHours_.addAll(other.dayWorkingHours_);
+              }
+              onChanged();
+            }
+          } else {
+            if (!other.dayWorkingHours_.isEmpty()) {
+              if (dayWorkingHoursBuilder_.isEmpty()) {
+                dayWorkingHoursBuilder_.dispose();
+                dayWorkingHoursBuilder_ = null;
+                dayWorkingHours_ = other.dayWorkingHours_;
+                bitField0_ = (bitField0_ & ~0x00000001);
+                dayWorkingHoursBuilder_ = 
+                  com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                     getDayWorkingHoursFieldBuilder() : null;
+              } else {
+                dayWorkingHoursBuilder_.addAllMessages(other.dayWorkingHours_);
+              }
+            }
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        private java.util.List<protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours> dayWorkingHours_ =
+          java.util.Collections.emptyList();
+        private void ensureDayWorkingHoursIsMutable() {
+          if (!((bitField0_ & 0x00000001) != 0)) {
+            dayWorkingHours_ = new java.util.ArrayList<protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours>(dayWorkingHours_);
+            bitField0_ |= 0x00000001;
+           }
+        }
+
+        private com.google.protobuf.RepeatedFieldBuilderV3<
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.Builder, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHoursOrBuilder> dayWorkingHoursBuilder_;
+
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public java.util.List<protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours> getDayWorkingHoursList() {
+          if (dayWorkingHoursBuilder_ == null) {
+            return java.util.Collections.unmodifiableList(dayWorkingHours_);
+          } else {
+            return dayWorkingHoursBuilder_.getMessageList();
+          }
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public int getDayWorkingHoursCount() {
+          if (dayWorkingHoursBuilder_ == null) {
+            return dayWorkingHours_.size();
+          } else {
+            return dayWorkingHoursBuilder_.getCount();
+          }
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours getDayWorkingHours(int index) {
+          if (dayWorkingHoursBuilder_ == null) {
+            return dayWorkingHours_.get(index);
+          } else {
+            return dayWorkingHoursBuilder_.getMessage(index);
+          }
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public Builder setDayWorkingHours(
+            int index, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours value) {
+          if (dayWorkingHoursBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureDayWorkingHoursIsMutable();
+            dayWorkingHours_.set(index, value);
+            onChanged();
+          } else {
+            dayWorkingHoursBuilder_.setMessage(index, value);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public Builder setDayWorkingHours(
+            int index, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.Builder builderForValue) {
+          if (dayWorkingHoursBuilder_ == null) {
+            ensureDayWorkingHoursIsMutable();
+            dayWorkingHours_.set(index, builderForValue.build());
+            onChanged();
+          } else {
+            dayWorkingHoursBuilder_.setMessage(index, builderForValue.build());
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public Builder addDayWorkingHours(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours value) {
+          if (dayWorkingHoursBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureDayWorkingHoursIsMutable();
+            dayWorkingHours_.add(value);
+            onChanged();
+          } else {
+            dayWorkingHoursBuilder_.addMessage(value);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public Builder addDayWorkingHours(
+            int index, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours value) {
+          if (dayWorkingHoursBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureDayWorkingHoursIsMutable();
+            dayWorkingHours_.add(index, value);
+            onChanged();
+          } else {
+            dayWorkingHoursBuilder_.addMessage(index, value);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public Builder addDayWorkingHours(
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.Builder builderForValue) {
+          if (dayWorkingHoursBuilder_ == null) {
+            ensureDayWorkingHoursIsMutable();
+            dayWorkingHours_.add(builderForValue.build());
+            onChanged();
+          } else {
+            dayWorkingHoursBuilder_.addMessage(builderForValue.build());
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public Builder addDayWorkingHours(
+            int index, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.Builder builderForValue) {
+          if (dayWorkingHoursBuilder_ == null) {
+            ensureDayWorkingHoursIsMutable();
+            dayWorkingHours_.add(index, builderForValue.build());
+            onChanged();
+          } else {
+            dayWorkingHoursBuilder_.addMessage(index, builderForValue.build());
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public Builder addAllDayWorkingHours(
+            java.lang.Iterable<? extends protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours> values) {
+          if (dayWorkingHoursBuilder_ == null) {
+            ensureDayWorkingHoursIsMutable();
+            com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                values, dayWorkingHours_);
+            onChanged();
+          } else {
+            dayWorkingHoursBuilder_.addAllMessages(values);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public Builder clearDayWorkingHours() {
+          if (dayWorkingHoursBuilder_ == null) {
+            dayWorkingHours_ = java.util.Collections.emptyList();
+            bitField0_ = (bitField0_ & ~0x00000001);
+            onChanged();
+          } else {
+            dayWorkingHoursBuilder_.clear();
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public Builder removeDayWorkingHours(int index) {
+          if (dayWorkingHoursBuilder_ == null) {
+            ensureDayWorkingHoursIsMutable();
+            dayWorkingHours_.remove(index);
+            onChanged();
+          } else {
+            dayWorkingHoursBuilder_.remove(index);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.Builder getDayWorkingHoursBuilder(
+            int index) {
+          return getDayWorkingHoursFieldBuilder().getBuilder(index);
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHoursOrBuilder getDayWorkingHoursOrBuilder(
+            int index) {
+          if (dayWorkingHoursBuilder_ == null) {
+            return dayWorkingHours_.get(index);  } else {
+            return dayWorkingHoursBuilder_.getMessageOrBuilder(index);
+          }
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public java.util.List<? extends protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHoursOrBuilder> 
+             getDayWorkingHoursOrBuilderList() {
+          if (dayWorkingHoursBuilder_ != null) {
+            return dayWorkingHoursBuilder_.getMessageOrBuilderList();
+          } else {
+            return java.util.Collections.unmodifiableList(dayWorkingHours_);
+          }
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.Builder addDayWorkingHoursBuilder() {
+          return getDayWorkingHoursFieldBuilder().addBuilder(
+              protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.getDefaultInstance());
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.Builder addDayWorkingHoursBuilder(
+            int index) {
+          return getDayWorkingHoursFieldBuilder().addBuilder(
+              index, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.getDefaultInstance());
+        }
+        /**
+         * <code>repeated .protobuf.retail_onboarding_store_data.Store.WorkSchedules.WeekDayWorkingHours day_working_hours = 1;</code>
+         */
+        public java.util.List<protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.Builder> 
+             getDayWorkingHoursBuilderList() {
+          return getDayWorkingHoursFieldBuilder().getBuilderList();
+        }
+        private com.google.protobuf.RepeatedFieldBuilderV3<
+            protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.Builder, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHoursOrBuilder> 
+            getDayWorkingHoursFieldBuilder() {
+          if (dayWorkingHoursBuilder_ == null) {
+            dayWorkingHoursBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+                protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHours.Builder, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.WeekDayWorkingHoursOrBuilder>(
+                    dayWorkingHours_,
+                    ((bitField0_ & 0x00000001) != 0),
+                    getParentForChildren(),
+                    isClean());
+            dayWorkingHours_ = null;
+          }
+          return dayWorkingHoursBuilder_;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:protobuf.retail_onboarding_store_data.Store.WorkSchedules)
+      }
+
+      // @@protoc_insertion_point(class_scope:protobuf.retail_onboarding_store_data.Store.WorkSchedules)
+      private static final protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules();
+      }
+
+      public static protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<WorkSchedules>
+          PARSER = new com.google.protobuf.AbstractParser<WorkSchedules>() {
+        @java.lang.Override
+        public WorkSchedules parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new WorkSchedules(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<WorkSchedules> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<WorkSchedules> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
     private int bitField0_;
     public static final int UUID_FIELD_NUMBER = 1;
     private volatile java.lang.Object uuid_;
@@ -4070,23 +7983,186 @@ public final class RetailOnboardingStoreData {
       }
     }
 
-    public static final int ORDER_PREPARATION_SLA_MINUTES_FIELD_NUMBER = 22;
-    private long orderPreparationSlaMinutes_;
+    public static final int STATUS_FIELD_NUMBER = 22;
+    private int status_;
     /**
-     * <code>optional uint64 order_preparation_sla_minutes = 22;</code>
+     * <code>.protobuf.retail_onboarding_store_data.Store.Status status = 22;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    @java.lang.Override public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <code>.protobuf.retail_onboarding_store_data.Store.Status status = 22;</code>
+     * @return The status.
+     */
+    @java.lang.Override public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.Status getStatus() {
+      @SuppressWarnings("deprecation")
+      protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.Status result = protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.Status.valueOf(status_);
+      return result == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.Status.UNRECOGNIZED : result;
+    }
+
+    public static final int MERCHANT_STATUS_REQUEST_FIELD_NUMBER = 23;
+    private protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest merchantStatusRequest_;
+    /**
+     * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+     * @return Whether the merchantStatusRequest field is set.
+     */
+    @java.lang.Override
+    public boolean hasMerchantStatusRequest() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+     * @return The merchantStatusRequest.
+     */
+    @java.lang.Override
+    public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest getMerchantStatusRequest() {
+      return merchantStatusRequest_ == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.getDefaultInstance() : merchantStatusRequest_;
+    }
+    /**
+     * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+     */
+    @java.lang.Override
+    public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequestOrBuilder getMerchantStatusRequestOrBuilder() {
+      return merchantStatusRequest_ == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.getDefaultInstance() : merchantStatusRequest_;
+    }
+
+    public static final int WORK_SCHEDULES_FIELD_NUMBER = 24;
+    private protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules workSchedules_;
+    /**
+     * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+     * @return Whether the workSchedules field is set.
+     */
+    @java.lang.Override
+    public boolean hasWorkSchedules() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+     * @return The workSchedules.
+     */
+    @java.lang.Override
+    public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules getWorkSchedules() {
+      return workSchedules_ == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.getDefaultInstance() : workSchedules_;
+    }
+    /**
+     * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+     */
+    @java.lang.Override
+    public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedulesOrBuilder getWorkSchedulesOrBuilder() {
+      return workSchedules_ == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.getDefaultInstance() : workSchedules_;
+    }
+
+    public static final int ORDER_PREPARATION_SLA_MINUTES_FIELD_NUMBER = 25;
+    private int orderPreparationSlaMinutes_;
+    /**
+     * <code>optional uint32 order_preparation_sla_minutes = 25;</code>
      * @return Whether the orderPreparationSlaMinutes field is set.
      */
     @java.lang.Override
     public boolean hasOrderPreparationSlaMinutes() {
-      return ((bitField0_ & 0x00000001) != 0);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
-     * <code>optional uint64 order_preparation_sla_minutes = 22;</code>
+     * <code>optional uint32 order_preparation_sla_minutes = 25;</code>
      * @return The orderPreparationSlaMinutes.
      */
     @java.lang.Override
-    public long getOrderPreparationSlaMinutes() {
+    public int getOrderPreparationSlaMinutes() {
       return orderPreparationSlaMinutes_;
+    }
+
+    public static final int TERMINAL_GROUP_ID_FIELD_NUMBER = 26;
+    private volatile java.lang.Object terminalGroupId_;
+    /**
+     * <code>optional string terminal_group_id = 26;</code>
+     * @return Whether the terminalGroupId field is set.
+     */
+    @java.lang.Override
+    public boolean hasTerminalGroupId() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <code>optional string terminal_group_id = 26;</code>
+     * @return The terminalGroupId.
+     */
+    @java.lang.Override
+    public java.lang.String getTerminalGroupId() {
+      java.lang.Object ref = terminalGroupId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        terminalGroupId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string terminal_group_id = 26;</code>
+     * @return The bytes for terminalGroupId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTerminalGroupIdBytes() {
+      java.lang.Object ref = terminalGroupId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        terminalGroupId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int OMS_SLUG_FIELD_NUMBER = 27;
+    private volatile java.lang.Object omsSlug_;
+    /**
+     * <code>optional string oms_slug = 27;</code>
+     * @return Whether the omsSlug field is set.
+     */
+    @java.lang.Override
+    public boolean hasOmsSlug() {
+      return ((bitField0_ & 0x00000010) != 0);
+    }
+    /**
+     * <code>optional string oms_slug = 27;</code>
+     * @return The omsSlug.
+     */
+    @java.lang.Override
+    public java.lang.String getOmsSlug() {
+      java.lang.Object ref = omsSlug_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        omsSlug_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string oms_slug = 27;</code>
+     * @return The bytes for omsSlug.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOmsSlugBytes() {
+      java.lang.Object ref = omsSlug_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        omsSlug_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -4166,8 +8242,23 @@ public final class RetailOnboardingStoreData {
       if (!getHowToTakeBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 21, howToTake_);
       }
+      if (status_ != protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.Status.ACTIVE.getNumber()) {
+        output.writeEnum(22, status_);
+      }
       if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeUInt64(22, orderPreparationSlaMinutes_);
+        output.writeMessage(23, getMerchantStatusRequest());
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(24, getWorkSchedules());
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeUInt32(25, orderPreparationSlaMinutes_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 26, terminalGroupId_);
+      }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 27, omsSlug_);
       }
       unknownFields.writeTo(output);
     }
@@ -4250,9 +8341,27 @@ public final class RetailOnboardingStoreData {
       if (!getHowToTakeBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(21, howToTake_);
       }
+      if (status_ != protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.Status.ACTIVE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(22, status_);
+      }
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(22, orderPreparationSlaMinutes_);
+          .computeMessageSize(23, getMerchantStatusRequest());
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(24, getWorkSchedules());
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(25, orderPreparationSlaMinutes_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(26, terminalGroupId_);
+      }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(27, omsSlug_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -4323,10 +8432,31 @@ public final class RetailOnboardingStoreData {
           != other.getOrdersApiSendCustomer()) return false;
       if (!getHowToTake()
           .equals(other.getHowToTake())) return false;
+      if (status_ != other.status_) return false;
+      if (hasMerchantStatusRequest() != other.hasMerchantStatusRequest()) return false;
+      if (hasMerchantStatusRequest()) {
+        if (!getMerchantStatusRequest()
+            .equals(other.getMerchantStatusRequest())) return false;
+      }
+      if (hasWorkSchedules() != other.hasWorkSchedules()) return false;
+      if (hasWorkSchedules()) {
+        if (!getWorkSchedules()
+            .equals(other.getWorkSchedules())) return false;
+      }
       if (hasOrderPreparationSlaMinutes() != other.hasOrderPreparationSlaMinutes()) return false;
       if (hasOrderPreparationSlaMinutes()) {
         if (getOrderPreparationSlaMinutes()
             != other.getOrderPreparationSlaMinutes()) return false;
+      }
+      if (hasTerminalGroupId() != other.hasTerminalGroupId()) return false;
+      if (hasTerminalGroupId()) {
+        if (!getTerminalGroupId()
+            .equals(other.getTerminalGroupId())) return false;
+      }
+      if (hasOmsSlug() != other.hasOmsSlug()) return false;
+      if (hasOmsSlug()) {
+        if (!getOmsSlug()
+            .equals(other.getOmsSlug())) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -4394,10 +8524,27 @@ public final class RetailOnboardingStoreData {
           getOrdersApiSendCustomer());
       hash = (37 * hash) + HOW_TO_TAKE_FIELD_NUMBER;
       hash = (53 * hash) + getHowToTake().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
+      if (hasMerchantStatusRequest()) {
+        hash = (37 * hash) + MERCHANT_STATUS_REQUEST_FIELD_NUMBER;
+        hash = (53 * hash) + getMerchantStatusRequest().hashCode();
+      }
+      if (hasWorkSchedules()) {
+        hash = (37 * hash) + WORK_SCHEDULES_FIELD_NUMBER;
+        hash = (53 * hash) + getWorkSchedules().hashCode();
+      }
       if (hasOrderPreparationSlaMinutes()) {
         hash = (37 * hash) + ORDER_PREPARATION_SLA_MINUTES_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getOrderPreparationSlaMinutes());
+        hash = (53 * hash) + getOrderPreparationSlaMinutes();
+      }
+      if (hasTerminalGroupId()) {
+        hash = (37 * hash) + TERMINAL_GROUP_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getTerminalGroupId().hashCode();
+      }
+      if (hasOmsSlug()) {
+        hash = (37 * hash) + OMS_SLUG_FIELD_NUMBER;
+        hash = (53 * hash) + getOmsSlug().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -4527,6 +8674,8 @@ public final class RetailOnboardingStoreData {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getMerchantStatusRequestFieldBuilder();
+          getWorkSchedulesFieldBuilder();
         }
       }
       @java.lang.Override
@@ -4590,8 +8739,26 @@ public final class RetailOnboardingStoreData {
 
         howToTake_ = "";
 
-        orderPreparationSlaMinutes_ = 0L;
+        status_ = 0;
+
+        if (merchantStatusRequestBuilder_ == null) {
+          merchantStatusRequest_ = null;
+        } else {
+          merchantStatusRequestBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000001);
+        if (workSchedulesBuilder_ == null) {
+          workSchedules_ = null;
+        } else {
+          workSchedulesBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        orderPreparationSlaMinutes_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        terminalGroupId_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
+        omsSlug_ = "";
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -4657,10 +8824,35 @@ public final class RetailOnboardingStoreData {
         result.paymentAtCheckout_ = paymentAtCheckout_;
         result.ordersApiSendCustomer_ = ordersApiSendCustomer_;
         result.howToTake_ = howToTake_;
+        result.status_ = status_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.orderPreparationSlaMinutes_ = orderPreparationSlaMinutes_;
+          if (merchantStatusRequestBuilder_ == null) {
+            result.merchantStatusRequest_ = merchantStatusRequest_;
+          } else {
+            result.merchantStatusRequest_ = merchantStatusRequestBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
         }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          if (workSchedulesBuilder_ == null) {
+            result.workSchedules_ = workSchedules_;
+          } else {
+            result.workSchedules_ = workSchedulesBuilder_.build();
+          }
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.orderPreparationSlaMinutes_ = orderPreparationSlaMinutes_;
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.terminalGroupId_ = terminalGroupId_;
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.omsSlug_ = omsSlug_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4785,8 +8977,27 @@ public final class RetailOnboardingStoreData {
           howToTake_ = other.howToTake_;
           onChanged();
         }
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
+        }
+        if (other.hasMerchantStatusRequest()) {
+          mergeMerchantStatusRequest(other.getMerchantStatusRequest());
+        }
+        if (other.hasWorkSchedules()) {
+          mergeWorkSchedules(other.getWorkSchedules());
+        }
         if (other.hasOrderPreparationSlaMinutes()) {
           setOrderPreparationSlaMinutes(other.getOrderPreparationSlaMinutes());
+        }
+        if (other.hasTerminalGroupId()) {
+          bitField0_ |= 0x00000008;
+          terminalGroupId_ = other.terminalGroupId_;
+          onChanged();
+        }
+        if (other.hasOmsSlug()) {
+          bitField0_ |= 0x00000010;
+          omsSlug_ = other.omsSlug_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -6373,41 +10584,501 @@ public final class RetailOnboardingStoreData {
         return this;
       }
 
-      private long orderPreparationSlaMinutes_ ;
+      private int status_ = 0;
       /**
-       * <code>optional uint64 order_preparation_sla_minutes = 22;</code>
+       * <code>.protobuf.retail_onboarding_store_data.Store.Status status = 22;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <code>.protobuf.retail_onboarding_store_data.Store.Status status = 22;</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusValue(int value) {
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.protobuf.retail_onboarding_store_data.Store.Status status = 22;</code>
+       * @return The status.
+       */
+      @java.lang.Override
+      public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.Status getStatus() {
+        @SuppressWarnings("deprecation")
+        protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.Status result = protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.Status.valueOf(status_);
+        return result == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.Status.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.protobuf.retail_onboarding_store_data.Store.Status status = 22;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.Status value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.protobuf.retail_onboarding_store_data.Store.Status status = 22;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest merchantStatusRequest_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.Builder, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequestOrBuilder> merchantStatusRequestBuilder_;
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+       * @return Whether the merchantStatusRequest field is set.
+       */
+      public boolean hasMerchantStatusRequest() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+       * @return The merchantStatusRequest.
+       */
+      public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest getMerchantStatusRequest() {
+        if (merchantStatusRequestBuilder_ == null) {
+          return merchantStatusRequest_ == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.getDefaultInstance() : merchantStatusRequest_;
+        } else {
+          return merchantStatusRequestBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+       */
+      public Builder setMerchantStatusRequest(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest value) {
+        if (merchantStatusRequestBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          merchantStatusRequest_ = value;
+          onChanged();
+        } else {
+          merchantStatusRequestBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+       */
+      public Builder setMerchantStatusRequest(
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.Builder builderForValue) {
+        if (merchantStatusRequestBuilder_ == null) {
+          merchantStatusRequest_ = builderForValue.build();
+          onChanged();
+        } else {
+          merchantStatusRequestBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+       */
+      public Builder mergeMerchantStatusRequest(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest value) {
+        if (merchantStatusRequestBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0) &&
+              merchantStatusRequest_ != null &&
+              merchantStatusRequest_ != protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.getDefaultInstance()) {
+            merchantStatusRequest_ =
+              protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.newBuilder(merchantStatusRequest_).mergeFrom(value).buildPartial();
+          } else {
+            merchantStatusRequest_ = value;
+          }
+          onChanged();
+        } else {
+          merchantStatusRequestBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+       */
+      public Builder clearMerchantStatusRequest() {
+        if (merchantStatusRequestBuilder_ == null) {
+          merchantStatusRequest_ = null;
+          onChanged();
+        } else {
+          merchantStatusRequestBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+       */
+      public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.Builder getMerchantStatusRequestBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getMerchantStatusRequestFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+       */
+      public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequestOrBuilder getMerchantStatusRequestOrBuilder() {
+        if (merchantStatusRequestBuilder_ != null) {
+          return merchantStatusRequestBuilder_.getMessageOrBuilder();
+        } else {
+          return merchantStatusRequest_ == null ?
+              protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.getDefaultInstance() : merchantStatusRequest_;
+        }
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.MerchantStatusRequest merchant_status_request = 23;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.Builder, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequestOrBuilder> 
+          getMerchantStatusRequestFieldBuilder() {
+        if (merchantStatusRequestBuilder_ == null) {
+          merchantStatusRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequest.Builder, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.MerchantStatusRequestOrBuilder>(
+                  getMerchantStatusRequest(),
+                  getParentForChildren(),
+                  isClean());
+          merchantStatusRequest_ = null;
+        }
+        return merchantStatusRequestBuilder_;
+      }
+
+      private protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules workSchedules_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.Builder, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedulesOrBuilder> workSchedulesBuilder_;
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+       * @return Whether the workSchedules field is set.
+       */
+      public boolean hasWorkSchedules() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+       * @return The workSchedules.
+       */
+      public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules getWorkSchedules() {
+        if (workSchedulesBuilder_ == null) {
+          return workSchedules_ == null ? protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.getDefaultInstance() : workSchedules_;
+        } else {
+          return workSchedulesBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+       */
+      public Builder setWorkSchedules(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules value) {
+        if (workSchedulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          workSchedules_ = value;
+          onChanged();
+        } else {
+          workSchedulesBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+       */
+      public Builder setWorkSchedules(
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.Builder builderForValue) {
+        if (workSchedulesBuilder_ == null) {
+          workSchedules_ = builderForValue.build();
+          onChanged();
+        } else {
+          workSchedulesBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+       */
+      public Builder mergeWorkSchedules(protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules value) {
+        if (workSchedulesBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+              workSchedules_ != null &&
+              workSchedules_ != protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.getDefaultInstance()) {
+            workSchedules_ =
+              protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.newBuilder(workSchedules_).mergeFrom(value).buildPartial();
+          } else {
+            workSchedules_ = value;
+          }
+          onChanged();
+        } else {
+          workSchedulesBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+       */
+      public Builder clearWorkSchedules() {
+        if (workSchedulesBuilder_ == null) {
+          workSchedules_ = null;
+          onChanged();
+        } else {
+          workSchedulesBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+       */
+      public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.Builder getWorkSchedulesBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getWorkSchedulesFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+       */
+      public protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedulesOrBuilder getWorkSchedulesOrBuilder() {
+        if (workSchedulesBuilder_ != null) {
+          return workSchedulesBuilder_.getMessageOrBuilder();
+        } else {
+          return workSchedules_ == null ?
+              protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.getDefaultInstance() : workSchedules_;
+        }
+      }
+      /**
+       * <code>optional .protobuf.retail_onboarding_store_data.Store.WorkSchedules work_schedules = 24;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.Builder, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedulesOrBuilder> 
+          getWorkSchedulesFieldBuilder() {
+        if (workSchedulesBuilder_ == null) {
+          workSchedulesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedules.Builder, protobuf.retail_onboarding_store_data.RetailOnboardingStoreData.Store.WorkSchedulesOrBuilder>(
+                  getWorkSchedules(),
+                  getParentForChildren(),
+                  isClean());
+          workSchedules_ = null;
+        }
+        return workSchedulesBuilder_;
+      }
+
+      private int orderPreparationSlaMinutes_ ;
+      /**
+       * <code>optional uint32 order_preparation_sla_minutes = 25;</code>
        * @return Whether the orderPreparationSlaMinutes field is set.
        */
       @java.lang.Override
       public boolean hasOrderPreparationSlaMinutes() {
-        return ((bitField0_ & 0x00000001) != 0);
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>optional uint64 order_preparation_sla_minutes = 22;</code>
+       * <code>optional uint32 order_preparation_sla_minutes = 25;</code>
        * @return The orderPreparationSlaMinutes.
        */
       @java.lang.Override
-      public long getOrderPreparationSlaMinutes() {
+      public int getOrderPreparationSlaMinutes() {
         return orderPreparationSlaMinutes_;
       }
       /**
-       * <code>optional uint64 order_preparation_sla_minutes = 22;</code>
+       * <code>optional uint32 order_preparation_sla_minutes = 25;</code>
        * @param value The orderPreparationSlaMinutes to set.
        * @return This builder for chaining.
        */
-      public Builder setOrderPreparationSlaMinutes(long value) {
-        bitField0_ |= 0x00000001;
+      public Builder setOrderPreparationSlaMinutes(int value) {
+        bitField0_ |= 0x00000004;
         orderPreparationSlaMinutes_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional uint64 order_preparation_sla_minutes = 22;</code>
+       * <code>optional uint32 order_preparation_sla_minutes = 25;</code>
        * @return This builder for chaining.
        */
       public Builder clearOrderPreparationSlaMinutes() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        orderPreparationSlaMinutes_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        orderPreparationSlaMinutes_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object terminalGroupId_ = "";
+      /**
+       * <code>optional string terminal_group_id = 26;</code>
+       * @return Whether the terminalGroupId field is set.
+       */
+      public boolean hasTerminalGroupId() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <code>optional string terminal_group_id = 26;</code>
+       * @return The terminalGroupId.
+       */
+      public java.lang.String getTerminalGroupId() {
+        java.lang.Object ref = terminalGroupId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          terminalGroupId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string terminal_group_id = 26;</code>
+       * @return The bytes for terminalGroupId.
+       */
+      public com.google.protobuf.ByteString
+          getTerminalGroupIdBytes() {
+        java.lang.Object ref = terminalGroupId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          terminalGroupId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string terminal_group_id = 26;</code>
+       * @param value The terminalGroupId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTerminalGroupId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        terminalGroupId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string terminal_group_id = 26;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTerminalGroupId() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        terminalGroupId_ = getDefaultInstance().getTerminalGroupId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string terminal_group_id = 26;</code>
+       * @param value The bytes for terminalGroupId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTerminalGroupIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        bitField0_ |= 0x00000008;
+        terminalGroupId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object omsSlug_ = "";
+      /**
+       * <code>optional string oms_slug = 27;</code>
+       * @return Whether the omsSlug field is set.
+       */
+      public boolean hasOmsSlug() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <code>optional string oms_slug = 27;</code>
+       * @return The omsSlug.
+       */
+      public java.lang.String getOmsSlug() {
+        java.lang.Object ref = omsSlug_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          omsSlug_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string oms_slug = 27;</code>
+       * @return The bytes for omsSlug.
+       */
+      public com.google.protobuf.ByteString
+          getOmsSlugBytes() {
+        java.lang.Object ref = omsSlug_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          omsSlug_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string oms_slug = 27;</code>
+       * @param value The omsSlug to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOmsSlug(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        omsSlug_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string oms_slug = 27;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOmsSlug() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        omsSlug_ = getDefaultInstance().getOmsSlug();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string oms_slug = 27;</code>
+       * @param value The bytes for omsSlug to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOmsSlugBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        bitField0_ |= 0x00000010;
+        omsSlug_ = value;
         onChanged();
         return this;
       }
@@ -6484,6 +11155,26 @@ public final class RetailOnboardingStoreData {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_protobuf_retail_onboarding_store_data_Store_OrderRules_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_ScheduledChange_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_ScheduledChange_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_WeekDayWorkingHours_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_WeekDayWorkingHours_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -6495,7 +11186,7 @@ public final class RetailOnboardingStoreData {
     java.lang.String[] descriptorData = {
       "\n\"retail_onboarding_store_data.proto\022%pr" +
       "otobuf.retail_onboarding_store_data\032\037goo" +
-      "gle/protobuf/timestamp.proto\"\361\010\n\005Store\022\014" +
+      "gle/protobuf/timestamp.proto\"\226\024\n\005Store\022\014" +
       "\n\004uuid\030\001 \001(\t\022\024\n\010event_id\030\002 \001(\003B\002\030\001\022\025\n\rle" +
       "gacy_stf_id\030\003 \001(\003\022\025\n\rretailer_uuid\030\004 \001(\t" +
       "\022\036\n\026legacy_stf_retailer_id\030\005 \001(\003\022G\n\010loca" +
@@ -6511,20 +11202,56 @@ public final class RetailOnboardingStoreData {
       "ers_api_integration_type\030\020 \001(\t\022\016\n\006active" +
       "\030\021 \001(\010\022\031\n\021send_created_hook\030\022 \001(\t\022\033\n\023pay" +
       "ment_at_checkout\030\023 \001(\t\022 \n\030orders_api_sen" +
-      "d_customer\030\024 \001(\010\022\023\n\013how_to_take\030\025 \001(\t\022*\n" +
-      "\035order_preparation_sla_minutes\030\026 \001(\004H\000\210\001" +
-      "\001\032\211\002\n\010Location\022\021\n\tcity_name\030\001 \001(\t\022\016\n\006str" +
-      "eet\030\002 \001(\t\022\020\n\010building\030\003 \001(\t\022\r\n\005block\030\004 \001" +
-      "(\t\022\017\n\007country\030\005 \001(\t\022\024\n\014full_address\030\006 \001(" +
-      "\t\022V\n\013coordinates\030\007 \001(\0132A.protobuf.retail" +
-      "_onboarding_store_data.Store.Location.Co" +
-      "ordinates\022\021\n\ttime_zone\030\010 \001(\t\032\'\n\013Coordina" +
-      "tes\022\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030\002 \001(\001\032\216\001\n\nOrderR" +
-      "ules\022\030\n\020min_order_amount\030\001 \001(\002\022\036\n\026min_fi" +
-      "rst_order_amount\030\002 \001(\002\022\037\n\027min_order_amou" +
-      "nt_pickup\030\003 \001(\002\022%\n\035min_first_order_amoun" +
-      "t_pickup\030\004 \001(\002B \n\036_order_preparation_sla" +
-      "_minutesb\006proto3"
+      "d_customer\030\024 \001(\010\022\023\n\013how_to_take\030\025 \001(\t\022C\n" +
+      "\006status\030\026 \001(\01623.protobuf.retail_onboardi" +
+      "ng_store_data.Store.Status\022h\n\027merchant_s" +
+      "tatus_request\030\027 \001(\0132B.protobuf.retail_on" +
+      "boarding_store_data.Store.MerchantStatus" +
+      "RequestH\000\210\001\001\022W\n\016work_schedules\030\030 \001(\0132:.p" +
+      "rotobuf.retail_onboarding_store_data.Sto" +
+      "re.WorkSchedulesH\001\210\001\001\022*\n\035order_preparati" +
+      "on_sla_minutes\030\031 \001(\rH\002\210\001\001\022\036\n\021terminal_gr" +
+      "oup_id\030\032 \001(\tH\003\210\001\001\022\025\n\010oms_slug\030\033 \001(\tH\004\210\001\001" +
+      "\032\232\002\n\010Location\022\021\n\tcity_name\030\001 \001(\t\022\016\n\006stre" +
+      "et\030\002 \001(\t\022\020\n\010building\030\003 \001(\t\022\r\n\005block\030\004 \001(" +
+      "\t\022\017\n\007country\030\005 \001(\t\022\024\n\014full_address\030\006 \001(\t" +
+      "\022V\n\013coordinates\030\007 \001(\0132A.protobuf.retail_" +
+      "onboarding_store_data.Store.Location.Coo" +
+      "rdinates\022\021\n\ttime_zone\030\010 \001(\t\022\017\n\007city_id\030\t" +
+      " \001(\003\032\'\n\013Coordinates\022\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030" +
+      "\002 \001(\001\032\216\001\n\nOrderRules\022\030\n\020min_order_amount" +
+      "\030\001 \001(\002\022\036\n\026min_first_order_amount\030\002 \001(\002\022\037" +
+      "\n\027min_order_amount_pickup\030\003 \001(\002\022%\n\035min_f" +
+      "irst_order_amount_pickup\030\004 \001(\002\032\332\004\n\025Merch" +
+      "antStatusRequest\022a\n\006status\030\001 \001(\0162Q.proto" +
+      "buf.retail_onboarding_store_data.Store.M" +
+      "erchantStatusRequest.MerchantStatus\022q\n\020s" +
+      "cheduled_change\030\002 \001(\0132R.protobuf.retail_" +
+      "onboarding_store_data.Store.MerchantStat" +
+      "usRequest.ScheduledChangeH\000\210\001\001\022\017\n\007commen" +
+      "t\030\003 \001(\t\032\230\002\n\017ScheduledChange\022i\n\016current_s" +
+      "tatus\030\001 \001(\0162Q.protobuf.retail_onboarding" +
+      "_store_data.Store.MerchantStatusRequest." +
+      "MerchantStatus\022k\n\020scheduled_status\030\002 \001(\016" +
+      "2Q.protobuf.retail_onboarding_store_data" +
+      ".Store.MerchantStatusRequest.MerchantSta" +
+      "tus\022-\n\tchange_at\030\003 \001(\0132\032.google.protobuf" +
+      ".Timestamp\"*\n\016MerchantStatus\022\n\n\006ACTIVE\020\000" +
+      "\022\014\n\010INACTIVE\020\001B\023\n\021_scheduled_change\032\206\002\n\r" +
+      "WorkSchedules\022i\n\021day_working_hours\030\001 \003(\013" +
+      "2N.protobuf.retail_onboarding_store_data" +
+      ".Store.WorkSchedules.WeekDayWorkingHours" +
+      "\032\211\001\n\023WeekDayWorkingHours\022F\n\010week_day\030\001 \001" +
+      "(\01624.protobuf.retail_onboarding_store_da" +
+      "ta.Store.WeekDay\022\024\n\014opening_time\030\002 \001(\t\022\024" +
+      "\n\014closing_time\030\003 \001(\t\"4\n\006Status\022\n\n\006ACTIVE" +
+      "\020\000\022\014\n\010INACTIVE\020\001\022\020\n\014DISCONNECTED\020\002\"e\n\007We" +
+      "ekDay\022\n\n\006MONDAY\020\000\022\013\n\007TUESDAY\020\001\022\r\n\tWEDNES" +
+      "DAY\020\002\022\014\n\010THURSDAY\020\003\022\n\n\006FRIDAY\020\004\022\014\n\010SATUR" +
+      "DAY\020\005\022\n\n\006SUNDAY\020\006B\032\n\030_merchant_status_re" +
+      "questB\021\n\017_work_schedulesB \n\036_order_prepa" +
+      "ration_sla_minutesB\024\n\022_terminal_group_id" +
+      "B\013\n\t_oms_slugb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6536,13 +11263,13 @@ public final class RetailOnboardingStoreData {
     internal_static_protobuf_retail_onboarding_store_data_Store_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protobuf_retail_onboarding_store_data_Store_descriptor,
-        new java.lang.String[] { "Uuid", "EventId", "LegacyStfId", "RetailerUuid", "LegacyStfRetailerId", "Location", "Inn", "LegalName", "Ogrn", "Email", "Phone", "CreationTimestamp", "EventTimestamp", "ImportKey", "OrderRules", "OrdersApiIntegrationType", "Active", "SendCreatedHook", "PaymentAtCheckout", "OrdersApiSendCustomer", "HowToTake", "OrderPreparationSlaMinutes", "OrderPreparationSlaMinutes", });
+        new java.lang.String[] { "Uuid", "EventId", "LegacyStfId", "RetailerUuid", "LegacyStfRetailerId", "Location", "Inn", "LegalName", "Ogrn", "Email", "Phone", "CreationTimestamp", "EventTimestamp", "ImportKey", "OrderRules", "OrdersApiIntegrationType", "Active", "SendCreatedHook", "PaymentAtCheckout", "OrdersApiSendCustomer", "HowToTake", "Status", "MerchantStatusRequest", "WorkSchedules", "OrderPreparationSlaMinutes", "TerminalGroupId", "OmsSlug", "MerchantStatusRequest", "WorkSchedules", "OrderPreparationSlaMinutes", "TerminalGroupId", "OmsSlug", });
     internal_static_protobuf_retail_onboarding_store_data_Store_Location_descriptor =
       internal_static_protobuf_retail_onboarding_store_data_Store_descriptor.getNestedTypes().get(0);
     internal_static_protobuf_retail_onboarding_store_data_Store_Location_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protobuf_retail_onboarding_store_data_Store_Location_descriptor,
-        new java.lang.String[] { "CityName", "Street", "Building", "Block", "Country", "FullAddress", "Coordinates", "TimeZone", });
+        new java.lang.String[] { "CityName", "Street", "Building", "Block", "Country", "FullAddress", "Coordinates", "TimeZone", "CityId", });
     internal_static_protobuf_retail_onboarding_store_data_Store_Location_Coordinates_descriptor =
       internal_static_protobuf_retail_onboarding_store_data_Store_Location_descriptor.getNestedTypes().get(0);
     internal_static_protobuf_retail_onboarding_store_data_Store_Location_Coordinates_fieldAccessorTable = new
@@ -6555,6 +11282,30 @@ public final class RetailOnboardingStoreData {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protobuf_retail_onboarding_store_data_Store_OrderRules_descriptor,
         new java.lang.String[] { "MinOrderAmount", "MinFirstOrderAmount", "MinOrderAmountPickup", "MinFirstOrderAmountPickup", });
+    internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_descriptor =
+      internal_static_protobuf_retail_onboarding_store_data_Store_descriptor.getNestedTypes().get(2);
+    internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_descriptor,
+        new java.lang.String[] { "Status", "ScheduledChange", "Comment", "ScheduledChange", });
+    internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_ScheduledChange_descriptor =
+      internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_descriptor.getNestedTypes().get(0);
+    internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_ScheduledChange_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protobuf_retail_onboarding_store_data_Store_MerchantStatusRequest_ScheduledChange_descriptor,
+        new java.lang.String[] { "CurrentStatus", "ScheduledStatus", "ChangeAt", });
+    internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_descriptor =
+      internal_static_protobuf_retail_onboarding_store_data_Store_descriptor.getNestedTypes().get(3);
+    internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_descriptor,
+        new java.lang.String[] { "DayWorkingHours", });
+    internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_WeekDayWorkingHours_descriptor =
+      internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_descriptor.getNestedTypes().get(0);
+    internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_WeekDayWorkingHours_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_protobuf_retail_onboarding_store_data_Store_WorkSchedules_WeekDayWorkingHours_descriptor,
+        new java.lang.String[] { "WeekDay", "OpeningTime", "ClosingTime", });
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 

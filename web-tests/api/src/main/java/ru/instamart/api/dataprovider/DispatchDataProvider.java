@@ -1,5 +1,6 @@
 package ru.instamart.api.dataprovider;
 
+import estimator.Estimator;
 import org.testng.annotations.DataProvider;
 import ru.instamart.api.enums.shopper.RoleSHP;
 import ru.instamart.kraken.data.user.UserData;
@@ -35,4 +36,13 @@ public class DispatchDataProvider {
                 {date + "T03:00:00+03:00", date + "T05:30:00+03:00"}
         };
     }
+
+    @DataProvider(name = "transportType")
+    public static Object[][] transportType() {
+        return new Object[][]{
+                {Estimator.PerformerVehicle.PEDESTRIAN},
+                {Estimator.PerformerVehicle.BIKE}
+        };
+    }
+
 }

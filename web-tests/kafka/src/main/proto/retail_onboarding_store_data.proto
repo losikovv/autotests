@@ -18,6 +18,7 @@ message Store {
     string full_address = 6;
     Coordinates coordinates = 7;
     string time_zone = 8;
+    int64 city_id = 9;
   }
   message OrderRules {
     float min_order_amount = 1;
@@ -25,7 +26,42 @@ message Store {
     float min_order_amount_pickup = 3;
     float min_first_order_amount_pickup = 4;
   }
-
+  enum Status {
+      ACTIVE = 0;
+      INACTIVE = 1;
+      DISCONNECTED = 2;
+  }
+  message MerchantStatusRequest {
+    enum MerchantStatus {
+      ACTIVE = 0;
+      INACTIVE = 1;
+    }
+    message ScheduledChange {
+      MerchantStatus current_status = 1;
+      MerchantStatus scheduled_status = 2;
+      google.protobuf.Timestamp change_at = 3;
+    }
+    MerchantStatus status = 1;
+    optional ScheduledChange scheduled_change = 2;
+    string comment = 3;
+  }
+  enum WeekDay {
+    MONDAY = 0;
+    TUESDAY = 1;
+    WEDNESDAY = 2;
+    THURSDAY = 3;
+    FRIDAY = 4;
+    SATURDAY = 5;
+    SUNDAY = 6;
+  }
+  message WorkSchedules {
+    message WeekDayWorkingHours {
+      WeekDay week_day = 1;
+      string opening_time = 2;
+      string closing_time = 3;
+    }
+    repeated WeekDayWorkingHours day_working_hours = 1;
+  }
   string uuid = 1;
   int64 event_id = 2 [deprecated = true];
   int64 legacy_stf_id = 3;
@@ -47,5 +83,10 @@ message Store {
   string payment_at_checkout = 19;
   bool orders_api_send_customer = 20;
   string how_to_take = 21;
-  optional uint64 order_preparation_sla_minutes = 22;
+  Status status = 22;
+  optional MerchantStatusRequest merchant_status_request = 23;
+  optional WorkSchedules work_schedules = 24;
+  optional uint32 order_preparation_sla_minutes = 25;
+  optional string terminal_group_id = 26;
+  optional string oms_slug = 27;
 }
