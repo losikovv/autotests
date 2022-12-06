@@ -34,10 +34,10 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "defaultCookies", defaultValue = "")
     public static List<String> DEFAULT_COOKIES;
 
-    @Config(configName = NAME, fieldName = "defaultSid", defaultValue = "81")
+    @Config(configName = NAME, fieldName = "defaultSid", defaultValue = "81", env = "SID")
     public static int DEFAULT_SID;
 
-    @Config(configName = NAME, fieldName = "defaultMetroMoscowSid", defaultValue = "1")
+    @Config(configName = NAME, fieldName = "defaultMetroMoscowSid", defaultValue = "1", env = "MSK_SID")
     public static int DEFAULT_METRO_MOSCOW_SID;
     @Config(configName = NAME, fieldName = "defaultMetroMoscowUuid", defaultValue = "")
     public static String DEFAULT_METRO_MOSCOW_UUID;
