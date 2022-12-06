@@ -15,8 +15,8 @@ import shippingcalc.*;
 
 import static org.testng.Assert.*;
 
-@Epic("On Demand")
-@Feature("ShippingCalc")
+@Epic("ShippingCalc")
+@Feature("SurgeThresholds")
 public class SurgeThresholdsTest extends ShippingCalcBase {
 
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;

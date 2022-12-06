@@ -15,11 +15,9 @@ import ru.instamart.jdbc.entity.shippingcalc.IntervalsSurgeEntity;
 import ru.instamart.jdbc.entity.shippingcalc.SurgeThresholdsEntity;
 import ru.instamart.jdbc.entity.shippingcalc.SwitchbackExperimentsEntity;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
@@ -37,7 +35,6 @@ public class ShippingCalcBase {
     protected Integer minCartAmountFourth = minCartAmountThird - 1;
     protected Integer minCartAmountGlobal = minCartAmountFirst + 1;
     protected Integer deliveryPriceGlobal = 200000;
-    protected List<IntervalsSurgeEntity> intervalsList;
     protected List<Integer> bindingRulesList;
     protected List<Integer> globalStrategiesList;
     protected final int SURGE_LEVEL = 5;
@@ -56,37 +53,6 @@ public class ShippingCalcBase {
     protected final String REDIS_VALUE = "{\"StoreID\":\"%s\",\"Method\":1,\"PastSurgeLever\":%d,\"PresentSurgeLevel\":%d,\"FutureSurgeLevel\":%d,\"StartedAt\":\"%s\",\"StepSurgeLevel\":1}";
     protected final String SURGE_THRESHOLD_PARAMETERS = "{\"intervals\": [{\"left_boundary\": 0, \"right_boundary\": 1, \"price_addition\": 0, \"percent_addition\": 0, \"min_cart_addition\": 0}, {\"left_boundary\": 1, \"right_boundary\": %s, \"price_addition\": %s, \"percent_addition\": %s, \"min_cart_addition\": %s}, {\"left_boundary\": %s, \"right_boundary\": 10, \"price_addition\": 20000, \"percent_addition\": 20, \"min_cart_addition\": 20000}]}";
     protected final String SURGE_PLANNED_THRESHOLD_PARAMETERS = "{\"intervals\": [{\"left_boundary\": 0, \"right_boundary\": 1, \"price_addition\": 0, \"percent_addition\": 0, \"min_cart_addition\": 0}, {\"left_boundary\": 1, \"right_boundary\": %s, \"price_addition\": %s, \"percent_addition\": %s, \"min_cart_addition\": %s}, {\"left_boundary\": %s, \"right_boundary\": 10, \"price_addition\": 20000, \"percent_addition\": 20, \"min_cart_addition\": 20000}], \"allow_min_cart_for_planned\": true}";
-
-//    @BeforeSuite(alwaysRun = true, description = "Устанавливаем интервалы surge")
-//    public void setTestSurgeIntervals() {
-//        intervalsList = IntervalsSurgeDao.INSTANCE.getIntervals();
-//        IntervalsSurgeDao.INSTANCE.clearIntervals();
-//
-//        List<IntervalsSurgeEntity> newIntervalsList = asList(
-//                new IntervalsSurgeEntity() {{
-//                    setLeftBoundary(0);
-//                    setRightBoundary(1);
-//                    setPriceAddition(0);
-//                    setPercentAddition(0);
-//                    setMinCartAddition(0);
-//                }},
-//                new IntervalsSurgeEntity() {{
-//                    setLeftBoundary(1);
-//                    setRightBoundary(surgeLevel);
-//                    setPriceAddition(surgeLevelAddition);
-//                    setPercentAddition(surgeLevelPercentAddition);
-//                    setMinCartAddition(surgeLevelAddition);
-//                }},
-//                new IntervalsSurgeEntity() {{
-//                    setLeftBoundary(surgeLevel);
-//                    setRightBoundary(10);
-//                    setPriceAddition(20000);
-//                    setPercentAddition(20);
-//                    setMinCartAddition(20000);
-//                }});
-//
-//        IntervalsSurgeDao.INSTANCE.setIntervals(newIntervalsList);
-//    }
 
     @BeforeSuite(alwaysRun = true, description = "Убираем автобиндер")
     public void deactivateBindingRules() {
@@ -148,14 +114,6 @@ public class ShippingCalcBase {
         clearLogbackLogBuffer();
         Allure.addAttachment("Системный лог теста", result);
     }
-
-//    @AfterSuite(alwaysRun = true, description = "Возвращаем интервалы surge")
-//    public void returnSurgeIntervals() {
-//        IntervalsSurgeDao.INSTANCE.clearIntervals();
-//        if (!intervalsList.isEmpty()) {
-//            IntervalsSurgeDao.INSTANCE.setIntervals(intervalsList);
-//        }
-//    }
 
     @AfterSuite(alwaysRun = true, description = "Возвращаем автобиндер")
     public void returnBindingRules() {

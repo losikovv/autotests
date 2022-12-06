@@ -6,6 +6,7 @@ import ru.instamart.jdbc.util.ConnectionManager;
 import ru.instamart.jdbc.util.Db;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -85,6 +86,30 @@ public class BindingRulesDao implements Dao<Integer, BindingRulesEntity> {
             fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
         }
         return bindingRulesResult;
+    }
+
+    public Integer addBindingRule(Integer strategyId, String shipping, String tenantId, Integer regionId, Integer retailerId, Boolean ondemand, Integer labelId, String deletedAt) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_SHIPPING_CALC).getConnection();
+             final var preparedStatement = connect.prepareStatement(" INSERT INTO binding_rules (strategy_id, shipping, tenant_id, region_id, retailer_id, ondemand, label_id, deleted_at) " +
+                     " VALUES (?, ?::delivery_type, ?, ?, ?, ?, ?, ?::timestamp) ", Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setInt(1, strategyId);
+            preparedStatement.setString(2, shipping);
+            preparedStatement.setObject(3, tenantId);
+            preparedStatement.setObject(4, regionId);
+            preparedStatement.setObject(5, retailerId);
+            preparedStatement.setObject(6, ondemand);
+            preparedStatement.setObject(7, labelId);
+            preparedStatement.setString(8, deletedAt);
+            preparedStatement.executeUpdate();
+            try (final var resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLShippingCalcManager. Error: " + e.getMessage());
+        }
+        return 0;
     }
 
     public boolean updateBindingRulesState(String deletedAt, List<Integer> bindingRulesList) {

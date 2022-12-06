@@ -12,31 +12,42 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.ShippingCalcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.shippingcalc.BindingRulesDao;
-import ru.instamart.jdbc.dao.shippingcalc.StrategiesDao;
 import ru.instamart.jdbc.entity.shippingcalc.BindingRulesEntity;
+import ru.instamart.kraken.enums.AppVersion;
+import ru.instamart.kraken.enums.Tenant;
 import ru.sbermarket.qase.annotation.CaseId;
 import shippingcalc.*;
 
+import java.util.UUID;
+
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
-import static ru.instamart.api.helper.ShippingCalcHelper.addStrategy;
+import static ru.instamart.api.helper.ShippingCalcHelper.*;
+import static ru.instamart.api.helper.ShippingCalcHelper.deleteCreatedStrategy;
+import static ru.instamart.kraken.util.TimeUtil.getDateWithoutTimezone;
 
-@Epic("On Demand")
-@Feature("ShippingCalc")
+@Epic("ShippingCalc")
+@Feature("Autobinder")
 public class AutobinderTest extends ShippingCalcBase {
 
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
     private int strategyId;
     private int secondStrategyId;
-    private int ruleId;
-    private int partialRuleId;
+    private int binderRuleId;
+    private int binderPartialRuleId;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientShippingCalc = ShippingcalcGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SHIPPINGCALC));
         strategyId = addStrategy(false, 0, DeliveryType.COURIER_DELIVERY.toString());
+        addCondition(addRule(strategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "123"), 0, "delivery_price"), "{}", "always");
+        addCondition(addRule(strategyId, "", "123", 0, "min_cart"), "{}", "always");
+        addBindingRule(strategyId, DeliveryType.COURIER_DELIVERY.toString(), Tenant.SBERMARKET.getId(), 1, null, null, null, null);
+        addBindingRule(strategyId, DeliveryType.COURIER_DELIVERY.toString(), Tenant.INSTAMART.getId(), null, null, null, null, getDateWithoutTimezone());
         secondStrategyId = addStrategy(false, 0, DeliveryType.COURIER_DELIVERY.toString());
+        addCondition(addRule(secondStrategyId, FIXED_SCRIPT_NAME, String.format(FIXED_SCRIPT_PARAMS, "321"), 0, "delivery_price"), "{}", "always");
+        addCondition(addRule(secondStrategyId, "", "321", 0, "min_cart"), "{}", "always");
+        addBindingRule(secondStrategyId, DeliveryType.COURIER_DELIVERY.toString(), Tenant.SBERMARKET.getId(), 1, null, null, 1, null);
     }
 
     @CaseId(459)
@@ -57,7 +68,7 @@ public class AutobinderTest extends ShippingCalcBase {
         Allure.step("Проверка успешного выполнения запроса и сохранения в БД", () -> {
             assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
             BindingRulesEntity rule = BindingRulesDao.INSTANCE.getBindingRuleByStrategyAndTenant(strategyId, "test");
-            ruleId = rule.getId();
+            binderRuleId = rule.getId();
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(rule.getRegionId().intValue(), 1, "Не верный регион");
             softAssert.assertEquals(rule.getRetailerId().intValue(), 1, "Не верный ритейлер");
@@ -83,7 +94,7 @@ public class AutobinderTest extends ShippingCalcBase {
         Allure.step("Проверка успешного выполнения запроса и сохранения в БД", () -> {
             assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
             BindingRulesEntity rule = BindingRulesDao.INSTANCE.getBindingRuleByStrategyAndTenant(strategyId, "test-partial");
-            partialRuleId = rule.getId();
+            binderPartialRuleId = rule.getId();
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(rule.getRegionId().intValue(), 1, "Не верный регион");
             softAssert.assertEquals(rule.getRetailerId().intValue(), 0, "Не верный ритейлер");
@@ -122,7 +133,7 @@ public class AutobinderTest extends ShippingCalcBase {
             dependsOnMethods = "createBindingRule")
     public void updateBindingRule() {
         var request = UpdateBindingRuleRequest.newBuilder()
-                .setBindingRuleId(ruleId)
+                .setBindingRuleId(binderRuleId)
                 .setStrategyId(secondStrategyId)
                 .setTenantId("test-updated")
                 .setRegionId(2)
@@ -134,7 +145,7 @@ public class AutobinderTest extends ShippingCalcBase {
 
         Allure.step("Проверка успешного выполнения запроса и сохранения в БД", () -> {
             assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
-            BindingRulesEntity rule = BindingRulesDao.INSTANCE.getBindingRuleById(ruleId);
+            BindingRulesEntity rule = BindingRulesDao.INSTANCE.getBindingRuleById(binderRuleId);
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(rule.getStrategyId().intValue(), secondStrategyId, "Не верная стратегия");
             softAssert.assertEquals(rule.getTenantId(), "test-updated", "Не верный тенант");
@@ -153,14 +164,14 @@ public class AutobinderTest extends ShippingCalcBase {
             dependsOnMethods = "createBindingRulePartial")
     public void updateBindingRulePartial() {
         var request = UpdateBindingRuleRequest.newBuilder()
-                .setBindingRuleId(partialRuleId)
+                .setBindingRuleId(binderPartialRuleId)
                 .setRetailerId(1)
                 .build();
         var response = clientShippingCalc.updateBindingRule(request);
 
         Allure.step("Проверка успешного выполнения запроса и сохранения в БД", () -> {
             assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
-            BindingRulesEntity rule = BindingRulesDao.INSTANCE.getBindingRuleById(partialRuleId);
+            BindingRulesEntity rule = BindingRulesDao.INSTANCE.getBindingRuleById(binderPartialRuleId);
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(rule.getStrategyId().intValue(), strategyId, "Не верная стратегия");
             softAssert.assertEquals(rule.getTenantId(), "test-partial", "Не верный тенант");
@@ -181,7 +192,7 @@ public class AutobinderTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid request: at least one field must be not empty")
     public void updateBindingRuleEmpty() {
         var request = UpdateBindingRuleRequest.newBuilder()
-                .setBindingRuleId(partialRuleId)
+                .setBindingRuleId(binderPartialRuleId)
                 .build();
         clientShippingCalc.updateBindingRule(request);
     }
@@ -195,7 +206,7 @@ public class AutobinderTest extends ShippingCalcBase {
             expectedExceptionsMessageRegExp = "FAILED_PRECONDITION: not found strategy for updating binding rule")
     public void updateBindingRuleNotFoundStrategyId() {
         var request = UpdateBindingRuleRequest.newBuilder()
-                .setBindingRuleId(partialRuleId)
+                .setBindingRuleId(binderPartialRuleId)
                 .setStrategyId(Integer.MAX_VALUE)
                 .build();
         clientShippingCalc.updateBindingRule(request);
@@ -228,13 +239,13 @@ public class AutobinderTest extends ShippingCalcBase {
             dependsOnMethods = "getBindingRules")
     public void deleteBindingRule() {
         var request = DeleteBindingRuleRequest.newBuilder()
-                .setBindingRuleId(ruleId)
+                .setBindingRuleId(binderRuleId)
                 .build();
         var response = clientShippingCalc.deleteBindingRule(request);
 
         Allure.step("Проверка успешного выполнения запроса и сохранения в БД", () -> {
             assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
-            BindingRulesEntity rule = BindingRulesDao.INSTANCE.getBindingRuleById(ruleId);
+            BindingRulesEntity rule = BindingRulesDao.INSTANCE.getBindingRuleById(binderRuleId);
             assertNotNull(rule.getDeletedAt(), "правило не удалено");
         });
     }
@@ -264,9 +275,102 @@ public class AutobinderTest extends ShippingCalcBase {
         clientShippingCalc.deleteBindingRule(request);
     }
 
+    @CaseId(485)
+    @Story("Autobinder in GetDeliveryPrice")
+    @Test(description = "Запрос по магазину, который не привязан к стратегиям, возвращает ответ по стратегии из подходящего правила",
+            groups = "dispatch-shippingcalc-smoke")
+    public void getDeliveryPriceAutobinder() {
+        String storeId =  UUID.randomUUID().toString();
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, storeId, "NEW", 1, 0,
+                55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, strategyId, 123, 123, 1, 0, 0, 0);
+    }
+
+    @CaseId(488)
+    @Story("Autobinder in GetDeliveryPrice")
+    @Test(description = "Запрос по магазину, который не привязан к стратегиям, возвращает ответ по стратегии из правила с наибольшим рангом",
+            groups = "dispatch-shippingcalc-smoke")
+    public void getDeliveryPriceAutobinderHighestPriority() {
+        var request = GetDeliveryPriceRequest.newBuilder()
+                .addShipments(Shipment.newBuilder()
+                        .setId(UUID.randomUUID().toString())
+                        .setIsOndemand(true)
+                        .setWeight(1000)
+                        .setItemsCount(1)
+                        .setPrice(99900)
+                        .setStoreId(UUID.randomUUID().toString())
+                        .setStatus("NEW")
+                        .setRegionId(1)
+                        .setRetailerId(1)
+                        .addStoreLabelsId(1)
+                        .setSurgeDeliveryWindowAddition(0)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .setPositionsCount(1)
+                        .build())
+                .setCustomer(Customer.newBuilder()
+                        .setId(UUID.randomUUID().toString())
+                        .setAnonymousId(UUID.randomUUID().toString())
+                        .setOrdersCount(1)
+                        .setRegisteredAt(1655822708)
+                        .setLat(55.57f)
+                        .setLon(55.57f)
+                        .build())
+                .setOrderId(UUID.randomUUID().toString())
+                .setIsB2BOrder(false)
+                .setIsPromocode(false)
+                .setPaymentMethod("Картой онлайн")
+                .setHasPaymentMethod(true)
+                .setDeliveryTypeValue(DeliveryType.COURIER_DELIVERY_VALUE)
+                .setTenantId(Tenant.SBERMARKET.getId())
+                .setPlatformName(AppVersion.WEB.getName())
+                .setPlatformVersion(AppVersion.WEB.getVersion())
+                .build();
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, secondStrategyId, 321, 321, 1, 0, 0, 0);
+    }
+
+    @CaseId(486)
+    @Story("Autobinder in GetDeliveryPrice")
+    @Test(description = "Получение ошибки, при запросе по магазину, который не привязан к стратегиям, если правило не подходит",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "NOT_FOUND: cannot get delivery price for some shipments, no correct price strategy")
+    public void getDeliveryPriceNotSuitableAutobinder() {
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 2, 0,
+                55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        clientShippingCalc.getDeliveryPrice(request);
+    }
+
+    @CaseId(487)
+    @Story("Autobinder in GetDeliveryPrice")
+    @Test(description = "Получение ошибки, при запросе по магазину, который не привязан к стратегиям, если правило подходит, но удалено",
+            groups = "dispatch-shippingcalc-regress",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "NOT_FOUND: cannot get delivery price for some shipments, no correct price strategy")
+    public void getDeliveryPriceAutobinderDeleted() {
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, UUID.randomUUID().toString(), "NEW", 1, 0,
+                55.55, 55.55, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1655822708, 55.57, 55.57,
+                UUID.randomUUID().toString(), false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        clientShippingCalc.getDeliveryPrice(request);
+    }
+
     @AfterClass(alwaysRun = true)
     public void postConditions() {
-        StrategiesDao.INSTANCE.delete(strategyId);
-        StrategiesDao.INSTANCE.delete(secondStrategyId);
+        deleteCreatedStrategy(strategyId);
+        deleteCreatedStrategy(secondStrategyId);
     }
 }

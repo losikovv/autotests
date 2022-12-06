@@ -33,9 +33,8 @@ import static ru.instamart.api.helper.ShippingCalcHelper.*;
 import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDate;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
-@Epic("On Demand")
-@Feature("ShippingCalc")
+@Epic("ShippingCalc")
+@Feature("MinCart")
 public class MinCartTest extends ShippingCalcBase {
 
     private final String STORE_ID = UUID.randomUUID().toString();

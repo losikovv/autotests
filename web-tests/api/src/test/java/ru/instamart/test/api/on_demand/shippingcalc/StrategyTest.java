@@ -26,9 +26,8 @@ import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
-@Epic("On Demand")
-@Feature("ShippingCalc")
+@Epic("ShippingCalc")
+@Feature("Strategy")
 public class StrategyTest extends ShippingCalcBase {
 
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
@@ -1443,7 +1442,6 @@ public class StrategyTest extends ShippingCalcBase {
                         .setStoreId(FIRST_STORE_ID)
                         .setTenantId(Tenant.AUCHAN.getId())
                         .build())
-                .setReplaceAll(false)
                 .build();
 
         clientShippingCalc.bindStrategy(request);
