@@ -154,7 +154,7 @@ task apiShadowcat(type: Test) {
         suites 'src/test/resources/suite/api-shadowcat.xml'
         includeGroups 'api-shadowcat'
     }
-    systemProperty 'qase.Project', 'Shadowcat'
+    systemProperty 'qase.Project', 'DS'
     systemProperty 'qase.Title', 'Shadowcat API Regress'
 }
 

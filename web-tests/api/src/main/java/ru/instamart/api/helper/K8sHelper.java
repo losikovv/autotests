@@ -19,6 +19,7 @@ import static ru.instamart.api.enums.RailsConsole.Order.Flipper;
 import static ru.instamart.api.enums.RailsConsole.Order.*;
 import static ru.instamart.api.enums.RailsConsole.Other.DELETE_COMPENSATIONS_CACHE;
 import static ru.instamart.api.enums.RailsConsole.Other.DELETE_SHIPMENT_RETURN;
+import static ru.instamart.api.enums.RailsConsole.Shadowcat.CREATE_JWT_TOKEN;
 import static ru.instamart.api.enums.RailsConsole.Shipments.UPDATE_SHIPMENT_INDEX_BY_PAYMENT_STATE;
 import static ru.instamart.api.enums.RailsConsole.User.*;
 import static ru.instamart.api.enums.RailsConsole.WebhookClient.ADD_WEBHOOK_URL;
@@ -175,6 +176,12 @@ public class K8sHelper {
     public static void createApiClient(String clientId, Tenant tenant) {
         List<String> strings = execRailsCommandWithPod(CREATE_API_CLIENT.get(clientId, tenant.getId()));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+    @Step("Создание JWT-токена через консоль {user}")
+    public static List<String> createJwtToken() {
+        List<String> strings = execRailsCommandWithPod(CREATE_JWT_TOKEN.get());
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+        return strings;
     }
 
     @Step("Установка ожидаемых дат сборки и доставки")

@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.ShadowcatRestBase;
 import ru.instamart.api.model.shadowcat.Promotion;
 import ru.instamart.api.response.shadowcat.PromotionsResponse;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -18,12 +19,12 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Slf4j
 @Epic("Shadowcat")
 @Feature("Работа с промоакциями")
-public class GetPromotionsTest {
+public class GetPromotionsTest extends ShadowcatRestBase {
     private static int promoId;
 
     @CaseId(3)
     @Test(description = "Получение списка промоакций",
-            groups = {"shadowcat-api"},
+            groups = {"api-shadowcat"},
             priority = 1)
     public void getPromotionsList() {
         Response response = Promotions.GET();
@@ -34,7 +35,7 @@ public class GetPromotionsTest {
 
     @CaseId(4)
     @Test(description = "Получение одной промоакций",
-            groups = {"shadowcat-api"},
+            groups = {"api-shadowcat"},
             priority = 2,
             dependsOnMethods = "getPromotionsList")
     public void getOnePromotion() {
