@@ -281,6 +281,14 @@ public class ShippingCalcHelper {
         Allure.step("Проверяем что связка добавилась", () -> assertTrue(binding, "Связка не добавилась"));
     }
 
+    @Step("Добавляем автобиндер-правило в БД")
+    public static Integer addBindingRule(final Integer strategyId, final String deliveryType, final String tenantId, final Integer regionId, final Integer retailerId, final Boolean ondemand, final Integer labelId, final String deletedAt) {
+        final var shipping = substringToLastIndexOfStr(deliveryType, "_");
+        final var bindingRuleId = BindingRulesDao.INSTANCE.addBindingRule(strategyId, shipping, tenantId, regionId, retailerId, ondemand, labelId, deletedAt);
+        Allure.step("Проверяем что автобиндер-правило добавилась", () -> assertTrue(bindingRuleId > 0, "Пустое id правила"));
+        return bindingRuleId;
+    }
+
     @Step("Удаляем созданную стратегию из БД")
     public static void deleteCreatedStrategy(final Integer strategyId) {
         final var strategy = StrategiesDao.INSTANCE.getStrategy(strategyId);

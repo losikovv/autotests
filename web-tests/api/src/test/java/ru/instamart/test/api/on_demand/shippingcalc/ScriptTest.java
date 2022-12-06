@@ -18,9 +18,8 @@ import java.util.Objects;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
-@Epic("On Demand")
-@Feature("ShippingCalc")
+@Epic("ShippingCalc")
+@Feature("Script")
 public class ScriptTest extends ShippingCalcBase {
 
     private Integer scriptId;
@@ -197,11 +196,12 @@ public class ScriptTest extends ShippingCalcBase {
     @Story("Get Script")
     @Test(description = "Получение ошибки при запросе удаленного скрипта",
             groups = "dispatch-shippingcalc-smoke",
+            dependsOnMethods = "deleteScript",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot get script: entity not found")
     public void getScriptDeleted() {
         var request = GetScriptRequest.newBuilder()
-                .setScriptId(278)
+                .setScriptId(secondScriptId)
                 .build();
 
         clientShippingCalc.getScript(request);

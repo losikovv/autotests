@@ -18,8 +18,8 @@ import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.kraken.util.TimeUtil.getDbDate;
 
-@Epic("On Demand")
-@Feature("ShippingCalc")
+@Epic("ShippingCalc")
+@Feature("SwitchbackExperiments")
 public class SwitchbackExperimentsTest extends ShippingCalcBase {
 
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
@@ -47,9 +47,7 @@ public class SwitchbackExperimentsTest extends ShippingCalcBase {
                 .build();
         var response = clientShippingCalc.setSwitchbackExperiments(request);
 
-        Allure.step("Проверка успешного выполнения запроса", () -> {
-            assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
-        });
+        Allure.step("Проверка успешного выполнения запроса", () -> assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ"));
     }
 
     @CaseId(296)
@@ -67,9 +65,7 @@ public class SwitchbackExperimentsTest extends ShippingCalcBase {
                 .build();
         var response = clientShippingCalc.setSwitchbackExperiments(request);
 
-        Allure.step("Проверка успешного выполнения запроса", () -> {
-            assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ");
-        });
+        Allure.step("Проверка успешного выполнения запроса", () -> assertTrue(response.toString().isEmpty(), "Не ожидаемый ответ"));
     }
 
     @CaseId(310)
@@ -113,8 +109,6 @@ public class SwitchbackExperimentsTest extends ShippingCalcBase {
         var request = GetSwitchbackExperimentsRequest.newBuilder().build();
         var response = clientShippingCalc.getSwitchbackExperiments(request);
 
-        Allure.step("Проверка получения всех switchback-интервалов", () -> {
-            compareTwoObjects(response.getExperimentsCount(), 3);
-        });
+        Allure.step("Проверка получения всех switchback-интервалов", () -> compareTwoObjects(response.getExperimentsCount(), 3));
     }
 }

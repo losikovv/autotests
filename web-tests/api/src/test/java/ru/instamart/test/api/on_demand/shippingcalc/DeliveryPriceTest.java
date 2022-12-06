@@ -28,9 +28,8 @@ import static ru.instamart.api.helper.ShippingCalcHelper.*;
 import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDate;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
-@Epic("On Demand")
-@Feature("ShippingCalc")
+@Epic("ShippingCalc")
+@Feature("DeliveryPrice")
 public class DeliveryPriceTest extends ShippingCalcBase {
 
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;

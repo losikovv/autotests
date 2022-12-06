@@ -18,9 +18,9 @@ import shippingcalc.SurgeInterval;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 
-// skipped in resources
-@Epic("On Demand")
-@Feature("ShippingCalc")
+// skipped
+@Epic("ShippingCalc")
+@Feature("IntervalsSurge")
 public class IntervalsTest extends ShippingCalcBase {
 
     private ShippingcalcGrpc.ShippingcalcBlockingStub clientShippingCalc;
@@ -58,9 +58,7 @@ public class IntervalsTest extends ShippingCalcBase {
                 .build();
         var response = clientShippingCalc.setIntervalsSurge(request);
 
-        Allure.step("Проверка успешного выполнения запроса", () -> {
-            compareTwoObjects(response.toString(), "");
-        });
+        Allure.step("Проверка успешного выполнения запроса", () -> compareTwoObjects(response.toString(), ""));
     }
 
     @CaseId(285)
