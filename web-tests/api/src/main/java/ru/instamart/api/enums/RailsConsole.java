@@ -157,6 +157,19 @@ public interface RailsConsole {
     }
 
     @AllArgsConstructor
+    enum Shadowcat implements RailsConsole {
+        CREATE_JWT_TOKEN("JWT.encode({ sub: 1, exp: 20.minutes.from_now.to_i }, PromotionService::Api::Client.new(user: Spree::User.find(104901)).send(:config).rsa_private, 'RS512')");
+        private String command;
+
+        public String get() {
+            return command;
+        }
+        public String get(String value) {
+            return format(command, value);
+        }
+    }
+
+    @AllArgsConstructor
     enum Flipper implements RailsConsole {
         ALLOW_EXPORT_TO_EXTERNAL_SERVICES("Flipper[:allow_export_to_external_services].%s"),
         EXPORT_TO_EXTERNAL_SERVICES_BY_WEBHOOK("Flipper[:export_to_external_services_by_webhook].%s"),
