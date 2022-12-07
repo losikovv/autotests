@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Custom UI suite">
+<suite name="Custom UI suite" configfailurepolicy="continue">
     <listeners>
         <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
         <listener class-name="ru.instamart.reforged.core.listener.AllUiListener"/>

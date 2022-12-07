@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
-<suite name="MR-SUITE" parallel="tests" thread-count="2" verbose="1">
+<suite name="MR-SUITE" parallel="tests" thread-count="2" verbose="1" configfailurepolicy="continue">
   <listeners>
     <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
     <listener class-name="ru.instamart.reforged.core.listener.UiListener"/>

@@ -24,7 +24,7 @@ task sberRegression(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/regress/stf.xml'
         includeGroups 'regression', 'smoke'
-        threadCount 6
+        threadCount 15
     }
     systemProperty 'qase.Project', 'STF'
     systemProperty 'qase.Title', 'STF UI Regression'
