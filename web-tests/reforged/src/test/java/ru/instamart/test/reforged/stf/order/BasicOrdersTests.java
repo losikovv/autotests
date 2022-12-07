@@ -154,6 +154,7 @@ public final class BasicOrdersTests {
 
         checkoutNew().waitPageLoad();
         checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().checkModalVisible();
         checkoutNew().interactB2BOrderModal().clickConfirm();
         checkoutNew().interactB2BOrderModal().checkModalNotVisible();
 
@@ -360,7 +361,7 @@ public final class BasicOrdersTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         final var itemName = shop().getProductTitleByPositionProd(1);
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();

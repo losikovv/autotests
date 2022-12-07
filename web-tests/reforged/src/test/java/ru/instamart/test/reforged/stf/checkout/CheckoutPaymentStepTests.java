@@ -56,6 +56,7 @@ public final class CheckoutPaymentStepTests {
 
         checkoutNew().waitPageLoad();
         checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().checkModalVisible();
         checkoutNew().interactB2BOrderModal().clickConfirm();
         checkoutNew().interactB2BOrderModal().checkModalNotVisible();
 

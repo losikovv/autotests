@@ -8,7 +8,7 @@ public class StoreProvider {
     @DataProvider(name = "storeData")
     public static Object[][] getStoreData() {
         return new Object[][]{
-                {1, ShopUrl.METRO},
+                {8, ShopUrl.METRO},
                 {72, ShopUrl.AUCHAN},
                 {99, ShopUrl.AZBUKAVKUSA},
                 {23, ShopUrl.VKUSVILL},

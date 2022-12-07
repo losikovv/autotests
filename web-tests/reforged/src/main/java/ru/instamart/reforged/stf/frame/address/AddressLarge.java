@@ -18,7 +18,7 @@ public final class AddressLarge implements Close, AddressLargeCheck {
         foundedAddresses.clickOnFirst();
     }
 
-    @Step("Получаем {order}-й адрес из списка совпадений")
+    @Step("Получаем {positionInList}-й адрес из списка совпадений")
     public String getFoundedAddressByPositions(final int positionInList) {
         return foundedAddresses.getElementText(positionInList - 1);
     }

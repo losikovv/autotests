@@ -124,7 +124,7 @@ public final class BasicOrdersTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         final var itemName = shop().getProductTitleByPositionProd(1);
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCartWithScrollDown();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();

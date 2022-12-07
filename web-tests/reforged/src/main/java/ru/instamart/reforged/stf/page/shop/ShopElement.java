@@ -22,7 +22,6 @@ import ru.instamart.reforged.stf.frame.store_modal.StoreModal;
 
 public interface ShopElement {
 
-
     String notRecommendationTaxons = "//section[contains(@data-qa,'catalog_page_taxons_list_taxon_item')]" +
             "[not(contains(.,'Стоит присмотреться'))]" +
             "[not(contains(.,'Рекомендуем'))]" +

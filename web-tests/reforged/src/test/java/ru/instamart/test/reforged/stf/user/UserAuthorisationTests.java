@@ -5,20 +5,15 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
-import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.enums.Server;
-import ru.instamart.kraken.listener.Run;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.config.BasicProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.STARTING_X;
-import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
-import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
 import static ru.instamart.reforged.sber_id_auth.SberIdPageRouter.sberId;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -73,7 +68,7 @@ public final class UserAuthorisationTests {
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();

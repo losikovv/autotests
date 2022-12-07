@@ -9,7 +9,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -63,7 +62,7 @@ public final class ShoppingCartTests {
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
     }
@@ -105,7 +104,7 @@ public final class ShoppingCartTests {
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
@@ -181,7 +180,7 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -206,7 +205,7 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -231,7 +230,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
@@ -242,7 +241,7 @@ public final class ShoppingCartTests {
 
         shop().refresh();
         shop().waitPageLoad();
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
 
@@ -359,7 +358,7 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
         final var shopProductName = shop().getProductTitleByPositionProd(1);
         shop().interactHeader().checkCartNotificationIsVisible();
 
@@ -474,7 +473,7 @@ public final class ShoppingCartTests {
         shop().interactAddressLarge().clickSave();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
         final var shopProductName = shop().getProductTitleByPositionProd(1);
         shop().interactHeader().checkCartNotificationIsVisible();
 

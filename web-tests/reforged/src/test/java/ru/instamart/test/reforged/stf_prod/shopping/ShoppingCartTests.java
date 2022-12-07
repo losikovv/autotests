@@ -63,7 +63,7 @@ public final class ShoppingCartTests {
         shop().goToPage();
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().checkSnippet();
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCartWithScrollDown();
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
@@ -107,7 +107,7 @@ public final class ShoppingCartTests {
         shop().goToPage();
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().checkSnippet();
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCartWithScrollDown();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
@@ -184,7 +184,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCartWithScrollDown();
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -259,7 +259,7 @@ public final class ShoppingCartTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCartWithScrollDown();
         final var shopProductName = shop().getProductTitleByPositionProd(1);
         shop().interactHeader().checkCartNotificationIsVisible();
 
@@ -319,7 +319,7 @@ public final class ShoppingCartTests {
         shop().checkSnippet();
 
         final var shopProductName = shop().getProductTitleByPositionProd(1);
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCartWithScrollDown();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToLogin();
@@ -374,7 +374,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().checkSnippet();
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCartWithScrollDown();
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();

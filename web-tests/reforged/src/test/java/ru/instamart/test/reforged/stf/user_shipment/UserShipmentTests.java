@@ -15,6 +15,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.time.LocalDateTime;
 
 import static ru.instamart.api.enums.v2.StateV2.*;
+import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.api.helper.K8sHelper.changeItemToCancel;
 import static ru.instamart.api.helper.K8sHelper.changeToAssembled;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
@@ -45,13 +46,13 @@ public final class UserShipmentTests {
         helper.makeOrder(userData, DEFAULT_CHECKOUT_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
-        shop().goToPage();
+        shop().goToPage(ShopUrl.METRO);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        var lineItemName = shop().getProductTitleByPositionProd(1);
-        shop().plusFirstItemToCartProd();
+        var lineItemName = shop().getProductTitleByPositionProd(2);
+        shop().plusItemToCartByPosition(2);
         shop().interactHeader().checkCartNotificationIsVisible();
 
         userShipments().goToPage();
@@ -698,7 +699,7 @@ public final class UserShipmentTests {
     @Test(description = "Вывод информации о дозаказе / редактирование заказа в магазине запрещено", groups = {REGRESSION_STF, JORMUNGANDR})
     public void testAdditionalOrderInfoEditOffInStore() {
         final var userData = UserManager.getQaUser();
-        helper.makeOrderOnTomorrow(userData, DEFAULT_AZBUKAVKUSA_SID, 1);
+        helper.makeOrder(userData, DEFAULT_AZBUKAVKUSA_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();

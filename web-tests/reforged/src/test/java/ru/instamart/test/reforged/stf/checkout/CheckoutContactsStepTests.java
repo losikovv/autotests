@@ -11,6 +11,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -54,6 +55,7 @@ public final class CheckoutContactsStepTests {
 
         checkoutNew().waitPageLoad();
         checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().checkModalVisible();
         checkoutNew().interactB2BOrderModal().clickConfirm();
         checkoutNew().interactB2BOrderModal().checkModalNotVisible();
 
@@ -85,8 +87,8 @@ public final class CheckoutContactsStepTests {
         checkout().setPayment().clickToByCardToCourier();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        userShipments().checkPageContains(userShipments().pageUrl());
-        userShipments().checkUserPhoneCorrect(userData.getPhone());
+        userShipment().waitPageLoad();
+        userShipment().checkUserPhone(StringUtil.convertDigitsStringToPhoneNumber(userData.getPhone()));
     }
 }
 

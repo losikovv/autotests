@@ -90,8 +90,13 @@ public final class ShopPage implements StfPage, ShopCheck {
         plusItemToCart.click(line, element);
     }
 
+    @Step("Нажать на плюс у товара")
+    public void plusFirstItemToCart() {
+        addToCartButtonsProd.clickOnFirst();
+    }
+
     @Step("Нажать на плюс у товара на проде")
-    public void plusFirstItemToCartProd() {
+    public void plusFirstItemToCartWithScrollDown() {
         scrollDown();
         addToCartButtonsProd.clickOnFirst();
     }
@@ -190,7 +195,7 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Override
     public void goToPage() {
-        goToPage(ShopUrl.DEFAULT);
+        goToPage(ShopUrl.AUCHAN);
     }
 
     public void goToPage(final ShopUrl shop) {
