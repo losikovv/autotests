@@ -95,6 +95,7 @@ public final class HomePage implements StfPage, Window, HomeCheck {
 
     @Step("Нажать на магазин Sid = {storeSid}")
     public void clickOnStoreWithSid(final int storeSid) {
+        ThreadUtil.simplyAwait(1);
         storeBySid.click(storeSid);
     }
 

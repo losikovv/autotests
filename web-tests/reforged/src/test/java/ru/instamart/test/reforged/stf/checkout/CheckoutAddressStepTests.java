@@ -13,8 +13,8 @@ import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
-import static ru.instamart.reforged.stf.page.StfRouter.checkout;
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 
 @Epic("STF UI")
 @Feature("Чекаут. Шаг #1. Способ получения")
@@ -28,14 +28,24 @@ public final class CheckoutAddressStepTests {
     @CaseIDs({@CaseId(1698), @CaseId(1699), @CaseId(1700), @CaseId(1701)})
     @Test(description = "Тесты заполнения, изменения и очистки всех полей", groups = REGRESSION_STF)
     public void successFillAllFieldsAndProceedNext() {
-        helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, UiProperties.DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
+
         checkout().setDeliveryOptions().clickToForSelf();
         checkout().setDeliveryOptions().fillApartment(data.getApartment());
         checkout().setDeliveryOptions().fillFloor(data.getFloor());

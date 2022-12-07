@@ -98,7 +98,7 @@ public final class ShoppingCatalogTests {
         shop().goToPage();
         shop().refreshWithoutBasicAuth();
 
-        shop().openFirstProductCardInTaxon("0");
+        shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().checkProductCardVisible();
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
@@ -178,8 +178,6 @@ public final class ShoppingCatalogTests {
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage();
-        shop().interactHeader().checkEnteredAddressIsVisible();
         shop().interactHeader().fillSearch("молоко");
         shop().interactHeader().clickSearchButton();
         shop().interactHeader().checkEnteredAddressIsVisible();
@@ -196,7 +194,7 @@ public final class ShoppingCatalogTests {
     @Test(description = "Проверка открытия модального окна карточки товара при переходе по прямой ссылке", groups = REGRESSION_STF)
     public void openProductCardByLink() {
         shop().goToPage();
-        shop().openFirstProductCardInTaxon("0");
+        shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().checkProductCardVisible();
 
         String productLink = shop().interactProductCard().getProductPermalink();
@@ -214,7 +212,7 @@ public final class ShoppingCatalogTests {
     @Test(description = "Проверка корректного открытия карточки товара при обновлении страницы", groups = REGRESSION_STF)
     public void openProductCardAfterRefresh() {
         shop().goToPage();
-        shop().openFirstProductCardInTaxon("0");
+        shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().checkProductCardVisible();
 
         shop().refresh();
@@ -235,7 +233,7 @@ public final class ShoppingCatalogTests {
         home().interactAddressModal().fillAddress(Addresses.Moscow.defaultAddress());
         home().interactAddressModal().selectFirstAddress();
         home().interactAddressModal().clickFindStores();
-        home().interactAddressModal().checkAddressModalNotVisible();
+        home().interactAddressModal().checkAddressModalIsNotVisible();
 
         home().clickOnFirstStore();
         shop().interactHeader().checkLoginIsVisible();
@@ -249,7 +247,7 @@ public final class ShoppingCatalogTests {
         shop().checkItemImageDisplayed();
         shop().checkItemPackageSizeDisplayed();
 
-        shop().openFirstProductCardInTaxon("0");
+        shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().checkBreadscrumbsVisible();
         shop().interactProductCard().checkProductImageDisplayed();
         shop().interactProductCard().checkNameDisplayed();

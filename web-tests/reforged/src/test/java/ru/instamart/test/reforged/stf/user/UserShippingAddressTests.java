@@ -14,10 +14,10 @@ import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.STARTING_X;
-import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
-import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -78,10 +78,12 @@ public final class UserShippingAddressTests {
         shop().interactAddressLarge().checkIsAddressOutOfZone();
 
         shop().interactAddressLarge().close();
-        shop().interactAddressLarge().checkAddressModalNotVisible();
+        shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().clickToStoreSelector();
 
-        home().checkOutOfDeliveryAreaMessageDisplayed();
+        home().checkDeliveryStoresNotVisible();
+        home().interactMultisearchHeader().clickChangeAddress();
+        home().interactAddressModal().checkIsAddressOutOfZone();
     }
 
     @CaseId(32)
@@ -197,7 +199,7 @@ public final class UserShippingAddressTests {
     @Test(description = "Тест изменения адреса на предыдущий из списка адресной модалки", groups = {STARTING_X, REGRESSION_STF})
     public void successChangeShippingAddressToRecent() {
         final var user = UserManager.getQaUser();
-        this.helper.makeAndCancelOrder(user, DEFAULT_SID, 1, RestAddresses.NizhnyNovgorod.defaultAddress());
+        this.helper.makeAndCancelOrder(user, DEFAULT_CHECKOUT_SID, 1, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -210,8 +212,8 @@ public final class UserShippingAddressTests {
         shop().interactAddressLarge().selectFirstAddress();
         shop().interactAddressLarge().clickSave();
         shop().interactHeader().checkIsSetAddressEqualToInput(
-                shop().interactHeader().getShippingAddressFromHeader(),
-                firstPrevAdr);
+                firstPrevAdr,
+                shop().interactHeader().getShippingAddressFromHeader());
     }
 
     @CaseId(1567)
@@ -240,7 +242,7 @@ public final class UserShippingAddressTests {
         home().interactAddressModal().fillAddress(defaultAddress);
         home().interactAddressModal().selectFirstAddress();
         home().interactAddressModal().clickFindStores();
-        home().clickOnStoreWithSid(DEFAULT_METRO_MOSCOW_SID);
+        home().clickOnStoreWithSid(DEFAULT_AUCHAN_SID);
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().interactHeader().checkIsSetAddressEqualToInput(defaultAddress,
                 shop().interactHeader().getShippingAddressFromHeader());
@@ -272,8 +274,6 @@ public final class UserShippingAddressTests {
         shop().interactHeader().checkLoginIsVisible();
         shop().checkPageContains("metro?sid=1");
 
-        shop().goToPage();
-
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddressLarge().checkYmapsReady();
         shop().interactAddressLarge().fillAddress(testAddress);
@@ -289,16 +289,26 @@ public final class UserShippingAddressTests {
     public void saveAddressForNextOrder() {
         final var addressData = TestVariables.testAddressData();
         final var userData = UserManager.getQaUser();
-        this.helper.makeAndCancelOrder(userData, DEFAULT_SID, 2);
-        this.helper.dropAndFillCart(userData, DEFAULT_SID);
+        this.helper.makeAndCancelOrder(userData, DEFAULT_AUCHAN_SID, 2);
+        this.helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(addressData.getApartment());
@@ -321,9 +331,21 @@ public final class UserShippingAddressTests {
 
         userShipments().checkPageContains(userShipments().pageUrl());
 
-        helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_SID);
+        helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_AUCHAN_SID);
 
-        checkout().goToPage();
+        shop().goToPage();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().checkApartmentValue(checkout().setDeliveryOptions().getApartmentValue(), addressData.getApartment());
@@ -339,9 +361,9 @@ public final class UserShippingAddressTests {
     @Test(description = "Сохранение нескольких адресов за пользователем при оформлении заказа", groups = {STARTING_X, REGRESSION_STF})
     public void testSuccessFewAddressesOnCheckout() {
         final var userData = UserManager.getQaUser();
-        this.helper.makeAndCancelOrder(userData, DEFAULT_METRO_MOSCOW_SID, 2);
-        this.helper.dropAndFillCart(userData, DEFAULT_METRO_MOSCOW_SID);
-        this.helper.setAddress(userData, RestAddresses.Chelyabinsk.defaultAddress());
+        this.helper.makeAndCancelOrder(userData, DEFAULT_AUCHAN_SID, 2);
+        this.helper.dropAndFillCart(userData, DEFAULT_CHECKOUT_SID);
+        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -349,7 +371,18 @@ public final class UserShippingAddressTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment("30");
@@ -378,7 +411,7 @@ public final class UserShippingAddressTests {
         shop().interactAddressLarge().checkCountOfStoredAddresses(2);
         shop().interactAddressLarge().checkStoredAddresses(
                 shop().interactAddressLarge().getFoundedAddressByPositions(1),
-                RestAddresses.Chelyabinsk.defaultAddress().fullAddress().toString()
+                RestAddresses.Moscow.checkoutAddress().fullAddress().toString()
         );
     }
 
@@ -389,16 +422,26 @@ public final class UserShippingAddressTests {
         final var addressData = TestVariables.testAddressData();
         final var addressChangeData = TestVariables.testChangeAddressData();
         final var userData = UserManager.getQaUser();
-        this.helper.makeAndCancelOrder(userData, DEFAULT_SID, 2);
-        this.helper.dropAndFillCart(userData, DEFAULT_SID);
+        this.helper.makeAndCancelOrder(userData, DEFAULT_AUCHAN_SID, 2);
+        this.helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(addressData.getApartment());
@@ -421,9 +464,21 @@ public final class UserShippingAddressTests {
 
         userShipments().checkPageContains(userShipments().pageUrl());
 
-        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_AUCHAN_SID);
 
-        checkout().goToPage();
+        shop().goToPage();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(addressChangeData.getApartment());
@@ -446,9 +501,21 @@ public final class UserShippingAddressTests {
 
         userShipments().checkPageContains(userShipments().pageUrl());
 
-        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_SID);
+        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_AUCHAN_SID);
 
-        checkout().goToPage();
+        shop().goToPage();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().checkApartmentValue(checkout().setDeliveryOptions().getApartmentValue(), addressChangeData.getApartment());

@@ -24,7 +24,7 @@ public final class HelpDeskChatTests {
         final ApiHelper apiHelper = new ApiHelper();
         final UserData userData = UserManager.getQaUser();
 
-        apiHelper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
+        apiHelper.dropAndFillCart(userData, UiProperties.DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

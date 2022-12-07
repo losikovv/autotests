@@ -15,6 +15,7 @@ import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -27,7 +28,7 @@ public final class OrdersReplacementsTests {
     @BeforeMethod(alwaysRun = true, description = "Создание юзера и наполнение корзины")
     public void beforeTest() {
         this.ordersUser = UserManager.getQaUser();
-        this.helper.dropAndFillCart(ordersUser, UiProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(ordersUser, UiProperties.DEFAULT_AUCHAN_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
@@ -46,8 +47,18 @@ public final class OrdersReplacementsTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
@@ -64,8 +75,7 @@ public final class OrdersReplacementsTests {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        userShipment().checkPageContains(userShipments().pageUrl());
-
-        userShipments().checkStatusShipmentReady();
+        userShipment().waitPageLoad();
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
     }
 }

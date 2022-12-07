@@ -38,6 +38,8 @@ variables:
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА ТЕСТОВ АДМИНКИ! Нужно указывать полный url. Например: https://stf-kraken.k-stage.sbermarket.tech/"
   ADMIN_FORWARD:
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Значение для хедера/куки sbm-forward-feature-version-stf. Например: s-sb-stfkraken-sbermarket"
+  USER_UUID:
+    description: "ОПЦИОНАЛЬНО ДЛЯ UI ЗАПУСКА с А/Б-тестом! При необходимости добавить пользователя в нужную группу АБ-теста, указать его UUID. Например: 5cc7b500-834b-487b-afcc-91680921813f"
   URL_STF_FRONT:
     description: "ОБЯЗАТЕЛЬНО ДЛЯ UI ЗАПУСКА! Нужно указывать полный url фронта. Например: https://next-default.k-stage.sbermarket.tech/"
   STF_FORWARD:
@@ -241,6 +243,7 @@ tests:customRun:
     - echo $CI_GROUP
     - echo $CI_MODULE
     - echo $ADMIN_URL
+    - echo $USER_UUID
     - echo $URL_STF_FRONT
     - echo $STF_FORWARD
     - echo $URL_B2B_FRONT

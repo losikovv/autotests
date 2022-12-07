@@ -22,25 +22,18 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 @Epic("STF UI")
 @Feature("Чекаут V3")
 public final class CheckoutSlotsTests {
-    // Для включения нового чекаута необходимо, чтобы были включены ФФ checkout_web_new, checkout_web_force_all, tmp_b2c_9162_spree_shipment_changes (для постчекаута)
-    // Пользователь должен быть добавлен в А/Б-тесты:
-    // 2ae723fe-fdc0-4ab6-97ee-7692d2a19c90 группу new_checkout_web
-    // 7cb891fd-a69d-4aef-854e-09b0da121536 группу w_changing_details
-    // 7be2e177-5ce6-4769-b04e-c794633076e8 группу w_new_statuses
 
     private final ApiHelper helper = new ApiHelper();
 
     @Issue("B2C-9738")
     @CaseId(3638)
     @Story("Слоты")
-    @Test(description = "Выбор слота доставки", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Выбор слота доставки", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSelectDeliverySlot() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
-        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+        helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -139,14 +132,12 @@ public final class CheckoutSlotsTests {
 
     @CaseId(3634)
     @Story("Слоты")
-    @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSelectSlotRequired() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
-        this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
-        this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
+        helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
+        helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

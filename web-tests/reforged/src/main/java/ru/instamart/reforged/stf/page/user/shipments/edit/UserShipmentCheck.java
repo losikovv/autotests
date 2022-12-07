@@ -8,7 +8,6 @@ import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
 import java.util.Set;
-import java.util.regex.Pattern;
 
 public interface UserShipmentCheck extends Check, UserShipmentElement {
 
@@ -20,6 +19,11 @@ public interface UserShipmentCheck extends Check, UserShipmentElement {
     @Step("Проверяем, что текущий статус заказа: '{stateName}'")
     default void checkActiveShipmentState(final String stateName) {
         Assert.assertEquals(shipmentState.getText(), stateName, "Текущий статус заказа отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что пояснение к текущему статусу заказа: '{stateDescription}'")
+    default void checkActiveShipmentStateDescription(final String stateDescription) {
+        Assert.assertEquals(shipmentStateDescription.getText(), stateDescription, "Пояснение к статусу заказа отличается от ожидаемого");
     }
 
     @Step("Проверяем, что статус заказа 'Заказ отменён'")
@@ -251,6 +255,11 @@ public interface UserShipmentCheck extends Check, UserShipmentElement {
         Kraken.waitAction().shouldBeVisible(shipmentCost);
     }
 
+    @Step("Проверяем, что НЕ отображается стоимость доставки")
+    default void checkShipmentCostNotVisible() {
+        shipmentCost.should().invisible();
+    }
+
     @Step("Проверяем, что отображается стоимость сборки")
     default void checkAssemblyCostVisible() {
         Kraken.waitAction().shouldBeVisible(assemblyCost);
@@ -291,6 +300,13 @@ public interface UserShipmentCheck extends Check, UserShipmentElement {
         Assert.assertEquals(productInOrderNames.getTextFromAllElements(), expectedProductsList, "Список продуктов в заказе отличается от ожидаемого");
     }
 
+    @Step("Проверяем, что в списке товаров заказе присутствует продукт: {expectedProduct}")
+    default void checkProductListContains(final String expectedProduct) {
+        Assert.assertTrue(productInOrderNames.getTextFromAllElements().stream()
+                        .anyMatch(itemName -> itemName.contains(expectedProduct)),
+                String.format("В списке продуктов: '%s' отсутствует ожидаемый товар: '%s'", productInOrderNames.getTextFromAllElements(), expectedProduct));
+    }
+
     @Step("Проверяем, что отображается кнопка 'Изменить' (слот)")
     default void checkChangeDeliverySlotButtonVisible() {
         Kraken.waitAction().shouldBeVisible(changeDeliverySlot);
@@ -314,6 +330,14 @@ public interface UserShipmentCheck extends Check, UserShipmentElement {
     @Step("Проверяем, что текущий интервал доставки: '{expectedValue}'")
     default void checkCurrentDeliveryInterval(final String expectedValue) {
         Assert.assertEquals(deliveryInterval.getText(), expectedValue, "Текущий интервал доставки отличается от ожидаемого");
+    }
+
+    @Step("Проверка соответствия даты и времени доставки ожидаемым {expectedDate}")
+    default void checkDeliveryIntervalCorrect(final String expectedInterval) {
+        Assert.assertEquals(
+                StringUtil.cutExtraZerosFromDate(deliveryInterval.getText()).replaceAll("\n", " "),
+                expectedInterval,
+                "Дата и время доставки не соответствует ожидаемым");
     }
 
     @Step("Проверяем, что стоимость заказа 'Итого': '{expectedValue}'")

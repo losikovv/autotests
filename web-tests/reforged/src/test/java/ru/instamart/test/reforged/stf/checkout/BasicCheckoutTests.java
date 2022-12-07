@@ -20,11 +20,12 @@ public final class BasicCheckoutTests {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(2939)
-    @Test(description = "Тест доступности чекаута по прямой ссылке", groups = REGRESSION_STF)
+    //Старый чекаут теперь не должен быть доступен по прямой ссылке. Почему бы и не проверить
+    @Test(description = "Тест недоступности старого чекаута по прямой ссылке", groups = REGRESSION_STF)
     public void testCheckoutAccessForUserWithCart() {
         final var userData = UserManager.getQaUser();
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -32,6 +33,6 @@ public final class BasicCheckoutTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
-        checkout().checkPageIsAvailable();
+        checkout().checkPageError404();
     }
 }

@@ -13,11 +13,6 @@ public interface AddressLargeCheck extends AddressLargeElement, Check {
         waitAction().shouldBeVisible(addressModal);
     }
 
-    @Step("Проверяем, что фрейм выбора адреса не отображается")
-    default void checkAddressModalNotVisible() {
-        addressModal.should().invisible();
-    }
-
     @Step("Проверяем, что маркер 'Адрес можно выбирать прямо на карте' не отображается")
     default void checkMarkerOnMapInAdviceIsNotVisible() {
         markerSelectOnMap.should().invisible();

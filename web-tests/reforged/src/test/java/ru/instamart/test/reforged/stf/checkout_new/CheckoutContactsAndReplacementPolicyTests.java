@@ -10,7 +10,6 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
@@ -27,12 +26,10 @@ public final class CheckoutContactsAndReplacementPolicyTests {
 
     @CaseId(3691)
     @Story("Контакты и замены")
-    @Test(description = "Проверка отсутствия предвыбранного способа замены товара при первом чекауте", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Проверка отсутствия предвыбранного способа замены товара при первом чекауте", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckReplacementPolicyNotSelectedFirstTime() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
@@ -50,12 +47,10 @@ public final class CheckoutContactsAndReplacementPolicyTests {
 
     @CaseId(3632)
     @Story("Контакты и замены")
-    @Test(description = "Проверка что поле 'Замена товара' является обязательным при первом заказе", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Проверка что поле 'Замена товара' является обязательным при первом заказе", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckReplacementPolicyRequired() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
@@ -90,12 +85,10 @@ public final class CheckoutContactsAndReplacementPolicyTests {
 
     @CaseId(3631)
     @Story("Контакты и замены")
-    @Test(description = "Проверка что значение поля 'Замена товара' предвыбрано при повторных чекаутах", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Проверка что значение поля 'Замена товара' предвыбрано при повторных чекаутах", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckRequiredFields() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         var order = helper.makeOrder(userData, DEFAULT_CHECKOUT_SID, 1);
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
@@ -122,12 +115,10 @@ public final class CheckoutContactsAndReplacementPolicyTests {
 
     @CaseId(3628)
     @Story("Контакты и замены")
-    @Test(description = "Проверка отображения в блоке Контакты номера телефона из профиля при первом заказе", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Проверка отображения в блоке Контакты номера телефона из профиля при первом заказе", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckContactsFillFromProfile() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 
@@ -149,12 +140,10 @@ public final class CheckoutContactsAndReplacementPolicyTests {
 
     @CaseId(3629)
     @Story("Контакты и замены")
-    @Test(description = "Проверка что поля телефон и e-mail обязательны и валидируются при потере фокуса", groups = {CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Проверка что поля телефон и e-mail обязательны и валидируются при потере фокуса", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckPhoneAndEmailRequiredFields() {
         final var userData = UserManager.getQaUser();
-        addFlipperActor("checkout_web_new", userData.getId());
-        addFlipperActor("checkout_web_force_all", userData.getId());
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
 

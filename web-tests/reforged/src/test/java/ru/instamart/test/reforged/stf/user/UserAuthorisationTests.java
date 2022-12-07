@@ -17,6 +17,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.Group.STARTING_X;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
 import static ru.instamart.reforged.sber_id_auth.SberIdPageRouter.sberId;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -24,8 +25,6 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Epic("STF UI")
 @Feature("Авторизация")
 public final class UserAuthorisationTests {
-
-    private final ApiHelper apiHelper = new ApiHelper();
 
     @CaseId(1455)
     @Test(description = "Тест успешной авторизации на витрине", groups = {STARTING_X, REGRESSION_STF, "smoke"})
@@ -40,15 +39,12 @@ public final class UserAuthorisationTests {
     @Test(description = "Авторизация по номеру телефона", groups = {STARTING_X, REGRESSION_STF, "smoke"})
     public void successAuthOnMainPageUserWithOrder() {
         final var user = UserManager.getQaUser();
-        apiHelper.dropAndFillCartByOneProduct(user, DEFAULT_METRO_MOSCOW_SID, 1);
 
         home().goToPage();
         home().openLoginModal();
         home().interactAuthModal().authViaPhone(user);
 
         home().interactMultisearchHeader().checkUserActionsButtonVisible();
-        home().interactMultisearchHeader().checkEnteredAddress(Addresses.Moscow.defaultAddressRest());
-        home().checkDeliveryStoresContainerVisible();
     }
 
     @Skip
@@ -80,34 +76,12 @@ public final class UserAuthorisationTests {
         shop().plusFirstItemToCartProd();
         shop().interactHeader().checkCartNotificationIsVisible();
 
-        shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseFirstItemCountToMin();
         shop().interactCart().submitOrder();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
-        checkout().checkCheckoutButtonIsVisible();
-    }
 
-    //Короче FB опять заблокировал наш ip
-    @CaseId(1459)
-    @Story("Авторизация через Facebook")
-    @Skip
-    @Test(description = "Тест успешной авторизация через Facebook", groups = {"smoke", REGRESSION_STF})
-    public void successRegWithFacebook() {
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().checkModalIsVisible();
-        shop().interactAuthModal().authViaFacebook();
-        shop().interactAuthModal().interactAuthFacebookWindow().switchToNextWindow();
-        shop().interactAuthModal().interactAuthFacebookWindow()
-                .setEmail(UserManager.getDefaultFbUser().getEmail());
-        shop().interactAuthModal().interactAuthFacebookWindow()
-                .setPassword(UserManager.getDefaultFbUser().getPassword());
-        shop().interactAuthModal().interactAuthFacebookWindow()
-                .clickToLogin();
-        shop().interactAuthModal().interactAuthFacebookWindow().switchToFirstWindow();
-        shop().interactAuthModal().checkModalIsNotVisible();
-        shop().interactHeader().checkProfileButtonVisible();
+        checkoutNew().checkDeliverySlotsVisible();
     }
 
     @CaseId(2735)

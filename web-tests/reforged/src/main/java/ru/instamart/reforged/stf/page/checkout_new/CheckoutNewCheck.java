@@ -157,22 +157,25 @@ public interface CheckoutNewCheck extends Check, CheckoutNewElement {
                 String.format("Текущий выбранный способ оплаты: '%s' не содержит '%s'", currentPaymentMethod.getText(), expectedPaymentMethodText));
     }
 
-    @Step("Проверяем, что виджет оплаты со СберСпасибо содержит кол-во бонусов:{bonuses}")
-    default void checkSberSpasiboWidgetContainsBonusesAmount(final String bonuses) {
-        Assert.assertTrue(sberSpasiboWidget.getText().contains(" " + bonuses + " бонус"),
-                String.format("Виджет СберСпасибо не содержит суммы списываемых бонусов: '%s'", bonuses));
-    }
-
     @Step("Проверяем, что сайдбар содержит кол-во бонусов:{bonuses}")
     default void checkSidebarContainsBonusesAmount(final String bonuses) {
         Assert.assertTrue(sidebarSberSpasiboAmount.getText().contains("Бонусы от СберСпасибо -" + bonuses + " ₽"),
                 String.format("Сайдбар не содержит суммы списываемых бонусов: '%s'", bonuses));
     }
 
-    @Step("Проверяем, что виджет оплаты со СберСпасибо содержит  последние 4 символа карты: {cardLastDigits}")
-    default void checkSberSpasiboWidgetContainsCardNumber(final String cardLastDigits) {
-        Assert.assertTrue(sberSpasiboWidget.getText().contains(cardLastDigits),
-                String.format("Виджет СберСпасибо не содержит последних 4 символов номера карты: '%s'", cardLastDigits));
+    @Step("Проверяем, что текст виджета оплаты со СберСпасибо: {expectedText}")
+    default void checkSberSpasiboWidgetText(final String expectedText) {
+        Assert.assertEquals(sberSpasiboWidget.getText(), expectedText, "Текст виджета СберСпасибо отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что информация об оплате бонусами СберСпасибо присутсвтует в суммарной информации заказа")
+    default void checkSberSpasiboInOrderSummaryVisible() {
+        orderSummarySberSpasiboLabel.should().visible();
+    }
+
+    @Step("Проверяем, что сумма списываемых бонусов СберСпасибо в суммарной информации о заказе: {expectedText}")
+    default void checkSberSpasiboAmountInOrderSummary(final String expectedText) {
+        Assert.assertEquals(orderSummarySberSpasiboAmount.getText(), expectedText, "Сумма списываемых бонусов СберСпасибо в суммарной информации о заказе отличается от ожидаемой");
     }
 
     @Step("Проверяем, что отображается кнопка 'Выбрать компанию'")

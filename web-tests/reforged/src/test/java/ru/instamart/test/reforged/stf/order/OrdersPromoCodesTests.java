@@ -17,7 +17,9 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
+import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -44,14 +46,24 @@ public final class OrdersPromoCodesTests {
         var company = JuridicalData.juridical();
 
         ordersUser = UserManager.getQaUser();
-        helper.dropAndFillCart(ordersUser, DEFAULT_SID);
+        helper.dropAndFillCart(ordersUser, DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
@@ -77,10 +89,9 @@ public final class OrdersPromoCodesTests {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        userShipments().checkPageContains(userShipments().pageUrl());
-
-        userShipments().checkStatusShipmentReady();
-        userShipments().checkUserShipmentPromocodeVisible();
+        userShipment().waitPageLoad();
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
+        userShipment().checkPromoCodeVisible();
     }
 
     @CaseId(1641)
@@ -94,7 +105,7 @@ public final class OrdersPromoCodesTests {
         helper.createPromotionCode(promo, 2760, yesterday, yesterday, 100);
 
         ordersUser = UserManager.getQaUser();
-        helper.dropAndFillCart(ordersUser, DEFAULT_SID);
+        helper.dropAndFillCart(ordersUser, DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -145,16 +156,26 @@ public final class OrdersPromoCodesTests {
 
         ordersUser = UserManager.getQaUser();
 
-        helper.makeOrder(ordersUser, DEFAULT_SID, 1);
+        helper.makeOrder(ordersUser, DEFAULT_AUCHAN_SID, 1);
         helper.createPromotionCode(promo, 2761, yesterday, yesterday, 100);
-        helper.dropAndFillCart(ordersUser, DEFAULT_SID);
+        helper.dropAndFillCart(ordersUser, DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
@@ -189,14 +210,24 @@ public final class OrdersPromoCodesTests {
         var promo = Generate.string(8);
 
         ordersUser = UserManager.getQaUser();
-        helper.dropAndFillCart(ordersUser, DEFAULT_SID);
+        helper.dropAndFillCart(ordersUser, DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 

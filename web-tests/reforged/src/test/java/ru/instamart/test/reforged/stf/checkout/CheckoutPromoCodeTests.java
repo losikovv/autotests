@@ -14,8 +14,8 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
-import static ru.instamart.reforged.stf.page.StfRouter.checkout;
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 
 @Epic("STF UI")
 @Feature("Промокоды")
@@ -28,7 +28,7 @@ public final class CheckoutPromoCodeTests {
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
         this.userData = UserManager.getQaUser();
-        this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_SID);
+        this.helper.dropAndFillCart(userData, UiProperties.DEFAULT_AUCHAN_SID);
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
@@ -38,14 +38,23 @@ public final class CheckoutPromoCodeTests {
 
     @CaseId(2638)
     @Story("Добавление промокода к заказу")
-    @Test(description = "Тест успешного применения промокода в чекауте", groups = {REGRESSION_STF, "smoke"})
+    @Test(description = "Тест успешного применения промокода в чекауте", groups = {REGRESSION_STF})
     public void successAddPromoCode() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().clickToAddPromoCode();
         checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
         checkout().interactEditPromoCodeModal().applyPromoCode();
@@ -63,7 +72,16 @@ public final class CheckoutPromoCodeTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().clickToAddPromoCode();
         checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
         checkout().interactEditPromoCodeModal().applyPromoCode();
@@ -82,7 +100,16 @@ public final class CheckoutPromoCodeTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().clickToAddPromoCode();
         checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
         checkout().interactEditPromoCodeModal().cancelPromoCode();
@@ -99,7 +126,16 @@ public final class CheckoutPromoCodeTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().clickToAddPromoCode();
         checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
         checkout().interactEditPromoCodeModal().closeByEsc();
