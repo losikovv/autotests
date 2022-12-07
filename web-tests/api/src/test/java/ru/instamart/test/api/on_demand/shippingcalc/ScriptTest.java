@@ -207,11 +207,31 @@ public class ScriptTest extends ShippingCalcBase {
         clientShippingCalc.getScript(request);
     }
 
+    @CaseId(127)
+    @Story("Get Scripts")
+    @Test(description = "Получение списка скриптов",
+            groups = "dispatch-shippingcalc-regress",
+            dependsOnMethods = {"createScript", "createScriptWithInvalidData"})
+    public void getScripts() {
+        var request = GetScriptsRequest.newBuilder().build();
+        var response = clientShippingCalc.getScripts(request);
+
+        Allure.step("Проверка скрипта в ответе", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertTrue(response.getScriptsCount() > 1, "В ответе пустой список скриптов");
+            softAssert.assertTrue(response.getScripts(0).getScriptId() > 0, "В ответе пустой id скрипта");
+            softAssert.assertNotNull(response.getScripts(0).getScriptName(), "В ответе пустое название скрипта");
+            softAssert.assertNotNull(response.getScripts(0).getScriptBody(), "В ответе пустое тело скрипта");
+            softAssert.assertNotNull(response.getScripts(0).getRequiredParamsCount(), "В ответе пустой список обязательных параметров");
+            softAssert.assertAll();
+        });
+    }
+
     @CaseId(135)
     @Story("Delete Script")
     @Test(description = "Удаление существующего скрипта без привязки к правилам",
             groups = "dispatch-shippingcalc-smoke",
-            dependsOnMethods = "updateScript")
+            dependsOnMethods = {"updateScript", "getScripts"})
     public void deleteScript() {
         var request = getDeleteScriptRequest(secondScriptId);
         var response = clientShippingCalc.deleteScript(request);
