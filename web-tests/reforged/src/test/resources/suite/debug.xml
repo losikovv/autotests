@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
-<suite name="DEBUG-SUITE" verbose="1">
+<suite name="DEBUG-SUITE" verbose="1" configfailurepolicy="continue">
     <method-selectors>
         <method-selector>
             <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
