@@ -92,6 +92,7 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Step("Нажать на плюс у товара на проде")
     public void plusFirstItemToCartProd() {
+        scrollDown();
         addToCartButtonsProd.clickOnFirst();
     }
 

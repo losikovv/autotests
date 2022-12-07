@@ -26,7 +26,8 @@ public interface ShopElement {
     String notRecommendationTaxons = "//section[contains(@data-qa,'catalog_page_taxons_list_taxon_item')]" +
             "[not(contains(.,'Стоит присмотреться'))]" +
             "[not(contains(.,'Рекомендуем'))]" +
-            "[not(contains(.,'Новый год'))]";
+            "[not(contains(.,'Новый год'))]" +
+            "[not(contains(.,'Алкоголь'))]";
 
     Header header = new Header();
     StoreModal storeModal = new StoreModal();
