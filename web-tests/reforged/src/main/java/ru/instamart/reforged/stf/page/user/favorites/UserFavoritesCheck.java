@@ -5,13 +5,12 @@ import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface UserFavoritesCheck extends Check, UseFavoritesElement {
 
     @Step("Проверяем что список избранного пуст")
     default void checkEmptyFavorites() {
-        waitAction().shouldBeVisible(emptyFavorites);
+        emptyFavorites.should().visible();
     }
 
     @Step("Проверяем что список избранного не пустой")

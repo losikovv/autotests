@@ -9,6 +9,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.STF_PROD_S;
@@ -22,6 +23,7 @@ public final class ShoppingSearchTests {
     private final ApiHelper apiHelper = new ApiHelper();
 
     @CaseId(2587)
+    @Skip //раскатили новый поиск
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {STF_PROD_S})
     public void successSearchItemUsingCategorySuggests() {
@@ -41,6 +43,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2588)
+    @Skip
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {STF_PROD_S})
     public void successSearchItemUsingSuggests() {
@@ -59,6 +62,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2989)
+    @Skip
     @Story("Позитивные сценарии")
     @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = {STF_PROD_S})
     public void changeAmountOnButtonSearchResult() {
@@ -81,6 +85,7 @@ public final class ShoppingSearchTests {
     // В этом тесте выполняется по два раза swipeScrollTabHeadersRight/swipeScrollTabHeadersLeft
     //    // Потому что при одиночном скроле категория "Все сразу" не скрывается
     @CaseId(2991)
+    @Skip
     @Story("Позитивные сценарии")
     @Test(description = "Работоспособность стрелочки пролистывающей категории", groups = {STF_PROD_S})
     public void swipeCategoryItemInSuggester() {
@@ -103,6 +108,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(3105)
+    @Skip
     @Story("Позитивные сценарии")
     @Test(description = "Удаление поискового запроса по крестику в поиске", groups = {STF_PROD_S})
     public void clearSearchBar() {
@@ -145,6 +151,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2589)
+    @Skip
     @Test(description = "Работоспособность сортировки товаров", groups = {STF_PROD_S})
     public void successApplySort() {
         final UserData userData = UserManager.getQaUser();
