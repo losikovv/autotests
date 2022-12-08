@@ -9,6 +9,17 @@ tests:adminKeycloak:
   after_script:
     - bash ./report.sh reforged ui-stf-keycloak
 
+tests:adminKeycloakProd:
+  only:
+    variables:
+      - $RUN_KEYCLOAK_PROD == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  extends:
+    - ".template_ui_tests"
+  script:
+    - gradle clean build adminKeycloakProd
+  after_script:
+    - bash ./report.sh reforged ui-stf-keycloak-prod
+
 tests:adminOnDemandSmoke:
   only:
     variables:
