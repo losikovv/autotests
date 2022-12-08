@@ -300,8 +300,8 @@ public final class UserManager {
     private static UserData getActiveDirectoryUser() {
         if (isNull(activeDirectoryUser)) {
             activeDirectoryUser = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("jbLnzLjta1V4pY9Hh1oFzBpbBGZdWIhYb645pKKM3V8="))
-                    .password(Crypt.INSTANCE.decrypt("MYkGiIbAAYmHoCFi7xG5rA=="))
+                    .email(Crypt.INSTANCE.decrypt("nczP68TW2i5aavWnXDNElAhCiHHyD+KE7iMt7WY/Bdc="))
+                    .password(Crypt.INSTANCE.decrypt("ORfgiiOthZ0RqP/xqTkDoJmEF2r2eA8WoFg5JczI/w8="))
                     .build();
         }
         return activeDirectoryUser;
