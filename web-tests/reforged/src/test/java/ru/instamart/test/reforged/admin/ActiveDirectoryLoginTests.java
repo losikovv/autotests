@@ -25,7 +25,7 @@ public class ActiveDirectoryLoginTests {
         activeDirectory().fillPassword(activeDirectoryUser.getPassword());
         activeDirectory().clickOnLoginButton();
 
-        main().interactAuthoredHeader().checkAdminAuth();
+        main().interactAuthoredHeader().checkAdminAvatar();
     }
 
     @CaseId(32)

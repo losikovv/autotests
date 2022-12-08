@@ -32,7 +32,17 @@ task adminKeycloak(type: Test) {
         suites 'src/test/resources/suite/submodule/admin-keycloak.xml'
         includeGroups 'admin_keycloak'
     }
-    environment 'ADMIN_URL', 'https://stf-0.k-stage.sbermarket.tech/'
+    environment 'ADMIN_URL', 'https://stf-kraken-admin.k-stage.sbmt.io/'
+    systemProperty 'qase.Project', 'CS'
+    systemProperty 'qase.Title', 'STF admin keycloak tests'
+}
+
+task adminKeycloakProd(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/submodule/admin-keycloak.xml'
+        includeGroups 'prod_admin_smoke'
+    }
+    environment 'P_ENV', "sbermarket-production"
     systemProperty 'qase.Project', 'CS'
     systemProperty 'qase.Title', 'STF admin keycloak tests'
 }
