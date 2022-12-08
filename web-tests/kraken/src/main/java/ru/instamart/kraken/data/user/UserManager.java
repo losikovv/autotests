@@ -297,7 +297,7 @@ public final class UserManager {
         return (EnvironmentProperties.Env.isProduction() ? getActiveDirectoryUserProd() : getActiveDirectoryUser());
     }
 
-    private static UserData getActiveDirectoryUser() { //TODO
+    private static UserData getActiveDirectoryUser() {
         if (isNull(activeDirectoryUser)) {
             activeDirectoryUser = UserData.builder()
                     .email(Crypt.INSTANCE.decrypt("nczP68TW2i5aavWnXDNElAhCiHHyD+KE7iMt7WY/Bdc="))
