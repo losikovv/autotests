@@ -53,7 +53,7 @@ public final class SeoCatalogPage implements StfPage, SeoCatalogCheck {
 
     @Override
     public void goToPage() {
-        goToPage(ShopUrl.AUCHAN);
+        goToPage(ShopUrl.DEFAULT);
     }
 
     public void goToPage(final ShopUrl shop) {

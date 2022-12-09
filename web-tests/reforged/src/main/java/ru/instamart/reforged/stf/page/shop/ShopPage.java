@@ -195,7 +195,7 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Override
     public void goToPage() {
-        goToPage(ShopUrl.AUCHAN);
+        goToPage(ShopUrl.DEFAULT);
     }
 
     public void goToPage(final ShopUrl shop) {
