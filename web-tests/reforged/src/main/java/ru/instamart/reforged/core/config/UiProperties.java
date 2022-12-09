@@ -34,6 +34,9 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "defaultCookies", defaultValue = "")
     public static List<String> DEFAULT_COOKIES;
 
+    @Config(configName = NAME, fieldName = "defaultRetailer", defaultValue = "metro")
+    public static String DEFAULT_RETAILER;
+
     @Config(configName = NAME, fieldName = "defaultSid", defaultValue = "81", env = "SID")
     public static int DEFAULT_SID;
 

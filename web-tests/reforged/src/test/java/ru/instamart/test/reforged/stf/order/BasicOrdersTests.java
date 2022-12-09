@@ -355,7 +355,7 @@ public final class BasicOrdersTests {
         helper.makeOrderOnTomorrow(userData, DEFAULT_AUCHAN_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage(ShopUrl.AUCHAN);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();

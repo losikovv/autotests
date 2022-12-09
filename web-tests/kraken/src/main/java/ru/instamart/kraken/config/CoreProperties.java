@@ -6,9 +6,6 @@ public final class CoreProperties {
 
     public static final String NAME = "core";
 
-    @Config(configName = NAME, fieldName = "defaultRetailer", defaultValue = "metro")
-    public static String DEFAULT_RETAILER;
-
     @Config(configName = NAME, fieldName = "defaultSms", defaultValue = "111111")
     public static String DEFAULT_SMS;
     @Config(configName = NAME, fieldName = "defaultUiSms", defaultValue = "199011")
