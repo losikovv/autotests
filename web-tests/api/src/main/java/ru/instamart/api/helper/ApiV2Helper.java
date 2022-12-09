@@ -393,25 +393,6 @@ public final class ApiV2Helper {
         return null;
     }
 
-    @Step("Добавляем товар в корзину: id товара = {productId} и количество = {quantity} ")
-    public void addItemToCartOrLogError(final long productId, final int quantity) {
-        final var response = LineItemsV2Request.POST(productId, quantity, currentOrderNumber.get());
-        checkStatusCode200or404or422(response);
-
-        switch (response.getStatusCode()) {
-            case 200: {
-                final var lineItem = response.as(LineItemV2Response.class).getLineItem();
-                log.debug(lineItem.toString());
-                break;
-            }
-            case 404:
-            case 422: {
-                log.error("Невозможно добавить товар в корзину '{}'", response.as(ErrorResponse.class).getErrors().getBase());
-                break;
-            }
-        }
-    }
-
     @Step("Добавляем товары в корзину")
     public List<LineItemV2> addItemsToCart(List<Long> productIDs) {
         return productIDs.stream()
@@ -1241,7 +1222,7 @@ public final class ApiV2Helper {
     }
 
     public void fillCartByOneProduct(final Collection<ProductV2> products, final int count) {
-        products.stream().findFirst().ifPresent(productV2 -> addItemToCartOrLogError(productV2.getId(), count));
+        products.stream().findFirst().ifPresent(productV2 -> addItemToCart(productV2.getId(), count));
     }
 
     public void fillCartOneByOne(final Collection<ProductV2> products, final int quantity) {
@@ -1250,7 +1231,7 @@ public final class ApiV2Helper {
         final var anotherProductText = "Выбираем другой товар\n";
 
         for (final var product : products) {
-            addItemToCartOrLogError(product.getId(), quantity);
+            addItemToCart(product.getId(), quantity);
             cartWeight += (getProductWeight(product) * product.getItemsPerPack());
 
             getMinSumFromAlert();
@@ -1273,7 +1254,7 @@ public final class ApiV2Helper {
         int cartAmount = 0;
         while (cartAmount < amount) {
             for (final var product : products) {
-                addItemToCartOrLogError(product.getId(), Math.toIntExact(Math.max(Math.round(amount / product.getPrice()), 1)));
+                addItemToCart(product.getId(), Math.toIntExact(Math.max(Math.round(amount / product.getPrice()), 1)));
                 cartAmount += getCurrentOrder().getTotal();
                 if (cartAmount >= amount) break;
             }
