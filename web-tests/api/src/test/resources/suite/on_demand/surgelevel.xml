@@ -10,7 +10,7 @@
             <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
         </method-selector>
     </method-selectors>
-    <test verbose="1" name="SURGELEVEL" parallel="classes" thread-count="4">
+    <test verbose="1" name="SURGELEVEL" parallel="classes" thread-count="1">
         <classes>
             <class name="ru.instamart.test.api.on_demand.surgelevel.GrpcV1Test"/>
             <class name="ru.instamart.test.api.on_demand.surgelevel.GrpcV2Test"/>
