@@ -8,6 +8,7 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
+import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
@@ -293,7 +294,7 @@ public final class CheckoutAddressTests {
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_NOT_B2B_SID);
         helper.setAddress(userData, RestAddresses.Moscow.checkoutWithoutBusinessAddress());
 
-        shop().goToPage();
+        shop().goToPage(ShopUrl.METRO);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();

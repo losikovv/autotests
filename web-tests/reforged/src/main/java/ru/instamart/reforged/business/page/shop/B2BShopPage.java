@@ -59,7 +59,7 @@ public final class B2BShopPage implements BusinessPage, B2BShopCheck, Window {
 
     @Override
     public void goToPage() {
-        goToPage(ShopUrl.DEFAULT);
+        goToPage(ShopUrl.AUCHAN);
     }
 
     public void goToPage(final ShopUrl shop) {

@@ -221,7 +221,7 @@ public final class UserShippingAddressTests {
     @Test(description = "Тест на ввод адреса в модалке, после добавления товара из каталога", groups = {STARTING_X, REGRESSION_STF})
     public void successSetShippingAddressAfterAddingProductFromCatalog() {
         shop().goToPage();
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
         shop().interactAddressLarge().checkYmapsReady();
         shop().interactAddressLarge().fillAddress(defaultAddress);
         shop().interactAddressLarge().selectFirstAddress();
@@ -272,7 +272,7 @@ public final class UserShippingAddressTests {
         shop().interactAddressLarge().selectFirstAddress();
         shop().interactAddressLarge().clickSave();
         shop().interactHeader().checkLoginIsVisible();
-        shop().checkPageContains("metro?sid=1");
+        shop().checkPageContains("auchan?sid=72");
 
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddressLarge().checkYmapsReady();
@@ -536,7 +536,7 @@ public final class UserShippingAddressTests {
         shop().interactAddressLarge().selectFirstAddress();
         shop().interactAddressLarge().clickSave();
         shop().interactHeader().interactStoreSelector().clickToFirstStoreCard();
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
         shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotOpen();
     }
 
@@ -600,7 +600,7 @@ public final class UserShippingAddressTests {
 
         shop().goToPage(ShopUrl.VKUSVILL);
         shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
         shop().interactStoreModal().checkStoreModalIsOpen();
     }
 }

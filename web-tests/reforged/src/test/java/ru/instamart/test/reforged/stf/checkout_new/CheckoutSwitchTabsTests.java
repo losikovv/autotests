@@ -71,7 +71,7 @@ public final class CheckoutSwitchTabsTests {
 
         final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
 
-        shop().goToPage();
+        shop().goToPage(ShopUrl.METRO);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -111,7 +111,7 @@ public final class CheckoutSwitchTabsTests {
         final var userData = UserManager.getQaUser();
         final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();
 
-        shop().goToPage();
+        shop().goToPage(ShopUrl.METRO);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();

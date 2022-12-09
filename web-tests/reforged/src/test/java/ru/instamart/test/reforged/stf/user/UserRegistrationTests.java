@@ -75,7 +75,7 @@ public final class UserRegistrationTests {
         shop().interactAddressLarge().clickSave();
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
 
         shop().goToPage();
         shop().interactHeader().clickToCart();
@@ -110,7 +110,7 @@ public final class UserRegistrationTests {
         shop().interactAddressLarge().clickSave();
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
 
         shop().goToPage();
         shop().interactHeader().clickToCart();

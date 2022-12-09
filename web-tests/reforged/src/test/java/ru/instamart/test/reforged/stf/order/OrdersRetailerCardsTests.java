@@ -17,6 +17,7 @@ import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.stf.enums.ShipmentStates.ACCEPTED_STATE;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 //TODO не проверялся на next
@@ -46,8 +47,19 @@ public final class OrdersRetailerCardsTests {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        checkout().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().submitOrder();
+
+        checkoutNew().waitPageLoad();
+        checkoutNew().clickOrderForBusiness();
+        checkoutNew().interactB2BOrderModal().checkModalVisible();
+        checkoutNew().interactB2BOrderModal().clickConfirm();
+        checkoutNew().interactB2BOrderModal().checkModalNotVisible();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
@@ -66,7 +78,7 @@ public final class OrdersRetailerCardsTests {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        userShipments().checkPageContains(userShipments().pageUrl());
-        userShipments().checkStatusShipmentReady();
+        userShipment().waitPageLoad();
+        userShipment().checkActiveShipmentState(ACCEPTED_STATE.getName());
     }
 }

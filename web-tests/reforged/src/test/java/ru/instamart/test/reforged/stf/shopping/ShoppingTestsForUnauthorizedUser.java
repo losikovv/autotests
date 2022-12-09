@@ -10,7 +10,6 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
-import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -54,7 +53,7 @@ public final class ShoppingTestsForUnauthorizedUser {
         home().clickOnStoreWithSid(DEFAULT_AUCHAN_SID);
 
         shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().plusFirstItemToCartProd();
+        shop().plusFirstItemToCart();
 
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();
