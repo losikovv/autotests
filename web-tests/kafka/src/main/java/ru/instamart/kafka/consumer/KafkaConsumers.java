@@ -66,20 +66,27 @@ public class KafkaConsumers {
     private KafkaConsumer<String, byte[]> createConsumer(final KafkaConfig config, final Long time) {
         final var props = consumerProperties(config);
         final KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<>(props);
-        final var endingOffset = getEndingOffset(consumer, config, 0);
-        log.debug("endingOffset: {}", endingOffset);
         if (Objects.nonNull(time)) {
+            final var beginningOffset = getBeginningOffset(consumer, config, 0);
+            log.debug("beginningOffset: {}", beginningOffset);
+            final var endingOffset = getEndingOffset(consumer, config, 0);
+            log.debug("endingOffset: {}", endingOffset);
+
             Map<TopicPartition, Long> timestamps = new HashMap<>();
             final TopicPartition topicPartition0 = new TopicPartition(config.topic, 0);
             consumer.assign(Collections.singletonList(topicPartition0));
             timestamps.put(topicPartition0, System.currentTimeMillis() - time * 1000);
             Map<TopicPartition, OffsetAndTimestamp> startPartitionOffsetsMap = consumer.offsetsForTimes(timestamps);
             long partition0StartOffset = 0;
+
             if (Objects.nonNull(topicPartition0)) {
                 OffsetAndTimestamp offsetAndTimestamp = startPartitionOffsetsMap.get(topicPartition0);
                 log.debug("offsetAndTimestamp 1 : {}", offsetAndTimestamp);
                 if (Objects.isNull(offsetAndTimestamp)) {
-                    partition0StartOffset = endingOffset - 100;
+                    if (beginningOffset > (endingOffset - 100))
+                        partition0StartOffset = beginningOffset;
+                    else
+                        partition0StartOffset = endingOffset - 100;
                     log.debug("partition0StartOffset is null offsetAndTimestamp : {}", partition0StartOffset);
                 } else {
                     partition0StartOffset = offsetAndTimestamp.offset();
@@ -98,6 +105,13 @@ public class KafkaConsumers {
     private Long getEndingOffset(KafkaConsumer<String, byte[]> kafkaConsumer, KafkaConfig config, int partition) {
         TopicPartition topicPartition = new TopicPartition(config.topic, partition);
         Map<TopicPartition, Long> offsets = kafkaConsumer.endOffsets(Collections.singleton(topicPartition));
+        return Optional.ofNullable(offsets.get(topicPartition))
+                .orElseThrow(() -> new SkipException(String.format("Ending offset for partition %s not found", topicPartition)));
+    }
+
+    private Long getBeginningOffset(KafkaConsumer<String, byte[]> kafkaConsumer, KafkaConfig config, int partition) {
+        TopicPartition topicPartition = new TopicPartition(config.topic, partition);
+        Map<TopicPartition, Long> offsets = kafkaConsumer.beginningOffsets(Collections.singleton(topicPartition));
         return Optional.ofNullable(offsets.get(topicPartition))
                 .orElseThrow(() -> new SkipException(String.format("Ending offset for partition %s not found", topicPartition)));
     }
