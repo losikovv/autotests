@@ -203,7 +203,7 @@ public final class MultiretailerSearchTests {
         multiSearch().clickAddProductToFavouritesByPosition(1);
 
         multiSearch().interactMultisearchHeader().clickToFavourites();
-        userFavorites().checkNotEmptyFavorites();
+        userFavorites().checkNotEmptyFavoritesProd();
     }
 
     @CaseId(3855)

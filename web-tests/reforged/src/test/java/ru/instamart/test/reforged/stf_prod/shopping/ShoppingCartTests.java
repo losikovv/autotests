@@ -260,7 +260,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().plusFirstItemToCartWithScrollDown();
-        final var shopProductName = shop().getProductTitleByPositionProd(1);
+        final var shopProductName = shop().getProductTitleByPosition(1);
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
@@ -318,8 +318,8 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().checkSnippet();
 
-        final var shopProductName = shop().getProductTitleByPositionProd(1);
-        shop().plusFirstItemToCartWithScrollDown();
+        final var shopProductName = shop().getProductTitleByPositionWithScrollDown(1);
+        shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToLogin();
@@ -365,8 +365,8 @@ public final class ShoppingCartTests {
     @Test(description = "Отображение нескольких магазинов в корзине, разбивка товаров по магазинам", groups = {STF_PROD_S})
     public void testMultiplyOrderGroupingProductsByRetailers() {
         var userData = UserManager.getQaUser();
+        helper.dropAndFillCart(userData, DEFAULT_AUCHAN_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
-        helper.dropAndFillCartByOneProduct(userData, DEFAULT_AUCHAN_SID, 1);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

@@ -15,7 +15,6 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.time.LocalDateTime;
 
 import static ru.instamart.api.enums.v2.StateV2.*;
-import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.api.helper.K8sHelper.changeItemToCancel;
 import static ru.instamart.api.helper.K8sHelper.changeToAssembled;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
@@ -51,7 +50,7 @@ public final class UserShipmentTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        var lineItemName = shop().getProductTitleByPositionProd(2);
+        var lineItemName = shop().getProductTitleByPosition(2);
         shop().plusItemToCartByPosition(2);
         shop().interactHeader().checkCartNotificationIsVisible();
 

@@ -34,7 +34,7 @@ public final class UserFavoritesTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
-        userFavorites().checkEmptyFavorites();
+        userFavorites().checkEmptyFavoritesProd();
     }
 
     @CaseId(1266)
@@ -50,7 +50,7 @@ public final class UserFavoritesTests {
         shop().interactProductCard().clickOnClose();
 
         userFavorites().goToPage();
-        userFavorites().checkNotEmptyFavorites();
+        userFavorites().checkNotEmptyFavoritesProd();
     }
 
     @CaseId(1267)
@@ -85,7 +85,7 @@ public final class UserFavoritesTests {
 
         userFavorites().goToPage();
         userFavorites().removeFirstFavoriteItem();
-        userFavorites().checkEmptyFavorites();
+        userFavorites().checkEmptyFavoritesProd();
     }
 
     @CaseId(1270)
@@ -101,7 +101,7 @@ public final class UserFavoritesTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
-        userFavorites().checkNotEmptyFavorites();
+        userFavorites().checkNotEmptyFavoritesProd();
 
         final int initCount = userFavorites().getFavoritesCount();
         userFavorites().scrollDown();
