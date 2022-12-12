@@ -3,6 +3,7 @@ syntax = "proto3";
 import "google/protobuf/timestamp.proto";
 
 package protobuf.retail_onboarding_retailer_data;
+option go_package = "gitlab.sbmt.io/paas/content/operations/order-service/pkg/clients/stf/events/retail_onboarding_retailer_data";
 
 message Retailer {
   message ServiceConfig {

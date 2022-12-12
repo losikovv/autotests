@@ -9591,8 +9591,10 @@ public final class RetailOnboardingRetailerData {
       "tent_type\030\002 \001(\t\022\021\n\tfile_size\030\003 \001(\003\022.\n\nup" +
       "dated_at\030\004 \001(\0132\032.google.protobuf.Timesta" +
       "mp\022\013\n\003url\030\005 \001(\t\"=\n\020RetailerVertical\022\013\n\007G" +
-      "ROCERY\020\000\022\014\n\010PHARMACY\020\001\022\016\n\nRESTAURANT\020\002b\006" +
-      "proto3"
+      "ROCERY\020\000\022\014\n\010PHARMACY\020\001\022\016\n\nRESTAURANT\020\002Bm" +
+      "Zkgitlab.sbmt.io/paas/content/operations" +
+      "/order-service/pkg/clients/stf/events/re" +
+      "tail_onboarding_retailer_datab\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

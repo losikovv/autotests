@@ -78,7 +78,7 @@ public class KafkaHelper {
 
     @Step("Получаем данных кафки по shipmentUUID: {shipmentUuid}")
     public List<OrderEnrichment.EventOrderEnrichment> waitDataInKafkaTopicConsumeOrderEnrichment(String shipmentUuid, StatusOrder automaticRouting) {
-        var kafkaConsumers = new KafkaConsumers(configCmdOrderEnrichment(), 3600L);
+        var kafkaConsumers = new KafkaConsumers(configCmdOrderEnrichment(), 20L);
         var longEventOrderHashMap = kafkaConsumers.consumeOrderEnrichment(shipmentUuid, automaticRouting);
         assertTrue(longEventOrderHashMap.size() > 0, "Logs is empty");
         return longEventOrderHashMap;

@@ -375,198 +375,6 @@ public final class CandidatesOuterClass {
   }
 
   /**
-   * Protobuf enum {@code candidates.SegmentType}
-   */
-  public enum SegmentType
-      implements com.google.protobuf.ProtocolMessageEnum {
-    /**
-     * <pre>
-     * Подлет
-     * </pre>
-     *
-     * <code>ARRIVE = 0;</code>
-     */
-    ARRIVE(0),
-    /**
-     * <pre>
-     * Сборка
-     * </pre>
-     *
-     * <code>ASSEMBLY = 1;</code>
-     */
-    ASSEMBLY(1),
-    /**
-     * <pre>
-     * Передача заказа на доставку
-     * </pre>
-     *
-     * <code>PASS_TO_DELIVERY = 2;</code>
-     */
-    PASS_TO_DELIVERY(2),
-    /**
-     * <pre>
-     * Доставка
-     * </pre>
-     *
-     * <code>DELIVERY = 3;</code>
-     */
-    DELIVERY(3),
-    /**
-     * <pre>
-     * Передача заказа клиенту
-     * </pre>
-     *
-     * <code>PASS_TO_CLIENT = 5;</code>
-     */
-    PASS_TO_CLIENT(5),
-    /**
-     * <pre>
-     * Получение заказа для доставки
-     * </pre>
-     *
-     * <code>RECEIVING_FOR_DELIVERY = 6;</code>
-     */
-    RECEIVING_FOR_DELIVERY(6),
-    UNRECOGNIZED(-1),
-    ;
-
-    /**
-     * <pre>
-     * Подлет
-     * </pre>
-     *
-     * <code>ARRIVE = 0;</code>
-     */
-    public static final int ARRIVE_VALUE = 0;
-    /**
-     * <pre>
-     * Сборка
-     * </pre>
-     *
-     * <code>ASSEMBLY = 1;</code>
-     */
-    public static final int ASSEMBLY_VALUE = 1;
-    /**
-     * <pre>
-     * Передача заказа на доставку
-     * </pre>
-     *
-     * <code>PASS_TO_DELIVERY = 2;</code>
-     */
-    public static final int PASS_TO_DELIVERY_VALUE = 2;
-    /**
-     * <pre>
-     * Доставка
-     * </pre>
-     *
-     * <code>DELIVERY = 3;</code>
-     */
-    public static final int DELIVERY_VALUE = 3;
-    /**
-     * <pre>
-     * Передача заказа клиенту
-     * </pre>
-     *
-     * <code>PASS_TO_CLIENT = 5;</code>
-     */
-    public static final int PASS_TO_CLIENT_VALUE = 5;
-    /**
-     * <pre>
-     * Получение заказа для доставки
-     * </pre>
-     *
-     * <code>RECEIVING_FOR_DELIVERY = 6;</code>
-     */
-    public static final int RECEIVING_FOR_DELIVERY_VALUE = 6;
-
-
-    public final int getNumber() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalArgumentException(
-            "Can't get the number of an unknown enum value.");
-      }
-      return value;
-    }
-
-    /**
-     * @param value The numeric wire value of the corresponding enum entry.
-     * @return The enum associated with the given numeric wire value.
-     * @deprecated Use {@link #forNumber(int)} instead.
-     */
-    @java.lang.Deprecated
-    public static SegmentType valueOf(int value) {
-      return forNumber(value);
-    }
-
-    /**
-     * @param value The numeric wire value of the corresponding enum entry.
-     * @return The enum associated with the given numeric wire value.
-     */
-    public static SegmentType forNumber(int value) {
-      switch (value) {
-        case 0: return ARRIVE;
-        case 1: return ASSEMBLY;
-        case 2: return PASS_TO_DELIVERY;
-        case 3: return DELIVERY;
-        case 5: return PASS_TO_CLIENT;
-        case 6: return RECEIVING_FOR_DELIVERY;
-        default: return null;
-      }
-    }
-
-    public static com.google.protobuf.Internal.EnumLiteMap<SegmentType>
-        internalGetValueMap() {
-      return internalValueMap;
-    }
-    private static final com.google.protobuf.Internal.EnumLiteMap<
-        SegmentType> internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<SegmentType>() {
-            public SegmentType findValueByNumber(int number) {
-              return SegmentType.forNumber(number);
-            }
-          };
-
-    public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalStateException(
-            "Can't get the descriptor of an unrecognized enum value.");
-      }
-      return getDescriptor().getValues().get(ordinal());
-    }
-    public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
-      return getDescriptor();
-    }
-    public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return candidates.CandidatesOuterClass.getDescriptor().getEnumTypes().get(3);
-    }
-
-    private static final SegmentType[] VALUES = values();
-
-    public static SegmentType valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-      if (desc.getType() != getDescriptor()) {
-        throw new java.lang.IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
-      }
-      if (desc.getIndex() == -1) {
-        return UNRECOGNIZED;
-      }
-      return VALUES[desc.getIndex()];
-    }
-
-    private final int value;
-
-    private SegmentType(int value) {
-      this.value = value;
-    }
-
-    // @@protoc_insertion_point(enum_scope:candidates.SegmentType)
-  }
-
-  /**
    * <pre>
    * Транспорт исполнителя
    * </pre>
@@ -661,7 +469,7 @@ public final class CandidatesOuterClass {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return candidates.CandidatesOuterClass.getDescriptor().getEnumTypes().get(4);
+      return candidates.CandidatesOuterClass.getDescriptor().getEnumTypes().get(3);
     }
 
     private static final PerformerVehicle[] VALUES = values();
@@ -789,7 +597,7 @@ public final class CandidatesOuterClass {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return candidates.CandidatesOuterClass.getDescriptor().getEnumTypes().get(5);
+      return candidates.CandidatesOuterClass.getDescriptor().getEnumTypes().get(4);
     }
 
     private static final SourceType[] VALUES = values();
@@ -917,7 +725,7 @@ public final class CandidatesOuterClass {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return candidates.CandidatesOuterClass.getDescriptor().getEnumTypes().get(6);
+      return candidates.CandidatesOuterClass.getDescriptor().getEnumTypes().get(5);
     }
 
     private static final DeliveryType[] VALUES = values();
@@ -42630,36 +42438,33 @@ public final class CandidatesOuterClass {
       "NIVERSAL\020\002*R\n\022CandidateTransport\022\016\n\nPEDE" +
       "STRIAN\020\000\022\007\n\003CAR\020\001\022\013\n\007BICYCLE\020\002\022\t\n\005TRUCK\020" +
       "\003\022\013\n\007SCOOTER\020\004*)\n\016CandidateState\022\013\n\007BLOC" +
-      "KED\020\000\022\n\n\006ACTIVE\020\001*{\n\013SegmentType\022\n\n\006ARRI" +
-      "VE\020\000\022\014\n\010ASSEMBLY\020\001\022\024\n\020PASS_TO_DELIVERY\020\002" +
-      "\022\014\n\010DELIVERY\020\003\022\022\n\016PASS_TO_CLIENT\020\005\022\032\n\026RE" +
-      "CEIVING_FOR_DELIVERY\020\006*N\n\020PerformerVehic" +
-      "le\022\026\n\022VEHICLE_PEDESTRIAN\020\000\022\020\n\014VEHICLE_AU" +
-      "TO\020\001\022\020\n\014VEHICLE_BIKE\020\002*&\n\nSourceType\022\n\n\006" +
-      "MANUAL\020\000\022\014\n\010DISPATCH\020\001*%\n\014DeliveryType\022\013" +
-      "\n\007DEFAULT\020\000\022\010\n\004TAXI\020\0012\357\006\n\nCandidates\022_\n\020" +
-      "SelectCandidates\022#.candidates.SelectCand" +
-      "idatesRequest\032$.candidates.SelectCandida" +
-      "tesResponse\"\000\022c\n\022SetCandidatesState\022$.ca" +
-      "ndidates.SetCandidateStateRequest\032%.cand" +
-      "idates.SetCandidateStateResponse\"\000\022S\n\014Se" +
-      "lectInRect\022\037.candidates.SelectInRectRequ" +
-      "est\032 .candidates.SelectInRectResponse\"\000\022" +
-      "l\n\025SelectCandidateByUUID\022(.candidates.Se" +
-      "lectCandidateByUUIDRequest\032\'.candidates." +
-      "SelectCandidateByUUIDResult\"\000\022?\n\006Search\022" +
-      "\031.candidates.SearchRequest\032\030.candidates." +
-      "SearchResult\"\000\022C\n\010SearchV2\022\031.candidates." +
-      "SearchRequest\032\032.candidates.SearchResultV" +
-      "2\"\000\022e\n\022HaveActiveWorkflow\022%.candidates.H" +
-      "aveActiveWorkflowRequest\032&.candidates.Ha" +
-      "veActiveWorkflowResponse\"\000\022M\n\017GetZoneSet" +
-      "tings\022\037.candidates.ZoneSettingsRequest\032\027" +
-      ".candidates.ZoneSetting\"\000\022G\n\022UpdateZoneS" +
-      "ettings\022\027.candidates.ZoneSetting\032\026.googl" +
-      "e.protobuf.Empty\"\000\022S\n\014GetLocations\022\037.can" +
-      "didates.GetLocationsRequest\032 .candidates" +
-      ".GetLocationsResponse\"\000b\006proto3"
+      "KED\020\000\022\n\n\006ACTIVE\020\001*N\n\020PerformerVehicle\022\026\n" +
+      "\022VEHICLE_PEDESTRIAN\020\000\022\020\n\014VEHICLE_AUTO\020\001\022" +
+      "\020\n\014VEHICLE_BIKE\020\002*&\n\nSourceType\022\n\n\006MANUA" +
+      "L\020\000\022\014\n\010DISPATCH\020\001*%\n\014DeliveryType\022\013\n\007DEF" +
+      "AULT\020\000\022\010\n\004TAXI\020\0012\357\006\n\nCandidates\022_\n\020Selec" +
+      "tCandidates\022#.candidates.SelectCandidate" +
+      "sRequest\032$.candidates.SelectCandidatesRe" +
+      "sponse\"\000\022c\n\022SetCandidatesState\022$.candida" +
+      "tes.SetCandidateStateRequest\032%.candidate" +
+      "s.SetCandidateStateResponse\"\000\022S\n\014SelectI" +
+      "nRect\022\037.candidates.SelectInRectRequest\032 " +
+      ".candidates.SelectInRectResponse\"\000\022l\n\025Se" +
+      "lectCandidateByUUID\022(.candidates.SelectC" +
+      "andidateByUUIDRequest\032\'.candidates.Selec" +
+      "tCandidateByUUIDResult\"\000\022?\n\006Search\022\031.can" +
+      "didates.SearchRequest\032\030.candidates.Searc" +
+      "hResult\"\000\022C\n\010SearchV2\022\031.candidates.Searc" +
+      "hRequest\032\032.candidates.SearchResultV2\"\000\022e" +
+      "\n\022HaveActiveWorkflow\022%.candidates.HaveAc" +
+      "tiveWorkflowRequest\032&.candidates.HaveAct" +
+      "iveWorkflowResponse\"\000\022M\n\017GetZoneSettings" +
+      "\022\037.candidates.ZoneSettingsRequest\032\027.cand" +
+      "idates.ZoneSetting\"\000\022G\n\022UpdateZoneSettin" +
+      "gs\022\027.candidates.ZoneSetting\032\026.google.pro" +
+      "tobuf.Empty\"\000\022S\n\014GetLocations\022\037.candidat" +
+      "es.GetLocationsRequest\032 .candidates.GetL" +
+      "ocationsResponse\"\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

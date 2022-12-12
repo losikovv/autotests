@@ -1,9 +1,6 @@
 package ru.instamart.test.api.shopper.app.e2e;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomUtils;
 import org.testng.Assert;

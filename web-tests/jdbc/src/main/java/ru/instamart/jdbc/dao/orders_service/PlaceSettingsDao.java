@@ -46,19 +46,26 @@ public class PlaceSettingsDao implements Dao<String,PlaceSettingsEntity> {
     private final String SELECT_SQL = "SELECT %s FROM place_settings";
 
     public PlaceSettingsEntity getScheduleType(String placeUUID) {
-        PlaceSettingsEntity PlaceSettingsEntity = null;
         try (Connection connect = ConnectionManager.getDataSource(Db.PG_ORDER).getConnection();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "schedule_type") + " WHERE place_uuid = '?' LIMIT 1")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE place_uuid = ?::uuid LIMIT 1")) {
             preparedStatement.setString(1, placeUUID);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                PlaceSettingsEntity = new PlaceSettingsEntity();
-                PlaceSettingsEntity.setScheduleType(resultSet.getString(1));
+                var placeSettingsEntity = new PlaceSettingsEntity();
+                placeSettingsEntity.setPlaceUuid(resultSet.getString("place_uuid"));
+                placeSettingsEntity.setMaxOrderAssingRetryCount(resultSet.getInt("max_order_assign_retry_count"));
+                placeSettingsEntity.setCreatedAt(resultSet.getString("created_at"));
+                placeSettingsEntity.setUpdatedAt(resultSet.getString("updated_at"));
+                placeSettingsEntity.setScheduleType(resultSet.getString("schedule_type"));
+                placeSettingsEntity.setAutoRouting(resultSet.getBoolean("auto_routing"));
+                placeSettingsEntity.setPeriodForTimeToThrowMin(resultSet.getInt("period_for_time_to_throw_min"));
+                placeSettingsEntity.setOperationalZoneId(resultSet.getInt("operational_zone_id"));
+                return placeSettingsEntity;
             }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLOrderServiceManager. Error: " + e.getMessage());
         }
-        return PlaceSettingsEntity;
+        return null;
     }
 
 }

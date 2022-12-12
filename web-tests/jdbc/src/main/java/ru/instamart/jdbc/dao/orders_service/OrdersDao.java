@@ -13,7 +13,7 @@ import static org.testng.Assert.fail;
 
 public class OrdersDao implements Dao<String, OrdersEntity> {
     public static final OrdersDao INSTANCE = new OrdersDao();
-    private final String SELECT_SQL = "SELECT %s FROM orders";
+    private final String SELECT_SQL = "SELECT %s FROM public.orders";
 
     @Override
     public boolean delete(String id) {
@@ -81,13 +81,12 @@ public class OrdersDao implements Dao<String, OrdersEntity> {
     }
 
     public OrdersEntity findByOrderUuid(String shipmentUuid) {
-        OrdersEntity ordersEntity = null;
         try (final var connect = ConnectionManager.getDataSource(Db.PG_ORDER).getConnection();
              final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE order_uuid = ?::uuid LIMIT 1")) {
             preparedStatement.setString(1, shipmentUuid);
             try (final var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    ordersEntity = new OrdersEntity();
+                    var ordersEntity = new OrdersEntity();
                     ordersEntity.setShipmentUuid(resultSet.getString("shipment_uuid"));
                     ordersEntity.setPlaceUuid(resultSet.getString("place_uuid"));
                     ordersEntity.setWeight(resultSet.getDouble("weight"));
@@ -117,12 +116,13 @@ public class OrdersDao implements Dao<String, OrdersEntity> {
                     ordersEntity.setOrderUuid(resultSet.getString("order_uuid"));
                     ordersEntity.setShippingMethod(resultSet.getString("shipping_method"));
                     ordersEntity.setSendToDispatchCount(resultSet.getInt("send_to_dispatch_count"));
+                    return ordersEntity;
                 }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLOrderServiceManager. Error: " + e.getMessage());
         }
-        return ordersEntity;
+        return null;
     }
 
     @Override

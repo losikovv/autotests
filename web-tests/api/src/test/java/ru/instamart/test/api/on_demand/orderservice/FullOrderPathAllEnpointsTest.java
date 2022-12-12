@@ -14,6 +14,7 @@ import ru.instamart.jdbc.entity.workflow.SegmentsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 
 import java.util.Comparator;
 import java.util.List;
@@ -61,6 +62,7 @@ public class FullOrderPathAllEnpointsTest extends RestBase {
 
     @Test(description = "Полный путь заказа (+ все эндпоинты)",
             groups = "dispatch-orderservice-smoke")
+    @Skip
     public void allFlouTest() {
         final var assignmentsResponseList = getAllShopperAssignments();
         final var assignmentAccept = acceptWorkflowAndStart(assignmentsResponseList.get(0).getId().toString(), METRO_WORKFLOW_START);

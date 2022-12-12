@@ -3,6 +3,7 @@ package ru.instamart.test.api.on_demand.orderservice;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -12,12 +13,15 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.NextDeliveryV2;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.request.v1.StoresV1Request;
+import ru.instamart.api.response.v2.NextDeliveriesV2Response;
 import ru.instamart.jdbc.dao.orders_service.OrdersDao;
 import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.jdbc.entity.order_service.OrdersEntity;
 import ru.instamart.kafka.enums.Pods;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -28,6 +32,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.kafka.configs.KafkaConfigs.configFctOrderStf;
 import static ru.instamart.kafka.enums.StatusOrder.AUTOMATIC_ROUTING;
@@ -45,6 +50,10 @@ public class KafkaDispatchTest extends RestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
+        final Response response = StoresV1Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID, new StoresV1Request.NextDeliveriesParams());
+        NextDeliveriesV2Response nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
+        nextDeliveryV2 = nextDeliveriesV2Response.getNextDeliveries().get(0);
+
         SessionFactory.makeSession(SessionType.API_V2);
         UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         order = apiV2.orderOnDemand(userData, EnvironmentProperties.DEFAULT_SID);
@@ -60,7 +69,8 @@ public class KafkaDispatchTest extends RestBase {
             @CaseId(99),
             @CaseId(109)
     })
-    @Test(groups = {"dispatch-orderservice-smoke"},
+    @Test(enabled = false,
+            groups = {"dispatch-orderservice-smoke"},
             dataProvider = "shopperUniversal",
             dataProviderClass = DispatchDataProvider.class,
             description = "Полный флоу (order + dispatch+сервис кандидатов+сервис оценки маршрутов) 1 исполнитель (универсал)")
@@ -128,8 +138,10 @@ public class KafkaDispatchTest extends RestBase {
     public void getOnDemandOrder() {
         ThreadUtil.simplyAwait(10);
         OrdersEntity orderEntity = OrdersDao.INSTANCE.findByShipmentUuid(shipmentUuid);
-        Allure.step("", () -> {
-            final SoftAssert softAssert = new SoftAssert();
+        Allure.addAttachment("", orderEntity.toString());
+        Allure.step("Проверка данных из БД", () -> {
+            assertNotNull(orderEntity, "Данные из БД вернулись null");
+            final var softAssert = new SoftAssert();
             softAssert.assertEquals(orderEntity.getPlaceUuid(), placeUUID, "placeUUID не совпадает");
             softAssert.assertEquals(orderEntity.getWeight(), Integer.valueOf(2000), "weight не совпадает");
             softAssert.assertEquals(orderEntity.getClientLocation(), "(55.6512713,37.6753374)", "clientLocation не совпадает");
