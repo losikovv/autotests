@@ -17,6 +17,7 @@ import ru.instamart.jdbc.dao.orders_service.PlaceSettingsDao;
 import ru.instamart.jdbc.entity.order_service.PlaceSettingsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertEquals;

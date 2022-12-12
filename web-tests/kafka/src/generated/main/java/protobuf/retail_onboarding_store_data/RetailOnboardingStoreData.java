@@ -11251,7 +11251,10 @@ public final class RetailOnboardingStoreData {
       "DAY\020\005\022\n\n\006SUNDAY\020\006B\032\n\030_merchant_status_re" +
       "questB\021\n\017_work_schedulesB \n\036_order_prepa" +
       "ration_sla_minutesB\024\n\022_terminal_group_id" +
-      "B\013\n\t_oms_slugb\006proto3"
+      "B\013\n\t_oms_slugBjZhgitlab.sbmt.io/paas/con" +
+      "tent/operations/order-service/pkg/client" +
+      "s/stf/events/retail_onboarding_store_dat" +
+      "ab\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

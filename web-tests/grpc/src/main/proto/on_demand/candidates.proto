@@ -318,21 +318,6 @@ message Assignment {
 	google.protobuf.Timestamp updated_at = 10;
 }
 
-enum SegmentType {
-	// Подлет
-	ARRIVE = 0;
-	// Сборка
-	ASSEMBLY = 1;
-	// Передача заказа на доставку
-	PASS_TO_DELIVERY = 2;
-	// Доставка
-	DELIVERY = 3;
-	// Передача заказа клиенту
-	PASS_TO_CLIENT = 5;
-	// Получение заказа для доставки
-	RECEIVING_FOR_DELIVERY = 6;
-}
-
 // Транспорт исполнителя
 enum PerformerVehicle {
 	VEHICLE_PEDESTRIAN = 0;

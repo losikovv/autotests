@@ -2,6 +2,7 @@ package ru.instamart.test.api.on_demand.candidates;
 
 import candidates.CandidatesGrpc;
 import candidates.CandidatesOuterClass;
+import candidates.CandidatesOuterClass.CandidateRole;
 import io.qameta.allure.Allure;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -60,7 +61,7 @@ public class CandidatesShopperTest extends RestBase {
                                 .setLon(37.541997)
                                 .build())
                         .setPlaceUuid(placeUuid)
-                        .addRoles(CandidatesOuterClass.CandidateRole.SHOPPER)
+                        .addRoles(CandidateRole.SHOPPER)
                         .build()
                 )
                 .build();
@@ -77,16 +78,16 @@ public class CandidatesShopperTest extends RestBase {
         var requestBody = CandidatesOuterClass.SelectCandidatesRequest.newBuilder()
                 .addFilter(CandidatesOuterClass.SelectCandidatesFilter.newBuilder()
                         .setTargetPoint(CandidatesOuterClass.CandidateLastLocation.newBuilder()
-                                .setLat(55.915755) //55.915755, 37.541997
-                                .setLon(37.541997)
+                                .setLat(56.825221) //56.825221, 60.499397
+                                .setLon(60.499397)
                                 .build())
-                        .setPlaceUuid(placeUuid)
-                        .addRoles(CandidatesOuterClass.CandidateRole.DRIVER)
+                        .setPlaceUuid("8be2be32-f4bb-4434-8c72-572736a966ee")
+                        .addRoles(CandidateRole.UNIVERSAL)
                         .build()
                 )
                 .build();
         var selectCandidatesResponse = clientCandidates.selectCandidates(requestBody);
-        Allure.step("Проверка кандидатов. Список кандидатов пустой", () -> assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() <= 0,
+        Allure.step("Проверка кандидатов. Список кандидатов пустой", () -> assertTrue(selectCandidatesResponse.getResults(0).getCandidateCount() > 0,
                 "UUID кандидата вернулся не пустым"));
     }
 

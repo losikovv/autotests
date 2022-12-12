@@ -3,6 +3,7 @@ syntax = "proto3";
 import "google/protobuf/timestamp.proto";
 
 package protobuf.retail_onboarding_store_data;
+option go_package = "gitlab.sbmt.io/paas/content/operations/order-service/pkg/clients/stf/events/retail_onboarding_store_data";
 
 message Store {
   message Location {
@@ -27,9 +28,9 @@ message Store {
     float min_first_order_amount_pickup = 4;
   }
   enum Status {
-      ACTIVE = 0;
-      INACTIVE = 1;
-      DISCONNECTED = 2;
+    ACTIVE = 0;
+    INACTIVE = 1;
+    DISCONNECTED = 2;
   }
   message MerchantStatusRequest {
     enum MerchantStatus {

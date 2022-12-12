@@ -18,7 +18,7 @@
             <class name="ru.instamart.test.api.on_demand.orderservice.OnDemandOrderTest"/>
             <class name="ru.instamart.test.api.on_demand.orderservice.PlanningOrderTest"/>
             <class name="ru.instamart.test.api.on_demand.orderservice.OrderTimeToThrowTest"/>
-            <class name="ru.instamart.test.api.on_demand.orderservice.RouteSettingsTest"/>
+<!--            <class name="ru.instamart.test.api.on_demand.orderservice.RouteSettingsTest"/> Требует актуализации кейсов-->
             <class name="ru.instamart.test.api.on_demand.orderservice.FullOrderPathAllEnpointsTest"/>
         </classes>
     </test>
