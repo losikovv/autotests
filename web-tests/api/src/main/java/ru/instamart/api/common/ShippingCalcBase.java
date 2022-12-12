@@ -11,7 +11,6 @@ import ru.instamart.jdbc.dao.shippingcalc.BindingRulesDao;
 import ru.instamart.jdbc.dao.shippingcalc.StrategiesDao;
 import ru.instamart.jdbc.dao.shippingcalc.SurgeThresholdsDao;
 import ru.instamart.jdbc.dao.shippingcalc.SwitchbackExperimentsDao;
-import ru.instamart.jdbc.entity.shippingcalc.IntervalsSurgeEntity;
 import ru.instamart.jdbc.entity.shippingcalc.SurgeThresholdsEntity;
 import ru.instamart.jdbc.entity.shippingcalc.SwitchbackExperimentsEntity;
 

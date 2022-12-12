@@ -30,7 +30,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
     @CaseId(548)
     @Story("Set Surge Thresholds")
     @Test(description = "Добавление нового сюрдж-трешхолда для региона",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void setSurgeThresholdsNew() {
         var request = SetSurgeThresholdsRequest.newBuilder()
                 .addThresholds(SurgeThreshold.newBuilder()
@@ -60,7 +60,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
     @CaseId(549)
     @Story("Set Surge Thresholds")
     @Test(description = "Обновление сюрдж-трешхолда для региона",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "setSurgeThresholdsNew")
     public void setSurgeThresholdsNotNew() {
         var request = SetSurgeThresholdsRequest.newBuilder()
@@ -92,7 +92,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
     @CaseId(550)
     @Story("Set Surge Thresholds")
     @Test(description = "Установка сюрдж-трешхолдов для нескольких регионов",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void setSurgeThresholdsMultiple() {
         var request = SetSurgeThresholdsRequest.newBuilder()
                 .addThresholds(SurgeThreshold.newBuilder()
@@ -150,7 +150,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
     @CaseId(556)
     @Story("Set Surge Thresholds")
     @Test(description = "Получение ошибки при установлении пустого списка сюрдж-трешхолдов",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty thresholds")
     public void setSurgeThresholdsEmpty() {
@@ -161,7 +161,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
     @CaseId(557)
     @Story("Set Surge Thresholds")
     @Test(description = "Получение ошибки при установлении  сюрдж-трешхолда с пустыми параметрами",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid 0 threshold parameters")
     public void setSurgeThresholdsEmptyParameters() {
@@ -176,7 +176,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
     @CaseId(558)
     @Story("Set Surge Thresholds")
     @Test(description = "Получение ошибки при установлении  сюрдж-трешхолда с пустыми интервалами",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid 0 threshold interval parameter")
     public void setSurgeThresholdsEmptyIntervals() {
@@ -192,7 +192,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
     @CaseId(547)
     @Story("Get Surge Thresholds")
     @Test(description = "Получение списка региональных трешхолдов сюрджа",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = {"setSurgeThresholdsNotNew", "setSurgeThresholdsMultiple"})
     public void getSurgeThresholds() {
         var request = GetSurgeThresholdsRequest.newBuilder().build();
@@ -204,7 +204,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
     @CaseId(552)
     @Story("Delete Surge Thresholds")
     @Test(description = "Удаление регионального сюрдж-трешхолда",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "getSurgeThresholds")
     public void deleteSurgeThresholds() {
         var request = DeleteSurgeThresholdsRequest.newBuilder()
@@ -222,7 +222,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
     @CaseId(553)
     @Story("Delete Surge Thresholds")
     @Test(description = "Удаление нескольких региональных сюрдж-трешходов",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "getSurgeThresholds")
     public void deleteSurgeThresholdsMultiple() {
         var request = DeleteSurgeThresholdsRequest.newBuilder()
@@ -243,7 +243,7 @@ public class SurgeThresholdsTest extends ShippingCalcBase {
     @CaseId(554)
     @Story("Delete Surge Thresholds")
     @Test(description = "Получение ошибки при удалении регионального сюрдж-трешхолда без указания region_id",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "UNKNOWN: invalid region id")
     public void deleteSurgeThresholdsNoRegionId() {

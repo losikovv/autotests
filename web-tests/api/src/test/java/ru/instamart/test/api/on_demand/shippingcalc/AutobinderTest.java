@@ -53,7 +53,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(459)
     @Story("Create Binding Rule")
     @Test(description = "Создание правила для автобайндера с валидными данными",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void createBindingRule() {
         var request = CreateBindingRuleRequest.newBuilder()
                 .setStrategyId(strategyId)
@@ -82,7 +82,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(543)
     @Story("Create Binding Rule")
     @Test(description = "Создание правила для автобайндера с частью полей в запросе",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void createBindingRulePartial() {
         var request = CreateBindingRuleRequest.newBuilder()
                 .setStrategyId(strategyId)
@@ -107,7 +107,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(461)
     @Story("Create Binding Rule")
     @Test(description = "Получение ошибки при создании правила для автобайндера без указания стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid request: invalid strategy id")
     public void createBindingRuleNoStrategyId() {
@@ -118,7 +118,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(480)
     @Story("Create Binding Rule")
     @Test(description = "Получение ошибки при создании правила для автобайндера с указанием несуществующей стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "FAILED_PRECONDITION: not found strategy for binding rule")
     public void createBindingRuleNotFoundStrategyId() {
@@ -129,7 +129,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(466)
     @Story("Update Binding Rule")
     @Test(description = "Обновление существующего правила для автобайндера с валидными данными",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createBindingRule")
     public void updateBindingRule() {
         var request = UpdateBindingRuleRequest.newBuilder()
@@ -160,7 +160,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(469)
     @Story("Update Binding Rule")
     @Test(description = "Проверка отсутствия обновления опциональных полей с пустым значением в запросе",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createBindingRulePartial")
     public void updateBindingRulePartial() {
         var request = UpdateBindingRuleRequest.newBuilder()
@@ -186,7 +186,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(546)
     @Story("Update Binding Rule")
     @Test(description = "Получение ошибки при обновлении правила для автобайндера без указания хотя бы одного поля",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createBindingRulePartial",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid request: at least one field must be not empty")
@@ -200,7 +200,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(544)
     @Story("Update Binding Rule")
     @Test(description = "Получение ошибки при обновлении правила для автобайндера с указанием несуществующей стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createBindingRulePartial",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "FAILED_PRECONDITION: not found strategy for updating binding rule")
@@ -215,7 +215,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(474)
     @Story("Get Binding Rules")
     @Test(description = "Получение списка правил для автобайндера",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createBindingRule")
     public void getBindingRules() {
         var request = GetBindingRulesRequest.newBuilder().build();
@@ -235,7 +235,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(477)
     @Story("Delete Binding Rule")
     @Test(description = "Удаление существующего правила для автобайндера",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "getBindingRules")
     public void deleteBindingRule() {
         var request = DeleteBindingRuleRequest.newBuilder()
@@ -253,7 +253,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(478)
     @Story("Delete Binding Rule")
     @Test(description = "Получение ошибки при удалении правила для автобайндера без указания стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid request: invalid binding rule id")
     public void deleteBindingRuleNoStrategyId() {
@@ -265,7 +265,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(545)
     @Story("Delete Binding Rule")
     @Test(description = "Получение ошибки при удалении правила для автобайндера с указанием несуществующей стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "FAILED_PRECONDITION: not found binding rule for delete")
     public void deleteBindingRuleNotFoundStrategyId() {
@@ -278,7 +278,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(485)
     @Story("Autobinder in GetDeliveryPrice")
     @Test(description = "Запрос по магазину, который не привязан к стратегиям, возвращает ответ по стратегии из подходящего правила",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryPriceAutobinder() {
         String storeId =  UUID.randomUUID().toString();
         var request = getDeliveryPriceRequest(
@@ -294,7 +294,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(488)
     @Story("Autobinder in GetDeliveryPrice")
     @Test(description = "Запрос по магазину, который не привязан к стратегиям, возвращает ответ по стратегии из правила с наибольшим рангом",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryPriceAutobinderHighestPriority() {
         var request = GetDeliveryPriceRequest.newBuilder()
                 .addShipments(Shipment.newBuilder()
@@ -339,7 +339,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(486)
     @Story("Autobinder in GetDeliveryPrice")
     @Test(description = "Получение ошибки, при запросе по магазину, который не привязан к стратегиям, если правило не подходит",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "NOT_FOUND: cannot get delivery price for some shipments, no correct price strategy")
     public void getDeliveryPriceNotSuitableAutobinder() {
@@ -355,7 +355,7 @@ public class AutobinderTest extends ShippingCalcBase {
     @CaseId(487)
     @Story("Autobinder in GetDeliveryPrice")
     @Test(description = "Получение ошибки, при запросе по магазину, который не привязан к стратегиям, если правило подходит, но удалено",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "NOT_FOUND: cannot get delivery price for some shipments, no correct price strategy")
     public void getDeliveryPriceAutobinderDeleted() {

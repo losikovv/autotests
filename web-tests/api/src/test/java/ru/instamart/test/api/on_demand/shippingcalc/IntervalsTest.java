@@ -50,7 +50,7 @@ public class IntervalsTest extends ShippingCalcBase {
     @CaseIDs(value = {@CaseId(284), @CaseId(282)})
     @Story("Set Intervals Surge")
     @Test(description = "Перезапись всех интервалов",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void setIntervalsSurge() {
         var request = SetIntervalsSurgeRequest.newBuilder()
                 .addIntervals(firstInterval)
@@ -64,7 +64,7 @@ public class IntervalsTest extends ShippingCalcBase {
     @CaseId(285)
     @Story("Set Intervals Surge")
     @Test(description = "Получение ошибки при отрицательных значениях в правой и левой границах",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: Left boundary in 0 interval must not be less zero")
     public void setIntervalsSurgeNegativeBorders() {
@@ -83,7 +83,7 @@ public class IntervalsTest extends ShippingCalcBase {
     @CaseId(279)
     @Story("Set Intervals Surge")
     @Test(description = "Получение списка интервалов surge",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "setIntervalsSurge")
     public void getIntervalsSurge() {
         var request = GetIntervalsSurgeRequest.newBuilder().build();

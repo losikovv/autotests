@@ -5,12 +5,9 @@ import io.qameta.allure.Step;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.jdbc.dao.shippingcalc.*;
 import ru.instamart.jdbc.entity.shippingcalc.RulesEntity;
-import ru.instamart.jdbc.entity.shippingcalc.ScriptsEntity;
-import ru.instamart.jdbc.entity.shippingcalc.StrategiesEntity;
 import shippingcalc.*;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import static org.testng.Assert.*;
@@ -202,10 +199,8 @@ public class ShippingCalcHelper {
         final var strategy = StrategiesDao.INSTANCE.getStrategy(strategyId);
         final var deletedRules = RulesDao.INSTANCE.getDeletedRules(strategyId);
 
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(strategy.getUpdatedAt().equals(strategy.getCreatedAt()), "Поле updated_at не обновилось");
-        compareTwoObjects(deletedRules.size(), rulesAmount / 2, softAssert);
-        softAssert.assertAll();
+        assertNotEquals(strategy.getCreatedAt(), strategy.getUpdatedAt(), "Поле updated_at не обновилось");
+        compareTwoObjects(deletedRules.size(), rulesAmount / 2);
     }
 
     @Step("Проверяем обновленную стратегию")
@@ -214,10 +209,8 @@ public class ShippingCalcHelper {
         final var strategy = StrategiesDao.INSTANCE.getStrategy(strategyId);
         final var deletedRules = RulesDao.INSTANCE.getDeletedRules(strategyId);
 
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(strategy.getUpdatedAt().equals(strategy.getCreatedAt()), "Поле updated_at не обновилось");
-        compareTwoObjects(deletedRules.size(), rulesAmount / 2, softAssert);
-        softAssert.assertAll();
+        assertNotEquals(strategy.getCreatedAt(), strategy.getUpdatedAt(), "Поле updated_at не обновилось");
+        compareTwoObjects(deletedRules.size(), rulesAmount / 2);
     }
 
     @Step("Проверяем связку стратегии к магазину")
@@ -238,8 +231,8 @@ public class ShippingCalcHelper {
 
     @Step("Проверяем рассчитанную цену доставки")
     public static void checkDeliveryPrice(final GetDeliveryPriceResponse response, final int strategyId, final long totalDeliveryPrice, final long minCartPrice, final int stepAmount, final int hintAmount, final int passedConditionAmount, final int shipmentIndex) {
+        assertTrue(response.getIsOrderPossible(), "Заказ не возможен");
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(response.getIsOrderPossible(), "Заказ не возможен");
         softAssert.assertFalse(response.getShipments(shipmentIndex).getWeHadOffer(), "Получили цену из оффера");
         softAssert.assertEquals(response.getTotalShippingPrice(), totalDeliveryPrice, "Не ожидаемая общая цена доставки");
         softAssert.assertEquals(response.getShipments(shipmentIndex).getStrategyId(), strategyId, "Посчитали по неверной стратегии");
@@ -248,6 +241,24 @@ public class ShippingCalcHelper {
         softAssert.assertTrue(response.getShipments(shipmentIndex).getLadder(0).getPriceComponentsCount() > 0, "В лесенке нет ценовых компонентов");
         softAssert.assertEquals(response.getShipments(shipmentIndex).getHintsCount(), hintAmount, "Не ожидаемое кол-во подсказок");
         softAssert.assertEquals(response.getShipments(shipmentIndex).getPriceExplanation().getPassedConditionsCount(), passedConditionAmount, "Не ожидаемое кол-во прошедших условий");
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем наценку по surge в цене доставки")
+    public static void checkDeliveryPriceSurgeOn(final GetDeliveryPriceResponse response, final float surgeLevel, final int surgeLevelAddition) {
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(response.getShipments(0).getSurgeUsed(), "Surge не использовался при расчете цены");
+        softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), surgeLevel, "Не верный surgelevel");
+        softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), surgeLevelAddition, "Не верная наценка");
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем отсутствие наценку по surge в цене доставки")
+    public static void checkDeliveryPriceSurgeOff(final GetDeliveryPriceResponse response, final float surgeLevel, final int surgeLevelAddition) {
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(response.getShipments(0).getSurgeUsed(), "Surge использовался при расчете цены");
+        softAssert.assertEquals(response.getShipments(0).getSurgeLevel(), surgeLevel, "Не верный surgelevel");
+        softAssert.assertEquals(response.getShipments(0).getSurgeLevelAddition(), surgeLevelAddition, "Не верная наценка");
         softAssert.assertAll();
     }
 
@@ -383,6 +394,36 @@ public class ShippingCalcHelper {
         softAssert.assertEquals(response.getDeliveryConditions(0).getMinCartAmount(), minCartAmount, "Не ожидаемая минимальная корзина");
         softAssert.assertEquals(response.getDeliveryConditions(0).getLadderCount(), ladderStepCount, "Не ожидаемое кол-во ступеней в лесенке");
         softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponentsCount(), priceComponentsCount, "Не ожидаемое кол-во компонентов цены");
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем базовую цену в лесенке в условиях доставки магазина")
+    public static void checkDeliveryConditionsTwoStepLadder(final GetDeliveryConditionsResponse response, final int firstStepPrice, final int secondStepPrice) {
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), firstStepPrice, "Не ожидаемая базовая цена в лесенке");
+        softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), secondStepPrice, "Не ожидаемая базовая цена в лесенке");
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем наценку в условиях доставки магазина")
+    public static void checkDeliveryConditionsSurgeOn(final GetDeliveryConditionsResponse response, final float surgeLevel, final int firstStepPrice, final int secondStepPrice) {
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж выключен");
+        softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), surgeLevel, "Не ожидаемый уровень сюрджа");
+        softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getTtl() > 0, "Не ожидаемый уровень ttl сюрджа");
+        softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), firstStepPrice, "Не ожидаемая цена в лесенке");
+        softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), secondStepPrice, "Не ожидаемая цена в лесенке");
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем отсутствие наценки в условиях доставки магазина")
+    public static void checkDeliveryConditionsSurgeOff(final GetDeliveryConditionsResponse response, final float surgeLevel, final int firstStepPrice, final int secondStepPrice) {
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж включен");
+        softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), surgeLevel, "Не ожидаемый уровень сюрджа");
+        softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getTtl(), 0, "Не ожидаемый уровень ttl сюрджа");
+        softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), firstStepPrice, "Не ожидаемая цена в лесенке");
+        softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), secondStepPrice, "Не ожидаемая цена в лесенке");
         softAssert.assertAll();
     }
 
