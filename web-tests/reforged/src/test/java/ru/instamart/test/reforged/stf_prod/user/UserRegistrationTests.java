@@ -69,7 +69,7 @@ public final class UserRegistrationTests {
 
         shop().waitPageLoad();
         shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().plusItemToCartByPosition(3);
+        shop().plusItemToCartByPositionWithScrollDown(3);
 
         shop().interactHeader().checkCartNotificationIsVisible();
         shop().interactHeader().clickToCart();

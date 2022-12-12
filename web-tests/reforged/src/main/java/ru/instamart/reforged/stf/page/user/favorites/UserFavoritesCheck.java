@@ -13,9 +13,19 @@ public interface UserFavoritesCheck extends Check, UseFavoritesElement {
         emptyFavorites.should().visible();
     }
 
+    @Step("Проверяем что список избранного пуст")
+    default void checkEmptyFavoritesProd() {
+        emptyFavoritesProd.should().visible();
+    }
+
     @Step("Проверяем что список избранного не пустой")
     default void checkNotEmptyFavorites() {
         emptyFavorites.should().invisible();
+    }
+
+    @Step("Проверяем что список избранного не пустой")
+    default void checkNotEmptyFavoritesProd() {
+        emptyFavoritesProd.should().invisible();
     }
 
     @Step("Проверяем что подгрузились избранные товары")

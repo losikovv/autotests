@@ -95,7 +95,7 @@ public final class ShopPage implements StfPage, ShopCheck {
         addToCartButtonsProd.clickOnFirst();
     }
 
-    @Step("Нажать на плюс у товара на проде")
+    @Step("Нажать на плюс у товара c прокруткой вниз")
     public void plusFirstItemToCartWithScrollDown() {
         scrollDown();
         addToCartButtonsProd.clickOnFirst();
@@ -103,6 +103,12 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Step("Нажать на плюс у {itemPosition}-го товара")
     public void plusItemToCartByPosition(final int itemPosition) {
+        addToCartButtonsProd.getElements().get(itemPosition - 1).click();
+    }
+
+    @Step("Нажать на плюс у {itemPosition}-го товара с прокруткой вниз")
+    public void plusItemToCartByPositionWithScrollDown(final int itemPosition) {
+        scrollDown();
         addToCartButtonsProd.getElements().get(itemPosition - 1).click();
     }
 
@@ -116,8 +122,14 @@ public final class ShopPage implements StfPage, ShopCheck {
         return productTitle.getTitleOrText(line, element);
     }
 
-    @Step("Вернуть значение имени {itemPosition}-го товара на проде")
-    public String getProductTitleByPositionProd(final int itemPosition) {
+    @Step("Вернуть значение имени {itemPosition}-го товара")
+    public String getProductTitleByPosition(final int itemPosition) {
+        return productsCardTitlesFromFirstCategory.getElementText(itemPosition - 1);
+    }
+
+    @Step("Вернуть значение имени {itemPosition}-го товара с прокруткой вниз")
+    public String getProductTitleByPositionWithScrollDown(final int itemPosition) {
+        scrollDown();
         return productsCardTitlesFromFirstCategory.getElementText(itemPosition - 1);
     }
 

@@ -359,7 +359,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().plusFirstItemToCart();
-        final var shopProductName = shop().getProductTitleByPositionProd(1);
+        final var shopProductName = shop().getProductTitleByPosition(1);
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
@@ -412,7 +412,7 @@ public final class ShoppingCartTests {
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        final var shopProductName = shop().getProductTitleByPositionProd(2);
+        final var shopProductName = shop().getProductTitleByPosition(2);
         shop().plusItemToCartByPosition(2);
         shop().interactHeader().checkCartNotificationIsVisible();
 
@@ -474,7 +474,7 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().plusFirstItemToCart();
-        final var shopProductName = shop().getProductTitleByPositionProd(1);
+        final var shopProductName = shop().getProductTitleByPosition(1);
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();

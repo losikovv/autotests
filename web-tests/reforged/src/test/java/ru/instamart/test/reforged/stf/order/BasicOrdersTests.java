@@ -12,7 +12,6 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.StringUtil;
-import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -360,7 +359,7 @@ public final class BasicOrdersTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        final var itemName = shop().getProductTitleByPositionProd(1);
+        final var itemName = shop().getProductTitleByPosition(1);
         shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
 

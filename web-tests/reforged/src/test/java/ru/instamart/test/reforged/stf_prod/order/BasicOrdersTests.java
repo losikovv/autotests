@@ -123,8 +123,8 @@ public final class BasicOrdersTests {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        final var itemName = shop().getProductTitleByPositionProd(1);
-        shop().plusFirstItemToCartWithScrollDown();
+        final var itemName = shop().getProductTitleByPositionWithScrollDown(1);
+        shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();
