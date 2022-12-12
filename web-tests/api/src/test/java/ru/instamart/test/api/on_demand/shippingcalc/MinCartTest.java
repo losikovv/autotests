@@ -85,7 +85,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseIDs(value = {@CaseId(411), @CaseId(415)})
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина с валидными данными",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditions() {
         var request = getDeliveryConditionsRequest(STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
@@ -93,18 +93,13 @@ public class MinCartTest extends ShippingCalcBase {
 
         var response = clientShippingCalc.getDeliveryConditions(request);
         checkDeliveryConditions(response, STORE_ID, minCartAmountThird, 2, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertAll();
-        });
+        checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
     }
 
     @CaseId(499)
     @Story("Get Delivery Conditions")
     @Test(description = "Создание оффера, фиксирующего условия доставки",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsFromCache() {
         String customerUuid = UUID.randomUUID().toString();
         Integer minCartAmountGlobalFromCache = minCartAmountGlobal;
@@ -136,7 +131,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(412)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для нескольких магазинов",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsMultipleStores() {
         var request = GetDeliveryConditionsRequest.newBuilder()
                 .addStores(Store.newBuilder()
@@ -192,7 +187,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(411)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки по глобальной стратегии",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsGlobalStrategy() {
         var request = getDeliveryConditionsRequest(STORE_ID_GLOBAL, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
@@ -206,7 +201,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseIDs({@CaseId(414), @CaseId(526)})
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина с повышенным спросом",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsWithSurge() {
 
         if (surgeDisabled) {
@@ -220,27 +215,14 @@ public class MinCartTest extends ShippingCalcBase {
         var response = clientShippingCalc.getDeliveryConditions(request);
 
         checkDeliveryConditions(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT, 2, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertAll();
-        });
-        Allure.step("Проверяем наличие повышенного спроса", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж выключен");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), (float) SURGE_LEVEL, "Не ожидаемый уровень сюрджа");
-            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getTtl() > 0, "Не ожидаемый уровень ttl сюрджа");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 31890, "Не ожидаемая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 20890, "Не ожидаемая цена в лесенке");
-            softAssert.assertAll();
-        });
+        checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
+        checkDeliveryConditionsSurgeOn(response, SURGE_LEVEL, 31890, 20890);
     }
 
     @CaseId(528)
     @Story("Get Delivery Conditions")
     @Test(description = "Наценка по параметрам свитчбек-эксперимента региона",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsWithSwitchbackExperiment() {
 
         if (surgeDisabled) {
@@ -254,27 +236,14 @@ public class MinCartTest extends ShippingCalcBase {
         var response = clientShippingCalc.getDeliveryConditions(request);
 
         checkDeliveryConditions(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, 2, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertAll();
-        });
-        Allure.step("Проверяем наличие повышенного спроса", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж выключен");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), (float) SURGE_LEVEL, "Не ожидаемый уровень сюрджа");
-            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getTtl() > 0, "Не ожидаемый уровень ttl сюрджа");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 31890 + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, "Не ожидаемая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 20890 + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, "Не ожидаемая цена в лесенке");
-            softAssert.assertAll();
-        });
+        checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
+        checkDeliveryConditionsSurgeOn(response, SURGE_LEVEL, 31890 + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF, 20890 + SURGE_LEVEL_SWITCHBACK_ADDITION_DIFF);
     }
 
     @CaseId(529)
     @Story("Get Delivery Conditions")
     @Test(description = "Отсутствие наценки по параметрам свитчбек-эксперимента региона при не попадании в временной интервал",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsWithFutureSwitchbackExperiment() {
 
         if (surgeDisabled) {
@@ -288,27 +257,14 @@ public class MinCartTest extends ShippingCalcBase {
         var response = clientShippingCalc.getDeliveryConditions(request);
 
         checkDeliveryConditions(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT, 2, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertAll();
-        });
-        Allure.step("Проверяем наличие повышенного спроса", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж выключен");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), (float) SURGE_LEVEL, "Не ожидаемый уровень сюрджа");
-            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getTtl() > 0, "Не ожидаемый уровень ttl сюрджа");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 31890, "Не ожидаемая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 20890, "Не ожидаемая цена в лесенке");
-            softAssert.assertAll();
-        });
+        checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
+        checkDeliveryConditionsSurgeOn(response, SURGE_LEVEL, 31890, 20890);
     }
 
     @CaseId(509)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина без повышенного спроса для не on-demand магазина с не нулевой мин. корзиной",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsWithMinCartForPlanned() {
 
         if (surgeDisabled) {
@@ -322,18 +278,13 @@ public class MinCartTest extends ShippingCalcBase {
         var response = clientShippingCalc.getDeliveryConditions(request);
 
         checkDeliveryConditions(response, SURGE_STORE_ID, minCartAmountThird, 2, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertAll();
-        });
+        checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
     }
 
     @CaseIDs({@CaseId(525), @CaseId(530)})
     @Story("Get Delivery Conditions")
     @Test(description = "Наценка по параметрам трешхолдов региона, имеющихся в БД",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsWithSurgeRegionThreshold() {
 
         if (surgeDisabled) {
@@ -347,27 +298,14 @@ public class MinCartTest extends ShippingCalcBase {
         var response = clientShippingCalc.getDeliveryConditions(request);
 
         checkDeliveryConditions(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, 2, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertAll();
-        });
-        Allure.step("Проверяем наличие повышенного спроса", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж выключен");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), (float) SURGE_LEVEL, "Не ожидаемый уровень сюрджа");
-            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getTtl() > 0, "Не ожидаемый уровень ttl сюрджа");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 31890 + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, "Не ожидаемая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 20890 + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, "Не ожидаемая цена в лесенке");
-            softAssert.assertAll();
-        });
+        checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
+        checkDeliveryConditionsSurgeOn(response, SURGE_LEVEL, 31890 + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF, 20890 + SURGE_LEVEL_THRESHOLD_ADDITION_DIFF);
     }
 
     @CaseId(507)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина без повышенного спроса с флагом SURGE_DISABLED",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsWithoutSurgeFlag() {
 
         if (!surgeDisabled) {
@@ -381,26 +319,14 @@ public class MinCartTest extends ShippingCalcBase {
         var response = clientShippingCalc.getDeliveryConditions(request);
 
         checkDeliveryConditions(response, SURGE_STORE_ID, minCartAmountThird, 2, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertAll();
-        });
-        Allure.step("Проверяем наличие повышенного спроса", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertFalse(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж включен");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), 0f, "Не ожидаемый уровень сюрджа");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 19900, "Не ожидаемая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 9900, "Не ожидаемая цена в лесенке");
-            softAssert.assertAll();
-        });
+        checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
+        checkDeliveryConditionsSurgeOff(response, 0f, 19900, 9900);
     }
 
     @CaseId(449)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина без повышенного спроса для не on-demand магазина",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsWithNoSurge() {
         var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
@@ -409,26 +335,14 @@ public class MinCartTest extends ShippingCalcBase {
         var response = clientShippingCalc.getDeliveryConditions(request);
 
         checkDeliveryConditions(response, SURGE_STORE_ID, 0, 2, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertAll();
-        });
-        Allure.step("Проверяем отсутствие повышенного спроса", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertFalse(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж включен");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), 0f, "Не ожидаемый уровень сюрджа");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 19900, "Не ожидаемая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 9900, "Не ожидаемая цена в лесенке");
-            softAssert.assertAll();
-        });
+        checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
+        checkDeliveryConditionsSurgeOff(response, 0f, 19900, 9900);
     }
 
     @CaseId(424)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина без повышенного спроса для новых клиентов",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsWithoutSurgeNewCustomers() {
         var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
@@ -437,25 +351,14 @@ public class MinCartTest extends ShippingCalcBase {
         var response = clientShippingCalc.getDeliveryConditions(request);
 
         checkDeliveryConditions(response, SURGE_STORE_ID, minCartAmountThird, 2, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertAll();
-        });
-        Allure.step("Проверяем отсутствие повышенного спроса", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertFalse(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж включен");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 19900, "Не ожидаемая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 9900, "Не ожидаемая цена в лесенке");
-            softAssert.assertAll();
-        });
+        checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
+        checkDeliveryConditionsSurgeOff(response, 0f, 19900, 9900);
     }
 
     @CaseId(440)
     @Story("Get Delivery Conditions")
     @Test(description = "Кэширование surgelevel на уровне customer+store",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "getDeliveryConditionsWithSurge")
     public void getDeliveryConditionsWithStoreCustomerSurge() {
         Allure.step("Меняем уровень surge у магазина", () -> RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, 0, 0, 0, getZonedUTCDate()), 1000));
@@ -467,27 +370,14 @@ public class MinCartTest extends ShippingCalcBase {
         var response = clientShippingCalc.getDeliveryConditions(request);
 
         checkDeliveryConditions(response, SURGE_STORE_ID, minCartAmountThird + SURGE_LEVEL_ADDITION_DEFAULT, 2, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertAll();
-        });
-        Allure.step("Проверяем наличие повышенного спроса", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж выключен");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), (float) SURGE_LEVEL, "Не ожидаемый уровень сюрджа");
-            softAssert.assertTrue(response.getDeliveryConditions(0).getSurge().getTtl() > 0, "Не ожидаемый уровень ttl сюрджа");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 31890, "Не ожидаемая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getShippingPrice(), 20890, "Не ожидаемая цена в лесенке");
-            softAssert.assertAll();
-        });
+        checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
+        checkDeliveryConditionsSurgeOn(response, SURGE_LEVEL, 31890, 20890);
     }
 
     @CaseId(458)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина без повышенного спроса для самовывоза",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsWithNoSurgeSelfDelivery() {
         var request = getDeliveryConditionsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_SELF_DELIVERY_VALUE,
@@ -500,6 +390,7 @@ public class MinCartTest extends ShippingCalcBase {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertFalse(response.getDeliveryConditions(0).getSurge().getIsOn(), "Сюрдж включен");
             softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getLevel(), 0f, "Не ожидаемый уровень сюрджа");
+            softAssert.assertEquals(response.getDeliveryConditions(0).getSurge().getTtl(), 0, "Не ожидаемый уровень ttl сюрджа");
             softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getShippingPrice(), 10002, "Не ожидаемая цена в лесенке");
             softAssert.assertAll();
         });
@@ -508,7 +399,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(420)
     @Story("Get Delivery Conditions")
     @Test(description = "Проверка прохождений условий в правилах мин корзины",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsDifferentRules() {
         var firstRequest = getDeliveryConditionsRequest(STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE,
@@ -533,7 +424,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(416)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина у которого не нашли связку",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsNotFound() {
         String storeId = UUID.randomUUID().toString();
         var request = getDeliveryConditionsRequest(storeId, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
@@ -554,7 +445,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(417)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение ошибки при пустом stores",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: no stores in request")
     public void getDeliveryConditionsNoStores() {
@@ -579,7 +470,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(418)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение ошибки при пустом tenant",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tenant_id")
     public void getDeliveryConditionsNoTenant() {
@@ -608,7 +499,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(419)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение ошибки при невалидном delivery_type",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid delivery type")
     public void getDeliveryConditionsNoDeliveryType() {
@@ -637,7 +528,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(428)
     @Story("Get Delivery Conditions")
     @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsNoCustomerId() {
         var request = GetDeliveryConditionsRequest.newBuilder()
                 .addStores(Store.newBuilder()
@@ -661,18 +552,13 @@ public class MinCartTest extends ShippingCalcBase {
 
         var response = clientShippingCalc.getDeliveryConditions(request);
         checkDeliveryConditions(response, STORE_ID, minCartAmountThird, 2, 3);
-        Allure.step("Проверяем базовую цену в лесенке", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 19900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertEquals(response.getDeliveryConditions(0).getLadder(1).getPriceComponents(0).getPrice(), 9900, "Не ожидаемая базовая цена в лесенке");
-            softAssert.assertAll();
-        });
+        checkDeliveryConditionsTwoStepLadder(response, 19900, 9900);
     }
 
     @CaseId(508)
     @Story("Get Delivery Conditions")
     @Test(description = "Получение условий доставки для магазина при пустых customer.id и customer.anonymous_id",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getDeliveryConditionsNoCustomerAndAnonymousId() {
         var request = GetDeliveryConditionsRequest.newBuilder()
                 .addStores(Store.newBuilder()
@@ -700,7 +586,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseIDs(value = {@CaseId(391), @CaseId(453)})
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины с валидными данными",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmounts() {
         var request = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, true, 1);
@@ -712,7 +598,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(498)
     @Story("Get Min Cart Amounts")
     @Test(description = "Создание оффера, фиксирующего стоимость мин. корзины",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsFromCache() {
         String customerUuid = UUID.randomUUID().toString();
         int minCartAmountGlobalFromCache = minCartAmountGlobal;
@@ -738,7 +624,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(392)
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины по нескольким магазинам",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsMultipleStores() {
         var request = GetMinCartAmountsRequest.newBuilder()
                 .addStores(Store.newBuilder()
@@ -784,7 +670,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(438)
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины по глобальной стратегии",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsGlobalStrategy() {
         var request = getMinCartAmountsRequest(STORE_ID_GLOBAL, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, true, 1);
@@ -796,7 +682,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(413)
     @Story("Get Min Cart Amounts")
     @Test(description = "Проверка прохождений условий в правилах мин корзины",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsDifferentRules() {
         var firstRequest = getMinCartAmountsRequest(STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, true, 1);
@@ -813,7 +699,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseIDs({@CaseId(451), @CaseId(535)})
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины для магазина с повышенным спросом",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsWithSurge() {
 
         if (surgeDisabled) {
@@ -830,7 +716,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(531)
     @Story("Get Min Cart Amounts")
     @Test(description = "Наценка по параметрам свитчбек-эксперимента региона",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsWithSwitchbackExperiment() {
 
         if (surgeDisabled) {
@@ -847,7 +733,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(532)
     @Story("Get Min Cart Amounts")
     @Test(description = "Отсутствие наценки по параметрам свитчбек-эксперимента региона при не попадании в временной интервал",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsWithFutureSwitchbackExperiment() {
 
         if (surgeDisabled) {
@@ -864,7 +750,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(504)
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение не нулевой минимальной корзины для не on_demand магазина",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsWithMinCartForPlanned() {
 
         if (surgeDisabled) {
@@ -881,7 +767,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseIDs({@CaseId(534), @CaseId(533)})
     @Story("Get Min Cart Amounts")
     @Test(description = "Наценка по параметрам трешхолдов региона, имеющихся в БД",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsWithSurgeRegionThreshold() {
 
         if (surgeDisabled) {
@@ -898,7 +784,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(506)
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины без повышенного спроса с флагом SURGE_DISABLED",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsWithoutSurgeFlag() {
 
         if (!surgeDisabled) {
@@ -915,7 +801,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(497)
     @Story("Get Min Cart Amounts")
     @Test(description = "Кэширование surgelevel на уровне customer+store",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "getDeliveryConditionsWithStoreCustomerSurge")
     public void getMinCartAmountsWithStoreCustomerSurge() {
         var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, CUSTOMER_ID, ANONYMOUS_ID,
@@ -928,7 +814,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(452)
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины без повышенного спроса для не on_demand магазина",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsWithSurgeNotOnDemand() {
         var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, false, REGION_ID_WITHOUT_THRESHOLDS);
@@ -940,7 +826,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(454)
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины для магазина без повышенного спроса для новых клиентов",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsWithSurgeNewCustomer() {
         var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 1, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_VALUE, true, REGION_ID_WITHOUT_THRESHOLDS);
@@ -952,7 +838,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(457)
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение минимальной корзины без повышенного спроса для самовывоза",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsWithNoSurgeSelfDelivery() {
         var request = getMinCartAmountsRequest(SURGE_STORE_ID, 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 99, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_SELF_DELIVERY_VALUE, true, REGION_ID_WITHOUT_THRESHOLDS);
@@ -969,7 +855,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(450)
     @Story("Get Min Cart Amounts")
     @Test(description = "Проверка наличия мин. корзины для доставки курьером и самовывоза",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsSelfAndCourier() {
         String storeId = UUID.randomUUID().toString();
         addBinding(selfDeliveryStrategyId, storeId, Tenant.SBERMARKET.getId(), DeliveryType.B2B_SELF_DELIVERY.toString());
@@ -992,7 +878,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(393)
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение пустого списка для магазина у которого не нашли связку",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsNotFound() {
         var request = getMinCartAmountsRequest(UUID.randomUUID().toString(), 55.55f, 55.55f, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
                 0, 1655822708, 55.55f, 55.55f, Tenant.SBERMARKET.getId(), DeliveryType.B2B_SELF_DELIVERY_VALUE, true, 1);
@@ -1005,7 +891,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(398)
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение ошибки при невалидном delivery_type",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid delivery type")
     public void getMinCartAmountsNoDeliveryType() {
@@ -1032,7 +918,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(395)
     @Story("Get Min Cart Amounts")
     @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsNoCustomerId() {
         var request = GetMinCartAmountsRequest.newBuilder()
                 .addStores(Store.newBuilder()
@@ -1059,7 +945,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(505)
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение нулевой минимальной корзины при пустых customer.id и customer.anonymous_id",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getMinCartAmountsNoCustomerAndAnonymousId() {
         var request = GetMinCartAmountsRequest.newBuilder()
                 .addStores(Store.newBuilder()
@@ -1085,7 +971,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(396)
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение пустого списка при пустом stores",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: no stores in request")
     public void getMinCartAmountsNoStores() {
@@ -1108,7 +994,7 @@ public class MinCartTest extends ShippingCalcBase {
     @CaseId(397)
     @Story("Get Min Cart Amounts")
     @Test(description = "Получение пустого списка при пустом tenant",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tenant_id")
     public void getMinCartAmountsNoTenantId() {

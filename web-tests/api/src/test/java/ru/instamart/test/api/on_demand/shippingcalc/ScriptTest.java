@@ -15,6 +15,8 @@ import shippingcalc.*;
 
 import java.util.Objects;
 
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
 
@@ -37,7 +39,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(38)
     @Story("Create Script")
     @Test(description = "Создание скрипта с валидными данными",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void createScript() {
         var request = getCreateScriptRequest("autotest", FIXED_PRICE_SCRIPT, "autotest");
         var response = clientShippingCalc.createScript(request);
@@ -48,7 +50,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(1)
     @Story("Create Script")
     @Test(description = "Создание скрипта с невалидными данными",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void createScriptWithInvalidData() {
         var request = getCreateScriptRequest("autotest", "test", "autotest");
         var response = clientShippingCalc.createScript(request);
@@ -59,7 +61,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(4)
     @Story("Create Script")
     @Test(description = "Получение ошибки, при создании скрипта с пустым именем",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: script name cannot be empty")
     public void createScriptWithEmptyName() {
@@ -70,7 +72,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(10)
     @Story("Create Script")
     @Test(description = "Получение ошибки, при создании скрипта с пустым телом скрипта",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: script body cannot be empty")
     public void createScriptWithEmptyScriptBody() {
@@ -81,7 +83,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(13)
     @Story("Create Script")
     @Test(description = "Получение ошибки, при создании скрипта с пустым автором",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: creator_id cannot be empty")
     public void createScriptWithEmptyCreatorId() {
@@ -92,7 +94,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(15)
     @Story("Update Script")
     @Test(description = "Обновление существующего скрипта с валидными данными",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createScriptWithInvalidData")
     public void updateScript() {
         var request = getUpdateScriptRequest(secondScriptId, "autotest-update", FIXED_PRICE_SCRIPT, "autotest-update");
@@ -103,7 +105,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(18)
     @Story("Update Script")
     @Test(description = "Обновление существующего скрипта с невалидными данными",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "getScript")
     public void updateScriptWithInvalidData() {
         var request = getUpdateScriptRequest(scriptId, "autotest-update-with-rule", "test", "autotest-update");
@@ -114,7 +116,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(16)
     @Story("Update Script")
     @Test(description = "Получение ошибки, при обновлении несуществующего скрипта с валидными данными",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update script: entity not found")
     public void updateScriptWithNonExistentScriptId() {
@@ -125,7 +127,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(20)
     @Story("Update Script")
     @Test(description = "Получение ошибки, при обновлении существующего скрипта с пустым именем",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: script name cannot be empty",
             dependsOnMethods = "getScript")
@@ -137,7 +139,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(26)
     @Story("Update Script")
     @Test(description = "Получение ошибки, при обновлении существующего скрипта с пустым телом скрипта",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: script body cannot be empty",
             dependsOnMethods = "getScript")
@@ -149,7 +151,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(29)
     @Story("Update Script")
     @Test(description = "Получение ошибки, при обновлении существующего скрипта с пустым автором",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: creator_id cannot be empty",
             dependsOnMethods = "getScript")
@@ -161,7 +163,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(34)
     @Story("Get Script")
     @Test(description = "Получение существующего скрипта",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createScript")
     public void getScript() {
         var request = GetScriptRequest.newBuilder()
@@ -170,18 +172,16 @@ public class ScriptTest extends ShippingCalcBase {
         var response = clientShippingCalc.getScript(request);
 
         Allure.step("Проверка скрипта в ответе", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertNotNull(response.getScript(), "В ответе пустой скрипт");
-            compareTwoObjects(response.getScript().getScriptId(), scriptId, softAssert);
-            softAssert.assertTrue(response.getScript().getRequiredParamsCount() > 0, "В ответе пустой список обязательных параметров");
-            softAssert.assertAll();
+            assertNotNull(response.getScript(), "В ответе пустой скрипт");
+            compareTwoObjects(response.getScript().getScriptId(), scriptId);
+            assertTrue(response.getScript().getRequiredParamsCount() > 0, "В ответе пустой список обязательных параметров");
         });
     }
 
     @CaseId(35)
     @Story("Get Script")
     @Test(description = "Получение ошибки при отправке запроса с несуществующим скриптом",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot get script: entity not found")
     public void getScriptNonExistent() {
@@ -195,7 +195,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(36)
     @Story("Get Script")
     @Test(description = "Получение ошибки при запросе удаленного скрипта",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "deleteScript",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot get script: entity not found")
@@ -210,19 +210,20 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(127)
     @Story("Get Scripts")
     @Test(description = "Получение списка скриптов",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = {"createScript", "createScriptWithInvalidData"})
     public void getScripts() {
         var request = GetScriptsRequest.newBuilder().build();
         var response = clientShippingCalc.getScripts(request);
 
-        Allure.step("Проверка скрипта в ответе", () -> {
+        Allure.step("Проверка списка скриптов в ответе", () -> {
+            assertTrue(response.getScriptsCount() > 0, "Пустой ответ");
             final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertTrue(response.getScriptsCount() > 1, "В ответе пустой список скриптов");
+            softAssert.assertTrue(response.getScriptsCount() > 1, "В ответе не верный список скриптов");
             softAssert.assertTrue(response.getScripts(0).getScriptId() > 0, "В ответе пустой id скрипта");
             softAssert.assertNotNull(response.getScripts(0).getScriptName(), "В ответе пустое название скрипта");
             softAssert.assertNotNull(response.getScripts(0).getScriptBody(), "В ответе пустое тело скрипта");
-            softAssert.assertNotNull(response.getScripts(0).getRequiredParamsCount(), "В ответе пустой список обязательных параметров");
+            softAssert.assertTrue(response.getScripts(0).getRequiredParamsCount() > 0, "В ответе пустой список обязательных параметров");
             softAssert.assertAll();
         });
     }
@@ -230,25 +231,23 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(135)
     @Story("Delete Script")
     @Test(description = "Удаление существующего скрипта без привязки к правилам",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = {"updateScript", "getScripts"})
     public void deleteScript() {
         var request = getDeleteScriptRequest(secondScriptId);
         var response = clientShippingCalc.deleteScript(request);
 
-        ScriptsEntity scripts = ScriptsDao.INSTANCE.getScriptById(secondScriptId);
         Allure.step("Проверка удаления скрипта", () -> {
-            final SoftAssert softAssert = new SoftAssert();
-            compareTwoObjects(response.toString(), "", softAssert);
-            softAssert.assertNotNull(scripts.getDeletedAt(), "Скрипт не помечен удаленным");
-            softAssert.assertAll();
+            compareTwoObjects(response.toString(), "");
+            ScriptsEntity scripts = ScriptsDao.INSTANCE.getScriptById(secondScriptId);
+            assertNotNull(scripts.getDeletedAt(), "Скрипт не помечен удаленным");
         });
     }
 
     @CaseId(134)
     @Story("Delete Script")
     @Test(description = "Получение ошибки, при удалении скрипта, привязанного к правилу",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot delete script: can't delete script: script is used in non-deleted rules",
             dependsOnMethods = "updateScriptWithInvalidData")
@@ -261,7 +260,7 @@ public class ScriptTest extends ShippingCalcBase {
     @CaseId(131)
     @Story("Delete Script")
     @Test(description = "Получение ошибки, при удалении несуществующего скрипта",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot delete script: entity not found")
     public void deleteScriptNonExistent() {

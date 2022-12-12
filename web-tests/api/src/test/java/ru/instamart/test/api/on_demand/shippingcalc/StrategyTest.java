@@ -22,6 +22,7 @@ import shippingcalc.*;
 import java.util.List;
 import java.util.UUID;
 
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
@@ -53,7 +54,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseIDs(value = {@CaseId(46), @CaseId(60), @CaseId(74), @CaseId(335), @CaseId(339), @CaseId(333)})
     @Story("Create Strategy")
     @Test(description = "Создание стратегии с валидными данными",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void createStrategy() {
         var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 2, "{}", 0, "autotest", "autotest", "autotest", false, DeliveryType.SELF_DELIVERY_VALUE);
         var response = clientShippingCalc.createStrategy(request);
@@ -64,7 +65,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseIDs(value = {@CaseId(63), @CaseId(61), @CaseId(445)})
     @Story("Create Strategy")
     @Test(description = "Создание стратегии с несколькими правилами на разные скрипты",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategyGlobal")
     public void createStrategyWithDifferentScriptsInRules() {
         var request = CreateStrategyRequest.newBuilder()
@@ -110,7 +111,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseIDs(value = {@CaseId(191), @CaseId(62), @CaseId(71), @CaseId(337), @CaseId(340)})
     @Story("Create Strategy")
     @Test(description = "Создание стратегии с несколькими правилами и несколькими условиями в этих правилах",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void createStrategyWithMultipleRulesAndConditions() {
         var request = CreateStrategyRequest.newBuilder()
                 .addRules(NewRuleObject.newBuilder()
@@ -196,7 +197,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(446)
     @Story("Create Strategy")
     @Test(description = "Создание глобальной стратегии",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void createStrategyGlobal() {
         var request = getCreateStrategyRequest(FIRST_SCRIPT_ID, SCRIPT_PARAMS, 0, 0, "{}", 0, "autotest", "autotest", "autotest", true, DeliveryType.SELF_DELIVERY_VALUE);
         var response = clientShippingCalc.createStrategy(request);
@@ -207,7 +208,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(434)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки, при создании глобальной стратегии для типа доставки, который уже имеет глобальную стратегию",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategyGlobal",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "ALREADY_EXISTS: global strategy for current shipping method already exists, entity already exists")
@@ -219,7 +220,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(378)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки валидации параметров скрипта при создании стратегии",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot create strategy: no required for script parameters")
     public void createStrategyNonValidScriptParams() {
@@ -230,7 +231,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(430)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки, при создании локальной стратегии, если у правил мин. корзины нет условия Always",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: strategy must contain at least one min cart rule with only always condition")
     public void createStrategyNoAlwaysMinCart() {
@@ -265,7 +266,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(432)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки, при создании глобальной стратегии, если отсутствует условие Always для правил мин. корзины",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: strategy must contain at least one min cart rule with only always condition")
     public void createStrategyGlobalNoAlwaysMinCart() {
@@ -300,7 +301,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(435)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки, при создании глобальной стратегии, если отсутствует условие Always для правил цены",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot create strategy: invalid rules list for global strategy, global strategy must contain at least one rule with only always condition")
     public void createStrategyGlobalNoAlwaysPriceRule() {
@@ -335,7 +336,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(179)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии имени стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: strategy name cannot be empty")
     public void createStrategyWithNoName() {
@@ -346,7 +347,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(180)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии идентификатора создателя",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: creator id cannot be empty")
     public void createStrategyWithNoCreatorId() {
@@ -357,7 +358,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(183)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии правил стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rules cannot be empty")
     public void createStrategyWithNoRules() {
@@ -384,7 +385,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(66)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при несуществующем скрипте",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot create strategy: scriptId 1234567890: entity not found")
     public void createStrategyWithNonExistentScript() {
@@ -395,7 +396,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(184)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии скрипта",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 unacceptable without valid script id")
     public void createStrategyWithNoScriptId() {
@@ -430,7 +431,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(186)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии параметров скрипта",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid params")
     public void createStrategyWithNoScriptParams() {
@@ -441,7 +442,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(187)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии условий правила",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has no conditions")
     public void createStrategyWithNoRuleConditions() {
@@ -473,7 +474,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(188)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии параметров условий",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid condition 0, invalid params")
     public void createStrategyWithNoConditionParams() {
@@ -484,7 +485,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(336)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии правила на минимальную корзину",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: min cart rules cannot be empty")
     public void createStrategyWithNoMinCartRule() {
@@ -512,7 +513,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(338)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при отсутствии условий минимальной корзины",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has no conditions")
     public void createStrategyWithNoMinCartRuleConditions() {
@@ -544,7 +545,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(379)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки валидации параметров скрипта при обновлении стратегии",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: no required for script parameters",
             dependsOnMethods = "updateStrategy")
@@ -556,7 +557,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(401)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при не уникальном приоритете в правилах",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: rules: priority 0 conflict")
     public void createStrategyWithNonUniqueRulesPriority() {
@@ -601,7 +602,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(402)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при не уникальном приоритете в правилах минимальной корзины",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: priority 0 conflict")
     public void createStrategyWithNonUniqueMinCartRulesPriority() {
@@ -645,7 +646,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(403)
     @Story("Create Strategy")
     @Test(description = "Получение ошибки при не уникальном значении минимальной корзины",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: mincartvalue 50000 conflict")
     public void createStrategyWithNonUniqueMinCartRulesValue() {
@@ -689,7 +690,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseIDs(value = {@CaseId(81), @CaseId(91), @CaseId(205), @CaseId(342), @CaseId(346), @CaseId(363)})
     @Story("Update Strategy")
     @Test(description = "Обновление существующей стратегии с валидными данными",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategy")
     public void updateStrategy() {
         var request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, localStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.B2B_VALUE);
@@ -700,7 +701,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseIDs(value = {@CaseId(94), @CaseId(92), @CaseId(334)})
     @Story("Update Strategy")
     @Test(description = "Обновление существующей стратегии с несколькими правилами на разные скрипты",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategyWithDifferentScriptsInRules")
     public void updateStrategyWithDifferentScriptsInRules() {
         var request = UpdateStrategyRequest.newBuilder()
@@ -745,7 +746,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseIDs(value = {@CaseId(206), @CaseId(93), @CaseId(102), @CaseId(344), @CaseId(347)})
     @Story("Update Strategy")
     @Test(description = "Обновление стратегии с несколькими правилами и несколькими условиями в этих правилах",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategyWithMultipleRulesAndConditions")
     public void updateStrategyWithMultipleRulesAndConditions() {
         var request = UpdateStrategyRequest.newBuilder()
@@ -831,7 +832,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(442)
     @Story("Update Strategy")
     @Test(description = "Нельзя изменить поле global, при обновлении стратегии",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategyGlobal")
     public void updateStrategyGlobal() {
         var request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 0, "{}", 10000, globalStrategyId, "autotest-update", "autotest-update", "autotest-update", false, DeliveryType.SELF_DELIVERY_VALUE);
@@ -842,7 +843,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(431)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки, при обновлении локальной стратегии, если отсутствует правило мин. корзины с условием Always",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: strategy must contain at least one min cart rule with only always condition",
             dependsOnMethods = "updateStrategy")
@@ -878,7 +879,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(433)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки, при обновлении глобальной стратегии, если отсутствует правило мин. корзины с условием Always",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: strategy must contain at least one min cart rule with only always condition",
             dependsOnMethods = "createStrategyGlobal")
@@ -914,7 +915,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(436)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки, при обновлении глобальной стратегии, если отсутствует правило цены с условием Always",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: invalid rules list for global strategy, global strategy must contain at least one rule with only always condition",
             dependsOnMethods = "createStrategyGlobal")
@@ -950,7 +951,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(192)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии имени стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: strategy name cannot be empty",
             dependsOnMethods = "updateStrategy")
@@ -962,7 +963,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseIDs(value = {@CaseId(83), @CaseId(204)})
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при обновлении несуществующей стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: cannot check existence of strategy, entity not found")
     public void updateStrategyWithNonExistentStrategyId() {
@@ -973,7 +974,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(193)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии идентификатора создателя",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: creator id cannot be empty",
             dependsOnMethods = "updateStrategy")
@@ -985,7 +986,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(196)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии правил стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rules cannot be empty",
             dependsOnMethods = "updateStrategy")
@@ -1013,7 +1014,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(97)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при обновлении существующей стратегии с правилом на несуществующий скрипт",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: scriptId 1234567890: entity not found",
             dependsOnMethods = "updateStrategy")
@@ -1025,7 +1026,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(197)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии скрипта",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 unacceptable without valid script id",
             dependsOnMethods = "updateStrategy")
@@ -1061,7 +1062,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(199)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии условий правила",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid params",
             dependsOnMethods = "updateStrategy")
@@ -1073,7 +1074,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(200)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии условий правила",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has no conditions",
             dependsOnMethods = "updateStrategy")
@@ -1106,7 +1107,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(201)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии параметров условий",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has invalid condition 0, invalid params",
             dependsOnMethods = "updateStrategy")
@@ -1118,7 +1119,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(343)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии правила на минимальную корзину",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: min cart rules cannot be empty",
             dependsOnMethods = "updateStrategy")
@@ -1147,7 +1148,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(404)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при не уникальном приоритете в правилах",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: rules: priority 0 conflict",
             dependsOnMethods = "updateStrategy")
@@ -1193,7 +1194,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(405)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при не уникальном приоритете в правилах минимальной корзины",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: priority 0 conflict",
             dependsOnMethods = "updateStrategy")
@@ -1238,7 +1239,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(406)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при не уникальном значении минимальной корзины",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation: mincartrules: mincartvalue 50000 conflict",
             dependsOnMethods = "updateStrategy")
@@ -1283,7 +1284,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(345)
     @Story("Update Strategy")
     @Test(description = "Получение ошибки при отсутствии условий минимальной корзины",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: rule 0 has no conditions",
             dependsOnMethods = "updateStrategy")
@@ -1313,10 +1314,22 @@ public class StrategyTest extends ShippingCalcBase {
         clientShippingCalc.updateStrategy(request);
     }
 
+    @CaseId(372)
+    @Story("Update Strategy")
+    @Test(description = "Получение ошибки, при обновлении удаленной стратегии",
+            groups = "ondemand-shippingcalc",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INTERNAL: cannot update strategy: cannot check existence of strategy, entity not found",
+            dependsOnMethods = "deleteStrategy")
+    public void updateDeletedStrategy() {
+        var request = getUpdateStrategyRequest(SECOND_SCRIPT_ID, SECOND_SCRIPT_PARAMS, 100, 2, "{}", 10000, localStrategyId, "autotest-deleted-update", "autotest-deleted-update", "autotest-deleted-update", false, DeliveryType.B2B_VALUE);
+        clientShippingCalc.updateStrategy(request);
+    }
+
     @CaseId(138)
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к магазину с валидными данными",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategy")
     public void bindStrategy() {
         var request = getBindStrategyRequest(localStrategyId, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY_VALUE, false);
@@ -1327,7 +1340,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(141)
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к нескольким магазинам в массиве binds",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategyWithDifferentScriptsInRules")
     public void bindStrategyMultipleStores() {
         var request = BindStrategyRequest.newBuilder()
@@ -1352,7 +1365,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(139)
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к магазину, у которого уже есть связка",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = {"bindStrategy", "createStrategyWithMultipleRulesAndConditions"})
     public void rebindStrategy() {
         var request = getBindStrategyRequest(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY_VALUE, false);
@@ -1366,7 +1379,7 @@ public class StrategyTest extends ShippingCalcBase {
     @Skip // deprecated
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к магазину с флагом replace_all",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategyWithMultipleRulesAndConditions")
     public void bindStrategyWithReplaceAll() {
         addBinding(strategyIdWithMultipleRulesAndConditions, SECOND_STORE_ID, Tenant.SBERMARKET.getId(), DeliveryType.SELF_DELIVERY.toString());
@@ -1383,7 +1396,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(348)
     @Story("Bind Strategy")
     @Test(description = "Получении ошибки при привязке без id стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid StrategyId")
     public void bindStrategyWithNoStrategyId() {
@@ -1394,7 +1407,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(349)
     @Story("Bind Strategy")
     @Test(description = "Получении ошибки при привязке без сущности binds",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty binds",
             dependsOnMethods = "createStrategy")
@@ -1409,7 +1422,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(144)
     @Story("Bind Strategy")
     @Test(description = "Получении ошибки при привязке без магазина",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot attach bind 0 without store id",
             dependsOnMethods = "createStrategy")
@@ -1421,7 +1434,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(146)
     @Story("Bind Strategy")
     @Test(description = "Получении ошибки при привязке без тенанта",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot attach bind 0 without tenant id",
             dependsOnMethods = "createStrategy")
@@ -1433,7 +1446,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(364)
     @Story("Bind Strategy")
     @Test(description = "Привязка стратегии к магазину без типа доставки",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategy")
     public void bindStrategyWithNoDeliveryType() {
         var request = BindStrategyRequest.newBuilder()
@@ -1451,7 +1464,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(376)
     @Story("Bind Strategy")
     @Test(description = "Получение ошибки при привязке к удаленной стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot bind strategy: repository.binding.bind: entity not found",
             dependsOnMethods = "deleteStrategy")
@@ -1464,7 +1477,7 @@ public class StrategyTest extends ShippingCalcBase {
     @Story("Unbind Strategy")
     @Skip // deprecated
     @Test(description = "Получение ошибки доступа при попытке отвязать стратегию",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "PERMISSION_DENIED: unbinding strategy is forbidden, you can only replace strategy in binding",
             dependsOnMethods = "bindStrategy")
@@ -1476,7 +1489,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(155)
     @Story("Unbind Strategy")
     @Test(description = "Отвязка стратегии от магазина с валидными данными",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = {"rebindStrategy", "getStrategy", "getStrategiesWithAllFilter", "getStrategiesForStore", "getStrategiesWithStoreFilter"})
     public void unbindStrategy() {
         var request = getUnbindStrategyRequest(strategyIdWithMultipleRulesAndConditions, FIRST_STORE_ID, Tenant.METRO.getId(), DeliveryType.SELF_DELIVERY_VALUE);
@@ -1487,7 +1500,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(158)
     @Story("Unbind Strategy")
     @Test(description = "Отвязка стратегии от нескольких магазинов в массиве binds",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = {"getStrategy", "bindStrategyMultipleStores", "getStrategiesForStoreWithoutTenantAndDeliveryType"})
     public void unbindStrategyMultipleStores() {
         var request = UnbindStrategyRequest.newBuilder()
@@ -1512,7 +1525,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(159)
     @Story("Unbind Strategy")
     @Test(description = "Получении ошибки при отвязке без id стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid StrategyId")
     public void unbindStrategyWithNoStrategyId() {
@@ -1523,7 +1536,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(350)
     @Story("Unbind Strategy")
     @Test(description = "Получении ошибки при отвязке без сущности binds",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty binds",
             dependsOnMethods = "bindStrategy")
@@ -1538,7 +1551,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(161)
     @Story("Unbind Strategy")
     @Test(description = "Получении ошибки при отвязке без магазина",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot use bind 0 without store id",
             dependsOnMethods = "bindStrategy")
@@ -1550,7 +1563,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(163)
     @Story("Unbind Strategy")
     @Test(description = "Получении ошибки при отвязке без тенанта",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot use bind 0 without tenant id",
             dependsOnMethods = "bindStrategy")
@@ -1562,7 +1575,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(365)
     @Story("Unbind Strategy")
     @Test(description = "Отвязка стратегии от магазина без типа доставки",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = {"bindStrategyWithNoDeliveryType", "deleteStrategyWithBind"})
     public void unbindStrategyWithNoDeliveryType() {
         var request = UnbindStrategyRequest.newBuilder()
@@ -1580,7 +1593,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(118)
     @Story("Get Strategy")
     @Test(description = "Получение существующей стратегии",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "bindStrategy")
     public void getStrategy() {
         var request = GetStrategyRequest.newBuilder()
@@ -1589,8 +1602,8 @@ public class StrategyTest extends ShippingCalcBase {
         var response = clientShippingCalc.getStrategy(request);
 
         Allure.step("Проверка стратегии в ответе", () -> {
+            assertNotNull(response.getStrategy(), "В ответе пустая стратегия");
             final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertNotNull(response.getStrategy(), "В ответе пустая стратегия");
             compareTwoObjects(response.getStrategy().getStrategyId(), localStrategyId, softAssert);
             softAssert.assertTrue(response.getStrategy().getBindsCount() > 0, "В ответе пустой список привязок");
             softAssert.assertTrue(response.getRulesCount() > 0, "В ответе пустой список правил");
@@ -1604,7 +1617,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(120)
     @Story("Get Strategy")
     @Test(description = "Получение ошибки при отправке запроса с несуществующей стратегией",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "NOT_FOUND: cannot find strategy, entity not found")
     public void getStrategyNonExistent() {
@@ -1618,7 +1631,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(375)
     @Story("Get Strategy")
     @Test(description = "Получение ошибки при запросе удаленной стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "NOT_FOUND: cannot find strategy, entity not found",
             dependsOnMethods = "deleteStrategy")
@@ -1633,15 +1646,15 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(124)
     @Story("Get Strategies")
     @Test(description = "Получение списка стратегий без фильтров",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategy")
     public void getStrategies() {
         var request = GetStrategiesRequest.newBuilder().build();
         var response = clientShippingCalc.getStrategies(request);
 
         Allure.step("Проверка стратегии в ответе", () -> {
+            assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
             final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
             softAssert.assertTrue(response.getStrategies(0).getStrategyId() > 0, "В ответе пустое id стратегии");
             softAssert.assertNotNull(response.getStrategies(0).getName(), "В ответе пустое название стратегии");
             softAssert.assertTrue(response.getStrategies(0).getDeliveryTypeValue() > 0, "В ответе пустой тип доставки");
@@ -1652,7 +1665,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(256)
     @Story("Get Strategies")
     @Test(description = "Получение списка стратегий с комбинированным фильтром (имя, тип доставки, магазины)",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "bindStrategy")
     public void getStrategiesWithAllFilter() {
         var request = GetStrategiesRequest.newBuilder()
@@ -1663,8 +1676,8 @@ public class StrategyTest extends ShippingCalcBase {
         var response = clientShippingCalc.getStrategies(request);
 
         Allure.step("Проверка стратегии в ответе", () -> {
+            assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
             final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
             softAssert.assertTrue(response.getStrategies(0).getStrategyId() > 0, "В ответе пустое id стратегии");
             softAssert.assertTrue(response.getStrategies(0).getName().contains("autotest"), "Не ожидаемое название стратегии");
             softAssert.assertTrue(response.getStrategies(0).getStoresCount() > 0, "В ответе пустой список привязок");
@@ -1677,7 +1690,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(251)
     @Story("Get Strategies")
     @Test(description = "Получение списка стратегий с фильтром по имени",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategy")
     public void getStrategiesWithNameFilter() {
         var request = GetStrategiesRequest.newBuilder()
@@ -1686,8 +1699,8 @@ public class StrategyTest extends ShippingCalcBase {
         var response = clientShippingCalc.getStrategies(request);
 
         Allure.step("Проверка стратегии в ответе", () -> {
+            assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
             final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
             softAssert.assertTrue(response.getStrategies(0).getStrategyId() > 0, "В ответе пустое id стратегии");
             softAssert.assertTrue(response.getStrategies(0).getName().contains("autotest"), "Не ожидаемое название стратегии");
             softAssert.assertAll();
@@ -1697,7 +1710,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(253)
     @Story("Get Strategies")
     @Test(description = "Получение списка стратегий с фильтром по типу доставки",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "createStrategy")
     public void getStrategiesWithDeliveryTypeFilter() {
         var request = GetStrategiesRequest.newBuilder()
@@ -1706,8 +1719,8 @@ public class StrategyTest extends ShippingCalcBase {
         var response = clientShippingCalc.getStrategies(request);
 
         Allure.step("Проверка стратегии в ответе", () -> {
+            assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
             final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
             softAssert.assertTrue(response.getStrategies(0).getStrategyId() > 0, "В ответе пустое id стратегии");
             softAssert.assertEquals(response.getStrategies(0).getDeliveryTypeValue(), DeliveryType.SELF_DELIVERY_VALUE, "Не ожидаемый тип доставки");
             softAssert.assertAll();
@@ -1717,7 +1730,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(254)
     @Story("Get Strategies")
     @Test(description = "Получение списка стратегий с фильтром по магазину",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "bindStrategy")
     public void getStrategiesWithStoreFilter() {
         var request = GetStrategiesRequest.newBuilder()
@@ -1726,8 +1739,8 @@ public class StrategyTest extends ShippingCalcBase {
         var response = clientShippingCalc.getStrategies(request);
 
         Allure.step("Проверка стратегии в ответе", () -> {
+            assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
             final SoftAssert softAssert = new SoftAssert();
-            softAssert.assertTrue(response.getStrategiesCount() > 0, "В ответе пустой список стратегий");
             softAssert.assertTrue(response.getStrategies(0).getStrategyId() > 0, "В ответе пустое id стратегии");
             softAssert.assertTrue(response.getStrategies(0).getStoresCount() > 0, "В ответе пустой список привязок");
             softAssert.assertTrue(response.getStrategies(0).getStoresList().contains(FIRST_STORE_ID), "В ответе не нашли ожидаемую привязку");
@@ -1738,7 +1751,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(172)
     @Story("Get Strategies For Store")
     @Test(description = "Получение стратегии для магазина",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "bindStrategy")
     public void getStrategiesForStore() {
         GetStrategiesForStoreRequest request = GetStrategiesForStoreRequest.newBuilder()
@@ -1749,6 +1762,7 @@ public class StrategyTest extends ShippingCalcBase {
         var response = clientShippingCalc.getStrategiesForStore(request);
 
         Allure.step("Проверка стратегии в ответе", () -> {
+            assertNotNull(response.getStrategy(0), "Пустой ответ");
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertTrue(response.getStrategy(0).getStrategyId() > 0, "В ответе пустое id стратегии");
             softAssert.assertEquals(response.getStrategy(0).getBinding().getStoreId(), FIRST_STORE_ID, "В ответе не нашли ожидаемую привязку");
@@ -1760,7 +1774,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(175)
     @Story("Get Strategies For Store")
     @Test(description = "Получение пустого списка при отсутствии искомой стратегии",
-            groups = "dispatch-shippingcalc-regress")
+            groups = "ondemand-shippingcalc")
     public void getStrategiesForStoreNotFound() {
         GetStrategiesForStoreRequest request = GetStrategiesForStoreRequest.newBuilder()
                 .setStoreId(FIRST_STORE_ID)
@@ -1776,7 +1790,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(351)
     @Story("Get Strategies For Store")
     @Test(description = "Получение ошибки при отсутствии магазина",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty store id")
     public void getStrategiesForStoreWithoutStoreId() {
@@ -1791,7 +1805,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(362)
     @Story("Get Strategies For Store")
     @Test(description = "Получение стратегий при отсутствии тенанта и способа доставки",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "bindStrategyMultipleStores")
     public void getStrategiesForStoreWithoutTenantAndDeliveryType() {
         GetStrategiesForStoreRequest request = GetStrategiesForStoreRequest.newBuilder()
@@ -1801,8 +1815,9 @@ public class StrategyTest extends ShippingCalcBase {
         var response = clientShippingCalc.getStrategiesForStore(request);
 
         Allure.step("Проверка стратегий в ответе", () -> {
+            assertTrue(response.getStrategyCount() > 0, "Пустой ответ");
             final SoftAssert softAssert = new SoftAssert();
-            assertTrue(response.getStrategyCount() > 1, "В ответе не ожидамое кол-во стратегий");
+            softAssert.assertTrue(response.getStrategyCount() > 1, "В ответе не ожидамое кол-во стратегий");
             softAssert.assertTrue(response.getStrategy(0).getBinding().getStoreId().equals(FIRST_STORE_ID) && response.getStrategy(1).getBinding().getStoreId().equals(FIRST_STORE_ID), "В ответе не нашли ожидаемых привязок");
             softAssert.assertEquals(response.getStrategy(0).getBinding().getDeliveryType(), DeliveryType.SELF_DELIVERY, "В ответе не нашли ожидаемых типов доставки");
             softAssert.assertAll();
@@ -1812,7 +1827,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(353)
     @Story("Get Strategies For Store")
     @Test(description = "Получение ошибки при не валидном способе доставки",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid delivery type")
     public void getStrategiesForStoreWithoutDeliveryType() {
@@ -1828,18 +1843,19 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(367)
     @Story("Delete Strategy")
     @Test(description = "Удаление стратегии без биндов",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "rebindStrategy")
     public void deleteStrategy() {
         var request = getDeleteStrategyRequest(localStrategyId);
         var response = clientShippingCalc.deleteStrategy(request);
 
-        StrategiesEntity strategy = StrategiesDao.INSTANCE.getStrategy(localStrategyId);
-        List<RulesEntity> rules = RulesDao.INSTANCE.getRules(localStrategyId);
-        List<RulesEntity> deletedRules = RulesDao.INSTANCE.getDeletedRules(localStrategyId);
+
         Allure.step("Проверка удаления стратегии", () -> {
+            compareTwoObjects(response.toString(), "");
             final SoftAssert softAssert = new SoftAssert();
-            compareTwoObjects(response.toString(), "", softAssert);
+            StrategiesEntity strategy = StrategiesDao.INSTANCE.getStrategy(localStrategyId);
+            List<RulesEntity> rules = RulesDao.INSTANCE.getRules(localStrategyId);
+            List<RulesEntity> deletedRules = RulesDao.INSTANCE.getDeletedRules(localStrategyId);
             compareTwoObjects(rules.size(), deletedRules.size(), softAssert);
             softAssert.assertNotNull(strategy.getDeletedAt(), "Стратегия не помечена удаленной");
             softAssert.assertAll();
@@ -1849,7 +1865,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(369)
     @Story("Delete Strategy")
     @Test(description = "Получение ошибки при удалении стратегии с биндами",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "FAILED_PRECONDITION: removing strategy [0-9]+ is not posible, bindings must be empty",
             dependsOnMethods = "rebindStrategy")
@@ -1861,7 +1877,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(437)
     @Story("Delete Strategy")
     @Test(description = "Получение ошибки, при удалении глобальной стратегии",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "PERMISSION_DENIED: unable to delete global strategy",
             dependsOnMethods = "updateStrategyGlobal")
@@ -1873,7 +1889,7 @@ public class StrategyTest extends ShippingCalcBase {
     @CaseId(373)
     @Story("Delete Strategy")
     @Test(description = "Получение ошибки при удалении несуществующей стратегии",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot delete strategy 1234567890: entity not found")
     public void deleteStrategyNonExistent() {

@@ -233,7 +233,7 @@ task onDemandETA(type: Test) {
 task onDemandShippingCalc(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/on_demand/shippingcalc.xml'
-        includeGroups 'dispatch-shippingcalc-smoke', 'dispatch-shippingcalc-regress'
+        includeGroups 'ondemand-shippingcalc'
     }
     systemProperty 'qase.Project', 'SHPCALC'
     systemProperty 'qase.Title', 'ShippingCalc Autotests'

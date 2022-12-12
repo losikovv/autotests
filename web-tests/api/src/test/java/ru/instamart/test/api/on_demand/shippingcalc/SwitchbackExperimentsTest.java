@@ -38,7 +38,7 @@ public class SwitchbackExperimentsTest extends ShippingCalcBase {
     @CaseId(293)
     @Story("Set Switchback Experiments")
     @Test(description = "Запись switchback-интервала",
-            groups = "dispatch-shippingcalc-smoke")
+            groups = "ondemand-shippingcalc")
     public void setSwitchbackExperiment() {
         var request = SetSwitchbackExperimentsRequest.newBuilder()
                 .setData(String.format(SWITCHBACK_INTERVAL,
@@ -53,7 +53,7 @@ public class SwitchbackExperimentsTest extends ShippingCalcBase {
     @CaseId(296)
     @Story("Set Switchback Experiments")
     @Test(description = "Перезапись всех switchback-интервалов",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "setSwitchbackExperiment")
     public void setSwitchbackExperimentReplace() {
         var request = SetSwitchbackExperimentsRequest.newBuilder()
@@ -71,7 +71,7 @@ public class SwitchbackExperimentsTest extends ShippingCalcBase {
     @CaseId(310)
     @Story("Set Switchback Experiments")
     @Test(description = "Получение ошибки при записи одинаковых switchback-интервалов",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INTERNAL: cannot set switchback experiments: cannot insert new switchback experiments, ERROR: duplicate key value violates unique constraint.*")
     public void setSwitchbackExperimentSameIntervals() {
@@ -88,7 +88,7 @@ public class SwitchbackExperimentsTest extends ShippingCalcBase {
     @CaseId(298)
     @Story("Set Switchback Experiments")
     @Test(description = "Получение ошибки при записи switchback-интервалов с некорректным типом источника",
-            groups = "dispatch-shippingcalc-regress",
+            groups = "ondemand-shippingcalc",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: cannot set switchback experiments: cannot extract switchback experiments from data received: unknown type of data source, experiments data parsing error")
     public void setSwitchbackExperimentInvalidType() {
@@ -103,7 +103,7 @@ public class SwitchbackExperimentsTest extends ShippingCalcBase {
     @CaseId(297)
     @Story("Get Switchback Experiments")
     @Test(description = "Получение списка switchback-интервалов",
-            groups = "dispatch-shippingcalc-smoke",
+            groups = "ondemand-shippingcalc",
             dependsOnMethods = "setSwitchbackExperimentReplace")
     public void getSwitchbackExperiment() {
         var request = GetSwitchbackExperimentsRequest.newBuilder().build();
