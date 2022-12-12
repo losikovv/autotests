@@ -185,7 +185,7 @@ public final class HomePageTests {
         home().checkLoginButtonIsVisible();
         home().setLocation("Moscow");
 
-        home().openExpressGroupPage();
+        home().openGroupPage("express");
         home().checkAlertDisplayed();
         home().checkAlertTextEquals(home().getAlertText(), "Чтобы посмотреть подходящие магазины, укажите адрес");
 
@@ -215,7 +215,7 @@ public final class HomePageTests {
         home().checkDeliveryStoresContainerVisible();
         home().checkStoresCardCountEquals(home().getStoresCountInBlock(), 3);
 
-        home().openExpressGroupPage();
+        home().openGroupPage("express");
 
         home().checkDeliveryStoresContainerVisible();
         home().checkStoresCardCountEquals(home().getStoresCountInBlock(), 1);
@@ -228,5 +228,24 @@ public final class HomePageTests {
         home().checkDeliveryStoresContainerVisible();
         home().checkStoresCardCountEquals(home().getStoresCountInBlock(), 1);
         home().checkStoreCardDisplayed(DEFAULT_METRO_MOSCOW_SID);
+    }
+
+    @CaseId(3204)
+    @Test(description = "Переход по ссылке с кодом лейбла при заполненном адресе и отсутствующих магазинах", groups = {STARTING_X, REGRESSION_STF})
+    public void openGroupsAddressSetNoStoresByGroupLabel() {
+        home().goToPage();
+        home().clickToSetAddress();
+        home().interactAddressModal().checkYmapsReady();
+        home().interactAddressModal().fillAddress(Addresses.Moscow.defaultAddress());
+        home().interactAddressModal().selectFirstAddress();
+        home().interactAddressModal().clickFindStores();
+        home().interactAddressModal().checkAddressModalIsNotVisible();
+
+        home().openGroupPage("alcohol");
+        home().checkAlertDisplayed();
+        home().checkAlertTextEquals(home().getAlertText(), "Кажется, из некоторых магазинов пока не доставляем. Но у нас есть другие — с похожими товарами");
+
+        home().checkDeliveryStoresContainerVisible();
+        home().checkStoreCardDisplayed(DEFAULT_AUCHAN_SID);
     }
 }

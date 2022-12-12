@@ -13,7 +13,7 @@ import ru.instamart.reforged.stf.page.StfPage;
 
 public final class HomePage implements StfPage, Window, HomeCheck {
 
-    private static final String EXPRESS_GROUP_FILTER_URL = "retailer_selection/express";
+    private static final String GROUP_FILTER_URL = "retailer_selection/";
 
     public AuthModal interactAuthModal() {
         return authModal;
@@ -134,9 +134,9 @@ public final class HomePage implements StfPage, Window, HomeCheck {
         return nextDeliveryBySid.getText(storeSid);
     }
 
-    @Step("Открываем страницу магазинов в группе 'express'")
-    public void openExpressGroupPage() {
-        goToPage(EXPRESS_GROUP_FILTER_URL);
+    @Step("Открываем страницу магазинов в группе '{groupLabel}'")
+    public void openGroupPage(final String groupLabel) {
+        goToPage(GROUP_FILTER_URL + groupLabel);
     }
 
     @Step("Получаем текст всплывающего сообщения")
