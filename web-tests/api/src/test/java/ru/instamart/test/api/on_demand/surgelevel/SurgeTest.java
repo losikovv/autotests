@@ -154,7 +154,7 @@ public class SurgeTest extends RestBase {
         currentSurgeLevel++;
         currentDemandAmount++;
 
-        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID);
+        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID, 5L);
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
     }
 
@@ -333,7 +333,7 @@ public class SurgeTest extends RestBase {
         currentSurgeLevel--;
         currentSupplyAmount++;
 
-        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID);
+        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID, 5L);
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
     }
 
@@ -372,7 +372,7 @@ public class SurgeTest extends RestBase {
         currentSurgeLevel--;
         currentSupplyAmount++;
 
-        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID);
+        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID, 5L);
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
     }
 

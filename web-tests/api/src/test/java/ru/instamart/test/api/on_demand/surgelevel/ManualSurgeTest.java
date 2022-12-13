@@ -66,14 +66,14 @@ public class ManualSurgeTest extends GrpcBase {
                         .build())
                 .setResult(Surgelevel.Result.Option.newBuilder()
                         .setSurgeLevel(SURGE_LEVEL)
-                        .setExpiredAt(getDatePlusSec(LONG_TIMEOUT + 5))
+                        .setExpiredAt(getDatePlusSec(LONG_TIMEOUT))
                         .build())
                 .build();
         client.saveResult(request);
 
         ThreadUtil.simplyAwait(LONG_TIMEOUT);
 
-        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID);
+        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID, 3L);
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, SURGE_LEVEL, SURGE_LEVEL, 0, 0, Method.MANUAL);
     }
 
@@ -83,9 +83,9 @@ public class ManualSurgeTest extends GrpcBase {
             groups = "ondemand-surgelevel-smoke",
             dependsOnMethods = "saveResult")
     public void manualSurgeRecalculate() {
-        ThreadUtil.simplyAwait(LONG_TIMEOUT + 30);
+        ThreadUtil.simplyAwait(60);
 
-        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID);
+        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(FIRST_STORE_ID, 3L);
         checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), FIRST_STORE_ID, SURGE_LEVEL, SURGE_LEVEL - 1, 0, 0, Method.ACTUAL);
     }
 
