@@ -17,13 +17,13 @@ public interface UserProfileElement {
     Button openOrders = new Button(By.xpath("//div[text()='Заказы']"), "кнопка любимые товары в профиде пользователя");
     Button openAccount = new Button(By.xpath("//div[text()='Аккаунт']"), "кнопка любимые товары в профиде пользователя");
 
-    Element userPhone = new Element(By.xpath("//div[@class='user-block__container']/div[1]/div[2]"), "поле с номером телефона пользователя");
-    Element userName = new Element(By.xpath("//div[@class='user-block__container']/div[2]/div[2]"), "поле с именем и фамилией пользователя");
-    Element userEmail = new Element(By.xpath("//div[@class='user-block__container']/div[3]/div[2]"), "поле с email пользователя");
+    Element userPhone = new Element(By.xpath("//div[contains(@class,'UserEditField_root')][./div[.='Номер телефона']]//div[contains(@class,'UserEditField_value')]"), "поле с номером телефона пользователя");
+    Element userName = new Element(By.xpath("//div[contains(@class,'UserEditField_root')][./div[.='Имя и фамилия']]//div[contains(@class,'UserEditField_value')]"), "поле с именем и фамилией пользователя");
+    Element userEmail = new Element(By.xpath("//div[contains(@class,'UserEditField_root')][./div[.='E-mail']]//div[contains(@class,'UserEditField_value')]"), "поле с email пользователя");
 
-    Button buttonChangePhone = new Button(By.xpath("//div[@class='user-block__container']/div[1]/div[3]/button"), "кнопка изменить номер телефона пользователя");
-    Button buttonChangeName = new Button(By.xpath("//div[@class='user-block__container']/div[2]/div[3]/button"), 20, "кнопка изменить имя и фамилию пользователя");
-    Button buttonChangeEmail = new Button(By.xpath("//div[@class='user-block__container']/div[3]/div[3]/button"), "кнопка изменить email пользователя");
+    Button buttonChangePhone = new Button(By.xpath("//div[contains(@class,'UserEditField_root')][./div[.='Номер телефона']]//button"), "кнопка изменить номер телефона пользователя");
+    Button buttonChangeName = new Button(By.xpath("//div[contains(@class,'UserEditField_root')][./div[.='Имя и фамилия']]//button"), 20, "кнопка изменить имя и фамилию пользователя");
+    Button buttonChangeEmail = new Button(By.xpath("//div[contains(@class,'UserEditField_root')][./div[.='E-mail']]//button"), "кнопка изменить email пользователя");
 
     Element alert = new Element(By.xpath("//span[@class='alert__msg' and text()='Данные успешно сохранены']"), "алерт о том что данные сохранились");
 }
