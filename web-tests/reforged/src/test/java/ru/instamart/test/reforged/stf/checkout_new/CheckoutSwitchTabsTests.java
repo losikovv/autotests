@@ -26,7 +26,7 @@ public final class CheckoutSwitchTabsTests {
     @CaseId(3596)
     @Story("Переключение доставка/самовывоз")
     @Test(description = "Замена метода 'Доставка' на метод 'Самовывоз'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSwitchDeliveryToPickupInCheckout() {
         final var userData = UserManager.getQaUser();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -63,7 +63,7 @@ public final class CheckoutSwitchTabsTests {
     @CaseId(3597)
     @Story("Переключение доставка/самовывоз")
     @Test(description = "Замена метода 'Самовывоз' на метод 'Доставка'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSwitchPickupToDeliveryInCheckout() {
         final var userData = UserManager.getQaUser();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -106,7 +106,7 @@ public final class CheckoutSwitchTabsTests {
     @CaseId(3610)
     @Story("Переключение доставка/самовывоз")
     @Test(description = "Попытка переключения с самовывоза на доставку при заказе имеющем алкоголь", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSwitchPickupToDeliveryInCheckoutWithAlcohol() {
         final var userData = UserManager.getQaUser();
         final var fullAddress = RestAddresses.Moscow.checkoutAddress().fullAddress().toString();

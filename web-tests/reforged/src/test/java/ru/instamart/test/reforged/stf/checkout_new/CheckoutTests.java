@@ -31,7 +31,7 @@ public final class CheckoutTests {
 
     @CaseId(3595)
     @Test(description = "Выбранный способ 'Доставка'/'Самовывоз' сохраняется если открыть страницу в новой вкладке", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testPaymentMethodSaveIfOpenCheckoutInNewTab() {
         final var userData = UserManager.getQaUser();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -70,7 +70,7 @@ public final class CheckoutTests {
     @Issues({@Issue("B2C-9732"), @Issue("B2C-9730")})
     @CaseId(3623)
     @Test(description = "Тест полного оформления заказа с оплатой картой онлайн (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithOnlinePaymentAndDelivery() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3ds();
@@ -137,7 +137,7 @@ public final class CheckoutTests {
 
     @CaseId(3624)
     @Test(description = "Тест полного оформления заказа с оплатой картой курьеру (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayToCourierAndDelivery() {
         final var userData = UserManager.getQaUser();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -196,7 +196,7 @@ public final class CheckoutTests {
 
     @CaseId(3839)
     @Test(description = "Тест полного оформления заказа с оплатой 'Новой картой онлайн' (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithNewCard() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3ds();
@@ -275,7 +275,7 @@ public final class CheckoutTests {
 
     @CaseId(3838)
     @Test(description = "Тест полного оформления заказа с оплатой бонусами от СберСпасибо (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithSberSpasibo() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3dsWithSpasibo();
@@ -353,7 +353,7 @@ public final class CheckoutTests {
 
     @CaseId(3840)
     @Test(description = "Тест полного оформления заказа с оплатой наличными (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithCash() {
         final var userData = UserManager.getQaUser();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -414,7 +414,7 @@ public final class CheckoutTests {
 
     @CaseId(3647)
     @Test(description = "Тест полного оформления заказа с оплатой Картой онлайн (Cамовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithOnlinePaymentAndPickup() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3ds();
@@ -480,7 +480,7 @@ public final class CheckoutTests {
 
     @CaseId(3648)
     @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayOnCashDeskAndPickup() {
         final var userData = UserManager.getQaUser();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -532,7 +532,7 @@ public final class CheckoutTests {
 
     @CaseId(3841)
     @Test(description = "Тест полного оформления заказа с оплатой 'Новой картой онлайн' (Самовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithNewCardAndPickup() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3ds();
@@ -609,7 +609,7 @@ public final class CheckoutTests {
 
     @CaseId(3842)
     @Test(description = "Тест полного оформления заказа с оплатой бонусами от СберСпасибо (Самовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithSberSpasiboAndPickup() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3dsWithSpasibo();
@@ -686,7 +686,7 @@ public final class CheckoutTests {
 
     @CaseId(3622)
     @Test(description = "Тест полного оформления заказа с оплатой Наличными (Самовывоз | Только продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithCashAndPickup() {
         final var userData = UserManager.getQaUser();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -745,7 +745,7 @@ public final class CheckoutTests {
 
     @CaseId(3625)
     @Test(description = "Тест полного оформления заказа с оплатой Картой онлайн (Самовывоз | Алкоголь и продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithOnlinePaymentIncludeAlcoAndPickup() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3ds();
@@ -827,7 +827,7 @@ public final class CheckoutTests {
 
     @CaseId(3843)
     @Test(description = "Тест полного оформления заказа с оплатой Наличными (Самовывоз | Алкоголь и продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithCashIncludeAlcoAndPickup() {
         final var userData = UserManager.getQaUser();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -901,7 +901,7 @@ public final class CheckoutTests {
 
     @CaseId(3844)
     @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Алкоголь и продукты)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayOnCashDeskIncludeAlcoAndPickup() {
         final var userData = UserManager.getQaUser();
         this.helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -975,7 +975,7 @@ public final class CheckoutTests {
 
     @CaseId(3845)
     @Test(description = "Тест полного оформления заказа с оплатой Картой на кассе (Самовывоз | Только алкоголь)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayOnCashDeskOnlyAlcoAndPickup() {
         final var userData = UserManager.getQaUser();
         this.helper.setAddress(userData, RestAddresses.Moscow.checkoutAddress());
@@ -1047,7 +1047,7 @@ public final class CheckoutTests {
 
     @CaseId(3884)
     @Test(description = "Тест перехода на v3 чекаут с незалогиненного нового юзера", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testAuthAndForwardV3CheckoutFromCartNewUser() {
         final var userData = UserManager.getQaUser();
 

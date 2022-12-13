@@ -27,7 +27,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     @CaseId(3691)
     @Story("Контакты и замены")
     @Test(description = "Проверка отсутствия предвыбранного способа замены товара при первом чекауте", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckReplacementPolicyNotSelectedFirstTime() {
         final var userData = UserManager.getQaUser();
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -48,7 +48,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     @CaseId(3632)
     @Story("Контакты и замены")
     @Test(description = "Проверка что поле 'Замена товара' является обязательным при первом заказе", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckReplacementPolicyRequired() {
         final var userData = UserManager.getQaUser();
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -86,7 +86,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     @CaseId(3631)
     @Story("Контакты и замены")
     @Test(description = "Проверка что значение поля 'Замена товара' предвыбрано при повторных чекаутах", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckRequiredFields() {
         final var userData = UserManager.getQaUser();
         var order = helper.makeOrder(userData, DEFAULT_CHECKOUT_SID, 1);
@@ -116,7 +116,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     @CaseId(3628)
     @Story("Контакты и замены")
     @Test(description = "Проверка отображения в блоке Контакты номера телефона из профиля при первом заказе", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckContactsFillFromProfile() {
         final var userData = UserManager.getQaUser();
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -141,7 +141,7 @@ public final class CheckoutContactsAndReplacementPolicyTests {
     @CaseId(3629)
     @Story("Контакты и замены")
     @Test(description = "Проверка что поля телефон и e-mail обязательны и валидируются при потере фокуса", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckPhoneAndEmailRequiredFields() {
         final var userData = UserManager.getQaUser();
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
