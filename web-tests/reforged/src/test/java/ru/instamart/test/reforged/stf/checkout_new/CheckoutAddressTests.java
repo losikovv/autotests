@@ -29,7 +29,7 @@ public final class CheckoutAddressTests {
     @CaseId(3594)
     @Story("Адрес")
     @Test(description = "Проверка того, что поле 'Кв, офис' является обязательным к заполнению", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckRequiredFields() {
         final var userData = UserManager.getQaUser();
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -73,7 +73,7 @@ public final class CheckoutAddressTests {
     @CaseId(3780)
     @Story("Адрес")
     @Test(description = "Проверка отображения правильного адреса доставки, выбранного ранее", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckRecentlyEnteredAddress() {
         final var userData = UserManager.getQaUser();
         final var address = RestAddresses.Moscow.checkoutAddress();
@@ -99,7 +99,7 @@ public final class CheckoutAddressTests {
     @CaseId(3796)
     @Story("Адрес")
     @Test(description = "Проверка появления бабла 'Оплата картой курьеру недоступна'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckCourierByCardPaymentAlert() {
         final var userData = UserManager.getQaUser();
 
@@ -139,7 +139,7 @@ public final class CheckoutAddressTests {
     @CaseId(3820)
     @Story("Адрес")
     @Test(description = "Проверка сохранения новоВведенного адреса при перезаходе на чекаут", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckAddressAfterReenterOnCheckout() {
         final var userData = UserManager.getQaUser();
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -190,7 +190,7 @@ public final class CheckoutAddressTests {
     @CaseId(3821)
     @Story("Адрес")
     @Test(description = "Проверка перехода на см-бизнес через клик по 'Заказываю для бизнеса' в блоке адрес (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testTransitionOnB2BViaCheckoutFromDelivery() {
         final var userData = UserManager.getQaUser();
 
@@ -225,7 +225,7 @@ public final class CheckoutAddressTests {
     @CaseId(3825)
     @Story("Адрес")
     @Test(description = "Проверка перехода на см-бизнес через клик по 'Заказываю для бизнеса' в блоке адрес (Самовывоз)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testTransitionOnB2BViaCheckoutFromPickup() {
         final var userData = UserManager.getQaUser();
 
@@ -263,7 +263,7 @@ public final class CheckoutAddressTests {
     @CaseId(3823)
     @Story("Адрес")
     @Test(description = "Проверка отсутствия кнопки 'Заказываю для бизнеса' при отключенной связке с b2b у магазина (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNoB2BButtonIfStoreHaveNoB2BIntegrationFromDelivery() {
         final var userData = UserManager.getQaUser();
 
@@ -287,7 +287,7 @@ public final class CheckoutAddressTests {
     @CaseId(3826)
     @Story("Адрес")
     @Test(description = "Проверка отсутствия кнопки 'Заказываю для бизнеса' при отключенной связке с b2b у магазина (Самовывоз)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNoB2BButtonIfStoreHaveNoB2BIntegrationFromPickup() {
         final var userData = UserManager.getQaUser();
 
@@ -315,7 +315,7 @@ public final class CheckoutAddressTests {
     @CaseId(3941)
     @Story("Адрес")
     @Test(description = "Проверка перехода на v1 чек-аут через способо оплаты 'По счету для бизнеса' (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckTransitionV1CheckoutIfBusinessPaymentMethodSelected() {
         final var userData = UserManager.getQaUser();
 

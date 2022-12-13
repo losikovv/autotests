@@ -476,7 +476,7 @@ public final class UserShipmentTests {
 
     @CaseId(3703)
     @Test(description = "Отображение информации об оценке заказа | заказ НЕ оценен", groups = {REGRESSION_STF, JORMUNGANDR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testNotRatedShipmentView() {
         final var userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_AUCHAN_SID, 6);
@@ -502,7 +502,7 @@ public final class UserShipmentTests {
 
     @CaseId(3704)
     @Test(description = "Отображение информации об оценке заказа | заказ Оценен", groups = {REGRESSION_STF, JORMUNGANDR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testRatedShipmentView() {
         final var userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_AUCHAN_SID, 6);
@@ -529,7 +529,7 @@ public final class UserShipmentTests {
 
     @CaseId(3705)
     @Test(description = "Отображение информации об оценке заказа | заказ Не оценен, время для оценки прошло", groups = {REGRESSION_STF, JORMUNGANDR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testTooLateToRatedShipmentView() {
         final var userData = UserManager.getQaUser();
         helper.makeAndCompleteOrderWithDate(userData, DEFAULT_AUCHAN_SID, 6, LocalDateTime.now().minusDays(8));
@@ -553,7 +553,7 @@ public final class UserShipmentTests {
 
     @CaseId(3802)
     @Test(description = "Оценка заказа с экрана информации о заказе", groups = {REGRESSION_STF, JORMUNGANDR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testRateShipment() {
         final var userData = UserManager.getQaUser();
         helper.makeAndCompleteOrder(userData, DEFAULT_AUCHAN_SID, 6);

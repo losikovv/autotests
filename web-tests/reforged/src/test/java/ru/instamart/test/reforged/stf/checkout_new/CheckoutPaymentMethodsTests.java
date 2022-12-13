@@ -24,7 +24,7 @@ public final class CheckoutPaymentMethodsTests {
     @CaseId(3616)
     @Story("Способы оплаты")
     @Test(description = "Сброс способа оплаты 'Картой курьеру' при выборе 'Бесконтактная доставка'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testPayByCardCourierDeliveryToDoor() {
         final var userData = UserManager.getQaUser();
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -65,7 +65,7 @@ public final class CheckoutPaymentMethodsTests {
     @CaseId(3637)
     @Story("Способы оплаты")
     @Test(description = "Проверка предвыбора метода 'Оплатить онлайн' при выборе самовывоза", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckPayOnlineSelectedByDefaultInPickup() {
         final var userData = UserManager.getQaUser();
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -93,7 +93,7 @@ public final class CheckoutPaymentMethodsTests {
     @CaseId(3649)
     @Story("Способы оплаты")
     @Test(description = "Проверка добавления новой карты оплаты", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testAddNewPaymentCard() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3ds();
@@ -131,7 +131,7 @@ public final class CheckoutPaymentMethodsTests {
     @CaseId(3642)
     @Story("Способы оплаты")
     @Test(description = "Проверка появления кнопки 'Оплатить' при способе оплаты 'Картой онлайн'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testPayButtonDisplayedWithSelectOnlinePaymentMethod() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3ds();
@@ -168,7 +168,7 @@ public final class CheckoutPaymentMethodsTests {
     @CaseId(3643)
     @Story("Способы оплаты")
     @Test(description = "Проверка появления кнопки 'Заказать' при способе оплаты 'Картой курьеру'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testOrderConfirmButtonDisplayedWithSelectCardToCourierPaymentMethod() {
         final var userData = UserManager.getQaUser();
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -197,7 +197,7 @@ public final class CheckoutPaymentMethodsTests {
     @CaseId(3822)
     @Story("Способы оплаты")
     @Test(description = "Проверка редиректа на см-бизнес при способе оплаты 'По счету для бизнеса' (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testTransitionOnB2BIfSelectBusinessPaymentMethodFromDelivery() {
         final var userData = UserManager.getQaUser();
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -233,7 +233,7 @@ public final class CheckoutPaymentMethodsTests {
     @CaseId(3827)
     @Story("Способы оплаты")
     @Test(description = "Проверка редиректа на см-бизнес при способе оплаты 'По счету для бизнеса' (Самовывоз)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testTransitionOnB2BIfSelectBusinessPaymentMethodFromPickup() {
         final var userData = UserManager.getQaUser();
         helper.dropAndFillCartWithoutSetAddress(userData, DEFAULT_CHECKOUT_SID);
@@ -271,7 +271,7 @@ public final class CheckoutPaymentMethodsTests {
 
     @CaseId(3885)
     @Test(description = "Проверка удаления карты оплаты", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
-    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "RETAILERS_REMINDER_MODAL", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testRemovePaymentCard() {
         final var userData = UserManager.getQaUser();
         var card = PaymentCards.testCardNo3ds();

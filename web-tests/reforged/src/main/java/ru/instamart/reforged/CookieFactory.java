@@ -26,13 +26,6 @@ public final class CookieFactory {
             "/",
             date);
 
-    //Окно выбора магазина
-    public static final Cookie RETAILERS_REMINDER_MODAL = new Cookie("isRetailersModalReminderShown",
-            "1",
-            COOKIE_DOMAIN,
-            "/",
-            date);
-
     public static final Cookie EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST = new Cookie("external_analytics_anonymous_id",
             ANONYMOUS_ID,
             COOKIE_DOMAIN,
