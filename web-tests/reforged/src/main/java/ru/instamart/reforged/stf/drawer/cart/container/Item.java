@@ -72,6 +72,11 @@ public final class Item extends Container {
         Assert.assertEquals(itemCountInput.getNumericValue(), expected, "Количество штук товара в корзине отличается от ожидаемого");
     }
 
+    @Step("Сравниваем кол-во товара с ожидаемым значением: '{0}'")
+    public void compareItemQuantityInCart(final double expected) {
+        Assert.assertEquals(itemCountInput.getDoubleValue(), expected, "Количество товара в корзине отличается от ожидаемого");
+    }
+
     @Step("Проверяем, что спиннер пропал")
     public void checkSpinnerIsNotVisible() {
         costSpinner.should().invisible();

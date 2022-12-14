@@ -37,6 +37,13 @@ public final class InnerInput extends InnerComponent {
         return StringUtil.extractNumberFromString(debutText);
     }
 
+    public double getDoubleValue() {
+        log.debug("Получить численное значение");
+        var debutText = getComponent().getText();
+        log.debug("Текст с числовым значением {}", debutText);
+        return StringUtil.stringToDouble(debutText);
+    }
+
     public String getValue() {
         return getAttribute("value");
     }

@@ -2,6 +2,7 @@ package ru.instamart.reforged.stf.frame.product_card;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
@@ -117,6 +118,16 @@ public interface ProductCardCheck extends Check, ProductCardElement {
     @Step("Проверяем что кнопка увеличения кол-ва кликабельна")
     default void checkIsIncreaseClickable() {
         increase.shouldBe().clickable();
+    }
+
+    @Step("Проверяем что поле ввода количества товара отображается")
+    default void checkQuantityInputVisible() {
+        quantityInputDiv.should().visible();
+    }
+
+    @Step("Проверяем что указанное в поле ввода количество товара соответствует ожидаемому: '{productQuantity}'")
+    default void checkItemQuantity(final double productQuantity) {
+        Assert.assertEquals(StringUtil.stringToDouble(quantityInputDiv.getText()), productQuantity, "Указанное в поле ввода количество товара не соответствует ожидаемому");
     }
 
     @Step("Проверяем что кнопка уменьшения кол-ва кликабельна")

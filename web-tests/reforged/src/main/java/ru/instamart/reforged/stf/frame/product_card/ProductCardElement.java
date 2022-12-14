@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
+import ru.instamart.reforged.core.component.Input;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 
 public interface ProductCardElement {
@@ -24,6 +25,8 @@ public interface ProductCardElement {
     Button buy = new Button(By.xpath("//button[@data-qa='addToCart_buy_button']"), "добавить продукт в корзину");
     Button decrease = new Button(By.xpath("//button[@data-qa='addToCart_minus']"), "уменьшить количество продуктов в корзине");
     Button increase = new Button(By.xpath("//button[@data-qa='addToCart_plus']"), "увеличить количество продуктов в корзине");
+    Input quantityInput = new Input(By.xpath("//div[contains(@class,'product_popup_container_')]//input[contains(@class,'QuantityInput')]"), "Поле ввода количества товара");
+    Element quantityInputDiv = new Element(By.xpath("//div[contains(@class,'product_popup_container_')]//input[contains(@class,'QuantityInput')]/.."), "Блок поля ввода количества товара");
 
     Element description = new Element(By.xpath("//div[@itemprop='description']/div"), "описание продукта");
     Element generalInformationBlock = new Element(By.xpath("//ul[@class='product-properties']"), "Блок 'Общая информация'");

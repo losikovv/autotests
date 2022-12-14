@@ -90,4 +90,9 @@ public final class ProductCard implements ProductCardCheck {
     public String getProductPermalink() {
         return StringUtil.getLastCatalogFromPath(Kraken.currentUrl());
     }
+
+    @Step("Получаем количество товара, указанное в поле ввода")
+    public String getProductQuantity(){
+        return quantityInputDiv.getText();
+    }
 }
