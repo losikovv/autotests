@@ -65,8 +65,6 @@ tests:on:demand:tm:
   extends:
     - ".template_grpc_tests"
   only:
-    refs:
-      - schedules
     variables:
       - $ON_DEMAND_TM == 'true'
   when: always
