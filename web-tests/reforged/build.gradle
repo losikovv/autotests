@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'io.qameta.allure' version '2.8.1'
     id 'com.adarshr.test-logger' version '3.1.0'
 }
 
@@ -8,22 +7,6 @@ apply from: 'stf-task.gradle'
 apply from: 'admin-task.gradle'
 apply from: 'tenant-task.gradle'
 apply from: 'task.gradle'
-
-allure {
-    version = versions.allure
-    autoconfigure = true
-    aspectjweaver = true
-    allureJavaVersion = versions.allure
-    configuration = "testImplementation"
-    useTestNG(){
-        version = versions.allure
-    }
-    downloadLink = "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/"+versions.allure+"/allure-commandline-"+versions.allure+".zip"
-}
-
-configurations.all {
-    exclude group: 'io.qameta.allure', module: 'allure-testng'
-}
 
 testlogger {
     theme 'mocha-parallel'

@@ -1,6 +1,10 @@
 <aspectj>
     <weaver options="-warn:none -Xlint:ignore"/>
     <aspects>
+        <aspect name="ru.instamart.kraken.allure.aspect.StepsAspects"/>
+        <aspect name="ru.instamart.kraken.allure.aspect.AttachmentsAspects"/>
         <aspect name="ru.instamart.kraken.retry.StepRetryAspect"/>
+        <exclude within="io.qameta.allure.aspects.StepsAspects"/>
+        <exclude within="io.qameta.allure.aspects.AttachmentsAspects"/>
     </aspects>
 </aspectj>
