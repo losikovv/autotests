@@ -1,16 +1,20 @@
 package ru.instamart.api.listener;
 
-import ru.sbermarket.qase.enums.RunResultStatus;
 import lombok.extern.slf4j.Slf4j;
-import org.testng.*;
+import org.testng.ISuite;
+import org.testng.ITestContext;
+import org.testng.ITestResult;
+import ru.instamart.kraken.listener.AllureTestNgListener;
 import ru.instamart.kraken.service.QaseService;
+import ru.sbermarket.qase.enums.RunResultStatus;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 @Slf4j
-public final class ApiTestSuiteListener implements ITestListener, ISuiteListener {
+public final class ApiTestSuiteListener extends AllureTestNgListener {
 
     private final QaseService qaseService;
 
@@ -71,5 +75,11 @@ public final class ApiTestSuiteListener implements ITestListener, ISuiteListener
         } catch (Exception e) {
             log.error("FATAL: something went wrong when try to finish test run", e);
         }
+    }
+
+    @Override
+    protected void tearDown(Method method, ITestResult result) {
+        //Метод позволяющий наполнить фейковый контейнер, который будет размещен в блоке tearsDown
+        //для завершения фейкового контейнера обходимо вызвать метод stopFake в методах onTestSuccess onTestFailure и onTestSkipped
     }
 }

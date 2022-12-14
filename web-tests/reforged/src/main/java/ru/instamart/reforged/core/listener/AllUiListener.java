@@ -7,10 +7,9 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.annotation.DoNotOpenBrowser;
-import ru.instamart.reforged.core.listener.allure.AllureTestNgListener;
 
 @Slf4j
-public final class AllUiListener extends AllureTestNgListener {
+public final class AllUiListener extends UiDefaultListener {
 
     @Override
     public void onStart(ITestContext context) {

@@ -1,4 +1,4 @@
-package ru.instamart.reforged.core.aspect;
+package ru.instamart.kraken.allure.aspect;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;

@@ -1,4 +1,4 @@
-package ru.instamart.reforged.core.listener.allure;
+package ru.instamart.kraken.listener;
 
 import io.qameta.allure.*;
 import io.qameta.allure.model.Link;
@@ -9,21 +9,17 @@ import io.qameta.allure.util.ResultsUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.reflect.FieldUtils;
-import org.openqa.selenium.Cookie;
 import org.testng.*;
 import org.testng.annotations.Parameters;
 import org.testng.internal.ConstructorOrMethod;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
+import ru.instamart.kraken.allure.Current;
+import ru.instamart.kraken.allure.TestInstanceParameter;
+import ru.instamart.kraken.config.TestItProperties;
 import ru.instamart.kraken.retry.RetryAnalyzer;
-import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.annotation.CookieProvider;
-import ru.instamart.reforged.core.annotation.DoNotOpenBrowser;
-import ru.instamart.reforged.core.cdp.CdpCookie;
-import ru.instamart.reforged.core.config.UiProperties;
-import ru.instamart.reforged.core.report.CustomReport;
+import ru.instamart.kraken.service.testit.TestItService;
+import ru.instamart.kraken.service.testit.Utils;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
@@ -40,10 +36,11 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Comparator.comparing;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static ru.instamart.kraken.service.testit.Utils.filterTestWithParameters;
 
 @Slf4j
 @RequiredArgsConstructor
-public class AllureTestNgListener implements ISuiteListener, ITestListener, IInvokedMethodListener, IConfigurationListener {
+public abstract class AllureTestNgListener implements ISuiteListener, ITestListener, IInvokedMethodListener, IConfigurationListener, IMethodInterceptor {
 
     private static final String ALLURE_UUID = "ALLURE_UUID";
 
@@ -229,6 +226,25 @@ public class AllureTestNgListener implements ISuiteListener, ITestListener, IInv
         getLifecycle().writeTestContainer(uuid);
     }
 
+    @Override
+    public List<IMethodInstance> intercept(List<IMethodInstance> methods, ITestContext context) {
+        if (!TestItProperties.ADAPTER_MODE.equals("0")) {
+            return methods;
+        }
+
+        final var testsForRun = TestItService.INSTANCE.getClient().getTestFromTestRun();
+
+        return methods.stream().filter(method -> {
+            final var caseID = Utils.extractCaseID(method.getMethod().getConstructorOrMethod().getMethod(), null);
+
+            if (caseID.matches("\\{.*}")) {
+                return filterTestWithParameters(testsForRun, caseID);
+            }
+
+            return testsForRun.contains(caseID);
+        }).collect(Collectors.toList());
+    }
+
     protected void fireRetryTest(final ITestResult result) {
         final var retryAnalyzer = result.getMethod().getRetryAnalyzer(result);
         //TODO: Wait Pattern Matching for instanceof Java 14++
@@ -239,7 +255,7 @@ public class AllureTestNgListener implements ISuiteListener, ITestListener, IInv
     }
 
     /**
-     * Создание фейкового контейнера, в который кладём необходимую дополнительную информацию о браузере
+     * Создание фейкового контейнера, в который кладём необходимую дополнительную информацию
      * и завершаем сессию.
      */
     protected void stopFake(final ITestResult testResult) {
@@ -249,44 +265,7 @@ public class AllureTestNgListener implements ISuiteListener, ITestListener, IInv
         stopContainer(testResult.getMethod());
     }
 
-    protected void tearDown(final Method method, final ITestResult result) {
-        CustomReport.addSystemLog();
-        if (method.isAnnotationPresent(DoNotOpenBrowser.class) || !Kraken.isAlive()) {
-            return;
-        }
-        if (!result.isSuccess()) {
-            //CustomReport.addSourcePage();
-            CustomReport.addBrowserLog();
-            CustomReport.addCookieLog();
-            CustomReport.takeScreenshot();
-            CustomReport.addLocalStorage();
-        }
-        Kraken.closeBrowser();
-    }
-
-    protected void addCookie(final IInvokedMethod method) {
-        try {
-            final var doNotOpenBrowser = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(DoNotOpenBrowser.class);
-            if (isNull(doNotOpenBrowser)) {
-                final var customCookies = method.getTestMethod().getConstructorOrMethod().getMethod().getAnnotation(CookieProvider.class);
-                final var cookies = isNull(customCookies) ? UiProperties.DEFAULT_COOKIES : Arrays.asList(customCookies.cookies());
-                final var fields = FieldUtils.getAllFieldsList(CookieFactory.class)
-                        .stream()
-                        .filter(f -> cookies.contains(f.getName()))
-                        .map(r -> {
-                            try {
-                                return (Cookie) FieldUtils.readField(r, CookieFactory.class, true);
-                            } catch (IllegalAccessException e) {
-                                throw new RuntimeException(e);
-                            }
-                        })
-                        .collect(Collectors.toUnmodifiableSet());
-                CdpCookie.addCookies(fields);
-            }
-        } catch (Exception e) {
-            log.error("FATAL: Can't add cookie for method '{}' = {}", method, e);
-        }
-    }
+    protected abstract void tearDown(final Method method, final ITestResult result);
 
     public void tearDownFixtureStarted(final ITestNGMethod testMethod) {
         currentFakeTestContainer.remove();

@@ -6,6 +6,7 @@ allprojects { project ->
         exclude group: 'junit', module: 'junit'
         exclude group: 'io.qameta.allure', module: 'allure-junit4'
         exclude group: 'io.qameta.allure', module: 'allure-junit4-aspect'
+        exclude group: 'io.qameta.allure', module: 'allure-testng'
     }
     ext.testsResults = []
 

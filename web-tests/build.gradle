@@ -10,6 +10,7 @@ buildscript {
 plugins {
     id 'java'
     id 'de.undercouch.download' version '4.0.4'
+    id 'io.qameta.allure' version '2.8.1'
 }
 
 apply from: 'dependencies.gradle'
@@ -22,6 +23,7 @@ project(":kraken") {
 
     dependencies {
         api lib.qase
+        api lib.testit
 
         api lib.testng
         api lib.jsonSimple
@@ -104,8 +106,6 @@ project(":kafka") {
 
         api lib.kafkaClients
 
-        implementation lib.allureTestng
-
         implementation lib.grpcNettyShaded
 
         implementation lib.javax
@@ -147,8 +147,6 @@ project(":grpc") {
         implementation project(":kraken")
         implementation project(":jdbc")
 
-        implementation lib.allureTestng
-
         implementation lib.grpcNettyShaded
 
         implementation lib.javax
@@ -173,8 +171,7 @@ project(":api") {
         implementation project(":kafka")
         implementation project(":redis")
 
-        implementation lib.allureTestng
-
+        implementation lib.javaxXml
         implementation lib.javaxValidation
         implementation lib.imifouJsonSchema
         implementation lib.victoolsSchemaGenerator

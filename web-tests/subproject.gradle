@@ -1,6 +1,8 @@
 subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
+    apply plugin: 'project-report'
+    apply plugin: 'io.qameta.allure'
 
     apply from: project(":").getRootDir().path+"/variables.gradle"
 
@@ -35,5 +37,17 @@ subprojects {
                 srcDirs = ['src/main/resources']
             }
         }
+    }
+
+    allure {
+        version = versions.allure
+        autoconfigure = true
+        aspectjweaver = true
+        allureJavaVersion = versions.allure
+        configuration = "testImplementation"
+        useTestNG(){
+            version = versions.allure
+        }
+        downloadLink = "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/"+versions.allure+"/allure-commandline-"+versions.allure+".zip"
     }
 }

@@ -1,4 +1,4 @@
-package ru.instamart.reforged.core.aspect;
+package ru.instamart.kraken.allure.aspect;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;
@@ -43,16 +43,10 @@ public class StepsAspects {
     public void stepStart(final JoinPoint joinPoint) {
         final var methodSignature = (MethodSignature) joinPoint.getSignature();
         final var step = methodSignature.getMethod().getAnnotation(Step.class);
-
         final var uuid = UUID.randomUUID().toString();
         final var name = getName(step.value(), joinPoint);
         final List<Parameter> parameters = getParameters(methodSignature, joinPoint.getArgs());
-
-        final var result = new StepResult()
-                .setName(name)
-                .setParameters(parameters);
-
-        getLifecycle().startStep(uuid, result);
+        allureResult(uuid, name, parameters);
     }
 
     @AfterThrowing(pointcut = "anyMethod() && withStepAnnotation()", throwing = "e")
@@ -69,7 +63,15 @@ public class StepsAspects {
         getLifecycle().stopStep();
     }
 
-    public static AllureLifecycle getLifecycle() {
+    private void allureResult(final String uuid, final String name, final List<Parameter> parameters) {
+        final var result = new StepResult()
+                .setName(name)
+                .setParameters(parameters);
+
+        getLifecycle().startStep(uuid, result);
+    }
+
+    private static AllureLifecycle getLifecycle() {
         return LIFECYCLE.get();
     }
 }

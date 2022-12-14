@@ -1,4 +1,4 @@
-package ru.instamart.reforged.core.listener.allure;
+package ru.instamart.kraken.allure;
 
 public enum CurrentStage {
 

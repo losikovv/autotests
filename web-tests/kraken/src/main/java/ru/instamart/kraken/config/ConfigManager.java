@@ -12,6 +12,7 @@ public final class ConfigManager extends AbstractConfigManager {
     @Override
     public void loadConfig() {
         ENGINE.loadConfig(CoreProperties.class, CoreProperties.NAME, CONFIG_DIR);
+        ENGINE.loadConfig(TestItProperties.class, TestItProperties.NAME, CONFIG_DIR);
         ENGINE.loadConfig(EnvironmentProperties.class, getEnv(), ENV_CONFIG_DIR);
     }
 

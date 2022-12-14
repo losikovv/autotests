@@ -1,11 +1,7 @@
 <aspectj>
     <weaver options="-warn:none -Xlint:ignore"/>
     <aspects>
-        <aspect name="ru.instamart.reforged.core.aspect.StepsAspects"/>
-        <aspect name="ru.instamart.reforged.core.aspect.AttachmentsAspects"/>
         <aspect name="ru.instamart.reforged.core.aspect.MockAspect"/>
         <aspect name="ru.instamart.reforged.core.aspect.MetricsAspect"/>
-        <exclude within="io.qameta.allure.aspects.StepsAspects"/>
-        <exclude within="io.qameta.allure.aspects.AttachmentsAspects"/>
     </aspects>
 </aspectj>

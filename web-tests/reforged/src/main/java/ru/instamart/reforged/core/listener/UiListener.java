@@ -8,12 +8,11 @@ import org.testng.ITestResult;
 import ru.instamart.kraken.service.QaseService;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.annotation.DoNotOpenBrowser;
-import ru.instamart.reforged.core.listener.allure.AllureTestNgListener;
 import ru.instamart.reforged.core.report.CustomReport;
 import ru.sbermarket.qase.enums.RunResultStatus;
 
 @Slf4j
-public final class UiListener extends AllureTestNgListener {
+public final class UiListener extends UiDefaultListener {
 
     private final QaseService qaseService;
 
