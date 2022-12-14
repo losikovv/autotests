@@ -9,6 +9,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.StringUtil;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -94,31 +95,33 @@ public final class ShoppingCartTests {
     @CaseId(1574)
     @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = {STF_PROD_S})
     public void successChangeItemQuantityInCart() {
-        shop().goToPage();
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddressLarge().checkYmapsReady();
-        shop().interactAddressLarge().fillAddress(Addresses.Moscow.trainingAddressProd());
-        shop().interactAddressLarge().selectFirstAddress();
-        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddressLarge().clickSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        home().goToPage();
+        home().fillAddressInLanding(Addresses.Moscow.trainingAddressProd());
+        home().selectFirstAddressInFounded();
+        home().checkDeliveryStoresContainerVisible();
+
+        home().clickOnStoreWithSid(DEFAULT_METRO_MOSCOW_SID);
+
+        shop().waitPageLoad();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage();
-        shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().checkSnippet();
         shop().plusFirstItemToCartWithScrollDown();
+        shop().checkItemQuantityVisible();
+        var itemQuantity = StringUtil.stringToDouble(shop().getFirstItemQuantity());
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
-        shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(itemQuantity);
 
         shop().interactCart().getFirstItem().increaseCount();
-        shop().interactCart().getFirstItem().compareItemQuantityInCart(2);
+        shop().waitPageLoad();
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(itemQuantity * 2);
+        shop().checkItemQuantity(itemQuantity * 2);
 
         shop().interactCart().getFirstItem().decreaseCount();
-        shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
-        shop().assertAll();
+        shop().waitPageLoad();
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(itemQuantity);
+        shop().checkItemQuantity(itemQuantity);
     }
 
     @CaseId(1575)
@@ -140,34 +143,40 @@ public final class ShoppingCartTests {
         shop().checkSnippet();
         shop().openFirstNonRecommendationsProductCard();
         shop().interactProductCard().clickOnBuy();
+        shop().interactProductCard().checkQuantityInputVisible();
+        var itemQuantity = StringUtil.stringToDouble(shop().interactProductCard().getProductQuantity());
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
-        shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(itemQuantity);
         shop().interactCart().closeCart();
         shop().interactCart().checkCartClose();
 
         shop().openFirstNonRecommendationsProductCard();
+        shop().interactProductCard().checkItemQuantity(itemQuantity);
         shop().interactProductCard().increaseItemCount();
-        shop().interactProductCard().checkIsIncreaseClickable();
+        shop().waitPageLoad();
+        shop().interactProductCard().checkItemQuantity(itemQuantity * 2);
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
 
         shop().interactHeader().clickToCart();
-        shop().interactCart().getFirstItem().compareItemQuantityInCart(2);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(itemQuantity * 2);
         shop().interactCart().closeCart();
         shop().interactCart().checkCartClose();
 
         shop().openFirstNonRecommendationsProductCard();
+        shop().interactProductCard().checkItemQuantity(itemQuantity * 2);
         shop().interactProductCard().decreaseItemCount();
-        shop().interactProductCard().checkDecreaseClickable();
+        shop().waitPageLoad();
+        shop().interactProductCard().checkItemQuantity(itemQuantity);
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
 
         shop().interactHeader().clickToCart();
-        shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(itemQuantity);
     }
 
     @CaseId(1576)

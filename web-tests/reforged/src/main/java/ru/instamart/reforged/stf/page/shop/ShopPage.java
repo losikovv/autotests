@@ -101,6 +101,11 @@ public final class ShopPage implements StfPage, ShopCheck {
         addToCartButtonsProd.clickOnFirst();
     }
 
+    @Step("Получаем количество товара в корзине первого сниппета")
+    public String getFirstItemQuantity(){
+        return firstItemQuantity.getText();
+    }
+
     @Step("Нажать на плюс у {itemPosition}-го товара")
     public void plusItemToCartByPosition(final int itemPosition) {
         addToCartButtonsProd.getElements().get(itemPosition - 1).click();

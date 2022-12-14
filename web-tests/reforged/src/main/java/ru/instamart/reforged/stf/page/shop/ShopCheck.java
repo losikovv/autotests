@@ -2,6 +2,7 @@ package ru.instamart.reforged.stf.page.shop;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
 import java.util.List;
@@ -18,6 +19,11 @@ public interface ShopCheck extends Check, ShopElement {
     @Step("Проверяем, что отображется сниппет каталога")
     default void checkSnippet() {
         firstProductCardProd.should().visible();
+    }
+
+    @Step("Проверяем, что отображается блок ввода количества товаров сниппета")
+    default void checkItemQuantityVisible() {
+        firstItemQuantity.should().visible();
     }
 
     @Step("Проверяем, что изображение товара отображается")
@@ -65,5 +71,10 @@ public interface ShopCheck extends Check, ShopElement {
     @Step("Проверяем что категория 'Вы покупали ранее' не отображается")
     default void checkYouBoughtBeforeCategoryNotDisplayed() {
         youBoughtBeforeCategory.should().invisible();
+    }
+
+    @Step("Проверяем что указанное в поле ввода количество товара первого сниппета соответствует ожидаемому: '{productQuantity}'")
+    default void checkItemQuantity(final double productQuantity) {
+        Assert.assertEquals(StringUtil.stringToDouble(firstItemQuantity.getText()), productQuantity, "Указанное в поле ввода количество товара не соответствует ожидаемому");
     }
 }
