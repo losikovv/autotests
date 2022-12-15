@@ -42,7 +42,7 @@ task sbermarketUiCustom(type: Test) {
     useTestNG() {
         suites "src/test/resources/suite/regress/stf.xml"
         includeGroups CI_GROUP
-        threadCount STF_FORWARD == null ? 3 : STF_FORWARD.startsWith("s-sb-stf") ? 15 : 3
+        threadCount STF_FORWARD == null ? 3 : STF_FORWARD.startsWith("s-sb-stfkraken") ? 15 : STF_FORWARD.startsWith("s-sb-stf") ? 8 : 3
     }
     environment 'P_ENV', 'sbermarket-custom'
 }

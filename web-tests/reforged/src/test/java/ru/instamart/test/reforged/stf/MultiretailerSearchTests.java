@@ -19,7 +19,7 @@ public final class MultiretailerSearchTests {
     private final String searchText = "сыр";
 
     @CaseId(3847)
-    @Test(description = "Недоступность межритейлерного поиска при невыбранном адресе", groups = {REGRESSION_STF, MULTIRETAILER_SEARCH, MALSTROM})
+    @Test(description = "Недоступность межритейлерного поиска при невыбранном адресе", groups = {REGRESSION_STF, SMOKE_STF, MULTIRETAILER_SEARCH, MALSTROM})
     public void testMultisearchUnavailableWithoutSetAddress() {
         home().goToPage();
         home().checkLoginButtonIsVisible();
@@ -29,7 +29,7 @@ public final class MultiretailerSearchTests {
     }
 
     @CaseId(3848)
-    @Test(description = "Тест успешной отработки межритейлерного саджестора", groups = {REGRESSION_STF, MULTIRETAILER_SEARCH, MALSTROM})
+    @Test(description = "Тест успешной отработки межритейлерного саджестора", groups = {REGRESSION_STF, SMOKE_STF, MULTIRETAILER_SEARCH, MALSTROM})
     public void testMultisearchPositiveInSuggester() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -50,7 +50,7 @@ public final class MultiretailerSearchTests {
     }
 
     @CaseId(3849)
-    @Test(description = "Открытие карточки товара из межритейлерного саджестора", groups = {REGRESSION_STF, MULTIRETAILER_SEARCH, MALSTROM})
+    @Test(description = "Открытие карточки товара из межритейлерного саджестора", groups = {REGRESSION_STF, SMOKE_STF, MULTIRETAILER_SEARCH, MALSTROM})
     public void testOpenProductCardFromMultisearchSuggester() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -72,7 +72,7 @@ public final class MultiretailerSearchTests {
     }
 
     @CaseId(3850)
-    @Test(description = "Добавление товара в корзину из межритейлерного саджестора", groups = {REGRESSION_STF, MULTIRETAILER_SEARCH, MALSTROM})
+    @Test(description = "Добавление товара в корзину из межритейлерного саджестора", groups = {REGRESSION_STF, SMOKE_STF, MULTIRETAILER_SEARCH, MALSTROM})
     public void testAddProductToCartFromMultisearchSuggester() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -98,7 +98,7 @@ public final class MultiretailerSearchTests {
     }
 
     @CaseId(3851)
-    @Test(description = "Успешная отработки межритейлерного поиска", groups = {REGRESSION_STF, MULTIRETAILER_SEARCH, MALSTROM})
+    @Test(description = "Успешная отработки межритейлерного поиска", groups = {REGRESSION_STF, SMOKE_STF, MULTIRETAILER_SEARCH, MALSTROM})
     public void testMultisearchPositiveOnPage() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -122,7 +122,7 @@ public final class MultiretailerSearchTests {
     }
 
     @CaseId(3852)
-    @Test(description = "Открытие карточки товара в межритейлерном поиске", groups = {REGRESSION_STF, MULTIRETAILER_SEARCH, MALSTROM})
+    @Test(description = "Открытие карточки товара в межритейлерном поиске", groups = {REGRESSION_STF, SMOKE_STF, MULTIRETAILER_SEARCH, MALSTROM})
     public void testOpenProductCardFromMultisearchPage() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -147,7 +147,7 @@ public final class MultiretailerSearchTests {
     }
 
     @CaseId(3853)
-    @Test(description = "Добавление товара в корзину в межритейлерном поиске", groups = {REGRESSION_STF, MULTIRETAILER_SEARCH, MALSTROM})
+    @Test(description = "Добавление товара в корзину в межритейлерном поиске", groups = {REGRESSION_STF, SMOKE_STF, MULTIRETAILER_SEARCH, MALSTROM})
     public void testAddProductToCartFromMultisearchPage() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -173,7 +173,7 @@ public final class MultiretailerSearchTests {
     }
 
     @CaseId(3854)
-    @Test(description = "Добавление товара в любимые в межритейлерном поиске", groups = {REGRESSION_STF, MULTIRETAILER_SEARCH, MALSTROM})
+    @Test(description = "Добавление товара в любимые в межритейлерном поиске", groups = {REGRESSION_STF, SMOKE_STF, MULTIRETAILER_SEARCH, MALSTROM})
     public void testAddProductToFavouritesFromMultisearchPage() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -227,7 +227,7 @@ public final class MultiretailerSearchTests {
     }
 
     @CaseId(3856)
-    @Test(description = "Переключение категорий в межритейлерном поиске", groups = {REGRESSION_STF, MULTIRETAILER_SEARCH, MALSTROM})
+    @Test(description = "Переключение категорий в межритейлерном поиске", groups = {REGRESSION_STF, SMOKE_STF, MULTIRETAILER_SEARCH, MALSTROM})
     public void testCategoryFiltersOnMultisearchPage() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -255,7 +255,7 @@ public final class MultiretailerSearchTests {
     }
 
     @CaseId(3858)
-    @Test(description = "Недоступность межритейлерного поиска при самовывозе на главной", groups = {REGRESSION_STF, MULTIRETAILER_SEARCH, MALSTROM})
+    @Test(description = "Недоступность межритейлерного поиска при самовывозе на главной", groups = {REGRESSION_STF, SMOKE_STF, MULTIRETAILER_SEARCH, MALSTROM})
     public void testCheckMultisearchNotAvailableOnMainPageViaPickup() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -305,7 +305,7 @@ public final class MultiretailerSearchTests {
     }
 
     @CaseId(3860)
-    @Test(description = "Переключение слага ритейлера в межритейлерном саджесторе", groups = {REGRESSION_STF, MULTIRETAILER_SEARCH, MALSTROM})
+    @Test(description = "Переключение слага ритейлера в межритейлерном саджесторе", groups = {REGRESSION_STF, SMOKE_STF, MULTIRETAILER_SEARCH, MALSTROM})
     public void testSwitchRetailerInSuggester() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -329,5 +329,40 @@ public final class MultiretailerSearchTests {
         home().interactMultisearchHeader().checkProductsVisibleInSuggester();
         home().interactMultisearchHeader().checkSearchResultsContains(searchText);
         home().interactMultisearchHeader().checkIfProductsListChanged(firstRetailerProductNames);
+    }
+
+    @CaseId(3857)
+    @Test(description = "Переключение слага ритейлера при переходе на товары из блоков 'С этим товаром смотрят' и 'Похожие'", groups = {REGRESSION_STF, MULTIRETAILER_SEARCH, MALSTROM})
+    public void testAddProductToCartFromFromRecommendationsViaAnotherProductCard() {
+        final UserData userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultProdAddress());
+
+        home().goToPage();
+        home().checkPageIsAvailable();
+        home().checkLoginButtonIsVisible();
+
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+        home().interactAuthModal().checkModalIsNotVisible();
+        home().interactMultisearchHeader().checkUserActionsButtonVisible();
+
+        home().interactMultisearchHeader().checkMultisearchInputVisible();
+        home().interactMultisearchHeader().fillMultisearch(searchText);
+        home().interactMultisearchHeader().clickStartSearch();
+
+        multiSearch().waitPageLoad();
+        multiSearch().checkProductsCardsVisible();
+        multiSearch().clickProductSnippetByPosition(1);
+
+        multiSearch().interactProductCard().checkProductCardVisible();
+        var recommendationBlockName = "С этим товаром смотрят";
+        multiSearch().interactProductCard().interactRetailRocket().checkRecommendationsBlockVisible(recommendationBlockName);
+        var productNameInRecommendation = multiSearch().interactProductCard().interactRetailRocket().getFirstItemTitleInBlockByName(recommendationBlockName);
+        multiSearch().interactProductCard().interactRetailRocket().openProductCardFirstItemInBlockByName(recommendationBlockName);
+
+        multiSearch().interactProductCard().checkProductCardVisible();
+        multiSearch().interactProductCard().checkProductTitle(productNameInRecommendation);
+        multiSearch().interactProductCard().interactRetailRocket().checkRecommendationsBlockVisible(recommendationBlockName);
+        multiSearch().interactProductCard().checkBuyButtonVisible();
     }
 }

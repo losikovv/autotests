@@ -2,7 +2,6 @@ package ru.instamart.test.reforged.stf.checkout_new;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
@@ -11,7 +10,6 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.api.helper.ApiV3Helper.addFlipperActor;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
 import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.stf.enums.PaymentMethods.BY_CARD_TO_COURIER;
@@ -25,10 +23,9 @@ public final class CheckoutSlotsTests {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @Issue("B2C-9738")
     @CaseId(3638)
     @Story("Слоты")
-    @Test(description = "Выбор слота доставки", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Выбор слота доставки", groups = {REGRESSION_STF, SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSelectDeliverySlot() {
         final var userData = UserManager.getQaUser();
@@ -132,7 +129,7 @@ public final class CheckoutSlotsTests {
 
     @CaseId(3634)
     @Story("Слоты")
-    @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Проверка валидации при невыбранном слоте и нажатии кнопки 'Оплатить'", groups = {REGRESSION_STF, SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testSelectSlotRequired() {
         final var userData = UserManager.getQaUser();

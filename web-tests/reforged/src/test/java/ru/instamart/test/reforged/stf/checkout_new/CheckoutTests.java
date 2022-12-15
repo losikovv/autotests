@@ -136,7 +136,7 @@ public final class CheckoutTests {
     }
 
     @CaseId(3624)
-    @Test(description = "Тест полного оформления заказа с оплатой картой курьеру (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Тест полного оформления заказа с оплатой картой курьеру (Доставка)", groups = {REGRESSION_STF, SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithPayToCourierAndDelivery() {
         final var userData = UserManager.getQaUser();
@@ -352,7 +352,7 @@ public final class CheckoutTests {
     }
 
     @CaseId(3840)
-    @Test(description = "Тест полного оформления заказа с оплатой наличными (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Тест полного оформления заказа с оплатой наличными (Доставка)", groups = {REGRESSION_STF, SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testCheckoutCompleteWithCash() {
         final var userData = UserManager.getQaUser();

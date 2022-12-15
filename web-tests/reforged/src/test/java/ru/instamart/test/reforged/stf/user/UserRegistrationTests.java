@@ -7,11 +7,12 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
+import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.Group.REGRESSION_STF;
-import static ru.instamart.reforged.Group.STARTING_X;
+import static ru.instamart.reforged.Group.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -32,7 +33,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1541)
     @Story("Регистрация на лендинге")
-    @Test(description = "Регистрация нового пользователя на лендинге", groups = {STARTING_X, REGRESSION_STF, "smoke", "MRAutoCheck"})
+    @Test(description = "Регистрация нового пользователя на лендинге", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF, "MRAutoCheck"})
     public void successRegOnLanding() {
         home().goToPage();
         home().openLoginModal();
@@ -42,7 +43,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1543)
     @Story("Регистрация на странице ретейлера")
-    @Test(description = "Регистрация нового пользователя на витрине магазина", groups = {STARTING_X, REGRESSION_STF})
+    @Test(description = "Регистрация нового пользователя на витрине магазина", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF})
     public void successRegOnMainPage() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -87,7 +88,7 @@ public final class UserRegistrationTests {
 
     @CaseId(1545)
     @Story("Регистрация на странице ретейлера")
-    @Test(description = "Тест успешной регистрации без проставленной галки Получать выгодные предложения", groups = {STARTING_X, REGRESSION_STF})
+    @Test(description = "Тест успешной регистрации без проставленной галки Получать выгодные предложения", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF})
     public void successRegWithoutMailingCheckbox() {
         home().goToPage();
         home().openLoginModal();
@@ -99,7 +100,8 @@ public final class UserRegistrationTests {
 
     @CaseId(2622)
     @Story("Регистрация из корзины")
-    @Test(description = "Регистрация при попытке перехода из корзины в чекаут", groups = {STARTING_X, REGRESSION_STF})
+    @Test(description = "Регистрация при попытке перехода из корзины в чекаут", groups = {STARTING_X, REGRESSION_STF, SMOKE_STF})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void successRegFromCartWithQuantityAndAmountCheck() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
@@ -111,8 +113,8 @@ public final class UserRegistrationTests {
         shop().interactAddressLarge().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().plusFirstItemToCart();
+        shop().interactHeader().checkCartNotificationIsVisible();
 
-        shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseFirstItemCountToMin();
         final var orderAmount = shop().interactCart().getOrderAmount();
@@ -120,12 +122,10 @@ public final class UserRegistrationTests {
 
         shop().interactCart().submitOrder();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
-        checkout().checkCheckoutButtonIsVisible();
+        checkoutNew().checkDeliverySlotsVisible();
 
-        final var orderAmountInCheckout = checkout().getOrderAmount();
-        final var positionsCountInCheckout = checkout().getPositionsCountProd();
+        final var orderAmountInCheckout = checkoutNew().getOrderAmountDouble();
 
-        checkout().compareOrderAmountAfterRegistration(orderAmount, orderAmountInCheckout);
-        checkout().comparePositionCountAfterRegistration(positionsCount, positionsCountInCheckout);
+        checkoutNew().compareOrderAmountAfterRegistration(orderAmount, orderAmountInCheckout);
     }
 }
