@@ -251,7 +251,7 @@ tests:customRun:
     - echo $HR_OPS_PARTNERS_URL
     - echo $URL_STF_BACKEND
     - echo $URL_SHP
-    - gradle --continue clean build ciRun copyAllAllureHistory copyAllLogs
+    - gradle --continue clean build ciRun copyAllAllureHistory copyAllLogs -x test
   after_script:
     - bash ./report.sh . custom-run
   tags:
@@ -269,7 +269,7 @@ tests:AutoMRCheck:
     - merge_requests
   stage: mr
   script:
-    - gradle --continue clean build :api:autoMr :reforged:autoMr allureCopyHistoryDir
+    - gradle --continue clean build AutoMRCheck allureCopyHistoryDir -x test
   after_script:
     - bash ./report.sh . default
   tags:

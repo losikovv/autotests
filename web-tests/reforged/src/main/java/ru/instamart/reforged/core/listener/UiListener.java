@@ -40,13 +40,11 @@ public final class UiListener extends UiDefaultListener {
     public void onTestSuccess(ITestResult result) {
         super.onTestSuccess(result);
         this.qaseService.sendResult(result, RunResultStatus.passed);
-        stopFake(result);
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
         super.onTestFailure(result);
-        stopFake(result);
         if (result.getMethod().getConstructorOrMethod().getMethod().isAnnotationPresent(DoNotOpenBrowser.class) || !Kraken.isAlive()) {
             return;
         }
@@ -58,7 +56,6 @@ public final class UiListener extends UiDefaultListener {
     public void onTestSkipped(ITestResult result) {
         super.onTestSkipped(result);
         this.qaseService.sendResult(result, RunResultStatus.blocked);
-        stopFake(result);
     }
 
     @Override

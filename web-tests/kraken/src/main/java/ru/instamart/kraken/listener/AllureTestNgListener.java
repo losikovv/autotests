@@ -170,6 +170,7 @@ public abstract class AllureTestNgListener implements ISuiteListener, ITestListe
         final var current = currentTestResult.get();
         current.after();
         stopTestCase(current.getUuid(), null, Status.PASSED);
+        stopFake(testResult);
     }
 
     @Override
@@ -190,6 +191,7 @@ public abstract class AllureTestNgListener implements ISuiteListener, ITestListe
         final var throwable = testResult.getThrowable();
         final var status = getStatus(throwable);
         stopTestCase(uuid, throwable, status);
+        stopFake(testResult);
     }
 
     @Override
@@ -205,6 +207,7 @@ public abstract class AllureTestNgListener implements ISuiteListener, ITestListe
         }
         current.after();
         stopTestCase(current.getUuid(), testResult.getThrowable(), Status.SKIPPED);
+        stopFake(testResult);
     }
 
     @Override

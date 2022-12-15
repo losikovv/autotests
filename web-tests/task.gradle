@@ -4,7 +4,7 @@ task AutoMRCheck(type: Test) {
 }
 
 task allureCopyHistoryDir(type: Copy) {
-    sleep(5 * 1000)
+    sleep(5000)
     from project(':api').getBuildDir().path+"/allure-results".toString()
     from project(':reforged').getBuildDir().path+"/allure-results".toString()
     duplicatesStrategy = DuplicatesStrategy.WARN
@@ -33,7 +33,7 @@ task ciRun(type: Test) {
 }
 
 task copyAllAllureHistory(type: Copy) {
-    sleep(5 * 1000)
+    sleep(5000)
     def paths = []
     subprojects.each {
         paths += it.getBuildDir().path + "/allure-results".toString()
@@ -44,7 +44,7 @@ task copyAllAllureHistory(type: Copy) {
 }
 
 task copyAllLogs(type: Copy) {
-    sleep(5 * 1000)
+    sleep(5000)
     def paths = []
     subprojects.each {
         paths += it.getProjectDir().path + "/logs".toString()

@@ -26,13 +26,11 @@ public final class AllUiListener extends UiDefaultListener {
     @Override
     public void onTestSuccess(ITestResult result) {
         super.onTestSuccess(result);
-        stopFake(result);
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
         super.onTestFailure(result);
-        stopFake(result);
         if (result.getMethod().getConstructorOrMethod().getMethod().isAnnotationPresent(DoNotOpenBrowser.class) || !Kraken.isAlive()) {
             return;
         }
@@ -42,7 +40,6 @@ public final class AllUiListener extends UiDefaultListener {
     @Override
     public void onTestSkipped(ITestResult result) {
         super.onTestSkipped(result);
-        stopFake(result);
     }
 
     @Override
