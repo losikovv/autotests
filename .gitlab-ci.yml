@@ -260,6 +260,7 @@ tests:customRun:
     when: always
     paths:
       - web-tests/build/allure-results/
+      - web-tests/reforged/build/reports/
       - web-tests/build/logs/
     expire_in: 1 week
   allow_failure: true
