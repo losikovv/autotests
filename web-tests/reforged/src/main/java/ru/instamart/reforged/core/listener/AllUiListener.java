@@ -1,7 +1,6 @@
 package ru.instamart.reforged.core.listener;
 
 import lombok.extern.slf4j.Slf4j;
-import org.testng.IInvokedMethod;
 import org.testng.ISuite;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -14,13 +13,6 @@ public final class AllUiListener extends UiDefaultListener {
     @Override
     public void onStart(ITestContext context) {
         super.onStart(context);
-    }
-
-    @Override
-    public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-        super.beforeInvocation(method, testResult);
-        if (method.isTestMethod())
-            addCookie(method);
     }
 
     @Override

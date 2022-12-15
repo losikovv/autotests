@@ -23,8 +23,14 @@ import static java.util.Objects.isNull;
 @Slf4j
 public class UiDefaultListener extends AllureTestNgListener {
 
+    @Override
+    public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
+        super.beforeInvocation(method, testResult);
+        if (method.isTestMethod())
+            addCookie(method);
+    }
+
     protected void tearDown(final Method method, final ITestResult result) {
-        CustomReport.addSystemLog();
         if (method.isAnnotationPresent(DoNotOpenBrowser.class) || !Kraken.isAlive()) {
             return;
         }
@@ -36,6 +42,7 @@ public class UiDefaultListener extends AllureTestNgListener {
             CustomReport.addLocalStorage();
         }
         Kraken.closeBrowser();
+        CustomReport.addSystemLog();
     }
 
     protected void addCookie(final IInvokedMethod method) {
