@@ -47,6 +47,7 @@ public final class CleanupThread extends Thread {
     private void closeWebDriver(final Thread thread) {
         final var driverSession = this.threadWebDriver.remove(thread.getId());
         if (nonNull(driverSession) && nonNull(driverSession.getDriver())) {
+            driverSession.getDevTools().close();
             driverSession.getDriver().quit();
             log.debug("Close WebDriver for threadId : {}", thread.getId());
         }

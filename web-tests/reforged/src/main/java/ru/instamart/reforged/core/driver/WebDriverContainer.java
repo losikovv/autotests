@@ -36,8 +36,13 @@ public final class WebDriverContainer {
     public void closeDriver() {
         final var driverSession = this.webDriverMap.remove(Thread.currentThread().getId());
         if (nonNull(driverSession) && nonNull(driverSession.getDriver())) {
+            log.debug("Remove cdp session={} for thread_id={}", driverSession.getDevTools().getCdpSession(), Thread.currentThread().getId());
+            driverSession.getDevTools().close();
+            log.debug("Close cdp connection");
             driverSession.getDriver().quit();
+            log.debug("Quit driver");
             Router.cleanPage();
+            log.debug("Clean page");
         }
     }
 
