@@ -14,11 +14,11 @@
         <classes>
             <class name="ru.instamart.test.api.on_demand.eta.StoreEtaTest"/>
             <class name="ru.instamart.test.api.on_demand.eta.BasketEtaTest"/>
-            <class name="ru.instamart.test.api.on_demand.eta.CourierEtaTest"/>
             <class name="ru.instamart.test.api.on_demand.eta.RetailerParametersEtaTest"/>
             <class name="ru.instamart.test.api.on_demand.eta.StoreParametersEtaTest"/>
             <class name="ru.instamart.test.api.on_demand.eta.ServiceParametersEtaTest"/>
             <class name="ru.instamart.test.api.on_demand.eta.DisableEtaTest"/>
+            <class name="ru.instamart.test.api.on_demand.eta.SurgeReactionEtaTest"/>
         </classes>
     </test>
     <test verbose="1" name="ETA ML Timeout" parallel="classes" thread-count="1">

@@ -168,4 +168,20 @@ public class SurgeLevelHelper {
             assertTrue(isFormulaCreated, "Не добавилась формула");
         }
     }
+
+    @Step("Создаем событие расчета surge магазина {storeUuid}")
+    public static Surgelevelevent.SurgeEvent getEventSurge(final String storeUuid, final float surgeLevel) {
+        return Surgelevelevent.SurgeEvent.newBuilder()
+                .setStoreId(storeUuid)
+                .setPresentSurgeLevel(surgeLevel)
+                .build();
+    }
+
+    @Step("Отправляем событие расчета surge магазина {storeUuid} в kafka")
+    public static void publishEventSurge(final String storeUuid, final float surgeLevel, final int timeout) {
+        final var eventSurge = getEventSurge(storeUuid, surgeLevel);
+        kafka.publish(configSurgeLevel(), eventSurge);
+        ThreadUtil.simplyAwait(timeout);
+    }
+
 }

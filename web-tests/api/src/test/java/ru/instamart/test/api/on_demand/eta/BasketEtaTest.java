@@ -25,7 +25,6 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -37,9 +36,8 @@ import static ru.instamart.api.helper.K8sHelper.getPaasServiceEnvProp;
 import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 import static ru.instamart.kraken.util.TimeUtil.getZoneDbDate;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
-@Epic("On Demand")
-@Feature("ETA")
+@Epic("ETA")
+@Feature("Basket Eta")
 public class BasketEtaTest extends RestBase {
 
     private PredEtaBlockingStub clientEta;
@@ -55,8 +53,8 @@ public class BasketEtaTest extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientEta = PredEtaGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_ETA));
-        addStore(STORE_UUID, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true);
-        addStore(STORE_UUID_WITH_DIFFERENT_TIMEZONE, 55.7030f, 37.7230f, "Europe/Kaliningrad", false, "00:00:00", "00:00:00", "00:00:00", true);
+        addStore(STORE_UUID, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, false);
+        addStore(STORE_UUID_WITH_DIFFERENT_TIMEZONE, 55.7030f, 37.7230f, "Europe/Kaliningrad", false, "00:00:00", "00:00:00", "00:00:00", true, false);
 
         final var serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.ETA_NAMESPACE, " | grep -e ETA_ENABLE_STORE_ON_DEMAND_CHECK ");
         final var envPropsStr = String.join("\n", serviceEnvProperties);
@@ -73,7 +71,7 @@ public class BasketEtaTest extends RestBase {
     @CaseIDs(value = {@CaseId(11), @CaseId(40), @CaseId(49), @CaseId(60)})
     @Story("Basket ETA")
     @Test(description = "Отправка запроса с валидными координатами пользователя",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEta() {
         var request = getUserEtaRequest(USER_UUID, 55.7006f, 37.7266f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
 
@@ -84,7 +82,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(21)
     @Story("Basket ETA")
     @Test(description = "Отправка запроса с координатами клиента, соответствующими координатам магазина",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaWithStoreCoordinates() {
         var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
 
@@ -95,7 +93,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(20)
     @Story("Basket ETA")
     @Test(description = "Изменение результата, при изменении координат пользователя",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaForStoreWithDifferentCoordinates() {
         var requestFirstCoordinates = getUserEtaRequest(USER_UUID, 55.7006f, 37.7266f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
         var requestSecondCoordinates = getUserEtaRequest(USER_UUID, 55.7000f, 37.7200f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
@@ -111,7 +109,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(12)
     @Story("Basket ETA")
     @Test(description = "Отправка запроса с не валидными координатами пользователя",
-            groups = "dispatch-eta-smoke",
+            groups = "ondemand-eta",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation failed")
     public void getBasketEtaWithInvalidCoordinates() {
@@ -123,7 +121,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(13)
     @Story("Basket ETA")
     @Test(description = "Отправка запроса с невалидным магазином",
-            groups = "dispatch-eta-smoke",
+            groups = "ondemand-eta",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation failed")
     public void getBasketEtaWithInvalidStore() {
@@ -135,7 +133,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(14)
     @Story("Basket ETA")
     @Test(description = "Отправка запроса с валидным, но несуществующим в БД store_uuid",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaForNonExistentStore() {
         var request = getUserEtaRequest(USER_UUID, 55.7010f, 37.7280f, UUID.randomUUID().toString(), 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
 
@@ -146,7 +144,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(64)
     @Story("Basket ETA")
     @Test(description = "Отправка запросов с различным количеством структур в массиве sku",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaWithFewSku() {
         var firstRequest = getUserEtaRequest(USER_UUID, 55.7006f, 37.7266f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
         var secondRequest = Eta.UserEtaRequest.newBuilder()
@@ -207,7 +205,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(22)
     @Story("Basket ETA")
     @Test(description = "Отправка запросов с различным значением в параметре unit_quantity",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaWithDifferentQuantities() {
         var firstRequest = getUserEtaRequest(USER_UUID, 55.7006f, 37.7266f, STORE_UUID, 55.7010f, 37.7280f, ORDER_UUID, SHIPMENT_UUID);
         var secondRequest = Eta.UserEtaRequest.newBuilder()
@@ -249,7 +247,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(31)
     @Story("Basket ETA")
     @Test(description = "Отправка запроса с двумя шипментами из двух разных магазинов",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaFromDifferentStores() {
         String secondShipmentUuid = UUID.randomUUID().toString();
         var request = Eta.UserEtaRequest.newBuilder()
@@ -316,7 +314,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(41)
     @Story("Basket ETA")
     @Test(description = "Получение пустого ответа при запросе в закрытый магазин (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaForClosedStoreTrue() {
 
         if (!etaEnableOnDemandCheck) {
@@ -336,7 +334,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(45)
     @Story("Basket ETA")
     @Test(description = "Получение пустого ответа при запросе в пределах работы параметра OnDemandClosingDelta (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaForClosedStoreViaClosingDeltaTrue() {
 
         if (!etaEnableOnDemandCheck) {
@@ -356,7 +354,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(50)
     @Story("Basket ETA")
     @Test(description = "Получение пустого ответа при запросе с OnDemandClosingDelta равным времени работы магазина (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
-            groups = "dispatch-eta-regress")
+            groups = "ondemand-eta")
     public void getBasketEtaForClosedStoreEqualClosingDeltaTrue() {
 
         if (!etaEnableOnDemandCheck) {
@@ -376,7 +374,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(248)
     @Story("Basket ETA")
     @Test(description = "Получение ЕТА при запросе в закрытый магазин (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaForClosedStoreFalse() {
 
         if (etaEnableOnDemandCheck) {
@@ -396,7 +394,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(251)
     @Story("Basket ETA")
     @Test(description = "Получение ЕТА при запросе в пределах работы параметра OnDemandClosingDelta (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaForClosedStoreViaClosingDeltaFalse() {
 
         if (etaEnableOnDemandCheck) {
@@ -416,7 +414,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(252)
     @Story("Basket ETA")
     @Test(description = "Получение ЕТА при запросе с OnDemandClosingDelta равным времени работы магазина (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
-            groups = "dispatch-eta-regress")
+            groups = "ondemand-eta")
     public void getBasketEtaForClosedStoreEqualClosingDeltaFalse() {
 
         if (etaEnableOnDemandCheck) {
@@ -436,7 +434,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(55)
     @Story("Basket ETA")
     @Test(description = "Отправка валидного запроса в магазин, который в одном часовом поясе открыт, а другом закрыт",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaInDifferentTimezone() {
         String openingDate = getZoneDbDate(LocalDateTime.now().minusMinutes(5));
         String closingDate = getZoneDbDate(LocalDateTime.now().plusMinutes(5));
@@ -451,7 +449,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(59)
     @Story("Basket ETA")
     @Test(description = "Получение ответа от ML",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaWithML() {
         updateStoreMLStatus(STORE_UUID_WITH_ML, true);
         RedisService.del(RedisManager.getConnection(Redis.ETA), String.format("store_%s", STORE_UUID_WITH_ML));
@@ -465,7 +463,7 @@ public class BasketEtaTest extends RestBase {
     @CaseId(37)
     @Story("Basket ETA")
     @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML возвращает ноль",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaWithZeroML() {
         //магазин, которого нет в ML, но есть в ETA
         final var storeUuid = "7f6b0fa1-ec20-41f9-9246-bfa0d6529dad";

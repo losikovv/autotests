@@ -32,6 +32,7 @@ public class DisableEtaIntervalsDao implements Dao<Integer, DisableEtaIntervalsE
                     disableEtaIntervalsEntity.setEndAt(resultSet.getString("end_at"));
                     disableEtaIntervalsEntity.setCreatedAt(resultSet.getString("created_at"));
                     disableEtaIntervalsEntity.setDeletedAt(resultSet.getString("deleted_at"));
+                    disableEtaIntervalsEntity.setSource(resultSet.getString("source"));
                     intervalResult.add(disableEtaIntervalsEntity);
                 }
             }
@@ -57,6 +58,7 @@ public class DisableEtaIntervalsDao implements Dao<Integer, DisableEtaIntervalsE
                     disableEtaIntervalsEntity.setEndAt(resultSet.getString("end_at"));
                     disableEtaIntervalsEntity.setCreatedAt(resultSet.getString("created_at"));
                     disableEtaIntervalsEntity.setDeletedAt(resultSet.getString("deleted_at"));
+                    disableEtaIntervalsEntity.setSource(resultSet.getString("source"));
                     intervalResult.add(disableEtaIntervalsEntity);
                 }
             }
@@ -97,6 +99,7 @@ public class DisableEtaIntervalsDao implements Dao<Integer, DisableEtaIntervalsE
                     intervals.setEndAt(resultSet.getString("end_at"));
                     intervals.setCreatedAt(resultSet.getString("created_at"));
                     intervals.setDeletedAt(resultSet.getString("deleted_at"));
+                    intervals.setSource(resultSet.getString("source"));
                 }
             }
         } catch (SQLException e) {
