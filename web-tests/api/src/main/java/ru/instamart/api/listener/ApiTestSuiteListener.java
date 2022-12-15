@@ -45,7 +45,7 @@ public final class ApiTestSuiteListener extends AllureTestNgListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        super.onTestSuccess(result);
+        super.onTestFailure(result);
         this.qaseService.sendResult(result, RunResultStatus.failed);
     }
 
