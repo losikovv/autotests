@@ -4,9 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.data.AddressDetailsData;
 import ru.instamart.kraken.data.TestVariables;
-import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.UiProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
@@ -14,20 +12,19 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
-import static ru.instamart.reforged.stf.page.StfRouter.checkoutNew;
 
 @Epic("STF UI")
 @Feature("Чекаут. Шаг #1. Способ получения")
 public final class CheckoutAddressStepTests {
 
     private final ApiHelper helper = new ApiHelper();
-    private final AddressDetailsData data = TestVariables.testAddressData();
-    private final AddressDetailsData changeData = TestVariables.testChangeAddressData();
-    private final UserData userData = UserManager.getQaUser();
 
     @CaseIDs({@CaseId(1698), @CaseId(1699), @CaseId(1700), @CaseId(1701)})
     @Test(description = "Тесты заполнения, изменения и очистки всех полей", groups = REGRESSION_STF)
     public void successFillAllFieldsAndProceedNext() {
+        var data = TestVariables.testAddressData();
+        var changeData = TestVariables.testChangeAddressData();
+        var userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, UiProperties.DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
