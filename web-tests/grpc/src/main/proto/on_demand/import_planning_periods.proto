@@ -1,9 +1,6 @@
 syntax = "proto3";
 
 package shifts;
-
-
-
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
