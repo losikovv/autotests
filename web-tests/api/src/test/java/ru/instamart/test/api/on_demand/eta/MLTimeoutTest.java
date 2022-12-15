@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.eta.ServiceParametersDao;
-import ru.instamart.jdbc.dao.eta.StoreParametersDao;
 import ru.instamart.jdbc.entity.eta.ServiceParametersEntity;
 import ru.instamart.redis.Redis;
 import ru.instamart.redis.RedisManager;
@@ -24,8 +23,8 @@ import java.util.UUID;
 import static ru.instamart.api.helper.EtaHelper.*;
 import static ru.instamart.api.helper.EtaHelper.checkBasketEta;
 
-@Epic("On Demand")
-@Feature("ETA")
+@Epic("ETA")
+@Feature("ML Timeout")
 public class MLTimeoutTest extends RestBase {
 
     private PredEtaGrpc.PredEtaBlockingStub clientEta;
@@ -49,7 +48,7 @@ public class MLTimeoutTest extends RestBase {
     @CaseId(62)
     @Story("Store ETA")
     @Test(description = "Проверка отсутствия ошибки, в случае, если ML не возвращает ответ по таймауту",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getEtaWithFallbackAfterMLTimeout() {
         var request = getStoreUserEtaRequest(STORE_UUID_WITH_ML, 55.7006f, 37.7266f);
         var response = clientEta.getStoreEta(request);
@@ -59,7 +58,7 @@ public class MLTimeoutTest extends RestBase {
     @CaseId(61)
     @Story("Basket ETA")
     @Test(description = "Проверка, что рассчитывается фоллбэк, в случае, если ML не возвращает ответ по таймауту",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getBasketEtaWithMLTimeout() {
         final var orderUuid = UUID.randomUUID().toString();
         final var shipmentUuid = UUID.randomUUID().toString();

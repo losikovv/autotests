@@ -20,8 +20,8 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.helper.EtaHelper.updateRetailerParameters;
 
-@Epic("On Demand")
-@Feature("ETA")
+@Epic("ETA")
+@Feature("Retailer Parameters")
 public class RetailerParametersEtaTest extends RestBase {
 
     private RetailerParametersEtaResponse retailerParameters;
@@ -31,7 +31,7 @@ public class RetailerParametersEtaTest extends RestBase {
     @CaseId(27)
     @Story("Параметры ритейлеров")
     @Test(description = "Получение параметров ритейлера",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getRetailerParameters() {
         final Response response = RetailerParametersEtaRequest.GET(retailerId);
 
@@ -44,7 +44,7 @@ public class RetailerParametersEtaTest extends RestBase {
     @CaseId(28)
     @Story("Параметры ритейлеров")
     @Test(description = "Изменение параметров ритейлера",
-            groups = "dispatch-eta-smoke",
+            groups = "ondemand-eta",
             dependsOnMethods = "getRetailerParameters")
     public void editRetailerParameters() {
         courierSpeed = retailerParameters.getCourierSpeed();
@@ -58,7 +58,7 @@ public class RetailerParametersEtaTest extends RestBase {
     @CaseId(229)
     @Story("Параметры ритейлеров")
     @Test(description = "Получение ошибки не поддерживаемого медиа типа",
-            groups = "dispatch-eta-regress",
+            groups = "ondemand-eta",
             dependsOnMethods = "getRetailerParameters")
     public void editRetailerParametersWithoutContentType() {
         final Response response = RetailerParametersEtaRequest.WithoutСontentType.PUT(retailerId, retailerParameters);

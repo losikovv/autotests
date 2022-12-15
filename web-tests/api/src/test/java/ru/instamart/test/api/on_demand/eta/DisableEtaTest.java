@@ -24,8 +24,8 @@ import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.kraken.util.TimeUtil.getDatePlusSec;
 
-@Epic("On Demand")
-@Feature("ETA")
+@Epic("ETA")
+@Feature("Disable Eta")
 public class DisableEtaTest extends RestBase {
 
     private PredEtaBlockingStub clientEta;
@@ -42,7 +42,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(240)
     @Story("Disable ETA")
     @Test(description = "Загрузка корректных интервалов отключения ЕТА",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void disableEta() {
         var request = Eta.DisableEtaRequest.newBuilder()
                 .addStoreUuids(STORE_UUID_FIRST)
@@ -59,7 +59,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(255)
     @Story("Disable ETA")
     @Test(description = "Загрузка корректных интервалов отключения слота",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void disableEtaSlot() {
         var request = Eta.DisableEtaRequest.newBuilder()
                 .addStoreUuids(STORE_UUID_FIRST)
@@ -76,7 +76,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(256)
     @Story("Disable ETA")
     @Test(description = "Загрузка корректных интервалов отключения ЕТА и слота",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void disableEtaAndSlot() {
         var request = Eta.DisableEtaRequest.newBuilder()
                 .addStoreUuids(STORE_UUID_SECOND)
@@ -97,7 +97,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(257)
     @Story("Disable ETA")
     @Test(description = "Загрузка корректных интервалов в несколько магазинов",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void disableEtaMultipleStores() {
         var request = Eta.DisableEtaRequest.newBuilder()
                 .addStoreUuids(STORE_UUID_FIRST)
@@ -115,7 +115,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(243)
     @Story("Disable ETA")
     @Test(description = "Удаление старых интервалов при загрузке новых, которые пересекаются по времени",
-            groups = "dispatch-eta-smoke",
+            groups = "ondemand-eta",
             dependsOnMethods = "disableEtaAndSlot")
     public void disableEtaReplace() {
         var request = Eta.DisableEtaRequest.newBuilder()
@@ -139,7 +139,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(241)
     @Story("Disable ETA")
     @Test(description = "Получение ошибки при загрузке интервалов c пустым списком магазинов",
-            groups = "dispatch-eta-regress",
+            groups = "ondemand-eta",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid request: empty store uuids")
     public void disableEtaEmptyStores() {
@@ -155,7 +155,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(258)
     @Story("Disable ETA")
     @Test(description = "Получение ошибки при загрузке интервалов с не валидным store.uuid",
-            groups = "dispatch-eta-regress",
+            groups = "ondemand-eta",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid request: invalid store uuid test:.*")
     public void disableEtaInvalidStores() {
@@ -172,7 +172,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(242)
     @Story("Disable ETA")
     @Test(description = "Получение ошибки при загрузке интервалов без указания временных границ",
-            groups = "dispatch-eta-regress",
+            groups = "ondemand-eta",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid request: left border and right border are required")
     public void disableEtaNoBorder() {
@@ -188,7 +188,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(254)
     @Story("Disable ETA")
     @Test(description = "Получение ошибки при загрузке интервалов без отключения ЕТА и слота",
-            groups = "dispatch-eta-regress",
+            groups = "ondemand-eta",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid request: at least one of disable_eta or disable_slot must be true")
     public void disableEtaFalse() {
@@ -205,7 +205,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(259)
     @Story("Check Slot Disable")
     @Test(description = "Получение списка выключенных слотов в магазине",
-            groups = "dispatch-eta-smoke",
+            groups = "ondemand-eta",
             dependsOnMethods = "disableEtaSlot")
     public void checkSlotDisable() {
         var request = Eta.CheckSlotDisableRequest.newBuilder()
@@ -225,7 +225,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(260)
     @Story("Check Slot Disable")
     @Test(description = "Получение списка выключенных слотов в нескольких магазинах",
-            groups = "dispatch-eta-smoke",
+            groups = "ondemand-eta",
             dependsOnMethods = "disableEtaMultipleStores")
     public void checkSlotDisableMultipleStores() {
         var request = Eta.CheckSlotDisableRequest.newBuilder()
@@ -250,7 +250,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(265)
     @Story("Check Slot Disable")
     @Test(description = "Получение пустого списка при отсутствии интервалов выключенных слотов в магазине",
-            groups = "dispatch-eta-regress")
+            groups = "ondemand-eta")
     public void checkSlotDisableEmpty() {
         var request = Eta.CheckSlotDisableRequest.newBuilder()
                 .addStoreUuids(UUID.randomUUID().toString())
@@ -263,7 +263,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(263)
     @Story("Check Slot Disable")
     @Test(description = "Получение ошибки при отправке запроса с пустым списком магазинов",
-            groups = "dispatch-eta-regress",
+            groups = "ondemand-eta",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid request: empty store uuids")
     public void checkSlotDisableEmptyStores() {
@@ -274,7 +274,7 @@ public class DisableEtaTest extends RestBase {
     @CaseId(264)
     @Story("Check Slot Disable")
     @Test(description = "Получение ошибки при отправке запроса с не валидным store.uuid",
-            groups = "dispatch-eta-regress",
+            groups = "ondemand-eta",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid request: invalid store uuid test:.*")
     public void checkSlotDisableInvalidStores() {

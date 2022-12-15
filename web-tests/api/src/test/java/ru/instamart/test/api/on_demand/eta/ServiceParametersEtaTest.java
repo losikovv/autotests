@@ -20,8 +20,8 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.helper.EtaHelper.updateServiceParameters;
 
-@Epic("On Demand")
-@Feature("ETA")
+@Epic("ETA")
+@Feature("Service Parameters")
 public class ServiceParametersEtaTest extends RestBase {
 
     private ServiceParametersEtaResponse serviceParameters;
@@ -30,7 +30,7 @@ public class ServiceParametersEtaTest extends RestBase {
     @CaseId(25)
     @Story("Параметры сервиса")
     @Test(description = "Получение параметров сервисов",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getServiceParameters() {
         final Response response = ServiceParametersEtaRequest.GET();
 
@@ -42,7 +42,7 @@ public class ServiceParametersEtaTest extends RestBase {
     @CaseId(26)
     @Story("Параметры сервиса")
     @Test(description = "Изменение параметров сервисов",
-            groups = "dispatch-eta-smoke",
+            groups = "ondemand-eta",
             dependsOnMethods = "getServiceParameters")
     public void editServiceParameters() {
         courierSpeed = serviceParameters.getCourierSpeed();
@@ -60,7 +60,7 @@ public class ServiceParametersEtaTest extends RestBase {
     @CaseId(228)
     @Story("Параметры сервиса")
     @Test(description = "Получение ошибки не поддерживаемого медиа типа",
-            groups = "dispatch-eta-regress",
+            groups = "ondemand-eta",
             dependsOnMethods = "getServiceParameters")
     public void editServiceParametersWithoutContentType() {
         final Response response = ServiceParametersEtaRequest.WithoutСontentType.PUT(serviceParameters);

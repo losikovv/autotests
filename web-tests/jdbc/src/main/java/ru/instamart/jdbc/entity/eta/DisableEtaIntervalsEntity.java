@@ -11,4 +11,5 @@ public class DisableEtaIntervalsEntity {
     private String endAt;
     private String createdAt;
     private String deletedAt;
+    private String source;
 }

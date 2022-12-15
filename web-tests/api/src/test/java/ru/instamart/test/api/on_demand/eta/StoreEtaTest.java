@@ -29,9 +29,8 @@ import static ru.instamart.api.helper.K8sHelper.getPaasServiceEnvProp;
 import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 import static ru.instamart.kraken.util.TimeUtil.getZoneDbDate;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
-@Epic("On Demand")
-@Feature("ETA")
+@Epic("ETA")
+@Feature("Store Eta")
 public class StoreEtaTest extends RestBase {
 
     private PredEtaGrpc.PredEtaBlockingStub clientEta;
@@ -44,8 +43,8 @@ public class StoreEtaTest extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientEta = PredEtaGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_ETA));
-        addStore(STORE_UUID, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true);
-        addStore(STORE_UUID_WITH_DIFFERENT_TIMEZONE, 55.7010f, 37.7280f, "Europe/Kaliningrad", false, "00:00:00", "00:00:00", "00:00:00", true);
+        addStore(STORE_UUID, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, false);
+        addStore(STORE_UUID_WITH_DIFFERENT_TIMEZONE, 55.7010f, 37.7280f, "Europe/Kaliningrad", false, "00:00:00", "00:00:00", "00:00:00", true, false);
 
         List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.ETA_NAMESPACE, " | grep -e ETA_ENABLE_STORE_ON_DEMAND_CHECK ");
         String envPropsStr = String.join("\n", serviceEnvProperties);
@@ -62,7 +61,7 @@ public class StoreEtaTest extends RestBase {
     @CaseIDs(value = {@CaseId(1), @CaseId(58), @CaseId(48), @CaseId(30)})
     @Story("Store ETA")
     @Test(description = "Отправка запроса с валидными store_uuid, lat, lon",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getEta() {
         var request = getStoreUserEtaRequest(STORE_UUID, 55.7006f, 37.7266f);
 
@@ -73,7 +72,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(3)
     @Story("Store ETA")
     @Test(description = "Отправка запроса на 2+ store_uuid",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getEtaForTwoStores() {
         var request = Eta.StoreUserEtaRequest.newBuilder()
                 .addStoreUuids(STORE_UUID)
@@ -89,7 +88,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(4)
     @Story("Store ETA")
     @Test(description = "Изменение результата, при изменении координат пользователя",
-            groups = "dispatch-eta-regress")
+            groups = "ondemand-eta")
     public void getEtaForStoreWithDifferentCoordinates() {
         var requestFirstCoordinates = getStoreUserEtaRequest(STORE_UUID, 55.7006f, 37.7266f);
         var requestSecondCoordinates = getStoreUserEtaRequest(STORE_UUID, 55.7000f, 37.7200f);
@@ -105,7 +104,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(9)
     @Story("Store ETA")
     @Test(description = "Отправка запроса с координатами клиента, соответствующими координатам магазина",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getEtaForStoreWithSameCoordinates() {
         var request = getStoreUserEtaRequest(STORE_UUID, 55.7010f, 37.7280f);
 
@@ -116,7 +115,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(5)
     @Story("Store ETA")
     @Test(description = "Отправка запроса с невалидным магазином",
-            groups = "dispatch-eta-regress",
+            groups = "ondemand-eta",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation failed")
     public void getEtaWithInvalidStore() {
@@ -128,7 +127,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(6)
     @Story("Store ETA")
     @Test(description = "Отправка запроса с невалидным координатами",
-            groups = "dispatch-eta-regress",
+            groups = "ondemand-eta",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: validation failed")
     public void getEtaWithInvalidAddress() {
@@ -140,7 +139,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(8)
     @Story("Store ETA")
     @Test(description = "Отправка запроса с валидным, но несуществующим в БД store_uuid",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getEtaForNonExistentStore() {
         var request = getStoreUserEtaRequest(UUID.randomUUID().toString(), 55.7006f, 37.7266f);
 
@@ -151,7 +150,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(39)
     @Story("Store ETA")
     @Test(description = "Получение пустого ответа при запросе в закрытый магазин (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getEtaForClosedStoreTrue() {
 
         if (!etaEnableOnDemandCheck) {
@@ -172,7 +171,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(44)
     @Story("Store ETA")
     @Test(description = "Получение пустого ответа при запросе в пределах работы параметра OnDemandClosingDelta (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getEtaForClosedStoreViaClosingDeltaTrue() {
 
         if (!etaEnableOnDemandCheck) {
@@ -192,7 +191,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(51)
     @Story("Store ETA")
     @Test(description = "Получение пустого ответа при запросе с OnDemandClosingDelta равным времени работы магазина (ETA_ENABLE_STORE_ON_DEMAND_CHECK=true)",
-            groups = "dispatch-eta-regress")
+            groups = "ondemand-eta")
     public void getEtaForClosedStoreEqualClosingDeltaTrue() {
 
         if (!etaEnableOnDemandCheck) {
@@ -212,7 +211,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(247)
     @Story("Store ETA")
     @Test(description = "Получение ЕТА при запросе в закрытый магазин (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getEtaForClosedStoreFalse() {
 
         if (etaEnableOnDemandCheck) {
@@ -233,7 +232,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(249)
     @Story("Store ETA")
     @Test(description = "Получение ЕТА при запросе в пределах работы параметра OnDemandClosingDelta (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getEtaForClosedStoreViaClosingDeltaFalse() {
 
         if (etaEnableOnDemandCheck) {
@@ -253,7 +252,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(250)
     @Story("Store ETA")
     @Test(description = "Получение ЕТА при запросе с OnDemandClosingDelta равным времени работы магазина (ETA_ENABLE_STORE_ON_DEMAND_CHECK=false)",
-            groups = "dispatch-eta-regress")
+            groups = "ondemand-eta")
     public void getEtaForClosedStoreEqualClosingDeltaFalse() {
 
         if (etaEnableOnDemandCheck) {
@@ -273,7 +272,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(54)
     @Story("Store ETA")
     @Test(description = "Отправка валидного запроса в магазин, который в одном часовом поясе открыт, а другом закрыт",
-            groups = "dispatch-eta-regress")
+            groups = "ondemand-eta")
     public void getEtaForClosedStoreInDifferentTimezone() {
         String openingDate = getZoneDbDate(LocalDateTime.now().minusMinutes(5));
         String closingDate = getZoneDbDate(LocalDateTime.now().plusMinutes(5));
@@ -288,7 +287,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(57)
     @Story("Store ETA")
     @Test(description = "Получение ответа от ML",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getEtaWithML() {
         updateStoreMLStatus(STORE_UUID_WITH_DIFFERENT_TIMEZONE, true);
         RedisService.del(RedisManager.getConnection(Redis.ETA), String.format("store_%s", STORE_UUID_WITH_ML));
@@ -302,7 +301,7 @@ public class StoreEtaTest extends RestBase {
     @CaseId(36)
     @Story("Store ETA")
     @Test(description = "Проверка, что рассчитывается фоллбэк, в случае если ML возвращает ноль",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getEtaForZeroML() {
         //магазин, которого нет в ML, но есть в ETA
         final var storeUuid = "7f6b0fa1-ec20-41f9-9246-bfa0d6529dad";

@@ -23,8 +23,8 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.helper.EtaHelper.updateStoreParameters;
 
-@Epic("On Demand")
-@Feature("ETA")
+@Epic("ETA")
+@Feature("Store Parameters")
 public class StoreParametersEtaTest extends RestBase {
 
     private String storeUuid;
@@ -39,7 +39,7 @@ public class StoreParametersEtaTest extends RestBase {
     @CaseId(29)
     @Story("Параметры магазинов")
     @Test(description = "Получение параметров магазина",
-            groups = "dispatch-eta-smoke")
+            groups = "ondemand-eta")
     public void getStoreParameters() {
         final Response response = StoreParametersEtaRequest.GET(storeUuid);
 
@@ -52,7 +52,7 @@ public class StoreParametersEtaTest extends RestBase {
     @CaseId(30)
     @Story("Параметры магазинов")
     @Test(description = "Обновление параметров магазина",
-            groups = "dispatch-eta-smoke",
+            groups = "ondemand-eta",
             dependsOnMethods = "getStoreParameters")
     public void editStoreParameters() {
         avgPositionsPerPlace = storeParameters.getAvgPositionsPerPlace();
@@ -66,7 +66,7 @@ public class StoreParametersEtaTest extends RestBase {
     @CaseId(219)
     @Story("Параметры магазинов")
     @Test(description = "Получение ошибки не существующего магазина",
-            groups = "dispatch-eta-regress")
+            groups = "ondemand-eta")
     public void getStoreParametersUndefined() {
         final var storeId = "11111111-1111-1111-1111-111111111111";
         final var response = StoreParametersEtaRequest.GET(storeId);
@@ -79,7 +79,7 @@ public class StoreParametersEtaTest extends RestBase {
     @CaseId(227)
     @Story("Параметры магазинов")
     @Test(description = "Получение ошибки не валидного uuid магазина",
-            groups = "dispatch-eta-regress")
+            groups = "ondemand-eta")
     public void getStoreParametersInvalid() {
         final Response response = StoreParametersEtaRequest.GET("test");
 
@@ -91,7 +91,7 @@ public class StoreParametersEtaTest extends RestBase {
     @CaseId(230)
     @Story("Параметры магазинов")
     @Test(description = "Получение ошибки не поддерживаемого медиа типа",
-            groups = "dispatch-eta-regress",
+            groups = "ondemand-eta",
             dependsOnMethods = "getStoreParameters")
     public void editStoreParametersWithoutContentType() {
         final Response response = StoreParametersEtaRequest.WithoutСontentType.PUT(storeUuid, storeParameters);

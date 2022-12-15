@@ -128,8 +128,8 @@ public class EtaHelper {
     @Step("Добавляем магазин в БД")
     public static void addStore(final String storeUuid, final Float lat, final Float lon, final String timezone,
                                 final Boolean isMlEnabled, final String openingTime, final String closingTime,
-                                final String closingDelta, final Boolean isSigmaEnabled) {
-        final var isStoreAdded = StoreParametersDao.INSTANCE.addStore(storeUuid, lat, lon, timezone, isMlEnabled, openingTime, closingTime, closingDelta, isSigmaEnabled);
+                                final String closingDelta, final Boolean isSigmaEnabled, final Boolean isSurgeEnabled) {
+        final var isStoreAdded = StoreParametersDao.INSTANCE.addStore(storeUuid, lat, lon, timezone, isMlEnabled, openingTime, closingTime, closingDelta, isSigmaEnabled, isSurgeEnabled);
         Allure.step("Проверяем что магазин добавился", () -> assertTrue(isStoreAdded, "Не удалось добавить магазин в БД"));
     }
 
