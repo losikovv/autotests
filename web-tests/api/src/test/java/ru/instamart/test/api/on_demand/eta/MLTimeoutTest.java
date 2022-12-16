@@ -8,7 +8,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.common.RestBase;
+import ru.instamart.api.common.EtaBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.eta.ServiceParametersDao;
 import ru.instamart.jdbc.entity.eta.ServiceParametersEntity;
@@ -25,11 +25,9 @@ import static ru.instamart.api.helper.EtaHelper.checkBasketEta;
 
 @Epic("ETA")
 @Feature("ML Timeout")
-public class MLTimeoutTest extends RestBase {
+public class MLTimeoutTest extends EtaBase {
 
     private PredEtaGrpc.PredEtaBlockingStub clientEta;
-    //ML работает не со всеми магазинами на стейдже, с STORE_UUID_WITH_ML должно работать
-    private final String STORE_UUID_WITH_ML = "684609ad-6360-4bae-9556-03918c1e41c1";
     private ServiceParametersEntity serviceParameters;
     private boolean isMLTimeoutUpdated;
 

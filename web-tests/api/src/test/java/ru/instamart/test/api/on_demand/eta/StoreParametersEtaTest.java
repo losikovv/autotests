@@ -5,17 +5,13 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomUtils;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.common.RestBase;
+import ru.instamart.api.common.EtaBase;
 import ru.instamart.api.request.eta.StoreParametersEtaRequest;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.eta.StoreParametersEtaResponse;
 import ru.instamart.jdbc.dao.eta.StoreParametersDao;
-import ru.instamart.jdbc.dao.stf.StoresDao;
 import ru.instamart.jdbc.entity.eta.StoreParametersEntity;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -25,28 +21,21 @@ import static ru.instamart.api.helper.EtaHelper.updateStoreParameters;
 
 @Epic("ETA")
 @Feature("Store Parameters")
-public class StoreParametersEtaTest extends RestBase {
+public class StoreParametersEtaTest extends EtaBase {
 
-    private String storeUuid;
     private StoreParametersEtaResponse storeParameters;
-    private int avgPositionsPerPlace;
-
-    @BeforeClass(alwaysRun = true)
-    public void preconditions() {
-        storeUuid = StoresDao.INSTANCE.findById(EnvironmentProperties.DEFAULT_ON_DEMAND_SID).get().getUuid();
-    }
 
     @CaseId(29)
     @Story("Параметры магазинов")
     @Test(description = "Получение параметров магазина",
             groups = "ondemand-eta")
     public void getStoreParameters() {
-        final Response response = StoreParametersEtaRequest.GET(storeUuid);
+        final Response response = StoreParametersEtaRequest.GET(STORE_UUID);
 
         checkStatusCode(response, 200, "");
         checkResponseJsonSchema(response, StoreParametersEtaResponse.class);
         storeParameters = response.as(StoreParametersEtaResponse.class);
-        compareTwoObjects(storeParameters.getId(), storeUuid);
+        compareTwoObjects(storeParameters.getId(), STORE_UUID);
     }
 
     @CaseId(30)
@@ -55,11 +44,10 @@ public class StoreParametersEtaTest extends RestBase {
             groups = "ondemand-eta",
             dependsOnMethods = "getStoreParameters")
     public void editStoreParameters() {
-        avgPositionsPerPlace = storeParameters.getAvgPositionsPerPlace();
         storeParameters.setAvgPositionsPerPlace(RandomUtils.nextInt(1, 10));
-        updateStoreParameters(storeUuid, storeParameters);
+        updateStoreParameters(STORE_UUID, storeParameters);
 
-        StoreParametersEntity storeParametersFromDb = StoreParametersDao.INSTANCE.findById(storeUuid).get();
+        StoreParametersEntity storeParametersFromDb = StoreParametersDao.INSTANCE.findById(STORE_UUID).get();
         compareTwoObjects(storeParametersFromDb.getAvgPositionsPerPlace(), storeParameters.getAvgPositionsPerPlace());
     }
 
@@ -94,16 +82,10 @@ public class StoreParametersEtaTest extends RestBase {
             groups = "ondemand-eta",
             dependsOnMethods = "getStoreParameters")
     public void editStoreParametersWithoutContentType() {
-        final Response response = StoreParametersEtaRequest.WithoutСontentType.PUT(storeUuid, storeParameters);
+        final Response response = StoreParametersEtaRequest.WithoutСontentType.PUT(STORE_UUID, storeParameters);
 
         checkStatusCode(response, 415, "");
         ErrorResponse parameters = response.as(ErrorResponse.class);
         compareTwoObjects(parameters.getMessage(), "Unsupported Media Type");
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void postConditions() {
-        storeParameters.setAvgPositionsPerPlace(avgPositionsPerPlace);
-        updateStoreParameters(storeUuid, storeParameters);
     }
 }

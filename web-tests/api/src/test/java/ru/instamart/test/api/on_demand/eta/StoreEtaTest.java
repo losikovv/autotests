@@ -9,17 +9,14 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.SkipException;
 import org.testng.annotations.*;
-import ru.instamart.api.common.RestBase;
+import ru.instamart.api.common.EtaBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.instamart.jdbc.dao.eta.StoreParametersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.redis.*;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 import static org.testng.Assert.assertNotEquals;
@@ -31,24 +28,17 @@ import static ru.instamart.kraken.util.TimeUtil.getZoneDbDate;
 
 @Epic("ETA")
 @Feature("Store Eta")
-public class StoreEtaTest extends RestBase {
+public class StoreEtaTest extends EtaBase {
 
     private PredEtaGrpc.PredEtaBlockingStub clientEta;
-    private final String STORE_UUID = UUID.randomUUID().toString();
-    private final String STORE_UUID_WITH_DIFFERENT_TIMEZONE = UUID.randomUUID().toString();
-    //ML работает не со всеми магазинами на стейдже, с STORE_UUID_WITH_ML должно работать
-    private final String STORE_UUID_WITH_ML = "684609ad-6360-4bae-9556-03918c1e41c1";
     private boolean etaEnableOnDemandCheck;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientEta = PredEtaGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_ETA));
-        addStore(STORE_UUID, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, false);
-        addStore(STORE_UUID_WITH_DIFFERENT_TIMEZONE, 55.7010f, 37.7280f, "Europe/Kaliningrad", false, "00:00:00", "00:00:00", "00:00:00", true, false);
-
-        List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.ETA_NAMESPACE, " | grep -e ETA_ENABLE_STORE_ON_DEMAND_CHECK ");
-        String envPropsStr = String.join("\n", serviceEnvProperties);
-        String etaEnableOnDemandCheckStr = matchWithRegex("^ETA_ENABLE_STORE_ON_DEMAND_CHECK=(.\\w+)$", envPropsStr, 1);
+        final var serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.ETA_NAMESPACE, " | grep -e ETA_ENABLE_STORE_ON_DEMAND_CHECK ");
+        final var envPropsStr = String.join("\n", serviceEnvProperties);
+        final var etaEnableOnDemandCheckStr = matchWithRegex("^ETA_ENABLE_STORE_ON_DEMAND_CHECK=(.\\w+)$", envPropsStr, 1);
         etaEnableOnDemandCheck = etaEnableOnDemandCheckStr.equals("true");
     }
 
@@ -277,6 +267,7 @@ public class StoreEtaTest extends RestBase {
         String openingDate = getZoneDbDate(LocalDateTime.now().minusMinutes(5));
         String closingDate = getZoneDbDate(LocalDateTime.now().plusMinutes(5));
         updateStoreWorkingTime(STORE_UUID_WITH_DIFFERENT_TIMEZONE, openingDate, closingDate, "00:00:00");
+        RedisService.del(RedisManager.getConnection(Redis.ETA), String.format("store_%s", STORE_UUID_WITH_DIFFERENT_TIMEZONE));
 
         var request = getStoreUserEtaRequest(STORE_UUID_WITH_DIFFERENT_TIMEZONE, 55.7006f, 37.7266f);
 
@@ -289,9 +280,6 @@ public class StoreEtaTest extends RestBase {
     @Test(description = "Получение ответа от ML",
             groups = "ondemand-eta")
     public void getEtaWithML() {
-        updateStoreMLStatus(STORE_UUID_WITH_DIFFERENT_TIMEZONE, true);
-        RedisService.del(RedisManager.getConnection(Redis.ETA), String.format("store_%s", STORE_UUID_WITH_ML));
-
         var request = getStoreUserEtaRequest(STORE_UUID_WITH_ML, 55.7006f, 37.7266f);
 
         var response = clientEta.getStoreEta(request);
@@ -303,23 +291,9 @@ public class StoreEtaTest extends RestBase {
     @Test(description = "Проверка, что рассчитывается фоллбэк, в случае если ML возвращает ноль",
             groups = "ondemand-eta")
     public void getEtaForZeroML() {
-        //магазин, которого нет в ML, но есть в ETA
-        final var storeUuid = "7f6b0fa1-ec20-41f9-9246-bfa0d6529dad";
-        updateStoreMLStatus(storeUuid, true);
-
-        var request = getStoreUserEtaRequest(storeUuid, 55.7006f, 37.7266f);
+        var request = getStoreUserEtaRequest(STORE_UUID_UNKNOWN_FOR_ML, 55.7006f, 37.7266f);
 
         var response = clientEta.getStoreEta(request);
-        checkStoreEta(response, storeUuid, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void postConditions() {
-        if (Objects.nonNull(STORE_UUID)) {
-            StoreParametersDao.INSTANCE.delete(STORE_UUID);
-        }
-        if (Objects.nonNull(STORE_UUID_WITH_DIFFERENT_TIMEZONE)) {
-            StoreParametersDao.INSTANCE.delete(STORE_UUID_WITH_DIFFERENT_TIMEZONE);
-        }
+        checkStoreEta(response, STORE_UUID_UNKNOWN_FOR_ML, 300, "Поле eta меньше 300 секунд", Eta.EstimateSource.FALLBACK);
     }
 }

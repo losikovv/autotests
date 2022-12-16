@@ -3,7 +3,6 @@ package ru.instamart.api.helper;
 import eta.Eta;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import io.restassured.response.Response;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.request.eta.RetailerParametersEtaRequest;
@@ -22,7 +21,6 @@ import java.util.stream.Stream;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.util.TimeUtil.convertStringToTime;
 
 public class EtaHelper {
@@ -131,6 +129,14 @@ public class EtaHelper {
                                 final String closingDelta, final Boolean isSigmaEnabled, final Boolean isSurgeEnabled) {
         final var isStoreAdded = StoreParametersDao.INSTANCE.addStore(storeUuid, lat, lon, timezone, isMlEnabled, openingTime, closingTime, closingDelta, isSigmaEnabled, isSurgeEnabled);
         Allure.step("Проверяем что магазин добавился", () -> assertTrue(isStoreAdded, "Не удалось добавить магазин в БД"));
+    }
+
+    @Step("Проверяем магазин в БД и обновляем по необходимости")
+    public static void checkStore(final String storeUuid, final Float lat, final Float lon, final String timezone,
+                                final Boolean isMlEnabled, final String openingTime, final String closingTime,
+                                final String closingDelta, final Boolean isSigmaEnabled, final Boolean isSurgeEnabled) {
+        final var isStoreAdded = StoreParametersDao.INSTANCE.checkStore(storeUuid, lat, lon, timezone, isMlEnabled, openingTime, closingTime, closingDelta, isSigmaEnabled, isSurgeEnabled);
+        Allure.step("Проверяем что магазин добавлен", () -> assertTrue(isStoreAdded, "Не удалось добавить магазин в БД"));
     }
 
     @Step("Обновляем время работы магазина")
