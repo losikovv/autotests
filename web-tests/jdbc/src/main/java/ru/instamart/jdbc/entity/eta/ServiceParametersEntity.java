@@ -16,7 +16,4 @@ public class ServiceParametersEntity {
     private String deliveryTimeSigma;
     private String window;
     private Boolean isSigmaEnabled;
-    private Integer courierSpeedDelivery;
-    private Float curveFactorDelivery;
-    private String routeEstimatorTimeout;
 }

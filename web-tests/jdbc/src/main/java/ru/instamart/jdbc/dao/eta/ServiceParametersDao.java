@@ -35,9 +35,6 @@ public class ServiceParametersDao extends AbstractDao<Long, ServiceParametersEnt
                 serviceParametersEntity.setDeliveryTimeSigma(resultSet.getString("delivery_time_sigma"));
                 serviceParametersEntity.setWindow(resultSet.getString("window"));
                 serviceParametersEntity.setIsSigmaEnabled(resultSet.getBoolean("is_sigma_enabled"));
-                serviceParametersEntity.setCourierSpeedDelivery(resultSet.getInt("courier_speed_delivery"));
-                serviceParametersEntity.setCurveFactorDelivery(resultSet.getFloat("curve_factor_delivery"));
-                serviceParametersEntity.setRouteEstimatorTimeout(resultSet.getString("route_estimator_timeout"));
             }
         } catch (SQLException e) {
             fail("Error init ConnectionPgSQLEtaManager. Error: " + e.getMessage());
