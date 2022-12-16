@@ -10,7 +10,6 @@ import ru.instamart.reforged.core.component.inner.InnerCollectionComponent;
 import ru.instamart.reforged.core.component.inner.InnerElement;
 import ru.instamart.reforged.core.component.inner.InnerInput;
 
-import static ru.instamart.reforged.core.Check.krakenAssert;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 /**
@@ -75,6 +74,11 @@ public final class Item extends Container {
     @Step("Сравниваем кол-во товара с ожидаемым значением: '{0}'")
     public void compareItemQuantityInCart(final double expected) {
         Assert.assertEquals(itemCountInput.getDoubleValue(), expected, "Количество товара в корзине отличается от ожидаемого");
+    }
+
+    @Step("Сравниваем кол-во товара с ожидаемым значением: '{0}'")
+    public void compareItemQuantityInCart(final String expected) {
+        itemCountInput.should().textContains(expected);
     }
 
     @Step("Проверяем, что спиннер пропал")

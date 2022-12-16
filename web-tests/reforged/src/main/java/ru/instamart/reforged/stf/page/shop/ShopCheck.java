@@ -77,4 +77,9 @@ public interface ShopCheck extends Check, ShopElement {
     default void checkItemQuantity(final double productQuantity) {
         Assert.assertEquals(StringUtil.stringToDouble(firstItemQuantity.getText()), productQuantity, "Указанное в поле ввода количество товара не соответствует ожидаемому");
     }
+
+    @Step("Проверяем что указанное в поле ввода количество товара первого сниппета соответствует ожидаемому: '{productQuantity}'")
+    default void checkItemQuantity(final String productQuantity) {
+        firstItemQuantity.should().textContains(productQuantity);
+    }
 }

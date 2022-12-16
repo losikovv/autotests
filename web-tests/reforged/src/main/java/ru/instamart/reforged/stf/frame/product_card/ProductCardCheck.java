@@ -130,6 +130,11 @@ public interface ProductCardCheck extends Check, ProductCardElement {
         Assert.assertEquals(StringUtil.stringToDouble(quantityInputDiv.getText()), productQuantity, "Указанное в поле ввода количество товара не соответствует ожидаемому");
     }
 
+    @Step("Проверяем что указанное в поле ввода количество товара соответствует ожидаемому: '{productQuantity}'")
+    default void checkItemQuantity(final String productQuantity) {
+        quantityInputDiv.should().textContains(productQuantity);
+    }
+
     @Step("Проверяем что кнопка уменьшения кол-ва кликабельна")
     default void checkDecreaseClickable() {
         decrease.shouldBe().clickable();

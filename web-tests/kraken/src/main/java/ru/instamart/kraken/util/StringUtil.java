@@ -49,6 +49,12 @@ public final class StringUtil {
         } else return 0.00d;
     }
 
+    public static String doubleToString(final double doubleValue){
+        return String.valueOf(doubleValue)
+                .replaceAll("\\.0+$", "")
+                .replaceAll("\\.",",");
+    }
+
     public static Long stringToLong(final String stringToParse) {
         return Long.parseLong(stringToParse.replaceAll("\\D+", ""));
     }

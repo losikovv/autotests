@@ -111,17 +111,17 @@ public final class ShoppingCartTests {
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
-        shop().interactCart().getFirstItem().compareItemQuantityInCart(itemQuantity);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(StringUtil.doubleToString(itemQuantity));
 
         shop().interactCart().getFirstItem().increaseCount();
         shop().waitPageLoad();
-        shop().interactCart().getFirstItem().compareItemQuantityInCart(itemQuantity * 2);
-        shop().checkItemQuantity(itemQuantity * 2);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(StringUtil.doubleToString(itemQuantity * 2));
+        shop().checkItemQuantity(StringUtil.doubleToString(itemQuantity * 2));
 
         shop().interactCart().getFirstItem().decreaseCount();
         shop().waitPageLoad();
-        shop().interactCart().getFirstItem().compareItemQuantityInCart(itemQuantity);
-        shop().checkItemQuantity(itemQuantity);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(StringUtil.doubleToString(itemQuantity));
+        shop().checkItemQuantity(StringUtil.doubleToString(itemQuantity));
     }
 
     @CaseId(1575)
@@ -155,28 +155,28 @@ public final class ShoppingCartTests {
         shop().interactCart().checkCartClose();
 
         shop().openFirstNonRecommendationsProductCard();
-        shop().interactProductCard().checkItemQuantity(itemQuantity);
+        shop().interactProductCard().checkItemQuantity(StringUtil.doubleToString(itemQuantity));
         shop().interactProductCard().increaseItemCount();
         shop().waitPageLoad();
-        shop().interactProductCard().checkItemQuantity(itemQuantity * 2);
+        shop().interactProductCard().checkItemQuantity(StringUtil.doubleToString(itemQuantity * 2));
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
 
         shop().interactHeader().clickToCart();
-        shop().interactCart().getFirstItem().compareItemQuantityInCart(itemQuantity * 2);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(StringUtil.doubleToString(itemQuantity * 2));
         shop().interactCart().closeCart();
         shop().interactCart().checkCartClose();
 
         shop().openFirstNonRecommendationsProductCard();
-        shop().interactProductCard().checkItemQuantity(itemQuantity * 2);
+        shop().interactProductCard().checkItemQuantity(StringUtil.doubleToString(itemQuantity * 2));
         shop().interactProductCard().decreaseItemCount();
         shop().waitPageLoad();
-        shop().interactProductCard().checkItemQuantity(itemQuantity);
+        shop().interactProductCard().checkItemQuantity(StringUtil.doubleToString(itemQuantity));
         shop().interactProductCard().clickOnClose();
         shop().interactProductCard().checkProductCardIsNotVisible();
 
         shop().interactHeader().clickToCart();
-        shop().interactCart().getFirstItem().compareItemQuantityInCart(itemQuantity);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(StringUtil.doubleToString(itemQuantity));
     }
 
     @CaseId(1576)
