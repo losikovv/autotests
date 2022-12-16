@@ -16,10 +16,6 @@ public class ServiceParametersEtaResponse extends BaseResponseObject {
     @JsonSchema(required = true)
     private Integer courierSpeed;
     @JsonSchema(required = true)
-    private Integer courierSpeedDelivery;
-    @JsonSchema(required = true)
-    private Double curveFactorDelivery;
-    @JsonSchema(required = true)
     private Integer deliveryTimeSigma;
     @JsonSchema(required = true)
     private Boolean isMlEnabled;
@@ -27,8 +23,6 @@ public class ServiceParametersEtaResponse extends BaseResponseObject {
     private Boolean isSigmaEnabled;
     @JsonSchema(required = true)
     private Integer onDemandClosingDelta;
-    @JsonSchema(required = true)
-    private Double routeEstimatorTimeout;
     @JsonSchema(required = true)
     private String storeClosingTime;
     @JsonSchema(required = true)
