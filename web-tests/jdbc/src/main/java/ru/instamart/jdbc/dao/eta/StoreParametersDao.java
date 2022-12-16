@@ -73,6 +73,35 @@ public final class StoreParametersDao extends AbstractDao<String, StoreParameter
         return false;
     }
 
+    public boolean checkStore(String storeId, Float lat, Float lon, String timezone, Boolean isMlEnabled, String openingTime, String closingTime, String closingDelta, Boolean isSigmaEnabled, Boolean isSurgeEnabled) {
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_ETA).getConnection();
+             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (id, lat, lon, timezone, is_ml_enabled, store_opening_time, store_closing_time, on_demand_closing_delta, is_sigma_enabled, retailer_id, avg_positions_per_place, to_place_sec, collection_speed_sec_per_pos, surge_enabled) " +
+                     " VALUES (?::uuid, ?, ?, ?, ?, ?::timetz, ?::timetz, ?::interval, ?, ?, ?, ?::interval, ?::interval, ?) " +
+                     " ON CONFLICT (id) DO UPDATE SET is_ml_enabled = ?, store_opening_time = ?::timetz, store_closing_time = ?::timetz ")) {
+            preparedStatement.setString(1, storeId);
+            preparedStatement.setFloat(2, lat);
+            preparedStatement.setFloat(3, lon);
+            preparedStatement.setString(4, timezone);
+            preparedStatement.setBoolean(5, isMlEnabled);
+            preparedStatement.setString(6, openingTime);
+            preparedStatement.setString(7, closingTime);
+            preparedStatement.setString(8, closingDelta);
+            preparedStatement.setBoolean(9, isSigmaEnabled);
+            preparedStatement.setInt(10, 1);
+            preparedStatement.setInt(11, 7);
+            preparedStatement.setString(12, "00:07:00");
+            preparedStatement.setString(13, "00:01:00");
+            preparedStatement.setBoolean(14, isSurgeEnabled);
+            preparedStatement.setBoolean(15, isMlEnabled);
+            preparedStatement.setString(16, openingTime);
+            preparedStatement.setString(17, closingTime);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLEtaManager. Error: " + e.getMessage());
+        }
+        return false;
+    }
+
     @Override
     public boolean delete(String storeId) {
         try (Connection connect = ConnectionManager.getDataSource(Db.PG_ETA).getConnection();

@@ -11,7 +11,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.common.RestBase;
+import ru.instamart.api.common.EtaBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.eta.DisableEtaIntervalsDao;
 import ru.instamart.jdbc.entity.eta.DisableEtaIntervalsEntity;
@@ -26,7 +26,7 @@ import static ru.instamart.kraken.util.TimeUtil.getDatePlusSec;
 
 @Epic("ETA")
 @Feature("Disable Eta")
-public class DisableEtaTest extends RestBase {
+public class DisableEtaTest extends EtaBase {
 
     private PredEtaBlockingStub clientEta;
     private final String STORE_UUID_FIRST = UUID.randomUUID().toString();

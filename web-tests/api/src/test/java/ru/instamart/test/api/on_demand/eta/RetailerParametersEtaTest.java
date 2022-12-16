@@ -7,7 +7,7 @@ import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomUtils;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.common.RestBase;
+import ru.instamart.api.common.EtaBase;
 import ru.instamart.api.request.eta.RetailerParametersEtaRequest;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.eta.RetailerParametersEtaResponse;
@@ -22,7 +22,7 @@ import static ru.instamart.api.helper.EtaHelper.updateRetailerParameters;
 
 @Epic("ETA")
 @Feature("Retailer Parameters")
-public class RetailerParametersEtaTest extends RestBase {
+public class RetailerParametersEtaTest extends EtaBase {
 
     private RetailerParametersEtaResponse retailerParameters;
     private final String retailerId = "1";

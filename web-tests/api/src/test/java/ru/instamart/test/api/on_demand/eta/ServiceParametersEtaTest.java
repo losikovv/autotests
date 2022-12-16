@@ -7,7 +7,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.api.common.RestBase;
+import ru.instamart.api.common.EtaBase;
 import ru.instamart.api.request.eta.ServiceParametersEtaRequest;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.eta.ServiceParametersEtaResponse;
@@ -22,7 +22,7 @@ import static ru.instamart.api.helper.EtaHelper.updateServiceParameters;
 
 @Epic("ETA")
 @Feature("Service Parameters")
-public class ServiceParametersEtaTest extends RestBase {
+public class ServiceParametersEtaTest extends EtaBase {
 
     private ServiceParametersEtaResponse serviceParameters;
     private int courierSpeed;
