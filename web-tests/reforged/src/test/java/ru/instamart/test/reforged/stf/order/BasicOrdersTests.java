@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf.order;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -321,6 +322,7 @@ public final class BasicOrdersTests {
     }
 
     @CaseId(2623)
+    @Issue("B2C-12077")
     @Story("Отмена заказа")
     @Test(description = "Отмена заказа", groups = REGRESSION_STF)
     public void successOrderCancel() {
