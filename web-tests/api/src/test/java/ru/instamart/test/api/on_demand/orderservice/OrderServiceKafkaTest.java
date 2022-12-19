@@ -1,30 +1,30 @@
 package ru.instamart.test.api.on_demand.orderservice;
 
+import candidates.StoreChangedOuterClass.AssemblyType;
+import candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import operations_order_service.OperationsOrderService.EventOrder.RequestOrderType;
 import operations_order_service.OperationsOrderService.EventOrder.ShipmentStatus;
 import operations_order_service.OperationsOrderService.EventOrder.ShippingMethodKind;
-import order.OrderChanged;
 import order.OrderChanged.EventOrderChanged.Job.JobStatus;
 import order.OrderChanged.EventOrderChanged.OrderStatus;
 import order.OrderChanged.EventOrderChanged.ShipmentType;
 import org.apache.commons.lang3.RandomUtils;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.jdbc.dao.orders_service.OrdersDao;
 import ru.instamart.jdbc.dao.orders_service.PlacesDao;
 import ru.instamart.jdbc.dao.orders_service.RetailersDao;
-import ru.instamart.jdbc.entity.order_service.OrdersEntity;
-import ru.instamart.jdbc.entity.order_service.PlacesEntity;
+import ru.instamart.jdbc.dao.orders_service.SettingsDao;
 import ru.instamart.jdbc.entity.order_service.RetailersEntity;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import java.util.List;
 import java.util.UUID;
 
 import static protobuf.retail_onboarding_retailer_data.RetailOnboardingRetailerData.Retailer.RetailerVertical.*;
@@ -39,7 +39,14 @@ public class OrderServiceKafkaTest extends RestBase {
     private final double latitude = 55.6512713;
     private final double longitude = 55.6512713;
     private final int orderPreparationSlaMinutes = RandomUtils.nextInt(10, 30);
+    int RteFactorCityCongestionMinutes = 3;
+    double RteDeliverySlotMultiplier = 0.5;
 
+    @BeforeClass(alwaysRun = true,
+            description = "Меняем настройки")
+    public void preconditions() {
+        SettingsDao.INSTANCE.updateSettings(placeUUID, RteFactorCityCongestionMinutes,RteDeliverySlotMultiplier);
+    }
 
     @CaseId(207)
     @Test(description = "Получение информации о статусе джобов и заказа для нового планового заказа",
@@ -168,6 +175,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
+    @CaseId(252)
     @Test(description = "Обновление информации о вертикали ретейлера (вертикаль = магазин) в БД при получении сообщения в кафку",
             groups = "dispatch-orderservice-smoke")
     public void receiveRetailerGroceryVerticalEvent() {
@@ -183,6 +191,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
+    @CaseId(251)
     @Test(description = "Обновление информации о вертикали ретейлера (вертикаль = аптека) в БД при получении сообщения в кафку",
             groups = "dispatch-orderservice-smoke")
     public void receiveRetailerPharmacyVerticalEvent() {
@@ -198,6 +207,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
+    @CaseId(41)
     @Test(description = "Обновление информации о вертикали ретейлера (вертикаль = ресторан) в БД при получении сообщения в кафку",
             groups = "dispatch-orderservice-smoke")
     public void receiveRetailerRestaurantVerticalEvent() {
@@ -213,6 +223,7 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
+    @CaseId(42)
     @Test(description = "Обновление информации о времени на приготовления для точки в БД при получении сообщения в кафку",
             groups = "dispatch-orderservice-smoke")
     public void receiveOrderPreparationValue() {
@@ -224,6 +235,26 @@ public class OrderServiceKafkaTest extends RestBase {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(placesEntity.getRetailerUuid(), retailerUuid, "В БД сохранился другой UUID ретейлера");
             softAssert.assertEquals(placesEntity.getSlaMin(), orderPreparationSlaMinutes, "У ретейлера не сохранилось значение SLA В БД");
+            softAssert.assertAll();
+        });
+    }
+    @CaseId(63)
+    @Test(description = "При получении сообщения в топик store-changed не обнуляем коэффициенты по RTE",
+            groups = "dispatch-orderservice-smoke")
+    public void checkRteSettingsAfterStoreChangedMessage() {
+        publishStoreChangedEvent(placeUUID, orderPreparationSlaMinutes, "delivery_by_sbermarket", retailerUuid);
+        ThreadUtil.simplyAwait(5);
+        publishShopperStoreChangedEvent(64, true, 120, "dispatch", AssemblyType.SM, DeliveryType.SM, placeUUID);
+
+        final var placesEntity = PlacesDao.INSTANCE.findByPlaceUuid(placeUUID);
+        final var settingsEntity = SettingsDao.INSTANCE.findByPlaceUUID(placeUUID);
+
+        Allure.step("Проверка сохранённых значений для магазазина в базе", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(placesEntity.getRetailerUuid(), retailerUuid, "В БД обнулился UUID ретейлера");
+            softAssert.assertEquals(placesEntity.getSlaMin(), orderPreparationSlaMinutes, "У магазина обнулилось значение SLA В БД");
+            softAssert.assertEquals(settingsEntity.getRteFactorCityCongestionMinutes(), RteFactorCityCongestionMinutes, "У магазина обнулился коэффициент FactorCityCongestion В БД");
+            softAssert.assertEquals(settingsEntity.getRteDeliverySlotMultiplier(), RteDeliverySlotMultiplier, "У магазина обнулился коэффициент DeliverySlotMultiplier В БД");
             softAssert.assertAll();
         });
     }
