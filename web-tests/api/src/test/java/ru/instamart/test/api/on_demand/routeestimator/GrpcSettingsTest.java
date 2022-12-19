@@ -1,5 +1,6 @@
 package ru.instamart.test.api.on_demand.routeestimator;
 
+import candidates.StoreChangedOuterClass;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -18,6 +19,7 @@ import settings.SettingsServiceGrpc;
 
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.helper.OrderServiceHelper.publishShopperStoreChangedEvent;
 import static ru.instamart.grpc.common.GrpcContentHosts.PAAS_CONTENT_OPERATIONS_ROUTE_ESTIMATOR;
 import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
@@ -31,6 +33,8 @@ public class GrpcSettingsTest extends GrpcBase {
     private final double correctionFactorDefault = 1.0;
     private final int increasingFactorDefault = 300;
     private final int minimumSegmentLengthDefault = 300;
+    private final int averagePerPositionAssemblyTime = 120;
+    private final int additionalAssemblyTime = 60;
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
@@ -184,7 +188,33 @@ public class GrpcSettingsTest extends GrpcBase {
         });
     }
 
-    @AfterClass(alwaysRun = true)
+    @CaseId(44)
+    @Test(description = "При изменении настроек по магазину не обнуляем тайминги для сборки",
+            groups = "ondemand-res-smoke")
+    public void checkAssemblySettingsAfterGrpcUpdate() {
+        publishShopperStoreChangedEvent(additionalAssemblyTime, true, averagePerPositionAssemblyTime, "dispatch", StoreChangedOuterClass.AssemblyType.SM, StoreChangedOuterClass.PlaceSettings.DeliveryType.SM, placeUUID);
+        var request = Settings.PutResSettingsRequest.newBuilder()
+                .setResSettings(Settings.ResSettings.newBuilder()
+                        .setPlaceUuid(placeUUID)
+                        .setAvgParkingMinVehicle(RandomUtils.nextInt(1, 20))
+                        .setAverageSpeedForStraightDistanceToClientMin(RandomUtils.nextInt(1, 20))
+                        .setAdditionalFactorForStraightDistanceToClientMin(RandomUtils.nextInt(1, 20))
+                        .setOrderTransferTimeFromAssemblyToDeliveryMin(RandomUtils.nextInt(1, 20))
+                        .setAvgToPlaceMinExternal(RandomUtils.nextInt(1, 20))
+                        .setOrderTransferTimeFromDeliveryToClientMin(RandomUtils.nextInt(1, 20))
+                        .setOrderReceiveTimeFromAssemblyToDeliveryMin(RandomUtils.nextInt(1, 20))
+                        .build())
+                .build();
+        clientRes.putResSettings(request);
+
+        RouteEstimatorSettingsEntity routeEstimatorSettingsEntity = RouteEstimatorSettingsDao.INSTANCE.findByStoreUuid(placeUUID);
+        Allure.step("Проверка полученных значений по GRPC и в базе", () -> {
+            assertEquals(routeEstimatorSettingsEntity.getAveragePerPositionAssemblyTime(), averagePerPositionAssemblyTime, "В БД обнулилось значение времени на сборку одной позиции");
+            assertEquals(routeEstimatorSettingsEntity.getAdditionalAssemblyTime(), additionalAssemblyTime, "В БД обнулилось дополнительное время на сборку");
+        });
+    }
+
+        @AfterClass(alwaysRun = true)
     public void postConditions() {
         var requestStoreSettings = Settings.PutResSettingsRequest.newBuilder()
                 .setResSettings(Settings.ResSettings.newBuilder()

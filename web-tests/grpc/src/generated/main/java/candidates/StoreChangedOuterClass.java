@@ -14,6 +14,330 @@ public final class StoreChangedOuterClass {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  /**
+   * Protobuf enum {@code candidates.PlaceType}
+   */
+  public enum PlaceType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>SHOP = 0;</code>
+     */
+    SHOP(0),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>SHOP = 0;</code>
+     */
+    public static final int SHOP_VALUE = 0;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static PlaceType valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static PlaceType forNumber(int value) {
+      switch (value) {
+        case 0: return SHOP;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<PlaceType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        PlaceType> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<PlaceType>() {
+            public PlaceType findValueByNumber(int number) {
+              return PlaceType.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return candidates.StoreChangedOuterClass.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final PlaceType[] VALUES = values();
+
+    public static PlaceType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private PlaceType(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:candidates.PlaceType)
+  }
+
+  /**
+   * Protobuf enum {@code candidates.AssemblyType}
+   */
+  public enum AssemblyType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>EXTERNAL = 0;</code>
+     */
+    EXTERNAL(0),
+    /**
+     * <code>SM = 1;</code>
+     */
+    SM(1),
+    /**
+     * <code>PLACE = 2;</code>
+     */
+    PLACE(2),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>EXTERNAL = 0;</code>
+     */
+    public static final int EXTERNAL_VALUE = 0;
+    /**
+     * <code>SM = 1;</code>
+     */
+    public static final int SM_VALUE = 1;
+    /**
+     * <code>PLACE = 2;</code>
+     */
+    public static final int PLACE_VALUE = 2;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static AssemblyType valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static AssemblyType forNumber(int value) {
+      switch (value) {
+        case 0: return EXTERNAL;
+        case 1: return SM;
+        case 2: return PLACE;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<AssemblyType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        AssemblyType> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<AssemblyType>() {
+            public AssemblyType findValueByNumber(int number) {
+              return AssemblyType.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return candidates.StoreChangedOuterClass.getDescriptor().getEnumTypes().get(1);
+    }
+
+    private static final AssemblyType[] VALUES = values();
+
+    public static AssemblyType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private AssemblyType(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:candidates.AssemblyType)
+  }
+
+  /**
+   * Protobuf enum {@code candidates.AvailableTasks}
+   */
+  public enum AvailableTasks
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>DELIVERY = 0;</code>
+     */
+    DELIVERY(0),
+    /**
+     * <code>ASSEMBLY = 1;</code>
+     */
+    ASSEMBLY(1),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>DELIVERY = 0;</code>
+     */
+    public static final int DELIVERY_VALUE = 0;
+    /**
+     * <code>ASSEMBLY = 1;</code>
+     */
+    public static final int ASSEMBLY_VALUE = 1;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static AvailableTasks valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static AvailableTasks forNumber(int value) {
+      switch (value) {
+        case 0: return DELIVERY;
+        case 1: return ASSEMBLY;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<AvailableTasks>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        AvailableTasks> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<AvailableTasks>() {
+            public AvailableTasks findValueByNumber(int number) {
+              return AvailableTasks.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return candidates.StoreChangedOuterClass.getDescriptor().getEnumTypes().get(2);
+    }
+
+    private static final AvailableTasks[] VALUES = values();
+
+    public static AvailableTasks valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private AvailableTasks(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:candidates.AvailableTasks)
+  }
+
   public interface StoreChangedOrBuilder extends
       // @@protoc_insertion_point(interface_extends:candidates.StoreChanged)
       com.google.protobuf.MessageOrBuilder {
@@ -314,6 +638,36 @@ public final class StoreChangedOuterClass {
      */
     com.google.protobuf.ByteString
         getClosingTimeBytes();
+
+    /**
+     * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+     * @return Whether the dispatchSettings field is set.
+     */
+    boolean hasDispatchSettings();
+    /**
+     * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+     * @return The dispatchSettings.
+     */
+    candidates.StoreChangedOuterClass.DispatchSettings getDispatchSettings();
+    /**
+     * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+     */
+    candidates.StoreChangedOuterClass.DispatchSettingsOrBuilder getDispatchSettingsOrBuilder();
+
+    /**
+     * <code>.candidates.PlaceSettings place_settings = 34;</code>
+     * @return Whether the placeSettings field is set.
+     */
+    boolean hasPlaceSettings();
+    /**
+     * <code>.candidates.PlaceSettings place_settings = 34;</code>
+     * @return The placeSettings.
+     */
+    candidates.StoreChangedOuterClass.PlaceSettings getPlaceSettings();
+    /**
+     * <code>.candidates.PlaceSettings place_settings = 34;</code>
+     */
+    candidates.StoreChangedOuterClass.PlaceSettingsOrBuilder getPlaceSettingsOrBuilder();
   }
   /**
    * Protobuf type {@code candidates.StoreChanged}
@@ -568,6 +922,32 @@ public final class StoreChangedOuterClass {
               java.lang.String s = input.readStringRequireUtf8();
 
               closingTime_ = s;
+              break;
+            }
+            case 266: {
+              candidates.StoreChangedOuterClass.DispatchSettings.Builder subBuilder = null;
+              if (dispatchSettings_ != null) {
+                subBuilder = dispatchSettings_.toBuilder();
+              }
+              dispatchSettings_ = input.readMessage(candidates.StoreChangedOuterClass.DispatchSettings.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(dispatchSettings_);
+                dispatchSettings_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 274: {
+              candidates.StoreChangedOuterClass.PlaceSettings.Builder subBuilder = null;
+              if (placeSettings_ != null) {
+                subBuilder = placeSettings_.toBuilder();
+              }
+              placeSettings_ = input.readMessage(candidates.StoreChangedOuterClass.PlaceSettings.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(placeSettings_);
+                placeSettings_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -1350,6 +1730,58 @@ public final class StoreChangedOuterClass {
       }
     }
 
+    public static final int DISPATCH_SETTINGS_FIELD_NUMBER = 33;
+    private candidates.StoreChangedOuterClass.DispatchSettings dispatchSettings_;
+    /**
+     * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+     * @return Whether the dispatchSettings field is set.
+     */
+    @java.lang.Override
+    public boolean hasDispatchSettings() {
+      return dispatchSettings_ != null;
+    }
+    /**
+     * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+     * @return The dispatchSettings.
+     */
+    @java.lang.Override
+    public candidates.StoreChangedOuterClass.DispatchSettings getDispatchSettings() {
+      return dispatchSettings_ == null ? candidates.StoreChangedOuterClass.DispatchSettings.getDefaultInstance() : dispatchSettings_;
+    }
+    /**
+     * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+     */
+    @java.lang.Override
+    public candidates.StoreChangedOuterClass.DispatchSettingsOrBuilder getDispatchSettingsOrBuilder() {
+      return getDispatchSettings();
+    }
+
+    public static final int PLACE_SETTINGS_FIELD_NUMBER = 34;
+    private candidates.StoreChangedOuterClass.PlaceSettings placeSettings_;
+    /**
+     * <code>.candidates.PlaceSettings place_settings = 34;</code>
+     * @return Whether the placeSettings field is set.
+     */
+    @java.lang.Override
+    public boolean hasPlaceSettings() {
+      return placeSettings_ != null;
+    }
+    /**
+     * <code>.candidates.PlaceSettings place_settings = 34;</code>
+     * @return The placeSettings.
+     */
+    @java.lang.Override
+    public candidates.StoreChangedOuterClass.PlaceSettings getPlaceSettings() {
+      return placeSettings_ == null ? candidates.StoreChangedOuterClass.PlaceSettings.getDefaultInstance() : placeSettings_;
+    }
+    /**
+     * <code>.candidates.PlaceSettings place_settings = 34;</code>
+     */
+    @java.lang.Override
+    public candidates.StoreChangedOuterClass.PlaceSettingsOrBuilder getPlaceSettingsOrBuilder() {
+      return getPlaceSettings();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1459,6 +1891,12 @@ public final class StoreChangedOuterClass {
       }
       if (!getClosingTimeBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 32, closingTime_);
+      }
+      if (dispatchSettings_ != null) {
+        output.writeMessage(33, getDispatchSettings());
+      }
+      if (placeSettings_ != null) {
+        output.writeMessage(34, getPlaceSettings());
       }
       unknownFields.writeTo(output);
     }
@@ -1584,6 +2022,14 @@ public final class StoreChangedOuterClass {
       if (!getClosingTimeBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(32, closingTime_);
       }
+      if (dispatchSettings_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(33, getDispatchSettings());
+      }
+      if (placeSettings_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(34, getPlaceSettings());
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1672,6 +2118,16 @@ public final class StoreChangedOuterClass {
           .equals(other.getOpeningTime())) return false;
       if (!getClosingTime()
           .equals(other.getClosingTime())) return false;
+      if (hasDispatchSettings() != other.hasDispatchSettings()) return false;
+      if (hasDispatchSettings()) {
+        if (!getDispatchSettings()
+            .equals(other.getDispatchSettings())) return false;
+      }
+      if (hasPlaceSettings() != other.hasPlaceSettings()) return false;
+      if (hasPlaceSettings()) {
+        if (!getPlaceSettings()
+            .equals(other.getPlaceSettings())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1769,6 +2225,14 @@ public final class StoreChangedOuterClass {
       hash = (53 * hash) + getOpeningTime().hashCode();
       hash = (37 * hash) + CLOSING_TIME_FIELD_NUMBER;
       hash = (53 * hash) + getClosingTime().hashCode();
+      if (hasDispatchSettings()) {
+        hash = (37 * hash) + DISPATCH_SETTINGS_FIELD_NUMBER;
+        hash = (53 * hash) + getDispatchSettings().hashCode();
+      }
+      if (hasPlaceSettings()) {
+        hash = (37 * hash) + PLACE_SETTINGS_FIELD_NUMBER;
+        hash = (53 * hash) + getPlaceSettings().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1978,6 +2442,18 @@ public final class StoreChangedOuterClass {
 
         closingTime_ = "";
 
+        if (dispatchSettingsBuilder_ == null) {
+          dispatchSettings_ = null;
+        } else {
+          dispatchSettings_ = null;
+          dispatchSettingsBuilder_ = null;
+        }
+        if (placeSettingsBuilder_ == null) {
+          placeSettings_ = null;
+        } else {
+          placeSettings_ = null;
+          placeSettingsBuilder_ = null;
+        }
         return this;
       }
 
@@ -2048,6 +2524,16 @@ public final class StoreChangedOuterClass {
         result.baseStoreId_ = baseStoreId_;
         result.openingTime_ = openingTime_;
         result.closingTime_ = closingTime_;
+        if (dispatchSettingsBuilder_ == null) {
+          result.dispatchSettings_ = dispatchSettings_;
+        } else {
+          result.dispatchSettings_ = dispatchSettingsBuilder_.build();
+        }
+        if (placeSettingsBuilder_ == null) {
+          result.placeSettings_ = placeSettings_;
+        } else {
+          result.placeSettings_ = placeSettingsBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -2204,6 +2690,12 @@ public final class StoreChangedOuterClass {
         if (!other.getClosingTime().isEmpty()) {
           closingTime_ = other.closingTime_;
           onChanged();
+        }
+        if (other.hasDispatchSettings()) {
+          mergeDispatchSettings(other.getDispatchSettings());
+        }
+        if (other.hasPlaceSettings()) {
+          mergePlaceSettings(other.getPlaceSettings());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4074,6 +4566,244 @@ public final class StoreChangedOuterClass {
         onChanged();
         return this;
       }
+
+      private candidates.StoreChangedOuterClass.DispatchSettings dispatchSettings_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          candidates.StoreChangedOuterClass.DispatchSettings, candidates.StoreChangedOuterClass.DispatchSettings.Builder, candidates.StoreChangedOuterClass.DispatchSettingsOrBuilder> dispatchSettingsBuilder_;
+      /**
+       * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+       * @return Whether the dispatchSettings field is set.
+       */
+      public boolean hasDispatchSettings() {
+        return dispatchSettingsBuilder_ != null || dispatchSettings_ != null;
+      }
+      /**
+       * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+       * @return The dispatchSettings.
+       */
+      public candidates.StoreChangedOuterClass.DispatchSettings getDispatchSettings() {
+        if (dispatchSettingsBuilder_ == null) {
+          return dispatchSettings_ == null ? candidates.StoreChangedOuterClass.DispatchSettings.getDefaultInstance() : dispatchSettings_;
+        } else {
+          return dispatchSettingsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+       */
+      public Builder setDispatchSettings(candidates.StoreChangedOuterClass.DispatchSettings value) {
+        if (dispatchSettingsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          dispatchSettings_ = value;
+          onChanged();
+        } else {
+          dispatchSettingsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+       */
+      public Builder setDispatchSettings(
+          candidates.StoreChangedOuterClass.DispatchSettings.Builder builderForValue) {
+        if (dispatchSettingsBuilder_ == null) {
+          dispatchSettings_ = builderForValue.build();
+          onChanged();
+        } else {
+          dispatchSettingsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+       */
+      public Builder mergeDispatchSettings(candidates.StoreChangedOuterClass.DispatchSettings value) {
+        if (dispatchSettingsBuilder_ == null) {
+          if (dispatchSettings_ != null) {
+            dispatchSettings_ =
+              candidates.StoreChangedOuterClass.DispatchSettings.newBuilder(dispatchSettings_).mergeFrom(value).buildPartial();
+          } else {
+            dispatchSettings_ = value;
+          }
+          onChanged();
+        } else {
+          dispatchSettingsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+       */
+      public Builder clearDispatchSettings() {
+        if (dispatchSettingsBuilder_ == null) {
+          dispatchSettings_ = null;
+          onChanged();
+        } else {
+          dispatchSettings_ = null;
+          dispatchSettingsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+       */
+      public candidates.StoreChangedOuterClass.DispatchSettings.Builder getDispatchSettingsBuilder() {
+        
+        onChanged();
+        return getDispatchSettingsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+       */
+      public candidates.StoreChangedOuterClass.DispatchSettingsOrBuilder getDispatchSettingsOrBuilder() {
+        if (dispatchSettingsBuilder_ != null) {
+          return dispatchSettingsBuilder_.getMessageOrBuilder();
+        } else {
+          return dispatchSettings_ == null ?
+              candidates.StoreChangedOuterClass.DispatchSettings.getDefaultInstance() : dispatchSettings_;
+        }
+      }
+      /**
+       * <code>.candidates.DispatchSettings dispatch_settings = 33;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          candidates.StoreChangedOuterClass.DispatchSettings, candidates.StoreChangedOuterClass.DispatchSettings.Builder, candidates.StoreChangedOuterClass.DispatchSettingsOrBuilder> 
+          getDispatchSettingsFieldBuilder() {
+        if (dispatchSettingsBuilder_ == null) {
+          dispatchSettingsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              candidates.StoreChangedOuterClass.DispatchSettings, candidates.StoreChangedOuterClass.DispatchSettings.Builder, candidates.StoreChangedOuterClass.DispatchSettingsOrBuilder>(
+                  getDispatchSettings(),
+                  getParentForChildren(),
+                  isClean());
+          dispatchSettings_ = null;
+        }
+        return dispatchSettingsBuilder_;
+      }
+
+      private candidates.StoreChangedOuterClass.PlaceSettings placeSettings_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          candidates.StoreChangedOuterClass.PlaceSettings, candidates.StoreChangedOuterClass.PlaceSettings.Builder, candidates.StoreChangedOuterClass.PlaceSettingsOrBuilder> placeSettingsBuilder_;
+      /**
+       * <code>.candidates.PlaceSettings place_settings = 34;</code>
+       * @return Whether the placeSettings field is set.
+       */
+      public boolean hasPlaceSettings() {
+        return placeSettingsBuilder_ != null || placeSettings_ != null;
+      }
+      /**
+       * <code>.candidates.PlaceSettings place_settings = 34;</code>
+       * @return The placeSettings.
+       */
+      public candidates.StoreChangedOuterClass.PlaceSettings getPlaceSettings() {
+        if (placeSettingsBuilder_ == null) {
+          return placeSettings_ == null ? candidates.StoreChangedOuterClass.PlaceSettings.getDefaultInstance() : placeSettings_;
+        } else {
+          return placeSettingsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.candidates.PlaceSettings place_settings = 34;</code>
+       */
+      public Builder setPlaceSettings(candidates.StoreChangedOuterClass.PlaceSettings value) {
+        if (placeSettingsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          placeSettings_ = value;
+          onChanged();
+        } else {
+          placeSettingsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.candidates.PlaceSettings place_settings = 34;</code>
+       */
+      public Builder setPlaceSettings(
+          candidates.StoreChangedOuterClass.PlaceSettings.Builder builderForValue) {
+        if (placeSettingsBuilder_ == null) {
+          placeSettings_ = builderForValue.build();
+          onChanged();
+        } else {
+          placeSettingsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.candidates.PlaceSettings place_settings = 34;</code>
+       */
+      public Builder mergePlaceSettings(candidates.StoreChangedOuterClass.PlaceSettings value) {
+        if (placeSettingsBuilder_ == null) {
+          if (placeSettings_ != null) {
+            placeSettings_ =
+              candidates.StoreChangedOuterClass.PlaceSettings.newBuilder(placeSettings_).mergeFrom(value).buildPartial();
+          } else {
+            placeSettings_ = value;
+          }
+          onChanged();
+        } else {
+          placeSettingsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.candidates.PlaceSettings place_settings = 34;</code>
+       */
+      public Builder clearPlaceSettings() {
+        if (placeSettingsBuilder_ == null) {
+          placeSettings_ = null;
+          onChanged();
+        } else {
+          placeSettings_ = null;
+          placeSettingsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.candidates.PlaceSettings place_settings = 34;</code>
+       */
+      public candidates.StoreChangedOuterClass.PlaceSettings.Builder getPlaceSettingsBuilder() {
+        
+        onChanged();
+        return getPlaceSettingsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.candidates.PlaceSettings place_settings = 34;</code>
+       */
+      public candidates.StoreChangedOuterClass.PlaceSettingsOrBuilder getPlaceSettingsOrBuilder() {
+        if (placeSettingsBuilder_ != null) {
+          return placeSettingsBuilder_.getMessageOrBuilder();
+        } else {
+          return placeSettings_ == null ?
+              candidates.StoreChangedOuterClass.PlaceSettings.getDefaultInstance() : placeSettings_;
+        }
+      }
+      /**
+       * <code>.candidates.PlaceSettings place_settings = 34;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          candidates.StoreChangedOuterClass.PlaceSettings, candidates.StoreChangedOuterClass.PlaceSettings.Builder, candidates.StoreChangedOuterClass.PlaceSettingsOrBuilder> 
+          getPlaceSettingsFieldBuilder() {
+        if (placeSettingsBuilder_ == null) {
+          placeSettingsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              candidates.StoreChangedOuterClass.PlaceSettings, candidates.StoreChangedOuterClass.PlaceSettings.Builder, candidates.StoreChangedOuterClass.PlaceSettingsOrBuilder>(
+                  getPlaceSettings(),
+                  getParentForChildren(),
+                  isClean());
+          placeSettings_ = null;
+        }
+        return placeSettingsBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -4127,11 +4857,3793 @@ public final class StoreChangedOuterClass {
 
   }
 
+  public interface DispatchSettingsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:candidates.DispatchSettings)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>uint64 max_order_assign_retry_count = 1;</code>
+     * @return The maxOrderAssignRetryCount.
+     */
+    long getMaxOrderAssignRetryCount();
+
+    /**
+     * <code>uint64 avg_parking_min_vehicle = 2;</code>
+     * @return The avgParkingMinVehicle.
+     */
+    long getAvgParkingMinVehicle();
+
+    /**
+     * <code>uint64 max_current_order_assign_queue = 3;</code>
+     * @return The maxCurrentOrderAssignQueue.
+     */
+    long getMaxCurrentOrderAssignQueue();
+
+    /**
+     * <code>fixed64 order_weight_threshold_to_assign_to_vehicle_gramms = 4;</code>
+     * @return The orderWeightThresholdToAssignToVehicleGramms.
+     */
+    long getOrderWeightThresholdToAssignToVehicleGramms();
+
+    /**
+     * <code>uint64 average_speed_for_straight_distance_to_client_min = 5;</code>
+     * @return The averageSpeedForStraightDistanceToClientMin.
+     */
+    long getAverageSpeedForStraightDistanceToClientMin();
+
+    /**
+     * <code>uint64 additional_factor_for_straight_distance_to_client_min = 6;</code>
+     * @return The additionalFactorForStraightDistanceToClientMin.
+     */
+    long getAdditionalFactorForStraightDistanceToClientMin();
+
+    /**
+     * <code>uint64 order_transfer_time_from_assembly_to_delivery_min = 7;</code>
+     * @return The orderTransferTimeFromAssemblyToDeliveryMin.
+     */
+    long getOrderTransferTimeFromAssemblyToDeliveryMin();
+
+    /**
+     * <code>uint64 avg_to_place_min_external = 8;</code>
+     * @return The avgToPlaceMinExternal.
+     */
+    long getAvgToPlaceMinExternal();
+
+    /**
+     * <code>uint64 avg_to_place_min = 9;</code>
+     * @return The avgToPlaceMin.
+     */
+    long getAvgToPlaceMin();
+
+    /**
+     * <code>uint64 offer_seen_timeout_sec = 10;</code>
+     * @return The offerSeenTimeoutSec.
+     */
+    long getOfferSeenTimeoutSec();
+
+    /**
+     * <code>bool place_location_center = 11;</code>
+     * @return The placeLocationCenter.
+     */
+    boolean getPlaceLocationCenter();
+
+    /**
+     * <code>uint64 last_position_expire = 12;</code>
+     * @return The lastPositionExpire.
+     */
+    long getLastPositionExpire();
+
+    /**
+     * <code>bool taxi_delivery_only = 13;</code>
+     * @return The taxiDeliveryOnly.
+     */
+    boolean getTaxiDeliveryOnly();
+
+    /**
+     * <code>uint64 order_transfer_time_from_delivery_to_client_min = 14;</code>
+     * @return The orderTransferTimeFromDeliveryToClientMin.
+     */
+    long getOrderTransferTimeFromDeliveryToClientMin();
+
+    /**
+     * <code>uint64 order_receive_time_from_assembly_to_delivery_min = 15;</code>
+     * @return The orderReceiveTimeFromAssemblyToDeliveryMin.
+     */
+    long getOrderReceiveTimeFromAssemblyToDeliveryMin();
+
+    /**
+     * <code>uint64 offer_server_timeout_sec = 16;</code>
+     * @return The offerServerTimeoutSec.
+     */
+    long getOfferServerTimeoutSec();
+
+    /**
+     * <code>bool external_assembliers_presented = 17;</code>
+     * @return The externalAssembliersPresented.
+     */
+    boolean getExternalAssembliersPresented();
+
+    /**
+     * <code>uint64 gap_taxi_punish_min = 18;</code>
+     * @return The gapTaxiPunishMin.
+     */
+    long getGapTaxiPunishMin();
+
+    /**
+     * <code>bool taxi_available = 19;</code>
+     * @return The taxiAvailable.
+     */
+    boolean getTaxiAvailable();
+
+    /**
+     * <code>uint64 max_waiting_time_for_courier_min = 20;</code>
+     * @return The maxWaitingTimeForCourierMin.
+     */
+    long getMaxWaitingTimeForCourierMin();
+  }
+  /**
+   * Protobuf type {@code candidates.DispatchSettings}
+   */
+  public static final class DispatchSettings extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:candidates.DispatchSettings)
+      DispatchSettingsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DispatchSettings.newBuilder() to construct.
+    private DispatchSettings(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DispatchSettings() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DispatchSettings();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private DispatchSettings(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              maxOrderAssignRetryCount_ = input.readUInt64();
+              break;
+            }
+            case 16: {
+
+              avgParkingMinVehicle_ = input.readUInt64();
+              break;
+            }
+            case 24: {
+
+              maxCurrentOrderAssignQueue_ = input.readUInt64();
+              break;
+            }
+            case 33: {
+
+              orderWeightThresholdToAssignToVehicleGramms_ = input.readFixed64();
+              break;
+            }
+            case 40: {
+
+              averageSpeedForStraightDistanceToClientMin_ = input.readUInt64();
+              break;
+            }
+            case 48: {
+
+              additionalFactorForStraightDistanceToClientMin_ = input.readUInt64();
+              break;
+            }
+            case 56: {
+
+              orderTransferTimeFromAssemblyToDeliveryMin_ = input.readUInt64();
+              break;
+            }
+            case 64: {
+
+              avgToPlaceMinExternal_ = input.readUInt64();
+              break;
+            }
+            case 72: {
+
+              avgToPlaceMin_ = input.readUInt64();
+              break;
+            }
+            case 80: {
+
+              offerSeenTimeoutSec_ = input.readUInt64();
+              break;
+            }
+            case 88: {
+
+              placeLocationCenter_ = input.readBool();
+              break;
+            }
+            case 96: {
+
+              lastPositionExpire_ = input.readUInt64();
+              break;
+            }
+            case 104: {
+
+              taxiDeliveryOnly_ = input.readBool();
+              break;
+            }
+            case 112: {
+
+              orderTransferTimeFromDeliveryToClientMin_ = input.readUInt64();
+              break;
+            }
+            case 120: {
+
+              orderReceiveTimeFromAssemblyToDeliveryMin_ = input.readUInt64();
+              break;
+            }
+            case 128: {
+
+              offerServerTimeoutSec_ = input.readUInt64();
+              break;
+            }
+            case 136: {
+
+              externalAssembliersPresented_ = input.readBool();
+              break;
+            }
+            case 144: {
+
+              gapTaxiPunishMin_ = input.readUInt64();
+              break;
+            }
+            case 152: {
+
+              taxiAvailable_ = input.readBool();
+              break;
+            }
+            case 160: {
+
+              maxWaitingTimeForCourierMin_ = input.readUInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return candidates.StoreChangedOuterClass.internal_static_candidates_DispatchSettings_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return candidates.StoreChangedOuterClass.internal_static_candidates_DispatchSettings_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              candidates.StoreChangedOuterClass.DispatchSettings.class, candidates.StoreChangedOuterClass.DispatchSettings.Builder.class);
+    }
+
+    public static final int MAX_ORDER_ASSIGN_RETRY_COUNT_FIELD_NUMBER = 1;
+    private long maxOrderAssignRetryCount_;
+    /**
+     * <code>uint64 max_order_assign_retry_count = 1;</code>
+     * @return The maxOrderAssignRetryCount.
+     */
+    @java.lang.Override
+    public long getMaxOrderAssignRetryCount() {
+      return maxOrderAssignRetryCount_;
+    }
+
+    public static final int AVG_PARKING_MIN_VEHICLE_FIELD_NUMBER = 2;
+    private long avgParkingMinVehicle_;
+    /**
+     * <code>uint64 avg_parking_min_vehicle = 2;</code>
+     * @return The avgParkingMinVehicle.
+     */
+    @java.lang.Override
+    public long getAvgParkingMinVehicle() {
+      return avgParkingMinVehicle_;
+    }
+
+    public static final int MAX_CURRENT_ORDER_ASSIGN_QUEUE_FIELD_NUMBER = 3;
+    private long maxCurrentOrderAssignQueue_;
+    /**
+     * <code>uint64 max_current_order_assign_queue = 3;</code>
+     * @return The maxCurrentOrderAssignQueue.
+     */
+    @java.lang.Override
+    public long getMaxCurrentOrderAssignQueue() {
+      return maxCurrentOrderAssignQueue_;
+    }
+
+    public static final int ORDER_WEIGHT_THRESHOLD_TO_ASSIGN_TO_VEHICLE_GRAMMS_FIELD_NUMBER = 4;
+    private long orderWeightThresholdToAssignToVehicleGramms_;
+    /**
+     * <code>fixed64 order_weight_threshold_to_assign_to_vehicle_gramms = 4;</code>
+     * @return The orderWeightThresholdToAssignToVehicleGramms.
+     */
+    @java.lang.Override
+    public long getOrderWeightThresholdToAssignToVehicleGramms() {
+      return orderWeightThresholdToAssignToVehicleGramms_;
+    }
+
+    public static final int AVERAGE_SPEED_FOR_STRAIGHT_DISTANCE_TO_CLIENT_MIN_FIELD_NUMBER = 5;
+    private long averageSpeedForStraightDistanceToClientMin_;
+    /**
+     * <code>uint64 average_speed_for_straight_distance_to_client_min = 5;</code>
+     * @return The averageSpeedForStraightDistanceToClientMin.
+     */
+    @java.lang.Override
+    public long getAverageSpeedForStraightDistanceToClientMin() {
+      return averageSpeedForStraightDistanceToClientMin_;
+    }
+
+    public static final int ADDITIONAL_FACTOR_FOR_STRAIGHT_DISTANCE_TO_CLIENT_MIN_FIELD_NUMBER = 6;
+    private long additionalFactorForStraightDistanceToClientMin_;
+    /**
+     * <code>uint64 additional_factor_for_straight_distance_to_client_min = 6;</code>
+     * @return The additionalFactorForStraightDistanceToClientMin.
+     */
+    @java.lang.Override
+    public long getAdditionalFactorForStraightDistanceToClientMin() {
+      return additionalFactorForStraightDistanceToClientMin_;
+    }
+
+    public static final int ORDER_TRANSFER_TIME_FROM_ASSEMBLY_TO_DELIVERY_MIN_FIELD_NUMBER = 7;
+    private long orderTransferTimeFromAssemblyToDeliveryMin_;
+    /**
+     * <code>uint64 order_transfer_time_from_assembly_to_delivery_min = 7;</code>
+     * @return The orderTransferTimeFromAssemblyToDeliveryMin.
+     */
+    @java.lang.Override
+    public long getOrderTransferTimeFromAssemblyToDeliveryMin() {
+      return orderTransferTimeFromAssemblyToDeliveryMin_;
+    }
+
+    public static final int AVG_TO_PLACE_MIN_EXTERNAL_FIELD_NUMBER = 8;
+    private long avgToPlaceMinExternal_;
+    /**
+     * <code>uint64 avg_to_place_min_external = 8;</code>
+     * @return The avgToPlaceMinExternal.
+     */
+    @java.lang.Override
+    public long getAvgToPlaceMinExternal() {
+      return avgToPlaceMinExternal_;
+    }
+
+    public static final int AVG_TO_PLACE_MIN_FIELD_NUMBER = 9;
+    private long avgToPlaceMin_;
+    /**
+     * <code>uint64 avg_to_place_min = 9;</code>
+     * @return The avgToPlaceMin.
+     */
+    @java.lang.Override
+    public long getAvgToPlaceMin() {
+      return avgToPlaceMin_;
+    }
+
+    public static final int OFFER_SEEN_TIMEOUT_SEC_FIELD_NUMBER = 10;
+    private long offerSeenTimeoutSec_;
+    /**
+     * <code>uint64 offer_seen_timeout_sec = 10;</code>
+     * @return The offerSeenTimeoutSec.
+     */
+    @java.lang.Override
+    public long getOfferSeenTimeoutSec() {
+      return offerSeenTimeoutSec_;
+    }
+
+    public static final int PLACE_LOCATION_CENTER_FIELD_NUMBER = 11;
+    private boolean placeLocationCenter_;
+    /**
+     * <code>bool place_location_center = 11;</code>
+     * @return The placeLocationCenter.
+     */
+    @java.lang.Override
+    public boolean getPlaceLocationCenter() {
+      return placeLocationCenter_;
+    }
+
+    public static final int LAST_POSITION_EXPIRE_FIELD_NUMBER = 12;
+    private long lastPositionExpire_;
+    /**
+     * <code>uint64 last_position_expire = 12;</code>
+     * @return The lastPositionExpire.
+     */
+    @java.lang.Override
+    public long getLastPositionExpire() {
+      return lastPositionExpire_;
+    }
+
+    public static final int TAXI_DELIVERY_ONLY_FIELD_NUMBER = 13;
+    private boolean taxiDeliveryOnly_;
+    /**
+     * <code>bool taxi_delivery_only = 13;</code>
+     * @return The taxiDeliveryOnly.
+     */
+    @java.lang.Override
+    public boolean getTaxiDeliveryOnly() {
+      return taxiDeliveryOnly_;
+    }
+
+    public static final int ORDER_TRANSFER_TIME_FROM_DELIVERY_TO_CLIENT_MIN_FIELD_NUMBER = 14;
+    private long orderTransferTimeFromDeliveryToClientMin_;
+    /**
+     * <code>uint64 order_transfer_time_from_delivery_to_client_min = 14;</code>
+     * @return The orderTransferTimeFromDeliveryToClientMin.
+     */
+    @java.lang.Override
+    public long getOrderTransferTimeFromDeliveryToClientMin() {
+      return orderTransferTimeFromDeliveryToClientMin_;
+    }
+
+    public static final int ORDER_RECEIVE_TIME_FROM_ASSEMBLY_TO_DELIVERY_MIN_FIELD_NUMBER = 15;
+    private long orderReceiveTimeFromAssemblyToDeliveryMin_;
+    /**
+     * <code>uint64 order_receive_time_from_assembly_to_delivery_min = 15;</code>
+     * @return The orderReceiveTimeFromAssemblyToDeliveryMin.
+     */
+    @java.lang.Override
+    public long getOrderReceiveTimeFromAssemblyToDeliveryMin() {
+      return orderReceiveTimeFromAssemblyToDeliveryMin_;
+    }
+
+    public static final int OFFER_SERVER_TIMEOUT_SEC_FIELD_NUMBER = 16;
+    private long offerServerTimeoutSec_;
+    /**
+     * <code>uint64 offer_server_timeout_sec = 16;</code>
+     * @return The offerServerTimeoutSec.
+     */
+    @java.lang.Override
+    public long getOfferServerTimeoutSec() {
+      return offerServerTimeoutSec_;
+    }
+
+    public static final int EXTERNAL_ASSEMBLIERS_PRESENTED_FIELD_NUMBER = 17;
+    private boolean externalAssembliersPresented_;
+    /**
+     * <code>bool external_assembliers_presented = 17;</code>
+     * @return The externalAssembliersPresented.
+     */
+    @java.lang.Override
+    public boolean getExternalAssembliersPresented() {
+      return externalAssembliersPresented_;
+    }
+
+    public static final int GAP_TAXI_PUNISH_MIN_FIELD_NUMBER = 18;
+    private long gapTaxiPunishMin_;
+    /**
+     * <code>uint64 gap_taxi_punish_min = 18;</code>
+     * @return The gapTaxiPunishMin.
+     */
+    @java.lang.Override
+    public long getGapTaxiPunishMin() {
+      return gapTaxiPunishMin_;
+    }
+
+    public static final int TAXI_AVAILABLE_FIELD_NUMBER = 19;
+    private boolean taxiAvailable_;
+    /**
+     * <code>bool taxi_available = 19;</code>
+     * @return The taxiAvailable.
+     */
+    @java.lang.Override
+    public boolean getTaxiAvailable() {
+      return taxiAvailable_;
+    }
+
+    public static final int MAX_WAITING_TIME_FOR_COURIER_MIN_FIELD_NUMBER = 20;
+    private long maxWaitingTimeForCourierMin_;
+    /**
+     * <code>uint64 max_waiting_time_for_courier_min = 20;</code>
+     * @return The maxWaitingTimeForCourierMin.
+     */
+    @java.lang.Override
+    public long getMaxWaitingTimeForCourierMin() {
+      return maxWaitingTimeForCourierMin_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (maxOrderAssignRetryCount_ != 0L) {
+        output.writeUInt64(1, maxOrderAssignRetryCount_);
+      }
+      if (avgParkingMinVehicle_ != 0L) {
+        output.writeUInt64(2, avgParkingMinVehicle_);
+      }
+      if (maxCurrentOrderAssignQueue_ != 0L) {
+        output.writeUInt64(3, maxCurrentOrderAssignQueue_);
+      }
+      if (orderWeightThresholdToAssignToVehicleGramms_ != 0L) {
+        output.writeFixed64(4, orderWeightThresholdToAssignToVehicleGramms_);
+      }
+      if (averageSpeedForStraightDistanceToClientMin_ != 0L) {
+        output.writeUInt64(5, averageSpeedForStraightDistanceToClientMin_);
+      }
+      if (additionalFactorForStraightDistanceToClientMin_ != 0L) {
+        output.writeUInt64(6, additionalFactorForStraightDistanceToClientMin_);
+      }
+      if (orderTransferTimeFromAssemblyToDeliveryMin_ != 0L) {
+        output.writeUInt64(7, orderTransferTimeFromAssemblyToDeliveryMin_);
+      }
+      if (avgToPlaceMinExternal_ != 0L) {
+        output.writeUInt64(8, avgToPlaceMinExternal_);
+      }
+      if (avgToPlaceMin_ != 0L) {
+        output.writeUInt64(9, avgToPlaceMin_);
+      }
+      if (offerSeenTimeoutSec_ != 0L) {
+        output.writeUInt64(10, offerSeenTimeoutSec_);
+      }
+      if (placeLocationCenter_ != false) {
+        output.writeBool(11, placeLocationCenter_);
+      }
+      if (lastPositionExpire_ != 0L) {
+        output.writeUInt64(12, lastPositionExpire_);
+      }
+      if (taxiDeliveryOnly_ != false) {
+        output.writeBool(13, taxiDeliveryOnly_);
+      }
+      if (orderTransferTimeFromDeliveryToClientMin_ != 0L) {
+        output.writeUInt64(14, orderTransferTimeFromDeliveryToClientMin_);
+      }
+      if (orderReceiveTimeFromAssemblyToDeliveryMin_ != 0L) {
+        output.writeUInt64(15, orderReceiveTimeFromAssemblyToDeliveryMin_);
+      }
+      if (offerServerTimeoutSec_ != 0L) {
+        output.writeUInt64(16, offerServerTimeoutSec_);
+      }
+      if (externalAssembliersPresented_ != false) {
+        output.writeBool(17, externalAssembliersPresented_);
+      }
+      if (gapTaxiPunishMin_ != 0L) {
+        output.writeUInt64(18, gapTaxiPunishMin_);
+      }
+      if (taxiAvailable_ != false) {
+        output.writeBool(19, taxiAvailable_);
+      }
+      if (maxWaitingTimeForCourierMin_ != 0L) {
+        output.writeUInt64(20, maxWaitingTimeForCourierMin_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (maxOrderAssignRetryCount_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, maxOrderAssignRetryCount_);
+      }
+      if (avgParkingMinVehicle_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(2, avgParkingMinVehicle_);
+      }
+      if (maxCurrentOrderAssignQueue_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(3, maxCurrentOrderAssignQueue_);
+      }
+      if (orderWeightThresholdToAssignToVehicleGramms_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFixed64Size(4, orderWeightThresholdToAssignToVehicleGramms_);
+      }
+      if (averageSpeedForStraightDistanceToClientMin_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(5, averageSpeedForStraightDistanceToClientMin_);
+      }
+      if (additionalFactorForStraightDistanceToClientMin_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(6, additionalFactorForStraightDistanceToClientMin_);
+      }
+      if (orderTransferTimeFromAssemblyToDeliveryMin_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(7, orderTransferTimeFromAssemblyToDeliveryMin_);
+      }
+      if (avgToPlaceMinExternal_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(8, avgToPlaceMinExternal_);
+      }
+      if (avgToPlaceMin_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(9, avgToPlaceMin_);
+      }
+      if (offerSeenTimeoutSec_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(10, offerSeenTimeoutSec_);
+      }
+      if (placeLocationCenter_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(11, placeLocationCenter_);
+      }
+      if (lastPositionExpire_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(12, lastPositionExpire_);
+      }
+      if (taxiDeliveryOnly_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(13, taxiDeliveryOnly_);
+      }
+      if (orderTransferTimeFromDeliveryToClientMin_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(14, orderTransferTimeFromDeliveryToClientMin_);
+      }
+      if (orderReceiveTimeFromAssemblyToDeliveryMin_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(15, orderReceiveTimeFromAssemblyToDeliveryMin_);
+      }
+      if (offerServerTimeoutSec_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(16, offerServerTimeoutSec_);
+      }
+      if (externalAssembliersPresented_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(17, externalAssembliersPresented_);
+      }
+      if (gapTaxiPunishMin_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(18, gapTaxiPunishMin_);
+      }
+      if (taxiAvailable_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(19, taxiAvailable_);
+      }
+      if (maxWaitingTimeForCourierMin_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(20, maxWaitingTimeForCourierMin_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof candidates.StoreChangedOuterClass.DispatchSettings)) {
+        return super.equals(obj);
+      }
+      candidates.StoreChangedOuterClass.DispatchSettings other = (candidates.StoreChangedOuterClass.DispatchSettings) obj;
+
+      if (getMaxOrderAssignRetryCount()
+          != other.getMaxOrderAssignRetryCount()) return false;
+      if (getAvgParkingMinVehicle()
+          != other.getAvgParkingMinVehicle()) return false;
+      if (getMaxCurrentOrderAssignQueue()
+          != other.getMaxCurrentOrderAssignQueue()) return false;
+      if (getOrderWeightThresholdToAssignToVehicleGramms()
+          != other.getOrderWeightThresholdToAssignToVehicleGramms()) return false;
+      if (getAverageSpeedForStraightDistanceToClientMin()
+          != other.getAverageSpeedForStraightDistanceToClientMin()) return false;
+      if (getAdditionalFactorForStraightDistanceToClientMin()
+          != other.getAdditionalFactorForStraightDistanceToClientMin()) return false;
+      if (getOrderTransferTimeFromAssemblyToDeliveryMin()
+          != other.getOrderTransferTimeFromAssemblyToDeliveryMin()) return false;
+      if (getAvgToPlaceMinExternal()
+          != other.getAvgToPlaceMinExternal()) return false;
+      if (getAvgToPlaceMin()
+          != other.getAvgToPlaceMin()) return false;
+      if (getOfferSeenTimeoutSec()
+          != other.getOfferSeenTimeoutSec()) return false;
+      if (getPlaceLocationCenter()
+          != other.getPlaceLocationCenter()) return false;
+      if (getLastPositionExpire()
+          != other.getLastPositionExpire()) return false;
+      if (getTaxiDeliveryOnly()
+          != other.getTaxiDeliveryOnly()) return false;
+      if (getOrderTransferTimeFromDeliveryToClientMin()
+          != other.getOrderTransferTimeFromDeliveryToClientMin()) return false;
+      if (getOrderReceiveTimeFromAssemblyToDeliveryMin()
+          != other.getOrderReceiveTimeFromAssemblyToDeliveryMin()) return false;
+      if (getOfferServerTimeoutSec()
+          != other.getOfferServerTimeoutSec()) return false;
+      if (getExternalAssembliersPresented()
+          != other.getExternalAssembliersPresented()) return false;
+      if (getGapTaxiPunishMin()
+          != other.getGapTaxiPunishMin()) return false;
+      if (getTaxiAvailable()
+          != other.getTaxiAvailable()) return false;
+      if (getMaxWaitingTimeForCourierMin()
+          != other.getMaxWaitingTimeForCourierMin()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + MAX_ORDER_ASSIGN_RETRY_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getMaxOrderAssignRetryCount());
+      hash = (37 * hash) + AVG_PARKING_MIN_VEHICLE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getAvgParkingMinVehicle());
+      hash = (37 * hash) + MAX_CURRENT_ORDER_ASSIGN_QUEUE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getMaxCurrentOrderAssignQueue());
+      hash = (37 * hash) + ORDER_WEIGHT_THRESHOLD_TO_ASSIGN_TO_VEHICLE_GRAMMS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOrderWeightThresholdToAssignToVehicleGramms());
+      hash = (37 * hash) + AVERAGE_SPEED_FOR_STRAIGHT_DISTANCE_TO_CLIENT_MIN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getAverageSpeedForStraightDistanceToClientMin());
+      hash = (37 * hash) + ADDITIONAL_FACTOR_FOR_STRAIGHT_DISTANCE_TO_CLIENT_MIN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getAdditionalFactorForStraightDistanceToClientMin());
+      hash = (37 * hash) + ORDER_TRANSFER_TIME_FROM_ASSEMBLY_TO_DELIVERY_MIN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOrderTransferTimeFromAssemblyToDeliveryMin());
+      hash = (37 * hash) + AVG_TO_PLACE_MIN_EXTERNAL_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getAvgToPlaceMinExternal());
+      hash = (37 * hash) + AVG_TO_PLACE_MIN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getAvgToPlaceMin());
+      hash = (37 * hash) + OFFER_SEEN_TIMEOUT_SEC_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOfferSeenTimeoutSec());
+      hash = (37 * hash) + PLACE_LOCATION_CENTER_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getPlaceLocationCenter());
+      hash = (37 * hash) + LAST_POSITION_EXPIRE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLastPositionExpire());
+      hash = (37 * hash) + TAXI_DELIVERY_ONLY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getTaxiDeliveryOnly());
+      hash = (37 * hash) + ORDER_TRANSFER_TIME_FROM_DELIVERY_TO_CLIENT_MIN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOrderTransferTimeFromDeliveryToClientMin());
+      hash = (37 * hash) + ORDER_RECEIVE_TIME_FROM_ASSEMBLY_TO_DELIVERY_MIN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOrderReceiveTimeFromAssemblyToDeliveryMin());
+      hash = (37 * hash) + OFFER_SERVER_TIMEOUT_SEC_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOfferServerTimeoutSec());
+      hash = (37 * hash) + EXTERNAL_ASSEMBLIERS_PRESENTED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getExternalAssembliersPresented());
+      hash = (37 * hash) + GAP_TAXI_PUNISH_MIN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getGapTaxiPunishMin());
+      hash = (37 * hash) + TAXI_AVAILABLE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getTaxiAvailable());
+      hash = (37 * hash) + MAX_WAITING_TIME_FOR_COURIER_MIN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getMaxWaitingTimeForCourierMin());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static candidates.StoreChangedOuterClass.DispatchSettings parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.StoreChangedOuterClass.DispatchSettings parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.DispatchSettings parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.StoreChangedOuterClass.DispatchSettings parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.DispatchSettings parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.StoreChangedOuterClass.DispatchSettings parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.DispatchSettings parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.StoreChangedOuterClass.DispatchSettings parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.DispatchSettings parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static candidates.StoreChangedOuterClass.DispatchSettings parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.DispatchSettings parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.StoreChangedOuterClass.DispatchSettings parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(candidates.StoreChangedOuterClass.DispatchSettings prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code candidates.DispatchSettings}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:candidates.DispatchSettings)
+        candidates.StoreChangedOuterClass.DispatchSettingsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return candidates.StoreChangedOuterClass.internal_static_candidates_DispatchSettings_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return candidates.StoreChangedOuterClass.internal_static_candidates_DispatchSettings_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                candidates.StoreChangedOuterClass.DispatchSettings.class, candidates.StoreChangedOuterClass.DispatchSettings.Builder.class);
+      }
+
+      // Construct using candidates.StoreChangedOuterClass.DispatchSettings.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        maxOrderAssignRetryCount_ = 0L;
+
+        avgParkingMinVehicle_ = 0L;
+
+        maxCurrentOrderAssignQueue_ = 0L;
+
+        orderWeightThresholdToAssignToVehicleGramms_ = 0L;
+
+        averageSpeedForStraightDistanceToClientMin_ = 0L;
+
+        additionalFactorForStraightDistanceToClientMin_ = 0L;
+
+        orderTransferTimeFromAssemblyToDeliveryMin_ = 0L;
+
+        avgToPlaceMinExternal_ = 0L;
+
+        avgToPlaceMin_ = 0L;
+
+        offerSeenTimeoutSec_ = 0L;
+
+        placeLocationCenter_ = false;
+
+        lastPositionExpire_ = 0L;
+
+        taxiDeliveryOnly_ = false;
+
+        orderTransferTimeFromDeliveryToClientMin_ = 0L;
+
+        orderReceiveTimeFromAssemblyToDeliveryMin_ = 0L;
+
+        offerServerTimeoutSec_ = 0L;
+
+        externalAssembliersPresented_ = false;
+
+        gapTaxiPunishMin_ = 0L;
+
+        taxiAvailable_ = false;
+
+        maxWaitingTimeForCourierMin_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return candidates.StoreChangedOuterClass.internal_static_candidates_DispatchSettings_descriptor;
+      }
+
+      @java.lang.Override
+      public candidates.StoreChangedOuterClass.DispatchSettings getDefaultInstanceForType() {
+        return candidates.StoreChangedOuterClass.DispatchSettings.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public candidates.StoreChangedOuterClass.DispatchSettings build() {
+        candidates.StoreChangedOuterClass.DispatchSettings result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public candidates.StoreChangedOuterClass.DispatchSettings buildPartial() {
+        candidates.StoreChangedOuterClass.DispatchSettings result = new candidates.StoreChangedOuterClass.DispatchSettings(this);
+        result.maxOrderAssignRetryCount_ = maxOrderAssignRetryCount_;
+        result.avgParkingMinVehicle_ = avgParkingMinVehicle_;
+        result.maxCurrentOrderAssignQueue_ = maxCurrentOrderAssignQueue_;
+        result.orderWeightThresholdToAssignToVehicleGramms_ = orderWeightThresholdToAssignToVehicleGramms_;
+        result.averageSpeedForStraightDistanceToClientMin_ = averageSpeedForStraightDistanceToClientMin_;
+        result.additionalFactorForStraightDistanceToClientMin_ = additionalFactorForStraightDistanceToClientMin_;
+        result.orderTransferTimeFromAssemblyToDeliveryMin_ = orderTransferTimeFromAssemblyToDeliveryMin_;
+        result.avgToPlaceMinExternal_ = avgToPlaceMinExternal_;
+        result.avgToPlaceMin_ = avgToPlaceMin_;
+        result.offerSeenTimeoutSec_ = offerSeenTimeoutSec_;
+        result.placeLocationCenter_ = placeLocationCenter_;
+        result.lastPositionExpire_ = lastPositionExpire_;
+        result.taxiDeliveryOnly_ = taxiDeliveryOnly_;
+        result.orderTransferTimeFromDeliveryToClientMin_ = orderTransferTimeFromDeliveryToClientMin_;
+        result.orderReceiveTimeFromAssemblyToDeliveryMin_ = orderReceiveTimeFromAssemblyToDeliveryMin_;
+        result.offerServerTimeoutSec_ = offerServerTimeoutSec_;
+        result.externalAssembliersPresented_ = externalAssembliersPresented_;
+        result.gapTaxiPunishMin_ = gapTaxiPunishMin_;
+        result.taxiAvailable_ = taxiAvailable_;
+        result.maxWaitingTimeForCourierMin_ = maxWaitingTimeForCourierMin_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof candidates.StoreChangedOuterClass.DispatchSettings) {
+          return mergeFrom((candidates.StoreChangedOuterClass.DispatchSettings)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(candidates.StoreChangedOuterClass.DispatchSettings other) {
+        if (other == candidates.StoreChangedOuterClass.DispatchSettings.getDefaultInstance()) return this;
+        if (other.getMaxOrderAssignRetryCount() != 0L) {
+          setMaxOrderAssignRetryCount(other.getMaxOrderAssignRetryCount());
+        }
+        if (other.getAvgParkingMinVehicle() != 0L) {
+          setAvgParkingMinVehicle(other.getAvgParkingMinVehicle());
+        }
+        if (other.getMaxCurrentOrderAssignQueue() != 0L) {
+          setMaxCurrentOrderAssignQueue(other.getMaxCurrentOrderAssignQueue());
+        }
+        if (other.getOrderWeightThresholdToAssignToVehicleGramms() != 0L) {
+          setOrderWeightThresholdToAssignToVehicleGramms(other.getOrderWeightThresholdToAssignToVehicleGramms());
+        }
+        if (other.getAverageSpeedForStraightDistanceToClientMin() != 0L) {
+          setAverageSpeedForStraightDistanceToClientMin(other.getAverageSpeedForStraightDistanceToClientMin());
+        }
+        if (other.getAdditionalFactorForStraightDistanceToClientMin() != 0L) {
+          setAdditionalFactorForStraightDistanceToClientMin(other.getAdditionalFactorForStraightDistanceToClientMin());
+        }
+        if (other.getOrderTransferTimeFromAssemblyToDeliveryMin() != 0L) {
+          setOrderTransferTimeFromAssemblyToDeliveryMin(other.getOrderTransferTimeFromAssemblyToDeliveryMin());
+        }
+        if (other.getAvgToPlaceMinExternal() != 0L) {
+          setAvgToPlaceMinExternal(other.getAvgToPlaceMinExternal());
+        }
+        if (other.getAvgToPlaceMin() != 0L) {
+          setAvgToPlaceMin(other.getAvgToPlaceMin());
+        }
+        if (other.getOfferSeenTimeoutSec() != 0L) {
+          setOfferSeenTimeoutSec(other.getOfferSeenTimeoutSec());
+        }
+        if (other.getPlaceLocationCenter() != false) {
+          setPlaceLocationCenter(other.getPlaceLocationCenter());
+        }
+        if (other.getLastPositionExpire() != 0L) {
+          setLastPositionExpire(other.getLastPositionExpire());
+        }
+        if (other.getTaxiDeliveryOnly() != false) {
+          setTaxiDeliveryOnly(other.getTaxiDeliveryOnly());
+        }
+        if (other.getOrderTransferTimeFromDeliveryToClientMin() != 0L) {
+          setOrderTransferTimeFromDeliveryToClientMin(other.getOrderTransferTimeFromDeliveryToClientMin());
+        }
+        if (other.getOrderReceiveTimeFromAssemblyToDeliveryMin() != 0L) {
+          setOrderReceiveTimeFromAssemblyToDeliveryMin(other.getOrderReceiveTimeFromAssemblyToDeliveryMin());
+        }
+        if (other.getOfferServerTimeoutSec() != 0L) {
+          setOfferServerTimeoutSec(other.getOfferServerTimeoutSec());
+        }
+        if (other.getExternalAssembliersPresented() != false) {
+          setExternalAssembliersPresented(other.getExternalAssembliersPresented());
+        }
+        if (other.getGapTaxiPunishMin() != 0L) {
+          setGapTaxiPunishMin(other.getGapTaxiPunishMin());
+        }
+        if (other.getTaxiAvailable() != false) {
+          setTaxiAvailable(other.getTaxiAvailable());
+        }
+        if (other.getMaxWaitingTimeForCourierMin() != 0L) {
+          setMaxWaitingTimeForCourierMin(other.getMaxWaitingTimeForCourierMin());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        candidates.StoreChangedOuterClass.DispatchSettings parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (candidates.StoreChangedOuterClass.DispatchSettings) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long maxOrderAssignRetryCount_ ;
+      /**
+       * <code>uint64 max_order_assign_retry_count = 1;</code>
+       * @return The maxOrderAssignRetryCount.
+       */
+      @java.lang.Override
+      public long getMaxOrderAssignRetryCount() {
+        return maxOrderAssignRetryCount_;
+      }
+      /**
+       * <code>uint64 max_order_assign_retry_count = 1;</code>
+       * @param value The maxOrderAssignRetryCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMaxOrderAssignRetryCount(long value) {
+        
+        maxOrderAssignRetryCount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 max_order_assign_retry_count = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMaxOrderAssignRetryCount() {
+        
+        maxOrderAssignRetryCount_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long avgParkingMinVehicle_ ;
+      /**
+       * <code>uint64 avg_parking_min_vehicle = 2;</code>
+       * @return The avgParkingMinVehicle.
+       */
+      @java.lang.Override
+      public long getAvgParkingMinVehicle() {
+        return avgParkingMinVehicle_;
+      }
+      /**
+       * <code>uint64 avg_parking_min_vehicle = 2;</code>
+       * @param value The avgParkingMinVehicle to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAvgParkingMinVehicle(long value) {
+        
+        avgParkingMinVehicle_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 avg_parking_min_vehicle = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAvgParkingMinVehicle() {
+        
+        avgParkingMinVehicle_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long maxCurrentOrderAssignQueue_ ;
+      /**
+       * <code>uint64 max_current_order_assign_queue = 3;</code>
+       * @return The maxCurrentOrderAssignQueue.
+       */
+      @java.lang.Override
+      public long getMaxCurrentOrderAssignQueue() {
+        return maxCurrentOrderAssignQueue_;
+      }
+      /**
+       * <code>uint64 max_current_order_assign_queue = 3;</code>
+       * @param value The maxCurrentOrderAssignQueue to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMaxCurrentOrderAssignQueue(long value) {
+        
+        maxCurrentOrderAssignQueue_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 max_current_order_assign_queue = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMaxCurrentOrderAssignQueue() {
+        
+        maxCurrentOrderAssignQueue_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long orderWeightThresholdToAssignToVehicleGramms_ ;
+      /**
+       * <code>fixed64 order_weight_threshold_to_assign_to_vehicle_gramms = 4;</code>
+       * @return The orderWeightThresholdToAssignToVehicleGramms.
+       */
+      @java.lang.Override
+      public long getOrderWeightThresholdToAssignToVehicleGramms() {
+        return orderWeightThresholdToAssignToVehicleGramms_;
+      }
+      /**
+       * <code>fixed64 order_weight_threshold_to_assign_to_vehicle_gramms = 4;</code>
+       * @param value The orderWeightThresholdToAssignToVehicleGramms to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrderWeightThresholdToAssignToVehicleGramms(long value) {
+        
+        orderWeightThresholdToAssignToVehicleGramms_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>fixed64 order_weight_threshold_to_assign_to_vehicle_gramms = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOrderWeightThresholdToAssignToVehicleGramms() {
+        
+        orderWeightThresholdToAssignToVehicleGramms_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long averageSpeedForStraightDistanceToClientMin_ ;
+      /**
+       * <code>uint64 average_speed_for_straight_distance_to_client_min = 5;</code>
+       * @return The averageSpeedForStraightDistanceToClientMin.
+       */
+      @java.lang.Override
+      public long getAverageSpeedForStraightDistanceToClientMin() {
+        return averageSpeedForStraightDistanceToClientMin_;
+      }
+      /**
+       * <code>uint64 average_speed_for_straight_distance_to_client_min = 5;</code>
+       * @param value The averageSpeedForStraightDistanceToClientMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAverageSpeedForStraightDistanceToClientMin(long value) {
+        
+        averageSpeedForStraightDistanceToClientMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 average_speed_for_straight_distance_to_client_min = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAverageSpeedForStraightDistanceToClientMin() {
+        
+        averageSpeedForStraightDistanceToClientMin_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long additionalFactorForStraightDistanceToClientMin_ ;
+      /**
+       * <code>uint64 additional_factor_for_straight_distance_to_client_min = 6;</code>
+       * @return The additionalFactorForStraightDistanceToClientMin.
+       */
+      @java.lang.Override
+      public long getAdditionalFactorForStraightDistanceToClientMin() {
+        return additionalFactorForStraightDistanceToClientMin_;
+      }
+      /**
+       * <code>uint64 additional_factor_for_straight_distance_to_client_min = 6;</code>
+       * @param value The additionalFactorForStraightDistanceToClientMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAdditionalFactorForStraightDistanceToClientMin(long value) {
+        
+        additionalFactorForStraightDistanceToClientMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 additional_factor_for_straight_distance_to_client_min = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAdditionalFactorForStraightDistanceToClientMin() {
+        
+        additionalFactorForStraightDistanceToClientMin_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long orderTransferTimeFromAssemblyToDeliveryMin_ ;
+      /**
+       * <code>uint64 order_transfer_time_from_assembly_to_delivery_min = 7;</code>
+       * @return The orderTransferTimeFromAssemblyToDeliveryMin.
+       */
+      @java.lang.Override
+      public long getOrderTransferTimeFromAssemblyToDeliveryMin() {
+        return orderTransferTimeFromAssemblyToDeliveryMin_;
+      }
+      /**
+       * <code>uint64 order_transfer_time_from_assembly_to_delivery_min = 7;</code>
+       * @param value The orderTransferTimeFromAssemblyToDeliveryMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrderTransferTimeFromAssemblyToDeliveryMin(long value) {
+        
+        orderTransferTimeFromAssemblyToDeliveryMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 order_transfer_time_from_assembly_to_delivery_min = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOrderTransferTimeFromAssemblyToDeliveryMin() {
+        
+        orderTransferTimeFromAssemblyToDeliveryMin_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long avgToPlaceMinExternal_ ;
+      /**
+       * <code>uint64 avg_to_place_min_external = 8;</code>
+       * @return The avgToPlaceMinExternal.
+       */
+      @java.lang.Override
+      public long getAvgToPlaceMinExternal() {
+        return avgToPlaceMinExternal_;
+      }
+      /**
+       * <code>uint64 avg_to_place_min_external = 8;</code>
+       * @param value The avgToPlaceMinExternal to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAvgToPlaceMinExternal(long value) {
+        
+        avgToPlaceMinExternal_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 avg_to_place_min_external = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAvgToPlaceMinExternal() {
+        
+        avgToPlaceMinExternal_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long avgToPlaceMin_ ;
+      /**
+       * <code>uint64 avg_to_place_min = 9;</code>
+       * @return The avgToPlaceMin.
+       */
+      @java.lang.Override
+      public long getAvgToPlaceMin() {
+        return avgToPlaceMin_;
+      }
+      /**
+       * <code>uint64 avg_to_place_min = 9;</code>
+       * @param value The avgToPlaceMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAvgToPlaceMin(long value) {
+        
+        avgToPlaceMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 avg_to_place_min = 9;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAvgToPlaceMin() {
+        
+        avgToPlaceMin_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long offerSeenTimeoutSec_ ;
+      /**
+       * <code>uint64 offer_seen_timeout_sec = 10;</code>
+       * @return The offerSeenTimeoutSec.
+       */
+      @java.lang.Override
+      public long getOfferSeenTimeoutSec() {
+        return offerSeenTimeoutSec_;
+      }
+      /**
+       * <code>uint64 offer_seen_timeout_sec = 10;</code>
+       * @param value The offerSeenTimeoutSec to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOfferSeenTimeoutSec(long value) {
+        
+        offerSeenTimeoutSec_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 offer_seen_timeout_sec = 10;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOfferSeenTimeoutSec() {
+        
+        offerSeenTimeoutSec_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean placeLocationCenter_ ;
+      /**
+       * <code>bool place_location_center = 11;</code>
+       * @return The placeLocationCenter.
+       */
+      @java.lang.Override
+      public boolean getPlaceLocationCenter() {
+        return placeLocationCenter_;
+      }
+      /**
+       * <code>bool place_location_center = 11;</code>
+       * @param value The placeLocationCenter to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPlaceLocationCenter(boolean value) {
+        
+        placeLocationCenter_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool place_location_center = 11;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPlaceLocationCenter() {
+        
+        placeLocationCenter_ = false;
+        onChanged();
+        return this;
+      }
+
+      private long lastPositionExpire_ ;
+      /**
+       * <code>uint64 last_position_expire = 12;</code>
+       * @return The lastPositionExpire.
+       */
+      @java.lang.Override
+      public long getLastPositionExpire() {
+        return lastPositionExpire_;
+      }
+      /**
+       * <code>uint64 last_position_expire = 12;</code>
+       * @param value The lastPositionExpire to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLastPositionExpire(long value) {
+        
+        lastPositionExpire_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 last_position_expire = 12;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLastPositionExpire() {
+        
+        lastPositionExpire_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean taxiDeliveryOnly_ ;
+      /**
+       * <code>bool taxi_delivery_only = 13;</code>
+       * @return The taxiDeliveryOnly.
+       */
+      @java.lang.Override
+      public boolean getTaxiDeliveryOnly() {
+        return taxiDeliveryOnly_;
+      }
+      /**
+       * <code>bool taxi_delivery_only = 13;</code>
+       * @param value The taxiDeliveryOnly to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTaxiDeliveryOnly(boolean value) {
+        
+        taxiDeliveryOnly_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool taxi_delivery_only = 13;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTaxiDeliveryOnly() {
+        
+        taxiDeliveryOnly_ = false;
+        onChanged();
+        return this;
+      }
+
+      private long orderTransferTimeFromDeliveryToClientMin_ ;
+      /**
+       * <code>uint64 order_transfer_time_from_delivery_to_client_min = 14;</code>
+       * @return The orderTransferTimeFromDeliveryToClientMin.
+       */
+      @java.lang.Override
+      public long getOrderTransferTimeFromDeliveryToClientMin() {
+        return orderTransferTimeFromDeliveryToClientMin_;
+      }
+      /**
+       * <code>uint64 order_transfer_time_from_delivery_to_client_min = 14;</code>
+       * @param value The orderTransferTimeFromDeliveryToClientMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrderTransferTimeFromDeliveryToClientMin(long value) {
+        
+        orderTransferTimeFromDeliveryToClientMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 order_transfer_time_from_delivery_to_client_min = 14;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOrderTransferTimeFromDeliveryToClientMin() {
+        
+        orderTransferTimeFromDeliveryToClientMin_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long orderReceiveTimeFromAssemblyToDeliveryMin_ ;
+      /**
+       * <code>uint64 order_receive_time_from_assembly_to_delivery_min = 15;</code>
+       * @return The orderReceiveTimeFromAssemblyToDeliveryMin.
+       */
+      @java.lang.Override
+      public long getOrderReceiveTimeFromAssemblyToDeliveryMin() {
+        return orderReceiveTimeFromAssemblyToDeliveryMin_;
+      }
+      /**
+       * <code>uint64 order_receive_time_from_assembly_to_delivery_min = 15;</code>
+       * @param value The orderReceiveTimeFromAssemblyToDeliveryMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrderReceiveTimeFromAssemblyToDeliveryMin(long value) {
+        
+        orderReceiveTimeFromAssemblyToDeliveryMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 order_receive_time_from_assembly_to_delivery_min = 15;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOrderReceiveTimeFromAssemblyToDeliveryMin() {
+        
+        orderReceiveTimeFromAssemblyToDeliveryMin_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long offerServerTimeoutSec_ ;
+      /**
+       * <code>uint64 offer_server_timeout_sec = 16;</code>
+       * @return The offerServerTimeoutSec.
+       */
+      @java.lang.Override
+      public long getOfferServerTimeoutSec() {
+        return offerServerTimeoutSec_;
+      }
+      /**
+       * <code>uint64 offer_server_timeout_sec = 16;</code>
+       * @param value The offerServerTimeoutSec to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOfferServerTimeoutSec(long value) {
+        
+        offerServerTimeoutSec_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 offer_server_timeout_sec = 16;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOfferServerTimeoutSec() {
+        
+        offerServerTimeoutSec_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean externalAssembliersPresented_ ;
+      /**
+       * <code>bool external_assembliers_presented = 17;</code>
+       * @return The externalAssembliersPresented.
+       */
+      @java.lang.Override
+      public boolean getExternalAssembliersPresented() {
+        return externalAssembliersPresented_;
+      }
+      /**
+       * <code>bool external_assembliers_presented = 17;</code>
+       * @param value The externalAssembliersPresented to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExternalAssembliersPresented(boolean value) {
+        
+        externalAssembliersPresented_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool external_assembliers_presented = 17;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExternalAssembliersPresented() {
+        
+        externalAssembliersPresented_ = false;
+        onChanged();
+        return this;
+      }
+
+      private long gapTaxiPunishMin_ ;
+      /**
+       * <code>uint64 gap_taxi_punish_min = 18;</code>
+       * @return The gapTaxiPunishMin.
+       */
+      @java.lang.Override
+      public long getGapTaxiPunishMin() {
+        return gapTaxiPunishMin_;
+      }
+      /**
+       * <code>uint64 gap_taxi_punish_min = 18;</code>
+       * @param value The gapTaxiPunishMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setGapTaxiPunishMin(long value) {
+        
+        gapTaxiPunishMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 gap_taxi_punish_min = 18;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearGapTaxiPunishMin() {
+        
+        gapTaxiPunishMin_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean taxiAvailable_ ;
+      /**
+       * <code>bool taxi_available = 19;</code>
+       * @return The taxiAvailable.
+       */
+      @java.lang.Override
+      public boolean getTaxiAvailable() {
+        return taxiAvailable_;
+      }
+      /**
+       * <code>bool taxi_available = 19;</code>
+       * @param value The taxiAvailable to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTaxiAvailable(boolean value) {
+        
+        taxiAvailable_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool taxi_available = 19;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTaxiAvailable() {
+        
+        taxiAvailable_ = false;
+        onChanged();
+        return this;
+      }
+
+      private long maxWaitingTimeForCourierMin_ ;
+      /**
+       * <code>uint64 max_waiting_time_for_courier_min = 20;</code>
+       * @return The maxWaitingTimeForCourierMin.
+       */
+      @java.lang.Override
+      public long getMaxWaitingTimeForCourierMin() {
+        return maxWaitingTimeForCourierMin_;
+      }
+      /**
+       * <code>uint64 max_waiting_time_for_courier_min = 20;</code>
+       * @param value The maxWaitingTimeForCourierMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMaxWaitingTimeForCourierMin(long value) {
+        
+        maxWaitingTimeForCourierMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 max_waiting_time_for_courier_min = 20;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMaxWaitingTimeForCourierMin() {
+        
+        maxWaitingTimeForCourierMin_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:candidates.DispatchSettings)
+    }
+
+    // @@protoc_insertion_point(class_scope:candidates.DispatchSettings)
+    private static final candidates.StoreChangedOuterClass.DispatchSettings DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new candidates.StoreChangedOuterClass.DispatchSettings();
+    }
+
+    public static candidates.StoreChangedOuterClass.DispatchSettings getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DispatchSettings>
+        PARSER = new com.google.protobuf.AbstractParser<DispatchSettings>() {
+      @java.lang.Override
+      public DispatchSettings parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new DispatchSettings(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<DispatchSettings> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DispatchSettings> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public candidates.StoreChangedOuterClass.DispatchSettings getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PlaceSettingsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:candidates.PlaceSettings)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.candidates.PlaceType place_type = 1;</code>
+     * @return The enum numeric value on the wire for placeType.
+     */
+    int getPlaceTypeValue();
+    /**
+     * <code>.candidates.PlaceType place_type = 1;</code>
+     * @return The placeType.
+     */
+    candidates.StoreChangedOuterClass.PlaceType getPlaceType();
+
+    /**
+     * <code>.candidates.LocationPoint place_location = 2;</code>
+     * @return Whether the placeLocation field is set.
+     */
+    boolean hasPlaceLocation();
+    /**
+     * <code>.candidates.LocationPoint place_location = 2;</code>
+     * @return The placeLocation.
+     */
+    candidates.StoreChangedOuterClass.LocationPoint getPlaceLocation();
+    /**
+     * <code>.candidates.LocationPoint place_location = 2;</code>
+     */
+    candidates.StoreChangedOuterClass.LocationPointOrBuilder getPlaceLocationOrBuilder();
+
+    /**
+     * <code>.candidates.AssemblyType assembly_task_type = 3;</code>
+     * @return The enum numeric value on the wire for assemblyTaskType.
+     */
+    int getAssemblyTaskTypeValue();
+    /**
+     * <code>.candidates.AssemblyType assembly_task_type = 3;</code>
+     * @return The assemblyTaskType.
+     */
+    candidates.StoreChangedOuterClass.AssemblyType getAssemblyTaskType();
+
+    /**
+     * <code>.candidates.PlaceSettings.DeliveryType delivery_task_type = 4;</code>
+     * @return The enum numeric value on the wire for deliveryTaskType.
+     */
+    int getDeliveryTaskTypeValue();
+    /**
+     * <code>.candidates.PlaceSettings.DeliveryType delivery_task_type = 4;</code>
+     * @return The deliveryTaskType.
+     */
+    candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType getDeliveryTaskType();
+
+    /**
+     * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+     * @return A list containing the placeAvailableTasksToBeAssigned.
+     */
+    java.util.List<candidates.StoreChangedOuterClass.AvailableTasks> getPlaceAvailableTasksToBeAssignedList();
+    /**
+     * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+     * @return The count of placeAvailableTasksToBeAssigned.
+     */
+    int getPlaceAvailableTasksToBeAssignedCount();
+    /**
+     * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+     * @param index The index of the element to return.
+     * @return The placeAvailableTasksToBeAssigned at the given index.
+     */
+    candidates.StoreChangedOuterClass.AvailableTasks getPlaceAvailableTasksToBeAssigned(int index);
+    /**
+     * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+     * @return A list containing the enum numeric values on the wire for placeAvailableTasksToBeAssigned.
+     */
+    java.util.List<java.lang.Integer>
+    getPlaceAvailableTasksToBeAssignedValueList();
+    /**
+     * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of placeAvailableTasksToBeAssigned at the given index.
+     */
+    int getPlaceAvailableTasksToBeAssignedValue(int index);
+  }
+  /**
+   * Protobuf type {@code candidates.PlaceSettings}
+   */
+  public static final class PlaceSettings extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:candidates.PlaceSettings)
+      PlaceSettingsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PlaceSettings.newBuilder() to construct.
+    private PlaceSettings(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PlaceSettings() {
+      placeType_ = 0;
+      assemblyTaskType_ = 0;
+      deliveryTaskType_ = 0;
+      placeAvailableTasksToBeAssigned_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PlaceSettings();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PlaceSettings(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              int rawValue = input.readEnum();
+
+              placeType_ = rawValue;
+              break;
+            }
+            case 18: {
+              candidates.StoreChangedOuterClass.LocationPoint.Builder subBuilder = null;
+              if (placeLocation_ != null) {
+                subBuilder = placeLocation_.toBuilder();
+              }
+              placeLocation_ = input.readMessage(candidates.StoreChangedOuterClass.LocationPoint.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(placeLocation_);
+                placeLocation_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+
+              assemblyTaskType_ = rawValue;
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+
+              deliveryTaskType_ = rawValue;
+              break;
+            }
+            case 40: {
+              int rawValue = input.readEnum();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                placeAvailableTasksToBeAssigned_ = new java.util.ArrayList<java.lang.Integer>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              placeAvailableTasksToBeAssigned_.add(rawValue);
+              break;
+            }
+            case 42: {
+              int length = input.readRawVarint32();
+              int oldLimit = input.pushLimit(length);
+              while(input.getBytesUntilLimit() > 0) {
+                int rawValue = input.readEnum();
+                if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                  placeAvailableTasksToBeAssigned_ = new java.util.ArrayList<java.lang.Integer>();
+                  mutable_bitField0_ |= 0x00000001;
+                }
+                placeAvailableTasksToBeAssigned_.add(rawValue);
+              }
+              input.popLimit(oldLimit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          placeAvailableTasksToBeAssigned_ = java.util.Collections.unmodifiableList(placeAvailableTasksToBeAssigned_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return candidates.StoreChangedOuterClass.internal_static_candidates_PlaceSettings_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return candidates.StoreChangedOuterClass.internal_static_candidates_PlaceSettings_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              candidates.StoreChangedOuterClass.PlaceSettings.class, candidates.StoreChangedOuterClass.PlaceSettings.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code candidates.PlaceSettings.DeliveryType}
+     */
+    public enum DeliveryType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>EXTERNAL = 0;</code>
+       */
+      EXTERNAL(0),
+      /**
+       * <code>SM = 1;</code>
+       */
+      SM(1),
+      /**
+       * <code>PLACE = 2;</code>
+       */
+      PLACE(2),
+      /**
+       * <code>PICKUP = 3;</code>
+       */
+      PICKUP(3),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>EXTERNAL = 0;</code>
+       */
+      public static final int EXTERNAL_VALUE = 0;
+      /**
+       * <code>SM = 1;</code>
+       */
+      public static final int SM_VALUE = 1;
+      /**
+       * <code>PLACE = 2;</code>
+       */
+      public static final int PLACE_VALUE = 2;
+      /**
+       * <code>PICKUP = 3;</code>
+       */
+      public static final int PICKUP_VALUE = 3;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static DeliveryType valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static DeliveryType forNumber(int value) {
+        switch (value) {
+          case 0: return EXTERNAL;
+          case 1: return SM;
+          case 2: return PLACE;
+          case 3: return PICKUP;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<DeliveryType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          DeliveryType> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<DeliveryType>() {
+              public DeliveryType findValueByNumber(int number) {
+                return DeliveryType.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return candidates.StoreChangedOuterClass.PlaceSettings.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final DeliveryType[] VALUES = values();
+
+      public static DeliveryType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private DeliveryType(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:candidates.PlaceSettings.DeliveryType)
+    }
+
+    public static final int PLACE_TYPE_FIELD_NUMBER = 1;
+    private int placeType_;
+    /**
+     * <code>.candidates.PlaceType place_type = 1;</code>
+     * @return The enum numeric value on the wire for placeType.
+     */
+    @java.lang.Override public int getPlaceTypeValue() {
+      return placeType_;
+    }
+    /**
+     * <code>.candidates.PlaceType place_type = 1;</code>
+     * @return The placeType.
+     */
+    @java.lang.Override public candidates.StoreChangedOuterClass.PlaceType getPlaceType() {
+      @SuppressWarnings("deprecation")
+      candidates.StoreChangedOuterClass.PlaceType result = candidates.StoreChangedOuterClass.PlaceType.valueOf(placeType_);
+      return result == null ? candidates.StoreChangedOuterClass.PlaceType.UNRECOGNIZED : result;
+    }
+
+    public static final int PLACE_LOCATION_FIELD_NUMBER = 2;
+    private candidates.StoreChangedOuterClass.LocationPoint placeLocation_;
+    /**
+     * <code>.candidates.LocationPoint place_location = 2;</code>
+     * @return Whether the placeLocation field is set.
+     */
+    @java.lang.Override
+    public boolean hasPlaceLocation() {
+      return placeLocation_ != null;
+    }
+    /**
+     * <code>.candidates.LocationPoint place_location = 2;</code>
+     * @return The placeLocation.
+     */
+    @java.lang.Override
+    public candidates.StoreChangedOuterClass.LocationPoint getPlaceLocation() {
+      return placeLocation_ == null ? candidates.StoreChangedOuterClass.LocationPoint.getDefaultInstance() : placeLocation_;
+    }
+    /**
+     * <code>.candidates.LocationPoint place_location = 2;</code>
+     */
+    @java.lang.Override
+    public candidates.StoreChangedOuterClass.LocationPointOrBuilder getPlaceLocationOrBuilder() {
+      return getPlaceLocation();
+    }
+
+    public static final int ASSEMBLY_TASK_TYPE_FIELD_NUMBER = 3;
+    private int assemblyTaskType_;
+    /**
+     * <code>.candidates.AssemblyType assembly_task_type = 3;</code>
+     * @return The enum numeric value on the wire for assemblyTaskType.
+     */
+    @java.lang.Override public int getAssemblyTaskTypeValue() {
+      return assemblyTaskType_;
+    }
+    /**
+     * <code>.candidates.AssemblyType assembly_task_type = 3;</code>
+     * @return The assemblyTaskType.
+     */
+    @java.lang.Override public candidates.StoreChangedOuterClass.AssemblyType getAssemblyTaskType() {
+      @SuppressWarnings("deprecation")
+      candidates.StoreChangedOuterClass.AssemblyType result = candidates.StoreChangedOuterClass.AssemblyType.valueOf(assemblyTaskType_);
+      return result == null ? candidates.StoreChangedOuterClass.AssemblyType.UNRECOGNIZED : result;
+    }
+
+    public static final int DELIVERY_TASK_TYPE_FIELD_NUMBER = 4;
+    private int deliveryTaskType_;
+    /**
+     * <code>.candidates.PlaceSettings.DeliveryType delivery_task_type = 4;</code>
+     * @return The enum numeric value on the wire for deliveryTaskType.
+     */
+    @java.lang.Override public int getDeliveryTaskTypeValue() {
+      return deliveryTaskType_;
+    }
+    /**
+     * <code>.candidates.PlaceSettings.DeliveryType delivery_task_type = 4;</code>
+     * @return The deliveryTaskType.
+     */
+    @java.lang.Override public candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType getDeliveryTaskType() {
+      @SuppressWarnings("deprecation")
+      candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType result = candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType.valueOf(deliveryTaskType_);
+      return result == null ? candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType.UNRECOGNIZED : result;
+    }
+
+    public static final int PLACE_AVAILABLE_TASKS_TO_BE_ASSIGNED_FIELD_NUMBER = 5;
+    private java.util.List<java.lang.Integer> placeAvailableTasksToBeAssigned_;
+    private static final com.google.protobuf.Internal.ListAdapter.Converter<
+        java.lang.Integer, candidates.StoreChangedOuterClass.AvailableTasks> placeAvailableTasksToBeAssigned_converter_ =
+            new com.google.protobuf.Internal.ListAdapter.Converter<
+                java.lang.Integer, candidates.StoreChangedOuterClass.AvailableTasks>() {
+              public candidates.StoreChangedOuterClass.AvailableTasks convert(java.lang.Integer from) {
+                @SuppressWarnings("deprecation")
+                candidates.StoreChangedOuterClass.AvailableTasks result = candidates.StoreChangedOuterClass.AvailableTasks.valueOf(from);
+                return result == null ? candidates.StoreChangedOuterClass.AvailableTasks.UNRECOGNIZED : result;
+              }
+            };
+    /**
+     * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+     * @return A list containing the placeAvailableTasksToBeAssigned.
+     */
+    @java.lang.Override
+    public java.util.List<candidates.StoreChangedOuterClass.AvailableTasks> getPlaceAvailableTasksToBeAssignedList() {
+      return new com.google.protobuf.Internal.ListAdapter<
+          java.lang.Integer, candidates.StoreChangedOuterClass.AvailableTasks>(placeAvailableTasksToBeAssigned_, placeAvailableTasksToBeAssigned_converter_);
+    }
+    /**
+     * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+     * @return The count of placeAvailableTasksToBeAssigned.
+     */
+    @java.lang.Override
+    public int getPlaceAvailableTasksToBeAssignedCount() {
+      return placeAvailableTasksToBeAssigned_.size();
+    }
+    /**
+     * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+     * @param index The index of the element to return.
+     * @return The placeAvailableTasksToBeAssigned at the given index.
+     */
+    @java.lang.Override
+    public candidates.StoreChangedOuterClass.AvailableTasks getPlaceAvailableTasksToBeAssigned(int index) {
+      return placeAvailableTasksToBeAssigned_converter_.convert(placeAvailableTasksToBeAssigned_.get(index));
+    }
+    /**
+     * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+     * @return A list containing the enum numeric values on the wire for placeAvailableTasksToBeAssigned.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Integer>
+    getPlaceAvailableTasksToBeAssignedValueList() {
+      return placeAvailableTasksToBeAssigned_;
+    }
+    /**
+     * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of placeAvailableTasksToBeAssigned at the given index.
+     */
+    @java.lang.Override
+    public int getPlaceAvailableTasksToBeAssignedValue(int index) {
+      return placeAvailableTasksToBeAssigned_.get(index);
+    }
+    private int placeAvailableTasksToBeAssignedMemoizedSerializedSize;
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (placeType_ != candidates.StoreChangedOuterClass.PlaceType.SHOP.getNumber()) {
+        output.writeEnum(1, placeType_);
+      }
+      if (placeLocation_ != null) {
+        output.writeMessage(2, getPlaceLocation());
+      }
+      if (assemblyTaskType_ != candidates.StoreChangedOuterClass.AssemblyType.EXTERNAL.getNumber()) {
+        output.writeEnum(3, assemblyTaskType_);
+      }
+      if (deliveryTaskType_ != candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType.EXTERNAL.getNumber()) {
+        output.writeEnum(4, deliveryTaskType_);
+      }
+      if (getPlaceAvailableTasksToBeAssignedList().size() > 0) {
+        output.writeUInt32NoTag(42);
+        output.writeUInt32NoTag(placeAvailableTasksToBeAssignedMemoizedSerializedSize);
+      }
+      for (int i = 0; i < placeAvailableTasksToBeAssigned_.size(); i++) {
+        output.writeEnumNoTag(placeAvailableTasksToBeAssigned_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (placeType_ != candidates.StoreChangedOuterClass.PlaceType.SHOP.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, placeType_);
+      }
+      if (placeLocation_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPlaceLocation());
+      }
+      if (assemblyTaskType_ != candidates.StoreChangedOuterClass.AssemblyType.EXTERNAL.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, assemblyTaskType_);
+      }
+      if (deliveryTaskType_ != candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType.EXTERNAL.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, deliveryTaskType_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < placeAvailableTasksToBeAssigned_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeEnumSizeNoTag(placeAvailableTasksToBeAssigned_.get(i));
+        }
+        size += dataSize;
+        if (!getPlaceAvailableTasksToBeAssignedList().isEmpty()) {  size += 1;
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32SizeNoTag(dataSize);
+        }placeAvailableTasksToBeAssignedMemoizedSerializedSize = dataSize;
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof candidates.StoreChangedOuterClass.PlaceSettings)) {
+        return super.equals(obj);
+      }
+      candidates.StoreChangedOuterClass.PlaceSettings other = (candidates.StoreChangedOuterClass.PlaceSettings) obj;
+
+      if (placeType_ != other.placeType_) return false;
+      if (hasPlaceLocation() != other.hasPlaceLocation()) return false;
+      if (hasPlaceLocation()) {
+        if (!getPlaceLocation()
+            .equals(other.getPlaceLocation())) return false;
+      }
+      if (assemblyTaskType_ != other.assemblyTaskType_) return false;
+      if (deliveryTaskType_ != other.deliveryTaskType_) return false;
+      if (!placeAvailableTasksToBeAssigned_.equals(other.placeAvailableTasksToBeAssigned_)) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PLACE_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + placeType_;
+      if (hasPlaceLocation()) {
+        hash = (37 * hash) + PLACE_LOCATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPlaceLocation().hashCode();
+      }
+      hash = (37 * hash) + ASSEMBLY_TASK_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + assemblyTaskType_;
+      hash = (37 * hash) + DELIVERY_TASK_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + deliveryTaskType_;
+      if (getPlaceAvailableTasksToBeAssignedCount() > 0) {
+        hash = (37 * hash) + PLACE_AVAILABLE_TASKS_TO_BE_ASSIGNED_FIELD_NUMBER;
+        hash = (53 * hash) + placeAvailableTasksToBeAssigned_.hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static candidates.StoreChangedOuterClass.PlaceSettings parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.StoreChangedOuterClass.PlaceSettings parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.PlaceSettings parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.StoreChangedOuterClass.PlaceSettings parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.PlaceSettings parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.StoreChangedOuterClass.PlaceSettings parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.PlaceSettings parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.StoreChangedOuterClass.PlaceSettings parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.PlaceSettings parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static candidates.StoreChangedOuterClass.PlaceSettings parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.PlaceSettings parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.StoreChangedOuterClass.PlaceSettings parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(candidates.StoreChangedOuterClass.PlaceSettings prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code candidates.PlaceSettings}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:candidates.PlaceSettings)
+        candidates.StoreChangedOuterClass.PlaceSettingsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return candidates.StoreChangedOuterClass.internal_static_candidates_PlaceSettings_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return candidates.StoreChangedOuterClass.internal_static_candidates_PlaceSettings_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                candidates.StoreChangedOuterClass.PlaceSettings.class, candidates.StoreChangedOuterClass.PlaceSettings.Builder.class);
+      }
+
+      // Construct using candidates.StoreChangedOuterClass.PlaceSettings.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        placeType_ = 0;
+
+        if (placeLocationBuilder_ == null) {
+          placeLocation_ = null;
+        } else {
+          placeLocation_ = null;
+          placeLocationBuilder_ = null;
+        }
+        assemblyTaskType_ = 0;
+
+        deliveryTaskType_ = 0;
+
+        placeAvailableTasksToBeAssigned_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return candidates.StoreChangedOuterClass.internal_static_candidates_PlaceSettings_descriptor;
+      }
+
+      @java.lang.Override
+      public candidates.StoreChangedOuterClass.PlaceSettings getDefaultInstanceForType() {
+        return candidates.StoreChangedOuterClass.PlaceSettings.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public candidates.StoreChangedOuterClass.PlaceSettings build() {
+        candidates.StoreChangedOuterClass.PlaceSettings result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public candidates.StoreChangedOuterClass.PlaceSettings buildPartial() {
+        candidates.StoreChangedOuterClass.PlaceSettings result = new candidates.StoreChangedOuterClass.PlaceSettings(this);
+        int from_bitField0_ = bitField0_;
+        result.placeType_ = placeType_;
+        if (placeLocationBuilder_ == null) {
+          result.placeLocation_ = placeLocation_;
+        } else {
+          result.placeLocation_ = placeLocationBuilder_.build();
+        }
+        result.assemblyTaskType_ = assemblyTaskType_;
+        result.deliveryTaskType_ = deliveryTaskType_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          placeAvailableTasksToBeAssigned_ = java.util.Collections.unmodifiableList(placeAvailableTasksToBeAssigned_);
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.placeAvailableTasksToBeAssigned_ = placeAvailableTasksToBeAssigned_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof candidates.StoreChangedOuterClass.PlaceSettings) {
+          return mergeFrom((candidates.StoreChangedOuterClass.PlaceSettings)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(candidates.StoreChangedOuterClass.PlaceSettings other) {
+        if (other == candidates.StoreChangedOuterClass.PlaceSettings.getDefaultInstance()) return this;
+        if (other.placeType_ != 0) {
+          setPlaceTypeValue(other.getPlaceTypeValue());
+        }
+        if (other.hasPlaceLocation()) {
+          mergePlaceLocation(other.getPlaceLocation());
+        }
+        if (other.assemblyTaskType_ != 0) {
+          setAssemblyTaskTypeValue(other.getAssemblyTaskTypeValue());
+        }
+        if (other.deliveryTaskType_ != 0) {
+          setDeliveryTaskTypeValue(other.getDeliveryTaskTypeValue());
+        }
+        if (!other.placeAvailableTasksToBeAssigned_.isEmpty()) {
+          if (placeAvailableTasksToBeAssigned_.isEmpty()) {
+            placeAvailableTasksToBeAssigned_ = other.placeAvailableTasksToBeAssigned_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensurePlaceAvailableTasksToBeAssignedIsMutable();
+            placeAvailableTasksToBeAssigned_.addAll(other.placeAvailableTasksToBeAssigned_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        candidates.StoreChangedOuterClass.PlaceSettings parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (candidates.StoreChangedOuterClass.PlaceSettings) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int placeType_ = 0;
+      /**
+       * <code>.candidates.PlaceType place_type = 1;</code>
+       * @return The enum numeric value on the wire for placeType.
+       */
+      @java.lang.Override public int getPlaceTypeValue() {
+        return placeType_;
+      }
+      /**
+       * <code>.candidates.PlaceType place_type = 1;</code>
+       * @param value The enum numeric value on the wire for placeType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPlaceTypeValue(int value) {
+        
+        placeType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.candidates.PlaceType place_type = 1;</code>
+       * @return The placeType.
+       */
+      @java.lang.Override
+      public candidates.StoreChangedOuterClass.PlaceType getPlaceType() {
+        @SuppressWarnings("deprecation")
+        candidates.StoreChangedOuterClass.PlaceType result = candidates.StoreChangedOuterClass.PlaceType.valueOf(placeType_);
+        return result == null ? candidates.StoreChangedOuterClass.PlaceType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.candidates.PlaceType place_type = 1;</code>
+       * @param value The placeType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPlaceType(candidates.StoreChangedOuterClass.PlaceType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        placeType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.candidates.PlaceType place_type = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPlaceType() {
+        
+        placeType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private candidates.StoreChangedOuterClass.LocationPoint placeLocation_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          candidates.StoreChangedOuterClass.LocationPoint, candidates.StoreChangedOuterClass.LocationPoint.Builder, candidates.StoreChangedOuterClass.LocationPointOrBuilder> placeLocationBuilder_;
+      /**
+       * <code>.candidates.LocationPoint place_location = 2;</code>
+       * @return Whether the placeLocation field is set.
+       */
+      public boolean hasPlaceLocation() {
+        return placeLocationBuilder_ != null || placeLocation_ != null;
+      }
+      /**
+       * <code>.candidates.LocationPoint place_location = 2;</code>
+       * @return The placeLocation.
+       */
+      public candidates.StoreChangedOuterClass.LocationPoint getPlaceLocation() {
+        if (placeLocationBuilder_ == null) {
+          return placeLocation_ == null ? candidates.StoreChangedOuterClass.LocationPoint.getDefaultInstance() : placeLocation_;
+        } else {
+          return placeLocationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.candidates.LocationPoint place_location = 2;</code>
+       */
+      public Builder setPlaceLocation(candidates.StoreChangedOuterClass.LocationPoint value) {
+        if (placeLocationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          placeLocation_ = value;
+          onChanged();
+        } else {
+          placeLocationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.candidates.LocationPoint place_location = 2;</code>
+       */
+      public Builder setPlaceLocation(
+          candidates.StoreChangedOuterClass.LocationPoint.Builder builderForValue) {
+        if (placeLocationBuilder_ == null) {
+          placeLocation_ = builderForValue.build();
+          onChanged();
+        } else {
+          placeLocationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.candidates.LocationPoint place_location = 2;</code>
+       */
+      public Builder mergePlaceLocation(candidates.StoreChangedOuterClass.LocationPoint value) {
+        if (placeLocationBuilder_ == null) {
+          if (placeLocation_ != null) {
+            placeLocation_ =
+              candidates.StoreChangedOuterClass.LocationPoint.newBuilder(placeLocation_).mergeFrom(value).buildPartial();
+          } else {
+            placeLocation_ = value;
+          }
+          onChanged();
+        } else {
+          placeLocationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.candidates.LocationPoint place_location = 2;</code>
+       */
+      public Builder clearPlaceLocation() {
+        if (placeLocationBuilder_ == null) {
+          placeLocation_ = null;
+          onChanged();
+        } else {
+          placeLocation_ = null;
+          placeLocationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.candidates.LocationPoint place_location = 2;</code>
+       */
+      public candidates.StoreChangedOuterClass.LocationPoint.Builder getPlaceLocationBuilder() {
+        
+        onChanged();
+        return getPlaceLocationFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.candidates.LocationPoint place_location = 2;</code>
+       */
+      public candidates.StoreChangedOuterClass.LocationPointOrBuilder getPlaceLocationOrBuilder() {
+        if (placeLocationBuilder_ != null) {
+          return placeLocationBuilder_.getMessageOrBuilder();
+        } else {
+          return placeLocation_ == null ?
+              candidates.StoreChangedOuterClass.LocationPoint.getDefaultInstance() : placeLocation_;
+        }
+      }
+      /**
+       * <code>.candidates.LocationPoint place_location = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          candidates.StoreChangedOuterClass.LocationPoint, candidates.StoreChangedOuterClass.LocationPoint.Builder, candidates.StoreChangedOuterClass.LocationPointOrBuilder> 
+          getPlaceLocationFieldBuilder() {
+        if (placeLocationBuilder_ == null) {
+          placeLocationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              candidates.StoreChangedOuterClass.LocationPoint, candidates.StoreChangedOuterClass.LocationPoint.Builder, candidates.StoreChangedOuterClass.LocationPointOrBuilder>(
+                  getPlaceLocation(),
+                  getParentForChildren(),
+                  isClean());
+          placeLocation_ = null;
+        }
+        return placeLocationBuilder_;
+      }
+
+      private int assemblyTaskType_ = 0;
+      /**
+       * <code>.candidates.AssemblyType assembly_task_type = 3;</code>
+       * @return The enum numeric value on the wire for assemblyTaskType.
+       */
+      @java.lang.Override public int getAssemblyTaskTypeValue() {
+        return assemblyTaskType_;
+      }
+      /**
+       * <code>.candidates.AssemblyType assembly_task_type = 3;</code>
+       * @param value The enum numeric value on the wire for assemblyTaskType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAssemblyTaskTypeValue(int value) {
+        
+        assemblyTaskType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.candidates.AssemblyType assembly_task_type = 3;</code>
+       * @return The assemblyTaskType.
+       */
+      @java.lang.Override
+      public candidates.StoreChangedOuterClass.AssemblyType getAssemblyTaskType() {
+        @SuppressWarnings("deprecation")
+        candidates.StoreChangedOuterClass.AssemblyType result = candidates.StoreChangedOuterClass.AssemblyType.valueOf(assemblyTaskType_);
+        return result == null ? candidates.StoreChangedOuterClass.AssemblyType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.candidates.AssemblyType assembly_task_type = 3;</code>
+       * @param value The assemblyTaskType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAssemblyTaskType(candidates.StoreChangedOuterClass.AssemblyType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        assemblyTaskType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.candidates.AssemblyType assembly_task_type = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAssemblyTaskType() {
+        
+        assemblyTaskType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int deliveryTaskType_ = 0;
+      /**
+       * <code>.candidates.PlaceSettings.DeliveryType delivery_task_type = 4;</code>
+       * @return The enum numeric value on the wire for deliveryTaskType.
+       */
+      @java.lang.Override public int getDeliveryTaskTypeValue() {
+        return deliveryTaskType_;
+      }
+      /**
+       * <code>.candidates.PlaceSettings.DeliveryType delivery_task_type = 4;</code>
+       * @param value The enum numeric value on the wire for deliveryTaskType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeliveryTaskTypeValue(int value) {
+        
+        deliveryTaskType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.candidates.PlaceSettings.DeliveryType delivery_task_type = 4;</code>
+       * @return The deliveryTaskType.
+       */
+      @java.lang.Override
+      public candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType getDeliveryTaskType() {
+        @SuppressWarnings("deprecation")
+        candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType result = candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType.valueOf(deliveryTaskType_);
+        return result == null ? candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.candidates.PlaceSettings.DeliveryType delivery_task_type = 4;</code>
+       * @param value The deliveryTaskType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDeliveryTaskType(candidates.StoreChangedOuterClass.PlaceSettings.DeliveryType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        deliveryTaskType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.candidates.PlaceSettings.DeliveryType delivery_task_type = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDeliveryTaskType() {
+        
+        deliveryTaskType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<java.lang.Integer> placeAvailableTasksToBeAssigned_ =
+        java.util.Collections.emptyList();
+      private void ensurePlaceAvailableTasksToBeAssignedIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          placeAvailableTasksToBeAssigned_ = new java.util.ArrayList<java.lang.Integer>(placeAvailableTasksToBeAssigned_);
+          bitField0_ |= 0x00000001;
+        }
+      }
+      /**
+       * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+       * @return A list containing the placeAvailableTasksToBeAssigned.
+       */
+      public java.util.List<candidates.StoreChangedOuterClass.AvailableTasks> getPlaceAvailableTasksToBeAssignedList() {
+        return new com.google.protobuf.Internal.ListAdapter<
+            java.lang.Integer, candidates.StoreChangedOuterClass.AvailableTasks>(placeAvailableTasksToBeAssigned_, placeAvailableTasksToBeAssigned_converter_);
+      }
+      /**
+       * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+       * @return The count of placeAvailableTasksToBeAssigned.
+       */
+      public int getPlaceAvailableTasksToBeAssignedCount() {
+        return placeAvailableTasksToBeAssigned_.size();
+      }
+      /**
+       * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+       * @param index The index of the element to return.
+       * @return The placeAvailableTasksToBeAssigned at the given index.
+       */
+      public candidates.StoreChangedOuterClass.AvailableTasks getPlaceAvailableTasksToBeAssigned(int index) {
+        return placeAvailableTasksToBeAssigned_converter_.convert(placeAvailableTasksToBeAssigned_.get(index));
+      }
+      /**
+       * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+       * @param index The index to set the value at.
+       * @param value The placeAvailableTasksToBeAssigned to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPlaceAvailableTasksToBeAssigned(
+          int index, candidates.StoreChangedOuterClass.AvailableTasks value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensurePlaceAvailableTasksToBeAssignedIsMutable();
+        placeAvailableTasksToBeAssigned_.set(index, value.getNumber());
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+       * @param value The placeAvailableTasksToBeAssigned to add.
+       * @return This builder for chaining.
+       */
+      public Builder addPlaceAvailableTasksToBeAssigned(candidates.StoreChangedOuterClass.AvailableTasks value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensurePlaceAvailableTasksToBeAssignedIsMutable();
+        placeAvailableTasksToBeAssigned_.add(value.getNumber());
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+       * @param values The placeAvailableTasksToBeAssigned to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllPlaceAvailableTasksToBeAssigned(
+          java.lang.Iterable<? extends candidates.StoreChangedOuterClass.AvailableTasks> values) {
+        ensurePlaceAvailableTasksToBeAssignedIsMutable();
+        for (candidates.StoreChangedOuterClass.AvailableTasks value : values) {
+          placeAvailableTasksToBeAssigned_.add(value.getNumber());
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPlaceAvailableTasksToBeAssigned() {
+        placeAvailableTasksToBeAssigned_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+       * @return A list containing the enum numeric values on the wire for placeAvailableTasksToBeAssigned.
+       */
+      public java.util.List<java.lang.Integer>
+      getPlaceAvailableTasksToBeAssignedValueList() {
+        return java.util.Collections.unmodifiableList(placeAvailableTasksToBeAssigned_);
+      }
+      /**
+       * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of placeAvailableTasksToBeAssigned at the given index.
+       */
+      public int getPlaceAvailableTasksToBeAssignedValue(int index) {
+        return placeAvailableTasksToBeAssigned_.get(index);
+      }
+      /**
+       * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of placeAvailableTasksToBeAssigned at the given index.
+       * @return This builder for chaining.
+       */
+      public Builder setPlaceAvailableTasksToBeAssignedValue(
+          int index, int value) {
+        ensurePlaceAvailableTasksToBeAssignedIsMutable();
+        placeAvailableTasksToBeAssigned_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+       * @param value The enum numeric value on the wire for placeAvailableTasksToBeAssigned to add.
+       * @return This builder for chaining.
+       */
+      public Builder addPlaceAvailableTasksToBeAssignedValue(int value) {
+        ensurePlaceAvailableTasksToBeAssignedIsMutable();
+        placeAvailableTasksToBeAssigned_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .candidates.AvailableTasks place_available_tasks_to_be_assigned = 5;</code>
+       * @param values The enum numeric values on the wire for placeAvailableTasksToBeAssigned to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllPlaceAvailableTasksToBeAssignedValue(
+          java.lang.Iterable<java.lang.Integer> values) {
+        ensurePlaceAvailableTasksToBeAssignedIsMutable();
+        for (int value : values) {
+          placeAvailableTasksToBeAssigned_.add(value);
+        }
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:candidates.PlaceSettings)
+    }
+
+    // @@protoc_insertion_point(class_scope:candidates.PlaceSettings)
+    private static final candidates.StoreChangedOuterClass.PlaceSettings DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new candidates.StoreChangedOuterClass.PlaceSettings();
+    }
+
+    public static candidates.StoreChangedOuterClass.PlaceSettings getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PlaceSettings>
+        PARSER = new com.google.protobuf.AbstractParser<PlaceSettings>() {
+      @java.lang.Override
+      public PlaceSettings parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PlaceSettings(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PlaceSettings> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PlaceSettings> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public candidates.StoreChangedOuterClass.PlaceSettings getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface LocationPointOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:candidates.LocationPoint)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>double lat = 1;</code>
+     * @return The lat.
+     */
+    double getLat();
+
+    /**
+     * <code>double lon = 2;</code>
+     * @return The lon.
+     */
+    double getLon();
+  }
+  /**
+   * Protobuf type {@code candidates.LocationPoint}
+   */
+  public static final class LocationPoint extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:candidates.LocationPoint)
+      LocationPointOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use LocationPoint.newBuilder() to construct.
+    private LocationPoint(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private LocationPoint() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new LocationPoint();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private LocationPoint(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 9: {
+
+              lat_ = input.readDouble();
+              break;
+            }
+            case 17: {
+
+              lon_ = input.readDouble();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return candidates.StoreChangedOuterClass.internal_static_candidates_LocationPoint_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return candidates.StoreChangedOuterClass.internal_static_candidates_LocationPoint_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              candidates.StoreChangedOuterClass.LocationPoint.class, candidates.StoreChangedOuterClass.LocationPoint.Builder.class);
+    }
+
+    public static final int LAT_FIELD_NUMBER = 1;
+    private double lat_;
+    /**
+     * <code>double lat = 1;</code>
+     * @return The lat.
+     */
+    @java.lang.Override
+    public double getLat() {
+      return lat_;
+    }
+
+    public static final int LON_FIELD_NUMBER = 2;
+    private double lon_;
+    /**
+     * <code>double lon = 2;</code>
+     * @return The lon.
+     */
+    @java.lang.Override
+    public double getLon() {
+      return lon_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (lat_ != 0D) {
+        output.writeDouble(1, lat_);
+      }
+      if (lon_ != 0D) {
+        output.writeDouble(2, lon_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (lat_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(1, lat_);
+      }
+      if (lon_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(2, lon_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof candidates.StoreChangedOuterClass.LocationPoint)) {
+        return super.equals(obj);
+      }
+      candidates.StoreChangedOuterClass.LocationPoint other = (candidates.StoreChangedOuterClass.LocationPoint) obj;
+
+      if (java.lang.Double.doubleToLongBits(getLat())
+          != java.lang.Double.doubleToLongBits(
+              other.getLat())) return false;
+      if (java.lang.Double.doubleToLongBits(getLon())
+          != java.lang.Double.doubleToLongBits(
+              other.getLon())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LAT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getLat()));
+      hash = (37 * hash) + LON_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getLon()));
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static candidates.StoreChangedOuterClass.LocationPoint parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.StoreChangedOuterClass.LocationPoint parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.LocationPoint parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.StoreChangedOuterClass.LocationPoint parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.LocationPoint parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static candidates.StoreChangedOuterClass.LocationPoint parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.LocationPoint parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.StoreChangedOuterClass.LocationPoint parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.LocationPoint parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static candidates.StoreChangedOuterClass.LocationPoint parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static candidates.StoreChangedOuterClass.LocationPoint parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static candidates.StoreChangedOuterClass.LocationPoint parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(candidates.StoreChangedOuterClass.LocationPoint prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code candidates.LocationPoint}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:candidates.LocationPoint)
+        candidates.StoreChangedOuterClass.LocationPointOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return candidates.StoreChangedOuterClass.internal_static_candidates_LocationPoint_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return candidates.StoreChangedOuterClass.internal_static_candidates_LocationPoint_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                candidates.StoreChangedOuterClass.LocationPoint.class, candidates.StoreChangedOuterClass.LocationPoint.Builder.class);
+      }
+
+      // Construct using candidates.StoreChangedOuterClass.LocationPoint.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        lat_ = 0D;
+
+        lon_ = 0D;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return candidates.StoreChangedOuterClass.internal_static_candidates_LocationPoint_descriptor;
+      }
+
+      @java.lang.Override
+      public candidates.StoreChangedOuterClass.LocationPoint getDefaultInstanceForType() {
+        return candidates.StoreChangedOuterClass.LocationPoint.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public candidates.StoreChangedOuterClass.LocationPoint build() {
+        candidates.StoreChangedOuterClass.LocationPoint result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public candidates.StoreChangedOuterClass.LocationPoint buildPartial() {
+        candidates.StoreChangedOuterClass.LocationPoint result = new candidates.StoreChangedOuterClass.LocationPoint(this);
+        result.lat_ = lat_;
+        result.lon_ = lon_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof candidates.StoreChangedOuterClass.LocationPoint) {
+          return mergeFrom((candidates.StoreChangedOuterClass.LocationPoint)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(candidates.StoreChangedOuterClass.LocationPoint other) {
+        if (other == candidates.StoreChangedOuterClass.LocationPoint.getDefaultInstance()) return this;
+        if (other.getLat() != 0D) {
+          setLat(other.getLat());
+        }
+        if (other.getLon() != 0D) {
+          setLon(other.getLon());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        candidates.StoreChangedOuterClass.LocationPoint parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (candidates.StoreChangedOuterClass.LocationPoint) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private double lat_ ;
+      /**
+       * <code>double lat = 1;</code>
+       * @return The lat.
+       */
+      @java.lang.Override
+      public double getLat() {
+        return lat_;
+      }
+      /**
+       * <code>double lat = 1;</code>
+       * @param value The lat to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLat(double value) {
+        
+        lat_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double lat = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLat() {
+        
+        lat_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double lon_ ;
+      /**
+       * <code>double lon = 2;</code>
+       * @return The lon.
+       */
+      @java.lang.Override
+      public double getLon() {
+        return lon_;
+      }
+      /**
+       * <code>double lon = 2;</code>
+       * @param value The lon to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLon(double value) {
+        
+        lon_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double lon = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLon() {
+        
+        lon_ = 0D;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:candidates.LocationPoint)
+    }
+
+    // @@protoc_insertion_point(class_scope:candidates.LocationPoint)
+    private static final candidates.StoreChangedOuterClass.LocationPoint DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new candidates.StoreChangedOuterClass.LocationPoint();
+    }
+
+    public static candidates.StoreChangedOuterClass.LocationPoint getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<LocationPoint>
+        PARSER = new com.google.protobuf.AbstractParser<LocationPoint>() {
+      @java.lang.Override
+      public LocationPoint parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new LocationPoint(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LocationPoint> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<LocationPoint> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public candidates.StoreChangedOuterClass.LocationPoint getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_candidates_StoreChanged_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_candidates_StoreChanged_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_candidates_DispatchSettings_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_candidates_DispatchSettings_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_candidates_PlaceSettings_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_candidates_PlaceSettings_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_candidates_LocationPoint_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_candidates_LocationPoint_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4142,7 +8654,7 @@ public final class StoreChangedOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\035on_demand/store_changed.proto\022\ncandida" +
-      "tes\032\037google/protobuf/timestamp.proto\"\360\006\n" +
+      "tes\032\037google/protobuf/timestamp.proto\"\334\007\n" +
       "\014StoreChanged\022\n\n\002id\030\001 \001(\003\022\014\n\004uuid\030\002 \001(\t\022" +
       "\014\n\004name\030\003 \001(\t\022.\n\ncreated_at\030\004 \001(\0132\032.goog" +
       "le.protobuf.Timestamp\022.\n\nupdated_at\030\005 \001(" +
@@ -4164,8 +8676,45 @@ public final class StoreChangedOuterClass {
       "fast_payment_cashless\030\033 \001(\010\0220\n\014available" +
       "_on\030\034 \001(\0132\032.google.protobuf.Timestamp\022\r\n" +
       "\005phone\030\035 \001(\t\022\025\n\rbase_store_id\030\036 \001(\003\022\024\n\014o" +
-      "pening_time\030\037 \001(\t\022\024\n\014closing_time\030  \001(\tb" +
-      "\006proto3"
+      "pening_time\030\037 \001(\t\022\024\n\014closing_time\030  \001(\t\022" +
+      "7\n\021dispatch_settings\030! \001(\0132\034.candidates." +
+      "DispatchSettings\0221\n\016place_settings\030\" \001(\013" +
+      "2\031.candidates.PlaceSettings\"\304\006\n\020Dispatch" +
+      "Settings\022$\n\034max_order_assign_retry_count" +
+      "\030\001 \001(\004\022\037\n\027avg_parking_min_vehicle\030\002 \001(\004\022" +
+      "&\n\036max_current_order_assign_queue\030\003 \001(\004\022" +
+      ":\n2order_weight_threshold_to_assign_to_v" +
+      "ehicle_gramms\030\004 \001(\006\0229\n1average_speed_for" +
+      "_straight_distance_to_client_min\030\005 \001(\004\022=" +
+      "\n5additional_factor_for_straight_distanc" +
+      "e_to_client_min\030\006 \001(\004\0229\n1order_transfer_" +
+      "time_from_assembly_to_delivery_min\030\007 \001(\004" +
+      "\022!\n\031avg_to_place_min_external\030\010 \001(\004\022\030\n\020a" +
+      "vg_to_place_min\030\t \001(\004\022\036\n\026offer_seen_time" +
+      "out_sec\030\n \001(\004\022\035\n\025place_location_center\030\013" +
+      " \001(\010\022\034\n\024last_position_expire\030\014 \001(\004\022\032\n\022ta" +
+      "xi_delivery_only\030\r \001(\010\0227\n/order_transfer" +
+      "_time_from_delivery_to_client_min\030\016 \001(\004\022" +
+      "8\n0order_receive_time_from_assembly_to_d" +
+      "elivery_min\030\017 \001(\004\022 \n\030offer_server_timeou" +
+      "t_sec\030\020 \001(\004\022&\n\036external_assembliers_pres" +
+      "ented\030\021 \001(\010\022\033\n\023gap_taxi_punish_min\030\022 \001(\004" +
+      "\022\026\n\016taxi_available\030\023 \001(\010\022(\n max_waiting_" +
+      "time_for_courier_min\030\024 \001(\004\"\356\002\n\rPlaceSett" +
+      "ings\022)\n\nplace_type\030\001 \001(\0162\025.candidates.Pl" +
+      "aceType\0221\n\016place_location\030\002 \001(\0132\031.candid" +
+      "ates.LocationPoint\0224\n\022assembly_task_type" +
+      "\030\003 \001(\0162\030.candidates.AssemblyType\022B\n\022deli" +
+      "very_task_type\030\004 \001(\0162&.candidates.PlaceS" +
+      "ettings.DeliveryType\022H\n$place_available_" +
+      "tasks_to_be_assigned\030\005 \003(\0162\032.candidates." +
+      "AvailableTasks\";\n\014DeliveryType\022\014\n\010EXTERN" +
+      "AL\020\000\022\006\n\002SM\020\001\022\t\n\005PLACE\020\002\022\n\n\006PICKUP\020\003\")\n\rL" +
+      "ocationPoint\022\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030\002 \001(\001*\025" +
+      "\n\tPlaceType\022\010\n\004SHOP\020\000*/\n\014AssemblyType\022\014\n" +
+      "\010EXTERNAL\020\000\022\006\n\002SM\020\001\022\t\n\005PLACE\020\002*,\n\016Availa" +
+      "bleTasks\022\014\n\010DELIVERY\020\000\022\014\n\010ASSEMBLY\020\001b\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4177,7 +8726,25 @@ public final class StoreChangedOuterClass {
     internal_static_candidates_StoreChanged_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_candidates_StoreChanged_descriptor,
-        new java.lang.String[] { "Id", "Uuid", "Name", "CreatedAt", "UpdatedAt", "TimeZone", "OperationalZoneId", "RetailerId", "ImportKeyPostfix", "Location", "HelpdeskeddyId", "HasConveyor", "AutoRouting", "FastPayment", "FastPaymentMetroStoreDns", "FastPaymentMetroBarcodeCiphertext", "ExpressDelivery", "SecondsForAssemblyItem", "AdditionalSecondsForAssembly", "DeliveryAreaId", "RetailerStoreId", "BoxScanning", "ExternalAssembliesEnabled", "Training", "ScheduleType", "StoreZones", "FastPaymentCashless", "AvailableOn", "Phone", "BaseStoreId", "OpeningTime", "ClosingTime", });
+        new java.lang.String[] { "Id", "Uuid", "Name", "CreatedAt", "UpdatedAt", "TimeZone", "OperationalZoneId", "RetailerId", "ImportKeyPostfix", "Location", "HelpdeskeddyId", "HasConveyor", "AutoRouting", "FastPayment", "FastPaymentMetroStoreDns", "FastPaymentMetroBarcodeCiphertext", "ExpressDelivery", "SecondsForAssemblyItem", "AdditionalSecondsForAssembly", "DeliveryAreaId", "RetailerStoreId", "BoxScanning", "ExternalAssembliesEnabled", "Training", "ScheduleType", "StoreZones", "FastPaymentCashless", "AvailableOn", "Phone", "BaseStoreId", "OpeningTime", "ClosingTime", "DispatchSettings", "PlaceSettings", });
+    internal_static_candidates_DispatchSettings_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_candidates_DispatchSettings_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_candidates_DispatchSettings_descriptor,
+        new java.lang.String[] { "MaxOrderAssignRetryCount", "AvgParkingMinVehicle", "MaxCurrentOrderAssignQueue", "OrderWeightThresholdToAssignToVehicleGramms", "AverageSpeedForStraightDistanceToClientMin", "AdditionalFactorForStraightDistanceToClientMin", "OrderTransferTimeFromAssemblyToDeliveryMin", "AvgToPlaceMinExternal", "AvgToPlaceMin", "OfferSeenTimeoutSec", "PlaceLocationCenter", "LastPositionExpire", "TaxiDeliveryOnly", "OrderTransferTimeFromDeliveryToClientMin", "OrderReceiveTimeFromAssemblyToDeliveryMin", "OfferServerTimeoutSec", "ExternalAssembliersPresented", "GapTaxiPunishMin", "TaxiAvailable", "MaxWaitingTimeForCourierMin", });
+    internal_static_candidates_PlaceSettings_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_candidates_PlaceSettings_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_candidates_PlaceSettings_descriptor,
+        new java.lang.String[] { "PlaceType", "PlaceLocation", "AssemblyTaskType", "DeliveryTaskType", "PlaceAvailableTasksToBeAssigned", });
+    internal_static_candidates_LocationPoint_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_candidates_LocationPoint_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_candidates_LocationPoint_descriptor,
+        new java.lang.String[] { "Lat", "Lon", });
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 

@@ -1,5 +1,6 @@
 package ru.instamart.api.helper;
 
+import candidates.StoreChangedOuterClass;
 import com.google.protobuf.Timestamp;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
@@ -151,11 +152,91 @@ public class OrderServiceHelper {
                 .build();
     }
 
-    @Step("Отправляем событие изменения магазина в kafka")
+    @Step("Отправляем событие изменения магазина в kafka сервиса retail-onboarding")
     public static void publishStoreChangedEvent(final String uuid, final int orderPreparationSlaMinutes, final String ordersApiIntegrationType,
                                                 final String retailerUuid) {
         final var storeEvent = getStoreEvent(uuid, orderPreparationSlaMinutes, ordersApiIntegrationType, retailerUuid);
         kafka.publish(configRetailerOnboardingStoreChanged(), storeEvent);
+    }
+
+    @Step("Создаем событие нового изменения магазина в топик store-changed")
+    public static StoreChangedOuterClass.StoreChanged getStoreChangedEvent(final int additionalSecondsForAssembly, final boolean autoRouting,
+                                                                           final int secondsForAssemblyItem, final String scheduleType, final StoreChangedOuterClass.AssemblyType assemblyTaskType,
+                                                                           final StoreChangedOuterClass.PlaceSettings.DeliveryType deliveryTaskType, final String placeUUID) {
+        return StoreChangedOuterClass.StoreChanged.newBuilder()
+                .setId(17)
+                .setUuid(placeUUID)
+                .setName("METRO, Шоссейная (команда Vidar)")
+                .setCreatedAt(getTimestamp())
+                .setUpdatedAt(getTimestamp())
+                .setTimeZone("Europe/Moscow")
+                .setOperationalZoneId(1)
+                .setRetailerId(1)
+                .setImportKeyPostfix("1")
+                .setLocation("{\"id\":96,\"lat\":55.700683,\"lon\":37.726683,\"area\":null,\"city\":\"Москва\",\"kind\":null,\"block\":\"\",\"floor\":null,\"phone\":null,\"region\":null,\"street\":\"Шоссейная (команда Vidar)\",\"building\":\"2Б\",\"comments\":null,\"entrance\":null,\"apartment\":null,\"door_phone\":null,\"settlement\":null,\"elevator\":null,\"delivery_to_door\":false,\"full_address\":\"Москва, Шоссейная (команда Vidar), 2Б\"}")
+                .setHelpdeskeddyId(1240)
+                .setHasConveyor(false)
+                .setAutoRouting(autoRouting)
+                .setFastPayment(true)
+                .setFastPaymentMetroStoreDns("MOW11MPSU010001")
+                .setFastPaymentMetroBarcodeCiphertext("qj8vlAVw2MVIuiDOh5wlPXKhprx7RUobw+j3tawts4XQsKJwktfiNC73b8vLozF+lfw=")
+                .setExpressDelivery(true)
+                .setSecondsForAssemblyItem(secondsForAssemblyItem)
+                .setAdditionalSecondsForAssembly(additionalSecondsForAssembly)
+                .setDeliveryAreaId(151)
+                .setRetailerStoreId("19")
+                .setBoxScanning(false)
+                .setExternalAssembliesEnabled(false)
+                .setTraining(false)
+                .setScheduleType(scheduleType)
+                .setStoreZones("[{\"id\":3,\"name\":\"Зона Шоссейной\",\"area\":[[[37.792968900000005,55.622277300000015],[37.835566699999994,55.65057209999999],[37.8403912,55.661889300000006],[37.8293224,55.69098759999999],[37.8292576,55.69410300000001],[37.830051,55.69857329999999],[37.8344982,55.7068726],[37.8386038,55.71517179999999],[37.840226,55.730922],[37.8417203,55.743033],[37.74430650000001,55.74759330000001],[37.731022,55.754385000000006],[37.699478,55.74840900000001],[37.692999,55.755304],[37.6744878,55.7212596],[37.629633,55.70518400000001],[37.628947,55.70151000000001],[37.6346352,55.684103000000015],[37.6453916,55.6846066],[37.6657497,55.68637699999999],[37.6852854,55.690934199999994],[37.695611,55.69145100000001],[37.70634,55.688694],[37.7125856,55.68495279999999],[37.7109019,55.68017930000001],[37.71454210000001,55.67231490000002],[37.7142177,55.6683341],[37.709593000000005,55.666827700000006],[37.7030751,55.67096320000001],[37.695009,55.67196579999999],[37.685913,55.670838],[37.676239,55.66829100000001],[37.672806,55.66441899999999],[37.6705744,55.65463840000001],[37.6765034,55.65041500000001],[37.699250600000006,55.64202499999999],[37.712984,55.63928900000001],[37.782668,55.64819500000001],[37.783009,55.636351],[37.792968900000005,55.622277300000015]]]}]")
+                .setFastPaymentCashless(false)
+                .setAvailableOn(getTimestamp())
+                .setBaseStoreId(17)
+                .setOpeningTime("01:00")
+                .setClosingTime("23:00")
+                .setDispatchSettings(StoreChangedOuterClass.DispatchSettings.newBuilder()
+                        .setAdditionalFactorForStraightDistanceToClientMin(14)
+                        .setAverageSpeedForStraightDistanceToClientMin(19)
+                        .setAvgParkingMinVehicle(7)
+                        .setAvgToPlaceMin(3)
+                        .setAvgToPlaceMinExternal(16)
+                        .setGapTaxiPunishMin(16)
+                        .setLastPositionExpire(18000)
+                        .setMaxCurrentOrderAssignQueue(5)
+                        .setMaxOrderAssignRetryCount(4)
+                        .setMaxWaitingTimeForCourierMin(17)
+                        .setOfferSeenTimeoutSec(20)
+                        .setOfferServerTimeoutSec(20)
+                        .setOrderReceiveTimeFromAssemblyToDeliveryMin(15)
+                        .setOrderTransferTimeFromAssemblyToDeliveryMin(5)
+                        .setOrderTransferTimeFromDeliveryToClientMin(5)
+                        .setOrderWeightThresholdToAssignToVehicleGramms(15000)
+                        .setPlaceLocationCenter(false)
+                        .setTaxiDeliveryOnly(false)
+                        .setTaxiAvailable(false)
+                        .setExternalAssembliersPresented(false)
+                        .build())
+                .setPlaceSettings(StoreChangedOuterClass.PlaceSettings.newBuilder()
+                        .setPlaceType(StoreChangedOuterClass.PlaceType.SHOP)
+                        .setAssemblyTaskType(assemblyTaskType)
+                        .setDeliveryTaskType(deliveryTaskType)
+                        .addPlaceAvailableTasksToBeAssigned(StoreChangedOuterClass.AvailableTasks.DELIVERY)
+                        .addPlaceAvailableTasksToBeAssigned(StoreChangedOuterClass.AvailableTasks.ASSEMBLY)
+                        .setPlaceLocation(StoreChangedOuterClass.LocationPoint.newBuilder()
+                                .setLat(55.700683)
+                                .setLon(37.726683)
+                                .build())
+                        .build())
+                .build();
+    }
+
+    @Step("Отправляем событие изменения магазина в kafka топик store-changed")
+    public static void publishShopperStoreChangedEvent (final int additionalSecondsForAssembly, final boolean autoRouting,
+                                                        final int secondsForAssemblyItem, final String scheduleType, final StoreChangedOuterClass.AssemblyType assemblyTaskType,
+                                                        final StoreChangedOuterClass.PlaceSettings.DeliveryType deliveryTaskType, final String placeUUID) {
+        final var storeChanged  = getStoreChangedEvent(additionalSecondsForAssembly, autoRouting, secondsForAssemblyItem, scheduleType, assemblyTaskType, deliveryTaskType, placeUUID);
+        kafka.publish(configStoreChanged(), storeChanged);
     }
 
     @Step("Получение левой границы слота")
