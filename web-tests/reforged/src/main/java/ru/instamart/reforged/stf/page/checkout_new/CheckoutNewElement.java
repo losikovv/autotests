@@ -19,7 +19,7 @@ public interface CheckoutNewElement {
     SberSpasiboCardModal sberSpasiboCardModal = new SberSpasiboCardModal();
     HelpDesk helpDesk = new HelpDesk();
 
-    Element loadingSpinner = new Element(By.xpath("//div[contains(@class,'Spinner')]"), "Спиннер загрузки страницы");
+    Element loadingSpinner = new Element(By.xpath("//div[contains(@class,'Spinner')]"), 20, "Спиннер загрузки страницы");
 
     Button deliveryTab = new Button(By.xpath("//button[@data-qa='checkout_page_ship_address_by_courier_tab']"), "Кнопка (вкладка) 'Доставка'");
     Button pickupTab = new Button(By.xpath("//button[@data-qa='checkout_page_ship_address_tab_pickup_tab']"), "Кнопка (вкладка) 'Самовывоз'");

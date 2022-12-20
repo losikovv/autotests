@@ -10,8 +10,8 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.Group.SMOKE_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
-import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_METRO_MOSCOW_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -21,15 +21,14 @@ public final class UserFavoritesTests {
     private final ApiHelper apiHelper = new ApiHelper();
 
     @CaseId(1263)
-    @Test(description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
-            groups = {"smoke", REGRESSION_STF})
+    @Test(description = "Тест недоступности страницы любимых товаров неавторизованному юзеру", groups = {REGRESSION_STF, SMOKE_STF})
     public void noAccessToFavoritesForUnauthorizedUser() {
         userFavorites().goToPage();
         userFavorites().checkForbiddenPageUrl(userFavorites().pageUrl());
     }
 
     @CaseId(1265)
-    @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {REGRESSION_STF})
+    @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {REGRESSION_STF, SMOKE_STF})
     public void noFavoriteItemsByDefault() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -41,7 +40,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1266)
-    @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {"smoke", REGRESSION_STF})
+    @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {REGRESSION_STF, SMOKE_STF})
     public void successAddFavoriteOnItemCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -57,7 +56,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1267)
-    @Test(description = "Удаление любимого товара из карточки товара и проверка списка", groups = REGRESSION_STF)
+    @Test(description = "Удаление любимого товара из карточки товара и проверка списка", groups = {REGRESSION_STF, SMOKE_STF})
     public void successDeleteFavoriteOnItemCard() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -76,7 +75,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1268)
-    @Test(description = "Удаление всех любимых товаров", groups = REGRESSION_STF)
+    @Test(description = "Удаление всех любимых товаров", groups = {REGRESSION_STF, SMOKE_STF})
     public void successCleanupFavorites() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -94,7 +93,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1270)
-    @Test(description = "Проверка работоспособности подгрузки товаров по мере прокрутки списка в Любимых товарах", groups = REGRESSION_STF)
+    @Test(description = "Проверка работоспособности подгрузки товаров по мере прокрутки списка в Любимых товарах", groups = {REGRESSION_STF, SMOKE_STF})
     public void successShowMoreLoad() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -106,10 +105,12 @@ public final class UserFavoritesTests {
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
+        userFavorites().waitPageLoad();
         userFavorites().checkNotEmptyFavorites();
 
         final int initCount = userFavorites().getFavoritesCount();
-        userFavorites().scrollToLastFavoriteItem();
+        userFavorites().scrollDown();
+        userFavorites().waitPageLoad();
         userFavorites().checkCountLess(initCount, userFavorites().getFavoritesCount());
     }
 
@@ -124,8 +125,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1272)
-    @Test(description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным",
-            groups = {"smoke", REGRESSION_STF})
+    @Test(description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным", groups = {REGRESSION_STF, SMOKE_STF})
     public void successAuthAfterAddFavoriteOnItemCard() {
         shop().goToPage();
         shop().openFirstNonRecommendationsProductCard();
@@ -136,8 +136,7 @@ public final class UserFavoritesTests {
     }
 
     @CaseId(1492)
-    @Test(description = "Тест добавления товаров в корзину из списка любимых товаров",
-            groups = {"smoke", REGRESSION_STF})
+    @Test(description = "Тест добавления товаров в корзину из списка любимых товаров", groups = {REGRESSION_STF, SMOKE_STF})
     public void successAddFavoriteProductToCart() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.getDefaultAddress());

@@ -10,7 +10,7 @@ import ru.instamart.reforged.core.component.ElementCollection;
 
 public final class PaymentMethodsModal {
 
-    private final Element title = new Element(By.xpath("//h3[contains(@class,'CheckoutModal_title')]"), "Заголовок модального окна");
+    private final Element title = new Element(By.xpath("//h3[contains(@class,'CheckoutModal_title')]"), 20, "Заголовок модального окна");
     private final Button closeButton = new Button(By.xpath("//button[contains(@class,'Modal_closeButton')]"), "Кнопка 'X' (закрыть)");
 
     private final ElementCollection paymentMethods = new ElementCollection(By.xpath("//main[contains(@class,'Modal_content')]//div[contains(@class,'PaymentMethod_label')]"),
@@ -33,7 +33,7 @@ public final class PaymentMethodsModal {
     }
 
     @Step("Проверяем, что способ оплаты '{paymentMethod}' не отображается")
-    public void checkPaymentMethodNotVisible(final String paymentMethod){
+    public void checkPaymentMethodNotVisible(final String paymentMethod) {
         paymentMethodByName.should().invisible(paymentMethod);
     }
 

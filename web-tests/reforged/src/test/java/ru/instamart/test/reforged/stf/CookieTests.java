@@ -7,6 +7,7 @@ import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.Group.SMOKE_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 
 @Epic("STF UI")
@@ -15,7 +16,7 @@ public final class CookieTests {
 
     @CaseId(2282)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Отображение предупреждения без записи в cookies", groups = REGRESSION_STF)
+    @Test(description = "Отображение предупреждения без записи в cookies", groups = {REGRESSION_STF, SMOKE_STF})
     public void checkVisibilityCookieAlert() {
         home().goToPage();
         home().interactCookieAlert().checkAlertVisible();
@@ -23,7 +24,7 @@ public final class CookieTests {
 
     @CaseId(2283)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Проверка верстки предупреждения", groups = REGRESSION_STF)
+    @Test(description = "Проверка верстки предупреждения", groups = {REGRESSION_STF, SMOKE_STF})
     public void checkElementCookieAlert() {
         home().goToPage();
         home().interactCookieAlert().checkAlertVisible();
@@ -33,7 +34,7 @@ public final class CookieTests {
 
     @CaseId(2284)
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_GUEST"})
-    @Test(description = "Скрытие предупреждения о сборе cookies", groups = REGRESSION_STF)
+    @Test(description = "Скрытие предупреждения о сборе cookies", groups = {REGRESSION_STF, SMOKE_STF})
     public void checkCookieAlertWasHide() {
         home().goToPage();
         home().interactCookieAlert().checkAlertVisible();

@@ -14,6 +14,7 @@ import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.Group.SMOKE_STF;
 import static ru.instamart.reforged.stf.page.StfRouter.search;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -69,10 +70,9 @@ public final class ShoppingSearchTests {
         search().checkSearchProductGridVisible();
     }
 
-    // AB поиска
     @CaseId(2587)
     @Story("Позитивные сценарии")
-    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"smoke", REGRESSION_STF})
+    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {REGRESSION_STF, SMOKE_STF})
     public void successSearchItemUsingCategorySuggests() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -91,7 +91,7 @@ public final class ShoppingSearchTests {
 
     @CaseId(2588)
     @Story("Позитивные сценарии")
-    @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {REGRESSION_STF})
+    @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {REGRESSION_STF, SMOKE_STF})
     public void successSearchItemUsingSuggests() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -109,7 +109,7 @@ public final class ShoppingSearchTests {
 
     @CaseId(2989)
     @Story("Позитивные сценарии")
-    @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = {REGRESSION_STF})
+    @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = {REGRESSION_STF, SMOKE_STF})
     public void changeAmountOnButtonSearchResult() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -153,7 +153,7 @@ public final class ShoppingSearchTests {
 
     @CaseId(3105)
     @Story("Позитивные сценарии")
-    @Test(description = "Удаление поискового запроса по крестику в поиске", groups = {REGRESSION_STF})
+    @Test(description = "Удаление поискового запроса по крестику в поиске", groups = {REGRESSION_STF, SMOKE_STF})
     public void clearSearchBar() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -187,7 +187,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(1581)
-    @Test(description = "Добавление товара в корзину из поиска товаров", groups = REGRESSION_STF)
+    @Test(description = "Добавление товара в корзину из поиска товаров", groups = {REGRESSION_STF, SMOKE_STF})
     public void successAddItemToCartFromSearchResults() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
@@ -211,7 +211,7 @@ public final class ShoppingSearchTests {
     }
 
     @CaseId(2589)
-    @Test(description = "Работоспособность сортировки товаров", groups = {REGRESSION_STF})
+    @Test(description = "Работоспособность сортировки товаров", groups = {REGRESSION_STF, SMOKE_STF})
     public void successApplySort() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());

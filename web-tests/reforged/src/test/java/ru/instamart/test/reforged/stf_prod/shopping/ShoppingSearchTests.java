@@ -39,7 +39,7 @@ public final class ShoppingSearchTests {
         shop().interactHeader().checkSuggesterVisible();
         shop().interactHeader().clickShowAllSearchResults();
         search().checkPageIsAvailable();
-        search().checkSearchTitle("сыры");
+        search().checkSearchTitleProd("сыры");
     }
 
     @CaseId(2588)

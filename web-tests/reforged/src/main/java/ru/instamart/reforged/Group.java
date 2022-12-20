@@ -14,6 +14,7 @@ public final class Group {
     public static final String REGRESSION_ADMIN = "regression";
     public static final String REGRESSION_BUSINESS = "regression";
     public static final String HR_OPS_PARTNERS = "partners";
+    public static final String SMOKE_STF = "smoke";
     /*
     ###############################
     #########Admin Section#########

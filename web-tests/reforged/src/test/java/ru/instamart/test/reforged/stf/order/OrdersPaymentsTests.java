@@ -43,7 +43,7 @@ public final class OrdersPaymentsTests {
 
     @CaseId(1624)
     @Story("Тест заказа с оплатой картой онлайн")
-    @Test(description = "Тест заказа с оплатой картой онлайн", groups = {"smoke", REGRESSION_STF})
+    @Test(description = "Тест заказа с оплатой картой онлайн", groups = {REGRESSION_STF})
     public void successOrderWithCardOnline() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -86,7 +86,7 @@ public final class OrdersPaymentsTests {
 
     @CaseId(1625)
     @Story("Тест заказа с оплатой картой курьеру")
-    @Test(description = "Тест заказа с оплатой картой курьеру", groups = {"smoke", REGRESSION_STF})
+    @Test(description = "Тест заказа с оплатой картой курьеру", groups = {REGRESSION_STF})
     public void successOrderWithCardCourier() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

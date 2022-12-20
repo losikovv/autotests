@@ -13,10 +13,12 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.Group.SMOKE_STF;
 import static ru.instamart.reforged.core.config.BasicProperties.RBSUAT_PAYMENTS_URL;
 import static ru.instamart.reforged.core.config.UiProperties.*;
 import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
@@ -185,7 +187,8 @@ public final class BasicOrdersTests {
     }
 
     @CaseId(1681)
-    @Test(description = "Тест заказа с любимыми товарами", groups = REGRESSION_STF)
+    @Test(description = "Тест заказа с любимыми товарами", groups = {REGRESSION_STF})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void successOrderWithFavProducts() {
         userData = UserManager.getQaUser();
         helper.addFavorites(userData, DEFAULT_AUCHAN_SID, 1);
@@ -198,6 +201,7 @@ public final class BasicOrdersTests {
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
+        shop().interactCart().increaseFirstItemCountToMin();
         shop().interactCart().submitOrder();
 
         checkoutNew().waitPageLoad();
@@ -324,7 +328,7 @@ public final class BasicOrdersTests {
     @CaseId(2623)
     @Issue("B2C-12077")
     @Story("Отмена заказа")
-    @Test(description = "Отмена заказа", groups = REGRESSION_STF)
+    @Test(description = "Отмена заказа", groups = {REGRESSION_STF, SMOKE_STF})
     public void successOrderCancel() {
         userData = UserManager.getQaUser();
         helper.makeOrder(userData, DEFAULT_AUCHAN_SID, 1);
@@ -349,7 +353,7 @@ public final class BasicOrdersTests {
 
     @CaseId(2624)
     @Story("Заказ")
-    @Test(description = "Добавление товаров в активный заказ", groups = REGRESSION_STF)
+    @Test(description = "Добавление товаров в активный заказ", groups = {REGRESSION_STF, SMOKE_STF})
     public void successAddItemsInActiveOrder() {
         userData = UserManager.getQaUser();
 
@@ -435,7 +439,7 @@ public final class BasicOrdersTests {
     @CaseId(2626)
     @Story("Заказ")
     @Skip
-    @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = REGRESSION_STF)
+    @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = {REGRESSION_STF, SMOKE_STF})
     public void successCancelMultiOrderViaCancelOneOrder() {
         userData = UserManager.getQaUser();
         helper.makeMultipleOrder(userData, RestAddresses.Moscow.defaultAddress(), DEFAULT_METRO_MOSCOW_SID, DEFAULT_AUCHAN_SID);

@@ -196,7 +196,7 @@ public final class CheckoutPaymentMethodsTests {
 
     @CaseId(3822)
     @Story("Способы оплаты")
-    @Test(description = "Проверка редиректа на см-бизнес при способе оплаты 'По счету для бизнеса' (Доставка)", groups = {REGRESSION_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
+    @Test(description = "Проверка редиректа на см-бизнес при способе оплаты 'По счету для бизнеса' (Доставка)", groups = {REGRESSION_STF, SMOKE_STF, CHECKOUT_WEB_NEW, JOTUNHEIMR})
     @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_CHECKOUT"})
     public void testTransitionOnB2BIfSelectBusinessPaymentMethodFromDelivery() {
         final var userData = UserManager.getQaUser();

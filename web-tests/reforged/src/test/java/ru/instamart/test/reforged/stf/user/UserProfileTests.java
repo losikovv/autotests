@@ -9,6 +9,7 @@ import ru.instamart.kraken.util.StringUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.Group.SMOKE_STF;
 import static ru.instamart.reforged.admin.AdminRout.pages;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -18,7 +19,7 @@ public final class UserProfileTests {
 
     @CaseId(1524)
     @Story("Выпадающее меню")
-    @Test(description = "Тест валидации меню профиля Sbermarket", groups = REGRESSION_STF)
+    @Test(description = "Тест валидации меню профиля Sbermarket", groups = {REGRESSION_STF, SMOKE_STF})
     public void successValidateSbermarketTenantProfileMenu() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -37,7 +38,7 @@ public final class UserProfileTests {
 
     @CaseId(1525)
     @Story("Выпадающее меню")
-    @Test(description = "Тест валидации кнопки 'Профиль' в меню профиля", groups = REGRESSION_STF)
+    @Test(description = "Тест валидации кнопки 'Профиль' в меню профиля", groups = {REGRESSION_STF, SMOKE_STF})
     public void successValidateUserProfileButton() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -51,7 +52,7 @@ public final class UserProfileTests {
 
     @CaseId(1527)
     @Story("Выпадающее меню")
-    @Test(description = "Тест валидации кнопки 'Условия использования' в меню профиля", groups = REGRESSION_STF)
+    @Test(description = "Тест валидации кнопки 'Условия использования' в меню профиля", groups = {REGRESSION_STF, SMOKE_STF})
     public void successValidateTermsButton() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -65,7 +66,7 @@ public final class UserProfileTests {
 
     @CaseId(1528)
     @Story("Выпадающее меню")
-    @Test(description = "Тест валидации кнопки 'Доставка' в меню профиля", groups = REGRESSION_STF)
+    @Test(description = "Тест валидации кнопки 'Доставка' в меню профиля", groups = {REGRESSION_STF, SMOKE_STF})
     public void successValidateDeliveryButton() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -79,7 +80,7 @@ public final class UserProfileTests {
 
     @CaseId(1530)
     @Story("Выпадающее меню")
-    @Test(description = "Тест валидации кнопки 'FAQ' в меню профиля", groups = REGRESSION_STF)
+    @Test(description = "Тест валидации кнопки 'FAQ' в меню профиля", groups = {REGRESSION_STF, SMOKE_STF})
     public void successValidateFaqButton() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -93,7 +94,7 @@ public final class UserProfileTests {
 
     @CaseId(1531)
     @Story("навигация в меню пользователя")
-    @Test(description = "Тест доступности страниц профиля пользователя", groups = REGRESSION_STF)
+    @Test(description = "Тест доступности страниц профиля пользователя", groups = {REGRESSION_STF, SMOKE_STF})
     public void successCheckProfilePagesAreAvailable() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -109,7 +110,7 @@ public final class UserProfileTests {
 
     @CaseId(1532)
     @Story("Заказы")
-    @Test(description = "Тест валидации дефолтных страниц истории заказов", groups = REGRESSION_STF)
+    @Test(description = "Тест валидации дефолтных страниц истории заказов", groups = {REGRESSION_STF, SMOKE_STF})
     public void successValidateDefaultOrderHistory() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -129,7 +130,7 @@ public final class UserProfileTests {
 
     @CaseId(2559)
     @Story("Данные профиля пользователя")
-    @Test(description = "Добавление имени и фамилии для новых пользователей", groups = REGRESSION_STF)
+    @Test(description = "Добавление имени и фамилии для новых пользователей", groups = {REGRESSION_STF, SMOKE_STF})
     public void addFullName() {
         final var userData = UserManager.getQaUser();
         shop().goToPage();
@@ -166,7 +167,7 @@ public final class UserProfileTests {
 
     @CaseId(2561)
     @Story("Данные профиля пользователя")
-    @Test(description = "Изменение имени и фамилии для существующих пользователей", groups = REGRESSION_STF)
+    @Test(description = "Изменение имени и фамилии для существующих пользователей", groups = {REGRESSION_STF, SMOKE_STF})
     public void changeFullName() {
         final var userData = UserManager.getQaUser();
         shop().goToPage();
@@ -215,7 +216,7 @@ public final class UserProfileTests {
 
     @CaseId(2563)
     @Story("Данные профиля пользователя")
-    @Test(description = "Изменение телефона для существующих пользователей", groups = REGRESSION_STF)
+    @Test(description = "Изменение телефона для существующих пользователей", groups = {REGRESSION_STF, SMOKE_STF})
     public void changePhone() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

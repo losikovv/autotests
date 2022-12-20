@@ -9,13 +9,14 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_CHECKOUT_SID;
-import static ru.instamart.reforged.Group.REGRESSION_STF;
-import static ru.instamart.reforged.Group.VALHALLA;
-import static ru.instamart.reforged.core.config.UiProperties.*;
+import static ru.instamart.reforged.Group.*;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
+import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -27,7 +28,7 @@ public final class ShoppingCartTests {
 
     @Issue("B2C-10717")
     @CaseId(1571)
-    @Test(description = "Тест валидации дефолтной корзины", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
+    @Test(description = "Тест валидации дефолтной корзины", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     public void successValidateDefaultCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -50,7 +51,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1572)
-    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
+    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     public void successAddItemToCartUnauthorized() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -68,7 +69,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1573)
-    @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
+    @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     public void successAddItemToCartFromItemCard() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -91,7 +92,8 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1574)
-    @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
+    @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void successChangeItemQuantityInCart() {
         shop().goToPage();
 
@@ -124,7 +126,8 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1575)
-    @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
+    @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "USER_ADULT_18_PLUS_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void successChangeItemQuantityInCartViaItemCard() {
         shop().goToPage();
 
@@ -168,7 +171,8 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(1576)
-    @Test(description = "Тест на удаление товаров из корзины", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
+    @Test(description = "Тест на удаление товаров из корзины", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void successRemoveItemsFromCart() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -250,7 +254,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2616)
-    @Test(description = "Добавление/удаление товара из карточки товара", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
+    @Test(description = "Добавление/удаление товара из карточки товара", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     public void testAddedAndRemoveProductFromProductCard() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -348,7 +352,8 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2605)
-    @Test(description = "Тест успешного добавления товара в пустую корзину", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
+    @Test(description = "Тест успешного добавления товара в пустую корзину", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void testSuccessAddItemInEmptyCart() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -369,7 +374,8 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2607)
-    @Test(description = "Изменение количества единиц товаров в корзине", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
+    @Test(description = "Изменение количества единиц товаров в корзине", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void testAddProductsInCart() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -398,7 +404,8 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2609)
-    @Test(description = "Подтягивание адреса и мердж корзины из профиля при авторизации", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
+    @Test(description = "Подтягивание адреса и мердж корзины из профиля при авторизации", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void testAddressAndCartGetFromProfileAuth() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.learningCenter());
@@ -485,7 +492,8 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2611)
-    @Test(description = "Удаление всех товаров в корзине", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
+    @Test(description = "Удаление всех товаров в корзине", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void testRemoveRetailerFromCart() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -507,7 +515,7 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2612)
-    @Test(description = "Отображение нескольких магазинов в корзине, разбивка товаров по магазинам", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
+    @Test(description = "Отображение нескольких магазинов в корзине, разбивка товаров по магазинам", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
     public void testMultiplyOrderGroupingProductsByRetailers() {
         var userData = UserManager.getQaUser();
         //Адрес и сид чекаута потому что по дефолтному адресу на стейджах, отличных от Кракена только 1 общий магазин
@@ -529,7 +537,8 @@ public final class ShoppingCartTests {
     }
 
     @CaseId(2613)
-    @Test(description = "Удаление магазина из корзины, при удалении всех его товаров в корзине", groups = {REGRESSION_STF, VALHALLA, "all-cart"})
+    @Test(description = "Удаление магазина из корзины, при удалении всех его товаров в корзине", groups = {REGRESSION_STF, SMOKE_STF, VALHALLA, "all-cart"})
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
     public void testAutoRemoveRetailerAfterRemoveAllProducts() {
         var userData = UserManager.getQaUser();
         //Адрес и сид чекаута потому что по дефолтному адресу на стейджах, отличных от Кракена только 1 общий магазин

@@ -8,9 +8,11 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.annotation.CookieProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.Group.REGRESSION_STF;
+import static ru.instamart.reforged.Group.SMOKE_STF;
 import static ru.instamart.reforged.core.config.UiProperties.DEFAULT_AUCHAN_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -69,9 +71,8 @@ public class ShoppingTestsForExistingUser {
 
     @CaseId(2606)
     @Story("Тест набора корзины до суммы, достаточной для оформления заказа")
-
-    @Test(description = "Тест набора корзины до суммы, достаточной для оформления заказа",
-            groups = REGRESSION_STF)
+    @CookieProvider(cookies = {"FORWARD_FEATURE_STF", "COOKIE_ALERT", "EXTERNAL_ANALYTICS_ANONYMOUS_ID_NEW_CART"})
+    @Test(description = "Тест набора корзины до суммы, достаточной для оформления заказа", groups = {REGRESSION_STF, SMOKE_STF})
     public void successCollectItemsForMinOrder() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
