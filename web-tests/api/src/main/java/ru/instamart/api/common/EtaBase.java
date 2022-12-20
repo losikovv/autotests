@@ -11,6 +11,7 @@ import ru.instamart.redis.Redis;
 import ru.instamart.redis.RedisManager;
 import ru.instamart.redis.RedisService;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -33,8 +34,7 @@ public class EtaBase {
         addStore(STORE_UUID_WITH_DIFFERENT_TIMEZONE, 55.7010f, 37.7280f, "Europe/Kaliningrad", false, "00:00:00", "00:00:00", "00:00:00", true, false);
         checkStore(STORE_UUID_WITH_ML, 55.7006f, 37.7266f, "Europe/Moscow", true, "00:00:00", "00:00:00", "00:00:00", true, false);
         checkStore(STORE_UUID_UNKNOWN_FOR_ML, 55.7010f, 37.7280f, "Europe/Moscow", true, "00:00:00", "00:00:00", "00:00:00", true, false);
-        RedisService.del(RedisManager.getConnection(Redis.ETA), String.format("store_%s", STORE_UUID_WITH_ML));
-        RedisService.del(RedisManager.getConnection(Redis.ETA), String.format("store_%s", STORE_UUID_UNKNOWN_FOR_ML));
+        RedisService.del(RedisManager.getConnection(Redis.ETA), List.of("store_" + STORE_UUID_WITH_ML, "store_" + STORE_UUID_UNKNOWN_FOR_ML));
     }
 
     @AfterMethod(alwaysRun = true, description = "Добавляем системный лог к тесту")
