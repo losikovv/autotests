@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static events.CandidateChangesOuterClass.*;
 import static org.apache.commons.lang3.RandomUtils.nextInt;
@@ -35,6 +36,7 @@ import static ru.instamart.api.helper.SurgeLevelHelper.*;
 import static ru.instamart.kraken.enums.ScheduleType.*;
 import static ru.instamart.kraken.util.DistanceUtil.distance;
 import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
+import static ru.instamart.kraken.util.TimeUtil.getDateWithoutTimezoneMinusMinutes;
 import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
 @Epic("On Demand")
@@ -67,6 +69,7 @@ public class SurgeTest extends RestBase {
     private int currentDemandAmount;
     private int currentSupplyAmount;
     private float pastSurgeLevel;
+    AtomicInteger surgeCalculationCount = new AtomicInteger(); // костыль для понимания какой pastSurgeLevel использовать
     private int surgeEventOutdate = 10;
     private double distFirstSecond;
     private double distFirstThird;
@@ -113,7 +116,6 @@ public class SurgeTest extends RestBase {
 
     @AfterMethod(alwaysRun = true)
     public void waitForOutdate() {
-        pastSurgeLevel = currentSurgeLevel;
         ThreadUtil.simplyAwait(surgeEventOutdate - SHORT_TIMEOUT);
     }
 
@@ -146,16 +148,17 @@ public class SurgeTest extends RestBase {
     @CaseIDs({@CaseId(14), @CaseId(23), @CaseId(25), @CaseId(163), @CaseId(32)})
     @Story("Demand")
     @Test(description = "Добавление demand при получении события с новым ON_DEMAND заказом",
-            groups = "ondemand-surgelevel-smoke",
-            priority = -1)
+            groups = "ondemand-surgelevel-smoke")
     public void surgeProduceEventOrderOnDemand() {
         publishEventOrderStatus(ORDER_UUID, STORE_ID, OrderStatus.NEW, ShipmentType.ON_DEMAND, SHIPMENT_UUID, LONG_TIMEOUT);
 
+        pastSurgeLevel = currentSurgeLevel;
         currentSurgeLevel++;
         currentDemandAmount++;
+        surgeCalculationCount.addAndGet(1);
 
         List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID, 5L);
-        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
+        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, surgeCalculationCount.get() > 1 ? pastSurgeLevel : 0, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
     }
 
     @CaseId(40)
@@ -259,7 +262,6 @@ public class SurgeTest extends RestBase {
         publishEventCandidateStatus(CANDIDATE_UUID_DELIVERY_AREA, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.BUSY, 0, FIRST_DELIVERY_AREA_ID, true, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
 
         currentSurgeLevel++;
-        currentSupplyAmount--;
 
         publishEventCandidateStatus(CANDIDATE_UUID_DELIVERY_AREA, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.UNCHANGED, 0, FIRST_DELIVERY_AREA_ID, true, STORE_ID, DISPATCH.getName(), LONG_TIMEOUT);
 
@@ -330,11 +332,13 @@ public class SurgeTest extends RestBase {
         publishEventCandidateStatus(CANDIDATE_UUID_DELIVERY_AREA, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, FIRST_DELIVERY_AREA_ID, true, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
         publishEventLocation(CANDIDATE_UUID_DELIVERY_AREA, 15.0f, 15.0f, false, LONG_TIMEOUT);
 
+        pastSurgeLevel = currentSurgeLevel;
         currentSurgeLevel--;
         currentSupplyAmount++;
+        surgeCalculationCount.addAndGet(1);
 
         List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID, 5L);
-        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
+        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, surgeCalculationCount.get() > 1 ? pastSurgeLevel : 0, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
     }
 
     @CaseId(137)
@@ -369,11 +373,13 @@ public class SurgeTest extends RestBase {
         publishEventCandidateStatus(CANDIDATE_UUID, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
         publishEventLocation(CANDIDATE_UUID, storeLocation.getLat(), storeLocation.getLon(), false, LONG_TIMEOUT);
 
+        pastSurgeLevel = currentSurgeLevel;
         currentSurgeLevel--;
         currentSupplyAmount++;
+        surgeCalculationCount.addAndGet(1);
 
         List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID, 5L);
-        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
+        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, surgeCalculationCount.get() > 1 ? pastSurgeLevel : 0, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
     }
 
     @CaseId(140)
@@ -399,15 +405,30 @@ public class SurgeTest extends RestBase {
         Allure.step("Проверка отсутствия добавления supply", () -> assertNull(SupplyDao.INSTANCE.findSupply(STORE_ID, candidateUuid), "Кандидат добавился в supply"));
     }
 
+    @CaseId(167)
+    @Story("Supply")
+    @Test(description = "Обновление кандидата и вызов расчета surgelevel при получении новых координат не смотря на не достижение CANDIDATE_MOVEMENT_THRESHOLD",
+            groups = "ondemand-surgelevel-regress",
+            dependsOnMethods = "surgeProduceEventCandidateWithLocationWentNotFar")
+    public void surgeDistanceForceUpdate() {
+        CandidateDao.INSTANCE.updateCandidate(CANDIDATE_UUID, true, getDateWithoutTimezoneMinusMinutes(10));
+        publishEventLocation(CANDIDATE_UUID, storeLocation.getLat() - 0.001f, storeLocation.getLon() - 0.001f, false, LONG_TIMEOUT);
+
+        pastSurgeLevel = currentSurgeLevel;
+        currentSurgeLevel++;
+
+        List<Surgelevelevent.SurgeEvent> surgeLevels = kafka.waitDataInKafkaTopicSurgeLevel(STORE_ID, 5L);
+        checkSurgeLevelProduce(surgeLevels, surgeLevels.size(), STORE_ID, pastSurgeLevel, currentSurgeLevel, currentDemandAmount, currentSupplyAmount, Method.ACTUAL);
+    }
+
     @CaseId(49)
     @Story("Radius Supply")
     @Test(description = "Удаление supply при уходе кандидата по координатам вдаль от магазина",
             groups = "ondemand-surgelevel-smoke",
-            dependsOnMethods = "surgeProduceEventCandidateWithLocationWentNotFar")
+            dependsOnMethods = "surgeDistanceForceUpdate")
     public void surgeProduceEventCandidateWithLocationWentTooFar() {
         publishEventLocation(CANDIDATE_UUID, 15.0f, 15.0f, false, LONG_TIMEOUT);
 
-        currentSurgeLevel++;
         currentSupplyAmount--;
 
         Allure.step("Проверка удаления supply", () -> {

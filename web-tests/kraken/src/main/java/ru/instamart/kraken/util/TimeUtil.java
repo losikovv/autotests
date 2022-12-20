@@ -52,6 +52,10 @@ public final class TimeUtil {
         return dt.format(ZonedDateTime.now(ZONE_ID));
     }
 
+    public static String getDateWithoutTimezoneMinusMinutes(Integer minutes) {
+        return dt.format(ZonedDateTime.now(ZONE_ID).minusMinutes(minutes));
+    }
+
     public static String getDateWithoutTime() {
         return dtd.format(ZonedDateTime.now(ZONE_ID));
     }
