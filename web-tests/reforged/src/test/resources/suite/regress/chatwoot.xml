@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Web UI regress" data-provider-thread-count="3" configfailurepolicy="continue">
+    <listeners>
+        <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
+        <listener class-name="ru.instamart.reforged.core.listener.UiListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="Chatwoot tests" parallel="classes">
+        <classes>
+            <class name="ru.instamart.test.reforged.chatwoot.AuthorizationTests"/>
+            <class name="ru.instamart.test.reforged.chatwoot.CustomerCardTests"/>
+            <class name="ru.instamart.test.reforged.chatwoot.DialogsTests"/>
+            <class name="ru.instamart.test.reforged.chatwoot.EffectivenessTests"/>
+            <class name="ru.instamart.test.reforged.chatwoot.OperatorWorkplaceTests"/>
+            <class name="ru.instamart.test.reforged.chatwoot.ChatRoutingForOperatorTests"/>
+            <class name="ru.instamart.test.reforged.chatwoot.ManualHoldoverTests"/>
+            <class name="ru.instamart.test.reforged.chatwoot.MassChatCloseTests"/>
+            <class name="ru.instamart.test.reforged.chatwoot.OperatorStatusChangeTests"/>
+        </classes>
+    </test>
+</suite>

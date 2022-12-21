@@ -61,4 +61,6 @@ public final class Should {
         Assert.assertTrue(Kraken.waitAction().textMatches(component, pattern, args),
                 String.format("Текст элемента '%s' не соответсвует паттерну: '%s'", component.getBy(args), pattern));
     }
+
+
 }

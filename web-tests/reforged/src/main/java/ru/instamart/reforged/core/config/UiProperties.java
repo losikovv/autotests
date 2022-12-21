@@ -31,6 +31,9 @@ public final class UiProperties {
     @Config(configName = NAME, fieldName = "hrPartnersUrl", defaultValue = "", env = "HR_OPS_PARTNERS_URL")
     public static String HR_PARTNERS_URL;
 
+    @Config(configName = NAME, fieldName = "chatwootUrl", defaultValue = "", env = "CHATWOOT_URL")
+    public static String CHATWOOT_URL;
+
     @Config(configName = NAME, fieldName = "defaultCookies", defaultValue = "")
     public static List<String> DEFAULT_COOKIES;
 
