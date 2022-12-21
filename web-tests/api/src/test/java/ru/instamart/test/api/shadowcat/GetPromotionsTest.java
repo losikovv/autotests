@@ -7,14 +7,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.ShadowcatRestBase;
 import ru.instamart.api.model.shadowcat.Promotion;
+import ru.instamart.api.request.shadowcat.PromotionRequest.Promotions;
 import ru.instamart.api.response.shadowcat.PromotionsResponse;
 import ru.sbermarket.qase.annotation.CaseId;
-import ru.instamart.api.request.shadowcat.PromotionRequest.Promotions;
 
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.enums.shadowcat.PromotionType.DISCOUNT;
 
 @Slf4j
 @Epic("Shadowcat")
@@ -28,7 +29,7 @@ public class GetPromotionsTest extends ShadowcatRestBase {
             priority = 1)
     public void getPromotionsList() {
         Response response = Promotions.GET();
-        List<Promotion> promotions = response.as(PromotionsResponse.class).getItems();
+        final List<Promotion> promotions = response.as(PromotionsResponse.class).getItems();
         promoId = promotions.get(0).getId();
         checkStatusCode200(response);
     }
@@ -39,7 +40,7 @@ public class GetPromotionsTest extends ShadowcatRestBase {
             priority = 2,
             dependsOnMethods = "getPromotionsList")
     public void getOnePromotion() {
-        Response response = Promotions.GET(promoId);
+        Response response = Promotions.GET(DISCOUNT.getId());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, Promotion.class);
     }

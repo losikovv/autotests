@@ -1,14 +1,14 @@
 package ru.instamart.api.model.shadowcat;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import ru.instamart.api.model.BaseObject;
 
 @Builder
 @Data
 @EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 public class Promocode extends BaseObject {
     @JsonProperty(value = "active_until")
     private String activeUntil;
@@ -25,5 +25,7 @@ public class Promocode extends BaseObject {
 
     @JsonProperty(value = "promotion_id")
     private int promotionId;
+
+    @JsonProperty(value = "usage_limit")
     private int usageLimit;
 }

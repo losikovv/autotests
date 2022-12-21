@@ -40,6 +40,10 @@ public class StatusCodeCheckpoints {
         checkStatusCode(response, 200, ContentType.JSON);
     }
 
+    public static void checkStatusCode201(final Response response) {
+        checkStatusCode(response, 201, ContentType.JSON);
+    }
+
     /**
      * check 302 status code
      * check HTML content type (default for 302 responses)

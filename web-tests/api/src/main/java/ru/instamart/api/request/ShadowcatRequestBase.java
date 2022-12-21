@@ -15,6 +15,7 @@ public class ShadowcatRequestBase {
 
     public static RequestSpecification givenWithAuth() {
         return givenWithSpec()
+                .contentType("application/json")
                 .header("Authorization",
                         ShadowcatHelper.getInstance().getJwtToken());
     }
