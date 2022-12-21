@@ -1,6 +1,5 @@
 package ru.instamart.api.model.shadowcat;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.*;
@@ -10,19 +9,21 @@ import ru.instamart.api.model.shadowcat.conditions.Condition;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Promotion extends BaseObject {
 
-    @JsonSchema(required = true)
     private Actions actions;
 
     @JsonProperty(value = "aggregation_func")
     @JsonSchema(required = true)
     private String aggregationFunc;
 
-    @JsonIgnore
+    @JsonProperty(value = "category_id")
+    @JsonSchema(required = true)
+    private int categoryId;
+
     private Condition conditions;
 
     private String description;
@@ -41,8 +42,8 @@ public class Promotion extends BaseObject {
     @JsonProperty(value = "is_auto_accepted")
     private boolean isAutoAccepted;
 
-    @JsonSchema(required = true)
     @JsonProperty(value = "promo_code_prefix")
+    @JsonSchema(required = true)
     private String promoCodePrefix;
 
     @JsonSchema(required = true)
@@ -51,8 +52,6 @@ public class Promotion extends BaseObject {
     @JsonProperty(value = "user_id")
     @JsonSchema(required = true)
     private int userId;
-
-    private String[] period;
 
     @JsonProperty(value = "started_at")
     private String startedAt;

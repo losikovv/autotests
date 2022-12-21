@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
-<suite name="SURGE-API-SUITE" parallel="tests" thread-count="1" verbose="1">
+<suite name="SHADOWCAT-API-SUITE" parallel="tests" thread-count="1" verbose="1">
     <listeners>
         <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
         <listener class-name="ru.instamart.api.listener.ApiTestSuiteListener"/>
@@ -12,6 +12,9 @@
     <test verbose="1" name="SHADOWCAT API" parallel="none">
         <classes>
             <class name="ru.instamart.test.api.shadowcat.GetPromotionsTest"/>
+            <class name="ru.instamart.test.api.shadowcat.CreatePromotionTest"/>
+            <class name="ru.instamart.test.api.shadowcat.ConditionsTest"/>
+            <class name="ru.instamart.test.api.shadowcat.CalculateNegativeTest"/>
         </classes>
     </test>
 </suite>

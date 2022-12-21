@@ -239,7 +239,7 @@ public enum Specification {
 
         shadowcatRequestSpec = new RequestSpecBuilder()
                 .setBaseUri("https://paas-content-demand-shadowcat.gw-stage.sbmt.io")
-                .setBasePath("api/v1/admin/")
+                .setBasePath("api/v1/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
