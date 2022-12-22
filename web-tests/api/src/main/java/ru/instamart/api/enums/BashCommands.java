@@ -42,4 +42,20 @@ public interface BashCommands {
             return command;
         }
     }
+
+    @AllArgsConstructor
+    enum ServiceEnvironmentProperties implements BashCommands {
+        /**
+         * Получение переменных окружения сервисов из swissknife
+         */
+        ETA_ENABLE_STORE_ON_DEMAND_CHECK("cat /proc/1/environ | tr '\\0' '\\n' | grep -i ETA_ENABLE_STORE_ON_DEMAND_CHECK"),
+        ETA_SURGE_INTERVALS("cat /proc/1/environ | tr '\\0' '\\n' | grep -i SURGE_INTERVALS"),
+        SHIPPINGCALC_SURGE_DISABLED("cat /proc/1/environ | tr '\\0' '\\n' | grep -i SURGE_DISABLED"),
+        SURGE_EVENT_OUTDATE("cat /proc/1/environ | tr '\\0' '\\n' | grep -i SURGEEVENT_OUTDATE"),
+        SURGE_HTTP_AUTH_TOKENS("cat /proc/1/environ | tr '\\0' '\\n' | grep -i HTTP_AUTH_TOKENS");
+        private String command;
+        public String get() {
+            return command;
+        }
+    }
 }

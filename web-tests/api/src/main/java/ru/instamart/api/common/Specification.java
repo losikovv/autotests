@@ -35,6 +35,7 @@ public enum Specification {
     @Getter private RequestSpecification shopperRequestSpec;
     @Getter private RequestSpecification surgeRequestSpec;
     @Getter private RequestSpecification etaRequestSpec;
+    @Getter private RequestSpecification surgelevelRequestSpec;
     @Getter private RequestSpecification risExporterRequestSpec;
     @Getter private RequestSpecification prodRequestSpec;
     @Getter private RequestSpecification prodAdminRequestSpec;
@@ -63,6 +64,7 @@ public enum Specification {
         final String shopperFullAdminUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
         final String shopperStage = (EnvironmentProperties.STAGE).isBlank() ? "kraken" : EnvironmentProperties.STAGE;
         final String etaStage = "https://" + EnvironmentProperties.Env.ETA_NAMESPACE + ".gw-stage.sbmt.io";
+        final String surgelevelStage = "https://" + EnvironmentProperties.Env.SURGELEVEL_NAMESPACE + ".gw-stage.sbmt.io";
 
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
         defaultParser = Parser.JSON;
@@ -197,6 +199,13 @@ public enum Specification {
                 .setConfig(config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)))
                 .setBaseUri(etaStage)
                 .setBasePath("api/")
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
+        surgelevelRequestSpec = new RequestSpecBuilder()
+                .setConfig(config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+                .setBaseUri(surgelevelStage)
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();

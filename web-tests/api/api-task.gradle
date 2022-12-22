@@ -252,7 +252,7 @@ task onDemandCandidates(type: Test) {
 task onDemandSurgeLevel(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/on_demand/surgelevel.xml'
-        includeGroups 'ondemand-surgelevel-smoke', 'ondemand-surgelevel-regress'
+        includeGroups 'ondemand-surgelevel'
     }
     systemProperty 'qase.Project', 'SURGE'
     systemProperty 'qase.Title', 'SurgeLevel Autotests'

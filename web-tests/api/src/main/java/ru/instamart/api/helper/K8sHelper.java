@@ -1,6 +1,5 @@
 package ru.instamart.api.helper;
 
-import io.kubernetes.client.openapi.models.V1Pod;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import ru.instamart.k8s.rails_response.GetRetailerResponse;
@@ -177,6 +176,7 @@ public class K8sHelper {
         List<String> strings = execRailsCommandWithPod(CREATE_API_CLIENT.get(clientId, tenant.getId()));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
+
     @Step("Создание JWT-токена через консоль {user}")
     public static List<String> createJwtToken() {
         List<String> strings = execRailsCommandWithPod(CREATE_JWT_TOKEN.get());
@@ -262,9 +262,9 @@ public class K8sHelper {
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 
-    @Step("Получаем переменные окружения paas-сервиса")
-    public static List<String> getPaasServiceEnvProp(final String namespace, final String additionalCommands) {
-        V1Pod pod = getPod(namespace, "app.kubernetes.io/component=swissknife");
-        return execBashCommandWithPod("cat /proc/1/environ | tr '\\0' '\\n'" + additionalCommands, pod, "app");
+    @Step("Получаем переменные окружения сервиса")
+    public static List<String> getServiceEnvProp(final String namespace, final String command) {
+        var pod = getPod(namespace, "app.kubernetes.io/component=swissknife");
+        return execBashCommandWithPod(command, pod, "app");
     }
 }

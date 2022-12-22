@@ -4,14 +4,18 @@ import com.google.protobuf.Timestamp;
 import events.CandidateChangesOuterClass;
 import events.CandidateChangesOuterClass.CandidateChanges;
 import io.qameta.allure.Step;
-import norns.Norns;
+import lombok.Getter;
 import norns.Norns.EventAddLocation;
 import order.OrderChanged;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.jdbc.dao.surgelevel.ConfigDao;
 import ru.instamart.jdbc.dao.surgelevel.FormulaDao;
 import ru.instamart.jdbc.dao.surgelevel.StoreDao;
 import ru.instamart.jdbc.entity.surgelevel.FormulaEntity;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.util.ThreadUtil;
 import surgelevelevent.Surgelevelevent;
 
@@ -19,12 +23,39 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.SURGE_EVENT_OUTDATE;
+import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.SURGE_HTTP_AUTH_TOKENS;
+import static ru.instamart.api.helper.K8sHelper.getServiceEnvProp;
 import static ru.instamart.kafka.configs.KafkaConfigs.*;
+import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
 public class SurgeLevelHelper {
 
     private static final KafkaHelper kafka = new KafkaHelper();
+    private static volatile SurgeLevelHelper INSTANCE;
+    @Getter
+    private final Integer surgeEventOutdate;
+    @Getter
+    private final String authToken;
+
+    private SurgeLevelHelper() {
+        this.surgeEventOutdate = getSurgeEventOutdateFromK8s();
+        this.authToken = getHttpAuthTokenFromK8s();
+    }
+
+    public static SurgeLevelHelper getInstance() {
+        SurgeLevelHelper RESULT = INSTANCE;
+        if (RESULT != null) {
+            return INSTANCE;
+        }
+        synchronized (SurgeLevelHelper.class) {
+            if (INSTANCE == null) {
+                INSTANCE = new SurgeLevelHelper();
+            }
+            return INSTANCE;
+        }
+    }
 
     @Step("Создаем событие заказа для магазина {storeId}")
     public static OrderChanged.EventOrderChanged getEventOrderStatus(final String orderUuid, final String storeId, final OrderChanged.EventOrderChanged.OrderStatus orderStatus, final OrderChanged.EventOrderChanged.ShipmentType shipmentType, final String shipmentUuid) {
@@ -45,7 +76,7 @@ public class SurgeLevelHelper {
     }
 
     @Step("Проверяем отправку расчета surgelevel в kafka для магазина {storeId}")
-    public static void checkSurgeLevelProduce(final List<Surgelevelevent.SurgeEvent> surgeLevels, final int surgeEventsAmount, final String storeId, final float pastSurgeLevel, final float currentSurgeLevel, final int currentDemandAmount, final int currentSupplyAmount, final  Surgelevelevent.SurgeEvent.Method method) {
+    public static void checkSurgeLevelProduce(final List<Surgelevelevent.SurgeEvent> surgeLevels, final int surgeEventsAmount, final String storeId, final float pastSurgeLevel, final float currentSurgeLevel, final int currentDemandAmount, final int currentSupplyAmount, final Surgelevelevent.SurgeEvent.Method method) {
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(surgeLevels.get(surgeEventsAmount - 1).getStoreId(), storeId, "Не верный uuid магазина");
         softAssert.assertEquals(surgeLevels.get(surgeEventsAmount - 1).getPastSurgeLevel(), pastSurgeLevel, "Не верный прошлый surgelevel");
@@ -145,7 +176,7 @@ public class SurgeLevelHelper {
     @Step("Проверить наличие кастомной формулы расчета surgelevel в БД")
     public static void checkFormula(final String formulaId) {
         FormulaEntity formula = FormulaDao.INSTANCE.findFormula(formulaId);
-        if (Objects.isNull(formula)){
+        if (Objects.isNull(formula)) {
             final var script = "function main(arg) {\n" +
                     "    var demand = 150\n" +
                     "    var supply = 50\n" +
@@ -184,4 +215,36 @@ public class SurgeLevelHelper {
         ThreadUtil.simplyAwait(timeout);
     }
 
+    @Step("Получаем таймаут расчета сюрджа")
+    public static Integer getSurgeEventOutdateFromK8s() {
+        final var envProp = getServiceEnvProp(EnvironmentProperties.Env.SURGELEVEL_NAMESPACE, SURGE_EVENT_OUTDATE.get());
+        final var surgeEventOutdateStr = matchWithRegex("^\\[SURGEEVENT_OUTDATE=(\\d+)s\\]$", envProp.toString(), 1);
+        if (!surgeEventOutdateStr.isBlank()) {
+            final var surgeEventOutdate = Integer.parseInt(surgeEventOutdateStr);
+            if (surgeEventOutdate < 5) {
+                return surgeEventOutdate + 5;
+            }
+            return surgeEventOutdate;
+        }
+        return null;
+    }
+
+    @Step("Получаем auth token для /boost")
+    public static String getHttpAuthTokenFromK8s() {
+        final var envProps = getServiceEnvProp(EnvironmentProperties.Env.SURGELEVEL_NAMESPACE, SURGE_HTTP_AUTH_TOKENS.get());
+        final var authTokens = matchWithRegex("^\\[HTTP_AUTH_TOKENS=(\\{.+\\})\\]$", envProps.toString(), 1);
+        if (!authTokens.isBlank()) {
+            JSONParser parser = new JSONParser();
+            JSONObject json = null;
+            try {
+                json = (JSONObject) parser.parse(authTokens);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (Objects.nonNull(json)) {
+                return json.keySet().iterator().next().toString();
+            }
+        }
+        return null;
+    }
 }
