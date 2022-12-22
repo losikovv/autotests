@@ -19,6 +19,14 @@ public class KafkaConfigs {
                 .build();
     }
 
+    public static KafkaConfig configOrderStf() {
+        return KafkaConfig.builder()
+                .topic("yc.customer.fct.orders.0")
+                .login(Crypt.INSTANCE.decrypt("W8t2xfaWNDbOiygPZb58sw=="))
+                .password(Crypt.INSTANCE.decrypt("qDEePBkZyGVm909bb9boEA=="))
+                .build();
+    }
+
     public static KafkaConfig configCmdStatusOrderRequest() {
         return KafkaConfig.builder()
                 .topic("yc.operations-order-service.cmd.status-order-request.0")

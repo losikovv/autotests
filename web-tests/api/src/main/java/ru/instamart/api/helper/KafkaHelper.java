@@ -2,7 +2,8 @@ package ru.instamart.api.helper;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import order.Order;
+import protobuf.order_data.OrderOuterClass;
+import protobuf.order_data.OrderOuterClass.Order;
 import order.OrderChanged;
 import order_enrichment.OrderEnrichment;
 import order_status.OrderStatus;
@@ -28,21 +29,21 @@ import static ru.instamart.kafka.configs.KafkaConfigs.*;
 public class KafkaHelper {
 
     @Step("Получаем данные из топика {config.topic} кафки по orderUUID: {orderUUID}")
-    public List<Order.EventOrder> waitDataInKafkaTopicFtcOrder(KafkaConfig config, String orderUUID, StatusOrder postponed) {
+    public List<OrderOuterClass.Order> waitDataInKafkaTopicFtcOrder(KafkaConfig config, String orderUUID, StatusOrder postponed) {
         var kafkaConsumers = new KafkaConsumers(config, 10L);
-        List<Order.EventOrder> longEventOrderHashMap = kafkaConsumers.consumeEventOrder(orderUUID, postponed);
+        List<OrderOuterClass.Order> longEventOrderHashMap = kafkaConsumers.consumeEventOrder(orderUUID, postponed);
         assertTrue(longEventOrderHashMap.size() > 0, "Logs is empty");
         return longEventOrderHashMap;
     }
 
-    public List<Order.EventOrder> waitDataInKafkaTopicFtcOrder(KafkaConfig config, String orderUUID) {
+    public List<OrderOuterClass.Order> waitDataInKafkaTopicFtcOrder(KafkaConfig config, String orderUUID) {
         return waitDataInKafkaTopicFtcOrder(config, orderUUID, null);
     }
 
     @Step("Фильтр данных кафки по orderUUID")
-    private List<Order.EventOrder> getOrderData(List<Order.EventOrder> list, String filter) {
-        List<Order.EventOrder> collect = list.stream()
-                .filter(p -> p.getOrderUuid() == filter)
+    private List<OrderOuterClass.Order> getOrderData(List<OrderOuterClass.Order> list, String filter) {
+        List<OrderOuterClass.Order> collect = list.stream()
+                .filter(p -> p.getShipments(0).getUuid() == filter)
                 .collect(Collectors.toList());
         Allure.addAttachment("Данные по заказу", list.toString());
         return collect;
@@ -50,9 +51,9 @@ public class KafkaHelper {
 
 
     @Step("Проверка смены статуса на {postponed.value} сообщения")
-    public void checkChangeStatusOrder(List<Order.EventOrder> list, StatusOrder postponed) {
-        List<Order.EventOrder> collect = list.stream()
-                .filter(p -> p.getShipmentStatus().getValueDescriptor().equals(postponed.getValue()))
+    public void checkChangeStatusOrder(List<OrderOuterClass.Order> list, StatusOrder postponed) {
+        List<OrderOuterClass.Order> collect = list.stream()
+                .filter(p -> p.getShipments(0).getState().getValueDescriptor().equals(postponed.getValue()))
                 .collect(Collectors.toList());
         Allure.addAttachment("Data", collect.toString());
         assertTrue(collect.size() > 0, "Нет данных по смене статуса");
@@ -148,10 +149,26 @@ public class KafkaHelper {
         return longOrderChangedHashMap;
     }
 
+    @Step("Получаем данные в кафке по shipmentUUID в топике со статусом заказа: {shipmentUuid}")
+    public List<OrderChanged.EventOrderChanged> waitDataInKafkaTopicOrderStatusChangedShipmentUuid(final String shipmentUuid) {
+        var kafkaConsumers = new KafkaConsumers(configOrderStatusChanged(), 10L);
+        List<OrderChanged.EventOrderChanged> longOrderChangedHashMap = kafkaConsumers.consumeOrderStatusChangedShipmentUuid(shipmentUuid);
+        assertTrue(longOrderChangedHashMap.size() > 0, "Logs is empty");
+        return longOrderChangedHashMap;
+    }
+
     @Step("Получаем данные в кафке по orderUUID и статусу заказа в топике со статусом заказа: {orderUuid}, {orderStatus}")
     public List<OrderChanged.EventOrderChanged> waitDataInKafkaTopicOrderStatusChangedByStatus(final String orderUuid, final OrderChanged.EventOrderChanged.OrderStatus orderStatus) {
         var kafkaConsumers = new KafkaConsumers(configOrderStatusChanged(), 10L);
         List<OrderChanged.EventOrderChanged> longOrderChangedHashMap = kafkaConsumers.consumeOrderStatusChangedByStatus(orderUuid, orderStatus);
+        assertTrue(longOrderChangedHashMap.size() > 0, "Logs is empty");
+        return longOrderChangedHashMap;
+    }
+
+    @Step("Получаем данные в кафке по shipmentUUID и статусу заказа в топике со статусом заказа: {orderUuid}, {orderStatus}")
+    public List<OrderChanged.EventOrderChanged> waitDataInKafkaTopicOrderStatusChangedByStatusShipment(final String shipmentUUID, final OrderChanged.EventOrderChanged.OrderStatus orderStatus) {
+        var kafkaConsumers = new KafkaConsumers(configOrderStatusChanged(), 10L);
+        List<OrderChanged.EventOrderChanged> longOrderChangedHashMap = kafkaConsumers.consumeOrderStatusChangedByStatusShipment(shipmentUUID, orderStatus);
         assertTrue(longOrderChangedHashMap.size() > 0, "Logs is empty");
         return longOrderChangedHashMap;
     }

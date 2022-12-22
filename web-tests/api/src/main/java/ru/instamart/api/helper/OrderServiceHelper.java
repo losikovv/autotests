@@ -3,11 +3,11 @@ package ru.instamart.api.helper;
 import candidates.StoreChangedOuterClass;
 import com.google.protobuf.Timestamp;
 import io.qameta.allure.Step;
-import io.restassured.response.Response;
 import operations_order_service.OperationsOrderService;
+import protobuf.order_data.OrderOuterClass;
 import protobuf.retail_onboarding_retailer_data.RetailOnboardingRetailerData;
 import protobuf.retail_onboarding_store_data.RetailOnboardingStoreData;
-import ru.instamart.api.model.v2.NextDeliveryV2;
+import ru.instamart.api.testdata.OrderServiceTestData;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.response.v2.NextDeliveriesV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -21,43 +21,95 @@ public class OrderServiceHelper {
     private static final KafkaHelper kafka = new KafkaHelper();
 
     @Step("Создаем событие нового заказа для магазина")
-    public static OperationsOrderService.EventOrder getOrderEvent(final double latitude, final double longitude, final Timestamp deliveryPromiseUpperDttmStartsAt,
-                                                                  final Timestamp deliveryPromiseUpperDttmEndsAt, final int numberOfPositionsInOrder,
-                                                                  final String orderUuid, final int orderWeightGramms, final OperationsOrderService.EventOrder.RequestOrderType requestOrderType,
-                                                                  final OperationsOrderService.EventOrder.ShipmentStatus shipmentStatus, final String placeUUID,
-                                                                  final String shipmentUuid, final String orderNumber, final float itemsTotalAmount,
-                                                                  final boolean isNew, final OperationsOrderService.EventOrder.ShippingMethodKind shippingMethodKind) {
-        return OperationsOrderService.EventOrder.newBuilder()
-                .setClientLocation(OperationsOrderService.EventOrder.ClientLocation.newBuilder()
-                        .setLatitude(latitude)
-                        .setLongitude(longitude)
+    public static OrderOuterClass.Order getOrderEvent(final String number, final Double lon, final Double lat, final Timestamp endsAt, final Long id,
+                                                      final Timestamp startsAt, final Long deliveryWindowsId, final String numberShipments,
+                                                      final OrderOuterClass.Order.Shipment.ShipmentType shipmentType, final String uuidShipments,
+                                                      final String kindShippingMethod, final OrderOuterClass.Order.Shipment.ShipmentState stateShipments, final String kindDelivery) {
+
+        return OrderOuterClass.Order.newBuilder()
+                .setCanChangePaymentTool(OrderServiceTestData.canChangePaymentTool)
+                .setChannel(OrderOuterClass.Order.Channel.newBuilder()
+                        .setName(OrderServiceTestData.name)
+                        .setUuid(OrderServiceTestData.uuid)
+                        .build()
+                )
+                .setCompletedAt(OrderServiceTestData.completedAt)
+                .setCreatedAt(OrderServiceTestData.completedAt)
+                .setCurrency(OrderServiceTestData.currency)
+                .setEmail(OrderServiceTestData.email)
+                .setIsFirstOrder(OrderServiceTestData.isFirstOrder)
+                .setNumber(number)
+                .addPayments(OrderOuterClass.Order.Payment.newBuilder()
+                        .setAmount(OrderServiceTestData.money)
+                        .setPaymentMethod(OrderServiceTestData.paymentMethod)
+                        .setState(OrderServiceTestData.statePayments)
                         .build())
-                .setCreateTime(getTimestamp())
-                .setDeliveryPromiseUpperDttmEndsAt(deliveryPromiseUpperDttmStartsAt)
-                .setDeliveryPromiseUpperDttmStartsAt(deliveryPromiseUpperDttmEndsAt)
-                .setNumberOfPositionsInOrder(numberOfPositionsInOrder)
-                .setOrderUuid(orderUuid)
-                .setOrderWeightGramms(orderWeightGramms)
-                .setShipmentType(requestOrderType)
-                .setShipmentStatus(shipmentStatus)
-                .setPlaceUuid(placeUUID)
-                .setShipmentUuid(shipmentUuid)
-                .setNumber(orderNumber)
-                .setItemsTotalAmount(itemsTotalAmount)
-                .setIsNew(isNew)
-                .setShippingMethodKind(shippingMethodKind)
+                .setReplacementPolicy(OrderServiceTestData.replacePolicy)
+                .setSegment(OrderServiceTestData.segment)
+                .setShipAddress(OrderOuterClass.Order.ShipAddress.newBuilder()
+                        .setAddress1(OrderServiceTestData.address1)
+                        .setApartment(OrderServiceTestData.apartment)
+                        .setBuilding(OrderServiceTestData.building)
+                        .setCity(OrderServiceTestData.city)
+                        .setFirstname(OrderServiceTestData.firstName)
+                        .setFullAddress(OrderServiceTestData.fullAddress)
+                        .setFullName(OrderServiceTestData.fullName)
+                        .setKind(OrderServiceTestData.kindAddress)
+                        .setLastname(OrderServiceTestData.lastName)
+                        .setLat(lat)
+                        .setLon(lon)
+                        .setPhone(OrderServiceTestData.phone)
+                        .setStreet(OrderServiceTestData.street))
+                .addShipments(OrderOuterClass.Order.Shipment.newBuilder()
+                        .setAdjustmentTotal(OrderServiceTestData.adjustmentTotal)
+                        .setContractType(OrderServiceTestData.contractType)
+                        .setCost(OrderServiceTestData.cost)
+                        .setDeliveryWindow(OrderOuterClass.Order.Shipment.DeliveryWindow.newBuilder()
+                                .setEndsAt(endsAt)
+                                .setId(id)
+                                .setKind(kindDelivery)
+                                .setStartsAt(startsAt)
+                                .build())
+                        .setDeliveryWindowId(deliveryWindowsId)
+                        .setItemCount(OrderServiceTestData.itemCount)
+                        .setItemTotal(OrderServiceTestData.ItemTotal)
+                        .setNumber(numberShipments)
+                        .setPaymentState(OrderServiceTestData.paymentState)
+                        .setRetailer(OrderOuterClass.Order.Shipment.Retailer.newBuilder()
+                                .setId(OrderServiceTestData.idRetailer)
+                                .setName(OrderServiceTestData.nameRetailer)
+                                .setShortName(OrderServiceTestData.shortNameRetailer)
+                                .setSlug(OrderServiceTestData.slugRetailer)
+                                .setUuid(OrderServiceTestData.uuidRetailer)
+                                .build())
+                        .setShipmentType(shipmentType)
+                        .setShippingCategory(OrderOuterClass.Order.Shipment.ShippingCategory.newBuilder()
+                                .setName(OrderServiceTestData.nameShippingCategory)
+                                .setSlug(OrderServiceTestData.slugShippingCategory)
+                                .build())
+                        .setShippingMethod(OrderOuterClass.Order.Shipment.ShippingMethod.newBuilder()
+                                .setKind(kindShippingMethod)
+                                .setName(OrderServiceTestData.nameShippingMethod)
+                                .build())
+                        .setState(stateShipments)
+                        .setStoreUuid(OrderServiceTestData.storeUuid)
+                        .setTenantId(OrderServiceTestData.tenantId)
+                        .setTotalQuantity(OrderServiceTestData.totalQuantity)
+                        .setTotalWeight(OrderServiceTestData.totalWeight)
+                        .setUuid(uuidShipments))
+                .setState(OrderServiceTestData.stateGlobal)
+                .setTotal(OrderServiceTestData.total)
+                .setUpdatedAt(OrderServiceTestData.updatedAt)
                 .build();
     }
 
     @Step("Отправляем событие нового заказа для магазина в kafka")
-    public static void publishOrderEvent(final double latitude, final double longitude, final Timestamp deliveryPromiseUpperDttmStartsAt,
-                                         final Timestamp deliveryPromiseUpperDttmEndsAt, final int numberOfPositionsInOrder, final String orderUuid,
-                                         final int orderWeightGramms, final OperationsOrderService.EventOrder.RequestOrderType requestOrderType,
-                                         final OperationsOrderService.EventOrder.ShipmentStatus shipmentStatus, final String placeUUID,
-                                         final String shipmentUuid, final String orderNumber, final float itemsTotalAmount, final boolean isNew,
-                                         final OperationsOrderService.EventOrder.ShippingMethodKind shippingMethodKind) {
-        final var orderEvent = getOrderEvent(latitude, longitude, deliveryPromiseUpperDttmStartsAt, deliveryPromiseUpperDttmEndsAt, numberOfPositionsInOrder, orderUuid, orderWeightGramms, requestOrderType, shipmentStatus, placeUUID, shipmentUuid, orderNumber, itemsTotalAmount, isNew, shippingMethodKind);
-        kafka.publish(configFctOrderStf(), orderEvent);
+    public static void publishOrderEvent(final String number, final Double lon, final Double lat, final Timestamp endsAt, final Long id,
+                                         final Timestamp startsAt, final Long deliveryWindowsId, final String numberShipments,
+                                         final OrderOuterClass.Order.Shipment.ShipmentType shipmentType, final String uuidShipments,
+                                         final String kindShippingMethod, final OrderOuterClass.Order.Shipment.ShipmentState stateShipments, final String kindDelivery) {
+        final var orderEvent = getOrderEvent(number, lon, lat, endsAt, id, startsAt, deliveryWindowsId, numberShipments, shipmentType, uuidShipments, kindShippingMethod, stateShipments, kindDelivery);
+        kafka.publish(configOrderStf(), orderEvent);
     }
 
     @Step("Создаем событие нового изменения ритейлера")
@@ -237,6 +289,14 @@ public class OrderServiceHelper {
                                                         final StoreChangedOuterClass.PlaceSettings.DeliveryType deliveryTaskType, final String placeUUID) {
         final var storeChanged  = getStoreChangedEvent(additionalSecondsForAssembly, autoRouting, secondsForAssemblyItem, scheduleType, assemblyTaskType, deliveryTaskType, placeUUID);
         kafka.publish(configStoreChanged(), storeChanged);
+    }
+
+    @Step("Получение ID Слота")
+    public static Long getDeliveryPromiseId() {
+        final var response = StoresV1Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, new StoresV1Request.NextDeliveriesParams());
+        final var nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
+        final var nextDeliveryV2 = nextDeliveriesV2Response.getNextDeliveries().get(0);
+        return nextDeliveryV2.getId().longValue();
     }
 
     @Step("Получение левой границы слота")

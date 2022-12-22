@@ -1,28 +1,196 @@
 syntax = "proto3";
-	
-package order;
 
-import "enums.proto";
 import "google/protobuf/timestamp.proto";
-	
-option go_package = "gitlab.sbermarket.tech/paas/content/operations/order-service/pkg/server/events/order";
+import "google/type/money.proto";
 
-// EventOrder message for Kafka's topic 'yc.operations-order-service.fct.order.0'.
-message EventOrder {
-	enum RequestOrderType
-	{
-		ON_DEMAND = 0;
-		PLANNED = 1;
-	}
-	string shipment_uuid = 1;
-	string order_uuid = 2;
-	enums.ShipmentStatus shipment_status = 3;
-	RequestOrderType shipment_type = 4;
-	google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 5;
-	enums.Location client_location = 6;
-	string place_uuid = 7;
-	uint64 number_of_positions_in_order = 8;
-	uint64 order_weight_gramms = 9;
-	google.protobuf.Timestamp create_time = 10;
-	google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 11;
+package protobuf.order_data;
+option go_package = "gitlab.sbmt.io/paas/content/operations/order-service/pkg/clients/stf/events/order";
+
+message Order {
+  enum OrderState {
+    CART = 0;
+    COMPLETE = 1;
+    CANCELED = 2;
+    RESUMED = 3;
+  }
+  message ShipAddress {
+    string firstname = 1; // "Ivan"
+    string lastname = 2; // "Fedorov"
+    string full_name = 3; // "Ivan Fedorov"
+    string comments = 4; // nil
+    string address1 = 5; // "Москва, 4th street, 56 c.3, 1"
+    string address2 = 6; // nil
+    string zipcode = 7; // nil
+    string region = 8; // nil
+    string area = 9; // nil
+    string city = 10; // "Москва"
+    string settlement = 11; // nil
+    string street = 12; // "4th street"
+    string building = 13; // "56 c.3"
+    string block = 14; // "1"
+    string apartment = 15; // "1"
+    string entrance = 16; // "1"
+    string door_phone = 17; // "1"
+    string floor = 18; // "1"
+    string elevator = 19; // "0"
+    string phone = 20; // "74951112233"
+    string kind = 21; // nil
+    string company = 22; // nil
+    string full_address = 23;
+    double lat = 24; // 0.558e2
+    double lon = 25; // 0.375e2
+    bool delivery_to_door = 26; // true
+  }
+  message Payment {
+    enum PaymentState {
+      CHECKOUT = 0;
+      PENDING = 1;
+      PROCESSING = 2;
+      FAILED = 3;
+      COMPLETED = 4;
+      VOID = 5;
+      INVALID = 6;
+    }
+    message PaymentMethod {
+      string name = 1; // "Наличными в Сбере"
+      string key = 2; // :cash
+    }
+
+    google.type.Money amount = 1; // 0.2798e2
+    PaymentMethod payment_method = 2;
+    optional PaymentState state = 3;
+    repeated string shipment_uuids = 4;
+  }
+  message Shipment {
+    enum ShipmentState {
+      PENDING = 0;
+      READY = 1;
+      COLLECTING = 2;
+      READY_TO_SHIP = 3;
+      SHIPPING = 4;
+      SHIPPED = 5;
+      CANCELED = 6;
+    }
+    enum ShipmentType {
+      ON_DEMAND = 0;
+      PLANNED = 1;
+    }
+    enum ContractType {
+      AGENT = 0;
+      AGENT_WITH_DISCOUNT = 1;
+      SELL_PURCHASE = 2;
+    }
+    message ShippingMethod {
+      string name = 1; // "Доставка SELGROS (через сайт Сбермаркет)"
+      string kind = 2; // "by_courier"
+    }
+    message ShippingCategory {
+      string name = 1;
+      string slug = 2;
+      string description = 3;
+      string instructions = 4;
+    }
+    message DeliveryWindow {
+      google.protobuf.Timestamp starts_at = 1;
+      google.protobuf.Timestamp ends_at = 2;
+      string kind = 3; // "courier"
+      optional int64 closing_time_gap = 4;
+      int64 id = 5;
+    }
+    message Retailer {
+      string name = 1;
+      string short_name = 2;
+      string slug = 3;
+      string uuid = 4;
+      int64 id = 5;
+    }
+    message ExternalService {
+      enum State {
+        ASSEMBLING = 0;
+        ASSEMBLED = 1;
+        CANCELED = 2;
+        INFORMED = 3;
+        READY = 4;
+        SHIPPING = 5;
+      }
+    }
+
+    string uuid = 1; // "950ceacf-f1f3-4d14-a753-be43cf773f08"
+    string number = 2; // "H21654483356"
+
+    optional ShipmentState state = 3;
+    optional ShipmentType shipment_type = 4;
+    optional Payment.PaymentState payment_state = 5;
+    optional ExternalService.State external_service_state = 6;
+    ShippingMethod shipping_method = 7;
+    ShippingCategory shipping_category = 8;
+    DeliveryWindow delivery_window = 9;
+    Retailer retailer = 10;
+
+    google.type.Money cost = 11; // 0.0
+    google.type.Money item_total = 12; // 0.2798e2
+    google.type.Money adjustment_total = 13;
+
+    bool is_online_payment = 14;
+    bool express_delivery = 15;
+
+    optional int64 item_count = 16; // 1
+    optional int64 total_weight = 17; // 200
+    optional int64 total_quantity = 18;
+    optional int64 delivery_window_id = 19;
+
+    string dispatcher_comment = 20;
+    string store_uuid = 21;
+    string tenant_id = 22;
+    string external_id = 23;
+
+    optional ContractType contract_type = 24;
+  }
+  message Channel {
+    string uuid = 1;
+    string name = 2;
+  }
+  message Adjustments {
+    google.type.Money amount = 1;
+    string shipment_uuid = 2;
+    string line_item_uuid = 3;
+    string promotion_uuid = 4;
+    int64 promotion_id = 5;
+    repeated string sensitive_line_items = 6;
+  }
+  message ExternalOrderMark {
+    string external_order_identifier = 1;
+    string external_promocode = 2;
+    string external_customer_id = 3;
+    bool b2b = 4;
+  }
+
+  string number = 1; // "R158144028"
+  string email = 2; // "admin@instamart.ru"
+  string currency = 3; // "RUB"
+  string replacement_policy = 4; // "call_or_replace"
+  string customer_comment = 5; // "Позвонить"
+  string dispatcher_comment = 6; // nil
+
+  google.type.Money total = 7; // 11574.9
+
+  bool closing_docs_required = 8; // false
+  bool is_first_order = 9; // true
+  bool can_change_payment_tool = 10; // true
+
+  optional OrderState state = 11; // "complete"
+  ShipAddress ship_address = 12;
+  Channel channel = 13;
+  ExternalOrderMark external_order_mark = 14;
+
+  repeated Payment payments = 15;
+  repeated Shipment shipments = 16;
+  repeated Adjustments adjustments = 17;
+  repeated Adjustments line_item_adjustments = 18;
+
+  google.protobuf.Timestamp created_at = 19;
+  google.protobuf.Timestamp updated_at = 20;
+  google.protobuf.Timestamp completed_at = 21;
+
+  string segment = 22; // "b2c"
 }

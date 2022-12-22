@@ -16,7 +16,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import protobuf.order_data.OrderOuterClass;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.jdbc.dao.orders_service.OrdersDao;
 import ru.instamart.jdbc.dao.orders_service.PlacesDao;
 import ru.instamart.jdbc.dao.orders_service.RetailersDao;
@@ -55,12 +57,11 @@ public class OrderServiceKafkaTest extends RestBase {
         final var orderUuid = UUID.randomUUID().toString();
         final var shipmentUuid = UUID.randomUUID().toString();
         final var orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
-        publishOrderEvent(latitude, longitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseUpperDttmStartsAt(),
-                1, orderUuid, 2000, RequestOrderType.PLANNED,
-                ShipmentStatus.READY, placeUUID, shipmentUuid, orderNumber, 3599, false, ShippingMethodKind.BY_COURIER);
+        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
+                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.PLANNED, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "courier");
 
         ThreadUtil.simplyAwait(1);
-        final var orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChanged(orderUuid);
+        final var orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedShipmentUuid(shipmentUuid);
 
         Allure.step("Проверка полученного сообщения о плановом заказе в кафке", () -> {
             final SoftAssert softAssert = new SoftAssert();
@@ -80,10 +81,11 @@ public class OrderServiceKafkaTest extends RestBase {
         final var orderUuid = UUID.randomUUID().toString();
         final var shipmentUuid = UUID.randomUUID().toString();
         final var orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
-        publishOrderEvent(latitude, longitude, getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseUpperDttmEndsAt(), 1, orderUuid, 2000, RequestOrderType.ON_DEMAND, ShipmentStatus.READY, placeUUID, shipmentUuid, orderNumber, 3599, false, ShippingMethodKind.BY_COURIER);
+        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
+                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
 
         ThreadUtil.simplyAwait(1);
-        final var orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChanged(orderUuid);
+        final var orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedShipmentUuid(shipmentUuid);
 
         Allure.step("Проверка полученного сообщения об ондеманд заказе в кафке", () -> {
             final SoftAssert softAssert = new SoftAssert();
@@ -103,12 +105,11 @@ public class OrderServiceKafkaTest extends RestBase {
         final var orderUuid = UUID.randomUUID().toString();
         final var shipmentUuid = UUID.randomUUID().toString();
         final var orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
-        publishOrderEvent(latitude, longitude, getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseUpperDttmEndsAt(), 1,
-                orderUuid, 2000, RequestOrderType.PLANNED, ShipmentStatus.READY, placeUUID, shipmentUuid,
-                orderNumber, 3599, false, ShippingMethodKind.PICKUP);
+        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
+                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.PLANNED, shipmentUuid, ShippingMethodV2.PICKUP.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "pickup");
 
         ThreadUtil.simplyAwait(1);
-        final var orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChanged(orderUuid);
+        final var orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedShipmentUuid(shipmentUuid);
 
         Allure.step("Проверка полученного сообщения о самовывозе в кафке", () -> {
             final SoftAssert softAssert = new SoftAssert();
@@ -129,12 +130,10 @@ public class OrderServiceKafkaTest extends RestBase {
         final var secondShipmentUuid = UUID.randomUUID().toString();
         final var firstOrderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
         final var secondOrderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
-        publishOrderEvent(latitude, longitude, getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseUpperDttmEndsAt(), 1,
-                orderUuid, 2000, RequestOrderType.ON_DEMAND, ShipmentStatus.READY, placeUUID, firstShipmentUuid,
-                firstOrderNumber, 3599, false, ShippingMethodKind.BY_COURIER);
-        publishOrderEvent(latitude, longitude, getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseUpperDttmEndsAt(), 1,
-                orderUuid, 2000, RequestOrderType.ON_DEMAND, ShipmentStatus.READY, multiOrderPlaceUUID, secondShipmentUuid,
-                secondOrderNumber, 3599, false, ShippingMethodKind.BY_COURIER);
+        publishOrderEvent(firstOrderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
+                getDeliveryPromiseId(), firstOrderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, firstShipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
+        publishOrderEvent(secondOrderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
+                getDeliveryPromiseId(), secondOrderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, secondShipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");;
 
         ThreadUtil.simplyAwait(1);
         final var firstOrderEntity = OrdersDao.INSTANCE.findByShipmentUuid(firstShipmentUuid);
@@ -155,16 +154,14 @@ public class OrderServiceKafkaTest extends RestBase {
         final var orderUuid = UUID.randomUUID().toString();
         final var shipmentUuid = UUID.randomUUID().toString();
         final var orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
-        publishOrderEvent(latitude, longitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseUpperDttmStartsAt(), 1,
-                orderUuid, 2000, RequestOrderType.PLANNED, ShipmentStatus.READY, placeUUID, shipmentUuid,
-                orderNumber, 3599, false, ShippingMethodKind.BY_COURIER);
+        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
+                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.PLANNED, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "courier");
 
         ThreadUtil.simplyAwait(1);
-        publishOrderEvent(latitude, longitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseUpperDttmStartsAt(), 1,
-                orderUuid, 2000, RequestOrderType.PLANNED, ShipmentStatus.CANCELED, placeUUID, shipmentUuid,
-                orderNumber, 3599, false, ShippingMethodKind.BY_COURIER);
+        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
+                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.PLANNED, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.CANCELED, "courier");;
         ThreadUtil.simplyAwait(1);
-        final var orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedByStatus(orderUuid, OrderStatus.CANCELED);
+        final var orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedByStatusShipment(shipmentUuid, OrderStatus.CANCELED);
 
         Allure.step("Проверка полученного сообщения об отмене заказа в кафке", () -> {
             final SoftAssert softAssert = new SoftAssert();

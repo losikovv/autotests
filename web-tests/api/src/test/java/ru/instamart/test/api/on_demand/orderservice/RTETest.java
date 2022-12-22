@@ -1,6 +1,9 @@
 package ru.instamart.test.api.on_demand.orderservice;
 
+import com.google.type.Money;
 import io.grpc.StatusRuntimeException;
+import ru.instamart.api.enums.v2.ShippingMethodV2;
+import ru.instamart.api.model.v2.NextDeliveryV2;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -12,10 +15,12 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import protobuf.order_data.OrderOuterClass;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.DispatchDataProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.response.shopper.admin.RouteRoutingSettings;
 import ru.instamart.jdbc.dao.orders_service.*;
 import ru.instamart.jdbc.entity.order_service.*;
@@ -28,6 +33,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import com.google.protobuf.Timestamp;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
@@ -84,13 +90,13 @@ public class RTETest extends RestBase {
     @Test(description = "Расчет времени для экспресс доставки с ресторана",
             groups = "dispatch-orderservice-smoke")
     public void RTEForOndemandOrder() {
-        String orderUuid = UUID.randomUUID().toString();
+
         String shipmentUuid = UUID.randomUUID().toString();
         String orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
-        publishOrderEvent(latitude, longitude, getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseUpperDttmEndsAt(), 1, orderUuid, 2000, OperationsOrderService.EventOrder.RequestOrderType.ON_DEMAND, OperationsOrderService.EventOrder.ShipmentStatus.READY, placeUUID, shipmentUuid, orderNumber, 3599, false, OperationsOrderService.EventOrder.ShippingMethodKind.BY_COURIER);
+        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
 
         ThreadUtil.simplyAwait(1);
-        List<OrderChanged.EventOrderChanged> orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChanged(orderUuid);
+        List<OrderChanged.EventOrderChanged> orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedShipmentUuid(shipmentUuid);
 
         long timeStart = orderChangedMessage.get(0).getJobs(1).getPlanStartedAt().getSeconds();
         long timeEnd = (int)timeStart+sla*60+factorCityCongestionMinute*60;
@@ -114,13 +120,12 @@ public class RTETest extends RestBase {
                 }
         );
 
-        String orderUuid = UUID.randomUUID().toString();
         String shipmentUuid = UUID.randomUUID().toString();
         String orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
-        publishOrderEvent(latitude, longitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseUpperDttmStartsAt(), 1, orderUuid, 2000, OperationsOrderService.EventOrder.RequestOrderType.PLANNED, OperationsOrderService.EventOrder.ShipmentStatus.READY, placeUUID, shipmentUuid, orderNumber, 3599, false, OperationsOrderService.EventOrder.ShippingMethodKind.BY_COURIER);
+        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
 
         ThreadUtil.simplyAwait(1);
-        List<OrderChanged.EventOrderChanged> orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChanged(orderUuid);
+        List<OrderChanged.EventOrderChanged> orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedShipmentUuid(shipmentUuid);
 
         OrdersEntity ordersEntity = OrdersDao.INSTANCE.findByShipmentUuid(shipmentUuid);
         long lower = TimeUtil.getTimestampFromStringDtdb(ordersEntity.getDeliveryPromiseLowerDttm()).getSeconds();
@@ -157,13 +162,14 @@ public class RTETest extends RestBase {
                 }
         );
 
-        String orderUuid = UUID.randomUUID().toString();
+
         String shipmentUuid = UUID.randomUUID().toString();
         String orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
-        publishOrderEvent(latitude, longitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseUpperDttmStartsAt(), 1, orderUuid, 2000, OperationsOrderService.EventOrder.RequestOrderType.PLANNED, OperationsOrderService.EventOrder.ShipmentStatus.READY, placeUUID, shipmentUuid, orderNumber, 3599, false, OperationsOrderService.EventOrder.ShippingMethodKind.BY_COURIER);
+
+        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
 
         ThreadUtil.simplyAwait(1);
-        List<OrderChanged.EventOrderChanged> orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChanged(orderUuid);
+        List<OrderChanged.EventOrderChanged> orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedShipmentUuid(shipmentUuid);
 
         OrdersEntity ordersEntity = OrdersDao.INSTANCE.findByShipmentUuid(shipmentUuid);
         long lower = TimeUtil.getTimestampFromStringDtdb(ordersEntity.getDeliveryPromiseLowerDttm()).getSeconds();
