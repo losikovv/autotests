@@ -1,8 +1,10 @@
 subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
-    apply plugin: 'project-report'
-    apply plugin: 'io.qameta.allure'
+    apply plugin: 'java-library'
+    apply plugin: 'io.qameta.allure-download'
+    apply plugin: 'io.qameta.allure-report'
+    apply plugin: 'io.qameta.allure-adapter'
 
     apply from: project(":").getRootDir().path+"/variables.gradle"
 
@@ -20,7 +22,6 @@ subprojects {
                 header(HttpHeaderAuthentication)
             }
         }
-        mavenLocal()
     }
 
     sourceCompatibility = JavaVersion.VERSION_11
@@ -41,13 +42,19 @@ subprojects {
 
     allure {
         version = versions.allure
-        autoconfigure = true
-        aspectjweaver = true
-        allureJavaVersion = versions.allure
-        configuration = "testImplementation"
-        useTestNG(){
-            version = versions.allure
+        adapter {
+            allureJavaVersion = versions.allure
+            aspectjWeaver = true
+            aspectjVersion = versions.aspectjweaver
+            autoconfigure = false
+            autoconfigureListeners = false
+            frameworks {
+                testng {
+                    adapterVersion = versions.allure
+                    enabled = true
+                    autoconfigureListeners = false
+                }
+            }
         }
-        downloadLink = "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/"+versions.allure+"/allure-commandline-"+versions.allure+".zip"
     }
 }

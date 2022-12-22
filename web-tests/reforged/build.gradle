@@ -1,8 +1,4 @@
-plugins {
-    id 'java'
-    id 'com.adarshr.test-logger' version '3.1.0'
-}
-
+apply plugin: 'com.adarshr.test-logger'
 apply from: 'stf-task.gradle'
 apply from: 'admin-task.gradle'
 apply from: 'tenant-task.gradle'
