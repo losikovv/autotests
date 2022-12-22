@@ -3,6 +3,7 @@ package ru.instamart.api.helper;
 import eta.Eta;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import lombok.Getter;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.request.eta.RetailerParametersEtaRequest;
@@ -13,6 +14,7 @@ import ru.instamart.api.response.eta.ServiceParametersEtaResponse;
 import ru.instamart.api.response.eta.StoreParametersEtaResponse;
 import ru.instamart.jdbc.dao.eta.ServiceParametersDao;
 import ru.instamart.jdbc.dao.eta.StoreParametersDao;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,11 +23,38 @@ import java.util.stream.Stream;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
+import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.ETA_ENABLE_STORE_ON_DEMAND_CHECK;
+import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.ETA_SURGE_INTERVALS;
+import static ru.instamart.api.helper.K8sHelper.getServiceEnvProp;
+import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 import static ru.instamart.kraken.util.TimeUtil.convertStringToTime;
 
 public class EtaHelper {
 
     private static final List<Eta.EstimateSource> acceptableEstimateSource = List.of(Eta.EstimateSource.FALLBACK, Eta.EstimateSource.ML);
+    private static volatile EtaHelper INSTANCE;
+    @Getter
+    private final boolean storeOndemand;
+    @Getter
+    private final String surgeIntervals;
+
+    private EtaHelper() {
+        this.storeOndemand = getStoreOndemandCheckFromK8s();
+        this.surgeIntervals = getSurgeIntervalsFromK8s();
+    }
+
+    public static EtaHelper getInstance() {
+        EtaHelper RESULT = INSTANCE;
+        if (RESULT != null) {
+            return INSTANCE;
+        }
+        synchronized (EtaHelper.class) {
+            if (INSTANCE == null) {
+                INSTANCE = new EtaHelper();
+            }
+            return INSTANCE;
+        }
+    }
 
     @Step("Получаем запрос для user ETA")
     public static Eta.StoreUserEtaRequest getStoreUserEtaRequest(final String storeUuid, final float lat, final float lon) {
@@ -133,8 +162,8 @@ public class EtaHelper {
 
     @Step("Проверяем магазин в БД и обновляем по необходимости")
     public static void checkStore(final String storeUuid, final Float lat, final Float lon, final String timezone,
-                                final Boolean isMlEnabled, final String openingTime, final String closingTime,
-                                final String closingDelta, final Boolean isSigmaEnabled, final Boolean isSurgeEnabled) {
+                                  final Boolean isMlEnabled, final String openingTime, final String closingTime,
+                                  final String closingDelta, final Boolean isSigmaEnabled, final Boolean isSurgeEnabled) {
         final var isStoreAdded = StoreParametersDao.INSTANCE.checkStore(storeUuid, lat, lon, timezone, isMlEnabled, openingTime, closingTime, closingDelta, isSigmaEnabled, isSurgeEnabled);
         Allure.step("Проверяем что магазин добавлен", () -> assertTrue(isStoreAdded, "Не удалось добавить магазин в БД"));
     }
@@ -167,5 +196,45 @@ public class EtaHelper {
     public static void updateStoreParameters(final String storeId, final StoreParametersEtaResponse storeParameters) {
         final var response = StoreParametersEtaRequest.PUT(storeId, storeParameters);
         checkStatusCode(response, 200);
+    }
+
+    @Step("Смотрим включена ли проверка закрытия магазина")
+    public static boolean getStoreOndemandCheckFromK8s() {
+        final var envProp = getServiceEnvProp(EnvironmentProperties.Env.ETA_NAMESPACE, ETA_ENABLE_STORE_ON_DEMAND_CHECK.get());
+        final var etaEnableOnDemandCheck = matchWithRegex("^\\[ETA_ENABLE_STORE_ON_DEMAND_CHECK=(.\\w+)\\]$", envProp.toString(), 1);
+        return etaEnableOnDemandCheck.equals("true");
+    }
+
+    @Step("Получаем интервалы сюрджа")
+    public static String getSurgeIntervalsFromK8s() {
+        final var envProp = getServiceEnvProp(EnvironmentProperties.Env.ETA_NAMESPACE, ETA_SURGE_INTERVALS.get());
+        return matchWithRegex("^\\[SURGE_INTERVALS=\\{\"intervals\":\\[(.*)\\]\\}\\]$", envProp.toString(), 1);
+    }
+
+    @Step("Получаем правую границу интервалов сюрджа")
+    public static Float getIntervalsBoundary(String surgeIntervals) {
+        final var etaSurgeIntervalsBoundary = matchWithRegex("^.*right_boundary\":.?((?:\\d+(?:\\.\\d*)?|\\.\\d+)).*$", surgeIntervals, 1);
+        if (!etaSurgeIntervalsBoundary.isBlank()) {
+            return Float.parseFloat(etaSurgeIntervalsBoundary);
+        }
+        return 0f;
+    }
+
+    @Step("Получаем продолжительность отключения ЕТА из интервалов сюрджа")
+    public static Integer getIntervalsDisableEtaDuration(String surgeIntervals) {
+        final var etaSurgeIntervalsDisableEtaDuration = matchWithRegex("^.*disable_eta_duration\":.?\"(\\d+)m\".*$", surgeIntervals, 1);
+        if (!etaSurgeIntervalsDisableEtaDuration.isBlank()) {
+            return Integer.parseInt(etaSurgeIntervalsDisableEtaDuration);
+        }
+        return 0;
+    }
+
+    @Step("Получаем продолжительность отключения слотов из интервалов сюрджа")
+    public static Integer getIntervalsDisableSlotsDuration(String surgeIntervals) {
+        final var etaSurgeIntervalsDisableSlotsDuration = matchWithRegex("^.*disable_slots_duration\":.?\"(\\d+)m\".*$", surgeIntervals, 1);
+        if (!etaSurgeIntervalsDisableSlotsDuration.isBlank()) {
+            return Integer.parseInt(etaSurgeIntervalsDisableSlotsDuration);
+        }
+        return 0;
     }
 }

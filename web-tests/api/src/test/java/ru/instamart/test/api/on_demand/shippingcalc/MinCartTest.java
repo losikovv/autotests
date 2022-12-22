@@ -11,9 +11,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.ShippingCalcBase;
+import ru.instamart.api.helper.ShippingCalcHelper;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.shippingcalc.RulesDao;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.AppVersion;
 import ru.instamart.kraken.enums.Tenant;
 import ru.instamart.redis.Redis;
@@ -28,9 +28,7 @@ import java.util.UUID;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
-import static ru.instamart.api.helper.K8sHelper.getPaasServiceEnvProp;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
-import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 import static ru.instamart.kraken.util.TimeUtil.getZonedUTCDate;
 
 @Epic("ShippingCalc")
@@ -76,10 +74,7 @@ public class MinCartTest extends ShippingCalcBase {
 
         RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, SURGE_LEVEL, SURGE_LEVEL, SURGE_LEVEL, getZonedUTCDate()), 1000);
 
-        List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.SHIPPINGCALC_NAMESPACE, " | grep -e SURGE_DISABLED ");
-        String envPropsStr = String.join("\n", serviceEnvProperties);
-        String surgeDisabledStr = matchWithRegex("^SURGE_DISABLED=(.\\w+)$", envPropsStr, 1);
-        surgeDisabled = surgeDisabledStr.equals("true");
+        surgeDisabled = ShippingCalcHelper.getInstance().isSurgeDisabled();
     }
 
     @CaseIDs(value = {@CaseId(411), @CaseId(415)})

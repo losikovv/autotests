@@ -34,7 +34,7 @@ import static ru.instamart.kraken.enums.ScheduleType.DISPATCH;
 import static ru.instamart.kraken.util.TimeUtil.getDateMinusSec;
 import static ru.instamart.kraken.util.TimeUtil.getDatePlusSec;
 
-@Epic("On Demand")
+@Epic("Surgelevel")
 @Feature("Manual Surge")
 public class ManualSurgeTest extends GrpcBase {
 
@@ -49,16 +49,16 @@ public class ManualSurgeTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void preConditions() {
-        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), null, true, 1f, 1f, null, 1, DELIVERY_AREA_ID, null);
-        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), null, true, 1f, 1f, null, 1, DELIVERY_AREA_ID, null);
         channel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_SURGELEVEL);
         client = ServiceGrpc.newBlockingStub(channel);
+        addStore(FIRST_STORE_ID, UUID.randomUUID().toString(), null, true, 1f, 1f, null, 1, DELIVERY_AREA_ID, null);
+        addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), null, true, 1f, 1f, null, 1, DELIVERY_AREA_ID, null);
     }
 
     @CaseId(146)
     @Story("Save Result")
     @Test(description = "Ручное выставление surgelevel",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void saveResult() {
         var request = Surgelevel.SaveResultRequest.newBuilder()
                 .addStore(Surgelevel.Store.Option.newBuilder()
@@ -80,7 +80,7 @@ public class ManualSurgeTest extends GrpcBase {
     @CaseIDs({@CaseId(155), @CaseId(42)})
     @Story("Manual Surge")
     @Test(description = "Перерасчет surgelevel при наступлении expiredAt",
-            groups = "ondemand-surgelevel-smoke",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "saveResult")
     public void manualSurgeRecalculate() {
         ThreadUtil.simplyAwait(60);
@@ -92,7 +92,7 @@ public class ManualSurgeTest extends GrpcBase {
     @CaseId(147)
     @Story("Save Result")
     @Test(description = "Ручное выставление surgelevel нескольким магазинам",
-            groups = "ondemand-surgelevel-smoke",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "manualSurgeRecalculate")
     public void saveResultMultipleStores() {
         var request = Surgelevel.SaveResultRequest.newBuilder()
@@ -123,7 +123,7 @@ public class ManualSurgeTest extends GrpcBase {
     @CaseId(156)
     @Story("Manual Surge")
     @Test(description = "Отсутствие перерасчета surgelevel, если не наступило expiredAt",
-            groups = "ondemand-surgelevel-smoke",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "saveResultMultipleStores")
     public void manualSurgeNotRecalculate() {
         publishEventCandidateStatus(UUID.randomUUID().toString(), CandidateChangesOuterClass.CandidateChanges.Role.UNIVERSAL, CandidateChangesOuterClass.CandidateChanges.Status.BUSY, 0, DELIVERY_AREA_ID, true, SECOND_STORE_ID, DISPATCH.getName(), LONG_TIMEOUT);
@@ -138,7 +138,7 @@ public class ManualSurgeTest extends GrpcBase {
     @CaseId(148)
     @Story("Save Result")
     @Test(description = "Получение ошибки при выставлении expiredAt в прошлом",
-            groups = "ondemand-surgelevel-regress",
+            groups = "ondemand-surgelevel",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid result expired_at")
     public void saveResultExpiredTime() {
@@ -157,7 +157,7 @@ public class ManualSurgeTest extends GrpcBase {
     @CaseId(149)
     @Story("Save Result")
     @Test(description = "Получение ошибки при выставлении expiredAt больше чем на 7 дней",
-            groups = "ondemand-surgelevel-regress",
+            groups = "ondemand-surgelevel",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid result expired_at")
     public void saveResultTooLong() {
@@ -176,7 +176,7 @@ public class ManualSurgeTest extends GrpcBase {
     @CaseId(150)
     @Story("Save Result")
     @Test(description = "Получение ошибки при пустом store",
-            groups = "ondemand-surgelevel-regress",
+            groups = "ondemand-surgelevel",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty stores")
     public void saveResultEmptyStore() {
@@ -192,7 +192,7 @@ public class ManualSurgeTest extends GrpcBase {
     @CaseId(151)
     @Story("Save Result")
     @Test(description = "Получение ошибки при пустом result",
-            groups = "ondemand-surgelevel-regress",
+            groups = "ondemand-surgelevel",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty result")
     public void saveResultEmptyResult() {
@@ -207,7 +207,7 @@ public class ManualSurgeTest extends GrpcBase {
     @CaseId(152)
     @Story("Save Result")
     @Test(description = "Получение ошибки с невалидным store.id",
-            groups = "ondemand-surgelevel-regress",
+            groups = "ondemand-surgelevel",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: invalid store id:.*")
     public void saveResultInvalidStoreId() {

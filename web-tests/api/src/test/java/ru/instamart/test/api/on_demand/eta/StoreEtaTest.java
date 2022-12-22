@@ -10,8 +10,8 @@ import io.qameta.allure.Story;
 import org.testng.SkipException;
 import org.testng.annotations.*;
 import ru.instamart.api.common.EtaBase;
+import ru.instamart.api.helper.EtaHelper;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.redis.*;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -22,8 +22,6 @@ import java.util.UUID;
 import static org.testng.Assert.assertNotEquals;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.EtaHelper.*;
-import static ru.instamart.api.helper.K8sHelper.getPaasServiceEnvProp;
-import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 import static ru.instamart.kraken.util.TimeUtil.getZoneDbDate;
 
 @Epic("ETA")
@@ -36,10 +34,7 @@ public class StoreEtaTest extends EtaBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         clientEta = PredEtaGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_ETA));
-        final var serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.ETA_NAMESPACE, " | grep -e ETA_ENABLE_STORE_ON_DEMAND_CHECK ");
-        final var envPropsStr = String.join("\n", serviceEnvProperties);
-        final var etaEnableOnDemandCheckStr = matchWithRegex("^ETA_ENABLE_STORE_ON_DEMAND_CHECK=(.\\w+)$", envPropsStr, 1);
-        etaEnableOnDemandCheck = etaEnableOnDemandCheckStr.equals("true");
+        etaEnableOnDemandCheck = EtaHelper.getInstance().isStoreOndemand();
     }
 
     @BeforeMethod(alwaysRun = true)

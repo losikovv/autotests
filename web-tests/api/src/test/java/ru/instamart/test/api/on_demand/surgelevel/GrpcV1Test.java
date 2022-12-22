@@ -11,7 +11,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import surgelevel.ServiceGrpc;
 import surgelevel.Surgelevel;
 
-@Epic("On Demand")
+@Epic("Surgelevel")
 @Feature("gRPC V1")
 public class GrpcV1Test extends GrpcBase {
 
@@ -26,7 +26,7 @@ public class GrpcV1Test extends GrpcBase {
     @CaseId(50)
     @Story("Get Config")
     @Test(description = "Получить дефолтную конфигурацию",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void getConfig() {
         var request = Surgelevel.GetConfigRequest.newBuilder().build();
         var response = client.getConfig(request);

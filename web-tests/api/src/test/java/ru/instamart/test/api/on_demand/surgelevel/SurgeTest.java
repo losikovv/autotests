@@ -9,11 +9,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.helper.SurgeLevelHelper;
 import ru.instamart.jdbc.dao.surgelevel.*;
 import ru.instamart.jdbc.entity.surgelevel.DemandEntity;
 import ru.instamart.jdbc.entity.surgelevel.StoreEntity;
 import ru.instamart.jdbc.entity.surgelevel.SupplyEntity;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -31,16 +31,13 @@ import static events.CandidateChangesOuterClass.*;
 import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
-import static ru.instamart.api.helper.K8sHelper.getPaasServiceEnvProp;
 import static ru.instamart.api.helper.SurgeLevelHelper.*;
 import static ru.instamart.kraken.enums.ScheduleType.*;
 import static ru.instamart.kraken.util.DistanceUtil.distance;
-import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
-import static ru.instamart.kraken.util.TimeUtil.getDateWithoutTimezoneMinusMinutes;
-import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
+import static ru.instamart.kraken.util.TimeUtil.*;
 
-@Epic("On Demand")
-@Feature("Расчет surgelevel")
+@Epic("Surgelevel")
+@Feature("Автоматический расчет surge")
 public class SurgeTest extends RestBase {
 
     private final String STORE_ID = UUID.randomUUID().toString();
@@ -102,15 +99,9 @@ public class SurgeTest extends RestBase {
         addStore(SECOND_STORE_ID, UUID.randomUUID().toString(), null, true, secondStoreLocation.getLat(), secondStoreLocation.getLon(), FORMULA_ID, 1000, SECOND_DELIVERY_AREA_ID, null);
         addStore(THIRD_STORE_ID, UUID.randomUUID().toString(), null, true, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), FORMULA_ID, 1000, 0, null);
 
-        List<String> serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.SURGELEVEL_NAMESPACE, " | grep -e SURGEEVENT_OUTDATE ");
-        String envPropsStr = String.join("\n", serviceEnvProperties);
-        String surgeEventOutdateStr = matchWithRegex("^SURGEEVENT_OUTDATE=(\\d+)s$", envPropsStr, 1);
-
-        if (!surgeEventOutdateStr.isBlank()) {
-            surgeEventOutdate = Integer.parseInt(surgeEventOutdateStr);
-            if (surgeEventOutdate < 5) {
-                surgeEventOutdate += 5;
-            }
+        final var surgeEventOutdateFromK8s = SurgeLevelHelper.getInstance().getSurgeEventOutdate();
+        if (Objects.nonNull(surgeEventOutdateFromK8s)){
+            surgeEventOutdate = surgeEventOutdateFromK8s;
         }
     }
 
@@ -122,7 +113,7 @@ public class SurgeTest extends RestBase {
     @CaseId(24)
     @Story("Surge Calculation")
     @Test(description = "Отсутствие расчета surgelevel для не ON_DEMAND магазинов",
-            groups = "ondemand-surgelevel-regress",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "surgeProduceEventOrderOnDemand")
     public void surgeNotOnDemandStore() {
         Allure.step("Проверка отсутствия расчета surgelevel", () -> {
@@ -135,7 +126,7 @@ public class SurgeTest extends RestBase {
     @CaseId(36)
     @Story("Surge Calculation")
     @Test(description = "Отсутствие расчета surgelevel при disabled=true в конфиге",
-            groups = "ondemand-surgelevel-regress",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "surgeProduceEventOrderOnDemand")
     public void surgeDisabledStore() {
         Allure.step("Проверка отсутствия расчета surgelevel", () -> {
@@ -148,7 +139,7 @@ public class SurgeTest extends RestBase {
     @CaseIDs({@CaseId(14), @CaseId(23), @CaseId(25), @CaseId(163), @CaseId(32)})
     @Story("Demand")
     @Test(description = "Добавление demand при получении события с новым ON_DEMAND заказом",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventOrderOnDemand() {
         publishEventOrderStatus(ORDER_UUID, STORE_ID, OrderStatus.NEW, ShipmentType.ON_DEMAND, SHIPMENT_UUID, LONG_TIMEOUT);
 
@@ -164,7 +155,7 @@ public class SurgeTest extends RestBase {
     @CaseId(40)
     @Story("Demand")
     @Test(description = "Отсутствие изменения surgelevel при получении ранее полученного ON_DEMAND заказа",
-            groups = "ondemand-surgelevel-regress",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "surgeProduceEventOrderOnDemand")
     public void surgeProduceEventOrderRepeat() {
         publishEventOrderStatus(ORDER_UUID, STORE_ID, OrderStatus.ROUTING, ShipmentType.ON_DEMAND, SHIPMENT_UUID, LONG_TIMEOUT);
@@ -175,7 +166,7 @@ public class SurgeTest extends RestBase {
     @CaseId(16)
     @Story("Demand")
     @Test(description = "Отсутствие добавления demand при получении события с новым не ON_DEMAND заказом",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventOrderNotOnDemand() {
         String shipmentUuid = UUID.randomUUID().toString();
         publishEventOrderStatus(UUID.randomUUID().toString(), STORE_ID, OrderStatus.NEW, ShipmentType.PLANNED, shipmentUuid, LONG_TIMEOUT);
@@ -186,7 +177,7 @@ public class SurgeTest extends RestBase {
     @CaseIDs({@CaseId(133), @CaseId(135), @CaseId(43), @CaseId(165), @CaseId(44)})
     @Story("Demand")
     @Test(description = "Добавление demand для нескольких магазинов при получении события с новым ON_DEMAND заказом",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventOrderMultipleStores() {
         String shipmentUuid = UUID.randomUUID().toString();
         publishEventOrderStatus(UUID.randomUUID().toString(), FIRST_STORE_ID, OrderStatus.NEW, ShipmentType.ON_DEMAND, shipmentUuid, LONG_TIMEOUT);
@@ -221,7 +212,7 @@ public class SurgeTest extends RestBase {
     @CaseId(141)
     @Story("Demand")
     @Test(description = "Отсутствие добавления demand для outer-магазинов при distance > STORE_RADIUS",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventOrderGreaterStoreRadius() {
         String shipmentUuid = UUID.randomUUID().toString();
         publishEventOrderStatus(UUID.randomUUID().toString(), SECOND_STORE_ID, OrderStatus.NEW, ShipmentType.ON_DEMAND, shipmentUuid, LONG_TIMEOUT);
@@ -244,7 +235,7 @@ public class SurgeTest extends RestBase {
     @CaseId(126)
     @Story("Supply")
     @Test(description = "Отсутствие добавления supply при получении не on-demand кандидата",
-            groups = "ondemand-surgelevel-regress")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventCandidateNotOnDemand() {
         String candidateUuid = UUID.randomUUID().toString();
         publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, FIRST_DELIVERY_AREA_ID, true, STORE_ID, YANDEX.getName(), SHORT_TIMEOUT);
@@ -256,7 +247,7 @@ public class SurgeTest extends RestBase {
     @CaseId(127)
     @Story("Supply")
     @Test(description = "Отсутствие удаления supply при получении события с UNCHANGED кандидатом",
-            groups = "ondemand-surgelevel-regress",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "surgeProduceEventCandidateDeliveryArea")
     public void surgeProduceEventCandidateUnchanged() {
         publishEventCandidateStatus(CANDIDATE_UUID_DELIVERY_AREA, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.BUSY, 0, FIRST_DELIVERY_AREA_ID, true, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
@@ -271,7 +262,7 @@ public class SurgeTest extends RestBase {
     @CaseId(138)
     @Story("Supply")
     @Test(description = "Отсутствие добавления supply при пустых координатах кандидата",
-            groups = "ondemand-surgelevel-regress")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventCandidateNoCoordinates() {
         String candidateUuid = UUID.randomUUID().toString();
         publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, FIRST_DELIVERY_AREA_ID, true, STORE_ID, DISPATCH.getName(), LONG_TIMEOUT);
@@ -282,7 +273,7 @@ public class SurgeTest extends RestBase {
     @CaseId(144)
     @Story("Supply")
     @Test(description = "Отсутствие добавления supply с фейковыми координатами кандидата",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventCandidateFakeGps() {
         publishEventCandidateStatus(CANDIDATE_UUID_FAKE_GPS, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
         publishEventLocation(CANDIDATE_UUID_FAKE_GPS, storeLocation.getLat(), storeLocation.getLon(), true, LONG_TIMEOUT);
@@ -293,7 +284,7 @@ public class SurgeTest extends RestBase {
     @CaseId(145)
     @Story("Supply")
     @Test(description = "Добавление supply при получении настоящих координат кандидата, когда до этого были фейковые",
-            groups = "ondemand-surgelevel-regress",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "surgeProduceEventCandidateFakeGps")
     public void surgeProduceEventCandidateNoLongerFakeGps() {
         publishEventLocation(CANDIDATE_UUID_FAKE_GPS, storeLocation.getLat(), storeLocation.getLon(), false, LONG_TIMEOUT);
@@ -310,7 +301,7 @@ public class SurgeTest extends RestBase {
     @CaseId(143)
     @Story("Supply")
     @Test(description = "Удаление всего supply кандидата при получении фейковых координат",
-            groups = "ondemand-surgelevel-regress",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "surgeProduceEventCandidateNoLongerFakeGps")
     public void surgeProduceEventCandidateNewFakeGps() {
         publishEventLocation(CANDIDATE_UUID_FAKE_GPS, storeLocation.getLat(), storeLocation.getLon(), true, LONG_TIMEOUT);
@@ -327,7 +318,7 @@ public class SurgeTest extends RestBase {
     @CaseIDs({@CaseId(123), @CaseId(125)})
     @Story("Delivery Area Supply")
     @Test(description = "Добавление supply при получении кандидата по delivery_area",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventCandidateDeliveryArea() {
         publishEventCandidateStatus(CANDIDATE_UUID_DELIVERY_AREA, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, FIRST_DELIVERY_AREA_ID, true, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
         publishEventLocation(CANDIDATE_UUID_DELIVERY_AREA, 15.0f, 15.0f, false, LONG_TIMEOUT);
@@ -344,7 +335,7 @@ public class SurgeTest extends RestBase {
     @CaseId(137)
     @Story("Delivery Area Supply")
     @Test(description = "Добавление supply для нескольких магазинов при получении кандидата по delivery_area",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventCandidateMultipleStoresDeliveryArea() {
         String candidateUuid = UUID.randomUUID().toString();
         publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, SECOND_DELIVERY_AREA_ID, true, FIRST_STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
@@ -368,7 +359,7 @@ public class SurgeTest extends RestBase {
     @CaseIDs({@CaseId(20), @CaseId(166)})
     @Story("Radius Supply")
     @Test(description = "Добавление supply при получении кандидата по координатам в близи от магазина",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventCandidateWithLocation() {
         publishEventCandidateStatus(CANDIDATE_UUID, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
         publishEventLocation(CANDIDATE_UUID, storeLocation.getLat(), storeLocation.getLon(), false, LONG_TIMEOUT);
@@ -385,7 +376,7 @@ public class SurgeTest extends RestBase {
     @CaseId(140)
     @Story("Radius Supply")
     @Test(description = "Отсутствие удаления supply при уходе кандидата по координатам недостаточно далеко от магазина",
-            groups = "ondemand-surgelevel-regress",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "surgeProduceEventCandidateWithLocation")
     public void surgeProduceEventCandidateWithLocationWentNotFar() {
         publishEventLocation(CANDIDATE_UUID, storeLocation.getLat() - 0.001f, storeLocation.getLon() - 0.001f, false, LONG_TIMEOUT);
@@ -396,7 +387,7 @@ public class SurgeTest extends RestBase {
     @CaseId(167)
     @Story("Surge Calculation")
     @Test(description = "Отсутствие расчета surgelevel с радиусом в конфиге не null",
-            groups = "ondemand-surgelevel-regress")
+            groups = "ondemand-surgelevel")
     public void surgeDistanceFromConfigTooFar() {
         String candidateUuid = UUID.randomUUID().toString();
         publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
@@ -408,10 +399,10 @@ public class SurgeTest extends RestBase {
     @CaseId(167)
     @Story("Supply")
     @Test(description = "Обновление кандидата и вызов расчета surgelevel при получении новых координат не смотря на не достижение CANDIDATE_MOVEMENT_THRESHOLD",
-            groups = "ondemand-surgelevel-regress",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "surgeProduceEventCandidateWithLocationWentNotFar")
     public void surgeDistanceForceUpdate() {
-        CandidateDao.INSTANCE.updateCandidate(CANDIDATE_UUID, true, getDateWithoutTimezoneMinusMinutes(10));
+        CandidateDao.INSTANCE.updateCandidate(CANDIDATE_UUID, true, getZonedUTCDateMinusMinutes(10));
         publishEventLocation(CANDIDATE_UUID, storeLocation.getLat() - 0.001f, storeLocation.getLon() - 0.001f, false, LONG_TIMEOUT);
 
         pastSurgeLevel = currentSurgeLevel;
@@ -424,7 +415,7 @@ public class SurgeTest extends RestBase {
     @CaseId(49)
     @Story("Radius Supply")
     @Test(description = "Удаление supply при уходе кандидата по координатам вдаль от магазина",
-            groups = "ondemand-surgelevel-smoke",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "surgeDistanceForceUpdate")
     public void surgeProduceEventCandidateWithLocationWentTooFar() {
         publishEventLocation(CANDIDATE_UUID, 15.0f, 15.0f, false, LONG_TIMEOUT);
@@ -440,7 +431,7 @@ public class SurgeTest extends RestBase {
     @CaseId(22)
     @Story("Radius Supply")
     @Test(description = "Отсутствие добавления supply при получении кандидата по координатам не в близи от магазина",
-            groups = "ondemand-surgelevel-regress")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventCandidateWithLocationFar() {
         String candidateUuid = UUID.randomUUID().toString();
         publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
@@ -453,7 +444,7 @@ public class SurgeTest extends RestBase {
     @CaseIDs({@CaseId(41), @CaseId(136), @CaseId(45)})
     @Story("Radius Supply")
     @Test(description = "Добавление supply для нескольких магазинов при получении кандидата в близи от этих магазинов",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventCandidateLocationMultipleStores() {
         String candidateUuid = UUID.randomUUID().toString();
         publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, FIRST_STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
@@ -489,7 +480,7 @@ public class SurgeTest extends RestBase {
     @CaseId(157)
     @Story("Workflow")
     @Test(description = "Проверка supply при получении in_progress МЛ",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventCandidateWithWorkflow() {
         publishEventCandidateStatus(CANDIDATE_UUID_WORKFLOW, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, SECOND_STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
         publishEventLocation(CANDIDATE_UUID_WORKFLOW, secondStoreLocation.getLat(), secondStoreLocation.getLon(), false, SHORT_TIMEOUT);
@@ -506,7 +497,7 @@ public class SurgeTest extends RestBase {
     @CaseIDs({@CaseId(158), @CaseId(159)})
     @Story("Workflow")
     @Test(description = "Удаление supply при уходе от изначальной точки и отсутствие добавления к магазинам по пути, если далеко от точки прибытия in_progress МЛ",
-            groups = "ondemand-surgelevel-smoke",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "surgeProduceEventCandidateWithWorkflow")
     public void surgeProduceEventCandidateWithWorkflowStartMoving() {
         publishEventLocation(CANDIDATE_UUID_WORKFLOW, storeLocation.getLat(), storeLocation.getLon(), false, LONG_TIMEOUT);
@@ -523,7 +514,7 @@ public class SurgeTest extends RestBase {
     @CaseId(160)
     @Story("Workflow")
     @Test(description = "Добавление supply при вхождении в радиус к точке прибытия in_progress МЛ",
-            groups = "ondemand-surgelevel-smoke",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "surgeProduceEventCandidateWithWorkflowStartMoving")
     public void surgeProduceEventCandidateWithWorkflowFinishing() {
         publishEventLocation(CANDIDATE_UUID_WORKFLOW, thirdStoreLocation.getLat(), thirdStoreLocation.getLon(), false, LONG_TIMEOUT);
@@ -539,7 +530,7 @@ public class SurgeTest extends RestBase {
     @CaseId(162)
     @Story("Workflow")
     @Test(description = "Отсутствие влияния in_progress МЛ на кандидата с delivery_area",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventCandidateWithWorkflowAndDeliveryArea() {
         String candidateUuid = UUID.randomUUID().toString();
         publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, SECOND_DELIVERY_AREA_ID, true, SECOND_STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);
@@ -559,7 +550,7 @@ public class SurgeTest extends RestBase {
     @CaseId(161)
     @Story("Workflow")
     @Test(description = "Отсутствие влияния не in_progress МЛ на кандидата",
-            groups = "ondemand-surgelevel-regress")
+            groups = "ondemand-surgelevel")
     public void surgeProduceEventCandidateWithQueuedWorkflow() {
         String candidateUuid = UUID.randomUUID().toString();
         publishEventCandidateStatus(candidateUuid, CandidateChanges.Role.UNIVERSAL, CandidateChanges.Status.FREE, 0, 0, false, SECOND_STORE_ID, DISPATCH.getName(), SHORT_TIMEOUT);

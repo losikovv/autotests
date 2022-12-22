@@ -2,9 +2,11 @@ package ru.instamart.api.helper;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import lombok.Getter;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.jdbc.dao.shippingcalc.*;
 import ru.instamart.jdbc.entity.shippingcalc.RulesEntity;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import shippingcalc.*;
 
 import java.util.ArrayList;
@@ -12,9 +14,33 @@ import java.util.Objects;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.enums.BashCommands.ServiceEnvironmentProperties.SHIPPINGCALC_SURGE_DISABLED;
+import static ru.instamart.api.helper.K8sHelper.getServiceEnvProp;
+import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 import static ru.instamart.kraken.util.StringUtil.substringToLastIndexOfStr;
 
 public class ShippingCalcHelper {
+
+    private static volatile ShippingCalcHelper INSTANCE;
+    @Getter
+    private final boolean surgeDisabled;
+
+    private ShippingCalcHelper() {
+        this.surgeDisabled = getSurgeDisabledFromK8s();
+    }
+
+    public static ShippingCalcHelper getInstance() {
+        ShippingCalcHelper RESULT = INSTANCE;
+        if (RESULT != null) {
+            return INSTANCE;
+        }
+        synchronized (ShippingCalcHelper.class) {
+            if (INSTANCE == null) {
+                INSTANCE = new ShippingCalcHelper();
+            }
+            return INSTANCE;
+        }
+    }
 
     @Step("Получаем запрос для создания стратегии")
     public static CreateStrategyRequest getCreateStrategyRequest(final Integer scriptId, final String scriptParams, final Integer priority,
@@ -457,5 +483,12 @@ public class ShippingCalcHelper {
         softAssert.assertEquals(response.getMinCartAmounts(0).getStoreId(), storeId, "Не ожидаемый uuid магазина");
         softAssert.assertEquals(response.getMinCartAmounts(0).getAmountCourierDelivery(), minCartAmount, "Не ожидаемая минимальная корзина");
         softAssert.assertAll();
+    }
+
+    @Step("Смотрим выключен ли сюрдж")
+    public static boolean getSurgeDisabledFromK8s() {
+        final var envProp = getServiceEnvProp(EnvironmentProperties.Env.SHIPPINGCALC_NAMESPACE, SHIPPINGCALC_SURGE_DISABLED.get());
+        final var surgeDisabled = matchWithRegex("^\\[SURGE_DISABLED=(.\\w+)\\]$", envProp.toString(), 1);
+        return surgeDisabled.equals("true");
     }
 }

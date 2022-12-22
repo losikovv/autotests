@@ -10,9 +10,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.helper.EtaHelper;
 import ru.instamart.jdbc.dao.eta.DisableEtaIntervalsDao;
 import ru.instamart.jdbc.dao.eta.StoreParametersDao;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Objects;
@@ -20,10 +20,8 @@ import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.api.helper.EtaHelper.addStore;
-import static ru.instamart.api.helper.K8sHelper.getPaasServiceEnvProp;
+import static ru.instamart.api.helper.EtaHelper.*;
 import static ru.instamart.api.helper.SurgeLevelHelper.publishEventSurge;
-import static ru.instamart.kraken.util.StringUtil.matchWithRegex;
 
 @Epic("ETA")
 @Feature("Surge Reaction")
@@ -41,27 +39,13 @@ public class SurgeReactionEtaTest extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        final var serviceEnvProperties = getPaasServiceEnvProp(EnvironmentProperties.Env.ETA_NAMESPACE, " | grep -e SURGE_INTERVALS ");
-        final var envPropsStr = String.join("\n", serviceEnvProperties);
-        final var etaEnableOnDemandCheckStr = matchWithRegex("^SURGE_INTERVALS=\\{\"intervals\":\\[(.*)\\]\\}$", envPropsStr, 1);
+        final var surgeIntervals = EtaHelper.getInstance().getSurgeIntervals();
 
-        if (!etaEnableOnDemandCheckStr.isBlank()) {
-            final var etaSurgeIntervalsBoundary = matchWithRegex("^.*right_boundary\":.?((?:\\d+(?:\\.\\d*)?|\\.\\d+)).*$", etaEnableOnDemandCheckStr, 1);
-            final var etaSurgeIntervalsDisableEtaDuration = matchWithRegex("^.*disable_eta_duration\":.?\"(\\d+)m\".*$", etaEnableOnDemandCheckStr, 1);
-            final var etaSurgeIntervalsDisableSlotsDuration = matchWithRegex("^.*disable_slots_duration\":.?\"(\\d+)m\".*$", etaEnableOnDemandCheckStr, 1);
-
-            if (!etaSurgeIntervalsBoundary.isBlank()){
-                surgeLevel = Float.parseFloat(etaSurgeIntervalsBoundary);
-            }
-            if (!etaSurgeIntervalsDisableEtaDuration.isBlank()){
-                disableEtaDuration = Integer.parseInt(etaSurgeIntervalsDisableEtaDuration);
-
-            }
-            if (!etaSurgeIntervalsDisableSlotsDuration.isBlank()){
-                disableSlotDuration = Integer.parseInt(etaSurgeIntervalsDisableSlotsDuration);
-            }
-
-            if (disableEtaDuration > 0 || disableSlotDuration > 0){
+        if (!surgeIntervals.isBlank()) {
+            surgeLevel = getIntervalsBoundary(surgeIntervals);
+            disableEtaDuration = getIntervalsDisableEtaDuration(surgeIntervals);
+            disableSlotDuration = getIntervalsDisableSlotsDuration(surgeIntervals);
+            if (surgeLevel > 0f && (disableEtaDuration > 0 || disableSlotDuration > 0)) {
                 etaSurgeIntervalsEnabled = true;
                 storesAdded = true;
                 addStore(STORE_UUID_WITH_SURGE, 55.7010f, 37.7280f, "Europe/Moscow", false, "00:00:00", "00:00:00", "00:00:00", true, true);
@@ -154,7 +138,7 @@ public class SurgeReactionEtaTest extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void postConditions() {
-        if (storesAdded){
+        if (storesAdded) {
             if (Objects.nonNull(STORE_UUID_WITH_SURGE)) {
                 StoreParametersDao.INSTANCE.delete(STORE_UUID_WITH_SURGE);
             }

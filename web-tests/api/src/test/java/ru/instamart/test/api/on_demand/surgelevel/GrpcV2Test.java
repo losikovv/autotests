@@ -18,7 +18,7 @@ import java.util.UUID;
 import static org.apache.commons.lang3.RandomUtils.nextFloat;
 import static org.apache.commons.lang3.RandomUtils.nextLong;
 
-@Epic("On Demand")
+@Epic("Surgelevel")
 @Feature("gRPC V2")
 public class GrpcV2Test extends GrpcBase {
 
@@ -39,7 +39,7 @@ public class GrpcV2Test extends GrpcBase {
     @CaseId(52)
     @Story("Set Config")
     @Test(description = "Изменить дефолтную конфигурацию",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void setConfig() {
         var request = SurgelevelV2.SetConfigRequest.newBuilder()
                 .setConfig(SurgelevelV2.Config.Option.newBuilder()
@@ -60,7 +60,7 @@ public class GrpcV2Test extends GrpcBase {
     @CaseId(50)
     @Story("Get Config")
     @Test(description = "Получить дефолтную конфигурацию",
-            groups = "ondemand-surgelevel-smoke",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "setConfig")
     public void getConfig() {
         var request = SurgelevelV2.GetConfigRequest.newBuilder().build();
@@ -78,7 +78,7 @@ public class GrpcV2Test extends GrpcBase {
     @CaseId(88)
     @Story("Save Region")
     @Test(description = "Сохранение региона",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void saveRegion() {
         var request = SurgelevelV2.SaveRegionRequest.newBuilder()
                 .addRegion(SurgelevelV2.Region.Option.newBuilder().setId(REGION_ID).build())
@@ -96,7 +96,7 @@ public class GrpcV2Test extends GrpcBase {
     @CaseId(112)
     @Story("Find Region")
     @Test(description = "Поиск региона",
-            groups = "ondemand-surgelevel-smoke",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "saveRegion")
     public void findRegion() {
         var request = SurgelevelV2.FindRegionRequest.newBuilder()
@@ -115,7 +115,7 @@ public class GrpcV2Test extends GrpcBase {
     @CaseId(62)
     @Story("Save Retailer")
     @Test(description = "Сохранение ритейлера",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void saveRetailer() {
         var request = SurgelevelV2.SaveRetailerRequest.newBuilder()
                 .addRetailer(SurgelevelV2.Retailer.Option.newBuilder().setId(RETAILER_ID).build())
@@ -133,7 +133,7 @@ public class GrpcV2Test extends GrpcBase {
     @CaseId(117)
     @Story("Find Retailer")
     @Test(description = "Поиск ритейлера",
-            groups = "ondemand-surgelevel-smoke",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "saveRetailer")
     public void findRetailer() {
         var request = SurgelevelV2.FindRetailerRequest.newBuilder()
@@ -152,7 +152,7 @@ public class GrpcV2Test extends GrpcBase {
     @CaseId(71)
     @Story("Save Store")
     @Test(description = "Сохранение магазина",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void saveStore() {
         var request = SurgelevelV2.SaveStoreRequest.newBuilder()
                 .addStore(SurgelevelV2.Store.Option.newBuilder()
@@ -183,7 +183,7 @@ public class GrpcV2Test extends GrpcBase {
     @CaseId(102)
     @Story("Find Store")
     @Test(description = "Поиск магазина",
-            groups = "ondemand-surgelevel-smoke",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "saveStore")
     public void findStore() {
         var request = SurgelevelV2.FindStoreRequest.newBuilder()
@@ -208,7 +208,7 @@ public class GrpcV2Test extends GrpcBase {
     @CaseId(79)
     @Story("Save Formula")
     @Test(description = "Сохранени формулы",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void saveFormula() {
         var request = SurgelevelV2.SaveFormulaRequest.newBuilder()
                 .addFormula(SurgelevelV2.Formula.Option.newBuilder()
@@ -228,7 +228,7 @@ public class GrpcV2Test extends GrpcBase {
     @CaseId(109)
     @Story("Find Formula")
     @Test(description = "Поиск формулы",
-            groups = "ondemand-surgelevel-smoke",
+            groups = "ondemand-surgelevel",
             dependsOnMethods = "saveFormula")
     public void findFormula() {
         var request = SurgelevelV2.FindFormulaRequest.newBuilder()
@@ -245,7 +245,7 @@ public class GrpcV2Test extends GrpcBase {
     @CaseId(97)
     @Story("Call Formula")
     @Test(description = "Выполнение формулы",
-            groups = "ondemand-surgelevel-smoke")
+            groups = "ondemand-surgelevel")
     public void callFormula() {
         String storeId = UUID.randomUUID().toString();
 
