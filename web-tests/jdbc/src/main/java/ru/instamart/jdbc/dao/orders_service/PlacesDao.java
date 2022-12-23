@@ -84,4 +84,15 @@ public class PlacesDao implements Dao<String, PlacesDao> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
     }
+
+    public void updatePlacesAssemblyTaskType(String assemblyTaskType, String uuid) {
+        try (final var connect = ConnectionManager.getDataSource(Db.PG_ORDER).getConnection();
+             final var preparedStatement = connect.prepareStatement(String.format(UPDATE_SQL) + " SET assembly_task_type = ?::assembly_task_type WHERE uuid = ?::uuid")) {
+            preparedStatement.setString(1, assemblyTaskType);
+            preparedStatement.setString(2, uuid);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+    }
 }
