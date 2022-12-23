@@ -3,15 +3,23 @@ package ru.instamart.api.helper;
 import candidates.StoreChangedOuterClass;
 import com.google.protobuf.Timestamp;
 import io.qameta.allure.Step;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import operations_order_service.OperationsOrderService;
 import protobuf.order_data.OrderOuterClass;
 import protobuf.retail_onboarding_retailer_data.RetailOnboardingRetailerData;
 import protobuf.retail_onboarding_store_data.RetailOnboardingStoreData;
 import ru.instamart.api.testdata.OrderServiceTestData;
+import ru.instamart.api.endpoint.ApiV3Endpoints;
+import ru.instamart.api.enums.v3.ClientV3;
+import ru.instamart.api.model.v2.NextDeliveryV2;
 import ru.instamart.api.request.v1.StoresV1Request;
+import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.instamart.api.response.v2.NextDeliveriesV2Response;
+import ru.instamart.kraken.common.Mapper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
+import static ru.instamart.api.request.ApiV3RequestBase.givenWithAuth;
 import static ru.instamart.kafka.configs.KafkaConfigs.*;
 import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
@@ -313,5 +321,13 @@ public class OrderServiceHelper {
         final var nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
         final var nextDeliveryV2 = nextDeliveriesV2Response.getNextDeliveries().get(0);
         return getTimestampFromString(nextDeliveryV2.getEndsAt());
+    }
+    @Step("{method} /" + ApiV3Endpoints.NOTIFICATIONS)
+    public static Response POST(NotificationsV3Request.Notifications notifications) {
+
+        return givenWithAuth(ClientV3.SBERMARKET_WEB)
+                .contentType(ContentType.JSON)
+                .body(Mapper.INSTANCE.objectToString(notifications))
+                .post(ApiV3Endpoints.NOTIFICATIONS);
     }
 }

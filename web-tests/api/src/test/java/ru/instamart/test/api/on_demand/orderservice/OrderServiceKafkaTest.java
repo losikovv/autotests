@@ -246,7 +246,7 @@ public class OrderServiceKafkaTest extends RestBase {
         final var placesEntity = PlacesDao.INSTANCE.findByPlaceUuid(placeUUID);
         final var settingsEntity = SettingsDao.INSTANCE.findByPlaceUUID(placeUUID);
 
-        Allure.step("Проверка сохранённых значений для магазазина в базе", () -> {
+        Allure.step("Проверка сохранённых значений для магазина в базе", () -> {
             final SoftAssert softAssert = new SoftAssert();
             softAssert.assertEquals(placesEntity.getRetailerUuid(), retailerUuid, "В БД обнулился UUID ретейлера");
             softAssert.assertEquals(placesEntity.getSlaMin(), orderPreparationSlaMinutes, "У магазина обнулилось значение SLA В БД");
