@@ -42,6 +42,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
     private final String CUSTOMER_ID = UUID.randomUUID().toString();
     private final String ANONYMOUS_ID = UUID.randomUUID().toString();
     private boolean surgeDisabled;
+    private boolean plannedSurgeFeature;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -85,6 +86,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         RedisService.set(RedisManager.getConnection(Redis.SHIPPINGCALC), "store:" + SURGE_STORE_ID, String.format(REDIS_VALUE, SURGE_STORE_ID, SURGE_LEVEL, SURGE_LEVEL, SURGE_LEVEL, getZonedUTCDate()), 1000);
 
         surgeDisabled = ShippingCalcHelper.getInstance().isSurgeDisabled();
+        plannedSurgeFeature = ShippingCalcHelper.getInstance().isPlannedSurgeFeatureEnabled();
     }
 
     @CaseIDs(value = {@CaseId(355), @CaseId(356), @CaseId(289), @CaseId(321), @CaseId(322), @CaseId(328), @CaseId(330), @CaseId(383), @CaseId(427), @CaseId(512)})
@@ -547,9 +549,29 @@ public class DeliveryPriceTest extends ShippingCalcBase {
 
     @CaseId(320)
     @Story("Get Delivery Price")
-    @Test(description = "Расчет цены с наценкой слота surge_delivery_window_addition",
+    @Test(description = "Расчет цены с наценкой слота surge_delivery_window_addition для planned магазина",
             groups = "ondemand-shippingcalc")
     public void getDeliveryPriceWithSurgeDeliveryWindowAddition() {
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), false, 1000, 1, 99900, STORE_ID, "NEW", 1, 10000,
+                55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
+                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, localStrategyId, 29900, 0, 3, 4, 0, 0);
+    }
+
+    @CaseId(570)
+    @Story("Get Delivery Price")
+    @Test(description = "Расчет цены с наценкой слота surge_delivery_window_addition для ondemand магазина",
+            groups = "ondemand-shippingcalc")
+    public void getDeliveryPriceWithSurgeDeliveryWindowAdditionOndemandOn() {
+
+        if (plannedSurgeFeature) {
+            throw new SkipException("Пропускаем, потому что PLANNED_SURGE_FEATURE_FLAG = true");
+        }
+
         var request = getDeliveryPriceRequest(
                 1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 10000,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
@@ -558,6 +580,26 @@ public class DeliveryPriceTest extends ShippingCalcBase {
 
         var response = clientShippingCalc.getDeliveryPrice(request);
         checkDeliveryPrice(response, localStrategyId, 29900, minCartAmountFirst, 3, 4, 0, 0);
+    }
+
+    @CaseId(571)
+    @Story("Get Delivery Price")
+    @Test(description = "Расчет цены без наценки слота surge_delivery_window_addition для ondemand магазина",
+            groups = "ondemand-shippingcalc")
+    public void getDeliveryPriceWithSurgeDeliveryWindowAdditionOndemandOff() {
+
+        if (!plannedSurgeFeature) {
+            throw new SkipException("Пропускаем, потому что PLANNED_SURGE_FEATURE_FLAG = false");
+        }
+
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 10000,
+                55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 1, 1655822708, 55.57, 55.57,
+                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0);
     }
 
     @CaseId(389)
