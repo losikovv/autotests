@@ -199,11 +199,21 @@ public class ShopperAppApiHelper {
         checkStatusCode200or422(response);
     }
 
+
     /**
-     * Простая сборка заказа с генерацией фискального номера чека
+     * Простая сборка заказа
+     *
+     * @return
      */
-    public void simpleCollect(String shipmentNumber) {
-        simpleCollect(shipmentNumber, Generate.digitalString(10));
+    @Step("Простая сборка заказа {shipmentNumber} с номером чека {fiscalDocumentNumber}")
+    public ShipmentSHP.Data simpleCollectPacker(String shipmentNumber) {
+        authorisation(UserManager.getDefaultShopper());
+        deleteCurrentAssembly();
+        ShipmentSHP.Data shipment = getShipment(shipmentNumber);
+
+        startAssembly(shipment.getId());
+        assemblyItemsWithOriginalQty();
+        return shipment;
     }
 
     /**

@@ -149,120 +149,12 @@ task apiShopperProduction(type: Test) {
     systemProperty 'one_session', 'true'
 }
 
-task apiShadowcat(type: Test) {
+task apiScango(type: Test) {
     useTestNG() {
-        suites 'src/test/resources/suite/api-shadowcat.xml'
-        includeGroups 'api-shadowcat'
+        suites 'src/test/resources/suite/api-scanandgo.xml'
+        includeGroups 'api-sg'
     }
-    systemProperty 'qase.Project', 'DS'
-    systemProperty 'qase.Title', 'Shadowcat API Regress'
-}
-
-task apiSurge(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/surge-api.xml'
-        includeGroups 'surge-api'
-    }
-    systemProperty 'qase.Project', 'SURGE'
-    systemProperty 'qase.Title', 'Surge API Regress'
-}
-
-task apiRisExporter(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/api-ris-exporter.xml'
-        includeGroups 'api-ris-exporter'
-    }
-    systemProperty 'qase.Project', 'PB'
-    systemProperty 'qase.Title', 'Ris-Exporter API Regress'
-}
-
-task apiAuthorizationService(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/api-authorization-service.xml'
-        includeGroups 'api-authorization-service'
-    }
-    systemProperty 'qase.Project', 'CS'
-    systemProperty 'qase.Title', 'Authorization Service API Regress'
-}
-
-task onDemandShifts(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/on_demand/shifts.xml'
-        includeGroups 'api-shifts'
-    }
-    environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
-    environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
-    environment 'P_ENV', "service-shifts"
-    systemProperty 'qase.Project', 'ODFS'
-    systemProperty 'qase.Title', 'Shifts Autotests'
-}
-
-task onDemandDispatch(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/on_demand/dispatch.xml'
-        includeGroups 'dispatch-orderservice-smoke'
-    }
-    environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
-    environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
-    environment 'P_ENV', "service-orderservice"
-    systemProperty 'qase.Project', 'DSPTCH'
-    systemProperty 'qase.Title', 'Dispatch 2.0 Autotests'
-}
-
-task onDemandWorkflow(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/on_demand/workflow.xml'
-        includeGroups 'dispatch-workflow-smoke'
-    }
-    environment 'URL_STF_BACKEND', 'stf-6.k-stage.sbermarket.tech'
-    environment 'URL_SHP', 'shp-6.k-stage.sbermarket.tech'
-    environment 'P_ENV', "service-workflow"
-    systemProperty 'qase.Project', 'ODW'
-    systemProperty 'qase.Title', 'Workflow Autotests'
-}
-
-task onDemandETA(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/on_demand/eta.xml'
-        includeGroups 'ondemand-eta'
-    }
-    systemProperty 'qase.Project', 'ETA'
-    systemProperty 'qase.Title', 'ETA Autotests'
-}
-
-task onDemandShippingCalc(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/on_demand/shippingcalc.xml'
-        includeGroups 'ondemand-shippingcalc'
-    }
-    systemProperty 'qase.Project', 'SHPCALC'
-    systemProperty 'qase.Title', 'ShippingCalc Autotests'
-}
-
-task onDemandCandidates(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/on_demand/candidates.xml'
-        includeGroups 'dispatch-candidates-smoke'
-    }
-    environment 'P_ENV', "service-candidates"
-    systemProperty 'qase.Project', 'ODSC'
-    systemProperty 'qase.Title', 'On Demand Candidates Smoke'
-}
-
-task onDemandSurgeLevel(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/on_demand/surgelevel.xml'
-        includeGroups 'ondemand-surgelevel'
-    }
-    systemProperty 'qase.Project', 'SURGE'
-    systemProperty 'qase.Title', 'SurgeLevel Autotests'
-}
-
-task onDemandRes(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/on_demand/routeestimator.xml'
-        includeGroups 'ondemand-res-smoke'
-    }
-    systemProperty 'qase.Project', 'RES'
-    systemProperty 'qase.Title', 'RES Autotests'
+    environment 'P_ENV', "sbermarket-scango"
+    systemProperty 'qase.Project', 'INAPI'
+    systemProperty 'qase.Title', 'Instamart API Scan&Go'
 }

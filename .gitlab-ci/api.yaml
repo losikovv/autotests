@@ -169,3 +169,15 @@ tests:api:v2:bff:
     - gradle clean build apiV2BFF -Pbff_forward=$BFF_FORWARD
   after_script:
     - bash ./report.sh api api-v2-bff
+
+tests:api:scanAndGo:
+  resource_group: testApiScanAndGo
+  only:
+    variables:
+      - $API_V2_SCAN_AND_GO == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  extends:
+    - ".template_api_tests"
+  script:
+    - gradle clean build apiScanAndGo
+  after_script:
+    - bash ./report.sh api api-scan-and-go
