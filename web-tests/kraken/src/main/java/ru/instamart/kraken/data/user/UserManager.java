@@ -96,7 +96,8 @@ public final class UserManager {
         if (isNull(defaultAdminAllRoles)) {
             defaultAdminAllRoles = UserData.builder()
                     .role("superadmin")
-                    .email(Crypt.INSTANCE.decrypt("wTfubFbVMEA2P1HT80pKDXJfzWnJ15xgPBJr240lktU="))
+                    //.email(Crypt.INSTANCE.decrypt("wTfubFbVMEA2P1HT80pKDXJfzWnJ15xgPBJr240lktU="))
+                    .email(Crypt.INSTANCE.decrypt("Gh1MsACysUuEYv98vkOuOOx/HVxUh5J54NKCNSJCPFQ="))
                     .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
                     .password(PASSWD_1)
                     .name("autotest superadminallroles")

@@ -193,4 +193,40 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
     public List<StoresEntity> findAll() {
         return null;
     }
+
+    public Optional<StoresEntity> findByUUID(String uuid) {
+        StoresEntity store = new StoresEntity();
+        var sql = SELECT_SQL + " WHERE uuid = ?";
+        try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             final var preparedStatement = connect.prepareStatement(sql)) {
+            preparedStatement.setString(1, uuid);
+            try (final var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    store.setId(resultSet.getInt("id"));
+                    store.setUuid(resultSet.getString("uuid"));
+                    store.setLocationId(resultSet.getLong("location_id"));
+                    store.setRetailerId(resultSet.getLong("retailer_id"));
+                    store.setTimeZone(resultSet.getString("time_zone"));
+                    store.setOperationalZoneId(resultSet.getLong("operational_zone_id"));
+                    store.setHasConveyor(resultSet.getInt("has_conveyor"));
+                }
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return Optional.of(store);
+    }
+
+    public boolean updateHasConveyorByUUID(final String uuid, final Integer hasConveyor) {
+        int result = 0;
+        try (Connection connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
+             PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + "has_conveyor = ? WHERE uuid = ?")) {
+            preparedStatement.setInt(1, hasConveyor);
+            preparedStatement.setString(2, uuid);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return result == 2;
+    }
 }

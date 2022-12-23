@@ -27,4 +27,8 @@ public class StoresEntity {
     private String openingTime;
     private String closingTime;
     private Integer onDemandClosingDelta;
+    private Integer parallelAssembly;
+    private Integer assemblyDispatch;
+    private Integer retailOnboardingLastEventSequenceId;
+    private Integer retailOnboardingActive;
 }

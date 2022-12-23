@@ -34,6 +34,9 @@ public final class ShopperAdminEndpoints {
 
     public static final class Scango {
         public static final String ENGINES = "v1/scango/engines";
+        public static final String RETAILERS_CONFIG = "v1/scango/retailers/{retailerId}/config";
+        public static final String STORES_CONFIG = "v1/scango/stores/{storeUUID}/config";
+        public static final String SOFT_CHECKS = "/scango/assemblies/{assemblyId}/soft_checks";
     }
 
     public static final class Shoppers{

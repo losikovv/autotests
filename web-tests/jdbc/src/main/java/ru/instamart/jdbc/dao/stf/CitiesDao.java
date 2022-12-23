@@ -19,25 +19,26 @@ public class CitiesDao extends AbstractDao<Long, CitiesEntity> {
     private final String DELETE_SQL = "DELETE FROM cities";
 
     public CitiesEntity getCityByName(String cityName) {
-        CitiesEntity city = new CitiesEntity();
         try (final var connect = ConnectionManager.getDataSource(Db.MYSQL_STF).getConnection();
              final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE name = ?")) {
             preparedStatement.setString(1, cityName);
             try (final var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
+                    final var city = new CitiesEntity();
                     city.setId(resultSet.getLong("id"));
                     city.setSlug(resultSet.getString("slug"));
                     city.setNameIn(resultSet.getString("name_in"));
                     city.setNameTo(resultSet.getString("name_to"));
                     city.setNameFrom(resultSet.getString("name_from"));
                     city.setLocked(resultSet.getInt("locked"));
-                } else return null;
+                    return city;
+                }
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
-        return city;
+        return null;
     }
 
     public void deleteCityByName(String cityName) {
