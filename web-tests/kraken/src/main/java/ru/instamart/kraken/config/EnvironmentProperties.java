@@ -37,6 +37,8 @@ public final class EnvironmentProperties {
     public static int DEFAULT_NOT_B2B_SID;
     @Config(configName = NAME, fieldName = "defaultOnDemandSid", defaultValue = "94")
     public static int DEFAULT_ON_DEMAND_SID;
+    @Config(configName = NAME, fieldName = "defaultOnDemandVidarSid", defaultValue = "3")
+    public static int DEFAULT_ON_DEMAND_VIDAR_SID;
     @Config(configName = NAME, fieldName = "defaultTid", defaultValue = "")
     public static int DEFAULT_TID;
     @Config(configName = NAME, fieldName = "defaultFiltersTid", defaultValue = "")
