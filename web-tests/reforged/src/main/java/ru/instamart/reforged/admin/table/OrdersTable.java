@@ -16,7 +16,7 @@ import static java.util.Objects.nonNull;
 public final class OrdersTable extends Table {
 
     private static final By retailerImage = By.xpath(".//img");
-    private static final By retailerAddress = By.xpath(".//a[@data-qa='shipments_table_store_address']");
+    private static final By retailerAddress = By.xpath(".//a[contains(@data-qa,'shipments_table_store_address')]");
 
     private static final By orderLink = By.xpath(".//a[contains(@href,'edit')]");
     private static final By totalWeight = By.xpath(".//div[.='Вес']/following-sibling::div");
@@ -27,7 +27,7 @@ public final class OrdersTable extends Table {
     private static final By shipmentNumber = By.xpath(".//div[contains(@class,'ant-dropdown-trigger')]/span");
     private static final By deliveryTimeLocal = By.xpath(".//a[@data-qa='shipments_table_delivery_time_local']");
     private static final By deliveryTimeMoscow = By.xpath(".//div[@data-qa='shipments_table_delivery_time_moscow']");
-    private static final By deliveryDate = By.xpath(".//div[@data-qa='shipments_table_delivery_date']");
+    private static final By deliveryDate = By.xpath(".//div[contains(@data-qa,'shipments_table_delivery_date')]");
     private static final By shipmentStatus = By.xpath(".//span[contains(@class,'ant-tag-default')]/span[2]");
     private static final By shipmentStatusCollecting = By.xpath("(.//span[contains(@class,'ant-tag-default')])[1]/span[2]");
     private static final By shipmentStatusDelivery = By.xpath("(.//span[contains(@class,'ant-tag-default')])[2]/span[2]");
