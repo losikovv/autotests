@@ -13,16 +13,14 @@ import order.OrderChanged.EventOrderChanged.OrderStatus;
 import order.OrderChanged.EventOrderChanged.ShipmentType;
 import org.apache.commons.lang3.RandomUtils;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import protobuf.order_data.OrderOuterClass;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
-import ru.instamart.jdbc.dao.orders_service.OrdersDao;
-import ru.instamart.jdbc.dao.orders_service.PlacesDao;
-import ru.instamart.jdbc.dao.orders_service.RetailersDao;
-import ru.instamart.jdbc.dao.orders_service.SettingsDao;
+import ru.instamart.jdbc.dao.orders_service.*;
 import ru.instamart.jdbc.entity.order_service.RetailersEntity;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -38,6 +36,7 @@ public class OrderServiceKafkaTest extends RestBase {
     private final String placeUUID = "684609ad-6360-4bae-9556-03918c1e41c1";
     private final String multiOrderPlaceUUID = "0c479c59-f1a4-4214-9690-f0ade4568652";
     private final String retailerUuid = "1f7b042f-650f-46ef-9f4d-10aacf71a532";
+    private final String randomPlaceUUID = UUID.randomUUID().toString();
     private final double latitude = 55.6512713;
     private final double longitude = 55.6512713;
     private final int orderPreparationSlaMinutes = RandomUtils.nextInt(10, 30);
@@ -256,10 +255,48 @@ public class OrderServiceKafkaTest extends RestBase {
         });
     }
 
+    @CaseId(254)
+    @Test(description = "При создании магазина через топик yc.retail-onboarding.fct.stores active = false",
+            groups = "dispatch-orderservice-smoke")
+    public void checkNewStoreStatusAfterRetailerStoreChangedMessage() {
+        publishStoreChangedEvent(randomPlaceUUID, orderPreparationSlaMinutes, "delivery_by_sbermarket", retailerUuid);
+        ThreadUtil.simplyAwait(5);
+
+        final var placesEntity = PlacesDao.INSTANCE.findByPlaceUuid(randomPlaceUUID);
+
+        Allure.step("Проверка сохранённых значений для магазина в базе", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(placesEntity.getRetailerUuid(), retailerUuid, "В БД не сохранился UUID ретейлера");
+            softAssert.assertEquals(placesEntity.isActive(), false, "После сообщения в топик yc.retail-onboarding.fct.stores.6 магазин создался активным");
+            softAssert.assertAll();
+        });
+    }
+
+    @CaseId(255)
+    @Test(description = "При создании магазина через топик yc.retail-onboarding.fct.stores и после получения информации о магазине из топика store-changed active = true",
+            groups = "dispatch-orderservice-smoke")
+    public void checkNewStoreStatusAfterRetailerAndShopperStoreChangedMessage() {
+        publishStoreChangedEvent(randomPlaceUUID, orderPreparationSlaMinutes, "delivery_by_sbermarket", retailerUuid);
+        publishShopperStoreChangedEvent(64, true, 120, "dispatch", AssemblyType.SM, DeliveryType.SM, randomPlaceUUID);
+        ThreadUtil.simplyAwait(5);
+
+        final var placesEntity = PlacesDao.INSTANCE.findByPlaceUuid(randomPlaceUUID);
+
+        Allure.step("Проверка сохранённых значений для магазина в базе", () -> {
+            final SoftAssert softAssert = new SoftAssert();
+            softAssert.assertEquals(placesEntity.getRetailerUuid(), retailerUuid, "В БД не сохранился UUID ретейлера");
+            softAssert.assertEquals(placesEntity.isActive(), true, "После сообщения в топик store-changed магазин не стал активным");
+            softAssert.assertAll();
+        });
+    }
+
     @AfterClass(alwaysRun = true)
     public void postConditions() {
         publishRetailerChangedEvent(retailerUuid, GROCERY);
         publishStoreChangedEvent(placeUUID, 15, "shopper", retailerUuid);
+        PlacesDao.INSTANCE.deleteStore(randomPlaceUUID);
+        PlaceSettingsDao.INSTANCE.deleteStoreFromPlaceSettings(randomPlaceUUID);
+        SettingsDao.INSTANCE.deleteStoreFromSettings(randomPlaceUUID);
     }
 
 }

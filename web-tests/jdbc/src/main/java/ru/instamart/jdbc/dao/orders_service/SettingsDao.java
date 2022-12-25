@@ -22,9 +22,20 @@ public class SettingsDao implements Dao<String, SettingsEntity> {
 
     private final String SELECT_SQL = "SELECT %s FROM settings";
     private final String UPDATE_SQL = "UPDATE settings";
+    private final String DELETE_SQL = "DELETE FROM settings";
 
     @Override
     public boolean delete(String id) {
+        return false;
+    }
+    public boolean deleteStoreFromSettings(String placeUuid) {
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_ORDER).getConnection();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE place_uuid = ?::uuid ")) {
+            preparedStatement.setString(1, placeUuid);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLOrderServiceManager. Error: " + e.getMessage());
+        }
         return false;
     }
 

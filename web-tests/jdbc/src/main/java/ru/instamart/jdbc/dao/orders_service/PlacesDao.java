@@ -16,11 +16,21 @@ import static org.testng.Assert.fail;
 public class PlacesDao implements Dao<String, PlacesDao> {
     public static final PlacesDao INSTANCE = new PlacesDao();
     private final String SELECT_SQL = "SELECT %s FROM places";
-
+    private final String DELETE_SQL = "DELETE FROM places ";
     private final String UPDATE_SQL = "UPDATE places";
 
     @Override
     public boolean delete(String id) {
+        return false;
+    }
+    public boolean deleteStore(String placeUuid) {
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_ORDER).getConnection();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE uuid = ?::uuid ")) {
+            preparedStatement.setString(1, placeUuid);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLOrderServiceManager. Error: " + e.getMessage());
+        }
         return false;
     }
 
@@ -59,6 +69,7 @@ public class PlacesDao implements Dao<String, PlacesDao> {
                     placesEntity.setAdditionalSecondsForAssembly(resultSet.getInt("additional_seconds_for_assembly"));
                     placesEntity.setRetailerUuid(resultSet.getString("retailer_uuid"));
                     placesEntity.setSlaMin(resultSet.getInt("sla_min"));
+                    placesEntity.setActive(resultSet.getBoolean("active"));
                 }
             }
         } catch (SQLException e) {
@@ -92,7 +103,7 @@ public class PlacesDao implements Dao<String, PlacesDao> {
             preparedStatement.setString(2, uuid);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+            fail("Error init ConnectionPgSQLOrderServiceManager. Error: " + e.getMessage());
         }
     }
 }
