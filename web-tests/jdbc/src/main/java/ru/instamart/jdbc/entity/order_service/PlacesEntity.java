@@ -16,4 +16,5 @@ public class PlacesEntity {
     private int additionalSecondsForAssembly;
     private String retailerUuid;
     private int slaMin;
+    private boolean active;
 }

@@ -22,6 +22,17 @@ public class PlaceSettingsDao implements Dao<String,PlaceSettingsEntity> {
         return false;
     }
 
+    public boolean deleteStoreFromPlaceSettings(String placeUuid) {
+        try (Connection connect = ConnectionManager.getDataSource(Db.PG_ORDER).getConnection();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE place_uuid = ?::uuid ")) {
+            preparedStatement.setString(1, placeUuid);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLOrderServiceManager. Error: " + e.getMessage());
+        }
+        return false;
+    }
+
     @Override
     public PlaceSettingsEntity save(PlaceSettingsEntity ticket) {
         return null;
@@ -44,6 +55,7 @@ public class PlaceSettingsDao implements Dao<String,PlaceSettingsEntity> {
 
     public static final PlaceSettingsDao INSTANCE = new PlaceSettingsDao();
     private final String SELECT_SQL = "SELECT %s FROM place_settings";
+    private final String DELETE_SQL = "DELETE FROM place_settings";
 
     public PlaceSettingsEntity getScheduleType(String placeUUID) {
         try (Connection connect = ConnectionManager.getDataSource(Db.PG_ORDER).getConnection();
