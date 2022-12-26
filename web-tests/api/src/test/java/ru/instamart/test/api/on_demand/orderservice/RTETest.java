@@ -93,7 +93,7 @@ public class RTETest extends RestBase {
 
         String shipmentUuid = UUID.randomUUID().toString();
         String orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
-        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
+        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, shipmentUuid, ShippingMethodV2.BY_COURIER.getMethod(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
 
         ThreadUtil.simplyAwait(1);
         List<OrderChanged.EventOrderChanged> orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedShipmentUuid(shipmentUuid);
@@ -122,7 +122,7 @@ public class RTETest extends RestBase {
 
         String shipmentUuid = UUID.randomUUID().toString();
         String orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
-        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
+        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, shipmentUuid, ShippingMethodV2.BY_COURIER.getMethod(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
 
         ThreadUtil.simplyAwait(1);
         List<OrderChanged.EventOrderChanged> orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedShipmentUuid(shipmentUuid);
@@ -166,7 +166,7 @@ public class RTETest extends RestBase {
         String shipmentUuid = UUID.randomUUID().toString();
         String orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
 
-        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
+        publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(), getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, shipmentUuid, ShippingMethodV2.BY_COURIER.getMethod(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
 
         ThreadUtil.simplyAwait(1);
         List<OrderChanged.EventOrderChanged> orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedShipmentUuid(shipmentUuid);

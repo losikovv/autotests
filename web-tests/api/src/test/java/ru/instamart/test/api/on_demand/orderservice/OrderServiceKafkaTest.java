@@ -57,7 +57,7 @@ public class OrderServiceKafkaTest extends RestBase {
         final var shipmentUuid = UUID.randomUUID().toString();
         final var orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
         publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
-                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.PLANNED, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "courier");
+                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.PLANNED, shipmentUuid, ShippingMethodV2.BY_COURIER.getMethod(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "courier");
 
         ThreadUtil.simplyAwait(1);
         final var orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedShipmentUuid(shipmentUuid);
@@ -81,7 +81,7 @@ public class OrderServiceKafkaTest extends RestBase {
         final var shipmentUuid = UUID.randomUUID().toString();
         final var orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
         publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
-                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
+                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, shipmentUuid, ShippingMethodV2.BY_COURIER.getMethod(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
 
         ThreadUtil.simplyAwait(1);
         final var orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedShipmentUuid(shipmentUuid);
@@ -105,7 +105,7 @@ public class OrderServiceKafkaTest extends RestBase {
         final var shipmentUuid = UUID.randomUUID().toString();
         final var orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
         publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
-                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.PLANNED, shipmentUuid, ShippingMethodV2.PICKUP.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "pickup");
+                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.PLANNED, shipmentUuid, ShippingMethodV2.PICKUP.getMethod(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "pickup");
 
         ThreadUtil.simplyAwait(1);
         final var orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedShipmentUuid(shipmentUuid);
@@ -130,9 +130,9 @@ public class OrderServiceKafkaTest extends RestBase {
         final var firstOrderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
         final var secondOrderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
         publishOrderEvent(firstOrderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
-                getDeliveryPromiseId(), firstOrderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, firstShipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
+                getDeliveryPromiseId(), firstOrderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, firstShipmentUuid, ShippingMethodV2.BY_COURIER.getMethod(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");
         publishOrderEvent(secondOrderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
-                getDeliveryPromiseId(), secondOrderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, secondShipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");;
+                getDeliveryPromiseId(), secondOrderNumber, OrderOuterClass.Order.Shipment.ShipmentType.ON_DEMAND, secondShipmentUuid, ShippingMethodV2.BY_COURIER.getMethod(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "on_demand");;
 
         ThreadUtil.simplyAwait(1);
         final var firstOrderEntity = OrdersDao.INSTANCE.findByShipmentUuid(firstShipmentUuid);
@@ -154,11 +154,11 @@ public class OrderServiceKafkaTest extends RestBase {
         final var shipmentUuid = UUID.randomUUID().toString();
         final var orderNumber = "Н123" + "" + (RandomUtils.nextInt(11111111, 99999999));
         publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
-                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.PLANNED, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "courier");
+                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.PLANNED, shipmentUuid, ShippingMethodV2.BY_COURIER.getMethod(), OrderOuterClass.Order.Shipment.ShipmentState.READY, "courier");
 
         ThreadUtil.simplyAwait(1);
         publishOrderEvent(orderNumber, longitude, latitude, getDeliveryPromiseUpperDttmEndsAt(), getDeliveryPromiseId(), getDeliveryPromiseUpperDttmStartsAt(),
-                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.PLANNED, shipmentUuid, ShippingMethodV2.BY_COURIER.toString(), OrderOuterClass.Order.Shipment.ShipmentState.CANCELED, "courier");;
+                getDeliveryPromiseId(), orderNumber, OrderOuterClass.Order.Shipment.ShipmentType.PLANNED, shipmentUuid, ShippingMethodV2.BY_COURIER.getMethod(), OrderOuterClass.Order.Shipment.ShipmentState.CANCELED, "courier");;
         ThreadUtil.simplyAwait(1);
         final var orderChangedMessage = kafka.waitDataInKafkaTopicOrderStatusChangedByStatusShipment(shipmentUuid, OrderStatus.CANCELED);
 
