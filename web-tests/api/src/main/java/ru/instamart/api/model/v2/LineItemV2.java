@@ -13,7 +13,7 @@ import java.util.StringJoiner;
 @EqualsAndHashCode(callSuper=false)
 public class LineItemV2 extends BaseObject {
     @JsonSchema(required = true)
-    private Integer id;
+    private Long id;
 
     @JsonSchema(required = true)
     private Integer quantity;

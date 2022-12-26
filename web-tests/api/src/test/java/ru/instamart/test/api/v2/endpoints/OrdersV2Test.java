@@ -320,7 +320,7 @@ public class OrdersV2Test extends RestBase {
                 SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         );
-        Integer productId = cart.get(0).getId();
+        Long productId = cart.get(0).getId();
         Integer internalAmount = cart.get(0).getQuantity();
         final Response response = LineItemsV2Request.PUT(productId, 100);
         checkStatusCode200(response);
@@ -349,7 +349,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"},
             description = "Успешное удаление позиции заказа")
     public void deleteLineItems200() {
-        Integer productId = apiV2.dropAndFillCart(
+        Long productId = apiV2.dropAndFillCart(
                 SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         ).get(0).getId();

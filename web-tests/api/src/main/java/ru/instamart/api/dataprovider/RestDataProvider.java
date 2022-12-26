@@ -549,7 +549,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "changeLineItems")
     public static Object[][] changeLineItems() {
-        Integer productId = apiV2.dropAndFillCart(
+        Long productId = apiV2.dropAndFillCart(
                 SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         ).get(0).getId();
