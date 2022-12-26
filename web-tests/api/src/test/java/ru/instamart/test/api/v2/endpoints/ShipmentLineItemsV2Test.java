@@ -114,7 +114,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         OrderV2 updatedOrder = responseWithUpdatedOrder.as(OrderV2Response.class).getOrder();
         compareTwoObjects(updatedPrice, updatedOrder.getTotal(), softAssert);
         compareTwoObjects(order.getItemCount() + 2, updatedOrder.getItemCount(), softAssert);
-        Integer lineItemId = order.getShipments().get(0).getLineItems().get(0).getId();
+        Long lineItemId = order.getShipments().get(0).getLineItems().get(0).getId();
         List<LineItemV2> lineItems = updatedOrder.getShipments().get(0).getLineItems().
                 stream().filter(l -> l.getId().equals(lineItemId)).collect(Collectors.toList());
         compareTwoObjects(order.getShipments().get(0).getLineItems().get(0).getPacks() + 1, lineItems.get(0).getPacks(), softAssert);
