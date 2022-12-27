@@ -128,10 +128,10 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 1, UUID.randomUUID().toString(), true, 1000, 1, 90000, STORE_ID, "NEW", 1, 0,
                 55.55, 55.55, CUSTOMER_ID, ANONYMOUS_ID, 0, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
-                Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+                Tenant.INSTAMART.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 0, minCartAmountFirst, 1, 0, 1, 0);
+        checkDeliveryPrice(response, conditionStrategyId, 0, minCartAmountThird, 1, 0, 1, 0);
     }
 
     @CaseId(237)
@@ -602,16 +602,31 @@ public class DeliveryPriceTest extends ShippingCalcBase {
         checkDeliveryPrice(response, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0);
     }
 
-    @CaseId(389)
+    @CaseId(572)
     @Story("Get Delivery Price")
-    @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID",
+    @Test(description = "Прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID и попадании в вайтлист",
             groups = "ondemand-shippingcalc")
-    public void getDeliveryPriceWithEmptyCustomerId() {
+    public void getDeliveryPriceWithEmptyCustomerIdWhitelist() {
         var request = getDeliveryPriceRequest(
                 1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 0,
                 55.55, 55.55, "", ANONYMOUS_ID, 0, 1655822708, 55.57, 55.57,
                 ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
+
+        var response = clientShippingCalc.getDeliveryPrice(request);
+        checkDeliveryPrice(response, localStrategyId, 0, minCartAmountFirst, 1, 0, 1, 0);
+    }
+
+    @CaseId(389)
+    @Story("Get Delivery Price")
+    @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID и не попадании в вайтлист",
+            groups = "ondemand-shippingcalc")
+    public void getDeliveryPriceWithEmptyCustomerIdNoWhitelist() {
+        var request = getDeliveryPriceRequest(
+                1, UUID.randomUUID().toString(), true, 1000, 1, 99900, STORE_ID, "NEW", 1, 0,
+                55.55, 55.55, "", ANONYMOUS_ID, 0, 1655822708, 55.57, 55.57,
+                ORDER_ID, false, false, "Картой онлайн", true, DeliveryType.COURIER_DELIVERY_VALUE,
+                Tenant.SBERMARKET.getId(), "test", "test");
 
         var response = clientShippingCalc.getDeliveryPrice(request);
         checkDeliveryPrice(response, localStrategyId, 19900, minCartAmountFirst, 3, 4, 0, 0);
@@ -629,7 +644,7 @@ public class DeliveryPriceTest extends ShippingCalcBase {
                 Tenant.SBERMARKET.getId(), AppVersion.WEB.getName(), AppVersion.WEB.getVersion());
 
         var response = clientShippingCalc.getDeliveryPrice(request);
-        checkDeliveryPrice(response, localStrategyId, 19900, 0, 3, 4, 0, 0);
+        checkDeliveryPrice(response, localStrategyId, 0, 0, 1, 0, 1, 0);
     }
 
     @CaseIDs(value = {@CaseId(357), @CaseId(326), @CaseId(332)})
