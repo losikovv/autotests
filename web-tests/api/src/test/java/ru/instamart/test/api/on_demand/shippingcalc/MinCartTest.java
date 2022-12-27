@@ -941,11 +941,11 @@ public class MinCartTest extends ShippingCalcBase {
         clientShippingCalc.getMinCartAmounts(request);
     }
 
-    @CaseId(395)
+    @CaseId(589)
     @Story("Get Min Cart Amounts")
-    @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID",
+    @Test(description = "Прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID и попадании в вайтлист",
             groups = "ondemand-shippingcalc")
-    public void getMinCartAmountsNoCustomerId() {
+    public void getMinCartAmountsNoCustomerIdWhitelist() {
         var request = GetMinCartAmountsRequest.newBuilder()
                 .addStores(Store.newBuilder()
                         .setId(STORE_ID)
@@ -962,6 +962,37 @@ public class MinCartTest extends ShippingCalcBase {
                         .build())
                 .setTenant(Tenant.SBERMARKET.getId())
                 .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
+                .setPlatformName(AppVersion.WEB.getName())
+                .setPlatformVersion(AppVersion.WEB.getVersion())
+                .build();
+
+        var response = clientShippingCalc.getMinCartAmounts(request);
+        checkMinCartAmounts(response, STORE_ID, minCartAmountFirst);
+    }
+
+    @CaseId(395)
+    @Story("Get Min Cart Amounts")
+    @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID и не попадании в вайтлист",
+            groups = "ondemand-shippingcalc")
+    public void getMinCartAmountsNoCustomerIdNoWhitelist() {
+        var request = GetMinCartAmountsRequest.newBuilder()
+                .addStores(Store.newBuilder()
+                        .setId(STORE_ID)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .setIsOndemand(true)
+                        .build())
+                .setCustomer(Customer.newBuilder()
+                        .setAnonymousId(UUID.randomUUID().toString())
+                        .setOrdersCount(0)
+                        .setRegisteredAt(1655822708)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .build())
+                .setTenant(Tenant.SBERMARKET.getId())
+                .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
+                .setPlatformName("test")
+                .setPlatformVersion("test")
                 .build();
 
         var response = clientShippingCalc.getMinCartAmounts(request);
