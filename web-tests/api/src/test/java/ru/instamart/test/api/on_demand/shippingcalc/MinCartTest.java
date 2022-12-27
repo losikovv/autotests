@@ -26,6 +26,7 @@ import shippingcalc.*;
 import java.util.List;
 import java.util.UUID;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.helper.ShippingCalcHelper.*;
@@ -520,11 +521,11 @@ public class MinCartTest extends ShippingCalcBase {
         clientShippingCalc.getDeliveryConditions(request);
     }
 
-    @CaseId(428)
+    @CaseId(573)
     @Story("Get Delivery Conditions")
-    @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID",
+    @Test(description = "Прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID и попадании в вайтлист",
             groups = "ondemand-shippingcalc")
-    public void getDeliveryConditionsNoCustomerId() {
+    public void getDeliveryConditionsNoCustomerIdWhitelist() {
         var request = GetDeliveryConditionsRequest.newBuilder()
                 .addStores(Store.newBuilder()
                         .setId(STORE_ID)
@@ -543,6 +544,36 @@ public class MinCartTest extends ShippingCalcBase {
                 .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
                 .setPlatformName(AppVersion.WEB.getName())
                 .setPlatformVersion(AppVersion.WEB.getVersion())
+                .build();
+
+        var response = clientShippingCalc.getDeliveryConditions(request);
+        checkDeliveryConditions(response, STORE_ID, minCartAmountFirst, 1, 3);
+        assertEquals(response.getDeliveryConditions(0).getLadder(0).getPriceComponents(0).getPrice(), 4900, "Не ожидаемая базовая цена в лесенке");
+    }
+
+    @CaseId(428)
+    @Story("Get Delivery Conditions")
+    @Test(description = "Отсутствие прохождения по правилу FIRST_N_ORDERS при пустом Customers.ID и не попадании в вайтлист",
+            groups = "ondemand-shippingcalc")
+    public void getDeliveryConditionsNoCustomerIdNoWhitelist() {
+        var request = GetDeliveryConditionsRequest.newBuilder()
+                .addStores(Store.newBuilder()
+                        .setId(STORE_ID)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .setIsOndemand(true)
+                        .build())
+                .setCustomer(Customer.newBuilder()
+                        .setAnonymousId(UUID.randomUUID().toString())
+                        .setOrdersCount(0)
+                        .setRegisteredAt(1655822708)
+                        .setLat(55.55f)
+                        .setLon(55.55f)
+                        .build())
+                .setTenant(Tenant.SBERMARKET.getId())
+                .setDeliveryTypeValue(DeliveryType.B2B_VALUE)
+                .setPlatformName("test")
+                .setPlatformVersion("test")
                 .build();
 
         var response = clientShippingCalc.getDeliveryConditions(request);
@@ -575,7 +606,7 @@ public class MinCartTest extends ShippingCalcBase {
                 .build();
 
         var response = clientShippingCalc.getDeliveryConditions(request);
-        checkDeliveryConditions(response, STORE_ID, 0, 2, 3);
+        checkDeliveryConditions(response, STORE_ID, 0, 1, 3);
     }
 
     @CaseIDs(value = {@CaseId(391), @CaseId(453)})
