@@ -17,6 +17,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -27,7 +28,7 @@ public class ShoppingSessionV1Tests extends RestBase {
 
     @CaseIDs(value = {@CaseId(44), @CaseId(1417)})
     @Story("Сессия покупки")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             description = "Получение сессии для авторизованного пользователя")
     public void getShoppingSessionWithAuth() {
         UserData user = UserManager.getDefaultAdminOld();
@@ -44,7 +45,7 @@ public class ShoppingSessionV1Tests extends RestBase {
 
     @CaseId(1418)
     @Story("Сессия покупки")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             description = "Получение сессии для неавторизованного пользователя")
     public void getShoppingSessionWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V1);

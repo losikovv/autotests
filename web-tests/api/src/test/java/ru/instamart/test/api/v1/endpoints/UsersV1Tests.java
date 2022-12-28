@@ -15,6 +15,8 @@ import ru.instamart.api.response.v1.UsersV1Response;
 import ru.instamart.kraken.data.user.UserData;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
@@ -29,7 +31,7 @@ public class UsersV1Tests extends RestBase {
     }
 
     @CaseId(2369)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             description = "Получение данных пользователя по емейлу")
     public void getUsers() {
         UserData user = SessionFactory.getSession(SessionType.API_V1).getUserData();
@@ -40,7 +42,7 @@ public class UsersV1Tests extends RestBase {
     }
 
     @CaseId(2370)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение данных пользователя с пустым емейлом")
     public void getUsersWithEmptyEmail() {
         final Response response = UsersV1Request.GET("");
@@ -49,7 +51,7 @@ public class UsersV1Tests extends RestBase {
     }
 
     @CaseId(2371)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение данных пользователя с несуществующим емейлом")
     public void getUsersWithNonExistentEmail() {
         final Response response = UsersV1Request.GET(String.format("random%s@test.com", RandomUtils.nextInt(1, 1000)));

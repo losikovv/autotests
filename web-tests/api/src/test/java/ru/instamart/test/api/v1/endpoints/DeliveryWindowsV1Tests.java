@@ -23,6 +23,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -44,7 +46,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @Story("Окна доставки")
     @CaseId(1145)
     @Test(description = "Получение списка окон доставки для магазина на конкретную дату",
-            groups = {"api-instamart-smoke","api-instamart-prod", "api-v1"})
+            groups = {"api-instamart-smoke",API_INSTAMART_PROD, "api-v1"})
     public void getDeliveryWindows() {
         final Response response = StoresV1Request.DeliveryWindows.GET(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         checkStatusCode200(response);
@@ -60,7 +62,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @Story("Окна доставки")
     @CaseId(1146)
     @Test(description = "Получение списка окон доставки для несуществуюшего магазина",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getDeliveryWindowsForNonExistingStore() {
         final Response response = StoresV1Request.DeliveryWindows.GET(0);
         checkStatusCode404(response);
@@ -69,7 +71,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @Story("Окна доставки")
     @CaseId(1147)
     @Test(description = "Генерация окон доставки",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void generateDeliveryWindows() {
         final Response response = StoresV1Request.DeliveryWindows.POST(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         checkStatusCode200(response);
@@ -78,7 +80,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @Story("Окна доставки")
     @CaseId(1148)
     @Test(description = "Генерация окон доставки для несуществующего магазина",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void generateDeliveryWindowsForNonExistingStore() {
         final Response response = StoresV1Request.DeliveryWindows.POST(0);
         checkStatusCode404(response);
@@ -87,7 +89,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @Story("Окна доставки")
     @CaseId(1149)
     @Test(description = "Редактирование окна доставки",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getDeliveryWindows")
     public void editDeliveryWindow() {
         Integer number = RandomUtils.nextInt(1, 100);
@@ -113,7 +115,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @Story("Окна доставки")
     @CaseId(1150)
     @Test(description = "Редактирование несуществующего окна доставки",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void editNonExistingDeliveryWindow() {
         final Response response = DeliveryWindowsV1Request.PUT(
                 0L,
@@ -128,7 +130,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @Story("Окна доставки")
     @CaseId(1151)
     @Test(description = "Редактирование окна доставки c невалидными значениями",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getDeliveryWindows")
     public void editDeliveryWindowWithInvalidValues() {
         final Response response = DeliveryWindowsV1Request.PUT(
@@ -152,7 +154,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @Story("Окна доставки")
     @CaseId(2135)
     @Test(description = "Получение списка типов окон доставки",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getDeliveryWindowKinds() {
         final Response response = DeliveryWindowKindsV1Request.GET();
         checkStatusCode200(response);

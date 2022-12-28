@@ -17,6 +17,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
@@ -27,7 +29,7 @@ public class DeliveryAvailabilityV2Test extends RestBase {
     @Parameters({"lat", "lon"})
     @Test(dataProvider = "deliveryAvailabilityV2TestData",
             dataProviderClass = RestDataProvider.class,
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Негативный тест без указания lan или lon, или обеих")
     public void testWithoutLatAndLon(String lat, String lon) {
         final Response response = DeliveryAvailabilityV2Request.GET(lat, lon);
@@ -39,7 +41,7 @@ public class DeliveryAvailabilityV2Test extends RestBase {
     }
 
     @CaseId(1477)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Указаны координаты")
     public void testWithLatAndLon() {
         AddressV2 address = apiV2.getAddressBySid(EnvironmentProperties.DEFAULT_SID);

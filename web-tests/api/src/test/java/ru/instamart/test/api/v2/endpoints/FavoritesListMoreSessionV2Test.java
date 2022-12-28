@@ -20,6 +20,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -37,7 +39,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
 
     @CaseId(517)
     @Story("Получить список избранных товаров")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получить список избранных товаров. В избранном есть товары")
     public void getFavoritesItem() {
         FavoritesItemV2Response product = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);
@@ -76,7 +78,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
 
     @CaseId(520)
     @Story("Получить список избранных товаров")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем пустой список любимых товаров у дефолтного магазина")
     public void emptyFavoritesForDefaultSid() {
         final Response response = FavoritesV2Request.GET(EnvironmentProperties.DEFAULT_SID);
@@ -94,7 +96,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
 
     @CaseId(522)
     @Story("Список SKU товаров из избранного")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Список SKU товаров из избранного. Один товар в избранном")
     public void getFavoritesSku() {
         var favorites = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);
@@ -107,7 +109,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
 
     @CaseId(523)
     @Story("Список SKU товаров из избранного")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Список SKU товаров из избранного. 3 товара в избранном")
     public void getFavoritesSku3Items() {
         apiV2.addFavoritesQtyListProductBySid(EnvironmentProperties.DEFAULT_SID, 3);
@@ -119,7 +121,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
 
     @CaseId(525)
     @Story("Добавить товар в избранное")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Добавить товар в избранное с существующим id")
     public void addFavoritesList200() {
         ProductV2 product = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0);
@@ -140,7 +142,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
 
     @CaseId(527)
     @Story("Удаление товара из избранного")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Удаление товара из избранного с существующим id")
     public void deleteFavoritesList200() {
         var favorites = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);

@@ -12,6 +12,8 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ExternalPartnersV2Request;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
@@ -28,7 +30,7 @@ public class ExternalPartnersV2Test extends RestBase {
 
     @CaseId(270)
     @Test(//Прайм -10% частично выпилен с прода DMND-1912
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Отправка запроса без store_id")
     public void testWithoutShopId() {
         final Response response = ExternalPartnersV2Request.Banners.SberPrime.GET("");
@@ -38,7 +40,7 @@ public class ExternalPartnersV2Test extends RestBase {
 
     @CaseId(269)
     @Test(//Прайм -10% частично выпилен с прода DMND-1912
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Отправка запроса c store_id")
     public void testWithShopId() {
         final Response response = ExternalPartnersV2Request.Banners.SberPrime.GET("1");
@@ -47,7 +49,7 @@ public class ExternalPartnersV2Test extends RestBase {
 
     @CaseId(810)
     @Story("Получение списка подписок для пользователя")
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Подписка SberPrime неактивна")
     public void getInactiveSubscription() {
         final Response response = ExternalPartnersV2Request.Services.GET();
@@ -56,7 +58,7 @@ public class ExternalPartnersV2Test extends RestBase {
 
     @CaseId(1086)
     @Story("Получение списка подписок для пользователя")
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Подписка SberPrime активна")
     public void getActiveSubscription() {
         addSberPrime(apiV2.getProfile().getUser().getEmail());

@@ -12,6 +12,8 @@ import ru.instamart.api.request.v1.b2b.CompanyPresenceV1Request;
 import ru.instamart.api.response.ErrorResponse;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV1")
@@ -24,7 +26,7 @@ public class CompanyPresenceV1Tests extends RestBase {
     @Story("Web")
     @CaseId(624)
     @Test(description = "Статус регистрации компании (незарегистрирована)",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getCompanyNotPresence() {
         admin.authApi();
 

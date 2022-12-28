@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorText;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkUserShipmentFromResponse;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -73,7 +74,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseId(1338)
     @Test(description = "Получение информации о заказе пользователя в статусе ready - заказ задерживается",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getReadyUserShipment")
     public void getReadyUserShipmentWithDelay()  {
         LocalDateTime date = LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1));
@@ -89,7 +90,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseIDs(value = {@CaseId(1299), @CaseId(1339)})
     @Test(description = "Получение информации о заказе пользователя в статусе collecting",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getReadyUserShipmentWithDelay")
     public void getCollectingUserShipment() {
         SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.COLLECTING.getValue());
@@ -101,7 +102,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseIDs(value = {@CaseId(1300), @CaseId(1339)})
     @Test(description = "Получение информации о заказе пользователя в статусе ready_to_ship",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getCollectingUserShipment")
     public void getReadyToShipUserShipment() {
         SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.READY_TO_SHIP.getValue());
@@ -113,7 +114,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseIDs(value = {@CaseId(1301), @CaseId(1340)})
     @Test(description = "Получение информации о заказе пользователя в статусе shipping",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getReadyToShipUserShipment")
     public void getShippingUserShipment() {
         SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.SHIPPING.getValue());
@@ -125,7 +126,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseId(1335)
     @Test(description = "Получение информации о заказе пользователя в статусе shipped",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getShippingUserShipment")
     public void getShippedUserShipment() {
         SpreeOrdersDao.INSTANCE.updateShipmentStateToShip(order.getNumber(), getDbDeliveryDateFrom(0L));
@@ -137,7 +138,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseId(1302)
     @Test(description = "Получение информации о заказе пользователя в статусе canceled",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "getShippedUserShipment")
     public void getCanceledUserShipment() {
         OrderV2 order = apiV2.order(user, EnvironmentProperties.DEFAULT_SID);
@@ -150,7 +151,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseId(1334)
     @Test(description = "Получение информации о несуществующем заказе пользователя",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getNonExistentUserShipment() {
         final Response response = UsersV1Request.GET(user.getId(), "failedShipmentNumber");
         checkStatusCode404(response);

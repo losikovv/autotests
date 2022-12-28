@@ -22,6 +22,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertFalse;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
@@ -48,7 +49,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
 
     @CaseId(306)
     @Story("История заказов")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение истории заказов (1-ая страница)")
     public void getPreviousOrder200() {
         final Response response = OrdersV2Request.GET(1);
@@ -66,7 +67,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
 
     @CaseId(1406)
     @Story("История заказов")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение информации о предыдущем заказе")
     public void getPreviousOrder() {
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -79,7 +80,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
 
     @CaseId(307)
     @Story("История заказов")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение информации о предыдущем заказе. Нет предыдущих заказов",
             dependsOnMethods = {"getPreviousOrder", "getPreviousOrder200"})
     public void getPreviousNonExistentOrder() {

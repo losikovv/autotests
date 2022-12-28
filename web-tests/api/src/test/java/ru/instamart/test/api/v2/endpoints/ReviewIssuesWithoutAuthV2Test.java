@@ -14,6 +14,7 @@ import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
 
@@ -31,7 +32,7 @@ public class ReviewIssuesWithoutAuthV2Test extends RestBase {
     }
     @CaseId(1445)
     @Story("Получение списка возможных проблем для отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение списка возможных проблем для отзыва о существующем заказе без авторизации",
             priority = 1)
     public void getListIssuesForOrderWuthoutAuth() {

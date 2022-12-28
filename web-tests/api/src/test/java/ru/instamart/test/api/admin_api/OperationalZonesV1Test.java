@@ -18,6 +18,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
@@ -35,7 +36,7 @@ public class OperationalZonesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING) //TODO: на стейджах подключен КЛАДР и не регион сравнивается с ним. Тест падает
     @Story("Создание региона (операционной зоны)")
     @Test(description = "Успешное создание региона (операционной зоны)",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void createOperationalZone() {
         String name = "тест-" + Generate.literalCyrillicString(10);
         Response response = OperationalZonesV1Request.POST(name);
@@ -54,7 +55,7 @@ public class OperationalZonesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING) //TODO: на стейджах подключен КЛАДР и не регион сравнивается с ним. Тест падает
     @Story("Создание региона (операционной зоны)")
     @Test(description = "Создание региона с некорректным названием",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "negativeOperationalZonesNames")
     public void createOperationalZoneWithWrongName(Integer statusCode, String name) {
@@ -67,7 +68,7 @@ public class OperationalZonesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING) //TODO: на стейджах подключен КЛАДР и не регион сравнивается с ним. Тест падает
     @Story("Редактирование региона (операционной зоны)")
     @Test(description = "Успешное редактирование региона (операционной зоны)",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dependsOnMethods = "createOperationalZone")
     public void updateOperationalZone() {
         String name = "тест-" + Generate.literalCyrillicString(10);
@@ -86,7 +87,7 @@ public class OperationalZonesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING) //TODO: на стейджах подключен КЛАДР и не регион сравнивается с ним. Тест падает
     @Story("Редактирование региона (операционной зоны)")
     @Test(description = "Редактирование региона с некорректным названием",
-            groups = {"api-instamart-regress", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, "api-v1"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "negativeOperationalZonesNames",
             dependsOnMethods = "createOperationalZone")
@@ -100,7 +101,7 @@ public class OperationalZonesV1Test extends RestBase {
     @Skip(onServer = Server.STAGING) //TODO: на стейджах подключен КЛАДР и не регион сравнивается с ним. Тест падает
     @Story("Редактирование региона (операционной зоны)")
     @Test(description = "Редактирование несуществующего региона",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void updateUnknownOperationalZone() {
         Response response = OperationalZonesV1Request.PUT(0, "test");
 
@@ -110,7 +111,7 @@ public class OperationalZonesV1Test extends RestBase {
     @CaseId(2514)
     @Story("Список регионов (операционные зоны)")
     @Test(description = "Получение списка регионов",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getOperationalZones() {
         final Response response = OperationalZonesV1Request.GET();
         checkStatusCode200(response);

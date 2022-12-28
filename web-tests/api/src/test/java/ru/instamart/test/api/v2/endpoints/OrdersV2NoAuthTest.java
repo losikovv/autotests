@@ -11,6 +11,8 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
@@ -20,7 +22,7 @@ public class OrdersV2NoAuthTest extends RestBase {
 
     @CaseId(1419)
     @Story("Получение заказов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем заказы без авторизации")
     public void getOrders401() {
         SessionFactory.clearSession(SessionType.API_V2);
@@ -31,7 +33,7 @@ public class OrdersV2NoAuthTest extends RestBase {
 
     @CaseId(2132)
     @Story("Получение заказов")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем заказы без авторизации")
     public void putOrders404() {
         final Response response = OrdersV2Request.PUT(1, "", "", 1, 0, 0, 0, "");

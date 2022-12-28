@@ -20,6 +20,8 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.Group.API_SHOPPER_PROD;
+import static ru.instamart.api.Group.API_SHOPPER_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -30,7 +32,7 @@ public class DispatchSettingsTest extends RestBase {
     @Story("Dispatch settings")
     @CaseId(104)
     @Test(description = "Получение конфига с валидным токеном",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void dispatchSettings200() {
         SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
         response = ShopperAdminRequest.OperationalZones.DispatchSettings.GET(EnvironmentProperties.DEFAULT_ID_ZONE);
@@ -41,7 +43,7 @@ public class DispatchSettingsTest extends RestBase {
     @Story("Dispatch settings")
     @CaseId(104)
     @Test(description = "Получение конфига с несуществующим zoneId",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void dispatchSettings404() {
         SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
         response = ShopperAdminRequest.OperationalZones.DispatchSettings.GET(9999);
@@ -53,7 +55,7 @@ public class DispatchSettingsTest extends RestBase {
     @Story("Dispatch settings")
     @CaseId(104)
     @Test(description = "Получение конфига с не валидным токеном",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void dispatchSettings401() {
         SessionFactory.clearSession(SessionType.SHOPPER_ADMIN);
         response = ShopperAdminRequest.OperationalZones.DispatchSettings.GET(EnvironmentProperties.DEFAULT_ID_ZONE);
@@ -63,7 +65,7 @@ public class DispatchSettingsTest extends RestBase {
 
     @Story("Dispatch settings")
     @Test(description = "Получение настроек Диспетчеризация 2.0",
-            groups = {"api-shopper-regress"})
+            groups = {API_SHOPPER_REGRESS})
     public void getDispatchSettings() {
         SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
         String retailerUUID = "c158f834-b944-4c84-9165-65f311e6aed4";
@@ -78,7 +80,7 @@ public class DispatchSettingsTest extends RestBase {
     @Story("Dispatch settings")
     @CaseId(189)
     @Test(description = "Изменение настроек диспатчеризации",
-            groups = {"api-shopper-regress"})
+            groups = {API_SHOPPER_REGRESS})
     public void putDispatchSettings() {
         SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
         String retailerUUID = "599ba7b7-0d2f-4e54-8b8e-ca5ed7c6ff8a";

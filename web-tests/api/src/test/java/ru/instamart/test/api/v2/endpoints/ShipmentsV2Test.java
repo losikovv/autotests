@@ -29,6 +29,8 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
@@ -52,7 +54,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(339)
     @Story("Получить время доставки")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Получить время доставки с существующим id")
     public void getDeliveryWindows200() {
         Integer shipmentId = apiV2.getShippingWithOrder().getId();
@@ -63,7 +65,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(340)
     @Story("Получить время доставки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить время доставки с несуществующим id")
     public void getDeliveryWindows404() {
         final Response response = ShipmentsV2Request.DeliveryWindows.GET("failedShipmentId", today);
@@ -170,7 +172,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(363)
     @Story("Получить окно доставки для подзаказа для указанного дня")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Получить окно доставки для подзаказа для указанного дня с существующим id")
     public void shippingRates200() {
         final Response response = ShipmentsV2Request.ShippingRates.GET(apiV2.getShipmentsNumber(), getFutureDateWithoutTime(1L));
@@ -180,7 +182,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(364)
     @Story("Получить окно доставки для подзаказа для указанного дня")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить окно доставки для подзаказа для указанного дня с несуществующим id")
     public void shippingRates404() {
         response = ShipmentsV2Request.ShippingRates.GET("failedShippingNumber", today);
@@ -225,7 +227,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(367)
     @Story("Получить окно доставки для подзаказа для указанного дня")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             dataProvider = "dateFormats",
             dataProviderClass = RestDataProvider.class,
             description = "Получить окно доставки для подзаказа для указанного дня с существующим id и без указанием необязательного параметра date")
@@ -241,7 +243,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(368)
     @Story("Получить ближайшие окна доставки")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Получить ближайшие окна доставки с существующим id")
     public void nextDeliver200() {
         final Response response = StoresV2Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID);
@@ -251,7 +253,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(369)
     @Story("Получить ближайшие окна доставки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить ближайшие окна доставки с несуществующим id")
     public void nextDeliver404() {
         final Response response = StoresV2Request.NextDeliveries.GET(0);
@@ -261,7 +263,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(370)
     @Story("Получить ближайшие окна доставки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить ближайшие окна доставки со всеми необязательными полями с корректными данными")
     public void nextDeliverWithAllData() {
         AddressV2 address = apiV2.getAddressBySid(EnvironmentProperties.DEFAULT_SID);
@@ -286,7 +288,7 @@ public class ShipmentsV2Test extends RestBase {
     @Issue("STF-9822")
     @CaseId(371)
     @Story("Получить ближайшие окна доставки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получить ближайшие окна доставки со всеми необязательными полями с корректными данными")
     public void nextDeliverWithAllIncorrectData() {
         Map<String, String> params = new HashMap<>();
@@ -302,7 +304,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(785)
     @Story("Получения статуса шипмента")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получения статуса шипмента с существующим shipmentNumber")
     public void getShipmentState200() {
         String number = apiV2.getShipmentsNumber();
@@ -313,7 +315,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(786)
     @Story("Получения статуса шипмента")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получения статуса шипмента с несуществующим shipmentNumber")
     public void getShipmentState404() {
         final Response response = ShipmentsV2Request.State.GET("failedShipmentNumber");
@@ -323,7 +325,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(787)
     @Story("Получения статуса шипмента")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получения статуса шипмента с пустым shipmentNumber")
     public void getShipmentState4041() {
         final Response response = ShipmentsV2Request.State.GET("");
@@ -332,7 +334,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(298)
     @Story("Повтор подзаказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Повтор существующего подзаказа")
     public void repeatExistingShipment() {
         OrderV2 order = apiV2.createOrder();
@@ -353,7 +355,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(299)
     @Story("Повтор подзаказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Повтор несуществующего подзаказа")
     public void repeatNonExistingShipment() {
         final Response response = ShipmentsV2Request.Clones.POST("failedShipmentNumber");

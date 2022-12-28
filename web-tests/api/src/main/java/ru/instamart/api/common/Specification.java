@@ -44,6 +44,7 @@ public enum Specification {
     @Getter private RequestSpecification authorizationServiceRequestSpec;
     @Getter private RequestSpecification keycloakRequestSpec;
     @Getter private RequestSpecification apiDCRequestSpec;
+    @Getter private RequestSpecification apiSelfFeeRequestSpec;
     //Внешние сервисы
     @Getter private RequestSpecification webhookSteRequestSpec;
 
@@ -239,16 +240,23 @@ public enum Specification {
                 .addFilter(new CounterFilter())
                 .build();
 
-        //Внешние сервисы
-        webhookSteRequestSpec = new RequestSpecBuilder()
-                .setBaseUri(CoreProperties.DEFAULT_WEBHOOK_SITE_URL)
+        shadowcatRequestSpec = new RequestSpecBuilder()
+                .setBaseUri("https://paas-content-demand-shadowcat.gw-stage.sbmt.io")
+                .setBasePath("api/v1/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
 
-        shadowcatRequestSpec = new RequestSpecBuilder()
-                .setBaseUri("https://paas-content-demand-shadowcat.gw-stage.sbmt.io")
-                .setBasePath("api/v1/")
+        apiSelfFeeRequestSpec = new RequestSpecBuilder()
+                .setBaseUri(EnvironmentProperties.ADMIN_GW_URL)
+                .setBasePath("self-fee/")
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
+        //Внешние сервисы
+        webhookSteRequestSpec = new RequestSpecBuilder()
+                .setBaseUri(CoreProperties.DEFAULT_WEBHOOK_SITE_URL)
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();

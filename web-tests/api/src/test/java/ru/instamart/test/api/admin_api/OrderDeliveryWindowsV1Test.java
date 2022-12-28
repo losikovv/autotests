@@ -22,6 +22,7 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorText;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -49,7 +50,7 @@ public final class OrderDeliveryWindowsV1Test extends RestBase {
     @CaseId(2846)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Получение списка окон доставок заказа",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getOrderDeliveryWindows() {
         admin.authApi();
 
@@ -67,7 +68,7 @@ public final class OrderDeliveryWindowsV1Test extends RestBase {
     @CaseId(2847)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения списка окон доставок заказа неавторизованным пользователем",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getOrderDeliveryWindowsUnauthenticated() {
         SessionFactory.clearSession(SessionType.API_V1);
 
@@ -78,7 +79,7 @@ public final class OrderDeliveryWindowsV1Test extends RestBase {
     @CaseId(2848)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения списка окон доставок заказа пользователем без прав администратора",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getOrderDeliveryWindowsUnauthorized() {
         apiV1.authByPhone(UserManager.getQaUser());
 
@@ -89,7 +90,7 @@ public final class OrderDeliveryWindowsV1Test extends RestBase {
     @CaseId(2849)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения списка окон доставок несуществующего заказа",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getOrderDeliveryWindowsNotFound() {
         admin.authApi();
 

@@ -17,6 +17,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkAddressInDb;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -47,7 +48,7 @@ public class ShoppingContextV1Tests extends RestBase {
 
     @CaseId(1556)
     @Story("Настройки параметров покупок")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Изменение существующего адреса",
             dependsOnMethods = "createShoppingContext")
     public void changeShoppingContext() {

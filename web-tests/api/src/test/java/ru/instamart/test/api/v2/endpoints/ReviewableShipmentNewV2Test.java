@@ -15,6 +15,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 import static ru.instamart.api.helper.K8sHelper.changeToShip;
@@ -37,7 +38,7 @@ public class ReviewableShipmentNewV2Test extends RestBase {
     }
 
     @CaseId(2337)
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение информации о заказе | заказ старше 7 дней")
     public void getReviewableShipment() {
         final Response response = SeparatReviewsV2Request.ReviewableShipment.GET();

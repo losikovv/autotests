@@ -87,6 +87,8 @@ public final class EnvironmentProperties {
 
     @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "", env = "ADMIN_URL")
     private static String ADMIN_URL;
+    @Config(configName = NAME, fieldName = "adminGwUrl", defaultValue = "", env = "ADMIN_GW_URL")
+    public static String ADMIN_GW_URL;
     @Config(configName = NAME, fieldName = "shopperGwUrl", defaultValue = "")
     public static String SHOPPER_GW_URL;
     @Config(configName = NAME, fieldName = "ssoAuthUrl", defaultValue = "")

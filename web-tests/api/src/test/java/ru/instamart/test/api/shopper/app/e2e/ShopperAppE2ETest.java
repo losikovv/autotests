@@ -26,6 +26,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Objects;
 
+import static ru.instamart.api.Group.API_SHOPPER_PROD;
+import static ru.instamart.api.Group.API_SHOPPER_REGRESS;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkIsDeliveryToday;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
@@ -68,7 +70,7 @@ public class ShopperAppE2ETest extends RestBase {
     @Story("Сборка заказа")
     @CaseId(1)
     @Test(description = "Собираем все позиции в заказе",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void simpleCollect() {
         shopperApp.startAssembly(shipment.getId());
         shopperApp.assemblyItemsWithOriginalQty();
@@ -90,7 +92,7 @@ public class ShopperAppE2ETest extends RestBase {
     @Story("Сборка заказа")
     @CaseId(2)
     @Test(description = "Собираем/отменяем/заменяем позиции в заказе",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void complexCollect() {
         AssemblySHP.Data assembly = shopperApp.startAssembly(shipment.getId());
         Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.COLLECTING.getState(), "Статус сборки не валиден");
@@ -131,7 +133,7 @@ public class ShopperAppE2ETest extends RestBase {
     @Story("Сборка заказа")
     @CaseId(110)
     @Test(description = "Дублирование существующего чека",
-            groups = {"api-shopper-regress"})
+            groups = {API_SHOPPER_REGRESS})
     public void simpleCollectNonUniqueFiscalNumber() {
         String currentAssemblyId = shopperApp.startAssembly(shipment.getId()).getId();
         shopperApp.assemblyItemsWithOriginalQty();

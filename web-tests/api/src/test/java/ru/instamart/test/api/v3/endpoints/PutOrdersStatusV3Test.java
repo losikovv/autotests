@@ -12,6 +12,7 @@ import ru.instamart.api.model.v3.OrderV3;
 import ru.instamart.api.request.v3.OrderV3Request;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV3")
@@ -22,7 +23,7 @@ public class PutOrdersStatusV3Test extends RestBase {
 
     @CaseId(675)
     @Story("Отмена заказа на доставку")
-    @Test(  groups = {"api-instamart-regress", "api-v3"},
+    @Test(  groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Отмена заказа доставки Goods")
@@ -34,7 +35,7 @@ public class PutOrdersStatusV3Test extends RestBase {
 
     @CaseId(868)
     @Story("Отмена заказа на самовывоз")
-    @Test(  groups = {"api-instamart-regress", "api-v3"},
+    @Test(  groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Отмена заказа самовывоза Metro_Marketplace")

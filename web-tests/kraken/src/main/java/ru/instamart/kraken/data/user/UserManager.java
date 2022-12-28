@@ -34,6 +34,7 @@ public final class UserManager {
     private static UserData defaultUser;
     private static UserData defaultAdmin;
     private static UserData defaultAdminStage;
+    private static UserData defaultAdminSelfFee;
     private static UserData defaultAdminAllRoles;
     private static UserData defaultAdminSmsRole;
     private static UserData defaultShopper;
@@ -92,11 +93,22 @@ public final class UserManager {
         return defaultAdminStage;
     }
 
+    public static UserData getDefaultAdminSelfFee() {
+        if (isNull(defaultAdminSelfFee)) {
+            defaultAdminSelfFee = UserData.builder()
+                    .role("superadmin")
+                    .email(Crypt.INSTANCE.decrypt("deDJUKCf0yJx9jdABARcBMoD+LwDOlho5YDVFW+mvtQ="))
+                    .password(Crypt.INSTANCE.decrypt("N09waZFwNRQIUCCOOf8RLA=="))
+                    .name("autotest superadmin")
+                    .build();
+        }
+        return defaultAdminSelfFee;
+    }
+
     public static UserData getDefaultAdminAllRoles() {
         if (isNull(defaultAdminAllRoles)) {
             defaultAdminAllRoles = UserData.builder()
                     .role("superadmin")
-                    //.email(Crypt.INSTANCE.decrypt("wTfubFbVMEA2P1HT80pKDXJfzWnJ15xgPBJr240lktU="))
                     .email(Crypt.INSTANCE.decrypt("Gh1MsACysUuEYv98vkOuOOx/HVxUh5J54NKCNSJCPFQ="))
                     .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
                     .password(PASSWD_1)

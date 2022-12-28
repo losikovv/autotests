@@ -20,6 +20,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.UUID;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
@@ -42,7 +44,7 @@ public class ProfileV2Test extends RestBase {
 
     @CaseId(159)
     @Test(description = "Получение данных профиля пользователя. Запрос с токеном",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"})
     public void getProfile200() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
         final Response response = ProfileV2Request.GET();
@@ -68,7 +70,7 @@ public class ProfileV2Test extends RestBase {
 
     @CaseId(150)
     @Test(description = "Обновление профиля пользователя",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"})
     public void putProfile200() {
         final String newEmail = UUID.randomUUID() + "@autotestmail.dev";
         final String newFirstName = Generate.literalString(10);
@@ -94,7 +96,7 @@ public class ProfileV2Test extends RestBase {
 
     @CaseId(151)
     @Test(description = "Обновление профиля пользователя с невалидными данными",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"})
     public void putProfile422() {
         final String newEmail = "test###autotestmail.dev";
         final String newFirstName = "!@#$%";

@@ -18,6 +18,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
@@ -34,7 +35,7 @@ public class ProductFeedbacksCreateV2Test extends RestBase {
     @Skip //TODO: возвращает 500
     @CaseIDs({@CaseId(2298), @CaseId(2299)})
     @Story("Создание отзыва на товар")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             dataProvider = "sendProductFeedbacks",
             dataProviderClass = RestDataProvider.class,
             description = "Создание отзыва на товар")

@@ -16,6 +16,8 @@ import ru.instamart.api.response.v2.CreditCardAuthorizationV2Response;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -33,7 +35,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(509), @CaseId(510)})
     @Story("Начало авторизации")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение номера транзакции для заказа",
             dataProvider = "orderNumbers",
             dataProviderClass = RestDataProvider.class)
@@ -47,7 +49,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(512), @CaseId(1033)})
     @Story("Продолжение авторизации")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Продолжение авторизации с невалидными данными",
             dataProvider = "transactionNumbers",
             dataProviderClass = RestDataProvider.class)
@@ -59,7 +61,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     @CaseId(513)
     @Story("Продолжение авторизации")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Продолжение авторизации с невалидным токеном авторизации",
             dependsOnMethods = "getTransactionNumber")
     public void authorizeCardWithInvalidToken() {
@@ -71,7 +73,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(515), @CaseId(1041)})
     @Story("Финальный шаг авторизации карты")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Завершение авторизации карты с невалидными данными",
             dataProvider = "invalidTransactionData",
             dataProviderClass = RestDataProvider.class)

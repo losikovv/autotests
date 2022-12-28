@@ -17,6 +17,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
@@ -27,7 +29,7 @@ public class SearchSuggestionsV1Tests extends RestBase {
     @CaseIDs(value = {@CaseId(1420), @CaseId(1421), @CaseId(1422)})
     @Story("Поисковые подсказки")
     @Test(description = "Получение поисковых подсказок",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             dataProvider = "positiveQuery",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestions(String query) {
@@ -43,7 +45,7 @@ public class SearchSuggestionsV1Tests extends RestBase {
     @CaseId(1423)
     @Story("Поисковые подсказки")
     @Test(description = "Получение поисковых подсказок с неверной раскладкой",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getSearchSuggestionsWithWrongKeyboardLayout() {
         final Response response = StoresV1Request.SearchSuggestions.GET(EnvironmentProperties.DEFAULT_SID, "мфдшщ");
         checkStatusCode200(response);
@@ -59,7 +61,7 @@ public class SearchSuggestionsV1Tests extends RestBase {
     @CaseIDs(value = {@CaseId(1424), @CaseId(1425), @CaseId(1426)})
     @Story("Поисковые подсказки")
     @Test(description = "Получение поисковых подсказок",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dataProvider = "negativeQuery",
             dataProviderClass = RestDataProvider.class)
     public void getInvalidSearchSuggestions(String query) {
@@ -72,7 +74,7 @@ public class SearchSuggestionsV1Tests extends RestBase {
     @CaseIDs(value = {@CaseId(1427), @CaseId(1428)})
     @Story("Поисковые подсказки")
     @Test(description = "Получение пустых поисковых подсказок",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             dataProvider = "emptyQueries",
             dataProviderClass = RestDataProvider.class)
     public void getEmptySearchSuggestions(String query) {
@@ -84,7 +86,7 @@ public class SearchSuggestionsV1Tests extends RestBase {
     @CaseId(1429)
     @Story("Поисковые подсказки")
     @Test(description = "Получение поисковых подсказок для несуществующего магазина",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"})
     public void getSearchSuggestions() {
         final Response response = StoresV1Request.SearchSuggestions.GET(0, "хлеб");
         checkStatusCode404(response);

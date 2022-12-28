@@ -31,6 +31,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.Collections;
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.ApiV3Checkpoints.checkError;
 import static ru.instamart.api.checkpoint.ApiV3Checkpoints.checkErrors;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -59,7 +60,7 @@ public class EditCheckoutV3Test extends RestBase {
     @CaseIDs(value = {@CaseId(2080), @CaseId(2083)})
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с вводом валидных данных",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void editUserCredentialsInOrder() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
@@ -81,7 +82,7 @@ public class EditCheckoutV3Test extends RestBase {
     @CaseId(2084)
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с несуществующим заказом",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void editNonExistentOrder() {
         final Response response = CheckoutV3Request.PUT(CheckoutV3Request.OrderRequest.builder().build(), "failedOrderNumber");
         checkStatusCode404(response);
@@ -91,7 +92,7 @@ public class EditCheckoutV3Test extends RestBase {
     @CaseId(2085)
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с несуществующим shipments",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void editOrderWithNonExistentShipments() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
@@ -108,7 +109,7 @@ public class EditCheckoutV3Test extends RestBase {
     @CaseId(2086)
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с пустым order",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void editOrderWithEmptyData() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
@@ -124,7 +125,7 @@ public class EditCheckoutV3Test extends RestBase {
     @CaseId(2087)
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с пустым shipments",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void editOrderWithEmptyShipments() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
@@ -141,7 +142,7 @@ public class EditCheckoutV3Test extends RestBase {
     @CaseId(2088)
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с существующим order другого пользователя",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void editOrderWithAnotherUserOrder() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
@@ -159,7 +160,7 @@ public class EditCheckoutV3Test extends RestBase {
     @CaseId(2089)
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с существующим shipments другого пользователя",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void editOrderWithAnotherUserShipments() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
@@ -176,7 +177,7 @@ public class EditCheckoutV3Test extends RestBase {
     @CaseId(2090)
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с вводом невалидных данных",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "orderWithInvalidData",
             dataProviderClass = ApiV3DataProvider.class)
     public void editOrderWithInvalidCredentials(String email, String phone, String errorType) {
@@ -195,7 +196,7 @@ public class EditCheckoutV3Test extends RestBase {
     @CaseId(2091)
     @Story("Редактирование контактных данных в заказе")
     @Test(description = "Запрос с вводом пустых данных",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dataProvider = "orderWithEmptyData",
             dataProviderClass = ApiV3DataProvider.class)
     public void editOrderWithEmptyCredentials(String email, String phone, String errorType) {
@@ -214,7 +215,7 @@ public class EditCheckoutV3Test extends RestBase {
     @CaseId(2244)
     @Story("Редактирование адреса в заказе")
     @Test(description = "Запрос на обновление адреса доставки",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void editAddressOrder() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()

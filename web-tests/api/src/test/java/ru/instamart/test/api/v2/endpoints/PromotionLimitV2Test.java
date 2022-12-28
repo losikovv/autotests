@@ -16,6 +16,8 @@ import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.response.v2.PromotionLimitV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
@@ -30,7 +32,7 @@ public final class PromotionLimitV2Test extends RestBase {
     }
 
     @CaseId(309)
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверка условий оплаты бонусами")
     public void bonusPaymentTermsTest() {
         apiV2.dropAndFillCart(
@@ -56,7 +58,7 @@ public final class PromotionLimitV2Test extends RestBase {
     }
 
     @CaseId(310)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Условия оплаты бонусами для несуществующего заказа")
     public void termsOfPaymentWithBonusesforNonExistentParametres() {
         String orderNumber = "test";

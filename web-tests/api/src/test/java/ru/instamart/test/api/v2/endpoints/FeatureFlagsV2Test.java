@@ -12,6 +12,8 @@ import ru.instamart.api.request.v2.FeatureFlagsV2Request;
 import ru.instamart.api.response.v2.FeatureFlagsV2Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -22,7 +24,7 @@ public class FeatureFlagsV2Test extends RestBase {
 
     @CaseId(792)
     @Test(description = "Получение списка всех фича-флагов",
-            groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2", "api-bff"})
+            groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2", "api-bff"})
     public void getFeatureFlags200() {
         final Response response = FeatureFlagsV2Request.GET();
         checkStatusCode200(response);
@@ -30,7 +32,7 @@ public class FeatureFlagsV2Test extends RestBase {
     }
 
     @CaseId(792)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             dataProvider = "getAllFeatureFlags",
             dataProviderClass = RestDataProvider.class,
             description = "Получение существующего фича-флага")
@@ -40,7 +42,7 @@ public class FeatureFlagsV2Test extends RestBase {
     }
 
     @CaseId(792)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение несуществующего фича-флага")
     public void getFeatureFlagsItem404() {
         final Response response = FeatureFlagsV2Request.FeatureFlags.GET("failedName");

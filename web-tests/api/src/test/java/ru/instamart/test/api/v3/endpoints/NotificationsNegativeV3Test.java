@@ -20,6 +20,7 @@ import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 
@@ -76,7 +77,7 @@ public class NotificationsNegativeV3Test extends RestBase {
 
     @Story("Негативные тесты")
     @CaseId(1503)
-    @Test(description = "Передан неизвестный статус негатив.", groups = {"api-instamart-regress", "api-v3"})
+    @Test(description = "Передан неизвестный статус негатив.", groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void postNotificationsUnknown422() {
         Response response = NotificationsV3Request.POST(orderShopper.getShipments().get(0).getNumber(), "order.unknown");
 

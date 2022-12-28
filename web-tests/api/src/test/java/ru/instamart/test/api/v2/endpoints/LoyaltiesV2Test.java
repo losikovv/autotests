@@ -16,6 +16,8 @@ import ru.instamart.api.model.v2.RegisteredV2;
 import ru.instamart.api.request.v2.LoyaltiesV2Request;
 import ru.instamart.api.response.v2.RegisteredV2Response;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
@@ -30,7 +32,7 @@ public class LoyaltiesV2Test extends RestBase {
     }
 
     @Story("Список программ лояльности")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Проверка статус сообщения об отключении программы лояльности")
     public void loyalities422() {
         final Response response = LoyaltiesV2Request.GET();
@@ -39,7 +41,7 @@ public class LoyaltiesV2Test extends RestBase {
     }
 
     @Story("Запрос информации о лояльности СберЛоялти")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Информация о лояльности СберЛоялти")
     public void getSberLoyaltyInfo200() {
         final Response response = LoyaltiesV2Request.SberLoyaltyInfo.GET();

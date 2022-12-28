@@ -17,6 +17,8 @@ import ru.instamart.jdbc.dao.stf.SpreeActivatorsDao;
 import ru.instamart.jdbc.entity.stf.SpreeActivatorsEntity;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -34,7 +36,7 @@ public class PromotionsV1Tests extends RestBase {
 
     @CaseId(1430)
     @Story("Бесплатная доставка")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о бесплатной доставке")
     public void getFreeDeliveryPromotionsInfo() {
         final Response response = PromotionsV1Request.FreeDelivery.GET();
@@ -44,7 +46,7 @@ public class PromotionsV1Tests extends RestBase {
 
     @CaseId(2245)
     @Story("Компенсации")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v1"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v1"},
             description = "Получение информации о промо-акциях")
     public void getPromotions() {
         final Response response = PromotionsV1Request.Promotions.GET();
@@ -55,7 +57,7 @@ public class PromotionsV1Tests extends RestBase {
 
     @CaseId(2245)
     @Story("Компенсации")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение информации о промо-акции по id",
             dependsOnMethods = "getPromotions")
     public void getPromotion() {

@@ -17,6 +17,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -27,7 +29,7 @@ public class ProductsV1Tests extends RestBase {
     @CaseId(45)
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте",
-            groups = {"api-instamart-regress", "api-instamart-smoke", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-instamart-smoke", "api-v1"})
     public void getProductInfo() {
         SpreeProductsEntity spreeProductsEntity = SpreeProductsDao.INSTANCE.getProduct();
         final Response response = StoresV1Request.Products.GET(EnvironmentProperties.DEFAULT_SID, spreeProductsEntity.getPermalink());
@@ -46,7 +48,7 @@ public class ProductsV1Tests extends RestBase {
     @Issue("STF-9811")
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте",
-            groups = {"api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_PROD, "api-v1"})
     public void getProductInfoProd() {
         final Response response = StoresV1Request.Products.GET(EnvironmentProperties.DEFAULT_SID, "banany-a0c7489");
         checkStatusCode200(response);
@@ -56,7 +58,7 @@ public class ProductsV1Tests extends RestBase {
     @CaseId(1381)
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте c несуществующим permalink",
-            groups = {"api-instamart-regress", "api-instamart-smoke", "api-instamart-prod", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-instamart-smoke", API_INSTAMART_PROD, "api-v1"})
     public void getProductInfoWithInvalidPermalink() {
         final Response response = StoresV1Request.Products.GET(EnvironmentProperties.DEFAULT_SID, "fgdgdfgdfgdfg");
         checkStatusCode200(response);

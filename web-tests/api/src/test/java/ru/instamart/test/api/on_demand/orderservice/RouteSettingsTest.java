@@ -21,6 +21,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.Group.API_SHOPPER_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -37,7 +38,7 @@ public class RouteSettingsTest extends RestBase {
     @CaseId(165)
     @Story("Routing settings")
     @Test(description = "Установка маршрутизатизации на диспатч",
-            groups = {"api-shopper-regress", "dispatch-orderservice-smoke"})
+            groups = {API_SHOPPER_REGRESS, "dispatch-orderservice-smoke"})
     public void patchRoutingSettingsDispatch() {
         String schedule_type = "dispatch";
 
@@ -61,7 +62,7 @@ public class RouteSettingsTest extends RestBase {
     @CaseId(165)
     @Story("Routing settings")
     @Test(description = "Установка маршрутизации на револьверную",
-            groups = {"api-shopper-regress", "dispatch-orderservice-smoke"})
+            groups = {API_SHOPPER_REGRESS, "dispatch-orderservice-smoke"})
     public void patchRoutingSettingsList() {
         String schedule_type = "list";
 

@@ -9,6 +9,7 @@ import ru.instamart.api.request.v3.CurrentTimeV3Request;
 import ru.instamart.api.response.v3.CurrentTimeV3Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -17,7 +18,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class CurrentTimeV3Test extends RestBase {
 
     @CaseId(2363)
-    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod", "api-v3"},
+    @Test(  groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v3"},
             description = "Получение серверного времени")
     public void getCurrentTime()  {
         Response response = CurrentTimeV3Request.GET();

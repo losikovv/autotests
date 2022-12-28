@@ -20,6 +20,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.Group.API_SHOPPER_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -34,7 +35,7 @@ public class CandidatesSettingsTest extends RestBase {
     }
 
     @Story("Candidates settings")
-    @Test(description = "Получение настроек кандидатов с валидным токеном", groups = {"api-shopper-regress"})
+    @Test(description = "Получение настроек кандидатов с валидным токеном", groups = {API_SHOPPER_REGRESS})
     @Step("Получение настроек кандидатов для региона")
     public void getCandidatesSettings() {
         Integer zoneId = EnvironmentProperties.DEFAULT_ID_ZONE;
@@ -49,7 +50,7 @@ public class CandidatesSettingsTest extends RestBase {
     }
 
     @Story("Candidates settings")
-    @Test(description = "Сохранение настроек кандидатов с валидным токеном", groups = {"api-shopper-regress"})
+    @Test(description = "Сохранение настроек кандидатов с валидным токеном", groups = {API_SHOPPER_REGRESS})
     @Step("Сохранение настроек кандидатов для региона")
     public void putCandidatesSettings() {
         Integer zoneId = EnvironmentProperties.DEFAULT_ID_ZONE;

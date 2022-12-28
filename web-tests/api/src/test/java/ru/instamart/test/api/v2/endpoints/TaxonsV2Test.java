@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Set;
 
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
@@ -29,7 +31,7 @@ public final class TaxonsV2Test extends RestBase {
     private int taxonId;
 
     @CaseId(249)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем таксоны (подкатегории)")
     public void getTaxons() {
         final Response response = TaxonsV2Request.GET(EnvironmentProperties.DEFAULT_SID);
@@ -41,7 +43,7 @@ public final class TaxonsV2Test extends RestBase {
     }
 
     @CaseId(249)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             dependsOnMethods = "getTaxons",
             description = "Получаем таксон (подкатегорию)")
     public void getTaxon() {

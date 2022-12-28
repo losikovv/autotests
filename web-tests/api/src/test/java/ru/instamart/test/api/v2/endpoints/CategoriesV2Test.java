@@ -13,6 +13,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNull;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
@@ -22,7 +24,7 @@ public final class CategoriesV2Test extends RestBase {
 
     @CaseId(1459)
     @Story("Получение полной иерархии категорий")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v2"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v2"},
             description = "Существующий id")
     public void testCategoriesWithId() {
         final Response response = CategoriesV2Request.GET(EnvironmentProperties.DEFAULT_SID);
@@ -32,7 +34,7 @@ public final class CategoriesV2Test extends RestBase {
 
     @CaseId(1460)
     @Story("Получение полной иерархии категорий")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Не существующий id")
     public void testCategoriesWithInvalidId() {
         final Response response = CategoriesV2Request.GET(0);

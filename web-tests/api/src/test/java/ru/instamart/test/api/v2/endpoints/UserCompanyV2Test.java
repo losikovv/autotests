@@ -27,6 +27,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.factory.SessionFactory.getSession;
@@ -50,7 +51,7 @@ public class UserCompanyV2Test extends RestBase {
 
     @CaseId(2254)
     @Story("Получить данные по уже добавленной компании")
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Получить данные по уже добавленной компании с пустым ИНН")
     public void getCompanyPresence400() {
         final Response response = CompanyPresenceV2Request.GET("");
@@ -60,7 +61,7 @@ public class UserCompanyV2Test extends RestBase {
 
     @CaseId(2253)
     @Story("Получить данные по уже добавленной компании")
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Получить данные по уже добавленной компании с несуществующим ИНН")
     public void getCompanyPresenceNull200() {
         final Response response = CompanyPresenceV2Request.GET("1234567891");
@@ -72,7 +73,7 @@ public class UserCompanyV2Test extends RestBase {
     @CaseId(2252)
     @Skip(onServer = Server.STAGING)
     @Story("Получить данные по уже добавленной компании")
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Получить данные по уже добавленной компании с существующим ИНН")
     public void getCompanyPresence200() {
         final Response response = CompanyPresenceV2Request.GET(inn);
@@ -87,7 +88,7 @@ public class UserCompanyV2Test extends RestBase {
 
     @CaseId(2279)
     @Story("Привязка заказа к компании")
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Привязка заказа к компании с существующим orderNumber")
     public void patchOrderCompany404() {
         String orderNumber = apiV2.createOrder().getNumber();
@@ -99,7 +100,7 @@ public class UserCompanyV2Test extends RestBase {
 
     @CaseId(2278)
     @Story("Привязка заказа к компании")
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Привязка заказа к компании с существующим ID")
     public void patchOrderCompanyWithoutOrderNumber404() {
         final Response response = OrdersV2Request.Company.PATCH("failedOrderNumber", collect.getId());
@@ -109,7 +110,7 @@ public class UserCompanyV2Test extends RestBase {
 
     @CaseId(2277)
     @Story("Привязка заказа к компании")
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Привязка заказа к компании с существующим ID и orderNumber")
     public void patchOrderCompany200() {
         String orderNumber = apiV2.createOrder().getNumber();
@@ -125,7 +126,7 @@ public class UserCompanyV2Test extends RestBase {
 
     @CaseId(2344)
     @Story("Получить факт наличия компаний у пользователя")
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Получить факт наличия компаний у пользователя с компанией")
     public void getCompaniesExist200() {
         final Response response = UserV2Request.Exist.GET();
@@ -135,7 +136,7 @@ public class UserCompanyV2Test extends RestBase {
 
     @CaseId(2341)
     @Story("Прикрепить пользователя к компании")
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Прикрепить пользователя к компании с невалидными company_security_code")
     public void companyEmployees422() {
         final Response response = UserV2Request.CompanyEmployees.POST(inn, "code"+ Generate.string(10));
@@ -151,7 +152,7 @@ public class UserCompanyV2Test extends RestBase {
 
     @CaseId(2342)
     @Story("Прикрепить пользователя к компании")
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Прикрепить пользователя к компании с невалидными inn")
     public void companyEmployees404() {
         final Response response = UserV2Request.CompanyEmployees.POST("notValidINN", "notValidCode");

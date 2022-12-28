@@ -18,6 +18,8 @@ import ru.instamart.api.response.v2.ProductSkuV2Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
@@ -103,7 +105,7 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(788)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем пустой список любимых товаров без обязательного параметра sid")
     public void testEmptyFavoritesList400() {
         final Response response = FavoritesV2Request.GET();
@@ -112,7 +114,7 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(788)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем пустой список любимых товаров без обязательного параметра sid")
     public void testEmptyFavoritesListWithSidParams400() {
         final Response response = FavoritesV2Request.GET("");
@@ -122,7 +124,7 @@ public class FavoritesListV2Test extends RestBase {
 
     @CaseId(524)
     @Story("Список SKU товаров из избранного")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Список SKU товаров из избранного. В избранном нет товаров")
     public void getFavoritesSku() {
         final Response response = FavoritesV2Request.ProductSku.GET();
@@ -133,7 +135,7 @@ public class FavoritesListV2Test extends RestBase {
 
     @CaseId(526)
     @Story("Добавить товар в избранное")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Добавить товар в избранное с несуществующим id")
     public void addFavoritesList404() {
         final Response response = FavoritesV2Request.POST("invalidNumber_0120102012");
@@ -143,7 +145,7 @@ public class FavoritesListV2Test extends RestBase {
 
     @CaseId(528)
     @Story("Удаление товара из избранного")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Удаление товара из избранного с несуществующим id")
     public void deleteFavoritesList404() {
         final Response response = FavoritesV2Request.DELETE("invalidNumber_0120102012");

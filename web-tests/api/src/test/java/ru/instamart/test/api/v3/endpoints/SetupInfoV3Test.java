@@ -8,6 +8,8 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v3.SetupInfoV3Request;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV3")
@@ -15,7 +17,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class SetupInfoV3Test extends RestBase {
 
     @CaseId(670)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"},
             description = "Справка об интеграции")
     public void getSetupInfo() {
         Response response = SetupInfoV3Request.GET();
@@ -23,7 +25,7 @@ public class SetupInfoV3Test extends RestBase {
     }
 
     @CaseId(671)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"},
             description = "Доступный магазины")
     public void getSetupInfoStores() {
         Response response = SetupInfoV3Request.Stores.GET();

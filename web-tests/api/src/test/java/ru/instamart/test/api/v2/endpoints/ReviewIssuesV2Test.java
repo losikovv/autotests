@@ -15,6 +15,7 @@ import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkReviewIssuesList;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -37,7 +38,7 @@ public class ReviewIssuesV2Test extends RestBase {
 
     @CaseId(470)
     @Story("Получение списка возможных проблем для отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение списка возможных проблем для отзыва о существующей доставке")
     public void getListIssuesForShipment() {
         final Response response = ShipmentsV2Request.ReviewIssues.GET(shipmentNumber);
@@ -47,7 +48,7 @@ public class ReviewIssuesV2Test extends RestBase {
 
     @CaseId(471)
     @Story("Получение списка возможных проблем для отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение списка возможных проблем для отзыва о не существующей доставке")
     public void getListIssuesForNonExistentShipment() {
         final Response response = ShipmentsV2Request.ReviewIssues.GET("failedShipmentNumber");
@@ -57,7 +58,7 @@ public class ReviewIssuesV2Test extends RestBase {
 
     @CaseId(1446)
     @Story("Получение списка возможных проблем для отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение списка возможных проблем для отзыва о существующей доставке без авторизации",
             priority = 1)
     public void getListIssuesForShipmentWithoutAuth() {
@@ -69,7 +70,7 @@ public class ReviewIssuesV2Test extends RestBase {
 
     @CaseId(1440)
     @Story("Получение списка возможных проблем для отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение списка возможных проблем для отзыва о существующем заказе")
     public void getListIssuesForOrder() {
         final Response response = OrdersV2Request.ReviewIssues.GET(orderNumber);
@@ -79,7 +80,7 @@ public class ReviewIssuesV2Test extends RestBase {
 
     @CaseId(1441)
     @Story("Получение списка возможных проблем для отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение списка возможных проблем для отзыва о не существующем заказе")
     public void getListIssuesForNonExistentOrder() {
         final Response response = OrdersV2Request.ReviewIssues.GET("failedOrderNumber");

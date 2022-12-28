@@ -158,3 +158,13 @@ task apiScango(type: Test) {
     systemProperty 'qase.Project', 'INAPI'
     systemProperty 'qase.Title', 'Instamart API Scan&Go'
 }
+
+task apiSelfFee(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/api-selffee.xml'
+        includeGroups 'api-selffee'
+    }
+    environment 'P_ENV', "hr_ops_selffee-custom"
+    systemProperty 'qase.Project', 'FNS'
+    systemProperty 'qase.Title', 'HR OPS. Self-Fee'
+}

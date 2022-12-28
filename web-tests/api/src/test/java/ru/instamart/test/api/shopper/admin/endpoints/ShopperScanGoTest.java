@@ -14,6 +14,8 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.Group.API_SHOPPER_PROD;
+import static ru.instamart.api.Group.API_SHOPPER_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
@@ -25,7 +27,7 @@ public class ShopperScanGoTest extends RestBase {
     @Story("Scan&Go")
     @CaseId(103)
     @Test(description = "Получение конфига с валидным токеном",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void shopperScanGo200() {
         SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdminOld());
         response = ShopperAdminRequest.Scango.GET();
@@ -36,7 +38,7 @@ public class ShopperScanGoTest extends RestBase {
     @Story("Scan&Go")
     @CaseId(103)
     @Test(description = "Получение конфига с не валидным токеном",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
+            groups = {API_SHOPPER_REGRESS, API_SHOPPER_PROD})
     public void shopperScanGo401() {
         SessionFactory.clearSession(SessionType.SHOPPER_ADMIN);
         response = ShopperAdminRequest.Scango.GET();

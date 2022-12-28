@@ -181,3 +181,15 @@ tests:api:scanAndGo:
     - gradle clean build apiScanAndGo
   after_script:
     - bash ./report.sh api api-scan-and-go
+
+tests:api:apiSelfFee:
+  resource_group: testApiSelfFee
+  only:
+    variables:
+      - $API_V2_SELF_FEE == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  extends:
+    - ".template_api_tests"
+  script:
+    - gradle clean build apiSelfFee
+  after_script:
+    - bash ./report.sh api api-self-fee

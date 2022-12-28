@@ -11,6 +11,8 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ResetPasswordV2Request;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
@@ -36,7 +38,7 @@ public final class ResetPasswordV2Test extends RestBase {
     }
 
     @Deprecated
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Восстановление несуществующего аккаунта")
+    @Test(groups = {}, description = "Восстановление несуществующего аккаунта")
     public void testRestWithInvalidAccount() {
         final Response response = ResetPasswordV2Request.POST(
                 "fake@mail.com"
@@ -82,7 +84,7 @@ public final class ResetPasswordV2Test extends RestBase {
     }
 
     @Deprecated
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Сброс пароля")
+    @Test(groups = {}, description = "Сброс пароля")
     public void testRestPassword() {
         final Response response = ResetPasswordV2Request.POST(
                 SessionFactory.getSession(SessionType.API_V2).getLogin()

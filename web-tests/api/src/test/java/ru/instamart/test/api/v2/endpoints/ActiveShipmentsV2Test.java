@@ -24,6 +24,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkShipmentInfo;
@@ -54,7 +56,7 @@ public class ActiveShipmentsV2Test extends RestBase {
     @Skip(onServer = Server.STAGING) //todo не работает с 1 сидом на стейджах
     @CaseId(1387)
     @Story("Текущий подзаказ")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             description = "Получение текущего подзаказа для конкретного магазина")
     public void getActiveShipmentsForStore() {
         final Response response = ShipmentsV2Request.GET(EnvironmentProperties.DEFAULT_SID);
@@ -69,7 +71,7 @@ public class ActiveShipmentsV2Test extends RestBase {
     @Skip(onServer = Server.STAGING) //todo не работает с 1 сидом на стейджах
     @CaseId(1388)
     @Story("Текущий подзаказ")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение текущего подзаказа")
     public void getActiveShipments() {
         final Response response = ShipmentsV2Request.GET(null);

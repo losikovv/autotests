@@ -15,6 +15,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
 
@@ -31,7 +32,7 @@ public class OptionTypesAdminTest extends RestBase {
 
     @CaseId(1936)
     @Skip
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Получение всех товарных опций")
     public void getAllOptionTypes() {
         final Response response = OptionTypesAdminRequest.GET();
@@ -40,7 +41,7 @@ public class OptionTypesAdminTest extends RestBase {
 
     @CaseId(1937)
     @Skip
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание товарной опции")
     public void createOptionType() {
         String postfix = Generate.literalString(6);
@@ -65,7 +66,7 @@ public class OptionTypesAdminTest extends RestBase {
 
     @CaseId(1938)
     @Skip
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Изменение товарной опции",
             dependsOnMethods = "createOptionType")
     public void updateOptionType() {
@@ -86,7 +87,7 @@ public class OptionTypesAdminTest extends RestBase {
 
     @CaseId(1939)
     @Skip
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание значения для товарной опции",
             dependsOnMethods = "createOptionType")
     public void createOptionValue() {
@@ -114,7 +115,7 @@ public class OptionTypesAdminTest extends RestBase {
 
     @CaseId(1940)
     @Skip
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление товарной опции",
             dependsOnMethods = {"updateOptionType", "createOptionValue"})
     public void deleteOptionType() {

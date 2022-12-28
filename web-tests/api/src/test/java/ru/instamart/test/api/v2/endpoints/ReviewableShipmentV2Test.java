@@ -30,6 +30,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
@@ -54,7 +55,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(468), @CaseId(1164)})
     @Story("Получение доступных для отправки отзыва подзаказов")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Автоматическое получение последнего шипмента без оценки при старте приложения. Заказ на аккаунте совершен.")
     public void automaticReceiptLastMessage200() {
         OrderV2 order = apiV2.setDefaultAttributesAndCompleteOrder();
@@ -81,7 +82,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(472), @CaseId(1186)})
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва о заказе с существующим номером",
             dataProvider = "shipmentReviewsData",
             dataProviderClass = RestDataProvider.class)
@@ -104,7 +105,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1182), @CaseId(1185)})
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва о заказе с существующим номером и галочкой 'Связаться со мной'",
             dataProvider = "shipmentReviewsCallbackData",
             dataProviderClass = RestDataProvider.class)
@@ -128,7 +129,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseId(475)
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва о заказе с существующим номером и комментарием")
     public void shipmentsReviewsWithComments() {
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
@@ -149,7 +150,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseId(476)
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва о заказе с несколькими значениями для review[issue_ids]")
     public void shipmentsReviewsWithIds() {
         List<ReviewIssueV2> reviewIssues = apiV2.getReviewIssues(shipmentNumber);
@@ -179,7 +180,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseId(477)
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва о заказе с [images_attributes]")
     public void shipmentsReviewsWithImage() {
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber);
@@ -197,7 +198,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseId(1187)
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва на заказ с уже существующим отзывом")
     public void shipmentsReviewsForSameShipment() {
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
@@ -220,7 +221,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseId(1184)
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва на заказ с токеном другого юзера")
     public void shipmentsReviewsWithAnotherUserToken() {
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
@@ -234,7 +235,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseId(1183)
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Создание отзыва без токена")
     public void shipmentsReviewsWithoutToken() {
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
@@ -248,7 +249,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseId(1179)
     @Story("Получение последнего подзаказа для отзыва")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение последнего подзаказа для отзыва - Отзыв уже оставлен ранее")
     public void getShipmentReviewWithPreviousReview() {
         OrderV2 order = apiV2.setDefaultAttributesAndCompleteOrder();
@@ -264,7 +265,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseId(1180)
     @Story("Получение последнего подзаказа для отзыва")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Получение последнего подзаказа для отзыва - Окно с отзывом закрыто дважды")
     public void getShipmentReviewWithTwiceClosedWindows() {
         OrderV2 order = apiV2.setDefaultAttributesAndCompleteOrder();
@@ -279,7 +280,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseId(1162)
     @Story("Закрытие окна заказа")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Успешное закрытие окна заказа")
     public void closeReviewableWindow() {
         final Response response = ShipmentsV2Request.ReviewWindowClose.PUT(shipmentNumber);
@@ -288,7 +289,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseId(1823)
     @Story("Закрытие окна заказа")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Закрытие окна заказа в 256 раз")
     public void closeReviewableWindow255Times() {
         final Response firstCloseResponse = ShipmentsV2Request.ReviewWindowClose.PUT(shipmentNumber);
@@ -302,7 +303,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseId(1171)
     @Story("Закрытие окна заказа")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Закрытие окна заказа неавторизованным пользователем")
     public void closeReviewableWindowWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V2);
@@ -313,7 +314,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseId(1173)
     @Story("Закрытие окна заказа")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Закрытие окна заказа для несуществующего заказа")
     public void closeReviewableWindowWithAnotherUserToken() {
         SessionFactory.makeSession(SessionType.API_V2);

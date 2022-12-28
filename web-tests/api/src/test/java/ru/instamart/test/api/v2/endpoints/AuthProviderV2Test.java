@@ -20,6 +20,8 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.UUID;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
@@ -34,7 +36,7 @@ public final class AuthProviderV2Test extends RestBase {
     @CaseId(168)
     @Test(dataProvider = "authProviders",
             dataProviderClass = RestDataProvider.class,
-            groups = {"api-instamart-prod"},
+            groups = {API_INSTAMART_PROD},
             description = "Авторизуемся через стороннего провайдера")
     public void postAuthProvidersSessions200(final AuthProviderV2 authProvider) {
         final Response response = AuthProvidersV2Request.Sessions.POST(authProvider);
@@ -43,7 +45,7 @@ public final class AuthProviderV2Test extends RestBase {
     }
 
     @CaseId(168)
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Авторизуемся через стороннего провайдера")
     public void postAuthProviderSessions200() {
         final Response response = AuthProvidersV2Request.Sessions.POST(AuthProviderV2.FACEBOOK);
@@ -52,7 +54,7 @@ public final class AuthProviderV2Test extends RestBase {
     }
 
     @CaseId(827)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получение списка провайдеров для пользователя")
     public void getProvidersList() {
         SessionFactory.makeSession(SessionType.API_V2);
@@ -71,7 +73,7 @@ public final class AuthProviderV2Test extends RestBase {
     }
 
     @CaseId(1476)
-    @Test(groups = {"api-instamart-regress", "api-v2", "api-bff"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2", "api-bff"},
             description = "Получение списка провайдеров для пользователя без авторизации")
     public void getProvidersListWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V2);
@@ -83,7 +85,7 @@ public final class AuthProviderV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(790), @CaseId(1481), @CaseId(1482), @CaseId(1483)})
     @Test(dataProvider = "authProvidersWithParams",
             dataProviderClass = RestDataProvider.class,
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2", "api-bff"},
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2", "api-bff"},
             description = "Получаем параметры для авторизации через стороннего провайдера")
     public void getAuthParams(final AuthProviderV2 provider, final Class clazz) {
         final Response response = AuthProvidersV2Request.AuthParams.POST(provider.getId());

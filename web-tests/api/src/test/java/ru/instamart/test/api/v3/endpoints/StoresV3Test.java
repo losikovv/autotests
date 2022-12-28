@@ -12,6 +12,8 @@ import ru.instamart.api.request.v3.StoresV3Request;
 import java.util.Arrays;
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -20,7 +22,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class StoresV3Test extends RestBase {
 
     @CaseId(669)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod", "api-v3"},
+    @Test(groups = {"api-instamart-smoke", API_INSTAMART_PROD, "api-v3"},
             description = "Все доступные магазины ")
     public void getStores() {
         Response response = StoresV3Request.Stores.GET();
@@ -28,7 +30,7 @@ public class StoresV3Test extends RestBase {
     }
 
     @CaseId(864)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"},
             description = "Доступные магазины для доставки")
     public void getStoresDelivery() {
         Response response = StoresV3Request.Delivery.GET();
@@ -40,7 +42,7 @@ public class StoresV3Test extends RestBase {
     }
 
     @CaseId(865)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"},
             description = "Доступные магазины для самовывоза")
     public void getStoresPickupFromStore() {
         Response response = StoresV3Request.PickupFromStore.GET();
@@ -48,7 +50,7 @@ public class StoresV3Test extends RestBase {
     }
 
     @CaseId(866)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"},
             description = "Доступные магазины с ближайшими опциями")
     public void getStoresClosestShippingOptions() {
         Response response = StoresV3Request.ClosestShippingOptions.GET();
@@ -56,7 +58,7 @@ public class StoresV3Test extends RestBase {
     }
 
     @CaseId(867)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v3"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v3"},
             description = "Доступные магазины по ритейлеру Metro")
     public void getStoresRetailerId() {
         Response response = StoresV3Request.RetailerId.GET();

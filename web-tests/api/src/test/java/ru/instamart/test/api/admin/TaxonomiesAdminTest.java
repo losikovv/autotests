@@ -15,6 +15,7 @@ import ru.instamart.jdbc.entity.stf.SpreeTaxonomiesEntity;
 import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
@@ -33,7 +34,7 @@ public class TaxonomiesAdminTest extends RestBase {
     }
 
     @CaseId(1887)
-    @Test(groups = {"api-instamart-regress", "api-v1"}, description = "Получение списка категорий")
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"}, description = "Получение списка категорий")
     public void getAllTaxonomies() {
         final Response response = TaxonomiesAdminRequest.GET();
         checkStatusCode(response, 200, ContentType.HTML);
@@ -41,7 +42,7 @@ public class TaxonomiesAdminTest extends RestBase {
 
     @CaseId(1888)
     @Issue("INFRADEV-16984")
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание новой категорий")
     public void createTaxonomy() {
         String name = "Autotest-" + Generate.literalString(6);
@@ -52,7 +53,7 @@ public class TaxonomiesAdminTest extends RestBase {
     }
 
     @CaseId(1889)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Создание новой категорий с пустым названием")
     public void createTaxonomyWithEmptyName() {
         final Response response = TaxonomiesAdminRequest.POST("");
@@ -62,7 +63,7 @@ public class TaxonomiesAdminTest extends RestBase {
     }
 
     @CaseId(1890)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование категории",
             dependsOnMethods = "createTaxonomy")
     public void editTaxonomy() {
@@ -74,7 +75,7 @@ public class TaxonomiesAdminTest extends RestBase {
     }
 
     @CaseId(1891)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Редактирование категории с пустым названием",
             dependsOnMethods = "editTaxonomy")
     public void editTaxonomyWithEmptyName() {
@@ -85,7 +86,7 @@ public class TaxonomiesAdminTest extends RestBase {
     }
 
     @CaseId(1892)
-    @Test(groups = {"api-instamart-regress", "api-v1"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v1"},
             description = "Удаление категории",
             dependsOnMethods = "editTaxonomyWithEmptyName")
     public void deleteTaxonomy() {

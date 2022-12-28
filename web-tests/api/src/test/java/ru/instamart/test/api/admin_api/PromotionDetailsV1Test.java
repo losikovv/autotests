@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -31,7 +32,7 @@ public class PromotionDetailsV1Test extends RestBase {
     }
 
     @Test(description = "Получение деталей промокода",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getPromotionDetails() {
         List<PromotionCodesEntity> promoCodes = PromotionCodesDao.INSTANCE.findAll(PromotionCodesFilters.builder()
                 .value("auto%")

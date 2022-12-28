@@ -25,6 +25,7 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorText;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
@@ -61,7 +62,7 @@ public final class OrderCancellationsV1Test extends RestBase {
     @CaseId(2836)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Получение списка отмен отмененного заказа",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getOrderCancellationsCancelledOrder() {
         admin.authApi();
 
@@ -86,7 +87,7 @@ public final class OrderCancellationsV1Test extends RestBase {
     @CaseId(2837)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Получение списка отмен неотмененного заказа",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getOrderCancellationsNotCancelledOrder() {
         admin.authApi();
 
@@ -102,7 +103,7 @@ public final class OrderCancellationsV1Test extends RestBase {
     @CaseId(2838)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения списка отмен неавторизованным пользователем",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getOrderCancellationsUnauthenticated() {
         SessionFactory.clearSession(SessionType.API_V1);
 
@@ -113,7 +114,7 @@ public final class OrderCancellationsV1Test extends RestBase {
     @CaseId(2839)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения списка отмен пользователем без прав администратора",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getOrderCancellationsUnauthorized() {
         apiV1.authByPhone(UserManager.getQaUser());
 
@@ -124,7 +125,7 @@ public final class OrderCancellationsV1Test extends RestBase {
     @CaseId(2840)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка получения списка отмен несуществующего заказа",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void getOrderCancellationsNegative() {
         admin.authApi();
 
@@ -136,7 +137,7 @@ public final class OrderCancellationsV1Test extends RestBase {
     @CaseId(2841)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Успешная отмена заказа",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void postOrderCancellations() {
         admin.authApi();
 
@@ -166,7 +167,7 @@ public final class OrderCancellationsV1Test extends RestBase {
     @CaseId(2842)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка отмены заказа неавторизованным пользователем",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void postOrderCancellationsUnauthenticated() {
         SessionFactory.clearSession(SessionType.API_V1);
 
@@ -177,7 +178,7 @@ public final class OrderCancellationsV1Test extends RestBase {
     @CaseId(2843)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка отмены заказа пользователем без прав администратора",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void postOrderCancellationsUnauthorized() {
         apiV1.authByPhone(UserManager.getQaUser());
 
@@ -188,7 +189,7 @@ public final class OrderCancellationsV1Test extends RestBase {
     @CaseId(2844)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка отмены несуществующего заказа",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void postOrderCancellationsNegative() {
         admin.authApi();
 
@@ -200,7 +201,7 @@ public final class OrderCancellationsV1Test extends RestBase {
     @CaseId(2845)
     @Skip(onServer = Server.STAGING)
     @Test(description = "Попытка отмены заказа - некорректный запрос",
-            groups = {"api-instamart-regress", "api-v1"})
+            groups = {API_INSTAMART_REGRESS, "api-v1"})
     public void postOrderCancellationsNegative422() {
         admin.authApi();
 

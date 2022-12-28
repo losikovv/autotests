@@ -12,6 +12,8 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.NotificationsV2Request;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusGroup400;
 
@@ -25,7 +27,7 @@ public class NotificationsV2Test extends RestBase {
     }
 
     @Story("Проверка оплаты")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"},
             dataProvider = "notificationsFailed",
             dataProviderClass = RestDataProvider.class,
             description = "Проверка оплаты в Sber SuperApp без тела запроса")

@@ -13,6 +13,8 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.delivery_club.StoresDCRequest;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
 
 @Epic("Партнёры")
@@ -32,7 +34,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
 
     @CaseId(591)
     @Story("Получение информации из магазинов")
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение доступных слотов без авторизации")
     public void getStoresSlotsAvailable401() {
         final Response response = StoresDCRequest.Slots.Available.GET(sid);
@@ -41,7 +43,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
 
     @CaseId(592)
     @Story("Получение информации из магазинов")
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение всех слотов без авторизации")
     public void getStoresSlots401() {
         final Response response = StoresDCRequest.Slots.GET(sid);
@@ -50,7 +52,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
 
     @CaseId(593)
     @Story("Получение информации из магазинов")
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение стоков без авторизации")
     public void getStoresStock401() {
         final Response response = StoresDCRequest.Stock.GET(sid);
@@ -59,7 +61,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
 
     @CaseId(594)
     @Story("Заказ")
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Создание нотификации для заказа без авторизации")
     public void postStoresNotifications401() {
         final Response response = StoresDCRequest.Notifications.POST(sid, orderNumber, notificationType);
@@ -68,7 +70,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
 
     @CaseId(595)
     @Story("Получение информации из магазинов")
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение зон доставки без авторизации")
     public void getStoresZones401() {
         final Response response = StoresDCRequest.Zones.GET(sid);
@@ -77,7 +79,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
 
     @CaseId(596)
     @Story("Заказ")
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Создание заказа без авторизации")
     public void postStoresOrders401() {
         final Response response = StoresDCRequest.Orders.POST(sid, slotId, productId);
@@ -86,7 +88,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
 
     @CaseId(597)
     @Story("Получение информации из магазинов")
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение категорий продуктов без авторизации")
     public void getStoresCatalogCategories401() {
         final Response response = StoresDCRequest.Catalog.Categories.GET(sid);
@@ -95,7 +97,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
 
     @CaseId(598)
     @Story("Получение информации из магазинов")
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение продуктов без авторизации")
     public void getStoresCatalogProducts401() {
         final Response response = StoresDCRequest.Catalog.Products.GET(sid);
@@ -104,7 +106,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
 
     @CaseId(599)
     @Story("Заказ")
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Получение информации о заказе по номеру без авторизации")
     public void getStoresOrders401() {
         final Response response = StoresDCRequest.Orders.GET(sid, orderNumber);
@@ -113,7 +115,7 @@ public class StoresWithoutAuthDCTest extends RestBase {
 
     @CaseId(600)
     @Story("Заказ")
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD},
             description = "Изменение статуса заказа без авторизации")
     public void putStoresOrdersStatus401() {
         final Response response = StoresDCRequest.Orders.Status.PUT(sid, orderNumber, orderStatus);

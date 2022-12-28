@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
@@ -78,7 +79,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1003), @CaseId(1004)})
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара из этого же магазина")
     public void mergeLineItem() {
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(1).getId(), 1);
@@ -98,7 +99,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1006)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление того же товара",
             dependsOnMethods = "mergeLineItem")
     public void mergeSameLineItem() {
@@ -123,7 +124,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1011)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара с превышением веса",
             dependsOnMethods = "mergeSameLineItem")
     public void mergeLineItemWithExtraWeight() {
@@ -134,7 +135,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(1008), @CaseId(1012), @CaseId(2045)})
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление товара c невалидным productId",
             dataProvider = "invalidProductsId",
             dataProviderClass = RestDataProvider.class,
@@ -147,7 +148,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1009)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара - время редактирования заказа истекло",
             dependsOnMethods = "mergeSameLineItem")
     public void mergeLineItemForExpiredEditingPeriod() {
@@ -159,7 +160,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1152)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара - редактирование запрещено",
             dependsOnMethods = "mergeSameLineItem")
     public void mergeLineItemEditingForbidden() {
@@ -172,7 +173,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1010)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара с превышение количества товаров",
             dependsOnMethods = "mergeSameLineItem")
     public void mergeLineItemWithExtraItems() {
@@ -186,7 +187,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1005)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара - заказ собирается",
             dependsOnMethods = "mergeSameLineItem")
     public void mergeLineItemForCollectingOrder() {
@@ -199,7 +200,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
 
     @CaseId(1007)
     @Story("Добавление товара в заказ")
-    @Test(groups = {"api-instamart-regress", "api-v2"},
+    @Test(groups = {API_INSTAMART_REGRESS, "api-v2"},
             description = "Добавление другого товара - заказ отменен",
             dependsOnMethods = "mergeSameLineItem")
     public void mergeLineItemForCancelledOrder() {

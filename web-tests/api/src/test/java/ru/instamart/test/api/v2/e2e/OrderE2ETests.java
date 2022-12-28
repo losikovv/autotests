@@ -11,6 +11,9 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.api.Group.API_INSTAMART_PROD;
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
+
 @Epic("ApiV2")
 @Feature("E2E тесты старого приложения")
 public class OrderE2ETests extends RestBase {
@@ -29,7 +32,7 @@ public class OrderE2ETests extends RestBase {
 
     @CaseId(101)
     @Test(description = "Тест оформления заказа",
-            groups = {"api-instamart-regress", "api-instamart-prod", "api-v2"})
+            groups = {API_INSTAMART_REGRESS, API_INSTAMART_PROD, "api-v2"})
     public void order() {
         apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
     }

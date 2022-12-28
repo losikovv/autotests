@@ -27,6 +27,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.Collections;
 import java.util.List;
 
+import static ru.instamart.api.Group.API_INSTAMART_REGRESS;
 import static ru.instamart.api.checkpoint.ApiV3Checkpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -54,7 +55,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
     @CaseId(2670)
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения с доставки на самовывоз",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void changeShippingMethodToPickup() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
@@ -74,7 +75,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
     @CaseId(2671)
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения с самовывоза на доставку",
-            groups = {"api-instamart-regress", "api-v3"},
+            groups = {API_INSTAMART_REGRESS, "api-v3"},
             dependsOnMethods = "changeShippingMethodToPickup")
     public void changeShippingMethodToCourier() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
@@ -95,7 +96,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
     @CaseId(2673)
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения в body указав только \"kind\": \"by_courier\"",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void changeShippingMethodToCourierWithoutAddress() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
@@ -113,7 +114,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
     @CaseId(2674)
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения в body указав только \"kind\": \"pickup\"",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void changeShippingMethodToPickupWithoutStore() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
@@ -131,7 +132,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
     @CaseId(2675)
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения для чужого заказа",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void changeShippingMethodForAnotherUserOrder() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
@@ -151,7 +152,7 @@ public class CheckoutShippingMethodV3Test extends RestBase {
     @CaseId(2676)
     @Story("Изменение метода доставки")
     @Test(description = "Запрос на переключение способа получения для чужого шипмента",
-            groups = {"api-instamart-regress", "api-v3"})
+            groups = {API_INSTAMART_REGRESS, "api-v3"})
     public void changeShippingMethodForAnotherUserShipment() {
         CheckoutV3Request.OrderRequest orderRequest = CheckoutV3Request.OrderRequest.builder()
                 .order(CheckoutV3Request.Order.builder()
